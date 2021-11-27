@@ -7,6 +7,12 @@
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
 
+  <browser:page
+    name="viewer"
+    for="*"
+    permission="cmf.ManagePortal"
+    template="viewer.pt"
+  />
 
   <browser:page
     name="editor"
