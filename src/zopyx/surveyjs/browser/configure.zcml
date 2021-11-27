@@ -6,15 +6,22 @@
 
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
+
+
+  <browser:page
+    name="editor"
+    for="*"
+    permission="cmf.ManagePortal"
+    template="editor.pt"
+  />
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"
       />
 
   <!-- Publish static files -->
-  <plone:static
+  <browser:resourceDirectory
       name="zopyx.surveyjs"
-      type="plone"
       directory="static"
       />
 
