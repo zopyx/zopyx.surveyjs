@@ -8,15 +8,21 @@
   <include package="z3c.jbot" file="meta.zcml" />
   <browser:page
     name="results"
-    for="*"
+    for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ManagePortal"
     template="results.pt"
+  />
+  <browser:page
+    name="view-main"
+    for="*"
+    permission="zope2.View"
+    template="view_main.pt"
   />
 
   <browser:page
     name="viewer"
     for="*"
-    permission="cmf.ManagePortal"
+    permission="zope2.View"
     template="viewer.pt"
   />
 
