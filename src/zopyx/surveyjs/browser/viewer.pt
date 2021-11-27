@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master">
+
+    <metal:block fill-slot="content-core">
+           <script>
+            window.__define = window.define;
+            window.__require = window.require;
+            window.define = undefined;
+            window.require = undefined;
+           </script>
+        <script src="https://unpkg.com/knockout@3.5.1/build/output/knockout-latest.js"></script>
+        <script src="https://unpkg.com/survey-knockout@1.8.79/survey.ko.min.js"></script>
+        <script>
+            window.define = window.__define;
+            window.require = window.__require;
+            window.__define = undefined;
+            window.__require = undefined;
+        </script>
+        <link href="https://unpkg.com/survey-core@1.8.79/modern.min.css" type="text/css" rel="stylesheet"/>
+        <link rel="stylesheet" href="./index.css">
+
+        <div id="surveyElement" style="display:inline-block;width:100%;"></div>
+        <div id="surveyResult"></div>
+        <script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
+
+
+    </metal:block>
+</html>
+
+
