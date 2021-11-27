@@ -32,6 +32,15 @@
     permission="cmf.ManagePortal"
     template="editor.pt"
   />
+
+  <browser:page 
+    name="get-form-json"
+    permission="zope2.View"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="get_form_json"
+
+  />
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"

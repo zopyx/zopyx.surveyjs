@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# from plone.app.textfield import RichText
+from plone.app.textfield import RichText
 # from plone.autoform import directives
 from plone.dexterity.content import Item
 # from plone.namedfile import field as namedfile
@@ -7,10 +7,11 @@ from plone.supermodel import model
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
 # from zope import schema
+from zope.schema import Text
 from zope.interface import implementer
 
 
-# from zopyx.surveyjs import _
+from zopyx.surveyjs import _
 
 
 class ISurvey(model.Schema):
@@ -28,10 +29,10 @@ class ISurvey(model.Schema):
     #     required=True
     # )
 
-    # text = RichText(
-    #     title=_(u'Text'),
-    #     required=False
-    # )
+    form_json = Text(
+        title=_(u'Form JSON'),
+        required=True
+    )
 
     # url = schema.URI(
     #     title=_(u'Link'),

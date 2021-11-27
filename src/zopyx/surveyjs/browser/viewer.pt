@@ -19,6 +19,7 @@
             window.__define = undefined;
             window.__require = undefined;
         </script>
+        <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
         <link href="https://unpkg.com/survey-core@1.8.79/modern.min.css" type="text/css" rel="stylesheet"/>
         <link rel="stylesheet" href="./index.css">
 
