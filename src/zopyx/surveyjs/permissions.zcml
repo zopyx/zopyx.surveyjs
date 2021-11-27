@@ -6,6 +6,12 @@
   <configure zcml:condition="installed AccessControl.security">
   <!-- -*- extra stuff goes here -*- -->
 
+    <permission
+        id="zopyx.surveyjs.AddSurvey"
+        title="zopyx.surveyjs: Add Survey"
+    />
+
+
 
   </configure>
 
