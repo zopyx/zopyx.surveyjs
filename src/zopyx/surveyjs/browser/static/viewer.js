@@ -15,9 +15,22 @@ $(document).ready(function() {
         survey
             .onComplete
             .add(function (sender) {
-                document
-                    .querySelector('#surveyResult')
-                    .textContent = "Result JSON:\n" + JSON.stringify(sender.data, null, 3);
+                console.log(sender.data);
+
+                $.ajax({
+                    url: ACTUAL_URL + "/save-poll",
+                    type: "POST",
+                    data: {
+                        pollResult: sender.data
+                    },
+                    success: function (data) {
+                        alert("saved");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert("not saved");
+                    }
+                });
+
             });
 
         survey.render("surveyElement");

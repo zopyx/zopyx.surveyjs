@@ -20,7 +20,6 @@ $(document).ready(function() {
     });
 
 
-
     creator.saveSurveyFunc = function (saveNo, callback) {
     $.ajax({
         url: ACTUAL_URL + "/save-form-json",
@@ -36,7 +35,7 @@ $(document).ready(function() {
             callback(saveNo, false);
             alert(thrownError);
         }
-    });
-}
+      });
+    }
 
 });

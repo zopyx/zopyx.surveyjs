@@ -48,6 +48,13 @@
     class=".views.Views"
     attribute="save_form_json"
   />
+  <browser:page 
+    name="save-poll"
+    permission="zope2.View"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="save_poll"
+  />
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"
