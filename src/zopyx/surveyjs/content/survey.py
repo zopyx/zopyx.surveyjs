@@ -14,6 +14,27 @@ from zope.interface import implementer
 from zopyx.surveyjs import _
 
 
+DEFAULT_FORM_JSON = """{
+ "logoPosition": "right",
+ "pages": [
+  {
+   "name": "This is Page 1",
+   "elements": [
+    {
+     "type": "text",
+     "name": "question1",
+     "title": "Hello World",
+     "description": "Description for Hello World field",
+     "placeHolder": "input goes here"
+    }
+   ],
+   "title": "This is Page 1 Title",
+   "description": "This is Page 1 Description"
+  }
+ ]
+}
+"""
+
 class ISurvey(model.Schema):
     """ Marker interface and Dexterity Python Schema for Survey
     """
@@ -31,7 +52,8 @@ class ISurvey(model.Schema):
 
     form_json = Text(
         title=_(u'Form JSON'),
-        required=True
+        required=True,
+        default=DEFAULT_FORM_JSON
     )
 
     # url = schema.URI(

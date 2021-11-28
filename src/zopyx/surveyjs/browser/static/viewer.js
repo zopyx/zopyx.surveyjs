@@ -24,7 +24,6 @@ $(document).ready(function() {
                         pollResult: sender.data
                     },
                     success: function (data) {
-                        alert("saved");
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert("not saved");

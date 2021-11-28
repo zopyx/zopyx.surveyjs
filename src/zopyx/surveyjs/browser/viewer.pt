@@ -28,6 +28,21 @@
         <script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
 
 
+        <br tal:condition="nothing"/>
+
+        <ul tal:condition="nothing">
+            <li>
+                <a href="${context/absolute_url}/viewer">Viewer</a>
+            </li>
+            <li>
+                <a href="${context/absolute_url}/editor">Editor</a>
+            </li>
+            <li>
+                <a href="${context/absolute_url}/results">Results</a>
+            </li>
+        </ul>
+
+
     </metal:block>
 </html>
 
