@@ -25,6 +25,7 @@
         </script>
 
 
+        <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
         <link href="https://unpkg.com/survey-creator@1.8.79/survey-creator.min.css" type="text/css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./index.css">
