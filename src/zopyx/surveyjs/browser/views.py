@@ -14,3 +14,12 @@ class Views(BrowserView):
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(json_form.encode("utf8"))
+
+    def save_form_json(self):
+        json_form = self.request.form["surveyText"]
+        self.context.form_json = json_form
+
+        result = dict(isSuccess=True)
+        self.request.response.setStatus(200)
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(json.dumps(result).encode("utf8"))
