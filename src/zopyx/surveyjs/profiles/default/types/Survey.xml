@@ -51,11 +51,11 @@
 
   <!-- View information -->
   <property name="add_view_expr">string:${folder_url}/++add++Survey</property>
-  <property name="default_view">view</property>
+  <property name="default_view">viewer</property>
   <property name="default_view_fallback">False</property>
-  <property name="immediate_view">view</property>
+  <property name="immediate_view">viewer</property>
   <property name="view_methods">
-    <element value="view"/>
+    <element value="viewer"/>
   </property>
 
   <!-- Method aliases -->
