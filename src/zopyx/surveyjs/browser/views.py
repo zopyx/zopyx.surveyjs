@@ -6,7 +6,8 @@ from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
 from BTrees.OOBTree import OOBTree
 
-KEY = "zopyx.surveyjs.results"
+RESULTS_KEY = "zopyx.surveyjs.results"
+FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"
 
 
 class Views(BrowserView):
@@ -23,8 +24,21 @@ class Views(BrowserView):
         self.request.response.write(json_form.encode("utf8"))
 
     def save_form_json(self):
+
         json_form = self.request.form["surveyText"]
+        current_form_json = self.context.form_json
         self.context.form_json = json_form
+
+        annos = IAnnotations(self.context)
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
+        data = dict(
+                id=str(uuid.uuid4()),
+                created=datetime.utcnow(),
+                form_json=current_form_json)
+
+        annos[FORM_VERSIONS_KEY][data["id"]] = data
 
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)
@@ -36,15 +50,15 @@ class Views(BrowserView):
         poll_result = self.request.form
 
         annos = IAnnotations(self.context)
-        if KEY not in annos:
-            annos[KEY] = OOBTree()
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
 
         data = dict(
                 poll_id=str(uuid.uuid4()),
                 created=datetime.utcnow(),
                 result=self.request.form)
 
-        annos[KEY][data["poll_id"]] = data
+        annos[RESULTS_KEY][data["poll_id"]] = data
 
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)
