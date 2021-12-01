@@ -7,7 +7,7 @@ from plone.supermodel import model
 from zope.interface import implementer
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
-# from zope import schema
+from zope import schema
 from zope.schema import Text
 from zopyx.surveyjs import _
 
@@ -47,6 +47,11 @@ class ISurvey(model.Schema):
     #     vocabulary=LevelVocabulary,
     #     required=True
     # )
+
+    survey_status = schema.Choice(
+            title=_("survey status", "Survey status"),
+            vocabulary="zopyx.surveyjs.SurveyStatus"
+            )
 
     form_json = Text(
         title=_(u'Form JSON'),
