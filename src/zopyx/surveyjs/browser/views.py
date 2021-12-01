@@ -1,10 +1,11 @@
-import json
-import uuid
+from BTrees.OOBTree import OOBTree
 from datetime import datetime
 from Products.Five import BrowserView
-
 from zope.annotation.interfaces import IAnnotations
-from BTrees.OOBTree import OOBTree
+
+import json
+import uuid
+
 
 RESULTS_KEY = "zopyx.surveyjs.results"
 FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"

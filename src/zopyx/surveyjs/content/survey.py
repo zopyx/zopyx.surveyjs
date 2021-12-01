@@ -4,13 +4,11 @@ from plone.app.textfield import RichText
 from plone.dexterity.content import Item
 # from plone.namedfile import field as namedfile
 from plone.supermodel import model
+from zope.interface import implementer
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
 # from zope import schema
 from zope.schema import Text
-from zope.interface import implementer
-
-
 from zopyx.surveyjs import _
 
 
