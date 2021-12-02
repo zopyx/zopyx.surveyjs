@@ -3,7 +3,7 @@ from datetime import datetime
 from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
 
-import json
+import orjson
 import uuid
 
 
@@ -44,7 +44,7 @@ class Views(BrowserView):
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(json.dumps(result).encode("utf8"))
+        self.request.response.write(orjson.dumps(result).encode("utf8"))
 
     def save_poll(self):
 
@@ -64,4 +64,13 @@ class Views(BrowserView):
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(json.dumps(result).encode("utf8"))
+        self.request.response.write(orjson.dumps(result))
+
+    def get_polls_json(self):
+        """ get polls """
+
+        annos = IAnnotations(self.context)
+        results = list(annos[RESULTS_KEY].values())
+
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(results))
