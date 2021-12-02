@@ -19,7 +19,7 @@ class Views(BrowserView):
         json_form = self.context.form_json
 
         # verify JSON validity
-        data = json.loads(json_form)
+        data = orjson.loads(json_form)
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(json_form.encode("utf8"))
@@ -47,7 +47,6 @@ class Views(BrowserView):
         self.request.response.write(orjson.dumps(result).encode("utf8"))
 
     def save_poll(self):
-
         poll_result = self.request.form
 
         annos = IAnnotations(self.context)
@@ -60,6 +59,8 @@ class Views(BrowserView):
                 result=self.request.form)
 
         annos[RESULTS_KEY][data["poll_id"]] = data
+        print(data)
+        print(len(annos[RESULTS_KEY]))
 
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)

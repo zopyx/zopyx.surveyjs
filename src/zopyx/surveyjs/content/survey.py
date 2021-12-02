@@ -10,6 +10,8 @@ from zope.interface import implementer
 from zope import schema
 from zope.schema import Text
 from zopyx.surveyjs import _
+from collective.z3cform.jsonwidget.browser.widget import JSONWidget
+from plone.autoform import directives as form
 
 
 DEFAULT_FORM_JSON = """{
@@ -53,6 +55,7 @@ class ISurvey(model.Schema):
             vocabulary="zopyx.surveyjs.SurveyStatus"
             )
 
+    form.widget("form_json", JSONWidget)
     form_json = Text(
         title=_(u'Form JSON'),
         required=True,

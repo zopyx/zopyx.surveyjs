@@ -63,6 +63,8 @@ setup(
             'plone.testing>=5.0.0',
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
+            'collective.z3cform.jsonwidget',
+            'orjson'
         ],
     },
     entry_points="""
