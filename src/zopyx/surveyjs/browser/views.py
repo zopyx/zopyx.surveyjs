@@ -5,6 +5,7 @@ from zope.annotation.interfaces import IAnnotations
 
 import orjson
 import uuid
+import operator
 
 
 RESULTS_KEY = "zopyx.surveyjs.results"
@@ -44,7 +45,7 @@ class Views(BrowserView):
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(result).encode("utf8"))
+        self.request.response.write(orjson.dumps(result))
 
     def save_poll(self):
         poll_result = self.request.form
@@ -54,13 +55,12 @@ class Views(BrowserView):
             annos[RESULTS_KEY] = OOBTree()
 
         data = dict(
-                poll_id=str(uuid.uuid4()),
+                poll_id=str(uuid.uuid1()),
                 created=datetime.utcnow(),
-                result=self.request.form)
+                result=self.request.form.copy())
 
         annos[RESULTS_KEY][data["poll_id"]] = data
         print(data)
-        print(len(annos[RESULTS_KEY]))
 
         result = dict(isSuccess=True)
         self.request.response.setStatus(200)
@@ -72,6 +72,7 @@ class Views(BrowserView):
 
         annos = IAnnotations(self.context)
         results = list(annos[RESULTS_KEY].values())
+        results = sorted(results, key=operator.itemgetter("created"), reverse=True)
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
