@@ -1,6 +1,5 @@
-# zopyx.surveyjs
 
-## What is zopyx.surveyjs
+# What is zopyx.surveyjs?
 
 `zopyx.surveyjs` integrates the Javascript framework
 [SurveyJS](https://surveyjs.io) into Plone. A survey in SurveyJS is represented
@@ -19,7 +18,7 @@ SurveyJS consistent of serveral components:
 
 In any case, check the [SurveyJS license](https://surveyjs.io/Licenses).
 
-## Background
+# Background
 
 This implementation is funded through a customer project from the educational
 sector.  With a very small number of persons (1-2) using this tool. The costs
@@ -31,7 +30,7 @@ A mixture of commercial and free components are acceptable for us, if there is a
 certain value added to the project compared to less powerfull free/open-source tools.
 
 
-## Installation
+# Installation
 
 Add `zopyx.surveyjs` to your buildout, re-run buildout and install it within Plone.
 
@@ -44,7 +43,7 @@ using `mr.developer` as source checkout from Github.
 
 - [SurveyJS website](https://surveyjs.io)
 
-## Author
+# Author
 
 Andreas Jung | info@zopyx.com | www.zopyx.com
 
