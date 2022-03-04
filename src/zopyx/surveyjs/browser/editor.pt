@@ -1,11 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master">
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>This example demonstrates how to override the SurveyJS Creator&#39;s default component designed to render the Property Grid., Survey Creator Example</title><meta name="viewport" content="width=device-width"/>
-
-             <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
-
+    <metal:block fill-slot="content-core">
+           <script>
+            window.__define = window.define;
+            window.__require = window.require;
+            window.define = undefined;
+            window.require = undefined;
+           </script>
+        <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
         <script src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
         <script src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
         <script src="https://unpkg.com/@babel/standalone@7.2.5/babel.min.js"></script>
@@ -22,16 +28,23 @@
         <script src="https://unpkg.com/survey-creator-core@1.9.18/survey-creator-core.i18n.min.js"></script>
         <script src="https://unpkg.com/survey-creator-react@1.9.18/survey-creator-react.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            window.define = window.__define;
+            window.require = window.__require;
+            window.__define = undefined;
+            window.__require = undefined;
+        </script>
         <style>
             :root {
                 --tab-min-height: 600px;
             }
         </style>
-        <link rel="stylesheet" href="./index.css"></head>
-    <body>
+
         <div id="surveyContainer">
             <div id="creatorElement" style="height: 100vh;"></div>
         </div>
         <script type="text/babel" src="++resource++zopyx.surveyjs/editor.js"></script>
-    </body>
+
+    </metal:block>
+
 </html>
