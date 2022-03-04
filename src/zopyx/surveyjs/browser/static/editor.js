@@ -7,7 +7,8 @@ $(document).ready(function() {
     var creatorOptions = {
         showLogicTab: true
     };
-    var creator = new SurveyCreator.SurveyCreator("creatorElement", creatorOptions);
+    var creator = new SurveyCreator.SurveyCreator(creatorOptions);
+    creator.render("creatorElement");
     creator.showToolbox = "right";
     creator.showState = true;
     creator.showPropertyGrid = "right";
