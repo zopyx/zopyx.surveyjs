@@ -41,9 +41,5 @@
                 <a href="${context/absolute_url}/results">Results</a>
             </li>
         </ul>
-
-
     </metal:block>
 </html>
-
-
