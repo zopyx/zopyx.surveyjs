@@ -35,15 +35,15 @@ class SurveyStatus(object):
             context = req.PARENTS[0]
 
         # create a list of SimpleTerm items:
-        terms = []
-        for item in items:
-            terms.append(
-                SimpleTerm(
-                    value=item.token,
-                    token=str(item.token),
-                    title=item.value,
-                )
+        terms = [
+            SimpleTerm(
+                value=item.token,
+                token=str(item.token),
+                title=item.value,
             )
+            for item in items
+        ]
+
         # Create a SimpleVocabulary from the terms list and return it:
         return SimpleVocabulary(terms)
 
