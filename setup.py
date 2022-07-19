@@ -6,7 +6,7 @@ from setuptools import setup
 
 
 long_description = '\n\n'.join([
-    open('README.rst').read(),
+    open('README.md').read(),
     open('CONTRIBUTORS.rst').read(),
     open('CHANGES.rst').read(),
 ])
@@ -50,6 +50,7 @@ setup(
         'setuptools',
         # -*- Extra requirements: -*-
         'z3c.jbot',
+        'orjson',
         'plone.api>=1.8.4',
         'plone.restapi ',
         'plone.app.dexterity',
