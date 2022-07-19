@@ -38,6 +38,14 @@
             :root {
                 --tab-min-height: 600px;
             }
+
+            #portal-column-content {
+                width: 100% !important;
+            }
+
+            #portal-column-two {
+                display: none !important;
+            }
         </style>
 
         <div id="surveyContainer">
