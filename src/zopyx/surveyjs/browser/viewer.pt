@@ -46,5 +46,19 @@
                 <a href="${context/absolute_url}/results">Results</a>
             </li>
         </ul>
+        <style>
+            :root {
+                --tab-min-height: 600px;
+            }
+
+            #portal-column-content {
+                width: 100% !important;
+            }
+
+            #portal-column-two {
+                display: none !important;
+            }
+        </style>
+
     </metal:block>
 </html>
