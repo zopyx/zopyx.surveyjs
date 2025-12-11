@@ -42,12 +42,10 @@
             #surveyEditorContainer {
             margin-left: -200px;
             width: calc(100% + 400px);
-            border: 1px solid red;
             height: 1000px;
             }
 
             #surveyContainer {
-            border: 2px solid blue;
             height: 100%;
             }
         </style>
