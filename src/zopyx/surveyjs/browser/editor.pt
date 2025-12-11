@@ -14,17 +14,13 @@
         <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
 
         <head>
-            <!-- ... -->
-            <!-- SurveyJS Form Library resources -->
             <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css"
                 rel="stylesheet">
             <script src="https://unpkg.com/survey-core/survey.core.min.js"></script>
             <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
 
-            <!-- (Optional) Predefined theme configurations -->
             <script src="https://unpkg.com/survey-core/themes/index.min.js"></script>
 
-            <!-- Survey Creator resources -->
             <link href="https://unpkg.com/survey-creator-core/survey-creator-core.min.css"
                 type="text/css" rel="stylesheet">
             <script src="https://unpkg.com/survey-creator-core/survey-creator-core.min.js"></script>
