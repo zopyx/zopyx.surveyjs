@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="zopyx.surveyjs">
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <utility
+        component=".survey_status.SurveyStatusFactory"
+        name="zopyx.surveyjs.SurveyStatus"
+    />
+
+
+</configure>
