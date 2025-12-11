@@ -40,9 +40,5 @@
       name="zopyx.surveyjs-hiddenprofiles"
       />
 
-  <!-- -*- extra stuff goes here -*- -->
-
-    <include package=".vocabularies" />
-
 
 </configure>
