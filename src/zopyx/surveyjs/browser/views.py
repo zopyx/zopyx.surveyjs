@@ -55,7 +55,7 @@ class Views(BrowserView):
     def save_poll(self):
         alsoProvides(self.request, IDisableCSRFProtection)
 
-        poll_result = self.request.form
+        poll_result = orjson.loads(self.request.form["pollResult"])
 
         annos = IAnnotations(self.context)
         if RESULTS_KEY not in annos:
@@ -64,7 +64,8 @@ class Views(BrowserView):
         data = dict(
                 poll_id=str(uuid.uuid1()),
                 created=datetime.utcnow(),
-                result=self.request.form.copy())
+                result=poll_result,)
+
 
         annos[RESULTS_KEY][data["poll_id"]] = data
 
@@ -79,6 +80,17 @@ class Views(BrowserView):
         annos = IAnnotations(self.context)
         results = list(annos[RESULTS_KEY].values())
         results = sorted(results, key=operator.itemgetter("created"), reverse=True)
+
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(results))
+    
+
+    def get_polls_json2(self):
+        """ get polls """
+
+        annos = IAnnotations(self.context)
+        results = list(annos[RESULTS_KEY].values())
+        results = [d["result"] for d in results]
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
