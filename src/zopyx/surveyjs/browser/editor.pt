@@ -5,37 +5,24 @@
     metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="content-core">
-        <script>
-            window.__define = window.define;
-            window.__require = window.require;
-            window.define = undefined;
-            window.require = undefined;
-        </script>
         <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
 
-        <head>
-            <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css"
-                rel="stylesheet">
-            <script src="https://unpkg.com/survey-core/survey.core.min.js"></script>
-            <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
+        <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css"
+            rel="stylesheet">
+        <script src="https://unpkg.com/survey-core/survey.core.min.js"></script>
+        <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
 
-            <script src="https://unpkg.com/survey-core/themes/index.min.js"></script>
+        <script src="https://unpkg.com/survey-core/themes/index.min.js"></script>
 
-            <link href="https://unpkg.com/survey-creator-core/survey-creator-core.min.css"
-                type="text/css" rel="stylesheet">
-            <script src="https://unpkg.com/survey-creator-core/survey-creator-core.min.js"></script>
-            <script src="https://unpkg.com/survey-creator-core/i18n/german.js"></script>
-            <script src="https://unpkg.com/survey-creator-js/survey-creator-js.min.js"></script>
-            <script src="https://unpkg.com/survey-core/survey.i18n.min.js"></script>
-            <!-- ... -->
-        </head>
+        <link href="https://unpkg.com/survey-creator-core/survey-creator-core.min.css"
+            type="text/css" rel="stylesheet">
+        <script src="https://unpkg.com/survey-creator-core/survey-creator-core.min.js"></script>
+        <script src="https://unpkg.com/survey-creator-core/i18n/german.js"></script>
+        <script src="https://unpkg.com/survey-creator-js/survey-creator-js.min.js"></script>
+        <script src="https://unpkg.com/survey-core/survey.i18n.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-dark.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-light.min.js"></script>
 
-        <script>
-            window.define = window.__define;
-            window.require = window.__require;
-            window.__define = undefined;
-            window.__require = undefined;
-        </script>
         <style>
             #surveyEditorContainer {
             margin-left: -200px;

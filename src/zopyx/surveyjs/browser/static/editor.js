@@ -1,3 +1,6 @@
+
+SurveyCreatorCore.registerSurveyTheme(SurveyTheme);
+
 document.addEventListener("DOMContentLoaded", function () {
   const creatorOptions = {
     autoSaveEnabled: true,
@@ -5,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     showToolbox: "right",
     showState: true,
     showPropertyGrid: "right",
+    showThemeTab: true,
     rightContainerActiveItem: "toolbox",
     autoSaveEnabled: false,
   };

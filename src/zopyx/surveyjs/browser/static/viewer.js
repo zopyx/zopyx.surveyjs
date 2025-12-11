@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((result) => {
       // Create the survey from the loaded JSON
       const survey = new Survey.Model(result);
+        survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
 
       // Set up the onComplete handler to save results
       survey.onComplete.add(function (sender) {

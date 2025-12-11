@@ -54,12 +54,14 @@ const vizPanelOptions = {
 
 const survey = new Survey.Model(surveyJson);
 
-const vizPanel = new SurveyAnalytics.VisualizationPanel(
-  survey.getAllQuestions(),
-  surveyResults,
-  vizPanelOptions
+
+const surveyDataTable = new SurveyAnalyticsTabulator.Tabulator(
+    survey,
+    surveyResults,
 );
 
+
 document.addEventListener("DOMContentLoaded", function () {
-  vizPanel.render(document.getElementById("surveyVizPanel"));
+
+      surveyDataTable.render(document.getElementById("surveyDataTable"));
 });

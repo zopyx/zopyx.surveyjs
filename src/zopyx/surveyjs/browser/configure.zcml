@@ -62,6 +62,13 @@
     class=".views.Views"
     attribute="get_polls_json"
   />
+  <browser:page 
+    name="get-polls-json2"
+    permission="zope2.View"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="get_polls_json2"
+  />
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"
