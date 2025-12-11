@@ -1,16 +1,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="context/main_template/macros/master">
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="content-core">
-           <script>
+        <script>
             window.__define = window.define;
             window.__require = window.require;
             window.define = undefined;
             window.require = undefined;
-           </script>
+        </script>
 
         <script>
             window.define = window.__define;
@@ -19,25 +19,16 @@
             window.__require = undefined;
         </script>
         <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
-  <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
-
-
-        <link rel="stylesheet" href="./index.css">
-
-        <div id="surveyElement" style="display:inline-block;width:100%;"></div>
-        <div id="surveyResult"></div>
-
-           <div id="surveyContainer"></div>
-
-
+        <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css"
+            rel="stylesheet">
+        <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
         <script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
 
+        <div id="surveyContainer"></div>
 
-        <br tal:condition="nothing"/>
 
-        <ul tal:condition="nothing">
+        <ul>
             <li>
                 <a href="${context/absolute_url}/viewer">Viewer</a>
             </li>
@@ -49,16 +40,10 @@
             </li>
         </ul>
         <style>
-            :root {
-                --tab-min-height: 600px;
-            }
-
-            #portal-column-content {
-                width: 100% !important;
-            }
-
-            #portal-column-two {
-                display: none !important;
+            #surveyContainer {
+            border: 1px solid red;
+            margin-left: -200px;
+            width: calc(100% + 400px);
             }
         </style>
 

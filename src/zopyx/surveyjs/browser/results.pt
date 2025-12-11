@@ -1,33 +1,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="context/main_template/macros/master">
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="content-core">
-           <script>
+        <script>
             window.__define = window.define;
             window.__require = window.require;
             window.define = undefined;
             window.require = undefined;
-           </script>
+        </script>
 
-        <script src="https://unpkg.com/jquery"></script>                               0x
-        <script src="https://unpkg.com/knockout@3.5.1/build/output/knockout-latest.js"></script>
-        <script src="https://unpkg.com/survey-knockout@1.8.79/survey.ko.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.10/jspdf.plugin.autotable.min.js"></script>
-        <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.7.2/js/tabulator.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/4.7.2/css/tabulator.min.css"/>
-        <script src="https://unpkg.com/survey-analytics@1.8.79/survey.analytics.tabulator.min.js">
+        <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
+        <script src="https://unpkg.com/plotly.js-dist-min/plotly.min.js"></script>
+        <link href="https://unpkg.com/survey-analytics/survey.analytics.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/survey-analytics/survey.analytics.min.js">
+
         <script>
             window.define = window.__define;
             window.require = window.__require;
             window.__define = undefined;
             window.__require = undefined;
         </script>
-        <link rel="stylesheet" href="./index.css">
-        <link href="https://unpkg.com/survey-analytics@1.8.79/survey.analytics.tabulator.min.css" rel="stylesheet"/>
 
         <div>
             <p></p>
@@ -36,15 +31,13 @@
             <span>
                 <div id="loading">
                     <strong>loading...</strong>
-                    <span></span></div>
+                    <span></span>
+                </div>
             </span>
         </div>
-        <div id="vizPanel1"></div>
-        <div id="surveyElement" style="display:inline-block;width:100%;"></div>
-        <div id="surveyResult"></div>
+        <div id="surveyVizPanel"></div>
+
         <script type="text/javascript" src="++resource++zopyx.surveyjs/results.js"></script>
 
     </metal:block>
 </html>
-
-
