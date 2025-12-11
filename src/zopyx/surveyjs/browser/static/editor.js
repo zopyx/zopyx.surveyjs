@@ -1,20 +1,21 @@
-console.log(SurveyCreator);
 
-$(document).ready(function() {
 
-    SurveyCreator
-        .StylesManager
-        .applyTheme("orange");
+document.addEventListener("DOMContentLoaded", function() {
 
-    var creatorOptions = {
-        showLogicTab: true
+    const creatorOptions = {
+        autoSaveEnabled: true,
+        collapseOnDrag: true
     };
-    var creator = new SurveyCreator.SurveyCreator(creatorOptions);
-    creator.render("creatorElement");
+
+    const creator = new SurveyCreator.SurveyCreator(creatorOptions);
+    creator.render("surveyCreator");
     creator.showToolbox = "right";
     creator.showState = true;
     creator.showPropertyGrid = "right";
     creator.rightContainerActiveItem("toolbox");
+    creator.autoSaveEnabled = false;
+
+
 
     var url = ACTUAL_URL + "/get-form-json";
 
@@ -42,3 +43,4 @@ $(document).ready(function() {
     }
 
 });
+

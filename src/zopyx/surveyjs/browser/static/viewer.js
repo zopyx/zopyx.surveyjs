@@ -1,37 +1,47 @@
 
-Survey
-    .StylesManager
-    .applyTheme("modern");
 
+document.addEventListener("DOMContentLoaded", function() {
 
+    const url = ACTUAL_URL + "/get-form-json";
 
-$(document).ready(function() {
+    // Load the survey JSON configuration
+    fetch(url)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.data)
+            // Create the survey from the loaded JSON
+            const survey = new Survey.Model(result);
 
-    var url = ACTUAL_URL + "/get-form-json";
+            // Set up the onComplete handler to save results
+            survey
+                .onComplete
+                .add(function (sender) {
+                    console.log(sender.data);
 
-    $.getJSON(url, function(result) {
-        window.survey = new Survey.Model(result);
+                    // Save the survey results
+                    const formData = new FormData();
+                    formData.append("pollResult", JSON.stringify(sender.data));
 
-        survey
-            .onComplete
-            .add(function (sender) {
-                console.log(sender.data);
-
-                $.ajax({
-                    url: ACTUAL_URL + "/save-poll",
-                    type: "POST",
-                    data: {
-                        pollResult: sender.data
-                    },
-                    success: function (data) {
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
+                    fetch(ACTUAL_URL + "/save-poll", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Save failed");
+                        }
+                    })
+                    .catch(error => {
                         alert("not saved");
-                    }
+                        console.error(error);
+                    });
+
                 });
 
-            });
-
-        survey.render("surveyElement");
-    });
+            // Render the survey
+            survey.render("surveyElement");
+        })
+        .catch(error => {
+            console.error("Error loading survey:", error);
+        });
 });
