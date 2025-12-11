@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const creator = new SurveyCreator.SurveyCreator(creatorOptions);
+  creator.locale = "de";
   creator.render("surveyContainer");
 
   var url = ACTUAL_URL + "/get-form-json";

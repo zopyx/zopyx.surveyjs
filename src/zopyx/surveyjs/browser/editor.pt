@@ -24,7 +24,9 @@
             <link href="https://unpkg.com/survey-creator-core/survey-creator-core.min.css"
                 type="text/css" rel="stylesheet">
             <script src="https://unpkg.com/survey-creator-core/survey-creator-core.min.js"></script>
+            <script src="https://unpkg.com/survey-creator-core/i18n/german.js"></script>
             <script src="https://unpkg.com/survey-creator-js/survey-creator-js.min.js"></script>
+            <script src="https://unpkg.com/survey-core/survey.i18n.min.js"></script>
             <!-- ... -->
         </head>
 
