@@ -23,21 +23,22 @@ class Views(BrowserView):
     def get_form_json(self):
         """ JSON for SurveyJS renderer """
 
-        json_form = self.context.form_json
+        annos = IAnnotations(self.context)
+        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
+        form_versions = sorted(form_versions, key=lambda x: x["created"])
 
-        # verify JSON validity
-        data = orjson.loads(json_form)
+        form_data = {}
+        if form_versions:
+            form_data = form_versions[-1]["form_json"]
 
         self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(json_form.encode("utf8"))
+        self.request.response.write(orjson.dumps(form_data))
 
     def save_form_json(self):
 
         alsoProvides(self.request, IDisableCSRFProtection)
 
-        json_form = self.request.form["surveyText"]
-        current_form_json = self.context.form_json
-        self.context.form_json = json_form
+        json_form = orjson.loads(self.request.form["surveyText"])
 
         annos = IAnnotations(self.context)
         if FORM_VERSIONS_KEY not in annos:
@@ -46,7 +47,7 @@ class Views(BrowserView):
         data = dict(
                 id=str(uuid.uuid4()),
                 created=datetime.utcnow(),
-                form_json=current_form_json)
+                form_json=json_form)
 
         annos[FORM_VERSIONS_KEY][data["id"]] = data
 

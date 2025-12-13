@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.json())
     .then((result) => {
       // Create the survey from the loaded JSON
+        console.log(result)
       const survey = new Survey.Model(result);
         survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
 
