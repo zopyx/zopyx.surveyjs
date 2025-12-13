@@ -81,8 +81,7 @@ class Views(BrowserView):
     def clear_results(self):
 
         annos = IAnnotations(self.context)
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY].clear()
+        annos[RESULTS_KEY] = OOBTree()
 
         plone.api.portal.show_message(_("Results cleared"))
         self.request.response.redirect(self.context.absolute_url() + "/view")
