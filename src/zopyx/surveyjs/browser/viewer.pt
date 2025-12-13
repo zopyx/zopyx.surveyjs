@@ -1,20 +1,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="context/main_template/macros/master">
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    metal:use-macro="context/main_template/macros/master">
 
-    <metal:block fill-slot="content-core">
-        <script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
-        <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css" rel="stylesheet">
-        <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-dark.min.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-light.min.js"></script>
-        <script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
-        <link type="text/css"rel="stylesheet"" href="++resource++zopyx.surveyjs/viewer.css">
+<metal:block fill-slot="content-core">
+<script type="text/javascript" tal:content="string: ACTUAL_URL='${context/absolute_url}'"></script>
+<link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-dark.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-light.min.js"></script>
+<script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
+<link type="text/css" rel="stylesheet"" href=" ++resource++zopyx.surveyjs/ viewer.css">
 
-        <div id="surveyContainer"></div>
+        <div id=" surveyContainer"></div>
 
     </metal:block>
 </html>
