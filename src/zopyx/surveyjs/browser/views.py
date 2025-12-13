@@ -47,6 +47,7 @@ class Views(BrowserView):
         data = dict(
                 id=str(uuid.uuid4()),
                 created=datetime.utcnow(),
+                user=plone.api.user.get_current().getId(),
                 form_json=json_form)
 
         annos[FORM_VERSIONS_KEY][data["id"]] = data
@@ -68,6 +69,7 @@ class Views(BrowserView):
         data = dict(
                 poll_id=str(uuid.uuid1()),
                 created=datetime.utcnow(),
+                user=plone.api.user.get_current().getId(),
                 result=poll_result,)
 
 
