@@ -12,7 +12,7 @@
 <script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-dark.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/survey-core/themes/contrast-light.min.js"></script>
 <script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
-<link type="text/css" rel="stylesheet"" href=" ++resource++zopyx.surveyjs/ viewer.css">
+<link type="text/css" rel="stylesheet"" href=" ++resource++zopyx.surveyjs/viewer.css">
 
         <div id=" surveyContainer"></div>
 
