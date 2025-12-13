@@ -1,52 +1,65 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:metal="http://xml.zope.org/namespaces/metal"
-    xmlns:tal="http://xml.zope.org/namespaces/tal"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    metal:use-macro="context/main_template/macros/master">
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+>
 
-    <metal:block fill-slot="content-core">
-        <!-- SurveyJS Form Library resources -->
-        <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
-        <!-- Uncomment the following lines if you also display the survey on the page -->
-        <!-- <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css"
+  <metal:block fill-slot="content-core">
+    <!-- SurveyJS Form Library resources -->
+    <script src="https://unpkg.com/survey-core/survey.core.min.js"
+            type="text/javascript"
+    ></script>
+    <!-- Uncomment the following lines if you also display the survey on the page -->
+    <!-- <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css"
         rel="stylesheet"> -->
-        <!-- <script type="text/javascript"
+    <!-- <script type="text/javascript"
         src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"></script> -->
 
-        <!-- jsPDF for export to PDF -->
-        <script type="text/javascript" src="https://unpkg.com/jspdf@2.4.0/dist/jspdf.umd.min.js"></script>
-        <script type="text/javascript"
-            src="https://unpkg.com/jspdf-autotable@3.5.20/dist/jspdf.plugin.autotable.min.js"></script>
+    <!-- jsPDF for export to PDF -->
+    <script src="https://unpkg.com/jspdf@2.4.0/dist/jspdf.umd.min.js"
+            type="text/javascript"
+    ></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.20/dist/jspdf.plugin.autotable.min.js"
+            type="text/javascript"
+    ></script>
 
-        <!-- SheetJS for export to Excel -->
-        <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+    <!-- SheetJS for export to Excel -->
+    <script src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"
+            type="text/javascript"
+    ></script>
 
-        <!-- Tabulator -->
-        <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css"
-            rel="stylesheet">
-        <script type="text/javascript"
-            src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+    <!-- Tabulator -->
+    <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css"
+          rel="stylesheet"
+    />
+    <script src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"
+            type="text/javascript"
+    ></script>
 
-        <!-- SurveyJS plugin for Tabulator -->
-        <link href="https://unpkg.com/survey-analytics/survey.analytics.tabulator.min.css"
-            rel="stylesheet">
-        <script src="https://unpkg.com/survey-analytics/survey.analytics.tabulator.min.js"></script>
+    <!-- SurveyJS plugin for Tabulator -->
+    <link href="https://unpkg.com/survey-analytics/survey.analytics.tabulator.min.css"
+          rel="stylesheet"
+    />
+    <script src="https://unpkg.com/survey-analytics/survey.analytics.tabulator.min.js"></script>
 
-        <!--
+    <!--
          <div id="surveyDataTable"></div>
             <div id="surveyVizPanel"></div>
         -->
 
-        <ul id="downloadActions">
-            <li>
-                <a href="get-polls-json">Download data (JSON)</a>
-            </li>
-            <li>
-                <a href="get-form-json">Download form (JSON)</a>
-            </li>
-        </ul>
+    <ul id="downloadActions">
+      <li>
+        <a href="get-polls-json">Download data (JSON)</a>
+      </li>
+      <li>
+        <a href="get-form-json">Download form (JSON)</a>
+      </li>
+    </ul>
 
-        <script type="text/javascript" src="++resource++zopyx.surveyjs/results.js"></script>
+    <script src="++resource++zopyx.surveyjs/results.js"
+            type="text/javascript"
+    ></script>
 
-    </metal:block>
+  </metal:block>
 </html>
