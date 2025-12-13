@@ -2,9 +2,12 @@ from BTrees.OOBTree import OOBTree
 from datetime import datetime
 from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
+import plone.api
 
 from plone.protect.interfaces import IDisableCSRFProtection
 from zope.interface import alsoProvides
+
+from .. import _
 
 import orjson
 import uuid
@@ -73,6 +76,17 @@ class Views(BrowserView):
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result))
+
+
+    def clear_results(self):
+
+        annos = IAnnotations(self.context)
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY].clear()
+
+        plone.api.portal.show_message(_("Results cleared"))
+        self.request.response.redirect(self.context.absolute_url() + "/view")
+
 
     def get_polls_json(self):
         """ get polls """

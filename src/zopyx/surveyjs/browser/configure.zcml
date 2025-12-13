@@ -34,6 +34,14 @@
   />
 
   <browser:page 
+    name="clear-results"
+    permission="cmf.ModifyPortalContent"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="clear_results"
+
+  />
+  <browser:page 
     name="get-form-json"
     permission="zope2.View"
     for="zopyx.surveyjs.content.survey.ISurvey"
