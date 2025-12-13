@@ -14,7 +14,7 @@
 <script type="text/javascript" src="++resource++zopyx.surveyjs/viewer.js"></script>
 <link type="text/css" rel="stylesheet"" href=" ++resource++zopyx.surveyjs/viewer.css">
 
-        <div id=" surveyContainer"></div>
+        <div id="surveyContainer"></div>
 
     </metal:block>
 </html>
