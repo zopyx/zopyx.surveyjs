@@ -70,13 +70,51 @@
     class=".views.Views"
     attribute="get_polls_json"
   />
-  <browser:page 
+  <browser:page
     name="get-polls-json2"
     permission="zope2.View"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="get_polls_json2"
   />
+
+  <!-- Form Versions Management -->
+  <browser:page
+    name="form-versions"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    template="form_versions.pt"
+  />
+  <browser:page
+    name="download-version"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="download_version"
+  />
+  <browser:page
+    name="restore-version"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="restore_version"
+  />
+  <browser:page
+    name="upload-version"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="upload_version"
+  />
+  <browser:page
+    name="view-version-json"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="view_version_json"
+  />
+
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"

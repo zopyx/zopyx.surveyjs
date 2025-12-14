@@ -110,3 +110,172 @@ class Views(BrowserView):
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
+
+    @property
+    def versions(self):
+        """Get all form versions sorted by date (newest first)"""
+        annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
+        # Get all versions
+        form_versions = list(annos[FORM_VERSIONS_KEY].values())
+
+        # Sort by created date, newest first
+        return sorted(form_versions, key=lambda x: x["created"], reverse=True)
+
+    @property
+    def has_versions(self):
+        """Check if any versions exist"""
+        return len(self.versions) > 0
+
+    def download_version(self):
+        """Download a specific version as JSON file"""
+        version_id = self.request.form.get('version_id')
+
+        if not version_id:
+            plone.api.portal.show_message(_("No version ID provided"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        annos = IAnnotations(self.context)
+        form_versions = annos.get(FORM_VERSIONS_KEY, {})
+
+        version_data = form_versions.get(version_id)
+        if not version_data:
+            plone.api.portal.show_message(_("Version not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        # Prepare download
+        filename = f"survey-form-{version_id[:8]}.json"
+        json_content = orjson.dumps(
+            version_data['form_json'],
+            option=orjson.OPT_INDENT_2
+        )
+
+        self.request.response.setHeader('Content-Type', 'application/json')
+        self.request.response.setHeader(
+            'Content-Disposition',
+            f'attachment; filename="{filename}"'
+        )
+        self.request.response.write(json_content)
+
+    def restore_version(self):
+        """Restore an old version by creating a new version with old content"""
+        alsoProvides(self.request, IDisableCSRFProtection)
+
+        version_id = self.request.form.get('version_id')
+
+        if not version_id:
+            plone.api.portal.show_message(_("No version ID provided"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        annos = IAnnotations(self.context)
+        form_versions = annos.get(FORM_VERSIONS_KEY, {})
+
+        old_version = form_versions.get(version_id)
+        if not old_version:
+            plone.api.portal.show_message(_("Version not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        # Create new version with old content (preserves history)
+        new_version = dict(
+            id=str(uuid.uuid4()),
+            created=datetime.utcnow(),
+            user=plone.api.user.get_current().getId(),
+            form_json=old_version['form_json']
+        )
+
+        annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
+
+        plone.api.portal.show_message(
+            _("Version restored successfully. A new version has been created."),
+            type="info"
+        )
+        return self.request.response.redirect(
+            self.context.absolute_url() + "/@@form-versions"
+        )
+
+    def upload_version(self):
+        """Upload a JSON file and save as new version"""
+        alsoProvides(self.request, IDisableCSRFProtection)
+
+        uploaded_file = self.request.form.get('json_file')
+
+        if not uploaded_file:
+            plone.api.portal.show_message(_("No file uploaded"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        try:
+            # Read file content
+            file_content = uploaded_file.read()
+            if isinstance(file_content, bytes):
+                file_content = file_content.decode('utf-8')
+
+            # Parse and validate JSON
+            json_data = orjson.loads(file_content)
+
+            # Basic SurveyJS validation - check for required fields
+            if not isinstance(json_data, dict):
+                raise ValueError("JSON must be an object")
+
+            # Optional: Add more specific SurveyJS structure validation
+            # For now, basic validation that it's a dict is sufficient
+
+        except (orjson.JSONDecodeError, ValueError) as e:
+            plone.api.portal.show_message(
+                _("Invalid JSON file: ${error}", mapping={'error': str(e)}),
+                type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        # Save as new version
+        annos = IAnnotations(self.context)
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
+        new_version = dict(
+            id=str(uuid.uuid4()),
+            created=datetime.utcnow(),
+            user=plone.api.user.get_current().getId(),
+            form_json=json_data
+        )
+
+        annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
+
+        plone.api.portal.show_message(
+            _("JSON uploaded successfully as new version"),
+            type="info"
+        )
+        return self.request.response.redirect(
+            self.context.absolute_url() + "/@@form-versions"
+        )
+
+    def view_version_json(self):
+        """Return JSON for a specific version for viewing"""
+        version_id = self.request.form.get('version_id')
+
+        annos = IAnnotations(self.context)
+        form_versions = annos.get(FORM_VERSIONS_KEY, {})
+
+        version_data = form_versions.get(version_id)
+        if not version_data:
+            result = {"error": "Version not found"}
+        else:
+            result = version_data['form_json']
+
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
