@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Save the survey results
         const formData = new FormData();
         formData.append("pollResult", JSON.stringify(sender.data));
+        formData.append("_authenticator", CSRF_TOKEN);
 
         fetch(ACTUAL_URL + "/save-poll", {
           method: "POST",

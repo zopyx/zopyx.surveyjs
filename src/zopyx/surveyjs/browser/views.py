@@ -4,9 +4,6 @@ from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
 import plone.api
 
-from plone.protect.interfaces import IDisableCSRFProtection
-from zope.interface import alsoProvides
-
 from .. import _
 
 import orjson
@@ -24,6 +21,11 @@ class Views(BrowserView):
         """ JSON for SurveyJS renderer """
 
         annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
         form_versions = sorted(form_versions, key=lambda x: x["created"])
 
@@ -36,8 +38,6 @@ class Views(BrowserView):
 
     def save_form_json(self):
 
-        alsoProvides(self.request, IDisableCSRFProtection)
-
         json_form = orjson.loads(self.request.form["surveyText"])
 
         annos = IAnnotations(self.context)
@@ -46,7 +46,7 @@ class Views(BrowserView):
 
         data = dict(
                 id=str(uuid.uuid4()),
-                created=datetime.utcnow(),
+                created=datetime.now(datetime.UTC),
                 user=plone.api.user.get_current().getId(),
                 form_json=json_form)
 
@@ -58,8 +58,6 @@ class Views(BrowserView):
         self.request.response.write(orjson.dumps(result))
 
     def save_poll(self):
-        alsoProvides(self.request, IDisableCSRFProtection)
-
         poll_result = orjson.loads(self.request.form["pollResult"])
 
         annos = IAnnotations(self.context)
@@ -68,7 +66,7 @@ class Views(BrowserView):
 
         data = dict(
                 poll_id=str(uuid.uuid1()),
-                created=datetime.utcnow(),
+                created=datetime.now(datetime.UTC),
                 user=plone.api.user.get_current().getId(),
                 result=poll_result,)
 
@@ -94,22 +92,80 @@ class Views(BrowserView):
         """ get polls """
 
         annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
+
         results = list(annos[RESULTS_KEY].values())
         results = sorted(results, key=operator.itemgetter("created"), reverse=True)
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
-    
+
 
     def get_polls_json2(self):
         """ get polls """
 
         annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
+
         results = list(annos[RESULTS_KEY].values())
         results = [d["result"] for d in results]
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
+
+    def download_form_json(self):
+        """Download current form JSON as attachment"""
+        annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
+        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
+        form_versions = sorted(form_versions, key=lambda x: x["created"])
+
+        form_data = {}
+        if form_versions:
+            form_data = form_versions[-1]["form_json"]
+
+        # Prepare download with attachment header
+        filename = f"survey-form-{self.context.getId()}.json"
+        json_content = orjson.dumps(form_data, option=orjson.OPT_INDENT_2)
+
+        self.request.response.setHeader("Content-Type", "application/json")
+        self.request.response.setHeader(
+            "Content-Disposition",
+            f'attachment; filename="{filename}"'
+        )
+        self.request.response.write(json_content)
+
+    def download_polls_json(self):
+        """Download poll results JSON as attachment"""
+        annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
+
+        results = list(annos[RESULTS_KEY].values())
+        results = sorted(results, key=operator.itemgetter("created"), reverse=True)
+
+        # Prepare download with attachment header
+        filename = f"survey-data-{self.context.getId()}.json"
+        json_content = orjson.dumps(results, option=orjson.OPT_INDENT_2)
+
+        self.request.response.setHeader("Content-Type", "application/json")
+        self.request.response.setHeader(
+            "Content-Disposition",
+            f'attachment; filename="{filename}"'
+        )
+        self.request.response.write(json_content)
 
     @property
     def versions(self):
@@ -167,8 +223,6 @@ class Views(BrowserView):
 
     def restore_version(self):
         """Restore an old version by creating a new version with old content"""
-        alsoProvides(self.request, IDisableCSRFProtection)
-
         version_id = self.request.form.get('version_id')
 
         if not version_id:
@@ -190,7 +244,7 @@ class Views(BrowserView):
         # Create new version with old content (preserves history)
         new_version = dict(
             id=str(uuid.uuid4()),
-            created=datetime.utcnow(),
+            created=datetime.now(datetime.UTC),
             user=plone.api.user.get_current().getId(),
             form_json=old_version['form_json']
         )
@@ -207,8 +261,6 @@ class Views(BrowserView):
 
     def upload_version(self):
         """Upload a JSON file and save as new version"""
-        alsoProvides(self.request, IDisableCSRFProtection)
-
         uploaded_file = self.request.form.get('json_file')
 
         if not uploaded_file:
@@ -249,7 +301,7 @@ class Views(BrowserView):
 
         new_version = dict(
             id=str(uuid.uuid4()),
-            created=datetime.utcnow(),
+            created=datetime.now(datetime.UTC),
             user=plone.api.user.get_current().getId(),
             form_json=json_data
         )

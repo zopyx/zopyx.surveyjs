@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
       data: {
         surveyId: "42",
         surveyText: creator.text,
+        _authenticator: CSRF_TOKEN,
       },
       success: function (data) {
         callback(saveNo, data.isSuccess);

@@ -9,6 +9,9 @@
     <script type="text/javascript"
             tal:content="string: ACTUAL_URL='${context/absolute_url}'"
     ></script>
+    <script type="text/javascript"
+            tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
+    ></script>
 
     <link href="https://unpkg.com/survey-core/survey-core.min.css"
           rel="stylesheet"

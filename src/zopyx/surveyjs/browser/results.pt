@@ -50,10 +50,10 @@
 
     <ul id="downloadActions">
       <li>
-        <a href="get-polls-json">Download data (JSON)</a>
+        <a href="download-polls-json">Download data (JSON)</a>
       </li>
       <li>
-        <a href="get-form-json">Download form (JSON)</a>
+        <a href="download-form-json">Download form (JSON)</a>
       </li>
     </ul>
 
