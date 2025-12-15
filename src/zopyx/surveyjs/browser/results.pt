@@ -12,7 +12,7 @@
           href="++resource++zopyx.surveyjs/results.css"
     />
 
-    <tal:block define="results view.get_paginated_results()">
+    <tal:block define="results view/get_paginated_results">
 
         <div id="results-table">
 
