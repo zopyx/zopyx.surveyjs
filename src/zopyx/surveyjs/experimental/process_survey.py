@@ -46,7 +46,8 @@ def create_survey_email(json_path: str, sender: str, recipient: str) -> MIMEMult
                     image_name = item["name"]
                     header, data = item["content"].split(",")
                     image_data = base64.b64decode(data)
-                    image = MIMEImage(image_data, name=image_name)
+                    image_subtype = item["type"].split("/")[-1]
+                    image = MIMEImage(image_data, _subtype=image_subtype, name=image_name)
                     image.add_header(
                         "Content-Disposition", "attachment", filename=image_name
                     )
@@ -56,6 +57,29 @@ def create_survey_email(json_path: str, sender: str, recipient: str) -> MIMEMult
                     html_body += f"Attached file: {item.get('name', 'N/A')}"
             else:
                 html_body += "<br>".join(map(str, value))
+        elif isinstance(value, str) and value.startswith("data:image/"):
+            image_data_uri = value
+            image_name = f"{key}.png"  # Use the key as filename, assume png for simplicity or try to parse from data URI
+
+            html_body += f"""<div style='width:100%'><img src='{image_data_uri}' style='width:100%'></div>"""
+
+            # For email attachment
+            try:
+                header, data = value.split(",", 1)
+                image_type = header.split(":")[1].split(";")[0] # e.g. image/png
+                image_data = base64.b64decode(data)
+                # Attempt to get a more specific extension from the image_type
+                extension = image_type.split('/')[-1]
+                image_name = f"{key}.{extension}"
+                image = MIMEImage(image_data, _subtype=extension, name=image_name)
+                image.add_header(
+                    "Content-Disposition", "attachment", filename=image_name
+                )
+                image_attachments.append(image)
+            except Exception as e:
+                print(f"Could not parse data URI for {key}: {e}")
+                html_body += f"Error processing image for {key}"
+
         elif isinstance(value, dict):
             html_body += "<br>".join([f"{k}: {v}" for k, v in value.items()])
         else:
