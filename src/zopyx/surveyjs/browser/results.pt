@@ -26,7 +26,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr tal:repeat="item results/items">
+                <tr tal:repeat="item python:list(results['items'])">
                     <td tal:content="python: view.plone_api.portal.get_localized_time(item['created'], long_format=True)">Date</td>
                     <td tal:content="item/user">User</td>
                     <td tal:content="item/poll_id">UUID</td>
