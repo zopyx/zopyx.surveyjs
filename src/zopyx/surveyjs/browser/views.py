@@ -1,5 +1,5 @@
 from BTrees.OOBTree import OOBTree
-from datetime import datetime
+from datetime import datetime, timezone
 from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
 import plone.api
@@ -15,6 +15,14 @@ RESULTS_KEY = "zopyx.surveyjs.results"
 FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"
 
 
+def ensure_timezone_aware(dt):
+    """Convert naive datetime to UTC-aware datetime"""
+    if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+        # Naive datetime - assume it's UTC
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
 class Views(BrowserView):
 
     def get_form_json(self):
@@ -27,7 +35,7 @@ class Views(BrowserView):
             annos[FORM_VERSIONS_KEY] = OOBTree()
 
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(form_versions, key=lambda x: x["created"])
+        form_versions = sorted(form_versions, key=lambda x: ensure_timezone_aware(x["created"]))
 
         form_data = {}
         if form_versions:
@@ -46,7 +54,7 @@ class Views(BrowserView):
 
         data = dict(
                 id=str(uuid.uuid4()),
-                created=datetime.now(datetime.UTC),
+                created=datetime.now(timezone.utc),
                 user=plone.api.user.get_current().getId(),
                 form_json=json_form)
 
@@ -66,7 +74,7 @@ class Views(BrowserView):
 
         data = dict(
                 poll_id=str(uuid.uuid1()),
-                created=datetime.now(datetime.UTC),
+                created=datetime.now(timezone.utc),
                 user=plone.api.user.get_current().getId(),
                 result=poll_result,)
 
@@ -98,7 +106,7 @@ class Views(BrowserView):
             annos[RESULTS_KEY] = OOBTree()
 
         results = list(annos[RESULTS_KEY].values())
-        results = sorted(results, key=operator.itemgetter("created"), reverse=True)
+        results = sorted(results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
@@ -128,7 +136,7 @@ class Views(BrowserView):
             annos[FORM_VERSIONS_KEY] = OOBTree()
 
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(form_versions, key=lambda x: x["created"])
+        form_versions = sorted(form_versions, key=lambda x: ensure_timezone_aware(x["created"]))
 
         form_data = {}
         if form_versions:
@@ -154,7 +162,7 @@ class Views(BrowserView):
             annos[RESULTS_KEY] = OOBTree()
 
         results = list(annos[RESULTS_KEY].values())
-        results = sorted(results, key=operator.itemgetter("created"), reverse=True)
+        results = sorted(results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
 
         # Prepare download with attachment header
         filename = f"survey-data-{self.context.getId()}.json"
@@ -180,7 +188,7 @@ class Views(BrowserView):
         form_versions = list(annos[FORM_VERSIONS_KEY].values())
 
         # Sort by created date, newest first
-        return sorted(form_versions, key=lambda x: x["created"], reverse=True)
+        return sorted(form_versions, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
 
     @property
     def has_versions(self):
@@ -244,7 +252,7 @@ class Views(BrowserView):
         # Create new version with old content (preserves history)
         new_version = dict(
             id=str(uuid.uuid4()),
-            created=datetime.now(datetime.UTC),
+            created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
             form_json=old_version['form_json']
         )
@@ -301,7 +309,7 @@ class Views(BrowserView):
 
         new_version = dict(
             id=str(uuid.uuid4()),
-            created=datetime.now(datetime.UTC),
+            created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
             form_json=json_data
         )
