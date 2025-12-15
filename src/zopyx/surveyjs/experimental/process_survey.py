@@ -2,9 +2,11 @@
 import json
 import base64
 import smtplib
+import weasyprint
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
+from email.mime.application import MIMEApplication
 
 def create_survey_email(json_path, sender, recipient):
     """
@@ -30,6 +32,7 @@ def create_survey_email(json_path, sender, recipient):
     msg_alternative = MIMEMultipart('alternative')
     msg.attach(msg_alternative)
 
+    images_data = {}
     html_body = "<h1>Survey Results</h1>"
     html_body += "<table border='1' cellpadding='5' cellspacing='0'>"
     html_body += "<tr><th>Question</th><th>Answer</th></tr>"
@@ -45,13 +48,14 @@ def create_survey_email(json_path, sender, recipient):
                     # data:image/png;base64,iVBORw0KGgo...
                     header, data = item['content'].split(',')
                     image_data = base64.b64decode(data)
+                    images_data[image_name] = {'data': image_data, 'mime': item['type']}
                     
                     image = MIMEImage(image_data, name=image_name)
                     image.add_header('Content-ID', f'<{image_name}>')
                     image.add_header('Content-Disposition', 'inline', filename=image_name)
                     msg.attach(image)
                     
-                    html_body += f"Attached: {image_name}<br><img src='cid:{image_name}' width='300px'>"
+                    html_body += f"Attached: {image_name}<br><div style=\"width: 100%;\"><img src='cid:{image_name}' style=\"width: 100%;\"></div>"
                 else:
                      html_body += f"Attached file: {item.get('name', 'N/A')}"
             else:
@@ -67,6 +71,21 @@ def create_survey_email(json_path, sender, recipient):
     # Attach the HTML body
     part = MIMEText(html_body, 'html')
     msg_alternative.attach(part)
+
+    # Generate and attach PDF
+    def cid_fetcher(url):
+        if url.startswith('cid:'):
+            image_name = url[4:]
+            if image_name in images_data:
+                return dict(string=images_data[image_name]['data'], mime_type=images_data[image_name]['mime'])
+        return weasyprint.default_url_fetcher(url)
+
+    pdf_filename = "survey_results.pdf"
+    weasyprint.HTML(string=html_body, url_fetcher=cid_fetcher).write_pdf(pdf_filename)
+    with open(pdf_filename, "rb") as f:
+        pdf_attachment = MIMEApplication(f.read(), _subtype="pdf")
+    pdf_attachment.add_header('Content-Disposition', 'attachment', filename=pdf_filename)
+    msg.attach(pdf_attachment)
 
     return msg
 
