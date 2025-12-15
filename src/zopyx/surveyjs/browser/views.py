@@ -339,3 +339,56 @@ class Views(BrowserView):
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
+
+    @property
+    def results(self):
+        """Get all poll results sorted by creation date (newest first)"""
+        annos = IAnnotations(self.context)
+
+        # Initialize if doesn't exist
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
+
+        # Get all results
+        results = list(annos[RESULTS_KEY].values())
+
+        # Sort by created date, newest first
+        return sorted(results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
+
+    def get_paginated_results(self):
+        """Return paginated results"""
+        b_start = int(self.request.form.get("b_start", 0))
+        pagesize = 10
+        results = self.results
+        total = len(results)
+        numpages = total // pagesize
+        if total % pagesize > 0:
+            numpages += 1
+        page = b_start // pagesize + 1
+        return dict(
+            items=results[b_start : b_start + pagesize],
+            total=total,
+            numpages=numpages,
+            page=page,
+            pagesize=pagesize,
+        )
+
+    def view_result_json(self):
+        """Return JSON for a specific poll result for viewing"""
+        poll_id = self.request.form.get('poll_id')
+
+        annos = IAnnotations(self.context)
+        results = annos.get(RESULTS_KEY, {})
+
+        result_data = results.get(poll_id)
+        if not result_data:
+            result = {"error": "Poll result not found"}
+        else:
+            result = result_data['result']
+
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
+
+    @property
+    def plone_api(self):
+        return plone.api

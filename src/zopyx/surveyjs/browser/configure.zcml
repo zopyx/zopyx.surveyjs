@@ -9,6 +9,7 @@
   <browser:page
     name="results"
     for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
     permission="cmf.ManagePortal"
     template="results.pt"
   />
@@ -129,6 +130,14 @@
     permission="cmf.ModifyPortalContent"
     class=".views.Views"
     attribute="view_version_json"
+  />
+
+  <browser:page
+    name="view-result-json"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    attribute="view_result_json"
   />
 
   <browser:jbot
