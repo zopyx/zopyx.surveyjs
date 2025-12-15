@@ -40,6 +40,10 @@
                                 tal:attributes="data-poll-id item/poll_id">
                             View
                         </button>
+                        <button class="btn btn-success view-details"
+                                tal:attributes="data-poll-id item/poll_id">
+                            Details
+                        </button>
                     </td>
                 </tr>                </tbody>
             </table>
@@ -70,6 +74,15 @@
             <div class="modal-content">
                 <span class="close-button">&times;</span>
                 <pre id="json-content"></pre>
+            </div>
+        </div>
+
+        <!-- Modal for displaying Details -->
+        <div id="details-modal" class="modal" style="display:none;">
+            <div class="modal-content modal-content-large">
+                <span class="close-button details-close-button">&times;</span>
+                <h2>Survey Response Details</h2>
+                <div id="details-content"></div>
             </div>
         </div>
 
