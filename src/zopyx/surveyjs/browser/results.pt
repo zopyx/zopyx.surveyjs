@@ -16,6 +16,11 @@
 
         <div id="results-table">
 
+            <form method="get" action="">
+                <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|string:''" />
+                <button type="submit">Search</button>
+            </form>
+
             <table class="table">
                 <thead>
                 <tr>
@@ -40,21 +45,22 @@
             </table>
 
             <div class="pagination"
-                 tal:define="pagination_info results"
+                 tal:define="pagination_info results;
+                             query_string python:request.get('q') and '&q=' + request.get('q') or ''"
                  tal:condition="python: pagination_info['numpages'] > 1">
                 <a tal:condition="python: pagination_info['page'] > 1"
-                   tal:attributes="href python:'?b_start=' + str((pagination_info['page'] - 2) * pagination_info['pagesize'])"
+                   tal:attributes="href python:'?b_start=' + str((pagination_info['page'] - 2) * pagination_info['pagesize']) + query_string"
                 >&laquo; Previous</a>
                 <span tal:repeat="i python:range(1, pagination_info['numpages'] + 1)">
           <a tal:condition="python: i != pagination_info['page']"
-             tal:attributes="href python:'?b_start=' + str((i - 1) * pagination_info['pagesize'])"
+             tal:attributes="href python:'?b_start=' + str((i - 1) * pagination_info['pagesize']) + query_string"
              tal:content="i">
           </a>
           <span tal:condition="python: i == pagination_info['page']"
                 tal:content="i" class="current-page"></span>
         </span>
                 <a tal:condition="python: pagination_info['page'] < pagination_info['numpages']"
-                   tal:attributes="href python:'?b_start=' + str(pagination_info['page'] * pagination_info['pagesize'])"
+                   tal:attributes="href python:'?b_start=' + str(pagination_info['page'] * pagination_info['pagesize']) + query_string"
                 >Next &raquo;</a>
             </div>
         </div>

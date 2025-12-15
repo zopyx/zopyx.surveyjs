@@ -357,20 +357,26 @@ class Views(BrowserView):
 
     def get_paginated_results(self):
         """Return paginated results"""
+        q = self.request.form.get("q", "").lower()
         b_start = int(self.request.form.get("b_start", 0))
         pagesize = 10
-        results = self.results
-        total = len(results)
+
+        all_results = self.results
+        if q:
+            all_results = [r for r in all_results if q in r.get("user", "").lower()]
+
+        total = len(all_results)
         numpages = total // pagesize
         if total % pagesize > 0:
             numpages += 1
         page = b_start // pagesize + 1
         return dict(
-            items=results[b_start : b_start + pagesize],
+            items=all_results[b_start : b_start + pagesize],
             total=total,
             numpages=numpages,
             page=page,
             pagesize=pagesize,
+            q=q,
         )
 
     def view_result_json(self):

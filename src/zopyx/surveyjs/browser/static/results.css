@@ -1,3 +1,16 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+#results-table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -5,67 +18,87 @@
 }
 
 .table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.table th {
-    background-color: #f2f2f2;
+    border-bottom: 1px solid #dee2e6;
+    padding: 12px 15px;
     text-align: left;
 }
 
-.pagination {
-    margin-bottom: 20px;
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.85em;
 }
 
-.pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
+.table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.btn.btn-primary.view-json {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn.btn-primary.view-json:hover {
+    background-color: #0056b3;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination a, .pagination span.current-page {
+    color: #007bff;
+    padding: 10px 15px;
     text-decoration: none;
     transition: background-color .3s;
-    border: 1px solid #ddd;
-    margin: 0 4px;
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+    border-radius: 4px;
 }
 
-.pagination a.active {
-    background-color: #4CAF50;
+.pagination span.current-page {
+    background-color: #007bff;
     color: white;
-    border: 1px solid #4CAF50;
+    border-color: #007bff;
 }
 
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-}
-
-.current-page {
-    float: left;
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    margin: 0 4px;
-    background-color: #4CAF50;
-    color: white;
+.pagination a:hover {
+    background-color: #e9ecef;
 }
 
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1050;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.5);
 }
 
 .modal-content {
+    position: relative;
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 .close-button {
@@ -80,4 +113,13 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+pre#json-content {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
