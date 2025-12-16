@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     viewButtons.forEach(button => {
         button.addEventListener("click", function () {
             const pollId = this.getAttribute("data-poll-id");
-            fetch(`view-result-json?poll_id=${pollId}`)
+            fetch(`view-result-json?poll_id=${pollId}`, {
+                credentials: 'same-origin'
+            })
                 .then(response => response.json())
                 .then(data => {
                     jsonContent.textContent = JSON.stringify(data, null, 2);
@@ -39,7 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
     detailsButtons.forEach(button => {
         button.addEventListener("click", function () {
             const pollId = this.getAttribute("data-poll-id");
-            fetch(`view-result-json?poll_id=${pollId}`)
+            fetch(`view-result-json?poll_id=${pollId}`, {
+                credentials: 'same-origin'
+            })
                 .then(response => response.json())
                 .then(data => {
                     renderDetailsTable(data);

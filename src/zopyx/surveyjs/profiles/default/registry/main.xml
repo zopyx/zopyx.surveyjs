@@ -10,19 +10,9 @@
     <value purge="false">
       <element>Survey</element>
     </value>
-  </record>
+</record>
 
-  <!-- Forms Settings for AI-powered form generation -->
-  <record name="zopyx.surveyjs.forms.ai_model"
-          interface="zopyx.surveyjs.interfaces.IFormsSettings"
-          field="ai_model">
-    <value></value>
-  </record>
+ <records interface="zopyx.surveyjs.interfaces.IFormsSettings" />
 
-  <record name="zopyx.surveyjs.forms.ai_api_key"
-          interface="zopyx.surveyjs.interfaces.IFormsSettings"
-          field="ai_api_key">
-    <value></value>
-  </record>
 
 </registry>

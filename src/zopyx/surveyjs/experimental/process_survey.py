@@ -47,7 +47,9 @@ def create_survey_email(json_path: str, sender: str, recipient: str) -> MIMEMult
                     header, data = item["content"].split(",")
                     image_data = base64.b64decode(data)
                     image_subtype = item["type"].split("/")[-1]
-                    image = MIMEImage(image_data, _subtype=image_subtype, name=image_name)
+                    image = MIMEImage(
+                        image_data, _subtype=image_subtype, name=image_name
+                    )
                     image.add_header(
                         "Content-Disposition", "attachment", filename=image_name
                     )
@@ -66,10 +68,10 @@ def create_survey_email(json_path: str, sender: str, recipient: str) -> MIMEMult
             # For email attachment
             try:
                 header, data = value.split(",", 1)
-                image_type = header.split(":")[1].split(";")[0] # e.g. image/png
+                image_type = header.split(":")[1].split(";")[0]  # e.g. image/png
                 image_data = base64.b64decode(data)
                 # Attempt to get a more specific extension from the image_type
-                extension = image_type.split('/')[-1]
+                extension = image_type.split("/")[-1]
                 image_name = f"{key}.{extension}"
                 image = MIMEImage(image_data, _subtype=extension, name=image_name)
                 image.add_header(

@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Send AJAX request
     fetch(ACTUAL_URL + "/@@generate-ai-form", {
       method: "POST",
-      body: formData
+      body: formData,
+      credentials: 'same-origin'
     })
     .then(response => {
       if (!response.ok) {
@@ -123,7 +124,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Send AJAX request
     fetch(ACTUAL_URL + "/@@save-ai-form", {
       method: "POST",
-      body: formData
+      body: formData,
+      credentials: 'same-origin'
     })
     .then(response => {
       if (!response.ok) {

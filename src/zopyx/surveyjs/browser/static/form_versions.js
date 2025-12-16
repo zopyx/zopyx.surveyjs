@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
       var url = window.location.href.split('/@@')[0] + '/@@view-version-json?version_id=' + versionId;
 
       // Fetch the JSON for this version
-      fetch(url)
+      fetch(url, {
+        credentials: 'same-origin'
+      })
         .then(function(response) {
           return response.json();
         })

@@ -13,7 +13,6 @@ import zopyx.surveyjs
 
 
 class ZopyxSurveyjsLayer(PloneSandboxLayer):
-
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
@@ -21,11 +20,12 @@ class ZopyxSurveyjsLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         import plone.restapi
+
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=zopyx.surveyjs)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'zopyx.surveyjs:default')
+        applyProfile(portal, "zopyx.surveyjs:default")
 
 
 ZOPYX_SURVEYJS_FIXTURE = ZopyxSurveyjsLayer()
@@ -33,13 +33,13 @@ ZOPYX_SURVEYJS_FIXTURE = ZopyxSurveyjsLayer()
 
 ZOPYX_SURVEYJS_INTEGRATION_TESTING = IntegrationTesting(
     bases=(ZOPYX_SURVEYJS_FIXTURE,),
-    name='ZopyxSurveyjsLayer:IntegrationTesting',
+    name="ZopyxSurveyjsLayer:IntegrationTesting",
 )
 
 
 ZOPYX_SURVEYJS_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(ZOPYX_SURVEYJS_FIXTURE,),
-    name='ZopyxSurveyjsLayer:FunctionalTesting',
+    name="ZopyxSurveyjsLayer:FunctionalTesting",
 )
 
 
@@ -49,5 +49,5 @@ ZOPYX_SURVEYJS_ACCEPTANCE_TESTING = FunctionalTesting(
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE,
     ),
-    name='ZopyxSurveyjsLayer:AcceptanceTesting',
+    name="ZopyxSurveyjsLayer:AcceptanceTesting",
 )

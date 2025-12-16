@@ -30,7 +30,9 @@ def strip_markdown_json(text: str) -> str:
     return text.strip()
 
 
-def generate_survey_json(question: str, model_name: str = None, api_key: str = None) -> str:
+def generate_survey_json(
+    question: str, model_name: str = None, api_key: str = None
+) -> str:
     """
     Generates SurveyJS JSON data based on a given question using the llm module.
 
@@ -92,11 +94,12 @@ def generate_survey_json(question: str, model_name: str = None, api_key: str = N
         if api_key:
             # Try to set the key via environment for this request
             import os
+
             # Determine the env var name based on model provider
-            if 'gpt' in model_name.lower() or 'openai' in model_name.lower():
-                os.environ['OPENAI_API_KEY'] = api_key
-            elif 'claude' in model_name.lower() or 'anthropic' in model_name.lower():
-                os.environ['ANTHROPIC_API_KEY'] = api_key
+            if "gpt" in model_name.lower() or "openai" in model_name.lower():
+                os.environ["OPENAI_API_KEY"] = api_key
+            elif "claude" in model_name.lower() or "anthropic" in model_name.lower():
+                os.environ["ANTHROPIC_API_KEY"] = api_key
             # Add more providers as needed
 
         response = model.prompt(prompt)

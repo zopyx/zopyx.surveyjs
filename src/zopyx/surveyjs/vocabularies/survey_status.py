@@ -5,6 +5,7 @@ from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+
 # from plone import api
 from zopyx.surveyjs import _
 
@@ -17,15 +18,14 @@ class VocabItem(object):
 
 @implementer(IVocabularyFactory)
 class SurveyStatus(object):
-    """
-    """
+    """ """
 
     def __call__(self, context):
         # Just an example list of content for our vocabulary,
         # this can be any static or dynamic data, a catalog result for example.
         items = [
-            VocabItem(u'survey-closed', _(u'Survey closed')),
-            VocabItem(u'survey-open', _(u'Survey open')),
+            VocabItem("survey-closed", _("Survey closed")),
+            VocabItem("survey-open", _("Survey open")),
         ]
 
         # Fix context if you are using the vocabulary in DataGridField.

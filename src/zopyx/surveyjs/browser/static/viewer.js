@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const url = ACTUAL_URL + "/get-form-json";
 
   // Load the survey JSON configuration
-  fetch(url)
+  fetch(url, {
+    credentials: 'same-origin'
+  })
     .then((response) => response.json())
     .then((result) => {
       // Create the survey from the loaded JSON
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(ACTUAL_URL + "/save-poll", {
           method: "POST",
           body: formData,
+          credentials: 'same-origin'
         })
           .then((response) => {
             if (!response.ok) {

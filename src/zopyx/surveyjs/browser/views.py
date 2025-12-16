@@ -8,7 +8,6 @@ from .. import _
 
 import orjson
 import uuid
-import operator
 
 
 RESULTS_KEY = "zopyx.surveyjs.results"
@@ -24,18 +23,17 @@ def ensure_timezone_aware(dt):
 
 
 class Views(BrowserView):
-
     def get_form_json(self):
-        """ JSON for SurveyJS renderer """
+        """JSON for SurveyJS renderer"""
 
         annos = IAnnotations(self.context)
-
-        # Initialize if doesn't exist
         if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
+            return {}
 
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(form_versions, key=lambda x: ensure_timezone_aware(x["created"]))
+        form_versions = sorted(
+            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
+        )
 
         form_data = {}
         if form_versions:
@@ -45,18 +43,16 @@ class Views(BrowserView):
         self.request.response.write(orjson.dumps(form_data))
 
     def save_form_json(self):
-
         json_form = orjson.loads(self.request.form["surveyText"])
 
         annos = IAnnotations(self.context)
-        if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
 
         data = dict(
-                id=str(uuid.uuid4()),
-                created=datetime.now(timezone.utc),
-                user=plone.api.user.get_current().getId(),
-                form_json=json_form)
+            id=str(uuid.uuid4()),
+            created=datetime.now(timezone.utc),
+            user=plone.api.user.get_current().getId(),
+            form_json=json_form,
+        )
 
         annos[FORM_VERSIONS_KEY][data["id"]] = data
 
@@ -69,15 +65,13 @@ class Views(BrowserView):
         poll_result = orjson.loads(self.request.form["pollResult"])
 
         annos = IAnnotations(self.context)
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
 
         data = dict(
-                poll_id=str(uuid.uuid1()),
-                created=datetime.now(timezone.utc),
-                user=plone.api.user.get_current().getId(),
-                result=poll_result,)
-
+            poll_id=str(uuid.uuid1()),
+            created=datetime.now(timezone.utc),
+            user=plone.api.user.get_current().getId(),
+            result=poll_result,
+        )
 
         annos[RESULTS_KEY][data["poll_id"]] = data
 
@@ -86,34 +80,28 @@ class Views(BrowserView):
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result))
 
-
     def clear_results(self):
-
         annos = IAnnotations(self.context)
         annos[RESULTS_KEY] = OOBTree()
 
         plone.api.portal.show_message(_("Results cleared"))
         self.request.response.redirect(self.context.absolute_url() + "/view")
 
-
     def get_polls_json(self):
-        """ get polls """
+        """get polls"""
 
         annos = IAnnotations(self.context)
 
-        # Initialize if doesn't exist
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
-
         results = list(annos[RESULTS_KEY].values())
-        results = sorted(results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
+        results = sorted(
+            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
+        )
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
 
-
     def get_polls_json2(self):
-        """ get polls """
+        """get polls"""
 
         annos = IAnnotations(self.context)
 
@@ -136,7 +124,9 @@ class Views(BrowserView):
             annos[FORM_VERSIONS_KEY] = OOBTree()
 
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(form_versions, key=lambda x: ensure_timezone_aware(x["created"]))
+        form_versions = sorted(
+            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
+        )
 
         form_data = {}
         if form_versions:
@@ -148,8 +138,7 @@ class Views(BrowserView):
 
         self.request.response.setHeader("Content-Type", "application/json")
         self.request.response.setHeader(
-            "Content-Disposition",
-            f'attachment; filename="{filename}"'
+            "Content-Disposition", f'attachment; filename="{filename}"'
         )
         self.request.response.write(json_content)
 
@@ -162,7 +151,9 @@ class Views(BrowserView):
             annos[RESULTS_KEY] = OOBTree()
 
         results = list(annos[RESULTS_KEY].values())
-        results = sorted(results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
+        results = sorted(
+            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
+        )
 
         # Prepare download with attachment header
         filename = f"survey-data-{self.context.getId()}.json"
@@ -170,8 +161,7 @@ class Views(BrowserView):
 
         self.request.response.setHeader("Content-Type", "application/json")
         self.request.response.setHeader(
-            "Content-Disposition",
-            f'attachment; filename="{filename}"'
+            "Content-Disposition", f'attachment; filename="{filename}"'
         )
         self.request.response.write(json_content)
 
@@ -188,7 +178,11 @@ class Views(BrowserView):
         form_versions = list(annos[FORM_VERSIONS_KEY].values())
 
         # Sort by created date, newest first
-        return sorted(form_versions, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
+        return sorted(
+            form_versions,
+            key=lambda x: ensure_timezone_aware(x["created"]),
+            reverse=True,
+        )
 
     @property
     def has_versions(self):
@@ -197,7 +191,7 @@ class Views(BrowserView):
 
     def download_version(self):
         """Download a specific version as JSON file"""
-        version_id = self.request.form.get('version_id')
+        version_id = self.request.form.get("version_id")
 
         if not version_id:
             plone.api.portal.show_message(_("No version ID provided"), type="error")
@@ -218,20 +212,18 @@ class Views(BrowserView):
         # Prepare download
         filename = f"survey-form-{version_id[:8]}.json"
         json_content = orjson.dumps(
-            version_data['form_json'],
-            option=orjson.OPT_INDENT_2
+            version_data["form_json"], option=orjson.OPT_INDENT_2
         )
 
-        self.request.response.setHeader('Content-Type', 'application/json')
+        self.request.response.setHeader("Content-Type", "application/json")
         self.request.response.setHeader(
-            'Content-Disposition',
-            f'attachment; filename="{filename}"'
+            "Content-Disposition", f'attachment; filename="{filename}"'
         )
         self.request.response.write(json_content)
 
     def restore_version(self):
         """Restore an old version by creating a new version with old content"""
-        version_id = self.request.form.get('version_id')
+        version_id = self.request.form.get("version_id")
 
         if not version_id:
             plone.api.portal.show_message(_("No version ID provided"), type="error")
@@ -254,14 +246,14 @@ class Views(BrowserView):
             id=str(uuid.uuid4()),
             created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
-            form_json=old_version['form_json']
+            form_json=old_version["form_json"],
         )
 
         annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
 
         plone.api.portal.show_message(
             _("Version restored successfully. A new version has been created."),
-            type="info"
+            type="info",
         )
         return self.request.response.redirect(
             self.context.absolute_url() + "/@@form-versions"
@@ -269,7 +261,7 @@ class Views(BrowserView):
 
     def upload_version(self):
         """Upload a JSON file and save as new version"""
-        uploaded_file = self.request.form.get('json_file')
+        uploaded_file = self.request.form.get("json_file")
 
         if not uploaded_file:
             plone.api.portal.show_message(_("No file uploaded"), type="error")
@@ -281,7 +273,7 @@ class Views(BrowserView):
             # Read file content
             file_content = uploaded_file.read()
             if isinstance(file_content, bytes):
-                file_content = file_content.decode('utf-8')
+                file_content = file_content.decode("utf-8")
 
             # Parse and validate JSON
             json_data = orjson.loads(file_content)
@@ -295,8 +287,8 @@ class Views(BrowserView):
 
         except (orjson.JSONDecodeError, ValueError) as e:
             plone.api.portal.show_message(
-                _("Invalid JSON file: ${error}", mapping={'error': str(e)}),
-                type="error"
+                _("Invalid JSON file: ${error}", mapping={"error": str(e)}),
+                type="error",
             )
             return self.request.response.redirect(
                 self.context.absolute_url() + "/@@form-versions"
@@ -311,14 +303,13 @@ class Views(BrowserView):
             id=str(uuid.uuid4()),
             created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
-            form_json=json_data
+            form_json=json_data,
         )
 
         annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
 
         plone.api.portal.show_message(
-            _("JSON uploaded successfully as new version"),
-            type="info"
+            _("JSON uploaded successfully as new version"), type="info"
         )
         return self.request.response.redirect(
             self.context.absolute_url() + "/@@form-versions"
@@ -326,7 +317,7 @@ class Views(BrowserView):
 
     def view_version_json(self):
         """Return JSON for a specific version for viewing"""
-        version_id = self.request.form.get('version_id')
+        version_id = self.request.form.get("version_id")
 
         annos = IAnnotations(self.context)
         form_versions = annos.get(FORM_VERSIONS_KEY, {})
@@ -335,7 +326,7 @@ class Views(BrowserView):
         if not version_data:
             result = {"error": "Version not found"}
         else:
-            result = version_data['form_json']
+            result = version_data["form_json"]
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
@@ -353,7 +344,9 @@ class Views(BrowserView):
         results = list(annos[RESULTS_KEY].values())
 
         # Sort by created date, newest first
-        return sorted(results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True)
+        return sorted(
+            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
+        )
 
     def get_paginated_results(self):
         """Return paginated results"""
@@ -381,7 +374,7 @@ class Views(BrowserView):
 
     def view_result_json(self):
         """Return JSON for a specific poll result for viewing"""
-        poll_id = self.request.form.get('poll_id')
+        poll_id = self.request.form.get("poll_id")
 
         annos = IAnnotations(self.context)
         results = annos.get(RESULTS_KEY, {})
@@ -390,7 +383,7 @@ class Views(BrowserView):
         if not result_data:
             result = {"error": "Poll result not found"}
         else:
-            result = result_data['result']
+            result = result_data["result"]
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
@@ -406,10 +399,7 @@ class Views(BrowserView):
         try:
             from .ai_generator import generate_survey_json, strip_markdown_json
         except ImportError as e:
-            error_result = {
-                "error": "LLM module not available",
-                "message": str(e)
-            }
+            error_result = {"error": "LLM module not available", "message": str(e)}
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
@@ -421,7 +411,7 @@ class Views(BrowserView):
         if not prompt:
             error_result = {
                 "error": "No prompt provided",
-                "message": "Please enter a description of the form you want to generate"
+                "message": "Please enter a description of the form you want to generate",
             }
             self.request.response.setStatus(400)
             self.request.response.setHeader("content-type", "application/json")
@@ -438,8 +428,8 @@ class Views(BrowserView):
             settings = registry.forInterface(IFormsSettings, check=False)
 
             # Get configured model and API key
-            model_name = getattr(settings, 'ai_model', None)
-            api_key = getattr(settings, 'ai_api_key', None)
+            model_name = getattr(settings, "ai_model", None)
+            api_key = getattr(settings, "ai_api_key", None)
 
             # Strip whitespace from settings
             if model_name:
@@ -448,7 +438,9 @@ class Views(BrowserView):
                 api_key = api_key.strip()
 
             # Generate the survey JSON using LLM with configured settings
-            survey_json_str = generate_survey_json(prompt, model_name=model_name or None, api_key=api_key or None)
+            survey_json_str = generate_survey_json(
+                prompt, model_name=model_name or None, api_key=api_key or None
+            )
 
             # Strip any markdown formatting
             cleaned_json_str = strip_markdown_json(survey_json_str)
@@ -457,10 +449,7 @@ class Views(BrowserView):
             survey_data = orjson.loads(cleaned_json_str)
 
             # Return success with generated JSON
-            result = {
-                "success": True,
-                "json": survey_data
-            }
+            result = {"success": True, "json": survey_data}
 
             self.request.response.setStatus(200)
             self.request.response.setHeader("content-type", "application/json")
@@ -470,26 +459,22 @@ class Views(BrowserView):
             error_result = {
                 "error": "Invalid JSON generated",
                 "message": f"The AI generated invalid JSON: {str(e)}",
-                "raw_output": cleaned_json_str if 'cleaned_json_str' in locals() else survey_json_str
+                "raw_output": cleaned_json_str
+                if "cleaned_json_str" in locals()
+                else survey_json_str,
             }
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
 
         except ValueError as e:
-            error_result = {
-                "error": "Configuration error",
-                "message": str(e)
-            }
+            error_result = {"error": "Configuration error", "message": str(e)}
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
 
         except Exception as e:
-            error_result = {
-                "error": "Generation failed",
-                "message": str(e)
-            }
+            error_result = {"error": "Generation failed", "message": str(e)}
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
@@ -520,15 +505,13 @@ class Views(BrowserView):
                 id=str(uuid.uuid4()),
                 created=datetime.now(timezone.utc),
                 user=plone.api.user.get_current().getId(),
-                form_json=json_form
+                form_json=json_form,
             )
 
             annos[FORM_VERSIONS_KEY][data["id"]] = data
 
             result = dict(
-                success=True,
-                message="Form saved successfully",
-                version_id=data["id"]
+                success=True, message="Form saved successfully", version_id=data["id"]
             )
 
             self.request.response.setStatus(200)
@@ -536,19 +519,13 @@ class Views(BrowserView):
             self.request.response.write(orjson.dumps(result))
 
         except orjson.JSONDecodeError as e:
-            error_result = {
-                "error": "Invalid JSON",
-                "message": str(e)
-            }
+            error_result = {"error": "Invalid JSON", "message": str(e)}
             self.request.response.setStatus(400)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
 
         except Exception as e:
-            error_result = {
-                "error": "Save failed",
-                "message": str(e)
-            }
+            error_result = {"error": "Save failed", "message": str(e)}
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))

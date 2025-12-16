@@ -26,3 +26,24 @@ class IFormsSettings(Interface):
         required=False,
         default="",
     )
+
+    ai_prompt_before = schema.Text(
+        title="Prompt before",
+        description="Text/Instructions to be used before the user's form prompt",
+        required=False,
+        default="",
+    )
+
+    ai_prompt_default = schema.Text(
+        title="Default prompt",
+        description="Default text for the user's prompt",
+        required=False,
+        default="",
+    )
+
+    ai_prompt_after = schema.Text(
+        title="Prompt after",
+        description="Text/Instructions to be used after the user's form prompt",
+        required=False,
+        default="",
+    )
