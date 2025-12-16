@@ -165,6 +165,14 @@
     attribute="save_ai_form"
   />
 
+  <!-- Forms Settings Control Panel -->
+  <browser:page
+    name="forms-settings"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".controlpanel.FormsSettingsControlPanel"
+    permission="cmf.ManagePortal"
+  />
+
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"

@@ -405,7 +405,6 @@ class Views(BrowserView):
         # Import AI generation functions
         try:
             from .ai_generator import generate_survey_json, strip_markdown_json
-            import llm
         except ImportError as e:
             error_result = {
                 "error": "LLM module not available",
@@ -430,13 +429,26 @@ class Views(BrowserView):
             return
 
         try:
-            # Check if default model is configured
-            model_name = llm.get_default_model()
-            if not model_name:
-                raise ValueError("No default LLM model configured. Please set one using: llm set-default MODEL_NAME")
+            # Get AI settings from registry
+            from plone.registry.interfaces import IRegistry
+            from zope.component import getUtility
+            from ..interfaces import IFormsSettings
 
-            # Generate the survey JSON using LLM
-            survey_json_str = generate_survey_json(prompt)
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFormsSettings, check=False)
+
+            # Get configured model and API key
+            model_name = getattr(settings, 'ai_model', None)
+            api_key = getattr(settings, 'ai_api_key', None)
+
+            # Strip whitespace from settings
+            if model_name:
+                model_name = model_name.strip()
+            if api_key:
+                api_key = api_key.strip()
+
+            # Generate the survey JSON using LLM with configured settings
+            survey_json_str = generate_survey_json(prompt, model_name=model_name or None, api_key=api_key or None)
 
             # Strip any markdown formatting
             cleaned_json_str = strip_markdown_json(survey_json_str)

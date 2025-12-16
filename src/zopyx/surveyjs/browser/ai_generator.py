@@ -30,19 +30,23 @@ def strip_markdown_json(text: str) -> str:
     return text.strip()
 
 
-def generate_survey_json(question: str) -> str:
+def generate_survey_json(question: str, model_name: str = None, api_key: str = None) -> str:
     """
     Generates SurveyJS JSON data based on a given question using the llm module.
 
     Args:
         question: Natural language description of the desired survey/form
+        model_name: Optional LLM model to use (e.g., 'gpt-4', 'claude-3-sonnet-20240229').
+                   If not provided, uses llm default model.
+        api_key: Optional API key for the model provider. If not provided, uses
+                environment variables or llm configured keys.
 
     Returns:
         JSON string containing the SurveyJS form definition
 
     Raises:
         ImportError: If llm module is not installed
-        ValueError: If no default LLM model is configured
+        ValueError: If no model is configured or provided
         Exception: For other LLM-related errors
     """
     # Import llm here to provide better error messages
@@ -63,24 +67,42 @@ def generate_survey_json(question: str) -> str:
     Ensure the output is valid JSON and only the JSON. Do not include any additional text or markdown formatting outside the JSON object.
     Reason about fields belonging semantically together like lastname and firstname. These fields should be placed on the same row.
     Always include a hidden field "uuid" as string with an generated UUID4 as default and a hidden field "created" as str.
+    Always use a dynamic matrix field where you can add, remote and edit rows for a given set of columns.
     """
 
-    # Get the default model
-    try:
-        model_name = llm.get_default_model()
-        if not model_name:
+    # Determine which model to use
+    if not model_name:
+        # Fall back to llm default model
+        try:
+            model_name = llm.get_default_model()
+            if not model_name:
+                raise ValueError(
+                    "No AI model configured. Please configure one in Site Setup > Forms or set a default using: llm set-default MODEL_NAME"
+                )
+        except Exception as e:
             raise ValueError(
-                "No default LLM model configured. Please set one using: llm set-default MODEL_NAME"
+                f"Failed to get AI model. Please configure one in Site Setup > Forms. Error: {e}"
             )
-    except Exception as e:
-        raise ValueError(
-            f"Failed to get default model. Please configure a model using: llm set-default MODEL_NAME. Error: {e}"
-        )
 
     # Generate the survey JSON
-    model = llm.get_model(model_name)
-    response = model.prompt(prompt)
+    try:
+        model = llm.get_model(model_name)
 
-    # Handle both callable and property versions of response.text
-    response_text = response.text() if callable(response.text) else response.text
-    return response_text
+        # Set API key if provided
+        if api_key:
+            # Try to set the key via environment for this request
+            import os
+            # Determine the env var name based on model provider
+            if 'gpt' in model_name.lower() or 'openai' in model_name.lower():
+                os.environ['OPENAI_API_KEY'] = api_key
+            elif 'claude' in model_name.lower() or 'anthropic' in model_name.lower():
+                os.environ['ANTHROPIC_API_KEY'] = api_key
+            # Add more providers as needed
+
+        response = model.prompt(prompt)
+
+        # Handle both callable and property versions of response.text
+        response_text = response.text() if callable(response.text) else response.text
+        return response_text
+    except Exception as e:
+        raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
