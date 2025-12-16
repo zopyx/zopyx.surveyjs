@@ -17,7 +17,7 @@
         <div id="results-table">
 
             <form method="get" action="">
-                <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|string:''" />
+                <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|nothing" />
                 <button type="submit">Search</button>
             </form>
 
