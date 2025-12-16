@@ -398,3 +398,145 @@ class Views(BrowserView):
     @property
     def plone_api(self):
         return plone.api
+
+    def generate_ai_form(self):
+        """Generate a SurveyJS form using AI based on user prompt"""
+
+        # Import AI generation functions
+        try:
+            from .ai_generator import generate_survey_json, strip_markdown_json
+            import llm
+        except ImportError as e:
+            error_result = {
+                "error": "LLM module not available",
+                "message": str(e)
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        # Get prompt from request
+        prompt = self.request.form.get("prompt", "").strip()
+
+        if not prompt:
+            error_result = {
+                "error": "No prompt provided",
+                "message": "Please enter a description of the form you want to generate"
+            }
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        try:
+            # Check if default model is configured
+            model_name = llm.get_default_model()
+            if not model_name:
+                raise ValueError("No default LLM model configured. Please set one using: llm set-default MODEL_NAME")
+
+            # Generate the survey JSON using LLM
+            survey_json_str = generate_survey_json(prompt)
+
+            # Strip any markdown formatting
+            cleaned_json_str = strip_markdown_json(survey_json_str)
+
+            # Validate JSON
+            survey_data = orjson.loads(cleaned_json_str)
+
+            # Return success with generated JSON
+            result = {
+                "success": True,
+                "json": survey_data
+            }
+
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+
+        except orjson.JSONDecodeError as e:
+            error_result = {
+                "error": "Invalid JSON generated",
+                "message": f"The AI generated invalid JSON: {str(e)}",
+                "raw_output": cleaned_json_str if 'cleaned_json_str' in locals() else survey_json_str
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except ValueError as e:
+            error_result = {
+                "error": "Configuration error",
+                "message": str(e)
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except Exception as e:
+            error_result = {
+                "error": "Generation failed",
+                "message": str(e)
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+    def save_ai_form(self):
+        """Save AI-generated form as a new version"""
+
+        try:
+            # Get JSON from request
+            form_json_str = self.request.form.get("form_json", "")
+
+            if not form_json_str:
+                raise ValueError("No form JSON provided")
+
+            # Parse JSON
+            json_form = orjson.loads(form_json_str)
+
+            # Validate it's a dict (basic SurveyJS validation)
+            if not isinstance(json_form, dict):
+                raise ValueError("Form JSON must be an object")
+
+            # Save as version (reuse existing pattern from save_form_json)
+            annos = IAnnotations(self.context)
+            if FORM_VERSIONS_KEY not in annos:
+                annos[FORM_VERSIONS_KEY] = OOBTree()
+
+            data = dict(
+                id=str(uuid.uuid4()),
+                created=datetime.now(timezone.utc),
+                user=plone.api.user.get_current().getId(),
+                form_json=json_form
+            )
+
+            annos[FORM_VERSIONS_KEY][data["id"]] = data
+
+            result = dict(
+                success=True,
+                message="Form saved successfully",
+                version_id=data["id"]
+            )
+
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+
+        except orjson.JSONDecodeError as e:
+            error_result = {
+                "error": "Invalid JSON",
+                "message": str(e)
+            }
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except Exception as e:
+            error_result = {
+                "error": "Save failed",
+                "message": str(e)
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))

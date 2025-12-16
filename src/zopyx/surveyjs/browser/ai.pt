@@ -1,0 +1,130 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+<metal:block fill-slot="content-core">
+
+  <!-- Inject JavaScript variables for AJAX -->
+  <script type="text/javascript"
+          tal:content="string: ACTUAL_URL='${context/absolute_url}'"
+  ></script>
+  <script type="text/javascript"
+          tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
+  ></script>
+
+  <!-- Load SurveyJS libraries for preview -->
+  <link href="https://unpkg.com/survey-core/survey-core.min.css"
+        rel="stylesheet"
+        type="text/css"
+  />
+  <script src="https://unpkg.com/survey-core/survey.core.min.js"
+          type="text/javascript"
+  ></script>
+  <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"
+          type="text/javascript"
+  ></script>
+  <script src="https://unpkg.com/survey-core/themes/index.min.js"
+          type="text/javascript"
+  ></script>
+
+  <!-- Load local CSS and JS -->
+  <link rel="stylesheet"
+        type="text/css"
+        href="++resource++zopyx.surveyjs/ai.css"
+  />
+  <script src="++resource++zopyx.surveyjs/ai.js"
+          type="text/javascript"
+  ></script>
+
+  <div class="ai-generator-container">
+
+    <!-- Header -->
+    <div class="ai-generator-header">
+      <h2 i18n:translate="">AI Form Generator</h2>
+      <div class="subtitle" i18n:translate="">
+        Describe your survey in natural language and let AI generate the form
+      </div>
+    </div>
+
+    <!-- Input Form -->
+    <div class="panel input-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="icon">💡</span>
+          <span i18n:translate="">Describe Your Survey</span>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <form id="aiGeneratorForm">
+          <div class="form-group">
+            <label for="promptInput" i18n:translate="">
+              Enter a description of the form you want to create:
+            </label>
+            <textarea
+              id="promptInput"
+              name="prompt"
+              class="form-control"
+              rows="6"
+              placeholder="Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+              required
+            ></textarea>
+            <p class="help-block" i18n:translate="">
+              Be specific about the types of questions, response formats, and any particular fields you need.
+            </p>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="generateBtn">
+            <span class="btn-text">Generate Form</span>
+            <span class="btn-spinner" style="display:none;">
+              <span class="spinner"></span> Generating...
+            </span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Error Display (hidden initially) -->
+    <div id="errorContainer" class="alert alert-danger" style="display:none;">
+      <strong>Error:</strong> <span id="errorMessage"></span>
+    </div>
+
+    <!-- Generated JSON Display (hidden initially) -->
+    <div id="jsonContainer" class="panel json-panel" style="display:none;">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="icon">📄</span>
+          <span i18n:translate="">Generated Form JSON</span>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <pre id="jsonDisplay"></pre>
+
+        <div class="action-buttons">
+          <button type="button" class="btn btn-info" id="previewBtn">
+            <span class="icon">👁️</span>
+            <span i18n:translate="">Preview Form</span>
+          </button>
+          <button type="button" class="btn btn-success" id="saveBtn">
+            <span class="icon">💾</span>
+            <span i18n:translate="">Save Form</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Preview Modal -->
+  <div id="previewModal" class="modal" style="display:none;">
+    <div class="modal-content modal-content-large">
+      <span class="close-button">&times;</span>
+      <h2 i18n:translate="">Form Preview</h2>
+      <div id="surveyContainer"></div>
+    </div>
+  </div>
+
+</metal:block>
+</html>

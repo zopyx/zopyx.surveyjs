@@ -1,0 +1,30 @@
+{
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "question1",
+          "choices": [
+            "Item 1",
+            "Item 2",
+            "Item 3"
+          ]
+        },
+        
+        {
+      "type": "dropdown",
+      "name": "reg_country",
+      "title": "Select a country",
+      "choicesByUrl": {
+        "url": "https://surveyjs.io/api/CountriesExample?region={region}",
+        "valueName": "name"
+      }}
+        
+        
+      ]
+    }
+  ],
+  "headerView": "advanced"
+}

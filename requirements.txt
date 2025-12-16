@@ -3,7 +3,6 @@ pip==25.2
 setuptools==80.9.0
 wheel==0.45.1
 zc.buildout==4.1.12
-Pillow == 12.0.0
 
 # Windows specific down here (has to be installed here, fails in buildout)
 # Dependency of zope.sendmail:
@@ -16,4 +15,3 @@ certifi ; platform_system == 'Windows'
 robotframework==6.0.2
 # robotframework >= 6.1 is only supported with robotframwork-lsp >= 1.11.0,
 # but https://github.com/robocorp/robotframework-lsp/issues/947
-

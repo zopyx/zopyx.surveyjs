@@ -62,5 +62,17 @@
    </property>
    <property name="visible">True</property>
   </object>
+  <object name="survey-ai" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">Form AI</property>
+   <property name="description" i18n:translate="">Generate forms using AI</property>
+   <property name="url_expr">string:${object_url}/@@ai</property>
+   <property name="link_target"></property>
+   <property name="icon_expr"></property>
+   <property name="available_expr">python: object.portal_type == 'Survey'</property>
+   <property name="permissions">
+    <element value="Modify portal content"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
  </object>
 </object>

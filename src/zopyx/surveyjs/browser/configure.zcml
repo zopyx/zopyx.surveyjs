@@ -140,6 +140,31 @@
     attribute="view_result_json"
   />
 
+  <!-- AI Form Generator -->
+  <browser:page
+    name="ai"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    template="ai.pt"
+  />
+
+  <browser:page
+    name="generate-ai-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="generate_ai_form"
+  />
+
+  <browser:page
+    name="save-ai-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="save_ai_form"
+  />
+
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"

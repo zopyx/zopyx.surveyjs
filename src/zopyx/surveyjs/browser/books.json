@@ -1,0 +1,584 @@
+[
+  {
+    "title": "The Silent Echo",
+    "author": "Sarah Mitchell",
+    "year": 2019,
+    "publisher": "Penguin Random House"
+  },
+  {
+    "title": "Digital Horizons",
+    "author": "James Chen",
+    "year": 2021,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Whispers of the Past",
+    "author": "Emily Rodriguez",
+    "year": 2018,
+    "publisher": "HarperCollins"
+  },
+  {
+    "title": "The Algorithm Mind",
+    "author": "Michael Thompson",
+    "year": 2020,
+    "publisher": "MIT Press"
+  },
+  {
+    "title": "Beneath the Surface",
+    "author": "Jennifer Walsh",
+    "year": 2017,
+    "publisher": "Simon & Schuster"
+  },
+  {
+    "title": "Code and Chaos",
+    "author": "David Kumar",
+    "year": 2022,
+    "publisher": "Addison-Wesley"
+  },
+  {
+    "title": "The Last Garden",
+    "author": "Maria Santos",
+    "year": 2016,
+    "publisher": "Hachette Book Group"
+  },
+  {
+    "title": "Quantum Dreams",
+    "author": "Robert Anderson",
+    "year": 2023,
+    "publisher": "Springer"
+  },
+  {
+    "title": "Shadows at Dawn",
+    "author": "Lisa Brown",
+    "year": 2015,
+    "publisher": "Macmillan Publishers"
+  },
+  {
+    "title": "The Innovation Paradox",
+    "author": "Thomas Lee",
+    "year": 2021,
+    "publisher": "Harvard Business Review Press"
+  },
+  {
+    "title": "Crimson Tide",
+    "author": "Amanda Foster",
+    "year": 2019,
+    "publisher": "Tor Books"
+  },
+  {
+    "title": "Neural Networks Explained",
+    "author": "Dr. Patricia Williams",
+    "year": 2020,
+    "publisher": "Wiley"
+  },
+  {
+    "title": "The Forgotten City",
+    "author": "Marcus Johnson",
+    "year": 2018,
+    "publisher": "Del Rey"
+  },
+  {
+    "title": "Data Science Fundamentals",
+    "author": "Kevin Zhang",
+    "year": 2022,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "Moonlight Sonata",
+    "author": "Catherine Moore",
+    "year": 2017,
+    "publisher": "Bloomsbury"
+  },
+  {
+    "title": "The Blockchain Revolution",
+    "author": "Steven Park",
+    "year": 2021,
+    "publisher": "McGraw-Hill"
+  },
+  {
+    "title": "Echoes of Tomorrow",
+    "author": "Rachel Green",
+    "year": 2019,
+    "publisher": "Scholastic"
+  },
+  {
+    "title": "Machine Learning Mastery",
+    "author": "Andrew Martinez",
+    "year": 2023,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "The Desert Wind",
+    "author": "Daniel White",
+    "year": 2016,
+    "publisher": "Vintage Books"
+  },
+  {
+    "title": "Cloud Computing Essentials",
+    "author": "Susan Taylor",
+    "year": 2020,
+    "publisher": "Apress"
+  },
+  {
+    "title": "The Crimson Crown",
+    "author": "Victoria Black",
+    "year": 2018,
+    "publisher": "Orbit"
+  },
+  {
+    "title": "Python for Beginners",
+    "author": "Mark Davidson",
+    "year": 2021,
+    "publisher": "No Starch Press"
+  },
+  {
+    "title": "Midnight in Paris",
+    "author": "Sophie Laurent",
+    "year": 2017,
+    "publisher": "Europa Editions"
+  },
+  {
+    "title": "The AI Companion",
+    "author": "Gregory Nelson",
+    "year": 2022,
+    "publisher": "Cambridge University Press"
+  },
+  {
+    "title": "River of Stars",
+    "author": "Hannah Kim",
+    "year": 2019,
+    "publisher": "Ace Books"
+  },
+  {
+    "title": "Web Development Pro",
+    "author": "Christopher Evans",
+    "year": 2023,
+    "publisher": "Pragmatic Bookshelf"
+  },
+  {
+    "title": "The Silent Storm",
+    "author": "Nicole Adams",
+    "year": 2015,
+    "publisher": "Ballantine Books"
+  },
+  {
+    "title": "Cybersecurity Handbook",
+    "author": "Richard Cooper",
+    "year": 2020,
+    "publisher": "Sybex"
+  },
+  {
+    "title": "Beyond the Horizon",
+    "author": "Jessica Turner",
+    "year": 2018,
+    "publisher": "DAW Books"
+  },
+  {
+    "title": "JavaScript Secrets",
+    "author": "Brian Murphy",
+    "year": 2021,
+    "publisher": "SitePoint"
+  },
+  {
+    "title": "The Glass Castle",
+    "author": "Elizabeth Hart",
+    "year": 2016,
+    "publisher": "Scribner"
+  },
+  {
+    "title": "Database Design Patterns",
+    "author": "William Scott",
+    "year": 2022,
+    "publisher": "Addison-Wesley Professional"
+  },
+  {
+    "title": "Twilight Memories",
+    "author": "Olivia Bennett",
+    "year": 2019,
+    "publisher": "Berkley"
+  },
+  {
+    "title": "The Docker Book",
+    "author": "Jonathan Hughes",
+    "year": 2023,
+    "publisher": "Independently Published"
+  },
+  {
+    "title": "Autumn Leaves",
+    "author": "Matthew Price",
+    "year": 2017,
+    "publisher": "Little, Brown"
+  },
+  {
+    "title": "React Complete Guide",
+    "author": "Angela Reed",
+    "year": 2021,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "The Northern Lights",
+    "author": "Laura Collins",
+    "year": 2018,
+    "publisher": "Bantam"
+  },
+  {
+    "title": "Microservices Architecture",
+    "author": "Peter Richardson",
+    "year": 2020,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Crimson Shadows",
+    "author": "Rebecca Morgan",
+    "year": 2019,
+    "publisher": "Grand Central Publishing"
+  },
+  {
+    "title": "The Linux Command Line",
+    "author": "Douglas Ward",
+    "year": 2022,
+    "publisher": "No Starch Press"
+  },
+  {
+    "title": "Starlight Dreams",
+    "author": "Samantha Gray",
+    "year": 2016,
+    "publisher": "Baen Books"
+  },
+  {
+    "title": "Vue.js in Action",
+    "author": "Timothy Bell",
+    "year": 2021,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "The Amber Throne",
+    "author": "Christine Parker",
+    "year": 2018,
+    "publisher": "Tor Books"
+  },
+  {
+    "title": "Kubernetes Patterns",
+    "author": "Nathan Fisher",
+    "year": 2023,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Ocean's Whisper",
+    "author": "Melissa Sanders",
+    "year": 2017,
+    "publisher": "Ace Books"
+  },
+  {
+    "title": "Clean Code Principles",
+    "author": "George Russell",
+    "year": 2020,
+    "publisher": "Prentice Hall"
+  },
+  {
+    "title": "The Silver Sword",
+    "author": "Patricia Brooks",
+    "year": 2019,
+    "publisher": "Del Rey"
+  },
+  {
+    "title": "DevOps Essentials",
+    "author": "Kenneth Wright",
+    "year": 2021,
+    "publisher": "Wiley"
+  },
+  {
+    "title": "Moonrise Kingdom",
+    "author": "Diana Powell",
+    "year": 2015,
+    "publisher": "Random House"
+  },
+  {
+    "title": "AWS Solutions Guide",
+    "author": "Brandon Hayes",
+    "year": 2022,
+    "publisher": "Addison-Wesley"
+  },
+  {
+    "title": "The Emerald Sea",
+    "author": "Caroline Ross",
+    "year": 2018,
+    "publisher": "Orbit"
+  },
+  {
+    "title": "TypeScript Deep Dive",
+    "author": "Joshua King",
+    "year": 2023,
+    "publisher": "Apress"
+  },
+  {
+    "title": "Winter's Tale",
+    "author": "Margaret Long",
+    "year": 2016,
+    "publisher": "Penguin Books"
+  },
+  {
+    "title": "API Design Patterns",
+    "author": "Albert Morris",
+    "year": 2021,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "The Crystal Tower",
+    "author": "Stephanie Carter",
+    "year": 2019,
+    "publisher": "DAW Books"
+  },
+  {
+    "title": "Git Mastery",
+    "author": "Ryan Torres",
+    "year": 2020,
+    "publisher": "Pragmatic Bookshelf"
+  },
+  {
+    "title": "Sunset Boulevard",
+    "author": "Michelle Roberts",
+    "year": 2017,
+    "publisher": "St. Martin's Press"
+  },
+  {
+    "title": "Agile Development Guide",
+    "author": "Edward Phillips",
+    "year": 2022,
+    "publisher": "Addison-Wesley Professional"
+  },
+  {
+    "title": "The Sapphire Crown",
+    "author": "Kimberly Watson",
+    "year": 2018,
+    "publisher": "Tor Books"
+  },
+  {
+    "title": "Node.js Best Practices",
+    "author": "Charles Stewart",
+    "year": 2023,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "Valley of Shadows",
+    "author": "Brandon Cook",
+    "year": 2016,
+    "publisher": "Ace Books"
+  },
+  {
+    "title": "Software Testing Handbook",
+    "author": "Dorothy Rivera",
+    "year": 2021,
+    "publisher": "Wiley"
+  },
+  {
+    "title": "The Golden Gate",
+    "author": "Patrick Hughes",
+    "year": 2019,
+    "publisher": "Ballantine Books"
+  },
+  {
+    "title": "GraphQL in Practice",
+    "author": "Jeffrey Coleman",
+    "year": 2020,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Crimson Dawn",
+    "author": "Heather Mitchell",
+    "year": 2017,
+    "publisher": "Del Rey"
+  },
+  {
+    "title": "Redis Essentials",
+    "author": "Dennis Perry",
+    "year": 2022,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "The Midnight Garden",
+    "author": "Sandra Powell",
+    "year": 2018,
+    "publisher": "Bantam"
+  },
+  {
+    "title": "MongoDB Complete Guide",
+    "author": "Gary Barnes",
+    "year": 2021,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "The Obsidian Blade",
+    "author": "Karen Henderson",
+    "year": 2019,
+    "publisher": "Orbit"
+  },
+  {
+    "title": "Terraform Up and Running",
+    "author": "Larry Foster",
+    "year": 2023,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Starfall Chronicles",
+    "author": "Nancy Griffin",
+    "year": 2015,
+    "publisher": "Baen Books"
+  },
+  {
+    "title": "PostgreSQL Mastery",
+    "author": "Walter Jenkins",
+    "year": 2020,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "The Ruby Pendant",
+    "author": "Deborah Hayes",
+    "year": 2018,
+    "publisher": "Tor Books"
+  },
+  {
+    "title": "Flutter Development",
+    "author": "Keith Washington",
+    "year": 2022,
+    "publisher": "Apress"
+  },
+  {
+    "title": "Thunder Mountain",
+    "author": "Sharon Butler",
+    "year": 2016,
+    "publisher": "Ace Books"
+  },
+  {
+    "title": "Rust Programming Language",
+    "author": "Roy Barnes",
+    "year": 2021,
+    "publisher": "No Starch Press"
+  },
+  {
+    "title": "The Violet Storm",
+    "author": "Beverly Cox",
+    "year": 2019,
+    "publisher": "DAW Books"
+  },
+  {
+    "title": "Spring Boot in Action",
+    "author": "Eugene Ross",
+    "year": 2023,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "Moonlit Shores",
+    "author": "Judith Peterson",
+    "year": 2017,
+    "publisher": "Del Rey"
+  },
+  {
+    "title": "Go Programming Patterns",
+    "author": "Frank Coleman",
+    "year": 2020,
+    "publisher": "Addison-Wesley"
+  },
+  {
+    "title": "The Bronze Shield",
+    "author": "Gloria Watson",
+    "year": 2018,
+    "publisher": "Orbit"
+  },
+  {
+    "title": "Elasticsearch Fundamentals",
+    "author": "Henry Reynolds",
+    "year": 2022,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Crystal Waters",
+    "author": "Cheryl Murphy",
+    "year": 2016,
+    "publisher": "Bantam"
+  },
+  {
+    "title": "Angular Complete Reference",
+    "author": "Arthur Sanders",
+    "year": 2021,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "The Ivory Tower",
+    "author": "Tammy Russell",
+    "year": 2019,
+    "publisher": "Tor Books"
+  },
+  {
+    "title": "Prometheus Monitoring",
+    "author": "Ralph Richardson",
+    "year": 2023,
+    "publisher": "O'Reilly Media"
+  },
+  {
+    "title": "Skyward Bound",
+    "author": "Alice Bennett",
+    "year": 2017,
+    "publisher": "Ace Books"
+  },
+  {
+    "title": "Swift Programming Guide",
+    "author": "Howard Pierce",
+    "year": 2020,
+    "publisher": "Apress"
+  },
+  {
+    "title": "The Platinum Dagger",
+    "author": "Frances Long",
+    "year": 2018,
+    "publisher": "Del Rey"
+  },
+  {
+    "title": "Jenkins Automation",
+    "author": "Russell Howard",
+    "year": 2022,
+    "publisher": "Packt Publishing"
+  },
+  {
+    "title": "Eternal Flame",
+    "author": "Paula Alexander",
+    "year": 2019,
+    "publisher": "Orbit"
+  },
+  {
+    "title": "Kafka Streams in Practice",
+    "author": "Wayne Griffin",
+    "year": 2021,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "The Jade Palace",
+    "author": "Denise Wood",
+    "year": 2015,
+    "publisher": "Tor Books"
+  },
+  {
+    "title": "Kotlin for Android",
+    "author": "Louis Hunter",
+    "year": 2023,
+    "publisher": "Pragmatic Bookshelf"
+  },
+  {
+    "title": "Northern Quest",
+    "author": "Ruby West",
+    "year": 2016,
+    "publisher": "Baen Books"
+  },
+  {
+    "title": "Cloud Native Patterns",
+    "author": "Jack Mason",
+    "year": 2020,
+    "publisher": "Manning Publications"
+  },
+  {
+    "title": "The Onyx Ring",
+    "author": "Annie Foster",
+    "year": 2018,
+    "publisher": "DAW Books"
+  }
+]
