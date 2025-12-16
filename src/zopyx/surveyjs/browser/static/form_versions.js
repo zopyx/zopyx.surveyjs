@@ -42,19 +42,44 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // Handle modal close for non-jQuery fallback
-  var closeButtons = document.querySelectorAll('#jsonViewerModal .close, #jsonViewerModal [data-dismiss="modal"]');
-  closeButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
+  // Fallback for environments where jQuery/Bootstrap JS is not available
+  if (typeof jQuery === 'undefined') {
+
+    // Centralized function to close the modal
+    function closeModalFallback() {
       var modal = document.getElementById('jsonViewerModal');
-      modal.style.display = 'none';
-      modal.classList.remove('in');
-      // Remove backdrop if exists
-      var backdrop = document.getElementById('modal-backdrop');
-      if (backdrop) {
-        backdrop.parentNode.removeChild(backdrop);
+      // Only act if the modal is open (has 'in' class)
+      if (modal.classList.contains('in')) {
+        modal.style.display = 'none';
+        modal.classList.remove('in');
+        var backdrop = document.getElementById('modal-backdrop');
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop);
+        }
+      }
+    }
+
+    // Handle modal close on button click or backdrop click using event delegation
+    document.addEventListener('click', function(e) {
+      
+      var button = e.target.closest('[data-dismiss="modal"]');
+      if (button && button.closest('#jsonViewerModal')) {
+        e.preventDefault();
+        closeModalFallback();
+        return;
+      }
+
+      if (e.target.matches('#modal-backdrop')) {
+        e.preventDefault();
+        closeModalFallback();
       }
     });
-  });
 
+    // Handle closing modal with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeModalFallback();
+      }
+    });
+  }
 });
