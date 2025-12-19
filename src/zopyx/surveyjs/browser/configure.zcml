@@ -28,6 +28,13 @@
   />
 
   <browser:page
+    name="viewer-embed"
+    for="*"
+    permission="zope2.View"
+    template="viewer_embed.pt"
+  />
+
+  <browser:page
     name="editor"
     for="*"
     permission="cmf.ManagePortal"
