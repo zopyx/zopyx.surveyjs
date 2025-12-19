@@ -31,7 +31,7 @@
     name="viewer-embed"
     for="*"
     permission="zope2.View"
-    template="viewer_embed.pt"
+    class=".views.EmbedViewer"
   />
 
   <browser:page

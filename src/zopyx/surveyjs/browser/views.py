@@ -1,6 +1,7 @@
 from BTrees.OOBTree import OOBTree
 from datetime import datetime, timezone
 from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
 import plone.api
 
@@ -392,6 +393,12 @@ class Views(BrowserView):
     def plone_api(self):
         return plone.api
 
+    @property
+    def embedding_allowed(self):
+        """Check if embedding is allowed for this survey"""
+        return getattr(self.context, 'allow_embedding', False)
+
+
     def generate_ai_form(self):
         """Generate a SurveyJS form using AI based on user prompt"""
 
@@ -643,3 +650,29 @@ class Views(BrowserView):
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
+
+
+class EmbedViewer(Views):
+    """View for embedding surveys in iframes"""
+
+    index = ViewPageTemplateFile('viewer_embed.pt')
+
+    def __call__(self):
+        """Set appropriate headers for iframe embedding"""
+        # Check if embedding is allowed
+        if self.embedding_allowed:
+            # Remove X-Frame-Options to allow iframe embedding
+            # Note: Setting to empty string removes the header
+            self.request.response.setHeader('X-Frame-Options', '')
+
+            # Use Content-Security-Policy frame-ancestors instead
+            # This is more modern and flexible
+            self.request.response.setHeader('Content-Security-Policy', "frame-ancestors *")
+
+            # Set CORS headers to allow cross-origin requests
+            self.request.response.setHeader('Access-Control-Allow-Origin', '*')
+            self.request.response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+            self.request.response.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
+        # Render the template
+        return self.index()

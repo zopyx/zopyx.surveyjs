@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SurveyJS Embed Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #007bff;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      color: #555;
+      margin-top: 40px;
+    }
+
+    .example {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+
+    pre {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 12px;
+      margin: 15px 0;
+    }
+
+    .embed-container {
+      margin: 20px 0;
+      border: 2px dashed #dee2e6;
+      border-radius: 4px;
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔧 SurveyJS Embed API - Examples</h1>
+
+  <div class="note">
+    <strong>⚠️ Note:</strong> Replace <code>https://your-plone-site.com</code> with your actual Plone site URL
+    and <code>/survey1</code> with your actual survey path.
+  </div>
+
+  <!-- Example 1: Basic Embed -->
+  <div class="example">
+    <h2>Example 1: Basic Embed (Automatic)</h2>
+    <p>The simplest way to embed a survey. Just include the script and add a div with the survey URL.</p>
+
+    <div class="code-block">
+      <pre>&lt;!-- Include the embed script --&gt;
+&lt;script src="https://your-plone-site.com/++resource++zopyx.surveyjs/embed.js"&gt;&lt;/script&gt;
+
+&lt;!-- Add container with survey URL --&gt;
+&lt;div class="surveyjs-embed"
+     data-survey-url="https://your-plone-site.com/survey1"&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <p><strong>Result:</strong></p>
+    <div class="embed-container surveyjs-embed"
+         data-survey-url="https://your-plone-site.com/survey1">
+    </div>
+  </div>
+
+  <!-- Example 2: Custom Size -->
+  <div class="example">
+    <h2>Example 2: Custom Height and Width</h2>
+    <p>Specify custom dimensions for the embedded survey.</p>
+
+    <div class="code-block">
+      <pre>&lt;div class="surveyjs-embed"
+     data-survey-url="https://your-plone-site.com/survey1"
+     data-height="800px"
+     data-width="100%"&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <p><strong>Result:</strong></p>
+    <div class="embed-container surveyjs-embed"
+         data-survey-url="https://your-plone-site.com/survey1"
+         data-height="400px">
+    </div>
+  </div>
+
+  <!-- Example 3: Auto-Resize -->
+  <div class="example">
+    <h2>Example 3: Auto-Resize</h2>
+    <p>Enable automatic height adjustment based on survey content.</p>
+
+    <div class="code-block">
+      <pre>&lt;div class="surveyjs-embed"
+     data-survey-url="https://your-plone-site.com/survey1"
+     data-auto-resize="true"&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <p><strong>Result:</strong></p>
+    <div class="embed-container surveyjs-embed"
+         data-survey-url="https://your-plone-site.com/survey1"
+         data-auto-resize="true">
+    </div>
+  </div>
+
+  <!-- Example 4: Programmatic Embed -->
+  <div class="example">
+    <h2>Example 4: Programmatic Embed (JavaScript API)</h2>
+    <p>Embed surveys dynamically using JavaScript.</p>
+
+    <div class="code-block">
+      <pre>&lt;script src="https://your-plone-site.com/++resource++zopyx.surveyjs/embed.js"&gt;&lt;/script&gt;
+
+&lt;div id="my-survey-container"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  // Embed using the JavaScript API
+  SurveyJSEmbed.embed('#my-survey-container', {
+    surveyUrl: 'https://your-plone-site.com/survey1',
+    height: '600px',
+    width: '100%',
+    autoResize: false
+  });
+&lt;/script&gt;</pre>
+    </div>
+
+    <p><strong>Result:</strong></p>
+    <div id="programmatic-example" class="embed-container"></div>
+
+    <button onclick="embedProgrammatically()" style="margin-top: 10px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Click to Embed Survey
+    </button>
+  </div>
+
+  <!-- Example 5: Multiple Surveys -->
+  <div class="example">
+    <h2>Example 5: Multiple Surveys on One Page</h2>
+    <p>Embed multiple surveys on the same page.</p>
+
+    <div class="code-block">
+      <pre>&lt;!-- First survey --&gt;
+&lt;div class="surveyjs-embed"
+     data-survey-url="https://your-plone-site.com/survey1"
+     data-height="500px"&gt;
+&lt;/div&gt;
+
+&lt;!-- Second survey --&gt;
+&lt;div class="surveyjs-embed"
+     data-survey-url="https://your-plone-site.com/survey2"
+     data-height="500px"&gt;
+&lt;/div&gt;</pre>
+    </div>
+  </div>
+
+  <!-- API Documentation -->
+  <div class="example">
+    <h2>📚 API Reference</h2>
+
+    <h3>Data Attributes</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="background: #f8f9fa;">
+          <th style="padding: 10px; text-align: left; border: 1px solid #dee2e6;">Attribute</th>
+          <th style="padding: 10px; text-align: left; border: 1px solid #dee2e6;">Type</th>
+          <th style="padding: 10px; text-align: left; border: 1px solid #dee2e6;">Default</th>
+          <th style="padding: 10px; text-align: left; border: 1px solid #dee2e6;">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #dee2e6;"><code>data-survey-url</code></td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">String</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;"><em>Required</em></td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">Full URL to the survey</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #dee2e6;"><code>data-height</code></td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">String</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">600px</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">Height of the iframe</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #dee2e6;"><code>data-width</code></td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">String</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">100%</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">Width of the iframe</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #dee2e6;"><code>data-auto-resize</code></td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">Boolean</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">false</td>
+          <td style="padding: 10px; border: 1px solid #dee2e6;">Auto-resize iframe to content height</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 30px;">JavaScript API</h3>
+    <div class="code-block">
+      <pre>// Global object
+window.SurveyJSEmbed
+
+// Methods
+SurveyJSEmbed.init()                    // Re-initialize all embeds
+SurveyJSEmbed.embed(element, options)   // Embed into specific element
+
+// Options object
+{
+  surveyUrl: 'https://...',    // Required: Survey URL
+  height: '600px',             // Optional: Height
+  width: '100%',               // Optional: Width
+  autoResize: false            // Optional: Auto-resize
+}</pre>
+    </div>
+  </div>
+
+  <!-- Troubleshooting -->
+  <div class="example">
+    <h2>🔍 Troubleshooting</h2>
+
+    <h3>Survey Not Loading?</h3>
+    <ul>
+      <li>Verify the survey URL is correct and accessible</li>
+      <li>Check that "Allow Embedding" is enabled in the survey settings</li>
+      <li>Open browser developer console to see error messages</li>
+      <li>Ensure the embed script URL is correct</li>
+    </ul>
+
+    <h3>CORS Issues?</h3>
+    <ul>
+      <li>The survey must have "Allow Embedding" enabled</li>
+      <li>Some browsers block iframes from different domains</li>
+      <li>Check browser console for CORS-related errors</li>
+    </ul>
+
+    <h3>Height Issues?</h3>
+    <ul>
+      <li>Try using <code>data-auto-resize="true"</code></li>
+      <li>Set a fixed height like <code>data-height="800px"</code></li>
+      <li>Ensure the container div has enough space</li>
+    </ul>
+  </div>
+
+  <!-- Include the actual embed script -->
+  <script src="embed.js"></script>
+
+  <script>
+    function embedProgrammatically() {
+      SurveyJSEmbed.embed('#programmatic-example', {
+        surveyUrl: 'https://your-plone-site.com/survey1',
+        height: '600px',
+        width: '100%',
+        autoResize: false
+      });
+    }
+  </script>
+</body>
+</html>

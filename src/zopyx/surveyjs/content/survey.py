@@ -52,6 +52,13 @@ class ISurvey(model.Schema):
         required=False,
     )
 
+    allow_embedding = schema.Bool(
+        title=_("Allow Embedding"),
+        description=_("Allow this survey to be embedded in an iframe on external websites"),
+        required=False,
+        default=False,
+    )
+
 
 @implementer(ISurvey)
 class Survey(Item):
