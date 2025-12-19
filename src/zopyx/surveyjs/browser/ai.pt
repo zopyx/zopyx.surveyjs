@@ -15,6 +15,11 @@
           tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
   ></script>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <!-- Load SurveyJS libraries for preview -->
   <link href="https://unpkg.com/survey-core/survey-core.min.css"
         rel="stylesheet"
@@ -49,70 +54,68 @@
       </div>
     </div>
 
-    <!-- Input Form -->
-    <div class="panel input-panel">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <span class="icon">💡</span>
-          <span i18n:translate="">Describe Your Survey</span>
-        </h3>
-      </div>
-      <div class="panel-body">
-        <form id="aiGeneratorForm">
-          <div class="form-group">
-            <label for="promptInput" i18n:translate="">
-              Enter a description of the form you want to create:
-            </label>
-            <textarea
-              id="promptInput"
-              name="prompt"
-              class="form-control"
-              rows="6"
-              placeholder="Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
-              required
-            ></textarea>
-            <p class="help-block" i18n:translate="">
-              Be specific about the types of questions, response formats, and any particular fields you need.
-            </p>
-          </div>
+    <div class="two-column-layout">
+      <!-- Input Form -->
+      <div class="panel input-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <span i18n:translate="">Describe Your Survey</span>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <form id="aiGeneratorForm">
+            <div class="form-group">
+              <label for="promptInput" i18n:translate="">
+                Enter a description of the form you want to create:
+              </label>
+              <textarea
+                id="promptInput"
+                name="prompt"
+                class="form-control"
+                rows="6"
+                placeholder="Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+                required
+              ></textarea>
+              <p class="help-block" i18n:translate="">
+                Be specific about the types of questions, response formats, and any particular fields you need.
+              </p>
+            </div>
 
-          <button type="submit" class="btn btn-primary" id="generateBtn">
-            <span class="btn-text">Generate Form</span>
-            <span class="btn-spinner" style="display:none;">
-              <span class="spinner"></span> Generating...
-            </span>
-          </button>
-        </form>
+            <button type="submit" class="btn btn-primary" id="generateBtn">
+              <span class="btn-text">Generate Form</span>
+              <span class="btn-spinner" style="display:none;">
+                <span class="spinner"></span> Generating...
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Generated JSON Display (hidden initially) -->
+      <div id="jsonContainer" class="panel json-panel" style="display:none;">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <span i18n:translate="">Generated Form JSON</span>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <pre id="jsonDisplay"></pre>
+
+          <div class="action-buttons">
+            <button type="button" class="btn btn-info" id="previewBtn">
+              <span i18n:translate="">Preview Form</span>
+            </button>
+            <button type="button" class="btn btn-success" id="saveBtn">
+              <span i18n:translate="">Save Form</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Error Display (hidden initially) -->
     <div id="errorContainer" class="alert alert-danger" style="display:none;">
       <strong>Error:</strong> <span id="errorMessage"></span>
-    </div>
-
-    <!-- Generated JSON Display (hidden initially) -->
-    <div id="jsonContainer" class="panel json-panel" style="display:none;">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <span class="icon">📄</span>
-          <span i18n:translate="">Generated Form JSON</span>
-        </h3>
-      </div>
-      <div class="panel-body">
-        <pre id="jsonDisplay"></pre>
-
-        <div class="action-buttons">
-          <button type="button" class="btn btn-info" id="previewBtn">
-            <span class="icon">👁️</span>
-            <span i18n:translate="">Preview Form</span>
-          </button>
-          <button type="button" class="btn btn-success" id="saveBtn">
-            <span class="icon">💾</span>
-            <span i18n:translate="">Save Form</span>
-          </button>
-        </div>
-      </div>
     </div>
 
   </div>

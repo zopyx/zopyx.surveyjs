@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Store generated JSON
   let generatedJson = null;
+  let survey = null;
 
   // Form submission handler
   form.addEventListener("submit", function(e) {
@@ -82,19 +83,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Clear previous survey if exists
+    if (survey) {
+        if (typeof survey.clear === 'function') {
+            survey.clear();
+        }
+        survey = null;
+    }
+
+    // Completely clear and recreate the container with a unique ID
     surveyContainer.innerHTML = "";
+    const renderTarget = document.createElement("div");
+    renderTarget.id = "surveyRenderTarget_" + Date.now();
+    surveyContainer.appendChild(renderTarget);
 
     try {
-      // Create survey instance
-      const survey = new Survey.Model(generatedJson);
-      survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
+      // Create fresh survey instance
+      survey = new Survey.Model(generatedJson);
 
       // Disable completion (preview only)
       survey.showCompleteButton = false;
       survey.showPreviewBeforeComplete = "showAnsweredQuestions";
 
-      // Render survey
-      survey.render(surveyContainer);
+      // Render survey to the fresh container
+      survey.render(renderTarget);
 
       // Show modal
       modal.style.display = "block";
@@ -159,11 +170,21 @@ document.addEventListener("DOMContentLoaded", function() {
   // Close modal handlers
   closeButton.addEventListener("click", function() {
     modal.style.display = "none";
+    if (survey && typeof survey.destroy === 'function') {
+        survey.destroy();
+        survey = null;
+    }
+    surveyContainer.innerHTML = "";
   });
 
   window.addEventListener("click", function(event) {
     if (event.target === modal) {
       modal.style.display = "none";
+      if (survey && typeof survey.destroy === 'function') {
+          survey.destroy();
+          survey = null;
+      }
+      surveyContainer.innerHTML = "";
     }
   });
 
