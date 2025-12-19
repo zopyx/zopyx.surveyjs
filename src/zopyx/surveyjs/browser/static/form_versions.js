@@ -85,6 +85,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
+  // Close preview modal with ESC key
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && modal.style.display === "block") {
+      modal.style.display = "none";
+    }
+  });
+
   // Fallback for environments where jQuery/Bootstrap JS is not available for JSON viewer
   if (typeof jQuery === 'undefined') {
     function closeJsonModalFallback() {

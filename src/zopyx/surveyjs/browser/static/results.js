@@ -37,6 +37,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Close modals with ESC key
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            if (modal.style.display === "block") {
+                modal.style.display = "none";
+            }
+            if (detailsModal.style.display === "block") {
+                detailsModal.style.display = "none";
+            }
+        }
+    });
+
     // View Details button handlers
     detailsButtons.forEach(button => {
         button.addEventListener("click", function () {

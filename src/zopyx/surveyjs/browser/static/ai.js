@@ -365,6 +365,23 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
+  // Close modals with ESC key
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      if (previewFormModal.style.display === "block") {
+        previewFormModal.style.display = "none";
+        if (survey && typeof survey.destroy === 'function') {
+          survey.destroy();
+          survey = null;
+        }
+        surveyContainer.innerHTML = "";
+      }
+      if (previewJsonModal.style.display === "block") {
+        previewJsonModal.style.display = "none";
+      }
+    }
+  });
+
   // UI Helper Functions
   function updateUIAfterGeneration() {
     // Change panel title
