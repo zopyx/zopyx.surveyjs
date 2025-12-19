@@ -165,6 +165,14 @@
     attribute="save_ai_form"
   />
 
+  <browser:page
+    name="refine-ai-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="refine_ai_form"
+  />
+
   <!-- Forms Settings Control Panel -->
   <browser:page
     name="forms-settings"

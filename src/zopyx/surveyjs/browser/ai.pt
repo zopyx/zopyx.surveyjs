@@ -54,55 +54,69 @@
       </div>
     </div>
 
-    <div class="two-column-layout">
-      <!-- Input Form -->
-      <div class="panel input-panel">
+    <!-- Refinement Mode Container (always visible) -->
+    <div class="refinement-mode-container">
+
+      <!-- Left: History Timeline -->
+      <div class="panel history-panel">
         <div class="panel-heading">
           <h3 class="panel-title">
-            <span i18n:translate="">Describe Your Survey</span>
+            <span i18n:translate="">Refinement History</span>
           </h3>
         </div>
         <div class="panel-body">
-          <form id="aiGeneratorForm">
+          <div id="historyTimeline" class="history-timeline"></div>
+        </div>
+      </div>
+
+      <!-- Right: Form Input and Actions -->
+      <div class="panel refinement-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <span id="formPanelTitle" i18n:translate="">Describe Your Form</span>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="current-state-indicator" id="versionIndicator" style="display:none;">
+            <strong i18n:translate="">Current Version:</strong> <span id="currentVersionInfo"></span>
+          </div>
+          <form id="refinementForm">
             <div class="form-group">
-              <label for="promptInput" i18n:translate="">
-                Enter a description of the form you want to create:
+              <label for="refinementInput" id="formInputLabel" i18n:translate="">
+                Describe the form you want to create:
               </label>
               <textarea
-                id="promptInput"
-                name="prompt"
+                id="refinementInput"
+                name="refinement"
                 class="form-control"
                 rows="6"
                 placeholder="Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
                 required
               ></textarea>
-              <p class="help-block" i18n:translate="">
+              <p class="help-block" id="formInputHelp" i18n:translate="">
                 Be specific about the types of questions, response formats, and any particular fields you need.
               </p>
             </div>
 
-            <button type="submit" class="btn btn-primary" id="generateBtn">
-              <span class="btn-text">Generate Form</span>
-              <span class="btn-spinner" style="display:none;">
-                <span class="spinner"></span> Generating...
-              </span>
-            </button>
+            <div class="button-group">
+              <button type="submit" class="btn btn-primary" id="refineBtn">
+                <span class="btn-text" id="refineBtnText" i18n:translate="">Generate Form</span>
+                <span class="btn-spinner" style="display:none;">
+                  <span class="spinner"></span> <span id="refineBtnSpinnerText" i18n:translate="">Generating...</span>
+                </span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="startOverBtn" style="display:none;">
+                <span i18n:translate="">Start Over</span>
+              </button>
+            </div>
           </form>
-        </div>
-      </div>
 
-      <!-- Generated JSON Display (hidden initially) -->
-      <div id="jsonContainer" class="panel json-panel" style="display:none;">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <span i18n:translate="">Generated Form JSON</span>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <pre id="jsonDisplay"></pre>
-
-          <div class="action-buttons">
-            <button type="button" class="btn btn-info" id="previewBtn">
+          <!-- Action Buttons (shown after form is generated) -->
+          <div class="action-buttons" id="formActionButtons" style="display:none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+            <button type="button" class="btn btn-info" id="previewJsonBtn">
+              <span i18n:translate="">Preview JSON</span>
+            </button>
+            <button type="button" class="btn btn-info" id="previewFormBtn">
               <span i18n:translate="">Preview Form</span>
             </button>
             <button type="button" class="btn btn-success" id="saveBtn">
@@ -111,6 +125,7 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- Error Display (hidden initially) -->
@@ -120,12 +135,23 @@
 
   </div>
 
-  <!-- Preview Modal -->
-  <div id="previewModal" class="modal" style="display:none;">
+  <!-- Form Preview Modal -->
+  <div id="previewFormModal" class="modal" style="display:none;">
     <div class="modal-content modal-content-large">
-      <span class="close-button">&times;</span>
+      <span class="close-button close-form-preview">&times;</span>
       <h2 i18n:translate="">Form Preview</h2>
       <div id="surveyContainer"></div>
+    </div>
+  </div>
+
+  <!-- JSON Preview Modal -->
+  <div id="previewJsonModal" class="modal" style="display:none;">
+    <div class="modal-content modal-content-large">
+      <span class="close-button close-json-preview">&times;</span>
+      <h2 i18n:translate="">Form JSON</h2>
+      <div class="json-modal-body">
+        <pre id="jsonModalDisplay"></pre>
+      </div>
     </div>
   </div>
 

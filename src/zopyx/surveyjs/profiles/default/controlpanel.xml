@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="zopyx.surveyjs">
+
+  <configlet
+    title="Forms"
+    action_id="zopyx.surveyjs.forms"
+    appId="zopyx.surveyjs.forms"
+    category="Products"
+    condition_expr=""
+    icon_expr=""
+    url_expr="string:${portal_url}/@@forms-settings"
+    visible="True"
+    i18n:attributes="title">
+    <permission>Manage portal</permission>
+  </configlet>
+
+</object>

@@ -529,3 +529,117 @@ class Views(BrowserView):
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
+
+    def refine_ai_form(self):
+        """Refine an existing SurveyJS form based on user feedback"""
+
+        # Import AI generation functions
+        try:
+            from .ai_generator import refine_survey_json, strip_markdown_json
+        except ImportError as e:
+            error_result = {"error": "LLM module not available", "message": str(e)}
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        # Get current JSON and refinement prompt from request
+        current_json_str = self.request.form.get("current_json", "").strip()
+        refinement_prompt = self.request.form.get("refinement_prompt", "").strip()
+
+        if not current_json_str:
+            error_result = {
+                "error": "No current form provided",
+                "message": "Current form JSON is required for refinement",
+            }
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        if not refinement_prompt:
+            error_result = {
+                "error": "No refinement prompt provided",
+                "message": "Please enter a description of the changes you want to make",
+            }
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        try:
+            # Parse current JSON
+            current_json = orjson.loads(current_json_str)
+
+            # Validate it's a dict (basic SurveyJS validation)
+            if not isinstance(current_json, dict):
+                raise ValueError("Current form JSON must be an object")
+
+            # Get AI settings from registry
+            from plone.registry.interfaces import IRegistry
+            from zope.component import getUtility
+            from ..interfaces import IFormsSettings
+
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFormsSettings, check=False)
+
+            # Get configured model and API key
+            model_name = getattr(settings, "ai_model", None)
+            api_key = getattr(settings, "ai_api_key", None)
+
+            # Strip whitespace from settings
+            if model_name:
+                model_name = model_name.strip()
+            if api_key:
+                api_key = api_key.strip()
+
+            # Generate the refined survey JSON using LLM with configured settings
+            refined_json_str = refine_survey_json(
+                current_json,
+                refinement_prompt,
+                model_name=model_name or None,
+                api_key=api_key or None,
+            )
+
+            # Strip any markdown formatting
+            cleaned_json_str = strip_markdown_json(refined_json_str)
+
+            # Validate JSON
+            refined_data = orjson.loads(cleaned_json_str)
+
+            # Validate it's still a dict
+            if not isinstance(refined_data, dict):
+                raise ValueError("Refined form must be a JSON object")
+
+            # Return success with refined JSON
+            result = {"success": True, "json": refined_data}
+
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+
+        except orjson.JSONDecodeError as e:
+            error_result = {
+                "error": "Invalid JSON",
+                "message": f"JSON parsing error: {str(e)}",
+                "raw_output": cleaned_json_str
+                if "cleaned_json_str" in locals()
+                else refined_json_str
+                if "refined_json_str" in locals()
+                else current_json_str,
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except ValueError as e:
+            error_result = {"error": "Validation error", "message": str(e)}
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except Exception as e:
+            error_result = {"error": "Refinement failed", "message": str(e)}
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
