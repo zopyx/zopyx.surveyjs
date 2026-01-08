@@ -216,6 +216,71 @@ class Views(BrowserView):
             serialized["created"] = ensure_timezone_aware(created).isoformat()
         return serialized
 
+    def _write_export(
+        self,
+        format_key,
+        poll_id,
+        items,
+        attachments,
+        creator,
+        created,
+        output_dir,
+    ):
+        output_path = None
+        if format_key == "text":
+            from ..converters import write_text
+
+            output_path = write_text(items, output_dir / f"{poll_id}.txt")
+        elif format_key == "md":
+            from ..converters import write_markdown
+
+            output_path = write_markdown(items, poll_id, output_dir / f"{poll_id}.md")
+        elif format_key == "html":
+            from ..converters import build_markdown, write_html
+
+            markdown_body = build_markdown(items, poll_id)
+            output_path = write_html(
+                markdown_body, attachments, output_dir / f"{poll_id}.html"
+            )
+        elif format_key == "pdf":
+            from ..converters import build_markdown, write_pdf
+            from ..converters.html import build_html
+
+            markdown_body = build_markdown(items, poll_id)
+            html_body = build_html(markdown_body, attachments)
+            output_path = write_pdf(
+                html_body, output_dir / f"{poll_id}.pdf", creator, created
+            )
+        elif format_key in {"csv", "xlsx"}:
+            from ..converters import build_table_rows, write_csv, write_xlsx
+
+            table_rows = build_table_rows(items)
+            if format_key == "csv":
+                output_path = write_csv(table_rows, output_dir / f"{poll_id}.csv")
+            else:
+                output_path = write_xlsx(table_rows, output_dir / f"{poll_id}.xlsx")
+        elif format_key == "xml":
+            from ..converters import write_xml
+
+            output_path = write_xml(items, poll_id, output_dir / f"{poll_id}.xml")
+        elif format_key == "docx":
+            from ..converters import write_docx
+
+            output_path = write_docx(
+                items,
+                output_dir / f"{poll_id}.docx",
+                poll_id,
+                creator,
+                created,
+            )
+        elif format_key == "json":
+            from ..converters import write_json
+
+            output_path = write_json(
+                items, poll_id, output_dir / f"{poll_id}.json", creator, created
+            )
+        return output_path
+
     def download_result(self):
         """Download a single poll result in the requested format."""
         poll_id = self.request.form.get("poll_id")
@@ -262,59 +327,15 @@ class Views(BrowserView):
             converter = SurveyConverter(data_path, form_path, output_dir)
             items, attachments = converter.collect_items(entry, poll_id)
 
-            output_path = None
-            if format_key == "text":
-                from ..converters import write_text
-
-                output_path = write_text(items, output_dir / f"{poll_id}.txt")
-            elif format_key == "md":
-                from ..converters import write_markdown
-
-                output_path = write_markdown(items, poll_id, output_dir / f"{poll_id}.md")
-            elif format_key == "html":
-                from ..converters import build_markdown, write_html
-
-                markdown_body = build_markdown(items, poll_id)
-                output_path = write_html(
-                    markdown_body, attachments, output_dir / f"{poll_id}.html"
-                )
-            elif format_key == "pdf":
-                from ..converters import build_markdown, write_pdf
-                from ..converters.html import build_html
-
-                markdown_body = build_markdown(items, poll_id)
-                html_body = build_html(markdown_body, attachments)
-                output_path = write_pdf(
-                    html_body, output_dir / f"{poll_id}.pdf", creator, created
-                )
-            elif format_key in {"csv", "xlsx"}:
-                from ..converters import build_table_rows, write_csv, write_xlsx
-
-                table_rows = build_table_rows(items)
-                if format_key == "csv":
-                    output_path = write_csv(table_rows, output_dir / f"{poll_id}.csv")
-                else:
-                    output_path = write_xlsx(table_rows, output_dir / f"{poll_id}.xlsx")
-            elif format_key == "xml":
-                from ..converters import write_xml
-
-                output_path = write_xml(items, poll_id, output_dir / f"{poll_id}.xml")
-            elif format_key == "docx":
-                from ..converters import write_docx
-
-                output_path = write_docx(
-                    items,
-                    output_dir / f"{poll_id}.docx",
-                    poll_id,
-                    creator,
-                    created,
-                )
-            elif format_key == "json":
-                from ..converters import write_json
-
-                output_path = write_json(
-                    items, poll_id, output_dir / f"{poll_id}.json", creator, created
-                )
+            output_path = self._write_export(
+                format_key,
+                poll_id,
+                items,
+                attachments,
+                creator,
+                created,
+                output_dir,
+            )
 
             if output_path is None:
                 plone.api.portal.show_message(
@@ -333,6 +354,109 @@ class Views(BrowserView):
             )
             self.request.response.write(output_path.read_bytes())
             return self.request.response
+
+    def mail_result(self):
+        """Send a single poll result export by email."""
+        poll_id = self.request.form.get("poll_id")
+        format_key = (self.request.form.get("format") or "").lower()
+        format_info = self._get_converter_format(format_key)
+
+        if not poll_id or not format_info:
+            plone.api.portal.show_message(
+                _("Invalid poll ID or format"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        email_to = getattr(self.context, "email_to", None)
+        email_subject = getattr(self.context, "email_subject", None)
+        email_body = getattr(self.context, "email_body", "") or ""
+        email_sender = getattr(self.context, "email_sender", None)
+
+        if not email_to or not email_subject:
+            plone.api.portal.show_message(
+                _("Mail settings are incomplete (Mail-To and Subject required)"),
+                type="error",
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        annos = IAnnotations(self.context)
+        results = annos.get(RESULTS_KEY, {})
+        result_data = results.get(poll_id)
+
+        if not result_data:
+            plone.api.portal.show_message(_("Poll result not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        form_json = self._latest_form_json(annos)
+        entry = result_data.get("result", {})
+        creator = result_data.get("user")
+        created = result_data.get("created")
+        if isinstance(created, datetime):
+            created = ensure_timezone_aware(created).isoformat()
+
+        from ..converters.cli import SurveyConverter
+
+        with TemporaryDirectory() as tmpdir:
+            tmpdir_path = Path(tmpdir)
+            data_path = tmpdir_path / "data.json"
+            form_path = tmpdir_path / "form.json"
+            output_dir = tmpdir_path / "output"
+
+            data_payload = [self._serialize_result_entry(result_data)]
+            data_path.write_bytes(orjson.dumps(data_payload))
+            form_path.write_bytes(orjson.dumps(form_json))
+
+            converter = SurveyConverter(data_path, form_path, output_dir)
+            items, attachments = converter.collect_items(entry, poll_id)
+
+            output_path = self._write_export(
+                format_key,
+                poll_id,
+                items,
+                attachments,
+                creator,
+                created,
+                output_dir,
+            )
+
+            if output_path is None:
+                plone.api.portal.show_message(
+                    _("Requested export format is not available"), type="error"
+                )
+                return self.request.response.redirect(
+                    self.context.absolute_url() + "/results"
+                )
+
+            saved_attachments = converter.save_attachments(attachments)
+            try:
+                converter.send_email(
+                    email_to,
+                    [output_path],
+                    poll_id,
+                    creator,
+                    created,
+                    saved_attachments,
+                    sender=email_sender,
+                    subject=email_subject,
+                    body=email_body or None,
+                )
+            except Exception as exc:
+                plone.api.portal.show_message(
+                    _("Failed to send mail: ${error}", mapping={"error": str(exc)}),
+                    type="error",
+                )
+                return self.request.response.redirect(
+                    self.context.absolute_url() + "/results"
+                )
+
+        plone.api.portal.show_message(_("Mail sent"), type="info")
+        return self.request.response.redirect(self.context.absolute_url() + "/results")
 
     @property
     def versions(self):

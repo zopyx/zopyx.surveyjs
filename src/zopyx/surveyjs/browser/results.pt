@@ -55,10 +55,15 @@
                                         Format
                                     </option>
                                 </select>
-                                <button class="btn btn-secondary download-result" type="submit">
-                                    Download
-                                </button>
-                            </form>
+                            <button class="btn btn-secondary download-result" type="submit">
+                                Download
+                            </button>
+                            <button class="btn btn-info mail-result"
+                                    type="submit"
+                                    formaction="mail-result">
+                                Mail
+                            </button>
+                        </form>
                         </div>
                     </td>
                 </tr>                </tbody>

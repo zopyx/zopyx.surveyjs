@@ -175,6 +175,21 @@ pre#json-content {
     background-color: #5a6268;
 }
 
+.btn.btn-info.mail-result {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn.btn-info.mail-result:hover {
+    background-color: #138496;
+}
+
 /* Large modal for details */
 .modal-content-large {
     width: 90%;

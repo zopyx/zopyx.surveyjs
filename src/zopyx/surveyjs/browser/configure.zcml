@@ -108,6 +108,13 @@
     class=".views.Views"
     attribute="download_result"
   />
+  <browser:page
+    name="mail-result"
+    permission="cmf.ManagePortal"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="mail_result"
+  />
 
   <!-- Form Versions Management -->
   <browser:page
