@@ -5,6 +5,7 @@
 #     "markdown2>=2.4.12",
 #     "weasyprint>=62.3",
 #     "openpyxl>=3.1.3",
+#     "python-docx>=1.1.0",
 # ]
 # ///
 from __future__ import annotations
@@ -20,11 +21,14 @@ import logging
 import mimetypes
 import os
 import smtplib
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
+from docx import Document
+from docx.shared import Inches, Pt
 from markdown2 import markdown
 from openpyxl import Workbook
 from weasyprint import HTML
@@ -88,7 +92,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--formats",
         default="all",
-        help="Comma-separated formats to emit (text,md,html,pdf,csv,xlsx). Default: all.",
+        help="Comma-separated formats to emit (text,md,html,pdf,csv,xlsx,xml,docx). Default: all.",
     )
     parser.add_argument(
         "--email",
@@ -103,7 +107,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 def parse_formats(spec: str) -> set[str]:
     """Normalize and validate requested formats."""
-    allowed = {"text", "md", "html", "pdf", "csv", "xlsx"}
+    allowed = {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx"}
     if spec.lower() == "all":
         return allowed
     requested = {part.strip().lower() for part in spec.split(",") if part.strip()}
@@ -166,6 +170,7 @@ class Attachment:
 
 @dataclass
 class Item:
+    key: str
     label: str
     values: List[str]
     attachments: List[Attachment]
@@ -309,7 +314,7 @@ class SurveyConverter:
             element = self.schema.get(name, {})
             label = element.get("title") or element.get("name") or name
             lines, extra = self.format_value(name, label, value, element, poll_id)
-            items.append(Item(label=label, values=lines, attachments=extra))
+            items.append(Item(key=name, label=label, values=lines, attachments=extra))
             attachments.extend(extra)
         return items, attachments
 
@@ -341,16 +346,46 @@ class SurveyConverter:
             parts.append("")
         return "\n".join(parts).strip() + "\n"
 
-    def build_table_rows(self, items: Iterable[Item]) -> List[Tuple[str, str, str]]:
+    def build_table_rows(self, items: Iterable[Item]) -> List[Tuple[str, str, str, str]]:
         """Flatten items into rows for CSV/Excel export."""
-        rows: List[Tuple[str, str, str]] = []
+        rows: List[Tuple[str, str, str, str]] = []
         for item in items:
             value = "; ".join(item.values)
             att_desc = "; ".join(
                 f"{att.name} ({att.content_type or 'binary'})" for att in item.attachments
             )
-            rows.append((item.label, value, att_desc))
+            rows.append((item.key, item.label, value, att_desc))
         return rows
+
+    def build_xml(self, items: Iterable[Item], poll_id: str) -> str:
+        """Generate XML representation of survey results."""
+        root = ET.Element("survey_response")
+        root.set("poll_id", poll_id)
+
+        for item in items:
+            field = ET.SubElement(root, "field")
+            field.set("key", item.key)
+            field.set("label", item.label)
+
+            # Add values
+            values_elem = ET.SubElement(field, "values")
+            for val in item.values:
+                value_elem = ET.SubElement(values_elem, "value")
+                value_elem.text = val
+
+            # Add attachments if present
+            if item.attachments:
+                attachments_elem = ET.SubElement(field, "attachments")
+                for att in item.attachments:
+                    att_elem = ET.SubElement(attachments_elem, "attachment")
+                    att_elem.set("name", att.name)
+                    if att.content_type:
+                        att_elem.set("content_type", att.content_type)
+                    att_elem.set("is_image", str(att.is_image).lower())
+
+        # Pretty print the XML with indentation
+        ET.indent(root, space="  ")
+        return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode", method="xml")
 
     def inline_html_images(self, html_body: str, attachments: Iterable[Attachment]) -> str:
         """Swap local image references for data URLs so HTML/PDF embed images."""
@@ -363,39 +398,114 @@ class SurveyConverter:
             updated = updated.replace(f"src='{att.name}'", f"src='{data_url}'")
         return updated
 
-    def wrap_pdf_html(self, html_body: str) -> str:
+    def wrap_pdf_html(self, html_body: str, creator: str = None, created: str = None) -> str:
         """Wrap converted HTML with styles suitable for PDF rendering."""
         style = """
         <style>
           img { max-width: 75%; height: auto; display: block; margin: 0.5em 0; }
           body { font-family: sans-serif; }
+          .metadata { margin-bottom: 1.5em; color: #666; }
+          .metadata p { margin: 0.3em 0; }
         </style>
         """
-        return f"<html><head>{style}</head><body>{html_body}</body></html>"
+
+        # Build metadata section
+        metadata_html = ""
+        if creator or created:
+            metadata_parts = []
+            if creator:
+                metadata_parts.append(f"<p><strong>Created by:</strong> {creator}</p>")
+            if created:
+                from datetime import datetime
+                try:
+                    dt = datetime.fromisoformat(created.replace('Z', '+00:00'))
+                    formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")
+                except (ValueError, AttributeError):
+                    formatted_date = created
+                metadata_parts.append(f"<p><strong>Created on:</strong> {formatted_date}</p>")
+            metadata_html = f'<div class="metadata">{"".join(metadata_parts)}</div>'
+
+        return f"<html><head>{style}</head><body>{metadata_html}{html_body}</body></html>"
 
     def save_pdf(self, html_body: str, destination: Path) -> None:
         """Render HTML into a PDF using WeasyPrint."""
         destination.parent.mkdir(parents=True, exist_ok=True)
         HTML(string=html_body).write_pdf(destination)
 
-    def write_csv(self, rows: List[Tuple[str, str, str]], destination: Path) -> None:
+    def write_csv(self, rows: List[Tuple[str, str, str, str]], destination: Path) -> None:
         """Write tabular rows to CSV."""
         destination.parent.mkdir(parents=True, exist_ok=True)
         with destination.open("w", newline="", encoding="utf-8") as fh:
             writer = csv.writer(fh)
-            writer.writerow(["Field", "Value", "Attachments"])
+            writer.writerow(["Key", "Field", "Value", "Attachments"])
             writer.writerows(rows)
 
-    def write_excel(self, rows: List[Tuple[str, str, str]], destination: Path) -> None:
+    def write_excel(self, rows: List[Tuple[str, str, str, str]], destination: Path) -> None:
         """Write tabular rows to an Excel workbook."""
         wb = Workbook()
         ws = wb.active
         ws.title = "Survey"
-        ws.append(["Field", "Value", "Attachments"])
+        ws.append(["Key", "Field", "Value", "Attachments"])
         for row in rows:
             ws.append(list(row))
         destination.parent.mkdir(parents=True, exist_ok=True)
         wb.save(destination)
+
+    def write_docx(self, rows: List[Tuple[str, str, str, str]], destination: Path, poll_id: str, creator: str = None, created: str = None) -> None:
+        """Write tabular rows to a Word document."""
+        doc = Document()
+
+        # Add title
+        title = doc.add_heading(f"Survey Response: {poll_id}", level=1)
+
+        # Add creator and created information
+        if creator:
+            p = doc.add_paragraph()
+            p.add_run("Created by: ").bold = True
+            p.add_run(creator)
+
+        if created:
+            from datetime import datetime
+            try:
+                dt = datetime.fromisoformat(created.replace('Z', '+00:00'))
+                formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")
+            except (ValueError, AttributeError):
+                formatted_date = created
+            p = doc.add_paragraph()
+            p.add_run("Created on: ").bold = True
+            p.add_run(formatted_date)
+
+        # Add spacing before table
+        if creator or created:
+            doc.add_paragraph()
+
+        # Create table with header row
+        table = doc.add_table(rows=1, cols=4)
+        table.style = "Light Grid Accent 1"
+
+        # Set header row
+        header_cells = table.rows[0].cells
+        header_cells[0].text = "Key"
+        header_cells[1].text = "Field"
+        header_cells[2].text = "Value"
+        header_cells[3].text = "Attachments"
+
+        # Make header bold
+        for cell in header_cells:
+            for paragraph in cell.paragraphs:
+                for run in paragraph.runs:
+                    run.bold = True
+
+        # Add data rows
+        for key, field, value, attachments in rows:
+            row_cells = table.add_row().cells
+            row_cells[0].text = key
+            row_cells[1].text = field
+            row_cells[2].text = value
+            row_cells[3].text = attachments
+
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        doc.save(destination)
 
     def save_attachments(self, attachments: List[Attachment]) -> List[Path]:
         """Persist decoded attachments to disk."""
@@ -407,33 +517,9 @@ class SurveyConverter:
             saved.append(target)
         return saved
 
-    def send_email(self, recipient: str, attachments: List[Path], poll_id: str, creator: str = None, created: str = None) -> None:
-        """Send generated files as attachments via SMTP."""
-        load_dotenv()
-        if not attachments:
-            logger.info("No attachments to send; skipping email to %s", recipient)
-            return
-
-        host = os.environ.get(ENV_SMTP_HOST, "localhost")
-        port = int(os.environ.get(ENV_SMTP_PORT, "25"))
-        username = os.environ.get(ENV_SMTP_USERNAME)
-        password = os.environ.get(ENV_SMTP_PASSWORD)
-        use_starttls = os.environ.get(ENV_SMTP_STARTTLS, "false").lower() in {
-            "1",
-            "true",
-            "yes",
-            "on",
-        }
-        sender = os.environ.get(ENV_EMAIL_SENDER, f"surveyjs@{os.uname().nodename}")
-
-        # Log SMTP configuration (masking password)
-        logger.info("SMTP Configuration:")
-        logger.info("  Host: %s", host)
-        logger.info("  Port: %s", port)
-        logger.info("  Username: %s", username or "(not set)")
-        logger.info("  Password: %s", "***" if password else "(not set)")
-        logger.info("  Use STARTTLS: %s", use_starttls)
-        logger.info("  Sender: %s", sender)
+    def create_email_message(self, recipient: str, sender: str, attachments: List[Path], poll_id: str, creator: str = None, created: str = None, survey_attachments: List[Path] = None) -> EmailMessage:
+        """Build email message with body and attachments."""
+        survey_attachments = survey_attachments or []
 
         # Format email body with creator and created information
         body_lines = ["Survey results generated by SurveyConverter.", ""]
@@ -449,7 +535,13 @@ class SurveyConverter:
             except (ValueError, AttributeError):
                 # If parsing fails, just use the raw timestamp
                 body_lines.append(f"Created on: {created}")
-        body_lines.extend(["", "Attachments: all requested formats."])
+
+        # Update attachment description in body
+        body_lines.append("")
+        if survey_attachments:
+            body_lines.append(f"Attachments: {len(attachments)} format file(s) and {len(survey_attachments)} survey attachment(s).")
+        else:
+            body_lines.append("Attachments: all requested formats.")
 
         message = EmailMessage()
         message["From"] = sender
@@ -459,20 +551,34 @@ class SurveyConverter:
         message["Message-ID"] = email.utils.make_msgid(domain=sender.split("@")[-1])
         message.set_content("\n".join(body_lines))
 
+        # Attach format files
         for path in attachments:
             data = path.read_bytes()
             ctype, _ = mimetypes.guess_type(path.name)
             maintype, subtype = (ctype or "application/octet-stream").split("/", 1)
             message.add_attachment(data, maintype=maintype, subtype=subtype, filename=path.name)
 
+        # Attach survey attachments (images and binary files)
+        for path in survey_attachments:
+            data = path.read_bytes()
+            ctype, _ = mimetypes.guess_type(path.name)
+            maintype, subtype = (ctype or "application/octet-stream").split("/", 1)
+            message.add_attachment(data, maintype=maintype, subtype=subtype, filename=path.name)
+
+        return message
+
+    def send_email_smtp(self, message: EmailMessage, recipient: str, host: str, port: int, username: str = None, password: str = None, use_starttls: bool = False) -> None:
+        """Send email message via SMTP."""
+        # Log SMTP configuration (masking password)
+        logger.info("SMTP Configuration:")
+        logger.info("  Host: %s", host)
+        logger.info("  Port: %s", port)
+        logger.info("  Username: %s", username or "(not set)")
+        logger.info("  Password: %s", "***" if password else "(not set)")
+        logger.info("  Use STARTTLS: %s", use_starttls)
+
         try:
-            logger.info(
-                "Sending email to %s via %s:%s with %d attachment(s)",
-                recipient,
-                host,
-                port,
-                len(attachments),
-            )
+            logger.info("Sending email to %s via %s:%s", recipient, host, port)
             with smtplib.SMTP(host, port) as smtp:
                 if use_starttls:
                     smtp.starttls()
@@ -483,6 +589,36 @@ class SurveyConverter:
         except Exception:
             logger.exception("Failed to send email to %s via %s:%s", recipient, host, port)
             raise
+
+    def send_email(self, recipient: str, attachments: List[Path], poll_id: str, creator: str = None, created: str = None, survey_attachments: List[Path] = None) -> None:
+        """Send generated files and survey attachments via SMTP."""
+        load_dotenv()
+        if not attachments:
+            logger.info("No attachments to send; skipping email to %s", recipient)
+            return
+
+        survey_attachments = survey_attachments or []
+
+        # Load SMTP configuration
+        host = os.environ.get(ENV_SMTP_HOST, "localhost")
+        port = int(os.environ.get(ENV_SMTP_PORT, "25"))
+        username = os.environ.get(ENV_SMTP_USERNAME)
+        password = os.environ.get(ENV_SMTP_PASSWORD)
+        use_starttls = os.environ.get(ENV_SMTP_STARTTLS, "false").lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+        sender = os.environ.get(ENV_EMAIL_SENDER, f"surveyjs@{os.uname().nodename}")
+
+        # Create email message
+        message = self.create_email_message(
+            recipient, sender, attachments, poll_id, creator, created, survey_attachments
+        )
+
+        # Send via SMTP
+        self.send_email_smtp(message, recipient, host, port, username, password, use_starttls)
 
     def run(self, formats: set[str], email_recipient: str | None = None) -> List[Path]:
         """Convert the first survey entry to the requested formats."""
@@ -530,11 +666,11 @@ class SurveyConverter:
 
         if "pdf" in formats and html_body is not None:
             pdf_path = self.output_dir / f"{poll_id}.pdf"
-            pdf_html = self.wrap_pdf_html(html_body)
+            pdf_html = self.wrap_pdf_html(html_body, creator, created)
             self.save_pdf(pdf_html, pdf_path)
             written_paths.append(pdf_path)
 
-        need_tabular = bool({"csv", "xlsx"} & formats)
+        need_tabular = bool({"csv", "xlsx", "docx"} & formats)
         if need_tabular:
             table_rows = self.build_table_rows(items)
             if "csv" in formats:
@@ -545,6 +681,16 @@ class SurveyConverter:
                 xlsx_path = self.output_dir / f"{poll_id}.xlsx"
                 self.write_excel(table_rows, xlsx_path)
                 written_paths.append(xlsx_path)
+            if "docx" in formats:
+                docx_path = self.output_dir / f"{poll_id}.docx"
+                self.write_docx(table_rows, docx_path, poll_id, creator, created)
+                written_paths.append(docx_path)
+
+        if "xml" in formats:
+            xml_body = self.build_xml(items, poll_id)
+            xml_path = self.output_dir / f"{poll_id}.xml"
+            xml_path.write_text(xml_body, encoding="utf-8")
+            written_paths.append(xml_path)
 
         print(f"Poll ID: {poll_id}")
         if written_paths:
@@ -559,8 +705,9 @@ class SurveyConverter:
                 print(f"- {path.name}")
 
         if email_recipient:
-            print(f"Sending email to {email_recipient} with {len(written_paths)} attachment(s)...")
-            self.send_email(email_recipient, written_paths, poll_id, creator, created)
+            total_email_attachments = len(written_paths) + len(saved_attachments)
+            print(f"Sending email to {email_recipient} with {total_email_attachments} attachment(s) ({len(written_paths)} format files, {len(saved_attachments)} survey files)...")
+            self.send_email(email_recipient, written_paths, poll_id, creator, created, saved_attachments)
             print(f"Email sent to {email_recipient}")
 
         return written_paths
