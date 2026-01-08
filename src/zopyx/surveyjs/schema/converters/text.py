@@ -10,6 +10,7 @@ from .types import Item
 
 
 def build_text(items: Iterable[Item]) -> List[str]:
+    """Build a list of text lines for a survey response."""
     lines: List[str] = ["Survey response", ""]
     for item in items:
         lines.append(f"{item.label}:")
@@ -27,6 +28,7 @@ def build_text(items: Iterable[Item]) -> List[str]:
 
 
 def write_text(items: Iterable[Item], destination: Path) -> Path:
+    """Write the plain text export to disk."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text("\n".join(build_text(items)), encoding="utf-8")
     return destination

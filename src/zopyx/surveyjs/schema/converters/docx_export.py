@@ -17,6 +17,7 @@ def write_docx(
     creator: str | None = None,
     created: str | None = None,
 ) -> Path:
+    """Write a DOCX export with headings, tables, and attachments."""
     doc = Document()
 
     doc.add_heading(f"Survey Response: {poll_id}", level=1)

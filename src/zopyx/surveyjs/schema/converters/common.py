@@ -8,6 +8,7 @@ from .types import Attachment, Item
 
 
 def render_text_table(table: List[List[str]]) -> List[str]:
+    """Render a text-aligned table for plain text outputs."""
     if not table:
         return ["(empty)"]
     col_count = max(len(row) for row in table)
@@ -28,6 +29,7 @@ def render_text_table(table: List[List[str]]) -> List[str]:
 
 
 def render_markdown_table(table: List[List[str]]) -> List[str]:
+    """Render a Markdown table from the provided cell matrix."""
     if not table:
         return ["(empty)"]
     col_count = max(len(row) for row in table)
@@ -39,6 +41,7 @@ def render_markdown_table(table: List[List[str]]) -> List[str]:
 
 
 def build_table_rows(items: Iterable[Item]) -> List[Tuple[str, str, str, str]]:
+    """Build flat rows for CSV/XLSX exports."""
     rows: List[Tuple[str, str, str, str]] = []
     for item in items:
         value = "; ".join(item.values)
@@ -50,6 +53,7 @@ def build_table_rows(items: Iterable[Item]) -> List[Tuple[str, str, str, str]]:
 
 
 def inline_html_images(html_body: str, attachments: Iterable[Attachment]) -> str:
+    """Replace attachment file references with data URLs for images."""
     updated = html_body
     for att in attachments:
         if not att.is_image:
@@ -61,6 +65,7 @@ def inline_html_images(html_body: str, attachments: Iterable[Attachment]) -> str
 
 
 def wrap_pdf_html(html_body: str, creator: str | None = None, created: str | None = None) -> str:
+    """Wrap HTML with PDF-friendly styles and optional metadata."""
     style = """
     <style>
       img { max-width: 75%; height: auto; display: block; margin: 0.3em 0; }
@@ -97,6 +102,7 @@ def wrap_pdf_html(html_body: str, creator: str | None = None, created: str | Non
 
 
 def wrap_html_output(html_body: str) -> str:
+    """Wrap HTML with minimal styling for standalone display."""
     style = """
     <style>
       img { max-width: 1024px; height: auto; display: block; margin: 0.3em 0; }

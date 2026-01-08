@@ -9,6 +9,7 @@ from openpyxl import Workbook
 
 
 def write_xlsx(rows: List[Tuple[str, str, str, str]], destination: Path) -> Path:
+    """Write an Excel workbook from flattened response rows."""
     wb = Workbook()
     ws = wb.active
     ws.title = "Survey"

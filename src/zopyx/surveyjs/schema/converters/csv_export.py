@@ -8,6 +8,7 @@ from typing import List, Tuple
 
 
 def write_csv(rows: List[Tuple[str, str, str, str]], destination: Path) -> Path:
+    """Write a CSV export from flattened response rows."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh)

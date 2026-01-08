@@ -10,6 +10,7 @@ from .types import Item
 
 
 def build_xml(items: Iterable[Item], poll_id: str) -> str:
+    """Build an XML document for a survey response."""
     root = ET.Element("survey_response")
     root.set("poll_id", poll_id)
 
@@ -56,6 +57,7 @@ def build_xml(items: Iterable[Item], poll_id: str) -> str:
 
 
 def write_xml(items: Iterable[Item], poll_id: str, destination: Path) -> Path:
+    """Write the XML export to disk."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(build_xml(items, poll_id), encoding="utf-8")
     return destination

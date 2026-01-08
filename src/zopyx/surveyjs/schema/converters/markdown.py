@@ -10,6 +10,7 @@ from .types import Item
 
 
 def build_markdown(items: Iterable[Item], poll_id: str) -> str:
+    """Build a Markdown document for a survey response."""
     parts = [f"# Survey response ({poll_id})", ""]
     for item in items:
         parts.append(f"## {item.label} ({item.key})")
@@ -28,6 +29,7 @@ def build_markdown(items: Iterable[Item], poll_id: str) -> str:
 
 
 def write_markdown(items: Iterable[Item], poll_id: str, destination: Path) -> Path:
+    """Write the Markdown export to disk."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(build_markdown(items, poll_id), encoding="utf-8")
     return destination

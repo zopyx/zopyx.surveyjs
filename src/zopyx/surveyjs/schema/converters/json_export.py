@@ -15,6 +15,7 @@ def build_json(
     creator: str | None = None,
     created: str | None = None,
 ) -> str:
+    """Build a JSON document for the survey response payload."""
     payload = {
         "poll_id": poll_id,
         "creator": creator,
@@ -55,6 +56,7 @@ def write_json(
     creator: str | None = None,
     created: str | None = None,
 ) -> Path:
+    """Write the JSON export to disk."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(build_json(items, poll_id, creator, created), encoding="utf-8")
     return destination
