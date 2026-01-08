@@ -14,6 +14,7 @@ from BTrees.OOBTree import OOBTree
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zopyx.surveyjs import _
 from plone.autoform import directives as form
+from plone.supermodel.directives import fieldset
 from zope.annotation.interfaces import IAnnotations
 
 from ..browser.views import FORM_VERSIONS_KEY, RESULTS_KEY
@@ -25,9 +26,35 @@ survey_actions_vocabulary = SimpleVocabulary(
     ]
 )
 
+survey_formats_vocabulary = SimpleVocabulary(
+    [
+        SimpleTerm(value="text", title=_("Text (.txt)")),
+        SimpleTerm(value="md", title=_("Markdown (.md)")),
+        SimpleTerm(value="html", title=_("HTML (.html)")),
+        SimpleTerm(value="pdf", title=_("PDF (.pdf)")),
+        SimpleTerm(value="csv", title=_("CSV (.csv)")),
+        SimpleTerm(value="xlsx", title=_("Excel (.xlsx)")),
+        SimpleTerm(value="xml", title=_("XML (.xml)")),
+        SimpleTerm(value="docx", title=_("Word (.docx)")),
+        SimpleTerm(value="json", title=_("JSON (.json)")),
+    ]
+)
+
 
 class ISurvey(model.Schema):
     """Marker interface and Dexterity Python Schema for Survey"""
+
+    fieldset(
+        "mail",
+        label=_("Mail"),
+        fields=(
+            "email_sender",
+            "email_subject",
+            "email_to",
+            "email_formats",
+            "email_body",
+        ),
+    )
 
     form.widget("actions", CheckBoxFieldWidget)
     actions = schema.Set(
@@ -47,8 +74,29 @@ class ISurvey(model.Schema):
     )
 
     email_subject = schema.TextLine(
-        title=_("E-Mail Subject"),
+        title=_("Subject"),
         description=_("Subject line for notification emails"),
+        required=False,
+    )
+
+    email_to = schema.TextLine(
+        title=_("Mail-To"),
+        description=_("Email address to receive results"),
+        required=False,
+    )
+
+    form.widget("email_formats", CheckBoxFieldWidget)
+    email_formats = schema.Set(
+        title=_("Formats"),
+        description=_("Select export formats to include"),
+        value_type=schema.Choice(vocabulary=survey_formats_vocabulary),
+        required=False,
+        default=set(),
+    )
+
+    email_body = schema.Text(
+        title=_("Body"),
+        description=_("Body text for notification emails"),
         required=False,
     )
 

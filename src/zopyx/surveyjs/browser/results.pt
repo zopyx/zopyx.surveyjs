@@ -36,28 +36,30 @@
                     <td tal:content="item/user">User</td>
                     <td tal:content="item/poll_id">UUID</td>
                     <td>
-                        <button class="btn btn-primary view-json"
-                                tal:attributes="data-poll-id item/poll_id">
-                            View
-                        </button>
-                        <button class="btn btn-success view-details"
-                                tal:attributes="data-poll-id item/poll_id">
-                            Details
-                        </button>
-                        <form method="get" action="download-result" class="download-form">
-                            <input type="hidden" name="poll_id"
-                                   tal:attributes="value item/poll_id" />
-                            <select name="format">
-                                <option tal:repeat="fmt view/converter_formats"
-                                        tal:attributes="value fmt/key"
-                                        tal:content="fmt/label">
-                                    Format
-                                </option>
-                            </select>
-                            <button class="btn btn-secondary download-result" type="submit">
-                                Download
+                        <div class="result-actions">
+                            <button class="btn btn-primary view-json"
+                                    tal:attributes="data-poll-id item/poll_id">
+                                View
                             </button>
-                        </form>
+                            <button class="btn btn-success view-details"
+                                    tal:attributes="data-poll-id item/poll_id">
+                                Details
+                            </button>
+                            <form method="get" action="download-result" class="download-form">
+                                <input type="hidden" name="poll_id"
+                                       tal:attributes="value item/poll_id" />
+                                <select name="format">
+                                    <option tal:repeat="fmt view/converter_formats"
+                                            tal:attributes="value fmt/key"
+                                            tal:content="fmt/label">
+                                        Format
+                                    </option>
+                                </select>
+                                <button class="btn btn-secondary download-result" type="submit">
+                                    Download
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>                </tbody>
             </table>
