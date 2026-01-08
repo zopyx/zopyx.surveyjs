@@ -54,7 +54,7 @@ class SurveyConverterTests(unittest.TestCase):
         self.tmpdir.cleanup()
 
     def test_parse_formats_validation(self) -> None:
-        self.assertEqual(parse_formats("all"), {"text", "md", "html", "pdf", "csv", "xlsx"})
+        self.assertEqual(parse_formats("all"), {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx", "json"})
         self.assertEqual(parse_formats("text,md"), {"text", "md"})
         with self.assertRaises(ValueError):
             parse_formats("text,unknown")

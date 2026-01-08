@@ -14,24 +14,32 @@ from __future__ import annotations
 
 import argparse
 import base64
-import csv
 import email.utils
 import json
 import logging
 import mimetypes
 import os
 import smtplib
-import xml.etree.ElementTree as ET
-from dataclasses import dataclass
 from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
-from docx import Document
-from docx.shared import Inches, Pt
-from markdown2 import markdown
-from openpyxl import Workbook
-from weasyprint import HTML
+from converters import (
+    Attachment,
+    Item,
+    build_markdown,
+    build_table_rows,
+    inline_html_images as inline_html_images_fn,
+    write_csv,
+    write_docx,
+    write_html,
+    write_json,
+    write_pdf,
+    write_text,
+    write_xlsx,
+    write_xml,
+)
+from converters.html import build_html
 
 ROOT = Path(__file__).parent
 SURVEY_DATA_PATH = ROOT / "survey-data-form.json"
@@ -145,39 +153,6 @@ def load_dotenv() -> None:
 
     if loaded_vars:
         logger.info("Loaded environment variables: %s", ", ".join(loaded_vars))
-
-
-@dataclass
-class Attachment:
-    name: str
-    content: bytes
-    content_type: str | None = None
-    field_label: str | None = None
-
-    @property
-    def is_image(self) -> bool:
-        return bool(self.content_type and self.content_type.startswith("image/"))
-
-    def data_url(self) -> str:
-        if not self.content_type:
-            mime = mimetypes.guess_type(self.name)[0]
-            ctype = mime or "application/octet-stream"
-        else:
-            ctype = self.content_type
-        encoded = base64.b64encode(self.content).decode("ascii")
-        return f"data:{ctype};base64,{encoded}"
-
-
-@dataclass
-class Item:
-    key: str
-    label: str
-    values: List[str]
-    attachments: List[Attachment]
-    field_type: str | None = None
-    raw_value: Any | None = None
-    table: List[List[str]] | None = None
-    table_columns: List[Tuple[str, str]] | None = None
 
 
 class SurveyConverter:
@@ -412,307 +387,9 @@ class SurveyConverter:
             attachments.extend(extra)
         return items, attachments
 
-    def render_text_table(self, table: List[List[str]]) -> List[str]:
-        if not table:
-            return ["(empty)"]
-        col_count = max(len(row) for row in table)
-        normalized = [row + [""] * (col_count - len(row)) for row in table]
-        widths = [
-            max(len(str(row[idx])) for row in normalized)
-            for idx in range(col_count)
-        ]
-
-        def format_row(row: List[str]) -> str:
-            padded = [str(cell).ljust(widths[idx]) for idx, cell in enumerate(row)]
-            return " | ".join(padded)
-
-        lines = [format_row(normalized[0])]
-        if len(normalized) > 1:
-            separator = "-+-".join("-" * width for width in widths)
-            lines.append(separator)
-            for row in normalized[1:]:
-                lines.append(format_row(row))
-        return lines
-
-    def render_markdown_table(self, table: List[List[str]]) -> List[str]:
-        if not table:
-            return ["(empty)"]
-        col_count = max(len(row) for row in table)
-        normalized = [row + [""] * (col_count - len(row)) for row in table]
-        header = "| " + " | ".join(normalized[0]) + " |"
-        separator = "| " + " | ".join("---" for _ in range(col_count)) + " |"
-        rows = ["| " + " | ".join(row) + " |" for row in normalized[1:]]
-        return [header, separator, *rows]
-
-    def build_text(self, items: Iterable[Item]) -> List[str]:
-        """Produce a plain-text representation with attachment notices."""
-        lines: List[str] = ["Survey response", ""]
-        for item in items:
-            lines.append(f"{item.label}:")
-            if item.table:
-                table_lines = self.render_text_table(item.table)
-                lines.extend(f"  {line}" for line in table_lines)
-            else:
-                for val in item.values:
-                    lines.append(f"  - {val}")
-            for att in item.attachments:
-                desc = att.content_type or "binary"
-                lines.append(f"  - Attachment: {att.name} ({desc})")
-            lines.append("")
-        return lines
-
-    def build_markdown(self, items: Iterable[Item], poll_id: str) -> str:
-        """Produce Markdown output including image references."""
-        parts: List[str] = [f"# Survey response ({poll_id})", ""]
-        for item in items:
-            parts.append(f"## {item.label} ({item.key})")
-            if item.table:
-                parts.extend(self.render_markdown_table(item.table))
-            else:
-                for val in item.values:
-                    parts.append(f"- {val}")
-            for att in item.attachments:
-                if att.is_image:
-                    parts.append(f"![{item.label} - {att.name}]({att.name})")
-                else:
-                    parts.append(f"[{att.name}]({att.name})")
-            parts.append("")
-        return "\n".join(parts).strip() + "\n"
-
-    def build_table_rows(self, items: Iterable[Item]) -> List[Tuple[str, str, str, str]]:
-        """Flatten items into rows for CSV/Excel export."""
-        rows: List[Tuple[str, str, str, str]] = []
-        for item in items:
-            value = "; ".join(item.values)
-            att_desc = "; ".join(
-                f"{att.name} ({att.content_type or 'binary'})" for att in item.attachments
-            )
-            rows.append((item.key, item.label, value, att_desc))
-        return rows
-
-    def build_xml(self, items: Iterable[Item], poll_id: str) -> str:
-        """Generate XML representation of survey results."""
-        root = ET.Element("survey_response")
-        root.set("poll_id", poll_id)
-
-        for item in items:
-            field = ET.SubElement(root, "field")
-            field.set("key", item.key)
-            field.set("label", item.label)
-
-            if item.table:
-                table_elem = ET.SubElement(field, "table")
-                columns = item.table_columns or []
-                if len(columns) < len(item.table[0]):
-                    padding = len(item.table[0]) - len(columns)
-                    columns = columns + [("", "")] * padding
-                for idx, row in enumerate(item.table):
-                    row_elem = ET.SubElement(table_elem, "row")
-                    row_elem.set("header", str(idx == 0).lower())
-                    for col_idx, cell in enumerate(row):
-                        cell_elem = ET.SubElement(row_elem, "cell")
-                        if columns:
-                            col_key, col_label = columns[col_idx]
-                            if col_label:
-                                cell_elem.set("label", col_label)
-                            if col_key:
-                                cell_elem.set("key", col_key.lower())
-                        cell_elem.text = cell
-            else:
-                values_elem = ET.SubElement(field, "values")
-                for val in item.values:
-                    value_elem = ET.SubElement(values_elem, "value")
-                    value_elem.text = val
-
-            # Add attachments if present
-            if item.attachments:
-                attachments_elem = ET.SubElement(field, "attachments")
-                for att in item.attachments:
-                    att_elem = ET.SubElement(attachments_elem, "attachment")
-                    att_elem.set("name", att.name)
-                    if att.content_type:
-                        att_elem.set("content_type", att.content_type)
-                    att_elem.set("is_image", str(att.is_image).lower())
-
-        # Pretty print the XML with indentation
-        ET.indent(root, space="  ")
-        return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode", method="xml")
-
-    def build_json(
-        self,
-        items: Iterable[Item],
-        poll_id: str,
-        creator: str | None = None,
-        created: str | None = None,
-    ) -> str:
-        """Generate JSON representation of survey results."""
-        payload = {
-            "poll_id": poll_id,
-            "creator": creator,
-            "created": created,
-            "fields": [],
-        }
-        for item in items:
-            values = item.values
-            if item.field_type == "matrixdynamic" and item.raw_value is not None:
-                values = item.raw_value
-            field = {
-                "key": item.key,
-                "label": item.label,
-                "values": item.values,
-                "attachments": [
-                    {
-                        "name": att.name,
-                        "content_type": att.content_type,
-                        "is_image": att.is_image,
-                    }
-                    for att in item.attachments
-                ],
-            }
-            field["values"] = values
-            if item.table:
-                field["table"] = item.table
-            if item.table_columns:
-                field["table_columns"] = [
-                    {"key": key, "label": label} for key, label in item.table_columns
-                ]
-            payload["fields"].append(field)
-        return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
-
     def inline_html_images(self, html_body: str, attachments: Iterable[Attachment]) -> str:
         """Swap local image references for data URLs so HTML/PDF embed images."""
-        updated = html_body
-        for att in attachments:
-            if not att.is_image:
-                continue
-            data_url = att.data_url()
-            updated = updated.replace(f'src="{att.name}"', f'src="{data_url}"')
-            updated = updated.replace(f"src='{att.name}'", f"src='{data_url}'")
-        return updated
-
-    def wrap_pdf_html(self, html_body: str, creator: str = None, created: str = None) -> str:
-        """Wrap converted HTML with styles suitable for PDF rendering."""
-        style = """
-        <style>
-          img { max-width: 75%; height: auto; display: block; margin: 0.3em 0; }
-          table { border-collapse: collapse; margin: 0.4em 0; }
-          th, td { border: 1px solid #ccc; padding: 0.2em 0.4em; }
-          body { font-family: sans-serif; font-size: 10pt; line-height: 1.3; }
-          h1 { font-size: 14pt; margin: 0.5em 0 0.3em 0; }
-          h2 { font-size: 11pt; margin: 0.4em 0 0.2em 0; font-weight: 600; }
-          h3 { font-size: 10pt; margin: 0.3em 0 0.2em 0; }
-          p { margin: 0.2em 0; }
-          ul, ol { margin: 0.2em 0; padding-left: 1.5em; }
-          li { margin: 0.1em 0; }
-          .metadata { margin-bottom: 0.8em; color: #666; font-size: 9pt; }
-          .metadata p { margin: 0.2em 0; }
-        </style>
-        """
-
-        # Build metadata section
-        metadata_html = ""
-        if creator or created:
-            metadata_parts = []
-            if creator:
-                metadata_parts.append(f"<p><strong>Created by:</strong> {creator}</p>")
-            if created:
-                from datetime import datetime
-                try:
-                    dt = datetime.fromisoformat(created.replace('Z', '+00:00'))
-                    formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")
-                except (ValueError, AttributeError):
-                    formatted_date = created
-                metadata_parts.append(f"<p><strong>Created on:</strong> {formatted_date}</p>")
-            metadata_html = f'<div class="metadata">{"".join(metadata_parts)}</div>'
-
-        return f"<html><head>{style}</head><body>{metadata_html}{html_body}</body></html>"
-
-    def wrap_html_output(self, html_body: str) -> str:
-        """Wrap HTML output with styles for browser rendering."""
-        style = """
-        <style>
-          img { max-width: 1024px; height: auto; display: block; margin: 0.3em 0; }
-          table { border-collapse: collapse; margin: 0.4em 0; }
-          th, td { border: 1px solid #ccc; padding: 0.2em 0.4em; }
-        </style>
-        """
-        return f"<html><head>{style}</head><body>{html_body}</body></html>"
-
-    def save_pdf(self, html_body: str, destination: Path) -> None:
-        """Render HTML into a PDF using WeasyPrint."""
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        HTML(string=html_body).write_pdf(destination)
-
-    def write_csv(self, rows: List[Tuple[str, str, str, str]], destination: Path) -> None:
-        """Write tabular rows to CSV."""
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        with destination.open("w", newline="", encoding="utf-8") as fh:
-            writer = csv.writer(fh)
-            writer.writerow(["Key", "Field", "Value", "Attachments"])
-            writer.writerows(rows)
-
-    def write_excel(self, rows: List[Tuple[str, str, str, str]], destination: Path) -> None:
-        """Write tabular rows to an Excel workbook."""
-        wb = Workbook()
-        ws = wb.active
-        ws.title = "Survey"
-        ws.append(["Key", "Field", "Value", "Attachments"])
-        for row in rows:
-            ws.append(list(row))
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        wb.save(destination)
-
-    def write_docx(self, items: Iterable[Item], destination: Path, poll_id: str, creator: str = None, created: str = None) -> None:
-        """Write survey content to a Word document."""
-        doc = Document()
-
-        # Add title
-        title = doc.add_heading(f"Survey Response: {poll_id}", level=1)
-
-        # Add creator and created information
-        if creator:
-            p = doc.add_paragraph()
-            p.add_run("Created by: ").bold = True
-            p.add_run(creator)
-
-        if created:
-            from datetime import datetime
-            try:
-                dt = datetime.fromisoformat(created.replace('Z', '+00:00'))
-                formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")
-            except (ValueError, AttributeError):
-                formatted_date = created
-            p = doc.add_paragraph()
-            p.add_run("Created on: ").bold = True
-            p.add_run(formatted_date)
-
-        # Add spacing before table
-        if creator or created:
-            doc.add_paragraph()
-
-        for item in items:
-            doc.add_heading(f"{item.label} ({item.key})", level=2)
-            if item.table:
-                table = doc.add_table(rows=len(item.table), cols=len(item.table[0]))
-                table.style = "Light Grid Accent 1"
-                for row_idx, row in enumerate(item.table):
-                    row_cells = table.rows[row_idx].cells
-                    for col_idx, cell in enumerate(row):
-                        row_cells[col_idx].text = cell
-                for cell in table.rows[0].cells:
-                    for paragraph in cell.paragraphs:
-                        for run in paragraph.runs:
-                            run.bold = True
-            else:
-                for val in item.values:
-                    doc.add_paragraph(f"- {val}")
-            for att in item.attachments:
-                desc = att.content_type or "binary"
-                doc.add_paragraph(f"Attachment: {att.name} ({desc})")
-            doc.add_paragraph()
-
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        doc.save(destination)
+        return inline_html_images_fn(html_body, attachments)
 
     def save_attachments(self, attachments: List[Attachment]) -> List[Path]:
         """Persist decoded attachments to disk."""
@@ -845,15 +522,13 @@ class SurveyConverter:
         written_paths: List[Path] = []
 
         if "text" in formats:
-            text_lines = self.build_text(items)
             txt_path = self.output_dir / f"{poll_id}.txt"
-            txt_path.write_text("\n".join(text_lines), encoding="utf-8")
-            written_paths.append(txt_path)
+            written_paths.append(write_text(items, txt_path))
 
         need_markdown = bool({"md", "html", "pdf"} & formats)
         markdown_body = None
         if need_markdown:
-            markdown_body = self.build_markdown(items, poll_id)
+            markdown_body = build_markdown(items, poll_id)
 
         if "md" in formats and markdown_body is not None:
             md_path = self.output_dir / f"{poll_id}.md"
@@ -863,48 +538,36 @@ class SurveyConverter:
         html_body = None
         need_html = bool({"html", "pdf"} & formats)
         if need_html and markdown_body is not None:
-            html_body = markdown(markdown_body, extras=["tables"])
-            html_body = self.inline_html_images(html_body, attachments)
+            html_body = build_html(markdown_body, attachments)
 
         if "html" in formats and html_body is not None:
             html_path = self.output_dir / f"{poll_id}.html"
-            html_output = self.wrap_html_output(html_body)
-            html_path.write_text(html_output, encoding="utf-8")
-            written_paths.append(html_path)
+            written_paths.append(write_html(markdown_body or "", attachments, html_path))
 
         if "pdf" in formats and html_body is not None:
             pdf_path = self.output_dir / f"{poll_id}.pdf"
-            pdf_html = self.wrap_pdf_html(html_body, creator, created)
-            self.save_pdf(pdf_html, pdf_path)
-            written_paths.append(pdf_path)
+            written_paths.append(write_pdf(html_body, pdf_path, creator, created))
 
         need_tabular = bool({"csv", "xlsx", "docx"} & formats)
         if need_tabular:
-            table_rows = self.build_table_rows(items)
+            table_rows = build_table_rows(items)
             if "csv" in formats:
                 csv_path = self.output_dir / f"{poll_id}.csv"
-                self.write_csv(table_rows, csv_path)
-                written_paths.append(csv_path)
+                written_paths.append(write_csv(table_rows, csv_path))
             if "xlsx" in formats:
                 xlsx_path = self.output_dir / f"{poll_id}.xlsx"
-                self.write_excel(table_rows, xlsx_path)
-                written_paths.append(xlsx_path)
+                written_paths.append(write_xlsx(table_rows, xlsx_path))
             if "docx" in formats:
                 docx_path = self.output_dir / f"{poll_id}.docx"
-                self.write_docx(items, docx_path, poll_id, creator, created)
-                written_paths.append(docx_path)
+                written_paths.append(write_docx(items, docx_path, poll_id, creator, created))
 
         if "xml" in formats:
-            xml_body = self.build_xml(items, poll_id)
             xml_path = self.output_dir / f"{poll_id}.xml"
-            xml_path.write_text(xml_body, encoding="utf-8")
-            written_paths.append(xml_path)
+            written_paths.append(write_xml(items, poll_id, xml_path))
 
         if "json" in formats:
-            json_body = self.build_json(items, poll_id, creator, created)
             json_path = self.output_dir / f"{poll_id}.json"
-            json_path.write_text(json_body, encoding="utf-8")
-            written_paths.append(json_path)
+            written_paths.append(write_json(items, poll_id, json_path, creator, created))
 
         print(f"Poll ID: {poll_id}")
         if written_paths:
