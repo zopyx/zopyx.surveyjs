@@ -1,5 +1,7 @@
 from BTrees.OOBTree import OOBTree
 from datetime import datetime, timezone
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
@@ -13,6 +15,27 @@ import uuid
 
 RESULTS_KEY = "zopyx.surveyjs.results"
 FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"
+CONVERTER_FORMATS = [
+    ("text", "Text (.txt)", "txt", "text/plain"),
+    ("md", "Markdown (.md)", "md", "text/markdown"),
+    ("html", "HTML (.html)", "html", "text/html"),
+    ("pdf", "PDF (.pdf)", "pdf", "application/pdf"),
+    ("csv", "CSV (.csv)", "csv", "text/csv"),
+    (
+        "xlsx",
+        "Excel (.xlsx)",
+        "xlsx",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ),
+    ("xml", "XML (.xml)", "xml", "application/xml"),
+    (
+        "docx",
+        "Word (.docx)",
+        "docx",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ),
+    ("json", "JSON (.json)", "json", "application/json"),
+]
 
 
 def ensure_timezone_aware(dt):
@@ -165,6 +188,151 @@ class Views(BrowserView):
             "Content-Disposition", f'attachment; filename="{filename}"'
         )
         self.request.response.write(json_content)
+
+    @property
+    def converter_formats(self):
+        return [
+            dict(key=key, label=label)
+            for key, label, _ext, _content_type in CONVERTER_FORMATS
+        ]
+
+    def _get_converter_format(self, format_key):
+        for key, label, ext, content_type in CONVERTER_FORMATS:
+            if key == format_key:
+                return dict(key=key, label=label, ext=ext, content_type=content_type)
+        return None
+
+    def _latest_form_json(self, annos):
+        form_versions = [d for d in annos.get(FORM_VERSIONS_KEY, {}).values()]
+        form_versions = sorted(
+            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
+        )
+        return form_versions[-1]["form_json"] if form_versions else {}
+
+    def _serialize_result_entry(self, result_entry):
+        serialized = dict(result_entry)
+        created = serialized.get("created")
+        if isinstance(created, datetime):
+            serialized["created"] = ensure_timezone_aware(created).isoformat()
+        return serialized
+
+    def download_result(self):
+        """Download a single poll result in the requested format."""
+        poll_id = self.request.form.get("poll_id")
+        format_key = (self.request.form.get("format") or "").lower()
+        format_info = self._get_converter_format(format_key)
+
+        if not poll_id or not format_info:
+            plone.api.portal.show_message(
+                _("Invalid poll ID or format"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        annos = IAnnotations(self.context)
+        results = annos.get(RESULTS_KEY, {})
+        result_data = results.get(poll_id)
+
+        if not result_data:
+            plone.api.portal.show_message(_("Poll result not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        form_json = self._latest_form_json(annos)
+        entry = result_data.get("result", {})
+        creator = result_data.get("user")
+        created = result_data.get("created")
+        if isinstance(created, datetime):
+            created = ensure_timezone_aware(created).isoformat()
+
+        from ..converters.cli import SurveyConverter
+
+        with TemporaryDirectory() as tmpdir:
+            tmpdir_path = Path(tmpdir)
+            data_path = tmpdir_path / "data.json"
+            form_path = tmpdir_path / "form.json"
+            output_dir = tmpdir_path / "output"
+
+            data_payload = [self._serialize_result_entry(result_data)]
+            data_path.write_bytes(orjson.dumps(data_payload))
+            form_path.write_bytes(orjson.dumps(form_json))
+
+            converter = SurveyConverter(data_path, form_path, output_dir)
+            items, attachments = converter.collect_items(entry, poll_id)
+
+            output_path = None
+            if format_key == "text":
+                from ..converters import write_text
+
+                output_path = write_text(items, output_dir / f"{poll_id}.txt")
+            elif format_key == "md":
+                from ..converters import write_markdown
+
+                output_path = write_markdown(items, poll_id, output_dir / f"{poll_id}.md")
+            elif format_key == "html":
+                from ..converters import build_markdown, write_html
+
+                markdown_body = build_markdown(items, poll_id)
+                output_path = write_html(
+                    markdown_body, attachments, output_dir / f"{poll_id}.html"
+                )
+            elif format_key == "pdf":
+                from ..converters import build_markdown, write_pdf
+                from ..converters.html import build_html
+
+                markdown_body = build_markdown(items, poll_id)
+                html_body = build_html(markdown_body, attachments)
+                output_path = write_pdf(
+                    html_body, output_dir / f"{poll_id}.pdf", creator, created
+                )
+            elif format_key in {"csv", "xlsx"}:
+                from ..converters import build_table_rows, write_csv, write_xlsx
+
+                table_rows = build_table_rows(items)
+                if format_key == "csv":
+                    output_path = write_csv(table_rows, output_dir / f"{poll_id}.csv")
+                else:
+                    output_path = write_xlsx(table_rows, output_dir / f"{poll_id}.xlsx")
+            elif format_key == "xml":
+                from ..converters import write_xml
+
+                output_path = write_xml(items, poll_id, output_dir / f"{poll_id}.xml")
+            elif format_key == "docx":
+                from ..converters import write_docx
+
+                output_path = write_docx(
+                    items,
+                    output_dir / f"{poll_id}.docx",
+                    poll_id,
+                    creator,
+                    created,
+                )
+            elif format_key == "json":
+                from ..converters import write_json
+
+                output_path = write_json(
+                    items, poll_id, output_dir / f"{poll_id}.json", creator, created
+                )
+
+            if output_path is None:
+                plone.api.portal.show_message(
+                    _("Requested export format is not available"), type="error"
+                )
+                return self.request.response.redirect(
+                    self.context.absolute_url() + "/results"
+                )
+
+            self.request.response.setHeader(
+                "Content-Type", format_info["content_type"]
+            )
+            filename = f"{poll_id}.{format_info['ext']}"
+            self.request.response.setHeader(
+                "Content-Disposition", f'attachment; filename="{filename}"'
+            )
+            self.request.response.write(output_path.read_bytes())
+            return self.request.response
 
     @property
     def versions(self):

@@ -1,4 +1,5 @@
 import json
+import os
 import tempfile
 from pathlib import Path
 from typing import Any, List
@@ -8,6 +9,7 @@ from unittest.mock import patch
 from conver_result import (
     Attachment,
     SurveyConverter,
+    parse_args,
     parse_formats,
     slugify,
 )
@@ -100,7 +102,8 @@ class SurveyConverterTests(unittest.TestCase):
     @patch("conver_result.smtplib.SMTP")
     def test_run_can_email_generated_files(self, smtp_mock: Any) -> None:
         formats = {"text"}
-        self.converter.run(formats, email_recipient="recipient@example.com")
+        with patch.dict("os.environ", {}, clear=True), patch("conver_result.load_dotenv"):
+            self.converter.run(formats, email_recipient="recipient@example.com")
 
         smtp_mock.assert_called_once_with("localhost", 25)
         smtp_client = smtp_mock.return_value.__enter__.return_value
@@ -108,8 +111,9 @@ class SurveyConverterTests(unittest.TestCase):
         sent_msg = smtp_client.send_message.call_args[0][0]
         self.assertEqual(sent_msg["To"], "recipient@example.com")
         attachments = list(sent_msg.iter_attachments())
-        self.assertEqual(len(attachments), 1)
-        self.assertEqual(attachments[0].get_filename(), "test-123.txt")
+        self.assertEqual(len(attachments), 2)
+        names = {att.get_filename() for att in attachments}
+        self.assertEqual(names, {"test-123.txt", "pixel.png"})
 
     @patch("conver_result.smtplib.SMTP")
     def test_send_email_uses_env_configuration(self, smtp_mock: Any) -> None:

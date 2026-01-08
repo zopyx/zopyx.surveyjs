@@ -22,6 +22,7 @@ from .json_export import build_json, write_json
 __all__ = [
     "Attachment",
     "Item",
+    "cli",
     "build_table_rows",
     "inline_html_images",
     "render_markdown_table",
@@ -41,4 +42,5 @@ __all__ = [
     "write_docx",
     "build_json",
     "write_json",
+    "cli",
 ]

@@ -24,7 +24,7 @@ from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
-from converters import (
+from . import (
     Attachment,
     Item,
     build_markdown,
@@ -39,7 +39,7 @@ from converters import (
     write_xlsx,
     write_xml,
 )
-from converters.html import build_html
+from .html import build_html
 
 ROOT = Path(__file__).parent
 SURVEY_DATA_PATH = ROOT / "survey-data-form.json"

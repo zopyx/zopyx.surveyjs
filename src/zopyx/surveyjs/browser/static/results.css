@@ -141,6 +141,33 @@ pre#json-content {
     background-color: #218838;
 }
 
+.download-form {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.download-form select {
+    margin: 0 6px;
+    padding: 4px 6px;
+    font-size: 0.9em;
+}
+
+.btn.btn-secondary.download-result {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn.btn-secondary.download-result:hover {
+    background-color: #5a6268;
+}
+
 /* Large modal for details */
 .modal-content-large {
     width: 90%;
