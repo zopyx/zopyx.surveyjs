@@ -1,0 +1,64 @@
+{
+  "pages": [
+    {
+      "name": "Seite1",
+      "elements": [
+        {
+          "type": "file",
+          "name": "Frage1",
+          "title": "Bild"
+        },
+        {
+          "type": "file",
+          "name": "Frage2",
+          "startWithNewLine": false,
+          "title": "Datei"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "Einkauf",
+          "title": "Einkauf",
+          "columns": [
+            {
+              "name": "Artikelnummer",
+              "title": "Artikelnummer",
+              "cellType": "text"
+            },
+            {
+              "name": "Menge",
+              "title": "Menge",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "Farbe",
+              "title": "Farbe",
+              "cellType": "dropdown",
+              "choices": [
+                {
+                  "value": "rot",
+                  "text": ""
+                },
+                {
+                  "value": "blau",
+                  "text": ""
+                },
+                {
+                  "value": "grün",
+                  "text": ""
+                }
+              ]
+            }
+          ],
+          "choices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    }
+  ]
+}

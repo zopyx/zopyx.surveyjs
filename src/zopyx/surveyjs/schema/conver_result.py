@@ -92,7 +92,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--formats",
         default="all",
-        help="Comma-separated formats to emit (text,md,html,pdf,csv,xlsx,xml,docx). Default: all.",
+        help="Comma-separated formats to emit (text,md,html,pdf,csv,xlsx,xml,docx,json). Default: all.",
     )
     parser.add_argument(
         "--email",
@@ -107,7 +107,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 def parse_formats(spec: str) -> set[str]:
     """Normalize and validate requested formats."""
-    allowed = {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx"}
+    allowed = {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx", "json"}
     if spec.lower() == "all":
         return allowed
     requested = {part.strip().lower() for part in spec.split(",") if part.strip()}
@@ -174,6 +174,10 @@ class Item:
     label: str
     values: List[str]
     attachments: List[Attachment]
+    field_type: str | None = None
+    raw_value: Any | None = None
+    table: List[List[str]] | None = None
+    table_columns: List[Tuple[str, str]] | None = None
 
 
 class SurveyConverter:
@@ -287,24 +291,100 @@ class SurveyConverter:
             lines.append(f"{row_label}: {cell_label}")
         return lines or [json.dumps(value, ensure_ascii=False)]
 
-    def format_value(self, name: str, label: str, value: Any, element: Dict[str, Any], poll_id: str) -> Tuple[List[str], List[Attachment]]:
+    def format_matrixdynamic_table(
+        self, value: Any, element: Dict[str, Any]
+    ) -> Tuple[List[List[str]], List[Tuple[str, str]], List[Dict[str, Any]]]:
+        """Render matrixdynamic answers as a text-friendly table."""
+        rows_list: List[Any]
+        if isinstance(value, list):
+            rows_list = value
+        elif isinstance(value, dict):
+            rows_list = list(value.values())
+        else:
+            rows_list = []
+
+        columns = element.get("columns") or []
+        col_names: List[str] = []
+        col_headers: List[str] = []
+        col_meta: List[Tuple[str, str]] = []
+        for col in columns:
+            name = col.get("name") or col.get("value")
+            header = col.get("title") or name
+            if name is None:
+                continue
+            name_str = str(name)
+            header_str = str(header or name)
+            col_names.append(name_str)
+            col_headers.append(header_str)
+            col_meta.append((name_str, header_str))
+
+        if not col_names:
+            if rows_list and isinstance(rows_list[0], dict):
+                keys = []
+                for row in rows_list:
+                    if isinstance(row, dict):
+                        for key in row.keys():
+                            if key not in keys:
+                                keys.append(key)
+                col_names = [str(key) for key in keys] or ["Value"]
+                col_headers = col_names[:]
+                col_meta = [(name, name) for name in col_names]
+            else:
+                col_names = ["Value"]
+                col_headers = ["Value"]
+                col_meta = [("Value", "Value")]
+
+        table: List[List[str]] = [col_headers]
+        if not rows_list:
+            table.append(["(empty)" for _ in col_names])
+            return table, col_meta, []
+
+        for row in rows_list:
+            if isinstance(row, dict):
+                cells = [self.stringify_cell(row.get(name)) for name in col_names]
+            else:
+                cells = [self.stringify_cell(row)]
+            if len(cells) < len(col_names):
+                cells.extend([""] * (len(col_names) - len(cells)))
+            table.append(cells)
+        raw_rows = [row for row in rows_list if isinstance(row, dict)]
+        return table, col_meta, raw_rows
+
+    def stringify_cell(self, value: Any) -> str:
+        if isinstance(value, (dict, list)):
+            return json.dumps(value, ensure_ascii=False)
+        return "" if value is None else str(value)
+
+    def format_value(
+        self,
+        name: str,
+        label: str,
+        value: Any,
+        element: Dict[str, Any],
+        poll_id: str,
+    ) -> Tuple[List[str], List[Attachment], List[List[str]] | None, List[Tuple[str, str]] | None, Any | None]:
         """Format a single field based on schema type, returning display lines and attachments."""
         if element.get("type") == "file":
-            return self.extract_attachments(name, label, value, poll_id)
+            lines, attachments = self.extract_attachments(name, label, value, poll_id)
+            return lines, attachments, None, None, None
 
         if element.get("type") == "matrix" and isinstance(value, dict):
-            return self.format_matrix(value, element), []
+            return self.format_matrix(value, element), [], None, None, None
+
+        if element.get("type") == "matrixdynamic":
+            table, table_columns, raw_rows = self.format_matrixdynamic_table(value, element)
+            return [json.dumps(value, ensure_ascii=False)], [], table, table_columns, raw_rows
 
         if isinstance(value, bool):
-            return ["Yes" if value else "No"], []
+            return ["Yes" if value else "No"], [], None, None, None
 
         if isinstance(value, list):
-            return [", ".join(str(v) for v in value)] if value else ["(empty)"], []
+            return ([", ".join(str(v) for v in value)] if value else ["(empty)"]), [], None, None, None
 
         if isinstance(value, dict):
-            return [json.dumps(value, ensure_ascii=False)], []
+            return [json.dumps(value, ensure_ascii=False)], [], None, None, None
 
-        return [str(value)], []
+        return [str(value)], [], None, None, None
 
     def collect_items(self, entry: Dict[str, Any], poll_id: str) -> Tuple[List[Item], List[Attachment]]:
         """Assemble items with labels, values, and attachments for downstream rendering."""
@@ -312,19 +392,69 @@ class SurveyConverter:
         attachments: List[Attachment] = []
         for name, value in entry.items():
             element = self.schema.get(name, {})
+            field_type = element.get("type")
             label = element.get("title") or element.get("name") or name
-            lines, extra = self.format_value(name, label, value, element, poll_id)
-            items.append(Item(key=name, label=label, values=lines, attachments=extra))
+            lines, extra, table, table_columns, raw_value = self.format_value(
+                name, label, value, element, poll_id
+            )
+            items.append(
+                Item(
+                    key=name,
+                    label=label,
+                    field_type=field_type,
+                    values=lines,
+                    raw_value=raw_value,
+                    attachments=extra,
+                    table=table,
+                    table_columns=table_columns,
+                )
+            )
             attachments.extend(extra)
         return items, attachments
+
+    def render_text_table(self, table: List[List[str]]) -> List[str]:
+        if not table:
+            return ["(empty)"]
+        col_count = max(len(row) for row in table)
+        normalized = [row + [""] * (col_count - len(row)) for row in table]
+        widths = [
+            max(len(str(row[idx])) for row in normalized)
+            for idx in range(col_count)
+        ]
+
+        def format_row(row: List[str]) -> str:
+            padded = [str(cell).ljust(widths[idx]) for idx, cell in enumerate(row)]
+            return " | ".join(padded)
+
+        lines = [format_row(normalized[0])]
+        if len(normalized) > 1:
+            separator = "-+-".join("-" * width for width in widths)
+            lines.append(separator)
+            for row in normalized[1:]:
+                lines.append(format_row(row))
+        return lines
+
+    def render_markdown_table(self, table: List[List[str]]) -> List[str]:
+        if not table:
+            return ["(empty)"]
+        col_count = max(len(row) for row in table)
+        normalized = [row + [""] * (col_count - len(row)) for row in table]
+        header = "| " + " | ".join(normalized[0]) + " |"
+        separator = "| " + " | ".join("---" for _ in range(col_count)) + " |"
+        rows = ["| " + " | ".join(row) + " |" for row in normalized[1:]]
+        return [header, separator, *rows]
 
     def build_text(self, items: Iterable[Item]) -> List[str]:
         """Produce a plain-text representation with attachment notices."""
         lines: List[str] = ["Survey response", ""]
         for item in items:
             lines.append(f"{item.label}:")
-            for val in item.values:
-                lines.append(f"  - {val}")
+            if item.table:
+                table_lines = self.render_text_table(item.table)
+                lines.extend(f"  {line}" for line in table_lines)
+            else:
+                for val in item.values:
+                    lines.append(f"  - {val}")
             for att in item.attachments:
                 desc = att.content_type or "binary"
                 lines.append(f"  - Attachment: {att.name} ({desc})")
@@ -336,8 +466,11 @@ class SurveyConverter:
         parts: List[str] = [f"# Survey response ({poll_id})", ""]
         for item in items:
             parts.append(f"## {item.label} ({item.key})")
-            for val in item.values:
-                parts.append(f"- {val}")
+            if item.table:
+                parts.extend(self.render_markdown_table(item.table))
+            else:
+                for val in item.values:
+                    parts.append(f"- {val}")
             for att in item.attachments:
                 if att.is_image:
                     parts.append(f"![{item.label} - {att.name}]({att.name})")
@@ -367,11 +500,29 @@ class SurveyConverter:
             field.set("key", item.key)
             field.set("label", item.label)
 
-            # Add values
-            values_elem = ET.SubElement(field, "values")
-            for val in item.values:
-                value_elem = ET.SubElement(values_elem, "value")
-                value_elem.text = val
+            if item.table:
+                table_elem = ET.SubElement(field, "table")
+                columns = item.table_columns or []
+                if len(columns) < len(item.table[0]):
+                    padding = len(item.table[0]) - len(columns)
+                    columns = columns + [("", "")] * padding
+                for idx, row in enumerate(item.table):
+                    row_elem = ET.SubElement(table_elem, "row")
+                    row_elem.set("header", str(idx == 0).lower())
+                    for col_idx, cell in enumerate(row):
+                        cell_elem = ET.SubElement(row_elem, "cell")
+                        if columns:
+                            col_key, col_label = columns[col_idx]
+                            if col_label:
+                                cell_elem.set("label", col_label)
+                            if col_key:
+                                cell_elem.set("key", col_key.lower())
+                        cell_elem.text = cell
+            else:
+                values_elem = ET.SubElement(field, "values")
+                for val in item.values:
+                    value_elem = ET.SubElement(values_elem, "value")
+                    value_elem.text = val
 
             # Add attachments if present
             if item.attachments:
@@ -386,6 +537,47 @@ class SurveyConverter:
         # Pretty print the XML with indentation
         ET.indent(root, space="  ")
         return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode", method="xml")
+
+    def build_json(
+        self,
+        items: Iterable[Item],
+        poll_id: str,
+        creator: str | None = None,
+        created: str | None = None,
+    ) -> str:
+        """Generate JSON representation of survey results."""
+        payload = {
+            "poll_id": poll_id,
+            "creator": creator,
+            "created": created,
+            "fields": [],
+        }
+        for item in items:
+            values = item.values
+            if item.field_type == "matrixdynamic" and item.raw_value is not None:
+                values = item.raw_value
+            field = {
+                "key": item.key,
+                "label": item.label,
+                "values": item.values,
+                "attachments": [
+                    {
+                        "name": att.name,
+                        "content_type": att.content_type,
+                        "is_image": att.is_image,
+                    }
+                    for att in item.attachments
+                ],
+            }
+            field["values"] = values
+            if item.table:
+                field["table"] = item.table
+            if item.table_columns:
+                field["table_columns"] = [
+                    {"key": key, "label": label} for key, label in item.table_columns
+                ]
+            payload["fields"].append(field)
+        return json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
 
     def inline_html_images(self, html_body: str, attachments: Iterable[Attachment]) -> str:
         """Swap local image references for data URLs so HTML/PDF embed images."""
@@ -403,6 +595,8 @@ class SurveyConverter:
         style = """
         <style>
           img { max-width: 75%; height: auto; display: block; margin: 0.3em 0; }
+          table { border-collapse: collapse; margin: 0.4em 0; }
+          th, td { border: 1px solid #ccc; padding: 0.2em 0.4em; }
           body { font-family: sans-serif; font-size: 10pt; line-height: 1.3; }
           h1 { font-size: 14pt; margin: 0.5em 0 0.3em 0; }
           h2 { font-size: 11pt; margin: 0.4em 0 0.2em 0; font-weight: 600; }
@@ -433,6 +627,17 @@ class SurveyConverter:
 
         return f"<html><head>{style}</head><body>{metadata_html}{html_body}</body></html>"
 
+    def wrap_html_output(self, html_body: str) -> str:
+        """Wrap HTML output with styles for browser rendering."""
+        style = """
+        <style>
+          img { max-width: 1024px; height: auto; display: block; margin: 0.3em 0; }
+          table { border-collapse: collapse; margin: 0.4em 0; }
+          th, td { border: 1px solid #ccc; padding: 0.2em 0.4em; }
+        </style>
+        """
+        return f"<html><head>{style}</head><body>{html_body}</body></html>"
+
     def save_pdf(self, html_body: str, destination: Path) -> None:
         """Render HTML into a PDF using WeasyPrint."""
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -457,8 +662,8 @@ class SurveyConverter:
         destination.parent.mkdir(parents=True, exist_ok=True)
         wb.save(destination)
 
-    def write_docx(self, rows: List[Tuple[str, str, str, str]], destination: Path, poll_id: str, creator: str = None, created: str = None) -> None:
-        """Write tabular rows to a Word document."""
+    def write_docx(self, items: Iterable[Item], destination: Path, poll_id: str, creator: str = None, created: str = None) -> None:
+        """Write survey content to a Word document."""
         doc = Document()
 
         # Add title
@@ -485,30 +690,26 @@ class SurveyConverter:
         if creator or created:
             doc.add_paragraph()
 
-        # Create table with header row
-        table = doc.add_table(rows=1, cols=4)
-        table.style = "Light Grid Accent 1"
-
-        # Set header row
-        header_cells = table.rows[0].cells
-        header_cells[0].text = "Key"
-        header_cells[1].text = "Field"
-        header_cells[2].text = "Value"
-        header_cells[3].text = "Attachments"
-
-        # Make header bold
-        for cell in header_cells:
-            for paragraph in cell.paragraphs:
-                for run in paragraph.runs:
-                    run.bold = True
-
-        # Add data rows
-        for key, field, value, attachments in rows:
-            row_cells = table.add_row().cells
-            row_cells[0].text = key
-            row_cells[1].text = field
-            row_cells[2].text = value
-            row_cells[3].text = attachments
+        for item in items:
+            doc.add_heading(f"{item.label} ({item.key})", level=2)
+            if item.table:
+                table = doc.add_table(rows=len(item.table), cols=len(item.table[0]))
+                table.style = "Light Grid Accent 1"
+                for row_idx, row in enumerate(item.table):
+                    row_cells = table.rows[row_idx].cells
+                    for col_idx, cell in enumerate(row):
+                        row_cells[col_idx].text = cell
+                for cell in table.rows[0].cells:
+                    for paragraph in cell.paragraphs:
+                        for run in paragraph.runs:
+                            run.bold = True
+            else:
+                for val in item.values:
+                    doc.add_paragraph(f"- {val}")
+            for att in item.attachments:
+                desc = att.content_type or "binary"
+                doc.add_paragraph(f"Attachment: {att.name} ({desc})")
+            doc.add_paragraph()
 
         destination.parent.mkdir(parents=True, exist_ok=True)
         doc.save(destination)
@@ -662,12 +863,13 @@ class SurveyConverter:
         html_body = None
         need_html = bool({"html", "pdf"} & formats)
         if need_html and markdown_body is not None:
-            html_body = markdown(markdown_body)
+            html_body = markdown(markdown_body, extras=["tables"])
             html_body = self.inline_html_images(html_body, attachments)
 
         if "html" in formats and html_body is not None:
             html_path = self.output_dir / f"{poll_id}.html"
-            html_path.write_text(html_body, encoding="utf-8")
+            html_output = self.wrap_html_output(html_body)
+            html_path.write_text(html_output, encoding="utf-8")
             written_paths.append(html_path)
 
         if "pdf" in formats and html_body is not None:
@@ -689,7 +891,7 @@ class SurveyConverter:
                 written_paths.append(xlsx_path)
             if "docx" in formats:
                 docx_path = self.output_dir / f"{poll_id}.docx"
-                self.write_docx(table_rows, docx_path, poll_id, creator, created)
+                self.write_docx(items, docx_path, poll_id, creator, created)
                 written_paths.append(docx_path)
 
         if "xml" in formats:
@@ -697,6 +899,12 @@ class SurveyConverter:
             xml_path = self.output_dir / f"{poll_id}.xml"
             xml_path.write_text(xml_body, encoding="utf-8")
             written_paths.append(xml_path)
+
+        if "json" in formats:
+            json_body = self.build_json(items, poll_id, creator, created)
+            json_path = self.output_dir / f"{poll_id}.json"
+            json_path.write_text(json_body, encoding="utf-8")
+            written_paths.append(json_path)
 
         print(f"Poll ID: {poll_id}")
         if written_paths:
