@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(data => {
       if (data.success) {
         // Show success message
-        alert("Form saved successfully! You can now view it in the Form Creator or Form Versions.");
+        alert("Form saved successfully! You can now view it in the Visual Editor or Versions.");
       } else {
         throw new Error(data.message || "Save failed");
       }

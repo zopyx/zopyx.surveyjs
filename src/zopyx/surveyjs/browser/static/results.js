@@ -16,10 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`view-result-json?poll_id=${pollId}`, {
                 credentials: 'same-origin'
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     jsonContent.textContent = JSON.stringify(data, null, 2);
                     modal.style.display = "block";
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                    alert('Failed to load JSON data. Please check the console for more information.');
                 });
         });
     });
@@ -56,10 +65,23 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`view-result-json?poll_id=${pollId}`, {
                 credentials: 'same-origin'
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    if (data.error) {
+                        alert(`Error: ${data.error}`);
+                        return;
+                    }
                     renderDetailsTable(data);
                     detailsModal.style.display = "block";
+                })
+                .catch(error => {
+                    console.error('Error fetching details:', error);
+                    alert('Failed to load details. Please check the console for more information.');
                 });
         });
     });
@@ -115,4 +137,87 @@ document.addEventListener("DOMContentLoaded", function () {
         div.textContent = text;
         return div.innerHTML;
     }
+
+    // Clear Results functionality
+    const clearResultsBtn = document.getElementById("clear-results-btn");
+    const clearConfirmModal = document.getElementById("clear-confirm-modal");
+    const clearCloseButton = document.querySelector(".clear-close-button");
+    const clearConfirmInput = document.getElementById("clear-confirm-input");
+    const clearConfirmBtn = document.getElementById("clear-confirm-btn");
+    const clearCancelBtn = document.getElementById("clear-cancel-btn");
+
+    if (clearResultsBtn) {
+        clearResultsBtn.addEventListener("click", function () {
+            clearConfirmModal.style.display = "block";
+            clearConfirmInput.value = "";
+            clearConfirmInput.focus();
+            clearConfirmBtn.disabled = true;
+        });
+    }
+
+    if (clearConfirmInput) {
+        clearConfirmInput.addEventListener("input", function () {
+            if (this.value.toLowerCase() === "clear") {
+                clearConfirmBtn.disabled = false;
+            } else {
+                clearConfirmBtn.disabled = true;
+            }
+        });
+
+        clearConfirmInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter" && this.value.toLowerCase() === "clear") {
+                clearConfirmBtn.click();
+            }
+        });
+    }
+
+    if (clearConfirmBtn) {
+        clearConfirmBtn.addEventListener("click", function () {
+            fetch("clear-results", {
+                method: "POST",
+                credentials: "same-origin"
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    clearConfirmModal.style.display = "none";
+                    alert("All results have been cleared successfully.");
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error("Error clearing results:", error);
+                    alert("Failed to clear results. Please check the console for more information.");
+                });
+        });
+    }
+
+    if (clearCloseButton) {
+        clearCloseButton.addEventListener("click", function () {
+            clearConfirmModal.style.display = "none";
+        });
+    }
+
+    if (clearCancelBtn) {
+        clearCancelBtn.addEventListener("click", function () {
+            clearConfirmModal.style.display = "none";
+        });
+    }
+
+    // Close clear modal when clicking outside
+    window.addEventListener("click", function (event) {
+        if (event.target === clearConfirmModal) {
+            clearConfirmModal.style.display = "none";
+        }
+    });
+
+    // Close clear modal with ESC key
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && clearConfirmModal && clearConfirmModal.style.display === "block") {
+            clearConfirmModal.style.display = "none";
+        }
+    });
 });

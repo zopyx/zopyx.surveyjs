@@ -107,6 +107,23 @@
             </div>
         </div>
 
+        <!-- Modal for Clear Results Confirmation -->
+        <div id="clear-confirm-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button clear-close-button">&times;</span>
+                <h2>Clear All Results</h2>
+                <div class="warning-message">
+                    <p><strong>Warning:</strong> This action will permanently delete all survey results. This cannot be undone.</p>
+                    <p>To confirm, please type <strong>clear</strong> in the field below:</p>
+                </div>
+                <input type="text" id="clear-confirm-input" placeholder="Type 'clear' to confirm" />
+                <div class="modal-actions">
+                    <button id="clear-confirm-btn" class="btn btn-danger" disabled>Clear All Results</button>
+                    <button id="clear-cancel-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
     </tal:block>
 
     <ul id="downloadActions">
@@ -115,6 +132,9 @@
         </li>
         <li>
             <a href="download-form-json">Download form (JSON)</a>
+        </li>
+        <li>
+            <button id="clear-results-btn" class="btn btn-danger">Clear Results</button>
         </li>
     </ul>
 
