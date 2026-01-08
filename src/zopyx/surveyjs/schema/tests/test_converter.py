@@ -32,7 +32,9 @@ class SurveyConverterTests(unittest.TestCase):
             {
                 "poll_id": "test-123",
                 "result": {
-                    "fileq": [{"name": "pixel.png", "type": "image/png", "content": pixel_png}],
+                    "fileq": [
+                        {"name": "pixel.png", "type": "image/png", "content": pixel_png}
+                    ],
                     "textq": "hello world",
                 },
             }
@@ -50,13 +52,18 @@ class SurveyConverterTests(unittest.TestCase):
         }
         self.data_path.write_text(json.dumps(payload), encoding="utf-8")
         self.form_path.write_text(json.dumps(schema), encoding="utf-8")
-        self.converter = SurveyConverter(self.data_path, self.form_path, self.output_dir)
+        self.converter = SurveyConverter(
+            self.data_path, self.form_path, self.output_dir
+        )
 
     def tearDown(self) -> None:
         self.tmpdir.cleanup()
 
     def test_parse_formats_validation(self) -> None:
-        self.assertEqual(parse_formats("all"), {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx", "json"})
+        self.assertEqual(
+            parse_formats("all"),
+            {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx", "json"},
+        )
         self.assertEqual(parse_formats("text,md"), {"text", "md"})
         with self.assertRaises(ValueError):
             parse_formats("text,unknown")
@@ -85,14 +92,19 @@ class SurveyConverterTests(unittest.TestCase):
             "pixel.png",
         ]
         for name in expected_files:
-            self.assertTrue((self.output_dir / name).exists(), f"Missing expected file {name}")
+            self.assertTrue(
+                (self.output_dir / name).exists(), f"Missing expected file {name}"
+            )
 
         html_content = (self.output_dir / "test-123.html").read_text(encoding="utf-8")
         self.assertIn("data:image/png;base64", html_content)
 
     @patch.dict(
         "os.environ",
-        {"SURVEYJS_DATA_JSON": "/tmp/custom-data.json", "SURVEYJS_FORM_JSON": "/tmp/custom-form.json"},
+        {
+            "SURVEYJS_DATA_JSON": "/tmp/custom-data.json",
+            "SURVEYJS_FORM_JSON": "/tmp/custom-form.json",
+        },
     )
     def test_parse_args_supports_env_defaults(self) -> None:
         args = parse_args([])
@@ -102,7 +114,10 @@ class SurveyConverterTests(unittest.TestCase):
     @patch("conver_result.smtplib.SMTP")
     def test_run_can_email_generated_files(self, smtp_mock: Any) -> None:
         formats = {"text"}
-        with patch.dict("os.environ", {}, clear=True), patch("conver_result.load_dotenv"):
+        with (
+            patch.dict("os.environ", {}, clear=True),
+            patch("conver_result.load_dotenv"),
+        ):
             self.converter.run(formats, email_recipient="recipient@example.com")
 
         smtp_mock.assert_called_once_with("localhost", 25)
@@ -136,8 +151,12 @@ class SurveyConverterTests(unittest.TestCase):
             encoding="utf-8",
         )
 
-        with patch.dict("os.environ", {"SURVEY_DOTENV_PATH": str(env_file)}, clear=True):
-            self.converter.send_email("recipient@example.com", [attachment], poll_id="poll42")
+        with patch.dict(
+            "os.environ", {"SURVEY_DOTENV_PATH": str(env_file)}, clear=True
+        ):
+            self.converter.send_email(
+                "recipient@example.com", [attachment], poll_id="poll42"
+            )
 
         smtp_mock.assert_called_once_with("mail.example.com", 2525)
         smtp_client = smtp_mock.return_value.__enter__.return_value
@@ -164,7 +183,9 @@ class SurveyConverterTests(unittest.TestCase):
             ),
             encoding="utf-8",
         )
-        with patch.dict("os.environ", {"SURVEY_DOTENV_PATH": str(env_file)}, clear=True):
+        with patch.dict(
+            "os.environ", {"SURVEY_DOTENV_PATH": str(env_file)}, clear=True
+        ):
             args = parse_args([])
             self.assertEqual(args.data, "/tmp/from-dotenv-data.json")
             self.assertEqual(args.form, "/tmp/from-dotenv-form.json")

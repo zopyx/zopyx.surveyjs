@@ -128,7 +128,12 @@ def parse_formats(spec: str) -> set[str]:
 def slugify(value: Any) -> str:
     """Return a filesystem-safe slug for IDs or filenames."""
     text = str(value)
-    return "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in text).strip("_") or "sample"
+    return (
+        "".join(ch if ch.isalnum() or ch in {"-", "_"} else "_" for ch in text).strip(
+            "_"
+        )
+        or "sample"
+    )
 
 
 def load_dotenv() -> None:
@@ -215,12 +220,16 @@ class SurveyConverter:
         except Exception:
             return None
 
-    def extract_attachments(self, name: str, label: str, value: Any, poll_id: str) -> Tuple[List[str], List[Attachment]]:
+    def extract_attachments(
+        self, name: str, label: str, value: Any, poll_id: str
+    ) -> Tuple[List[str], List[Attachment]]:
         """Collect decoded attachments from file fields and return human-friendly value lines."""
         lines: List[str] = []
         attachments: List[Attachment] = []
 
-        def handle_single(content: str, filename: str | None, content_type: str | None) -> None:
+        def handle_single(
+            content: str, filename: str | None, content_type: str | None
+        ) -> None:
             ctype, encoded = self.base64_from_data_url(content)
             raw = self.decode_base64_payload(encoded)
             if raw is None:
@@ -228,7 +237,9 @@ class SurveyConverter:
                 return
             ext = mimetypes.guess_extension(ctype or content_type or "") or ".bin"
             fname = filename or f"{poll_id}_{name}{ext}"
-            attachments.append(Attachment(fname, raw, ctype or content_type, field_label=label))
+            attachments.append(
+                Attachment(fname, raw, ctype or content_type, field_label=label)
+            )
             lines.append(f"stored attachment: {fname}")
 
         if isinstance(value, list):
@@ -252,9 +263,14 @@ class SurveyConverter:
 
         return lines or ["(no file content)"], attachments
 
-    def format_matrix(self, value: Dict[str, Any], element: Dict[str, Any]) -> List[str]:
+    def format_matrix(
+        self, value: Dict[str, Any], element: Dict[str, Any]
+    ) -> List[str]:
         """Render matrix answers with row and column labels."""
-        rows = {row.get("value"): row.get("text", row.get("value")) for row in element.get("rows", [])}
+        rows = {
+            row.get("value"): row.get("text", row.get("value"))
+            for row in element.get("rows", [])
+        }
         cols = {
             str(col.get("value")): col.get("text", col.get("value"))
             for col in element.get("columns", [])
@@ -337,7 +353,13 @@ class SurveyConverter:
         value: Any,
         element: Dict[str, Any],
         poll_id: str,
-    ) -> Tuple[List[str], List[Attachment], List[List[str]] | None, List[Tuple[str, str]] | None, Any | None]:
+    ) -> Tuple[
+        List[str],
+        List[Attachment],
+        List[List[str]] | None,
+        List[Tuple[str, str]] | None,
+        Any | None,
+    ]:
         """Format a single field based on schema type, returning display lines and attachments."""
         if element.get("type") == "file":
             lines, attachments = self.extract_attachments(name, label, value, poll_id)
@@ -347,21 +369,37 @@ class SurveyConverter:
             return self.format_matrix(value, element), [], None, None, None
 
         if element.get("type") == "matrixdynamic":
-            table, table_columns, raw_rows = self.format_matrixdynamic_table(value, element)
-            return [json.dumps(value, ensure_ascii=False)], [], table, table_columns, raw_rows
+            table, table_columns, raw_rows = self.format_matrixdynamic_table(
+                value, element
+            )
+            return (
+                [json.dumps(value, ensure_ascii=False)],
+                [],
+                table,
+                table_columns,
+                raw_rows,
+            )
 
         if isinstance(value, bool):
             return ["Yes" if value else "No"], [], None, None, None
 
         if isinstance(value, list):
-            return ([", ".join(str(v) for v in value)] if value else ["(empty)"]), [], None, None, None
+            return (
+                ([", ".join(str(v) for v in value)] if value else ["(empty)"]),
+                [],
+                None,
+                None,
+                None,
+            )
 
         if isinstance(value, dict):
             return [json.dumps(value, ensure_ascii=False)], [], None, None, None
 
         return [str(value)], [], None, None, None
 
-    def collect_items(self, entry: Dict[str, Any], poll_id: str) -> Tuple[List[Item], List[Attachment]]:
+    def collect_items(
+        self, entry: Dict[str, Any], poll_id: str
+    ) -> Tuple[List[Item], List[Attachment]]:
         """Assemble items with labels, values, and attachments for downstream rendering."""
         items: List[Item] = []
         attachments: List[Attachment] = []
@@ -387,7 +425,9 @@ class SurveyConverter:
             attachments.extend(extra)
         return items, attachments
 
-    def inline_html_images(self, html_body: str, attachments: Iterable[Attachment]) -> str:
+    def inline_html_images(
+        self, html_body: str, attachments: Iterable[Attachment]
+    ) -> str:
         """Swap local image references for data URLs so HTML/PDF embed images."""
         return inline_html_images_fn(html_body, attachments)
 
@@ -432,8 +472,9 @@ class SurveyConverter:
             if created:
                 # Parse ISO timestamp and format it in a human-readable way
                 from datetime import datetime
+
                 try:
-                    dt = datetime.fromisoformat(created.replace('Z', '+00:00'))
+                    dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
                     formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")
                     body_lines.append(f"Created on: {formatted_date}")
                 except (ValueError, AttributeError):
@@ -455,18 +496,31 @@ class SurveyConverter:
             data = path.read_bytes()
             ctype, _ = mimetypes.guess_type(path.name)
             maintype, subtype = (ctype or "application/octet-stream").split("/", 1)
-            message.add_attachment(data, maintype=maintype, subtype=subtype, filename=path.name)
+            message.add_attachment(
+                data, maintype=maintype, subtype=subtype, filename=path.name
+            )
 
         # Attach survey attachments (images and binary files)
         for path in survey_attachments:
             data = path.read_bytes()
             ctype, _ = mimetypes.guess_type(path.name)
             maintype, subtype = (ctype or "application/octet-stream").split("/", 1)
-            message.add_attachment(data, maintype=maintype, subtype=subtype, filename=path.name)
+            message.add_attachment(
+                data, maintype=maintype, subtype=subtype, filename=path.name
+            )
 
         return message
 
-    def send_email_smtp(self, message: EmailMessage, recipient: str, host: str, port: int, username: str = None, password: str = None, use_starttls: bool = False) -> None:
+    def send_email_smtp(
+        self,
+        message: EmailMessage,
+        recipient: str,
+        host: str,
+        port: int,
+        username: str = None,
+        password: str = None,
+        use_starttls: bool = False,
+    ) -> None:
         """Send email message via SMTP."""
         # Log SMTP configuration (masking password)
         logger.info("SMTP Configuration:")
@@ -486,7 +540,9 @@ class SurveyConverter:
                 smtp.send_message(message)
             logger.info("Email sent to %s", recipient)
         except Exception:
-            logger.exception("Failed to send email to %s via %s:%s", recipient, host, port)
+            logger.exception(
+                "Failed to send email to %s via %s:%s", recipient, host, port
+            )
             raise
 
     def send_email(
@@ -538,7 +594,9 @@ class SurveyConverter:
         )
 
         # Send via SMTP
-        self.send_email_smtp(message, recipient, host, port, username, password, use_starttls)
+        self.send_email_smtp(
+            message, recipient, host, port, username, password, use_starttls
+        )
 
     def run(self, formats: set[str], email_recipient: str | None = None) -> List[Path]:
         """Convert the first survey entry to the requested formats."""
@@ -578,7 +636,9 @@ class SurveyConverter:
 
         if "html" in formats and html_body is not None:
             html_path = self.output_dir / f"{poll_id}.html"
-            written_paths.append(write_html(markdown_body or "", attachments, html_path))
+            written_paths.append(
+                write_html(markdown_body or "", attachments, html_path)
+            )
 
         if "pdf" in formats and html_body is not None:
             pdf_path = self.output_dir / f"{poll_id}.pdf"
@@ -595,7 +655,9 @@ class SurveyConverter:
                 written_paths.append(write_xlsx(table_rows, xlsx_path))
             if "docx" in formats:
                 docx_path = self.output_dir / f"{poll_id}.docx"
-                written_paths.append(write_docx(items, docx_path, poll_id, creator, created))
+                written_paths.append(
+                    write_docx(items, docx_path, poll_id, creator, created)
+                )
 
         if "xml" in formats:
             xml_path = self.output_dir / f"{poll_id}.xml"
@@ -603,7 +665,9 @@ class SurveyConverter:
 
         if "json" in formats:
             json_path = self.output_dir / f"{poll_id}.json"
-            written_paths.append(write_json(items, poll_id, json_path, creator, created))
+            written_paths.append(
+                write_json(items, poll_id, json_path, creator, created)
+            )
 
         print(f"Poll ID: {poll_id}")
         if written_paths:
@@ -619,8 +683,17 @@ class SurveyConverter:
 
         if email_recipient:
             total_email_attachments = len(written_paths) + len(saved_attachments)
-            print(f"Sending email to {email_recipient} with {total_email_attachments} attachment(s) ({len(written_paths)} format files, {len(saved_attachments)} survey files)...")
-            self.send_email(email_recipient, written_paths, poll_id, creator, created, saved_attachments)
+            print(
+                f"Sending email to {email_recipient} with {total_email_attachments} attachment(s) ({len(written_paths)} format files, {len(saved_attachments)} survey files)..."
+            )
+            self.send_email(
+                email_recipient,
+                written_paths,
+                poll_id,
+                creator,
+                created,
+                saved_attachments,
+            )
             print(f"Email sent to {email_recipient}")
 
         return written_paths

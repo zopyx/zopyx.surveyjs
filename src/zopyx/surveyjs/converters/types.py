@@ -11,6 +11,7 @@ from typing import Any, List, Tuple
 @dataclass
 class Attachment:
     """Binary attachment extracted from survey responses."""
+
     name: str
     content: bytes
     content_type: str | None = None
@@ -35,6 +36,7 @@ class Attachment:
 @dataclass
 class Item:
     """Normalized survey item with values, attachments, and tabular data."""
+
     key: str
     label: str
     values: List[str]

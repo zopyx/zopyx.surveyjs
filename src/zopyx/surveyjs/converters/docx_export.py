@@ -29,6 +29,7 @@ def write_docx(
 
     if created:
         from datetime import datetime
+
         try:
             dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
             formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")

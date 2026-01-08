@@ -53,7 +53,9 @@ def build_xml(items: Iterable[Item], poll_id: str) -> str:
                 att_elem.set("is_image", str(att.is_image).lower())
 
     ET.indent(root, space="  ")
-    return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode", method="xml")
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(
+        root, encoding="unicode", method="xml"
+    )
 
 
 def write_xml(items: Iterable[Item], poll_id: str, destination: Path) -> Path:

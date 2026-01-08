@@ -58,5 +58,7 @@ def write_json(
 ) -> Path:
     """Write the JSON export to disk."""
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(build_json(items, poll_id, creator, created), encoding="utf-8")
+    destination.write_text(
+        build_json(items, poll_id, creator, created), encoding="utf-8"
+    )
     return destination

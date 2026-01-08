@@ -92,13 +92,16 @@ def wrap_pdf_html(
             metadata_parts.append(f"<p><strong>Created by:</strong> {creator}</p>")
         if created:
             from datetime import datetime
+
             try:
                 dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
                 formatted_date = dt.strftime("%B %d, %Y at %I:%M %p %Z")
             except (ValueError, AttributeError):
                 formatted_date = created
-            metadata_parts.append(f"<p><strong>Created on:</strong> {formatted_date}</p>")
-        metadata_html = f"<div class=\"metadata\">{''.join(metadata_parts)}</div>"
+            metadata_parts.append(
+                f"<p><strong>Created on:</strong> {formatted_date}</p>"
+            )
+        metadata_html = f'<div class="metadata">{"".join(metadata_parts)}</div>'
 
     if metadata_html:
         closing_h1 = html_body.find("</h1>")

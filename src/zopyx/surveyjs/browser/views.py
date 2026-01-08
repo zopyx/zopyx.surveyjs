@@ -311,9 +311,7 @@ class Views(BrowserView):
         format_info = self._get_converter_format(format_key)
 
         if not poll_id or not format_info:
-            plone.api.portal.show_message(
-                _("Invalid poll ID or format"), type="error"
-            )
+            plone.api.portal.show_message(_("Invalid poll ID or format"), type="error")
             return self.request.response.redirect(
                 self.context.absolute_url() + "/results"
             )
@@ -368,9 +366,7 @@ class Views(BrowserView):
                     self.context.absolute_url() + "/results"
                 )
 
-            self.request.response.setHeader(
-                "Content-Type", format_info["content_type"]
-            )
+            self.request.response.setHeader("Content-Type", format_info["content_type"])
             filename = f"{poll_id}.{format_info['ext']}"
             self.request.response.setHeader(
                 "Content-Disposition", f'attachment; filename="{filename}"'
@@ -385,9 +381,7 @@ class Views(BrowserView):
         format_info = self._get_converter_format(format_key)
 
         if not poll_id or not format_info:
-            plone.api.portal.show_message(
-                _("Invalid poll ID or format"), type="error"
-            )
+            plone.api.portal.show_message(_("Invalid poll ID or format"), type="error")
             return self.request.response.redirect(
                 self.context.absolute_url() + "/results"
             )
@@ -423,9 +417,7 @@ class Views(BrowserView):
         if isinstance(created, datetime):
             created = ensure_timezone_aware(created).isoformat()
         formats_label = format_info["label"]
-        email_subject = self._interpolate_text(
-            email_subject, {"poll_id": poll_id}
-        )
+        email_subject = self._interpolate_text(email_subject, {"poll_id": poll_id})
         email_body = self._interpolate_text(
             email_body,
             {
@@ -723,8 +715,7 @@ class Views(BrowserView):
     @property
     def embedding_allowed(self):
         """Check if embedding is allowed for this survey"""
-        return getattr(self.context, 'allow_embedding', False)
-
+        return getattr(self.context, "allow_embedding", False)
 
     def generate_ai_form(self):
         """Generate a SurveyJS form using AI based on user prompt"""
@@ -982,7 +973,7 @@ class Views(BrowserView):
 class EmbedViewer(Views):
     """View for embedding surveys in iframes"""
 
-    index = ViewPageTemplateFile('viewer_embed.pt')
+    index = ViewPageTemplateFile("viewer_embed.pt")
 
     def __call__(self):
         """Set appropriate headers for iframe embedding"""
@@ -990,16 +981,22 @@ class EmbedViewer(Views):
         if self.embedding_allowed:
             # Remove X-Frame-Options to allow iframe embedding
             # Note: Setting to empty string removes the header
-            self.request.response.setHeader('X-Frame-Options', '')
+            self.request.response.setHeader("X-Frame-Options", "")
 
             # Use Content-Security-Policy frame-ancestors instead
             # This is more modern and flexible
-            self.request.response.setHeader('Content-Security-Policy', "frame-ancestors *")
+            self.request.response.setHeader(
+                "Content-Security-Policy", "frame-ancestors *"
+            )
 
             # Set CORS headers to allow cross-origin requests
-            self.request.response.setHeader('Access-Control-Allow-Origin', '*')
-            self.request.response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-            self.request.response.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+            self.request.response.setHeader("Access-Control-Allow-Origin", "*")
+            self.request.response.setHeader(
+                "Access-Control-Allow-Methods", "GET, POST, OPTIONS"
+            )
+            self.request.response.setHeader(
+                "Access-Control-Allow-Headers", "Content-Type"
+            )
 
         # Render the template
         return self.index()

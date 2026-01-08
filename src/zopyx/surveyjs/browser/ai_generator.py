@@ -112,7 +112,10 @@ def generate_survey_json(
 
 
 def refine_survey_json(
-    current_json: dict, refinement_prompt: str, model_name: str = None, api_key: str = None
+    current_json: dict,
+    refinement_prompt: str,
+    model_name: str = None,
+    api_key: str = None,
 ) -> str:
     """
     Refines an existing SurveyJS form based on user feedback.

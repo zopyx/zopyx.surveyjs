@@ -18,7 +18,9 @@ def build_html(markdown_body: str, attachments: Iterable[Attachment]) -> str:
     return html_body
 
 
-def write_html(markdown_body: str, attachments: Iterable[Attachment], destination: Path) -> Path:
+def write_html(
+    markdown_body: str, attachments: Iterable[Attachment], destination: Path
+) -> Path:
     """Write the HTML export to disk."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     html_body = build_html(markdown_body, attachments)
