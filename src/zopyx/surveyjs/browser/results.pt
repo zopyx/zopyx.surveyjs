@@ -16,78 +16,93 @@
 
         <div id="results-table">
 
-            <form method="get" action="">
+            <form method="get" action="" tal:condition="python: results['total'] > 0">
                 <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|nothing" />
                 <button type="submit">Search</button>
             </form>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>UUID</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr tal:repeat="item python:list(results['items'])">
-                    <td tal:content="python: view.plone_api.portal.get_localized_time(item['created'], long_format=True)">Date</td>
-                    <td tal:content="item/user">User</td>
-                    <td tal:content="item/poll_id">UUID</td>
-                    <td>
-                        <div class="result-actions">
-                            <button class="btn btn-primary view-json"
-                                    tal:attributes="data-poll-id item/poll_id">
-                                View
-                            </button>
-                            <button class="btn btn-success view-details"
-                                    tal:attributes="data-poll-id item/poll_id">
-                                Details
-                            </button>
-                            <form method="get" action="download-result" class="download-form">
-                                <input type="hidden" name="poll_id"
-                                       tal:attributes="value item/poll_id" />
-                                <select name="format">
-                                    <option tal:repeat="fmt view/converter_formats"
-                                            tal:attributes="value fmt/key"
-                                            tal:content="fmt/label">
-                                        Format
-                                    </option>
-                                </select>
-                            <button class="btn btn-secondary download-result" type="submit">
-                                Download
-                            </button>
-                            <button class="btn btn-info mail-result"
-                                    type="submit"
-                                    formaction="mail-result">
-                                Mail
-                            </button>
-                        </form>
-                        </div>
-                    </td>
-                </tr>                </tbody>
-            </table>
+            <tal:block tal:condition="python: results['total'] > 0">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>UUID</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr tal:repeat="item python:list(results['items'])">
+                        <td tal:content="python: view.plone_api.portal.get_localized_time(item['created'], long_format=True)">Date</td>
+                        <td tal:content="item/user">User</td>
+                        <td tal:content="item/poll_id">UUID</td>
+                        <td>
+                            <div class="result-actions">
+                                <button class="btn btn-primary view-json"
+                                        tal:attributes="data-poll-id item/poll_id">
+                                    View
+                                </button>
+                                <button class="btn btn-success view-details"
+                                        tal:attributes="data-poll-id item/poll_id">
+                                    Details
+                                </button>
+                                <form method="get" action="download-result" class="download-form">
+                                    <input type="hidden" name="poll_id"
+                                           tal:attributes="value item/poll_id" />
+                                    <select name="format">
+                                        <option tal:repeat="fmt view/converter_formats"
+                                                tal:attributes="value fmt/key"
+                                                tal:content="fmt/label">
+                                            Format
+                                        </option>
+                                    </select>
+                                <button class="btn btn-secondary download-result" type="submit">
+                                    Download
+                                </button>
+                                <button class="btn btn-info mail-result"
+                                        type="submit"
+                                        formaction="mail-result">
+                                    Mail
+                                </button>
+                            </form>
+                            </div>
+                        </td>
+                    </tr>                </tbody>
+                </table>
 
-            <div class="pagination"
-                 tal:define="pagination_info results;
-                             query_string python:request.get('q') and '&q=' + request.get('q') or ''"
-                 tal:condition="python: pagination_info['numpages'] > 1">
-                <a tal:condition="python: pagination_info['page'] > 1"
-                   tal:attributes="href python:'?b_start=' + str((pagination_info['page'] - 2) * pagination_info['pagesize']) + query_string"
-                >&laquo; Previous</a>
-                <span tal:repeat="i python:range(1, pagination_info['numpages'] + 1)">
-          <a tal:condition="python: i != pagination_info['page']"
-             tal:attributes="href python:'?b_start=' + str((i - 1) * pagination_info['pagesize']) + query_string"
-             tal:content="i">
-          </a>
-          <span tal:condition="python: i == pagination_info['page']"
-                tal:content="i" class="current-page"></span>
-        </span>
-                <a tal:condition="python: pagination_info['page'] < pagination_info['numpages']"
-                   tal:attributes="href python:'?b_start=' + str(pagination_info['page'] * pagination_info['pagesize']) + query_string"
-                >Next &raquo;</a>
-            </div>
+                <div class="pagination"
+                     tal:define="pagination_info results;
+                                 query_string python:request.get('q') and '&q=' + request.get('q') or ''"
+                     tal:condition="python: pagination_info['numpages'] > 1">
+                    <a tal:condition="python: pagination_info['page'] > 1"
+                       tal:attributes="href python:'?b_start=' + str((pagination_info['page'] - 2) * pagination_info['pagesize']) + query_string"
+                    >&laquo; Previous</a>
+                    <span tal:repeat="i python:range(1, pagination_info['numpages'] + 1)">
+              <a tal:condition="python: i != pagination_info['page']"
+                 tal:attributes="href python:'?b_start=' + str((i - 1) * pagination_info['pagesize']) + query_string"
+                 tal:content="i">
+              </a>
+              <span tal:condition="python: i == pagination_info['page']"
+                    tal:content="i" class="current-page"></span>
+            </span>
+                    <a tal:condition="python: pagination_info['page'] < pagination_info['numpages']"
+                       tal:attributes="href python:'?b_start=' + str(pagination_info['page'] * pagination_info['pagesize']) + query_string"
+                    >Next &raquo;</a>
+                </div>
+            </tal:block>
+
+            <tal:block tal:condition="python: results['total'] == 0">
+                <div class="no-results-message">
+                    <svg class="no-results-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11H3a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-6"></path>
+                        <path d="M9 3h6v6"></path>
+                        <path d="M9 9l6-6"></path>
+                    </svg>
+                    <h3>No Survey Results Yet</h3>
+                    <p tal:condition="request/q|nothing">No results found matching your search query.</p>
+                    <p tal:condition="not: request/q|nothing">There are no survey responses yet. Once users submit the survey, their responses will appear here.</p>
+                </div>
+            </tal:block>
         </div>
 
         <!-- Modal for displaying JSON -->
@@ -124,19 +139,19 @@
             </div>
         </div>
 
-    </tal:block>
+        <ul id="downloadActions" tal:condition="python: results['total'] > 0">
+            <li>
+                <a href="download-polls-json" class="btn btn-primary">Download data (JSON)</a>
+            </li>
+            <li>
+                <a href="download-form-json" class="btn btn-primary">Download form (JSON)</a>
+            </li>
+            <li>
+                <button id="clear-results-btn" class="btn btn-danger">Clear Results</button>
+            </li>
+        </ul>
 
-    <ul id="downloadActions">
-        <li>
-            <a href="download-polls-json">Download data (JSON)</a>
-        </li>
-        <li>
-            <a href="download-form-json">Download form (JSON)</a>
-        </li>
-        <li>
-            <button id="clear-results-btn" class="btn btn-danger">Clear Results</button>
-        </li>
-    </ul>
+    </tal:block>
 
     <script src="++resource++zopyx.surveyjs/results.js"
             type="text/javascript"

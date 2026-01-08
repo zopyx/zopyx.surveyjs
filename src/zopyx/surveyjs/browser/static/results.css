@@ -368,3 +368,71 @@ pre#json-content {
 .btn.btn-secondary:hover {
     background-color: #5a6268;
 }
+
+/* No Results Message */
+.no-results-message {
+    text-align: center;
+    padding: 60px 40px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 40px 0;
+}
+
+.no-results-icon {
+    width: 80px;
+    height: 80px;
+    color: #6c757d;
+    margin: 0 auto 20px;
+    display: block;
+    opacity: 0.5;
+}
+
+.no-results-message h3 {
+    font-size: 1.5em;
+    color: #495057;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.no-results-message p {
+    font-size: 1em;
+    color: #6c757d;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Download Actions */
+#downloadActions {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#downloadActions li {
+    margin: 0;
+}
+
+#downloadActions .btn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+#downloadActions .btn.btn-primary {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#downloadActions .btn.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

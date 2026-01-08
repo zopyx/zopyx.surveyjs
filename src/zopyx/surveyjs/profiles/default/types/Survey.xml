@@ -7,10 +7,10 @@
   <!-- Basic properties -->
   <property
       i18n:translate=""
-      name="title">Survey</property>
+      name="title">Form/Survey</property>
   <property
       i18n:translate=""
-      name="description">SurveyJS</property>
+      name="description">Form/Survey</property>
 
   <property name="allow_discussion">False</property>
   <property name="factory">Survey</property>
