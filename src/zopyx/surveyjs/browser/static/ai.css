@@ -98,6 +98,18 @@
   font-style: italic;
 }
 
+.refine-existing label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.refine-existing input[type="checkbox"] {
+  margin: 0;
+}
+
 /* Buttons */
 .btn {
   padding: 10px 20px;

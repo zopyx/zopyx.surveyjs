@@ -97,6 +97,15 @@
                 Be specific about the types of questions, response formats, and any particular fields you need.
               </p>
             </div>
+            <div class="form-group refine-existing">
+              <label for="refineExisting">
+                <input type="checkbox" id="refineExisting" />
+                <span i18n:translate="">Refine existing form</span>
+              </label>
+              <p class="help-block" i18n:translate="">
+                Use the latest saved form as the starting point instead of generating a new one.
+              </p>
+            </div>
 
             <div class="button-group">
               <button type="submit" class="btn btn-primary" id="refineBtn">

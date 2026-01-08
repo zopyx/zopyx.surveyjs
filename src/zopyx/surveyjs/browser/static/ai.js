@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const formPanelTitle = document.getElementById("formPanelTitle");
   const formInputLabel = document.getElementById("formInputLabel");
   const formInputHelp = document.getElementById("formInputHelp");
+  const refineExistingCheckbox = document.getElementById("refineExisting");
   const versionIndicator = document.getElementById("versionIndicator");
   const currentVersionInfo = document.getElementById("currentVersionInfo");
   const formActionButtons = document.getElementById("formActionButtons");
@@ -95,11 +96,33 @@ document.addEventListener("DOMContentLoaded", function() {
     return str.substring(0, maxLength) + '...';
   }
 
+  function requestRefinement(prompt, currentJson) {
+    const formData = new FormData();
+    formData.append("current_json", JSON.stringify(currentJson));
+    formData.append("refinement_prompt", prompt);
+    formData.append("_authenticator", CSRF_TOKEN);
+
+    return fetch(ACTUAL_URL + "/@@refine-ai-form", {
+      method: "POST",
+      body: formData,
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(data => {
+          throw new Error(data.message || "Refinement failed");
+        });
+      }
+      return response.json();
+    });
+  }
+
   // Refinement form submission handler
   refinementForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
     const prompt = refinementInput.value.trim();
+    const useExisting = refineExistingCheckbox && refineExistingCheckbox.checked;
     if (!prompt) {
       showError("Please enter a description");
       return;
@@ -111,6 +134,49 @@ document.addEventListener("DOMContentLoaded", function() {
     // Show loading state
     setRefinementLoadingState(true);
     hideError();
+
+    if (isInitial && useExisting) {
+      fetch(ACTUAL_URL + "/get-form-json", {
+        credentials: 'same-origin'
+      })
+      .then(response => response.json())
+      .then(existingJson => {
+        if (!existingJson || Object.keys(existingJson).length === 0) {
+          throw new Error("No existing form found to refine.");
+        }
+
+        AppState.addVersion("Existing form", existingJson, "initial");
+        generatedJson = existingJson;
+        updateUIAfterGeneration();
+        renderHistoryTimeline();
+
+        return requestRefinement(prompt, existingJson);
+      })
+      .then(data => {
+        if (data.success) {
+          AppState.addVersion(prompt, data.json, "refinement");
+          generatedJson = data.json;
+
+          renderHistoryTimeline();
+          updateVersionIndicator();
+
+          refinementInput.value = "";
+          if (historyTimeline) {
+            historyTimeline.scrollTop = historyTimeline.scrollHeight;
+          }
+        } else {
+          throw new Error(data.message || "Refinement failed");
+        }
+      })
+      .catch(error => {
+        console.error("Error refining existing form:", error);
+        showError(error.message || "Failed to refine existing form. Please try again.");
+      })
+      .finally(() => {
+        setRefinementLoadingState(false);
+      });
+      return;
+    }
 
     if (isInitial) {
       // Initial generation
@@ -156,24 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     } else {
       // Refinement
-      const formData = new FormData();
-      formData.append("current_json", JSON.stringify(currentVersion.json));
-      formData.append("refinement_prompt", prompt);
-      formData.append("_authenticator", CSRF_TOKEN);
-
-      fetch(ACTUAL_URL + "/@@refine-ai-form", {
-        method: "POST",
-        body: formData,
-        credentials: 'same-origin'
-      })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(data => {
-            throw new Error(data.message || "Refinement failed");
-          });
-        }
-        return response.json();
-      })
+      requestRefinement(prompt, currentVersion.json)
       .then(data => {
         if (data.success) {
           // Add to history
@@ -427,6 +476,10 @@ document.addEventListener("DOMContentLoaded", function() {
     if (startOverBtn) {
       startOverBtn.style.display = "inline-block";
     }
+
+    if (refineExistingCheckbox) {
+      refineExistingCheckbox.disabled = true;
+    }
   }
 
   function resetUIToInitial() {
@@ -471,6 +524,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // Hide start over button
     if (startOverBtn) {
       startOverBtn.style.display = "none";
+    }
+
+    if (refineExistingCheckbox) {
+      refineExistingCheckbox.checked = false;
+      refineExistingCheckbox.disabled = false;
     }
   }
 

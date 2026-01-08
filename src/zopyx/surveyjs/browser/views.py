@@ -870,7 +870,25 @@ class Views(BrowserView):
 
         # Get current JSON and refinement prompt from request
         current_json_str = self.request.form.get("current_json", "").strip()
+        use_existing = (
+            self.request.form.get("use_existing", "").strip().lower()
+            in {"1", "true", "yes", "on"}
+        )
         refinement_prompt = self.request.form.get("refinement_prompt", "").strip()
+
+        if not current_json_str and use_existing:
+            annos = IAnnotations(self.context)
+            current_json = self._latest_form_json(annos)
+            if not current_json:
+                error_result = {
+                    "error": "No existing form found",
+                    "message": "No saved form version is available to refine",
+                }
+                self.request.response.setStatus(400)
+                self.request.response.setHeader("content-type", "application/json")
+                self.request.response.write(orjson.dumps(error_result))
+                return
+            current_json_str = orjson.dumps(current_json).decode("utf-8")
 
         if not current_json_str:
             error_result = {
