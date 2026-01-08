@@ -89,9 +89,23 @@ class Views(BrowserView):
     def save_poll(self):
         poll_result = orjson.loads(self.request.form["pollResult"])
 
+        actions = getattr(self.context, "actions", set()) or set()
+        if "store" not in actions:
+            result = dict(
+                isSuccess=True,
+                stored=False,
+                message="Storage action disabled; result not persisted.",
+            )
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+            return
+
         annos = IAnnotations(self.context)
         if FORM_VERSIONS_KEY not in annos:
             annos[FORM_VERSIONS_KEY] = OOBTree()
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
 
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
         form_versions = sorted(
@@ -787,6 +801,18 @@ class Views(BrowserView):
         self.request.response.write(
             orjson.dumps({"deleted": deleted, "missing": missing})
         )
+
+    @property
+    def has_mail_action(self):
+        """Return True if the survey actions include mail."""
+        actions = getattr(self.context, "actions", set()) or set()
+        return "mail" in actions
+
+    @property
+    def storing_enabled(self):
+        """Return True if the survey actions include store."""
+        actions = getattr(self.context, "actions", set()) or set()
+        return "store" in actions
 
     @property
     def plone_api(self):

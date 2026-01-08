@@ -487,3 +487,13 @@ pre#json-content {
     background-color: #0056b3;
     border-color: #0056b3;
 }
+
+.storage-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 12px 14px;
+    border-radius: 4px;
+    margin: 10px 0 16px;
+    line-height: 1.4;
+}
