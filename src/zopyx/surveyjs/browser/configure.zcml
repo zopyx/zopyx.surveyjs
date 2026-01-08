@@ -160,6 +160,13 @@
     class=".views.Views"
     attribute="view_result_json"
   />
+  <browser:page
+    name="delete-results"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    attribute="delete_results"
+  />
 
   <!-- AI Form Generator -->
   <browser:page

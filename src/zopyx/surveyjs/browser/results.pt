@@ -23,10 +23,21 @@
                 <button type="submit">Search</button>
             </form>
 
+            <div tal:condition="view/is_manager" style="display:none;"
+                 tal:content="structure context/@@authenticator/authenticator"></div>
+
+            <div class="results-toolbar"
+                 tal:condition="python: results['total'] > 0 and view.is_manager">
+                <button id="delete-selected-btn" class="btn btn-danger" disabled>Delete Selected</button>
+            </div>
+
             <tal:block tal:condition="python: results['total'] > 0">
                 <table class="table">
                     <thead>
                     <tr>
+                        <th tal:condition="view/is_manager" class="selection-column">
+                            <input type="checkbox" id="select-all-results" aria-label="Select all results" />
+                        </th>
                         <th>Date</th>
                         <th>User</th>
                         <th>UUID</th>
@@ -35,6 +46,9 @@
                     </thead>
                     <tbody>
                     <tr tal:repeat="item python:list(results['items'])">
+                        <td tal:condition="view/is_manager" class="selection-column">
+                            <input type="checkbox" class="result-select" tal:attributes="value item/poll_id" aria-label="Select result" />
+                        </td>
                         <td tal:content="python: view.plone_api.portal.get_localized_time(item['created'], long_format=True)">Date</td>
                         <td tal:content="item/user">User</td>
                         <td tal:content="item/poll_id">UUID</td>
@@ -65,6 +79,12 @@
                                         type="submit"
                                         formaction="mail-result">
                                     Mail
+                                </button>
+                                <button class="btn btn-danger delete-result"
+                                        type="button"
+                                        tal:condition="view/is_manager"
+                                        tal:attributes="data-poll-id item/poll_id">
+                                    Delete
                                 </button>
                             </form>
                             </div>

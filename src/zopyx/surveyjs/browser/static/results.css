@@ -30,6 +30,18 @@ body {
     text-align: left;
 }
 
+.table .selection-column {
+    width: 48px;
+    text-align: center;
+}
+
+.result-select,
+#select-all-results {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
 .table th {
     background-color: #f8f9fa;
     font-weight: 600;
@@ -153,6 +165,25 @@ pre#json-content {
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    width: 100%;
+}
+
+.result-actions .download-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 auto;
+}
+
+.download-form .delete-result {
+    margin-left: auto;
+    padding-left: 14px;
+}
+
+.results-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
 }
 
 .download-form {

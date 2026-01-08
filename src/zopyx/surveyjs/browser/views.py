@@ -167,7 +167,7 @@ class Views(BrowserView):
             form_data = form_versions[-1]["form_json"]
 
         # Prepare download with attachment header
-        filename = f"survey-form-{self.context.getId()}.json"
+        filename = f"{self.context.getId()}-survey-form.json"
         json_content = orjson.dumps(form_data, option=orjson.OPT_INDENT_2)
 
         self.request.response.setHeader("Content-Type", "application/json")
@@ -190,7 +190,7 @@ class Views(BrowserView):
         )
 
         # Prepare download with attachment header
-        filename = f"survey-data-{self.context.getId()}.json"
+        filename = f"{self.context.getId()}-survey-data.json"
         json_content = orjson.dumps(results, option=orjson.OPT_INDENT_2)
 
         self.request.response.setHeader("Content-Type", "application/json")
@@ -707,6 +707,86 @@ class Views(BrowserView):
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
+
+    @property
+    def is_manager(self):
+        """Return True if the current user has the Manager role"""
+        return "Manager" in plone.api.user.get_roles(obj=self.context)
+
+    def _require_manager(self):
+        """Ensure the current user is a manager before performing a destructive action."""
+        if self.is_manager:
+            return True
+
+        self.request.response.setStatus(403)
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(
+            orjson.dumps({"error": "You are not allowed to delete results"})
+        )
+        return False
+
+    def delete_results(self):
+        """Delete one or multiple poll results (Managers only)."""
+        if not self._require_manager():
+            return
+
+        annos = IAnnotations(self.context)
+        annos.setdefault(RESULTS_KEY, OOBTree())
+        results = annos[RESULTS_KEY]
+
+        poll_ids = []
+
+        # Accept JSON payload
+        raw_body = self.request.get("BODY", b"")
+        if isinstance(raw_body, str):
+            raw_body = raw_body.encode("utf-8")
+        if raw_body:
+            try:
+                payload = orjson.loads(raw_body)
+                if isinstance(payload, dict):
+                    poll_ids = payload.get("poll_ids") or []
+            except orjson.JSONDecodeError:
+                pass
+
+        # Fallback to form parameters
+        poll_id = self.request.form.get("poll_id")
+        if poll_id:
+            poll_ids.append(poll_id)
+
+        form_poll_ids = self.request.form.get("poll_ids")
+        if form_poll_ids:
+            if isinstance(form_poll_ids, (list, tuple)):
+                poll_ids.extend(form_poll_ids)
+            elif isinstance(form_poll_ids, str):
+                poll_ids.append(form_poll_ids)
+
+        if isinstance(poll_ids, str):
+            poll_ids = [poll_ids]
+
+        poll_ids = [pid for pid in poll_ids if pid]
+        deleted = []
+        missing = []
+
+        for pid in poll_ids:
+            if pid in results:
+                del results[pid]
+                deleted.append(pid)
+            else:
+                missing.append(pid)
+
+        if not poll_ids:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"error": "No poll IDs provided for deletion"})
+            )
+            return
+
+        self.request.response.setStatus(200)
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(
+            orjson.dumps({"deleted": deleted, "missing": missing})
+        )
 
     @property
     def plone_api(self):

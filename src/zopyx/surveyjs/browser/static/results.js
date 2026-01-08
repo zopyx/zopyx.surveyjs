@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const detailsContent = document.getElementById("details-content");
     const detailsButtons = document.querySelectorAll(".view-details");
     const questionLabels = {};
+    const deleteButtons = document.querySelectorAll(".delete-result");
+    const deleteSelectedBtn = document.getElementById("delete-selected-btn");
+    const selectAllCheckbox = document.getElementById("select-all-results");
+    const selectionCheckboxes = document.querySelectorAll(".result-select");
 
     fetch("get-form-json", { credentials: "same-origin" })
         .then(response => response.json())
@@ -160,6 +164,104 @@ document.addEventListener("DOMContentLoaded", function () {
         return div.innerHTML;
     }
 
+    function getSelectedPollIds() {
+        return Array.from(selectionCheckboxes || [])
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+    }
+
+    function getAuthenticatorToken() {
+        const tokenInput = document.querySelector('input[name="_authenticator"]');
+        return tokenInput ? tokenInput.value : null;
+    }
+
+    function updateSelectionState() {
+        const checkboxes = Array.from(selectionCheckboxes || []);
+        if (!selectAllCheckbox || !deleteSelectedBtn) {
+            return;
+        }
+
+        const total = checkboxes.length;
+        const checkedCount = checkboxes.filter(cb => cb.checked).length;
+
+        selectAllCheckbox.checked = total > 0 && checkedCount === total;
+        selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < total;
+        deleteSelectedBtn.disabled = checkedCount === 0;
+    }
+
+    function deletePolls(pollIds) {
+        const headers = {
+            "Content-Type": "application/json"
+        };
+        const token = getAuthenticatorToken();
+        if (token) {
+            headers["X-CSRF-TOKEN"] = token;
+        }
+
+        return fetch("delete-results", {
+            method: "POST",
+            credentials: "same-origin",
+            headers,
+            body: JSON.stringify({ poll_ids: pollIds })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json().catch(() => ({}));
+        });
+    }
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const pollId = this.getAttribute("data-poll-id");
+            if (!pollId) {
+                return;
+            }
+            if (!confirm("Delete this result?")) {
+                return;
+            }
+            deletePolls([pollId])
+                .then(() => window.location.reload())
+                .catch(error => {
+                    console.error("Error deleting result:", error);
+                    alert("Failed to delete the result. Please check the console for details.");
+                });
+        });
+    });
+
+    selectionCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", updateSelectionState);
+    });
+
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener("change", function () {
+            selectionCheckboxes.forEach(cb => {
+                cb.checked = selectAllCheckbox.checked;
+            });
+            updateSelectionState();
+        });
+    }
+
+    if (deleteSelectedBtn) {
+        deleteSelectedBtn.addEventListener("click", function () {
+            const selected = getSelectedPollIds();
+            if (!selected.length) {
+                return;
+            }
+            if (!confirm(`Delete ${selected.length} selected result(s)?`)) {
+                return;
+            }
+            deletePolls(selected)
+                .then(() => window.location.reload())
+                .catch(error => {
+                    console.error("Error deleting selected results:", error);
+                    alert("Failed to delete selected results. Please check the console for details.");
+                });
+        });
+    }
+
+    updateSelectionState();
+
     // Clear Results functionality
     const clearResultsBtn = document.getElementById("clear-results-btn");
     const clearConfirmModal = document.getElementById("clear-confirm-modal");
@@ -195,9 +297,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (clearConfirmBtn) {
         clearConfirmBtn.addEventListener("click", function () {
+            const headers = {};
+            const token = getAuthenticatorToken();
+            if (token) {
+                headers["X-CSRF-TOKEN"] = token;
+            }
+
             fetch("clear-results", {
                 method: "POST",
-                credentials: "same-origin"
+                credentials: "same-origin",
+                headers
             })
                 .then(response => {
                     if (!response.ok) {
