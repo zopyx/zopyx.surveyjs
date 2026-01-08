@@ -1,0 +1,10 @@
+procs:
+  plone:
+    shell: "bin/instance fg"
+    autostart: true
+    autorestart: true
+    env:
+      PYTHONWARNINGS: ignore
+
+  logs:
+    shell: "tail -f var/log/instance.log"

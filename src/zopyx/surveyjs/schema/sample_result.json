@@ -1,0 +1,24 @@
+{
+  "discovery-source": "Search engine (Google, Bing, etc.)",
+  "quality": {
+    "needs-are-met": 1,
+    "satisfaction": 2,
+    "improvements-required": 3
+  },
+  "buying-experience": 3,
+  "low-score-reason": "hello world",
+  "have-used-similar-products": true,
+  "similar-products": "wqeqew qkwe kqöweq",
+  "product-aspects-ranked": [
+    "Price",
+    "Delivery option",
+    "Technical support",
+    "Quality",
+    "Ease of use",
+    "Product warranties"
+  ],
+  "missing-feature": "blabla",
+  "price-accuracy": 3,
+  "have-additional-thoughts": true,
+  "additional-thoughts": "qwewqeqweq"
+}
