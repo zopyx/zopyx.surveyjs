@@ -335,7 +335,7 @@ class SurveyConverter:
         """Produce Markdown output including image references."""
         parts: List[str] = [f"# Survey response ({poll_id})", ""]
         for item in items:
-            parts.append(f"## {item.label}")
+            parts.append(f"## {item.label} ({item.key})")
             for val in item.values:
                 parts.append(f"- {val}")
             for att in item.attachments:
@@ -402,10 +402,16 @@ class SurveyConverter:
         """Wrap converted HTML with styles suitable for PDF rendering."""
         style = """
         <style>
-          img { max-width: 75%; height: auto; display: block; margin: 0.5em 0; }
-          body { font-family: sans-serif; }
-          .metadata { margin-bottom: 1.5em; color: #666; }
-          .metadata p { margin: 0.3em 0; }
+          img { max-width: 75%; height: auto; display: block; margin: 0.3em 0; }
+          body { font-family: sans-serif; font-size: 10pt; line-height: 1.3; }
+          h1 { font-size: 14pt; margin: 0.5em 0 0.3em 0; }
+          h2 { font-size: 11pt; margin: 0.4em 0 0.2em 0; font-weight: 600; }
+          h3 { font-size: 10pt; margin: 0.3em 0 0.2em 0; }
+          p { margin: 0.2em 0; }
+          ul, ol { margin: 0.2em 0; padding-left: 1.5em; }
+          li { margin: 0.1em 0; }
+          .metadata { margin-bottom: 0.8em; color: #666; font-size: 9pt; }
+          .metadata p { margin: 0.2em 0; }
         </style>
         """
 
