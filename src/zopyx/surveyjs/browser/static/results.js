@@ -8,6 +8,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const detailsCloseButton = document.querySelector(".details-close-button");
     const detailsContent = document.getElementById("details-content");
     const detailsButtons = document.querySelectorAll(".view-details");
+    const questionLabels = {};
+
+    fetch("get-form-json", { credentials: "same-origin" })
+        .then(response => response.json())
+        .then(data => {
+            (data.pages || []).forEach(page => {
+                (page.elements || []).forEach(element => {
+                    if (element.name) {
+                        questionLabels[element.name] = element.title || element.name;
+                    }
+                });
+            });
+        })
+        .catch(() => {
+            // Best-effort label mapping; fall back to keys on failure.
+        });
 
     // View JSON button handlers
     viewButtons.forEach(button => {
@@ -92,11 +108,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderDetailsTable(data) {
         let html = "<table class='details-table'>";
-        html += "<thead><tr><th>Question</th><th>Answer</th></tr></thead>";
+        html += "<thead><tr><th>Key / Question</th><th>Answer</th></tr></thead>";
         html += "<tbody>";
 
         for (const [key, value] of Object.entries(data)) {
-            html += `<tr><td class="question-cell"><strong>${escapeHtml(key)}</strong></td><td class="answer-cell">`;
+            const label = questionLabels[key] || key;
+            html += "<tr>";
+            html += "<td class=\"question-cell\">";
+            html += `<span class="question-key">${escapeHtml(key)}</span>`;
+            html += `<span class="question-label">${escapeHtml(label)}</span>`;
+            html += "</td>";
+            html += "<td class=\"answer-cell\">";
 
             if (Array.isArray(value) && value.length > 0) {
                 // Check if it's a file upload result
