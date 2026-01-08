@@ -1,5 +1,6 @@
 from BTrees.OOBTree import OOBTree
 from datetime import datetime, timezone
+from string import Formatter
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from Products.Five import BrowserView
@@ -89,11 +90,20 @@ class Views(BrowserView):
         poll_result = orjson.loads(self.request.form["pollResult"])
 
         annos = IAnnotations(self.context)
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
+        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
+        form_versions = sorted(
+            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
+        )
+        form_version_id = form_versions[-1]["id"] if form_versions else None
 
         data = dict(
             poll_id=str(uuid.uuid1()),
             created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
+            form_version=form_version_id,
             result=poll_result,
         )
 
@@ -230,15 +240,19 @@ class Views(BrowserView):
         if format_key == "text":
             from ..converters import write_text
 
-            output_path = write_text(items, output_dir / f"{poll_id}.txt")
+            output_path = write_text(
+                items, output_dir / f"{poll_id}.txt", creator, created
+            )
         elif format_key == "md":
             from ..converters import write_markdown
 
-            output_path = write_markdown(items, poll_id, output_dir / f"{poll_id}.md")
+            output_path = write_markdown(
+                items, poll_id, output_dir / f"{poll_id}.md", creator, created
+            )
         elif format_key == "html":
             from ..converters import build_markdown, write_html
 
-            markdown_body = build_markdown(items, poll_id)
+            markdown_body = build_markdown(items, poll_id, creator, created)
             output_path = write_html(
                 markdown_body, attachments, output_dir / f"{poll_id}.html"
             )
@@ -246,7 +260,7 @@ class Views(BrowserView):
             from ..converters import build_markdown, write_pdf
             from ..converters.html import build_html
 
-            markdown_body = build_markdown(items, poll_id)
+            markdown_body = build_markdown(items, poll_id, creator, created)
             html_body = build_html(markdown_body, attachments)
             output_path = write_pdf(
                 html_body, output_dir / f"{poll_id}.pdf", creator, created
@@ -280,6 +294,15 @@ class Views(BrowserView):
                 items, poll_id, output_dir / f"{poll_id}.json", creator, created
             )
         return output_path
+
+    def _interpolate_text(self, text, mapping):
+        if not text:
+            return text
+        formatter = Formatter()
+        try:
+            return formatter.vformat(text, (), mapping)
+        except KeyError:
+            return text
 
     def download_result(self):
         """Download a single poll result in the requested format."""
@@ -399,6 +422,18 @@ class Views(BrowserView):
         created = result_data.get("created")
         if isinstance(created, datetime):
             created = ensure_timezone_aware(created).isoformat()
+        formats_label = format_info["label"]
+        email_subject = self._interpolate_text(
+            email_subject, {"poll_id": poll_id}
+        )
+        email_body = self._interpolate_text(
+            email_body,
+            {
+                "created": created or "",
+                "creator": creator or "",
+                "formats": formats_label,
+            },
+        )
 
         from ..converters.cli import SurveyConverter
 

@@ -559,12 +559,12 @@ class SurveyConverter:
 
         if "text" in formats:
             txt_path = self.output_dir / f"{poll_id}.txt"
-            written_paths.append(write_text(items, txt_path))
+            written_paths.append(write_text(items, txt_path, creator, created))
 
         need_markdown = bool({"md", "html", "pdf"} & formats)
         markdown_body = None
         if need_markdown:
-            markdown_body = build_markdown(items, poll_id)
+            markdown_body = build_markdown(items, poll_id, creator, created)
 
         if "md" in formats and markdown_body is not None:
             md_path = self.output_dir / f"{poll_id}.md"

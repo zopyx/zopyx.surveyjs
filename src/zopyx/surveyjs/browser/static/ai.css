@@ -10,16 +10,16 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-.ai-generator-header h2 {
+.page-headline {
   margin: 0;
-  color: #333;
+  color: #343a40;
   font-weight: 600;
-  font-size: 28px;
+  font-size: 1.5em;
 }
 
-.ai-generator-header .subtitle {
-  color: #666;
-  font-size: 14px;
+.page-subtitle {
+  color: #6c757d;
+  font-size: 0.95em;
   margin-top: 5px;
 }
 

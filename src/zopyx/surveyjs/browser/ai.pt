@@ -48,8 +48,8 @@
 
     <!-- Header -->
     <div class="ai-generator-header">
-      <h2 i18n:translate="">AI Form Generator</h2>
-      <div class="subtitle" i18n:translate="">
+      <h2 class="page-headline" i18n:translate="">AI Form Generator</h2>
+      <div class="subtitle page-subtitle" i18n:translate="">
         Describe your survey in natural language and let AI generate the form
       </div>
     </div>

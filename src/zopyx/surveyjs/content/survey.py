@@ -73,15 +73,15 @@ class ISurvey(model.Schema):
         required=False,
     )
 
-    email_subject = schema.TextLine(
-        title=_("Subject"),
-        description=_("Subject line for notification emails"),
+    email_to = schema.TextLine(
+        title=_("E-Mail recipient"),
+        description=_("Email address to receive results"),
         required=False,
     )
 
-    email_to = schema.TextLine(
-        title=_("Mail-To"),
-        description=_("Email address to receive results"),
+    email_subject = schema.TextLine(
+        title=_("Subject"),
+        description=_("Subject line for notification emails"),
         required=False,
     )
 
@@ -98,13 +98,6 @@ class ISurvey(model.Schema):
         title=_("Body"),
         description=_("Body text for notification emails"),
         required=False,
-    )
-
-    allow_embedding = schema.Bool(
-        title=_("Allow Embedding"),
-        description=_("Allow this survey to be embedded in an iframe on external websites"),
-        required=False,
-        default=False,
     )
 
 

@@ -64,7 +64,9 @@ def inline_html_images(html_body: str, attachments: Iterable[Attachment]) -> str
     return updated
 
 
-def wrap_pdf_html(html_body: str, creator: str | None = None, created: str | None = None) -> str:
+def wrap_pdf_html(
+    html_body: str, creator: str | None = None, created: str | None = None
+) -> str:
     """Wrap HTML with PDF-friendly styles and optional metadata."""
     style = """
     <style>
@@ -98,7 +100,15 @@ def wrap_pdf_html(html_body: str, creator: str | None = None, created: str | Non
             metadata_parts.append(f"<p><strong>Created on:</strong> {formatted_date}</p>")
         metadata_html = f"<div class=\"metadata\">{''.join(metadata_parts)}</div>"
 
-    return f"<html><head>{style}</head><body>{metadata_html}{html_body}</body></html>"
+    if metadata_html:
+        closing_h1 = html_body.find("</h1>")
+        if closing_h1 != -1:
+            insert_at = closing_h1 + len("</h1>")
+            html_body = f"{html_body[:insert_at]}{metadata_html}{html_body[insert_at:]}"
+        else:
+            html_body = f"{metadata_html}{html_body}"
+
+    return f"<html><head>{style}</head><body>{html_body}</body></html>"
 
 
 def wrap_html_output(html_body: str) -> str:
