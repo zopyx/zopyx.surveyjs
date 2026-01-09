@@ -105,7 +105,12 @@ class ISurvey(model.Schema):
 class Survey(Item):
     """Content-type class for ISurvey"""
 
-    def __init__(self):
+    def __init__(self, *args, **kw):
+        for k,v in kw.items():
+            setattr(self, k, v)
+
         annos = IAnnotations(self)
         annos[FORM_VERSIONS_KEY] = OOBTree()
         annos[RESULTS_KEY] = OOBTree()
+
+        super().__init__(*args, **kw)
