@@ -65,8 +65,8 @@
                                     </button>
                                     <button class="btn btn-success view-details"
                                             tal:attributes="data-poll-id item/poll_id"
-                                            aria-label="as text">
-                                        as text
+                                            aria-label="Table">
+                                        Table
                                     </button>
                                     <form method="get" action="download-result" class="download-form">
                                         <input type="hidden" name="poll_id"
