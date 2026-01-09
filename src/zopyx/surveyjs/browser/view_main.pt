@@ -6,18 +6,33 @@
 >
 
   <metal:block fill-slot="content-core">
-    <ul>
-      <li>
-        <a href="${context/absolute_url}/results">Results</a>
-      </li>
-      <li>
-        <a href="${context/absolute_url}/viewer">Viewer</a>
-      </li>
-      <li>
-        <a href="${context/absolute_url}/editor">Editor</a>
-      </li>
-    </ul>
+    <link href="++resource++zopyx.surveyjs/viewer.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+    <div class="survey-actions"
+         tal:condition="view/can_manage_portal_content">
+      <a class="survey-action-button action-view"
+         href="${context/absolute_url}/@@viewer">
+        <span i18n:translate="">View</span>
+      </a>
+      <a class="survey-action-button action-editor"
+         href="${context/absolute_url}/@@editor">
+        <span i18n:translate="">Visual Editor</span>
+      </a>
+      <a class="survey-action-button action-results"
+         href="${context/absolute_url}/@@results">
+        <span i18n:translate="">Form Results</span>
+      </a>
+      <a class="survey-action-button action-versions"
+         href="${context/absolute_url}/@@form-versions">
+        <span i18n:translate="">Versions</span>
+      </a>
+      <a class="survey-action-button action-ai"
+         href="${context/absolute_url}/@@ai">
+        <span i18n:translate="">AI Generator</span>
+      </a>
+    </div>
 
   </metal:block>
 </html>
-

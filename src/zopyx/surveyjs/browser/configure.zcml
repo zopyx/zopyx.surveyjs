@@ -17,6 +17,7 @@
     name="view-main"
     for="*"
     permission="zope2.View"
+    class=".views.Views"
     template="view_main.pt"
   />
 
@@ -39,6 +40,7 @@
     name="editor"
     for="*"
     permission="cmf.ManagePortal"
+    class=".views.Views"
     template="editor.pt"
   />
 

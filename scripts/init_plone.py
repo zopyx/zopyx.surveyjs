@@ -135,7 +135,20 @@ welcome = api.content.create(
     title="Welcome",
     id="welcome",
     text=RichTextValue(
-        "<p>Welcome to the demo site. Use the Event registration form to collect responses and explore the results views.</p>",
+        """
+<h2>Privacy Form Studio</h2>
+<p>Build, publish, and export forms or surveys with SurveyJS creator, viewer, and results.</p>
+<p>Privacy Form Studio adds a dedicated Survey content type to your Plone site, powered by SurveyJS. Keep data on-premise or in your own SaaS stack with no required cloud integrations or external services.</p>
+<ul>
+  <li>Visual SurveyJS creator with live preview and localization.</li>
+  <li>Embed the responsive survey viewer across your site.</li>
+  <li>Optional AI assistant for form drafting (keep it off for fully local workflows).</li>
+  <li>Results dashboard for managing and exporting submissions.</li>
+  <li>Converter pipeline for PDF, HTML, Markdown, CSV, XLSX, DOCX, XML, JSON, and TXT exports.</li>
+  <li>Email notifications using your infrastructure; attachments handled safely.</li>
+</ul>
+<p>Need help with a privacy-first rollout? Email <a href="mailto:info@zopyx.com">info@zopyx.com</a> to discuss your requirements.</p>
+""",
         "text/html",
         "text/html",
     ),

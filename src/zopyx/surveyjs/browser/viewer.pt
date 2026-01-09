@@ -31,14 +31,17 @@
     <script src="++resource++zopyx.surveyjs/viewer.js"
             type="text/javascript"
     ></script>
-    <link "=""
-          href=" ++resource++zopyx.surveyjs/viewer.css"
+    <link href="++resource++zopyx.surveyjs/viewer.css"
           rel="stylesheet"
           type="text/css"
     />
 
     <div class="survey-actions"
          tal:condition="view/can_manage_portal_content">
+      <a class="survey-action-button action-view"
+         href="${context/absolute_url}/@@viewer">
+        <span i18n:translate="">View</span>
+      </a>
       <a class="survey-action-button action-editor"
          href="${context/absolute_url}/@@editor">
         <span i18n:translate="">Visual Editor</span>
