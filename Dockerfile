@@ -33,5 +33,6 @@ RUN uv venv .venv --python 3.12 --clear
 RUN ls .venv/bin
 RUN uv pip install -r requirements.txt
 RUN ./.venv/bin/buildout
+RUN ./bin/instance run /app/scripts/init_plone.py
 
 CMD ["./bin/instance", "fg"]
