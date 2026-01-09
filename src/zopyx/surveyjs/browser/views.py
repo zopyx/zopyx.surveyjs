@@ -6,9 +6,11 @@ from tempfile import TemporaryDirectory
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
+from zope.event import notify
 import plone.api
 
 from .. import _
+from ..events import SurveyJSFormSubmitted
 
 import orjson
 import uuid
@@ -88,6 +90,8 @@ class Views(BrowserView):
 
     def save_poll(self):
         poll_result = orjson.loads(self.request.form["pollResult"])
+
+        notify(SurveyJSFormSubmitted(self.context, poll_result))
 
         actions = getattr(self.context, "actions", set()) or set()
         if "store" not in actions:

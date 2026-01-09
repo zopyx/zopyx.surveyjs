@@ -41,5 +41,9 @@
       name="zopyx.surveyjs-hiddenprofiles"
       />
 
+  <subscriber
+      for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
+      handler=".subscribers.log_survey_submission"
+      />
 
 </configure>
