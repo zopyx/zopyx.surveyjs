@@ -27,18 +27,13 @@
             </tal:block>
 
             <tal:block tal:condition="view/storing_enabled">
-                <form method="get" action="" tal:condition="python: results['total'] > 0">
+                <form method="get" action="" class="results-search" tal:condition="python: results['total'] > 0">
                     <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|nothing" />
                     <button type="submit">Search</button>
                 </form>
 
                 <div tal:condition="view/is_manager" style="display:none;"
                      tal:content="structure context/@@authenticator/authenticator"></div>
-
-                <div class="results-toolbar"
-                     tal:condition="python: results['total'] > 0 and view.is_manager">
-                    <button id="delete-selected-btn" class="btn btn-danger" disabled>Delete Selected</button>
-                </div>
 
                 <tal:block tal:condition="python: results['total'] > 0">
                     <table class="table">
@@ -64,12 +59,14 @@
                             <td>
                                 <div class="result-actions">
                                     <button class="btn btn-primary view-json"
-                                            tal:attributes="data-poll-id item/poll_id">
-                                        View
+                                            tal:attributes="data-poll-id item/poll_id"
+                                            aria-label="JSON">
+                                        JSON
                                     </button>
                                     <button class="btn btn-success view-details"
-                                            tal:attributes="data-poll-id item/poll_id">
-                                        Details
+                                            tal:attributes="data-poll-id item/poll_id"
+                                            aria-label="as text">
+                                        as text
                                     </button>
                                     <form method="get" action="download-result" class="download-form">
                                         <input type="hidden" name="poll_id"
@@ -81,26 +78,48 @@
                                                 Format
                                             </option>
                                         </select>
-                                    <button class="btn btn-secondary download-result" type="submit">
-                                        Download
+                                    <button class="btn btn-secondary download-result icon-only"
+                                            type="submit"
+                                            title="Download result"
+                                            aria-label="Download result">
+                                        <img src="++resource++zopyx.surveyjs/icon-download.svg"
+                                             alt="Download result"
+                                             title="Download result" />
                                     </button>
-                                    <button class="btn btn-info mail-result"
+                                    <button class="btn btn-info mail-result icon-only"
                                             tal:condition="view/has_mail_action"
                                             type="submit"
-                                            formaction="mail-result">
-                                        Mail
+                                            formaction="mail-result"
+                                            title="Mail result"
+                                            aria-label="Mail result">
+                                        <img src="++resource++zopyx.surveyjs/icon-mail.svg"
+                                             alt="Mail result"
+                                             title="Mail result" />
                                     </button>
-                                    <button class="btn btn-danger delete-result"
+                                    <button class="btn btn-danger delete-result icon-only"
                                             type="button"
                                             tal:condition="view/is_manager"
-                                            tal:attributes="data-poll-id item/poll_id">
-                                        Delete
+                                            tal:attributes="data-poll-id item/poll_id"
+                                            title="Delete result"
+                                            aria-label="Delete result">
+                                        <img src="++resource++zopyx.surveyjs/icon-trash.svg"
+                                             alt="Delete result"
+                                             title="Delete result" />
                                     </button>
                                 </form>
                                 </div>
                             </td>
                         </tr>                </tbody>
                     </table>
+
+                    <div class="results-toolbar"
+                         tal:condition="python: results['total'] > 0">
+                        <button id="delete-selected-btn"
+                                class="btn btn-danger"
+                                tal:condition="view/is_manager"
+                                disabled>Delete selected</button>
+                        <button id="clear-results-btn" class="btn btn-danger">Clear all results</button>
+                    </div>
 
                     <div class="pagination"
                          tal:define="pagination_info results;
@@ -175,13 +194,10 @@
 
             <ul id="downloadActions" tal:condition="python: results['total'] > 0">
                 <li>
-                    <a href="download-polls-json" class="btn btn-primary">Download data (JSON)</a>
+                    <a href="download-polls-json" class="btn btn-primary">Download collected form data (JSON)</a>
                 </li>
                 <li>
-                    <a href="download-form-json" class="btn btn-primary">Download form (JSON)</a>
-                </li>
-                <li>
-                    <button id="clear-results-btn" class="btn btn-danger">Clear Results</button>
+                    <a href="download-form-json" class="btn btn-primary">Download form definition (JSON)</a>
                 </li>
             </ul>
         </tal:block>

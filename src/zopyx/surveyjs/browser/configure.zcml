@@ -24,6 +24,7 @@
     name="viewer"
     for="*"
     permission="zope2.View"
+    class=".views.Views"
     template="viewer.pt"
   />
 

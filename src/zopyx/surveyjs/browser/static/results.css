@@ -18,6 +18,35 @@ body {
     padding: 20px;
 }
 
+.results-search {
+    margin-bottom: 14px;
+}
+
+.results-search input[type="text"] {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95em;
+    padding: 6px 10px;
+}
+
+.results-search button[type="submit"] {
+    background-color: #495057;
+    border: 1px solid #495057;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 6px;
+    padding: 6px 12px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.results-search button[type="submit"]:hover,
+.results-search button[type="submit"]:focus {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -182,7 +211,9 @@ pre#json-content {
 
 .results-toolbar {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
     margin: 10px 0;
 }
 
@@ -193,7 +224,7 @@ pre#json-content {
 }
 
 .download-form select {
-    margin: 0 6px;
+    margin: 0 6px 0 12px;
     padding: 4px 6px;
     font-size: 0.9em;
 }
@@ -207,6 +238,28 @@ pre#json-content {
     font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.2s;
+}
+
+.btn.icon-only {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    padding: 6px 10px;
+}
+
+.btn.icon-only img {
+    display: block;
+    height: 16px;
+    width: 16px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.btn.btn-secondary.download-result.icon-only {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0.08));
+}
+
+.btn.btn-info.mail-result.icon-only {
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0.08));
 }
 
 .btn.btn-secondary.download-result:hover {

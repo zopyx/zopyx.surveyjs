@@ -690,7 +690,16 @@ class Views(BrowserView):
 
         all_results = self.results
         if q:
-            all_results = [r for r in all_results if q in r.get("user", "").lower()]
+            def _matches_query(result):
+                user = (result.get("user") or "").lower()
+                poll_id = (result.get("poll_id") or "").lower()
+                result_uuid = ""
+                result_payload = result.get("result") or {}
+                if isinstance(result_payload, dict):
+                    result_uuid = (result_payload.get("uuid") or "").lower()
+                return q in user or q in poll_id or q in result_uuid
+
+            all_results = [r for r in all_results if _matches_query(r)]
 
         total = len(all_results)
         numpages = total // pagesize
@@ -726,6 +735,13 @@ class Views(BrowserView):
     def is_manager(self):
         """Return True if the current user has the Manager role"""
         return "Manager" in plone.api.user.get_roles(obj=self.context)
+
+    @property
+    def can_manage_portal_content(self):
+        """Return True for Managers or users with Modify portal content."""
+        return self.is_manager or plone.api.user.has_permission(
+            "Modify portal content", obj=self.context
+        )
 
     def _require_manager(self):
         """Ensure the current user is a manager before performing a destructive action."""

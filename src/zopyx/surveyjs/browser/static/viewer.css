@@ -1,2 +1,77 @@
 #surveyContainer {
 }
+
+.survey-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin: 0 0 1.25rem;
+}
+
+.survey-action-button {
+    align-items: center;
+    background: linear-gradient(145deg, #3d78ff, #2e5bd9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(46, 91, 217, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    display: inline-flex;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.55rem 1.25rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.survey-action-button:hover,
+.survey-action-button:focus {
+    box-shadow: 0 10px 22px rgba(46, 91, 217, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.survey-action-button:active {
+    transform: translateY(0);
+}
+
+.survey-action-button.action-versions {
+    background: linear-gradient(145deg, #ff8a3d, #e56b1f);
+    box-shadow: 0 6px 16px rgba(229, 107, 31, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.survey-action-button.action-editor {
+    background: linear-gradient(145deg, #00a6a6, #0a7f7f);
+    box-shadow: 0 6px 16px rgba(10, 127, 127, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.survey-action-button.action-ai {
+    background: linear-gradient(145deg, #1aa85a, #0c8c48);
+    box-shadow: 0 6px 16px rgba(12, 140, 72, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.survey-action-button.action-versions:hover,
+.survey-action-button.action-versions:focus,
+.survey-action-button.action-editor:hover,
+.survey-action-button.action-editor:focus,
+.survey-action-button.action-ai:hover,
+.survey-action-button.action-ai:focus {
+    color: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .survey-actions {
+        gap: 0.5rem;
+    }
+
+    .survey-action-button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
