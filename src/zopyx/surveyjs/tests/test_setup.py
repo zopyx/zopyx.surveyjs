@@ -29,7 +29,11 @@ class TestSetup(unittest.TestCase):
 
     def test_product_installed(self):
         """Test if zopyx.surveyjs is installed."""
-        self.assertTrue(self.installer.isProductInstalled("zopyx.surveyjs"))
+        if hasattr(self.installer, "is_product_installed"):
+            installed = self.installer.is_product_installed("zopyx.surveyjs")
+        else:
+            installed = self.installer.isProductInstalled("zopyx.surveyjs")
+        self.assertTrue(installed)
 
     def test_browserlayer(self):
         """Test that IZopyxSurveyjsLayer is registered."""
@@ -50,12 +54,19 @@ class TestUninstall(unittest.TestCase):
             self.installer = api.portal.get_tool("portal_quickinstaller")
         roles_before = api.user.get_roles(TEST_USER_ID)
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.installer.uninstallProducts(["zopyx.surveyjs"])
+        if hasattr(self.installer, "uninstall_product"):
+            self.installer.uninstall_product("zopyx.surveyjs")
+        else:
+            self.installer.uninstallProducts(["zopyx.surveyjs"])
         setRoles(self.portal, TEST_USER_ID, roles_before)
 
     def test_product_uninstalled(self):
         """Test if zopyx.surveyjs is cleanly uninstalled."""
-        self.assertFalse(self.installer.isProductInstalled("zopyx.surveyjs"))
+        if hasattr(self.installer, "is_product_installed"):
+            installed = self.installer.is_product_installed("zopyx.surveyjs")
+        else:
+            installed = self.installer.isProductInstalled("zopyx.surveyjs")
+        self.assertFalse(installed)
 
     def test_browserlayer_removed(self):
         """Test that IZopyxSurveyjsLayer is removed."""
