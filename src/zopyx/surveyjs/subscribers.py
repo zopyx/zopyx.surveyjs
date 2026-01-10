@@ -12,6 +12,7 @@ from typing import List
 import orjson
 from BTrees.OOBTree import OOBTree
 from zope.annotation.interfaces import IAnnotations
+import httpx
 
 from .browser.views import FORM_VERSIONS_KEY, RESULTS_KEY, ensure_timezone_aware
 from .converters.cli import SurveyConverter
@@ -244,3 +245,53 @@ def send_submission_email(context, event):
             logger.info("Submission mail sent for poll %s to %s", poll_id, email_to)
     except Exception:
         logger.exception("Failed to send submission mail for poll %s", poll_id)
+
+
+def post_submission_payload(context, event):
+    """POST submission to external endpoint when the post action is enabled."""
+    actions = getattr(context, "actions", set()) or set()
+    if "post" not in actions:
+        return
+
+    endpoint_url = getattr(context, "post_endpoint_url", None)
+    if not endpoint_url:
+        logger.info(
+            "POST action enabled but no endpoint configured for %s",
+            getattr(context, "absolute_url", lambda: repr(context))(),
+        )
+        return
+
+    poll_entry = event.form_data or {}
+    poll_id = poll_entry.get("poll_id") or str(uuid.uuid1())
+    created = poll_entry.get("created")
+    if isinstance(created, datetime):
+        created = ensure_timezone_aware(created).isoformat()
+
+    annos = IAnnotations(context)
+    form_json = _latest_form_json(annos)
+    if not form_json:
+        logger.info(
+            "POST action enabled but no form version available; skipping POST for %s",
+            getattr(context, "absolute_url", lambda: repr(context))(),
+        )
+        return
+
+    payload = {
+        "poll": dict(poll_entry, poll_id=poll_id, created=created),
+        "form": form_json,
+        "survey_url": getattr(context, "absolute_url", lambda: "")(),
+    }
+
+    try:
+        response = httpx.post(endpoint_url, json=payload, timeout=10.0)
+        response.raise_for_status()
+        logger.info(
+            "Submission POSTed for poll %s to %s with status %s",
+            poll_id,
+            endpoint_url,
+            response.status_code,
+        )
+    except Exception:
+        logger.exception(
+            "Failed to POST submission for poll %s to %s", poll_id, endpoint_url
+        )

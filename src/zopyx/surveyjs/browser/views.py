@@ -8,6 +8,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 import plone.api
+import httpx
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
@@ -508,6 +509,77 @@ class Views(BrowserView):
         plone.api.portal.show_message(_("Mail sent"), type="info")
         return self.request.response.redirect(self.context.absolute_url() + "/results")
 
+    def post_result(self):
+        """POST a single poll result to the configured endpoint."""
+        poll_id = self.request.form.get("poll_id")
+        endpoint_url = getattr(self.context, "post_endpoint_url", None)
+        actions = getattr(self.context, "actions", set()) or set()
+
+        if not poll_id:
+            plone.api.portal.show_message(_("Poll ID is required"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        if "post" not in actions:
+            plone.api.portal.show_message(
+                _("POST action is not enabled for this survey"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        if not endpoint_url:
+            plone.api.portal.show_message(
+                _("No POST endpoint configured for this survey"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        annos = IAnnotations(self.context)
+        results = annos.get(RESULTS_KEY, {})
+        result_data = results.get(poll_id)
+
+        if not result_data:
+            plone.api.portal.show_message(_("Poll result not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        form_json = self._latest_form_json(annos)
+        if not form_json:
+            plone.api.portal.show_message(
+                _("No form definition available to include in POST"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
+        created = result_data.get("created")
+        if isinstance(created, datetime):
+            created = ensure_timezone_aware(created).isoformat()
+
+        payload = {
+            "poll": dict(result_data, created=created),
+            "form": form_json,
+            "survey_url": getattr(self.context, "absolute_url", lambda: "")(),
+        }
+
+        try:
+            response = httpx.post(endpoint_url, json=payload, timeout=10.0)
+            response.raise_for_status()
+            plone.api.portal.show_message(
+                _("Result POSTed to endpoint (status ${status})", mapping={"status": response.status_code}),
+                type="info",
+            )
+        except Exception as exc:
+            plone.api.portal.show_message(
+                _("Failed to POST result: ${error}", mapping={"error": str(exc)}),
+                type="error",
+            )
+        return self.request.response.redirect(self.context.absolute_url() + "/results")
+
     @property
     def versions(self):
         """Get all form versions sorted by date (newest first)"""
@@ -832,6 +904,13 @@ class Views(BrowserView):
         """Return True if the survey actions include mail."""
         actions = getattr(self.context, "actions", set()) or set()
         return "mail" in actions
+
+    @property
+    def has_post_action(self):
+        """Return True if the survey actions include POST and have an endpoint."""
+        actions = getattr(self.context, "actions", set()) or set()
+        endpoint_url = getattr(self.context, "post_endpoint_url", None)
+        return "post" in actions and bool(endpoint_url)
 
     @property
     def storing_enabled(self):

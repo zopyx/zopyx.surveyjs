@@ -23,6 +23,7 @@ survey_actions_vocabulary = SimpleVocabulary(
     [
         SimpleTerm(value="store", title=_("Store")),
         SimpleTerm(value="mail", title=_("Mail")),
+        SimpleTerm(value="post", title=_("POST to endpoint")),
     ]
 )
 
@@ -123,6 +124,14 @@ class ISurvey(model.Schema):
     email_body = schema.Text(
         title=_("Body"),
         description=_("Body text for notification emails"),
+        required=False,
+    )
+
+    post_endpoint_url = schema.URI(
+        title=_("POST endpoint URL"),
+        description=_(
+            "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+        ),
         required=False,
     )
 

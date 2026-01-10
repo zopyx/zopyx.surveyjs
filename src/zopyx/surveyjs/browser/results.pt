@@ -96,12 +96,13 @@
                                             aria-label="Table">
                                         Table
                                     </button>
-                                    <form method="get" action="download-result" class="download-form">
-                                        <input type="hidden" name="poll_id"
-                                               tal:attributes="value item/poll_id" />
-                                        <select name="format">
-                                            <option tal:repeat="fmt view/converter_formats"
-                                                    tal:attributes="value fmt/key"
+                          <form method="get" action="download-result" class="download-form">
+                            <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
+                            <input type="hidden" name="poll_id"
+                                   tal:attributes="value item/poll_id" />
+                            <select name="format">
+                                <option tal:repeat="fmt view/converter_formats"
+                                        tal:attributes="value fmt/key"
                                                     tal:content="fmt/label">
                                                 Format
                                             </option>
@@ -123,6 +124,17 @@
                                         <img src="++resource++zopyx.surveyjs/icon-mail.svg"
                                              alt="Mail result"
                                              title="Mail result" />
+                                    </button>
+                                    <button class="btn btn-warning post-result icon-only"
+                                            tal:condition="view/has_post_action"
+                                            type="submit"
+                                            formaction="post-result"
+                                            formmethod="post"
+                                            title="POST result"
+                                            aria-label="POST result">
+                                      <img src="++resource++zopyx.surveyjs/icon-post.svg"
+                                           alt="POST result"
+                                           title="POST result" />
                                     </button>
                                     <button class="btn btn-danger delete-result icon-only"
                                             type="button"

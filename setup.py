@@ -57,6 +57,7 @@ setup(
         "plone.restapi ",
         "plone.app.dexterity",
         "llm",
+        "httpx",
     ],
     extras_require={
         "test": [
