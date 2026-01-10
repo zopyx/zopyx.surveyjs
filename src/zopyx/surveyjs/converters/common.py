@@ -261,4 +261,4 @@ def wrap_html_output(html_body: str) -> str:
       a:hover { text-decoration: underline; }
     </style>
     """
-    return f"<html><head>{style}</head><body><div class=\"container\">{html_body}</div></body></html>"
+    return f'<html><head>{style}</head><body><div class="container">{html_body}</div></body></html>'

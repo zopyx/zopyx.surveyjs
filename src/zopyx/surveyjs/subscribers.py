@@ -201,10 +201,18 @@ def send_submission_email(context, event):
                     logger.warning("Unknown mail export format '%s'; skipping", fmt)
                     continue
                 output_path = _write_export(
-                    format_key, poll_id, items, attachments, creator, created_value, output_dir
+                    format_key,
+                    poll_id,
+                    items,
+                    attachments,
+                    creator,
+                    created_value,
+                    output_dir,
                 )
                 if output_path is None:
-                    logger.warning("Failed to render format '%s' for poll %s", fmt, poll_id)
+                    logger.warning(
+                        "Failed to render format '%s' for poll %s", fmt, poll_id
+                    )
                     continue
                 output_paths.append(output_path)
                 format_labels.append(format_info["label"])

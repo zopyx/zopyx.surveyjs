@@ -3,8 +3,7 @@
 
 try:
     from zope.i18nmessageid import MessageFactory
+
     _ = MessageFactory("zopyx.surveyjs")
 except:
     pass
-
-

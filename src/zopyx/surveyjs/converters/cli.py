@@ -452,7 +452,11 @@ class SurveyConverter:
             candidates = [value]
         else:
             candidates = list(value)
-        return [candidate.strip() for candidate in candidates if candidate and candidate.strip()]
+        return [
+            candidate.strip()
+            for candidate in candidates
+            if candidate and candidate.strip()
+        ]
 
     def create_email_message(
         self,

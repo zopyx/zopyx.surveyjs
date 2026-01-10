@@ -1,4 +1,5 @@
 """Initialize a demo Plone site with zopyx.surveyjs installed."""
+
 import plone.api
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
 from plone.app.textfield.value import RichTextValue
@@ -18,6 +19,7 @@ import uuid
 SITE_ID = "demo"
 ADMIN = "admin"
 
+
 class MyThemingControlpanel(ThemingControlpanel):
     """
     A subclass of the standard ThemingControlpanel to override authorization.
@@ -28,7 +30,6 @@ class MyThemingControlpanel(ThemingControlpanel):
     def authorize(self):
         # Always return True to allow theme modifications.
         return True
-
 
 
 acl = app.acl_users
@@ -60,7 +61,6 @@ view.update()
 transaction.commit()
 
 site._p_jar.sync()
-
 
 
 for obj_id in ("events", "news", "Members"):

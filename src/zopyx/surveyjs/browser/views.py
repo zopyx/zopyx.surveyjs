@@ -50,6 +50,17 @@ def ensure_timezone_aware(dt):
     return dt
 
 
+def _extract_json_object(raw_text: str) -> str | None:
+    """Best-effort extraction of a JSON object from noisy text."""
+    if not raw_text:
+        return None
+    start = raw_text.find("{")
+    end = raw_text.rfind("}")
+    if start == -1 or end == -1 or end <= start:
+        return None
+    return raw_text[start : end + 1]
+
+
 class Views(BrowserView):
     def get_form_json(self):
         """JSON for SurveyJS renderer"""
@@ -225,6 +236,17 @@ class Views(BrowserView):
             dict(key=key, label=label)
             for key, label, _ext, _content_type in CONVERTER_FORMATS
         ]
+
+    def _parse_json_loose(self, raw_text: str) -> dict:
+        """Try strict JSON first, then a bracket-extracted fallback."""
+        cleaned = raw_text or ""
+        try:
+            return orjson.loads(cleaned)
+        except orjson.JSONDecodeError:
+            fallback = _extract_json_object(cleaned)
+            if fallback:
+                return orjson.loads(fallback)
+            raise
 
     def _get_converter_format(self, format_key):
         for key, label, ext, content_type in CONVERTER_FORMATS:
@@ -570,7 +592,10 @@ class Views(BrowserView):
             response = httpx.post(endpoint_url, json=payload, timeout=10.0)
             response.raise_for_status()
             plone.api.portal.show_message(
-                _("Result POSTed to endpoint (status ${status})", mapping={"status": response.status_code}),
+                _(
+                    "Result POSTed to endpoint (status ${status})",
+                    mapping={"status": response.status_code},
+                ),
                 type="info",
             )
         except Exception as exc:
@@ -771,6 +796,7 @@ class Views(BrowserView):
 
         all_results = self.results
         if q:
+
             def _matches_query(result):
                 user = (result.get("user") or "").lower()
                 poll_id = (result.get("poll_id") or "").lower()
@@ -1080,10 +1106,12 @@ class Views(BrowserView):
 
         # Get current JSON and refinement prompt from request
         current_json_str = self.request.form.get("current_json", "").strip()
-        use_existing = (
-            self.request.form.get("use_existing", "").strip().lower()
-            in {"1", "true", "yes", "on"}
-        )
+        use_existing = self.request.form.get("use_existing", "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
         refinement_prompt = self.request.form.get("refinement_prompt", "").strip()
 
         if not current_json_str and use_existing:

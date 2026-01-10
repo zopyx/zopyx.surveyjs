@@ -46,7 +46,9 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         annos[FORM_VERSIONS_KEY] = OOBTree()
         annos[RESULTS_KEY] = OOBTree()
 
-    def _make_request(self, form: Dict[str, Any] | None = None, body: bytes | None = None):
+    def _make_request(
+        self, form: Dict[str, Any] | None = None, body: bytes | None = None
+    ):
         request = TestRequest(form=form or {})
         if body is not None:
             request["BODY"] = body
@@ -62,7 +64,11 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             "form_json": payload
             or {
                 "pages": [
-                    {"elements": [{"type": "text", "name": "q1", "title": "Question 1"}]}
+                    {
+                        "elements": [
+                            {"type": "text", "name": "q1", "title": "Question 1"}
+                        ]
+                    }
                 ]
             },
         }
@@ -158,8 +164,12 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         req_download = self._make_request(form={"version_id": version_id})
         with patch("plone.api.portal.show_message"):
             Views(self.survey, req_download).download_version()
-        self.assertIn("application/json", req_download.response.getHeader("Content-Type"))
-        self.assertIn(version_id[:8], req_download.response.getHeader("Content-Disposition"))
+        self.assertIn(
+            "application/json", req_download.response.getHeader("Content-Type")
+        )
+        self.assertIn(
+            version_id[:8], req_download.response.getHeader("Content-Disposition")
+        )
 
         req_restore = self._make_request(form={"version_id": version_id})
         with patch("plone.api.portal.show_message"):
@@ -213,7 +223,10 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     def test_view_result_json_missing_and_existing(self) -> None:
         req_missing = self._make_request(form={"poll_id": "missing"})
         Views(self.survey, req_missing).view_result_json()
-        self.assertEqual(orjson.loads(req_missing.response.getBody())["error"], "Poll result not found")
+        self.assertEqual(
+            orjson.loads(req_missing.response.getBody())["error"],
+            "Poll result not found",
+        )
 
         self._add_result("available")
         req = self._make_request(form={"poll_id": "available"})

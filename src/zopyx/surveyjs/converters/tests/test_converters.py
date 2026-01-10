@@ -34,7 +34,9 @@ def binary_attachment() -> Attachment:
 
 
 @pytest.fixture
-def sample_items(image_attachment: Attachment, binary_attachment: Attachment) -> list[Item]:
+def sample_items(
+    image_attachment: Attachment, binary_attachment: Attachment
+) -> list[Item]:
     return [
         Item(
             key="text",
@@ -112,7 +114,9 @@ def test_build_table_rows_joins_values_and_attachments() -> None:
 
 
 def test_inline_html_images_replaces_sources(image_attachment: Attachment) -> None:
-    html_body = "<p><img src='photo.png'><img src=\"photo.png\"><img src='other.bin'></p>"
+    html_body = (
+        "<p><img src='photo.png'><img src=\"photo.png\"><img src='other.bin'></p>"
+    )
     updated = common.inline_html_images(html_body, [image_attachment])
     assert "data:image/png;base64" in updated
     assert "photo.png" not in updated
@@ -226,7 +230,9 @@ def test_write_html_wraps_body(tmp_path: Path, image_attachment: Attachment) -> 
     assert "<style>" in content
 
 
-def test_write_pdf_uses_weasyprint(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_write_pdf_uses_weasyprint(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     captured = {}
 
     class DummyHTML:
@@ -319,7 +325,9 @@ def test_write_docx_writes_content(tmp_path: Path, sample_items: list[Item]) -> 
     assert doc.tables[0].cell(0, 0).text == "Col A"
 
 
-def test_write_docx_formats_created_date(tmp_path: Path, sample_items: list[Item]) -> None:
+def test_write_docx_formats_created_date(
+    tmp_path: Path, sample_items: list[Item]
+) -> None:
     dest = tmp_path / "docx" / "survey-date.docx"
     docx_export.write_docx(
         sample_items, dest, poll_id="poll-date", created="2024-05-15T10:20:00Z"
@@ -329,7 +337,9 @@ def test_write_docx_formats_created_date(tmp_path: Path, sample_items: list[Item
     assert any("May 15, 2024 at" in p for p in paragraphs)
 
 
-def test_write_docx_bolds_table_header(tmp_path: Path, sample_items: list[Item]) -> None:
+def test_write_docx_bolds_table_header(
+    tmp_path: Path, sample_items: list[Item]
+) -> None:
     dest = tmp_path / "docx" / "survey-bold.docx"
     docx_export.write_docx(sample_items, dest, poll_id="poll-bold")
     doc = Document(dest)
@@ -339,7 +349,9 @@ def test_write_docx_bolds_table_header(tmp_path: Path, sample_items: list[Item])
     assert any(run.bold for run in runs)
 
 
-def test_write_docx_handles_metadata_and_bad_date(tmp_path: Path, sample_items: list[Item]) -> None:
+def test_write_docx_handles_metadata_and_bad_date(
+    tmp_path: Path, sample_items: list[Item]
+) -> None:
     dest = tmp_path / "docx" / "survey-meta.docx"
     docx_export.write_docx(
         sample_items, dest, poll_id="poll-meta", creator="Eve", created="not-a-date"

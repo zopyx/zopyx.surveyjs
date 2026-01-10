@@ -141,7 +141,7 @@ class Survey(Item):
     """Content-type class for ISurvey"""
 
     def __init__(self, *args, **kw):
-        for k,v in kw.items():
+        for k, v in kw.items():
             setattr(self, k, v)
 
         annos = IAnnotations(self)
