@@ -1,144 +1,267 @@
-document.addEventListener("DOMContentLoaded", function() {
+// ============================================================================
+// Form Versions Management - Clean Simple Implementation
+// ============================================================================
 
-  // DOM Elements for JSON viewer
-  var jsonViewerModal = document.getElementById('jsonViewerModal');
-  var jsonContent = document.getElementById('jsonContent');
+(function() {
+  'use strict';
 
-  // DOM Elements for Previewer
-  const modal = document.getElementById("previewModal");
-  const closeButton = modal.querySelector(".close-button");
-  const surveyContainer = document.getElementById("surveyContainer");
+  var baseUrl = '';
+  var activeJsonRequest = null;
+  var activeSurvey = null;
+  var activePreviewRequest = null;
 
-  // Handle "View JSON" form submissions
-  document.querySelectorAll('.view-json-btn').forEach(function(button) {
-    var form = button.closest('form');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var versionId = button.getAttribute('data-version-id');
-      var url = window.location.href.split('/@@')[0] + '/@@view-version-json?version_id=' + versionId;
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 
-      fetch(url, {
-        credentials: 'same-origin'
-      })
-        .then(response => response.json())
-        .then(data => {
-          jsonContent.textContent = JSON.stringify(data, null, 2);
-          if (typeof jQuery !== 'undefined') {
-            jQuery(jsonViewerModal).modal('show');
-          } else {
-            jsonViewerModal.style.display = 'block';
-            jsonViewerModal.classList.add('in');
-            var backdrop = document.createElement('div');
-            backdrop.className = 'modal-backdrop fade in';
-            backdrop.id = 'modal-backdrop-json';
-            document.body.appendChild(backdrop);
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching version JSON:', error);
-          alert('Error loading version data. Please try again.');
-        });
-    });
-  });
+  function init() {
+    console.log('Form versions initializing...');
+    baseUrl = window.location.href.split('/@@')[0];
+    setupJsonViewer();
+    setupPreviewModal();
+    setupFileInput();
+    console.log('Form versions initialized');
+  }
 
-  // Handle "Preview" form submissions
-  document.querySelectorAll('.preview-btn').forEach(function(button) {
-    var form = button.closest('form');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var versionId = button.getAttribute('data-version-id');
-      var url = window.location.href.split('/@@')[0] + '/@@view-version-json?version_id=' + versionId;
+  // ============================================================================
+  // JSON Viewer
+  // ============================================================================
 
-      fetch(url, {
-        credentials: 'same-origin'
-      })
-      .then(response => response.json())
-      .then(json => {
-        surveyContainer.innerHTML = "";
-        try {
-          const survey = new Survey.Model(json);
-          survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
-          survey.showCompleteButton = false;
-          survey.showPreviewBeforeComplete = "showAnsweredQuestions";
-          survey.render(surveyContainer);
-          modal.style.display = "block";
-        } catch (error) {
-          console.error("Error rendering preview:", error);
-          alert("Failed to render preview: " + error.message);
+  function setupJsonViewer() {
+    var modal = document.getElementById('jsonViewerModal');
+    var overlay = document.getElementById('jsonModalOverlay');
+    var content = document.getElementById('jsonContent');
+
+    if (!modal || !overlay || !content) {
+      console.error('JSON viewer elements missing');
+      return;
+    }
+
+    // Handle JSON button clicks
+    document.querySelectorAll('.view-json-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var versionId = btn.getAttribute('data-version-id');
+        if (!versionId) {
+          console.error('Missing version id for JSON preview');
+          return;
         }
-      })
-      .catch(error => {
-        console.error('Error fetching version JSON for preview:', error);
-        alert('Error loading version data for preview. Please try again.');
+
+        if (activeJsonRequest && activeJsonRequest.abort) {
+          activeJsonRequest.abort();
+        }
+        var jsonController = ('AbortController' in window) ? new AbortController() : null;
+        activeJsonRequest = jsonController;
+
+        var url = baseUrl + '/@@view-version-json?version_id=' + encodeURIComponent(versionId);
+
+        // Show modal
+        content.textContent = 'Loading...';
+        modal.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        var fetchOptions = { credentials: 'same-origin' };
+        if (jsonController) {
+          fetchOptions.signal = jsonController.signal;
+        }
+
+        // Fetch JSON
+        fetch(url, fetchOptions)
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            content.textContent = JSON.stringify(data, null, 2);
+          })
+          .catch(function(err) {
+            if (err.name === 'AbortError') {
+              return;
+            }
+            content.textContent = 'Error: ' + err.message;
+          })
+          .finally(function() {
+            if (activeJsonRequest === jsonController) {
+              activeJsonRequest = null;
+            }
+          });
       });
     });
-  });
 
-  // Close modal handlers
-  closeButton.addEventListener("click", function() {
-    modal.style.display = "none";
-  });
-
-  window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-
-  // Close preview modal with ESC key
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape" && modal.style.display === "block") {
-      modal.style.display = "none";
-    }
-  });
-
-  // Fallback for environments where jQuery/Bootstrap JS is not available for JSON viewer
-  if (typeof jQuery === 'undefined') {
-    function closeJsonModalFallback() {
-      if (jsonViewerModal.classList.contains('in')) {
-        jsonViewerModal.style.display = 'none';
-        jsonViewerModal.classList.remove('in');
-        var backdrop = document.getElementById('modal-backdrop-json');
-        if (backdrop) {
-          backdrop.parentNode.removeChild(backdrop);
-        }
-      }
-    }
-
-    document.addEventListener('click', function(e) {
-      var button = e.target.closest('[data-dismiss="modal"]');
-      if (button && button.closest('#jsonViewerModal')) {
-        e.preventDefault();
-        closeJsonModalFallback();
-        return;
-      }
-      if (e.target.matches('#modal-backdrop-json')) {
-        e.preventDefault();
-        closeJsonModalFallback();
-      }
-    });
-
+    // Close handlers
+    modal.querySelector('.json-modal-close').addEventListener('click', closeJsonModal);
+    overlay.addEventListener('click', closeJsonModal);
     document.addEventListener('keydown', function(e) {
-      if (e.key === "Escape") {
-        closeJsonModalFallback();
-        // Also close preview modal if open
-        if (modal.style.display === "block") {
-            modal.style.display = "none";
-        }
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeJsonModal();
       }
     });
-  }
-});
 
-// Handle file input label
-var fileInput = document.getElementById('json_file');
-if (fileInput) {
-  fileInput.addEventListener('change', function() {
-    var fileName = this.files[0] ? this.files[0].name : 'No file selected';
-    var label = this.nextElementSibling;
-    if (label && label.tagName === 'LABEL') {
-      label.textContent = fileName;
+    function closeJsonModal() {
+      if (activeJsonRequest && activeJsonRequest.abort) {
+        activeJsonRequest.abort();
+      }
+      activeJsonRequest = null;
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
     }
-  });
-}
+  }
 
+  // ============================================================================
+  // Preview Modal
+  // ============================================================================
+
+  function setupPreviewModal() {
+    var modal = document.getElementById('previewModal');
+    var overlay = document.getElementById('previewModalOverlay');
+    var container = document.getElementById('surveyContainer');
+
+    if (!modal || !overlay || !container) {
+      console.error('Preview modal elements missing');
+      return;
+    }
+
+    console.log('Setting up preview handlers for', document.querySelectorAll('.preview-btn').length, 'buttons');
+
+    // Handle Preview button clicks
+    document.querySelectorAll('.preview-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var versionId = btn.getAttribute('data-version-id');
+        if (!versionId) {
+          console.error('Missing version id for preview');
+          return;
+        }
+
+        console.log('Opening preview for version:', versionId);
+        openPreview(versionId);
+      });
+    });
+
+    function openPreview(versionId) {
+      if (activePreviewRequest && activePreviewRequest.abort) {
+        activePreviewRequest.abort();
+      }
+      var previewController = ('AbortController' in window) ? new AbortController() : null;
+      activePreviewRequest = previewController;
+      var url = baseUrl + '/@@view-version-json?version_id=' + encodeURIComponent(versionId);
+
+      // Clear previous survey
+      if (activeSurvey) {
+        try { activeSurvey.dispose(); } catch(e) {}
+        activeSurvey = null;
+      }
+
+      // Show modal with loading message
+      container.innerHTML = '<div style="text-align:center;padding:40px;color:#666;">Loading preview...</div>';
+      modal.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      var fetchOptions = { credentials: 'same-origin' };
+      if (previewController) {
+        fetchOptions.signal = previewController.signal;
+      }
+
+      // Fetch and render
+      fetch(url, fetchOptions)
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function(json) {
+          console.log('JSON received, rendering survey...');
+          container.innerHTML = '';
+
+          if (typeof Survey === 'undefined') {
+            throw new Error('Survey library not loaded');
+          }
+
+          var renderTarget = document.createElement('div');
+          renderTarget.className = 'sv-preview-host';
+          container.appendChild(renderTarget);
+
+          activeSurvey = new Survey.Model(json);
+
+          // Apply light theme if available
+          if (typeof SurveyTheme !== 'undefined' && SurveyTheme.LayeredLightPanelless) {
+            activeSurvey.applyTheme(SurveyTheme.LayeredLightPanelless);
+          }
+
+          activeSurvey.showCompleteButton = false;
+          activeSurvey.render(renderTarget);
+
+          console.log('Survey rendered successfully');
+          console.log('Container innerHTML length:', container.innerHTML.length);
+          console.log('Container has', container.children.length, 'direct children');
+          console.log('Container computed height:', window.getComputedStyle(container).height);
+
+          // Log first child details
+          if (container.children.length > 0) {
+            var firstChild = container.children[0];
+            console.log('First child tag:', firstChild.tagName);
+            console.log('First child class:', firstChild.className);
+            console.log('First child height:', window.getComputedStyle(firstChild).height);
+            console.log('First child display:', window.getComputedStyle(firstChild).display);
+          }
+        })
+        .catch(function(err) {
+          if (err.name === 'AbortError') {
+            return;
+          }
+          console.error('Preview error:', err);
+          container.innerHTML = '<div style="text-align:center;padding:40px;color:#e00;">Error: ' + err.message + '</div>';
+        })
+        .finally(function() {
+          if (activePreviewRequest === previewController) {
+            activePreviewRequest = null;
+          }
+        });
+    }
+
+    // Close handlers
+    modal.querySelector('.preview-modal-close').addEventListener('click', closePreview);
+    overlay.addEventListener('click', closePreview);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closePreview();
+      }
+    });
+
+    function closePreview() {
+      if (activePreviewRequest && activePreviewRequest.abort) {
+        activePreviewRequest.abort();
+      }
+      activePreviewRequest = null;
+
+      if (activeSurvey) {
+        try { activeSurvey.dispose(); } catch(e) {}
+      }
+      activeSurvey = null;
+      container.innerHTML = '';
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // ============================================================================
+  // File Input
+  // ============================================================================
+
+  function setupFileInput() {
+    var input = document.getElementById('json_file');
+    if (input) {
+      input.addEventListener('change', function() {
+        var fileName = this.files[0] ? this.files[0].name : 'No file selected';
+        var label = this.nextElementSibling;
+        if (label && label.tagName === 'LABEL') {
+          label.textContent = fileName;
+        }
+      });
+    }
+  }
+
+})();
