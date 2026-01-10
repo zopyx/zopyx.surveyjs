@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """Init and utils."""
 
-from zope.i18nmessageid import MessageFactory
+try:
+    from zope.i18nmessageid import MessageFactory
+    _ = MessageFactory("zopyx.surveyjs")
+except:
+    pass
 
 
-_ = MessageFactory("zopyx.surveyjs")
