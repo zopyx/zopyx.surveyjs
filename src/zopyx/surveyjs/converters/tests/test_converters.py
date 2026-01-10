@@ -136,6 +136,19 @@ def test_wrap_pdf_html_without_heading_uses_raw_date() -> None:
     assert "not-a-date" in wrapped
 
 
+def test_wrap_pdf_html_without_metadata_keeps_body() -> None:
+    wrapped = common.wrap_pdf_html("<p>Just body</p>")
+    assert wrapped.startswith("<html>")
+    assert "Just body" in wrapped
+    assert "Created" not in wrapped
+
+
+def test_wrap_pdf_html_inserts_metadata_without_heading() -> None:
+    wrapped = common.wrap_pdf_html("<p>Body</p>", creator="Sam")
+    assert wrapped.startswith("<html>")
+    assert wrapped.index("Created by:") < wrapped.index("Body")
+
+
 def test_wrap_html_output_adds_style() -> None:
     wrapped = common.wrap_html_output("<p>Body</p>")
     assert wrapped.startswith("<html>")
@@ -186,6 +199,16 @@ def test_write_markdown_creates_file(tmp_path: Path, sample_items: list[Item]) -
     path = markdown.write_markdown(sample_items, "poll-2", dest)
     assert path == dest
     assert dest.read_text(encoding="utf-8").startswith("# Survey response (poll-2)")
+
+
+def test_build_markdown_uses_raw_date_on_parse_error(
+    sample_items: list[Item],
+) -> None:
+    md = markdown.build_markdown(
+        sample_items, poll_id="poll-3", creator="Dana", created="not-a-date"
+    )
+    assert "Created by: Dana" in md
+    assert "Created on: not-a-date" in md
 
 
 def test_build_html_inlines_images_and_tables(image_attachment: Attachment) -> None:
@@ -294,6 +317,37 @@ def test_write_docx_writes_content(tmp_path: Path, sample_items: list[Item]) -> 
     assert any("Text Question" in t for t in texts)
     assert any("Attachment: document.bin" in t for t in texts)
     assert doc.tables[0].cell(0, 0).text == "Col A"
+
+
+def test_write_docx_formats_created_date(tmp_path: Path, sample_items: list[Item]) -> None:
+    dest = tmp_path / "docx" / "survey-date.docx"
+    docx_export.write_docx(
+        sample_items, dest, poll_id="poll-date", created="2024-05-15T10:20:00Z"
+    )
+    doc = Document(dest)
+    paragraphs = [p.text for p in doc.paragraphs if p.text]
+    assert any("May 15, 2024 at" in p for p in paragraphs)
+
+
+def test_write_docx_bolds_table_header(tmp_path: Path, sample_items: list[Item]) -> None:
+    dest = tmp_path / "docx" / "survey-bold.docx"
+    docx_export.write_docx(sample_items, dest, poll_id="poll-bold")
+    doc = Document(dest)
+    first_row = doc.tables[0].rows[0]
+    # Verify the first header cell contains bold runs
+    runs = first_row.cells[0].paragraphs[0].runs
+    assert any(run.bold for run in runs)
+
+
+def test_write_docx_handles_metadata_and_bad_date(tmp_path: Path, sample_items: list[Item]) -> None:
+    dest = tmp_path / "docx" / "survey-meta.docx"
+    docx_export.write_docx(
+        sample_items, dest, poll_id="poll-meta", creator="Eve", created="not-a-date"
+    )
+    doc = Document(dest)
+    paragraphs = [p.text for p in doc.paragraphs if p.text]
+    assert any("Created by: Eve" in p for p in paragraphs)
+    assert any("Created on: not-a-date" in p for p in paragraphs)
 
 
 def test_build_json_handles_matrix_values(sample_items: list[Item]) -> None:
