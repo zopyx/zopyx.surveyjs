@@ -93,8 +93,10 @@ def _write_export(
         from .converters.html import build_html
 
         markdown_body = build_markdown(items, poll_id, creator, created)
-        html_body = build_html(markdown_body, attachments, creator, created)
-        output_path = write_pdf(html_body, output_dir / f"{poll_id}.pdf")
+        html_body = build_html(markdown_body, attachments)
+        output_path = write_pdf(
+            html_body, output_dir / f"{poll_id}.pdf", creator, created
+        )
     elif format_key == "csv":
         from .converters import write_csv, build_table_rows
 
@@ -138,7 +140,10 @@ def send_submission_email(context, event):
     email_bcc = getattr(context, "email_bcc", None) or []
     email_formats = getattr(context, "email_formats", None) or set()
     if not email_formats:
-        email_formats = {"text"}
+        email_formats = {"pdf"}
+    if "md" in email_formats:
+        email_formats = {fmt for fmt in email_formats if fmt != "md"}
+        email_formats.add("pdf")
 
     if not email_to or not email_subject:
         logger.info(
