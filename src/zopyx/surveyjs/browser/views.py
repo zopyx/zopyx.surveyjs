@@ -91,25 +91,10 @@ class Views(BrowserView):
     def save_poll(self):
         poll_result = orjson.loads(self.request.form["pollResult"])
 
-        notify(SurveyJSFormSubmitted(self.context, poll_result))
-
         actions = getattr(self.context, "actions", set()) or set()
-        if "store" not in actions:
-            result = dict(
-                isSuccess=True,
-                stored=False,
-                message="Storage action disabled; result not persisted.",
-            )
-            self.request.response.setStatus(200)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(orjson.dumps(result))
-            return
-
         annos = IAnnotations(self.context)
         if FORM_VERSIONS_KEY not in annos:
             annos[FORM_VERSIONS_KEY] = OOBTree()
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
 
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
         form_versions = sorted(
@@ -124,6 +109,22 @@ class Views(BrowserView):
             form_version=form_version_id,
             result=poll_result,
         )
+
+        notify(SurveyJSFormSubmitted(self.context, data))
+
+        if "store" not in actions:
+            result = dict(
+                isSuccess=True,
+                stored=False,
+                message="Storage action disabled; result not persisted.",
+            )
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+            return
+
+        if RESULTS_KEY not in annos:
+            annos[RESULTS_KEY] = OOBTree()
 
         annos[RESULTS_KEY][data["poll_id"]] = data
 
@@ -408,6 +409,8 @@ class Views(BrowserView):
         email_subject = getattr(self.context, "email_subject", None)
         email_body = getattr(self.context, "email_body", "") or ""
         email_sender = getattr(self.context, "email_sender", None)
+        email_cc = getattr(self.context, "email_cc", None) or []
+        email_bcc = getattr(self.context, "email_bcc", None) or []
 
         if not email_to or not email_subject:
             plone.api.portal.show_message(
@@ -490,6 +493,8 @@ class Views(BrowserView):
                     sender=email_sender,
                     subject=email_subject,
                     body=email_body or None,
+                    cc=email_cc,
+                    bcc=email_bcc,
                 )
             except Exception as exc:
                 plone.api.portal.show_message(

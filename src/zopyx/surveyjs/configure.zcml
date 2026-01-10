@@ -43,6 +43,11 @@
 
   <subscriber
       for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
+      handler=".subscribers.send_submission_email"
+      />
+
+  <subscriber
+      for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
       handler=".subscribers.log_survey_submission"
       />
 

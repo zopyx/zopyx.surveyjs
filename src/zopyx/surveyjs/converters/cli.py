@@ -441,9 +441,22 @@ class SurveyConverter:
             saved.append(target)
         return saved
 
+    @staticmethod
+    def _normalize_recipients(
+        value: str | Iterable[str] | None,
+    ) -> List[str]:
+        """Normalize recipients to a flat list of non-empty strings."""
+        if not value:
+            return []
+        if isinstance(value, str):
+            candidates = [value]
+        else:
+            candidates = list(value)
+        return [candidate.strip() for candidate in candidates if candidate and candidate.strip()]
+
     def create_email_message(
         self,
-        recipient: str,
+        recipients: Sequence[str],
         sender: str,
         attachments: List[Path],
         poll_id: str,
@@ -452,13 +465,17 @@ class SurveyConverter:
         survey_attachments: List[Path] = None,
         subject: str | None = None,
         body: str | None = None,
+        cc: Sequence[str] | None = None,
     ) -> EmailMessage:
         """Build email message with body and attachments."""
         survey_attachments = survey_attachments or []
+        cc = cc or []
 
         message = EmailMessage()
         message["From"] = sender
-        message["To"] = recipient
+        message["To"] = ", ".join(recipients)
+        if cc:
+            message["Cc"] = ", ".join(cc)
         message["Subject"] = subject or f"SurveyJS export ({poll_id})"
         message["Date"] = email.utils.formatdate(localtime=True)
         message["Message-ID"] = email.utils.make_msgid(domain=sender.split("@")[-1])
@@ -514,7 +531,7 @@ class SurveyConverter:
     def send_email_smtp(
         self,
         message: EmailMessage,
-        recipient: str,
+        recipients: List[str],
         host: str,
         port: int,
         username: str = None,
@@ -531,23 +548,28 @@ class SurveyConverter:
         logger.info("  Use STARTTLS: %s", use_starttls)
 
         try:
-            logger.info("Sending email to %s via %s:%s", recipient, host, port)
+            logger.info(
+                "Sending email to %s via %s:%s", ", ".join(recipients), host, port
+            )
             with smtplib.SMTP(host, port) as smtp:
                 if use_starttls:
                     smtp.starttls()
                 if username and password:
                     smtp.login(username, password)
-                smtp.send_message(message)
-            logger.info("Email sent to %s", recipient)
+                smtp.send_message(message, to_addrs=recipients)
+            logger.info("Email sent to %s", ", ".join(recipients))
         except Exception:
             logger.exception(
-                "Failed to send email to %s via %s:%s", recipient, host, port
+                "Failed to send email to %s via %s:%s",
+                ", ".join(recipients),
+                host,
+                port,
             )
             raise
 
     def send_email(
         self,
-        recipient: str,
+        recipient: str | Iterable[str],
         attachments: List[Path],
         poll_id: str,
         creator: str = None,
@@ -556,11 +578,22 @@ class SurveyConverter:
         sender: str | None = None,
         subject: str | None = None,
         body: str | None = None,
+        cc: Iterable[str] | None = None,
+        bcc: Iterable[str] | None = None,
     ) -> None:
         """Send generated files and survey attachments via SMTP."""
         load_dotenv()
         if not attachments:
             logger.info("No attachments to send; skipping email to %s", recipient)
+            return
+
+        recipients = self._normalize_recipients(recipient)
+        cc_list = self._normalize_recipients(cc)
+        bcc_list = self._normalize_recipients(bcc)
+        all_recipients = recipients + cc_list + bcc_list
+
+        if not all_recipients:
+            logger.info("No recipients provided; skipping email")
             return
 
         survey_attachments = survey_attachments or []
@@ -582,7 +615,7 @@ class SurveyConverter:
 
         # Create email message
         message = self.create_email_message(
-            recipient,
+            recipients,
             sender,
             attachments,
             poll_id,
@@ -591,11 +624,12 @@ class SurveyConverter:
             survey_attachments,
             subject=subject,
             body=body,
+            cc=cc_list,
         )
 
         # Send via SMTP
         self.send_email_smtp(
-            message, recipient, host, port, username, password, use_starttls
+            message, all_recipients, host, port, username, password, use_starttls
         )
 
     def run(self, formats: set[str], email_recipient: str | None = None) -> List[Path]:

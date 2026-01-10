@@ -169,6 +169,36 @@ class SurveyConverterTests(unittest.TestCase):
         self.assertEqual(len(attachments), 1)
         self.assertEqual(attachments[0].get_filename(), "dummy.txt")
 
+    @patch("conver_result.smtplib.SMTP")
+    def test_send_email_supports_cc_and_bcc(self, smtp_mock: Any) -> None:
+        attachment = self.output_dir / "dummy.txt"
+        attachment.parent.mkdir(parents=True, exist_ok=True)
+        attachment.write_text("hello", encoding="utf-8")
+
+        self.converter.send_email(
+            ["primary@example.com"],
+            [attachment],
+            poll_id="poll42",
+            cc=["copy1@example.com", "copy2@example.com"],
+            bcc=["hidden@example.com"],
+        )
+
+        smtp_client = smtp_mock.return_value.__enter__.return_value
+        smtp_client.send_message.assert_called_once()
+        sent_msg = smtp_client.send_message.call_args[0][0]
+        self.assertEqual(sent_msg["To"], "primary@example.com")
+        self.assertEqual(sent_msg["Cc"], "copy1@example.com, copy2@example.com")
+        self.assertIsNone(sent_msg["Bcc"])
+        self.assertEqual(
+            smtp_client.send_message.call_args[1]["to_addrs"],
+            [
+                "primary@example.com",
+                "copy1@example.com",
+                "copy2@example.com",
+                "hidden@example.com",
+            ],
+        )
+
     def test_load_dotenv_populates_env_defaults(self) -> None:
         env_file = self.base / ".env"
         env_file.write_text(

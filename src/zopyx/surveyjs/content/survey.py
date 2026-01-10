@@ -51,6 +51,8 @@ class ISurvey(model.Schema):
             "email_sender",
             "email_subject",
             "email_to",
+            "email_cc",
+            "email_bcc",
             "email_formats",
             "email_body",
         ),
@@ -83,6 +85,30 @@ class ISurvey(model.Schema):
         title=_("Subject"),
         description=_("Subject line for notification emails"),
         required=False,
+    )
+
+    email_cc = schema.List(
+        title=_("E-Mail CC"),
+        description=_("List of CC recipients (one email per line)"),
+        value_type=schema.TextLine(
+            title=_("CC recipient"),
+            description=_("Email address to receive a copy"),
+            required=False,
+        ),
+        required=False,
+        defaultFactory=list,
+    )
+
+    email_bcc = schema.List(
+        title=_("E-Mail BCC"),
+        description=_("List of BCC recipients (one email per line)"),
+        value_type=schema.TextLine(
+            title=_("BCC recipient"),
+            description=_("Email address to receive a blind copy"),
+            required=False,
+        ),
+        required=False,
+        defaultFactory=list,
     )
 
     form.widget("email_formats", CheckBoxFieldWidget)

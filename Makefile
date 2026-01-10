@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := privacyforms-demo
@@ -19,3 +19,18 @@ stop:
 
 logs:
 	docker logs -f $(CONTAINER_NAME)
+
+podman-build:
+	podman buildx build --platform linux/amd64 -t $(IMAGE_NAME) --load .
+
+podman-run:
+	podman run --rm --name $(CONTAINER_NAME) -p $(HOST_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
+
+podman-run-detached:
+	podman run -d --rm --name $(CONTAINER_NAME) -p $(HOST_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
+
+podman-stop:
+	podman stop $(CONTAINER_NAME)
+
+podman-logs:
+	podman logs -f $(CONTAINER_NAME)
