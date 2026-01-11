@@ -2,5 +2,6 @@
 
 cd /home/privacyforms/zopyx.surveyjs
 
-make docker-stop
-make docker-detached
+make build
+make stop
+make run-detached
