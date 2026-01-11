@@ -18,7 +18,7 @@ import uuid
 
 
 SITE_ID = "demo"
-ADMIN = "admin"
+ADMIN = "admin2"
 
 
 def create_demo_survey(
