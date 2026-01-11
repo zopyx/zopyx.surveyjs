@@ -20,6 +20,7 @@ from plone.formwidget.namedfile.converter import b64encode_file
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
 from Products.CMFPlone.factory import addPloneSite
 from datetime import datetime, timezone
+import os
 from Testing.makerequest import makerequest
 from pathlib import Path
 import orjson
@@ -55,6 +56,51 @@ def _resolve_forms_path():
 
 
 FORMS_PATH = _resolve_forms_path()
+ROOT_PATH = Path(__file__).resolve().parent.parent
+
+
+def load_env_file():
+    """Populate os.environ from a .env in the project root, ignoring existing keys."""
+    env_path = ROOT_PATH / ".env"
+    if not env_path.exists():
+        return
+
+    for line in env_path.read_text().splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("export "):
+            stripped = stripped[len("export ") :].strip()
+        if "=" not in stripped:
+            continue
+        key, value = stripped.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+def configure_ai_model_from_env():
+    """Set the AI model and API key registry values from environment if provided."""
+    ai_model = os.environ.get("AI_MODEL", "").strip()
+    ai_key = os.environ.get("OPENAI_API_KEY", "").strip()
+
+    if not ai_model and not ai_key:
+        return
+
+    try:
+        if ai_model:
+            api.portal.set_registry_record(
+                "zopyx.surveyjs.interfaces.IFormsSettings.ai_model", ai_model
+            )
+            print(f"Configured AI model from environment: {ai_model}")
+        if ai_key:
+            api.portal.set_registry_record(
+                "zopyx.surveyjs.interfaces.IFormsSettings.ai_api_key", ai_key
+            )
+            print("Configured AI API key from environment")
+    except InvalidParameterError:
+        print("AI registry records not found; skipping AI environment configuration")
 
 
 def create_demo_survey(
@@ -147,6 +193,8 @@ acl = app.acl_users
 admin_user = acl.getUser(ADMIN)
 newSecurityManager(None, admin_user.__of__(acl))
 
+load_env_file()
+
 # Start clean: drop existing demo site if present
 if SITE_ID in app.objectIds():
     app.manage_delObjects([SITE_ID])
@@ -170,6 +218,7 @@ site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 set_site_logo(site)
+configure_ai_model_from_env()
 
 
 transaction.commit()
