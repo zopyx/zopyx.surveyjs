@@ -58,6 +58,9 @@ setup(
         "plone.app.dexterity",
         "llm",
         "httpx",
+        "python-docx",
+        "markdown2",
+        "weasyprint",
     ],
     extras_require={
         "test": [
