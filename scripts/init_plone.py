@@ -103,35 +103,7 @@ def configure_ai_model_from_env():
         print("AI registry records not found; skipping AI environment configuration")
 
 
-def get_logo_path():
-    """Return best-effort path for logo.jpg (CWD/scripts or alongside this file)."""
-    cwd_logo = Path(os.getcwd()) / "scripts" / "logo.jpg"
-    fallback_logo = Path(__file__).resolve().parent / "logo.jpg"
-    return cwd_logo if cwd_logo.exists() else fallback_logo
 
-
-def import_logo_image(site):
-    """Create/import logo.jpg as a Plone Image and publish it."""
-    logo_path = get_logo_path()
-    if not logo_path.exists():
-        print(f"Logo not found at {logo_path}; skipping logo import")
-        return None
-
-    logo_id = "welcome-logo"
-    existing = site.get(logo_id)
-    if existing is not None:
-        return existing
-
-    logo_data = logo_path.read_bytes()
-    image = api.content.create(
-        type="Image",
-        container=site,
-        id=logo_id,
-        title="Privacy Forms Studio Logo",
-        image=NamedBlobImage(data=logo_data, filename=logo_path.name),
-    )
-    image.reindexObject()
-    return image
 
 
 def create_demo_survey(
@@ -230,6 +202,23 @@ view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
 
+# Create logo.jpg as Image content object
+logo_path = Path(os.getcwd()) / "scripts" / "logo.jpg"
+if logo_path.exists():
+    logo_image = api.content.create(
+        type="Image",
+        container=site,
+        id="logo",
+        title="Privacy Forms Studio Logo",
+        image=NamedBlobImage(
+            data=logo_path.read_bytes(),
+            filename="logo.jpg"
+        )
+    )
+    logo_image.reindexObject()
+    print("Created logo.jpg as Image content object")
+else:
+    print(f"logo.jpg not found at {logo_path}; skipping logo image creation")
 
 transaction.commit()
 
@@ -246,8 +235,6 @@ for obj_id in ("events", "news", "Members"):
     if obj_id in site.objectIds():
         site.manage_delObjects([obj_id])
 
-logo_image = import_logo_image(site)
-
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
 
@@ -260,10 +247,21 @@ create_demo_survey(
 )
 
 welcome_html = load_intro_text("welcome")
-if logo_image:
-    welcome_html = welcome_html.replace("{{logo_url}}", "welcome-logo")
-else:
-    welcome_html = welcome_html.replace("{{logo_url}}", "")
+
+# Add logo image if it exists
+if logo_path.exists():
+    welcome_html = f'<img src="{site.absolute_url()}/logo" alt="Privacy Forms Studio Logo" style="max-width: 400px; margin-bottom: 2em;" />\n' + welcome_html
+
+# Add links to demo forms
+welcome_html += """
+<h3>Demo Forms</h3>
+<ul>
+  <li><a href="/Plone/demo/event-registration">Event registration</a></li>
+  <li><a href="/Plone/demo/mental-health-survey">Mental Health Survey</a></li>
+  <li><a href="/Plone/demo/full-demo">Social Media Consumption Demo</a></li>
+  <li><a href="/Plone/demo/food-feedback-demo">Food Ordering Service Feedback</a></li>
+</ul>
+"""
 
 welcome = api.content.create(
     type="Document",
