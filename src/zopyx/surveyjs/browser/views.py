@@ -255,7 +255,7 @@ class Views(BrowserView):
         csv_bytes = output.getvalue().encode("utf-8")
         self.request.response.setHeader("Content-Type", "text/csv")
         self.request.response.setHeader(
-            "Content-Disposition", f'attachment; filename=\"{filename}\"'
+            "Content-Disposition", f'attachment; filename="{filename}"'
         )
         self.request.response.write(csv_bytes)
 
