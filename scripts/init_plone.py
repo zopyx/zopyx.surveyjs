@@ -1,7 +1,7 @@
 """Initialize a demo Plone site with zopyx.surveyjs installed.
 
 This script creates a demo Plone site with:
-- Barceloneta enabled and a custom logo
+- Barceloneta enabled and a published logo image for the welcome page
 - Addable types limited to Folder, Document, Survey
 - Demo surveys seeded from JSON files under scripts/forms/
 - Intro texts loaded from HTML snippets under scripts/forms/
@@ -16,7 +16,6 @@ from AccessControl.SecurityManagement import newSecurityManager
 from BTrees.OOBTree import OOBTree
 from plone.app.textfield.value import RichTextValue
 from plone.api.exc import InvalidParameterError
-from plone.formwidget.namedfile.converter import b64encode_file
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
 from Products.CMFPlone.factory import addPloneSite
 from datetime import datetime, timezone
@@ -25,6 +24,7 @@ from Testing.makerequest import makerequest
 from pathlib import Path
 import orjson
 from plone import api
+from plone.namedfile.file import NamedBlobImage
 from zopyx.surveyjs.browser.views import FORM_VERSIONS_KEY, RESULTS_KEY
 from zope.annotation.interfaces import IAnnotations
 from zope.component.hooks import setSite
@@ -103,6 +103,37 @@ def configure_ai_model_from_env():
         print("AI registry records not found; skipping AI environment configuration")
 
 
+def get_logo_path():
+    """Return best-effort path for logo.jpg (CWD/scripts or alongside this file)."""
+    cwd_logo = Path(os.getcwd()) / "scripts" / "logo.jpg"
+    fallback_logo = Path(__file__).resolve().parent / "logo.jpg"
+    return cwd_logo if cwd_logo.exists() else fallback_logo
+
+
+def import_logo_image(site):
+    """Create/import logo.jpg as a Plone Image and publish it."""
+    logo_path = get_logo_path()
+    if not logo_path.exists():
+        print(f"Logo not found at {logo_path}; skipping logo import")
+        return None
+
+    logo_id = "welcome-logo"
+    existing = site.get(logo_id)
+    if existing is not None:
+        return existing
+
+    logo_data = logo_path.read_bytes()
+    image = api.content.create(
+        type="Image",
+        container=site,
+        id=logo_id,
+        title="Privacy Forms Studio Logo",
+        image=NamedBlobImage(data=logo_data, filename=logo_path.name),
+    )
+    image.reindexObject()
+    return image
+
+
 def create_demo_survey(
     site,
     survey_id,
@@ -157,26 +188,6 @@ def set_form_intro_html(form_json, element_name, html):
                 return
 
 
-def set_site_logo(site):
-    logo_svg = b"""<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 48'>
-<defs>
-  <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
-    <stop stop-color='#2563eb' offset='0'/>
-    <stop stop-color='#06b6d4' offset='1'/>
-  </linearGradient>
-</defs>
-<rect rx='10' ry='10' width='180' height='48' fill='url(#g)'/>
-<text x='16' y='30' font-family='Inter,Arial,sans-serif' font-size='18' font-weight='700' fill='#e0f2fe'>Survey</text>
-<text x='92' y='30' font-family='Inter,Arial,sans-serif' font-size='18' font-weight='700' fill='#fff'>Studio</text>
-</svg>"""
-    encoded_logo = b64encode_file("logo.svg", logo_svg)
-    api.portal.set_registry_record("plone.site_logo", encoded_logo)
-    try:
-        api.portal.set_registry_record("plone.site_logo_title", "Survey Studio")
-    except InvalidParameterError:
-        pass
-
-
 class MyThemingControlpanel(ThemingControlpanel):
     """
     A subclass of the standard ThemingControlpanel to override authorization.
@@ -211,13 +222,12 @@ site = makerequest(app[SITE_ID])
 setSite(site)
 api.addon.install("zopyx.surveyjs")
 
-# Apply Barceloneta theme and custom logo
+# Apply Barceloneta theme
 print("Enabling Barceloneta theme...")
 site.REQUEST.form["form.button.Enable"] = "DONE"
 site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
-set_site_logo(site)
 configure_ai_model_from_env()
 
 
@@ -226,7 +236,7 @@ transaction.commit()
 site._p_jar.sync()
 
 # Restrict addable types to essentials
-allowed_types = {"Folder", "Document", "Survey"}
+allowed_types = {"Folder", "Document", "Survey", "Image"}
 portal_types = api.portal.get_tool("portal_types")
 for fti in portal_types.objectValues():
     fti.global_allow = fti.getId() in allowed_types
@@ -235,6 +245,8 @@ for fti in portal_types.objectValues():
 for obj_id in ("events", "news", "Members"):
     if obj_id in site.objectIds():
         site.manage_delObjects([obj_id])
+
+logo_image = import_logo_image(site)
 
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
@@ -247,13 +259,19 @@ create_demo_survey(
     form_json=event_form,
 )
 
+welcome_html = load_intro_text("welcome")
+if logo_image:
+    welcome_html = welcome_html.replace("{{logo_url}}", "welcome-logo")
+else:
+    welcome_html = welcome_html.replace("{{logo_url}}", "")
+
 welcome = api.content.create(
     type="Document",
     container=site,
-    title="Welcome",
+    title="Privacy Forms Studio",
     id="welcome",
     text=RichTextValue(
-        load_intro_text("welcome"),
+        welcome_html,
         "text/html",
         "text/html",
     ),
