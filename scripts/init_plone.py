@@ -253,9 +253,11 @@ welcome_html += """
 <h3>Demo Forms</h3>
 <ul>
   <li><a href="/Plone/demo/event-registration">Event registration</a></li>
+  <li><a href="/Plone/demo/event-rsvp">Event registration / unregistration</a></li>
   <li><a href="/Plone/demo/mental-health-survey">Mental Health Survey</a></li>
   <li><a href="/Plone/demo/full-demo">Social Media Consumption Demo</a></li>
   <li><a href="/Plone/demo/food-feedback-demo">Food Ordering Service Feedback</a></li>
+  <li><a href="/Plone/demo/order-form">Order form</a></li>
 </ul>
 """
 
@@ -312,6 +314,28 @@ create_demo_survey(
     description="Rate a fictive food ordering service on three quick questions.",
     form_json=feedback_form,
     intro_html=load_intro_text("food_feedback_intro"),
+    actions={"store"},
+)
+
+event_rsvp_form = load_form_definition("event_rsvp")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp",
+    title="Event registration / unregistration",
+    description="Register for the event or cancel an existing registration.",
+    form_json=event_rsvp_form,
+    actions={"store"},
+)
+
+order_form = load_form_definition("order_form")
+
+create_demo_survey(
+    site,
+    survey_id="order-form",
+    title="Order form",
+    description="Collect simple cloth orders with customer info and order lines.",
+    form_json=order_form,
     actions={"store"},
 )
 
