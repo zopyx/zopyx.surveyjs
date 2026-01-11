@@ -2,7 +2,7 @@
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := privacyforms-demo
-HOST_PORT := 9000
+HOST_PORT := 10000
 CONTAINER_PORT := 8082
 
 build:
