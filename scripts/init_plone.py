@@ -248,10 +248,6 @@ create_demo_survey(
 
 welcome_html = load_intro_text("welcome")
 
-# Add logo image if it exists
-if logo_path.exists():
-    welcome_html = f'<img src="{site.absolute_url()}/logo" alt="Privacy Forms Studio Logo" style="max-width: 400px; margin-bottom: 2em;" />\n' + welcome_html
-
 # Add links to demo forms
 welcome_html += """
 <h3>Demo Forms</h3>
