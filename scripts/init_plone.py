@@ -3,6 +3,8 @@
 from AccessControl.SecurityManagement import newSecurityManager
 from BTrees.OOBTree import OOBTree
 from plone.app.textfield.value import RichTextValue
+from plone.api.exc import InvalidParameterError
+from plone.formwidget.namedfile.converter import b64encode_file
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
 from Products.CMFPlone.factory import addPloneSite
 from datetime import datetime, timezone
@@ -55,6 +57,26 @@ def create_demo_survey(
     return survey
 
 
+def set_site_logo(site):
+    logo_svg = b"""<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 48'>
+<defs>
+  <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+    <stop stop-color='#2563eb' offset='0'/>
+    <stop stop-color='#06b6d4' offset='1'/>
+  </linearGradient>
+</defs>
+<rect rx='10' ry='10' width='180' height='48' fill='url(#g)'/>
+<text x='16' y='30' font-family='Inter,Arial,sans-serif' font-size='18' font-weight='700' fill='#e0f2fe'>Survey</text>
+<text x='92' y='30' font-family='Inter,Arial,sans-serif' font-size='18' font-weight='700' fill='#fff'>Studio</text>
+</svg>"""
+    encoded_logo = b64encode_file("logo.svg", logo_svg)
+    api.portal.set_registry_record("plone.site_logo", encoded_logo)
+    try:
+        api.portal.set_registry_record("plone.site_logo_title", "Survey Studio")
+    except InvalidParameterError:
+        pass
+
+
 class MyThemingControlpanel(ThemingControlpanel):
     """
     A subclass of the standard ThemingControlpanel to override authorization.
@@ -91,6 +113,7 @@ site.REQUEST.form["form.button.Enable"] = "DONE"
 site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
+set_site_logo(site)
 
 
 transaction.commit()
