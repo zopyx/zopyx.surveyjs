@@ -61,6 +61,7 @@ setup(
         "python-docx",
         "markdown2",
         "weasyprint",
+        "openpyxl",
     ],
     extras_require={
         "test": [

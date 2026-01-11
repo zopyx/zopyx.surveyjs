@@ -23,6 +23,12 @@ RUN apt-get update \
         python3-dev \
         python3-venv \
         zlib1g-dev \
+        libglib2.0-0 \
+        libcairo2 \
+        libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 \
+        libgdk-pixbuf-2.0-0 \
+        shared-mime-info \
+        fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
