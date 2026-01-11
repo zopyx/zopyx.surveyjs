@@ -303,3 +303,30 @@ def post_submission_payload(context, event):
         logger.exception(
             "Failed to POST submission for poll %s to %s", poll_id, endpoint_url
         )
+
+
+def store_submission_result(context, event):
+    """Store submission data when the store action is enabled."""
+    actions = getattr(context, "actions", set()) or set()
+    if "store" not in actions:
+        return
+
+    annos = IAnnotations(context)
+    annos.setdefault(FORM_VERSIONS_KEY, OOBTree())
+    annos.setdefault(RESULTS_KEY, OOBTree())
+
+    form_data = event.form_data or {}
+    poll_id = form_data.get("poll_id") or str(uuid.uuid1())
+    form_version = form_data.get("form_version")
+
+    if not form_version:
+        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
+        form_versions = sorted(
+            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
+        )
+        form_version = form_versions[-1]["id"] if form_versions else None
+
+    annos[RESULTS_KEY][poll_id] = dict(
+        form_data, poll_id=poll_id, form_version=form_version
+    )
+    logger.info("Stored survey submission for poll %s", poll_id)

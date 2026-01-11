@@ -70,6 +70,9 @@ def generate_survey_json(
     Reason about fields belonging semantically together like lastname and firstname. These fields should be placed on the same row.
     Always include a hidden field "uuid" as string with an generated UUID4 as default and a hidden field "created" as str.
     Always use a dynamic matrix field where you can add, remote and edit rows for a given set of columns.
+    Ensure that all fields and pages have proper titles and description.
+    If the instructions for a form appear like a Survey, prefer a pagination per question.
+    If the instructions are more a classic form and not a survey, use a one-pager.
     """
 
     # Determine which model to use

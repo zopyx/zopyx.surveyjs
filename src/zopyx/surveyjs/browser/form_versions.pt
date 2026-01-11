@@ -173,6 +173,31 @@
         background: linear-gradient(145deg, #4b5563, #374151);
         border-color: #374151;
       }
+      .btn-json {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #0f172a, #1f2937);
+        border-color: #0f172a;
+        color: #e2e8f0;
+        box-shadow: 0 6px 14px rgba(15, 23, 42, 0.18);
+        letter-spacing: 0.2px;
+      }
+      .btn-json:hover {
+        background: linear-gradient(135deg, #111827, #0f172a);
+        border-color: #0b1220;
+        color: #f8fafc;
+      }
+      .btn-json .btn-icon {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 4px 6px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 12px;
+      }
+      .btn-json .btn-label {
+        font-weight: 600;
+      }
       .btn-success {
         background: linear-gradient(145deg, #22c55e, #16a34a);
         border-color: #16a34a;
@@ -192,6 +217,36 @@
       .btn-warning:hover {
         background: linear-gradient(145deg, #f59e0b, #d97706);
         border-color: #d97706;
+      }
+      .btn-restore {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        border-color: #f59e0b;
+        color: #1f2937;
+        box-shadow: 0 6px 12px rgba(245, 158, 11, 0.35);
+        text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+      }
+      .btn-restore:hover {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        border-color: #d97706;
+        color: #111827;
+      }
+      .btn-restore .btn-icon {
+        background: rgba(255, 255, 255, 0.55);
+        color: #b45309;
+        padding: 2px 6px;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btn-restore .btn-label {
+        font-weight: 700;
+        letter-spacing: 0.3px;
       }
       .alert-info {
         background-color: #e0f2fe;
@@ -225,6 +280,106 @@
       }
       .modal-header .close:hover {
         opacity: 0.8;
+      }
+      /* Restore dialog */
+      .restore-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 1040;
+      }
+      .restore-modal-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .restore-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 22px 45px rgba(15, 23, 42, 0.35);
+        width: min(500px, 92vw);
+        max-width: 520px;
+        z-index: 1041;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.2s ease;
+        overflow: hidden;
+      }
+      .restore-modal.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      .restore-modal-header {
+        padding: 16px 18px;
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border-bottom: 1px solid #fcd34d;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .restore-modal-header .icon {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #fbbf24;
+        color: #92400e;
+        border-radius: 10px;
+        font-weight: 800;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      }
+      .restore-modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #7c2d12;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .restore-modal-body {
+        padding: 18px;
+        color: #374151;
+        line-height: 1.6;
+      }
+      .restore-meta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 12px 0;
+      }
+      .restore-chip {
+        background: #f3f4f6;
+        color: #374151;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        border: 1px solid #e5e7eb;
+      }
+      .restore-modal-footer {
+        padding: 16px 18px;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        background: #f9fafb;
+      }
+      .restore-modal-footer form {
+        margin: 0;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: #4b5563;
+        border: 1px solid #d1d5db;
+      }
+      .btn-ghost:hover {
+        background: #f3f4f6;
       }
       .modal-body {
         padding: 15px;
@@ -660,11 +815,12 @@
                         <div class="btn-group" role="group">
                           <!-- View JSON Button -->
                           <button type="button"
-                                  class="btn btn-sm btn-info view-json-btn"
+                                  class="btn btn-sm btn-json view-json-btn"
                                   tal:attributes="data-version-id version/id"
                                   title="View JSON"
                                   i18n:attributes="title">
-                            JSON
+                            <span class="btn-icon">{ }</span>
+                            <span class="btn-label">Preview JSON</span>
                           </button>
 
                           <!-- Preview Button -->
@@ -677,20 +833,16 @@
                           </button>
 
                           <!-- Restore Button -->
-                          <form method="post"
-                                tal:attributes="action string:${context/absolute_url}/@@restore-version"
-                                onsubmit="return confirm('⚠️ Restore this version?\n\nThis will create a new version with the content from this older version.\n\nThe current version will remain in the history.');">
-                            <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
-                            <input type="hidden"
-                                   name="version_id"
-                                   tal:attributes="value version/id" />
-                            <button type="submit"
-                                    class="btn btn-sm btn-warning"
-                                    title="Restore to previous version"
-                                    aria-label="Restore to previous version">
-                              Restore
-                            </button>
-                          </form>
+                          <button type="button"
+                                  class="btn btn-sm btn-restore open-restore-dialog"
+                                  tal:attributes="data-version-id version/id;
+                                                  data-created python: version['created'].strftime('%Y-%m-%d %H:%M:%S');
+                                                  data-user version/user"
+                                  title="Restore to previous version"
+                                  aria-label="Restore to previous version">
+                            <span class="btn-icon">&#8635;</span>
+                            <span class="btn-label">Restore</span>
+                          </button>
 
                           <!-- Download Button -->
                           <form method="get"
@@ -770,6 +922,36 @@
         </div>
         <div class="json-modal-body">
           <pre id="jsonContent">Loading...</pre>
+        </div>
+      </div>
+
+      <!-- Restore Modal -->
+      <div id="restoreModalOverlay" class="restore-modal-overlay"></div>
+      <div id="restoreModal" class="restore-modal">
+        <div class="restore-modal-header">
+          <span class="icon">&#8635;</span>
+          <h3>Restore version</h3>
+        </div>
+        <div class="restore-modal-body">
+          <p>Restoring will create a new version using the selected snapshot and keep the current version in history.</p>
+          <div class="restore-meta">
+            <span class="restore-chip"><strong>ID:</strong> <span id="restoreVersionId">—</span></span>
+            <span class="restore-chip"><strong>User:</strong> <span id="restoreVersionUser">—</span></span>
+            <span class="restore-chip"><strong>Date:</strong> <span id="restoreVersionDate">—</span></span>
+          </div>
+        </div>
+        <div class="restore-modal-footer">
+          <button type="button" class="btn btn-ghost close-restore">Cancel</button>
+          <form id="restoreForm"
+                method="post"
+                tal:attributes="action string:${context/absolute_url}/@@restore-version">
+            <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
+            <input type="hidden" name="version_id" id="restoreVersionInput" />
+            <button type="submit" class="btn btn-restore">
+              <span class="btn-icon">&#8635;</span>
+              <span class="btn-label">Confirm restore</span>
+            </button>
+          </form>
         </div>
       </div>
 

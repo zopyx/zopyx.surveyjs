@@ -234,10 +234,13 @@
 
             <ul id="downloadActions" tal:condition="python: results['total'] > 0">
                 <li>
-                    <a href="download-polls-json" class="btn btn-primary">Download collected form data (JSON)</a>
+                    <a href="download-polls-json" class="btn btn-primary">Download results (JSON)</a>
                 </li>
                 <li>
-                    <a href="download-form-json" class="btn btn-primary">Download form definition (JSON)</a>
+                    <a href="download-polls-csv" class="btn btn-primary">Download results (CSV)</a>
+                </li>
+                <li class="align-right">
+                    <a href="download-form-json" class="btn btn-primary download-definition">Download form definition (JSON)</a>
                 </li>
             </ul>
         </tal:block>

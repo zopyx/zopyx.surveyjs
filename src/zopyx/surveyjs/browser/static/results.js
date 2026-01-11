@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const detailsContent = document.getElementById("details-content");
     const detailsButtons = document.querySelectorAll(".view-details");
     const questionLabels = {};
+    const questionDefinitions = {};
     const deleteButtons = document.querySelectorAll(".delete-result");
     const deleteSelectedBtn = document.getElementById("delete-selected-btn");
     const selectAllCheckbox = document.getElementById("select-all-results");
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 (page.elements || []).forEach(element => {
                     if (element.name) {
                         questionLabels[element.name] = element.title || element.name;
+                        questionDefinitions[element.name] = element;
                     }
                 });
             });
@@ -110,6 +112,96 @@ document.addEventListener("DOMContentLoaded", function () {
         detailsModal.style.display = "none";
     });
 
+    function renderMatrixTable(value, element) {
+        if (!element) {
+            return null;
+        }
+
+        if (element.type === "matrixdynamic" && Array.isArray(value)) {
+            const columnDefs = (element.columns || []).map(col => ({
+                key: col.name || col.value || col.title || "",
+                label: col.title || col.name || col.value || "",
+            }));
+
+            const allKeys = Array.from(
+                new Set(
+                    columnDefs.length
+                        ? columnDefs.map(col => col.key)
+                        : value.flatMap(row => Object.keys(row || {})),
+                ),
+            ).filter(Boolean);
+
+            const headers = columnDefs.length
+                ? columnDefs
+                : allKeys.map(key => ({ key, label: key }));
+
+            let html = "<table class='details-table matrix-table'>";
+            html += "<thead><tr>";
+            headers.forEach(col => {
+                html += `<th>${escapeHtml(col.label)}</th>`;
+            });
+            html += "</tr></thead><tbody>";
+
+            value.forEach(row => {
+                html += "<tr>";
+                headers.forEach(col => {
+                    const cell = row ? row[col.key] : "";
+                    html += `<td>${escapeHtml(cell != null ? String(cell) : "")}</td>`;
+                });
+                html += "</tr>";
+            });
+
+            html += "</tbody></table>";
+            return html;
+        }
+
+        if (element.type === "matrix" && value && typeof value === "object" && !Array.isArray(value)) {
+            const rows = Object.entries(value);
+            const rowDefs = element.rows || [];
+            const columnDefs = element.columns || [];
+
+            const columnLookup = new Map(
+                columnDefs
+                    .filter(col => col && (col.value || col.name))
+                    .map(col => [col.value || col.name, col.text || col.title || col.name]),
+            );
+
+            let html = "<table class='details-table matrix-table'>";
+            html += "<thead><tr><th>Row</th><th>Answer</th></tr></thead><tbody>";
+
+            rows.forEach(([rowKey, answer]) => {
+                const rowLabel =
+                    (rowDefs.find(r => r && (r.value === rowKey || r.name === rowKey)) || {})
+                        .text ||
+                    rowKey;
+                let answerText;
+                if (typeof answer === "string") {
+                    answerText = columnLookup.get(answer) || answer;
+                } else if (Array.isArray(answer)) {
+                    answerText = answer
+                        .map(val => columnLookup.get(val) || String(val))
+                        .join(", ");
+                } else if (answer && typeof answer === "object") {
+                    answerText = Object.entries(answer)
+                        .map(([k, v]) => `${k}: ${v}`)
+                        .join(", ");
+                } else {
+                    answerText = answer != null ? String(answer) : "";
+                }
+
+                html += "<tr>";
+                html += `<td>${escapeHtml(String(rowLabel))}</td>`;
+                html += `<td>${escapeHtml(answerText)}</td>`;
+                html += "</tr>";
+            });
+
+            html += "</tbody></table>";
+            return html;
+        }
+
+        return null;
+    }
+
     function renderDetailsTable(data) {
         let html = "<table class='details-table'>";
         html += "<thead><tr><th>Key / Question</th><th>Answer</th></tr></thead>";
@@ -117,6 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (const [key, value] of Object.entries(data)) {
             const label = questionLabels[key] || key;
+            const questionDef = questionDefinitions[key];
             html += "<tr>";
             html += "<td class=\"question-cell\">";
             html += `<span class="question-key">${escapeHtml(key)}</span>`;
@@ -124,7 +217,11 @@ document.addEventListener("DOMContentLoaded", function () {
             html += "</td>";
             html += "<td class=\"answer-cell\">";
 
-            if (Array.isArray(value) && value.length > 0) {
+            const matrixHtml = renderMatrixTable(value, questionDef);
+
+            if (matrixHtml) {
+                html += matrixHtml;
+            } else if (Array.isArray(value) && value.length > 0) {
                 // Check if it's a file upload result
                 const item = value[0];
                 if (typeof item === 'object' && item !== null && 'name' in item && 'content' in item) {

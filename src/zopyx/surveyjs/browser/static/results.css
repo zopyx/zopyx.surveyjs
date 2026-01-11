@@ -519,6 +519,10 @@ pre#json-content {
     margin: 0;
 }
 
+#downloadActions li.align-right {
+    margin-left: auto;
+}
+
 #downloadActions .btn {
     display: inline-block;
     text-decoration: none;
@@ -539,6 +543,16 @@ pre#json-content {
 #downloadActions .btn.btn-primary:hover {
     background-color: #0056b3;
     border-color: #0056b3;
+}
+
+#downloadActions .btn.download-definition {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+#downloadActions .btn.download-definition:hover {
+    background-color: #545b62;
+    border-color: #545b62;
 }
 
 .storage-warning {

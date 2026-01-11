@@ -22,6 +22,7 @@
     baseUrl = window.location.href.split('/@@')[0];
     setupJsonViewer();
     setupPreviewModal();
+    setupRestoreModal();
     setupFileInput();
     console.log('Form versions initialized');
   }
@@ -245,6 +246,61 @@
       overlay.classList.remove('active');
       document.body.style.overflow = '';
     }
+  }
+
+  // ============================================================================
+  // Restore Modal
+  // ============================================================================
+
+  function setupRestoreModal() {
+    var modal = document.getElementById('restoreModal');
+    var overlay = document.getElementById('restoreModalOverlay');
+    var versionIdEl = document.getElementById('restoreVersionId');
+    var versionUserEl = document.getElementById('restoreVersionUser');
+    var versionDateEl = document.getElementById('restoreVersionDate');
+    var versionInput = document.getElementById('restoreVersionInput');
+
+    if (!modal || !overlay || !versionIdEl || !versionInput) {
+      return;
+    }
+
+    document.querySelectorAll('.open-restore-dialog').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var vid = btn.getAttribute('data-version-id') || '';
+        var created = btn.getAttribute('data-created') || '';
+        var user = btn.getAttribute('data-user') || '';
+
+        versionIdEl.textContent = vid;
+        versionUserEl.textContent = user || '—';
+        versionDateEl.textContent = created || '—';
+        versionInput.value = vid;
+
+        modal.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeRestore() {
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.close-restore').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeRestore();
+      });
+    });
+
+    overlay.addEventListener('click', closeRestore);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeRestore();
+      }
+    });
   }
 
   // ============================================================================

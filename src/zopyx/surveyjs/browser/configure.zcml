@@ -105,6 +105,13 @@
     attribute="download_polls_json"
   />
   <browser:page
+    name="download-polls-csv"
+    permission="zope2.View"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="download_polls_csv"
+  />
+  <browser:page
     name="download-result"
     permission="cmf.ManagePortal"
     for="zopyx.surveyjs.content.survey.ISurvey"

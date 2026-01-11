@@ -3,6 +3,8 @@ from datetime import datetime, timezone
 from string import Formatter
 from pathlib import Path
 from tempfile import TemporaryDirectory
+import csv
+import io
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
@@ -124,23 +126,12 @@ class Views(BrowserView):
 
         notify(SurveyJSFormSubmitted(self.context, data))
 
+        result = dict(isSuccess=True)
         if "store" not in actions:
-            result = dict(
-                isSuccess=True,
+            result.update(
                 stored=False,
                 message="Storage action disabled; result not persisted.",
             )
-            self.request.response.setStatus(200)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(orjson.dumps(result))
-            return
-
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
-
-        annos[RESULTS_KEY][data["poll_id"]] = data
-
-        result = dict(isSuccess=True)
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result))
@@ -206,6 +197,67 @@ class Views(BrowserView):
             "Content-Disposition", f'attachment; filename="{filename}"'
         )
         self.request.response.write(json_content)
+
+    def download_polls_csv(self):
+        """Download all poll results as CSV."""
+        annos = IAnnotations(self.context)
+        annos.setdefault(RESULTS_KEY, OOBTree())
+
+        results = list(annos[RESULTS_KEY].values())
+        results = sorted(
+            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
+        )
+
+        output = io.StringIO()
+        # Discover all field names to create a stable header
+        field_order = []
+        seen_fields = set()
+        for entry in results:
+            result_payload = entry.get("result") or {}
+            if isinstance(result_payload, dict):
+                for key in result_payload.keys():
+                    if key not in seen_fields:
+                        seen_fields.add(key)
+                        field_order.append(key)
+
+        base_columns = ["poll_id", "user", "created", "form_version"]
+
+        writer = csv.writer(output)
+        writer.writerow(base_columns + field_order)
+
+        for entry in results:
+            created = entry.get("created")
+            if isinstance(created, datetime):
+                created = ensure_timezone_aware(created).isoformat()
+
+            row = [
+                entry.get("poll_id", ""),
+                entry.get("user", ""),
+                created or "",
+                entry.get("form_version", ""),
+            ]
+
+            result_payload = entry.get("result") or {}
+            for field in field_order:
+                value = result_payload.get(field, "")
+                if isinstance(value, (list, dict, tuple)):
+                    try:
+                        value = orjson.dumps(value).decode("utf-8")
+                    except Exception:
+                        value = str(value)
+                elif value is None:
+                    value = ""
+                row.append(str(value))
+
+            writer.writerow(row)
+
+        filename = f"{self.context.getId()}-survey-data.csv"
+        csv_bytes = output.getvalue().encode("utf-8")
+        self.request.response.setHeader("Content-Type", "text/csv")
+        self.request.response.setHeader(
+            "Content-Disposition", f'attachment; filename=\"{filename}\"'
+        )
+        self.request.response.write(csv_bytes)
 
     def download_polls_json(self):
         """Download poll results JSON as attachment"""

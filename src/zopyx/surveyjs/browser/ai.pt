@@ -80,6 +80,14 @@
       <div class="subtitle page-subtitle" i18n:translate="">
         Describe your survey in natural language and let AI generate the form
       </div>
+      <div class="alert alert-warning ai-warning">
+        <strong>Experimental:</strong>
+        <ul>
+          <li>This is a helper to get started, not a finished form.</li>
+          <li>Use clear, specific prompts for best results.</li>
+          <li>Always review and adjust the generated form before use.</li>
+        </ul>
+      </div>
     </div>
 
     <!-- Refinement Mode Container (always visible) -->

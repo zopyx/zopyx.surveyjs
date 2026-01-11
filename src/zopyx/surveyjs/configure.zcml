@@ -48,6 +48,11 @@
 
   <subscriber
       for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
+      handler=".subscribers.store_submission_result"
+      />
+
+  <subscriber
+      for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
       handler=".subscribers.post_submission_payload"
       />
 
