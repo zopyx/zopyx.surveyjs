@@ -46,6 +46,15 @@ class ISurvey(model.Schema):
     """Marker interface and Dexterity Python Schema for Survey"""
 
     fieldset(
+        "actions",
+        label=_("Actions"),
+        fields=(
+            "actions",
+            "post_endpoint_url",
+        ),
+    )
+
+    fieldset(
         "mail",
         label=_("Mail"),
         fields=(

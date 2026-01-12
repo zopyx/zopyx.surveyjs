@@ -110,7 +110,53 @@ def configure_ai_model_from_env():
         print("AI registry records not found; skipping AI environment configuration")
 
 
+def _env_bool(value, default=False):
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
 
+
+def configure_mail_from_env():
+    """Configure Plone mail settings from environment variables if present."""
+    # Support both generic and SURVEY_ prefixed env vars
+    def _first(*keys):
+        for key in keys:
+            val = os.environ.get(key)
+            if val:
+                return val.strip()
+        return ""
+
+    smtp_host = _first("SMTP_HOST", "SURVEY_SMTP_HOST")
+    smtp_port = _first("SMTP_PORT", "SURVEY_SMTP_PORT")
+    smtp_user = _first("SMTP_USER", "SURVEY_SMTP_USERNAME")
+    smtp_pass = _first("SMTP_PASSWORD", "SURVEY_SMTP_PASSWORD")
+    smtp_tls = _env_bool(
+        os.environ.get("SMTP_TLS", os.environ.get("SURVEY_SMTP_STARTTLS"))
+    )
+    smtp_ssl = _env_bool(os.environ.get("SMTP_SSL", os.environ.get("SURVEY_SMTP_SSL")))
+    mail_from = _first("MAIL_FROM", "SURVEY_MAIL_FROM")
+    mail_from_name = _first("MAIL_FROM_NAME", "SURVEY_MAIL_FROM_NAME")
+
+    breakpoint()
+
+    if not any([smtp_host, smtp_port, smtp_user, smtp_pass, mail_from, mail_from_name]):
+        return
+
+    try:
+        if smtp_host:
+            api.portal.set_registry_record("plone.smtp_host", smtp_host)
+        if smtp_port:
+            try:
+                api.portal.set_registry_record("plone.smtp_port", int(smtp_port))
+            except ValueError:
+                print(f"Invalid SMTP_PORT '{smtp_port}', skipping port configuration")
+        api.portal.set_registry_record("plone.smtp_userid", smtp_user or None)
+        api.portal.set_registry_record("plone.smtp_pass", smtp_pass or None)
+        api.portal.set_registry_record("plone.email_from_address", mail_from or None)
+        api.portal.set_registry_record("plone.email_from_name", mail_from_name or None)
+        print("Configured mail settings from environment")
+    except InvalidParameterError:
+        print("Mail registry records not found; skipping mail environment configuration")
 
 
 def create_demo_survey(
@@ -252,6 +298,7 @@ site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
+configure_mail_from_env()
 remove_navigation_portlets(site)
 
 # Create logo.jpg as Image content object
@@ -307,6 +354,9 @@ welcome_html = load_intro_text("welcome")
 
 # Add styled links to demo forms
 welcome_html += """
+<div style="padding:12px 16px;margin:16px 0;border:2px solid #b45309;background:#fff7ed;border-radius:8px;color:#92400e;font-weight:700;">
+  Demo system: This site is reset every six hours. Content may be wiped without notice.
+</div>
 <style>
   .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
   .demo-card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 14px 16px; background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
