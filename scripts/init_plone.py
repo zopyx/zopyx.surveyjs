@@ -137,8 +137,6 @@ def configure_mail_from_env():
     mail_from = _first("MAIL_FROM", "SURVEY_MAIL_FROM")
     mail_from_name = _first("MAIL_FROM_NAME", "SURVEY_MAIL_FROM_NAME")
 
-    breakpoint()
-
     if not any([smtp_host, smtp_port, smtp_user, smtp_pass, mail_from, mail_from_name]):
         return
 
