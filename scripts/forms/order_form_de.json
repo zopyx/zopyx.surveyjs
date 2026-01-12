@@ -2,6 +2,10 @@
   "title": "Bestellformular für Kleidung",
   "description": "Ein einfaches Formular, um Kundendaten und Bestellpositionen für Textilien zu erfassen.",
   "locale": "de",
+  "startSurveyText": "Starten",
+  "pagePrevText": "Zurück",
+  "pageNextText": "Weiter",
+  "completeText": "Absenden",
   "pages": [
     {
       "name": "page1",

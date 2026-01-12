@@ -2,6 +2,10 @@
   "title": "Veranstaltung An-/Abmeldung",
   "description": "Melden Sie sich zur Veranstaltung an oder sagen Sie Ihre Teilnahme ab.",
   "locale": "de",
+  "startSurveyText": "Starten",
+  "pagePrevText": "Zurück",
+  "pageNextText": "Weiter",
+  "completeText": "Absenden",
   "pages": [
     {
       "name": "main",

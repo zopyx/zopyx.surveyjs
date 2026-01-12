@@ -55,6 +55,9 @@
   <script src="https://unpkg.com/survey-core/survey.core.min.js"
           type="text/javascript"
           tal:condition="view/embedding_allowed"></script>
+  <script src="https://unpkg.com/survey-core/survey.i18n.min.js"
+          type="text/javascript"
+          tal:condition="view/embedding_allowed"></script>
   <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"
           type="text/javascript"
           tal:condition="view/embedding_allowed"></script>
