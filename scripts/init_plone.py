@@ -157,6 +157,16 @@ def configure_mail_from_env():
         print("Mail registry records not found; skipping mail environment configuration")
 
 
+def configure_site_languages():
+    """Set site languages to German + English, with English as default."""
+    try:
+        api.portal.set_registry_record("plone.available_languages", ["en", "de"])
+        api.portal.set_registry_record("plone.default_language", "en")
+        print("Configured site languages: en (default), de")
+    except InvalidParameterError:
+        print("Language registry records not found; skipping language configuration")
+
+
 def create_demo_survey(
     site,
     survey_id,
@@ -166,6 +176,7 @@ def create_demo_survey(
     intro_html=None,
     actions=None,
     container=None,
+    language="en",
 ):
     container = container or site
     survey = api.content.create(
@@ -175,6 +186,7 @@ def create_demo_survey(
         id=survey_id,
         description=description,
         text=RichTextValue(intro_html, "text/html", "text/html") if intro_html else None,
+        language=language,
     )
     if actions:
         survey.actions = actions
@@ -211,6 +223,10 @@ def set_form_intro_html(form_json, element_name, html):
             if element.get("type") == "html" and element.get("name") == element_name:
                 element["html"] = html
                 return
+
+
+def set_form_language(form_json, language):
+    form_json["language"] = language
 
 
 def remove_navigation_portlets(context):
@@ -298,6 +314,7 @@ view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
 configure_mail_from_env()
+configure_site_languages()
 remove_navigation_portlets(site)
 
 # Create logo.jpg as Image content object
@@ -498,6 +515,7 @@ create_demo_survey(
 
 # German demos
 event_form_de = load_form_definition("event_registration_de")
+set_form_language(event_form_de, "de")
 
 create_demo_survey(
     site,
@@ -506,10 +524,12 @@ create_demo_survey(
     description="Melden Sie sich zur Veranstaltung an.",
     form_json=event_form_de,
     container=demos_de,
+    language="de",
 )
 
 mental_intro_de = load_intro_text("mental_health_intro_de")
 mental_form_de = load_form_definition("mental_health_de")
+set_form_language(mental_form_de, "de")
 set_form_intro_html(mental_form_de, "introText", mental_intro_de)
 
 create_demo_survey(
@@ -521,10 +541,12 @@ create_demo_survey(
     intro_html=mental_intro_de,
     actions={"store"},
     container=demos_de,
+    language="de",
 )
 
 full_demo_intro_de = load_intro_text("full_demo_intro_de")
 full_demo_form_de = load_form_definition("full_demo_de")
+set_form_language(full_demo_form_de, "de")
 set_form_intro_html(full_demo_form_de, "demoIntro", full_demo_intro_de)
 
 create_demo_survey(
@@ -536,9 +558,11 @@ create_demo_survey(
     intro_html=full_demo_intro_de,
     actions={"store"},
     container=demos_de,
+    language="de",
 )
 
 feedback_form_de = load_form_definition("food_feedback_de")
+set_form_language(feedback_form_de, "de")
 
 create_demo_survey(
     site,
@@ -549,9 +573,11 @@ create_demo_survey(
     intro_html=load_intro_text("food_feedback_intro_de"),
     actions={"store"},
     container=demos_de,
+    language="de",
 )
 
 event_rsvp_form_de = load_form_definition("event_rsvp_de")
+set_form_language(event_rsvp_form_de, "de")
 
 create_demo_survey(
     site,
@@ -561,9 +587,11 @@ create_demo_survey(
     form_json=event_rsvp_form_de,
     actions={"store"},
     container=demos_de,
+    language="de",
 )
 
 order_form_de = load_form_definition("order_form_de")
+set_form_language(order_form_de, "de")
 
 create_demo_survey(
     site,
@@ -573,6 +601,7 @@ create_demo_survey(
     form_json=order_form_de,
     actions={"store"},
     container=demos_de,
+    language="de",
 )
 
 # Create a demo user with Editor role
