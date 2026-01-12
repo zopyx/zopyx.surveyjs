@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Form Studio - SurveyJS-powered forms service</title>
+  <title>Privacy Forms Studio - Privacy-first SurveyJS platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -14,26 +14,31 @@
       theme: {
         extend: {
           colors: {
-            ink: {
-              900: '#0f172a',
-              800: '#1e293b',
-              700: '#334155',
+            obsidian: {
+              900: '#0b0f14',
+              800: '#151b24',
+              700: '#212a36',
             },
-            ember: {
-              500: '#f97316',
-              600: '#ea580c',
+            sand: {
+              50: '#f7f5f2',
+              100: '#efe8de',
+              200: '#e0d1be',
             },
-            sea: {
-              500: '#14b8a6',
-              600: '#0d9488',
+            copper: {
+              500: '#d97744',
+              600: '#c2612f',
+            },
+            tide: {
+              500: '#0f766e',
+              600: '#0d5f5a',
             },
           },
           fontFamily: {
-            display: ['Space Grotesk', 'sans-serif'],
-            body: ['IBM Plex Sans', 'sans-serif'],
+            display: ['Sora', 'sans-serif'],
+            body: ['Source Sans 3', 'sans-serif'],
           },
           boxShadow: {
-            glow: '0 20px 60px -30px rgba(15, 23, 42, 0.6)',
+            ambient: '0 30px 80px -50px rgba(12, 18, 24, 0.6)',
           },
         },
       },
@@ -41,282 +46,426 @@
   </script>
   <style>
     body {
-      font-family: "IBM Plex Sans", sans-serif;
-      background: radial-gradient(circle at top left, rgba(20, 184, 166, 0.15), transparent 45%),
-        radial-gradient(circle at 15% 80%, rgba(249, 115, 22, 0.12), transparent 50%),
-        #f8fafc;
-      color: #0f172a;
+      font-family: "Source Sans 3", sans-serif;
+      color: #0b0f14;
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 50%),
+        radial-gradient(circle at 85% 5%, rgba(217, 119, 68, 0.18), transparent 45%),
+        #f7f5f2;
     }
 
-    .hero-blur {
-      background: linear-gradient(135deg, rgba(14, 116, 144, 0.12), rgba(249, 115, 22, 0.1));
-      border: 1px solid rgba(148, 163, 184, 0.35);
+    .mesh-panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(247, 245, 242, 0.86));
+      border: 1px solid rgba(33, 42, 54, 0.1);
       backdrop-filter: blur(18px);
     }
 
-    .section-label {
-      letter-spacing: 0.2em;
-    }
-
-    .floating-grid::before {
+    .grid-glow::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+      border-radius: 28px;
+      background-image:
+        linear-gradient(rgba(33, 42, 54, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33, 42, 54, 0.08) 1px, transparent 1px);
       background-size: 32px 32px;
-      border-radius: 24px;
       z-index: -1;
+    }
+
+    .float-up {
+      animation: floatUp 1.2s ease forwards;
+    }
+
+    .float-up.delay-1 { animation-delay: 0.2s; opacity: 0; }
+    .float-up.delay-2 { animation-delay: 0.35s; opacity: 0; }
+    .float-up.delay-3 { animation-delay: 0.5s; opacity: 0; }
+
+    @keyframes floatUp {
+      from { transform: translateY(16px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <header class="max-w-6xl mx-auto px-6 pt-10">
-    <nav class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+  <header class="max-w-6xl mx-auto px-6 pt-8">
+    <nav class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
       <div class="flex items-center gap-3">
-        <div class="h-10 w-10 rounded-xl bg-ink-900 text-white flex items-center justify-center font-display text-lg">Z</div>
+        <img src="logo-small.jpg" alt="Privacy Forms Studio" class="w-[250px] h-auto object-contain" />
         <div>
-          <p class="font-display text-xl text-ink-900">Privacy Form Studio</p>
-          <p class="text-sm text-ink-700">SurveyJS-powered service</p>
+          <p class="font-display text-xl text-obsidian-900">Privacy Forms Studio</p>
+          <p class="text-sm text-obsidian-700">SurveyJS-powered form infrastructure</p>
         </div>
       </div>
-      <div class="flex flex-wrap items-center gap-3 text-sm text-ink-700">
-        <a href="#features" class="hover:text-ink-900">Features</a>
-        <a href="#workflow" class="hover:text-ink-900">Workflow</a>
-        <a href="#exports" class="hover:text-ink-900">Exports</a>
-        <a href="#cta" class="px-4 py-2 rounded-full bg-ink-900 text-white hover:bg-ink-800">Request demo</a>
+      <div class="flex flex-wrap items-center gap-4 text-sm text-obsidian-700">
+        <a href="#platform" class="hover:text-obsidian-900">Platform</a>
+        <a href="#capabilities" class="hover:text-obsidian-900">Capabilities</a>
+        <a href="#deploy" class="hover:text-obsidian-900">Deployment</a>
+        <a href="#pricing" class="hover:text-obsidian-900">Pricing</a>
+        <a href="#contact" class="px-4 py-2 rounded-full bg-obsidian-900 text-white hover:bg-obsidian-800">Request demo</a>
       </div>
     </nav>
   </header>
 
   <main class="max-w-6xl mx-auto px-6">
-    <section class="mt-16 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+    <section class="mt-16 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
       <div class="space-y-6">
-        <p class="section-label text-xs uppercase text-ink-700 font-semibold">Private by design</p>
-        <h1 class="font-display text-4xl md:text-5xl text-ink-900 leading-tight">
-          Build, publish, and export forms or surveys with SurveyJS creator, viewer, and results.
+        <p class="text-xs uppercase tracking-[0.28em] text-obsidian-700 font-semibold">Privacy-first form systems</p>
+        <h1 class="font-display text-4xl md:text-5xl text-obsidian-900 leading-tight">
+          Build modern surveys and forms with complete data sovereignty.
         </h1>
-        <p class="text-lg text-ink-700">
-          Privacy Form Studio adds a dedicated Survey content type to your service, powered by SurveyJS. Keep data on-premise or in your own SaaS stack with no required cloud integrations or external services.
+        <p class="text-lg text-obsidian-700">
+          Privacy Forms Studio brings SurveyJS creator, viewer, and results into your own infrastructure. Collect data safely, distribute intelligently, and generate polished exports without handing anything to a third-party SaaS.
         </p>
         <div class="flex flex-wrap gap-4">
-          <a href="#cta" class="px-6 py-3 rounded-full bg-ember-500 text-white font-medium hover:bg-ember-600">Talk to us</a>
-          <a href="#features" class="px-6 py-3 rounded-full border border-ink-700 text-ink-700 font-medium hover:border-ink-900 hover:text-ink-900">See features</a>
+          <a href="#contact" class="px-6 py-3 rounded-full bg-copper-500 text-white font-semibold hover:bg-copper-600">Book a strategy call</a>
+          <a href="#platform" class="px-6 py-3 rounded-full border border-obsidian-700 text-obsidian-700 font-semibold hover:text-obsidian-900 hover:border-obsidian-900">Explore platform</a>
         </div>
-        <div class="flex flex-wrap gap-6 text-sm text-ink-700">
+        <div class="flex flex-wrap gap-6 text-sm text-obsidian-700">
           <div class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full bg-sea-600"></span>
-            On-prem or SaaS ready
+            <span class="h-2 w-2 rounded-full bg-tide-500"></span>
+            On-premise or private SaaS
           </div>
           <div class="flex items-center gap-2">
-            <span class="h-2 w-2 rounded-full bg-ember-500"></span>
-            No external services required
+            <span class="h-2 w-2 rounded-full bg-copper-500"></span>
+            Optional AI, never required
           </div>
         </div>
       </div>
-      <div class="hero-blur rounded-3xl p-6 shadow-glow relative overflow-hidden floating-grid">
-        <div class="space-y-6">
-          <div class="flex items-center justify-between">
-            <span class="text-xs uppercase tracking-[0.2em] text-ink-700">Privacy-first hub</span>
-            <span class="text-xs text-ink-700">AI form generator is optional</span>
+      <div class="mesh-panel rounded-3xl p-6 shadow-ambient relative overflow-hidden grid-glow">
+        <div class="space-y-5">
+          <div class="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-obsidian-700">
+            <span>Live studio preview</span>
+            <span>GDPR-ready by design</span>
           </div>
-          <div class="rounded-2xl bg-white/80 p-5 shadow-md">
-            <p class="font-display text-2xl text-ink-900">SurveyJS Creator</p>
-            <p class="text-sm text-ink-700 mt-2">
-              Drag-and-drop builder with multilingual support and instant preview inside your service.
+          <div class="bg-white/90 rounded-2xl p-5 shadow-sm float-up">
+            <p class="font-display text-2xl text-obsidian-900">Creator workspace</p>
+            <p class="text-sm text-obsidian-700 mt-2">
+              Drag-and-drop authoring, multilingual surveys, logic rules, and reusable templates.
             </p>
           </div>
-          <div class="rounded-2xl bg-ink-900 text-white p-5 shadow-md">
-            <p class="font-display text-2xl">Results + Exports</p>
-            <p class="text-sm text-white/80 mt-2">
-              Collect responses, store them locally, or send multi-format exports by email.
+          <div class="bg-obsidian-900 text-white rounded-2xl p-5 shadow-sm float-up delay-1">
+            <p class="font-display text-2xl">Results &amp; lifecycle</p>
+            <p class="text-sm text-white/75 mt-2">
+              Response dashboards with retention control, version history, and audit trails.
             </p>
           </div>
-          <div class="rounded-2xl bg-white/80 p-5 shadow-md">
-            <p class="font-display text-2xl text-ink-900">Viewer Embed</p>
-            <p class="text-sm text-ink-700 mt-2">
-              Deliver forms or surveys as a responsive widget and embed them across your site.
+          <div class="bg-white/90 rounded-2xl p-5 shadow-sm float-up delay-2">
+            <p class="font-display text-2xl text-obsidian-900">Exports pipeline</p>
+            <p class="text-sm text-obsidian-700 mt-2">
+              Generate PDFs, spreadsheets, or structured datasets on demand or via automation.
+            </p>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-5 shadow-sm float-up delay-3">
+            <p class="font-display text-2xl text-obsidian-900">Distribution controls</p>
+            <p class="text-sm text-obsidian-700 mt-2">
+              Route submissions to email, REST endpoints, or custom processing workflows.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features" class="mt-20">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <section id="platform" class="mt-20">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p class="section-label text-xs uppercase text-ink-700 font-semibold">Features</p>
-          <h2 class="font-display text-3xl text-ink-900">Everything you need to run serious forms or surveys.</h2>
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold">Platform</p>
+          <h2 class="font-display text-3xl text-obsidian-900">A secure, extensible SurveyJS platform for regulated teams.</h2>
         </div>
-        <p class="text-ink-700 max-w-md">
-          The add-on brings SurveyJS to your service with a full creator, viewer, and results center, plus a conversion pipeline for professional reporting. Deploy on-premise or as a private SaaS without mandatory cloud services.
+        <p class="text-obsidian-700 max-w-md">
+          Run inside Plone or as a standalone service. Bring governance, workflows, and permissions to every form while keeping JSON data portable and export-ready.
         </p>
       </div>
-      <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-          <h3 class="font-display text-xl text-ink-900">Survey content type</h3>
-          <p class="text-ink-700 mt-2">Dedicated Dexterity type with configurable actions for storage or email delivery.</p>
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Privacy-first architecture</h3>
+          <p class="text-obsidian-700 mt-2">Data never leaves your infrastructure unless you decide to route it elsewhere.</p>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-          <h3 class="font-display text-xl text-ink-900">Visual creator</h3>
-          <p class="text-ink-700 mt-2">SurveyJS Creator runs inside your service with live preview, themes, and localization.</p>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">SurveyJS-grade UX</h3>
+          <p class="text-obsidian-700 mt-2">Dynamic logic, conditional visibility, repeatable sections, and responsive layouts.</p>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-          <h3 class="font-display text-xl text-ink-900">AI form generator</h3>
-          <p class="text-ink-700 mt-2">Optional AI assistant for form drafting. Keep it off if you need fully local workflows.</p>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Governance in Plone</h3>
+          <p class="text-obsidian-700 mt-2">Delegated authoring, publishing controls, and auditability fit for compliance.</p>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-          <h3 class="font-display text-xl text-ink-900">Results dashboard</h3>
-          <p class="text-ink-700 mt-2">Manage submissions, download data, and control lifecycle from inside the service.</p>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Form versioning</h3>
+          <p class="text-obsidian-700 mt-2">Restore or compare historical form definitions with one click.</p>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-          <h3 class="font-display text-xl text-ink-900">Attachments handling</h3>
-          <p class="text-ink-700 mt-2">Extract files and images from responses, keep them with exported packages.</p>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Data portability</h3>
+          <p class="text-obsidian-700 mt-2">JSON schemas and submissions export cleanly for analytics or archival.</p>
         </div>
-        <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-          <h3 class="font-display text-xl text-ink-900">Email notifications</h3>
-          <p class="text-ink-700 mt-2">Send selected export formats by email with custom subject and body, using your infrastructure.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="workflow" class="mt-20">
-      <div class="bg-ink-900 rounded-3xl px-8 py-10 text-white">
-        <p class="section-label text-xs uppercase text-white/70 font-semibold">Workflow</p>
-        <h2 class="font-display text-3xl mt-2">From idea to export in four steps.</h2>
-        <div class="mt-8 grid md:grid-cols-4 gap-6 text-sm">
-          <div class="space-y-3">
-            <div class="h-10 w-10 rounded-full bg-ember-500 flex items-center justify-center font-display text-lg">1</div>
-            <p class="font-display text-lg">Design</p>
-            <p class="text-white/70">Use SurveyJS Creator or the AI generator to craft the JSON form.</p>
-          </div>
-          <div class="space-y-3">
-            <div class="h-10 w-10 rounded-full bg-sea-500 flex items-center justify-center font-display text-lg">2</div>
-            <p class="font-display text-lg">Publish</p>
-            <p class="text-white/70">Embed the survey viewer or share links from your service pages.</p>
-          </div>
-          <div class="space-y-3">
-            <div class="h-10 w-10 rounded-full bg-white text-ink-900 flex items-center justify-center font-display text-lg">3</div>
-            <p class="font-display text-lg">Collect</p>
-            <p class="text-white/70">Store responses locally or send them automatically by email.</p>
-          </div>
-          <div class="space-y-3">
-            <div class="h-10 w-10 rounded-full bg-ember-500 flex items-center justify-center font-display text-lg">4</div>
-            <p class="font-display text-lg">Export</p>
-            <p class="text-white/70">Generate PDFs, spreadsheets, JSON, and more from every submission.</p>
-          </div>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">No vendor lock-in</h3>
+          <p class="text-obsidian-700 mt-2">Extend with custom Python workflows or REST integrations as needed.</p>
         </div>
       </div>
     </section>
 
-    <section id="exports" class="mt-20">
-      <div class="flex flex-col lg:flex-row gap-10 items-start">
-        <div class="lg:w-1/2 space-y-4">
-          <p class="section-label text-xs uppercase text-ink-700 font-semibold">Exports</p>
-          <h2 class="font-display text-3xl text-ink-900">Multi-format delivery, ready for reporting.</h2>
-          <p class="text-ink-700">
-            The converter pipeline normalizes SurveyJS responses and emits professional documents or datasets. Exports can be stored or mailed per survey without pushing data to external services.
+    <section id="capabilities" class="mt-20">
+      <div class="bg-obsidian-900 rounded-3xl px-8 py-10 text-white">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-white/60 font-semibold">Capabilities</p>
+            <h2 class="font-display text-3xl mt-2">Everything required to operate serious forms.</h2>
+          </div>
+          <p class="text-white/70 max-w-md">
+            From intake to export, every step stays under your control. Automate distribution, build reports, and keep sensitive data in-house.
           </p>
-          <div class="flex flex-wrap gap-3 text-sm">
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">PDF</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">HTML</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">Markdown</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">CSV</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">XLSX</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">DOCX</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">XML</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">JSON</span>
-            <span class="px-3 py-1 rounded-full bg-white shadow-sm">TXT</span>
-          </div>
         </div>
-        <div class="lg:w-1/2 grid gap-4">
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-            <p class="font-display text-xl text-ink-900">CLI converter</p>
-            <p class="text-ink-700 mt-2">Automate exports via a command-line tool, including attachment extraction.</p>
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="bg-white/10 rounded-2xl p-6 border border-white/10">
+            <h3 class="font-display text-xl">Storage + retention</h3>
+            <p class="text-white/70 mt-2">Store every submission by default, or deliver instantly without retention.</p>
           </div>
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-            <p class="font-display text-xl text-ink-900">SurveyJS JSON in, clean data out</p>
-            <p class="text-ink-700 mt-2">A unified schema for consistent reporting, with poll IDs and metadata preserved.</p>
+          <div class="bg-white/10 rounded-2xl p-6 border border-white/10">
+            <h3 class="font-display text-xl">Transformation engine</h3>
+            <p class="text-white/70 mt-2">Generate TXT, HTML, PDF, Markdown, JSON, XLSX, CSV, DOCX, and XML.</p>
           </div>
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-100">
-            <p class="font-display text-xl text-ink-900">Email-ready packages</p>
-            <p class="text-ink-700 mt-2">Send selected formats and attachments to stakeholders with one click.</p>
+          <div class="bg-white/10 rounded-2xl p-6 border border-white/10">
+            <h3 class="font-display text-xl">Distribution controls</h3>
+            <p class="text-white/70 mt-2">Email exports per form with custom recipients, CC/BCC, subjects, and body.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-6 border border-white/10">
+            <h3 class="font-display text-xl">REST integrations</h3>
+            <p class="text-white/70 mt-2">POST submissions to internal APIs or downstream processing services.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-6 border border-white/10">
+            <h3 class="font-display text-xl">Optional AI drafting</h3>
+            <p class="text-white/70 mt-2">Attach any AI provider or local LLM to propose and refine forms.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-6 border border-white/10">
+            <h3 class="font-display text-xl">Embedded experiences</h3>
+            <p class="text-white/70 mt-2">Publish surveys inside your sites or apps with planned widget support.</p>
           </div>
         </div>
       </div>
     </section>
 
     <section class="mt-20">
-      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center">
         <div class="space-y-4">
-          <p class="section-label text-xs uppercase text-ink-700 font-semibold">Why it matters</p>
-          <h2 class="font-display text-3xl text-ink-900">A modern survey stack for privacy-first services.</h2>
-          <p class="text-ink-700">
-            Privacy Form Studio bridges enterprise content workflows with the SurveyJS platform. Keep governance inside your service while taking advantage of SurveyJS creator, viewer, and export capabilities, without mandatory cloud dependencies.
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold">Use cases</p>
+          <h2 class="font-display text-3xl text-obsidian-900">Designed for regulated and high-trust environments.</h2>
+          <p class="text-obsidian-700">
+            Replace generic SaaS form builders with an architecture that respects legal constraints, auditability, and long-term governance.
           </p>
-          <div class="grid sm:grid-cols-2 gap-4 text-sm">
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-              <p class="font-semibold text-ink-900">Privacy-first deployments</p>
-              <p class="text-ink-700 mt-2">Run on-premise or in your own SaaS stack with data ownership intact.</p>
+          <div class="grid gap-4 sm:grid-cols-2 text-sm">
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">
+              <p class="font-semibold text-obsidian-900">Public sector services</p>
+              <p class="text-obsidian-700 mt-2">Citizen intake, registrations, and feedback with strict GDPR compliance.</p>
             </div>
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-              <p class="font-semibold text-ink-900">No external services required</p>
-              <p class="text-ink-700 mt-2">Only the optional AI helper calls out; everything else stays local.</p>
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">
+              <p class="font-semibold text-obsidian-900">Healthcare documentation</p>
+              <p class="text-obsidian-700 mt-2">Clinical intake forms, medical studies, and consent workflows.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">
+              <p class="font-semibold text-obsidian-900">Research surveys</p>
+              <p class="text-obsidian-700 mt-2">Complex logic-driven questionnaires with institutional review controls.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">
+              <p class="font-semibold text-obsidian-900">Enterprise compliance</p>
+              <p class="text-obsidian-700 mt-2">Audits, risk assessments, HR onboarding, and internal reporting.</p>
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-3xl p-6 shadow-glow border border-slate-100">
-          <h3 class="font-display text-2xl text-ink-900">Licensing note</h3>
-          <p class="text-ink-700 mt-3">
-            SurveyJS Creator is not free for commercial usage. A developer license is required. Please review SurveyJS licensing for your deployment.
-          </p>
-          <a href="https://surveyjs.io/Licenses" class="mt-4 inline-flex items-center text-ember-600 font-semibold hover:text-ember-500">
-            View SurveyJS license details
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
+        <div class="mesh-panel rounded-3xl p-6 shadow-ambient">
+          <h3 class="font-display text-2xl text-obsidian-900">Privacy commitment</h3>
+          <p class="text-obsidian-700 mt-3">Privacy is core, not optional. Control retention, processing, and deletion policies per form or per tenant.</p>
+          <div class="mt-6 grid gap-4 text-sm">
+            <div class="flex items-start gap-3">
+              <div class="mt-1 h-3 w-3 rounded-full bg-tide-500"></div>
+              <p>Zero hidden data flows. Every integration is explicit and configurable.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 h-3 w-3 rounded-full bg-copper-500"></div>
+              <p>AI support can run locally or be turned off completely.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 h-3 w-3 rounded-full bg-obsidian-900"></div>
+              <p>Built for GDPR/DSGVO-heavy deployments in EU and global markets.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="cta" class="mt-20 mb-20">
-      <div class="bg-ink-900 rounded-[42px] px-8 py-12 text-white">
-        <div class="text-center max-w-3xl mx-auto">
-          <p class="section-label text-xs uppercase text-white/70 font-semibold">Contact</p>
-          <h2 class="font-display text-3xl mt-3 sm:text-4xl lg:text-5xl">Ready for your privacy-first forms service?</h2>
-          <p class="text-white/70 mt-4 text-lg">
-            Let's discuss your form or survey challenge. Free initial consultation with a privacy-first architecture focus.
-          </p>
+    <section id="deploy" class="mt-20">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold">Deployment</p>
+          <h2 class="font-display text-3xl text-obsidian-900">Choose your operational model.</h2>
         </div>
-        <div class="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div class="bg-white/10 rounded-3xl p-8 border border-white/15 shadow-glow">
+        <p class="text-obsidian-700 max-w-md">
+          Install as a Plone add-on, run a standalone server, or embed forms in existing apps through a managed API layer.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Plone add-on</h3>
+          <p class="text-obsidian-700 mt-2">Add Privacy Forms Studio to your existing Plone environment in hours.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Standalone server</h3>
+          <p class="text-obsidian-700 mt-2">Full Plone capabilities, security, workflows, and governance built in.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm">
+          <h3 class="font-display text-xl text-obsidian-900">Embedded widgets</h3>
+          <p class="text-obsidian-700 mt-2">Publish forms into other sites or apps with planned embed support.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="mt-20">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold">Pricing</p>
+          <h2 class="font-display text-3xl text-obsidian-900">Flexible licensing for every deployment style.</h2>
+        </div>
+        <p class="text-obsidian-700 max-w-md">
+          Pricing depends on deployment and support scope. SurveyJS licenses apply only if you choose the visual creator.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm">
+          <p class="text-sm uppercase tracking-[0.2em] text-obsidian-700">Plone add-on</p>
+          <h3 class="font-display text-2xl mt-3 text-obsidian-900">Private extension</h3>
+          <p class="text-obsidian-700 mt-3">Deploy inside your Plone stack with governance controls and storage ownership.</p>
+          <ul class="mt-6 space-y-3 text-sm text-obsidian-700">
+            <li>On-prem or private SaaS</li>
+            <li>Survey builder, viewer, results center</li>
+            <li>Export pipeline + distribution rules</li>
+          </ul>
+        </div>
+        <div class="bg-obsidian-900 rounded-3xl p-8 text-white shadow-ambient">
+          <p class="text-sm uppercase tracking-[0.2em] text-white/60">Standalone server</p>
+          <h3 class="font-display text-2xl mt-3">Enterprise-ready stack</h3>
+          <p class="text-white/70 mt-3">Dedicated Privacy Forms Studio service with Plone workflows included.</p>
+          <ul class="mt-6 space-y-3 text-sm text-white/70">
+            <li>Security, authentication, authorization</li>
+            <li>Role-based publishing and scheduling</li>
+            <li>Custom integrations and SLAs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 bg-white rounded-2xl p-6 border border-sand-200">
+        <p class="text-sm text-obsidian-700">
+          SurveyJS Creator requires a separate commercial license per developer. SurveyJS Dashboard and PDF generator are optional.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-20">
+      <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold">Why SurveyJS</p>
+          <h2 class="font-display text-3xl text-obsidian-900">Best-in-class survey UX, wrapped in privacy-first infrastructure.</h2>
+          <p class="text-obsidian-700">
+            SurveyJS handles dynamic form logic and rich question types. Privacy Forms Studio adds governance, compliance, and export automation.
+          </p>
+          <div class="grid gap-4 sm:grid-cols-2 text-sm">
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">Conditional logic, validation, and calculated fields.</div>
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">JSON schemas that integrate with APIs and modern frontends.</div>
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">Accessible, responsive UI for desktop and mobile.</div>
+            <div class="bg-white rounded-2xl p-4 border border-sand-200 shadow-sm">Works with React, Vue, Angular, and vanilla JS.</div>
+          </div>
+        </div>
+        <div class="mesh-panel rounded-3xl p-6 shadow-ambient">
+          <h3 class="font-display text-2xl text-obsidian-900">Compliance-ready outputs</h3>
+          <p class="text-obsidian-700 mt-3">Export normalized submissions, manage attachments, and keep reporting workflows internal.</p>
+          <div class="mt-6 flex flex-wrap gap-3 text-sm text-obsidian-700">
+            <span class="px-3 py-1 rounded-full bg-white">PDF</span>
+            <span class="px-3 py-1 rounded-full bg-white">HTML</span>
+            <span class="px-3 py-1 rounded-full bg-white">Markdown</span>
+            <span class="px-3 py-1 rounded-full bg-white">CSV</span>
+            <span class="px-3 py-1 rounded-full bg-white">XLSX</span>
+            <span class="px-3 py-1 rounded-full bg-white">DOCX</span>
+            <span class="px-3 py-1 rounded-full bg-white">XML</span>
+            <span class="px-3 py-1 rounded-full bg-white">JSON</span>
+            <span class="px-3 py-1 rounded-full bg-white">TXT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-20">
+      <div class="bg-obsidian-900 rounded-3xl px-8 py-10 text-white">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-white/60 font-semibold">FAQ</p>
+            <h2 class="font-display text-3xl mt-2">Common questions, clear answers.</h2>
+          </div>
+          <p class="text-white/70 max-w-md">We can tailor deployments, licensing, and integrations to your governance requirements.</p>
+        </div>
+        <div class="mt-8" id="accordion-open" data-accordion="open">
+          <h3 id="accordion-open-heading-1">
+            <button type="button" class="flex w-full items-center justify-between rounded-2xl bg-white/10 px-6 py-4 text-left text-white" data-accordion-target="#accordion-open-body-1" aria-expanded="true" aria-controls="accordion-open-body-1">
+              <span class="font-semibold">Does any data leave our infrastructure?</span>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-open-body-1" class="hidden" aria-labelledby="accordion-open-heading-1">
+            <div class="px-6 py-4 text-white/70">No. All storage and processing happens inside your environment. External integrations are opt-in.</div>
+          </div>
+          <h3 id="accordion-open-heading-2" class="mt-4">
+            <button type="button" class="flex w-full items-center justify-between rounded-2xl bg-white/10 px-6 py-4 text-left text-white" data-accordion-target="#accordion-open-body-2" aria-expanded="false" aria-controls="accordion-open-body-2">
+              <span class="font-semibold">Can we use our own AI model?</span>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-open-body-2" class="hidden" aria-labelledby="accordion-open-heading-2">
+            <div class="px-6 py-4 text-white/70">Yes. The AI assistant can connect to most providers or your local LLM deployment.</div>
+          </div>
+          <h3 id="accordion-open-heading-3" class="mt-4">
+            <button type="button" class="flex w-full items-center justify-between rounded-2xl bg-white/10 px-6 py-4 text-left text-white" data-accordion-target="#accordion-open-body-3" aria-expanded="false" aria-controls="accordion-open-body-3">
+              <span class="font-semibold">What about SurveyJS licensing?</span>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-open-body-3" class="hidden" aria-labelledby="accordion-open-heading-3">
+            <div class="px-6 py-4 text-white/70">SurveyJS Creator is licensed per developer for commercial use. We help you plan the right setup.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="mt-20 mb-20">
+      <div class="bg-white rounded-[36px] p-10 border border-sand-200 shadow-ambient">
+        <div class="text-center max-w-3xl mx-auto">
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold">Contact</p>
+          <h2 class="font-display text-3xl sm:text-4xl mt-3 text-obsidian-900">Ready to launch a privacy-first forms platform?</h2>
+          <p class="text-obsidian-700 mt-4 text-lg">Tell us about your deployment goals and data governance requirements.</p>
+        </div>
+        <div class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div class="rounded-3xl border border-sand-200 bg-sand-50 p-8">
             <div class="space-y-6">
               <div>
-                <div class="text-sm font-semibold uppercase tracking-wide text-white/70">Email</div>
-                <a href="mailto:info@zopyx.com" class="mt-1 inline-block text-lg font-semibold text-white hover:text-ember-400">
-                  info@zopyx.com
-                </a>
+                <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700">Email</div>
+                <a href="mailto:info@zopyx.com" class="mt-1 inline-block text-lg font-semibold text-obsidian-900 hover:text-copper-600">info@zopyx.com</a>
               </div>
               <div>
-                <div class="text-sm font-semibold uppercase tracking-wide text-white/70">Web</div>
-                <a href="https://py-consultant.com" class="mt-1 inline-block text-lg font-semibold text-white hover:text-ember-400">
-                  py-consultant.com
-                </a>
+                <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700">Web</div>
+                <a href="https://py-consultant.com" class="mt-1 inline-block text-lg font-semibold text-obsidian-900 hover:text-copper-600">py-consultant.com</a>
               </div>
-              <div class="rounded-2xl border border-white/15 bg-white/5 p-5 text-sm text-white/70">
-                <p class="text-white font-semibold">Diplom-Informatiker Andreas Jung</p>
+              <div class="rounded-2xl border border-sand-200 bg-white p-5 text-sm text-obsidian-700">
+                <p class="text-obsidian-900 font-semibold">Diplom-Informatiker Andreas Jung</p>
                 Independent consultant for privacy-first form workflows<br />
-                D-Tübingen, Germany
+                D-Tuebingen, Germany
               </div>
             </div>
           </div>
-          <div class="flex flex-col items-center justify-center gap-6 rounded-3xl border border-white/15 bg-white/10 p-8 text-center">
-            <div class="max-w-sm text-lg font-semibold text-white">
-              Need a secure, on-premise or private SaaS rollout? We deliver a compliant setup that keeps your data under your control.
+          <div class="flex flex-col items-center justify-center gap-6 rounded-3xl border border-sand-200 bg-obsidian-900 p-8 text-center text-white">
+            <div class="max-w-sm text-lg font-semibold">
+              Need an on-premise or private SaaS rollout? We can deliver a compliant setup with zero data leakage.
             </div>
-            <a href="mailto:info@zopyx.com?subject=Privacy%20Form%20Studio%20Inquiry" class="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-base font-semibold text-ink-900 shadow-lg shadow-slate-900/40 transition hover:scale-[1.02]">
+            <a href="mailto:info@zopyx.com?subject=Privacy%20Forms%20Studio%20Inquiry" class="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-base font-semibold text-obsidian-900 shadow-lg transition hover:scale-[1.02]">
               Start a privacy review
             </a>
           </div>
@@ -325,21 +474,21 @@
     </section>
   </main>
 
-  <footer class="mt-16 bg-ink-900 text-white">
+  <footer class="bg-obsidian-900 text-white">
     <div class="max-w-6xl mx-auto px-6 py-10">
       <div class="grid gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
         <div class="space-y-4">
           <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-xl bg-white text-ink-900 flex items-center justify-center font-display text-lg">P</div>
+            <img src="logo-small.jpg" alt="Privacy Forms Studio" class="w-[250px] h-auto object-contain bg-white rounded-2xl p-2" />
             <div>
-              <p class="font-display text-xl">Privacy Form Studio</p>
-              <p class="text-sm text-white/70">SurveyJS-powered forms service</p>
+              <p class="font-display text-xl">Privacy Forms Studio</p>
+              <p class="text-sm text-white/70">SurveyJS-powered form infrastructure</p>
             </div>
           </div>
           <p class="text-sm text-white/70">
             Privacy-first form building with on-premise or private SaaS deployments. No external services required.
           </p>
-          <a href="mailto:info@zopyx.com" class="inline-flex items-center text-sm text-ember-500 hover:text-ember-400">
+          <a href="mailto:info@zopyx.com" class="inline-flex items-center text-sm text-copper-500 hover:text-copper-400">
             info@zopyx.com
             <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
@@ -348,12 +497,12 @@
           </a>
         </div>
         <div class="space-y-3 text-sm">
-          <p class="font-display text-lg">Service</p>
+          <p class="font-display text-lg">Platform</p>
           <ul class="space-y-2 text-white/70">
-            <li><a href="#features" class="hover:text-white">Features</a></li>
-            <li><a href="#workflow" class="hover:text-white">Workflow</a></li>
-            <li><a href="#exports" class="hover:text-white">Exports</a></li>
-            <li><a href="#cta" class="hover:text-white">Contact</a></li>
+            <li><a href="#platform" class="hover:text-white">Platform</a></li>
+            <li><a href="#capabilities" class="hover:text-white">Capabilities</a></li>
+            <li><a href="#deploy" class="hover:text-white">Deployment</a></li>
+            <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
           </ul>
         </div>
         <div class="space-y-3 text-sm">
@@ -366,8 +515,8 @@
         </div>
       </div>
       <div class="mt-8 border-t border-white/10 pt-6 text-xs text-white/60 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-        <p>(C) 2026, ZOPYX/Andreas Jung, D-Tübingen</p>
-        <p>Privacy Form Studio - SurveyJS-powered forms service.</p>
+        <p>(C) 2026, ZOPYX/Andreas Jung, D-Tuebingen</p>
+        <p>Privacy Forms Studio - SurveyJS-powered form infrastructure.</p>
       </div>
     </div>
   </footer>
