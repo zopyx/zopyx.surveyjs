@@ -1,0 +1,161 @@
+{
+  "title": "Bestellformular für Kleidung",
+  "description": "Ein einfaches Formular, um Kundendaten und Bestellpositionen für Textilien zu erfassen.",
+  "locale": "de",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "Bestellformular",
+      "description": "Tragen Sie die Kundendaten ein und pflegen Sie die Positionen in der Tabelle.",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid",
+          "defaultValue": "6f8b9d2e-2c4a-4f1b-9e2a-7d3a8c1b2f5d"
+        },
+        {
+          "type": "hidden",
+          "name": "created",
+          "defaultValue": "2026-01-11T12:34:56Z"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "title": "Vorname"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "Nachname"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "E-Mail-Adresse"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "Telefonnummer"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "order_items",
+          "title": "Bestellpositionen",
+          "description": "Fügen Sie eine oder mehrere Positionen hinzu. Sie können Zeilen hinzufügen, bearbeiten oder entfernen.",
+          "columns": [
+            {
+              "name": "item",
+              "title": "Artikel (z. B. Kleid, Hemd)",
+              "cellType": "text"
+            },
+            {
+              "name": "fabric",
+              "title": "Materialtyp",
+              "cellType": "dropdown",
+              "choices": [
+                "Baumwolle",
+                "Seide",
+                "Wolle",
+                "Leinen",
+                "Polyester"
+              ]
+            },
+            {
+              "name": "color",
+              "title": "Farbe",
+              "cellType": "text"
+            },
+            {
+              "name": "size",
+              "title": "Größe",
+              "cellType": "dropdown",
+              "choices": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ]
+            },
+            {
+              "name": "quantity",
+              "title": "Menge",
+              "cellType": "text"
+            },
+            {
+              "name": "unitPrice",
+              "title": "Stückpreis",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "notes",
+              "title": "Notizen",
+              "cellType": "text"
+            }
+          ],
+          "minRowCount": 1,
+          "addRowText": "Position hinzufügen",
+          "removeRowText": "Position entfernen"
+        },
+        {
+          "type": "radiogroup",
+          "name": "deliveryOption",
+          "title": "Lieferoption",
+          "description": "Wie möchten Sie Ihre Bestellung erhalten?",
+          "choices": [
+            {
+              "value": "standard",
+              "text": "Standard (5-7 Tage)"
+            },
+            {
+              "value": "express",
+              "text": "Express (2-3 Tage)"
+            },
+            {
+              "value": "pickup",
+              "text": "Abholung im Showroom"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "extras",
+          "title": "Zusätzliche Optionen",
+          "choices": [
+            "Geschenkverpackung",
+            "Eilproduktion",
+            "Einnähetiketten hinzufügen"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "specialInstructions",
+          "title": "Besondere Hinweise",
+          "description": "Besondere Wünsche oder Details zur Bestellung."
+        },
+        {
+          "type": "checkbox",
+          "name": "termsAccepted",
+          "title": "Allgemeine Geschäftsbedingungen",
+          "description": "Bestätigen Sie, dass Sie den AGB zustimmen.",
+          "choices": [
+            "Ich stimme den AGB zu"
+          ],
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "Unterschrift",
+          "description": "Unterschreiben Sie zur Bestätigung der Bestellung.",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "onPage",
+  "requiredTextOnNormalMessages": false
+}

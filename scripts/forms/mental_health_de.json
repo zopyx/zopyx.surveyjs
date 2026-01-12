@@ -1,0 +1,111 @@
+{
+  "title": "Umfrage zur psychischen Gesundheit",
+  "description": "Ein kurzer, vertraulicher Check-in zu Ihrem Wohlbefinden in dieser Woche.",
+  "locale": "de",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Danke für Ihre Rückmeldung. Wenn Sie Unterstützung brauchen, wenden Sie sich bitte an Fachleute.</h3>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "mood",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "overallMood",
+          "title": "Wie würden Sie Ihre allgemeine Stimmung in dieser Woche beschreiben?",
+          "isRequired": true,
+          "choices": [
+            "Sehr positiv",
+            "Überwiegend positiv",
+            "Neutral oder gemischt",
+            "Überwiegend negativ",
+            "Sehr negativ"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "stressLevel",
+          "title": "Wie hoch war Ihr Stress in den letzten Tagen?",
+          "isRequired": true,
+          "choices": [
+            "Sehr niedrig",
+            "Gut handhabbar",
+            "Spürbar, aber okay",
+            "Hoch",
+            "Überwältigend"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sleep",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "sleepQuality",
+          "title": "Wie bewerten Sie Ihren Schlaf in letzter Zeit?",
+          "isRequired": true,
+          "choices": [
+            "Erholsam und konstant",
+            "Meistens in Ordnung",
+            "Unregelmäßig",
+            "Schlecht",
+            "Sehr schlecht"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "supportNetwork",
+          "title": "Wie unterstützt fühlen Sie sich durch Freunde, Familie oder Ihr Umfeld?",
+          "isRequired": true,
+          "choices": [
+            "Sehr gut unterstützt",
+            "Gut unterstützt",
+            "Eher unterstützt",
+            "Begrenzte Unterstützung",
+            "Keine Unterstützung"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "focusLevel",
+          "title": "Wie leicht fällt es Ihnen, sich auf tägliche Aufgaben zu konzentrieren?",
+          "isRequired": true,
+          "choices": [
+            "Sehr leicht",
+            "Meistens leicht",
+            "Machbar",
+            "Schwierig",
+            "Sehr schwierig"
+          ]
+        }
+      ]
+    }
+  ]
+}

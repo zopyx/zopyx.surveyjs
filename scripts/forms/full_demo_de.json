@@ -1,0 +1,243 @@
+{
+  "title": "Nutzung sozialer Medien",
+  "description": "Demonstration von SurveyJS-Funktionen im Kontext sozialer Medien.",
+  "locale": "de",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Danke fürs Ausprobieren!</h3><p>Passen Sie die Fragen für Ihre eigenen Umfragen an.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "demoIntro",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "basics",
+      "title": "Ihr Profil",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Wie heißen Sie?",
+          "placeHolder": "Alex Muster"
+        },
+        {
+          "type": "dropdown",
+          "name": "ageRange",
+          "title": "Ihre Altersgruppe",
+          "isRequired": true,
+          "choices": [
+            "Unter 18",
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+"
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "primaryPlatforms",
+          "title": "Welche Plattformen nutzen Sie wöchentlich?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+            "Instagram",
+            "TikTok",
+            "YouTube",
+            "Facebook",
+            "LinkedIn",
+            "Snapchat",
+            "X/Twitter"
+          ]
+        },
+        {
+          "type": "rating",
+          "name": "engagementLevel",
+          "title": "Wie stark fühlen Sie sich insgesamt in sozialen Medien eingebunden?",
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Kaum eingebunden",
+          "maxRateDescription": "Stark eingebunden"
+        }
+      ]
+    },
+    {
+      "name": "time",
+      "title": "Aufgewendete Zeit",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "dailyMinutes",
+          "title": "Durchschnittliche Minuten pro Tag in sozialen Medien",
+          "rateMin": 0,
+          "rateMax": 5,
+          "rateStep": 1,
+          "rateValues": [
+            {
+              "value": 0,
+              "text": "Unter 30"
+            },
+            {
+              "value": 1,
+              "text": "30-60"
+            },
+            {
+              "value": 2,
+              "text": "1-2 Stunden"
+            },
+            {
+              "value": 3,
+              "text": "2-3 Stunden"
+            },
+            {
+              "value": 4,
+              "text": "3-5 Stunden"
+            },
+            {
+              "value": 5,
+              "text": "5+ Stunden"
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "timeComments",
+          "title": "Wann scrollen Sie üblicherweise?",
+          "placeHolder": "Morgenpendel, Mittagspause, abends, vor dem Schlafengehen..."
+        }
+      ]
+    },
+    {
+      "name": "matrixSection",
+      "title": "Nutzungsfrequenz",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "platformFrequency",
+          "title": "Wie oft schauen Sie auf diese Plattformen?",
+          "isRequired": true,
+          "columns": [
+            {
+              "value": "rarely",
+              "text": "Selten"
+            },
+            {
+              "value": "weekly",
+              "text": "Wöchentlich"
+            },
+            {
+              "value": "daily",
+              "text": "Täglich"
+            },
+            {
+              "value": "hourly",
+              "text": "Mehrmals täglich"
+            }
+          ],
+          "rows": [
+            {
+              "value": "instagram",
+              "text": "Instagram"
+            },
+            {
+              "value": "tiktok",
+              "text": "TikTok"
+            },
+            {
+              "value": "youtube",
+              "text": "YouTube"
+            },
+            {
+              "value": "facebook",
+              "text": "Facebook"
+            },
+            {
+              "value": "twitter",
+              "text": "X/Twitter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "matrixDynamicSection",
+      "title": "Bildschirmzeit nach Gerät",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "screenTimeByDevice",
+          "title": "Geräte hinzufügen und Ihre Zeit an Wochentagen/Wochenenden schätzen.",
+          "isRequired": true,
+          "rowCount": 2,
+          "minRowCount": 1,
+          "addRowText": "Gerät hinzufügen",
+          "columns": [
+            {
+              "name": "device",
+              "title": "Gerät",
+              "cellType": "dropdown",
+              "choices": [
+                "Smartphone",
+                "Tablet",
+                "Laptop",
+                "Desktop",
+                "Fernseher",
+                "Andere"
+              ]
+            },
+            {
+              "name": "weekday",
+              "title": "Wochentag (Std.)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            },
+            {
+              "name": "weekend",
+              "title": "Wochenende (Std.)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "uploads",
+      "title": "Uploads und Feedback",
+      "elements": [
+        {
+          "type": "file",
+          "name": "screenshot",
+          "title": "Optional: Screenshot Ihres Homescreens oder Feeds hochladen",
+          "maxSize": 1024000,
+          "imageHeight": 150,
+          "imageWidth": 150
+        },
+        {
+          "type": "comment",
+          "name": "improvementIdeas",
+          "title": "Was würde Ihre Social-Media-Erfahrung verbessern?"
+        },
+        {
+          "type": "boolean",
+          "name": "followUp",
+          "title": "Dürfen wir zu Ihren Antworten nachfragen?",
+          "labelTrue": "Ja, Sie können mich kontaktieren",
+          "labelFalse": "Nein, bitte anonym lassen"
+        }
+      ]
+    }
+  ]
+}

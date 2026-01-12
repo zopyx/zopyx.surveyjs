@@ -305,26 +305,85 @@ create_demo_survey(
 
 welcome_html = load_intro_text("welcome")
 
-# Add links to demo forms
+# Add styled links to demo forms
 welcome_html += """
-<h3>Demo Forms</h3>
-<ul>
-  <li><a href="demo/demos/event-registration">Event registration</a></li>
-  <li><a href="demo/demos/event-rsvp">Event registration / unregistration</a></li>
-  <li><a href="demo/demos/mental-health-survey">Mental Health Survey</a></li>
-  <li><a href="demo/demos/full-demo">Social Media Consumption Demo</a></li>
-  <li><a href="demo/demos/food-feedback-demo">Food Ordering Service Feedback</a></li>
-  <li><a href="demo/demos/order-form">Order form</a></li>
-</ul>
-<h3>Demo Forms (DE)</h3>
-<ul>
-  <li><a href="demo/demo-de/event-registration-de">Veranstaltungsanmeldung</a></li>
-  <li><a href="demo/demo-de/event-rsvp-de">Veranstaltung An-/Abmeldung</a></li>
-  <li><a href="demo/demo-de/mental-health-survey-de">Umfrage zur psychischen Gesundheit</a></li>
-  <li><a href="demo/demo-de/full-demo-de">Nutzung sozialer Medien</a></li>
-  <li><a href="demo/demo-de/food-feedback-demo-de">Feedback zum Essens-Bestellservice</a></li>
-  <li><a href="demo/demo-de/order-form-de">Bestellformular für Kleidung</a></li>
-</ul>
+<style>
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
+  .demo-card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 14px 16px; background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+  .demo-card h4 { margin: 0 0 8px 0; font-size: 1.05rem; }
+  .demo-card p { margin: 0 0 10px 0; color: #4b5563; }
+  .demo-card a { text-decoration: none; font-weight: 600; color: #0b6fa4; }
+</style>
+<section>
+  <h3>Demo Forms (EN)</h3>
+  <ul class="demo-grid">
+    <li class="demo-card">
+      <h4>Event registration</h4>
+      <p>Simple attendee signup.</p>
+      <a href="demo/demos/event-registration">Open</a>
+    </li>
+    <li class="demo-card">
+      <h4>Event registration / unregistration</h4>
+      <p>Register or cancel attendance.</p>
+      <a href="demo/demos/event-rsvp">Open</a>
+    </li>
+    <li class="demo-card">
+      <h4>Mental Health Survey</h4>
+      <p>Quick wellbeing check-in.</p>
+      <a href="demo/demos/mental-health-survey">Open</a>
+    </li>
+    <li class="demo-card">
+      <h4>Social Media Consumption Demo</h4>
+      <p>Showcases many SurveyJS question types.</p>
+      <a href="demo/demos/full-demo">Open</a>
+    </li>
+    <li class="demo-card">
+      <h4>Food Ordering Service Feedback</h4>
+      <p>Three fast ratings about a food order.</p>
+      <a href="demo/demos/food-feedback-demo">Open</a>
+    </li>
+    <li class="demo-card">
+      <h4>Order form</h4>
+      <p>Collect cloth order details and a signature.</p>
+      <a href="demo/demos/order-form">Open</a>
+    </li>
+  </ul>
+</section>
+<section>
+  <h3>Demo Forms (DE)</h3>
+  <ul class="demo-grid">
+    <li class="demo-card">
+      <h4>Veranstaltungsanmeldung</h4>
+      <p>Anmeldung für eine Veranstaltung.</p>
+      <a href="demo/demo-de/event-registration-de">Öffnen</a>
+    </li>
+    <li class="demo-card">
+      <h4>Veranstaltung An-/Abmeldung</h4>
+      <p>Für eine Teilnahme an- oder abmelden.</p>
+      <a href="demo/demo-de/event-rsvp-de">Öffnen</a>
+    </li>
+    <li class="demo-card">
+      <h4>Umfrage zur psychischen Gesundheit</h4>
+      <p>Kurzer, vertraulicher Check-in.</p>
+      <a href="demo/demo-de/mental-health-survey-de">Öffnen</a>
+    </li>
+    <li class="demo-card">
+      <h4>Nutzung sozialer Medien</h4>
+      <p>Demo vieler SurveyJS-Fragetypen.</p>
+      <a href="demo/demo-de/full-demo-de">Öffnen</a>
+    </li>
+    <li class="demo-card">
+      <h4>Feedback zum Essens-Bestellservice</h4>
+      <p>Drei schnelle Bewertungen.</p>
+      <a href="demo/demo-de/food-feedback-demo-de">Öffnen</a>
+    </li>
+    <li class="demo-card">
+      <h4>Bestellformular für Kleidung</h4>
+      <p>Kundendaten und Positionen erfassen.</p>
+      <a href="demo/demo-de/order-form-de">Öffnen</a>
+    </li>
+  </ul>
+</section>
 """
 
 welcome = api.content.create(

@@ -1,0 +1,46 @@
+{
+  "title": "Feedback zum Essens-Bestellservice",
+  "description": "Kurze 1-5 Bewertungen zu Ihrer letzten Erfahrung.",
+  "locale": "de",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "questions",
+  "completedHtml": "<h3>Danke für Ihr Feedback!</h3>",
+  "pages": [
+    {
+      "name": "ratings",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "orderEase",
+          "title": "Wie einfach war das Bestellen?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Sehr schwierig",
+          "maxRateDescription": "Sehr einfach"
+        },
+        {
+          "type": "rating",
+          "name": "deliverySpeed",
+          "title": "Wie zufrieden sind Sie mit der Liefergeschwindigkeit?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Sehr langsam",
+          "maxRateDescription": "Sehr schnell"
+        },
+        {
+          "type": "rating",
+          "name": "foodQuality",
+          "title": "Wie bewerten Sie die Qualität des Essens?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Sehr schlecht",
+          "maxRateDescription": "Ausgezeichnet"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "title": "Veranstaltungsanmeldung",
+  "description": "Melden Sie sich zur Veranstaltung an.",
+  "locale": "de",
+  "showQuestionNumbers": "off",
+  "completedHtml": "<h3>Danke für Ihre Anmeldung!</h3>",
+  "pages": [
+    {
+      "name": "attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Vollständiger Name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "E-Mail",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "Ticketart",
+          "isRequired": true,
+          "choices": [
+            "Standard",
+            "Student",
+            "VIP"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "newsletter",
+          "title": "Über zukünftige Veranstaltungen informiert bleiben",
+          "labelTrue": "Ja",
+          "labelFalse": "Nein"
+        }
+      ]
+    }
+  ]
+}
