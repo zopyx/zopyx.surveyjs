@@ -2,6 +2,4 @@
 
 cd /home/privacyforms/zopyx.surveyjs
 
-make build
-make stop
-make run-detached
+make build stop run-detachedd
