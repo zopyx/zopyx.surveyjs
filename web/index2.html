@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Forms Studio - Privacy-first SurveyJS platform for regulated environments</title>
+  <meta name="description" content="Build modern surveys and forms with complete data sovereignty. Privacy-first SurveyJS-powered platform for healthcare, public sector, and enterprise." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              900: '#0b0f14',
+              800: '#151b24',
+              700: '#212a36',
+            },
+            sand: {
+              50: '#f7f5f2',
+              100: '#efe8de',
+              200: '#e0d1be',
+            },
+            copper: {
+              500: '#d97744',
+              600: '#c2612f',
+            },
+            tide: {
+              500: '#0f766e',
+              600: '#0d5f5a',
+            },
+          },
+          fontFamily: {
+            display: ['Sora', 'sans-serif'],
+            body: ['Source Sans 3', 'sans-serif'],
+          },
+          boxShadow: {
+            ambient: '0 30px 80px -50px rgba(12, 18, 24, 0.6)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      font-family: "Source Sans 3", sans-serif;
+      color: #0b0f14;
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 50%),
+        radial-gradient(circle at 85% 5%, rgba(217, 119, 68, 0.18), transparent 45%),
+        #f7f5f2;
+    }
+
+    .mesh-panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(247, 245, 242, 0.86));
+      border: 1px solid rgba(33, 42, 54, 0.1);
+      backdrop-filter: blur(18px);
+    }
+
+    .grid-glow::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background-image:
+        linear-gradient(rgba(33, 42, 54, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(33, 42, 54, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      z-index: -1;
+    }
+
+    .float-up {
+      animation: floatUp 1.2s ease forwards;
+    }
+
+    .float-up.delay-1 { animation-delay: 0.2s; opacity: 0; }
+    .float-up.delay-2 { animation-delay: 0.35s; opacity: 0; }
+    .float-up.delay-3 { animation-delay: 0.5s; opacity: 0; }
+
+    @keyframes floatUp {
+      from { transform: translateY(16px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px -20px rgba(12, 18, 24, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <header class="max-w-7xl mx-auto px-6 pt-8 sticky top-0 z-50 bg-sand-50/80 backdrop-blur-xl">
+    <nav class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo-small.jpg" alt="Privacy Forms Studio" class="w-[250px] h-auto object-contain" />
+        <div>
+          <p class="font-display text-xl text-obsidian-900">Privacy Forms Studio</p>
+          <p class="text-sm text-obsidian-700">SurveyJS-powered form infrastructure</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 text-sm text-obsidian-700">
+        <a href="#features" class="hover:text-obsidian-900 transition">Features</a>
+        <a href="#usecases" class="hover:text-obsidian-900 transition">Use Cases</a>
+        <a href="#deployment" class="hover:text-obsidian-900 transition">Deployment</a>
+        <a href="#pricing" class="hover:text-obsidian-900 transition">Pricing</a>
+        <a href="#contact" class="px-4 py-2 rounded-full bg-obsidian-900 text-white hover:bg-obsidian-800 transition">Request demo</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6">
+    <!-- Hero Section -->
+    <section class="mt-16 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-tide-500/10 text-tide-600 text-sm font-semibold">
+          <span class="h-2 w-2 rounded-full bg-tide-500 animate-pulse"></span>
+          Privacy-first form systems
+        </div>
+        <h1 class="font-display text-5xl md:text-6xl text-obsidian-900 leading-tight">
+          Build modern surveys and forms with <span class="text-tide-600">complete data sovereignty</span>.
+        </h1>
+        <p class="text-xl text-obsidian-700 leading-relaxed">
+          Privacy Forms Studio brings SurveyJS creator, viewer, and results into your own infrastructure. Collect data safely, distribute intelligently, and generate polished exports without handing anything to a third-party SaaS.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact" class="px-8 py-4 rounded-full bg-copper-500 text-white font-semibold hover:bg-copper-600 transition hover:scale-105">Book a strategy call</a>
+          <a href="#features" class="px-8 py-4 rounded-full border-2 border-obsidian-700 text-obsidian-700 font-semibold hover:text-obsidian-900 hover:border-obsidian-900 transition">Explore platform</a>
+        </div>
+        <div class="flex flex-wrap gap-6 text-sm text-obsidian-700">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-tide-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            On-premise or private SaaS
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-tide-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            Optional AI, never required
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-tide-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            GDPR/DSGVO-ready by design
+          </div>
+        </div>
+      </div>
+      <div class="mesh-panel rounded-3xl p-6 shadow-ambient relative overflow-hidden grid-glow">
+        <div class="space-y-5">
+          <div class="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-obsidian-700">
+            <span>Live studio preview</span>
+            <span class="text-tide-600 font-semibold">Zero vendor lock-in</span>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-5 shadow-sm float-up hover-lift">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-tide-500/10 flex items-center justify-center">
+                <svg class="w-6 h-6 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+              </div>
+              <p class="font-display text-2xl text-obsidian-900">Creator workspace</p>
+            </div>
+            <p class="text-sm text-obsidian-700">
+              Drag-and-drop authoring, multilingual surveys, logic rules, and reusable templates.
+            </p>
+          </div>
+          <div class="bg-obsidian-900 text-white rounded-2xl p-5 shadow-sm float-up delay-1 hover-lift">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+              </div>
+              <p class="font-display text-2xl">Results & lifecycle</p>
+            </div>
+            <p class="text-sm text-white/75">
+              Response dashboards with retention control, version history, and audit trails.
+            </p>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-5 shadow-sm float-up delay-2 hover-lift">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="h-10 w-10 rounded-xl bg-copper-500/10 flex items-center justify-center">
+                <svg class="w-6 h-6 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <p class="font-display text-2xl text-obsidian-900">Exports pipeline</p>
+            </div>
+            <p class="text-sm text-obsidian-700">
+              Generate PDFs, spreadsheets, or structured datasets on demand or via automation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Commitment Banner -->
+    <section class="mt-20">
+      <div class="bg-gradient-to-r from-tide-600 to-tide-500 rounded-3xl px-8 py-10 text-white shadow-ambient">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="font-display text-3xl md:text-4xl mb-4">Privacy is core, not optional</h2>
+          <p class="text-xl text-white/90 mb-8">
+            No hidden data flows. No mandatory cloud dependencies. Every integration is explicit and configurable. Your data stays in your infrastructure unless you decide otherwise.
+          </p>
+          <div class="grid gap-6 md:grid-cols-3 text-left">
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur-sm">
+              <div class="h-12 w-12 rounded-xl bg-white/20 flex items-center justify-center mb-3">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg mb-2">Full data sovereignty</h3>
+              <p class="text-sm text-white/80">All processing happens within your infrastructure. Zero external dependencies.</p>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur-sm">
+              <div class="h-12 w-12 rounded-xl bg-white/20 flex items-center justify-center mb-3">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg mb-2">GDPR/DSGVO compliant</h3>
+              <p class="text-sm text-white/80">Built for European data protection standards and global privacy regulations.</p>
+            </div>
+            <div class="bg-white/10 rounded-2xl p-5 backdrop-blur-sm">
+              <div class="h-12 w-12 rounded-xl bg-white/20 flex items-center justify-center mb-3">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3 class="font-display text-lg mb-2">Local AI optional</h3>
+              <p class="text-sm text-white/80">Use your own LLM deployment or turn off AI completely. Your choice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Comprehensive Features</p>
+        <h2 class="font-display text-4xl text-obsidian-900 mb-4">Everything you need to operate serious forms</h2>
+        <p class="text-lg text-obsidian-700">
+          From intake to export, every step stays under your control. Automate distribution, build reports, and keep sensitive data in-house.
+        </p>
+      </div>
+
+      <!-- Storage & Transformation -->
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-tide-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Storage + Retention</h3>
+          <p class="text-obsidian-700">Store every submission by default, or deliver instantly without retention. Full control over data lifecycle.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-copper-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Transformation Engine</h3>
+          <p class="text-obsidian-700 mb-3">Generate exports in any format you need:</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">PDF</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">Excel</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">CSV</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">DOCX</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">JSON</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">HTML</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">XML</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">TXT</span>
+            <span class="px-2 py-1 text-xs rounded-full bg-sand-100 text-obsidian-700">Markdown</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-tide-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Distribution Controls</h3>
+          <p class="text-obsidian-700">Email exports per form with custom recipients, CC/BCC, subjects, and body templates.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-copper-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">REST Integrations</h3>
+          <p class="text-obsidian-700">POST submissions to internal APIs or downstream processing services. Full webhook support.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-tide-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Optional AI Drafting</h3>
+          <p class="text-obsidian-700">Attach any AI provider or local LLM to propose and refine forms using natural language.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-copper-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Form Versioning</h3>
+          <p class="text-obsidian-700">Keep copies of previous form versions. Preview, compare, and restore older versions with one click.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-tide-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Data Portability</h3>
+          <p class="text-obsidian-700">JSON schemas and submissions export cleanly for analytics or archival. No vendor lock-in.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-copper-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Custom Processing</h3>
+          <p class="text-obsidian-700">Extend with custom Python workflows or REST integrations. Open architecture for any use case.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-12 w-12 rounded-xl bg-tide-500/10 flex items-center justify-center mb-4">
+            <svg class="w-7 h-7 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-xl text-obsidian-900 mb-2">Power of Plone</h3>
+          <p class="text-obsidian-700">Delegated authoring, role-based publishing, workflows, and enterprise-grade governance built in.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why SurveyJS Section -->
+    <section class="mt-20">
+      <div class="bg-obsidian-900 rounded-3xl px-8 py-12 text-white">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <p class="text-xs uppercase tracking-[0.25em] text-white/60 font-semibold mb-4">Technology</p>
+          <h2 class="font-display text-4xl mb-4">Why SurveyJS?</h2>
+          <p class="text-lg text-white/80">
+            Best-in-class survey UX wrapped in privacy-first infrastructure. SurveyJS handles dynamic form logic while Privacy Forms Studio adds governance, compliance, and export automation.
+          </p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="bg-white/10 rounded-2xl p-5 border border-white/10">
+            <h3 class="font-display text-lg mb-2">JSON-based configuration</h3>
+            <p class="text-sm text-white/70">Fully configurable forms and surveys with clean JSON schemas that integrate with modern APIs.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5 border border-white/10">
+            <h3 class="font-display text-lg mb-2">Powerful conditional logic</h3>
+            <p class="text-sm text-white/70">Validation, calculated fields, and dynamic visibility for sophisticated form workflows.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5 border border-white/10">
+            <h3 class="font-display text-lg mb-2">Rich question types</h3>
+            <p class="text-sm text-white/70">Repeatable sections, matrices, file uploads, and 30+ question types out of the box.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5 border border-white/10">
+            <h3 class="font-display text-lg mb-2">Responsive & accessible</h3>
+            <p class="text-sm text-white/70">Desktop and mobile-optimized UI with WCAG compliance built in.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5 border border-white/10">
+            <h3 class="font-display text-lg mb-2">Multi-language support</h3>
+            <p class="text-sm text-white/70">Localization for forms and AI assistance in dozens of languages.</p>
+          </div>
+          <div class="bg-white/10 rounded-2xl p-5 border border-white/10">
+            <h3 class="font-display text-lg mb-2">Framework integration</h3>
+            <p class="text-sm text-white/70">Works with React, Vue, Angular, and vanilla JavaScript.</p>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-white/5 rounded-2xl p-6 border border-white/10">
+          <p class="text-white/90">
+            <strong>Privacy-first philosophy:</strong> Unlike hosted survey platforms, SurveyJS architecture avoids vendor lock-in, uncontrolled data transfers, and opaque processing—ideal for <strong>privacy-sensitive and regulated environments</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="usecases" class="mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Use Cases</p>
+        <h2 class="font-display text-4xl text-obsidian-900 mb-4">Designed for regulated and high-trust environments</h2>
+        <p class="text-lg text-obsidian-700">
+          Replace generic SaaS form builders with an architecture that respects legal constraints, auditability, and long-term governance.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="flex items-start gap-4">
+            <div class="h-14 w-14 rounded-2xl bg-tide-500/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-8 h-8 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-2xl text-obsidian-900 mb-3">Public Sector Services</h3>
+              <p class="text-obsidian-700">Secure citizen services such as applications, registrations, and feedback forms with full GDPR compliance and on-premise data control.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="flex items-start gap-4">
+            <div class="h-14 w-14 rounded-2xl bg-copper-500/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-8 h-8 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-2xl text-obsidian-900 mb-3">Healthcare & Medical</h3>
+              <p class="text-obsidian-700">Patient questionnaires, study intake forms, and clinical data collection with strict privacy, validation, and auditability requirements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="flex items-start gap-4">
+            <div class="h-14 w-14 rounded-2xl bg-tide-500/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-8 h-8 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-2xl text-obsidian-900 mb-3">Research & Academic</h3>
+              <p class="text-obsidian-700">Complex, logic-driven surveys for universities and research institutions, combined with editorial workflows and controlled publishing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="flex items-start gap-4">
+            <div class="h-14 w-14 rounded-2xl bg-copper-500/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-8 h-8 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-2xl text-obsidian-900 mb-3">Enterprise Compliance</h3>
+              <p class="text-obsidian-700">Internal forms for audits, risk assessments, onboarding, and compliance reporting—integrated with role-based access and approvals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deployment Options -->
+    <section id="deployment" class="mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Deployment</p>
+        <h2 class="font-display text-4xl text-obsidian-900 mb-4">Choose your operational model</h2>
+        <p class="text-lg text-obsidian-700">
+          Install as a Plone add-on, run a standalone server, or embed forms in existing apps through a managed API layer.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-16 w-16 rounded-2xl bg-tide-500/10 flex items-center justify-center mb-5">
+            <svg class="w-9 h-9 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+          </div>
+          <h3 class="font-display text-2xl text-obsidian-900 mb-3">Plone Add-on</h3>
+          <p class="text-obsidian-700 mb-4">Add Privacy Forms Studio to your existing Plone environment in hours. Leverage existing user management and workflows.</p>
+          <ul class="space-y-2 text-sm text-obsidian-700">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Quick integration with existing Plone sites
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Inherit security and user management
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Seamless content management
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-obsidian-900 to-obsidian-800 rounded-3xl p-8 text-white shadow-ambient relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-tide-500/20 rounded-full blur-3xl"></div>
+          <div class="relative">
+            <div class="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center mb-5">
+              <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+              </svg>
+            </div>
+            <div class="inline-block px-3 py-1 rounded-full bg-copper-500/20 text-copper-400 text-xs font-semibold mb-3">Most Popular</div>
+            <h3 class="font-display text-2xl mb-3">Standalone Server</h3>
+            <p class="text-white/80 mb-4">Full Plone capabilities with dedicated Privacy Forms Studio service. Security, workflows, and governance built in.</p>
+            <ul class="space-y-2 text-sm text-white/80">
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Docker deployment on-premise or SaaS
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Complete enterprise-grade stack
+              </li>
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                Custom integrations and SLAs
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-16 w-16 rounded-2xl bg-copper-500/10 flex items-center justify-center mb-5">
+            <svg class="w-9 h-9 text-copper-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full bg-tide-500/10 text-tide-600 text-xs font-semibold mb-3">Coming Soon</div>
+          <h3 class="font-display text-2xl text-obsidian-900 mb-3">Embedded Widgets</h3>
+          <p class="text-obsidian-700 mb-4">Publish forms into other sites or apps with planned embed support. Maintain full backend control.</p>
+          <ul class="space-y-2 text-sm text-obsidian-700">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-copper-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Embed in existing web apps
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-copper-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Simple JavaScript integration
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-copper-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Centralized form management
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="mt-20">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Pricing</p>
+        <h2 class="font-display text-4xl text-obsidian-900 mb-4">Flexible licensing for every deployment style</h2>
+        <p class="text-lg text-obsidian-700">
+          Pricing depends on deployment and support scope. Contact us for detailed quotes tailored to your requirements.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-2 mb-8">
+        <div class="bg-white rounded-3xl p-8 border-2 border-sand-200 shadow-sm">
+          <p class="text-sm uppercase tracking-[0.2em] text-obsidian-700 mb-3">Plone add-on</p>
+          <h3 class="font-display text-3xl text-obsidian-900 mb-4">Private Extension</h3>
+          <p class="text-obsidian-700 mb-6">Deploy inside your Plone stack with governance controls and storage ownership.</p>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-obsidian-900">On-prem or private SaaS</p>
+                <p class="text-sm text-obsidian-700">Install in your infrastructure</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-obsidian-900">Survey builder, viewer, results center</p>
+                <p class="text-sm text-obsidian-700">Complete form lifecycle management</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold text-obsidian-900">Export pipeline + distribution rules</p>
+                <p class="text-sm text-obsidian-700">Multi-format exports and delivery</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="block w-full text-center px-6 py-3 rounded-full border-2 border-obsidian-900 text-obsidian-900 font-semibold hover:bg-obsidian-900 hover:text-white transition">
+            Request pricing
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-obsidian-900 to-obsidian-800 rounded-3xl p-8 text-white shadow-ambient">
+          <p class="text-sm uppercase tracking-[0.2em] text-white/60 mb-3">Standalone server</p>
+          <h3 class="font-display text-3xl mb-4">Enterprise-Ready Stack</h3>
+          <p class="text-white/80 mb-6">Dedicated Privacy Forms Studio service with Plone workflows included.</p>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold">Security, authentication, authorization</p>
+                <p class="text-sm text-white/70">Enterprise-grade access control</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold">Role-based publishing and scheduling</p>
+                <p class="text-sm text-white/70">Advanced workflow management</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <div>
+                <p class="font-semibold">Custom integrations and SLAs</p>
+                <p class="text-sm text-white/70">Tailored support and development</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="block w-full text-center px-6 py-3 rounded-full bg-copper-500 text-white font-semibold hover:bg-copper-600 transition">
+            Contact sales
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-sand-100 rounded-2xl p-6 border border-sand-200">
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-obsidian-700 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <div class="text-sm text-obsidian-700">
+            <p class="font-semibold mb-2">About SurveyJS Licensing:</p>
+            <p>SurveyJS Creator requires a separate commercial license per developer if you want to use the visual form builder. SurveyJS Dashboard and PDF generator are optional add-ons. Privacy Forms Studio includes its own PDF generation. We help you plan the right setup for your needs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="mt-20">
+      <div class="bg-obsidian-900 rounded-3xl px-8 py-10 text-white">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <p class="text-xs uppercase tracking-[0.25em] text-white/60 font-semibold mb-4">FAQ</p>
+          <h2 class="font-display text-3xl mb-3">Common questions, clear answers</h2>
+          <p class="text-white/70">We can tailor deployments, licensing, and integrations to your governance requirements.</p>
+        </div>
+
+        <div class="max-w-3xl mx-auto" id="accordion-flush" data-accordion="collapse">
+          <h3 id="accordion-flush-heading-1">
+            <button type="button" class="flex w-full items-center justify-between py-5 text-left border-b border-white/10" data-accordion-target="#accordion-flush-body-1" aria-expanded="false" aria-controls="accordion-flush-body-1">
+              <span class="text-lg font-semibold">Does any data leave our infrastructure?</span>
+              <svg class="w-6 h-6 shrink-0 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
+            <div class="py-5 border-b border-white/10">
+              <p class="text-white/80">No. All storage and processing happens inside your environment. External integrations (email delivery, REST endpoints) are completely opt-in and explicitly configured per form. There are no hidden data flows or telemetry.</p>
+            </div>
+          </div>
+
+          <h3 id="accordion-flush-heading-2">
+            <button type="button" class="flex w-full items-center justify-between py-5 text-left border-b border-white/10" data-accordion-target="#accordion-flush-body-2" aria-expanded="false" aria-controls="accordion-flush-body-2">
+              <span class="text-lg font-semibold">Can we use our own AI model?</span>
+              <svg class="w-6 h-6 shrink-0 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
+            <div class="py-5 border-b border-white/10">
+              <p class="text-white/80">Yes. The AI assistant is completely optional and can connect to most providers (OpenAI, Anthropic, etc.) or your local LLM deployment. AI can be used to draft and refine forms in natural language, supporting most languages. You can also turn off AI completely.</p>
+            </div>
+          </div>
+
+          <h3 id="accordion-flush-heading-3">
+            <button type="button" class="flex w-full items-center justify-between py-5 text-left border-b border-white/10" data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
+              <span class="text-lg font-semibold">What about SurveyJS licensing?</span>
+              <svg class="w-6 h-6 shrink-0 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-3">
+            <div class="py-5 border-b border-white/10">
+              <p class="text-white/80">SurveyJS Creator requires a separate commercial license per developer for the visual form builder. SurveyJS Dashboard (for visualizing survey data) and the SurveyJS PDF generator are optional. Privacy Forms Studio includes its own PDF generation. We help you plan the right licensing setup.</p>
+            </div>
+          </div>
+
+          <h3 id="accordion-flush-heading-4">
+            <button type="button" class="flex w-full items-center justify-between py-5 text-left border-b border-white/10" data-accordion-target="#accordion-flush-body-4" aria-expanded="false" aria-controls="accordion-flush-body-4">
+              <span class="text-lg font-semibold">Is this solution GDPR/DSGVO compliant?</span>
+              <svg class="w-6 h-6 shrink-0 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-flush-body-4" class="hidden" aria-labelledby="accordion-flush-heading-4">
+            <div class="py-5 border-b border-white/10">
+              <p class="text-white/80">Yes. Privacy Forms Studio is designed from the ground up for GDPR/DSGVO compliance. You have full control over data retention, processing, and deletion policies. All data stays in your infrastructure, and there are no hidden data transfers to third parties.</p>
+            </div>
+          </div>
+
+          <h3 id="accordion-flush-heading-5">
+            <button type="button" class="flex w-full items-center justify-between py-5 text-left" data-accordion-target="#accordion-flush-body-5" aria-expanded="false" aria-controls="accordion-flush-body-5">
+              <span class="text-lg font-semibold">Can we extend or customize the platform?</span>
+              <svg class="w-6 h-6 shrink-0 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </h3>
+          <div id="accordion-flush-body-5" class="hidden" aria-labelledby="accordion-flush-heading-5">
+            <div class="py-5">
+              <p class="text-white/80">Absolutely. Privacy Forms Studio is built on open standards and can be extended with custom Python workflows, REST integrations, or custom processing logic. There's no vendor lock-in—your data and form definitions are portable JSON that can be exported anytime.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="mt-20 mb-20">
+      <div class="bg-white rounded-[36px] p-10 border border-sand-200 shadow-ambient">
+        <div class="text-center max-w-3xl mx-auto">
+          <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Contact</p>
+          <h2 class="font-display text-4xl sm:text-5xl text-obsidian-900 mb-4">Ready to launch a privacy-first forms platform?</h2>
+          <p class="text-obsidian-700 text-lg mb-8">Tell us about your deployment goals and data governance requirements.</p>
+        </div>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div class="rounded-3xl border border-sand-200 bg-sand-50 p-8">
+            <div class="space-y-6">
+              <div>
+                <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700 mb-2">Email</div>
+                <a href="mailto:info@zopyx.com" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">info@zopyx.com</a>
+              </div>
+              <div>
+                <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700 mb-2">Web</div>
+                <a href="https://py-consultant.com" target="_blank" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">py-consultant.com</a>
+              </div>
+              <div class="rounded-2xl border border-sand-200 bg-white p-5 text-sm text-obsidian-700">
+                <p class="text-obsidian-900 font-semibold text-base mb-2">Diplom-Informatiker Andreas Jung</p>
+                <p class="leading-relaxed">
+                  Independent consultant for privacy-first form workflows<br />
+                  <span class="text-obsidian-900 font-medium">D-Tuebingen, Germany</span>
+                </p>
+              </div>
+              <div class="flex items-center gap-4 pt-4">
+                <div class="flex items-center gap-2 text-sm text-obsidian-700">
+                  <svg class="w-5 h-5 text-tide-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  GDPR Expert
+                </div>
+                <div class="flex items-center gap-2 text-sm text-obsidian-700">
+                  <svg class="w-5 h-5 text-tide-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Plone Specialist
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center justify-center gap-6 rounded-3xl border border-sand-200 bg-gradient-to-br from-obsidian-900 to-obsidian-800 p-8 text-center text-white">
+            <div class="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center">
+              <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <div class="max-w-sm">
+              <h3 class="text-2xl font-semibold mb-3">Need an on-premise or private SaaS rollout?</h3>
+              <p class="text-white/80">We can deliver a compliant setup with zero data leakage and full sovereignty.</p>
+            </div>
+            <a href="mailto:info@zopyx.com?subject=Privacy%20Forms%20Studio%20Inquiry" class="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-base font-semibold text-obsidian-900 shadow-lg transition hover:scale-105">
+              Start a privacy review
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-obsidian-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="logo-small.jpg" alt="Privacy Forms Studio" class="w-[200px] h-auto object-contain bg-white rounded-2xl p-2" />
+          </div>
+          <p class="font-display text-xl">Privacy Forms Studio</p>
+          <p class="text-sm text-white/70 max-w-md">
+            Privacy-first form building with on-premise or private SaaS deployments. SurveyJS-powered infrastructure with no external services required.
+          </p>
+          <a href="mailto:info@zopyx.com" class="inline-flex items-center text-sm text-copper-500 hover:text-copper-400 transition">
+            info@zopyx.com
+            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <p class="font-display text-lg mb-4">Platform</p>
+          <ul class="space-y-2 text-white/70">
+            <li><a href="#features" class="hover:text-white transition">Features</a></li>
+            <li><a href="#usecases" class="hover:text-white transition">Use Cases</a></li>
+            <li><a href="#deployment" class="hover:text-white transition">Deployment</a></li>
+            <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3 text-sm">
+          <p class="font-display text-lg mb-4">Company</p>
+          <ul class="space-y-2 text-white/70">
+            <li><a href="https://py-consultant.com/imprint" target="_blank" class="hover:text-white transition">Imprint</a></li>
+            <li><a href="https://py-consultant.com/privacy" target="_blank" class="hover:text-white transition">Privacy</a></li>
+            <li><a href="https://py-consultant.com" target="_blank" class="hover:text-white transition">py-consultant.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-10 border-t border-white/10 pt-8 text-xs text-white/60 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <p>&copy; 2026, ZOPYX/Andreas Jung, D-Tuebingen</p>
+        <p>Privacy Forms Studio - SurveyJS-powered form infrastructure</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
+</body>
+</html>
