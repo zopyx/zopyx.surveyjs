@@ -27,9 +27,16 @@ from plone import api
 from plone.namedfile.file import NamedBlobImage
 from zopyx.surveyjs.browser.views import FORM_VERSIONS_KEY, RESULTS_KEY
 from zope.annotation.interfaces import IAnnotations
+from zope.component import getMultiAdapter, getUtility
 from zope.component.hooks import setSite
 import transaction
 import uuid
+from plone.portlets.constants import CONTEXT_CATEGORY
+from plone.portlets.interfaces import (
+    ILocalPortletAssignmentManager,
+    IPortletAssignmentMapping,
+    IPortletManager,
+)
 
 
 SITE_ID = "demo"
@@ -114,10 +121,12 @@ def create_demo_survey(
     form_json,
     intro_html=None,
     actions=None,
+    container=None,
 ):
+    container = container or site
     survey = api.content.create(
         type="Survey",
-        container=site,
+        container=container,
         title=title,
         id=survey_id,
         description=description,
@@ -158,6 +167,26 @@ def set_form_intro_html(form_json, element_name, html):
             if element.get("type") == "html" and element.get("name") == element_name:
                 element["html"] = html
                 return
+
+
+def remove_navigation_portlets(context):
+    """Remove navigation portlets and block them from being re-acquired."""
+    for manager_name in ("plone.leftcolumn", "plone.rightcolumn"):
+        try:
+            manager = getUtility(IPortletManager, name=manager_name, context=context)
+            assignments = getMultiAdapter(
+                (context, manager), IPortletAssignmentMapping
+            )
+            if "navigation" in assignments:
+                del assignments["navigation"]
+
+            local_manager = getMultiAdapter(
+                (context, manager), ILocalPortletAssignmentManager
+            )
+            local_manager.setBlacklistStatus(CONTEXT_CATEGORY, True)
+        except Exception:
+            # Failing quietly keeps the rest of the init script running
+            continue
 
 
 class MyThemingControlpanel(ThemingControlpanel):
@@ -201,6 +230,7 @@ site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
+remove_navigation_portlets(site)
 
 # Create logo.jpg as Image content object
 logo_path = Path(os.getcwd()) / "scripts" / "logo.jpg"
@@ -235,6 +265,27 @@ for obj_id in ("events", "news", "Members"):
     if obj_id in site.objectIds():
         site.manage_delObjects([obj_id])
 
+# Ensure demos folder
+demos = site.get("demos")
+if not demos:
+    demos = api.content.create(
+        type="Folder",
+        container=site,
+        id="demos",
+        title="Demos",
+    )
+    api.content.transition(obj=demos, transition="publish")
+else:
+    try:
+        state = api.content.get_state(demos)
+    except InvalidParameterError:
+        state = None
+    if state != "published":
+        try:
+            api.content.transition(obj=demos, transition="publish")
+        except InvalidParameterError:
+            pass
+
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
 
@@ -244,6 +295,7 @@ create_demo_survey(
     title="Event registration",
     description="Register for the event.",
     form_json=event_form,
+    container=demos,
 )
 
 welcome_html = load_intro_text("welcome")
@@ -252,12 +304,12 @@ welcome_html = load_intro_text("welcome")
 welcome_html += """
 <h3>Demo Forms</h3>
 <ul>
-  <li><a href="/Plone/demo/event-registration">Event registration</a></li>
-  <li><a href="/Plone/demo/event-rsvp">Event registration / unregistration</a></li>
-  <li><a href="/Plone/demo/mental-health-survey">Mental Health Survey</a></li>
-  <li><a href="/Plone/demo/full-demo">Social Media Consumption Demo</a></li>
-  <li><a href="/Plone/demo/food-feedback-demo">Food Ordering Service Feedback</a></li>
-  <li><a href="/Plone/demo/order-form">Order form</a></li>
+  <li><a href="demo/demos/event-registration">Event registration</a></li>
+  <li><a href="demo/demos/event-rsvp">Event registration / unregistration</a></li>
+  <li><a href="demo/demos/mental-health-survey">Mental Health Survey</a></li>
+  <li><a href="demo/demos/full-demo">Social Media Consumption Demo</a></li>
+  <li><a href="demo/demos/food-feedback-demo">Food Ordering Service Feedback</a></li>
+  <li><a href="demo/demos/order-form">Order form</a></li>
 </ul>
 """
 
@@ -289,6 +341,7 @@ create_demo_survey(
     form_json=mental_form,
     intro_html=mental_intro,
     actions={"store"},
+    container=demos,
 )
 
 full_demo_intro = load_intro_text("full_demo_intro")
@@ -303,6 +356,7 @@ create_demo_survey(
     form_json=full_demo_form,
     intro_html=full_demo_intro,
     actions={"store"},
+    container=demos,
 )
 
 feedback_form = load_form_definition("food_feedback")
@@ -315,6 +369,7 @@ create_demo_survey(
     form_json=feedback_form,
     intro_html=load_intro_text("food_feedback_intro"),
     actions={"store"},
+    container=demos,
 )
 
 event_rsvp_form = load_form_definition("event_rsvp")
@@ -326,6 +381,7 @@ create_demo_survey(
     description="Register for the event or cancel an existing registration.",
     form_json=event_rsvp_form,
     actions={"store"},
+    container=demos,
 )
 
 order_form = load_form_definition("order_form")
@@ -337,6 +393,7 @@ create_demo_survey(
     description="Collect simple cloth orders with customer info and order lines.",
     form_json=order_form,
     actions={"store"},
+    container=demos,
 )
 
 # Create a demo user with Editor role

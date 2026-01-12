@@ -18,33 +18,24 @@
           "defaultValue": "2026-01-11T12:34:56Z"
         },
         {
-          "type": "panel",
-          "name": "customerInfo",
-          "title": "Customer Information",
-          "description": "Enter contact details. First name and Last name appear on the same row.",
-          "colCount": 2,
-          "elements": [
-            {
-              "type": "text",
-              "name": "firstname",
-              "title": "First name"
-            },
-            {
-              "type": "text",
-              "name": "lastname",
-              "title": "Last name"
-            },
-            {
-              "type": "text",
-              "name": "email",
-              "title": "Email address"
-            },
-            {
-              "type": "text",
-              "name": "phone",
-              "title": "Phone number"
-            }
-          ]
+          "type": "text",
+          "name": "firstname",
+          "title": "First name"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "Last name"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Email address"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "Phone number"
         },
         {
           "type": "matrixdynamic",
