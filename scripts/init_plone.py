@@ -333,8 +333,8 @@ for obj_id in ("events", "news", "Members"):
         site.manage_delObjects([obj_id])
 
 # Ensure demo folders
-demos = ensure_folder(site, "demos", "Demos")
-demos_de = ensure_folder(site, "demo-de", "Demo (DE)")
+demos = ensure_folder(site, "demos", "Demos (EN)")
+demos_de = ensure_folder(site, "demo-de", "Demos (DE)")
 
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
