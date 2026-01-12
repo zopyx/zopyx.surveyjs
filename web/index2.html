@@ -100,7 +100,7 @@
   <header class="max-w-7xl mx-auto px-6 pt-8 sticky top-0 z-50 bg-sand-50/80 backdrop-blur-xl">
     <nav class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
       <div class="flex items-center gap-3">
-        <img src="logo-small.jpg" alt="Privacy Forms Studio" class="w-[250px] h-auto object-contain" />
+        <img src="logo-small.jpg" alt="Privacy Forms Studio" class="w-[250px] h-auto object-contain bg-sand-50 rounded-2xl p-2" />
         <div>
           <p class="font-display text-xl text-obsidian-900">Privacy Forms Studio</p>
           <p class="text-sm text-obsidian-700">SurveyJS-powered form infrastructure</p>
@@ -481,73 +481,74 @@
         <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Deployment</p>
         <h2 class="font-display text-4xl text-obsidian-900 mb-4">Choose your operational model</h2>
         <p class="text-lg text-obsidian-700">
-          Install as a Plone add-on, run a standalone server, or embed forms in existing apps through a managed API layer.
+          Install as a Plone add-on, run a standalone server (coming soon), or embed forms in existing apps through a managed API layer.
         </p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-3">
-        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
-          <div class="h-16 w-16 rounded-2xl bg-tide-500/10 flex items-center justify-center mb-5">
-            <svg class="w-9 h-9 text-tide-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-            </svg>
-          </div>
-          <h3 class="font-display text-2xl text-obsidian-900 mb-3">Plone Add-on</h3>
-          <p class="text-obsidian-700 mb-4">Add Privacy Forms Studio to your existing Plone environment in hours. Leverage existing user management and workflows.</p>
-          <ul class="space-y-2 text-sm text-obsidian-700">
-            <li class="flex items-start gap-2">
-              <svg class="w-5 h-5 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              Quick integration with existing Plone sites
-            </li>
-            <li class="flex items-start gap-2">
-              <svg class="w-5 h-5 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              Inherit security and user management
-            </li>
-            <li class="flex items-start gap-2">
-              <svg class="w-5 h-5 text-tide-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-              </svg>
-              Seamless content management
-            </li>
-          </ul>
-        </div>
-
         <div class="bg-gradient-to-br from-obsidian-900 to-obsidian-800 rounded-3xl p-8 text-white shadow-ambient relative overflow-hidden">
           <div class="absolute top-0 right-0 w-32 h-32 bg-tide-500/20 rounded-full blur-3xl"></div>
           <div class="relative">
             <div class="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center mb-5">
               <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
               </svg>
             </div>
-            <div class="inline-block px-3 py-1 rounded-full bg-copper-500/20 text-copper-400 text-xs font-semibold mb-3">Most Popular</div>
-            <h3 class="font-display text-2xl mb-3">Standalone Server</h3>
-            <p class="text-white/80 mb-4">Full Plone capabilities with dedicated Privacy Forms Studio service. Security, workflows, and governance built in.</p>
+            <div class="inline-block px-3 py-1 rounded-full bg-tide-500/20 text-tide-200 text-xs font-semibold mb-3">Recommended</div>
+            <h3 class="font-display text-2xl mb-3">Plone Add-on</h3>
+            <p class="text-white/80 mb-4">Add Privacy Forms Studio to your existing Plone environment in hours. Leverage existing user management and workflows.</p>
             <ul class="space-y-2 text-sm text-white/80">
               <li class="flex items-start gap-2">
                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                 </svg>
-                Docker deployment on-premise or SaaS
+                Quick integration with existing Plone sites
               </li>
               <li class="flex items-start gap-2">
                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                 </svg>
-                Complete enterprise-grade stack
+                Inherit security and user management
               </li>
               <li class="flex items-start gap-2">
                 <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                 </svg>
-                Custom integrations and SLAs
+                Seamless content management
               </li>
             </ul>
           </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
+          <div class="h-16 w-16 rounded-2xl bg-obsidian-900/10 flex items-center justify-center mb-5">
+            <svg class="w-9 h-9 text-obsidian-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+            </svg>
+          </div>
+          <div class="inline-block px-3 py-1 rounded-full bg-copper-500/10 text-copper-600 text-xs font-semibold mb-3">Coming soon</div>
+          <h3 class="font-display text-2xl text-obsidian-900 mb-3">Standalone Server</h3>
+          <p class="text-obsidian-700 mb-4">Full Plone capabilities with dedicated Privacy Forms Studio service. Security, workflows, and governance built in.</p>
+          <ul class="space-y-2 text-sm text-obsidian-700">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-obsidian-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Docker deployment on-premise or SaaS
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-obsidian-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Complete enterprise-grade stack
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-obsidian-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Custom integrations and SLAs
+            </li>
+          </ul>
         </div>
 
         <div class="bg-white rounded-3xl p-8 border border-sand-200 shadow-sm hover-lift">
@@ -635,7 +636,7 @@
         </div>
 
         <div class="bg-gradient-to-br from-obsidian-900 to-obsidian-800 rounded-3xl p-8 text-white shadow-ambient">
-          <p class="text-sm uppercase tracking-[0.2em] text-white/60 mb-3">Standalone server</p>
+          <p class="text-sm uppercase tracking-[0.2em] text-white/60 mb-3">Standalone server (coming soon)</p>
           <h3 class="font-display text-3xl mb-4">Enterprise-Ready Stack</h3>
           <p class="text-white/80 mb-6">Dedicated Privacy Forms Studio service with Plone workflows included.</p>
 
@@ -776,8 +777,8 @@
       <div class="bg-white rounded-[36px] p-10 border border-sand-200 shadow-ambient">
         <div class="text-center max-w-3xl mx-auto">
           <p class="text-xs uppercase tracking-[0.25em] text-obsidian-700 font-semibold mb-4">Contact</p>
-          <h2 class="font-display text-4xl sm:text-5xl text-obsidian-900 mb-4">Ready to launch a privacy-first forms platform?</h2>
-          <p class="text-obsidian-700 text-lg mb-8">Tell us about your deployment goals and data governance requirements.</p>
+          <h2 class="font-display text-4xl sm:text-5xl text-obsidian-900 mb-4">Ready to talk through your form platform?</h2>
+          <p class="text-obsidian-700 text-lg mb-8">We would love to hear about your use case. Reach out and we will respond quickly with the right next steps.</p>
         </div>
 
         <div class="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
@@ -785,17 +786,21 @@
             <div class="space-y-6">
               <div>
                 <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700 mb-2">Email</div>
-                <a href="mailto:info@zopyx.com" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">info@zopyx.com</a>
+                <a href="mailto:andreas@py-consultant.com" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">andreas@py-consultant.com</a>
+              </div>
+              <div>
+                <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700 mb-2">Phone</div>
+                <a href="tel:+491711276280" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">+49 171 1276280</a>
               </div>
               <div>
                 <div class="text-sm font-semibold uppercase tracking-wide text-obsidian-700 mb-2">Web</div>
-                <a href="https://py-consultant.com" target="_blank" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">py-consultant.com</a>
+                <a href="https://py-consultant.com" target="_blank" rel="noopener noreferrer" class="inline-block text-xl font-semibold text-obsidian-900 hover:text-copper-600 transition">py-consultant.com</a>
               </div>
               <div class="rounded-2xl border border-sand-200 bg-white p-5 text-sm text-obsidian-700">
                 <p class="text-obsidian-900 font-semibold text-base mb-2">Diplom-Informatiker Andreas Jung</p>
                 <p class="leading-relaxed">
                   Independent consultant for privacy-first form workflows<br />
-                  <span class="text-obsidian-900 font-medium">D-Tuebingen, Germany</span>
+                  <span class="text-obsidian-900 font-medium">Tuebingen, Germany</span>
                 </p>
               </div>
               <div class="flex items-center gap-4 pt-4">
@@ -809,7 +814,19 @@
                   <svg class="w-5 h-5 text-tide-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                   </svg>
+                  Python specialist
+                </div>
+                <div class="flex items-center gap-2 text-sm text-obsidian-700">
+                  <svg class="w-5 h-5 text-tide-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
                   Plone Specialist
+                </div>
+                <div class="flex items-center gap-2 text-sm text-obsidian-700">
+                  <svg class="w-5 h-5 text-tide-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                  </svg>
+                  Publishing expert
                 </div>
               </div>
             </div>
@@ -822,11 +839,11 @@
               </svg>
             </div>
             <div class="max-w-sm">
-              <h3 class="text-2xl font-semibold mb-3">Need an on-premise or private SaaS rollout?</h3>
-              <p class="text-white/80">We can deliver a compliant setup with zero data leakage and full sovereignty.</p>
+              <h3 class="text-2xl font-semibold mb-3">Let us plan your privacy-first rollout together.</h3>
+              <p class="text-white/80">Share your goals and constraints, and we will help shape a secure deployment that fits your environment.</p>
             </div>
-            <a href="mailto:info@zopyx.com?subject=Privacy%20Forms%20Studio%20Inquiry" class="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-base font-semibold text-obsidian-900 shadow-lg transition hover:scale-105">
-              Start a privacy review
+            <a href="mailto:andreas@py-consultant.com?subject=Privacy%20Forms%20Studio%20Inquiry" class="inline-flex items-center justify-center rounded-full bg-white px-10 py-4 text-base font-semibold text-obsidian-900 shadow-lg transition hover:scale-105">
+              Start the conversation
             </a>
           </div>
         </div>
