@@ -62,6 +62,7 @@ setup(
         "markdown2",
         "weasyprint",
         "openpyxl",
+        "llm-ollama",
     ],
     extras_require={
         "test": [

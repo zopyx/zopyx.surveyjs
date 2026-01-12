@@ -5,6 +5,10 @@ This module provides functions for generating SurveyJS forms using LLM models.
 Extracted from experimental/survey_bot.py for reuse in web views.
 """
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def strip_markdown_json(text: str) -> str:
     """
@@ -31,7 +35,7 @@ def strip_markdown_json(text: str) -> str:
 
 
 def generate_survey_json(
-    question: str, model_name: str = None, api_key: str = None
+    question: str, model_name: str = None, api_key: str = None, ollama_url: str = None
 ) -> str:
     """
     Generates SurveyJS JSON data based on a given question using the llm module.
@@ -42,6 +46,8 @@ def generate_survey_json(
                    If not provided, uses llm default model.
         api_key: Optional API key for the model provider. If not provided, uses
                 environment variables or llm configured keys.
+        ollama_url: Optional Ollama server URL (e.g., 'http://localhost:11434').
+                   If provided, will use Ollama instead of other providers.
 
     Returns:
         JSON string containing the SurveyJS form definition
@@ -75,6 +81,10 @@ def generate_survey_json(
     If the instructions are more a classic form and not a survey, use a one-pager.
     """
 
+    logger.info("Generating survey JSON with LLM")
+    logger.debug(f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}")
+    logger.debug(f"Prompt sent to LLM:\n{prompt}")
+
     # Determine which model to use
     if not model_name:
         # Fall back to llm default model
@@ -91,10 +101,24 @@ def generate_survey_json(
 
     # Generate the survey JSON
     try:
+        # Configure Ollama if URL is provided
+        if ollama_url:
+            import os
+
+            # Set Ollama base URL environment variable
+            os.environ["OLLAMA_HOST"] = ollama_url
+
+            # If model_name doesn't start with "ollama/", prepend it
+            if model_name and not model_name.startswith("ollama/"):
+                model_name = f"ollama/{model_name}"
+            elif not model_name:
+                # Default to a common Ollama model if none specified
+                model_name = "ollama/llama2"
+
         model = llm.get_model(model_name)
 
-        # Set API key if provided
-        if api_key:
+        # Set API key if provided (for non-Ollama providers)
+        if api_key and not ollama_url:
             # Try to set the key via environment for this request
             import os
 
@@ -109,8 +133,13 @@ def generate_survey_json(
 
         # Handle both callable and property versions of response.text
         response_text = response.text() if callable(response.text) else response.text
+
+        logger.info("Successfully generated survey JSON")
+        logger.debug(f"LLM response length: {len(response_text)} characters")
+
         return response_text
     except Exception as e:
+        logger.error(f"Failed to generate form with model '{model_name}': {str(e)}")
         raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
 
 
@@ -119,6 +148,7 @@ def refine_survey_json(
     refinement_prompt: str,
     model_name: str = None,
     api_key: str = None,
+    ollama_url: str = None,
 ) -> str:
     """
     Refines an existing SurveyJS form based on user feedback.
@@ -130,6 +160,8 @@ def refine_survey_json(
                    If not provided, uses llm default model.
         api_key: Optional API key for the model provider. If not provided, uses
                 environment variables or llm configured keys.
+        ollama_url: Optional Ollama server URL (e.g., 'http://localhost:11434').
+                   If provided, will use Ollama instead of other providers.
 
     Returns:
         JSON string containing the refined SurveyJS form definition
@@ -169,6 +201,11 @@ def refine_survey_json(
     - Use semantic grouping (e.g., related fields on the same row)
     """
 
+    logger.info("Refining survey JSON with LLM")
+    logger.debug(f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}")
+    logger.debug(f"Refinement request: {refinement_prompt}")
+    logger.debug(f"Prompt sent to LLM:\n{prompt}")
+
     # Determine which model to use
     if not model_name:
         # Fall back to llm default model
@@ -185,10 +222,24 @@ def refine_survey_json(
 
     # Refine the survey JSON
     try:
+        # Configure Ollama if URL is provided
+        if ollama_url:
+            import os
+
+            # Set Ollama base URL environment variable
+            os.environ["OLLAMA_HOST"] = ollama_url
+
+            # If model_name doesn't start with "ollama/", prepend it
+            if model_name and not model_name.startswith("ollama/"):
+                model_name = f"ollama/{model_name}"
+            elif not model_name:
+                # Default to a common Ollama model if none specified
+                model_name = "ollama/llama2"
+
         model = llm.get_model(model_name)
 
-        # Set API key if provided
-        if api_key:
+        # Set API key if provided (for non-Ollama providers)
+        if api_key and not ollama_url:
             # Try to set the key via environment for this request
             import os
 
@@ -203,6 +254,11 @@ def refine_survey_json(
 
         # Handle both callable and property versions of response.text
         response_text = response.text() if callable(response.text) else response.text
+
+        logger.info("Successfully refined survey JSON")
+        logger.debug(f"LLM response length: {len(response_text)} characters")
+
         return response_text
     except Exception as e:
+        logger.error(f"Failed to refine form with model '{model_name}': {str(e)}")
         raise Exception(f"Failed to refine form with model '{model_name}': {str(e)}")

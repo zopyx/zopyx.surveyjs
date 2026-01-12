@@ -636,6 +636,67 @@ class SurveyConverter:
             message, all_recipients, host, port, username, password, use_starttls
         )
 
+    def send_email_mailhost(
+        self,
+        recipient: str | Iterable[str],
+        attachments: List[Path],
+        poll_id: str,
+        creator: str = None,
+        created: str = None,
+        survey_attachments: List[Path] = None,
+        sender: str | None = None,
+        subject: str | None = None,
+        body: str | None = None,
+        cc: Iterable[str] | None = None,
+        bcc: Iterable[str] | None = None,
+    ) -> None:
+        """Send generated files and survey attachments via Plone MailHost."""
+        if not attachments:
+            logger.info("No attachments to send; skipping email to %s", recipient)
+            return
+
+        recipients = self._normalize_recipients(recipient)
+        cc_list = self._normalize_recipients(cc)
+        bcc_list = self._normalize_recipients(bcc)
+        all_recipients = recipients + cc_list + bcc_list
+
+        if not all_recipients:
+            logger.info("No recipients provided; skipping email")
+            return
+
+        survey_attachments = survey_attachments or []
+        sender = sender or os.environ.get(
+            ENV_EMAIL_SENDER, f"surveyjs@{os.uname().nodename}"
+        )
+
+        message = self.create_email_message(
+            recipients,
+            sender,
+            attachments,
+            poll_id,
+            creator,
+            created,
+            survey_attachments,
+            subject=subject,
+            body=body,
+            cc=cc_list,
+        )
+
+        try:
+            from plone import api as plone_api
+
+            mailhost = plone_api.portal.get_tool("MailHost")
+            mailhost.send(
+                message.as_string(),
+                mto=all_recipients,
+                mfrom=sender,
+                subject=message.get("Subject"),
+                charset="utf-8",
+            )
+        except Exception:
+            logger.exception("Failed to send email via MailHost to %s", all_recipients)
+            raise
+
     def run(self, formats: set[str], email_recipient: str | None = None) -> List[Path]:
         """Convert the first survey entry to the requested formats."""
         load_dotenv()

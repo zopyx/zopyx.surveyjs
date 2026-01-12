@@ -237,7 +237,7 @@ def send_submission_email(context, event):
                 },
             )
 
-            converter.send_email(
+            converter.send_email_mailhost(
                 email_to,
                 output_paths,
                 poll_id,

@@ -27,6 +27,12 @@ class IFormsSettings(Interface):
         default="",
     )
 
+    ollama_url = schema.URI(
+        title="Ollama URL",
+        description="Optional Ollama server URL for AI-powered form generation (e.g., 'http://localhost:11434'). If set, the AI generator will use Ollama instead of the default LLM provider.",
+        required=False,
+    )
+
     ai_prompt_before = schema.Text(
         title="Prompt before",
         description="Text/Instructions to be used before the user's form prompt",

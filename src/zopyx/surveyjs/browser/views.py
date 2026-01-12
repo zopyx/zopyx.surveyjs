@@ -1040,19 +1040,25 @@ class Views(BrowserView):
             registry = getUtility(IRegistry)
             settings = registry.forInterface(IFormsSettings, check=False)
 
-            # Get configured model and API key
+            # Get configured model, API key, and Ollama URL
             model_name = getattr(settings, "ai_model", None)
             api_key = getattr(settings, "ai_api_key", None)
+            ollama_url = getattr(settings, "ollama_url", None)
 
             # Strip whitespace from settings
             if model_name:
                 model_name = model_name.strip()
             if api_key:
                 api_key = api_key.strip()
+            if ollama_url:
+                ollama_url = ollama_url.strip()
 
             # Generate the survey JSON using LLM with configured settings
             survey_json_str = generate_survey_json(
-                prompt, model_name=model_name or None, api_key=api_key or None
+                prompt,
+                model_name=model_name or None,
+                api_key=api_key or None,
+                ollama_url=ollama_url or None,
             )
 
             # Strip any markdown formatting
@@ -1216,15 +1222,18 @@ class Views(BrowserView):
             registry = getUtility(IRegistry)
             settings = registry.forInterface(IFormsSettings, check=False)
 
-            # Get configured model and API key
+            # Get configured model, API key, and Ollama URL
             model_name = getattr(settings, "ai_model", None)
             api_key = getattr(settings, "ai_api_key", None)
+            ollama_url = getattr(settings, "ollama_url", None)
 
             # Strip whitespace from settings
             if model_name:
                 model_name = model_name.strip()
             if api_key:
                 api_key = api_key.strip()
+            if ollama_url:
+                ollama_url = ollama_url.strip()
 
             # Generate the refined survey JSON using LLM with configured settings
             refined_json_str = refine_survey_json(
@@ -1232,6 +1241,7 @@ class Views(BrowserView):
                 refinement_prompt,
                 model_name=model_name or None,
                 api_key=api_key or None,
+                ollama_url=ollama_url or None,
             )
 
             # Strip any markdown formatting
