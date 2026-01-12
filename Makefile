@@ -12,10 +12,10 @@ run:
 	docker run --rm --name $(CONTAINER_NAME) -p $(HOST_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
 
 run-detached:
-	docker run -d --rm --name $(CONTAINER_NAME) -p $(HOST_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
+	-docker run -d --rm --name $(CONTAINER_NAME) -p $(HOST_PORT):$(CONTAINER_PORT) $(IMAGE_NAME)
 
 stop:
-	docker stop $(CONTAINER_NAME)
+	-docker stop $(CONTAINER_NAME)
 
 logs:
 	docker logs -f $(CONTAINER_NAME)
