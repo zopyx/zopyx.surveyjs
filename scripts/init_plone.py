@@ -189,6 +189,28 @@ def remove_navigation_portlets(context):
             continue
 
 
+def ensure_folder(container, folder_id, title):
+    """Ensure a published folder exists and return it."""
+    folder = container.get(folder_id)
+    if not folder:
+        folder = api.content.create(
+            type="Folder",
+            container=container,
+            id=folder_id,
+            title=title,
+        )
+    try:
+        state = api.content.get_state(folder)
+    except InvalidParameterError:
+        state = None
+    if state != "published":
+        try:
+            api.content.transition(obj=folder, transition="publish")
+        except InvalidParameterError:
+            pass
+    return folder
+
+
 class MyThemingControlpanel(ThemingControlpanel):
     """
     A subclass of the standard ThemingControlpanel to override authorization.
@@ -265,26 +287,9 @@ for obj_id in ("events", "news", "Members"):
     if obj_id in site.objectIds():
         site.manage_delObjects([obj_id])
 
-# Ensure demos folder
-demos = site.get("demos")
-if not demos:
-    demos = api.content.create(
-        type="Folder",
-        container=site,
-        id="demos",
-        title="Demos",
-    )
-    api.content.transition(obj=demos, transition="publish")
-else:
-    try:
-        state = api.content.get_state(demos)
-    except InvalidParameterError:
-        state = None
-    if state != "published":
-        try:
-            api.content.transition(obj=demos, transition="publish")
-        except InvalidParameterError:
-            pass
+# Ensure demo folders
+demos = ensure_folder(site, "demos", "Demos")
+demos_de = ensure_folder(site, "demo-de", "Demo (DE)")
 
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
@@ -310,6 +315,15 @@ welcome_html += """
   <li><a href="demo/demos/full-demo">Social Media Consumption Demo</a></li>
   <li><a href="demo/demos/food-feedback-demo">Food Ordering Service Feedback</a></li>
   <li><a href="demo/demos/order-form">Order form</a></li>
+</ul>
+<h3>Demo Forms (DE)</h3>
+<ul>
+  <li><a href="demo/demo-de/event-registration-de">Veranstaltungsanmeldung</a></li>
+  <li><a href="demo/demo-de/event-rsvp-de">Veranstaltung An-/Abmeldung</a></li>
+  <li><a href="demo/demo-de/mental-health-survey-de">Umfrage zur psychischen Gesundheit</a></li>
+  <li><a href="demo/demo-de/full-demo-de">Nutzung sozialer Medien</a></li>
+  <li><a href="demo/demo-de/food-feedback-demo-de">Feedback zum Essens-Bestellservice</a></li>
+  <li><a href="demo/demo-de/order-form-de">Bestellformular für Kleidung</a></li>
 </ul>
 """
 
@@ -394,6 +408,85 @@ create_demo_survey(
     form_json=order_form,
     actions={"store"},
     container=demos,
+)
+
+# German demos
+event_form_de = load_form_definition("event_registration_de")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-de",
+    title="Veranstaltungsanmeldung",
+    description="Melden Sie sich zur Veranstaltung an.",
+    form_json=event_form_de,
+    container=demos_de,
+)
+
+mental_intro_de = load_intro_text("mental_health_intro_de")
+mental_form_de = load_form_definition("mental_health_de")
+set_form_intro_html(mental_form_de, "introText", mental_intro_de)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-de",
+    title="Umfrage zur psychischen Gesundheit",
+    description="Ein kurzer, vertraulicher Check-in zu Ihrem Wohlbefinden in dieser Woche.",
+    form_json=mental_form_de,
+    intro_html=mental_intro_de,
+    actions={"store"},
+    container=demos_de,
+)
+
+full_demo_intro_de = load_intro_text("full_demo_intro_de")
+full_demo_form_de = load_form_definition("full_demo_de")
+set_form_intro_html(full_demo_form_de, "demoIntro", full_demo_intro_de)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-de",
+    title="Nutzung sozialer Medien",
+    description="Demonstration von SurveyJS-Funktionen im Kontext sozialer Medien.",
+    form_json=full_demo_form_de,
+    intro_html=full_demo_intro_de,
+    actions={"store"},
+    container=demos_de,
+)
+
+feedback_form_de = load_form_definition("food_feedback_de")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-de",
+    title="Feedback zum Essens-Bestellservice",
+    description="Kurze 1-5 Bewertungen zu Ihrer letzten Erfahrung.",
+    form_json=feedback_form_de,
+    intro_html=load_intro_text("food_feedback_intro_de"),
+    actions={"store"},
+    container=demos_de,
+)
+
+event_rsvp_form_de = load_form_definition("event_rsvp_de")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-de",
+    title="Veranstaltung An-/Abmeldung",
+    description="Für eine Veranstaltung an- oder abmelden.",
+    form_json=event_rsvp_form_de,
+    actions={"store"},
+    container=demos_de,
+)
+
+order_form_de = load_form_definition("order_form_de")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-de",
+    title="Bestellformular für Kleidung",
+    description="Kundendaten und Bestellpositionen für Textilien erfassen.",
+    form_json=order_form_de,
+    actions={"store"},
+    container=demos_de,
 )
 
 # Create a demo user with Editor role
