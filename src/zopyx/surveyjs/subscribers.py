@@ -12,11 +12,15 @@ from typing import List
 import orjson
 from BTrees.OOBTree import OOBTree
 from zope.annotation.interfaces import IAnnotations
+from zope.component import getUtility
+from zope.globalrequest import getRequest
 import httpx
+from plone.registry.interfaces import IRegistry
 
 from .browser.views import FORM_VERSIONS_KEY, RESULTS_KEY, ensure_timezone_aware
 from .content.survey import Counter
 from .converters.cli import SurveyConverter
+from .interfaces import IFormsSettings
 
 logger = logging.getLogger(__name__)
 
@@ -317,6 +321,26 @@ def store_submission_result(context, event):
     annos.setdefault(RESULTS_KEY, OOBTree())
 
     form_data = event.form_data or {}
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IFormsSettings, check=False)
+    request = getRequest()
+    if request is not None:
+        if getattr(settings, "log_ip_addresses", False):
+            client_ip = getattr(request, "getClientAddr", None)
+            if callable(client_ip):
+                client_ip = client_ip()
+            else:
+                client_ip = request.get("REMOTE_ADDR")
+            if client_ip:
+                form_data = dict(form_data, ip_address=client_ip)
+        if getattr(settings, "log_user_agent", False):
+            user_agent = getattr(request, "getHeader", None)
+            if callable(user_agent):
+                user_agent = user_agent("User-Agent")
+            else:
+                user_agent = request.get("HTTP_USER_AGENT")
+            if user_agent:
+                form_data = dict(form_data, user_agent=user_agent)
     poll_id = form_data.get("poll_id") or str(uuid.uuid1())
     form_version = form_data.get("form_version")
     seq_counter = getattr(context, "seq_no", None)

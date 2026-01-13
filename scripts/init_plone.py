@@ -118,6 +118,7 @@ def _env_bool(value, default=False):
 
 def configure_mail_from_env():
     """Configure Plone mail settings from environment variables if present."""
+
     # Support both generic and SURVEY_ prefixed env vars
     def _first(*keys):
         for key in keys:
@@ -154,7 +155,9 @@ def configure_mail_from_env():
         api.portal.set_registry_record("plone.email_from_name", mail_from_name or None)
         print("Configured mail settings from environment")
     except InvalidParameterError:
-        print("Mail registry records not found; skipping mail environment configuration")
+        print(
+            "Mail registry records not found; skipping mail environment configuration"
+        )
 
 
 def configure_site_languages():
@@ -185,7 +188,9 @@ def create_demo_survey(
         title=title,
         id=survey_id,
         description=description,
-        text=RichTextValue(intro_html, "text/html", "text/html") if intro_html else None,
+        text=RichTextValue(intro_html, "text/html", "text/html")
+        if intro_html
+        else None,
         language=language,
     )
     if actions:
@@ -234,9 +239,7 @@ def remove_navigation_portlets(context):
     for manager_name in ("plone.leftcolumn", "plone.rightcolumn"):
         try:
             manager = getUtility(IPortletManager, name=manager_name, context=context)
-            assignments = getMultiAdapter(
-                (context, manager), IPortletAssignmentMapping
-            )
+            assignments = getMultiAdapter((context, manager), IPortletAssignmentMapping)
             if "navigation" in assignments:
                 del assignments["navigation"]
 
@@ -325,10 +328,7 @@ if logo_path.exists():
         container=site,
         id="logo",
         title="Privacy Forms Studio Logo",
-        image=NamedBlobImage(
-            data=logo_path.read_bytes(),
-            filename="logo.jpg"
-        )
+        image=NamedBlobImage(data=logo_path.read_bytes(), filename="logo.jpg"),
     )
     logo_image.reindexObject()
     print("Created logo.jpg as Image content object")
@@ -606,7 +606,9 @@ create_demo_survey(
 
 # Create a demo user with Editor role
 if not api.user.get(username="forms"):
-    api.user.create(username="forms", email="forms@example.com", password="formsarecool")
+    api.user.create(
+        username="forms", email="forms@example.com", password="formsarecool"
+    )
     api.user.grant_roles(username="forms", roles=["Editor"])
     print("Created demo user 'forms' with Editor role")
 else:

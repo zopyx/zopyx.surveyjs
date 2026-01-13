@@ -82,7 +82,9 @@ def generate_survey_json(
     """
 
     logger.info("Generating survey JSON with LLM")
-    logger.debug(f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}")
+    logger.debug(
+        f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}"
+    )
     logger.debug(f"Prompt sent to LLM:\n{prompt}")
 
     # Determine which model to use
@@ -202,7 +204,9 @@ def refine_survey_json(
     """
 
     logger.info("Refining survey JSON with LLM")
-    logger.debug(f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}")
+    logger.debug(
+        f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}"
+    )
     logger.debug(f"Refinement request: {refinement_prompt}")
     logger.debug(f"Prompt sent to LLM:\n{prompt}")
 

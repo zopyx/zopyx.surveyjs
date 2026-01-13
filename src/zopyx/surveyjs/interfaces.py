@@ -10,7 +10,25 @@ class IZopyxSurveyjsLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
-class IFormsSettings(Interface):
+class IPloneLoggingSettings(Interface):
+    """Global logging settings stored in the Plone registry."""
+
+    log_ip_addresses = schema.Bool(
+        title="Log IP addresses",
+        description="When enabled, save client IP addresses as part of the form data.",
+        required=False,
+        default=False,
+    )
+
+    log_user_agent = schema.Bool(
+        title="Log user agent",
+        description="When enabled, save user agent strings as part of the form data.",
+        required=False,
+        default=False,
+    )
+
+
+class IFormsSettings(IPloneLoggingSettings):
     """Settings for AI-powered form generation."""
 
     ai_model = schema.TextLine(

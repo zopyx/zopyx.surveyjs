@@ -226,6 +226,7 @@
     permission="cmf.ManagePortal"
   />
 
+
   <browser:jbot
       directory="overrides"
       layer="zopyx.surveyjs.interfaces.IZopyxSurveyjsLayer"

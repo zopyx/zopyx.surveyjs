@@ -4,7 +4,6 @@
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.z3cform import layout
-from zope.interface import Interface
 
 from ..interfaces import IFormsSettings
 
@@ -14,7 +13,7 @@ class FormsSettingsEditForm(RegistryEditForm):
 
     schema = IFormsSettings
     label = "Forms Settings"
-    description = "Configure AI model settings for form generation"
+    description = "Configure AI model settings and survey logging"
 
 
 FormsSettingsControlPanel = layout.wrap_form(
