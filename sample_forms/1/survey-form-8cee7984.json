@@ -1,0 +1,304 @@
+{
+  "title": "Human Resources Management System",
+  "logo": "https://example.com/your-logo.svg",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "html",
+          "name": "header_bar",
+          "html": "<div style=\"display:flex; align-items:center; justify-content:space-between; gap:24px; padding:8px 0 10px 0; border-bottom:2px solid #d0d0d0;\">\n  <div style=\"display:flex; align-items:center; gap:14px;\">\n    <div style=\"width:54px; height:54px; display:flex; align-items:center; justify-content:center;\">\n      <!-- Logo is provided via survey.logo; keep this placeholder for consistent spacing -->\n    </div>\n    <div style=\"font-weight:700; letter-spacing:1px;\">GLOBAL ELECTRONICS</div>\n  </div>\n  <div style=\"font-size:18px; color:#6b6b6b; font-weight:600;\">Human Resources Management System</div>\n</div>"
+        },
+        {
+          "type": "panel",
+          "name": "row_name_address",
+          "elements": [
+            {
+              "type": "panel",
+              "name": "panel_name",
+              "title": "NAME",
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "firstName",
+                  "title": "First Name",
+                  "defaultValue": "John"
+                },
+                {
+                  "type": "text",
+                  "name": "lastName",
+                  "title": "Last Name",
+                  "defaultValue": "Appleseed"
+                },
+                {
+                  "type": "text",
+                  "name": "prefix",
+                  "width": "45%",
+                  "title": "Prefix",
+                  "defaultValue": "Mr"
+                },
+                {
+                  "type": "text",
+                  "name": "suffix",
+                  "width": "45%",
+                  "startWithNewLine": false,
+                  "title": "Suffix"
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "name": "panel_address",
+              "title": "ADDRESS",
+              "startWithNewLine": false,
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "street",
+                  "title": "Street",
+                  "defaultValue": "7440-7498 S Hanna St"
+                },
+                {
+                  "type": "text",
+                  "name": "city",
+                  "title": "City",
+                  "defaultValue": "Fort Wayne"
+                },
+                {
+                  "type": "text",
+                  "name": "state",
+                  "width": "70%",
+                  "title": "State",
+                  "defaultValue": "IN"
+                },
+                {
+                  "type": "text",
+                  "name": "zip",
+                  "width": "25%",
+                  "startWithNewLine": false,
+                  "title": "ZIP"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "row_telephone_emergency",
+          "elements": [
+            {
+              "type": "panel",
+              "name": "panel_telephone",
+              "title": "TELEPHONE",
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "phoneHome",
+                  "title": "Home",
+                  "defaultValue": "(555) 123-1234",
+                  "inputType": "tel"
+                },
+                {
+                  "type": "text",
+                  "name": "phoneWork",
+                  "title": "Work",
+                  "defaultValue": "(555) 666-7777",
+                  "inputType": "tel"
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "name": "panel_emergency",
+              "title": "EMERGENCY CONTACT INFORMATION",
+              "startWithNewLine": false,
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "emergencyName",
+                  "title": "Name",
+                  "defaultValue": "Elizabeth Chapman"
+                },
+                {
+                  "type": "text",
+                  "name": "emergencyPhone",
+                  "width": "55%",
+                  "title": "Phone",
+                  "defaultValue": "(555) 444-3333",
+                  "inputType": "tel"
+                },
+                {
+                  "type": "text",
+                  "name": "emergencyRelationship",
+                  "width": "40%",
+                  "startWithNewLine": false,
+                  "title": "Relationship",
+                  "defaultValue": "Sister"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "row_ssn_dob",
+          "elements": [
+            {
+              "type": "panel",
+              "name": "panel_ssn",
+              "title": "SOCIAL SECURITY NUMBER",
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "ssn",
+                  "title": "",
+                  "defaultValue": "111-12-1111",
+                  "maskType": "pattern",
+                  "maskSettings": {
+                    "pattern": "999-99-9999"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "name": "panel_dob",
+              "title": "DATE OF BIRTH",
+              "startWithNewLine": false,
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "dob",
+                  "title": "",
+                  "defaultValue": "1974-08-12",
+                  "inputType": "date"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "row_education_department",
+          "elements": [
+            {
+              "type": "panel",
+              "name": "panel_education",
+              "title": "EDUCATION",
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "boolean",
+                  "name": "eduHighSchoolDiploma",
+                  "title": "High School Diploma",
+                  "defaultValue": "false",
+                  "labelTrue": "",
+                  "labelFalse": ""
+                },
+                {
+                  "type": "boolean",
+                  "name": "eduTradeCertificate",
+                  "title": "Trade Certificate",
+                  "defaultValue": "false",
+                  "labelTrue": "",
+                  "labelFalse": ""
+                },
+                {
+                  "type": "boolean",
+                  "name": "eduCollege",
+                  "title": "College:",
+                  "defaultValue": "true",
+                  "labelTrue": "",
+                  "labelFalse": ""
+                },
+                {
+                  "type": "checkbox",
+                  "name": "eduCollegeDegrees",
+                  "visibleIf": "{eduCollege} = true",
+                  "title": "",
+                  "defaultValue": [
+                    "Professional Degree"
+                  ],
+                  "choices": [
+                    "No Degree",
+                    "Associate Degree",
+                    "Bachelor's Degree",
+                    "Master's Degree",
+                    "Professional Degree"
+                  ]
+                },
+                {
+                  "type": "boolean",
+                  "name": "eduPhd",
+                  "title": "Ph.D.",
+                  "defaultValue": "true",
+                  "labelTrue": "",
+                  "labelFalse": ""
+                },
+                {
+                  "type": "boolean",
+                  "name": "eduOtherDoctorate",
+                  "title": "Other Doctorate",
+                  "defaultValue": "true",
+                  "labelTrue": "",
+                  "labelFalse": ""
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "name": "panel_department_signature",
+              "startWithNewLine": false,
+              "width": "50%",
+              "elements": [
+                {
+                  "type": "panel",
+                  "name": "panel_department",
+                  "title": "DEPARTMENT",
+                  "elements": [
+                    {
+                      "type": "radiogroup",
+                      "name": "department",
+                      "title": "",
+                      "defaultValue": "Engineering",
+                      "choices": [
+                        "Administration",
+                        "Management",
+                        "Engineering",
+                        "Design"
+                      ],
+                      "colCount": 2
+                    }
+                  ]
+                },
+                {
+                  "type": "panel",
+                  "name": "panel_signature",
+                  "title": "EMPLOYEE SIGNATURE",
+                  "elements": [
+                    {
+                      "type": "comment",
+                      "name": "employeeSignature",
+                      "title": "",
+                      "rows": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "requiredMark": "",
+  "widthMode": "static",
+  "width": "1100px"
+}
