@@ -1,0 +1,106 @@
+.pdf-importer-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pdf-importer-header {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.pdf-importer-header .header-text {
+    max-width: 700px;
+}
+
+.beta-pill {
+    align-items: center;
+    background: linear-gradient(135deg, #f97316, #facc15);
+    border-radius: 999px;
+    color: #111827;
+    display: inline-flex;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.75rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.pdf-importer-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.pdf-importer-panel {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    padding: 1.5rem;
+}
+
+.pdf-importer-panel.preview-panel {
+    min-height: 420px;
+}
+
+.pdf-importer-panel.survey-preview-panel {
+    min-height: 420px;
+}
+
+.panel-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.pdf-importer-container .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.pdf-importer-container .button-group {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.pdf-importer-container .btn-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.preview-placeholder {
+    align-items: center;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border: 1px dashed #cbd5f5;
+    border-radius: 12px;
+    color: #64748b;
+    display: flex;
+    justify-content: center;
+    min-height: 320px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.pdf-preview-frame {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    height: 100%;
+    min-height: 320px;
+    width: 100%;
+}
+
+.survey-preview-container {
+    min-height: 320px;
+}
+
+.importer-note {
+    background: #f8fafc;
+    border-radius: 12px;
+    color: #475569;
+    margin-top: 1.5rem;
+    padding: 1rem;
+}

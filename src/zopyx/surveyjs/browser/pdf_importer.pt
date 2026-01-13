@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+<metal:block fill-slot="content-core">
+
+  <script type="text/javascript"
+          tal:content="string: ACTUAL_URL='${context/absolute_url}'"
+  ></script>
+  <script type="text/javascript"
+          tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
+  ></script>
+
+  <link href="++resource++zopyx.surveyjs/viewer.css"
+        rel="stylesheet"
+        type="text/css"
+  />
+  <link href="++resource++zopyx.surveyjs/pdf_importer.css"
+        rel="stylesheet"
+        type="text/css"
+  />
+  <link href="https://unpkg.com/survey-core/survey-core.min.css"
+        rel="stylesheet"
+        type="text/css"
+  />
+  <script src="https://unpkg.com/survey-core/survey.core.min.js"
+          type="text/javascript"
+  ></script>
+  <script src="https://unpkg.com/survey-core/survey.i18n.min.js"
+          type="text/javascript"
+  ></script>
+  <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"
+          type="text/javascript"
+  ></script>
+  <script src="https://unpkg.com/survey-core/themes/index.min.js"
+          type="text/javascript"
+  ></script>
+  <script src="++resource++zopyx.surveyjs/pdf_importer.js"
+          type="text/javascript"
+  ></script>
+
+  <div class="survey-actions"
+       tal:condition="view/can_manage_portal_content">
+    <a class="survey-action-button action-view"
+       href="${context/absolute_url}/@@viewer">
+      <span i18n:translate="">View</span>
+    </a>
+    <a class="survey-action-button action-editor"
+       href="${context/absolute_url}/@@editor">
+      <span i18n:translate="">Visual Editor</span>
+    </a>
+    <a class="survey-action-button action-results"
+       href="${context/absolute_url}/@@results">
+      <span i18n:translate="">Form Results</span>
+    </a>
+    <a class="survey-action-button action-versions"
+       href="${context/absolute_url}/@@form-versions">
+      <span i18n:translate="">Versions</span>
+    </a>
+    <a class="survey-action-button action-ai"
+       href="${context/absolute_url}/@@ai">
+      <span i18n:translate="">AI Generator</span>
+    </a>
+    <a class="survey-action-button action-pdf-importer"
+       href="${context/absolute_url}/@@pdf-importer">
+      <span i18n:translate="">PDF Form Import</span>
+      <span class="beta-badge" i18n:translate="">Beta</span>
+    </a>
+  </div>
+
+  <div class="pdf-importer-container">
+    <div class="pdf-importer-header">
+      <div class="header-text">
+        <h2 class="page-headline" i18n:translate="">PDF Form Importer</h2>
+        <div class="subtitle page-subtitle" i18n:translate="">
+          Upload a PDF form and generate SurveyJS JSON from it
+        </div>
+      </div>
+      <span class="beta-pill" i18n:translate="">Beta</span>
+    </div>
+
+    <div class="pdf-importer-grid">
+      <div class="pdf-importer-panel">
+        <div class="panel-title" i18n:translate="">Upload PDF</div>
+        <form id="pdfImporterForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="pdfFile" i18n:translate="">PDF file</label>
+            <input type="file"
+                   id="pdfFile"
+                   name="pdf_file"
+                   class="form-control"
+                   accept="application/pdf"
+                   required
+            />
+            <p class="help-block" i18n:translate="">
+              Choose a PDF that contains the form layout you want to convert.
+            </p>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary" id="importBtn">
+              <span class="btn-text" i18n:translate="">Convert PDF</span>
+              <span class="btn-spinner" id="importSpinner" style="display:none;">
+                <span class="spinner"></span>
+                <span i18n:translate="">Processing...</span>
+              </span>
+            </button>
+          </div>
+        </form>
+
+        <div id="pdfImporterStatus" class="alert" style="display:none;"></div>
+
+        <div class="importer-note">
+          <strong i18n:translate="">Heads up:</strong>
+          <span i18n:translate="">
+            This feature is experimental. Please review the generated form carefully.
+          </span>
+        </div>
+      </div>
+
+      <div class="pdf-importer-panel preview-panel">
+        <div class="panel-title" i18n:translate="">PDF Preview</div>
+        <div class="preview-placeholder" id="pdfPreviewPlaceholder">
+          <span i18n:translate="">No PDF selected yet.</span>
+        </div>
+        <iframe id="pdfPreviewFrame"
+                title="PDF Preview"
+                style="display:none;"
+                class="pdf-preview-frame"
+        ></iframe>
+      </div>
+
+      <div class="pdf-importer-panel survey-preview-panel">
+        <div class="panel-title" i18n:translate="">SurveyJS Preview</div>
+        <div class="preview-placeholder" id="surveyPreviewPlaceholder">
+          <span i18n:translate="">Generated form preview will appear here.</span>
+        </div>
+        <div id="surveyPreviewContainer" class="survey-preview-container"></div>
+      </div>
+    </div>
+  </div>
+
+</metal:block>
+</html>
