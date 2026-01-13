@@ -1,5 +1,10 @@
 #!/bin/bash
+set -e  # Exit on error
 
-cd /home/privacyforms/zopyx.surveyjs
+# Get the script's directory and navigate to project root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-make build stop run-detachedd
+cd "$PROJECT_ROOT"
+
+make build stop run-detached
