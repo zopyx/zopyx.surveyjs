@@ -1,0 +1,204 @@
+{
+  "title": "Verzeichnis von Verarbeitungstätigkeiten\nVerantwortlicher\ngem. Artikel 30 Abs. 1 DSGVO",
+  "showQuestionNumbers": "off",
+  "questionTitleLocation": "left",
+  "questionTitleWidth": "220px",
+  "pages": [
+    {
+      "name": "vorblatt",
+      "elements": [
+        {
+          "type": "html",
+          "name": "header_block",
+          "html": "<table border=\"1\" cellpadding=\"8\" cellspacing=\"0\" width=\"100%\"><tr><td><div><b>Verzeichnis von Verarbeitungstätigkeiten</b></div><div><b>Verantwortlicher</b></div><div><b>gem. Artikel 30 Abs. 1 DSGVO</b></div></td><td align=\"right\" valign=\"top\" width=\"120\">Vorblatt</td></tr></table>"
+        },
+
+        {
+          "type": "html",
+          "name": "h_verantwortlicher",
+          "html": "<div><b>Angaben zum Verantwortlichen</b></div><div>Name und Kontaktdaten natürliche Person/juristische Person/Behörde/Einrichtung etc.</div>"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_name",
+          "title": "Name",
+          "defaultValue": "Verlag für Neue Mdien Data Communications GmbH"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_strasse",
+          "title": "Straße",
+          "defaultValue": "Bötzinger Strasse 48"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_plz",
+          "title": "Postleitzahl",
+          "inputType": "text",
+          "defaultValue": "79111"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_ort",
+          "title": "Ort",
+          "defaultValue": "Freiburg"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_telefon",
+          "title": "Telefon",
+          "defaultValue": "0761 4701 0"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_email",
+          "title": "E-Mail-Adresse",
+          "inputType": "email",
+          "defaultValue": "info@vfnm.de"
+        },
+        {
+          "type": "text",
+          "name": "verantwortlicher_internet",
+          "title": "Internet-Adresse",
+          "defaultValue": "www.vfnm.de"
+        },
+
+        {
+          "type": "html",
+          "name": "h_gemeinsam",
+          "html": "<div><b>Angaben zum ggf. gemeinsam mit diesem Verantwortlichen</b></div>"
+        },
+        {
+          "type": "text",
+          "name": "gemeinsam_name",
+          "title": "Name"
+        },
+        {
+          "type": "text",
+          "name": "gemeinsam_strasse",
+          "title": "Straße"
+        },
+        {
+          "type": "text",
+          "name": "gemeinsam_plz",
+          "title": "Postleitzahl",
+          "inputType": "text"
+        },
+        {
+          "type": "text",
+          "name": "gemeinsam_ort",
+          "title": "Ort"
+        },
+        {
+          "type": "text",
+          "name": "gemeinsam_telefon",
+          "title": "Telefon"
+        },
+        {
+          "type": "text",
+          "name": "gemeinsam_email",
+          "title": "E-Mail-Adresse",
+          "inputType": "email"
+        },
+
+        {
+          "type": "html",
+          "name": "h_vertreter",
+          "html": "<div><b>Angaben zum Vertreter des Verantwortlichen</b></div><div>Name und Kontaktdaten natürliche Person/juristische Person/Behörde/Einrichtung etc.</div>"
+        },
+        {
+          "type": "text",
+          "name": "vertreter_name",
+          "title": "Name",
+          "defaultValue": "Ralf Muckenhírn GF des Verlags für Neue Medien GmbH"
+        },
+        {
+          "type": "text",
+          "name": "vertreter_strasse",
+          "title": "Straße",
+          "defaultValue": "Bötzinger Str. 48"
+        },
+        {
+          "type": "text",
+          "name": "vertreter_plz",
+          "title": "Postleitzahl",
+          "inputType": "text",
+          "defaultValue": "79111"
+        },
+        {
+          "type": "text",
+          "name": "vertreter_ort",
+          "title": "Ort",
+          "defaultValue": "Freiburg"
+        },
+        {
+          "type": "text",
+          "name": "vertreter_telefon",
+          "title": "Telefon",
+          "defaultValue": "0761 4701 0"
+        },
+        {
+          "type": "text",
+          "name": "vertreter_email",
+          "title": "E-Mail-Adresse",
+          "inputType": "email",
+          "defaultValue": "info@vfnm.de"
+        },
+
+        {
+          "type": "html",
+          "name": "h_dsb",
+          "html": "<div><b>Angaben zur Person des Datenschutzbeauftragten</b> * (extern mit Anschrift)</div><div>* sofern gem. Artikel 37 DS-GVO benannt</div>"
+        },
+        {
+          "type": "dropdown",
+          "name": "dsb_anrede",
+          "title": "Anrede",
+          "choices": [
+            "Herr",
+            "Frau"
+          ]
+        },
+        {
+          "type": "text",
+          "name": "dsb_titel",
+          "title": "Titel"
+        },
+        {
+          "type": "text",
+          "name": "dsb_name_vorname",
+          "title": "Name, Vorname",
+          "defaultValue": "Datan Schütz"
+        },
+        {
+          "type": "text",
+          "name": "dsb_strasse",
+          "title": "Straße"
+        },
+        {
+          "type": "text",
+          "name": "dsb_plz",
+          "title": "Postleitzahl",
+          "inputType": "text"
+        },
+        {
+          "type": "text",
+          "name": "dsb_ort",
+          "title": "Ort"
+        },
+        {
+          "type": "text",
+          "name": "dsb_telefon",
+          "title": "Telefon"
+        },
+        {
+          "type": "text",
+          "name": "dsb_email",
+          "title": "E-Mail-Adresse",
+          "inputType": "email"
+        }
+      ]
+    }
+  ]
+}
+
