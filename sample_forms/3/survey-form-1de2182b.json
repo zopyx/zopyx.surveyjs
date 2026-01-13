@@ -1,0 +1,193 @@
+{
+  "title": "",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "html",
+          "name": "hdr1",
+          "html": "<div><div><strong>EBERHARD KARLS</strong><br/><strong>UNIVERSITÄT TÜBINGEN</strong></div><div style=\"float:right; text-align:left;\"><strong>Zentrale Verwaltung</strong><br/><strong>IV – Studierende</strong><br/><br/><strong>Studierendensekretariat</strong><br/>Wilhelmstraße 19<br/>72074 Tübingen</div><div style=\"clear:both;\"></div></div>"
+        },
+        {
+          "type": "html",
+          "name": "titleblock",
+          "html": "<h3>Bescheinigung über die Anrechnung von Studienzeiten</h3><div>zur Vorlage beim Studierendensekretariat (nur von der <u><strong>Studienfachberatung</strong></u> auszufüllen)</div><div><em>Bei mehreren Studienfächern bitte für jedes Fach ein gesondertes Formular ausfüllen.</em></div>"
+        },
+        {
+          "type": "panel",
+          "name": "p_student",
+          "elements": [
+            {
+              "type": "text",
+              "name": "student_name",
+              "title": "Name, Vorname des / der Studierenden",
+              "placeholder": ""
+            },
+            {
+              "type": "text",
+              "name": "student_birthdate",
+              "startWithNewLine": false,
+              "title": "Geburtsdatum",
+              "inputType": "date"
+            },
+            {
+              "type": "text",
+              "name": "student_matrikel",
+              "startWithNewLine": false,
+              "title": "Matrikelnummer (falls schon vorhanden)"
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "name": "info1",
+          "html": "<div>Aufgrund der vorgelegten Leistungsnachweise bzw. der nachgewiesenen Studienzeiten aus dem bisherigen Studium:</div>"
+        },
+        {
+          "type": "text",
+          "name": "bisher_abschluss",
+          "title": "Abschluss:",
+          "placeholder": ""
+        },
+        {
+          "type": "text",
+          "name": "bisher_studiengang_fach",
+          "title": "Studiengang/Fach:",
+          "placeholder": ""
+        },
+        {
+          "type": "panel",
+          "name": "p_anrechnung",
+          "elements": [
+            {
+              "type": "html",
+              "name": "anr_txt1",
+              "html": "<div>wird eine Anrechnung von</div>"
+            },
+            {
+              "type": "text",
+              "name": "anrechnung_fachsemester",
+              "startWithNewLine": false,
+              "title": "",
+              "placeholder": "_____"
+            },
+            {
+              "type": "html",
+              "name": "anr_txt2",
+              "startWithNewLine": false,
+              "html": "<div>Fachsemester(n) auf das Studium im gewünschten Studiengang vorgeschlagen:</div>"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "ziel_abschluss",
+          "title": "Abschluss:",
+          "placeholder": ""
+        },
+        {
+          "type": "text",
+          "name": "ziel_studiengang_fach",
+          "title": "Studiengang/Fach:",
+          "placeholder": ""
+        },
+        {
+          "type": "html",
+          "name": "immatrik_txt",
+          "html": "<div>Die/der Studierende soll zum</div>"
+        },
+        {
+          "type": "panel",
+          "name": "p_semester",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "immatrik_semester",
+              "title": "",
+              "choices": [
+                "Wintersemester",
+                "Sommersemester"
+              ],
+              "colCount": 2,
+              "maxSelectedChoices": 1
+            },
+            {
+              "type": "text",
+              "name": "immatrik_jahr",
+              "startWithNewLine": false,
+              "title": "20",
+              "placeholder": "____"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "p_fachsem",
+          "elements": [
+            {
+              "type": "html",
+              "name": "in_das_txt1",
+              "html": "<div>in das</div>"
+            },
+            {
+              "type": "text",
+              "name": "immatrik_in_fachsemester",
+              "startWithNewLine": false,
+              "title": "",
+              "placeholder": "_____"
+            },
+            {
+              "type": "html",
+              "name": "in_das_txt2",
+              "startWithNewLine": false,
+              "html": "<div>Fachsemester des vorstehenden Studiengangs immatrikuliert werden.</div>"
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "name": "beratung_txt",
+          "html": "<div><strong>Die/der Studierende hat sich einer studienfachlichen Beratung gemäß § 60 Absatz 2 Ziffer 5 Landeshochschulgesetz, bezogen auf den angestrebten Studiengang unterzogen.</strong></div>"
+        },
+        {
+          "type": "panel",
+          "name": "p_sign1",
+          "elements": [
+            {
+              "type": "text",
+              "name": "datum_unterschrift",
+              "title": "Datum (Unterschrift Studienfachberater/in des künftigen Studiengangs)",
+              "inputType": "date",
+              "placeholder": ""
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "p_sign2",
+          "elements": [
+            {
+              "type": "text",
+              "name": "name_telefon_rueckfragen",
+              "title": "Name, Telefon (für Rückfragen)",
+              "placeholder": ""
+            },
+            {
+              "type": "comment",
+              "name": "stempel_dienstsiegel",
+              "startWithNewLine": false,
+              "title": "Stempel / Dienstsiegel (Fakultät / Institut / Seminar)",
+              "placeholder": ""
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "name": "footer",
+          "html": "<div style=\"margin-top:12px;\">Weitere Informationen im Internet unter <a href=\"http://www.uni-tuebingen.de/de/849\" target=\"_blank\">http://www.uni-tuebingen.de/de/849</a>.</div><div style=\"text-align:right;\">Stand: Juli 2023</div>"
+        }
+      ]
+    }
+  ]
+}
