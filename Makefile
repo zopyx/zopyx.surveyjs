@@ -16,6 +16,7 @@ run-detached:
 
 stop:
 	-docker stop $(CONTAINER_NAME)
+	-docker kill $(CONTAINER_NAME)
 
 logs:
 	docker logs -f $(CONTAINER_NAME)

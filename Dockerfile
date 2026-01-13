@@ -30,6 +30,7 @@ RUN apt-get update \
         shared-mime-info \
         fonts-dejavu-core \
         imagemagick \
+        ghostscript \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     surveyPreviewContainer.innerHTML = "";
     const model = new Survey.Model(surveyJson);
-    surveyPreview = new Survey.Survey(model, surveyPreviewContainer);
+    model.render(surveyPreviewContainer);
+    surveyPreview = model;
   }
 
   importerForm.addEventListener("submit", function(event) {
