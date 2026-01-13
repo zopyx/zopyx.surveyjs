@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 import subprocess
 import csv
 import io
+import logging
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
@@ -19,6 +20,8 @@ from ..events import SurveyJSFormSubmitted
 import orjson
 import uuid
 
+
+logger = logging.getLogger(__name__)
 
 RESULTS_KEY = "zopyx.surveyjs.results"
 FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"
@@ -1342,7 +1345,7 @@ class Views(BrowserView):
                 pdf_path.write_bytes(file_content)
 
                 command = [
-                    "magick",
+                    "convert",
                     "-density",
                     "300",
                     str(pdf_path),
@@ -1354,7 +1357,9 @@ class Views(BrowserView):
                     "off",
                     str(png_path),
                 ]
-                subprocess.run(command, check=True, capture_output=True)
+                logger.info(f"Executing ImageMagick convert command: {' '.join(command)}")
+                result = subprocess.run(command, check=True, capture_output=True)
+                logger.info(f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}")
 
                 image_path = png_path
                 if not image_path.exists():
@@ -1423,18 +1428,21 @@ class Views(BrowserView):
             self.request.response.write(orjson.dumps(result))
 
         except subprocess.CalledProcessError as e:
+            stderr_msg = e.stderr.decode("utf-8", errors="ignore") or str(e)
+            logger.error(f"Convert command failed: {stderr_msg}")
             error_result = {
                 "error": "PNG conversion failed",
-                "message": (e.stderr.decode("utf-8", errors="ignore") or str(e)),
+                "message": stderr_msg,
             }
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
 
         except FileNotFoundError:
+            logger.error("ImageMagick 'convert' command was not found on the system")
             error_result = {
                 "error": "Conversion tool missing",
-                "message": "ImageMagick 'magick' command was not found",
+                "message": "ImageMagick 'convert' command was not found",
             }
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
