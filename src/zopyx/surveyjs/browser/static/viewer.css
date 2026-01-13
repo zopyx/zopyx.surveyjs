@@ -62,13 +62,55 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
+.survey-action-button.action-pdf-importer {
+    background: linear-gradient(145deg, #6b7280, #4b5563);
+    box-shadow: 0 6px 16px rgba(75, 85, 99, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
 .survey-action-button.action-versions:hover,
 .survey-action-button.action-versions:focus,
 .survey-action-button.action-editor:hover,
 .survey-action-button.action-editor:focus,
 .survey-action-button.action-ai:hover,
-.survey-action-button.action-ai:focus {
+.survey-action-button.action-ai:focus,
+.survey-action-button.action-pdf-importer:hover,
+.survey-action-button.action-pdf-importer:focus {
     color: #ffffff;
+}
+
+.beta-badge {
+    align-items: center;
+    background: #f59e0b;
+    border-radius: 999px;
+    color: #111827;
+    display: inline-flex;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    text-transform: uppercase;
+}
+
+.manager-badge {
+    align-items: center;
+    background: #111827;
+    border-radius: 999px;
+    color: #f8fafc;
+    display: inline-flex;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    margin-left: 0.4rem;
+    padding: 0.1rem 0.45rem;
+    text-transform: uppercase;
+}
+
+.survey-action-button.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 @media (max-width: 640px) {

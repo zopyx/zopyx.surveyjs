@@ -6,6 +6,7 @@ Extracted from experimental/survey_bot.py for reuse in web views.
 """
 
 import logging
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -138,6 +139,130 @@ def generate_survey_json(
 
         logger.info("Successfully generated survey JSON")
         logger.debug(f"LLM response length: {len(response_text)} characters")
+
+        return response_text
+    except Exception as e:
+        logger.error(f"Failed to generate form with model '{model_name}': {str(e)}")
+        raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
+
+
+def generate_survey_json_from_image(
+    image_path: str,
+    prompt: str,
+    model_name: str = None,
+    api_key: str = None,
+    ollama_url: str = None,
+) -> str:
+    """
+    Generates SurveyJS JSON data based on an input image using the llm module.
+
+    Args:
+        image_path: Path to the PNG image to be analyzed
+        prompt: Instruction prompt for the LLM
+        model_name: Optional LLM model to use
+        api_key: Optional API key for the model provider
+        ollama_url: Optional Ollama server URL
+
+    Returns:
+        JSON string containing the SurveyJS form definition
+    """
+    # Import llm here to provide better error messages
+    try:
+        import llm
+    except ImportError:
+        raise ImportError(
+            "The 'llm' module is not installed. Please install it using 'pip install llm'"
+        )
+
+    def _build_attachment(path: str):
+        attachment_cls = llm.Attachment
+        if hasattr(attachment_cls, "from_path"):
+            return attachment_cls.from_path(path)
+        data = Path(path).read_bytes()
+        filename = Path(path).name
+        candidates = [
+            lambda: attachment_cls(path=path),
+            lambda: attachment_cls(data, "image/png", filename),
+            lambda: attachment_cls(filename, data, "image/png"),
+            lambda: attachment_cls(data, filename=filename, mimetype="image/png"),
+            lambda: attachment_cls(filename=filename, content=data, type="image/png"),
+        ]
+        for builder in candidates:
+            try:
+                return builder()
+            except TypeError:
+                continue
+        try:
+            import inspect
+
+            sig = inspect.signature(attachment_cls)
+            kwargs = {}
+            for name in sig.parameters:
+                if name in ("data", "content", "body", "bytes"):
+                    kwargs[name] = data
+                elif name in ("filename", "name", "file_name"):
+                    kwargs[name] = filename
+                elif name in ("path", "file", "file_path"):
+                    kwargs[name] = path
+                elif name in ("mime_type", "mimetype", "content_type", "type"):
+                    kwargs[name] = "image/png"
+            if kwargs:
+                return attachment_cls(**kwargs)
+        except Exception:
+            pass
+        raise ValueError("Unsupported llm.Attachment constructor")
+
+    try:
+        attachment = _build_attachment(image_path)
+    except Exception as e:
+        raise ValueError(f"Failed to attach image for LLM processing: {str(e)}")
+
+    logger.info("Generating survey JSON from image with LLM")
+    logger.debug(
+        f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}"
+    )
+    print(f"LLM prompt (image):\n{prompt}")
+
+    # Determine which model to use
+    if not model_name:
+        # Fall back to llm default model
+        try:
+            model_name = llm.get_default_model()
+            if not model_name:
+                raise ValueError(
+                    "No AI model configured. Please configure one in Site Setup > Forms or set a default using: llm set-default MODEL_NAME"
+                )
+        except Exception as e:
+            raise ValueError(
+                f"Failed to get AI model. Please configure one in Site Setup > Forms. Error: {e}"
+            )
+
+    try:
+        if ollama_url:
+            import os
+
+            os.environ["OLLAMA_HOST"] = ollama_url
+            if model_name and not model_name.startswith("ollama/"):
+                model_name = f"ollama/{model_name}"
+            elif not model_name:
+                model_name = "ollama/llama2"
+
+        model = llm.get_model(model_name)
+
+        if api_key and not ollama_url:
+            import os
+
+            if "gpt" in model_name.lower() or "openai" in model_name.lower():
+                os.environ["OPENAI_API_KEY"] = api_key
+            elif "claude" in model_name.lower() or "anthropic" in model_name.lower():
+                os.environ["ANTHROPIC_API_KEY"] = api_key
+
+        response = model.prompt(prompt, attachments=[attachment])
+        response_text = response.text() if callable(response.text) else response.text
+
+        logger.info("Successfully generated survey JSON from image")
+        logger.debug(f"LLM response length: {len(response_text)} characters")
+        print(f"LLM response (image):\n{response_text}")
 
         return response_text
     except Exception as e:

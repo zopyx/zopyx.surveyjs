@@ -769,6 +769,21 @@
          href="${context/absolute_url}/@@ai">
         <span i18n:translate="">AI Generator</span>
       </a>
+      <tal:manager tal:condition="view/is_manager">
+        <a class="survey-action-button action-pdf-importer"
+           href="${context/absolute_url}/@@pdf-importer">
+          <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+        </a>
+      </tal:manager>
+      <tal:notmanager tal:condition="not: view/is_manager">
+        <span class="survey-action-button action-pdf-importer is-disabled"
+              aria-disabled="true">
+          <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+          <span class="manager-badge" i18n:translate="">Manager only</span>
+        </span>
+      </tal:notmanager>
     </div>
 
     <div class="form-versions-container">

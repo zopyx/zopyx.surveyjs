@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from string import Formatter
 from pathlib import Path
 from tempfile import TemporaryDirectory
+import subprocess
 import csv
 import io
 from Products.Five import BrowserView
@@ -1298,6 +1299,161 @@ class Views(BrowserView):
 
         except Exception as e:
             error_result = {"error": "Refinement failed", "message": str(e)}
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+    def import_pdf_form(self):
+        """Import a SurveyJS form from a PDF by converting to PNG and using AI."""
+        uploaded_file = self.request.form.get("pdf_file")
+
+        if not uploaded_file:
+            error_result = {
+                "error": "No PDF uploaded",
+                "message": "Please upload a PDF file to import",
+            }
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        try:
+            from .ai_generator import (
+                generate_survey_json_from_image,
+                strip_markdown_json,
+            )
+        except ImportError as e:
+            error_result = {"error": "LLM module not available", "message": str(e)}
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        try:
+            file_content = uploaded_file.read()
+            if not isinstance(file_content, bytes):
+                file_content = file_content.encode("utf-8")
+
+            with TemporaryDirectory() as temp_dir:
+                temp_path = Path(temp_dir)
+                pdf_path = temp_path / "uploaded.pdf"
+                png_path = temp_path / "uploaded.png"
+
+                pdf_path.write_bytes(file_content)
+
+                command = [
+                    "magick",
+                    "-density",
+                    "300",
+                    str(pdf_path),
+                    "-background",
+                    "white",
+                    "-alpha",
+                    "remove",
+                    "-alpha",
+                    "off",
+                    str(png_path),
+                ]
+                subprocess.run(command, check=True, capture_output=True)
+
+                image_path = png_path
+                if not image_path.exists():
+                    candidates = sorted(temp_path.glob("uploaded*.png"))
+                    if not candidates:
+                        raise ValueError("PNG conversion failed: no output created")
+                    image_path = candidates[0]
+
+                from plone.registry.interfaces import IRegistry
+                from zope.component import getUtility
+                from ..interfaces import IFormsSettings
+
+                registry = getUtility(IRegistry)
+                settings = registry.forInterface(IFormsSettings, check=False)
+
+                model_name = getattr(settings, "ai_model", None)
+                api_key = getattr(settings, "ai_api_key", None)
+                ollama_url = getattr(settings, "ollama_url", None)
+
+                if model_name:
+                    model_name = model_name.strip()
+                if api_key:
+                    api_key = api_key.strip()
+                if ollama_url:
+                    ollama_url = ollama_url.strip()
+
+                prompt = (
+                    "Convert this PDF to SurveyJS JSON. Keep the layout, "
+                    "keep headers and footer, make JSON as close possible as possible, "
+                    "return the form JSON only"
+                )
+
+                survey_json_str = generate_survey_json_from_image(
+                    str(image_path),
+                    prompt,
+                    model_name=model_name or None,
+                    api_key=api_key or None,
+                    ollama_url=ollama_url or None,
+                )
+
+            cleaned_json_str = strip_markdown_json(survey_json_str)
+            survey_data = orjson.loads(cleaned_json_str)
+            if not isinstance(survey_data, dict):
+                raise ValueError("Form JSON must be an object")
+
+            annos = IAnnotations(self.context)
+            if FORM_VERSIONS_KEY not in annos:
+                annos[FORM_VERSIONS_KEY] = OOBTree()
+
+            data = dict(
+                id=str(uuid.uuid4()),
+                created=datetime.now(timezone.utc),
+                user=plone.api.user.get_current().getId(),
+                form_json=survey_data,
+            )
+
+            annos[FORM_VERSIONS_KEY][data["id"]] = data
+
+            result = {
+                "success": True,
+                "json": survey_data,
+                "version_id": data["id"],
+            }
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+
+        except subprocess.CalledProcessError as e:
+            error_result = {
+                "error": "PNG conversion failed",
+                "message": (e.stderr.decode("utf-8", errors="ignore") or str(e)),
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except FileNotFoundError:
+            error_result = {
+                "error": "Conversion tool missing",
+                "message": "ImageMagick 'magick' command was not found",
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except orjson.JSONDecodeError as e:
+            error_result = {
+                "error": "Invalid JSON generated",
+                "message": f"The AI generated invalid JSON: {str(e)}",
+                "raw_output": cleaned_json_str
+                if "cleaned_json_str" in locals()
+                else survey_json_str,
+            }
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+
+        except Exception as e:
+            error_result = {"error": "Import failed", "message": str(e)}
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))

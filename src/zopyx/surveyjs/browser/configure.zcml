@@ -194,6 +194,15 @@
     template="ai.pt"
   />
 
+  <!-- PDF Form Importer -->
+  <browser:page
+    name="pdf-importer"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    template="pdf_importer.pt"
+  />
+
   <browser:page
     name="generate-ai-form"
     for="zopyx.surveyjs.content.survey.ISurvey"
@@ -216,6 +225,14 @@
     permission="cmf.ModifyPortalContent"
     class=".views.Views"
     attribute="refine_ai_form"
+  />
+
+  <browser:page
+    name="import-pdf-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    attribute="import_pdf_form"
   />
 
   <!-- Forms Settings Control Panel -->
