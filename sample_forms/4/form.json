@@ -1,0 +1,192 @@
+{
+  "title": "Antrag auf Ausbildungsförderung (BAföG) – Formloser Antrag zur Fristwahrung",
+  "showQuestionNumbers": "off",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "html",
+          "name": "header",
+          "html": "<p><b>STUDIERENDENWERK Tübingen - Hohenheim</b> &nbsp;&nbsp; Amt für Ausbildungsförderung</p><p><b>Antrag auf Ausbildungsförderung</b><br>nach dem Bundesausbildungsförderungsgesetz (BAföG)<br><i>– Formloser Antrag zur Fristwahrung –</i></p>"
+        },
+        {
+          "type": "panel",
+          "name": "personal_panel",
+          "title": "Persönliche Angaben",
+          "elements": [
+            {
+              "type": "panel",
+              "name": "name_gender_row",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "name_vorname",
+                  "title": "Name, Vorname",
+                  "isRequired": true
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "geschlecht",
+                  "title": "Geschlecht",
+                  "choices": [
+                    { "value": "maennlich", "text": "männlich" },
+                    { "value": "weiblich", "text": "weiblich" },
+                    { "value": "divers", "text": "Divers" }
+                  ],
+                  "colCount": 1
+                }
+              ],
+              "columnCount": 2
+            },
+            {
+              "type": "panel",
+              "name": "birth_row",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "geburtsort",
+                  "title": "Geburtsort"
+                },
+                {
+                  "type": "text",
+                  "name": "geburtsdatum",
+                  "title": "Geburtsdatum",
+                  "inputType": "date"
+                }
+              ],
+              "columnCount": 2
+            },
+            {
+              "type": "text",
+              "name": "email",
+              "title": "E-Mail",
+              "inputType": "email"
+            },
+            {
+              "type": "text",
+              "name": "staatsangehoerigkeit",
+              "title": "Staatsangehörigkeit"
+            },
+            {
+              "type": "text",
+              "name": "strasse_hausnummer",
+              "title": "Straße, Hausnummer"
+            },
+            {
+              "type": "text",
+              "name": "plz_wohnort",
+              "title": "Postleitzahl, Wohnort"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "study_panel",
+          "title": "Studienangaben",
+          "elements": [
+            {
+              "type": "html",
+              "name": "study_intro",
+              "html": "<p><b>Hiermit beantrage ich zur Fristwahrung Ausbildungsförderung nach dem BAföG für mein Studium</b></p>"
+            },
+            {
+              "type": "text",
+              "name": "hochschule",
+              "title": "an folgender Hochschule"
+            },
+            {
+              "type": "text",
+              "name": "fachrichtung_studiengang",
+              "title": "in der Fachrichtung / im Studiengang"
+            },
+            {
+              "type": "text",
+              "name": "studienbeginn",
+              "title": "mein Studium beginnt / begann am (Monat/Jahr)"
+            },
+            {
+              "type": "text",
+              "name": "studienziel",
+              "title": "beabsichtigtes Studienziel (z. B. Bachelor, Master ...)"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "previous_panel",
+          "title": "Frühere Anträge",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "frueherer_antrag",
+              "title": "Ich habe bereits früher einen Antrag auf Ausbildungsförderung (BAföG) gestellt:",
+              "choices": [
+                { "value": "nein", "text": "nein" },
+                { "value": "ja", "text": "ja" }
+              ],
+              "colCount": 2
+            },
+            {
+              "type": "panel",
+              "name": "foerderung_details",
+              "visibleIf": "{frueherer_antrag} = 'ja'",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "foerderungsnummer",
+                  "title": "Förderungsnummer"
+                },
+                {
+                  "type": "text",
+                  "name": "amt",
+                  "title": "Amt"
+                }
+              ],
+              "columnCount": 2
+            },
+            {
+              "type": "html",
+              "name": "nachreichen",
+              "html": "<p>Die erforderlichen Antragsformulare werde ich innerhalb eines Monats nachreichen.</p>"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "signature_panel",
+          "elements": [
+            {
+              "type": "panel",
+              "name": "sign_row",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "datum",
+                  "title": "Datum",
+                  "inputType": "date"
+                },
+                {
+                  "type": "text",
+                  "name": "unterschrift",
+                  "title": "Unterschrift"
+                }
+              ],
+              "columnCount": 2
+            },
+            {
+              "type": "html",
+              "name": "datenschutz",
+              "html": "<p>Informationen zum Umgang mit Ihren Daten finden Sie auf Aushängen in unseren Einrichtungen sowie unter www.my-stuwe.de/datenschutz.</p>"
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "name": "footer",
+          "html": "<p>//&nbsp;&nbsp;----------------------------------------------&nbsp;&nbsp;my-stuwe.de</p>"
+        }
+      ]
+    }
+  ]
+}
