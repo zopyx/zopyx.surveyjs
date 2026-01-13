@@ -38,6 +38,11 @@
           rel="stylesheet"
           type="text/css"
     />
+    <style type="text/css">
+      article > header {
+        display: none;
+      }
+    </style>
 
     <div class="survey-actions"
          tal:condition="view/can_manage_portal_content">

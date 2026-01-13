@@ -15,6 +15,7 @@ from zope.annotation.interfaces import IAnnotations
 import httpx
 
 from .browser.views import FORM_VERSIONS_KEY, RESULTS_KEY, ensure_timezone_aware
+from .content.survey import Counter
 from .converters.cli import SurveyConverter
 
 logger = logging.getLogger(__name__)
@@ -318,6 +319,11 @@ def store_submission_result(context, event):
     form_data = event.form_data or {}
     poll_id = form_data.get("poll_id") or str(uuid.uuid1())
     form_version = form_data.get("form_version")
+    seq_counter = getattr(context, "seq_no", None)
+    if seq_counter is None:
+        seq_counter = Counter()
+        context.seq_no = seq_counter
+    seq_no = seq_counter.increment()
 
     if not form_version:
         form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
@@ -327,6 +333,6 @@ def store_submission_result(context, event):
         form_version = form_versions[-1]["id"] if form_versions else None
 
     annos[RESULTS_KEY][poll_id] = dict(
-        form_data, poll_id=poll_id, form_version=form_version
+        form_data, poll_id=poll_id, form_version=form_version, seq_no=seq_no
     )
     logger.info("Stored survey submission for poll %s", poll_id)

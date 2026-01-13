@@ -72,6 +72,7 @@
                             </th>
                             <th>Date</th>
                             <th>User</th>
+                            <th>#</th>
                             <th>UUID</th>
                             <th>Action</th>
                         </tr>
@@ -81,8 +82,9 @@
                             <td tal:condition="view/is_manager" class="selection-column">
                                 <input type="checkbox" class="result-select" tal:attributes="value item/poll_id" aria-label="Select result" />
                             </td>
-                            <td tal:content="python: view.plone_api.portal.get_localized_time(item['created'], long_format=True)">Date</td>
+                            <td tal:content="python: view.format_created(item['created'])">Date</td>
                             <td tal:content="item/user">User</td>
+                            <td tal:content="python: item.get('seq_no', '')">#</td>
                             <td tal:content="item/poll_id">UUID</td>
                             <td>
                                 <div class="result-actions">

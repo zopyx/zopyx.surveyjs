@@ -11,6 +11,7 @@ from zope.interface import implementer
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from zope import schema
 from BTrees.OOBTree import OOBTree
+from Persistence import Persistent
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zopyx.surveyjs import _
 from plone.autoform import directives as form
@@ -40,6 +41,25 @@ survey_formats_vocabulary = SimpleVocabulary(
         SimpleTerm(value="json", title=_("JSON (.json)")),
     ]
 )
+
+
+class Counter(Persistent):
+    def __init__(self, count=0):
+        self.count = count
+
+    def increment(self):
+        self.count = self.count + 1
+        return self.count
+
+    def _p_resolveConflict(self, oldState, savedState, newState):
+        # Figure out how each state is different:
+        savedDiff = savedState["count"] - oldState["count"]
+        newDiff = newState["count"] - oldState["count"]
+
+        # Apply both sets of changes to old state:
+        oldState["count"] = oldState["count"] + savedDiff + newDiff
+
+        return oldState
 
 
 class ISurvey(model.Schema):
@@ -156,5 +176,6 @@ class Survey(Item):
         annos = IAnnotations(self)
         annos[FORM_VERSIONS_KEY] = OOBTree()
         annos[RESULTS_KEY] = OOBTree()
+        self.seq_no = Counter()
 
         super().__init__(*args, **kw)

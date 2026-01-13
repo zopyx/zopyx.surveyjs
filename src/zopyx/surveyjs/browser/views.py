@@ -64,6 +64,20 @@ def _extract_json_object(raw_text: str) -> str | None:
 
 
 class Views(BrowserView):
+    def format_created(self, created):
+        if isinstance(created, str):
+            value = created.strip()
+            if value.endswith("Z"):
+                value = value[:-1] + "+00:00"
+            try:
+                created = datetime.fromisoformat(value)
+            except ValueError:
+                return created
+        if isinstance(created, datetime):
+            created = ensure_timezone_aware(created).replace(tzinfo=None)
+            return created.replace(microsecond=0).isoformat()
+        return created
+
     def get_form_json(self):
         """JSON for SurveyJS renderer"""
 
@@ -852,11 +866,12 @@ class Views(BrowserView):
             def _matches_query(result):
                 user = (result.get("user") or "").lower()
                 poll_id = (result.get("poll_id") or "").lower()
+                created = (self.format_created(result.get("created")) or "").lower()
                 result_uuid = ""
                 result_payload = result.get("result") or {}
                 if isinstance(result_payload, dict):
                     result_uuid = (result_payload.get("uuid") or "").lower()
-                return q in user or q in poll_id or q in result_uuid
+                return q in user or q in poll_id or q in result_uuid or q in created
 
             all_results = [r for r in all_results if _matches_query(r)]
 
