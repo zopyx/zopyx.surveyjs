@@ -29,6 +29,7 @@ RUN apt-get update \
         libgdk-pixbuf-2.0-0 \
         shared-mime-info \
         fonts-dejavu-core \
+        imagemagick \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
