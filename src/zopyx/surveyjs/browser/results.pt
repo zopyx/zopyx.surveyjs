@@ -113,6 +113,11 @@
                                             aria-label="Table">
                                         Table
                                     </button>
+                                    <a class="btn btn-secondary detail-link"
+                                       tal:attributes="href string:${context/absolute_url}/@@result-detail?poll_id=${item/poll_id}"
+                                       aria-label="Details">
+                                        Details
+                                    </a>
                           <form method="get" action="download-result" class="download-form">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
                             <input type="hidden" name="poll_id"

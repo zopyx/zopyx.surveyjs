@@ -24,6 +24,7 @@ survey_actions_vocabulary = SimpleVocabulary(
     [
         SimpleTerm(value="store", title=_("Store")),
         SimpleTerm(value="mail", title=_("Mail")),
+        SimpleTerm(value="mail-notification", title=_("Mail (notification only)")),
         SimpleTerm(value="post", title=_("POST to endpoint")),
     ]
 )

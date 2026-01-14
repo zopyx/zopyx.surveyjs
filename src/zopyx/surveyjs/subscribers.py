@@ -2,6 +2,7 @@
 """Event subscribers for zopyx.surveyjs."""
 
 import logging
+import os
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -16,6 +17,7 @@ from zope.component import getUtility
 from zope.globalrequest import getRequest
 import httpx
 from plone.registry.interfaces import IRegistry
+from email.message import EmailMessage
 
 from .browser.views import FORM_VERSIONS_KEY, RESULTS_KEY, ensure_timezone_aware
 from .content.survey import Counter
@@ -258,6 +260,79 @@ def send_submission_email(context, event):
             logger.info("Submission mail sent for poll %s to %s", poll_id, email_to)
     except Exception:
         logger.exception("Failed to send submission mail for poll %s", poll_id)
+
+
+def send_submission_notification(context, event):
+    """Send notification-only email when the mail-notification action is enabled."""
+    actions = getattr(context, "actions", set()) or set()
+    if "mail-notification" not in actions:
+        return
+
+    email_to = getattr(context, "email_to", None)
+    if not email_to:
+        logger.info(
+            "Mail notification enabled but no recipient configured for %s",
+            getattr(context, "absolute_url", lambda: repr(context))(),
+        )
+        return
+
+    poll_entry = event.form_data or {}
+    poll_id = poll_entry.get("poll_id") or str(uuid.uuid1())
+    survey_title = getattr(context, "Title", lambda: getattr(context, "title", ""))()
+    detail_url = (
+        f"{getattr(context, 'absolute_url', lambda: '')()}"
+        f"/@@result-detail?poll_id={poll_id}"
+    )
+
+    subject = f"Form submitted ({survey_title})"
+    body = "\n".join(
+        [
+            "Hello,",
+            "",
+            f'A new form submission was received for "{survey_title}".',
+            "You can review the submitted data here:",
+            detail_url,
+            "",
+            "Regards,",
+            "SurveyJS",
+        ]
+    )
+
+    try:
+        from plone import api as plone_api
+
+        portal = plone_api.portal.get()
+        email_sender = getattr(context, "email_sender", None)
+        sender = (
+            email_sender
+            or portal.getProperty("email_from_address", None)
+            or f"surveyjs@{os.uname().nodename}"
+        )
+        recipients = SurveyConverter._normalize_recipients(email_to)
+        if not recipients:
+            logger.info(
+                "Mail notification enabled but no valid recipients for %s",
+                getattr(context, "absolute_url", lambda: repr(context))(),
+            )
+            return
+
+        message = EmailMessage()
+        message["From"] = sender
+        message["To"] = ", ".join(recipients)
+        message["Subject"] = subject
+        message.set_content(body)
+
+        mailhost = plone_api.portal.get_tool("MailHost")
+        mailhost.send(
+            message.as_string(),
+            mto=recipients,
+            mfrom=sender,
+            subject=subject,
+            charset="utf-8",
+        )
+        logger.info("Notification mail sent for poll %s to %s", poll_id, recipients)
+    except Exception:
+        logger.exception("Failed to send notification mail for poll %s", poll_id)
 
 
 def post_submission_payload(context, event):

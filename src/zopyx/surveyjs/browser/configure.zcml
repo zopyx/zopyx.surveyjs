@@ -14,6 +14,13 @@
     template="results.pt"
   />
   <browser:page
+    name="result-detail"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    permission="cmf.ModifyPortalContent"
+    template="result_detail.pt"
+  />
+  <browser:page
     name="view-main"
     for="*"
     permission="zope2.View"

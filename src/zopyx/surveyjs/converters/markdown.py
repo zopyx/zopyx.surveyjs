@@ -31,8 +31,9 @@ def build_markdown(
     if creator or created:
         parts.append("")
     for item in items:
-        parts.append(f"## {item.label} ({item.key})")
+        parts.append(f"**{item.label}** ({item.key})")
         if item.table:
+            parts.append("")
             parts.extend(render_markdown_table(item.table))
         else:
             for val in item.values:

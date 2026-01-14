@@ -909,6 +909,57 @@ class Views(BrowserView):
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
 
+    def result_detail(self):
+        """Build HTML detail view data for a specific poll result."""
+        poll_id = self.request.form.get("poll_id")
+        if not poll_id:
+            return {"error": "Poll ID is required"}
+
+        annos = IAnnotations(self.context)
+        results = annos.get(RESULTS_KEY, {})
+        result_data = results.get(poll_id)
+        if not result_data:
+            return {"error": "Poll result not found"}
+
+        form_json = self._latest_form_json(annos)
+        if not form_json:
+            return {"error": "No form definition available"}
+
+        entry = result_data.get("result", {})
+        creator = result_data.get("user")
+        created = result_data.get("created")
+        created_value = created
+        if isinstance(created, datetime):
+            created_value = ensure_timezone_aware(created).isoformat()
+
+        from ..converters import build_markdown
+        from ..converters.html import build_html
+        from ..converters.cli import SurveyConverter
+
+        with TemporaryDirectory() as tmpdir:
+            tmpdir_path = Path(tmpdir)
+            data_path = tmpdir_path / "data.json"
+            form_path = tmpdir_path / "form.json"
+            output_dir = tmpdir_path / "output"
+
+            data_payload = [self._serialize_result_entry(result_data)]
+            data_path.write_bytes(orjson.dumps(data_payload))
+            form_path.write_bytes(orjson.dumps(form_json))
+
+            converter = SurveyConverter(data_path, form_path, output_dir)
+            items, attachments = converter.collect_items(entry, poll_id)
+            markdown_body = build_markdown(items, poll_id, creator, created_value)
+            html_body = build_html(markdown_body, attachments)
+
+        return {
+            "poll_id": poll_id,
+            "creator": creator or "",
+            "created": self.format_created(created),
+            "seq_no": result_data.get("seq_no", ""),
+            "html": html_body,
+            "formats": self.converter_formats,
+        }
+
     @property
     def is_manager(self):
         """Return True if the current user has the Manager role"""
