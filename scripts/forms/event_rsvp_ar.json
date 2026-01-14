@@ -1,0 +1,67 @@
+{
+  "title": "التسجيل / إلغاء التسجيل للفعالية",
+  "description": "سجّل في الفعالية أو أخبرنا أنك لن تتمكن من الحضور.",
+  "locale": "ar",
+  "pages": [
+    {
+      "name": "main",
+      "title": "خيار المشاركة",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "action",
+          "title": "ماذا تود أن تفعل؟",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "register",
+              "text": "التسجيل للفعالية"
+            },
+            {
+              "value": "unregister",
+              "text": "إلغاء التسجيل (إلغاء حضوري)"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "title": "الاسم الأول",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "lastName",
+          "title": "اسم العائلة",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "البريد الإلكتروني",
+          "inputType": "email",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "numberOfPersons",
+          "title": "عدد الأشخاص الحاضرين",
+          "inputType": "number",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "cancellationName",
+          "title": "اسم الشخص المراد إلغاء تسجيله",
+          "description": "أخبرنا بمن يجب إزالته من قائمة الحضور.",
+          "isRequired": true,
+          "visibleIf": "{action} = 'unregister'"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "title": "フード注文サービスのフィードバック",
+  "description": "最近の体験について1〜5で簡単に評価してください。",
+  "locale": "ja",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "questions",
+  "completedHtml": "<h3>フィードバックありがとうございます！</h3>",
+  "pages": [
+    {
+      "name": "ratings",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "orderEase",
+          "title": "注文はどれくらい簡単でしたか？",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "とても難しい",
+          "maxRateDescription": "とても簡単"
+        },
+        {
+          "type": "rating",
+          "name": "deliverySpeed",
+          "title": "配達スピードにどの程度満足していますか？",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "とても遅い",
+          "maxRateDescription": "とても速い"
+        },
+        {
+          "type": "rating",
+          "name": "foodQuality",
+          "title": "料理の品質はどうでしたか？",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "とても悪い",
+          "maxRateDescription": "とても良い"
+        }
+      ]
+    }
+  ]
+}

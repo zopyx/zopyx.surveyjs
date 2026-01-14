@@ -1,0 +1,243 @@
+{
+  "title": "استهلاك وسائل التواصل الاجتماعي",
+  "description": "عرض توضيحي لميزات SurveyJS باستخدام سياق وسائل التواصل الاجتماعي.",
+  "locale": "ar",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>شكراً لاستكشاف العرض التوضيحي!</h3><p>عدّل هذه الأسئلة ووسّعها لاستبياناتك الخاصة.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "demoIntro",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "basics",
+      "title": "ملفك الشخصي",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "ما اسمك؟",
+          "placeHolder": "أحمد علي"
+        },
+        {
+          "type": "dropdown",
+          "name": "ageRange",
+          "title": "الفئة العمرية",
+          "isRequired": true,
+          "choices": [
+            "أقل من 18",
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65+"
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "primaryPlatforms",
+          "title": "ما المنصات التي تستخدمها أسبوعياً؟",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+            "إنستغرام",
+            "تيك توك",
+            "يوتيوب",
+            "فيسبوك",
+            "لينكدإن",
+            "سناب شات",
+            "إكس / تويتر"
+          ]
+        },
+        {
+          "type": "rating",
+          "name": "engagementLevel",
+          "title": "ما مدى تفاعلك مع وسائل التواصل الاجتماعي بشكل عام؟",
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "غير متفاعل",
+          "maxRateDescription": "متفاعل جداً"
+        }
+      ]
+    },
+    {
+      "name": "time",
+      "title": "الوقت المستغرق",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "dailyMinutes",
+          "title": "متوسط الدقائق يومياً على وسائل التواصل الاجتماعي",
+          "rateMin": 0,
+          "rateMax": 5,
+          "rateStep": 1,
+          "rateValues": [
+            {
+              "value": 0,
+              "text": "أقل من 30"
+            },
+            {
+              "value": 1,
+              "text": "30-60"
+            },
+            {
+              "value": 2,
+              "text": "1-2 ساعة"
+            },
+            {
+              "value": 3,
+              "text": "2-3 ساعات"
+            },
+            {
+              "value": 4,
+              "text": "3-5 ساعات"
+            },
+            {
+              "value": 5,
+              "text": "أكثر من 5 ساعات"
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "timeComments",
+          "title": "متى تتصفح عادةً؟",
+          "placeHolder": "تنقل صباحي، استراحة الغداء، المساء، قبل النوم..."
+        }
+      ]
+    },
+    {
+      "name": "matrixSection",
+      "title": "معدل استخدام المنصات",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "platformFrequency",
+          "title": "كم مرة تتحقق من هذه المنصات؟",
+          "isRequired": true,
+          "columns": [
+            {
+              "value": "rarely",
+              "text": "نادراً"
+            },
+            {
+              "value": "weekly",
+              "text": "أسبوعياً"
+            },
+            {
+              "value": "daily",
+              "text": "يومياً"
+            },
+            {
+              "value": "hourly",
+              "text": "عدة مرات يومياً"
+            }
+          ],
+          "rows": [
+            {
+              "value": "instagram",
+              "text": "إنستغرام"
+            },
+            {
+              "value": "tiktok",
+              "text": "تيك توك"
+            },
+            {
+              "value": "youtube",
+              "text": "يوتيوب"
+            },
+            {
+              "value": "facebook",
+              "text": "فيسبوك"
+            },
+            {
+              "value": "twitter",
+              "text": "إكس / تويتر"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "matrixDynamicSection",
+      "title": "وقت الشاشة حسب الجهاز",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "screenTimeByDevice",
+          "title": "أضف الأجهزة وقدّر وقت الشاشة في أيام الأسبوع/عطلة نهاية الأسبوع.",
+          "isRequired": true,
+          "rowCount": 2,
+          "minRowCount": 1,
+          "addRowText": "إضافة جهاز",
+          "columns": [
+            {
+              "name": "device",
+              "title": "الجهاز",
+              "cellType": "dropdown",
+              "choices": [
+                "هاتف",
+                "جهاز لوحي",
+                "حاسوب محمول",
+                "حاسوب مكتبي",
+                "تلفاز",
+                "أخرى"
+              ]
+            },
+            {
+              "name": "weekday",
+              "title": "أيام الأسبوع (ساعات)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            },
+            {
+              "name": "weekend",
+              "title": "عطلة نهاية الأسبوع (ساعات)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "uploads",
+      "title": "التحميلات والملاحظات",
+      "elements": [
+        {
+          "type": "file",
+          "name": "screenshot",
+          "title": "اختياري: ارفع لقطة شاشة للشاشة الرئيسية أو للخلاصة",
+          "maxSize": 1024000,
+          "imageHeight": 150,
+          "imageWidth": 150
+        },
+        {
+          "type": "comment",
+          "name": "improvementIdeas",
+          "title": "ما الذي يمكن أن يحسّن تجربتك على وسائل التواصل الاجتماعي؟"
+        },
+        {
+          "type": "boolean",
+          "name": "followUp",
+          "title": "هل يمكننا التواصل معك بخصوص هذه الملاحظات؟",
+          "labelTrue": "نعم، يمكنكم التواصل معي",
+          "labelFalse": "لا، أبقِها مجهولة"
+        }
+      ]
+    }
+  ]
+}

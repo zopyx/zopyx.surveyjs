@@ -1,0 +1,111 @@
+{
+  "title": "استبيان الصحة النفسية",
+  "description": "تأمل سريع وخاص حول شعورك هذا الأسبوع.",
+  "locale": "ar",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>شكراً لمشاركتك. إذا كنت بحاجة إلى دعم، يرجى التواصل مع مختص.</h3>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "mood",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "overallMood",
+          "title": "كيف تصف مزاجك العام هذا الأسبوع؟",
+          "isRequired": true,
+          "choices": [
+            "إيجابي جداً",
+            "إيجابي في الغالب",
+            "محايد أو مختلط",
+            "سلبي في الغالب",
+            "سلبي جداً"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "stressLevel",
+          "title": "ما مدى ارتفاع شعورك بالتوتر خلال الأيام القليلة الماضية؟",
+          "isRequired": true,
+          "choices": [
+            "منخفض جداً",
+            "يمكن التحكم به",
+            "ملحوظ لكنه مقبول",
+            "مرتفع",
+            "مرهق جداً"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sleep",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "sleepQuality",
+          "title": "كيف تقيّم جودة نومك مؤخراً؟",
+          "isRequired": true,
+          "choices": [
+            "مُريح ومنتظم",
+            "جيد في الغالب",
+            "غير منتظم",
+            "سيئ",
+            "سيئ جداً"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "supportNetwork",
+          "title": "إلى أي مدى تشعر بالدعم من الأصدقاء أو العائلة أو المجتمع؟",
+          "isRequired": true,
+          "choices": [
+            "مدعوم جداً",
+            "مدعوم",
+            "مدعوم إلى حد ما",
+            "دعم محدود",
+            "لا يوجد دعم"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "focusLevel",
+          "title": "ما مدى سهولة التركيز على المهام اليومية؟",
+          "isRequired": true,
+          "choices": [
+            "سهل جداً",
+            "سهل في الغالب",
+            "مقبول",
+            "صعب",
+            "صعب جداً"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "title": "イベント登録 / 取消",
+  "description": "イベントに登録するか、参加できない場合は取消をお知らせください。",
+  "locale": "ja",
+  "pages": [
+    {
+      "name": "main",
+      "title": "参加の選択",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "action",
+          "title": "どちらをご希望ですか？",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "register",
+              "text": "イベントに登録する"
+            },
+            {
+              "value": "unregister",
+              "text": "登録を取消する"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "title": "名",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "lastName",
+          "title": "姓",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "メールアドレス",
+          "inputType": "email",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "numberOfPersons",
+          "title": "参加人数",
+          "inputType": "number",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "cancellationName",
+          "title": "取消する参加者名",
+          "description": "名簿から削除する方のお名前を入力してください。",
+          "isRequired": true,
+          "visibleIf": "{action} = 'unregister'"
+        }
+      ]
+    }
+  ]
+}

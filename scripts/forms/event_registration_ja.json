@@ -1,0 +1,45 @@
+{
+  "title": "イベント登録",
+  "description": "イベントに登録してください。",
+  "locale": "ja",
+  "showQuestionNumbers": "off",
+  "completedHtml": "<h3>ご登録ありがとうございます！</h3>",
+  "pages": [
+    {
+      "name": "attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "氏名",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "メールアドレス",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "チケット種別",
+          "isRequired": true,
+          "choices": [
+            "一般",
+            "学生",
+            "VIP"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "newsletter",
+          "title": "今後のイベント情報を受け取る",
+          "labelTrue": "はい",
+          "labelFalse": "いいえ"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "title": "ソーシャルメディア利用",
+  "description": "ソーシャルメディアの文脈でSurveyJSの機能を紹介するデモです。",
+  "locale": "ja",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>デモをご覧いただきありがとうございます！</h3><p>ご自身の調査に合わせて質問を調整・拡張してください。</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "demoIntro",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "basics",
+      "title": "プロフィール",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "お名前を教えてください",
+          "placeHolder": "山田 太郎"
+        },
+        {
+          "type": "dropdown",
+          "name": "ageRange",
+          "title": "年齢層",
+          "isRequired": true,
+          "choices": [
+            "18歳未満",
+            "18-24",
+            "25-34",
+            "35-44",
+            "45-54",
+            "55-64",
+            "65以上"
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "primaryPlatforms",
+          "title": "毎週利用するプラットフォームはどれですか？",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+            "Instagram",
+            "TikTok",
+            "YouTube",
+            "Facebook",
+            "LinkedIn",
+            "Snapchat",
+            "X/Twitter"
+          ]
+        },
+        {
+          "type": "rating",
+          "name": "engagementLevel",
+          "title": "ソーシャルメディアへの関与度はどの程度ですか？",
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "低い",
+          "maxRateDescription": "高い"
+        }
+      ]
+    },
+    {
+      "name": "time",
+      "title": "利用時間",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "dailyMinutes",
+          "title": "1日の平均利用時間",
+          "rateMin": 0,
+          "rateMax": 5,
+          "rateStep": 1,
+          "rateValues": [
+            {
+              "value": 0,
+              "text": "30分未満"
+            },
+            {
+              "value": 1,
+              "text": "30-60分"
+            },
+            {
+              "value": 2,
+              "text": "1-2時間"
+            },
+            {
+              "value": 3,
+              "text": "2-3時間"
+            },
+            {
+              "value": 4,
+              "text": "3-5時間"
+            },
+            {
+              "value": 5,
+              "text": "5時間以上"
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "timeComments",
+          "title": "普段いつ閲覧しますか？",
+          "placeHolder": "通勤中、昼休み、夜、就寝前..."
+        }
+      ]
+    },
+    {
+      "name": "matrixSection",
+      "title": "プラットフォーム頻度",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "platformFrequency",
+          "title": "これらのプラットフォームをどのくらいの頻度で確認しますか？",
+          "isRequired": true,
+          "columns": [
+            {
+              "value": "rarely",
+              "text": "ほとんどない"
+            },
+            {
+              "value": "weekly",
+              "text": "週1回程度"
+            },
+            {
+              "value": "daily",
+              "text": "毎日"
+            },
+            {
+              "value": "hourly",
+              "text": "1日に何度も"
+            }
+          ],
+          "rows": [
+            {
+              "value": "instagram",
+              "text": "Instagram"
+            },
+            {
+              "value": "tiktok",
+              "text": "TikTok"
+            },
+            {
+              "value": "youtube",
+              "text": "YouTube"
+            },
+            {
+              "value": "facebook",
+              "text": "Facebook"
+            },
+            {
+              "value": "twitter",
+              "text": "X/Twitter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "matrixDynamicSection",
+      "title": "デバイス別スクリーンタイム",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "screenTimeByDevice",
+          "title": "デバイスを追加し、平日／週末の利用時間を見積もってください。",
+          "isRequired": true,
+          "rowCount": 2,
+          "minRowCount": 1,
+          "addRowText": "デバイスを追加",
+          "columns": [
+            {
+              "name": "device",
+              "title": "デバイス",
+              "cellType": "dropdown",
+              "choices": [
+                "スマートフォン",
+                "タブレット",
+                "ノートPC",
+                "デスクトップ",
+                "テレビ",
+                "その他"
+              ]
+            },
+            {
+              "name": "weekday",
+              "title": "平日（時間）",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            },
+            {
+              "name": "weekend",
+              "title": "週末（時間）",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "uploads",
+      "title": "アップロードとフィードバック",
+      "elements": [
+        {
+          "type": "file",
+          "name": "screenshot",
+          "title": "任意：ホーム画面やフィードのスクリーンショットをアップロード",
+          "maxSize": 1024000,
+          "imageHeight": 150,
+          "imageWidth": 150
+        },
+        {
+          "type": "comment",
+          "name": "improvementIdeas",
+          "title": "ソーシャルメディア体験を改善するには何が必要ですか？"
+        },
+        {
+          "type": "boolean",
+          "name": "followUp",
+          "title": "これらの内容についてご連絡してもよろしいですか？",
+          "labelTrue": "はい、連絡してもよい",
+          "labelFalse": "いいえ、匿名のまま"
+        }
+      ]
+    }
+  ]
+}

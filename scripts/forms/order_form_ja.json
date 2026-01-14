@@ -1,0 +1,161 @@
+{
+  "title": "衣類注文フォーム",
+  "description": "顧客情報と明細行を収集するためのシンプルな衣類注文フォームです。",
+  "locale": "ja",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "衣類注文フォーム",
+      "description": "顧客情報を入力し、アイテム表で各衣類の行を追加・編集・削除してください。",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid",
+          "defaultValue": "6f8b9d2e-2c4a-4f1b-9e2a-7d3a8c1b2f5d"
+        },
+        {
+          "type": "hidden",
+          "name": "created",
+          "defaultValue": "2026-01-11T12:34:56Z"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "title": "名"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "姓"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "メールアドレス"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "電話番号"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "order_items",
+          "title": "注文アイテム",
+          "description": "1つ以上の衣類アイテムを追加してください。行の追加・編集・削除ができます。",
+          "columns": [
+            {
+              "name": "item",
+              "title": "アイテム（例：ドレス、シャツ）",
+              "cellType": "text"
+            },
+            {
+              "name": "fabric",
+              "title": "素材",
+              "cellType": "dropdown",
+              "choices": [
+                "コットン",
+                "シルク",
+                "ウール",
+                "リネン",
+                "ポリエステル"
+              ]
+            },
+            {
+              "name": "color",
+              "title": "色",
+              "cellType": "text"
+            },
+            {
+              "name": "size",
+              "title": "サイズ",
+              "cellType": "dropdown",
+              "choices": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ]
+            },
+            {
+              "name": "quantity",
+              "title": "数量",
+              "cellType": "text"
+            },
+            {
+              "name": "unitPrice",
+              "title": "単価",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "notes",
+              "title": "備考",
+              "cellType": "text"
+            }
+          ],
+          "minRowCount": 1,
+          "addRowText": "アイテムを追加",
+          "removeRowText": "アイテムを削除"
+        },
+        {
+          "type": "radiogroup",
+          "name": "deliveryOption",
+          "title": "配送オプション",
+          "description": "配送方法を選択してください。",
+          "choices": [
+            {
+              "value": "standard",
+              "text": "通常（5〜7日）"
+            },
+            {
+              "value": "express",
+              "text": "速達（2〜3日）"
+            },
+            {
+              "value": "pickup",
+              "text": "ショールームで受け取り"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "extras",
+          "title": "追加オプション",
+          "choices": [
+            "ギフト包装",
+            "特急生産",
+            "縫製ラベルを追加"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "specialInstructions",
+          "title": "特記事項",
+          "description": "注文に関する特別な要望や詳細。"
+        },
+        {
+          "type": "checkbox",
+          "name": "termsAccepted",
+          "title": "利用規約",
+          "description": "注文の利用規約に同意することを確認してください。",
+          "choices": [
+            "利用規約に同意します"
+          ],
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "署名",
+          "description": "注文内容を確認するために署名してください。",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "onPage",
+  "requiredTextOnNormalMessages": false
+}

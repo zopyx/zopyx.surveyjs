@@ -1,0 +1,46 @@
+{
+  "title": "ملاحظات خدمة طلب الطعام",
+  "description": "تقييمات سريعة من 1 إلى 5 حول تجربتك الأخيرة.",
+  "locale": "ar",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "questions",
+  "completedHtml": "<h3>شكراً لملاحظاتك!</h3>",
+  "pages": [
+    {
+      "name": "ratings",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "orderEase",
+          "title": "ما مدى سهولة تقديم طلبك؟",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "صعب جداً",
+          "maxRateDescription": "سهل جداً"
+        },
+        {
+          "type": "rating",
+          "name": "deliverySpeed",
+          "title": "ما مدى رضاك عن سرعة التوصيل؟",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "بطيء جداً",
+          "maxRateDescription": "سريع جداً"
+        },
+        {
+          "type": "rating",
+          "name": "foodQuality",
+          "title": "كيف تقيّم جودة الطعام؟",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "سيئ جداً",
+          "maxRateDescription": "ممتاز"
+        }
+      ]
+    }
+  ]
+}

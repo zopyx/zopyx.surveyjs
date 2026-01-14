@@ -1,0 +1,45 @@
+{
+  "title": "التسجيل للفعالية",
+  "description": "سجّل في الفعالية.",
+  "locale": "ar",
+  "showQuestionNumbers": "off",
+  "completedHtml": "<h3>شكراً لتسجيلك!</h3>",
+  "pages": [
+    {
+      "name": "attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "الاسم الكامل",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "البريد الإلكتروني",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "نوع التذكرة",
+          "isRequired": true,
+          "choices": [
+            "قياسية",
+            "طالب",
+            "كبار الشخصيات"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "newsletter",
+          "title": "أبقِني على اطلاع بالفعاليات القادمة",
+          "labelTrue": "نعم",
+          "labelFalse": "لا"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "title": "メンタルヘルス調査",
+  "description": "今週の気分を手短に、かつ匿名で振り返るための調査です。",
+  "locale": "ja",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>ご協力ありがとうございます。必要な場合は専門家にご相談ください。</h3>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "mood",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "overallMood",
+          "title": "今週の全体的な気分をどのように表しますか？",
+          "isRequired": true,
+          "choices": [
+            "とても良い",
+            "概ね良い",
+            "普通または混在",
+            "あまり良くない",
+            "とても悪い"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "stressLevel",
+          "title": "ここ数日間のストレスの高さはどの程度でしたか？",
+          "isRequired": true,
+          "choices": [
+            "とても低い",
+            "許容範囲",
+            "気になるが問題なし",
+            "高い",
+            "非常に高い"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sleep",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "sleepQuality",
+          "title": "最近の睡眠の質はどうですか？",
+          "isRequired": true,
+          "choices": [
+            "よく眠れている",
+            "概ね良い",
+            "不安定",
+            "悪い",
+            "とても悪い"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "supportNetwork",
+          "title": "友人・家族・コミュニティからどの程度サポートを感じますか？",
+          "isRequired": true,
+          "choices": [
+            "強く感じる",
+            "感じる",
+            "少し感じる",
+            "あまり感じない",
+            "感じない"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "focusLevel",
+          "title": "日々のタスクに集中しやすかったですか？",
+          "isRequired": true,
+          "choices": [
+            "とても簡単",
+            "概ね簡単",
+            "普通",
+            "難しい",
+            "とても難しい"
+          ]
+        }
+      ]
+    }
+  ]
+}

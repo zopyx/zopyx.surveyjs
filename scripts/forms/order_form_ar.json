@@ -1,0 +1,161 @@
+{
+  "title": "نموذج طلب الملابس",
+  "description": "نموذج طلب بسيط للملابس لجمع بيانات العميل وبنود الطلب.",
+  "locale": "ar",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "نموذج طلب الملابس",
+      "description": "أدخل بيانات العميل، واستخدم جدول العناصر لإضافة الصفوف أو تعديلها أو حذفها لكل قطعة.",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid",
+          "defaultValue": "6f8b9d2e-2c4a-4f1b-9e2a-7d3a8c1b2f5d"
+        },
+        {
+          "type": "hidden",
+          "name": "created",
+          "defaultValue": "2026-01-11T12:34:56Z"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "title": "الاسم الأول"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "اسم العائلة"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "البريد الإلكتروني"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "رقم الهاتف"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "order_items",
+          "title": "بنود الطلب",
+          "description": "أضف قطعة واحدة أو أكثر إلى الطلب. يمكنك إضافة صفوف أو تعديلها أو حذفها.",
+          "columns": [
+            {
+              "name": "item",
+              "title": "الصنف (مثل فستان، قميص)",
+              "cellType": "text"
+            },
+            {
+              "name": "fabric",
+              "title": "نوع القماش",
+              "cellType": "dropdown",
+              "choices": [
+                "قطن",
+                "حرير",
+                "صوف",
+                "كتان",
+                "بوليستر"
+              ]
+            },
+            {
+              "name": "color",
+              "title": "اللون",
+              "cellType": "text"
+            },
+            {
+              "name": "size",
+              "title": "المقاس",
+              "cellType": "dropdown",
+              "choices": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ]
+            },
+            {
+              "name": "quantity",
+              "title": "الكمية",
+              "cellType": "text"
+            },
+            {
+              "name": "unitPrice",
+              "title": "سعر الوحدة",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "notes",
+              "title": "ملاحظات",
+              "cellType": "text"
+            }
+          ],
+          "minRowCount": 1,
+          "addRowText": "إضافة صنف",
+          "removeRowText": "إزالة صنف"
+        },
+        {
+          "type": "radiogroup",
+          "name": "deliveryOption",
+          "title": "خيار التوصيل",
+          "description": "اختر طريقة توصيل الطلب.",
+          "choices": [
+            {
+              "value": "standard",
+              "text": "عادي (5-7 أيام)"
+            },
+            {
+              "value": "express",
+              "text": "سريع (2-3 أيام)"
+            },
+            {
+              "value": "pickup",
+              "text": "استلام من صالة العرض"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "extras",
+          "title": "خيارات إضافية",
+          "choices": [
+            "تغليف هدية",
+            "إنتاج عاجل",
+            "إضافة ملصقات الخياطة"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "specialInstructions",
+          "title": "تعليمات خاصة",
+          "description": "أي طلبات أو تفاصيل خاصة للطلب."
+        },
+        {
+          "type": "checkbox",
+          "name": "termsAccepted",
+          "title": "الشروط والأحكام",
+          "description": "تأكيد موافقتك على شروط وأحكام الطلب.",
+          "choices": [
+            "أوافق على الشروط والأحكام"
+          ],
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "التوقيع",
+          "description": "وقّع لتأكيد تفاصيل الطلب.",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "onPage",
+  "requiredTextOnNormalMessages": false
+}
