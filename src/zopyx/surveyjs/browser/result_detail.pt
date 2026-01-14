@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+>
+
+<metal:block fill-slot="content-core">
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/results.css"
+    />
+    <link href="++resource++zopyx.surveyjs/viewer.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+
+    <div class="survey-actions"
+         tal:condition="view/can_manage_portal_content">
+      <a class="survey-action-button action-view"
+         href="${context/absolute_url}/@@viewer">
+        <span i18n:translate="">View</span>
+      </a>
+      <a class="survey-action-button action-editor"
+         href="${context/absolute_url}/@@editor">
+        <span i18n:translate="">Visual Editor</span>
+      </a>
+      <a class="survey-action-button action-results"
+         href="${context/absolute_url}/@@results">
+        <span i18n:translate="">Form Results</span>
+      </a>
+      <a class="survey-action-button action-versions"
+         href="${context/absolute_url}/@@form-versions">
+        <span i18n:translate="">Versions</span>
+      </a>
+      <a class="survey-action-button action-ai"
+         href="${context/absolute_url}/@@ai">
+        <span i18n:translate="">AI Generator</span>
+      </a>
+      <tal:manager tal:condition="view/is_manager">
+        <a class="survey-action-button action-pdf-importer"
+           href="${context/absolute_url}/@@pdf-importer">
+          <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+        </a>
+      </tal:manager>
+      <tal:notmanager tal:condition="not: view/is_manager">
+        <span class="survey-action-button action-pdf-importer is-disabled"
+              aria-disabled="true">
+          <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+          <span class="manager-badge" i18n:translate="">Manager only</span>
+        </span>
+      </tal:notmanager>
+    </div>
+
+    <tal:block define="detail view/result_detail">
+        <tal:block tal:condition="python: detail.get('error')">
+            <div class="storage-warning">
+                <strong>Unable to load submission.</strong>
+                <span tal:content="python: detail.get('error')">Error</span>
+            </div>
+            <p>
+                <a class="btn btn-secondary"
+                   href="${context/absolute_url}/@@results">Back to results</a>
+            </p>
+        </tal:block>
+
+        <tal:block tal:condition="python: not detail.get('error')">
+            <h2 class="page-headline">Submission Details</h2>
+
+            <div id="results-table">
+                <p><strong>Poll ID:</strong> <span tal:content="detail/poll_id">Poll</span></p>
+                <p tal:condition="python: detail.get('seq_no')">
+                    <strong>Sequence:</strong> <span tal:content="python: detail.get('seq_no')">#</span>
+                </p>
+                <p><strong>Created:</strong> <span tal:content="detail/created">Date</span></p>
+                <p><strong>User:</strong> <span tal:content="detail/creator">User</span></p>
+
+                <div class="results-toolbar">
+                    <a class="btn btn-secondary"
+                       href="${context/absolute_url}/@@results">Back to results</a>
+                </div>
+
+                <ul id="downloadActions">
+                    <li tal:repeat="fmt detail/formats">
+                        <a class="btn btn-primary"
+                           tal:attributes="href python: context.absolute_url() + '/download-result?poll_id=' + detail['poll_id'] + '&format=' + fmt['key']"
+                           tal:content="fmt/label">Format</a>
+                    </li>
+                </ul>
+
+                <div class="survey-detail-output"
+                     tal:content="structure detail/html"></div>
+            </div>
+        </tal:block>
+    </tal:block>
+
+</metal:block>
+</html>
