@@ -161,11 +161,13 @@ def configure_mail_from_env():
 
 
 def configure_site_languages():
-    """Set site languages to German + English, with English as default."""
+    """Set site languages to English + German + Arabic + Japanese, with English as default."""
     try:
-        api.portal.set_registry_record("plone.available_languages", ["en", "de"])
+        api.portal.set_registry_record(
+            "plone.available_languages", ["en", "de", "ar", "ja"]
+        )
         api.portal.set_registry_record("plone.default_language", "en")
-        print("Configured site languages: en (default), de")
+        print("Configured site languages: en (default), de, ar, ja")
     except InvalidParameterError:
         print("Language registry records not found; skipping language configuration")
 
@@ -232,6 +234,10 @@ def set_form_intro_html(form_json, element_name, html):
 
 def set_form_language(form_json, language):
     form_json["language"] = language
+
+
+def set_form_locale(form_json, locale):
+    form_json["locale"] = locale
 
 
 def remove_navigation_portlets(context):
@@ -353,6 +359,8 @@ for obj_id in ("events", "news", "Members"):
 # Ensure demo folders
 demos = ensure_folder(site, "demos", "Demos (EN)")
 demos_de = ensure_folder(site, "demo-de", "Demos (DE)")
+demos_ar = ensure_folder(site, "demo-ar", "نماذج تجريبية (AR)")
+demos_ja = ensure_folder(site, "demo-ja", "デモフォーム (JP)")
 
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
@@ -425,6 +433,52 @@ welcome_html += """
     </li>
     <li class="demo-card">
       <h4><a href="demo/demo-de/order-form-de">Bestellformular für Kleidung</a></h4>
+    </li>
+  </ul>
+</section>
+<section dir="rtl">
+  <h3>نماذج تجريبية (AR)</h3>
+  <ul class="demo-grid">
+    <li class="demo-card">
+      <h4><a href="demo/demo-ar/event-registration-ar">التسجيل للفعالية</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ar/event-rsvp-ar">التسجيل / إلغاء التسجيل للفعالية</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ar/mental-health-survey-ar">استبيان الصحة النفسية</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ar/full-demo-ar">عرض استهلاك وسائل التواصل الاجتماعي</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ar/food-feedback-demo-ar">ملاحظات خدمة طلب الطعام</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ar/order-form-ar">نموذج الطلب</a></h4>
+    </li>
+  </ul>
+</section>
+<section>
+  <h3>デモフォーム (JP)</h3>
+  <ul class="demo-grid">
+    <li class="demo-card">
+      <h4><a href="demo/demo-ja/event-registration-ja">イベント登録</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ja/event-rsvp-ja">イベント登録 / 取消</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ja/mental-health-survey-ja">メンタルヘルス調査</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ja/full-demo-ja">ソーシャルメディア利用デモ</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ja/food-feedback-demo-ja">フード注文サービスのフィードバック</a></h4>
+    </li>
+    <li class="demo-card">
+      <h4><a href="demo/demo-ja/order-form-ja">衣類注文フォーム</a></h4>
     </li>
   </ul>
 </section>
@@ -602,6 +656,200 @@ create_demo_survey(
     actions={"store"},
     container=demos_de,
     language="de",
+)
+
+# Arabic demos (duplicates of EN forms)
+event_form_ar = load_form_definition("event_registration_ar")
+set_form_language(event_form_ar, "ar")
+set_form_locale(event_form_ar, "ar")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-ar",
+    title="التسجيل للفعالية",
+    description="سجّل في الفعالية.",
+    form_json=event_form_ar,
+    container=demos_ar,
+    language="ar",
+)
+
+mental_intro_ar = load_intro_text("mental_health_intro_ar")
+mental_form_ar = load_form_definition("mental_health_ar")
+set_form_language(mental_form_ar, "ar")
+set_form_locale(mental_form_ar, "ar")
+set_form_intro_html(mental_form_ar, "introText", mental_intro_ar)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-ar",
+    title="استبيان الصحة النفسية",
+    description="تقييم قصير ومراجعة ذاتية للحالة النفسية.",
+    form_json=mental_form_ar,
+    intro_html=mental_intro_ar,
+    actions={"store"},
+    container=demos_ar,
+    language="ar",
+)
+
+full_demo_intro_ar = load_intro_text("full_demo_intro_ar")
+full_demo_form_ar = load_form_definition("full_demo_ar")
+set_form_language(full_demo_form_ar, "ar")
+set_form_locale(full_demo_form_ar, "ar")
+set_form_intro_html(full_demo_form_ar, "demoIntro", full_demo_intro_ar)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-ar",
+    title="عرض استهلاك وسائل التواصل الاجتماعي",
+    description="عرض شامل لميزات SurveyJS باستخدام سياق وسائل التواصل.",
+    form_json=full_demo_form_ar,
+    intro_html=full_demo_intro_ar,
+    actions={"store"},
+    container=demos_ar,
+    language="ar",
+)
+
+feedback_form_ar = load_form_definition("food_feedback_ar")
+set_form_language(feedback_form_ar, "ar")
+set_form_locale(feedback_form_ar, "ar")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-ar",
+    title="ملاحظات خدمة طلب الطعام",
+    description="قيّم تجربة الطلب بخمس نقاط سريعة.",
+    form_json=feedback_form_ar,
+    intro_html=load_intro_text("food_feedback_intro_ar"),
+    actions={"store"},
+    container=demos_ar,
+    language="ar",
+)
+
+event_rsvp_form_ar = load_form_definition("event_rsvp_ar")
+set_form_language(event_rsvp_form_ar, "ar")
+set_form_locale(event_rsvp_form_ar, "ar")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-ar",
+    title="التسجيل / إلغاء التسجيل للفعالية",
+    description="سجّل أو ألغِ التسجيل في الفعالية.",
+    form_json=event_rsvp_form_ar,
+    actions={"store"},
+    container=demos_ar,
+    language="ar",
+)
+
+order_form_ar = load_form_definition("order_form_ar")
+set_form_language(order_form_ar, "ar")
+set_form_locale(order_form_ar, "ar")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-ar",
+    title="نموذج الطلب",
+    description="جمع بيانات العميل وبنود الطلب.",
+    form_json=order_form_ar,
+    actions={"store"},
+    container=demos_ar,
+    language="ar",
+)
+
+# Japanese demos
+event_form_ja = load_form_definition("event_registration_ja")
+set_form_language(event_form_ja, "ja")
+set_form_locale(event_form_ja, "ja")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-ja",
+    title="イベント登録",
+    description="イベントに登録してください。",
+    form_json=event_form_ja,
+    container=demos_ja,
+    language="ja",
+)
+
+mental_intro_ja = load_intro_text("mental_health_intro_ja")
+mental_form_ja = load_form_definition("mental_health_ja")
+set_form_language(mental_form_ja, "ja")
+set_form_locale(mental_form_ja, "ja")
+set_form_intro_html(mental_form_ja, "introText", mental_intro_ja)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-ja",
+    title="メンタルヘルス調査",
+    description="今週の気分を手短に、かつ匿名で振り返るための調査です。",
+    form_json=mental_form_ja,
+    intro_html=mental_intro_ja,
+    actions={"store"},
+    container=demos_ja,
+    language="ja",
+)
+
+full_demo_intro_ja = load_intro_text("full_demo_intro_ja")
+full_demo_form_ja = load_form_definition("full_demo_ja")
+set_form_language(full_demo_form_ja, "ja")
+set_form_locale(full_demo_form_ja, "ja")
+set_form_intro_html(full_demo_form_ja, "demoIntro", full_demo_intro_ja)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-ja",
+    title="ソーシャルメディア利用デモ",
+    description="ソーシャルメディアの文脈でSurveyJSの機能を紹介するデモです。",
+    form_json=full_demo_form_ja,
+    intro_html=full_demo_intro_ja,
+    actions={"store"},
+    container=demos_ja,
+    language="ja",
+)
+
+feedback_form_ja = load_form_definition("food_feedback_ja")
+set_form_language(feedback_form_ja, "ja")
+set_form_locale(feedback_form_ja, "ja")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-ja",
+    title="フード注文サービスのフィードバック",
+    description="最近の体験について1〜5で簡単に評価してください。",
+    form_json=feedback_form_ja,
+    intro_html=load_intro_text("food_feedback_intro_ja"),
+    actions={"store"},
+    container=demos_ja,
+    language="ja",
+)
+
+event_rsvp_form_ja = load_form_definition("event_rsvp_ja")
+set_form_language(event_rsvp_form_ja, "ja")
+set_form_locale(event_rsvp_form_ja, "ja")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-ja",
+    title="イベント登録 / 取消",
+    description="イベントに登録するか、参加できない場合は取消をお知らせください。",
+    form_json=event_rsvp_form_ja,
+    actions={"store"},
+    container=demos_ja,
+    language="ja",
+)
+
+order_form_ja = load_form_definition("order_form_ja")
+set_form_language(order_form_ja, "ja")
+set_form_locale(order_form_ja, "ja")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-ja",
+    title="衣類注文フォーム",
+    description="顧客情報と明細行を収集するためのシンプルな衣類注文フォームです。",
+    form_json=order_form_ja,
+    actions={"store"},
+    container=demos_ja,
+    language="ja",
 )
 
 # Create a demo user with Editor role
