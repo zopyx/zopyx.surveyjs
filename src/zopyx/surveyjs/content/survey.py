@@ -86,6 +86,8 @@ class ISurvey(model.Schema):
             "email_bcc",
             "email_formats",
             "email_body",
+            "email_notification_subject",
+            "email_notification_body",
         ),
     )
 
@@ -102,25 +104,33 @@ class ISurvey(model.Schema):
 
     email_sender = schema.TextLine(
         title=_("E-Mail sender"),
-        description=_("Email address of the sender"),
+        description=_(
+            "Optional sender address for outgoing mail. If empty, the site default is used."
+        ),
         required=False,
     )
 
     email_to = schema.TextLine(
         title=_("E-Mail recipient"),
-        description=_("Email address to receive results"),
+        description=_(
+            "Primary recipient for notifications and result exports (single address)."
+        ),
         required=False,
     )
 
     email_subject = schema.TextLine(
         title=_("Subject"),
-        description=_("Subject line for notification emails"),
+        description=_(
+            "Subject for result export emails. Supports {poll_id} for the submission ID."
+        ),
         required=False,
     )
 
     email_cc = schema.List(
         title=_("E-Mail CC"),
-        description=_("List of CC recipients (one email per line)"),
+        description=_(
+            "Optional CC recipients for result exports (one address per line)."
+        ),
         value_type=schema.TextLine(
             title=_("CC recipient"),
             description=_("Email address to receive a copy"),
@@ -132,7 +142,9 @@ class ISurvey(model.Schema):
 
     email_bcc = schema.List(
         title=_("E-Mail BCC"),
-        description=_("List of BCC recipients (one email per line)"),
+        description=_(
+            "Optional BCC recipients for result exports (one address per line)."
+        ),
         value_type=schema.TextLine(
             title=_("BCC recipient"),
             description=_("Email address to receive a blind copy"),
@@ -145,7 +157,9 @@ class ISurvey(model.Schema):
     form.widget("email_formats", CheckBoxFieldWidget)
     email_formats = schema.Set(
         title=_("Formats"),
-        description=_("Select export formats to include"),
+        description=_(
+            "Select export formats to attach when the Mail action sends results."
+        ),
         value_type=schema.Choice(vocabulary=survey_formats_vocabulary),
         required=False,
         default=set(),
@@ -153,8 +167,35 @@ class ISurvey(model.Schema):
 
     email_body = schema.Text(
         title=_("Body"),
-        description=_("Body text for notification emails"),
+        description=_(
+            "Body text for result export emails. Supports {created}, {creator}, {formats}."
+        ),
         required=False,
+    )
+
+    email_notification_subject = schema.TextLine(
+        title=_("Subject for notifications"),
+        description=_(
+            "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+        ),
+        required=False,
+        default="Form submitted ({title})",
+    )
+
+    email_notification_body = schema.Text(
+        title=_("Body for notifications"),
+        description=_(
+            "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+        ),
+        required=False,
+        default=(
+            "Hello,\n\n"
+            "A new form submission was received for \"{title}\".\n"
+            "You can review the submitted data here:\n"
+            "{detail_url}\n\n"
+            "Regards,\n"
+            "Privacy Forms Studio\n"
+        ),
     )
 
     post_endpoint_url = schema.URI(

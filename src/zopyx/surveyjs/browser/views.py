@@ -111,6 +111,7 @@ class Views(BrowserView):
             created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
             form_json=json_form,
+            locked=False,
         )
 
         annos[FORM_VERSIONS_KEY][data["id"]] = data
@@ -757,6 +758,7 @@ class Views(BrowserView):
             created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
             form_json=old_version["form_json"],
+            locked=False,
         )
 
         annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
@@ -765,6 +767,66 @@ class Views(BrowserView):
             _("Version restored successfully. A new version has been created."),
             type="info",
         )
+        return self.request.response.redirect(
+            self.context.absolute_url() + "/@@form-versions"
+        )
+
+    def toggle_version_lock(self):
+        """Toggle lock state for a form version."""
+        version_id = self.request.form.get("version_id")
+        if not version_id:
+            plone.api.portal.show_message(_("No version ID provided"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        annos = IAnnotations(self.context)
+        form_versions = annos.get(FORM_VERSIONS_KEY, {})
+        version_data = form_versions.get(version_id)
+        if not version_data:
+            plone.api.portal.show_message(_("Version not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        locked = bool(version_data.get("locked"))
+        version_data["locked"] = not locked
+        form_versions[version_id] = version_data
+
+        message = _("Version locked") if version_data["locked"] else _("Version unlocked")
+        plone.api.portal.show_message(message, type="info")
+        return self.request.response.redirect(
+            self.context.absolute_url() + "/@@form-versions"
+        )
+
+    def delete_version(self):
+        """Delete a form version unless locked."""
+        version_id = self.request.form.get("version_id")
+        if not version_id:
+            plone.api.portal.show_message(_("No version ID provided"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        annos = IAnnotations(self.context)
+        form_versions = annos.get(FORM_VERSIONS_KEY, {})
+        version_data = form_versions.get(version_id)
+        if not version_data:
+            plone.api.portal.show_message(_("Version not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        if version_data.get("locked"):
+            plone.api.portal.show_message(
+                _("Version is locked and cannot be deleted"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        del form_versions[version_id]
+        plone.api.portal.show_message(_("Version deleted"), type="info")
         return self.request.response.redirect(
             self.context.absolute_url() + "/@@form-versions"
         )
@@ -814,6 +876,7 @@ class Views(BrowserView):
             created=datetime.now(timezone.utc),
             user=plone.api.user.get_current().getId(),
             form_json=json_data,
+            locked=False,
         )
 
         annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
@@ -1195,6 +1258,7 @@ class Views(BrowserView):
                 created=datetime.now(timezone.utc),
                 user=plone.api.user.get_current().getId(),
                 form_json=json_form,
+                locked=False,
             )
 
             annos[FORM_VERSIONS_KEY][data["id"]] = data

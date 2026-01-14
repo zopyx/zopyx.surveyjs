@@ -160,6 +160,21 @@
       .btn-group {
         display: flex;
         gap: 6px;
+        align-items: center;
+      }
+      .action-text {
+        min-width: 96px;
+        height: 36px;
+        padding: 0 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
       }
       .btn-sm {
         padding: 6px 12px;
@@ -220,6 +235,47 @@
       .btn-warning:hover {
         background: linear-gradient(145deg, #f59e0b, #d97706);
         border-color: #d97706;
+      }
+      .btn-danger {
+        background: linear-gradient(145deg, #ef4444, #dc2626);
+        border-color: #dc2626;
+        color: #fff;
+      }
+      .btn-danger:hover {
+        background: linear-gradient(145deg, #dc2626, #b91c1c);
+        border-color: #b91c1c;
+      }
+      .btn-lock {
+        background: linear-gradient(145deg, #fbbf24, #f59e0b);
+        border-color: #f59e0b;
+        color: #1f2937;
+      }
+      .btn-lock:hover {
+        background: linear-gradient(145deg, #f59e0b, #d97706);
+        border-color: #d97706;
+      }
+      .btn-unlock {
+        background: linear-gradient(145deg, #34d399, #10b981);
+        border-color: #10b981;
+        color: #0f172a;
+      }
+      .btn-unlock:hover {
+        background: linear-gradient(145deg, #10b981, #059669);
+        border-color: #059669;
+        color: #0b1220;
+      }
+      .lock-badge {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
       }
       .btn-restore {
         display: inline-flex;
@@ -828,22 +884,24 @@
                         <span class="version-id-badge" tal:content="version/id">
                           version-id
                         </span>
+                        <tal:locked tal:condition="python: version.get('locked')">
+                          <span class="lock-badge">Locked</span>
+                        </tal:locked>
                       </td>
                       <td>
                         <div class="btn-group" role="group">
                           <!-- View JSON Button -->
                           <button type="button"
-                                  class="btn btn-sm btn-json view-json-btn"
+                                  class="btn btn-sm btn-json action-text view-json-btn"
                                   tal:attributes="data-version-id version/id"
                                   title="View JSON"
                                   i18n:attributes="title">
-                            <span class="btn-icon">{ }</span>
-                            <span class="btn-label">Preview JSON</span>
+                            Preview JSON
                           </button>
 
                           <!-- Preview Button -->
                           <button type="button"
-                                  class="btn btn-sm btn-primary preview-btn"
+                                  class="btn btn-sm btn-primary action-text preview-btn"
                                   tal:attributes="data-version-id version/id"
                                   title="Preview"
                                   i18n:attributes="title">
@@ -852,27 +910,53 @@
 
                           <!-- Restore Button -->
                           <button type="button"
-                                  class="btn btn-sm btn-restore open-restore-dialog"
+                                  class="btn btn-sm btn-restore action-text open-restore-dialog"
                                   tal:attributes="data-version-id version/id;
                                                   data-created python: version['created'].strftime('%Y-%m-%d %H:%M:%S');
                                                   data-user version/user"
                                   title="Restore to previous version"
                                   aria-label="Restore to previous version">
-                            <span class="btn-icon">&#8635;</span>
-                            <span class="btn-label">Restore</span>
+                            Restore
                           </button>
+
+                          <!-- Lock/Unlock Button -->
+                          <form method="post"
+                                tal:attributes="action string:${context/absolute_url}/@@toggle-version-lock">
+                            <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
+                            <input type="hidden" name="version_id" tal:attributes="value version/id" />
+                            <button type="submit"
+                                    class="btn btn-sm action-text"
+                                    tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
+                                                    title python: 'Unlock' if version.get('locked') else 'Lock';
+                                                    aria-label python: 'Unlock' if version.get('locked') else 'Lock'"
+                                    tal:content="python: 'Unlock' if version.get('locked') else 'Lock'">
+                              Lock
+                            </button>
+                          </form>
 
                           <!-- Download Button -->
                           <form method="get"
                                 tal:attributes="action string:${context/absolute_url}/@@download-version">
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
                             <button type="submit"
-                                    class="btn btn-sm btn-success action-btn"
+                                    class="btn btn-sm btn-success action-text"
                                     title="Download form definition as JSON"
                                     aria-label="Download form definition as JSON">
-                              <img src="++resource++zopyx.surveyjs/icon-download.svg"
-                                   alt="Download form definition as JSON"
-                                   title="Download form definition as JSON" />
+                              Download
+                            </button>
+                          </form>
+
+                          <!-- Delete Button -->
+                          <form method="post"
+                                tal:condition="python: not version.get('locked')"
+                                tal:attributes="action string:${context/absolute_url}/@@delete-version">
+                            <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
+                            <input type="hidden" name="version_id" tal:attributes="value version/id" />
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger action-text"
+                                    title="Delete version"
+                                    aria-label="Delete version">
+                              Delete
                             </button>
                           </form>
                         </div>

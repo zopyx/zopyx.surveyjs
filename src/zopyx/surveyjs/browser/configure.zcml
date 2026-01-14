@@ -163,6 +163,20 @@
     attribute="restore_version"
   />
   <browser:page
+    name="toggle-version-lock"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="toggle_version_lock"
+  />
+  <browser:page
+    name="delete-version"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.Views"
+    attribute="delete_version"
+  />
+  <browser:page
     name="upload-version"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"

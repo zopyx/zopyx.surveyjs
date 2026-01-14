@@ -284,19 +284,20 @@ def send_submission_notification(context, event):
         f"/@@result-detail?poll_id={poll_id}"
     )
 
-    subject = f"Form submitted ({survey_title})"
-    body = "\n".join(
-        [
-            "Hello,",
-            "",
-            f'A new form submission was received for "{survey_title}".',
-            "You can review the submitted data here:",
-            detail_url,
-            "",
-            "Regards,",
-            "SurveyJS",
-        ]
+    subject_template = getattr(context, "email_notification_subject", None) or (
+        "Form submitted ({title})"
     )
+    body_template = getattr(context, "email_notification_body", None) or (
+        "Hello,\n\n"
+        "A new form submission was received for \"{title}\".\n"
+        "You can review the submitted data here:\n"
+        "{detail_url}\n\n"
+        "Regards,\n"
+        "Privacy Forms Studio\n"
+    )
+    mapping = {"title": survey_title, "detail_url": detail_url, "poll_id": poll_id}
+    subject = _interpolate_text(subject_template, mapping) or subject_template
+    body = _interpolate_text(body_template, mapping) or body_template
 
     try:
         from plone import api as plone_api
