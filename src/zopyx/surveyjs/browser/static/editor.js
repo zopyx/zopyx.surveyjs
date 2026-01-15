@@ -14,6 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
     autoSaveEnabled: false,
   };
 
+  if (typeof LICENSE_KEY !== "undefined" && LICENSE_KEY) {
+    if (typeof SurveyCreator !== "undefined" && SurveyCreator.slk) {
+      SurveyCreator.slk(LICENSE_KEY);
+    }
+    if (typeof SurveyCreatorCore !== "undefined" && SurveyCreatorCore.slk) {
+      SurveyCreatorCore.slk(LICENSE_KEY);
+    }
+    if (typeof Survey !== "undefined" && Survey.slk) {
+      Survey.slk(LICENSE_KEY);
+    }
+  }
+
   const creator = new SurveyCreator.SurveyCreator(creatorOptions);
   creator.locale = "de";
   creator.render("surveyContainer");

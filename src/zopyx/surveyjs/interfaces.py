@@ -31,6 +31,13 @@ class IPloneLoggingSettings(Interface):
 class IFormsSettings(IPloneLoggingSettings):
     """Settings for AI-powered form generation."""
 
+    surveyjs_licence_key = schema.TextLine(
+        title="SurveyJS License Key",
+        description="License key for SurveyJS components (optional).",
+        required=False,
+        default="",
+    )
+
     ai_model = schema.TextLine(
         title="AI Model",
         description="The LLM model to use for form generation (e.g., 'gpt-4', 'claude-3-sonnet-20240229')",

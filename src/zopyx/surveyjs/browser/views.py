@@ -1134,6 +1134,20 @@ class Views(BrowserView):
         return plone.api
 
     @property
+    def surveyjs_license_key(self):
+        """Return the configured SurveyJS license key."""
+        try:
+            from plone.registry.interfaces import IRegistry
+            from zope.component import getUtility
+            from ..interfaces import IFormsSettings
+
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFormsSettings, check=False)
+            return (getattr(settings, "surveyjs_licence_key", "") or "").strip()
+        except Exception:
+            return ""
+
+    @property
     def embedding_allowed(self):
         """Check if embedding is allowed for this survey"""
         return getattr(self.context, "allow_embedding", False)

@@ -6,4 +6,5 @@
 
 #surveyContainer {
     height: 100%;
+    border-bottom: 1px solid #bdbdbd;
 }
