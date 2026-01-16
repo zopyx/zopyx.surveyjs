@@ -222,6 +222,21 @@ def test_build_html_inlines_images_and_tables(image_attachment: Attachment) -> N
     assert "data:image/png;base64" in html_body
 
 
+def test_build_html_moves_metadata_into_meta_block() -> None:
+    md_text = (
+        "# Title\n\n"
+        "Created by: Ada\n\n"
+        "Created on: 2024-05-01\n\n"
+        "Body text."
+    )
+    html_body = html.build_html(md_text, [])
+    assert '<div class="meta">' in html_body
+    assert "Created by:</strong> Ada" in html_body
+    assert "Created on:</strong> 2024-05-01" in html_body
+    assert "Created by: Ada" not in html_body
+    assert "Created on: 2024-05-01" not in html_body
+
+
 def test_write_html_wraps_body(tmp_path: Path, image_attachment: Attachment) -> None:
     dest = tmp_path / "html" / "survey.html"
     html.write_html("# Title", [image_attachment], dest)

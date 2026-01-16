@@ -6,7 +6,7 @@ from typing import Any, List
 import unittest
 from unittest.mock import patch
 
-from conver_result import (
+from zopyx.surveyjs.converters import (
     Attachment,
     SurveyConverter,
     parse_args,
@@ -111,12 +111,12 @@ class SurveyConverterTests(unittest.TestCase):
         self.assertEqual(args.data, "/tmp/custom-data.json")
         self.assertEqual(args.form, "/tmp/custom-form.json")
 
-    @patch("conver_result.smtplib.SMTP")
+    @patch("zopyx.surveyjs.converters.cli.smtplib.SMTP")
     def test_run_can_email_generated_files(self, smtp_mock: Any) -> None:
         formats = {"text"}
         with (
             patch.dict("os.environ", {}, clear=True),
-            patch("conver_result.load_dotenv"),
+            patch("zopyx.surveyjs.converters.cli.load_dotenv"),
         ):
             self.converter.run(formats, email_recipient="recipient@example.com")
 
@@ -130,7 +130,7 @@ class SurveyConverterTests(unittest.TestCase):
         names = {att.get_filename() for att in attachments}
         self.assertEqual(names, {"test-123.txt", "pixel.png"})
 
-    @patch("conver_result.smtplib.SMTP")
+    @patch("zopyx.surveyjs.converters.cli.smtplib.SMTP")
     def test_send_email_uses_env_configuration(self, smtp_mock: Any) -> None:
         attachment = self.output_dir / "dummy.txt"
         attachment.parent.mkdir(parents=True, exist_ok=True)
@@ -169,7 +169,7 @@ class SurveyConverterTests(unittest.TestCase):
         self.assertEqual(len(attachments), 1)
         self.assertEqual(attachments[0].get_filename(), "dummy.txt")
 
-    @patch("conver_result.smtplib.SMTP")
+    @patch("zopyx.surveyjs.converters.cli.smtplib.SMTP")
     def test_send_email_supports_cc_and_bcc(self, smtp_mock: Any) -> None:
         attachment = self.output_dir / "dummy.txt"
         attachment.parent.mkdir(parents=True, exist_ok=True)

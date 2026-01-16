@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := privacyforms-demo
@@ -35,3 +35,10 @@ podman-stop:
 
 podman-logs:
 	podman logs -f $(CONTAINER_NAME)
+
+test:
+	bin/zopepy -m coverage run -m pytest \
+		src/zopyx/surveyjs/converters/tests/test_converters.py \
+		src/zopyx/surveyjs/schema/tests/test_converter.py \
+		src/zopyx/surveyjs/schema/tests/test_converters_formats.py
+	bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py'
