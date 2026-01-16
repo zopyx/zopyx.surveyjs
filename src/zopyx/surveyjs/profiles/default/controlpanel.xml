@@ -4,7 +4,7 @@
         i18n:domain="zopyx.surveyjs">
 
   <configlet
-    title="Forms"
+    title="Privacy Forms Studio"
     action_id="zopyx.surveyjs.forms"
     appId="zopyx.surveyjs.forms"
     category="Products"
