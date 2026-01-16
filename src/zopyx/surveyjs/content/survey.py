@@ -86,8 +86,23 @@ class ISurvey(model.Schema):
             "email_bcc",
             "email_formats",
             "email_body",
+        ),
+    )
+
+    fieldset(
+        "mail_notifications",
+        label=_("Mail notifications"),
+        fields=(
             "email_notification_subject",
             "email_notification_body",
+        ),
+    )
+
+    fieldset(
+        "form_settings",
+        label=_("Form Settings"),
+        fields=(
+            "validation_enabled",
         ),
     )
 
@@ -100,6 +115,13 @@ class ISurvey(model.Schema):
         value_type=schema.Choice(vocabulary=survey_actions_vocabulary),
         required=True,
         default={"store"},
+    )
+
+    validation_enabled = schema.Bool(
+        title=_("Enable validation"),
+        description=_("Validate submissions against the form schema before saving."),
+        required=False,
+        default=False,
     )
 
     email_sender = schema.TextLine(

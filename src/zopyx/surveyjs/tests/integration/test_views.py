@@ -107,6 +107,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(data["pages"][0]["elements"][0]["name"], "q1")
 
     def test_save_poll_stores_when_enabled(self) -> None:
+        self._add_version()
         req = self._make_request(form={"pollResult": orjson.dumps({"q1": "yes"})})
         view = Views(self.survey, req)
         view.save_poll()
@@ -117,6 +118,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
 
     def test_save_poll_skips_storage_when_disabled(self) -> None:
         self.survey.actions = {"mail"}
+        self._add_version()
         req = self._make_request(form={"pollResult": orjson.dumps({"q1": "no"})})
         view = Views(self.survey, req)
         view.save_poll()
@@ -124,6 +126,34 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(len(annos[RESULTS_KEY]), 0)
         body = orjson.loads(req.response.getBody())
         self.assertFalse(body["stored"])
+
+    def test_save_poll_rejects_unknown_field(self) -> None:
+        self._add_version()
+        req = self._make_request(form={"pollResult": orjson.dumps({"q2": "no"})})
+        Views(self.survey, req).save_poll()
+        self.assertEqual(req.response.getStatus(), 400)
+        body = orjson.loads(req.response.getBody())
+        self.assertEqual(body["error"], "unknown_field")
+        self.assertEqual(body["field"], "q2")
+
+    def test_save_poll_rejects_missing_required(self) -> None:
+        self._add_version(
+            payload={
+                "pages": [
+                    {
+                        "elements": [
+                            {"type": "text", "name": "q1", "isRequired": True}
+                        ]
+                    }
+                ]
+            }
+        )
+        req = self._make_request(form={"pollResult": orjson.dumps({})})
+        Views(self.survey, req).save_poll()
+        self.assertEqual(req.response.getStatus(), 400)
+        body = orjson.loads(req.response.getBody())
+        self.assertEqual(body["error"], "missing_required")
+        self.assertEqual(body["field"], "q1")
 
     def test_download_result_json(self) -> None:
         self._add_version()

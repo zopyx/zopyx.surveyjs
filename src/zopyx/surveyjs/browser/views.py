@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 import subprocess
 import csv
 import io
+import hashlib
 import logging
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -16,6 +17,7 @@ import httpx
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
+from ..validation import MAX_JSON_BYTES, MAX_REQUEST_BYTES, validate_submission
 
 import orjson
 import uuid
@@ -122,7 +124,74 @@ class Views(BrowserView):
         self.request.response.write(orjson.dumps(result))
 
     def save_poll(self):
-        poll_result = orjson.loads(self.request.form["pollResult"])
+        raw_poll = self.request.form.get("pollResult")
+        if raw_poll is None:
+            logger.warning("Survey save failed: status=400 reason=missing_poll_result")
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {"isSuccess": False, "error": "missing_poll_result"}
+                )
+            )
+            return
+
+        if isinstance(raw_poll, bytes):
+            raw_bytes = raw_poll
+        elif isinstance(raw_poll, str):
+            raw_bytes = raw_poll.encode("utf-8")
+        else:
+            logger.warning("Survey save failed: status=400 reason=invalid_payload")
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "invalid_payload"})
+            )
+            return
+
+        content_length = self.request.getHeader("Content-Length")
+        if content_length:
+            try:
+                if int(content_length) > MAX_REQUEST_BYTES:
+                    logger.warning("Survey save failed: status=413 reason=request_too_large")
+                    self.request.response.setStatus(413)
+                    self.request.response.setHeader("content-type", "application/json")
+                    self.request.response.write(
+                        orjson.dumps(
+                            {"isSuccess": False, "error": "request_too_large"}
+                        )
+                    )
+                    return
+            except ValueError:
+                pass
+        elif len(raw_bytes) > MAX_REQUEST_BYTES:
+            logger.warning("Survey save failed: status=413 reason=request_too_large")
+            self.request.response.setStatus(413)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "request_too_large"})
+            )
+            return
+
+        if len(raw_bytes) > MAX_JSON_BYTES:
+            logger.warning("Survey save failed: status=413 reason=json_too_large")
+            self.request.response.setStatus(413)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "json_too_large"})
+            )
+            return
+
+        try:
+            poll_result = orjson.loads(raw_bytes)
+        except orjson.JSONDecodeError:
+            logger.warning("Survey save failed: status=400 reason=invalid_json")
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "invalid_json"})
+            )
+            return
 
         actions = getattr(self.context, "actions", set()) or set()
         annos = IAnnotations(self.context)
@@ -134,6 +203,49 @@ class Views(BrowserView):
             form_versions, key=lambda x: ensure_timezone_aware(x["created"])
         )
         form_version_id = form_versions[-1]["id"] if form_versions else None
+        form_json = form_versions[-1]["form_json"] if form_versions else {}
+
+        if not form_json:
+            logger.warning("Survey save failed: status=400 reason=missing_form_schema")
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "missing_form_schema"})
+            )
+            return
+
+        submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
+        if getattr(self.context, "validation_enabled", False):
+            validation = validate_submission(form_json, poll_result)
+            if not validation.ok:
+                logger.warning(
+                    "Survey validation failed: ok=%s reason=%s field=%s size=%s submission=%s",
+                    validation.ok,
+                    validation.reason,
+                    validation.field,
+                    len(raw_bytes),
+                    submission_hash,
+                )
+                payload = {"isSuccess": False, "error": validation.reason}
+                if validation.field:
+                    payload["field"] = validation.field
+                self.request.response.setStatus(validation.status)
+                self.request.response.setHeader("content-type", "application/json")
+                self.request.response.write(orjson.dumps(payload))
+                return
+            logger.info(
+                "Survey validation ok: ok=%s size=%s submission=%s",
+                validation.ok,
+                len(raw_bytes),
+                submission_hash,
+            )
+        else:
+            logger.info(
+                "Survey validation skipped: enabled=%s size=%s submission=%s",
+                False,
+                len(raw_bytes),
+                submission_hash,
+            )
 
         data = dict(
             poll_id=str(uuid.uuid1()),
