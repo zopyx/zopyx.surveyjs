@@ -14,7 +14,7 @@
 
 ## Threat Model (Typical Abuse)
 - High-volume scripted submissions (spam, data poisoning).
-- Credential-stuffing for authenticated forms (if applicable).
+- Credential-stuffing for authenticated forms (out of scope for bot control).
 - Replay attacks / token reuse.
 - Form scraping and mass submission from headless browsers.
 
@@ -44,7 +44,6 @@
 
 ### 4) Administrative Controls
 - **Blocklists/allowlists**: IP, CIDR, country, ASN, or email domain.
-- **Manual review queue**: suspicious submissions flagged for approval.
 - **Audit log**: reason codes and risk scores for each submission.
 
 ## Risk Scoring Model
@@ -71,7 +70,7 @@ Decision policy (configurable):
 - `bot_control.audit` (enable logging + retention)
 
 ## UI/UX Concepts
-- Admin UI: “Bot Protection” panel per form with presets (Low/Medium/High).
+- Admin UI: “Bot Protection” panel per **public** form with presets (Low/Medium/High).
 - End-user: only see a challenge when risk is high.
 - Provide clear error messaging and fallback (retry, contact link).
 
@@ -90,8 +89,10 @@ Decision policy (configurable):
 2. **Phase 2**: Risk scoring + adaptive challenges.
 3. **Phase 3**: Optional third-party captcha integrations.
 
-## Open Questions
-- Which forms are public vs. authenticated?
-- Should submissions be queued for manual approval?
-- Required compatibility with headless or API-based submissions?
+## Decisions / Constraints
+- **Authenticated surveys**: no bot control needed by default.
+- **Public surveys**: bot control optional and configurable.
+- **No manual approval**: enforcement must be accept/log/challenge/reject only.
 
+## Open Questions
+- Required compatibility with headless or API-based submissions?
