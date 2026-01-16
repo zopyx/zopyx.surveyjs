@@ -49,5 +49,5 @@ jobs:
       - name: Run buildout
         run: .venv/bin/buildout
 
-      - name: Run tests
+      - name: Run unit tests
         run: make test
