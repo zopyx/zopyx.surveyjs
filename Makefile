@@ -38,6 +38,7 @@ podman-logs:
 
 test:
 	uv pip install pytest-coverage pytest
+	bin/test -s zopyx.surveyjs
 	bin/zopepy -m coverage run -m pytest \
 		src/zopyx/surveyjs/converters/tests/test_converters.py \
 		src/zopyx/surveyjs/schema/tests/test_converter.py \
