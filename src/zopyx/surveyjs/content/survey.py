@@ -9,6 +9,7 @@ from zope.interface import implementer
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from z3c.form.browser.textarea import TextAreaFieldWidget
 from zope import schema
 from BTrees.OOBTree import OOBTree
 from Persistence import Persistent
@@ -107,10 +108,14 @@ class ISurvey(model.Schema):
     )
 
     form.widget("actions", CheckBoxFieldWidget)
+    form.widget("email_body", TextAreaFieldWidget, rows=10, cols=80)
     actions = schema.Set(
         title=_("Actions"),
         description=_(
-            "Select how to handle survey submissions (multiple options possible)"
+            "Select how to handle survey submissions (multiple options possible). "
+            "Store saves the submission in Plone; Mail sends exported results as attachments; "
+            "Mail (notification only) sends a notification without attachments; "
+            "POST to endpoint forwards the submission payload to the configured HTTP endpoint."
         ),
         value_type=schema.Choice(vocabulary=survey_actions_vocabulary),
         required=True,
@@ -118,8 +123,11 @@ class ISurvey(model.Schema):
     )
 
     validation_enabled = schema.Bool(
-        title=_("Enable validation"),
-        description=_("Validate submissions against the form schema before saving."),
+        title=_("Enable validation (experimental)"),
+        description=_(
+            "Validate submissions against the form schema before saving. "
+            "Experimental: may reject valid submissions on complex forms."
+        ),
         required=False,
         default=False,
     )
@@ -127,7 +135,7 @@ class ISurvey(model.Schema):
     email_sender = schema.TextLine(
         title=_("E-Mail sender"),
         description=_(
-            "Optional sender address for outgoing mail. If empty, the site default is used."
+            "Sender address for outgoing mail. Mandatory when the Mail action is selected."
         ),
         required=False,
     )
@@ -135,7 +143,8 @@ class ISurvey(model.Schema):
     email_to = schema.TextLine(
         title=_("E-Mail recipient"),
         description=_(
-            "Primary recipient for notifications and result exports (single address)."
+            "Primary recipient for notifications and result exports (single address). "
+            "Mandatory when the Mail action is selected."
         ),
         required=False,
     )
@@ -143,7 +152,8 @@ class ISurvey(model.Schema):
     email_subject = schema.TextLine(
         title=_("Subject"),
         description=_(
-            "Subject for result export emails. Supports {poll_id} for the submission ID."
+            "Subject for result export emails. Supports {poll_id} for the submission ID. "
+            "Mandatory when the Mail action is selected."
         ),
         required=False,
     )
