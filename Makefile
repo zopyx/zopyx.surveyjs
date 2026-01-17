@@ -37,11 +37,11 @@ podman-logs:
 	podman logs -f $(CONTAINER_NAME)
 
 test:
-	uv pip install pytest-coverage pytest
-	bin/test -s zopyx.surveyjs
-	bin/zopepy -m coverage run -m pytest \
+	PYTHONWARNINGS=ignore uv pip install pytest-coverage pytest
+	PYTHONWARNINGS=ignore bin/test -s zopyx.surveyjs
+	PYTHONWARNINGS=ignore bin/zopepy -m coverage run -m pytest \
 		src/zopyx/surveyjs/converters/tests/test_converters.py \
 		src/zopyx/surveyjs/schema/tests/test_converter.py \
 		src/zopyx/surveyjs/schema/tests/test_converters_formats.py \
 		src/zopyx/surveyjs/tests/test_validation.py
-	bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py,src/zopyx/surveyjs/validation.py'
+	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py,src/zopyx/surveyjs/validation.py'
