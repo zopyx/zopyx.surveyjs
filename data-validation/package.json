@@ -1,0 +1,12 @@
+{
+  "name": "surveyjs-validation-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node validate.mjs",
+    "validate:bun": "bun validate.mjs"
+  },
+  "dependencies": {
+    "survey-core": "^1.11.3"
+  }
+}
