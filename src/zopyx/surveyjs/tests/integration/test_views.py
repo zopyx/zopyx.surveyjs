@@ -114,6 +114,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         view.save_poll()
         annos = IAnnotations(self.survey)
         self.assertEqual(len(annos[RESULTS_KEY]), 1)
+        stored = next(iter(annos[RESULTS_KEY].values()))
+        self.assertEqual(stored.get("site_id"), self.portal.getId())
         body = orjson.loads(req.response.getBody())
         self.assertTrue(body["isSuccess"])
 

@@ -135,6 +135,6 @@ Global settings (Site Setup > Forms)
    * - Prompt after
      - Text appended to the AI prompt.
    * - Result storage backend
-     - Storage backend for survey results (``zodb`` or ``sqlite``).
+     - Storage backend for survey results (``zodb`` or ``sqlite``). SQLite stores ``site_id`` and survey id per row.
    * - SQLite path
-     - Filesystem path for the SQLite results database.
+     - Filesystem path for the SQLite results database. The file can be shared by multiple Plone sites.

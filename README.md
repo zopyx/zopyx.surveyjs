@@ -104,7 +104,9 @@ Actions are evaluated for every submission and can be combined.
 
 ### Storage Backends
 
-Survey results can be stored in the ZODB (default) or in SQLite via SQLModel. To migrate existing ZODB results to SQLite, run a Zope/Plone console script and call:
+Survey results can be stored in the ZODB (default) or in SQLite via SQLModel. SQLite rows include the Plone site id (`site.getId()`) and the survey identifier to support multi-site deployments on the same DB file.
+
+To migrate existing ZODB results to SQLite, run a Zope/Plone console script and call:
 
 ```python
 from zopyx.surveyjs.storage_migration import migrate_zodb_results_to_sqlite

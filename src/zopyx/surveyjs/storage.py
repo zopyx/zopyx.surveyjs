@@ -12,6 +12,7 @@ from sqlmodel import Field, SQLModel, Session, create_engine, select
 from sqlalchemy import Column, Text
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
+from zope.component.hooks import getSite
 from plone.registry.interfaces import IRegistry
 
 from .constants import RESULTS_KEY
@@ -45,6 +46,25 @@ def _survey_storage_key(context) -> str:
         return "/".join(context.getPhysicalPath())
     except Exception:
         return repr(context)
+
+
+def _get_site_id(context) -> str:
+    try:
+        site = getSite()
+        if site is not None:
+            return site.getId()
+    except Exception:
+        pass
+    try:
+        site = context.getSite()
+        if site is not None:
+            return site.getId()
+    except Exception:
+        pass
+    try:
+        return context.getId()
+    except Exception:
+        return ""
 
 
 def _get_sqlite_path() -> str:
@@ -118,7 +138,9 @@ class ZODBResultStorage(ResultStorage):
         results = self._results_tree(context)
         poll_id = form_data.get("poll_id") or str(uuid.uuid1())
         created = _normalize_datetime(form_data.get("created"))
-        entry = dict(form_data, poll_id=poll_id, created=created)
+        entry = dict(
+            form_data, poll_id=poll_id, created=created, site_id=_get_site_id(context)
+        )
         results[poll_id] = entry
         return poll_id
 
@@ -156,6 +178,7 @@ class SurveyResult(SQLModel, table=True):
     __tablename__ = "survey_results"
 
     poll_id: str = Field(primary_key=True)
+    site_id: str = Field(index=True)
     survey_id: str = Field(index=True)
     created: datetime = Field(index=True)
     payload_size: int = Field(default=0)
@@ -173,7 +196,8 @@ class SQLiteResultStorage(ResultStorage):
     def store_result(self, context, form_data: dict) -> str:
         poll_id = form_data.get("poll_id") or str(uuid.uuid1())
         created = _normalize_datetime(form_data.get("created"))
-        entry = dict(form_data, poll_id=poll_id, created=created)
+        site_id = _get_site_id(context)
+        entry = dict(form_data, poll_id=poll_id, created=created, site_id=site_id)
         survey_id = _survey_storage_key(context)
         payload_bytes = orjson.dumps(entry.get("result") or {})
         entry_payload = dict(entry)
@@ -183,6 +207,7 @@ class SQLiteResultStorage(ResultStorage):
         with self._session() as session:
             existing = session.get(SurveyResult, poll_id)
             if existing:
+                existing.site_id = site_id
                 existing.survey_id = survey_id
                 existing.created = created
                 existing.payload_size = len(payload_bytes)
@@ -191,6 +216,7 @@ class SQLiteResultStorage(ResultStorage):
                 session.add(
                     SurveyResult(
                         poll_id=poll_id,
+                        site_id=site_id,
                         survey_id=survey_id,
                         created=created,
                         payload_size=len(payload_bytes),
@@ -201,32 +227,38 @@ class SQLiteResultStorage(ResultStorage):
         return poll_id
 
     def get_result(self, context, poll_id: str) -> Optional[dict]:
+        site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
             row = session.get(SurveyResult, poll_id)
-            if not row or row.survey_id != survey_id:
+            if not row or row.survey_id != survey_id or row.site_id != site_id:
                 return None
             return self._row_to_entry(row)
 
     def list_results(self, context) -> List[dict]:
+        site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
             stmt = (
                 select(SurveyResult)
-                .where(SurveyResult.survey_id == survey_id)
+                .where(
+                    SurveyResult.survey_id == survey_id,
+                    SurveyResult.site_id == site_id,
+                )
                 .order_by(SurveyResult.created.desc())
             )
             rows = session.exec(stmt).all()
         return [self._row_to_entry(row) for row in rows]
 
     def delete_results(self, context, poll_ids: Iterable[str]) -> Dict[str, List[str]]:
+        site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         deleted: List[str] = []
         missing: List[str] = []
         with self._session() as session:
             for pid in poll_ids:
                 row = session.get(SurveyResult, pid)
-                if row and row.survey_id == survey_id:
+                if row and row.survey_id == survey_id and row.site_id == site_id:
                     session.delete(row)
                     deleted.append(pid)
                 else:
@@ -235,18 +267,26 @@ class SQLiteResultStorage(ResultStorage):
         return {"deleted": deleted, "missing": missing}
 
     def clear_results(self, context) -> None:
+        site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
-            stmt = select(SurveyResult).where(SurveyResult.survey_id == survey_id)
+            stmt = select(SurveyResult).where(
+                SurveyResult.survey_id == survey_id,
+                SurveyResult.site_id == site_id,
+            )
             rows = session.exec(stmt).all()
             for row in rows:
                 session.delete(row)
             session.commit()
 
     def count_results(self, context) -> int:
+        site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
-            stmt = select(SurveyResult).where(SurveyResult.survey_id == survey_id)
+            stmt = select(SurveyResult).where(
+                SurveyResult.survey_id == survey_id,
+                SurveyResult.site_id == site_id,
+            )
             rows = session.exec(stmt).all()
         return len(rows)
 
@@ -256,7 +296,8 @@ class SQLiteResultStorage(ResultStorage):
         except orjson.JSONDecodeError:
             entry = {}
         entry["poll_id"] = row.poll_id
-        entry["created"] = row.created
+        entry["site_id"] = row.site_id
+        entry["created"] = ensure_timezone_aware(row.created)
         return entry
 
 

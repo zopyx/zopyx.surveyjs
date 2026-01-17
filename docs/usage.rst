@@ -28,6 +28,7 @@ Storage backends
 ================
 
 Survey results can be stored in the ZODB (default) or in SQLite using SQLModel.
-Switch the backend in the Forms control panel. To migrate existing ZODB results
-to SQLite, call ``migrate_zodb_results_to_sqlite(context)`` from a Zope/Plone
-console script.
+SQLite rows include the Plone ``site_id`` and survey identifier so a single
+SQLite file can serve multiple sites. Switch the backend in the Forms control
+panel. To migrate existing ZODB results to SQLite, call
+``migrate_zodb_results_to_sqlite(context)`` from a Zope/Plone console script.
