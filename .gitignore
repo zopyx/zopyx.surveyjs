@@ -33,3 +33,4 @@ reports/
 venv/
 # excludes
 .idea
+docs/_build
