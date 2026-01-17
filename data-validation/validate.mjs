@@ -1,3 +1,5 @@
+// SurveyJS CLI validator used by Bun/Deno builds.
+// Runs SurveyJS native validation rules against a schema + response JSON pair.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -5,14 +7,19 @@ import surveyCore from "survey-core";
 
 const { Model } = surveyCore;
 
+// For compiled binaries, process.execPath points to the binary itself.
+// For direct execution, import.meta.url points to this module.
 const executionDirectory = path.dirname(process.execPath);
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 
+// Print a hard error and stop execution.
 function fail(message) {
   console.error(message);
   process.exit(1);
 }
 
+// Resolve an input path by trying a few likely base directories.
+// This helps both direct runs and compiled binaries find local assets.
 function resolveInputPath(inputPath) {
   if (path.isAbsolute(inputPath)) {
     return inputPath;
@@ -27,6 +34,7 @@ function resolveInputPath(inputPath) {
   return candidates.find((candidate) => fs.existsSync(candidate)) ?? candidates[0];
 }
 
+// Read a JSON file after resolving its location.
 function readJsonFile(inputPath) {
   const resolvedPath = resolveInputPath(inputPath);
   if (!fs.existsSync(resolvedPath)) {
@@ -43,12 +51,15 @@ function readJsonFile(inputPath) {
   return JSON.parse(fs.readFileSync(resolvedPath, "utf8"));
 }
 
+// Output is always resolved relative to the current working directory
+// so callers control where results are written.
 function resolveOutputPath(outputPath) {
   return path.isAbsolute(outputPath)
     ? outputPath
     : path.resolve(process.cwd(), outputPath);
 }
 
+// Minimal argument parser with required values and help output.
 function parseArgs(argv) {
   const options = {
     schemaJson: "./survey.json",
@@ -105,6 +116,7 @@ function parseArgs(argv) {
   return options;
 }
 
+// Extract per-question error text after SurveyJS validation.
 function collectErrors(survey) {
   const errors = [];
 
@@ -121,6 +133,10 @@ function collectErrors(survey) {
   return errors;
 }
 
+// Primary validation flow:
+// 1) Load schema + response JSON.
+// 2) Build SurveyJS model and validate.
+// 3) Persist validation outcome and exit code.
 function runValidation() {
   const options = parseArgs(process.argv.slice(2));
   const surveyJson = readJsonFile(options.schemaJson);
@@ -144,6 +160,7 @@ function runValidation() {
     console.error("Validation failed.");
   }
 
+  // Keep stdout clean; rely on exit code and output JSON for consumers.
   process.exitCode = isValid ? 0 : 1;
 }
 
