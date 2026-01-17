@@ -125,7 +125,7 @@
                             <select name="format">
                                 <option tal:repeat="fmt view/converter_formats"
                                         tal:attributes="value fmt/key"
-                                                    tal:content="fmt/label">
+                                                    tal:content="fmt/short_label">
                                                 Format
                                             </option>
                                         </select>

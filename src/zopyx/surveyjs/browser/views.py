@@ -4,6 +4,8 @@ from string import Formatter
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import subprocess
+import platform
+import time
 import csv
 import io
 import hashlib
@@ -67,6 +69,109 @@ def _extract_json_object(raw_text: str) -> str | None:
     if start == -1 or end == -1 or end <= start:
         return None
     return raw_text[start : end + 1]
+
+
+def _resolve_validation_binary() -> Path | None:
+    binary_suffix = None
+    system_name = platform.system().lower()
+    if system_name == "darwin":
+        binary_suffix = "macos"
+    elif system_name == "linux":
+        binary_suffix = "linux"
+    if not binary_suffix:
+        return None
+
+    for parent in Path(__file__).resolve().parents:
+        dist_dir = parent / "data-validation" / "dist"
+        if dist_dir.is_dir():
+            candidate = dist_dir / f"survey-validate-{binary_suffix}-deno"
+            if candidate.exists():
+                return candidate
+    return None
+
+
+def _run_external_validation(form_json, poll_result, submission_hash: str):
+    binary_path = _resolve_validation_binary()
+    if not binary_path:
+        logger.info(
+            "Survey external validation missing binary: submission=%s",
+            submission_hash,
+        )
+        return dict(ok=False, status=500, reason="external_validator_missing")
+
+    with TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        schema_path = tmpdir_path / "schema.json"
+        data_path = tmpdir_path / "data.json"
+        result_path = tmpdir_path / "validation.json"
+
+        schema_bytes = orjson.dumps(form_json)
+        data_bytes = orjson.dumps(poll_result)
+        schema_path.write_bytes(schema_bytes)
+        data_path.write_bytes(data_bytes)
+
+        cmd = [
+            str(binary_path),
+            "--schema-json",
+            str(schema_path),
+            "--form-json",
+            str(data_path),
+            "--result-json",
+            str(result_path),
+        ]
+
+        logger.info(
+            "Survey external validation start: binary=%s schema_bytes=%s data_bytes=%s submission=%s",
+            binary_path,
+            len(schema_bytes),
+            len(data_bytes),
+            submission_hash,
+        )
+
+        start_time = time.monotonic()
+        completed = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+        )
+        duration = time.monotonic() - start_time
+
+        stdout = completed.stdout.strip()
+        stderr = completed.stderr.strip()
+        logger.info(
+            "Survey external validation done: rc=%s duration=%.3fs stdout=%s stderr=%s submission=%s",
+            completed.returncode,
+            duration,
+            stdout,
+            stderr,
+            submission_hash,
+        )
+
+        result_data = {}
+        if result_path.exists():
+            try:
+                result_data = orjson.loads(result_path.read_bytes())
+            except orjson.JSONDecodeError:
+                logger.info(
+                    "Survey external validation result parse failed: submission=%s",
+                    submission_hash,
+                )
+
+        if completed.returncode != 0 and not result_data:
+            return dict(ok=False, status=500, reason="external_validator_error")
+
+        if result_data and not result_data.get("valid", True):
+            return dict(
+                ok=False,
+                status=400,
+                reason="external_validation_failed",
+                details=result_data,
+            )
+
+        if completed.returncode != 0:
+            return dict(ok=False, status=500, reason="external_validator_error")
+
+        return dict(ok=True, status=200, reason="external_validation_ok", details=result_data)
 
 
 class Views(BrowserView):
@@ -247,6 +352,39 @@ class Views(BrowserView):
                 submission_hash,
             )
 
+        force_validation = getattr(self.context, "force_server_side_validation", False)
+        if force_validation:
+            external_validation = _run_external_validation(
+                form_json, poll_result, submission_hash
+            )
+            if not external_validation.get("ok"):
+                logger.info(
+                    "Survey external validation failed: reason=%s submission=%s",
+                    external_validation.get("reason"),
+                    submission_hash,
+                )
+                payload = {
+                    "isSuccess": False,
+                    "error": external_validation.get("reason"),
+                }
+                details = external_validation.get("details")
+                if details:
+                    payload["details"] = details
+                self.request.response.setStatus(external_validation.get("status", 500))
+                self.request.response.setHeader("content-type", "application/json")
+                self.request.response.write(orjson.dumps(payload))
+                return
+            logger.info(
+                "Survey external validation ok: submission=%s",
+                submission_hash,
+            )
+        else:
+            logger.info(
+                "Survey external validation skipped: enabled=%s submission=%s",
+                False,
+                submission_hash,
+            )
+
         data = dict(
             poll_id=str(uuid.uuid1()),
             created=datetime.now(timezone.utc),
@@ -416,8 +554,8 @@ class Views(BrowserView):
     @property
     def converter_formats(self):
         return [
-            dict(key=key, label=label)
-            for key, label, _ext, _content_type in CONVERTER_FORMATS
+            dict(key=key, label=label, short_label=label.split(" (", 1)[0])
+            for key, label, ext, _content_type in CONVERTER_FORMATS
         ]
 
     def _parse_json_loose(self, raw_text: str) -> dict:

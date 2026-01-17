@@ -104,6 +104,7 @@ class ISurvey(model.Schema):
         label=_("Form Settings"),
         fields=(
             "validation_enabled",
+            "force_server_side_validation",
         ),
     )
 
@@ -127,6 +128,15 @@ class ISurvey(model.Schema):
         description=_(
             "Validate submissions against the form schema before saving. "
             "Experimental: may reject valid submissions on complex forms."
+        ),
+        required=False,
+        default=False,
+    )
+
+    force_server_side_validation = schema.Bool(
+        title=_("Force Server Side Validation"),
+        description=_(
+            "Run the external SurveyJS validator binary for every save/submit."
         ),
         required=False,
         default=False,
