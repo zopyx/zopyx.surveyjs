@@ -105,6 +105,7 @@ class ISurvey(model.Schema):
         fields=(
             "validation_enabled",
             "force_server_side_validation",
+            "max_payload_size_mb",
         ),
     )
 
@@ -140,6 +141,14 @@ class ISurvey(model.Schema):
         ),
         required=False,
         default=False,
+    )
+
+    max_payload_size_mb = schema.Int(
+        title=_("Max size payload (MB)"),
+        description=_("Maximum allowed payload size for submissions in megabytes."),
+        required=False,
+        default=1,
+        min=1,
     )
 
     email_sender = schema.TextLine(

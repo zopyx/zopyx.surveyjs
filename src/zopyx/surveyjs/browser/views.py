@@ -19,7 +19,7 @@ import httpx
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
-from ..validation import MAX_JSON_BYTES, MAX_REQUEST_BYTES, validate_submission
+from ..validation import validate_submission
 
 import orjson
 import uuid
@@ -254,10 +254,16 @@ class Views(BrowserView):
             )
             return
 
+        max_payload_mb = getattr(self.context, "max_payload_size_mb", 1) or 1
+        try:
+            max_payload_bytes = int(max_payload_mb) * 1024 * 1024
+        except (TypeError, ValueError):
+            max_payload_bytes = 1 * 1024 * 1024
+
         content_length = self.request.getHeader("Content-Length")
         if content_length:
             try:
-                if int(content_length) > MAX_REQUEST_BYTES:
+                if int(content_length) > max_payload_bytes:
                     logger.warning("Survey save failed: status=413 reason=request_too_large")
                     self.request.response.setStatus(413)
                     self.request.response.setHeader("content-type", "application/json")
@@ -269,7 +275,7 @@ class Views(BrowserView):
                     return
             except ValueError:
                 pass
-        elif len(raw_bytes) > MAX_REQUEST_BYTES:
+        elif len(raw_bytes) > max_payload_bytes:
             logger.warning("Survey save failed: status=413 reason=request_too_large")
             self.request.response.setStatus(413)
             self.request.response.setHeader("content-type", "application/json")
@@ -278,7 +284,7 @@ class Views(BrowserView):
             )
             return
 
-        if len(raw_bytes) > MAX_JSON_BYTES:
+        if len(raw_bytes) > max_payload_bytes:
             logger.warning("Survey save failed: status=413 reason=json_too_large")
             self.request.response.setStatus(413)
             self.request.response.setHeader("content-type", "application/json")

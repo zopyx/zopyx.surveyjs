@@ -155,6 +155,16 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(body["error"], "missing_required")
         self.assertEqual(body["field"], "q1")
 
+    def test_save_poll_rejects_payload_over_max_size(self) -> None:
+        self.survey.max_payload_size_mb = 1
+        self._add_version()
+        req = self._make_request(form={"pollResult": orjson.dumps({"q1": "ok"})})
+        req.setHeader("Content-Length", str(1 * 1024 * 1024 + 1))
+        Views(self.survey, req).save_poll()
+        self.assertEqual(req.response.getStatus(), 413)
+        body = orjson.loads(req.response.getBody())
+        self.assertEqual(body["error"], "request_too_large")
+
     def test_download_result_json(self) -> None:
         self._add_version()
         entry = self._add_result()
