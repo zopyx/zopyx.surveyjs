@@ -4,6 +4,7 @@
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope import schema
 from zope.interface import Interface
+from plone.supermodel.directives import fieldset
 
 
 class IZopyxSurveyjsLayer(IDefaultBrowserLayer):
@@ -30,6 +31,50 @@ class IPloneLoggingSettings(Interface):
 
 class IFormsSettings(IPloneLoggingSettings):
     """Settings for AI-powered form generation."""
+
+    fieldset(
+        "surveyjs",
+        label="SurveyJS",
+        fields=("surveyjs_licence_key",),
+    )
+
+    fieldset(
+        "ai_provider",
+        label="AI Provider",
+        fields=(
+            "ai_model",
+            "ai_api_key",
+            "ollama_url",
+        ),
+    )
+
+    fieldset(
+        "ai_prompts",
+        label="AI Prompts",
+        fields=(
+            "ai_prompt_before",
+            "ai_prompt_default",
+            "ai_prompt_after",
+        ),
+    )
+
+    fieldset(
+        "logging",
+        label="Logging",
+        fields=(
+            "log_ip_addresses",
+            "log_user_agent",
+        ),
+    )
+
+    fieldset(
+        "storage",
+        label="Result Storage",
+        fields=(
+            "result_storage_backend",
+            "sqlite_path",
+        ),
+    )
 
     surveyjs_licence_key = schema.TextLine(
         title="SurveyJS License Key",

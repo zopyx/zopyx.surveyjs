@@ -148,9 +148,11 @@ def wrap_pdf_html(
     metadata_html = ""
     if creator or created:
         metadata_parts = []
-        if creator:
+        has_created_by = "Created by:" in html_body
+        has_created_on = "Created on:" in html_body
+        if creator and not has_created_by:
             metadata_parts.append(f"<p><strong>Created by:</strong> {creator}</p>")
-        if created:
+        if created and not has_created_on:
             from datetime import datetime
 
             try:
@@ -161,7 +163,8 @@ def wrap_pdf_html(
             metadata_parts.append(
                 f"<p><strong>Created on:</strong> {formatted_date}</p>"
             )
-        metadata_html = f'<div class="metadata">{"".join(metadata_parts)}</div>'
+        if metadata_parts:
+            metadata_html = f'<div class="metadata">{"".join(metadata_parts)}</div>'
 
     if metadata_html:
         closing_h1 = html_body.find("</h1>")
