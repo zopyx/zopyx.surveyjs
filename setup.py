@@ -63,6 +63,7 @@ setup(
         "weasyprint",
         "openpyxl",
         "llm-ollama",
+        "sqlmodel",
     ],
     extras_require={
         "test": [

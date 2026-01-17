@@ -19,7 +19,9 @@ import httpx
 from plone.registry.interfaces import IRegistry
 from email.message import EmailMessage
 
-from .browser.views import FORM_VERSIONS_KEY, RESULTS_KEY, ensure_timezone_aware
+from .constants import FORM_VERSIONS_KEY
+from .storage import get_result_storage
+from .utils import ensure_timezone_aware
 from .content.survey import Counter
 from .converters.cli import SurveyConverter
 from .interfaces import IFormsSettings
@@ -172,9 +174,6 @@ def send_submission_email(context, event):
     annos = IAnnotations(context)
     if FORM_VERSIONS_KEY not in annos:
         annos[FORM_VERSIONS_KEY] = OOBTree()
-    if RESULTS_KEY not in annos:
-        annos[RESULTS_KEY] = OOBTree()
-
     form_json = _latest_form_json(annos)
     if not form_json:
         logger.info(
@@ -394,7 +393,6 @@ def store_submission_result(context, event):
 
     annos = IAnnotations(context)
     annos.setdefault(FORM_VERSIONS_KEY, OOBTree())
-    annos.setdefault(RESULTS_KEY, OOBTree())
 
     form_data = event.form_data or {}
     registry = getUtility(IRegistry)
@@ -432,7 +430,9 @@ def store_submission_result(context, event):
         )
         form_version = form_versions[-1]["id"] if form_versions else None
 
-    annos[RESULTS_KEY][poll_id] = dict(
-        form_data, poll_id=poll_id, form_version=form_version, seq_no=seq_no
+    storage = get_result_storage(context)
+    storage.store_result(
+        context,
+        dict(form_data, poll_id=poll_id, form_version=form_version, seq_no=seq_no),
     )
     logger.info("Stored survey submission for poll %s", poll_id)

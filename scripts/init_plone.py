@@ -25,7 +25,7 @@ from pathlib import Path
 import orjson
 from plone import api
 from plone.namedfile.file import NamedBlobImage
-from zopyx.surveyjs.browser.views import FORM_VERSIONS_KEY, RESULTS_KEY
+from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getMultiAdapter, getUtility
 from zope.component.hooks import setSite

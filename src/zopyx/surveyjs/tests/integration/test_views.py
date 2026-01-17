@@ -6,23 +6,24 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Dict
 from unittest.mock import MagicMock, patch
+from tempfile import TemporaryDirectory
 
 import orjson
 from BTrees.OOBTree import OOBTree
 from plone import api
 from plone.app.testing import setRoles, TEST_USER_ID
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
 from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import TestRequest
 
 from zopyx.surveyjs.browser import views
-from zopyx.surveyjs.browser.views import (
-    FORM_VERSIONS_KEY,
-    RESULTS_KEY,
-    EmbedViewer,
-    Views,
-    ensure_timezone_aware,
-)
+from zopyx.surveyjs.browser.views import EmbedViewer, Views
+from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
+from zopyx.surveyjs.utils import ensure_timezone_aware
 from zopyx.surveyjs.testing import ZOPYX_SURVEYJS_INTEGRATION_TESTING
+from zopyx.surveyjs.interfaces import IFormsSettings
+from zopyx.surveyjs.storage import get_result_storage
 
 import unittest
 
@@ -115,6 +116,32 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(len(annos[RESULTS_KEY]), 1)
         body = orjson.loads(req.response.getBody())
         self.assertTrue(body["isSuccess"])
+
+    def test_save_poll_uses_sqlite_backend(self) -> None:
+        self._add_version()
+        self.survey.actions = {"store"}
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            db_path = os.path.join(tmpdir, "results.db")
+            original_backend = settings.result_storage_backend
+            original_path = settings.sqlite_path
+            settings.result_storage_backend = "sqlite"
+            settings.sqlite_path = db_path
+            try:
+                req = self._make_request(
+                    form={"pollResult": orjson.dumps({"q1": "yes"})}
+                )
+                view = Views(self.survey, req)
+                view.save_poll()
+                storage = get_result_storage(self.survey)
+                results = storage.list_results(self.survey)
+                self.assertEqual(len(results), 1)
+                annos = IAnnotations(self.survey)
+                self.assertEqual(len(annos[RESULTS_KEY]), 0)
+            finally:
+                settings.result_storage_backend = original_backend
+                settings.sqlite_path = original_path
 
     def test_save_poll_skips_storage_when_disabled(self) -> None:
         self.survey.actions = {"mail"}

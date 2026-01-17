@@ -86,6 +86,32 @@ Actions are evaluated for every submission and can be combined.
 | Force Server Side Validation | Bool | `false` | Run the external SurveyJS validator binary on every save/submit. Requires a Deno-built binary in `data-validation/dist`. |
 | Max size payload (MB) | Int | `1` | Maximum accepted submission payload size in megabytes (minimum 1 MB). |
 
+### Global Settings (Site Setup > Forms)
+
+| Setting | Default | Description |
+| --- | --- | --- |
+| SurveyJS License Key | empty | Optional license key for SurveyJS components. |
+| Log IP addresses | `false` | When enabled, store client IP addresses with submissions. |
+| Log user agent | `false` | When enabled, store user agent strings with submissions. |
+| AI Model | empty | LLM model name for the AI generator. |
+| API Key | empty | API key for hosted LLM providers. |
+| Ollama URL | empty | Local Ollama server URL; when set, AI uses Ollama. |
+| Prompt before | empty | Text prepended to the AI prompt. |
+| Default prompt | empty | Default prompt text shown in the AI UI. |
+| Prompt after | empty | Text appended to the AI prompt. |
+| Result storage backend | `zodb` | Storage backend for survey results (`zodb` or `sqlite`). |
+| SQLite path | `var/surveyjs-results.db` | Filesystem path for the SQLite results database. |
+
+### Storage Backends
+
+Survey results can be stored in the ZODB (default) or in SQLite via SQLModel. To migrate existing ZODB results to SQLite, run a Zope/Plone console script and call:
+
+```python
+from zopyx.surveyjs.storage_migration import migrate_zodb_results_to_sqlite
+
+migrate_zodb_results_to_sqlite(context)
+```
+
 ## Views and Endpoints
 
 The Survey type exposes UI views and service endpoints. View names are appended to the Survey URL (for example: `/my-survey/@@viewer`).

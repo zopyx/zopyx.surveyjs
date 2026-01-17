@@ -134,3 +134,7 @@ Global settings (Site Setup > Forms)
      - Default text shown in the AI prompt field.
    * - Prompt after
      - Text appended to the AI prompt.
+   * - Result storage backend
+     - Storage backend for survey results (``zodb`` or ``sqlite``).
+   * - SQLite path
+     - Filesystem path for the SQLite results database.

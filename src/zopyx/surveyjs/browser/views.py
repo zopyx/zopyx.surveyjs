@@ -19,6 +19,9 @@ import httpx
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
+from ..constants import FORM_VERSIONS_KEY
+from ..storage import get_result_storage
+from ..utils import ensure_timezone_aware
 from ..validation import validate_submission
 
 import orjson
@@ -27,8 +30,6 @@ import uuid
 
 logger = logging.getLogger(__name__)
 
-RESULTS_KEY = "zopyx.surveyjs.results"
-FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"
 CONVERTER_FORMATS = [
     ("text", "Text (.txt)", "txt", "text/plain"),
     ("md", "Markdown (.md)", "md", "text/markdown"),
@@ -50,14 +51,6 @@ CONVERTER_FORMATS = [
     ),
     ("json", "JSON (.json)", "json", "application/json"),
 ]
-
-
-def ensure_timezone_aware(dt):
-    """Convert naive datetime to UTC-aware datetime"""
-    if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
-        # Naive datetime - assume it's UTC
-        return dt.replace(tzinfo=timezone.utc)
-    return dt
 
 
 def _extract_json_object(raw_text: str) -> str | None:
@@ -412,36 +405,24 @@ class Views(BrowserView):
         self.request.response.write(orjson.dumps(result))
 
     def clear_results(self):
-        annos = IAnnotations(self.context)
-        annos[RESULTS_KEY] = OOBTree()
+        storage = get_result_storage(self.context)
+        storage.clear_results(self.context)
 
         plone.api.portal.show_message(_("Results cleared"))
         self.request.response.redirect(self.context.absolute_url() + "/view")
 
     def get_polls_json(self):
         """get polls"""
-
-        annos = IAnnotations(self.context)
-
-        results = list(annos[RESULTS_KEY].values())
-        results = sorted(
-            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
-        )
+        storage = get_result_storage(self.context)
+        results = storage.list_results(self.context)
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
 
     def get_polls_json2(self):
         """get polls"""
-
-        annos = IAnnotations(self.context)
-
-        # Initialize if doesn't exist
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
-
-        results = list(annos[RESULTS_KEY].values())
-        results = [d["result"] for d in results]
+        storage = get_result_storage(self.context)
+        results = [d.get("result") for d in storage.list_results(self.context)]
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(results))
@@ -475,13 +456,8 @@ class Views(BrowserView):
 
     def download_polls_csv(self):
         """Download all poll results as CSV."""
-        annos = IAnnotations(self.context)
-        annos.setdefault(RESULTS_KEY, OOBTree())
-
-        results = list(annos[RESULTS_KEY].values())
-        results = sorted(
-            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
-        )
+        storage = get_result_storage(self.context)
+        results = storage.list_results(self.context)
 
         output = io.StringIO()
         # Discover all field names to create a stable header
@@ -536,16 +512,8 @@ class Views(BrowserView):
 
     def download_polls_json(self):
         """Download poll results JSON as attachment"""
-        annos = IAnnotations(self.context)
-
-        # Initialize if doesn't exist
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
-
-        results = list(annos[RESULTS_KEY].values())
-        results = sorted(
-            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
-        )
+        storage = get_result_storage(self.context)
+        results = storage.list_results(self.context)
 
         # Prepare download with attachment header
         filename = f"{self.context.getId()}-survey-data.json"
@@ -685,9 +653,8 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/results"
             )
 
-        annos = IAnnotations(self.context)
-        results = annos.get(RESULTS_KEY, {})
-        result_data = results.get(poll_id)
+        storage = get_result_storage(self.context)
+        result_data = storage.get_result(self.context, poll_id)
 
         if not result_data:
             plone.api.portal.show_message(_("Poll result not found"), type="error")
@@ -695,6 +662,7 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/results"
             )
 
+        annos = IAnnotations(self.context)
         form_json = self._latest_form_json(annos)
         entry = result_data.get("result", {})
         creator = result_data.get("user")
@@ -771,9 +739,8 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/results"
             )
 
-        annos = IAnnotations(self.context)
-        results = annos.get(RESULTS_KEY, {})
-        result_data = results.get(poll_id)
+        storage = get_result_storage(self.context)
+        result_data = storage.get_result(self.context, poll_id)
 
         if not result_data:
             plone.api.portal.show_message(_("Poll result not found"), type="error")
@@ -781,6 +748,7 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/results"
             )
 
+        annos = IAnnotations(self.context)
         form_json = self._latest_form_json(annos)
         entry = result_data.get("result", {})
         creator = result_data.get("user")
@@ -886,9 +854,8 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/results"
             )
 
-        annos = IAnnotations(self.context)
-        results = annos.get(RESULTS_KEY, {})
-        result_data = results.get(poll_id)
+        storage = get_result_storage(self.context)
+        result_data = storage.get_result(self.context, poll_id)
 
         if not result_data:
             plone.api.portal.show_message(_("Poll result not found"), type="error")
@@ -896,6 +863,7 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/results"
             )
 
+        annos = IAnnotations(self.context)
         form_json = self._latest_form_json(annos)
         if not form_json:
             plone.api.portal.show_message(
@@ -1163,19 +1131,8 @@ class Views(BrowserView):
     @property
     def results(self):
         """Get all poll results sorted by creation date (newest first)"""
-        annos = IAnnotations(self.context)
-
-        # Initialize if doesn't exist
-        if RESULTS_KEY not in annos:
-            annos[RESULTS_KEY] = OOBTree()
-
-        # Get all results
-        results = list(annos[RESULTS_KEY].values())
-
-        # Sort by created date, newest first
-        return sorted(
-            results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
-        )
+        storage = get_result_storage(self.context)
+        return storage.list_results(self.context)
 
     def get_paginated_results(self):
         """Return paginated results"""
@@ -1215,11 +1172,8 @@ class Views(BrowserView):
     def view_result_json(self):
         """Return JSON for a specific poll result for viewing"""
         poll_id = self.request.form.get("poll_id")
-
-        annos = IAnnotations(self.context)
-        results = annos.get(RESULTS_KEY, {})
-
-        result_data = results.get(poll_id)
+        storage = get_result_storage(self.context)
+        result_data = storage.get_result(self.context, poll_id)
         if not result_data:
             result = {"error": "Poll result not found"}
         else:
@@ -1233,10 +1187,8 @@ class Views(BrowserView):
         poll_id = self.request.form.get("poll_id")
         if not poll_id:
             return {"error": "Poll ID is required"}
-
-        annos = IAnnotations(self.context)
-        results = annos.get(RESULTS_KEY, {})
-        result_data = results.get(poll_id)
+        storage = get_result_storage(self.context)
+        result_data = storage.get_result(self.context, poll_id)
         if not result_data:
             return {"error": "Poll result not found"}
 
@@ -1307,10 +1259,7 @@ class Views(BrowserView):
         """Delete one or multiple poll results (Managers only)."""
         if not self._require_manager():
             return
-
-        annos = IAnnotations(self.context)
-        annos.setdefault(RESULTS_KEY, OOBTree())
-        results = annos[RESULTS_KEY]
+        storage = get_result_storage(self.context)
 
         poll_ids = []
 
@@ -1342,16 +1291,6 @@ class Views(BrowserView):
             poll_ids = [poll_ids]
 
         poll_ids = [pid for pid in poll_ids if pid]
-        deleted = []
-        missing = []
-
-        for pid in poll_ids:
-            if pid in results:
-                del results[pid]
-                deleted.append(pid)
-            else:
-                missing.append(pid)
-
         if not poll_ids:
             self.request.response.setStatus(400)
             self.request.response.setHeader("content-type", "application/json")
@@ -1359,11 +1298,12 @@ class Views(BrowserView):
                 orjson.dumps({"error": "No poll IDs provided for deletion"})
             )
             return
+        status = storage.delete_results(self.context, poll_ids)
 
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(
-            orjson.dumps({"deleted": deleted, "missing": missing})
+            orjson.dumps(status)
         )
 
     @property

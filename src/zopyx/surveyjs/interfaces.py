@@ -78,3 +78,18 @@ class IFormsSettings(IPloneLoggingSettings):
         required=False,
         default="",
     )
+
+    result_storage_backend = schema.Choice(
+        title="Result storage backend",
+        description="Storage backend for survey results.",
+        required=False,
+        default="zodb",
+        values=["zodb", "sqlite"],
+    )
+
+    sqlite_path = schema.TextLine(
+        title="SQLite path",
+        description="Filesystem path to the SQLite database for storing survey results.",
+        required=False,
+        default="var/surveyjs-results.db",
+    )

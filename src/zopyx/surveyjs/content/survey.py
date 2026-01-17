@@ -19,7 +19,7 @@ from plone.autoform import directives as form
 from plone.supermodel.directives import fieldset
 from zope.annotation.interfaces import IAnnotations
 
-from ..browser.views import FORM_VERSIONS_KEY, RESULTS_KEY
+from ..constants import FORM_VERSIONS_KEY, RESULTS_KEY
 
 survey_actions_vocabulary = SimpleVocabulary(
     [
