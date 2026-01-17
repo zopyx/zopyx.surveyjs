@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Generator &mdash; Privacy Forms Studio 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=110ea713"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Security" href="security.html" />
+    <link rel="prev" title="Embedding" href="embedding.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Privacy Forms Studio
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="philosophy.html">Philosophy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views and Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exports.html">Results and Exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-validation-cli.html">Data Validation (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedding.html">Embedding</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AI Generator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#concept">Concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#providers">Providers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-site-setup-forms">Configuration (Site Setup &gt; Forms)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#endpoints">Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Privacy Forms Studio</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">AI Generator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ai.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ai-generator">
+<h1>AI Generator<a class="headerlink" href="#ai-generator" title="Link to this heading"></a></h1>
+<p>The AI Generator converts a natural-language prompt into a SurveyJS JSON
+form. It supports generating new forms and refining existing forms.</p>
+<section id="concept">
+<h2>Concept<a class="headerlink" href="#concept" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Authors provide a prompt describing the desired form.</p></li>
+<li><p>The AI model returns SurveyJS JSON.</p></li>
+<li><p>The UI renders a preview and allows refinement.</p></li>
+<li><p>Saving creates a new form version.</p></li>
+</ul>
+</section>
+<section id="providers">
+<h2>Providers<a class="headerlink" href="#providers" title="Link to this heading"></a></h2>
+<p>The AI integration uses the Python <code class="docutils literal notranslate"><span class="pre">llm</span></code> package and supports:</p>
+<dl class="simple">
+<dt>Hosted providers</dt><dd><p>Use a hosted model (OpenAI, Anthropic, etc.) with a model name and API key.</p>
+</dd>
+<dt>Local models (Ollama)</dt><dd><p>Configure an Ollama server URL. When set, requests are routed to Ollama and
+the model name is prefixed with <code class="docutils literal notranslate"><span class="pre">ollama/</span></code>.</p>
+</dd>
+</dl>
+</section>
+<section id="configuration-site-setup-forms">
+<h2>Configuration (Site Setup &gt; Forms)<a class="headerlink" href="#configuration-site-setup-forms" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AI Model</p></td>
+<td><p>Model name (provider-specific).</p></td>
+</tr>
+<tr class="row-odd"><td><p>API Key</p></td>
+<td><p>API key for hosted providers.</p></td>
+</tr>
+<tr class="row-even"><td><p>Ollama URL</p></td>
+<td><p>Local Ollama server URL (overrides hosted providers).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prompt before</p></td>
+<td><p>Text prepended to the user prompt.</p></td>
+</tr>
+<tr class="row-even"><td><p>Default prompt</p></td>
+<td><p>Default text shown to authors.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prompt after</p></td>
+<td><p>Text appended to the user prompt.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="endpoints">
+<h2>Endpoints<a class="headerlink" href="#endpoints" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;&#64;generate-ai-form</span></code> generates form JSON from a prompt.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;&#64;refine-ai-form</span></code> refines the current form JSON.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;&#64;save-ai-form</span></code> saves the generated JSON as a new version.</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">llm</span></code> is installed.</p></li>
+<li><p>Configure an AI model or set a default via <code class="docutils literal notranslate"><span class="pre">llm</span> <span class="pre">set-default</span></code>.</p></li>
+<li><p>Verify API keys or Ollama availability.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="embedding.html" class="btn btn-neutral float-left" title="Embedding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Andreas Jung (zopyx).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
