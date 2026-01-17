@@ -1,0 +1,127 @@
+{
+  "title": "Customer Intake",
+  "showProgressBar": "top",
+  "pages": [
+    {
+      "name": "personal",
+      "title": "Personal Details",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Full name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Email",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "email",
+              "text": "Enter a valid email address."
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "age",
+          "title": "Age",
+          "inputType": "number",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "numeric",
+              "minValue": 18,
+              "maxValue": 120,
+              "text": "Age must be between 18 and 120."
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "address",
+          "title": "Address",
+          "elements": [
+            {
+              "type": "text",
+              "name": "street",
+              "title": "Street",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "city",
+              "title": "City",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "zip",
+              "title": "ZIP code",
+              "isRequired": true,
+              "validators": [
+                {
+                  "type": "regex",
+                  "regex": "^\\d{5}$",
+                  "text": "ZIP must be 5 digits."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "employment",
+      "title": "Employment",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "employmentStatus",
+          "title": "Employment status",
+          "isRequired": true,
+          "choices": [
+            "employed",
+            "self-employed",
+            "student",
+            "unemployed"
+          ]
+        },
+        {
+          "type": "text",
+          "name": "companyName",
+          "title": "Company name",
+          "visibleIf": "{employmentStatus} = 'employed' or {employmentStatus} = 'self-employed'",
+          "isRequired": true
+        },
+        {
+          "type": "checkbox",
+          "name": "skills",
+          "title": "Relevant skills",
+          "isRequired": true,
+          "choices": [
+            "javascript",
+            "typescript",
+            "python",
+            "go",
+            "sql"
+          ],
+          "validators": [
+            {
+              "type": "answercount",
+              "minCount": 2,
+              "text": "Select at least two skills."
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "goals",
+          "title": "What are you looking to achieve?"
+        }
+      ]
+    }
+  ]
+}

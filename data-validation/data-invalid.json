@@ -1,0 +1,11 @@
+{
+  "fullName": "",
+  "email": "not-an-email",
+  "age": 16,
+  "street": "12 Example Rd",
+  "city": "Boston",
+  "zip": "12A45",
+  "employmentStatus": "employed",
+  "skills": ["javascript"],
+  "goals": "Looking for a frontend role."
+}
