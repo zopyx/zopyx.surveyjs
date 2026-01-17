@@ -1,50 +1,150 @@
+# zopyx.surveyjs
 
-# What is zopyx.surveyjs?
+## Overview
 
-`zopyx.surveyjs` integrates the Javascript framework
-[SurveyJS](https://surveyjs.io) into Plone. A survey in SurveyJS is represented
-through a JSON datastructure, the polls are also represented as JSON.
+`zopyx.surveyjs` integrates [SurveyJS](https://surveyjs.io) with Plone. It lets you design surveys/forms with the SurveyJS Creator, store submissions in Plone, and distribute or export results in multiple formats.
 
-SurveyJS consistent of serveral components:
+Key capabilities:
+- SurveyJS Creator-backed form designer stored as JSON.
+- Submission handling with configurable actions: store in Plone, email exports, or POST to an endpoint.
+- Export formats for results (text, Markdown, HTML, PDF, CSV, XLSX, XML, DOCX, JSON).
+- Optional validation on submission (experimental Python validator and/or external SurveyJS validator binary).
+- Per-form payload size limits.
 
-- the SurveyJS `Library` which is open-source and rendered a poll given through
-  its JSON representation within the browser
+SurveyJS licensing: the Creator is not free for commercial usage. Refer to the SurveyJS license for details.
 
-- the SurveyJS `Creator` is a visual survey designer/form builder for SurveyJS.
-  The source code of the `Creator` is freely available. The `Creator` is not available
-  for *free commercial usage*. Commercial usage requires a developer license.
+## Installation
 
-- there is also a `PDF Export` and `Analytics Pack` available.
+This package is intended for Buildout-based Plone projects.
 
-In any case, check the [SurveyJS license](https://surveyjs.io/Licenses).
+1. Add `zopyx.surveyjs` to your buildout eggs and run buildout.
 
-# Background
+   ```ini
+   [buildout]
+   eggs +=
+       zopyx.surveyjs
+   ```
 
-This implementation is funded through a customer project from the educational
-sector.  With a very small number of persons (1-2) using this tool. The costs
-for one or two developer license are in this case neglectable compared to the
-benefits. The decision for using SurveyJS for a poll functionality in Plone
-followed a after an in-depth evaluation of various options. Unfortunately,
-we could not find any other suitable solution as free/open-source software.
-A mixture of commercial and free components are acceptable for us, if there is a
-certain value added to the project compared to less powerfull free/open-source tools.
+2. Restart Plone and install the add-on in the Add-ons control panel.
 
+3. Optional: server-side SurveyJS validation (external binary)
+   - Build the Deno binary in `data-validation/` and place it in `data-validation/dist`.
+   - See `data-validation/README.md` for details.
 
-# Installation
+## Usage
 
-Add `zopyx.surveyjs` to your buildout, re-run buildout and install it within Plone.
+1. Create a new Survey content item in Plone.
+2. Use the SurveyJS Creator to design the form; the form definition is stored as JSON.
+3. Configure actions and settings on the Survey (see configuration section below).
+4. Submit the form and access results from the Survey item.
+5. Export results using the configured formats or send them via email.
 
-For Typesense installation, please check the installation docs of Typesense
-(either for installation through Docker or through the standalone binary).
+## Survey Configuration (Per-Survey Fields)
 
-There is no public release at this time. You need to install `zopyx.surveyjs`
-using `mr.developer` as source checkout from Github.
-  
+All configuration is per Survey item.
 
-- [SurveyJS website](https://surveyjs.io)
+### Actions
 
-# Author
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| Actions | Set | `store` | Submission handling. Options: `store` (store in Plone), `mail` (send export email), `mail-notification` (notify without attachments), `post` (POST JSON to endpoint). |
+| POST endpoint URL | URI | empty | Endpoint to receive the JSON payload when the `post` action is enabled. |
 
-Andreas Jung | info@zopyx.com | www.zopyx.com
+#### Actions in depth
+
+Actions are evaluated for every submission and can be combined.
+
+- `store`: persists the submission (poll data plus metadata such as poll ID, timestamp, form version, and sequence number). Stored results power the results view and export endpoints. When `store` is disabled, submissions return success but are not persisted.
+- `mail`: sends a result export email for every submission. Attachments are generated in the formats selected under `Formats`. Requires `E-Mail recipient` and `Subject`, and uses the `Body` template with `{created}`, `{creator}`, and `{formats}`.
+- `mail-notification`: sends a notification-only email per submission with a link to the result detail view. Uses `Subject for notifications` and `Body for notifications` templates with `{title}`, `{detail_url}`, `{poll_id}`.
+- `post`: performs an HTTP POST to the configured endpoint with a payload containing the poll data, the current form JSON, and the survey URL. Uses a 10-second timeout and logs failures.
+
+### Mail
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| E-Mail sender | Text | empty | Sender address for outgoing mail. Required when `mail` action is enabled. |
+| E-Mail recipient | Text | empty | Primary recipient for mail exports/notifications. Required when `mail` action is enabled. |
+| Subject | Text | empty | Subject for result export emails. Supports `{poll_id}`. Required when `mail` action is enabled. |
+| E-Mail CC | List | empty | CC recipients (one address per line). |
+| E-Mail BCC | List | empty | BCC recipients (one address per line). |
+| Formats | Set | empty | Export formats to attach to result emails. |
+| Body | Text | empty | Body for result export emails. Supports `{created}`, `{creator}`, `{formats}`. |
+
+### Mail Notifications
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| Subject for notifications | Text | `Form submitted ({title})` | Subject for notification-only emails. Supports `{title}`, `{detail_url}`, `{poll_id}`. |
+| Body for notifications | Text | `Hello,`<br><br>`A new form submission was received for "{title}".`<br>`You can review the submitted data here:`<br>`{detail_url}`<br><br>`Regards,`<br>`Privacy Forms Studio` | Body for notification-only emails. Supports `{title}`, `{detail_url}`, `{poll_id}`. |
+
+### Form Settings
+
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| Enable validation (experimental) | Bool | `false` | Server-side validation via the Python validator. May reject complex forms; use with care. |
+| Force Server Side Validation | Bool | `false` | Run the external SurveyJS validator binary on every save/submit. Requires a Deno-built binary in `data-validation/dist`. |
+| Max size payload (MB) | Int | `1` | Maximum accepted submission payload size in megabytes (minimum 1 MB). |
+
+## Views and Endpoints
+
+The Survey type exposes UI views and service endpoints. View names are appended to the Survey URL (for example: `/my-survey/@@viewer`).
+
+### UI Views
+
+| View | Permission | Purpose |
+| --- | --- | --- |
+| `@@view-main` | `zope2.View` | Landing page with navigation to the main survey tools. |
+| `@@viewer` | `zope2.View` | Renders the survey for end users and submits responses. |
+| `@@viewer-embed` | `zope2.View` | Embed-friendly viewer for iframes (requires embedding to be enabled on the survey). |
+| `@@editor` | `cmf.ModifyPortalContent` | SurveyJS Creator visual editor for building the form. |
+| `@@results` | `cmf.ModifyPortalContent` | Results listing with export, mail, and post actions. |
+| `@@result-detail` | `cmf.ModifyPortalContent` | Detailed view of a single submission. |
+| `@@form-versions` | `cmf.ModifyPortalContent` | Manage saved form versions (preview, restore, download). |
+| `@@ai` | `cmf.ModifyPortalContent` | AI form generator UI. |
+| `@@pdf-importer` | `cmf.ManagePortal` | PDF form importer UI (beta). |
+| `@@forms-settings` | `cmf.ManagePortal` | Site control panel for global form settings. |
+
+### Service Endpoints
+
+| View | Permission | Purpose |
+| --- | --- | --- |
+| `@@get-form-json` | `zope2.View` | Returns the current form JSON. |
+| `@@save-form-json` | `zope2.View` | Saves the form JSON from the editor. |
+| `@@save-poll` | `zope2.View` | Submits a response; enforces payload limits and runs validations/actions. |
+| `@@get-polls-json` | `zope2.View` | Returns stored submissions with metadata. |
+| `@@get-polls-json2` | `zope2.View` | Returns only the stored result payloads. |
+| `@@download-form-json` | `zope2.View` | Downloads the current form JSON as an attachment. |
+| `@@download-polls-json` | `zope2.View` | Downloads all stored submissions as JSON. |
+| `@@download-polls-csv` | `zope2.View` | Downloads all stored submissions as CSV. |
+| `@@download-result` | `cmf.ModifyPortalContent` | Downloads a single submission in a selected export format. |
+| `@@mail-result` | `cmf.ModifyPortalContent` | Sends export email for a single submission. |
+| `@@post-result` | `cmf.ModifyPortalContent` | POSTs a single submission to the configured endpoint. |
+| `@@clear-results` | `cmf.ModifyPortalContent` | Clears all stored submissions. |
+| `@@view-result-json` | `cmf.ModifyPortalContent` | Returns JSON for a single submission. |
+| `@@delete-results` | `cmf.ModifyPortalContent` | Deletes selected submissions. |
+| `@@download-version` | `cmf.ModifyPortalContent` | Downloads a specific form version JSON. |
+| `@@restore-version` | `cmf.ModifyPortalContent` | Restores a previous form version. |
+| `@@toggle-version-lock` | `cmf.ModifyPortalContent` | Locks or unlocks a form version. |
+| `@@delete-version` | `cmf.ModifyPortalContent` | Deletes a form version. |
+| `@@upload-version` | `cmf.ModifyPortalContent` | Uploads a form version JSON file. |
+| `@@view-version-json` | `cmf.ModifyPortalContent` | Returns JSON for a form version. |
+| `@@generate-ai-form` | `cmf.ModifyPortalContent` | Generates a form JSON via AI (server endpoint). |
+| `@@save-ai-form` | `cmf.ModifyPortalContent` | Saves the AI-generated form JSON. |
+| `@@refine-ai-form` | `cmf.ModifyPortalContent` | Refines an existing form via AI (server endpoint). |
+| `@@import-pdf-form` | `cmf.ManagePortal` | Imports a form from a PDF (server endpoint). |
+
+## External SurveyJS Validation (Optional)
+
+When `Force Server Side Validation` is enabled, the submission handler invokes the compiled Deno validator from `data-validation/dist`:
+
+- macOS: `data-validation/dist/survey-validate-macos-deno`
+- Linux: `data-validation/dist/survey-validate-linux-deno`
+
+See `data-validation/README.md` for build and usage details.
+
+## Author
+
+Andreas Jung | info@zopyx.com | www.zopyx.com
 
 Paid service for `zopyx.surveyjs` is available on request.
