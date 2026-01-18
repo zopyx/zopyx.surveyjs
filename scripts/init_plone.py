@@ -434,13 +434,7 @@ create_demo_survey(
     container=demos_by_language["en"],
 )
 
-welcome_html = load_intro_text("welcome")
-
-# Add styled links to demo forms
-welcome_html += """
-<div style="padding:12px 16px;margin:16px 0;border:2px solid #b45309;background:#fff7ed;border-radius:8px;color:#92400e;font-weight:700;">
-  Demo system: This site is reset every six hours. Content may be wiped without notice.
-</div>
+WELCOME_STYLE = """
 <style>
   .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
   .demo-card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 14px 16px; background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
@@ -450,114 +444,126 @@ welcome_html += """
   .demo-card h4 a:focus { color: #084f74; text-decoration: underline; }
   .demo-card a { text-decoration: none; font-weight: 600; color: #0b6fa4; }
 </style>
-<section>
-  <h3>Demo Forms (EN)</h3>
+"""
+
+WELCOME_BANNERS = {
+    "en": "Demo system: This site is reset every six hours. Content may be wiped without notice.",
+    "de": "Demonstrationssystem: Diese Seite wird alle sechs Stunden zur\u00fcckgesetzt. Inhalte k\u00f6nnen ohne Vorank\u00fcndigung gel\u00f6scht werden.",
+    "ar": "\u0646\u0638\u0627\u0645 \u062a\u062c\u0631\u064a\u0628\u064a: \u062a\u062a\u0645 \u0625\u0639\u0627\u062f\u0629 \u0636\u0628\u0637 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639 \u0643\u0644 \u0633\u062a \u0633\u0627\u0639\u0627\u062a. \u0642\u062f \u062a\u064f\u062d\u0630\u0641 \u0627\u0644\u0645\u062d\u062a\u0648\u064a\u0627\u062a \u062f\u0648\u0646 \u0625\u0634\u0639\u0627\u0631.",
+    "ja": "\u30c7\u30e2\u74b0\u5883: \u3053\u306e\u30b5\u30a4\u30c8\u306f6\u6642\u9593\u3054\u3068\u306b\u30ea\u30bb\u30c3\u30c8\u3055\u308c\u307e\u3059\u3002\u5185\u5bb9\u306f\u4e88\u544a\u306a\u304f\u524a\u9664\u3055\u308c\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002",
+}
+
+WELCOME_HEADINGS = {
+    "en": "Demo Forms",
+    "de": "Demo-Formulare",
+    "ar": "\u0646\u0645\u0627\u0630\u062c \u062a\u062c\u0631\u064a\u0628\u064a\u0629",
+    "ja": "\u30c7\u30e2\u30d5\u30a9\u30fc\u30e0",
+}
+
+WELCOME_DEMOS = {
+    "en": [
+        ("Event registration", "demos/event-registration"),
+        ("Event registration / unregistration", "demos/event-rsvp"),
+        ("Mental Health Survey", "demos/mental-health-survey"),
+        ("Social Media Consumption Demo", "demos/full-demo"),
+        ("Food Ordering Service Feedback", "demos/food-feedback-demo"),
+        ("Order form", "demos/order-form"),
+    ],
+    "de": [
+        ("Veranstaltungsanmeldung", "demos/event-registration-de"),
+        ("Veranstaltung An-/Abmeldung", "demos/event-rsvp-de"),
+        ("Umfrage zur psychischen Gesundheit", "demos/mental-health-survey-de"),
+        ("Nutzung sozialer Medien", "demos/full-demo-de"),
+        ("Feedback zum Essens-Bestellservice", "demos/food-feedback-demo-de"),
+        ("Bestellformular f\u00fcr Kleidung", "demos/order-form-de"),
+    ],
+    "ar": [
+        ("\u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629", "demos/event-registration-ar"),
+        (
+            "\u0627\u0644\u062a\u0633\u062c\u064a\u0644 / \u0625\u0644\u063a\u0627\u0621 \u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629",
+            "demos/event-rsvp-ar",
+        ),
+        ("\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629", "demos/mental-health-survey-ar"),
+        (
+            "\u0639\u0631\u0636 \u0627\u0633\u062a\u0647\u0644\u0627\u0643 \u0648\u0633\u0627\u0626\u0644 \u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0627\u0644\u0627\u062c\u062a\u0645\u0627\u0639\u064a",
+            "demos/full-demo-ar",
+        ),
+        ("\u0645\u0644\u0627\u062d\u0638\u0627\u062a \u062e\u062f\u0645\u0629 \u0637\u0644\u0628 \u0627\u0644\u0637\u0639\u0627\u0645", "demos/food-feedback-demo-ar"),
+        ("\u0646\u0645\u0648\u0630\u062c \u0627\u0644\u0637\u0644\u0628", "demos/order-form-ar"),
+    ],
+    "ja": [
+        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332", "demos/event-registration-ja"),
+        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332 / \u53d6\u6d88", "demos/event-rsvp-ja"),
+        ("\u30e1\u30f3\u30bf\u30eb\u30d8\u30eb\u30b9\u8abf\u67fb", "demos/mental-health-survey-ja"),
+        ("\u30bd\u30fc\u30b7\u30e3\u30eb\u30e1\u30c7\u30a3\u30a2\u5229\u7528\u30c7\u30e2", "demos/full-demo-ja"),
+        ("\u30d5\u30fc\u30c9\u6ce8\u6587\u30b5\u30fc\u30d3\u30b9\u306e\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af", "demos/food-feedback-demo-ja"),
+        ("\u8863\u985e\u6ce8\u6587\u30d5\u30a9\u30fc\u30e0", "demos/order-form-ja"),
+    ],
+}
+
+WELCOME_TITLES = {
+    "en": "Privacy Forms Studio",
+    "de": "Privacy Forms Studio",
+    "ar": "\u0628\u0631\u0627\u064a\u0641\u0633\u064a \u0641\u0648\u0631\u0645\u0632 \u0633\u062a\u0648\u062f\u064a\u0648",
+    "ja": "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc \u30d5\u30a9\u30fc\u30e0\u30ba \u30b9\u30bf\u30b8\u30aa",
+}
+
+
+def load_welcome_intro(language):
+    suffix = "" if language == "en" else f"_{language}"
+    return load_intro_text(f"welcome{suffix}")
+
+
+def build_demo_section(language):
+    items = WELCOME_DEMOS[language]
+    heading = WELCOME_HEADINGS[language]
+    dir_attr = ' dir="rtl"' if language == "ar" else ""
+    cards = "\n".join(
+        f'    <li class="demo-card"><h4><a href="{href}">{title}</a></h4></li>'
+        for title, href in items
+    )
+    return f"""
+<section{dir_attr}>
+  <h3>{heading}</h3>
   <ul class="demo-grid">
-    <li class="demo-card">
-      <h4><a href="demo/en/demos/event-registration">Event registration</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/en/demos/event-rsvp">Event registration / unregistration</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/en/demos/mental-health-survey">Mental Health Survey</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/en/demos/full-demo">Social Media Consumption Demo</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/en/demos/food-feedback-demo">Food Ordering Service Feedback</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/en/demos/order-form">Order form</a></h4>
-    </li>
-  </ul>
-</section>
-<section>
-  <h3>Demo Forms (DE)</h3>
-  <ul class="demo-grid">
-    <li class="demo-card">
-      <h4><a href="demo/de/demos/event-registration-de">Veranstaltungsanmeldung</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/de/demos/event-rsvp-de">Veranstaltung An-/Abmeldung</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/de/demos/mental-health-survey-de">Umfrage zur psychischen Gesundheit</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/de/demos/full-demo-de">Nutzung sozialer Medien</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/de/demos/food-feedback-demo-de">Feedback zum Essens-Bestellservice</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/de/demos/order-form-de">Bestellformular für Kleidung</a></h4>
-    </li>
-  </ul>
-</section>
-<section dir="rtl">
-  <h3>نماذج تجريبية (AR)</h3>
-  <ul class="demo-grid">
-    <li class="demo-card">
-      <h4><a href="demo/ar/demos/event-registration-ar">التسجيل للفعالية</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ar/demos/event-rsvp-ar">التسجيل / إلغاء التسجيل للفعالية</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ar/demos/mental-health-survey-ar">استبيان الصحة النفسية</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ar/demos/full-demo-ar">عرض استهلاك وسائل التواصل الاجتماعي</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ar/demos/food-feedback-demo-ar">ملاحظات خدمة طلب الطعام</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ar/demos/order-form-ar">نموذج الطلب</a></h4>
-    </li>
-  </ul>
-</section>
-<section>
-  <h3>デモフォーム (JP)</h3>
-  <ul class="demo-grid">
-    <li class="demo-card">
-      <h4><a href="demo/ja/demos/event-registration-ja">イベント登録</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ja/demos/event-rsvp-ja">イベント登録 / 取消</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ja/demos/mental-health-survey-ja">メンタルヘルス調査</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ja/demos/full-demo-ja">ソーシャルメディア利用デモ</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ja/demos/food-feedback-demo-ja">フード注文サービスのフィードバック</a></h4>
-    </li>
-    <li class="demo-card">
-      <h4><a href="demo/ja/demos/order-form-ja">衣類注文フォーム</a></h4>
-    </li>
+{cards}
   </ul>
 </section>
 """
 
-welcome = api.content.create(
-    type="Document",
-    container=site,
-    title="Privacy Forms Studio",
-    id="welcome",
-    text=RichTextValue(
-        welcome_html,
-        "text/html",
-        "text/html",
-    ),
-)
-api.content.transition(obj=welcome, transition="publish")
-welcome.reindexObject()
-site.setDefaultPage("welcome")
+
+def build_welcome_html(language):
+    banner = WELCOME_BANNERS[language]
+    intro = load_welcome_intro(language)
+    demo_section = build_demo_section(language)
+    return f"""{intro}
+<div style="padding:12px 16px;margin:16px 0;border:2px solid #b45309;background:#fff7ed;border-radius:8px;color:#92400e;font-weight:700;">
+  {banner}
+</div>
+{WELCOME_STYLE}
+{demo_section}
+"""
+
+
+for language, root in language_roots.items():
+    welcome_html = build_welcome_html(language)
+    welcome = api.content.create(
+        type="Document",
+        container=root,
+        title=WELCOME_TITLES[language],
+        id="welcome",
+        text=RichTextValue(
+            welcome_html,
+            "text/html",
+            "text/html",
+        ),
+        language=language,
+    )
+    api.content.transition(obj=welcome, transition="publish")
+    welcome.reindexObject()
+    root.setDefaultPage("welcome")
+
+site.setDefaultPage("en")
 
 # Mental Health survey (demo)
 mental_intro = load_intro_text("mental_health_intro")
