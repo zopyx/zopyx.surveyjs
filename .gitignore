@@ -34,3 +34,4 @@ venv/
 # excludes
 .idea
 docs/_build
+src.privacyforms.theme

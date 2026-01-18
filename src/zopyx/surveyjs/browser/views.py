@@ -12,6 +12,7 @@ import hashlib
 import logging
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 import plone.api
@@ -20,7 +21,7 @@ import httpx
 from .. import _
 from ..events import SurveyJSFormSubmitted
 from ..constants import FORM_VERSIONS_KEY
-from ..storage import get_result_storage
+from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..validation import validate_submission
 
@@ -62,6 +63,18 @@ def _extract_json_object(raw_text: str) -> str | None:
     if start == -1 or end == -1 or end <= start:
         return None
     return raw_text[start : end + 1]
+
+
+def _mask_storage_location(location: str) -> str:
+    if location == "zodb":
+        return "Plone (ZODB)"
+    try:
+        url = make_url(location)
+    except Exception:
+        return location
+    if url.password:
+        url = url.set(password="****")
+    return url.render_as_string(hide_password=False)
 
 
 def _resolve_validation_binary() -> Path | None:
@@ -168,6 +181,14 @@ def _run_external_validation(form_json, poll_result, submission_hash: str):
 
 
 class Views(BrowserView):
+    @property
+    def storage_info(self) -> str:
+        location = _get_storage_location()
+        masked = _mask_storage_location(location)
+        if location == "zodb":
+            return masked
+        return f"Relational database: {masked}"
+
     def format_created(self, created):
         if isinstance(created, str):
             value = created.strip()
@@ -458,6 +479,7 @@ class Views(BrowserView):
         """Download all poll results as CSV."""
         storage = get_result_storage(self.context)
         results = storage.list_results(self.context)
+        logger.info("Downloading poll results (CSV) from %s", _get_storage_location())
 
         output = io.StringIO()
         # Discover all field names to create a stable header
@@ -514,6 +536,7 @@ class Views(BrowserView):
         """Download poll results JSON as attachment"""
         storage = get_result_storage(self.context)
         results = storage.list_results(self.context)
+        logger.info("Downloading poll results (JSON) from %s", _get_storage_location())
 
         # Prepare download with attachment header
         filename = f"{self.context.getId()}-survey-data.json"
@@ -655,6 +678,12 @@ class Views(BrowserView):
 
         storage = get_result_storage(self.context)
         result_data = storage.get_result(self.context, poll_id)
+        logger.info(
+            "Downloading poll result %s (%s) from %s",
+            poll_id,
+            format_key or "unknown",
+            _get_storage_location(),
+        )
 
         if not result_data:
             plone.api.portal.show_message(_("Poll result not found"), type="error")

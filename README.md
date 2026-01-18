@@ -99,19 +99,19 @@ Actions are evaluated for every submission and can be combined.
 | Prompt before | empty | Text prepended to the AI prompt. |
 | Default prompt | empty | Default prompt text shown in the AI UI. |
 | Prompt after | empty | Text appended to the AI prompt. |
-| Result storage backend | `zodb` | Storage backend for survey results (`zodb` or `sqlite`). |
-| SQLite path | `var/surveyjs-results.db` | Filesystem path for the SQLite results database. |
+| Result storage backend | `zodb` | Storage backend for survey results (`zodb` or `rdbms`). |
+| Database URI | `sqlite:///var/surveyjs-results.db` | SQLAlchemy database URI for the results database. |
 
 ### Storage Backends
 
-Survey results can be stored in the ZODB (default) or in SQLite via SQLModel. SQLite rows include the Plone site id (`site.getId()`) and the survey identifier to support multi-site deployments on the same DB file.
+Survey results can be stored in the ZODB (default) or in a relational database via SQLModel. Relational rows include the Plone site id (`site.getId()`) and the survey identifier to support multi-site deployments on the same DB.
 
-To migrate existing ZODB results to SQLite, run a Zope/Plone console script and call:
+To migrate existing ZODB results to a relational database, run a Zope/Plone console script and call:
 
 ```python
-from zopyx.surveyjs.storage_migration import migrate_zodb_results_to_sqlite
+from zopyx.surveyjs.storage_migration import migrate_zodb_results_to_rdbms
 
-migrate_zodb_results_to_sqlite(context)
+migrate_zodb_results_to_rdbms(context)
 ```
 
 ## Views and Endpoints

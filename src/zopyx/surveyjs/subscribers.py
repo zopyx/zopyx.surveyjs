@@ -20,7 +20,7 @@ from plone.registry.interfaces import IRegistry
 from email.message import EmailMessage
 
 from .constants import FORM_VERSIONS_KEY
-from .storage import get_result_storage
+from .storage import _get_storage_location, get_result_storage
 from .utils import ensure_timezone_aware
 from .content.survey import Counter
 from .converters.cli import SurveyConverter
@@ -435,4 +435,6 @@ def store_submission_result(context, event):
         context,
         dict(form_data, poll_id=poll_id, form_version=form_version, seq_no=seq_no),
     )
-    logger.info("Stored survey submission for poll %s", poll_id)
+    logger.info(
+        "Stored survey submission for poll %s in %s", poll_id, _get_storage_location()
+    )

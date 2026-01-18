@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
-from zopyx.surveyjs.storage import SQLiteResultStorage
+from zopyx.surveyjs.storage import SQLResultStorage
 
 
 class DummySurvey:
@@ -16,17 +16,17 @@ class DummySurvey:
         return "site-1"
 
 
-class SQLiteStorageTests(unittest.TestCase):
+class SQLStorageTests(unittest.TestCase):
     def setUp(self):
         self.tmpdir = TemporaryDirectory()
         db_path = Path(self.tmpdir.name) / "results.db"
-        self.storage = SQLiteResultStorage(str(db_path))
+        self.storage = SQLResultStorage(f"sqlite:///{db_path}")
         self.context = DummySurvey()
 
     def tearDown(self):
         self.tmpdir.cleanup()
 
-    def test_sqlite_storage_roundtrip(self):
+    def test_sql_storage_roundtrip(self):
         created = datetime(2024, 2, 2, tzinfo=timezone.utc)
         poll_id = self.storage.store_result(
             self.context,
@@ -45,7 +45,7 @@ class SQLiteStorageTests(unittest.TestCase):
         self.assertEqual(entry["result"]["q1"], "answer")
         self.assertEqual(entry["created"].tzinfo, timezone.utc)
 
-    def test_sqlite_storage_list_delete_clear(self):
+    def test_sql_storage_list_delete_clear(self):
         self.storage.store_result(
             self.context,
             {

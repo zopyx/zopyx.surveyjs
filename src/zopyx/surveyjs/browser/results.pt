@@ -58,6 +58,10 @@
     <tal:block define="results view/get_paginated_results">
 
         <h2 class="page-headline">Stored form data</h2>
+        <p class="storage-info">
+            <strong>Storage:</strong>
+            <span tal:content="view/storage_info">Storage</span>
+        </p>
 
         <div id="results-table">
 

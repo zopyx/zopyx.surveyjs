@@ -5,6 +5,7 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope import schema
 from zope.interface import Interface
 from plone.supermodel.directives import fieldset
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class IZopyxSurveyjsLayer(IDefaultBrowserLayer):
@@ -72,7 +73,7 @@ class IFormsSettings(IPloneLoggingSettings):
         label="Result Storage",
         fields=(
             "result_storage_backend",
-            "sqlite_path",
+            "database_uri",
         ),
     )
 
@@ -129,12 +130,21 @@ class IFormsSettings(IPloneLoggingSettings):
         description="Storage backend for survey results.",
         required=False,
         default="zodb",
-        values=["zodb", "sqlite"],
+        vocabulary=SimpleVocabulary.fromItems(
+            [
+                ("zodb", "zodb", "Plone (ZODB)"),
+                ("rdbms", "rdbms", "Relational database"),
+            ]
+        ),
     )
 
-    sqlite_path = schema.TextLine(
-        title="SQLite path",
-        description="Filesystem path to the SQLite database for storing survey results.",
+    database_uri = schema.URI(
+        title="Database URI",
+        description=(
+            "SQLAlchemy-style database URI for storing survey results "
+            "(e.g. sqlite:///var/surveyjs-results.db, "
+            "postgresql+psycopg2://user:pass@host/db)."
+        ),
         required=False,
-        default="var/surveyjs-results.db",
+        default="sqlite:///var/surveyjs-results.db",
     )

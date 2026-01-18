@@ -119,7 +119,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         body = orjson.loads(req.response.getBody())
         self.assertTrue(body["isSuccess"])
 
-    def test_save_poll_uses_sqlite_backend(self) -> None:
+    def test_save_poll_uses_sql_backend(self) -> None:
         self._add_version()
         self.survey.actions = {"store"}
         registry = getUtility(IRegistry)
@@ -127,9 +127,9 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         with TemporaryDirectory() as tmpdir:
             db_path = os.path.join(tmpdir, "results.db")
             original_backend = settings.result_storage_backend
-            original_path = settings.sqlite_path
-            settings.result_storage_backend = "sqlite"
-            settings.sqlite_path = db_path
+            original_uri = settings.database_uri
+            settings.result_storage_backend = "rdbms"
+            settings.database_uri = f"sqlite:///{db_path}"
             try:
                 req = self._make_request(
                     form={"pollResult": orjson.dumps({"q1": "yes"})}
@@ -143,7 +143,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
                 self.assertEqual(len(annos[RESULTS_KEY]), 0)
             finally:
                 settings.result_storage_backend = original_backend
-                settings.sqlite_path = original_path
+                settings.database_uri = original_uri
 
     def test_save_poll_skips_storage_when_disabled(self) -> None:
         self.survey.actions = {"mail"}

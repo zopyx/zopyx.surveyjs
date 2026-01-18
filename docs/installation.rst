@@ -20,11 +20,11 @@ Buildout
 Optional components
 ===================
 
-SQLite result storage
-  The SQLite backend is bundled via SQLModel. Ensure the configured SQLite
-  path is writable by the Plone process (default: ``var/surveyjs-results.db``).
-  Each row stores the Plone ``site_id`` to support multiple sites sharing
-  a single SQLite file.
+Relational result storage
+  The SQLModel backend supports SQLite, PostgreSQL, and MySQL. Ensure the
+  configured database URI is reachable by the Plone process (default:
+  ``sqlite:///var/surveyjs-results.db``). Each row stores the Plone
+  ``site_id`` to support multi-site deployments.
 
 External SurveyJS validation (Deno binary)
   Build the Deno validator in ``data-validation/`` and place the binary in

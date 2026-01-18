@@ -10,6 +10,7 @@ import orjson
 from BTrees.OOBTree import OOBTree
 from sqlmodel import Field, SQLModel, Session, create_engine, select
 from sqlalchemy import Column, Text
+from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component.hooks import getSite
@@ -67,15 +68,16 @@ def _get_site_id(context) -> str:
         return ""
 
 
-def _get_sqlite_path() -> str:
+def _get_database_uri() -> str:
     try:
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
-        sqlite_path = getattr(settings, "sqlite_path", None) or "var/surveyjs-results.db"
-        sqlite_path = sqlite_path.strip()
-        return sqlite_path
+        database_uri = getattr(settings, "database_uri", None)
+        if database_uri:
+            return database_uri.strip()
+        return "sqlite:///var/surveyjs-results.db"
     except Exception:
-        return "var/surveyjs-results.db"
+        return "sqlite:///var/surveyjs-results.db"
 
 
 def _get_backend_name() -> str:
@@ -88,23 +90,45 @@ def _get_backend_name() -> str:
         return "zodb"
 
 
-def _get_sqlite_engine(db_path: str):
-    db_path = os.path.expanduser(db_path)
-    if not os.path.isabs(db_path):
-        db_path = os.path.abspath(db_path)
-    if db_path in _ENGINE_CACHE:
-        return _ENGINE_CACHE[db_path]
+def _get_storage_location() -> str:
+    backend = _get_backend_name()
+    if backend == "rdbms":
+        return _get_database_uri()
+    return "zodb"
 
-    Path(db_path).parent.mkdir(parents=True, exist_ok=True)
-    engine = create_engine(
-        f"sqlite:///{db_path}",
-        connect_args={"check_same_thread": False},
-    )
+
+def _sqlite_path_to_uri(sqlite_path: str) -> str:
+    sqlite_path = sqlite_path.strip()
+    if sqlite_path in (":memory:", "file::memory:?cache=shared"):
+        return "sqlite:///" + sqlite_path
+    expanded = os.path.expanduser(sqlite_path)
+    if os.path.isabs(expanded):
+        return f"sqlite:////{expanded.lstrip('/')}"
+    return f"sqlite:///{expanded}"
+
+
+def _get_engine(db_uri: str):
+    db_uri = db_uri.strip()
+    if db_uri in _ENGINE_CACHE:
+        return _ENGINE_CACHE[db_uri]
+
+    url = make_url(db_uri)
+    connect_args = {}
+    if url.get_backend_name() == "sqlite":
+        if url.database and url.database not in (":memory:", ""):
+            db_path = os.path.expanduser(url.database)
+            if not os.path.isabs(db_path):
+                db_path = os.path.abspath(db_path)
+            Path(db_path).parent.mkdir(parents=True, exist_ok=True)
+        connect_args = {"check_same_thread": False}
+
+    engine = create_engine(db_uri, connect_args=connect_args)
     SQLModel.metadata.create_all(engine)
-    with engine.connect() as connection:
-        connection.exec_driver_sql("PRAGMA journal_mode=WAL;")
-        connection.exec_driver_sql("PRAGMA busy_timeout=5000;")
-    _ENGINE_CACHE[db_path] = engine
+    if url.get_backend_name() == "sqlite":
+        with engine.connect() as connection:
+            connection.exec_driver_sql("PRAGMA journal_mode=WAL;")
+            connection.exec_driver_sql("PRAGMA busy_timeout=5000;")
+    _ENGINE_CACHE[db_uri] = engine
     return engine
 
 
@@ -185,10 +209,10 @@ class SurveyResult(SQLModel, table=True):
     entry_json: str = Field(sa_column=Column(Text, nullable=False))
 
 
-class SQLiteResultStorage(ResultStorage):
-    def __init__(self, db_path: str):
-        self._db_path = db_path
-        self._engine = _get_sqlite_engine(db_path)
+class SQLResultStorage(ResultStorage):
+    def __init__(self, database_uri: str):
+        self._database_uri = database_uri
+        self._engine = _get_engine(database_uri)
 
     def _session(self) -> Session:
         return Session(self._engine)
@@ -303,6 +327,11 @@ class SQLiteResultStorage(ResultStorage):
 
 def get_result_storage(context) -> ResultStorage:
     backend = _get_backend_name()
-    if backend == "sqlite":
-        return SQLiteResultStorage(_get_sqlite_path())
+    if backend == "rdbms":
+        return SQLResultStorage(_get_database_uri())
     return ZODBResultStorage()
+
+
+class SQLiteResultStorage(SQLResultStorage):
+    """Backward-compatible alias for the SQLModel storage backend."""
+    pass
