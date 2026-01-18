@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+  const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   const importerForm = document.getElementById("pdfImporterForm");
   const pdfInput = document.getElementById("pdfFile");
   const importBtn = document.getElementById("importBtn");
@@ -39,6 +51,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     surveyPreviewContainer.innerHTML = "";
     const model = new Survey.Model(surveyJson);
+    model.locale = locale;
+    if (Survey && Survey.surveyLocalization) {
+      Survey.surveyLocalization.currentLocale = locale;
+    }
     model.render(surveyPreviewContainer);
     surveyPreview = model;
   }
@@ -48,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const file = pdfInput.files[0];
     if (!file) {
-      showStatus("Please select a PDF file to upload.", "error");
+      showStatus(t("Please select a PDF file to upload."), "error");
       return;
     }
 
@@ -67,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => {
       if (!response.ok) {
         return response.json().then(data => {
-          throw new Error(data.message || "Import failed");
+          throw new Error(data.message || t("Import failed"));
         });
       }
       return response.json();
@@ -76,8 +92,10 @@ document.addEventListener("DOMContentLoaded", function() {
       if (data.success) {
         const versionsUrl = ACTUAL_URL + "/@@form-versions";
         showStatus(
-          "Form imported and saved as a new version. " +
-            "<a href=\"" + versionsUrl + "\">View versions</a>.",
+          t(
+            "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>.",
+            { url: versionsUrl }
+          ),
           "success"
         );
         if (data.json) {
@@ -85,11 +103,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         importerForm.reset();
       } else {
-        throw new Error(data.message || "Import failed");
+        throw new Error(data.message || t("Import failed"));
       }
     })
     .catch(error => {
-      showStatus(error.message || "Import failed. Please try again.", "error");
+      showStatus(error.message || t("Import failed. Please try again."), "error");
     })
     .finally(() => {
       setLoading(false);

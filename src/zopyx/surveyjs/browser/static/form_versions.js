@@ -5,6 +5,17 @@
 (function() {
   'use strict';
 
+  var t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
   var baseUrl = '';
   var activeJsonRequest = null;
   var activeSurvey = null;
@@ -60,7 +71,7 @@
         var url = baseUrl + '/@@view-version-json?version_id=' + encodeURIComponent(versionId);
 
         // Show modal
-        content.textContent = 'Loading...';
+        content.textContent = t('Loading...');
         modal.classList.add('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -80,7 +91,7 @@
             if (err.name === 'AbortError') {
               return;
             }
-            content.textContent = 'Error: ' + err.message;
+            content.textContent = t('Error: ${error}', { error: err.message });
           })
           .finally(function() {
             if (activeJsonRequest === jsonController) {
@@ -156,7 +167,10 @@
       }
 
       // Show modal with loading message
-      container.innerHTML = '<div style="text-align:center;padding:40px;color:#666;">Loading preview...</div>';
+      container.innerHTML =
+        '<div style="text-align:center;padding:40px;color:#666;">' +
+        t('Loading preview...') +
+        '</div>';
       modal.classList.add('active');
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -177,7 +191,7 @@
           container.innerHTML = '';
 
           if (typeof Survey === 'undefined') {
-            throw new Error('Survey library not loaded');
+            throw new Error(t('Survey library not loaded'));
           }
 
           var renderTarget = document.createElement('div');
@@ -185,6 +199,12 @@
           container.appendChild(renderTarget);
 
           activeSurvey = new Survey.Model(json);
+          if (window.SURVEYJS_I18N_LOCALE) {
+            activeSurvey.locale = window.SURVEYJS_I18N_LOCALE;
+          }
+          if (typeof Survey !== 'undefined' && Survey.surveyLocalization) {
+            Survey.surveyLocalization.currentLocale = window.SURVEYJS_I18N_LOCALE;
+          }
 
           // Apply light theme if available
           if (typeof SurveyTheme !== 'undefined' && SurveyTheme.LayeredLightPanelless) {
@@ -212,8 +232,11 @@
           if (err.name === 'AbortError') {
             return;
           }
-          console.error('Preview error:', err);
-          container.innerHTML = '<div style="text-align:center;padding:40px;color:#e00;">Error: ' + err.message + '</div>';
+          console.error(t('Preview error:'), err);
+          container.innerHTML =
+            '<div style="text-align:center;padding:40px;color:#e00;">' +
+            t('Error: ${error}', { error: err.message }) +
+            '</div>';
         })
         .finally(function() {
           if (activePreviewRequest === previewController) {
@@ -272,8 +295,8 @@
         var user = btn.getAttribute('data-user') || '';
 
         versionIdEl.textContent = vid;
-        versionUserEl.textContent = user || '—';
-        versionDateEl.textContent = created || '—';
+        versionUserEl.textContent = user || t('--');
+        versionDateEl.textContent = created || t('--');
         versionInput.value = vid;
 
         modal.classList.add('active');
@@ -311,7 +334,9 @@
     var input = document.getElementById('json_file');
     if (input) {
       input.addEventListener('change', function() {
-        var fileName = this.files[0] ? this.files[0].name : 'No file selected';
+        var fileName = this.files[0]
+          ? this.files[0].name
+          : t('No file selected');
         var label = this.nextElementSibling;
         if (label && label.tagName === 'LABEL') {
           label.textContent = fileName;

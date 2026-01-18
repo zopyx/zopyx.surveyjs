@@ -3,9 +3,27 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       metal:use-macro="context/main_template/macros/master"
->
+      i18n:domain="zopyx.surveyjs">
 
-<metal:block fill-slot="content-core">
+<metal:block fill-slot="content-core"
+             tal:define="portal_state context/@@plone_portal_state">
+
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
+    ></script>
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n.js"
+            type="text/javascript"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n/en.js"
+            type="text/javascript"
+    ></script>
+    <script tal:condition="python:portal_state.language() != 'en'"
+            tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
+            type="text/javascript"
+    ></script>
 
     <link rel="stylesheet"
           type="text/css"
@@ -58,29 +76,29 @@
     <tal:block define="detail view/result_detail">
         <tal:block tal:condition="python: detail.get('error')">
             <div class="storage-warning">
-                <strong>Unable to load submission.</strong>
+                <strong i18n:translate="">Unable to load submission.</strong>
                 <span tal:content="python: detail.get('error')">Error</span>
             </div>
             <p>
                 <a class="btn btn-secondary"
-                   href="${context/absolute_url}/@@results">Back to results</a>
+                   href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
             </p>
         </tal:block>
 
         <tal:block tal:condition="python: not detail.get('error')">
-            <h2 class="page-headline">Submission Details</h2>
+            <h2 class="page-headline" i18n:translate="">Submission Details</h2>
 
             <div id="results-table">
-                <p><strong>Poll ID:</strong> <span tal:content="detail/poll_id">Poll</span></p>
+                <p><strong i18n:translate="">Poll ID:</strong> <span tal:content="detail/poll_id">Poll</span></p>
                 <p tal:condition="python: detail.get('seq_no')">
-                    <strong>Sequence:</strong> <span tal:content="python: detail.get('seq_no')">#</span>
+                    <strong i18n:translate="">Sequence:</strong> <span tal:content="python: detail.get('seq_no')">#</span>
                 </p>
-                <p><strong>Created:</strong> <span tal:content="detail/created">Date</span></p>
-                <p><strong>User:</strong> <span tal:content="detail/creator">User</span></p>
+                <p><strong i18n:translate="">Created:</strong> <span tal:content="detail/created">Date</span></p>
+                <p><strong i18n:translate="">User:</strong> <span tal:content="detail/creator">User</span></p>
 
                 <div class="results-toolbar">
                     <a class="btn btn-secondary"
-                       href="${context/absolute_url}/@@results">Back to results</a>
+                       href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
                 </div>
 
                 <ul id="downloadActions">

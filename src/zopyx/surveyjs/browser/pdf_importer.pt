@@ -5,13 +5,30 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="zopyx.surveyjs">
 
-<metal:block fill-slot="content-core">
+<metal:block fill-slot="content-core"
+             tal:define="portal_state context/@@plone_portal_state">
 
   <script type="text/javascript"
           tal:content="string: ACTUAL_URL='${context/absolute_url}'"
   ></script>
   <script type="text/javascript"
           tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
+  ></script>
+  <script type="text/javascript"
+          tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
+  ></script>
+  <script type="text/javascript"
+          tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
+  ></script>
+  <script src="++resource++zopyx.surveyjs/i18n.js"
+          type="text/javascript"
+  ></script>
+  <script src="++resource++zopyx.surveyjs/i18n/en.js"
+          type="text/javascript"
+  ></script>
+  <script tal:condition="python:portal_state.language() != 'en'"
+          tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
+          type="text/javascript"
   ></script>
 
   <link href="++resource++zopyx.surveyjs/viewer.css"
@@ -127,6 +144,7 @@
         </div>
         <iframe id="pdfPreviewFrame"
                 title="PDF Preview"
+                i18n:attributes="title"
                 style="display:none;"
                 class="pdf-preview-frame"
         ></iframe>

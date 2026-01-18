@@ -167,9 +167,39 @@ def configure_site_languages():
             "plone.available_languages", ["en", "de", "ar", "ja"]
         )
         api.portal.set_registry_record("plone.default_language", "en")
+        optional_settings = {
+            "plone.use_path_negotiation": True,
+            "plone.use_content_negotiation": True,
+            "plone.set_language_cookie": True,
+            "plone.display_flags": True,
+        }
+        for key, value in optional_settings.items():
+            try:
+                api.portal.set_registry_record(key, value)
+            except InvalidParameterError:
+                continue
         print("Configured site languages: en (default), de, ar, ja")
     except InvalidParameterError:
         print("Language registry records not found; skipping language configuration")
+
+
+def enable_language_selector():
+    """Ensure the language selector is visible by default."""
+    try:
+        api.portal.set_registry_record("plone.disable_language_selector", False)
+    except InvalidParameterError:
+        pass
+
+    try:
+        props = api.portal.get_tool("portal_properties")
+    except Exception:
+        return
+
+    site_props = getattr(props, "site_properties", None)
+    if site_props and site_props.hasProperty("disable_language_selector"):
+        if site_props.getProperty("disable_language_selector"):
+            site_props._setProperty("disable_language_selector", False)
+            print("Enabled language selector in site properties")
 
 
 def create_demo_survey(
@@ -280,6 +310,25 @@ def ensure_folder(container, folder_id, title):
     return folder
 
 
+def ensure_language_tree(site, language, root_title, demos_title):
+    """Create a language root and its demos folder."""
+    root = ensure_folder(site, language, root_title)
+    try:
+        root.language = language
+        root.reindexObject()
+    except Exception:
+        pass
+
+    demos = ensure_folder(root, "demos", demos_title)
+    try:
+        demos.language = language
+        demos.reindexObject()
+    except Exception:
+        pass
+
+    return root, demos
+
+
 class MyThemingControlpanel(ThemingControlpanel):
     """
     A subclass of the standard ThemingControlpanel to override authorization.
@@ -324,6 +373,7 @@ view.update()
 configure_ai_model_from_env()
 configure_mail_from_env()
 configure_site_languages()
+enable_language_selector()
 remove_navigation_portlets(site)
 
 # Create logo.jpg as Image content object
@@ -356,11 +406,21 @@ for obj_id in ("events", "news", "Members"):
     if obj_id in site.objectIds():
         site.manage_delObjects([obj_id])
 
-# Ensure demo folders
-demos = ensure_folder(site, "demos", "Demos (EN)")
-demos_de = ensure_folder(site, "demo-de", "Demos (DE)")
-demos_ar = ensure_folder(site, "demo-ar", "نماذج تجريبية (AR)")
-demos_ja = ensure_folder(site, "demo-ja", "デモフォーム (JP)")
+language_trees = {
+    "en": {"root": "English", "demos": "Demos (EN)"},
+    "de": {"root": "Deutsch", "demos": "Demos (DE)"},
+    "ar": {"root": "العربية", "demos": "نماذج تجريبية (AR)"},
+    "ja": {"root": "日本語", "demos": "デモフォーム (JP)"},
+}
+
+language_roots = {}
+demos_by_language = {}
+for language, titles in language_trees.items():
+    root, demos_folder = ensure_language_tree(
+        site, language, titles["root"], titles["demos"]
+    )
+    language_roots[language] = root
+    demos_by_language[language] = demos_folder
 
 # Seed event registration survey
 event_form = load_form_definition("event_registration")
@@ -371,7 +431,7 @@ create_demo_survey(
     title="Event registration",
     description="Register for the event.",
     form_json=event_form,
-    container=demos,
+    container=demos_by_language["en"],
 )
 
 welcome_html = load_intro_text("welcome")
@@ -394,22 +454,22 @@ welcome_html += """
   <h3>Demo Forms (EN)</h3>
   <ul class="demo-grid">
     <li class="demo-card">
-      <h4><a href="demo/demos/event-registration">Event registration</a></h4>
+      <h4><a href="demo/en/demos/event-registration">Event registration</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demos/event-rsvp">Event registration / unregistration</a></h4>
+      <h4><a href="demo/en/demos/event-rsvp">Event registration / unregistration</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demos/mental-health-survey">Mental Health Survey</a></h4>
+      <h4><a href="demo/en/demos/mental-health-survey">Mental Health Survey</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demos/full-demo">Social Media Consumption Demo</a></h4>
+      <h4><a href="demo/en/demos/full-demo">Social Media Consumption Demo</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demos/food-feedback-demo">Food Ordering Service Feedback</a></h4>
+      <h4><a href="demo/en/demos/food-feedback-demo">Food Ordering Service Feedback</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demos/order-form">Order form</a></h4>
+      <h4><a href="demo/en/demos/order-form">Order form</a></h4>
     </li>
   </ul>
 </section>
@@ -417,22 +477,22 @@ welcome_html += """
   <h3>Demo Forms (DE)</h3>
   <ul class="demo-grid">
     <li class="demo-card">
-      <h4><a href="demo/demo-de/event-registration-de">Veranstaltungsanmeldung</a></h4>
+      <h4><a href="demo/de/demos/event-registration-de">Veranstaltungsanmeldung</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-de/event-rsvp-de">Veranstaltung An-/Abmeldung</a></h4>
+      <h4><a href="demo/de/demos/event-rsvp-de">Veranstaltung An-/Abmeldung</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-de/mental-health-survey-de">Umfrage zur psychischen Gesundheit</a></h4>
+      <h4><a href="demo/de/demos/mental-health-survey-de">Umfrage zur psychischen Gesundheit</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-de/full-demo-de">Nutzung sozialer Medien</a></h4>
+      <h4><a href="demo/de/demos/full-demo-de">Nutzung sozialer Medien</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-de/food-feedback-demo-de">Feedback zum Essens-Bestellservice</a></h4>
+      <h4><a href="demo/de/demos/food-feedback-demo-de">Feedback zum Essens-Bestellservice</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-de/order-form-de">Bestellformular für Kleidung</a></h4>
+      <h4><a href="demo/de/demos/order-form-de">Bestellformular für Kleidung</a></h4>
     </li>
   </ul>
 </section>
@@ -440,22 +500,22 @@ welcome_html += """
   <h3>نماذج تجريبية (AR)</h3>
   <ul class="demo-grid">
     <li class="demo-card">
-      <h4><a href="demo/demo-ar/event-registration-ar">التسجيل للفعالية</a></h4>
+      <h4><a href="demo/ar/demos/event-registration-ar">التسجيل للفعالية</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ar/event-rsvp-ar">التسجيل / إلغاء التسجيل للفعالية</a></h4>
+      <h4><a href="demo/ar/demos/event-rsvp-ar">التسجيل / إلغاء التسجيل للفعالية</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ar/mental-health-survey-ar">استبيان الصحة النفسية</a></h4>
+      <h4><a href="demo/ar/demos/mental-health-survey-ar">استبيان الصحة النفسية</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ar/full-demo-ar">عرض استهلاك وسائل التواصل الاجتماعي</a></h4>
+      <h4><a href="demo/ar/demos/full-demo-ar">عرض استهلاك وسائل التواصل الاجتماعي</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ar/food-feedback-demo-ar">ملاحظات خدمة طلب الطعام</a></h4>
+      <h4><a href="demo/ar/demos/food-feedback-demo-ar">ملاحظات خدمة طلب الطعام</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ar/order-form-ar">نموذج الطلب</a></h4>
+      <h4><a href="demo/ar/demos/order-form-ar">نموذج الطلب</a></h4>
     </li>
   </ul>
 </section>
@@ -463,22 +523,22 @@ welcome_html += """
   <h3>デモフォーム (JP)</h3>
   <ul class="demo-grid">
     <li class="demo-card">
-      <h4><a href="demo/demo-ja/event-registration-ja">イベント登録</a></h4>
+      <h4><a href="demo/ja/demos/event-registration-ja">イベント登録</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ja/event-rsvp-ja">イベント登録 / 取消</a></h4>
+      <h4><a href="demo/ja/demos/event-rsvp-ja">イベント登録 / 取消</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ja/mental-health-survey-ja">メンタルヘルス調査</a></h4>
+      <h4><a href="demo/ja/demos/mental-health-survey-ja">メンタルヘルス調査</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ja/full-demo-ja">ソーシャルメディア利用デモ</a></h4>
+      <h4><a href="demo/ja/demos/full-demo-ja">ソーシャルメディア利用デモ</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ja/food-feedback-demo-ja">フード注文サービスのフィードバック</a></h4>
+      <h4><a href="demo/ja/demos/food-feedback-demo-ja">フード注文サービスのフィードバック</a></h4>
     </li>
     <li class="demo-card">
-      <h4><a href="demo/demo-ja/order-form-ja">衣類注文フォーム</a></h4>
+      <h4><a href="demo/ja/demos/order-form-ja">衣類注文フォーム</a></h4>
     </li>
   </ul>
 </section>
@@ -512,7 +572,7 @@ create_demo_survey(
     form_json=mental_form,
     intro_html=mental_intro,
     actions={"store"},
-    container=demos,
+    container=demos_by_language["en"],
 )
 
 full_demo_intro = load_intro_text("full_demo_intro")
@@ -527,7 +587,7 @@ create_demo_survey(
     form_json=full_demo_form,
     intro_html=full_demo_intro,
     actions={"store"},
-    container=demos,
+    container=demos_by_language["en"],
 )
 
 feedback_form = load_form_definition("food_feedback")
@@ -540,7 +600,7 @@ create_demo_survey(
     form_json=feedback_form,
     intro_html=load_intro_text("food_feedback_intro"),
     actions={"store"},
-    container=demos,
+    container=demos_by_language["en"],
 )
 
 event_rsvp_form = load_form_definition("event_rsvp")
@@ -552,7 +612,7 @@ create_demo_survey(
     description="Register for the event or cancel an existing registration.",
     form_json=event_rsvp_form,
     actions={"store"},
-    container=demos,
+    container=demos_by_language["en"],
 )
 
 order_form = load_form_definition("order_form")
@@ -564,7 +624,7 @@ create_demo_survey(
     description="Collect simple cloth orders with customer info and order lines.",
     form_json=order_form,
     actions={"store"},
-    container=demos,
+    container=demos_by_language["en"],
 )
 
 # German demos
@@ -577,7 +637,7 @@ create_demo_survey(
     title="Veranstaltungsanmeldung",
     description="Melden Sie sich zur Veranstaltung an.",
     form_json=event_form_de,
-    container=demos_de,
+    container=demos_by_language["de"],
     language="de",
 )
 
@@ -594,7 +654,7 @@ create_demo_survey(
     form_json=mental_form_de,
     intro_html=mental_intro_de,
     actions={"store"},
-    container=demos_de,
+    container=demos_by_language["de"],
     language="de",
 )
 
@@ -611,7 +671,7 @@ create_demo_survey(
     form_json=full_demo_form_de,
     intro_html=full_demo_intro_de,
     actions={"store"},
-    container=demos_de,
+    container=demos_by_language["de"],
     language="de",
 )
 
@@ -626,7 +686,7 @@ create_demo_survey(
     form_json=feedback_form_de,
     intro_html=load_intro_text("food_feedback_intro_de"),
     actions={"store"},
-    container=demos_de,
+    container=demos_by_language["de"],
     language="de",
 )
 
@@ -640,7 +700,7 @@ create_demo_survey(
     description="Für eine Veranstaltung an- oder abmelden.",
     form_json=event_rsvp_form_de,
     actions={"store"},
-    container=demos_de,
+    container=demos_by_language["de"],
     language="de",
 )
 
@@ -654,7 +714,7 @@ create_demo_survey(
     description="Kundendaten und Bestellpositionen für Textilien erfassen.",
     form_json=order_form_de,
     actions={"store"},
-    container=demos_de,
+    container=demos_by_language["de"],
     language="de",
 )
 
@@ -669,7 +729,7 @@ create_demo_survey(
     title="التسجيل للفعالية",
     description="سجّل في الفعالية.",
     form_json=event_form_ar,
-    container=demos_ar,
+    container=demos_by_language["ar"],
     language="ar",
 )
 
@@ -687,7 +747,7 @@ create_demo_survey(
     form_json=mental_form_ar,
     intro_html=mental_intro_ar,
     actions={"store"},
-    container=demos_ar,
+    container=demos_by_language["ar"],
     language="ar",
 )
 
@@ -705,7 +765,7 @@ create_demo_survey(
     form_json=full_demo_form_ar,
     intro_html=full_demo_intro_ar,
     actions={"store"},
-    container=demos_ar,
+    container=demos_by_language["ar"],
     language="ar",
 )
 
@@ -721,7 +781,7 @@ create_demo_survey(
     form_json=feedback_form_ar,
     intro_html=load_intro_text("food_feedback_intro_ar"),
     actions={"store"},
-    container=demos_ar,
+    container=demos_by_language["ar"],
     language="ar",
 )
 
@@ -736,7 +796,7 @@ create_demo_survey(
     description="سجّل أو ألغِ التسجيل في الفعالية.",
     form_json=event_rsvp_form_ar,
     actions={"store"},
-    container=demos_ar,
+    container=demos_by_language["ar"],
     language="ar",
 )
 
@@ -751,7 +811,7 @@ create_demo_survey(
     description="جمع بيانات العميل وبنود الطلب.",
     form_json=order_form_ar,
     actions={"store"},
-    container=demos_ar,
+    container=demos_by_language["ar"],
     language="ar",
 )
 
@@ -766,7 +826,7 @@ create_demo_survey(
     title="イベント登録",
     description="イベントに登録してください。",
     form_json=event_form_ja,
-    container=demos_ja,
+    container=demos_by_language["ja"],
     language="ja",
 )
 
@@ -784,7 +844,7 @@ create_demo_survey(
     form_json=mental_form_ja,
     intro_html=mental_intro_ja,
     actions={"store"},
-    container=demos_ja,
+    container=demos_by_language["ja"],
     language="ja",
 )
 
@@ -802,7 +862,7 @@ create_demo_survey(
     form_json=full_demo_form_ja,
     intro_html=full_demo_intro_ja,
     actions={"store"},
-    container=demos_ja,
+    container=demos_by_language["ja"],
     language="ja",
 )
 
@@ -818,7 +878,7 @@ create_demo_survey(
     form_json=feedback_form_ja,
     intro_html=load_intro_text("food_feedback_intro_ja"),
     actions={"store"},
-    container=demos_ja,
+    container=demos_by_language["ja"],
     language="ja",
 )
 
@@ -833,7 +893,7 @@ create_demo_survey(
     description="イベントに登録するか、参加できない場合は取消をお知らせください。",
     form_json=event_rsvp_form_ja,
     actions={"store"},
-    container=demos_ja,
+    container=demos_by_language["ja"],
     language="ja",
 )
 
@@ -848,7 +908,7 @@ create_demo_survey(
     description="顧客情報と明細行を収集するためのシンプルな衣類注文フォームです。",
     form_json=order_form_ja,
     actions={"store"},
-    container=demos_ja,
+    container=demos_by_language["ja"],
     language="ja",
 )
 

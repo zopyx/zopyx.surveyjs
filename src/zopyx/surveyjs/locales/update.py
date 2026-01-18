@@ -3,6 +3,8 @@
 import os
 import pkg_resources
 import subprocess
+import sys
+from pathlib import Path
 
 
 domain = "zopyx.surveyjs"
@@ -67,8 +69,18 @@ def _sync():
         shell=True,
     )
 
+def _export_js():
+    script_path = Path(__file__).resolve().parents[3] / "scripts" / "export_i18n_js.py"
+    if not script_path.exists():
+        return
+    subprocess.call(
+        f"{sys.executable} {script_path}",
+        shell=True,
+    )
+
 
 def update_locale():
     locale_folder_setup()
-    _sync()
     _rebuild()
+    _sync()
+    _export_js()
