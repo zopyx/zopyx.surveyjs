@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 import sys
 import unittest
-from types import SimpleNamespace
 from unittest.mock import patch
 
 from zopyx.surveyjs.browser import ai_generator

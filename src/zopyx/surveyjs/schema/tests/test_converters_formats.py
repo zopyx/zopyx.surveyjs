@@ -11,7 +11,6 @@ from openpyxl import load_workbook
 from zopyx.surveyjs.converters import (
     Attachment,
     Item,
-    build_json,
     build_markdown,
     build_table_rows,
     build_xml,
@@ -30,7 +29,6 @@ from zopyx.surveyjs.converters import (
     write_xml,
 )
 from zopyx.surveyjs.converters.html import build_html
-from zopyx.surveyjs.converters.text import build_text
 
 
 def sample_items() -> list[Item]:

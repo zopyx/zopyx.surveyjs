@@ -8,7 +8,7 @@ from datetime import datetime
 import base64
 import logging
 import re
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, Optional, Set, Tuple
 
 
 MAX_REQUEST_BYTES = 2_000_000
