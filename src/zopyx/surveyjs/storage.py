@@ -334,4 +334,5 @@ def get_result_storage(context) -> ResultStorage:
 
 class SQLiteResultStorage(SQLResultStorage):
     """Backward-compatible alias for the SQLModel storage backend."""
+
     pass

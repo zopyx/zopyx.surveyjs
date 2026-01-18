@@ -177,7 +177,9 @@ def _run_external_validation(form_json, poll_result, submission_hash: str):
         if completed.returncode != 0:
             return dict(ok=False, status=500, reason="external_validator_error")
 
-        return dict(ok=True, status=200, reason="external_validation_ok", details=result_data)
+        return dict(
+            ok=True, status=200, reason="external_validation_ok", details=result_data
+        )
 
 
 class Views(BrowserView):
@@ -249,9 +251,7 @@ class Views(BrowserView):
             self.request.response.setStatus(400)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "missing_poll_result"}
-                )
+                orjson.dumps({"isSuccess": False, "error": "missing_poll_result"})
             )
             return
 
@@ -278,13 +278,13 @@ class Views(BrowserView):
         if content_length:
             try:
                 if int(content_length) > max_payload_bytes:
-                    logger.warning("Survey save failed: status=413 reason=request_too_large")
+                    logger.warning(
+                        "Survey save failed: status=413 reason=request_too_large"
+                    )
                     self.request.response.setStatus(413)
                     self.request.response.setHeader("content-type", "application/json")
                     self.request.response.write(
-                        orjson.dumps(
-                            {"isSuccess": False, "error": "request_too_large"}
-                        )
+                        orjson.dumps({"isSuccess": False, "error": "request_too_large"})
                     )
                     return
             except ValueError:
@@ -1046,7 +1046,9 @@ class Views(BrowserView):
         version_data["locked"] = not locked
         form_versions[version_id] = version_data
 
-        message = _("Version locked") if version_data["locked"] else _("Version unlocked")
+        message = (
+            _("Version locked") if version_data["locked"] else _("Version unlocked")
+        )
         plone.api.portal.show_message(message, type="info")
         return self.request.response.redirect(
             self.context.absolute_url() + "/@@form-versions"
@@ -1331,9 +1333,7 @@ class Views(BrowserView):
 
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(
-            orjson.dumps(status)
-        )
+        self.request.response.write(orjson.dumps(status))
 
     @property
     def has_mail_action(self):
@@ -1711,9 +1711,13 @@ class Views(BrowserView):
                     "off",
                     str(png_path),
                 ]
-                logger.info(f"Executing ImageMagick convert command: {' '.join(command)}")
+                logger.info(
+                    f"Executing ImageMagick convert command: {' '.join(command)}"
+                )
                 result = subprocess.run(command, check=True, capture_output=True)
-                logger.info(f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}")
+                logger.info(
+                    f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}"
+                )
 
                 image_path = png_path
                 if not image_path.exists():

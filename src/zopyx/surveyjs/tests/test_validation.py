@@ -28,7 +28,12 @@ class ValidationTests(unittest.TestCase):
             [
                 {"type": "text", "name": "q1"},
                 {"type": "text", "name": "q2", "requiredIf": "{q1} = 'yes'"},
-                {"type": "text", "name": "q3", "isRequired": True, "visibleIf": "{q1} = 'no'"},
+                {
+                    "type": "text",
+                    "name": "q3",
+                    "isRequired": True,
+                    "visibleIf": "{q1} = 'no'",
+                },
             ]
         )
         result_missing = v.validate_submission(form_json, {"q1": "yes"})
@@ -244,7 +249,9 @@ class ValidationTests(unittest.TestCase):
 
     def test_internal_helpers_are_exercised(self) -> None:
         self.assertIsNone(v._choices_to_set([]))
-        self.assertEqual(v._choices_to_set([{"value": 1}, {"value": None}, "x"]), {"1", "x"})
+        self.assertEqual(
+            v._choices_to_set([{"value": 1}, {"value": None}, "x"]), {"1", "x"}
+        )
 
         fields = {}
         v._parse_elements(
@@ -295,7 +302,9 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(v._validator_kind({"expression": "x"}), "expression")
         self.assertIsNone(v._validator_kind({}))
 
-    def test_validate_text_number_rating_choice_checkbox_boolean_date_paths(self) -> None:
+    def test_validate_text_number_rating_choice_checkbox_boolean_date_paths(
+        self,
+    ) -> None:
         self.assertEqual(v._validate_text(1, {}), "type_mismatch")
         self.assertEqual(v._validate_text("a", {"minLength": 2}), "text_too_short")
         self.assertEqual(v._validate_text("abcd", {"maxLength": 3}), "text_too_long")
@@ -313,7 +322,9 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(v._validate_rating("x", {}), "type_mismatch")
         self.assertEqual(v._validate_rating(1, {"rateMin": 2}), "out_of_range")
         self.assertEqual(v._validate_rating(5, {"rateMax": 4}), "out_of_range")
-        self.assertEqual(v._validate_rating(2, {"rateValues": {"1", "3"}}), "invalid_choice")
+        self.assertEqual(
+            v._validate_rating(2, {"rateValues": {"1", "3"}}), "invalid_choice"
+        )
         self.assertIsNone(v._validate_rating("2", {"rateMin": 1, "rateMax": 3}))
 
         self.assertEqual(v._validate_choice(True, {}), "type_mismatch")
@@ -325,12 +336,16 @@ class ValidationTests(unittest.TestCase):
             v._validate_checkbox(list(range(v.MAX_CHOICES + 1)), {}),
             "too_many_choices",
         )
-        self.assertEqual(v._validate_checkbox([], {"minSelectedChoices": 1}), "too_few_choices")
+        self.assertEqual(
+            v._validate_checkbox([], {"minSelectedChoices": 1}), "too_few_choices"
+        )
         self.assertEqual(
             v._validate_checkbox(["a", "b"], {"maxSelectedChoices": 1}),
             "too_many_choices",
         )
-        self.assertEqual(v._validate_checkbox(["x"], {"choices": {"y"}}), "invalid_choice")
+        self.assertEqual(
+            v._validate_checkbox(["x"], {"choices": {"y"}}), "invalid_choice"
+        )
         self.assertIsNone(v._validate_checkbox(["x"], {"choices": {"x"}}))
 
         self.assertEqual(v._validate_boolean("true"), "type_mismatch")
@@ -345,7 +360,9 @@ class ValidationTests(unittest.TestCase):
         self.assertIsNone(v._decode_base64("not-base64"))
         data_url = "data:text/plain;base64," + base64.b64encode(b"ok").decode("ascii")
         self.assertEqual(v._decode_base64(data_url), b"ok")
-        self.assertEqual(v._decode_base64(base64.b64encode(b"ok").decode("ascii")), b"ok")
+        self.assertEqual(
+            v._decode_base64(base64.b64encode(b"ok").decode("ascii")), b"ok"
+        )
 
         self.assertEqual(v._validate_files("x", {}), "type_mismatch")
         self.assertEqual(
@@ -354,18 +371,35 @@ class ValidationTests(unittest.TestCase):
         )
         self.assertEqual(v._validate_files(["not-a-dict"], {}), "invalid_attachment")
         self.assertEqual(v._validate_files([{"name": ""}], {}), "invalid_attachment")
-        self.assertEqual(v._validate_files([{"name": "a", "size": "1"}], {}), "invalid_attachment")
-        self.assertEqual(v._validate_files([{"name": "a", "type": "bad"}], {}), "invalid_attachment")
-        self.assertEqual(v._validate_files([{"name": "a", "content": 123}], {}), "invalid_attachment")
-        self.assertEqual(v._validate_files([{"name": "a", "content": "not-base64"}], {}), "invalid_base64")
+        self.assertEqual(
+            v._validate_files([{"name": "a", "size": "1"}], {}), "invalid_attachment"
+        )
+        self.assertEqual(
+            v._validate_files([{"name": "a", "type": "bad"}], {}), "invalid_attachment"
+        )
+        self.assertEqual(
+            v._validate_files([{"name": "a", "content": 123}], {}), "invalid_attachment"
+        )
+        self.assertEqual(
+            v._validate_files([{"name": "a", "content": "not-base64"}], {}),
+            "invalid_base64",
+        )
         self.assertEqual(
             v._validate_files(
-                [{"name": "a", "content": base64.b64encode(b"abc").decode("ascii"), "size": 2}],
+                [
+                    {
+                        "name": "a",
+                        "content": base64.b64encode(b"abc").decode("ascii"),
+                        "size": 2,
+                    }
+                ],
                 {},
             ),
             "attachment_size_mismatch",
         )
-        self.assertEqual(v._validate_files([{"name": "a"}], {}), "missing_attachment_size")
+        self.assertEqual(
+            v._validate_files([{"name": "a"}], {}), "missing_attachment_size"
+        )
         self.assertEqual(
             v._validate_files([{"name": "a", "size": v.MAX_ATTACHMENT_BYTES + 1}], {}),
             "attachment_too_large",
@@ -373,7 +407,9 @@ class ValidationTests(unittest.TestCase):
 
         with patch.object(v, "MAX_TOTAL_ATTACHMENT_BYTES", 1):
             self.assertEqual(
-                v._validate_files([{"name": "a", "size": 1}, {"name": "b", "size": 1}], {}),
+                v._validate_files(
+                    [{"name": "a", "size": 1}, {"name": "b", "size": 1}], {}
+                ),
                 "attachments_too_large",
             )
 
@@ -407,11 +443,15 @@ class ValidationTests(unittest.TestCase):
 
         self.assertEqual(v._validate_matrix_dropdown([], {}), "type_mismatch")
         self.assertEqual(
-            v._validate_matrix_dropdown({"r2": {}}, {"rows": {"r1"}, "columns_meta": []}),
+            v._validate_matrix_dropdown(
+                {"r2": {}}, {"rows": {"r1"}, "columns_meta": []}
+            ),
             "invalid_row",
         )
         self.assertEqual(
-            v._validate_matrix_dropdown({"r1": "x"}, {"rows": {"r1"}, "columns_meta": []}),
+            v._validate_matrix_dropdown(
+                {"r1": "x"}, {"rows": {"r1"}, "columns_meta": []}
+            ),
             "type_mismatch",
         )
         self.assertEqual(
@@ -436,7 +476,9 @@ class ValidationTests(unittest.TestCase):
         )
 
         self.assertEqual(v._validate_paneldynamic({}, {}), ("type_mismatch", None))
-        self.assertEqual(v._validate_paneldynamic([{}], {"maxItems": 0}), ("too_many_items", None))
+        self.assertEqual(
+            v._validate_paneldynamic([{}], {"maxItems": 0}), ("too_many_items", None)
+        )
         self.assertEqual(v._validate_paneldynamic([[]], {}), ("type_mismatch", None))
         template_fields = {"inner": {"type": "text", "required": True}}
         self.assertEqual(
@@ -469,41 +511,98 @@ class ValidationTests(unittest.TestCase):
         self.assertTrue(result.ok)
 
     def test_apply_validators_branches(self) -> None:
-        self.assertEqual(v._apply_validators(1, {"validators": ["bad"]}, {}), "invalid_validator")
-        self.assertEqual(v._apply_validators(True, {"validators": [{"minValue": 1}]}, {}), "type_mismatch")
-        self.assertEqual(v._apply_validators(0, {"validators": [{"minValue": 1}]}, {}), "out_of_range")
-        self.assertEqual(v._apply_validators(2, {"validators": [{"maxValue": 1}]}, {}), "out_of_range")
-        self.assertIsNone(v._apply_validators(1, {"validators": [{"minValue": 1, "maxValue": 2}]}, {}))
-
-        self.assertEqual(v._apply_validators(1, {"validators": [{"minLength": 2}]}, {}), "type_mismatch")
-        self.assertEqual(v._apply_validators("a", {"validators": [{"minLength": 2}]}, {}), "text_too_short")
-        self.assertEqual(v._apply_validators("abcd", {"validators": [{"maxLength": 2}]}, {}), "text_too_long")
-
-        self.assertEqual(v._apply_validators("x", {"validators": [{"minCount": 1}]}, {}), "type_mismatch")
-        self.assertEqual(v._apply_validators([], {"validators": [{"minCount": 1}]}, {}), "too_few_choices")
-        self.assertEqual(v._apply_validators(["a", "b"], {"validators": [{"maxCount": 1}]}, {}), "too_many_choices")
-
-        self.assertEqual(v._apply_validators(1, {"validators": [{"regex": "^x"}]}, {}), "type_mismatch")
-        self.assertEqual(v._apply_validators("x", {"validators": [{"regex": 123}]}, {}), "invalid_validator")
-        self.assertEqual(v._apply_validators("y", {"validators": [{"regex": "^x"}]}, {}), "regex_mismatch")
-
-        self.assertEqual(v._apply_validators(1, {"validators": [{"type": "email"}]}, {}), "type_mismatch")
-        self.assertEqual(v._apply_validators("nope", {"validators": [{"type": "email"}]}, {}), "invalid_email")
+        self.assertEqual(
+            v._apply_validators(1, {"validators": ["bad"]}, {}), "invalid_validator"
+        )
+        self.assertEqual(
+            v._apply_validators(True, {"validators": [{"minValue": 1}]}, {}),
+            "type_mismatch",
+        )
+        self.assertEqual(
+            v._apply_validators(0, {"validators": [{"minValue": 1}]}, {}),
+            "out_of_range",
+        )
+        self.assertEqual(
+            v._apply_validators(2, {"validators": [{"maxValue": 1}]}, {}),
+            "out_of_range",
+        )
+        self.assertIsNone(
+            v._apply_validators(1, {"validators": [{"minValue": 1, "maxValue": 2}]}, {})
+        )
 
         self.assertEqual(
-            v._apply_validators("x", {"validators": [{"type": "expression", "expression": 1}]}, {}),
+            v._apply_validators(1, {"validators": [{"minLength": 2}]}, {}),
+            "type_mismatch",
+        )
+        self.assertEqual(
+            v._apply_validators("a", {"validators": [{"minLength": 2}]}, {}),
+            "text_too_short",
+        )
+        self.assertEqual(
+            v._apply_validators("abcd", {"validators": [{"maxLength": 2}]}, {}),
+            "text_too_long",
+        )
+
+        self.assertEqual(
+            v._apply_validators("x", {"validators": [{"minCount": 1}]}, {}),
+            "type_mismatch",
+        )
+        self.assertEqual(
+            v._apply_validators([], {"validators": [{"minCount": 1}]}, {}),
+            "too_few_choices",
+        )
+        self.assertEqual(
+            v._apply_validators(["a", "b"], {"validators": [{"maxCount": 1}]}, {}),
+            "too_many_choices",
+        )
+
+        self.assertEqual(
+            v._apply_validators(1, {"validators": [{"regex": "^x"}]}, {}),
+            "type_mismatch",
+        )
+        self.assertEqual(
+            v._apply_validators("x", {"validators": [{"regex": 123}]}, {}),
             "invalid_validator",
         )
         self.assertEqual(
-            v._apply_validators("x", {"validators": [{"type": "expression", "expression": "{a} = 1"}]}, {"a": 2}),
+            v._apply_validators("y", {"validators": [{"regex": "^x"}]}, {}),
+            "regex_mismatch",
+        )
+
+        self.assertEqual(
+            v._apply_validators(1, {"validators": [{"type": "email"}]}, {}),
+            "type_mismatch",
+        )
+        self.assertEqual(
+            v._apply_validators("nope", {"validators": [{"type": "email"}]}, {}),
+            "invalid_email",
+        )
+
+        self.assertEqual(
+            v._apply_validators(
+                "x", {"validators": [{"type": "expression", "expression": 1}]}, {}
+            ),
+            "invalid_validator",
+        )
+        self.assertEqual(
+            v._apply_validators(
+                "x",
+                {"validators": [{"type": "expression", "expression": "{a} = 1"}]},
+                {"a": 2},
+            ),
             "expression_failed",
         )
         self.assertEqual(
-            v._apply_validators("x", {"validators": [{"type": "expression", "expression": "bad"}]}, {}),
+            v._apply_validators(
+                "x", {"validators": [{"type": "expression", "expression": "bad"}]}, {}
+            ),
             "unsupported_expression",
         )
 
-        self.assertEqual(v._apply_validators("x", {"validators": [{"foo": "bar"}]}, {}), "unsupported_validator")
+        self.assertEqual(
+            v._apply_validators("x", {"validators": [{"foo": "bar"}]}, {}),
+            "unsupported_validator",
+        )
 
     def test_validate_fields_all_types(self) -> None:
         form_json = _form_with_elements(

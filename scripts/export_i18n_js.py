@@ -8,9 +8,7 @@ from typing import Dict
 DOMAIN = "zopyx.surveyjs"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 LOCALES_DIR = REPO_ROOT / "src" / "zopyx" / "surveyjs" / "locales"
-OUTPUT_DIR = (
-    REPO_ROOT / "src" / "zopyx" / "surveyjs" / "browser" / "static" / "i18n"
-)
+OUTPUT_DIR = REPO_ROOT / "src" / "zopyx" / "surveyjs" / "browser" / "static" / "i18n"
 
 
 def load_messages_from_mo(mo_path: Path) -> Dict[str, str]:

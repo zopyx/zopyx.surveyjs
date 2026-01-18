@@ -241,7 +241,7 @@ class ISurvey(model.Schema):
         required=False,
         default=(
             "Hello,\n\n"
-            "A new form submission was received for \"{title}\".\n"
+            'A new form submission was received for "{title}".\n'
             "You can review the submitted data here:\n"
             "{detail_url}\n\n"
             "Regards,\n"

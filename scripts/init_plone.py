@@ -478,25 +478,46 @@ WELCOME_DEMOS = {
         ("Bestellformular f\u00fcr Kleidung", "demos/order-form-de"),
     ],
     "ar": [
-        ("\u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629", "demos/event-registration-ar"),
+        (
+            "\u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629",
+            "demos/event-registration-ar",
+        ),
         (
             "\u0627\u0644\u062a\u0633\u062c\u064a\u0644 / \u0625\u0644\u063a\u0627\u0621 \u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629",
             "demos/event-rsvp-ar",
         ),
-        ("\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629", "demos/mental-health-survey-ar"),
+        (
+            "\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629",
+            "demos/mental-health-survey-ar",
+        ),
         (
             "\u0639\u0631\u0636 \u0627\u0633\u062a\u0647\u0644\u0627\u0643 \u0648\u0633\u0627\u0626\u0644 \u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0627\u0644\u0627\u062c\u062a\u0645\u0627\u0639\u064a",
             "demos/full-demo-ar",
         ),
-        ("\u0645\u0644\u0627\u062d\u0638\u0627\u062a \u062e\u062f\u0645\u0629 \u0637\u0644\u0628 \u0627\u0644\u0637\u0639\u0627\u0645", "demos/food-feedback-demo-ar"),
-        ("\u0646\u0645\u0648\u0630\u062c \u0627\u0644\u0637\u0644\u0628", "demos/order-form-ar"),
+        (
+            "\u0645\u0644\u0627\u062d\u0638\u0627\u062a \u062e\u062f\u0645\u0629 \u0637\u0644\u0628 \u0627\u0644\u0637\u0639\u0627\u0645",
+            "demos/food-feedback-demo-ar",
+        ),
+        (
+            "\u0646\u0645\u0648\u0630\u062c \u0627\u0644\u0637\u0644\u0628",
+            "demos/order-form-ar",
+        ),
     ],
     "ja": [
         ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332", "demos/event-registration-ja"),
         ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332 / \u53d6\u6d88", "demos/event-rsvp-ja"),
-        ("\u30e1\u30f3\u30bf\u30eb\u30d8\u30eb\u30b9\u8abf\u67fb", "demos/mental-health-survey-ja"),
-        ("\u30bd\u30fc\u30b7\u30e3\u30eb\u30e1\u30c7\u30a3\u30a2\u5229\u7528\u30c7\u30e2", "demos/full-demo-ja"),
-        ("\u30d5\u30fc\u30c9\u6ce8\u6587\u30b5\u30fc\u30d3\u30b9\u306e\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af", "demos/food-feedback-demo-ja"),
+        (
+            "\u30e1\u30f3\u30bf\u30eb\u30d8\u30eb\u30b9\u8abf\u67fb",
+            "demos/mental-health-survey-ja",
+        ),
+        (
+            "\u30bd\u30fc\u30b7\u30e3\u30eb\u30e1\u30c7\u30a3\u30a2\u5229\u7528\u30c7\u30e2",
+            "demos/full-demo-ja",
+        ),
+        (
+            "\u30d5\u30fc\u30c9\u6ce8\u6587\u30b5\u30fc\u30d3\u30b9\u306e\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af",
+            "demos/food-feedback-demo-ja",
+        ),
         ("\u8863\u985e\u6ce8\u6587\u30d5\u30a9\u30fc\u30e0", "demos/order-form-ja"),
     ],
 }

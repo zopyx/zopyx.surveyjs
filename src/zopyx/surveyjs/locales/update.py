@@ -69,6 +69,7 @@ def _sync():
         shell=True,
     )
 
+
 def _export_js():
     script_path = Path(__file__).resolve().parents[3] / "scripts" / "export_i18n_js.py"
     if not script_path.exists():

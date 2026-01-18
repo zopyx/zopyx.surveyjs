@@ -170,11 +170,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self._add_version(
             payload={
                 "pages": [
-                    {
-                        "elements": [
-                            {"type": "text", "name": "q1", "isRequired": True}
-                        ]
-                    }
+                    {"elements": [{"type": "text", "name": "q1", "isRequired": True}]}
                 ]
             }
         )
@@ -198,7 +194,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     def test_parse_json_loose_fallback(self) -> None:
         req = self._make_request()
         view = Views(self.survey, req)
-        parsed = view._parse_json_loose("prefix {\"answer\": 42} suffix")
+        parsed = view._parse_json_loose('prefix {"answer": 42} suffix')
         self.assertEqual(parsed, {"answer": 42})
 
     def test_download_polls_csv_exports_results(self) -> None:
