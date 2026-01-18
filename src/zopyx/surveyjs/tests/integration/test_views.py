@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 
+import csv
 import io
 import os
 from datetime import datetime, timezone
@@ -194,6 +195,64 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         body = orjson.loads(req.response.getBody())
         self.assertEqual(body["error"], "request_too_large")
 
+    def test_parse_json_loose_fallback(self) -> None:
+        req = self._make_request()
+        view = Views(self.survey, req)
+        parsed = view._parse_json_loose("prefix {\"answer\": 42} suffix")
+        self.assertEqual(parsed, {"answer": 42})
+
+    def test_download_polls_csv_exports_results(self) -> None:
+        storage = get_result_storage(self.survey)
+        storage.store_result(
+            self.survey,
+            {
+                "poll_id": "poll-1",
+                "created": datetime(2024, 1, 1, tzinfo=timezone.utc),
+                "result": {"q1": "a"},
+            },
+        )
+        storage.store_result(
+            self.survey,
+            {
+                "poll_id": "poll-2",
+                "created": datetime(2024, 2, 1, tzinfo=timezone.utc),
+                "result": {"q2": "b"},
+            },
+        )
+        req = self._make_request()
+        view = Views(self.survey, req)
+        view.download_polls_csv()
+        body = req.response.getBody().decode("utf-8")
+        rows = list(csv.reader(io.StringIO(body)))
+        header = rows[0]
+        self.assertEqual(header[:4], ["poll_id", "user", "created", "form_version"])
+        self.assertIn("q1", header)
+        self.assertIn("q2", header)
+
+    def test_download_polls_json_exports_results(self) -> None:
+        storage = get_result_storage(self.survey)
+        storage.store_result(
+            self.survey,
+            {
+                "poll_id": "poll-1",
+                "created": datetime(2024, 1, 1, tzinfo=timezone.utc),
+                "result": {"q1": "a"},
+            },
+        )
+        storage.store_result(
+            self.survey,
+            {
+                "poll_id": "poll-2",
+                "created": datetime(2024, 2, 1, tzinfo=timezone.utc),
+                "result": {"q2": "b"},
+            },
+        )
+        req = self._make_request()
+        Views(self.survey, req).download_polls_json()
+        payload = orjson.loads(req.response.getBody())
+        self.assertEqual(len(payload), 2)
+        self.assertEqual(payload[0]["poll_id"], "poll-2")
+
     def test_download_result_json(self) -> None:
         self._add_version()
         entry = self._add_result()
@@ -324,6 +383,23 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(payload["deleted"], ["one"])
         self.assertEqual(payload["missing"], ["missing"])
         self.assertNotIn("one", annos[RESULTS_KEY])
+
+    def test_storage_info_masks_rdbms_password(self) -> None:
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        original_backend = settings.result_storage_backend
+        original_uri = settings.database_uri
+        settings.result_storage_backend = "rdbms"
+        settings.database_uri = "postgresql://user:secret@localhost/db"
+        try:
+            view = Views(self.survey, self._make_request())
+            info = view.storage_info
+            self.assertIn("Relational database", info)
+            self.assertIn("****", info)
+            self.assertNotIn("secret", info)
+        finally:
+            settings.result_storage_backend = original_backend
+            settings.database_uri = original_uri
 
     def test_embed_viewer_sets_headers_when_allowed(self) -> None:
         self.survey.allow_embedding = True
