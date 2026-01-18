@@ -943,14 +943,16 @@
                                 tal:attributes="action string:${context/absolute_url}/@@toggle-version-lock">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
-                            <button type="submit"
-                                    class="btn btn-sm action-text"
-                                    tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
-                                                    title python: 'Unlock' if version.get('locked') else 'Lock';
-                                                    aria-label python: 'Unlock' if version.get('locked') else 'Lock'"
-                                    tal:content="python: 'Unlock' if version.get('locked') else 'Lock'">
-                              Lock
-                            </button>
+                            <tal:block tal:define="lock_label python: 'Unlock' if version.get('locked') else 'Lock'">
+                              <button type="submit"
+                                      class="btn btn-sm action-text"
+                                      tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
+                                                      title lock_label;
+                                                      aria-label lock_label"
+                                      i18n:attributes="title aria-label">
+                                <span i18n:translate="" tal:content="lock_label">Lock</span>
+                              </button>
+                            </tal:block>
                           </form>
 
                           <!-- Download Button -->
