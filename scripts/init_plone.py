@@ -288,6 +288,36 @@ def remove_navigation_portlets(context):
             continue
 
 
+def remove_home_tab(context):
+    """Hide the default 'Home' tab from the global navigation."""
+    try:
+        portal_actions = api.portal.get_tool("portal_actions")
+        portal_tabs = portal_actions.get("portal_tabs")
+        if portal_tabs and "index_html" in portal_tabs.objectIds():
+            action = portal_tabs["index_html"]
+            action.visible = False
+            action._p_changed = True
+    except Exception:
+        # Failing quietly keeps the rest of the init script running
+        pass
+
+
+def redirect_demo_root_to_en(context):
+    """Redirect the site root to the English language root without a default page."""
+    try:
+        context.setDefaultPage("")
+    except Exception:
+        try:
+            context.setDefaultPage(None)
+        except Exception:
+            pass
+    try:
+        context.setLayout("root-redirect")
+    except Exception:
+        # Failing quietly keeps the rest of the init script running
+        pass
+
+
 def ensure_folder(container, folder_id, title):
     """Ensure a published folder exists and return it."""
     folder = container.get(folder_id)
@@ -375,6 +405,7 @@ configure_mail_from_env()
 configure_site_languages()
 enable_language_selector()
 remove_navigation_portlets(site)
+remove_home_tab(site)
 
 # Create logo.jpg as Image content object
 logo_path = Path(os.getcwd()) / "scripts" / "logo.jpg"
@@ -584,7 +615,7 @@ for language, root in language_roots.items():
     welcome.reindexObject()
     root.setDefaultPage("welcome")
 
-site.setDefaultPage("en")
+redirect_demo_root_to_en(site)
 
 # Mental Health survey (demo)
 mental_intro = load_intro_text("mental_health_intro")

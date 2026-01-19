@@ -1123,3 +1123,51 @@ msgstr "Lock"
 #: generated
 msgid "Unlock"
 msgstr "Unlock"
+
+#: generated
+msgid "Status"
+msgstr "Status"
+
+#: generated
+msgid "Effective"
+msgstr "Effective"
+
+#: generated
+msgid "Expires"
+msgstr "Expires"
+
+#: generated
+msgid "Stored results"
+msgstr "Stored results"
+
+#: generated
+msgid "Published"
+msgstr "Published"
+
+#: generated
+msgid "Inactive"
+msgstr "Inactive"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "Store converted form as new version"
+
+#: generated
+msgid "Conversion complete. Review the preview and click “Store converted form as new version”."
+msgstr "Conversion complete. Review the preview and click “Store converted form as new version”."
+
+#: generated
+msgid "No converted form available to store."
+msgstr "No converted form available to store."
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "Converted form stored. <a href=\"${url}\">View versions</a>."
+
+#: generated
+msgid "Store failed"
+msgstr "Store failed"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "Store failed. Please try again."

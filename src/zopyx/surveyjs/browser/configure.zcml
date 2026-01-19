@@ -6,6 +6,13 @@
 
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
+
+  <browser:page
+    name="root-redirect"
+    for="plone.base.interfaces.IPloneSiteRoot"
+    permission="zope2.View"
+    class=".views.RootRedirect"
+  />
   <browser:page
     name="results"
     for="zopyx.surveyjs.content.survey.ISurvey"
@@ -254,6 +261,14 @@
     permission="cmf.ManagePortal"
     class=".views.Views"
     attribute="import_pdf_form"
+  />
+
+  <browser:page
+    name="store-pdf-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    attribute="store_pdf_form"
   />
 
   <!-- Forms Settings Control Panel -->
