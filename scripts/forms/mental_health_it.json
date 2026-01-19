@@ -1,0 +1,111 @@
+{
+  "title": "Mental Health Survey",
+  "description": "A quick, private reflection on how you are feeling this week.",
+  "locale": "en",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Thank you for sharing. If you need support, please contact a professional.</h3>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "mood",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "overallMood",
+          "title": "How would you describe your overall mood this week?",
+          "isRequired": true,
+          "choices": [
+            "Very positive",
+            "Mostly positive",
+            "Neutral or mixed",
+            "Mostly negative",
+            "Very negative"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "stressLevel",
+          "title": "How high has your stress felt in the past few days?",
+          "isRequired": true,
+          "choices": [
+            "Very low",
+            "Manageable",
+            "Noticeable but okay",
+            "High",
+            "Overwhelming"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sleep",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "sleepQuality",
+          "title": "How would you rate your sleep quality recently?",
+          "isRequired": true,
+          "choices": [
+            "Restful and consistent",
+            "Mostly okay",
+            "Inconsistent",
+            "Poor",
+            "Very poor"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "supportNetwork",
+          "title": "How supported do you feel by friends, family, or community?",
+          "isRequired": true,
+          "choices": [
+            "Strongly supported",
+            "Supported",
+            "Somewhat supported",
+            "Limited support",
+            "No support"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "focusLevel",
+          "title": "How easy has it been to focus on daily tasks?",
+          "isRequired": true,
+          "choices": [
+            "Very easy",
+            "Mostly easy",
+            "Manageable",
+            "Difficult",
+            "Very difficult"
+          ]
+        }
+      ]
+    }
+  ]
+}

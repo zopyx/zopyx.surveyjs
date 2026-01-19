@@ -1,0 +1,46 @@
+{
+  "title": "Food Ordering Service Feedback",
+  "description": "Quick 1-5 ratings about your recent experience.",
+  "locale": "en",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "questions",
+  "completedHtml": "<h3>Thanks for your feedback!</h3>",
+  "pages": [
+    {
+      "name": "ratings",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "orderEase",
+          "title": "How easy was it to place your order?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Very hard",
+          "maxRateDescription": "Very easy"
+        },
+        {
+          "type": "rating",
+          "name": "deliverySpeed",
+          "title": "How satisfied are you with the delivery speed?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Very slow",
+          "maxRateDescription": "Very fast"
+        },
+        {
+          "type": "rating",
+          "name": "foodQuality",
+          "title": "How would you rate the food quality?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Very poor",
+          "maxRateDescription": "Excellent"
+        }
+      ]
+    }
+  ]
+}

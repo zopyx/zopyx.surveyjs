@@ -1,0 +1,160 @@
+{
+  "title": "Cloth Order Form",
+  "description": "A simple cloth order form to collect customer details and itemized order lines.",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "Cloth Order Form",
+      "description": "Fill in customer details, and use the items grid to add, edit, or remove rows for each cloth item.",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid",
+          "defaultValue": "6f8b9d2e-2c4a-4f1b-9e2a-7d3a8c1b2f5d"
+        },
+        {
+          "type": "hidden",
+          "name": "created",
+          "defaultValue": "2026-01-11T12:34:56Z"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "title": "First name"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "Last name"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Email address"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "Phone number"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "order_items",
+          "title": "Order Items",
+          "description": "Add one or more cloth items to the order. You can add, edit, or remove rows.",
+          "columns": [
+            {
+              "name": "item",
+              "title": "Item (e.g., Dress, Shirt)",
+              "cellType": "text"
+            },
+            {
+              "name": "fabric",
+              "title": "Fabric Type",
+              "cellType": "dropdown",
+              "choices": [
+                "Cotton",
+                "Silk",
+                "Wool",
+                "Linen",
+                "Polyester"
+              ]
+            },
+            {
+              "name": "color",
+              "title": "Color",
+              "cellType": "text"
+            },
+            {
+              "name": "size",
+              "title": "Size",
+              "cellType": "dropdown",
+              "choices": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ]
+            },
+            {
+              "name": "quantity",
+              "title": "Quantity",
+              "cellType": "text"
+            },
+            {
+              "name": "unitPrice",
+              "title": "Unit Price",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "notes",
+              "title": "Notes",
+              "cellType": "text"
+            }
+          ],
+          "minRowCount": 1,
+          "addRowText": "Add Item",
+          "removeRowText": "Remove Item"
+        },
+        {
+          "type": "radiogroup",
+          "name": "deliveryOption",
+          "title": "Delivery option",
+          "description": "Choose how you would like your order delivered.",
+          "choices": [
+            {
+              "value": "standard",
+              "text": "Standard (5-7 days)"
+            },
+            {
+              "value": "express",
+              "text": "Express (2-3 days)"
+            },
+            {
+              "value": "pickup",
+              "text": "Pickup at showroom"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "extras",
+          "title": "Additional options",
+          "choices": [
+            "Gift wrap",
+            "Rush production",
+            "Include sewing labels"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "specialInstructions",
+          "title": "Special Instructions",
+          "description": "Any special requests or details for the order."
+        },
+        {
+          "type": "checkbox",
+          "name": "termsAccepted",
+          "title": "Terms and Conditions",
+          "description": "Confirm you agree to the order terms and conditions.",
+          "choices": [
+            "I agree to the terms and conditions"
+          ],
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "Signature",
+          "description": "Sign to confirm the order details.",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "onPage",
+  "requiredTextOnNormalMessages": false
+}

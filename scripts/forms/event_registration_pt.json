@@ -1,0 +1,44 @@
+{
+  "title": "Event registration",
+  "description": "Register for the event.",
+  "showQuestionNumbers": "off",
+  "completedHtml": "<h3>Thank you for registering!</h3>",
+  "pages": [
+    {
+      "name": "attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Full name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Email",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "Ticket type",
+          "isRequired": true,
+          "choices": [
+            "Standard",
+            "Student",
+            "VIP"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "newsletter",
+          "title": "Keep me updated about future events",
+          "labelTrue": "Yes",
+          "labelFalse": "No"
+        }
+      ]
+    }
+  ]
+}
