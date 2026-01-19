@@ -5,7 +5,25 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="zopyx.surveyjs">
 
-  <metal:block fill-slot="content-core">
+  <metal:block fill-slot="content-core"
+               tal:define="portal_state context/@@plone_portal_state">
+
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
+    ></script>
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n.js"
+            type="text/javascript"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n/en.js"
+            type="text/javascript"
+    ></script>
+    <script tal:condition="python:portal_state.language() != 'en'"
+            tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
+            type="text/javascript"
+    ></script>
 
     <!-- Load SurveyJS libraries for preview -->
     <link href="https://unpkg.com/survey-core/survey-core.min.css"
@@ -842,6 +860,33 @@
       </tal:notmanager>
     </div>
 
+    <tal:status tal:condition="view/can_manage_portal_content"
+                tal:define="status view/survey_status_label;
+                             effective view/survey_effective_display;
+                             expires view/survey_expires_display;
+                             results_count view/survey_results_count">
+      <div class="survey-status-bar">
+        <span class="survey-status-item">
+          <strong i18n:translate="">Status</strong>:
+          <span tal:content="status">Published</span>
+        </span>
+        <span class="survey-status-item"
+              tal:condition="effective">
+          <strong i18n:translate="">Effective</strong>:
+          <span tal:content="effective">2024-01-01</span>
+        </span>
+        <span class="survey-status-item"
+              tal:condition="expires">
+          <strong i18n:translate="">Expires</strong>:
+          <span tal:content="expires">2025-01-01</span>
+        </span>
+        <span class="survey-status-item">
+          <strong i18n:translate="">Stored results</strong>:
+          <span tal:content="results_count">0</span>
+        </span>
+      </div>
+    </tal:status>
+
     <div class="form-versions-container">
 
       <div class="form-versions-header">
@@ -885,7 +930,7 @@
                           version-id
                         </span>
                         <tal:locked tal:condition="python: version.get('locked')">
-                          <span class="lock-badge">Locked</span>
+                          <span class="lock-badge" i18n:translate="">Locked</span>
                         </tal:locked>
                       </td>
                       <td>
@@ -896,7 +941,7 @@
                                   tal:attributes="data-version-id version/id"
                                   title="View JSON"
                                   i18n:attributes="title">
-                            Preview JSON
+                            <span i18n:translate="">Preview JSON</span>
                           </button>
 
                           <!-- Preview Button -->
@@ -905,7 +950,7 @@
                                   tal:attributes="data-version-id version/id"
                                   title="Preview"
                                   i18n:attributes="title">
-                            Preview
+                            <span i18n:translate="">Preview</span>
                           </button>
 
                           <!-- Restore Button -->
@@ -915,8 +960,9 @@
                                                   data-created python: version['created'].strftime('%Y-%m-%d %H:%M:%S');
                                                   data-user version/user"
                                   title="Restore to previous version"
-                                  aria-label="Restore to previous version">
-                            Restore
+                                  aria-label="Restore to previous version"
+                                  i18n:attributes="title aria-label">
+                            <span i18n:translate="">Restore</span>
                           </button>
 
                           <!-- Lock/Unlock Button -->
@@ -924,14 +970,16 @@
                                 tal:attributes="action string:${context/absolute_url}/@@toggle-version-lock">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
-                            <button type="submit"
-                                    class="btn btn-sm action-text"
-                                    tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
-                                                    title python: 'Unlock' if version.get('locked') else 'Lock';
-                                                    aria-label python: 'Unlock' if version.get('locked') else 'Lock'"
-                                    tal:content="python: 'Unlock' if version.get('locked') else 'Lock'">
-                              Lock
-                            </button>
+                            <tal:block tal:define="lock_label python: 'Unlock' if version.get('locked') else 'Lock'">
+                              <button type="submit"
+                                      class="btn btn-sm action-text"
+                                      tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
+                                                      title lock_label;
+                                                      aria-label lock_label"
+                                      i18n:attributes="title aria-label">
+                                <span i18n:translate="" tal:content="lock_label">Lock</span>
+                              </button>
+                            </tal:block>
                           </form>
 
                           <!-- Download Button -->
@@ -941,8 +989,9 @@
                             <button type="submit"
                                     class="btn btn-sm btn-success action-text"
                                     title="Download form definition as JSON"
-                                    aria-label="Download form definition as JSON">
-                              Download
+                                    aria-label="Download form definition as JSON"
+                                    i18n:attributes="title aria-label">
+                              <span i18n:translate="">Download</span>
                             </button>
                           </form>
 
@@ -955,8 +1004,9 @@
                             <button type="submit"
                                     class="btn btn-sm btn-danger action-text"
                                     title="Delete version"
-                                    aria-label="Delete version">
-                              Delete
+                                    aria-label="Delete version"
+                                    i18n:attributes="title aria-label">
+                              <span i18n:translate="">Delete</span>
                             </button>
                           </form>
                         </div>
@@ -1006,7 +1056,7 @@
                 Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving.
               </p>
             </div>
-            <button type="submit" class="btn btn-success" title="Upload and Create Version" i18n:translate="">
+            <button type="submit" class="btn btn-success" title="Upload and Create Version" i18n:translate="" i18n:attributes="title">
               Upload
             </button>
           </form>
@@ -1020,10 +1070,10 @@
           <h3 class="json-modal-title">
             <span i18n:translate="">JSON Version Content</span>
           </h3>
-          <button class="json-modal-close" aria-label="Close">&times;</button>
+          <button class="json-modal-close" aria-label="Close" i18n:attributes="aria-label">&times;</button>
         </div>
         <div class="json-modal-body">
-          <pre id="jsonContent">Loading...</pre>
+          <pre id="jsonContent" i18n:translate="">Loading...</pre>
         </div>
       </div>
 
@@ -1032,18 +1082,18 @@
       <div id="restoreModal" class="restore-modal">
         <div class="restore-modal-header">
           <span class="icon">&#8635;</span>
-          <h3>Restore version</h3>
+          <h3 i18n:translate="">Restore version</h3>
         </div>
         <div class="restore-modal-body">
-          <p>Restoring will create a new version using the selected snapshot and keep the current version in history.</p>
+          <p i18n:translate="">Restoring will create a new version using the selected snapshot and keep the current version in history.</p>
           <div class="restore-meta">
-            <span class="restore-chip"><strong>ID:</strong> <span id="restoreVersionId">—</span></span>
-            <span class="restore-chip"><strong>User:</strong> <span id="restoreVersionUser">—</span></span>
-            <span class="restore-chip"><strong>Date:</strong> <span id="restoreVersionDate">—</span></span>
+            <span class="restore-chip"><strong i18n:translate="">ID:</strong> <span id="restoreVersionId">—</span></span>
+            <span class="restore-chip"><strong i18n:translate="">User:</strong> <span id="restoreVersionUser">—</span></span>
+            <span class="restore-chip"><strong i18n:translate="">Date:</strong> <span id="restoreVersionDate">—</span></span>
           </div>
         </div>
         <div class="restore-modal-footer">
-          <button type="button" class="btn btn-ghost close-restore">Cancel</button>
+          <button type="button" class="btn btn-ghost close-restore" i18n:translate="">Cancel</button>
           <form id="restoreForm"
                 method="post"
                 tal:attributes="action string:${context/absolute_url}/@@restore-version">
@@ -1051,7 +1101,7 @@
             <input type="hidden" name="version_id" id="restoreVersionInput" />
             <button type="submit" class="btn btn-restore">
               <span class="btn-icon">&#8635;</span>
-              <span class="btn-label">Confirm restore</span>
+              <span class="btn-label" i18n:translate="">Confirm restore</span>
             </button>
           </form>
         </div>
@@ -1066,7 +1116,7 @@
         <h3 class="preview-modal-title">
           <span i18n:translate="">Form Preview</span>
         </h3>
-        <button class="preview-modal-close" aria-label="Close">&times;</button>
+        <button class="preview-modal-close" aria-label="Close" i18n:attributes="aria-label">&times;</button>
       </div>
       <div class="preview-modal-body">
         <div id="surveyContainer"></div>

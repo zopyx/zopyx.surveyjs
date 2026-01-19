@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const t = window._t || function (msgid, mapping) {
+        if (!mapping) {
+            return msgid;
+        }
+        return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+            if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+                return String(mapping[key]);
+            }
+            return match;
+        });
+    };
     const modal = document.getElementById("json-modal");
     const closeButton = document.querySelector(".close-button");
     const jsonContent = document.getElementById("json-content");
@@ -49,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     modal.style.display = "block";
                 })
                 .catch(error => {
-                    console.error('Error fetching JSON:', error);
-                    alert('Failed to load JSON data. Please check the console for more information.');
+                    console.error(t('Error fetching JSON:'), error);
+                    alert(t('Failed to load JSON data. Please check the console for more information.'));
                 });
         });
     });
@@ -95,15 +106,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(data => {
                     if (data.error) {
-                        alert(`Error: ${data.error}`);
+                        alert(t('Error: ${error}', { error: data.error }));
                         return;
                     }
                     renderDetailsTable(data);
                     detailsModal.style.display = "block";
                 })
                 .catch(error => {
-                    console.error('Error fetching details:', error);
-                    alert('Failed to load details. Please check the console for more information.');
+                    console.error(t('Error fetching details:'), error);
+                    alert(t('Failed to load details. Please check the console for more information.'));
                 });
         });
     });
@@ -167,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             let html = "<table class='details-table matrix-table'>";
-            html += "<thead><tr><th>Row</th><th>Answer</th></tr></thead><tbody>";
+            html += "<thead><tr><th>" + t("Row") + "</th><th>" + t("Answer") + "</th></tr></thead><tbody>";
 
             rows.forEach(([rowKey, answer]) => {
                 const rowLabel =
@@ -204,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderDetailsTable(data) {
         let html = "<table class='details-table'>";
-        html += "<thead><tr><th>Key / Question</th><th>Answer</th></tr></thead>";
+        html += "<thead><tr><th>" + t("Key / Question") + "</th><th>" + t("Answer") + "</th></tr></thead>";
         html += "<tbody>";
 
         for (const [key, value] of Object.entries(data)) {
@@ -229,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         // Display image preview
                         html += `<div class="image-preview"><img src="${item.content}" alt="${escapeHtml(item.name)}" /></div>`;
                     } else {
-                        html += `Attached file: ${escapeHtml(item.name)}`;
+                        html += t("Attached file: ${name}", { name: escapeHtml(item.name) });
                     }
                 } else {
                     // Regular array
@@ -314,14 +325,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!pollId) {
                 return;
             }
-            if (!confirm("Delete this result?")) {
+            if (!confirm(t("Delete this result?"))) {
                 return;
             }
             deletePolls([pollId])
                 .then(() => window.location.reload())
                 .catch(error => {
-                    console.error("Error deleting result:", error);
-                    alert("Failed to delete the result. Please check the console for details.");
+                    console.error(t("Error deleting result:"), error);
+                    alert(t("Failed to delete the result. Please check the console for details."));
                 });
         });
     });
@@ -345,14 +356,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!selected.length) {
                 return;
             }
-            if (!confirm(`Delete ${selected.length} selected result(s)?`)) {
+            if (!confirm(t("Delete ${count} selected result(s)?", { count: selected.length }))) {
                 return;
             }
             deletePolls(selected)
                 .then(() => window.location.reload())
                 .catch(error => {
-                    console.error("Error deleting selected results:", error);
-                    alert("Failed to delete selected results. Please check the console for details.");
+                    console.error(t("Error deleting selected results:"), error);
+                    alert(t("Failed to delete selected results. Please check the console for details."));
                 });
         });
     }
@@ -366,6 +377,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const clearConfirmInput = document.getElementById("clear-confirm-input");
     const clearConfirmBtn = document.getElementById("clear-confirm-btn");
     const clearCancelBtn = document.getElementById("clear-cancel-btn");
+    const clearKeyword = clearConfirmInput
+        ? (clearConfirmInput.dataset.clearKeyword || "clear")
+        : "clear";
 
     if (clearResultsBtn) {
         clearResultsBtn.addEventListener("click", function () {
@@ -378,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (clearConfirmInput) {
         clearConfirmInput.addEventListener("input", function () {
-            if (this.value.toLowerCase() === "clear") {
+            if (this.value.toLowerCase() === clearKeyword.toLowerCase()) {
                 clearConfirmBtn.disabled = false;
             } else {
                 clearConfirmBtn.disabled = true;
@@ -386,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         clearConfirmInput.addEventListener("keypress", function (e) {
-            if (e.key === "Enter" && this.value.toLowerCase() === "clear") {
+            if (e.key === "Enter" && this.value.toLowerCase() === clearKeyword.toLowerCase()) {
                 clearConfirmBtn.click();
             }
         });
@@ -413,12 +427,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(() => {
                     clearConfirmModal.style.display = "none";
-                    alert("All results have been cleared successfully.");
+                    alert(t("All results have been cleared successfully."));
                     window.location.reload();
                 })
                 .catch(error => {
-                    console.error("Error clearing results:", error);
-                    alert("Failed to clear results. Please check the console for more information.");
+                    console.error(t("Error clearing results:"), error);
+                    alert(t("Failed to clear results. Please check the console for more information."));
                 });
         });
     }

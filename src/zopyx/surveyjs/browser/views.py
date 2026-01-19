@@ -54,6 +54,16 @@ CONVERTER_FORMATS = [
 ]
 
 
+class RootRedirect(BrowserView):
+    """Redirect the Plone root to the English language root."""
+
+    def __call__(self):
+        target = self.context.get("en")
+        if target is not None:
+            return self.request.response.redirect(target.absolute_url())
+        return self.request.response.redirect(self.context.absolute_url())
+
+
 def _extract_json_object(raw_text: str) -> str | None:
     """Best-effort extraction of a JSON object from noisy text."""
     if not raw_text:
@@ -177,7 +187,9 @@ def _run_external_validation(form_json, poll_result, submission_hash: str):
         if completed.returncode != 0:
             return dict(ok=False, status=500, reason="external_validator_error")
 
-        return dict(ok=True, status=200, reason="external_validation_ok", details=result_data)
+        return dict(
+            ok=True, status=200, reason="external_validation_ok", details=result_data
+        )
 
 
 class Views(BrowserView):
@@ -188,6 +200,69 @@ class Views(BrowserView):
         if location == "zodb":
             return masked
         return f"Relational database: {masked}"
+
+    def _format_portal_time(self, value):
+        if not value:
+            return None
+        try:
+            return plone.api.portal.get_localized_time(value, long_format=True)
+        except Exception:
+            return str(value)
+
+    def _extract_year(self, value):
+        try:
+            year_attr = getattr(value, "year", None)
+        except Exception:
+            return None
+        if year_attr is None:
+            return None
+        if callable(year_attr):
+            try:
+                return int(year_attr())
+            except Exception:
+                return None
+        try:
+            return int(year_attr)
+        except Exception:
+            return None
+
+    def _is_reasonable_date(self, value):
+        year = self._extract_year(value)
+        if year is None:
+            return True
+        return 1970 <= year <= 2100
+
+    def survey_status_label(self):
+        try:
+            state = plone.api.content.get_state(self.context)
+        except Exception:
+            state = None
+        if state in {"published", "internally_published"}:
+            return _("Published")
+        return _("Inactive")
+
+    def survey_effective_display(self):
+        value = getattr(self.context, "effective", None)
+        if callable(value):
+            value = value()
+        if value and not self._is_reasonable_date(value):
+            return None
+        return self._format_portal_time(value)
+
+    def survey_expires_display(self):
+        value = getattr(self.context, "expires", None)
+        if callable(value):
+            value = value()
+        if value and not self._is_reasonable_date(value):
+            return None
+        return self._format_portal_time(value)
+
+    def survey_results_count(self):
+        try:
+            storage = get_result_storage(self.context)
+            return len(storage.list_results(self.context))
+        except Exception:
+            return 0
 
     def format_created(self, created):
         if isinstance(created, str):
@@ -249,9 +324,7 @@ class Views(BrowserView):
             self.request.response.setStatus(400)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "missing_poll_result"}
-                )
+                orjson.dumps({"isSuccess": False, "error": "missing_poll_result"})
             )
             return
 
@@ -278,13 +351,13 @@ class Views(BrowserView):
         if content_length:
             try:
                 if int(content_length) > max_payload_bytes:
-                    logger.warning("Survey save failed: status=413 reason=request_too_large")
+                    logger.warning(
+                        "Survey save failed: status=413 reason=request_too_large"
+                    )
                     self.request.response.setStatus(413)
                     self.request.response.setHeader("content-type", "application/json")
                     self.request.response.write(
-                        orjson.dumps(
-                            {"isSuccess": False, "error": "request_too_large"}
-                        )
+                        orjson.dumps({"isSuccess": False, "error": "request_too_large"})
                     )
                     return
             except ValueError:
@@ -1046,7 +1119,9 @@ class Views(BrowserView):
         version_data["locked"] = not locked
         form_versions[version_id] = version_data
 
-        message = _("Version locked") if version_data["locked"] else _("Version unlocked")
+        message = (
+            _("Version locked") if version_data["locked"] else _("Version unlocked")
+        )
         plone.api.portal.show_message(message, type="info")
         return self.request.response.redirect(
             self.context.absolute_url() + "/@@form-versions"
@@ -1331,9 +1406,7 @@ class Views(BrowserView):
 
         self.request.response.setStatus(200)
         self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(
-            orjson.dumps(status)
-        )
+        self.request.response.write(orjson.dumps(status))
 
     @property
     def has_mail_action(self):
@@ -1711,9 +1784,13 @@ class Views(BrowserView):
                     "off",
                     str(png_path),
                 ]
-                logger.info(f"Executing ImageMagick convert command: {' '.join(command)}")
+                logger.info(
+                    f"Executing ImageMagick convert command: {' '.join(command)}"
+                )
                 result = subprocess.run(command, check=True, capture_output=True)
-                logger.info(f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}")
+                logger.info(
+                    f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}"
+                )
 
                 image_path = png_path
                 if not image_path.exists():
@@ -1759,23 +1836,9 @@ class Views(BrowserView):
             if not isinstance(survey_data, dict):
                 raise ValueError("Form JSON must be an object")
 
-            annos = IAnnotations(self.context)
-            if FORM_VERSIONS_KEY not in annos:
-                annos[FORM_VERSIONS_KEY] = OOBTree()
-
-            data = dict(
-                id=str(uuid.uuid4()),
-                created=datetime.now(timezone.utc),
-                user=plone.api.user.get_current().getId(),
-                form_json=survey_data,
-            )
-
-            annos[FORM_VERSIONS_KEY][data["id"]] = data
-
             result = {
                 "success": True,
                 "json": survey_data,
-                "version_id": data["id"],
             }
             self.request.response.setStatus(200)
             self.request.response.setHeader("content-type", "application/json")
@@ -1819,6 +1882,51 @@ class Views(BrowserView):
             self.request.response.setStatus(500)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(error_result))
+
+    def store_pdf_form(self):
+        """Store a converted SurveyJS form as a new version."""
+        payload = self.request.form.get("survey_json")
+        if not payload:
+            error_result = {
+                "error": "Missing survey JSON",
+                "message": "No survey JSON provided",
+            }
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        try:
+            survey_data = orjson.loads(payload)
+            if not isinstance(survey_data, dict):
+                raise ValueError("Form JSON must be an object")
+        except Exception as e:
+            error_result = {"error": "Invalid JSON", "message": str(e)}
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(error_result))
+            return
+
+        annos = IAnnotations(self.context)
+        if FORM_VERSIONS_KEY not in annos:
+            annos[FORM_VERSIONS_KEY] = OOBTree()
+
+        data = dict(
+            id=str(uuid.uuid4()),
+            created=datetime.now(timezone.utc),
+            user=plone.api.user.get_current().getId(),
+            form_json=survey_data,
+        )
+
+        annos[FORM_VERSIONS_KEY][data["id"]] = data
+
+        result = {
+            "success": True,
+            "version_id": data["id"],
+        }
+        self.request.response.setStatus(200)
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(result))
 
 
 class EmbedViewer(Views):

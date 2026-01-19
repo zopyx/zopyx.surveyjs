@@ -38,7 +38,9 @@ class SubscribersIntegrationTests(unittest.TestCase):
         annos = IAnnotations(self.survey)
         annos[FORM_VERSIONS_KEY] = OOBTree()
 
-    def _add_form_version(self, version_id: str, created: datetime, payload: dict) -> None:
+    def _add_form_version(
+        self, version_id: str, created: datetime, payload: dict
+    ) -> None:
         annos = IAnnotations(self.survey)
         annos[FORM_VERSIONS_KEY][version_id] = {
             "id": version_id,
@@ -47,8 +49,12 @@ class SubscribersIntegrationTests(unittest.TestCase):
         }
 
     def test_latest_form_json_picks_most_recent(self) -> None:
-        self._add_form_version("v1", datetime(2024, 1, 1, tzinfo=timezone.utc), {"a": 1})
-        self._add_form_version("v2", datetime(2024, 2, 1, tzinfo=timezone.utc), {"b": 2})
+        self._add_form_version(
+            "v1", datetime(2024, 1, 1, tzinfo=timezone.utc), {"a": 1}
+        )
+        self._add_form_version(
+            "v2", datetime(2024, 2, 1, tzinfo=timezone.utc), {"b": 2}
+        )
         annos = IAnnotations(self.survey)
         latest = subscribers._latest_form_json(annos)
         self.assertEqual(latest, {"b": 2})
@@ -76,7 +82,9 @@ class SubscribersIntegrationTests(unittest.TestCase):
 
         with (
             patch("zopyx.surveyjs.subscribers.SurveyConverter") as converter_cls,
-            patch("zopyx.surveyjs.subscribers._write_export", side_effect=fake_export) as writer,
+            patch(
+                "zopyx.surveyjs.subscribers._write_export", side_effect=fake_export
+            ) as writer,
         ):
             converter = converter_cls.return_value
             converter.collect_items.return_value = (["item"], [])
@@ -133,7 +141,9 @@ class SubscribersIntegrationTests(unittest.TestCase):
         response = MagicMock()
         response.raise_for_status.return_value = None
         response.status_code = 200
-        with patch("zopyx.surveyjs.subscribers.httpx.post", return_value=response) as post:
+        with patch(
+            "zopyx.surveyjs.subscribers.httpx.post", return_value=response
+        ) as post:
             subscribers.post_submission_payload(self.survey, event)
 
         payload = post.call_args.kwargs["json"]
@@ -165,7 +175,9 @@ class SubscribersIntegrationTests(unittest.TestCase):
         storage = MagicMock()
         try:
             with (
-                patch("zopyx.surveyjs.subscribers.getRequest", return_value=DummyRequest()),
+                patch(
+                    "zopyx.surveyjs.subscribers.getRequest", return_value=DummyRequest()
+                ),
                 patch(
                     "zopyx.surveyjs.subscribers.get_result_storage",
                     return_value=storage,

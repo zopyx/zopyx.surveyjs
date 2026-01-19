@@ -288,7 +288,7 @@ def send_submission_notification(context, event):
     )
     body_template = getattr(context, "email_notification_body", None) or (
         "Hello,\n\n"
-        "A new form submission was received for \"{title}\".\n"
+        'A new form submission was received for "{title}".\n'
         "You can review the submitted data here:\n"
         "{detail_url}\n\n"
         "Regards,\n"

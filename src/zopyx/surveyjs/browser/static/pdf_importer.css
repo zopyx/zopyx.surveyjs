@@ -29,12 +29,6 @@
     white-space: nowrap;
 }
 
-.pdf-importer-grid {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
 .pdf-importer-panel {
     background: #ffffff;
     border-radius: 16px;
@@ -42,18 +36,57 @@
     padding: 1.5rem;
 }
 
-.pdf-importer-panel.preview-panel {
-    min-height: 420px;
+.pdf-importer-flow {
+    display: grid;
+    gap: 2.5rem;
 }
 
-.pdf-importer-panel.survey-preview-panel {
-    min-height: 420px;
+.stage-upload {
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    position: relative;
+}
+
+.stage-preview {
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    position: relative;
+}
+
+.stage-upload::before,
+.stage-preview::before {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+    border-radius: 999px;
+    content: "";
+    height: 4px;
+    left: 1.5rem;
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
 }
 
 .panel-title {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 1rem;
+}
+
+.preview-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.preview-card {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 1.25rem;
+}
+
+.preview-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
 }
 
 .pdf-importer-container .form-group {
@@ -70,6 +103,22 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+}
+
+.pdf-importer-container .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: pdf-spin 0.6s linear infinite;
+}
+
+@keyframes pdf-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .preview-placeholder {
@@ -103,4 +152,18 @@
     color: #475569;
     margin-top: 1.5rem;
     padding: 1rem;
+}
+
+#pdfImporterStatus {
+    margin-top: 1rem;
+}
+
+@media (min-width: 900px) {
+    .pdf-importer-container {
+        max-width: 1040px;
+    }
+
+    .preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }

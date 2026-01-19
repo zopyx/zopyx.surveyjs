@@ -2,6 +2,7 @@
 SurveyCreatorCore.registerSurveyTheme(SurveyTheme);
 
 document.addEventListener("DOMContentLoaded", function () {
+  const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   let hasUnsavedChanges = false;
   const creatorOptions = {
     autoSaveEnabled: true,
@@ -27,7 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const creator = new SurveyCreator.SurveyCreator(creatorOptions);
-  creator.locale = "de";
+  creator.locale = locale;
+  if (typeof Survey !== "undefined" && Survey.surveyLocalization) {
+    Survey.surveyLocalization.currentLocale = locale;
+  }
   creator.render("surveyContainer");
   creator.onModified.add(function () {
     hasUnsavedChanges = true;

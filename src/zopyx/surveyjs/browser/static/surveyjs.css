@@ -1,0 +1,6 @@
+#formfield-form-widgets-email_body label,
+#formfield-form-widgets-email_body .form-label,
+#formfield-form-widgets-email_body .formLabel {
+  display: block;
+  margin-bottom: 0.25rem;
+}

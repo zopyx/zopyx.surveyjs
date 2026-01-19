@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+  const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
 
   // DOM Elements
   const refinementForm = document.getElementById("refinementForm");
@@ -88,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function formatTime(timestamp) {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   }
 
   function truncate(str, maxLength) {
@@ -110,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => {
       if (!response.ok) {
         return response.json().then(data => {
-          throw new Error(data.message || "Refinement failed");
+          throw new Error(data.message || t("Refinement failed"));
         });
       }
       return response.json();
@@ -124,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const prompt = refinementInput.value.trim();
     const useExisting = refineExistingCheckbox && refineExistingCheckbox.checked;
     if (!prompt) {
-      showError("Please enter a description");
+      showError(t("Please enter a description"));
       return;
     }
 
@@ -142,10 +154,10 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(response => response.json())
       .then(existingJson => {
         if (!existingJson || Object.keys(existingJson).length === 0) {
-          throw new Error("No existing form found to refine.");
+          throw new Error(t("No existing form found to refine."));
         }
 
-        AppState.addVersion("Existing form", existingJson, "initial");
+        AppState.addVersion(t("Existing form"), existingJson, "initial");
         generatedJson = existingJson;
         updateUIAfterGeneration();
         renderHistoryTimeline();
@@ -165,12 +177,14 @@ document.addEventListener("DOMContentLoaded", function() {
             historyTimeline.scrollTop = historyTimeline.scrollHeight;
           }
         } else {
-          throw new Error(data.message || "Refinement failed");
+          throw new Error(data.message || t("Refinement failed"));
         }
       })
       .catch(error => {
-        console.error("Error refining existing form:", error);
-        showError(error.message || "Failed to refine existing form. Please try again.");
+        console.error(t("Error refining existing form:"), error);
+        showError(
+          error.message || t("Failed to refine existing form. Please try again.")
+        );
       })
       .finally(() => {
         setRefinementLoadingState(false);
@@ -192,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(response => {
         if (!response.ok) {
           return response.json().then(data => {
-            throw new Error(data.message || "Generation failed");
+            throw new Error(data.message || t("Generation failed"));
           });
         }
         return response.json();
@@ -210,12 +224,12 @@ document.addEventListener("DOMContentLoaded", function() {
           // Clear input
           refinementInput.value = "";
         } else {
-          throw new Error(data.message || "Generation failed");
+          throw new Error(data.message || t("Generation failed"));
         }
       })
       .catch(error => {
-        console.error("Error generating form:", error);
-        showError(error.message || "Failed to generate form. Please try again.");
+        console.error(t("Error generating form:"), error);
+        showError(error.message || t("Failed to generate form. Please try again."));
       })
       .finally(() => {
         setRefinementLoadingState(false);
@@ -241,12 +255,17 @@ document.addEventListener("DOMContentLoaded", function() {
             historyTimeline.scrollTop = historyTimeline.scrollHeight;
           }
         } else {
-          throw new Error(data.message || "Refinement failed");
+          throw new Error(data.message || t("Refinement failed"));
         }
       })
       .catch(error => {
-        console.error("Error refining form:", error);
-        showError(error.message || "Failed to refine form. Your current version is preserved. Please try again.");
+        console.error(t("Error refining form:"), error);
+        showError(
+          error.message ||
+            t(
+              "Failed to refine form. Your current version is preserved. Please try again."
+            )
+        );
       })
       .finally(() => {
         setRefinementLoadingState(false);
@@ -258,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
   previewJsonBtn.addEventListener("click", function() {
     const currentVersion = AppState.getCurrentVersion();
     if (!currentVersion) {
-      showError("No form to preview");
+      showError(t("No form to preview"));
       return;
     }
 
@@ -271,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function() {
   previewFormBtn.addEventListener("click", function() {
     const currentVersion = AppState.getCurrentVersion();
     if (!currentVersion) {
-      showError("No form to preview");
+      showError(t("No form to preview"));
       return;
     }
 
@@ -292,6 +311,10 @@ document.addEventListener("DOMContentLoaded", function() {
     try {
       // Create fresh survey instance
       survey = new Survey.Model(currentVersion.json);
+      survey.locale = locale;
+      if (Survey && Survey.surveyLocalization) {
+        Survey.surveyLocalization.currentLocale = locale;
+      }
 
       // Disable completion (preview only)
       survey.showCompleteButton = false;
@@ -303,8 +326,10 @@ document.addEventListener("DOMContentLoaded", function() {
       // Show modal
       previewFormModal.style.display = "block";
     } catch (error) {
-      console.error("Error rendering preview:", error);
-      showError("Failed to render preview: " + error.message);
+      console.error(t("Error rendering preview:"), error);
+      showError(
+        t("Failed to render preview: ${error}", { error: error.message })
+      );
     }
   });
 
@@ -312,14 +337,21 @@ document.addEventListener("DOMContentLoaded", function() {
   saveBtn.addEventListener("click", function() {
     const currentVersion = AppState.getCurrentVersion();
     if (!currentVersion) {
-      showError("No form to save");
+      showError(t("No form to save"));
       return;
     }
 
     // Check if user is saving an older version
     if (AppState.currentHistoryIndex < AppState.refinementHistory.length - 1) {
-      const versionInfo = `version ${AppState.currentHistoryIndex + 1} of ${AppState.refinementHistory.length}`;
-      if (!confirm(`You're saving ${versionInfo}. The latest version is not selected. Continue?`)) {
+      const versionInfo = t("version ${current} of ${total}", {
+        current: AppState.currentHistoryIndex + 1,
+        total: AppState.refinementHistory.length
+      });
+      if (!confirm(
+        t("You're saving ${version}. The latest version is not selected. Continue?", {
+          version: versionInfo
+        })
+      )) {
         return;
       }
     }
@@ -327,8 +359,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Disable button during save
     saveBtn.disabled = true;
     const originalText = saveBtn.innerHTML;
-    const versionInfo = ` (Version ${AppState.currentHistoryIndex + 1})`;
-    saveBtn.innerHTML = '<span class="spinner"></span> Saving' + versionInfo + '...';
+    const versionInfo = t(" (Version ${version})", {
+      version: AppState.currentHistoryIndex + 1
+    });
+    saveBtn.innerHTML =
+      '<span class="spinner"></span> ' +
+      t("Saving") +
+      versionInfo +
+      '...';
 
     // Prepare form data
     const formData = new FormData();
@@ -344,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => {
       if (!response.ok) {
         return response.json().then(data => {
-          throw new Error(data.message || "Save failed");
+          throw new Error(data.message || t("Save failed"));
         });
       }
       return response.json();
@@ -352,14 +390,22 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(data => {
       if (data.success) {
         // Show success message
-        alert("Form saved successfully! You can now view it in the Visual Editor or Versions.");
+        alert(
+          t(
+            "Form saved successfully! You can now view it in the Visual Editor or Versions."
+          )
+        );
       } else {
-        throw new Error(data.message || "Save failed");
+        throw new Error(data.message || t("Save failed"));
       }
     })
     .catch(error => {
-      console.error("Error saving form:", error);
-      showError("Failed to save form: " + (error.message || "Unknown error"));
+      console.error(t("Error saving form:"), error);
+      showError(
+        t("Failed to save form: ${error}", {
+          error: error.message || t("Unknown error")
+        })
+      );
     })
     .finally(() => {
       saveBtn.disabled = false;
@@ -369,7 +415,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Start Over button handler
   startOverBtn.addEventListener("click", function() {
-    if (confirm("Start over? This will clear your refinement history and return to the initial prompt.")) {
+    if (confirm(
+      t(
+        "Start over? This will clear your refinement history and return to the initial prompt."
+      )
+    )) {
       // Reset state
       AppState.reset();
       generatedJson = null;
@@ -435,30 +485,34 @@ document.addEventListener("DOMContentLoaded", function() {
   function updateUIAfterGeneration() {
     // Change panel title
     if (formPanelTitle) {
-      formPanelTitle.textContent = "Refine Your Form";
+      formPanelTitle.textContent = t("Refine Your Form");
     }
 
     // Change input label
     if (formInputLabel) {
-      formInputLabel.textContent = "What would you like to change?";
+      formInputLabel.textContent = t("What would you like to change?");
     }
 
     // Change help text
     if (formInputHelp) {
-      formInputHelp.textContent = "Describe the changes you want to make to the current form.";
+      formInputHelp.textContent = t(
+        "Describe the changes you want to make to the current form."
+      );
     }
 
     // Change button text
     if (refineBtnText) {
-      refineBtnText.textContent = "Refine Form";
+      refineBtnText.textContent = t("Refine Form");
     }
     if (refineBtnSpinnerText) {
-      refineBtnSpinnerText.textContent = "Refining...";
+      refineBtnSpinnerText.textContent = t("Refining...");
     }
 
     // Change placeholder
     if (refinementInput) {
-      refinementInput.placeholder = "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown";
+      refinementInput.placeholder = t(
+        "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
+      );
     }
 
     // Show version indicator
@@ -485,30 +539,34 @@ document.addEventListener("DOMContentLoaded", function() {
   function resetUIToInitial() {
     // Reset panel title
     if (formPanelTitle) {
-      formPanelTitle.textContent = "Describe Your Form";
+      formPanelTitle.textContent = t("Describe Your Form");
     }
 
     // Reset input label
     if (formInputLabel) {
-      formInputLabel.textContent = "Describe the form you want to create:";
+      formInputLabel.textContent = t("Describe the form you want to create:");
     }
 
     // Reset help text
     if (formInputHelp) {
-      formInputHelp.textContent = "Be specific about the types of questions, response formats, and any particular fields you need.";
+      formInputHelp.textContent = t(
+        "Be specific about the types of questions, response formats, and any particular fields you need."
+      );
     }
 
     // Reset button text
     if (refineBtnText) {
-      refineBtnText.textContent = "Generate Form";
+      refineBtnText.textContent = t("Generate Form");
     }
     if (refineBtnSpinnerText) {
-      refineBtnSpinnerText.textContent = "Generating...";
+      refineBtnSpinnerText.textContent = t("Generating...");
     }
 
     // Reset placeholder
     if (refinementInput) {
-      refinementInput.placeholder = "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section.";
+      refinementInput.placeholder = t(
+        "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+      );
     }
 
     // Hide version indicator
@@ -534,8 +592,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function updateVersionIndicator() {
     if (currentVersionInfo && AppState.hasHistory()) {
-      const versionText = `Version ${AppState.currentHistoryIndex + 1} of ${AppState.refinementHistory.length}`;
-      currentVersionInfo.textContent = versionText;
+      currentVersionInfo.textContent = t("Version ${current} of ${total}", {
+        current: AppState.currentHistoryIndex + 1,
+        total: AppState.refinementHistory.length
+      });
     }
   }
 
@@ -553,7 +613,9 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       const icon = version.type === "initial" ? "🎯" : "🔄";
-      const title = version.type === "initial" ? "Initial Generation" : `Refinement ${index}`;
+      const title = version.type === "initial"
+        ? t("Initial Generation")
+        : t("Refinement ${index}", { index: index });
 
       item.innerHTML = `
         <div class="history-icon">${icon}</div>

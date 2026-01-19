@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const t = window._t || function (msgid) { return msgid; };
+  const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
+  const normalizedLocale = String(rawLocale).replace("_", "-");
+  const surveyLocale = normalizedLocale.split("-")[0] || "en";
   const url = ACTUAL_URL + "/get-form-json";
 
   // Load the survey JSON configuration
@@ -11,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(result)
       const survey = new Survey.Model(result);
         survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
+        survey.locale = surveyLocale;
+        if (Survey && Survey.surveyLocalization) {
+          Survey.surveyLocalization.currentLocale = surveyLocale;
+        }
 
       // Set up the onComplete handler to save results
       survey.onComplete.add(function (sender) {
@@ -27,11 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
         })
           .then((response) => {
             if (!response.ok) {
-              throw new Error("Save failed");
+              throw new Error(t("Save failed"));
             }
           })
           .catch((error) => {
-            alert("not saved");
+            alert(t("Not saved"));
             console.error(error);
           });
       });
@@ -40,6 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
       survey.render(document.getElementById("surveyContainer"));
     })
     .catch((error) => {
-      console.error("Error loading survey:", error);
+      console.error(t("Error loading survey:"), error);
     });
 });

@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 import sys
 import unittest
-from types import SimpleNamespace
 from unittest.mock import patch
 
 from zopyx.surveyjs.browser import ai_generator
@@ -54,11 +53,11 @@ class FakeAttachment:
 
 class AIGeneratorTests(unittest.TestCase):
     def test_strip_markdown_json(self) -> None:
-        text = "```json\n{\"a\": 1}\n```"
-        self.assertEqual(ai_generator.strip_markdown_json(text), "{\"a\": 1}")
+        text = '```json\n{"a": 1}\n```'
+        self.assertEqual(ai_generator.strip_markdown_json(text), '{"a": 1}')
 
     def test_generate_survey_json_uses_default_model_and_api_key(self) -> None:
-        response = FakeResponse("{\"ok\": true}", callable_text=True)
+        response = FakeResponse('{"ok": true}', callable_text=True)
         fake_llm = FakeLLMModule("gpt-4", response)
         original_key = os.environ.get("OPENAI_API_KEY")
         try:
@@ -66,7 +65,7 @@ class AIGeneratorTests(unittest.TestCase):
                 output = ai_generator.generate_survey_json(
                     "Question?", api_key="secret"
                 )
-                self.assertEqual(output, "{\"ok\": true}")
+                self.assertEqual(output, '{"ok": true}')
                 self.assertEqual(fake_llm.last_model_name, "gpt-4")
                 self.assertEqual(os.environ.get("OPENAI_API_KEY"), "secret")
         finally:
@@ -76,7 +75,7 @@ class AIGeneratorTests(unittest.TestCase):
                 os.environ["OPENAI_API_KEY"] = original_key
 
     def test_generate_survey_json_with_ollama_prefixes_model(self) -> None:
-        response = FakeResponse("{\"ok\": true}")
+        response = FakeResponse('{"ok": true}')
         fake_llm = FakeLLMModule("llama2", response)
         original_host = os.environ.get("OLLAMA_HOST")
         try:
@@ -84,7 +83,7 @@ class AIGeneratorTests(unittest.TestCase):
                 output = ai_generator.generate_survey_json(
                     "Question?", model_name="llama2", ollama_url="http://ollama"
                 )
-                self.assertEqual(output, "{\"ok\": true}")
+                self.assertEqual(output, '{"ok": true}')
                 self.assertEqual(fake_llm.last_model_name, "ollama/llama2")
                 self.assertEqual(os.environ.get("OLLAMA_HOST"), "http://ollama")
         finally:
@@ -94,7 +93,7 @@ class AIGeneratorTests(unittest.TestCase):
                 os.environ["OLLAMA_HOST"] = original_host
 
     def test_generate_survey_json_from_image_uses_attachment(self) -> None:
-        response = FakeResponse("{\"ok\": true}")
+        response = FakeResponse('{"ok": true}')
         fake_llm = FakeLLMModule("gpt-4", response)
         fake_llm.Attachment = FakeAttachment
 
@@ -103,13 +102,13 @@ class AIGeneratorTests(unittest.TestCase):
                 "/tmp/fake.png", "Describe the form", model_name="gpt-4"
             )
 
-        self.assertEqual(output, "{\"ok\": true}")
+        self.assertEqual(output, '{"ok": true}')
         attachments = fake_llm._model.last_attachments
         self.assertEqual(len(attachments), 1)
         self.assertEqual(attachments[0].value, "/tmp/fake.png")
 
     def test_refine_survey_json_sets_anthropic_key(self) -> None:
-        response = FakeResponse("{\"ok\": true}", callable_text=False)
+        response = FakeResponse('{"ok": true}', callable_text=False)
         fake_llm = FakeLLMModule("claude-3", response)
         original_key = os.environ.get("ANTHROPIC_API_KEY")
         try:
@@ -117,7 +116,7 @@ class AIGeneratorTests(unittest.TestCase):
                 output = ai_generator.refine_survey_json(
                     {"pages": []}, "Add a question", api_key="anthropic-key"
                 )
-                self.assertEqual(output, "{\"ok\": true}")
+                self.assertEqual(output, '{"ok": true}')
                 self.assertEqual(fake_llm.last_model_name, "claude-3")
                 self.assertEqual(os.environ.get("ANTHROPIC_API_KEY"), "anthropic-key")
         finally:

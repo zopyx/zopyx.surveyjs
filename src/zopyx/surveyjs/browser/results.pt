@@ -3,9 +3,27 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       metal:use-macro="context/main_template/macros/master"
->
+      i18n:domain="zopyx.surveyjs">
 
-<metal:block fill-slot="content-core">
+<metal:block fill-slot="content-core"
+             tal:define="portal_state context/@@plone_portal_state">
+
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
+    ></script>
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n.js"
+            type="text/javascript"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n/en.js"
+            type="text/javascript"
+    ></script>
+    <script tal:condition="python:portal_state.language() != 'en'"
+            tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
+            type="text/javascript"
+    ></script>
 
     <link rel="stylesheet"
           type="text/css"
@@ -55,11 +73,38 @@
       </tal:notmanager>
     </div>
 
+    <tal:status tal:condition="view/can_manage_portal_content"
+                tal:define="status view/survey_status_label;
+                             effective view/survey_effective_display;
+                             expires view/survey_expires_display;
+                             results_count view/survey_results_count">
+      <div class="survey-status-bar">
+        <span class="survey-status-item">
+          <strong i18n:translate="">Status</strong>:
+          <span tal:content="status">Published</span>
+        </span>
+        <span class="survey-status-item"
+              tal:condition="effective">
+          <strong i18n:translate="">Effective</strong>:
+          <span tal:content="effective">2024-01-01</span>
+        </span>
+        <span class="survey-status-item"
+              tal:condition="expires">
+          <strong i18n:translate="">Expires</strong>:
+          <span tal:content="expires">2025-01-01</span>
+        </span>
+        <span class="survey-status-item">
+          <strong i18n:translate="">Stored results</strong>:
+          <span tal:content="results_count">0</span>
+        </span>
+      </div>
+    </tal:status>
+
     <tal:block define="results view/get_paginated_results">
 
-        <h2 class="page-headline">Stored form data</h2>
+        <h2 class="page-headline" i18n:translate="">Stored form data</h2>
         <p class="storage-info">
-            <strong>Storage:</strong>
+            <strong i18n:translate="">Storage:</strong>
             <span tal:content="view/storage_info">Storage</span>
         </p>
 
@@ -67,16 +112,16 @@
 
             <tal:block tal:condition="python: not view.storing_enabled">
                 <div class="storage-warning">
-                    <strong>Storage disabled.</strong>
-                    Results are not being saved because the "Store" action is turned off.
-                    Enable it in the survey settings to collect and view responses here.
+                    <strong i18n:translate="">Storage disabled.</strong>
+                    <span i18n:translate="">Results are not being saved because the "Store" action is turned off.</span>
+                    <span i18n:translate="">Enable it in the survey settings to collect and view responses here.</span>
                 </div>
             </tal:block>
 
             <tal:block tal:condition="view/storing_enabled">
                 <form method="get" action="" class="results-search" tal:condition="python: results['total'] > 0">
-                    <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|nothing" />
-                    <button type="submit">Search</button>
+                    <input type="text" name="q" placeholder="Search by user..." tal:attributes="value request/q|nothing" i18n:attributes="placeholder" />
+                    <button type="submit" i18n:translate="">Search</button>
                 </form>
 
                 <div tal:condition="view/is_manager" style="display:none;"
@@ -87,19 +132,19 @@
                         <thead>
                         <tr>
                             <th tal:condition="view/is_manager" class="selection-column">
-                                <input type="checkbox" id="select-all-results" aria-label="Select all results" />
+                                <input type="checkbox" id="select-all-results" aria-label="Select all results" i18n:attributes="aria-label" />
                             </th>
-                            <th>Date</th>
-                            <th>User</th>
-                            <th>#</th>
-                            <th>UUID</th>
-                            <th>Action</th>
+                            <th i18n:translate="">Date</th>
+                            <th i18n:translate="">User</th>
+                            <th i18n:translate="">#</th>
+                            <th i18n:translate="">UUID</th>
+                            <th i18n:translate="">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr tal:repeat="item python:list(results['items'])">
                             <td tal:condition="view/is_manager" class="selection-column">
-                                <input type="checkbox" class="result-select" tal:attributes="value item/poll_id" aria-label="Select result" />
+                                <input type="checkbox" class="result-select" tal:attributes="value item/poll_id" aria-label="Select result" i18n:attributes="aria-label" />
                             </td>
                             <td tal:content="python: view.format_created(item['created'])">Date</td>
                             <td tal:content="item/user">User</td>
@@ -109,18 +154,21 @@
                                 <div class="result-actions">
                                     <button class="btn btn-primary view-json"
                                             tal:attributes="data-poll-id item/poll_id"
-                                            aria-label="JSON">
-                                        JSON
+                                            aria-label="JSON"
+                                            i18n:attributes="aria-label">
+                                        <span i18n:translate="">JSON</span>
                                     </button>
                                     <button class="btn btn-success view-details"
                                             tal:attributes="data-poll-id item/poll_id"
-                                            aria-label="Table">
-                                        Table
+                                            aria-label="Table"
+                                            i18n:attributes="aria-label">
+                                        <span i18n:translate="">Table</span>
                                     </button>
                                     <a class="btn btn-secondary detail-link"
                                        tal:attributes="href string:${context/absolute_url}/@@result-detail?poll_id=${item/poll_id}"
-                                       aria-label="Details">
-                                        Details
+                                       aria-label="Details"
+                                       i18n:attributes="aria-label">
+                                        <span i18n:translate="">Details</span>
                                     </a>
                           <form method="get" action="download-result" class="download-form">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
@@ -136,20 +184,24 @@
                                     <button class="btn btn-secondary download-result icon-only"
                                             type="submit"
                                             title="Download result"
-                                            aria-label="Download result">
+                                            aria-label="Download result"
+                                            i18n:attributes="title aria-label">
                                         <img src="++resource++zopyx.surveyjs/icon-download.svg"
                                              alt="Download result"
-                                             title="Download result" />
+                                             title="Download result"
+                                             i18n:attributes="alt title" />
                                     </button>
                                     <button class="btn btn-info mail-result icon-only"
                                             tal:condition="view/has_mail_action"
                                             type="submit"
                                             formaction="mail-result"
                                             title="Mail result"
-                                            aria-label="Mail result">
+                                            aria-label="Mail result"
+                                            i18n:attributes="title aria-label">
                                         <img src="++resource++zopyx.surveyjs/icon-mail.svg"
                                              alt="Mail result"
-                                             title="Mail result" />
+                                             title="Mail result"
+                                             i18n:attributes="alt title" />
                                     </button>
                                     <button class="btn btn-warning post-result icon-only"
                                             tal:condition="view/has_post_action"
@@ -157,20 +209,24 @@
                                             formaction="post-result"
                                             formmethod="post"
                                             title="POST result"
-                                            aria-label="POST result">
+                                            aria-label="POST result"
+                                            i18n:attributes="title aria-label">
                                       <img src="++resource++zopyx.surveyjs/icon-post.svg"
                                            alt="POST result"
-                                           title="POST result" />
+                                           title="POST result"
+                                           i18n:attributes="alt title" />
                                     </button>
                                     <button class="btn btn-danger delete-result icon-only"
                                             type="button"
                                             tal:condition="view/is_manager"
                                             tal:attributes="data-poll-id item/poll_id"
                                             title="Delete result"
-                                            aria-label="Delete result">
+                                            aria-label="Delete result"
+                                            i18n:attributes="title aria-label">
                                         <img src="++resource++zopyx.surveyjs/icon-trash.svg"
                                              alt="Delete result"
-                                             title="Delete result" />
+                                             title="Delete result"
+                                             i18n:attributes="alt title" />
                                     </button>
                                 </form>
                                 </div>
@@ -183,8 +239,9 @@
                         <button id="delete-selected-btn"
                                 class="btn btn-danger"
                                 tal:condition="view/is_manager"
-                                disabled>Delete selected</button>
-                        <button id="clear-results-btn" class="btn btn-danger">Clear all results</button>
+                                disabled
+                                i18n:translate="">Delete selected</button>
+                        <button id="clear-results-btn" class="btn btn-danger" i18n:translate="">Clear all results</button>
                     </div>
 
                     <div class="pagination"
@@ -193,7 +250,7 @@
                          tal:condition="python: pagination_info['numpages'] > 1">
                         <a tal:condition="python: pagination_info['page'] > 1"
                            tal:attributes="href python:'?b_start=' + str((pagination_info['page'] - 2) * pagination_info['pagesize']) + query_string"
-                        >&laquo; Previous</a>
+                           i18n:translate="">&laquo; Previous</a>
                         <span tal:repeat="i python:range(1, pagination_info['numpages'] + 1)">
                   <a tal:condition="python: i != pagination_info['page']"
                      tal:attributes="href python:'?b_start=' + str((i - 1) * pagination_info['pagesize']) + query_string"
@@ -204,7 +261,7 @@
                 </span>
                         <a tal:condition="python: pagination_info['page'] < pagination_info['numpages']"
                            tal:attributes="href python:'?b_start=' + str(pagination_info['page'] * pagination_info['pagesize']) + query_string"
-                        >Next &raquo;</a>
+                           i18n:translate="">Next &raquo;</a>
                     </div>
                 </tal:block>
 
@@ -215,9 +272,9 @@
                             <path d="M9 3h6v6"></path>
                             <path d="M9 9l6-6"></path>
                         </svg>
-                        <h3>No Survey Results Yet</h3>
-                        <p tal:condition="request/q|nothing">No results found matching your search query.</p>
-                        <p tal:condition="not: request/q|nothing">There are no survey responses yet. Once users submit the survey, their responses will appear here.</p>
+                        <h3 i18n:translate="">No Survey Results Yet</h3>
+                        <p tal:condition="request/q|nothing" i18n:translate="">No results found matching your search query.</p>
+                        <p tal:condition="not: request/q|nothing" i18n:translate="">There are no survey responses yet. Once users submit the survey, their responses will appear here.</p>
                     </div>
                 </tal:block>
             </tal:block>
@@ -236,7 +293,7 @@
             <div id="details-modal" class="modal" style="display:none;">
                 <div class="modal-content modal-content-large">
                     <span class="close-button details-close-button">&times;</span>
-                    <h2>Survey Response Details</h2>
+                    <h2 i18n:translate="">Survey Response Details</h2>
                     <div id="details-content"></div>
                 </div>
             </div>
@@ -245,28 +302,32 @@
             <div id="clear-confirm-modal" class="modal" style="display:none;">
                 <div class="modal-content">
                     <span class="close-button clear-close-button">&times;</span>
-                    <h2>Clear All Results</h2>
+                    <h2 i18n:translate="">Clear All Results</h2>
                     <div class="warning-message">
-                        <p><strong>Warning:</strong> This action will permanently delete all survey results. This cannot be undone.</p>
-                        <p>To confirm, please type <strong>clear</strong> in the field below:</p>
+                        <p><strong i18n:translate="">Warning:</strong> <span i18n:translate="">This action will permanently delete all survey results. This cannot be undone.</span></p>
+                        <p i18n:translate="">To confirm, please type <strong>clear</strong> in the field below:</p>
                     </div>
-                    <input type="text" id="clear-confirm-input" placeholder="Type 'clear' to confirm" />
+                    <input type="text"
+                           id="clear-confirm-input"
+                           data-clear-keyword="clear"
+                           placeholder="Type 'clear' to confirm"
+                           i18n:attributes="placeholder data-clear-keyword" />
                     <div class="modal-actions">
-                        <button id="clear-confirm-btn" class="btn btn-danger" disabled>Clear All Results</button>
-                        <button id="clear-cancel-btn" class="btn btn-secondary">Cancel</button>
+                        <button id="clear-confirm-btn" class="btn btn-danger" disabled i18n:translate="">Clear All Results</button>
+                        <button id="clear-cancel-btn" class="btn btn-secondary" i18n:translate="">Cancel</button>
                     </div>
                 </div>
             </div>
 
             <ul id="downloadActions" tal:condition="python: results['total'] > 0">
                 <li>
-                    <a href="download-polls-json" class="btn btn-primary">Download results (JSON)</a>
+                    <a href="download-polls-json" class="btn btn-primary" i18n:translate="">Download results (JSON)</a>
                 </li>
                 <li>
-                    <a href="download-polls-csv" class="btn btn-primary">Download results (CSV)</a>
+                    <a href="download-polls-csv" class="btn btn-primary" i18n:translate="">Download results (CSV)</a>
                 </li>
                 <li class="align-right">
-                    <a href="download-form-json" class="btn btn-primary download-definition">Download form definition (JSON)</a>
+                    <a href="download-form-json" class="btn btn-primary download-definition" i18n:translate="">Download form definition (JSON)</a>
                 </li>
             </ul>
         </tal:block>

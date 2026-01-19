@@ -1,49 +1,1173 @@
-# English translations for zopyx.surveyjs
-# Copyright (C) 2025
-# This file is distributed under the same license as the zopyx.surveyjs package.
-#
+#: generated
 msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
-"POT-Creation-Date: 2025-12-15 07:00+0000\n"
-"PO-Revision-Date: 2025-12-15 07:00+0000\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: English\n"
+"Language-Team: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
-"Preferred-Encodings: utf-8 latin1\n"
-"Domain: zopyx.surveyjs\n"
 
-#: browser/views.py:95
-msgid "Results cleared"
-msgstr "Results cleared"
+#: browser/static/js
+#: generated
+msgid " (Version ${version})"
+msgstr " (Version ${version})"
 
-#: browser/views.py:203
-#: browser/views.py:237
-msgid "No version ID provided"
-msgstr "No version ID provided"
+#: generated
+msgid "--"
+msgstr "--"
 
-#: browser/views.py:213
-#: browser/views.py:247
-msgid "Version not found"
-msgstr "Version not found"
+#: generated
+msgid "AI Generator"
+msgstr "AI Generator"
 
-#: browser/views.py:263
-msgid "Version restored successfully. A new version has been created."
-msgstr "Version restored successfully. A new version has been created."
+#: generated
+msgid "Actions"
+msgstr "Actions"
 
-#: browser/views.py:275
-msgid "No file uploaded"
-msgstr "No file uploaded"
+#: generated
+msgid "All results have been cleared successfully."
+msgstr "All results have been cleared successfully."
 
-#: browser/views.py:298
+#: generated
+msgid "Answer"
+msgstr "Answer"
+
+#: generated
+msgid "Attached file: ${name}"
+msgstr "Attached file: ${name}"
+
+#: generated
+msgid "BCC recipient"
+msgstr "BCC recipient"
+
+#: generated
+msgid "Be specific about the types of questions, response formats, and any particular fields you need."
+msgstr "Be specific about the types of questions, response formats, and any particular fields you need."
+
+#: generated
+msgid "Beta"
+msgstr "Beta"
+
+#: generated
+msgid "Body"
+msgstr "Body"
+
+#: generated
+msgid "Body for notifications"
+msgstr "Body for notifications"
+
+#: generated
+msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+
+#: generated
+msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
+msgstr "Body text for result export emails. Supports {created}, {creator}, {formats}."
+
+#: generated
+msgid "CC recipient"
+msgstr "CC recipient"
+
+#: generated
+msgid "CSV (.csv)"
+msgstr "CSV (.csv)"
+
+#: generated
+msgid "Delete ${count} selected result(s)?"
+msgstr "Delete ${count} selected result(s)?"
+
+#: generated
+msgid "Delete this result?"
+msgstr "Delete this result?"
+
+#: generated
+msgid "Describe Your Form"
+msgstr "Describe Your Form"
+
+#: generated
+msgid "Describe the changes you want to make to the current form."
+msgstr "Describe the changes you want to make to the current form."
+
+#: generated
+msgid "Describe the form you want to create:"
+msgstr "Describe the form you want to create:"
+
+#: generated
+msgid "E-Mail BCC"
+msgstr "E-Mail BCC"
+
+#: generated
+msgid "E-Mail CC"
+msgstr "E-Mail CC"
+
+#: generated
+msgid "E-Mail recipient"
+msgstr "E-Mail recipient"
+
+#: generated
+msgid "E-Mail sender"
+msgstr "E-Mail sender"
+
+#: generated
+msgid "Edit"
+msgstr "Edit"
+
+#: generated
+msgid "Email address to receive a blind copy"
+msgstr "Email address to receive a blind copy"
+
+#: generated
+msgid "Email address to receive a copy"
+msgstr "Email address to receive a copy"
+
+#: generated
+msgid "Enable validation (experimental)"
+msgstr "Enable validation (experimental)"
+
+#: generated
+msgid "Error clearing results:"
+msgstr "Error clearing results:"
+
+#: generated
+msgid "Error deleting result:"
+msgstr "Error deleting result:"
+
+#: generated
+msgid "Error deleting selected results:"
+msgstr "Error deleting selected results:"
+
+#: generated
+msgid "Error fetching JSON:"
+msgstr "Error fetching JSON:"
+
+#: generated
+msgid "Error fetching details:"
+msgstr "Error fetching details:"
+
+#: generated
+msgid "Error generating form:"
+msgstr "Error generating form:"
+
+#: generated
+msgid "Error loading survey:"
+msgstr "Error loading survey:"
+
+#: generated
+msgid "Error refining existing form:"
+msgstr "Error refining existing form:"
+
+#: generated
+msgid "Error refining form:"
+msgstr "Error refining form:"
+
+#: generated
+msgid "Error rendering preview:"
+msgstr "Error rendering preview:"
+
+#: generated
+msgid "Error saving form:"
+msgstr "Error saving form:"
+
+#: generated
+msgid "Error: ${error}"
+msgstr "Error: ${error}"
+
+#: generated
+msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
+msgstr "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
+
+#: generated
+msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+msgstr "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+
+#: generated
+msgid "Excel (.xlsx)"
+msgstr "Excel (.xlsx)"
+
+#: generated
+msgid "Existing form"
+msgstr "Existing form"
+
+#: generated
+msgid "Failed to POST result: ${error}"
+msgstr "Failed to POST result: ${error}"
+
+#: generated
+msgid "Failed to clear results. Please check the console for more information."
+msgstr "Failed to clear results. Please check the console for more information."
+
+#: generated
+msgid "Failed to delete selected results. Please check the console for details."
+msgstr "Failed to delete selected results. Please check the console for details."
+
+#: generated
+msgid "Failed to delete the result. Please check the console for details."
+msgstr "Failed to delete the result. Please check the console for details."
+
+#: generated
+msgid "Failed to generate form. Please try again."
+msgstr "Failed to generate form. Please try again."
+
+#: generated
+msgid "Failed to load JSON data. Please check the console for more information."
+msgstr "Failed to load JSON data. Please check the console for more information."
+
+#: generated
+msgid "Failed to load details. Please check the console for more information."
+msgstr "Failed to load details. Please check the console for more information."
+
+#: generated
+msgid "Failed to load survey"
+msgstr "Failed to load survey"
+
+#: generated
+msgid "Failed to load survey. Please check the URL and try again."
+msgstr "Failed to load survey. Please check the URL and try again."
+
+#: generated
+msgid "Failed to refine existing form. Please try again."
+msgstr "Failed to refine existing form. Please try again."
+
+#: generated
+msgid "Failed to refine form. Your current version is preserved. Please try again."
+msgstr "Failed to refine form. Your current version is preserved. Please try again."
+
+#: generated
+msgid "Failed to render preview: ${error}"
+msgstr "Failed to render preview: ${error}"
+
+#: generated
+msgid "Failed to save form: ${error}"
+msgstr "Failed to save form: ${error}"
+
+#: generated
+msgid "Failed to send mail: ${error}"
+msgstr "Failed to send mail: ${error}"
+
+#: generated
+msgid "Force Server Side Validation"
+msgstr "Force Server Side Validation"
+
+#: generated
+msgid "Form Results"
+msgstr "Form Results"
+
+#: generated
+msgid "Form Settings"
+msgstr "Form Settings"
+
+#: generated
+msgid "Form View"
+msgstr "Form View"
+
+#: generated
+msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
+msgstr "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
+
+#: generated
+msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
+msgstr "Form saved successfully! You can now view it in the Visual Editor or Versions."
+
+#: generated
+msgid "Form/Survey"
+msgstr "Form/Survey"
+
+#: generated
+msgid "Formats"
+msgstr "Formats"
+
+#: generated
+msgid "Generate Form"
+msgstr "Generate Form"
+
+#: generated
+msgid "Generate forms using AI"
+msgstr "Generate forms using AI"
+
+#: generated
+msgid "Generating..."
+msgstr "Generating..."
+
+#: generated
+msgid "Generation failed"
+msgstr "Generation failed"
+
+#: generated
+msgid "HTML (.html)"
+msgstr "HTML (.html)"
+
+#: generated
+msgid "Import failed"
+msgstr "Import failed"
+
+#: generated
+msgid "Import failed. Please try again."
+msgstr "Import failed. Please try again."
+
+#: generated
+msgid "Initial Generation"
+msgstr "Initial Generation"
+
+#: generated
 msgid "Invalid JSON file: ${error}"
 msgstr "Invalid JSON file: ${error}"
 
-#: browser/views.py:320
+#: generated
+msgid "Invalid poll ID or format"
+msgstr "Invalid poll ID or format"
+
+#: generated
+msgid "Invalid survey URL: ${url}"
+msgstr "Invalid survey URL: ${url}"
+
+#: generated
+msgid "JSON (.json)"
+msgstr "JSON (.json)"
+
+#: generated
 msgid "JSON uploaded successfully as new version"
 msgstr "JSON uploaded successfully as new version"
+
+#: generated
+msgid "Key / Question"
+msgstr "Key / Question"
+
+#: generated
+msgid "Loading preview..."
+msgstr "Loading preview..."
+
+#: generated
+msgid "Loading survey..."
+msgstr "Loading survey..."
+
+#: generated
+msgid "Loading..."
+msgstr "Loading..."
+
+#: generated
+msgid "Mail"
+msgstr "Mail"
+
+#: generated
+msgid "Mail (notification only)"
+msgstr "Mail (notification only)"
+
+#: generated
+msgid "Mail notifications"
+msgstr "Mail notifications"
+
+#: generated
+msgid "Mail sent"
+msgstr "Mail sent"
+
+#: generated
+msgid "Mail settings are incomplete (Mail-To and Subject required)"
+msgstr "Mail settings are incomplete (Mail-To and Subject required)"
+
+#: generated
+msgid "Manager only"
+msgstr "Manager only"
+
+#: generated
+msgid "Markdown (.md)"
+msgstr "Markdown (.md)"
+
+#: generated
+msgid "Max size payload (MB)"
+msgstr "Max size payload (MB)"
+
+#: generated
+msgid "Maximum allowed payload size for submissions in megabytes."
+msgstr "Maximum allowed payload size for submissions in megabytes."
+
+#: generated
+msgid "Missing data-survey-url attribute. Please specify the survey URL."
+msgstr "Missing data-survey-url attribute. Please specify the survey URL."
+
+#: generated
+msgid "No POST endpoint configured for this survey"
+msgstr "No POST endpoint configured for this survey"
+
+#: generated
+msgid "No existing form found to refine."
+msgstr "No existing form found to refine."
+
+#: generated
+msgid "No file selected"
+msgstr "No file selected"
+
+#: generated
+msgid "No file uploaded"
+msgstr "No file uploaded"
+
+#: generated
+msgid "No form definition available to include in POST"
+msgstr "No form definition available to include in POST"
+
+#: generated
+msgid "No form to preview"
+msgstr "No form to preview"
+
+#: generated
+msgid "No form to save"
+msgstr "No form to save"
+
+#: generated
+msgid "No version ID provided"
+msgstr "No version ID provided"
+
+#: generated
+msgid "Not saved"
+msgstr "Not saved"
+
+#: generated
+msgid "Optional BCC recipients for result exports (one address per line)."
+msgstr "Optional BCC recipients for result exports (one address per line)."
+
+#: generated
+msgid "Optional CC recipients for result exports (one address per line)."
+msgstr "Optional CC recipients for result exports (one address per line)."
+
+#: generated
+msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+msgstr "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+
+#: generated
+msgid "PDF (.pdf)"
+msgstr "PDF (.pdf)"
+
+#: generated
+msgid "PDF Form Import"
+msgstr "PDF Form Import"
+
+#: generated
+msgid "POST action is not enabled for this survey"
+msgstr "POST action is not enabled for this survey"
+
+#: generated
+msgid "POST endpoint URL"
+msgstr "POST endpoint URL"
+
+#: generated
+msgid "POST to endpoint"
+msgstr "POST to endpoint"
+
+#: generated
+msgid "Please enter a description"
+msgstr "Please enter a description"
+
+#: generated
+msgid "Please select a PDF file to upload."
+msgstr "Please select a PDF file to upload."
+
+#: generated
+msgid "Poll ID is required"
+msgstr "Poll ID is required"
+
+#: generated
+msgid "Poll result not found"
+msgstr "Poll result not found"
+
+#: generated
+msgid "Preview error:"
+msgstr "Preview error:"
+
+#: generated
+msgid "Primary recipient for notifications and result exports (single address). "
+msgstr "Primary recipient for notifications and result exports (single address). "
+
+#: generated
+msgid "Privacy Forms Studio"
+msgstr "Privacy Forms Studio"
+
+#: generated
+msgid "Refine Form"
+msgstr "Refine Form"
+
+#: generated
+msgid "Refine Your Form"
+msgstr "Refine Your Form"
+
+#: generated
+msgid "Refinement ${index}"
+msgstr "Refinement ${index}"
+
+#: generated
+msgid "Refinement failed"
+msgstr "Refinement failed"
+
+#: generated
+msgid "Refining..."
+msgstr "Refining..."
+
+#: generated
+msgid "Requested export format is not available"
+msgstr "Requested export format is not available"
+
+#: generated
+msgid "Result POSTed to endpoint (status ${status})"
+msgstr "Result POSTed to endpoint (status ${status})"
+
+#: generated
+msgid "Results cleared"
+msgstr "Results cleared"
+
+#: generated
+msgid "Row"
+msgstr "Row"
+
+#: generated
+msgid "Run the external SurveyJS validator binary for every save/submit."
+msgstr "Run the external SurveyJS validator binary for every save/submit."
+
+#: generated
+msgid "Save failed"
+msgstr "Save failed"
+
+#: generated
+msgid "Saving"
+msgstr "Saving"
+
+#: generated
+msgid "Select export formats to attach when the Mail action sends results."
+msgstr "Select export formats to attach when the Mail action sends results."
+
+#: generated
+msgid "Select how to handle survey submissions (multiple options possible). "
+msgstr "Select how to handle survey submissions (multiple options possible). "
+
+#: generated
+msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgstr "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+
+#: generated
+msgid "Start over? This will clear your refinement history and return to the initial prompt."
+msgstr "Start over? This will clear your refinement history and return to the initial prompt."
+
+#: generated
+msgid "Store"
+msgstr "Store"
+
+#: generated
+msgid "Subject"
+msgstr "Subject"
+
+#: generated
+msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+
+#: generated
+msgid "Subject for notifications"
+msgstr "Subject for notifications"
+
+#: generated
+msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr "Subject for result export emails. Supports {poll_id} for the submission ID. "
+
+#: generated
+msgid "Survey Embed Error"
+msgstr "Survey Embed Error"
+
+#: generated
+msgid "Survey Form"
+msgstr "Survey Form"
+
+#: generated
+msgid "Survey closed"
+msgstr "Survey closed"
+
+#: generated
+msgid "Survey embedding is not allowed. Please contact the survey administrator."
+msgstr "Survey embedding is not allowed. Please contact the survey administrator."
+
+#: generated
+msgid "Survey library not loaded"
+msgstr "Survey library not loaded"
+
+#: generated
+msgid "Survey open"
+msgstr "Survey open"
+
+#: generated
+msgid "SurveyJS Embed: Element not found"
+msgstr "SurveyJS Embed: Element not found"
+
+#: generated
+msgid "SurveyJS Embed: Error handling resize message"
+msgstr "SurveyJS Embed: Error handling resize message"
+
+#: generated
+msgid "SurveyJS Embed: Error requesting height"
+msgstr "SurveyJS Embed: Error requesting height"
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+msgstr "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+
+#: generated
+msgid "Text (.txt)"
+msgstr "Text (.txt)"
+
+#: generated
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#: generated
+msgid "Validate submissions against the form schema before saving. "
+msgstr "Validate submissions against the form schema before saving. "
+
+#: generated
+msgid "Version ${current} of ${total}"
+msgstr "Version ${current} of ${total}"
+
+#: generated
+msgid "Version deleted"
+msgstr "Version deleted"
+
+#: generated
+msgid "Version is locked and cannot be deleted"
+msgstr "Version is locked and cannot be deleted"
+
+#: generated
+msgid "Version locked"
+msgstr "Version locked"
+
+#: generated
+msgid "Version not found"
+msgstr "Version not found"
+
+#: generated
+msgid "Version restored successfully. A new version has been created."
+msgstr "Version restored successfully. A new version has been created."
+
+#: generated
+msgid "Version unlocked"
+msgstr "Version unlocked"
+
+#: generated
+msgid "Versions"
+msgstr "Versions"
+
+#: generated
+msgid "View"
+msgstr "View"
+
+#: generated
+msgid "Visual Editor"
+msgstr "Visual Editor"
+
+#: generated
+msgid "What would you like to change?"
+msgstr "What would you like to change?"
+
+#: generated
+msgid "Word (.docx)"
+msgstr "Word (.docx)"
+
+#: generated
+msgid "XML (.xml)"
+msgstr "XML (.xml)"
+
+#: generated
+msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgstr "You're saving ${version}. The latest version is not selected. Continue?"
+
+#: generated
+msgid "version ${current} of ${total}"
+msgstr "version ${current} of ${total}"
+
+#: generated
+msgid "Cancel"
+msgstr "Cancel"
+
+#: generated
+msgid "Close"
+msgstr "Close"
+
+#: generated
+msgid "Confirm restore"
+msgstr "Confirm restore"
+
+#: generated
+msgid "Date:"
+msgstr "Date:"
+
+#: generated
+msgid "Delete"
+msgstr "Delete"
+
+#: generated
+msgid "Delete version"
+msgstr "Delete version"
+
+#: generated
+msgid "Download"
+msgstr "Download"
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr "Download form definition as JSON"
+
+#: generated
+msgid "ID:"
+msgstr "ID:"
+
+#: generated
+msgid "JSON Version Content"
+msgstr "JSON Version Content"
+
+#: generated
+msgid "Locked"
+msgstr "Locked"
+
+#: generated
+msgid "Preview"
+msgstr "Preview"
+
+#: generated
+msgid "Preview JSON"
+msgstr "Preview JSON"
+
+#: generated
+msgid "Restore"
+msgstr "Restore"
+
+#: generated
+msgid "Restore to previous version"
+msgstr "Restore to previous version"
+
+#: generated
+msgid "Restore version"
+msgstr "Restore version"
+
+#: generated
+msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
+msgstr "Restoring will create a new version using the selected snapshot and keep the current version in history."
+
+#: generated
+msgid "Upload and Create Version"
+msgstr "Upload and Create Version"
+
+#: generated
+msgid "User:"
+msgstr "User:"
+
+#: generated
+msgid "Experimental:"
+msgstr "Experimental:"
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr "This is a helper to get started, not a finished form."
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr "Use clear, specific prompts for best results."
+
+#: generated
+msgid "Always review and adjust the generated form before use."
+msgstr "Always review and adjust the generated form before use."
+
+#: generated
+msgid "Error:"
+msgstr "Error:"
+
+#: generated
+msgid "#"
+msgstr "#"
+
+#: generated
+msgid "AI Form Generator"
+msgstr "AI Form Generator"
+
+#: generated
+msgid "Action"
+msgstr "Action"
+
+#: generated
+msgid "Back to results"
+msgstr "Back to results"
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr "Choose a PDF that contains the form layout you want to convert."
+
+#: generated
+msgid "Clear All Results"
+msgstr "Clear All Results"
+
+#: generated
+msgid "Clear all results"
+msgstr "Clear all results"
+
+#: generated
+msgid "Convert PDF"
+msgstr "Convert PDF"
+
+#: generated
+msgid "Created:"
+msgstr "Created:"
+
+#: generated
+msgid "Current Version:"
+msgstr "Current Version:"
+
+#: generated
+msgid "Date"
+msgstr "Date"
+
+#: generated
+msgid "Date/Time"
+msgstr "Date/Time"
+
+#: generated
+msgid "Delete result"
+msgstr "Delete result"
+
+#: generated
+msgid "Delete selected"
+msgstr "Delete selected"
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr "Describe your survey in natural language and let AI generate the form"
+
+#: generated
+msgid "Details"
+msgstr "Details"
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr "Download form definition (JSON)"
+
+#: generated
+msgid "Download result"
+msgstr "Download result"
+
+#: generated
+msgid "Download results (CSV)"
+msgstr "Download results (CSV)"
+
+#: generated
+msgid "Download results (JSON)"
+msgstr "Download results (JSON)"
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr "Embedding Not Allowed"
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
+msgstr "Enable it in the survey settings to collect and view responses here."
+
+#: generated
+msgid "Form JSON"
+msgstr "Form JSON"
+
+#: generated
+msgid "Form Preview"
+msgstr "Form Preview"
+
+#: generated
+msgid "Form Version Management"
+msgstr "Form Version Management"
+
+#: generated
+msgid "Generated form preview will appear here."
+msgstr "Generated form preview will appear here."
+
+#: generated
+msgid "Heads up:"
+msgstr "Heads up:"
+
+#: generated
+msgid "JSON"
+msgstr "JSON"
+
+#: generated
+msgid "Mail result"
+msgstr "Mail result"
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
+msgstr "Manage, view, and restore previous versions of your survey forms"
+
+#: generated
+msgid "Next »"
+msgstr "Next »"
+
+#: generated
+msgid "No PDF selected yet."
+msgstr "No PDF selected yet."
+
+#: generated
+msgid "No Survey Results Yet"
+msgstr "No Survey Results Yet"
+
+#: generated
+msgid "No Versions Available"
+msgstr "No Versions Available"
+
+#: generated
+msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+msgstr "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+
+#: generated
+msgid "No results found matching your search query."
+msgstr "No results found matching your search query."
+
+#: generated
+msgid "PDF Form Importer"
+msgstr "PDF Form Importer"
+
+#: generated
+msgid "PDF Preview"
+msgstr "PDF Preview"
+
+#: generated
+msgid "PDF file"
+msgstr "PDF file"
+
+#: generated
+msgid "POST result"
+msgstr "POST result"
+
+#: generated
+msgid "Poll ID:"
+msgstr "Poll ID:"
+
+#: generated
+msgid "Preview Form"
+msgstr "Preview Form"
+
+#: generated
+msgid "Processing..."
+msgstr "Processing..."
+
+#: generated
+msgid "Refine existing form"
+msgstr "Refine existing form"
+
+#: generated
+msgid "Refinement History"
+msgstr "Refinement History"
+
+#: generated
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr "Results are not being saved because the \"Store\" action is turned off."
+
+#: generated
+msgid "Save Form"
+msgstr "Save Form"
+
+#: generated
+msgid "Search"
+msgstr "Search"
+
+#: generated
+msgid "Search by user..."
+msgstr "Search by user..."
+
+#: generated
+msgid "Select JSON file:"
+msgstr "Select JSON file:"
+
+#: generated
+msgid "Select all results"
+msgstr "Select all results"
+
+#: generated
+msgid "Select result"
+msgstr "Select result"
+
+#: generated
+msgid "Sequence:"
+msgstr "Sequence:"
+
+#: generated
+msgid "Start Over"
+msgstr "Start Over"
+
+#: generated
+msgid "Storage disabled."
+msgstr "Storage disabled."
+
+#: generated
+msgid "Storage:"
+msgstr "Storage:"
+
+#: generated
+msgid "Stored form data"
+msgstr "Stored form data"
+
+#: generated
+msgid "Submission Details"
+msgstr "Submission Details"
+
+#: generated
+msgid "Survey"
+msgstr "Survey"
+
+#: generated
+msgid "Survey Response Details"
+msgstr "Survey Response Details"
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr "SurveyJS Preview"
+
+#: generated
+msgid "Table"
+msgstr "Table"
+
+#: generated
+msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+msgstr "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+
+#: generated
+msgid "This action will permanently delete all survey results. This cannot be undone."
+msgstr "This action will permanently delete all survey results. This cannot be undone."
+
+#: generated
+msgid "This feature is experimental. Please review the generated form carefully."
+msgstr "This feature is experimental. Please review the generated form carefully."
+
+#: generated
+msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgstr "This survey is not configured to be embedded. Please contact the survey administrator."
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr "To confirm, please type clear in the field below:"
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr "Type 'clear' to confirm"
+
+#: generated
+msgid "UUID"
+msgstr "UUID"
+
+#: generated
+msgid "Unable to load submission."
+msgstr "Unable to load submission."
+
+#: generated
+msgid "Upload"
+msgstr "Upload"
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr "Upload JSON form schema"
+
+#: generated
+msgid "Upload PDF"
+msgstr "Upload PDF"
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr "Upload a PDF form and generate SurveyJS JSON from it"
+
+#: generated
+msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+msgstr "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+
+#: generated
+msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgstr "Use the latest saved form as the starting point instead of generating a new one."
+
+#: generated
+msgid "User"
+msgstr "User"
+
+#: generated
+msgid "Version History"
+msgstr "Version History"
+
+#: generated
+msgid "Version ID"
+msgstr "Version ID"
+
+#: generated
+msgid "View JSON"
+msgstr "View JSON"
+
+#: generated
+msgid "Warning:"
+msgstr "Warning:"
+
+#: generated
+msgid "clear"
+msgstr "clear"
+
+#: generated
+msgid "« Previous"
+msgstr "« Previous"
+
+#: generated
+msgid "Failed to save survey results. Please try again."
+msgstr "Failed to save survey results. Please try again."
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr "Unable to load survey. Please try refreshing the page."
+
+#: generated
+msgid "Lock"
+msgstr "Lock"
+
+#: generated
+msgid "Unlock"
+msgstr "Unlock"
+
+#: generated
+msgid "Status"
+msgstr "Status"
+
+#: generated
+msgid "Effective"
+msgstr "Effective"
+
+#: generated
+msgid "Expires"
+msgstr "Expires"
+
+#: generated
+msgid "Stored results"
+msgstr "Stored results"
+
+#: generated
+msgid "Published"
+msgstr "Published"
+
+#: generated
+msgid "Inactive"
+msgstr "Inactive"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "Store converted form as new version"
+
+#: generated
+msgid "Conversion complete. Review the preview and click “Store converted form as new version”."
+msgstr "Conversion complete. Review the preview and click “Store converted form as new version”."
+
+#: generated
+msgid "No converted form available to store."
+msgstr "No converted form available to store."
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "Converted form stored. <a href=\"${url}\">View versions</a>."
+
+#: generated
+msgid "Store failed"
+msgstr "Store failed"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "Store failed. Please try again."

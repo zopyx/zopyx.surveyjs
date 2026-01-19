@@ -1,8 +1,22 @@
 document.addEventListener("DOMContentLoaded", function() {
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+  const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   const importerForm = document.getElementById("pdfImporterForm");
   const pdfInput = document.getElementById("pdfFile");
   const importBtn = document.getElementById("importBtn");
   const importSpinner = document.getElementById("importSpinner");
+  const storeBtn = document.getElementById("storeConvertedBtn");
+  const storeSpinner = document.getElementById("storeConvertedSpinner");
   const statusEl = document.getElementById("pdfImporterStatus");
   const previewFrame = document.getElementById("pdfPreviewFrame");
   const previewPlaceholder = document.getElementById("pdfPreviewPlaceholder");
@@ -10,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const surveyPreviewPlaceholder = document.getElementById("surveyPreviewPlaceholder");
 
   let surveyPreview = null;
+  let convertedJson = null;
 
   if (!importerForm) {
     return;
@@ -19,6 +34,30 @@ document.addEventListener("DOMContentLoaded", function() {
     importBtn.disabled = isLoading;
     if (importSpinner) {
       importSpinner.style.display = isLoading ? "inline-flex" : "none";
+    }
+    const label = importBtn.querySelector(".btn-text");
+    if (label) {
+      label.style.display = isLoading ? "none" : "inline";
+    }
+  }
+
+  function setStoreLoading(isLoading) {
+    if (storeBtn) {
+      storeBtn.disabled = isLoading;
+      const label = storeBtn.querySelector(".btn-text");
+      if (label) {
+        label.style.display = isLoading ? "none" : "inline";
+      }
+    }
+    if (storeSpinner) {
+      storeSpinner.style.display = isLoading ? "inline-flex" : "none";
+    }
+  }
+
+  function setStoreEnabled(enabled) {
+    if (storeBtn) {
+      storeBtn.disabled = !enabled;
+      storeBtn.style.display = enabled ? "inline-flex" : "none";
     }
   }
 
@@ -39,6 +78,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     surveyPreviewContainer.innerHTML = "";
     const model = new Survey.Model(surveyJson);
+    model.locale = locale;
+    if (Survey && Survey.surveyLocalization) {
+      Survey.surveyLocalization.currentLocale = locale;
+    }
     model.render(surveyPreviewContainer);
     surveyPreview = model;
   }
@@ -48,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const file = pdfInput.files[0];
     if (!file) {
-      showStatus("Please select a PDF file to upload.", "error");
+      showStatus(t("Please select a PDF file to upload."), "error");
       return;
     }
 
@@ -57,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
     formData.append("_authenticator", CSRF_TOKEN);
 
     setLoading(true);
+    setStoreEnabled(false);
     statusEl.style.display = "none";
 
     fetch(ACTUAL_URL + "/@@import-pdf-form", {
@@ -67,37 +111,91 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => {
       if (!response.ok) {
         return response.json().then(data => {
-          throw new Error(data.message || "Import failed");
+          throw new Error(data.message || t("Import failed"));
         });
       }
       return response.json();
     })
     .then(data => {
       if (data.success) {
-        const versionsUrl = ACTUAL_URL + "/@@form-versions";
         showStatus(
-          "Form imported and saved as a new version. " +
-            "<a href=\"" + versionsUrl + "\">View versions</a>.",
+          t(
+            "Conversion complete. Review the preview and click “Store converted form as new version”."
+          ),
           "success"
         );
         if (data.json) {
+          convertedJson = data.json;
+          setStoreEnabled(true);
           renderSurveyPreview(data.json);
         }
-        importerForm.reset();
       } else {
-        throw new Error(data.message || "Import failed");
+        throw new Error(data.message || t("Import failed"));
       }
     })
     .catch(error => {
-      showStatus(error.message || "Import failed. Please try again.", "error");
+      showStatus(error.message || t("Import failed. Please try again."), "error");
     })
     .finally(() => {
       setLoading(false);
     });
   });
 
+  if (storeBtn) {
+    storeBtn.addEventListener("click", function() {
+      if (!convertedJson) {
+        showStatus(t("No converted form available to store."), "error");
+        return;
+      }
+
+      setStoreLoading(true);
+      statusEl.style.display = "none";
+
+      const formData = new FormData();
+      formData.append("survey_json", JSON.stringify(convertedJson));
+      formData.append("_authenticator", CSRF_TOKEN);
+
+      fetch(ACTUAL_URL + "/@@store-pdf-form", {
+        method: "POST",
+        body: formData,
+        credentials: "same-origin"
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(data => {
+            throw new Error(data.message || t("Store failed"));
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          const versionsUrl = ACTUAL_URL + "/@@form-versions";
+          showStatus(
+            t(
+              "Converted form stored. <a href=\"${url}\">View versions</a>.",
+              { url: versionsUrl }
+            ),
+            "success"
+          );
+          setStoreEnabled(false);
+        } else {
+          throw new Error(data.message || t("Store failed"));
+        }
+      })
+      .catch(error => {
+        showStatus(error.message || t("Store failed. Please try again."), "error");
+      })
+      .finally(() => {
+        setStoreLoading(false);
+      });
+    });
+  }
+
   pdfInput.addEventListener("change", function() {
     const file = pdfInput.files[0];
+    convertedJson = null;
+    setStoreEnabled(false);
     if (!file) {
       if (previewFrame) {
         previewFrame.style.display = "none";

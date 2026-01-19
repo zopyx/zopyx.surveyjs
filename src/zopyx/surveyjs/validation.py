@@ -8,7 +8,7 @@ from datetime import datetime
 import base64
 import logging
 import re
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from typing import Any, Dict, Iterable, Optional, Set, Tuple
 
 
 MAX_REQUEST_BYTES = 2_000_000
@@ -48,7 +48,9 @@ def _choices_to_set(choices: Any) -> Optional[Set[str]]:
     return values or None
 
 
-def _parse_elements(elements: Iterable[Dict[str, Any]], fields: Dict[str, Dict[str, Any]]) -> None:
+def _parse_elements(
+    elements: Iterable[Dict[str, Any]], fields: Dict[str, Dict[str, Any]]
+) -> None:
     for element in elements or []:
         element_type = element.get("type")
         name = element.get("name")
@@ -157,8 +159,12 @@ def _validate_number(value: Any, field: Dict[str, Any]) -> Optional[str]:
             return "type_mismatch"
     if not isinstance(value, (int, float)):
         return "type_mismatch"
-    min_value = field.get("minValue") if field.get("minValue") is not None else field.get("min")
-    max_value = field.get("maxValue") if field.get("maxValue") is not None else field.get("max")
+    min_value = (
+        field.get("minValue") if field.get("minValue") is not None else field.get("min")
+    )
+    max_value = (
+        field.get("maxValue") if field.get("maxValue") is not None else field.get("max")
+    )
     if min_value is not None and value < min_value:
         return "out_of_range"
     if max_value is not None and value > max_value:
@@ -505,7 +511,12 @@ def _validate_fields(
     for name, value in payload.items():
         field = fields[name]
         ftype = field.get("type")
-        logger.info("validation field=%s type=%s value_type=%s", name, ftype, type(value).__name__)
+        logger.info(
+            "validation field=%s type=%s value_type=%s",
+            name,
+            ftype,
+            type(value).__name__,
+        )
 
         if ftype in ("text", "comment"):
             if field.get("inputType") == "number":
@@ -560,7 +571,9 @@ def _validate_fields(
     return None
 
 
-def validate_submission(form_json: Dict[str, Any], payload: Dict[str, Any]) -> ValidationResult:
+def validate_submission(
+    form_json: Dict[str, Any], payload: Dict[str, Any]
+) -> ValidationResult:
     if not isinstance(payload, dict):
         return ValidationResult(False, 400, "invalid_payload")
 

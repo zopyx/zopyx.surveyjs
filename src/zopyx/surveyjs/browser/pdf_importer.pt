@@ -5,13 +5,30 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="zopyx.surveyjs">
 
-<metal:block fill-slot="content-core">
+<metal:block fill-slot="content-core"
+             tal:define="portal_state context/@@plone_portal_state">
 
   <script type="text/javascript"
           tal:content="string: ACTUAL_URL='${context/absolute_url}'"
   ></script>
   <script type="text/javascript"
           tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
+  ></script>
+  <script type="text/javascript"
+          tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
+  ></script>
+  <script type="text/javascript"
+          tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
+  ></script>
+  <script src="++resource++zopyx.surveyjs/i18n.js"
+          type="text/javascript"
+  ></script>
+  <script src="++resource++zopyx.surveyjs/i18n/en.js"
+          type="text/javascript"
+  ></script>
+  <script tal:condition="python:portal_state.language() != 'en'"
+          tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
+          type="text/javascript"
   ></script>
 
   <link href="++resource++zopyx.surveyjs/viewer.css"
@@ -71,6 +88,33 @@
     </a>
   </div>
 
+  <tal:status tal:condition="view/can_manage_portal_content"
+                tal:define="status view/survey_status_label;
+                           effective view/survey_effective_display;
+                           expires view/survey_expires_display;
+                           results_count view/survey_results_count">
+    <div class="survey-status-bar">
+      <span class="survey-status-item">
+        <strong i18n:translate="">Status</strong>:
+        <span tal:content="status">Published</span>
+      </span>
+      <span class="survey-status-item"
+            tal:condition="effective">
+        <strong i18n:translate="">Effective</strong>:
+        <span tal:content="effective">2024-01-01</span>
+      </span>
+      <span class="survey-status-item"
+            tal:condition="expires">
+        <strong i18n:translate="">Expires</strong>:
+        <span tal:content="expires">2025-01-01</span>
+      </span>
+      <span class="survey-status-item">
+        <strong i18n:translate="">Stored results</strong>:
+        <span tal:content="results_count">0</span>
+      </span>
+    </div>
+  </tal:status>
+
   <div class="pdf-importer-container">
     <div class="pdf-importer-header">
       <div class="header-text">
@@ -79,11 +123,10 @@
           Upload a PDF form and generate SurveyJS JSON from it
         </div>
       </div>
-      <span class="beta-pill" i18n:translate="">Beta</span>
     </div>
 
-    <div class="pdf-importer-grid">
-      <div class="pdf-importer-panel">
+    <div class="pdf-importer-flow">
+      <section class="pdf-importer-panel stage-upload">
         <div class="panel-title" i18n:translate="">Upload PDF</div>
         <form id="pdfImporterForm" enctype="multipart/form-data">
           <div class="form-group">
@@ -107,6 +150,13 @@
                 <span i18n:translate="">Processing...</span>
               </span>
             </button>
+            <button type="button" class="btn btn-secondary" id="storeConvertedBtn" style="display:none;" disabled>
+              <span class="btn-text" i18n:translate="">Store converted form as new version</span>
+              <span class="btn-spinner" id="storeConvertedSpinner" style="display:none;">
+                <span class="spinner"></span>
+                <span i18n:translate="">Processing...</span>
+              </span>
+            </button>
           </div>
         </form>
 
@@ -118,27 +168,32 @@
             This feature is experimental. Please review the generated form carefully.
           </span>
         </div>
-      </div>
+      </section>
 
-      <div class="pdf-importer-panel preview-panel">
-        <div class="panel-title" i18n:translate="">PDF Preview</div>
-        <div class="preview-placeholder" id="pdfPreviewPlaceholder">
-          <span i18n:translate="">No PDF selected yet.</span>
+      <section class="pdf-importer-panel stage-preview">
+        <div class="panel-title" i18n:translate="">Preview</div>
+        <div class="preview-grid">
+          <div class="preview-card">
+            <h3 i18n:translate="">PDF Preview</h3>
+            <div class="preview-placeholder" id="pdfPreviewPlaceholder">
+              <span i18n:translate="">No PDF selected yet.</span>
+            </div>
+            <iframe id="pdfPreviewFrame"
+                    title="PDF Preview"
+                    i18n:attributes="title"
+                    style="display:none;"
+                    class="pdf-preview-frame"
+            ></iframe>
+          </div>
+          <div class="preview-card">
+            <h3 i18n:translate="">SurveyJS Preview</h3>
+            <div class="preview-placeholder" id="surveyPreviewPlaceholder">
+              <span i18n:translate="">Generated form preview will appear here.</span>
+            </div>
+            <div id="surveyPreviewContainer" class="survey-preview-container"></div>
+          </div>
         </div>
-        <iframe id="pdfPreviewFrame"
-                title="PDF Preview"
-                style="display:none;"
-                class="pdf-preview-frame"
-        ></iframe>
-      </div>
-
-      <div class="pdf-importer-panel survey-preview-panel">
-        <div class="panel-title" i18n:translate="">SurveyJS Preview</div>
-        <div class="preview-placeholder" id="surveyPreviewPlaceholder">
-          <span i18n:translate="">Generated form preview will appear here.</span>
-        </div>
-        <div id="surveyPreviewContainer" class="survey-preview-container"></div>
-      </div>
+      </section>
     </div>
   </div>
 

@@ -223,12 +223,7 @@ def test_build_html_inlines_images_and_tables(image_attachment: Attachment) -> N
 
 
 def test_build_html_moves_metadata_into_meta_block() -> None:
-    md_text = (
-        "# Title\n\n"
-        "Created by: Ada\n\n"
-        "Created on: 2024-05-01\n\n"
-        "Body text."
-    )
+    md_text = "# Title\n\nCreated by: Ada\n\nCreated on: 2024-05-01\n\nBody text."
     html_body = html.build_html(md_text, [])
     assert '<div class="meta">' in html_body
     assert "Created by:</strong> Ada" in html_body

@@ -24,6 +24,18 @@
 (function() {
   'use strict';
 
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+
   // Configuration
   const CONFIG = {
     embedClass: 'surveyjs-embed',
@@ -53,7 +65,12 @@
     const containers = document.querySelectorAll('.' + CONFIG.embedClass);
 
     if (containers.length === 0) {
-      console.warn('SurveyJS Embed: No embed containers found. Add elements with class "' + CONFIG.embedClass + '"');
+      console.warn(
+        t(
+          'SurveyJS Embed: No embed containers found. Add elements with class "${className}"',
+          { className: CONFIG.embedClass }
+        )
+      );
       return;
     }
 
@@ -80,12 +97,18 @@
 
     // Validate survey URL
     if (!surveyUrl) {
-      showError(container, 'Missing data-survey-url attribute. Please specify the survey URL.');
+      showError(
+        container,
+        t('Missing data-survey-url attribute. Please specify the survey URL.')
+      );
       return;
     }
 
     if (!isValidUrl(surveyUrl)) {
-      showError(container, 'Invalid survey URL: ' + surveyUrl);
+      showError(
+        container,
+        t('Invalid survey URL: ${url}', { url: surveyUrl })
+      );
       return;
     }
 
@@ -100,10 +123,13 @@
     iframe.style.width = width;
     iframe.setAttribute('scrolling', 'auto');
     iframe.setAttribute('allowtransparency', 'true');
-    iframe.setAttribute('title', 'Survey Form');
+    iframe.setAttribute('title', t('Survey Form'));
 
     // Add loading indicator
-    container.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">Loading survey...</div>';
+    container.innerHTML =
+      '<div style="text-align: center; padding: 40px; color: #666;">' +
+      t('Loading survey...') +
+      '</div>';
 
     // Handle iframe load
     iframe.addEventListener('load', function() {
@@ -119,7 +145,10 @@
 
     // Handle iframe errors
     iframe.addEventListener('error', function() {
-      showError(container, 'Failed to load survey. Please check the URL and try again.');
+      showError(
+        container,
+        t('Failed to load survey. Please check the URL and try again.')
+      );
     });
 
     // Check if embedding is allowed
@@ -128,7 +157,11 @@
         container.innerHTML = '';
         container.appendChild(iframe);
       } else {
-        showError(container, error || 'Survey embedding is not allowed. Please contact the survey administrator.');
+        showError(
+          container,
+          error ||
+            t('Survey embedding is not allowed. Please contact the survey administrator.')
+        );
       }
     });
   }
@@ -181,7 +214,7 @@
       loaded = true;
       clearTimeout(timeout);
       document.body.removeChild(testIframe);
-      callback(false, 'Failed to load survey');
+      callback(false, t('Failed to load survey'));
     });
 
     document.body.appendChild(testIframe);
@@ -209,7 +242,7 @@
           }
         }
       } catch (e) {
-        console.error('SurveyJS Embed: Error handling resize message', e);
+        console.error(t('SurveyJS Embed: Error handling resize message'), e);
       }
     });
 
@@ -219,7 +252,7 @@
         type: 'surveyjs-get-height'
       }, '*');
     } catch (e) {
-      console.error('SurveyJS Embed: Error requesting height', e);
+      console.error(t('SurveyJS Embed: Error requesting height'), e);
     }
   }
 
@@ -231,7 +264,7 @@
   function showError(container, message) {
     container.innerHTML =
       '<div style="' + CONFIG.errorStyles + '">' +
-      '<strong>Survey Embed Error</strong><br>' +
+      '<strong>' + t('Survey Embed Error') + '</strong><br>' +
       '<span style="font-size: 14px;">' + escapeHtml(message) + '</span>' +
       '</div>';
     container.setAttribute('data-embedded', 'error');
@@ -286,7 +319,7 @@
       }
 
       if (!element) {
-        console.error('SurveyJS Embed: Element not found');
+        console.error(t('SurveyJS Embed: Element not found'));
         return;
       }
 

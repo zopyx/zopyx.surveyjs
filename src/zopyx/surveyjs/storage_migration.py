@@ -13,9 +13,7 @@ from .storage import (
 logger = logging.getLogger(__name__)
 
 
-def migrate_zodb_results_to_rdbms(
-    context, database_uri: Optional[str] = None
-) -> int:
+def migrate_zodb_results_to_rdbms(context, database_uri: Optional[str] = None) -> int:
     """Copy all ZODB results for a survey into a relational database."""
     zodb_storage = ZODBResultStorage()
     sql_storage = SQLResultStorage(database_uri or _get_database_uri())
