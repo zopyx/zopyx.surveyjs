@@ -161,10 +161,10 @@ def configure_mail_from_env():
 
 
 def configure_site_languages():
-    """Set site languages to English + German + Arabic + Japanese, with English as default."""
+    """Set site languages to English + German + French + Italian + Spanish + Portuguese + Arabic + Japanese, with English as default."""
     try:
         api.portal.set_registry_record(
-            "plone.available_languages", ["en", "de", "ar", "ja"]
+            "plone.available_languages", ["en", "de", "fr", "it", "es", "pt", "ar", "ja"]
         )
         api.portal.set_registry_record("plone.default_language", "en")
         optional_settings = {
@@ -178,7 +178,7 @@ def configure_site_languages():
                 api.portal.set_registry_record(key, value)
             except InvalidParameterError:
                 continue
-        print("Configured site languages: en (default), de, ar, ja")
+        print("Configured site languages: en (default), de, fr, it, es, pt, ar, ja")
     except InvalidParameterError:
         print("Language registry records not found; skipping language configuration")
 
@@ -246,6 +246,7 @@ def create_demo_survey(
 
 def load_form_definition(name):
     form_path = FORMS_PATH / f"{name}.json"
+    print(form_path)
     return orjson.loads(form_path.read_bytes())
 
 
@@ -440,6 +441,10 @@ for obj_id in ("events", "news", "Members"):
 language_trees = {
     "en": {"root": "English", "demos": "Demos (EN)"},
     "de": {"root": "Deutsch", "demos": "Demos (DE)"},
+    "fr": {"root": "Français", "demos": "Démos (FR)"},
+    "it": {"root": "Italiano", "demos": "Demo (IT)"},
+    "es": {"root": "Español", "demos": "Demos (ES)"},
+    "pt": {"root": "Português", "demos": "Demos (PT)"},
     "ar": {"root": "العربية", "demos": "نماذج تجريبية (AR)"},
     "ja": {"root": "日本語", "demos": "デモフォーム (JP)"},
 }
@@ -480,6 +485,10 @@ WELCOME_STYLE = """
 WELCOME_BANNERS = {
     "en": "Demo system: This site is reset every six hours. Content may be wiped without notice.",
     "de": "Demonstrationssystem: Diese Seite wird alle sechs Stunden zur\u00fcckgesetzt. Inhalte k\u00f6nnen ohne Vorank\u00fcndigung gel\u00f6scht werden.",
+    "fr": "Syst\u00e8me de d\u00e9monstration : ce site est r\u00e9initialis\u00e9 toutes les six heures. Le contenu peut \u00eatre supprim\u00e9 sans pr\u00e9avis.",
+    "it": "Sistema dimostrativo: questo sito viene ripristinato ogni sei ore. I contenuti possono essere cancellati senza preavviso.",
+    "es": "Sistema de demostraci\u00f3n: este sitio se restablece cada seis horas. El contenido puede borrarse sin previo aviso.",
+    "pt": "Sistema de demonstra\u00e7\u00e3o: este site \u00e9 reiniciado a cada seis horas. O conte\u00fado pode ser apagado sem aviso pr\u00e9vio.",
     "ar": "\u0646\u0638\u0627\u0645 \u062a\u062c\u0631\u064a\u0628\u064a: \u062a\u062a\u0645 \u0625\u0639\u0627\u062f\u0629 \u0636\u0628\u0637 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639 \u0643\u0644 \u0633\u062a \u0633\u0627\u0639\u0627\u062a. \u0642\u062f \u062a\u064f\u062d\u0630\u0641 \u0627\u0644\u0645\u062d\u062a\u0648\u064a\u0627\u062a \u062f\u0648\u0646 \u0625\u0634\u0639\u0627\u0631.",
     "ja": "\u30c7\u30e2\u74b0\u5883: \u3053\u306e\u30b5\u30a4\u30c8\u306f6\u6642\u9593\u3054\u3068\u306b\u30ea\u30bb\u30c3\u30c8\u3055\u308c\u307e\u3059\u3002\u5185\u5bb9\u306f\u4e88\u544a\u306a\u304f\u524a\u9664\u3055\u308c\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002",
 }
@@ -487,75 +496,115 @@ WELCOME_BANNERS = {
 WELCOME_HEADINGS = {
     "en": "Demo Forms",
     "de": "Demo-Formulare",
+    "fr": "Formulaires de d\u00e9monstration",
+    "it": "Moduli demo",
+    "es": "Formularios de demostraci\u00f3n",
+    "pt": "Formul\u00e1rios de demonstra\u00e7\u00e3o",
     "ar": "\u0646\u0645\u0627\u0630\u062c \u062a\u062c\u0631\u064a\u0628\u064a\u0629",
     "ja": "\u30c7\u30e2\u30d5\u30a9\u30fc\u30e0",
 }
 
 WELCOME_DEMOS = {
     "en": [
-        ("Event registration", "demos/event-registration"),
-        ("Event registration / unregistration", "demos/event-rsvp"),
-        ("Mental Health Survey", "demos/mental-health-survey"),
-        ("Social Media Consumption Demo", "demos/full-demo"),
-        ("Food Ordering Service Feedback", "demos/food-feedback-demo"),
-        ("Order form", "demos/order-form"),
+        ("Event registration", "en/demos/event-registration"),
+        ("Event registration / unregistration", "en/demos/event-rsvp"),
+        ("Mental Health Survey", "en/demos/mental-health-survey"),
+        ("Social Media Consumption Demo", "en/demos/full-demo"),
+        ("Food Ordering Service Feedback", "en/demos/food-feedback-demo"),
+        ("Order form", "en/demos/order-form"),
     ],
     "de": [
-        ("Veranstaltungsanmeldung", "demos/event-registration-de"),
-        ("Veranstaltung An-/Abmeldung", "demos/event-rsvp-de"),
-        ("Umfrage zur psychischen Gesundheit", "demos/mental-health-survey-de"),
-        ("Nutzung sozialer Medien", "demos/full-demo-de"),
-        ("Feedback zum Essens-Bestellservice", "demos/food-feedback-demo-de"),
-        ("Bestellformular f\u00fcr Kleidung", "demos/order-form-de"),
+        ("Veranstaltungsanmeldung", "de/demos/event-registration-de"),
+        ("Veranstaltung An-/Abmeldung", "de/demos/event-rsvp-de"),
+        ("Umfrage zur psychischen Gesundheit", "de/demos/mental-health-survey-de"),
+        ("Nutzung sozialer Medien", "de/demos/full-demo-de"),
+        ("Feedback zum Essens-Bestellservice", "de/demos/food-feedback-demo-de"),
+        ("Bestellformular f\u00fcr Kleidung", "de/demos/order-form-de"),
+    ],
+    "fr": [
+        ("Inscription \u00e0 l\u2019\u00e9v\u00e9nement", "fr/demos/event-registration-fr"),
+        ("Inscription / d\u00e9sinscription \u00e0 l\u2019\u00e9v\u00e9nement", "fr/demos/event-rsvp-fr"),
+        ("Enqu\u00eate sur la sant\u00e9 mentale", "fr/demos/mental-health-survey-fr"),
+        ("D\u00e9mo sur l\u2019usage des r\u00e9seaux sociaux", "fr/demos/full-demo-fr"),
+        ("Avis sur le service de commande de repas", "fr/demos/food-feedback-demo-fr"),
+        ("Formulaire de commande", "fr/demos/order-form-fr"),
+    ],
+    "it": [
+        ("Iscrizione all\u2019evento", "it/demos/event-registration-it"),
+        ("Iscrizione / annullamento evento", "it/demos/event-rsvp-it"),
+        ("Sondaggio sulla salute mentale", "it/demos/mental-health-survey-it"),
+        ("Demo sull\u2019uso dei social media", "it/demos/full-demo-it"),
+        ("Feedback sul servizio di ordinazione cibo", "it/demos/food-feedback-demo-it"),
+        ("Modulo d\u2019ordine", "it/demos/order-form-it"),
+    ],
+    "es": [
+        ("Registro del evento", "es/demos/event-registration-es"),
+        ("Registro / cancelaci\u00f3n del evento", "es/demos/event-rsvp-es"),
+        ("Encuesta de salud mental", "es/demos/mental-health-survey-es"),
+        ("Demo de consumo de redes sociales", "es/demos/full-demo-es"),
+        ("Comentarios sobre el servicio de pedido de comida", "es/demos/food-feedback-demo-es"),
+        ("Formulario de pedido", "es/demos/order-form-es"),
+    ],
+    "pt": [
+        ("Inscri\u00e7\u00e3o no evento", "pt/demos/event-registration-pt"),
+        ("Inscri\u00e7\u00e3o / cancelamento do evento", "pt/demos/event-rsvp-pt"),
+        ("Pesquisa de sa\u00fade mental", "pt/demos/mental-health-survey-pt"),
+        ("Demonstra\u00e7\u00e3o de uso de redes sociais", "pt/demos/full-demo-pt"),
+        ("Feedback do servi\u00e7o de pedidos de comida", "pt/demos/food-feedback-demo-pt"),
+        ("Formul\u00e1rio de pedido", "pt/demos/order-form-pt"),
     ],
     "ar": [
         (
             "\u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629",
-            "demos/event-registration-ar",
+            "ar/demos/event-registration-ar",
         ),
         (
             "\u0627\u0644\u062a\u0633\u062c\u064a\u0644 / \u0625\u0644\u063a\u0627\u0621 \u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629",
-            "demos/event-rsvp-ar",
+            "ar/demos/event-rsvp-ar",
         ),
         (
             "\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0635\u062d\u0629 \u0627\u0644\u0646\u0641\u0633\u064a\u0629",
-            "demos/mental-health-survey-ar",
+            "ar/demos/mental-health-survey-ar",
         ),
         (
             "\u0639\u0631\u0636 \u0627\u0633\u062a\u0647\u0644\u0627\u0643 \u0648\u0633\u0627\u0626\u0644 \u0627\u0644\u062a\u0648\u0627\u0635\u0644 \u0627\u0644\u0627\u062c\u062a\u0645\u0627\u0639\u064a",
-            "demos/full-demo-ar",
+            "ar/demos/full-demo-ar",
         ),
         (
             "\u0645\u0644\u0627\u062d\u0638\u0627\u062a \u062e\u062f\u0645\u0629 \u0637\u0644\u0628 \u0627\u0644\u0637\u0639\u0627\u0645",
-            "demos/food-feedback-demo-ar",
+            "ar/demos/food-feedback-demo-ar",
         ),
         (
             "\u0646\u0645\u0648\u0630\u062c \u0627\u0644\u0637\u0644\u0628",
-            "demos/order-form-ar",
+            "ar/demos/order-form-ar",
         ),
     ],
     "ja": [
-        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332", "demos/event-registration-ja"),
-        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332 / \u53d6\u6d88", "demos/event-rsvp-ja"),
+        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332", "ja/demos/event-registration-ja"),
+        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332 / \u53d6\u6d88", "ja/demos/event-rsvp-ja"),
         (
             "\u30e1\u30f3\u30bf\u30eb\u30d8\u30eb\u30b9\u8abf\u67fb",
-            "demos/mental-health-survey-ja",
+            "ja/demos/mental-health-survey-ja",
         ),
         (
             "\u30bd\u30fc\u30b7\u30e3\u30eb\u30e1\u30c7\u30a3\u30a2\u5229\u7528\u30c7\u30e2",
-            "demos/full-demo-ja",
+            "ja/demos/full-demo-ja",
         ),
         (
             "\u30d5\u30fc\u30c9\u6ce8\u6587\u30b5\u30fc\u30d3\u30b9\u306e\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af",
-            "demos/food-feedback-demo-ja",
+            "ja/demos/food-feedback-demo-ja",
         ),
-        ("\u8863\u985e\u6ce8\u6587\u30d5\u30a9\u30fc\u30e0", "demos/order-form-ja"),
+        ("\u8863\u985e\u6ce8\u6587\u30d5\u30a9\u30fc\u30e0", "ja/demos/order-form-ja"),
     ],
 }
 
 WELCOME_TITLES = {
     "en": "Privacy Forms Studio",
     "de": "Privacy Forms Studio",
+    "fr": "Privacy Forms Studio",
+    "it": "Privacy Forms Studio",
+    "es": "Privacy Forms Studio",
+    "pt": "Privacy Forms Studio",
     "ar": "\u0628\u0631\u0627\u064a\u0641\u0633\u064a \u0641\u0648\u0631\u0645\u0632 \u0633\u062a\u0648\u062f\u064a\u0648",
     "ja": "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc \u30d5\u30a9\u30fc\u30e0\u30ba \u30b9\u30bf\u30b8\u30aa",
 }
@@ -570,8 +619,16 @@ def build_demo_section(language):
     items = WELCOME_DEMOS[language]
     heading = WELCOME_HEADINGS[language]
     dir_attr = ' dir="rtl"' if language == "ar" else ""
+    # Ensure demo links resolve regardless of default-page vs direct URL.
+    def _absolute_demo_href(href):
+        if href.startswith(f"{language}/"):
+            return href
+        if href.startswith("/"):
+            return href.lstrip("/")
+        return f"{language}/" + href.lstrip("/")
+
     cards = "\n".join(
-        f'    <li class="demo-card"><h4><a href="{href}">{title}</a></h4></li>'
+        f'    <li class="demo-card"><h4><a href="{_absolute_demo_href(href)}">{title}</a></h4></li>'
         for title, href in items
     )
     return f"""
@@ -774,6 +831,394 @@ create_demo_survey(
     actions={"store"},
     container=demos_by_language["de"],
     language="de",
+)
+
+# French demos
+event_form_fr = load_form_definition("event_registration_fr")
+set_form_language(event_form_fr, "fr")
+set_form_locale(event_form_fr, "fr")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-fr",
+    title="Inscription à l’événement",
+    description="Inscrivez-vous à l’événement.",
+    form_json=event_form_fr,
+    container=demos_by_language["fr"],
+    language="fr",
+)
+
+mental_intro_fr = load_intro_text("mental_health_intro_fr")
+mental_form_fr = load_form_definition("mental_health_fr")
+set_form_language(mental_form_fr, "fr")
+set_form_locale(mental_form_fr, "fr")
+set_form_intro_html(mental_form_fr, "introText", mental_intro_fr)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-fr",
+    title="Enquête sur la santé mentale",
+    description="Un bref bilan anonyme de votre bien-être.",
+    form_json=mental_form_fr,
+    intro_html=mental_intro_fr,
+    actions={"store"},
+    container=demos_by_language["fr"],
+    language="fr",
+)
+
+full_demo_intro_fr = load_intro_text("full_demo_intro_fr")
+full_demo_form_fr = load_form_definition("full_demo_fr")
+set_form_language(full_demo_form_fr, "fr")
+set_form_locale(full_demo_form_fr, "fr")
+set_form_intro_html(full_demo_form_fr, "demoIntro", full_demo_intro_fr)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-fr",
+    title="Démo sur l’usage des réseaux sociaux",
+    description="Démonstration des fonctionnalités SurveyJS dans le contexte des réseaux sociaux.",
+    form_json=full_demo_form_fr,
+    intro_html=full_demo_intro_fr,
+    actions={"store"},
+    container=demos_by_language["fr"],
+    language="fr",
+)
+
+feedback_form_fr = load_form_definition("food_feedback_fr")
+set_form_language(feedback_form_fr, "fr")
+set_form_locale(feedback_form_fr, "fr")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-fr",
+    title="Avis sur le service de commande de repas",
+    description="Évaluez votre expérience récente de 1 à 5.",
+    form_json=feedback_form_fr,
+    intro_html=load_intro_text("food_feedback_intro_fr"),
+    actions={"store"},
+    container=demos_by_language["fr"],
+    language="fr",
+)
+
+event_rsvp_form_fr = load_form_definition("event_rsvp_fr")
+set_form_language(event_rsvp_form_fr, "fr")
+set_form_locale(event_rsvp_form_fr, "fr")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-fr",
+    title="Inscription / désinscription à l’événement",
+    description="Inscrivez-vous ou annulez une inscription existante.",
+    form_json=event_rsvp_form_fr,
+    actions={"store"},
+    container=demos_by_language["fr"],
+    language="fr",
+)
+
+order_form_fr = load_form_definition("order_form_fr")
+set_form_language(order_form_fr, "fr")
+set_form_locale(order_form_fr, "fr")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-fr",
+    title="Formulaire de commande",
+    description="Collecter les informations client et les lignes de commande.",
+    form_json=order_form_fr,
+    actions={"store"},
+    container=demos_by_language["fr"],
+    language="fr",
+)
+
+# Italian demos
+event_form_it = load_form_definition("event_registration_it")
+set_form_language(event_form_it, "it")
+set_form_locale(event_form_it, "it")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-it",
+    title="Iscrizione all’evento",
+    description="Iscriviti all’evento.",
+    form_json=event_form_it,
+    container=demos_by_language["it"],
+    language="it",
+)
+
+mental_intro_it = load_intro_text("mental_health_intro_it")
+mental_form_it = load_form_definition("mental_health_it")
+set_form_language(mental_form_it, "it")
+set_form_locale(mental_form_it, "it")
+set_form_intro_html(mental_form_it, "introText", mental_intro_it)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-it",
+    title="Sondaggio sulla salute mentale",
+    description="Un breve check-in anonimo sul tuo benessere.",
+    form_json=mental_form_it,
+    intro_html=mental_intro_it,
+    actions={"store"},
+    container=demos_by_language["it"],
+    language="it",
+)
+
+full_demo_intro_it = load_intro_text("full_demo_intro_it")
+full_demo_form_it = load_form_definition("full_demo_it")
+set_form_language(full_demo_form_it, "it")
+set_form_locale(full_demo_form_it, "it")
+set_form_intro_html(full_demo_form_it, "demoIntro", full_demo_intro_it)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-it",
+    title="Demo sull’uso dei social media",
+    description="Dimostrazione delle funzionalità SurveyJS nel contesto dei social media.",
+    form_json=full_demo_form_it,
+    intro_html=full_demo_intro_it,
+    actions={"store"},
+    container=demos_by_language["it"],
+    language="it",
+)
+
+feedback_form_it = load_form_definition("food_feedback_it")
+set_form_language(feedback_form_it, "it")
+set_form_locale(feedback_form_it, "it")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-it",
+    title="Feedback sul servizio di ordinazione cibo",
+    description="Valuta la tua esperienza recente da 1 a 5.",
+    form_json=feedback_form_it,
+    intro_html=load_intro_text("food_feedback_intro_it"),
+    actions={"store"},
+    container=demos_by_language["it"],
+    language="it",
+)
+
+event_rsvp_form_it = load_form_definition("event_rsvp_it")
+set_form_language(event_rsvp_form_it, "it")
+set_form_locale(event_rsvp_form_it, "it")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-it",
+    title="Iscrizione / annullamento evento",
+    description="Iscriviti o annulla un’iscrizione esistente.",
+    form_json=event_rsvp_form_it,
+    actions={"store"},
+    container=demos_by_language["it"],
+    language="it",
+)
+
+order_form_it = load_form_definition("order_form_it")
+set_form_language(order_form_it, "it")
+set_form_locale(order_form_it, "it")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-it",
+    title="Modulo d’ordine",
+    description="Raccogli i dati del cliente e le righe d’ordine.",
+    form_json=order_form_it,
+    actions={"store"},
+    container=demos_by_language["it"],
+    language="it",
+)
+
+# Spanish demos
+event_form_es = load_form_definition("event_registration_es")
+set_form_language(event_form_es, "es")
+set_form_locale(event_form_es, "es")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-es",
+    title="Registro del evento",
+    description="Regístrate en el evento.",
+    form_json=event_form_es,
+    container=demos_by_language["es"],
+    language="es",
+)
+
+mental_intro_es = load_intro_text("mental_health_intro_es")
+mental_form_es = load_form_definition("mental_health_es")
+set_form_language(mental_form_es, "es")
+set_form_locale(mental_form_es, "es")
+set_form_intro_html(mental_form_es, "introText", mental_intro_es)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-es",
+    title="Encuesta de salud mental",
+    description="Un breve chequeo anónimo de tu bienestar.",
+    form_json=mental_form_es,
+    intro_html=mental_intro_es,
+    actions={"store"},
+    container=demos_by_language["es"],
+    language="es",
+)
+
+full_demo_intro_es = load_intro_text("full_demo_intro_es")
+full_demo_form_es = load_form_definition("full_demo_es")
+set_form_language(full_demo_form_es, "es")
+set_form_locale(full_demo_form_es, "es")
+set_form_intro_html(full_demo_form_es, "demoIntro", full_demo_intro_es)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-es",
+    title="Demo de consumo de redes sociales",
+    description="Demostración de funciones de SurveyJS en el contexto de redes sociales.",
+    form_json=full_demo_form_es,
+    intro_html=full_demo_intro_es,
+    actions={"store"},
+    container=demos_by_language["es"],
+    language="es",
+)
+
+feedback_form_es = load_form_definition("food_feedback_es")
+set_form_language(feedback_form_es, "es")
+set_form_locale(feedback_form_es, "es")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-es",
+    title="Comentarios sobre el servicio de pedido de comida",
+    description="Valora tu experiencia reciente de 1 a 5.",
+    form_json=feedback_form_es,
+    intro_html=load_intro_text("food_feedback_intro_es"),
+    actions={"store"},
+    container=demos_by_language["es"],
+    language="es",
+)
+
+event_rsvp_form_es = load_form_definition("event_rsvp_es")
+set_form_language(event_rsvp_form_es, "es")
+set_form_locale(event_rsvp_form_es, "es")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-es",
+    title="Registro / cancelación del evento",
+    description="Regístrate o cancela una inscripción existente.",
+    form_json=event_rsvp_form_es,
+    actions={"store"},
+    container=demos_by_language["es"],
+    language="es",
+)
+
+order_form_es = load_form_definition("order_form_es")
+set_form_language(order_form_es, "es")
+set_form_locale(order_form_es, "es")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-es",
+    title="Formulario de pedido",
+    description="Recoge datos del cliente y líneas de pedido.",
+    form_json=order_form_es,
+    actions={"store"},
+    container=demos_by_language["es"],
+    language="es",
+)
+
+# Portuguese demos
+event_form_pt = load_form_definition("event_registration_pt")
+set_form_language(event_form_pt, "pt")
+set_form_locale(event_form_pt, "pt")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-pt",
+    title="Inscrição no evento",
+    description="Inscreva-se no evento.",
+    form_json=event_form_pt,
+    container=demos_by_language["pt"],
+    language="pt",
+)
+
+mental_intro_pt = load_intro_text("mental_health_intro_pt")
+mental_form_pt = load_form_definition("mental_health_pt")
+set_form_language(mental_form_pt, "pt")
+set_form_locale(mental_form_pt, "pt")
+set_form_intro_html(mental_form_pt, "introText", mental_intro_pt)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-pt",
+    title="Pesquisa de saúde mental",
+    description="Um breve check-in anônimo sobre seu bem-estar.",
+    form_json=mental_form_pt,
+    intro_html=mental_intro_pt,
+    actions={"store"},
+    container=demos_by_language["pt"],
+    language="pt",
+)
+
+full_demo_intro_pt = load_intro_text("full_demo_intro_pt")
+full_demo_form_pt = load_form_definition("full_demo_pt")
+set_form_language(full_demo_form_pt, "pt")
+set_form_locale(full_demo_form_pt, "pt")
+set_form_intro_html(full_demo_form_pt, "demoIntro", full_demo_intro_pt)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-pt",
+    title="Demonstração de uso de redes sociais",
+    description="Demonstração das funcionalidades do SurveyJS no contexto de redes sociais.",
+    form_json=full_demo_form_pt,
+    intro_html=full_demo_intro_pt,
+    actions={"store"},
+    container=demos_by_language["pt"],
+    language="pt",
+)
+
+feedback_form_pt = load_form_definition("food_feedback_pt")
+set_form_language(feedback_form_pt, "pt")
+set_form_locale(feedback_form_pt, "pt")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-pt",
+    title="Feedback do serviço de pedidos de comida",
+    description="Avalie sua experiência recente de 1 a 5.",
+    form_json=feedback_form_pt,
+    intro_html=load_intro_text("food_feedback_intro_pt"),
+    actions={"store"},
+    container=demos_by_language["pt"],
+    language="pt",
+)
+
+event_rsvp_form_pt = load_form_definition("event_rsvp_pt")
+set_form_language(event_rsvp_form_pt, "pt")
+set_form_locale(event_rsvp_form_pt, "pt")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-pt",
+    title="Inscrição / cancelamento do evento",
+    description="Inscreva-se ou cancele uma inscrição existente.",
+    form_json=event_rsvp_form_pt,
+    actions={"store"},
+    container=demos_by_language["pt"],
+    language="pt",
+)
+
+order_form_pt = load_form_definition("order_form_pt")
+set_form_language(order_form_pt, "pt")
+set_form_locale(order_form_pt, "pt")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-pt",
+    title="Formulário de pedido",
+    description="Colete dados do cliente e itens do pedido.",
+    form_json=order_form_pt,
+    actions={"store"},
+    container=demos_by_language["pt"],
+    language="pt",
 )
 
 # Arabic demos (duplicates of EN forms)
