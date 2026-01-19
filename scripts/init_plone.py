@@ -164,7 +164,8 @@ def configure_site_languages():
     """Set site languages to English + German + French + Italian + Spanish + Portuguese + Arabic + Japanese, with English as default."""
     try:
         api.portal.set_registry_record(
-            "plone.available_languages", ["en", "de", "fr", "it", "es", "pt", "ar", "ja"]
+            "plone.available_languages",
+            ["en", "de", "fr", "it", "es", "pt", "ar", "ja"],
         )
         api.portal.set_registry_record("plone.default_language", "en")
         optional_settings = {
@@ -522,10 +523,19 @@ WELCOME_DEMOS = {
         ("Bestellformular f\u00fcr Kleidung", "de/demos/order-form-de"),
     ],
     "fr": [
-        ("Inscription \u00e0 l\u2019\u00e9v\u00e9nement", "fr/demos/event-registration-fr"),
-        ("Inscription / d\u00e9sinscription \u00e0 l\u2019\u00e9v\u00e9nement", "fr/demos/event-rsvp-fr"),
+        (
+            "Inscription \u00e0 l\u2019\u00e9v\u00e9nement",
+            "fr/demos/event-registration-fr",
+        ),
+        (
+            "Inscription / d\u00e9sinscription \u00e0 l\u2019\u00e9v\u00e9nement",
+            "fr/demos/event-rsvp-fr",
+        ),
         ("Enqu\u00eate sur la sant\u00e9 mentale", "fr/demos/mental-health-survey-fr"),
-        ("D\u00e9mo sur l\u2019usage des r\u00e9seaux sociaux", "fr/demos/full-demo-fr"),
+        (
+            "D\u00e9mo sur l\u2019usage des r\u00e9seaux sociaux",
+            "fr/demos/full-demo-fr",
+        ),
         ("Avis sur le service de commande de repas", "fr/demos/food-feedback-demo-fr"),
         ("Formulaire de commande", "fr/demos/order-form-fr"),
     ],
@@ -542,7 +552,10 @@ WELCOME_DEMOS = {
         ("Registro / cancelaci\u00f3n del evento", "es/demos/event-rsvp-es"),
         ("Encuesta de salud mental", "es/demos/mental-health-survey-es"),
         ("Demo de consumo de redes sociales", "es/demos/full-demo-es"),
-        ("Comentarios sobre el servicio de pedido de comida", "es/demos/food-feedback-demo-es"),
+        (
+            "Comentarios sobre el servicio de pedido de comida",
+            "es/demos/food-feedback-demo-es",
+        ),
         ("Formulario de pedido", "es/demos/order-form-es"),
     ],
     "pt": [
@@ -550,7 +563,10 @@ WELCOME_DEMOS = {
         ("Inscri\u00e7\u00e3o / cancelamento do evento", "pt/demos/event-rsvp-pt"),
         ("Pesquisa de sa\u00fade mental", "pt/demos/mental-health-survey-pt"),
         ("Demonstra\u00e7\u00e3o de uso de redes sociais", "pt/demos/full-demo-pt"),
-        ("Feedback do servi\u00e7o de pedidos de comida", "pt/demos/food-feedback-demo-pt"),
+        (
+            "Feedback do servi\u00e7o de pedidos de comida",
+            "pt/demos/food-feedback-demo-pt",
+        ),
         ("Formul\u00e1rio de pedido", "pt/demos/order-form-pt"),
     ],
     "ar": [
@@ -581,7 +597,10 @@ WELCOME_DEMOS = {
     ],
     "ja": [
         ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332", "ja/demos/event-registration-ja"),
-        ("\u30a4\u30d9\u30f3\u30c8\u767b\u9332 / \u53d6\u6d88", "ja/demos/event-rsvp-ja"),
+        (
+            "\u30a4\u30d9\u30f3\u30c8\u767b\u9332 / \u53d6\u6d88",
+            "ja/demos/event-rsvp-ja",
+        ),
         (
             "\u30e1\u30f3\u30bf\u30eb\u30d8\u30eb\u30b9\u8abf\u67fb",
             "ja/demos/mental-health-survey-ja",
@@ -619,6 +638,7 @@ def build_demo_section(language):
     items = WELCOME_DEMOS[language]
     heading = WELCOME_HEADINGS[language]
     dir_attr = ' dir="rtl"' if language == "ar" else ""
+
     # Ensure demo links resolve regardless of default-page vs direct URL.
     def _absolute_demo_href(href):
         if href.startswith(f"{language}/"):
