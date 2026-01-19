@@ -1,11 +1,12 @@
+
 {
-  "title": "Cloth Order Form",
-  "description": "A simple cloth order form to collect customer details and itemized order lines.",
+  "title": "Modulo d’ordine per capi di abbigliamento",
+  "description": "Un semplice modulo d’ordine per capi di abbigliamento per raccogliere i dati del cliente e le righe di ordine dettagliate.",
   "pages": [
     {
       "name": "page1",
-      "title": "Cloth Order Form",
-      "description": "Fill in customer details, and use the items grid to add, edit, or remove rows for each cloth item.",
+      "title": "Modulo d’ordine per capi di abbigliamento",
+      "description": "Inserisci i dati del cliente e utilizza la griglia degli articoli per aggiungere, modificare o rimuovere righe per ciascun capo.",
       "elements": [
         {
           "type": "hidden",
@@ -20,54 +21,54 @@
         {
           "type": "text",
           "name": "firstname",
-          "title": "First name"
+          "title": "Nome"
         },
         {
           "type": "text",
           "name": "lastname",
-          "title": "Last name"
+          "title": "Cognome"
         },
         {
           "type": "text",
           "name": "email",
-          "title": "Email address"
+          "title": "Indirizzo email"
         },
         {
           "type": "text",
           "name": "phone",
-          "title": "Phone number"
+          "title": "Numero di telefono"
         },
         {
           "type": "matrixdynamic",
           "name": "order_items",
-          "title": "Order Items",
-          "description": "Add one or more cloth items to the order. You can add, edit, or remove rows.",
+          "title": "Articoli dell’ordine",
+          "description": "Aggiungi uno o più capi all’ordine. Puoi aggiungere, modificare o rimuovere righe.",
           "columns": [
             {
               "name": "item",
-              "title": "Item (e.g., Dress, Shirt)",
+              "title": "Articolo (es. Abito, Camicia)",
               "cellType": "text"
             },
             {
               "name": "fabric",
-              "title": "Fabric Type",
+              "title": "Tipo di tessuto",
               "cellType": "dropdown",
               "choices": [
-                "Cotton",
-                "Silk",
-                "Wool",
-                "Linen",
-                "Polyester"
+                "Cotone",
+                "Seta",
+                "Lana",
+                "Lino",
+                "Poliestere"
               ]
             },
             {
               "name": "color",
-              "title": "Color",
+              "title": "Colore",
               "cellType": "text"
             },
             {
               "name": "size",
-              "title": "Size",
+              "title": "Taglia",
               "cellType": "dropdown",
               "choices": [
                 "XS",
@@ -80,76 +81,76 @@
             },
             {
               "name": "quantity",
-              "title": "Quantity",
+              "title": "Quantità",
               "cellType": "text"
             },
             {
               "name": "unitPrice",
-              "title": "Unit Price",
+              "title": "Prezzo unitario",
               "cellType": "text",
               "inputType": "number"
             },
             {
               "name": "notes",
-              "title": "Notes",
+              "title": "Note",
               "cellType": "text"
             }
           ],
           "minRowCount": 1,
-          "addRowText": "Add Item",
-          "removeRowText": "Remove Item"
+          "addRowText": "Aggiungi articolo",
+          "removeRowText": "Rimuovi articolo"
         },
         {
           "type": "radiogroup",
           "name": "deliveryOption",
-          "title": "Delivery option",
-          "description": "Choose how you would like your order delivered.",
+          "title": "Opzione di consegna",
+          "description": "Scegli come desideri ricevere il tuo ordine.",
           "choices": [
             {
               "value": "standard",
-              "text": "Standard (5-7 days)"
+              "text": "Standard (5–7 giorni)"
             },
             {
               "value": "express",
-              "text": "Express (2-3 days)"
+              "text": "Espressa (2–3 giorni)"
             },
             {
               "value": "pickup",
-              "text": "Pickup at showroom"
+              "text": "Ritiro in showroom"
             }
           ]
         },
         {
           "type": "checkbox",
           "name": "extras",
-          "title": "Additional options",
+          "title": "Opzioni aggiuntive",
           "choices": [
-            "Gift wrap",
-            "Rush production",
-            "Include sewing labels"
+            "Confezione regalo",
+            "Produzione urgente",
+            "Includi etichette di cucito"
           ]
         },
         {
           "type": "comment",
           "name": "specialInstructions",
-          "title": "Special Instructions",
-          "description": "Any special requests or details for the order."
+          "title": "Istruzioni speciali",
+          "description": "Eventuali richieste speciali o dettagli per l’ordine."
         },
         {
           "type": "checkbox",
           "name": "termsAccepted",
-          "title": "Terms and Conditions",
-          "description": "Confirm you agree to the order terms and conditions.",
+          "title": "Termini e condizioni",
+          "description": "Conferma di accettare i termini e le condizioni dell’ordine.",
           "choices": [
-            "I agree to the terms and conditions"
+            "Accetto i termini e le condizioni"
           ],
           "isRequired": true
         },
         {
           "type": "signaturepad",
           "name": "signature",
-          "title": "Signature",
-          "description": "Sign to confirm the order details.",
+          "title": "Firma",
+          "description": "Firma per confermare i dettagli dell’ordine.",
           "isRequired": true
         }
       ]
@@ -158,3 +159,4 @@
   "showProgressBar": "onPage",
   "requiredTextOnNormalMessages": false
 }
+

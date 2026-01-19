@@ -1,45 +1,46 @@
+
 {
-  "title": "Event Registration / Unregistration",
-  "description": "Register for the event or let us know you can no longer attend.",
+  "title": "Inscrição / Cancelamento de Inscrição no Evento",
+  "description": "Inscreva-se no evento ou informe-nos que não poderá mais comparecer.",
   "pages": [
     {
       "name": "main",
-      "title": "Participation Choice",
+      "title": "Escolha de Participação",
       "elements": [
         {
           "type": "radiogroup",
           "name": "action",
-          "title": "What would you like to do?",
+          "title": "O que você gostaria de fazer?",
           "isRequired": true,
           "choices": [
             {
               "value": "register",
-              "text": "Register for the event"
+              "text": "Inscrever-se no evento"
             },
             {
               "value": "unregister",
-              "text": "Unregister (cancel my attendance)"
+              "text": "Cancelar inscrição (cancelar minha participação)"
             }
           ]
         },
         {
           "type": "text",
           "name": "firstName",
-          "title": "First name",
+          "title": "Nome",
           "isRequired": true,
           "visibleIf": "{action} = 'register'"
         },
         {
           "type": "text",
           "name": "lastName",
-          "title": "Last name",
+          "title": "Sobrenome",
           "isRequired": true,
           "visibleIf": "{action} = 'register'"
         },
         {
           "type": "text",
           "name": "email",
-          "title": "Email address",
+          "title": "Endereço de e-mail",
           "inputType": "email",
           "isRequired": true,
           "visibleIf": "{action} = 'register'"
@@ -47,7 +48,7 @@
         {
           "type": "text",
           "name": "numberOfPersons",
-          "title": "Number of persons attending",
+          "title": "Número de pessoas participantes",
           "inputType": "number",
           "isRequired": true,
           "visibleIf": "{action} = 'register'"
@@ -55,8 +56,8 @@
         {
           "type": "text",
           "name": "cancellationName",
-          "title": "Name of the attendee to unregister",
-          "description": "Tell us who should be removed from the attendee list.",
+          "title": "Nome do participante a ser cancelado",
+          "description": "Informe-nos quem deve ser removido da lista de participantes.",
           "isRequired": true,
           "visibleIf": "{action} = 'unregister'"
         }
@@ -64,3 +65,4 @@
     }
   ]
 }
+

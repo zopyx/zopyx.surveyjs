@@ -1,11 +1,12 @@
+
 {
-  "title": "Food Ordering Service Feedback",
-  "description": "Quick 1-5 ratings about your recent experience.",
-  "locale": "en",
+  "title": "Retour sur le service de commande de nourriture",
+  "description": "Évaluations rapides de 1 à 5 concernant votre expérience récente.",
+  "locale": "fr",
   "showQuestionNumbers": "off",
   "showProgressBar": "top",
   "progressBarType": "questions",
-  "completedHtml": "<h3>Thanks for your feedback!</h3>",
+  "completedHtml": "<h3>Merci pour votre retour&nbsp;!</h3>",
   "pages": [
     {
       "name": "ratings",
@@ -13,34 +14,35 @@
         {
           "type": "rating",
           "name": "orderEase",
-          "title": "How easy was it to place your order?",
+          "title": "Dans quelle mesure a-t-il été facile de passer votre commande&nbsp;?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Very hard",
-          "maxRateDescription": "Very easy"
+          "minRateDescription": "Très difficile",
+          "maxRateDescription": "Très facile"
         },
         {
           "type": "rating",
           "name": "deliverySpeed",
-          "title": "How satisfied are you with the delivery speed?",
+          "title": "Dans quelle mesure êtes-vous satisfait(e) de la rapidité de livraison&nbsp;?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Very slow",
-          "maxRateDescription": "Very fast"
+          "minRateDescription": "Très lent",
+          "maxRateDescription": "Très rapide"
         },
         {
           "type": "rating",
           "name": "foodQuality",
-          "title": "How would you rate the food quality?",
+          "title": "Comment évalueriez-vous la qualité des plats&nbsp;?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Very poor",
-          "maxRateDescription": "Excellent"
+          "minRateDescription": "Très mauvaise",
+          "maxRateDescription": "Excellente"
         }
       ]
     }
   ]
 }
+

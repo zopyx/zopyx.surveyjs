@@ -1,8 +1,9 @@
+
 {
-  "title": "Event registration",
-  "description": "Register for the event.",
+  "title": "Registro del evento",
+  "description": "Regístrate para el evento.",
   "showQuestionNumbers": "off",
-  "completedHtml": "<h3>Thank you for registering!</h3>",
+  "completedHtml": "<h3>¡Gracias por registrarte!</h3>",
   "pages": [
     {
       "name": "attendee",
@@ -10,35 +11,36 @@
         {
           "type": "text",
           "name": "fullName",
-          "title": "Full name",
+          "title": "Nombre completo",
           "isRequired": true
         },
         {
           "type": "text",
           "name": "email",
-          "title": "Email",
+          "title": "Correo electrónico",
           "inputType": "email",
           "isRequired": true
         },
         {
           "type": "dropdown",
           "name": "ticketType",
-          "title": "Ticket type",
+          "title": "Tipo de entrada",
           "isRequired": true,
           "choices": [
-            "Standard",
-            "Student",
+            "Estándar",
+            "Estudiante",
             "VIP"
           ]
         },
         {
           "type": "boolean",
           "name": "newsletter",
-          "title": "Keep me updated about future events",
-          "labelTrue": "Yes",
+          "title": "Mantenerme informado sobre futuros eventos",
+          "labelTrue": "Sí",
           "labelFalse": "No"
         }
       ]
     }
   ]
 }
+

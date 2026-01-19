@@ -1,11 +1,12 @@
+
 {
-  "title": "Cloth Order Form",
-  "description": "A simple cloth order form to collect customer details and itemized order lines.",
+  "title": "Formulaire de commande de vêtements",
+  "description": "Un formulaire simple de commande de vêtements pour collecter les informations client et les lignes de commande détaillées.",
   "pages": [
     {
       "name": "page1",
-      "title": "Cloth Order Form",
-      "description": "Fill in customer details, and use the items grid to add, edit, or remove rows for each cloth item.",
+      "title": "Formulaire de commande de vêtements",
+      "description": "Renseignez les informations du client et utilisez le tableau des articles pour ajouter, modifier ou supprimer des lignes pour chaque vêtement.",
       "elements": [
         {
           "type": "hidden",
@@ -20,54 +21,54 @@
         {
           "type": "text",
           "name": "firstname",
-          "title": "First name"
+          "title": "Prénom"
         },
         {
           "type": "text",
           "name": "lastname",
-          "title": "Last name"
+          "title": "Nom de famille"
         },
         {
           "type": "text",
           "name": "email",
-          "title": "Email address"
+          "title": "Adresse e-mail"
         },
         {
           "type": "text",
           "name": "phone",
-          "title": "Phone number"
+          "title": "Numéro de téléphone"
         },
         {
           "type": "matrixdynamic",
           "name": "order_items",
-          "title": "Order Items",
-          "description": "Add one or more cloth items to the order. You can add, edit, or remove rows.",
+          "title": "Articles commandés",
+          "description": "Ajoutez un ou plusieurs articles de vêtements à la commande. Vous pouvez ajouter, modifier ou supprimer des lignes.",
           "columns": [
             {
               "name": "item",
-              "title": "Item (e.g., Dress, Shirt)",
+              "title": "Article (ex. : Robe, Chemise)",
               "cellType": "text"
             },
             {
               "name": "fabric",
-              "title": "Fabric Type",
+              "title": "Type de tissu",
               "cellType": "dropdown",
               "choices": [
-                "Cotton",
-                "Silk",
-                "Wool",
-                "Linen",
+                "Coton",
+                "Soie",
+                "Laine",
+                "Lin",
                 "Polyester"
               ]
             },
             {
               "name": "color",
-              "title": "Color",
+              "title": "Couleur",
               "cellType": "text"
             },
             {
               "name": "size",
-              "title": "Size",
+              "title": "Taille",
               "cellType": "dropdown",
               "choices": [
                 "XS",
@@ -80,68 +81,68 @@
             },
             {
               "name": "quantity",
-              "title": "Quantity",
+              "title": "Quantité",
               "cellType": "text"
             },
             {
               "name": "unitPrice",
-              "title": "Unit Price",
+              "title": "Prix unitaire",
               "cellType": "text",
               "inputType": "number"
             },
             {
               "name": "notes",
-              "title": "Notes",
+              "title": "Remarques",
               "cellType": "text"
             }
           ],
           "minRowCount": 1,
-          "addRowText": "Add Item",
-          "removeRowText": "Remove Item"
+          "addRowText": "Ajouter un article",
+          "removeRowText": "Supprimer l’article"
         },
         {
           "type": "radiogroup",
           "name": "deliveryOption",
-          "title": "Delivery option",
-          "description": "Choose how you would like your order delivered.",
+          "title": "Option de livraison",
+          "description": "Choisissez le mode de livraison souhaité pour votre commande.",
           "choices": [
             {
               "value": "standard",
-              "text": "Standard (5-7 days)"
+              "text": "Standard (5–7 jours)"
             },
             {
               "value": "express",
-              "text": "Express (2-3 days)"
+              "text": "Express (2–3 jours)"
             },
             {
               "value": "pickup",
-              "text": "Pickup at showroom"
+              "text": "Retrait en showroom"
             }
           ]
         },
         {
           "type": "checkbox",
           "name": "extras",
-          "title": "Additional options",
+          "title": "Options supplémentaires",
           "choices": [
-            "Gift wrap",
-            "Rush production",
-            "Include sewing labels"
+            "Emballage cadeau",
+            "Production urgente",
+            "Inclure des étiquettes de couture"
           ]
         },
         {
           "type": "comment",
           "name": "specialInstructions",
-          "title": "Special Instructions",
-          "description": "Any special requests or details for the order."
+          "title": "Instructions spéciales",
+          "description": "Toute demande particulière ou information complémentaire pour la commande."
         },
         {
           "type": "checkbox",
           "name": "termsAccepted",
-          "title": "Terms and Conditions",
-          "description": "Confirm you agree to the order terms and conditions.",
+          "title": "Conditions générales",
+          "description": "Confirmez que vous acceptez les conditions générales de commande.",
           "choices": [
-            "I agree to the terms and conditions"
+            "J’accepte les conditions générales"
           ],
           "isRequired": true
         },
@@ -149,7 +150,7 @@
           "type": "signaturepad",
           "name": "signature",
           "title": "Signature",
-          "description": "Sign to confirm the order details.",
+          "description": "Signez pour confirmer les détails de la commande.",
           "isRequired": true
         }
       ]
@@ -158,3 +159,4 @@
   "showProgressBar": "onPage",
   "requiredTextOnNormalMessages": false
 }
+

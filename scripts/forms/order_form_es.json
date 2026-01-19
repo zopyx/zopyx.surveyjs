@@ -1,11 +1,12 @@
+
 {
-  "title": "Cloth Order Form",
-  "description": "A simple cloth order form to collect customer details and itemized order lines.",
+  "title": "Formulario de Pedido de Ropa",
+  "description": "Un formulario simple de pedido de ropa para recopilar los datos del cliente y las líneas de pedido detalladas.",
   "pages": [
     {
       "name": "page1",
-      "title": "Cloth Order Form",
-      "description": "Fill in customer details, and use the items grid to add, edit, or remove rows for each cloth item.",
+      "title": "Formulario de Pedido de Ropa",
+      "description": "Complete los datos del cliente y use la tabla de artículos para agregar, editar o eliminar filas para cada prenda.",
       "elements": [
         {
           "type": "hidden",
@@ -20,44 +21,44 @@
         {
           "type": "text",
           "name": "firstname",
-          "title": "First name"
+          "title": "Nombre"
         },
         {
           "type": "text",
           "name": "lastname",
-          "title": "Last name"
+          "title": "Apellido"
         },
         {
           "type": "text",
           "name": "email",
-          "title": "Email address"
+          "title": "Correo electrónico"
         },
         {
           "type": "text",
           "name": "phone",
-          "title": "Phone number"
+          "title": "Número de teléfono"
         },
         {
           "type": "matrixdynamic",
           "name": "order_items",
-          "title": "Order Items",
-          "description": "Add one or more cloth items to the order. You can add, edit, or remove rows.",
+          "title": "Artículos del Pedido",
+          "description": "Agregue uno o más artículos de ropa al pedido. Puede agregar, editar o eliminar filas.",
           "columns": [
             {
               "name": "item",
-              "title": "Item (e.g., Dress, Shirt)",
+              "title": "Artículo (p. ej., Vestido, Camisa)",
               "cellType": "text"
             },
             {
               "name": "fabric",
-              "title": "Fabric Type",
+              "title": "Tipo de Tela",
               "cellType": "dropdown",
               "choices": [
-                "Cotton",
-                "Silk",
-                "Wool",
-                "Linen",
-                "Polyester"
+                "Algodón",
+                "Seda",
+                "Lana",
+                "Lino",
+                "Poliéster"
               ]
             },
             {
@@ -67,7 +68,7 @@
             },
             {
               "name": "size",
-              "title": "Size",
+              "title": "Talla",
               "cellType": "dropdown",
               "choices": [
                 "XS",
@@ -80,76 +81,76 @@
             },
             {
               "name": "quantity",
-              "title": "Quantity",
+              "title": "Cantidad",
               "cellType": "text"
             },
             {
               "name": "unitPrice",
-              "title": "Unit Price",
+              "title": "Precio Unitario",
               "cellType": "text",
               "inputType": "number"
             },
             {
               "name": "notes",
-              "title": "Notes",
+              "title": "Notas",
               "cellType": "text"
             }
           ],
           "minRowCount": 1,
-          "addRowText": "Add Item",
-          "removeRowText": "Remove Item"
+          "addRowText": "Agregar Artículo",
+          "removeRowText": "Eliminar Artículo"
         },
         {
           "type": "radiogroup",
           "name": "deliveryOption",
-          "title": "Delivery option",
-          "description": "Choose how you would like your order delivered.",
+          "title": "Opción de Entrega",
+          "description": "Elija cómo desea que se entregue su pedido.",
           "choices": [
             {
               "value": "standard",
-              "text": "Standard (5-7 days)"
+              "text": "Estándar (5–7 días)"
             },
             {
               "value": "express",
-              "text": "Express (2-3 days)"
+              "text": "Exprés (2–3 días)"
             },
             {
               "value": "pickup",
-              "text": "Pickup at showroom"
+              "text": "Recogida en la sala de exhibición"
             }
           ]
         },
         {
           "type": "checkbox",
           "name": "extras",
-          "title": "Additional options",
+          "title": "Opciones Adicionales",
           "choices": [
-            "Gift wrap",
-            "Rush production",
-            "Include sewing labels"
+            "Envoltura para regalo",
+            "Producción urgente",
+            "Incluir etiquetas de costura"
           ]
         },
         {
           "type": "comment",
           "name": "specialInstructions",
-          "title": "Special Instructions",
-          "description": "Any special requests or details for the order."
+          "title": "Instrucciones Especiales",
+          "description": "Cualquier solicitud especial o detalle para el pedido."
         },
         {
           "type": "checkbox",
           "name": "termsAccepted",
-          "title": "Terms and Conditions",
-          "description": "Confirm you agree to the order terms and conditions.",
+          "title": "Términos y Condiciones",
+          "description": "Confirme que acepta los términos y condiciones del pedido.",
           "choices": [
-            "I agree to the terms and conditions"
+            "Acepto los términos y condiciones"
           ],
           "isRequired": true
         },
         {
           "type": "signaturepad",
           "name": "signature",
-          "title": "Signature",
-          "description": "Sign to confirm the order details.",
+          "title": "Firma",
+          "description": "Firme para confirmar los detalles del pedido.",
           "isRequired": true
         }
       ]
@@ -158,3 +159,4 @@
   "showProgressBar": "onPage",
   "requiredTextOnNormalMessages": false
 }
+

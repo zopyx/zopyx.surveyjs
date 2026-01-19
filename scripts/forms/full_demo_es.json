@@ -1,11 +1,12 @@
+
 {
-  "title": "Social Media Consumption",
-  "description": "Demonstration of SurveyJS features using a social media context.",
-  "locale": "en",
+  "title": "Consumo de redes sociales",
+  "description": "Demostración de las funciones de SurveyJS utilizando un contexto de redes sociales.",
+  "locale": "es",
   "showQuestionNumbers": "on",
   "showProgressBar": "top",
   "progressBarType": "pages",
-  "completedHtml": "<h3>Thanks for exploring the demo!</h3><p>Adjust and extend these questions for your own surveys.</p>",
+  "completedHtml": "<h3>¡Gracias por explorar la demostración!</h3><p>Ajusta y amplía estas preguntas para tus propias encuestas.</p>",
   "pages": [
     {
       "name": "intro",
@@ -19,21 +20,21 @@
     },
     {
       "name": "basics",
-      "title": "Your profile",
+      "title": "Tu perfil",
       "elements": [
         {
           "type": "text",
           "name": "fullName",
-          "title": "What is your name?",
+          "title": "¿Cuál es tu nombre?",
           "placeHolder": "Alex Doe"
         },
         {
           "type": "dropdown",
           "name": "ageRange",
-          "title": "Your age range",
+          "title": "Tu rango de edad",
           "isRequired": true,
           "choices": [
-            "Under 18",
+            "Menos de 18",
             "18-24",
             "25-34",
             "35-44",
@@ -45,7 +46,7 @@
         {
           "type": "checkbox",
           "name": "primaryPlatforms",
-          "title": "Which platforms do you use weekly?",
+          "title": "¿Qué plataformas usas semanalmente?",
           "isRequired": true,
           "hasOther": true,
           "choices": [
@@ -61,29 +62,29 @@
         {
           "type": "rating",
           "name": "engagementLevel",
-          "title": "How engaged do you feel with social media overall?",
+          "title": "¿Qué tan involucrado/a te sientes con las redes sociales en general?",
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Not engaged",
-          "maxRateDescription": "Highly engaged"
+          "minRateDescription": "Nada involucrado/a",
+          "maxRateDescription": "Muy involucrado/a"
         }
       ]
     },
     {
       "name": "time",
-      "title": "Time spent",
+      "title": "Tiempo dedicado",
       "elements": [
         {
           "type": "rating",
           "name": "dailyMinutes",
-          "title": "Average minutes per day on social media",
+          "title": "Promedio de minutos al día en redes sociales",
           "rateMin": 0,
           "rateMax": 5,
           "rateStep": 1,
           "rateValues": [
             {
               "value": 0,
-              "text": "Under 30"
+              "text": "Menos de 30"
             },
             {
               "value": 1,
@@ -91,55 +92,55 @@
             },
             {
               "value": 2,
-              "text": "1-2 hours"
+              "text": "1-2 horas"
             },
             {
               "value": 3,
-              "text": "2-3 hours"
+              "text": "2-3 horas"
             },
             {
               "value": 4,
-              "text": "3-5 hours"
+              "text": "3-5 horas"
             },
             {
               "value": 5,
-              "text": "5+ hours"
+              "text": "5+ horas"
             }
           ]
         },
         {
           "type": "comment",
           "name": "timeComments",
-          "title": "When do you usually scroll?",
-          "placeHolder": "Morning commute, lunch break, evenings, before bed..."
+          "title": "¿Cuándo sueles desplazarte por las redes?",
+          "placeHolder": "Traslado por la mañana, hora del almuerzo, tardes, antes de dormir..."
         }
       ]
     },
     {
       "name": "matrixSection",
-      "title": "Platform frequency",
+      "title": "Frecuencia por plataforma",
       "elements": [
         {
           "type": "matrix",
           "name": "platformFrequency",
-          "title": "How often do you check these platforms?",
+          "title": "¿Con qué frecuencia revisas estas plataformas?",
           "isRequired": true,
           "columns": [
             {
               "value": "rarely",
-              "text": "Rarely"
+              "text": "Rara vez"
             },
             {
               "value": "weekly",
-              "text": "Weekly"
+              "text": "Semanalmente"
             },
             {
               "value": "daily",
-              "text": "Daily"
+              "text": "Diariamente"
             },
             {
               "value": "hourly",
-              "text": "Multiple times a day"
+              "text": "Varias veces al día"
             }
           ],
           "rows": [
@@ -169,33 +170,33 @@
     },
     {
       "name": "matrixDynamicSection",
-      "title": "Screen time by device",
+      "title": "Tiempo de pantalla por dispositivo",
       "elements": [
         {
           "type": "matrixdynamic",
           "name": "screenTimeByDevice",
-          "title": "Add devices and estimate your weekday/weekend screen time.",
+          "title": "Agrega dispositivos y estima tu tiempo de pantalla entre semana y fines de semana.",
           "isRequired": true,
           "rowCount": 2,
           "minRowCount": 1,
-          "addRowText": "Add device",
+          "addRowText": "Agregar dispositivo",
           "columns": [
             {
               "name": "device",
-              "title": "Device",
+              "title": "Dispositivo",
               "cellType": "dropdown",
               "choices": [
-                "Phone",
-                "Tablet",
-                "Laptop",
-                "Desktop",
-                "TV",
-                "Other"
+                "Teléfono",
+                "Tableta",
+                "Portátil",
+                "Computadora de escritorio",
+                "Televisor",
+                "Otro"
               ]
             },
             {
               "name": "weekday",
-              "title": "Weekday (hrs)",
+              "title": "Entre semana (hrs)",
               "cellType": "text",
               "inputType": "number",
               "min": 0,
@@ -203,7 +204,7 @@
             },
             {
               "name": "weekend",
-              "title": "Weekend (hrs)",
+              "title": "Fin de semana (hrs)",
               "cellType": "text",
               "inputType": "number",
               "min": 0,
@@ -215,12 +216,12 @@
     },
     {
       "name": "uploads",
-      "title": "Uploads and feedback",
+      "title": "Cargas y comentarios",
       "elements": [
         {
           "type": "file",
           "name": "screenshot",
-          "title": "Optional: upload a screenshot of your home screen or feed",
+          "title": "Opcional: sube una captura de pantalla de tu pantalla de inicio o feed",
           "maxSize": 1024000,
           "imageHeight": 150,
           "imageWidth": 150
@@ -228,16 +229,17 @@
         {
           "type": "comment",
           "name": "improvementIdeas",
-          "title": "What would improve your social media experience?"
+          "title": "¿Qué mejoraría tu experiencia en redes sociales?"
         },
         {
           "type": "boolean",
           "name": "followUp",
-          "title": "May we follow up with you about these insights?",
-          "labelTrue": "Yes, you can contact me",
-          "labelFalse": "No, keep this anonymous"
+          "title": "¿Podemos ponernos en contacto contigo para dar seguimiento a estos comentarios?",
+          "labelTrue": "Sí, pueden contactarme",
+          "labelFalse": "No, mantengan esto anónimo"
         }
       ]
     }
   ]
 }
+

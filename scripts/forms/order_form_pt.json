@@ -1,11 +1,12 @@
+
 {
-  "title": "Cloth Order Form",
-  "description": "A simple cloth order form to collect customer details and itemized order lines.",
+  "title": "Formulário de Pedido de Roupas",
+  "description": "Um formulário simples de pedido de roupas para coletar os dados do cliente e as linhas de itens do pedido.",
   "pages": [
     {
       "name": "page1",
-      "title": "Cloth Order Form",
-      "description": "Fill in customer details, and use the items grid to add, edit, or remove rows for each cloth item.",
+      "title": "Formulário de Pedido de Roupas",
+      "description": "Preencha os dados do cliente e use a grade de itens para adicionar, editar ou remover linhas para cada item de roupa.",
       "elements": [
         {
           "type": "hidden",
@@ -20,136 +21,136 @@
         {
           "type": "text",
           "name": "firstname",
-          "title": "First name"
+          "title": "Nome"
         },
         {
           "type": "text",
           "name": "lastname",
-          "title": "Last name"
+          "title": "Sobrenome"
         },
         {
           "type": "text",
           "name": "email",
-          "title": "Email address"
+          "title": "Endereço de e-mail"
         },
         {
           "type": "text",
           "name": "phone",
-          "title": "Phone number"
+          "title": "Número de telefone"
         },
         {
           "type": "matrixdynamic",
           "name": "order_items",
-          "title": "Order Items",
-          "description": "Add one or more cloth items to the order. You can add, edit, or remove rows.",
+          "title": "Itens do Pedido",
+          "description": "Adicione um ou mais itens de roupa ao pedido. Você pode adicionar, editar ou remover linhas.",
           "columns": [
             {
               "name": "item",
-              "title": "Item (e.g., Dress, Shirt)",
+              "title": "Item (ex.: Vestido, Camisa)",
               "cellType": "text"
             },
             {
               "name": "fabric",
-              "title": "Fabric Type",
+              "title": "Tipo de Tecido",
               "cellType": "dropdown",
               "choices": [
-                "Cotton",
-                "Silk",
-                "Wool",
-                "Linen",
-                "Polyester"
+                "Algodão",
+                "Seda",
+                "Lã",
+                "Linho",
+                "Poliéster"
               ]
             },
             {
               "name": "color",
-              "title": "Color",
+              "title": "Cor",
               "cellType": "text"
             },
             {
               "name": "size",
-              "title": "Size",
+              "title": "Tamanho",
               "cellType": "dropdown",
               "choices": [
-                "XS",
-                "S",
+                "PP",
+                "P",
                 "M",
-                "L",
-                "XL",
-                "XXL"
+                "G",
+                "GG",
+                "XGG"
               ]
             },
             {
               "name": "quantity",
-              "title": "Quantity",
+              "title": "Quantidade",
               "cellType": "text"
             },
             {
               "name": "unitPrice",
-              "title": "Unit Price",
+              "title": "Preço Unitário",
               "cellType": "text",
               "inputType": "number"
             },
             {
               "name": "notes",
-              "title": "Notes",
+              "title": "Observações",
               "cellType": "text"
             }
           ],
           "minRowCount": 1,
-          "addRowText": "Add Item",
-          "removeRowText": "Remove Item"
+          "addRowText": "Adicionar Item",
+          "removeRowText": "Remover Item"
         },
         {
           "type": "radiogroup",
           "name": "deliveryOption",
-          "title": "Delivery option",
-          "description": "Choose how you would like your order delivered.",
+          "title": "Opção de Entrega",
+          "description": "Escolha como você gostaria de receber seu pedido.",
           "choices": [
             {
               "value": "standard",
-              "text": "Standard (5-7 days)"
+              "text": "Padrão (5–7 dias)"
             },
             {
               "value": "express",
-              "text": "Express (2-3 days)"
+              "text": "Expresso (2–3 dias)"
             },
             {
               "value": "pickup",
-              "text": "Pickup at showroom"
+              "text": "Retirada no showroom"
             }
           ]
         },
         {
           "type": "checkbox",
           "name": "extras",
-          "title": "Additional options",
+          "title": "Opções Adicionais",
           "choices": [
-            "Gift wrap",
-            "Rush production",
-            "Include sewing labels"
+            "Embalagem para presente",
+            "Produção urgente",
+            "Incluir etiquetas de costura"
           ]
         },
         {
           "type": "comment",
           "name": "specialInstructions",
-          "title": "Special Instructions",
-          "description": "Any special requests or details for the order."
+          "title": "Instruções Especiais",
+          "description": "Quaisquer solicitações ou detalhes especiais para o pedido."
         },
         {
           "type": "checkbox",
           "name": "termsAccepted",
-          "title": "Terms and Conditions",
-          "description": "Confirm you agree to the order terms and conditions.",
+          "title": "Termos e Condições",
+          "description": "Confirme que você concorda com os termos e condições do pedido.",
           "choices": [
-            "I agree to the terms and conditions"
+            "Concordo com os termos e condições"
           ],
           "isRequired": true
         },
         {
           "type": "signaturepad",
           "name": "signature",
-          "title": "Signature",
-          "description": "Sign to confirm the order details.",
+          "title": "Assinatura",
+          "description": "Assine para confirmar os detalhes do pedido.",
           "isRequired": true
         }
       ]
@@ -158,3 +159,4 @@
   "showProgressBar": "onPage",
   "requiredTextOnNormalMessages": false
 }
+

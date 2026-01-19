@@ -1,11 +1,12 @@
+
 {
-  "title": "Mental Health Survey",
-  "description": "A quick, private reflection on how you are feeling this week.",
-  "locale": "en",
+  "title": "Enquête sur la santé mentale",
+  "description": "Une réflexion rapide et privée sur la façon dont vous vous sentez cette semaine.",
+  "locale": "fr",
   "showQuestionNumbers": "off",
   "showProgressBar": "top",
   "progressBarType": "pages",
-  "completedHtml": "<h3>Thank you for sharing. If you need support, please contact a professional.</h3>",
+  "completedHtml": "<h3>Merci pour votre partage. Si vous avez besoin de soutien, veuillez contacter un professionnel.</h3>",
   "pages": [
     {
       "name": "intro",
@@ -23,14 +24,14 @@
         {
           "type": "radiogroup",
           "name": "overallMood",
-          "title": "How would you describe your overall mood this week?",
+          "title": "Comment décririez-vous votre humeur générale cette semaine ?",
           "isRequired": true,
           "choices": [
-            "Very positive",
-            "Mostly positive",
-            "Neutral or mixed",
-            "Mostly negative",
-            "Very negative"
+            "Très positive",
+            "Plutôt positive",
+            "Neutre ou mitigée",
+            "Plutôt négative",
+            "Très négative"
           ]
         }
       ]
@@ -41,14 +42,14 @@
         {
           "type": "radiogroup",
           "name": "stressLevel",
-          "title": "How high has your stress felt in the past few days?",
+          "title": "À quel point votre niveau de stress a-t-il été élevé ces derniers jours ?",
           "isRequired": true,
           "choices": [
-            "Very low",
-            "Manageable",
-            "Noticeable but okay",
-            "High",
-            "Overwhelming"
+            "Très faible",
+            "Gérable",
+            "Perceptible mais acceptable",
+            "Élevé",
+            "Accablant"
           ]
         }
       ]
@@ -59,14 +60,14 @@
         {
           "type": "radiogroup",
           "name": "sleepQuality",
-          "title": "How would you rate your sleep quality recently?",
+          "title": "Comment évalueriez-vous la qualité de votre sommeil récemment ?",
           "isRequired": true,
           "choices": [
-            "Restful and consistent",
-            "Mostly okay",
-            "Inconsistent",
-            "Poor",
-            "Very poor"
+            "Reposant et régulier",
+            "Plutôt correct",
+            "Irrégulier",
+            "Mauvais",
+            "Très mauvais"
           ]
         }
       ]
@@ -77,14 +78,14 @@
         {
           "type": "radiogroup",
           "name": "supportNetwork",
-          "title": "How supported do you feel by friends, family, or community?",
+          "title": "Dans quelle mesure vous sentez-vous soutenu(e) par vos amis, votre famille ou votre communauté ?",
           "isRequired": true,
           "choices": [
-            "Strongly supported",
-            "Supported",
-            "Somewhat supported",
-            "Limited support",
-            "No support"
+            "Très bien soutenu(e)",
+            "Soutenu(e)",
+            "Plutôt soutenu(e)",
+            "Soutien limité",
+            "Aucun soutien"
           ]
         }
       ]
@@ -95,17 +96,18 @@
         {
           "type": "radiogroup",
           "name": "focusLevel",
-          "title": "How easy has it been to focus on daily tasks?",
+          "title": "À quel point a-t-il été facile de vous concentrer sur les tâches quotidiennes ?",
           "isRequired": true,
           "choices": [
-            "Very easy",
-            "Mostly easy",
-            "Manageable",
-            "Difficult",
-            "Very difficult"
+            "Très facile",
+            "Plutôt facile",
+            "Gérable",
+            "Difficile",
+            "Très difficile"
           ]
         }
       ]
     }
   ]
 }
+

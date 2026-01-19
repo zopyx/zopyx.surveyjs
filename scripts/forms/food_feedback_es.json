@@ -1,11 +1,12 @@
+
 {
-  "title": "Food Ordering Service Feedback",
-  "description": "Quick 1-5 ratings about your recent experience.",
-  "locale": "en",
+  "title": "Comentarios sobre el servicio de pedidos de comida",
+  "description": "Calificaciones rápidas del 1 al 5 sobre tu experiencia reciente.",
+  "locale": "es",
   "showQuestionNumbers": "off",
   "showProgressBar": "top",
   "progressBarType": "questions",
-  "completedHtml": "<h3>Thanks for your feedback!</h3>",
+  "completedHtml": "<h3>¡Gracias por tus comentarios!</h3>",
   "pages": [
     {
       "name": "ratings",
@@ -13,34 +14,35 @@
         {
           "type": "rating",
           "name": "orderEase",
-          "title": "How easy was it to place your order?",
+          "title": "¿Qué tan fácil fue realizar tu pedido?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Very hard",
-          "maxRateDescription": "Very easy"
+          "minRateDescription": "Muy difícil",
+          "maxRateDescription": "Muy fácil"
         },
         {
           "type": "rating",
           "name": "deliverySpeed",
-          "title": "How satisfied are you with the delivery speed?",
+          "title": "¿Qué tan satisfecho estás con la velocidad de entrega?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Very slow",
-          "maxRateDescription": "Very fast"
+          "minRateDescription": "Muy lenta",
+          "maxRateDescription": "Muy rápida"
         },
         {
           "type": "rating",
           "name": "foodQuality",
-          "title": "How would you rate the food quality?",
+          "title": "¿Cómo calificarías la calidad de la comida?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Very poor",
-          "maxRateDescription": "Excellent"
+          "minRateDescription": "Muy mala",
+          "maxRateDescription": "Excelente"
         }
       ]
     }
   ]
 }
+
