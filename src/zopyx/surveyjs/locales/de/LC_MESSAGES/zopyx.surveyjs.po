@@ -269,7 +269,7 @@ msgstr "Formular importiert und als neü Version gespeichert. <a href=\\\"${url}
 
 #: generated
 msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
-msgstr "Formular erfolgreich gespeichert! Sie können es jetzt im visüllen Editor oder unter Versionen ansehen."
+msgstr "Formular erfolgreich gespeichert! Sie können es jetzt im visuellen Editor oder unter Versionen ansehen."
 
 #: generated
 msgid "Form/Survey"
@@ -657,7 +657,7 @@ msgstr "Ansicht"
 
 #: generated
 msgid "Visual Editor"
-msgstr "Visüller Editor"
+msgstr "Visueller Editor"
 
 #: generated
 msgid "What would you like to change?"
