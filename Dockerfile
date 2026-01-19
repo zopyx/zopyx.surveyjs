@@ -37,7 +37,7 @@ WORKDIR /app
 COPY . /app
 
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-RUN uv venv .venv --python 3.12 --clear
+RUN uv venv .venv --python 3.13 --clear
 RUN ls .venv/bin
 RUN uv pip install -r requirements.txt
 RUN ./.venv/bin/buildout
