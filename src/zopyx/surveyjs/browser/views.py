@@ -1447,9 +1447,8 @@ class Views(BrowserView):
 
     @property
     def embedding_allowed(self):
-        """Check if embedding is allowed for this survey"""
-        return True
-        return getattr(self.context, "allow_embedding", False)
+        """Check if embedding is allowed for this survey."""
+        return getattr(self.context, "embedding_mode", "none") == "iframe"
 
     def generate_ai_form(self):
         """Generate a SurveyJS form using AI based on user prompt"""
@@ -1936,27 +1935,20 @@ class EmbedViewer(Views):
     index = ViewPageTemplateFile("viewer_embed.pt")
 
     def __call__(self):
-        """Set appropriate headers for iframe embedding"""
+        """Set appropriate headers for iframe embedding."""
 
-        if True:
-            # Remove X-Frame-Options to allow iframe embedding
-            # Note: Setting to empty string removes the header
-            self.request.response.setHeader("X-Frame-Options", "")
+        if not self.embedding_allowed:
+            self.request.response.setStatus(403)
+            return "Embedding is disabled for this survey."
 
-            # Use Content-Security-Policy frame-ancestors instead
-            # This is more modern and flexible
-            self.request.response.setHeader(
-                "Content-Security-Policy", "frame-ancestors *"
-            )
+        # Remove X-Frame-Options to allow iframe embedding.
+        # Note: Setting to empty string removes the header.
+        self.request.response.setHeader("X-Frame-Options", "")
 
-            # Set CORS headers to allow cross-origin requests
-            self.request.response.setHeader("Access-Control-Allow-Origin", "*")
-            self.request.response.setHeader(
-                "Access-Control-Allow-Methods", "GET, POST, OPTIONS"
-            )
-            self.request.response.setHeader(
-                "Access-Control-Allow-Headers", "Content-Type"
-            )
+        # Use Content-Security-Policy frame-ancestors instead.
+        self.request.response.setHeader(
+            "Content-Security-Policy", "frame-ancestors *"
+        )
 
-        # Render the template
+        # Render the template.
         return self.index()

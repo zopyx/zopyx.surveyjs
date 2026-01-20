@@ -2,47 +2,31 @@
 Embedding
 =========
 
-Surveys can be embedded into external sites using the embed view and the
-public embed JavaScript API.
+Surveys can be embedded into external sites via a dedicated iframe view.
 
 Quick start
 ===========
 
-1. Enable embedding on the Survey (Allow Embedding).
-2. Include the embed script on the external site.
-3. Add a container with the survey URL.
+1. Edit the survey and set **Embedding mode** to **Iframe**.
+2. Use the embed view in an iframe: ``/@@viewer-embed``.
 
 .. code-block:: html
 
-   <script src="https://your-plone-site.com/++resource++zopyx.surveyjs/embed.js"></script>
-
-   <div class="surveyjs-embed"
-        data-survey-url="https://your-plone-site.com/surveys/customer-satisfaction">
-   </div>
-
-Configuration
-=============
-
-Declarative options are provided via ``data-*`` attributes:
-
-- ``data-survey-url`` (required)
-- ``data-height`` (default ``600px``)
-- ``data-width`` (default ``100%``)
-- ``data-auto-resize`` (default ``false``)
+   <iframe
+     src="https://your-plone-site.com/surveys/customer-satisfaction/@@viewer-embed"
+     width="100%"
+     height="800"
+     style="border: 0;"
+     loading="lazy"
+     title="Customer Satisfaction Survey">
+   </iframe>
 
 Security
 ========
 
-Embedding is opt-in. When embedding is enabled:
+Embedding is opt-in per survey. When enabled:
 
-- The ``X-Frame-Options`` header is removed for the embed view.
+- ``X-Frame-Options`` is cleared for the embed view.
 - ``Content-Security-Policy: frame-ancestors *`` is set.
-- CORS headers are added to allow cross-origin access.
 
-The embed view is ``@@viewer-embed`` and is designed for use within iframes.
-
-Further details
-===============
-
-See ``EMBEDDING.md`` and the example page at
-``++resource++zopyx.surveyjs/embed-example.html`` for full examples.
+When embedding is disabled, the embed view returns HTTP 403.

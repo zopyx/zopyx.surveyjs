@@ -44,6 +44,12 @@ survey_formats_vocabulary = SimpleVocabulary(
     ]
 )
 
+survey_embedding_vocabulary = SimpleVocabulary(
+    [
+        SimpleTerm(value="none", title=_("None")),
+        SimpleTerm(value="iframe", title=_("Iframe")),
+    ]
+)
 
 class Counter(Persistent):
     def __init__(self, count=0):
@@ -108,6 +114,13 @@ class ISurvey(model.Schema):
             "max_payload_size_mb",
         ),
     )
+    fieldset(
+        "embedding",
+        label=_("Embedding"),
+        fields=(
+            "embedding_mode",
+        ),
+    )
 
     form.widget("actions", CheckBoxFieldWidget)
     form.widget("email_body", TextAreaFieldWidget, rows=10, cols=80)
@@ -149,6 +162,16 @@ class ISurvey(model.Schema):
         required=False,
         default=1,
         min=1,
+    )
+
+    embedding_mode = schema.Choice(
+        title=_("Embedding mode"),
+        description=_(
+            "Controls whether this survey may be embedded. Use Iframe to allow embedding."
+        ),
+        vocabulary=survey_embedding_vocabulary,
+        required=True,
+        default="none",
     )
 
     email_sender = schema.TextLine(

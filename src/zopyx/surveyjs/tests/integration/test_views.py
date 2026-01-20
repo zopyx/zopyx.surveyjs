@@ -419,13 +419,15 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             settings.database_uri = original_uri
 
     def test_embed_viewer_sets_headers_when_allowed(self) -> None:
-        self.survey.allow_embedding = True
+        self.survey.embedding_mode = "iframe"
         req = self._make_request()
         embed_view = EmbedViewer(self.survey, req)
         embed_view.index = MagicMock(return_value="ok")
         embed_view()
         self.assertEqual(req.response.getHeader("X-Frame-Options"), "")
-        self.assertEqual(req.response.getHeader("Access-Control-Allow-Origin"), "*")
+        self.assertEqual(
+            req.response.getHeader("Content-Security-Policy"), "frame-ancestors *"
+        )
 
     def test_save_ai_form_validation_errors(self) -> None:
         req = self._make_request(form={"form_json": ""})
