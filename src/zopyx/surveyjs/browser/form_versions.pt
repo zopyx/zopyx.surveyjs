@@ -8,43 +8,25 @@
   <metal:block fill-slot="content-core"
                tal:define="portal_state context/@@plone_portal_state">
 
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
-    ></script>
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
-    ></script>
-    <script src="++resource++zopyx.surveyjs/i18n.js"
-            type="text/javascript"
-    ></script>
-    <script src="++resource++zopyx.surveyjs/i18n/en.js"
-            type="text/javascript"
-    ></script>
-    <script tal:condition="python:portal_state.language() != 'en'"
-            tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
-            type="text/javascript"
-    ></script>
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
 
     <!-- Load SurveyJS libraries for preview -->
-    <link href="https://unpkg.com/survey-core/survey-core.min.css"
-          rel="stylesheet"
-          type="text/css"
+    <metal:surveyjs-core
+        use-macro="context/@@survey-assets/macros/surveyjs-core"
     />
-    <script src="https://unpkg.com/survey-core/survey.core.min.js"
-            type="text/javascript"
-    ></script>
-    <script src="https://unpkg.com/survey-core/survey.i18n.min.js"
-            type="text/javascript"
-    ></script>
-    <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"
-            type="text/javascript"
-    ></script>
-    <script src="https://unpkg.com/survey-core/themes/index.min.js"
-            type="text/javascript"
-    ></script>
-    <link href="++resource++zopyx.surveyjs/viewer.css"
-          rel="stylesheet"
-          type="text/css"
+    <metal:surveyjs-ui
+        use-macro="context/@@survey-assets/macros/surveyjs-ui"
+    />
+    <metal:surveyjs-theme-index
+        use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+    />
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
 
     <style>

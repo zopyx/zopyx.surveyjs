@@ -7,9 +7,8 @@
 >
 
   <metal:block fill-slot="content-core">
-    <link href="++resource++zopyx.surveyjs/viewer.css"
-          rel="stylesheet"
-          type="text/css"
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
     <metal:survey-actions
         use-macro="context/@@survey-actions/macros/survey-actions"

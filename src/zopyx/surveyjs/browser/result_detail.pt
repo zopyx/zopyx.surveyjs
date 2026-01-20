@@ -8,30 +8,19 @@
 <metal:block fill-slot="content-core"
              tal:define="portal_state context/@@plone_portal_state">
 
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
-    ></script>
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
-    ></script>
-    <script src="++resource++zopyx.surveyjs/i18n.js"
-            type="text/javascript"
-    ></script>
-    <script src="++resource++zopyx.surveyjs/i18n/en.js"
-            type="text/javascript"
-    ></script>
-    <script tal:condition="python:portal_state.language() != 'en'"
-            tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
-            type="text/javascript"
-    ></script>
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
 
     <link rel="stylesheet"
           type="text/css"
           href="++resource++zopyx.surveyjs/results.css"
     />
-    <link href="++resource++zopyx.surveyjs/viewer.css"
-          rel="stylesheet"
-          type="text/css"
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
 
     <metal:survey-actions

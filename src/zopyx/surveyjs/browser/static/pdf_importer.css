@@ -1,18 +1,18 @@
 .pdf-importer-container {
-    max-width: 900px;
-    margin: 0 auto;
+    width: 100%;
 }
 
-.pdf-importer-header {
-    align-items: flex-start;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-    gap: 1rem;
+.page-headline {
+    margin: 0 0 16px;
+    font-size: 1.5em;
+    color: #343a40;
+    font-weight: 600;
 }
 
-.pdf-importer-header .header-text {
-    max-width: 700px;
+.page-subtitle {
+    color: #6c757d;
+    font-size: 0.95em;
+    margin: -6px 0 18px;
 }
 
 .beta-pill {
@@ -159,10 +159,6 @@
 }
 
 @media (min-width: 900px) {
-    .pdf-importer-container {
-        max-width: 1040px;
-    }
-
     .preview-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
