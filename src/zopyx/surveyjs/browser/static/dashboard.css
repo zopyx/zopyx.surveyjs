@@ -1,0 +1,23 @@
+.page-headline {
+    margin: 0 0 16px;
+    font-size: 1.5em;
+    color: #343a40;
+    font-weight: 600;
+}
+
+#surveyDashboardContainer {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    padding: 24px;
+}
+
+.dashboard-empty,
+.dashboard-error {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #475569;
+    font-size: 0.95rem;
+    padding: 18px 20px;
+}

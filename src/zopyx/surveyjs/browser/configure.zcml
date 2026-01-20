@@ -21,6 +21,13 @@
     template="results.pt"
   />
   <browser:page
+    name="dashboard"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    permission="cmf.ModifyPortalContent"
+    template="dashboard.pt"
+  />
+  <browser:page
     name="result-detail"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"

@@ -69,14 +69,18 @@
        href="${context/absolute_url}/@@editor">
       <span i18n:translate="">Visual Editor</span>
     </a>
-    <a class="survey-action-button action-results"
-       href="${context/absolute_url}/@@results">
-      <span i18n:translate="">Form Results</span>
-    </a>
-    <a class="survey-action-button action-versions"
-       href="${context/absolute_url}/@@form-versions">
-      <span i18n:translate="">Versions</span>
-    </a>
+      <a class="survey-action-button action-results"
+         href="${context/absolute_url}/@@results">
+        <span i18n:translate="">Form Results</span>
+      </a>
+      <a class="survey-action-button action-dashboard"
+         href="${context/absolute_url}/@@dashboard">
+        <span i18n:translate="">Dashboard</span>
+      </a>
+      <a class="survey-action-button action-versions"
+         href="${context/absolute_url}/@@form-versions">
+        <span i18n:translate="">Versions</span>
+      </a>
     <a class="survey-action-button action-ai"
        href="${context/absolute_url}/@@ai">
       <span i18n:translate="">AI Generator</span>
