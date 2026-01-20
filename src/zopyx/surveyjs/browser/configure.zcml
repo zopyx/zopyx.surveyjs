@@ -65,6 +65,14 @@
   />
 
   <browser:page
+    name="survey-actions"
+    for="*"
+    permission="zope2.View"
+    class=".views.Views"
+    template="survey_actions.pt"
+  />
+
+  <browser:page
     name="editor"
     for="*"
     permission="cmf.ModifyPortalContent"
