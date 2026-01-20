@@ -73,6 +73,14 @@
          href="${context/absolute_url}/@@editor">
         <span i18n:translate="">Visual Editor</span>
       </a>
+      <a class="survey-action-button action-versions"
+         href="${context/absolute_url}/@@form-versions">
+        <span i18n:translate="">Versions</span>
+      </a>
+      <a class="survey-action-button action-ai"
+         href="${context/absolute_url}/@@ai">
+        <span i18n:translate="">AI Generator</span>
+      </a>
       <a class="survey-action-button action-results"
          href="${context/absolute_url}/@@results">
         <span i18n:translate="">Form Results</span>
@@ -87,14 +95,6 @@
           <span i18n:translate="">PDF Generator</span>
         </a>
       </tal:manager>
-      <a class="survey-action-button action-versions"
-         href="${context/absolute_url}/@@form-versions">
-        <span i18n:translate="">Versions</span>
-      </a>
-      <a class="survey-action-button action-ai"
-         href="${context/absolute_url}/@@ai">
-        <span i18n:translate="">AI Generator</span>
-      </a>
       <tal:manager tal:condition="view/is_manager">
         <a class="survey-action-button action-pdf-importer"
            href="${context/absolute_url}/@@pdf-importer">
