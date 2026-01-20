@@ -5,6 +5,12 @@
     font-weight: 600;
 }
 
+.page-subtitle {
+    color: #6c757d;
+    font-size: 0.95em;
+    margin: -6px 0 18px;
+}
+
 #surveyDashboardContainer {
     background-color: #ffffff;
     border-radius: 12px;

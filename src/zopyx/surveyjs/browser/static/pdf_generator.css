@@ -1,3 +1,16 @@
+.page-headline {
+    margin: 0 0 16px;
+    font-size: 1.5em;
+    color: #343a40;
+    font-weight: 600;
+}
+
+.page-subtitle {
+    color: #6c757d;
+    font-size: 0.95em;
+    margin: -6px 0 18px;
+}
+
 .pdf-generator-card {
     background: #ffffff;
     border-radius: 12px;

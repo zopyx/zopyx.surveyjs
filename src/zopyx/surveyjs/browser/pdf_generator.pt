@@ -57,12 +57,6 @@
           type="text/css"
     />
 
-    <style type="text/css">
-      article > header {
-        display: none;
-      }
-    </style>
-
     <metal:survey-actions
         use-macro="context/@@survey-actions/macros/survey-actions"
     />
@@ -95,10 +89,10 @@
     </tal:status>
 
     <h2 class="page-headline" i18n:translate="">PDF generator</h2>
+    <div class="page-subtitle" i18n:translate="">
+      Generate a PDF version of the current survey form.
+    </div>
     <div class="pdf-generator-card">
-      <p class="pdf-generator-description" i18n:translate="">
-        Generate a PDF version of the current survey form.
-      </p>
       <button id="generatePdfButton" class="btn btn-primary" type="button" i18n:translate="">
         Download PDF
       </button>

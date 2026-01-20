@@ -61,12 +61,6 @@
           type="text/css"
     />
 
-    <style type="text/css">
-      article > header {
-        display: none;
-      }
-    </style>
-
     <metal:survey-actions
         use-macro="context/@@survey-actions/macros/survey-actions"
     />
@@ -99,6 +93,9 @@
     </tal:status>
 
     <h2 class="page-headline" i18n:translate="">Survey data dashboard</h2>
+    <div class="page-subtitle" i18n:translate="">
+      Explore responses with charts and summary insights.
+    </div>
     <div id="surveyDashboardContainer"></div>
 
   </metal:block>
