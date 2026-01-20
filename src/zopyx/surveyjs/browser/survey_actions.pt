@@ -5,48 +5,62 @@
                       define-macro="survey-actions">
   <div class="survey-actions"
        tal:condition="view/can_manage_portal_content">
-    <a class="survey-action-button action-view"
-       href="${context/absolute_url}/@@viewer">
-      <span i18n:translate="">View</span>
-    </a>
-    <a class="survey-action-button action-editor"
-       href="${context/absolute_url}/@@editor">
-      <span i18n:translate="">Visual Editor</span>
-    </a>
-    <a class="survey-action-button action-versions"
-       href="${context/absolute_url}/@@form-versions">
-      <span i18n:translate="">Versions</span>
-    </a>
-    <a class="survey-action-button action-ai"
-       href="${context/absolute_url}/@@ai">
-      <span i18n:translate="">AI Generator</span>
-    </a>
-    <a class="survey-action-button action-results"
-       href="${context/absolute_url}/@@results">
-      <span i18n:translate="">Form Results</span>
-    </a>
-    <tal:manager tal:condition="view/is_manager">
-      <a class="survey-action-button action-dashboard"
-         href="${context/absolute_url}/@@dashboard">
-        <span i18n:translate="">Dashboard</span>
+    <div class="survey-actions-row">
+      <a class="survey-action-button action-view"
+         href="${context/absolute_url}/@@viewer">
+        <span i18n:translate="">View</span>
       </a>
-      <a class="survey-action-button action-pdf-generator"
-         href="${context/absolute_url}/@@pdf-generator">
-        <span i18n:translate="">PDF Generator</span>
+      <a class="survey-action-button action-editor"
+         href="${context/absolute_url}/@@editor">
+        <span i18n:translate="">Visual Editor</span>
       </a>
-      <a class="survey-action-button action-pdf-importer"
-         href="${context/absolute_url}/@@pdf-importer">
-        <span i18n:translate="">PDF Form Import</span>
-        <span class="beta-badge" i18n:translate="">Beta</span>
+      <a class="survey-action-button action-versions"
+         href="${context/absolute_url}/@@form-versions">
+        <span i18n:translate="">Versions</span>
       </a>
-    </tal:manager>
-    <tal:notmanager tal:condition="not: view/is_manager">
-      <span class="survey-action-button action-pdf-importer is-disabled"
-            aria-disabled="true">
-        <span i18n:translate="">PDF Form Import</span>
-        <span class="beta-badge" i18n:translate="">Beta</span>
-        <span class="manager-badge" i18n:translate="">Manager only</span>
-      </span>
-    </tal:notmanager>
+      <a class="survey-action-button action-ai"
+         href="${context/absolute_url}/@@ai">
+        <span i18n:translate="">AI Generator</span>
+      </a>
+      <a class="survey-action-button action-results"
+         href="${context/absolute_url}/@@results">
+        <span i18n:translate="">Form Results</span>
+      </a>
+    </div>
+    <div class="survey-actions-row survey-actions-row--manager">
+      <tal:manager tal:condition="view/is_manager">
+        <a class="survey-action-button action-dashboard"
+           href="${context/absolute_url}/@@dashboard">
+          <span i18n:translate="">Dashboard</span>
+        </a>
+        <a class="survey-action-button action-pdf-generator"
+           href="${context/absolute_url}/@@pdf-generator">
+          <span i18n:translate="">PDF Generator</span>
+        </a>
+        <a class="survey-action-button action-pdf-importer"
+           href="${context/absolute_url}/@@pdf-importer">
+          <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+        </a>
+      </tal:manager>
+      <tal:notmanager tal:condition="not: view/is_manager">
+        <span class="survey-action-button action-dashboard is-disabled"
+              aria-disabled="true">
+          <span i18n:translate="">Dashboard</span>
+          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+        </span>
+        <span class="survey-action-button action-pdf-generator is-disabled"
+              aria-disabled="true">
+          <span i18n:translate="">PDF Generator</span>
+          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+        </span>
+        <span class="survey-action-button action-pdf-importer is-disabled"
+              aria-disabled="true">
+          <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+        </span>
+      </tal:notmanager>
+    </div>
   </div>
 </metal:survey_actions>
