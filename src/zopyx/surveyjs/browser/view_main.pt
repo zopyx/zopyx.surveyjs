@@ -15,32 +15,9 @@
         use-macro="context/@@survey-actions/macros/survey-actions"
     />
 
-    <tal:status tal:condition="view/can_manage_portal_content"
-                tal:define="status view/survey_status_label;
-                             effective view/survey_effective_display;
-                             expires view/survey_expires_display;
-                             results_count view/survey_results_count">
-      <div class="survey-status-bar">
-        <span class="survey-status-item">
-          <strong i18n:translate="">Status</strong>:
-          <span tal:content="status">Published</span>
-        </span>
-        <span class="survey-status-item"
-              tal:condition="effective">
-          <strong i18n:translate="">Effective</strong>:
-          <span tal:content="effective">2024-01-01</span>
-        </span>
-        <span class="survey-status-item"
-              tal:condition="expires">
-          <strong i18n:translate="">Expires</strong>:
-          <span tal:content="expires">2025-01-01</span>
-        </span>
-        <span class="survey-status-item">
-          <strong i18n:translate="">Stored results</strong>:
-          <span tal:content="results_count">0</span>
-        </span>
-      </div>
-    </tal:status>
+    <metal:survey-status
+        use-macro="context/@@survey-actions/macros/survey-status"
+    />
 
   </metal:block>
 </html>
