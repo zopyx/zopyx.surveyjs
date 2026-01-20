@@ -1,7 +1,6 @@
-
 {
-  "title": "Inscription à l’événement",
-  "description": "Inscrivez-vous à l’événement.",
+  "title": "Inscription à l'événement",
+  "description": "Inscrivez-vous à l'événement.",
   "showQuestionNumbers": "off",
   "completedHtml": "<h3>Merci pour votre inscription !</h3>",
   "pages": [
@@ -17,7 +16,7 @@
         {
           "type": "text",
           "name": "email",
-          "title": "Adresse e-mail",
+          "title": "E-mail",
           "inputType": "email",
           "isRequired": true
         },
@@ -35,7 +34,7 @@
         {
           "type": "boolean",
           "name": "newsletter",
-          "title": "Me tenir informé(e) des futurs événements",
+          "title": "Tenez-moi informé(e) des prochains événements",
           "labelTrue": "Oui",
           "labelFalse": "Non"
         }
@@ -43,4 +42,3 @@
     }
   ]
 }
-

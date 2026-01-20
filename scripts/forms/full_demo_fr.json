@@ -1,4 +1,3 @@
-
 {
   "title": "Consommation des réseaux sociaux",
   "description": "Démonstration des fonctionnalités de SurveyJS dans un contexte de réseaux sociaux.",
@@ -6,7 +5,7 @@
   "showQuestionNumbers": "on",
   "showProgressBar": "top",
   "progressBarType": "pages",
-  "completedHtml": "<h3>Merci d’avoir exploré la démo !</h3><p>Adaptez et enrichissez ces questions pour vos propres enquêtes.</p>",
+  "completedHtml": "<h3>Merci d'avoir exploré la démo !</h3><p>Adaptez et enrichissez ces questions pour vos propres enquêtes.</p>",
   "pages": [
     {
       "name": "intro",
@@ -25,22 +24,22 @@
         {
           "type": "text",
           "name": "fullName",
-          "title": "Quel est votre nom ?",
-          "placeHolder": "Alex Dupont"
+          "title": "Comment vous appelez-vous ?",
+          "placeHolder": "Alex Doe"
         },
         {
           "type": "dropdown",
           "name": "ageRange",
-          "title": "Votre tranche d’âge",
+          "title": "Votre tranche d'âge",
           "isRequired": true,
           "choices": [
-            "Moins de 18 ans",
+            "Moins de 18",
             "18-24",
             "25-34",
             "35-44",
             "45-54",
             "55-64",
-            "65 ans et plus"
+            "65+"
           ]
         },
         {
@@ -62,7 +61,7 @@
         {
           "type": "rating",
           "name": "engagementLevel",
-          "title": "Dans l’ensemble, à quel point vous sentez-vous engagé(e) sur les réseaux sociaux ?",
+          "title": "À quel point vous sentez-vous engagé(e) sur les réseaux sociaux en général ?",
           "rateMin": 1,
           "rateMax": 5,
           "minRateDescription": "Pas engagé(e)",
@@ -77,42 +76,42 @@
         {
           "type": "rating",
           "name": "dailyMinutes",
-          "title": "Temps moyen passé par jour sur les réseaux sociaux",
+          "title": "Minutes moyennes par jour sur les réseaux sociaux",
           "rateMin": 0,
           "rateMax": 5,
           "rateStep": 1,
           "rateValues": [
             {
               "value": 0,
-              "text": "Moins de 30 min"
+              "text": "Moins de 30"
             },
             {
               "value": 1,
-              "text": "30–60 min"
+              "text": "30-60"
             },
             {
               "value": 2,
-              "text": "1–2 heures"
+              "text": "1-2 heures"
             },
             {
               "value": 3,
-              "text": "2–3 heures"
+              "text": "2-3 heures"
             },
             {
               "value": 4,
-              "text": "3–5 heures"
+              "text": "3-5 heures"
             },
             {
               "value": 5,
-              "text": "5 heures et plus"
+              "text": "5+ heures"
             }
           ]
         },
         {
           "type": "comment",
           "name": "timeComments",
-          "title": "À quels moments consultez-vous le plus souvent ?",
-          "placeHolder": "Trajet du matin, pause déjeuner, soirées, avant de dormir…"
+          "title": "Quand faites-vous défiler d'habitude ?",
+          "placeHolder": "Trajet du matin, pause déjeuner, soirées, avant de dormir..."
         }
       ]
     },
@@ -136,7 +135,7 @@
             },
             {
               "value": "daily",
-              "text": "Tous les jours"
+              "text": "Quotidiennement"
             },
             {
               "value": "hourly",
@@ -170,12 +169,12 @@
     },
     {
       "name": "matrixDynamicSection",
-      "title": "Temps d’écran par appareil",
+      "title": "Temps d'écran par appareil",
       "elements": [
         {
           "type": "matrixdynamic",
           "name": "screenTimeByDevice",
-          "title": "Ajoutez des appareils et estimez votre temps d’écran en semaine et le week-end.",
+          "title": "Ajoutez des appareils et estimez votre temps d'écran en semaine et le week-end.",
           "isRequired": true,
           "rowCount": 2,
           "minRowCount": 1,
@@ -196,7 +195,7 @@
             },
             {
               "name": "weekday",
-              "title": "Semaine (heures)",
+              "title": "Semaine (h)",
               "cellType": "text",
               "inputType": "number",
               "min": 0,
@@ -204,7 +203,7 @@
             },
             {
               "name": "weekend",
-              "title": "Week-end (heures)",
+              "title": "Week-end (h)",
               "cellType": "text",
               "inputType": "number",
               "min": 0,
@@ -216,12 +215,12 @@
     },
     {
       "name": "uploads",
-      "title": "Téléversements et retours",
+      "title": "Téléversements et commentaires",
       "elements": [
         {
           "type": "file",
           "name": "screenshot",
-          "title": "Optionnel : téléversez une capture d’écran de votre écran d’accueil ou de votre fil",
+          "title": "Facultatif : téléversez une capture d'écran de votre écran d'accueil ou de votre fil d'actualité",
           "maxSize": 1024000,
           "imageHeight": 150,
           "imageWidth": 150
@@ -229,17 +228,16 @@
         {
           "type": "comment",
           "name": "improvementIdeas",
-          "title": "Qu’est-ce qui améliorerait votre expérience des réseaux sociaux ?"
+          "title": "Qu'est-ce qui améliorerait votre expérience des réseaux sociaux ?"
         },
         {
           "type": "boolean",
           "name": "followUp",
           "title": "Pouvons-nous vous recontacter à propos de ces informations ?",
           "labelTrue": "Oui, vous pouvez me contacter",
-          "labelFalse": "Non, rester anonyme"
+          "labelFalse": "Non, gardez cela anonyme"
         }
       ]
     }
   ]
 }
-

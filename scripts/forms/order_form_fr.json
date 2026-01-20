@@ -1,12 +1,11 @@
-
 {
-  "title": "Formulaire de commande de vêtements",
-  "description": "Un formulaire simple de commande de vêtements pour collecter les informations client et les lignes de commande détaillées.",
+  "title": "Bon de commande textile",
+  "description": "Un formulaire de commande textile simple pour recueillir les coordonnées clients et les lignes de commande détaillées.",
   "pages": [
     {
       "name": "page1",
-      "title": "Formulaire de commande de vêtements",
-      "description": "Renseignez les informations du client et utilisez le tableau des articles pour ajouter, modifier ou supprimer des lignes pour chaque vêtement.",
+      "title": "Bon de commande textile",
+      "description": "Renseignez les informations client et utilisez la grille des articles pour ajouter, modifier ou supprimer des lignes pour chaque article textile.",
       "elements": [
         {
           "type": "hidden",
@@ -26,7 +25,7 @@
         {
           "type": "text",
           "name": "lastname",
-          "title": "Nom de famille"
+          "title": "Nom"
         },
         {
           "type": "text",
@@ -42,11 +41,11 @@
           "type": "matrixdynamic",
           "name": "order_items",
           "title": "Articles commandés",
-          "description": "Ajoutez un ou plusieurs articles de vêtements à la commande. Vous pouvez ajouter, modifier ou supprimer des lignes.",
+          "description": "Ajoutez un ou plusieurs articles textiles à la commande. Vous pouvez ajouter, modifier ou supprimer des lignes.",
           "columns": [
             {
               "name": "item",
-              "title": "Article (ex. : Robe, Chemise)",
+              "title": "Article (p. ex., robe, chemise)",
               "cellType": "text"
             },
             {
@@ -92,31 +91,31 @@
             },
             {
               "name": "notes",
-              "title": "Remarques",
+              "title": "Notes",
               "cellType": "text"
             }
           ],
           "minRowCount": 1,
           "addRowText": "Ajouter un article",
-          "removeRowText": "Supprimer l’article"
+          "removeRowText": "Supprimer l'article"
         },
         {
           "type": "radiogroup",
           "name": "deliveryOption",
           "title": "Option de livraison",
-          "description": "Choisissez le mode de livraison souhaité pour votre commande.",
+          "description": "Choisissez comment vous souhaitez recevoir votre commande.",
           "choices": [
             {
               "value": "standard",
-              "text": "Standard (5–7 jours)"
+              "text": "Standard (5-7 jours)"
             },
             {
               "value": "express",
-              "text": "Express (2–3 jours)"
+              "text": "Express (2-3 jours)"
             },
             {
               "value": "pickup",
-              "text": "Retrait en showroom"
+              "text": "Retrait au showroom"
             }
           ]
         },
@@ -126,7 +125,7 @@
           "title": "Options supplémentaires",
           "choices": [
             "Emballage cadeau",
-            "Production urgente",
+            "Production accélérée",
             "Inclure des étiquettes de couture"
           ]
         },
@@ -134,7 +133,7 @@
           "type": "comment",
           "name": "specialInstructions",
           "title": "Instructions spéciales",
-          "description": "Toute demande particulière ou information complémentaire pour la commande."
+          "description": "Toute demande particulière ou précision pour la commande."
         },
         {
           "type": "checkbox",
@@ -142,7 +141,7 @@
           "title": "Conditions générales",
           "description": "Confirmez que vous acceptez les conditions générales de commande.",
           "choices": [
-            "J’accepte les conditions générales"
+            "J'accepte les conditions générales"
           ],
           "isRequired": true
         },
@@ -159,4 +158,3 @@
   "showProgressBar": "onPage",
   "requiredTextOnNormalMessages": false
 }
-

@@ -1,12 +1,11 @@
-
 {
-  "title": "Retour sur le service de commande de nourriture",
-  "description": "Évaluations rapides de 1 à 5 concernant votre expérience récente.",
+  "title": "Avis sur le service de commande de repas",
+  "description": "Évaluations rapides de 1 à 5 sur votre expérience récente.",
   "locale": "fr",
   "showQuestionNumbers": "off",
   "showProgressBar": "top",
   "progressBarType": "questions",
-  "completedHtml": "<h3>Merci pour votre retour&nbsp;!</h3>",
+  "completedHtml": "<h3>Merci pour votre retour !</h3>",
   "pages": [
     {
       "name": "ratings",
@@ -14,7 +13,7 @@
         {
           "type": "rating",
           "name": "orderEase",
-          "title": "Dans quelle mesure a-t-il été facile de passer votre commande&nbsp;?",
+          "title": "À quel point était-il facile de passer votre commande ?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
@@ -24,17 +23,17 @@
         {
           "type": "rating",
           "name": "deliverySpeed",
-          "title": "Dans quelle mesure êtes-vous satisfait(e) de la rapidité de livraison&nbsp;?",
+          "title": "Dans quelle mesure êtes-vous satisfait(e) de la rapidité de livraison ?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
-          "minRateDescription": "Très lent",
+          "minRateDescription": "Très lente",
           "maxRateDescription": "Très rapide"
         },
         {
           "type": "rating",
           "name": "foodQuality",
-          "title": "Comment évalueriez-vous la qualité des plats&nbsp;?",
+          "title": "Comment évalueriez-vous la qualité des repas ?",
           "isRequired": true,
           "rateMin": 1,
           "rateMax": 5,
@@ -45,4 +44,3 @@
     }
   ]
 }
-

@@ -1,7 +1,6 @@
-
 {
-  "title": "Inscription / Désinscription à l’événement",
-  "description": "Inscrivez-vous à l’événement ou informez-nous que vous ne pouvez plus y assister.",
+  "title": "Inscription / désinscription à l'événement",
+  "description": "Inscrivez-vous à l'événement ou informez-nous si vous ne pouvez plus y assister.",
   "pages": [
     {
       "name": "main",
@@ -15,11 +14,11 @@
           "choices": [
             {
               "value": "register",
-              "text": "M’inscrire à l’événement"
+              "text": "S'inscrire à l'événement"
             },
             {
               "value": "unregister",
-              "text": "Me désinscrire (annuler ma participation)"
+              "text": "Se désinscrire (annuler ma participation)"
             }
           ]
         },
@@ -56,8 +55,8 @@
         {
           "type": "text",
           "name": "cancellationName",
-          "title": "Nom de la personne à désinscrire",
-          "description": "Indiquez-nous quelle personne doit être retirée de la liste des participants.",
+          "title": "Nom du participant à désinscrire",
+          "description": "Indiquez qui doit être retiré de la liste des participants.",
           "isRequired": true,
           "visibleIf": "{action} = 'unregister'"
         }
@@ -65,4 +64,3 @@
     }
   ]
 }
-
