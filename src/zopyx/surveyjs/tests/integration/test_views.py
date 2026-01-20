@@ -429,6 +429,15 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             req.response.getHeader("Content-Security-Policy"), "frame-ancestors *"
         )
 
+    def test_embed_viewer_denies_when_disabled(self) -> None:
+        self.survey.embedding_mode = "none"
+        req = self._make_request()
+        embed_view = EmbedViewer(self.survey, req)
+        embed_view.index = MagicMock(return_value="ok")
+        result = embed_view()
+        self.assertEqual(req.response.getStatus(), 403)
+        self.assertIn("Embedding is disabled", result)
+
     def test_save_ai_form_validation_errors(self) -> None:
         req = self._make_request(form={"form_json": ""})
         Views(self.survey, req).save_ai_form()
