@@ -1,0 +1,110 @@
+<metal:survey_assets xmlns:metal="http://xml.zope.org/namespaces/metal"
+                     xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <metal:surveyjs-var-actual-url define-macro="surveyjs-var-actual-url">
+    <script type="text/javascript"
+            tal:content="string: ACTUAL_URL='${context/absolute_url}'"
+    ></script>
+  </metal:surveyjs-var-actual-url>
+
+  <metal:surveyjs-var-csrf define-macro="surveyjs-var-csrf">
+    <script type="text/javascript"
+            tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
+    ></script>
+  </metal:surveyjs-var-csrf>
+
+  <metal:surveyjs-vars-base define-macro="surveyjs-vars-base">
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
+    ></script>
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
+    ></script>
+  </metal:surveyjs-vars-base>
+
+  <metal:surveyjs-i18n-scripts define-macro="surveyjs-i18n-scripts">
+    <script src="++resource++zopyx.surveyjs/i18n.js"
+            type="text/javascript"
+    ></script>
+    <script src="++resource++zopyx.surveyjs/i18n/en.js"
+            type="text/javascript"
+    ></script>
+    <script tal:condition="python:portal_state.language() != 'en'"
+            tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/i18n/${portal_state/language}.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-i18n-scripts>
+
+  <metal:surveyjs-core define-macro="surveyjs-core">
+    <link href="https://unpkg.com/survey-core/survey-core.min.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+    <script src="https://unpkg.com/survey-core/survey.core.min.js"
+            type="text/javascript"
+    ></script>
+    <script src="https://unpkg.com/survey-core/survey.i18n.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-core>
+
+  <metal:surveyjs-ui define-macro="surveyjs-ui">
+    <script src="https://unpkg.com/survey-js-ui/survey-js-ui.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-ui>
+
+  <metal:surveyjs-theme-index define-macro="surveyjs-theme-index">
+    <script src="https://unpkg.com/survey-core/themes/index.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-theme-index>
+
+  <metal:surveyjs-theme-contrast define-macro="surveyjs-theme-contrast">
+    <script src="https://unpkg.com/survey-core/themes/contrast-dark.min.js"
+            type="text/javascript"
+    ></script>
+    <script src="https://unpkg.com/survey-core/themes/contrast-light.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-theme-contrast>
+
+  <metal:surveyjs-analytics define-macro="surveyjs-analytics">
+    <link href="https://unpkg.com/survey-analytics/survey.analytics.min.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+    <script src="https://unpkg.com/plotly.js-dist-min/plotly.min.js"
+            type="text/javascript"
+    ></script>
+    <script src="https://unpkg.com/survey-analytics/survey.analytics.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-analytics>
+
+  <metal:surveyjs-creator define-macro="surveyjs-creator">
+    <link href="https://unpkg.com/survey-creator-core/survey-creator-core.min.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+    <script src="https://unpkg.com/survey-creator-core/survey-creator-core.min.js"></script>
+    <script tal:condition="python:portal_state.language() != 'en'"
+            tal:attributes="src string:https://unpkg.com/survey-creator-core/i18n/${portal_state/language}.js"></script>
+    <script src="https://unpkg.com/survey-creator-js/survey-creator-js.min.js"></script>
+  </metal:surveyjs-creator>
+
+  <metal:surveyjs-pdf define-macro="surveyjs-pdf">
+    <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"
+            type="text/javascript"
+    ></script>
+    <script src="https://unpkg.com/survey-pdf/survey.pdf.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-pdf>
+
+  <metal:surveyjs-viewer-css define-macro="surveyjs-viewer-css">
+    <link href="++resource++zopyx.surveyjs/viewer.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+  </metal:surveyjs-viewer-css>
+</metal:survey_assets>
