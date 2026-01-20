@@ -17,6 +17,7 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import TestRequest
+from zope.security.interfaces import Unauthorized
 
 from zopyx.surveyjs.browser import views
 from zopyx.surveyjs.browser.views import EmbedViewer, Views
@@ -196,6 +197,26 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         view = Views(self.survey, req)
         parsed = view._parse_json_loose('prefix {"answer": 42} suffix')
         self.assertEqual(parsed, {"answer": 42})
+
+    def test_dashboard_view_renders_for_manager(self) -> None:
+        view = self.survey.restrictedTraverse("@@dashboard")
+        html = view()
+        self.assertIn("Survey data dashboard", html)
+
+    def test_dashboard_view_forbidden_for_non_manager(self) -> None:
+        setRoles(self.portal, TEST_USER_ID, ["Member"])
+        with self.assertRaises(Unauthorized):
+            self.survey.restrictedTraverse("@@dashboard")()
+
+    def test_pdf_generator_view_renders_for_manager(self) -> None:
+        view = self.survey.restrictedTraverse("@@pdf-generator")
+        html = view()
+        self.assertIn("PDF generator", html)
+
+    def test_pdf_generator_view_forbidden_for_non_manager(self) -> None:
+        setRoles(self.portal, TEST_USER_ID, ["Member"])
+        with self.assertRaises(Unauthorized):
+            self.survey.restrictedTraverse("@@pdf-generator")()
 
     def test_download_polls_csv_exports_results(self) -> None:
         storage = get_result_storage(self.survey)
