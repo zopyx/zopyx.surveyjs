@@ -839,6 +839,10 @@
          href="${context/absolute_url}/@@dashboard">
         <span i18n:translate="">Dashboard</span>
       </a>
+      <a class="survey-action-button action-pdf-generator"
+         href="${context/absolute_url}/@@pdf-generator">
+        <span i18n:translate="">PDF Generator</span>
+      </a>
       <a class="survey-action-button action-versions"
          href="${context/absolute_url}/@@form-versions">
         <span i18n:translate="">Versions</span>

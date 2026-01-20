@@ -74,6 +74,12 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
+.survey-action-button.action-pdf-generator {
+    background: linear-gradient(145deg, #ec4899, #be185d);
+    box-shadow: 0 6px 16px rgba(190, 24, 93, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
 .survey-action-button.action-versions:hover,
 .survey-action-button.action-versions:focus,
 .survey-action-button.action-editor:hover,
@@ -82,6 +88,8 @@
 .survey-action-button.action-ai:focus,
 .survey-action-button.action-dashboard:hover,
 .survey-action-button.action-dashboard:focus,
+.survey-action-button.action-pdf-generator:hover,
+.survey-action-button.action-pdf-generator:focus,
 .survey-action-button.action-pdf-importer:hover,
 .survey-action-button.action-pdf-importer:focus {
     color: #ffffff;

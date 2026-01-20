@@ -1,0 +1,22 @@
+.pdf-generator-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    padding: 24px;
+    max-width: 560px;
+}
+
+.pdf-generator-description {
+    color: #475569;
+    margin: 0 0 16px;
+}
+
+.pdf-generator-message {
+    color: #475569;
+    margin-top: 14px;
+    min-height: 1.2em;
+}
+
+.pdf-generator-message.is-error {
+    color: #b91c1c;
+}
