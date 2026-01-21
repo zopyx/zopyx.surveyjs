@@ -424,6 +424,42 @@ if logo_path.exists():
 else:
     print(f"logo.jpg not found at {logo_path}; skipping logo image creation")
 
+# Create surveyjs.png as Image content object
+surveyjs_logo_path = Path(os.getcwd()) / "scripts" / "surveyjs.png"
+if surveyjs_logo_path.exists():
+    surveyjs_logo = api.content.create(
+        type="Image",
+        container=site,
+        id="surveyjs-logo",
+        title="SurveyJS Logo",
+        image=NamedBlobImage(
+            data=surveyjs_logo_path.read_bytes(), filename="surveyjs.png"
+        ),
+    )
+    surveyjs_logo.reindexObject()
+    print("Created surveyjs.png as Image content object")
+else:
+    print(
+        f"surveyjs.png not found at {surveyjs_logo_path}; skipping SurveyJS logo creation"
+    )
+
+# Create Plone logo as Image content object
+plone_logo_path = Path(os.getcwd()) / "scripts" / "1280px-Logo_Plone.svg.png"
+if plone_logo_path.exists():
+    plone_logo = api.content.create(
+        type="Image",
+        container=site,
+        id="plone-logo",
+        title="Plone Logo",
+        image=NamedBlobImage(
+            data=plone_logo_path.read_bytes(), filename="plone-logo.png"
+        ),
+    )
+    plone_logo.reindexObject()
+    print("Created Plone logo as Image content object")
+else:
+    print(f"Plone logo not found at {plone_logo_path}; skipping Plone logo creation")
+
 transaction.commit()
 
 site._p_jar.sync()
@@ -480,6 +516,13 @@ WELCOME_STYLE = """
   .demo-card h4 a:hover,
   .demo-card h4 a:focus { color: #084f74; text-decoration: underline; }
   .demo-card a { text-decoration: none; font-weight: 600; color: #0b6fa4; }
+  .powered-by { margin: 24px 0 8px; padding: 16px 18px; border: 1px solid #dbe3ea; border-radius: 12px; background: #f8fafc; }
+  .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+  .powered-by-item { display: flex; align-items: center; gap: 14px; }
+  .powered-by img { max-width: 220px; height: auto; }
+  .powered-by a { color: #0b6fa4; text-decoration: none; }
+  .powered-by a:hover,
+  .powered-by a:focus { color: #084f74; text-decoration: underline; }
 </style>
 """
 
@@ -503,6 +546,17 @@ WELCOME_HEADINGS = {
     "pt": "Formul\u00e1rios de demonstra\u00e7\u00e3o",
     "ar": "\u0646\u0645\u0627\u0630\u062c \u062a\u062c\u0631\u064a\u0628\u064a\u0629",
     "ja": "\u30c7\u30e2\u30d5\u30a9\u30fc\u30e0",
+}
+
+WELCOME_POWERED_BY_HEADINGS = {
+    "en": "Powered by",
+    "de": "Powered by",
+    "fr": "Propuls\u00e9 par",
+    "it": "Realizzato con",
+    "es": "Impulsado por",
+    "pt": "Desenvolvido com",
+    "ar": "\u0645\u062f\u0639\u0648\u0645 \u0645\u0646",
+    "ja": "Powered by",
 }
 
 WELCOME_DEMOS = {
@@ -665,12 +719,32 @@ def build_welcome_html(language):
     banner = WELCOME_BANNERS[language]
     intro = load_welcome_intro(language)
     demo_section = build_demo_section(language)
+    dir_attr = ' dir="rtl"' if language == "ar" else ""
+    powered_by_heading = WELCOME_POWERED_BY_HEADINGS[language]
+    powered_by_section = f"""
+<h3>{powered_by_heading}</h3>
+<section class="powered-by"{dir_attr}>
+  <div class="powered-by-items">
+    <div class="powered-by-item">
+      <a href="https://surveyjs.io" aria-label="SurveyJS">
+        <img src="/demo/surveyjs-logo" alt="SurveyJS" />
+      </a>
+    </div>
+    <div class="powered-by-item">
+      <a href="https://plone.org" aria-label="Plone">
+        <img src="/demo/plone-logo" alt="Plone" />
+      </a>
+    </div>
+  </div>
+</section>
+"""
     return f"""{intro}
 <div style="padding:12px 16px;margin:16px 0;border:2px solid #b45309;background:#fff7ed;border-radius:8px;color:#92400e;font-weight:700;">
   {banner}
 </div>
 {WELCOME_STYLE}
 {demo_section}
+{powered_by_section}
 """
 
 
