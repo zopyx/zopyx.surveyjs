@@ -64,7 +64,6 @@ setup(
         "openpyxl",
         "llm-ollama",
         "sqlmodel",
-        "pypdf",
     ],
     extras_require={
         "test": [

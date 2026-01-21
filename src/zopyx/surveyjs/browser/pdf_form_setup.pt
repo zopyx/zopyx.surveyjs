@@ -76,6 +76,17 @@
               Choose a PDF that already contains fillable fields.
             </p>
           </div>
+          <div class="form-group">
+            <label for="pdfExtractionMode" i18n:translate="">Extraction mode</label>
+            <select id="pdfExtractionMode" name="extract_mode" class="form-control">
+              <option value="pdfcpu" i18n:translate="">pdfcpu (structured fields)</option>
+              <option value="llm" i18n:translate="">LLM (visual conversion)</option>
+            </select>
+            <p class="help-block" i18n:translate="">
+              pdfcpu preserves field mapping for filled PDFs. LLM is best for layout
+              but cannot always map to original PDF fields.
+            </p>
+          </div>
           <div class="button-group">
             <button type="submit" class="btn btn-primary" id="pdfFormUploadBtn">
               <span class="btn-text" i18n:translate="">Analyze PDF</span>

@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   const setupForm = document.getElementById("pdfFormSetupForm");
   const pdfInput = document.getElementById("pdfFormFile");
+  const extractionModeSelect = document.getElementById("pdfExtractionMode");
   const uploadBtn = document.getElementById("pdfFormUploadBtn");
   const uploadSpinner = document.getElementById("pdfFormUploadSpinner");
   const statusEl = document.getElementById("pdfFormSetupStatus");
@@ -97,6 +98,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const formData = new FormData();
     formData.append("pdf_file", file);
+    if (extractionModeSelect) {
+      formData.append("extract_mode", extractionModeSelect.value || "pdfcpu");
+    }
     formData.append("_authenticator", CSRF_TOKEN);
 
     setLoading(true);
@@ -124,15 +128,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         renderSurveyPreview(data.json || {});
         renderFieldList(data.fields || []);
+        const warning = data.warning ? ("<br/><strong>" + data.warning + "</strong>") : "";
         showStatus(
           t(
             "PDF analyzed successfully. The generated form is now available for submissions."
-          ),
+          ) + warning,
           "success"
         );
         if (openFormBtn) {
-          openFormBtn.href = ACTUAL_URL + "/@@pdf-form";
-          openFormBtn.style.display = "inline-flex";
+          if ((data.field_count || 0) > 0) {
+            openFormBtn.href = ACTUAL_URL + "/@@pdf-form";
+            openFormBtn.style.display = "inline-flex";
+          } else {
+            openFormBtn.style.display = "none";
+          }
         }
       })
       .catch((error) => {

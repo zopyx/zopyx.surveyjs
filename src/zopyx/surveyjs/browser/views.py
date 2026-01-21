@@ -383,14 +383,21 @@ class Views(BrowserView):
             return
 
         try:
-            fields = extract_pdf_fields(pdf_bytes)
-            if not fields:
-                raise ValueError("No fillable fields detected in this PDF.")
-
+            extract_mode = (
+                self.request.form.get("extract_mode", "pdfcpu") or "pdfcpu"
+            ).strip().lower()
             survey_title = getattr(self.context, "title", None) or "PDF Form"
-            survey_json, field_map = build_surveyjs_from_pdf_fields(
-                fields, title=survey_title
-            )
+
+            if extract_mode == "llm":
+                survey_json = self._generate_survey_json_from_pdf_llm(pdf_bytes)
+                field_map = []
+            else:
+                fields = extract_pdf_fields(pdf_bytes)
+                if not fields:
+                    raise ValueError("No fillable fields detected in this PDF.")
+                survey_json, field_map = build_surveyjs_from_pdf_fields(
+                    fields, title=survey_title
+                )
 
             filename = getattr(uploaded_file, "filename", None) or "form.pdf"
             self.context.pdf_form = NamedBlobFile(
@@ -416,6 +423,7 @@ class Views(BrowserView):
                 field_map=field_map,
                 pdf_filename=filename,
                 field_count=len(field_map),
+                source=extract_mode,
                 created=datetime.now(timezone.utc),
             )
 
@@ -425,7 +433,13 @@ class Views(BrowserView):
                 field_count=len(field_map),
                 fields=field_map,
                 version_id=version_id,
+                extraction_mode=extract_mode,
             )
+            if extract_mode == "llm":
+                result["warning"] = (
+                    "LLM extraction does not include PDF field mapping; "
+                    "filled PDF export will be unavailable until pdfcpu mapping is used."
+                )
             self.request.response.setStatus(200)
             self.request.response.setHeader("content-type", "application/json")
             self.request.response.write(orjson.dumps(result))
@@ -442,6 +456,80 @@ class Views(BrowserView):
                 )
             )
 
+    def _generate_survey_json_from_pdf_llm(self, pdf_bytes: bytes) -> dict:
+        try:
+            from .ai_generator import generate_survey_json_from_image, strip_markdown_json
+        except ImportError as e:
+            raise RuntimeError(f"LLM module not available: {e}") from e
+
+        with TemporaryDirectory() as temp_dir:
+            temp_path = Path(temp_dir)
+            pdf_path = temp_path / "uploaded.pdf"
+            png_path = temp_path / "uploaded.png"
+
+            pdf_path.write_bytes(pdf_bytes)
+
+            command = [
+                "convert",
+                "-density",
+                "300",
+                str(pdf_path),
+                "-background",
+                "white",
+                "-alpha",
+                "remove",
+                "-alpha",
+                "off",
+                str(png_path),
+            ]
+            logger.info(f"Executing ImageMagick convert command: {' '.join(command)}")
+            subprocess.run(command, check=True, capture_output=True)
+
+            image_path = png_path
+            if not image_path.exists():
+                candidates = sorted(temp_path.glob("uploaded*.png"))
+                if not candidates:
+                    raise ValueError("PNG conversion failed: no output created")
+                image_path = candidates[0]
+
+            from plone.registry.interfaces import IRegistry
+            from zope.component import getUtility
+            from ..interfaces import IFormsSettings
+
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFormsSettings, check=False)
+
+            model_name = getattr(settings, "ai_model", None)
+            api_key = getattr(settings, "ai_api_key", None)
+            ollama_url = getattr(settings, "ollama_url", None)
+
+            if model_name:
+                model_name = model_name.strip()
+            if api_key:
+                api_key = api_key.strip()
+            if ollama_url:
+                ollama_url = ollama_url.strip()
+
+            prompt = (
+                "Convert this PDF to SurveyJS JSON. Keep the layout, "
+                "keep headers and footer, make JSON as close possible as possible, "
+                "return the form JSON only"
+            )
+
+            survey_json_str = generate_survey_json_from_image(
+                str(image_path),
+                prompt,
+                model_name=model_name or None,
+                api_key=api_key or None,
+                ollama_url=ollama_url or None,
+            )
+
+        cleaned_json_str = strip_markdown_json(survey_json_str)
+        survey_data = orjson.loads(cleaned_json_str)
+        if not isinstance(survey_data, dict):
+            raise ValueError("Form JSON must be an object")
+        return survey_data
+
     def fill_pdf_form(self):
         state = self._get_pdf_form_state()
         pdf_form = state["pdf_form"]
@@ -453,6 +541,20 @@ class Views(BrowserView):
                     {
                         "error": "PDF form missing",
                         "message": "No PDF form configured for this survey.",
+                    }
+                )
+            )
+            return
+
+        if not state["field_map"]:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "isSuccess": False,
+                        "error": "pdf_mapping_missing",
+                        "message": "PDF field mapping is missing. Re-upload using pdfcpu.",
                     }
                 )
             )
