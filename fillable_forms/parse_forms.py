@@ -14,7 +14,8 @@ from typing import Any, Dict, List, Optional, Tuple
 from pypdf import PdfReader
 from pypdf.generic import DictionaryObject
 
-SURVEYJS_BUCKET_SIZE = 60.0
+SURVEYJS_CLUSTER_Y_GAP = 28.0
+SURVEYJS_CLUSTER_X_GAP = 200.0
 
 
 def _as_name(val: Any) -> Optional[str]:
@@ -149,6 +150,127 @@ def _field_type_label(ft: Any, flags: Any) -> Optional[str]:
         return "Signature"
     return ft_str.lstrip("/")
 
+def _get_options(field: DictionaryObject) -> Optional[List[str]]:
+    opt = _get_field_attr(field, "/Opt")
+    if opt is None:
+        return None
+    try:
+        arr = opt.get_object() if hasattr(opt, "get_object") else opt
+    except Exception:
+        arr = opt
+    out: List[str] = []
+    if isinstance(arr, list):
+        for item in arr:
+            try:
+                obj = item.get_object() if hasattr(item, "get_object") else item
+            except Exception:
+                obj = item
+            if isinstance(obj, list) and obj:
+                label = obj[-1]
+                out.append(str(label))
+            else:
+                out.append(str(obj))
+    return out or None
+
+
+def _get_appearance_states(annot: DictionaryObject) -> Optional[List[str]]:
+    ap = annot.get("/AP")
+    if ap is None:
+        return None
+    try:
+        ap_obj = ap.get_object() if hasattr(ap, "get_object") else ap
+    except Exception:
+        ap_obj = ap
+    n = ap_obj.get("/N") if isinstance(ap_obj, DictionaryObject) else None
+    if n is None:
+        return None
+    try:
+        n_obj = n.get_object() if hasattr(n, "get_object") else n
+    except Exception:
+        n_obj = n
+    if not isinstance(n_obj, DictionaryObject):
+        return None
+    states = []
+    for key in n_obj.keys():
+        name = str(key)
+        if name != "/Off":
+            states.append(name.lstrip("/"))
+    return states or None
+
+
+def _get_appearance_state(annot: DictionaryObject) -> Optional[str]:
+    as_name = _get_name(annot, "/AS")
+    if as_name and as_name != "/Off":
+        return as_name.lstrip("/")
+    return None
+
+
+def _bool_default(val: Any) -> bool:
+    if val is None:
+        return False
+    if isinstance(val, bool):
+        return val
+    s = str(val)
+    return s not in ("", "0", "False", "false", "/Off", "Off")
+
+
+def _is_required(field: Dict[str, Any]) -> bool:
+    if field.get("required"):
+        return True
+    label = (field.get("label") or "").lower()
+    return "required" in label or "must" in label
+
+
+def _input_hints(field: Dict[str, Any]) -> Dict[str, Any]:
+    key = (field.get("key") or "").upper()
+    label = (field.get("label") or "").upper()
+    text = f"{key} {label}"
+    if "SSN" in text:
+        return {
+            "inputType": "text",
+            "mask": "999-99-9999",
+            "validators": [{"type": "regex", "text": "Use ###-##-####", "regex": "^[0-9]{3}-[0-9]{2}-[0-9]{4}$"}],
+        }
+    if "ZIP" in text or "POSTAL" in text:
+        return {
+            "inputType": "text",
+            "mask": "99999",
+            "validators": [{"type": "regex", "text": "Use 5-digit ZIP", "regex": "^[0-9]{5}$"}],
+        }
+    if "PHONE" in text or "TELEPHONE" in text:
+        return {
+            "inputType": "tel",
+            "mask": "(999) 999-9999",
+            "validators": [{"type": "regex", "text": "Use (###) ###-####", "regex": "^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$"}],
+        }
+    if "BIRTH" in text or "DOB" in text or "DATE" in text:
+        return {"inputType": "date"}
+    if "EMAIL" in text:
+        return {"inputType": "email", "validators": [{"type": "email"}]}
+    return {}
+
+
+def _cluster_by_adjacency(fields: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
+    clusters: List[List[Dict[str, Any]]] = []
+    for field in fields:
+        placed = False
+        fx = float(field.get("x", 0.0) or 0.0)
+        fy = float(field.get("y", 0.0) or 0.0)
+        for cluster in clusters:
+            xs = [float(f.get("x", 0.0) or 0.0) for f in cluster]
+            ys = [float(f.get("y", 0.0) or 0.0) for f in cluster]
+            if not ys or not xs:
+                continue
+            if abs(max(ys) - fy) <= SURVEYJS_CLUSTER_Y_GAP and (
+                fx >= min(xs) - SURVEYJS_CLUSTER_X_GAP and fx <= max(xs) + SURVEYJS_CLUSTER_X_GAP
+            ):
+                cluster.append(field)
+                placed = True
+                break
+        if not placed:
+            clusters.append([field])
+    return clusters
+
 def _prettify_label(text: Optional[str]) -> str:
     if not text:
         return ""
@@ -199,6 +321,47 @@ def _surveyjs_title_from_field(field: Dict[str, Any]) -> str:
     return _prettify_label(label)
 
 
+def _choices_from_field(field: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
+    opts = field.get("options")
+    if not opts:
+        return None
+    return [{"value": opt, "text": _prettify_label(opt)} for opt in opts]
+
+
+def _choices_from_appearance(fields: List[Dict[str, Any]]) -> Optional[List[Dict[str, Any]]]:
+    values: List[str] = []
+    for f in fields:
+        states = f.get("appearance_states") or []
+        for state in states:
+            if state not in values:
+                values.append(state)
+    if not values:
+        return None
+    return [{"value": v, "text": _prettify_label(v)} for v in values]
+
+
+def _default_from_field(field: Dict[str, Any]) -> Any:
+    val = field.get("default_value")
+    if val is None:
+        return None
+    if isinstance(val, str) and val.startswith("/"):
+        return val.lstrip("/")
+    return val
+
+
+def _apply_common_props(question: Dict[str, Any], field: Dict[str, Any]) -> None:
+    if _is_required(field):
+        question["isRequired"] = True
+    if field.get("read_only"):
+        question["readOnly"] = True
+    default_val = _default_from_field(field)
+    if default_val not in (None, ""):
+        if question.get("type") == "boolean":
+            question["defaultValue"] = _bool_default(default_val)
+        else:
+            question["defaultValue"] = default_val
+
+
 def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
     fields: List[Dict[str, Any]] = []
     for group_fields in form.get("groups", {}).values():
@@ -229,9 +392,10 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
         if prefix:
             prefix_counts[prefix] = prefix_counts.get(prefix, 0) + 1
 
-    groups: List[Dict[str, Any]] = []
+    grouped: List[Dict[str, Any]] = []
     group_index: Dict[Tuple[Any, ...], int] = {}
 
+    positional_fields: List[Dict[str, Any]] = []
     for field in fields_sorted:
         page = field.get("page", 1)
         prefix = _infer_prefix(field.get("key", ""), field.get("label"))
@@ -240,25 +404,29 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
             title = _prettify_label(prefix)
             if multi_page:
                 title = f"Page {page}: {title}"
+            if key not in group_index:
+                group_index[key] = len(grouped)
+                grouped.append({"key": key, "title": title, "fields": []})
+            grouped[group_index[key]]["fields"].append(field)
         else:
-            bucket = int((field.get("y", 0.0) or 0.0) // SURVEYJS_BUCKET_SIZE)
-            key = ("pos", page, bucket)
-            title = ""
-        if key not in group_index:
-            group_index[key] = len(groups)
-            groups.append({"key": key, "title": title, "fields": []})
-        groups[group_index[key]]["fields"].append(field)
+            positional_fields.append(field)
 
-    section_counter: Dict[int, int] = {}
-    for group in groups:
-        key = group["key"]
-        if key[0] == "pos":
-            page = key[1]
-            section_counter[page] = section_counter.get(page, 0) + 1
-            title = f"Section {section_counter[page]}"
-            if multi_page:
-                title = f"Page {page}: {title}"
-            group["title"] = title
+    if positional_fields:
+        by_page: Dict[int, List[Dict[str, Any]]] = {}
+        for field in positional_fields:
+            by_page.setdefault(field.get("page", 1), []).append(field)
+        for page, page_fields in by_page.items():
+            sorted_fields = sorted(
+                page_fields,
+                key=lambda f: (-(f.get("y", 0.0) or 0.0), f.get("x", 0.0) or 0.0),
+            )
+            clusters = _cluster_by_adjacency(sorted_fields)
+            for idx, cluster in enumerate(clusters, start=1):
+                key = ("pos", page, idx)
+                title = f"Section {idx}"
+                if multi_page:
+                    title = f"Page {page}: {title}"
+                grouped.append({"key": key, "title": title, "fields": cluster})
 
     radio_counts: Dict[str, int] = {}
     for field in fields_sorted:
@@ -276,47 +444,122 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
 
     emitted_radio: set[str] = set()
     elements: List[Dict[str, Any]] = []
-    for group in groups:
+    for group in grouped:
         panel_elements: List[Dict[str, Any]] = []
-        for field in group["fields"]:
+        fields_in_group = group["fields"]
+
+        checkbox_fields = [f for f in fields_in_group if f.get("type") == "Checkbox"]
+        checkbox_used: set[str] = set()
+        checkbox_clusters: List[List[Dict[str, Any]]] = []
+        if checkbox_fields:
+            sorted_checks = sorted(
+                checkbox_fields,
+                key=lambda f: (-(f.get("y", 0.0) or 0.0), f.get("x", 0.0) or 0.0),
+            )
+            checkbox_clusters = _cluster_by_adjacency(sorted_checks)
+
+        def checkbox_cluster_title(cluster: List[Dict[str, Any]]) -> str:
+            if not cluster:
+                return "Selections"
+            prefix = _infer_prefix(cluster[0].get("key", ""), cluster[0].get("label"))
+            if prefix:
+                return _prettify_label(prefix)
+            return "Selections"
+
+        for cluster in checkbox_clusters:
+            if len(cluster) < 2:
+                continue
+            cluster_keys = {c.get("key", "") for c in cluster}
+            for ck in cluster_keys:
+                checkbox_used.add(ck)
+            cluster_sorted = sorted(
+                cluster,
+                key=lambda f: (-(f.get("y", 0.0) or 0.0), f.get("x", 0.0) or 0.0),
+            )
+            choices = [{"value": c.get("key"), "text": _surveyjs_title_from_field(c)} for c in cluster_sorted]
+            defaults = [c.get("key") for c in cluster if _bool_default(c.get("default_value"))]
+            question = {
+                "type": "checkbox",
+                "name": unique_name(_slugify(checkbox_cluster_title(cluster))),
+                "title": checkbox_cluster_title(cluster),
+                "choices": choices,
+            }
+            if any(_is_required(c) for c in cluster):
+                question["isRequired"] = True
+            if any(c.get("read_only") for c in cluster):
+                question["readOnly"] = True
+            if defaults:
+                question["defaultValue"] = defaults
+            panel_elements.append(question)
+
+        for field in fields_in_group:
             key = field.get("key", "")
+            if key in checkbox_used:
+                continue
             ftype = field.get("type")
             if ftype in ("Radio Button", "Push Button") and radio_counts.get(key, 0) > 1:
                 if key in emitted_radio:
                     continue
-                count = radio_counts[key]
-                choices = [
-                    {"value": f"option_{idx+1}", "text": f"Option {idx+1}"}
-                    for idx in range(count)
-                ]
-                panel_elements.append(
-                    {
-                        "type": "radiogroup",
-                        "name": unique_name(key),
-                        "title": _surveyjs_title_from_field(field),
-                        "choices": choices,
-                    }
-                )
+                fields_same = [f for f in fields_sorted if f.get("key") == key]
+                choices = _choices_from_appearance(fields_same)
+                if not choices:
+                    count = radio_counts[key]
+                    choices = [
+                        {"value": f"option_{idx+1}", "text": f"Option {idx+1}"}
+                        for idx in range(count)
+                    ]
+                question = {
+                    "type": "radiogroup",
+                    "name": unique_name(key),
+                    "title": _surveyjs_title_from_field(field),
+                    "choices": choices,
+                }
+                default_val = _default_from_field(field)
+                if not default_val:
+                    for f in fields_same:
+                        if f.get("appearance_state"):
+                            default_val = f.get("appearance_state")
+                            break
+                if default_val:
+                    question["defaultValue"] = default_val
+                _apply_common_props(question, field)
+                panel_elements.append(question)
                 emitted_radio.add(key)
                 continue
 
             if ftype in ("Radio Button", "Push Button"):
-                panel_elements.append(
-                    {
-                        "type": "boolean",
-                        "name": unique_name(key),
-                        "title": _surveyjs_title_from_field(field),
-                    }
-                )
-                continue
-
-            panel_elements.append(
-                {
-                    "type": _surveyjs_element_type(ftype),
+                question = {
+                    "type": "boolean",
                     "name": unique_name(key),
                     "title": _surveyjs_title_from_field(field),
                 }
-            )
+                _apply_common_props(question, field)
+                panel_elements.append(question)
+                continue
+
+            if ftype in ("List Box", "Combo Box"):
+                question = {
+                    "type": "dropdown",
+                    "name": unique_name(key),
+                    "title": _surveyjs_title_from_field(field),
+                }
+                choices = _choices_from_field(field)
+                if choices:
+                    question["choices"] = choices
+                _apply_common_props(question, field)
+                panel_elements.append(question)
+                continue
+
+            question = {
+                "type": _surveyjs_element_type(ftype),
+                "name": unique_name(key),
+                "title": _surveyjs_title_from_field(field),
+            }
+            _apply_common_props(question, field)
+            if question["type"] in ("text", "comment"):
+                hints = _input_hints(field)
+                question.update(hints)
+            panel_elements.append(question)
 
         panel_title = group["title"]
         panel_name = _slugify(panel_title or "group")
@@ -367,6 +610,10 @@ def extract_pdf(path: Path) -> Dict[str, Any]:
             tu = _get_field_attr(annot, "/TU")
             tm = _get_field_attr(annot, "/TM")
             rect_info = _rect_info(rect, media_box)
+            options = _get_options(annot)
+            ap_states = _get_appearance_states(annot)
+            ap_state = _get_appearance_state(annot)
+            flags_val = int(ff) if ff is not None else None
 
             if not full_name:
                 unnamed_counter += 1
@@ -385,13 +632,20 @@ def extract_pdf(path: Path) -> Dict[str, Any]:
                 "label": label,
                 "default_value": _stringify_value(v),
                 "type": _field_type_label(ft, ff),
-                "flags": int(ff) if ff is not None else None,
+                "flags": flags_val,
+                "required": bool(flags_val & 2) if flags_val is not None else False,
+                "read_only": bool(flags_val & 1) if flags_val is not None else False,
                 "mapping_name": _stringify_value(tm),
                 "x": rect_info["rect"][0],
                 "y": rect_info["rect"][1],
                 "width": rect_info["width"],
                 "height": rect_info["height"],
+                "rect": rect_info["rect"],
+                "normalized_rect": rect_info["normalized_rect"],
                 "page": page_index,
+                "options": options,
+                "appearance_states": ap_states,
+                "appearance_state": ap_state,
             }
 
             info["groups"].setdefault(group_path, []).append(field_info)
