@@ -1,0 +1,21 @@
+{
+  "title": "Customer feedback",
+  "description": "Example SurveyJS survey",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "satisfaction",
+          "title": "How satisfied are you?"
+        },
+        {
+          "type": "comment",
+          "name": "notes",
+          "title": "Anything else?"
+        }
+      ]
+    }
+  ]
+}

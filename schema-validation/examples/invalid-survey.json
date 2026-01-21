@@ -1,0 +1,13 @@
+{
+  "title": "Broken survey",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "name": "missingType"
+        }
+      ]
+    }
+  ]
+}
