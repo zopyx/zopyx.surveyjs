@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master"
+>
+
+  <metal:block fill-slot="content-core"
+               tal:define="portal_state context/@@plone_portal_state">
+    <metal:surveyjs-var-actual-url
+        use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
+    />
+    <metal:surveyjs-var-csrf
+        use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
+    />
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
+    <metal:surveyjs-core
+        use-macro="context/@@survey-assets/macros/surveyjs-core"
+    />
+    <metal:surveyjs-ui
+        use-macro="context/@@survey-assets/macros/surveyjs-ui"
+    />
+    <metal:surveyjs-theme-contrast
+        use-macro="context/@@survey-assets/macros/surveyjs-theme-contrast"
+    />
+    <script src="++resource++zopyx.surveyjs/pdf_form.js"
+            type="text/javascript"
+    ></script>
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+    <style type="text/css">
+      article > header {
+        display: none;
+      }
+    </style>
+
+    <metal:survey-actions
+        use-macro="context/@@survey-actions/macros/survey-actions"
+    />
+
+    <metal:survey-status
+        use-macro="context/@@survey-actions/macros/survey-status"
+    />
+
+    <div id="surveyContainer"></div>
+
+  </metal:block>
+</html>

@@ -10,6 +10,12 @@
          href="${context/absolute_url}/@@viewer">
         <span i18n:translate="">View</span>
       </a>
+      <tal:pdfform tal:condition="view/pdf_form_available">
+        <a class="survey-action-button action-pdf-form"
+           href="${context/absolute_url}/@@pdf-form">
+          <span i18n:translate="">PDF Form</span>
+        </a>
+      </tal:pdfform>
       <a class="survey-action-button action-editor"
          href="${context/absolute_url}/@@editor">
         <span i18n:translate="">Visual Editor</span>
@@ -42,6 +48,11 @@
           <span i18n:translate="">PDF Form Import</span>
           <span class="beta-badge" i18n:translate="">Beta</span>
         </a>
+        <a class="survey-action-button action-pdf-form-setup"
+           href="${context/absolute_url}/@@pdf-form-setup">
+          <span i18n:translate="">Fillable PDF Setup</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+        </a>
       </tal:manager>
       <tal:notmanager tal:condition="not: view/is_manager">
         <span class="survey-action-button action-dashboard is-disabled"
@@ -57,6 +68,12 @@
         <span class="survey-action-button action-pdf-importer is-disabled"
               aria-disabled="true">
           <span i18n:translate="">PDF Form Import</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+        </span>
+        <span class="survey-action-button action-pdf-form-setup is-disabled"
+              aria-disabled="true">
+          <span i18n:translate="">Fillable PDF Setup</span>
           <span class="beta-badge" i18n:translate="">Beta</span>
           <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
         </span>

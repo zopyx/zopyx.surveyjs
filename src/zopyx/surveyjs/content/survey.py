@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # from plone.autoform import directives
 from plone.dexterity.content import Item
-
-# from plone.namedfile import field as namedfile
+from plone.namedfile import field as namedfile
 from plone.supermodel import model
 from zope.interface import implementer
 
@@ -112,6 +111,13 @@ class ISurvey(model.Schema):
             "validation_enabled",
             "force_server_side_validation",
             "max_payload_size_mb",
+        ),
+    )
+    fieldset(
+        "pdf_form",
+        label=_("PDF Form"),
+        fields=(
+            "pdf_form",
         ),
     )
     fieldset(
@@ -276,6 +282,15 @@ class ISurvey(model.Schema):
         title=_("POST endpoint URL"),
         description=_(
             "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+        ),
+        required=False,
+    )
+
+    pdf_form = namedfile.NamedBlobFile(
+        title=_("Fillable PDF form"),
+        description=_(
+            "Optional fillable PDF form. Uploading a PDF enables the PDF-based "
+            "form workflow for this Survey."
         ),
         required=False,
     )

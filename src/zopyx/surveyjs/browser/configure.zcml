@@ -261,6 +261,43 @@
     template="pdf_importer.pt"
   />
 
+  <!-- Fillable PDF Form Workflow -->
+  <browser:page
+    name="pdf-form-setup"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    template="pdf_form_setup.pt"
+  />
+  <browser:page
+    name="pdf-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="zope2.View"
+    class=".views.Views"
+    template="pdf_form.pt"
+  />
+  <browser:page
+    name="get-pdf-form-json"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="zope2.View"
+    class=".views.Views"
+    attribute="get_pdf_form_json"
+  />
+  <browser:page
+    name="upload-pdf-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".views.Views"
+    attribute="upload_pdf_form"
+  />
+  <browser:page
+    name="fill-pdf-form"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="zope2.View"
+    class=".views.Views"
+    attribute="fill_pdf_form"
+  />
+
   <browser:page
     name="generate-ai-form"
     for="zopyx.surveyjs.content.survey.ISurvey"

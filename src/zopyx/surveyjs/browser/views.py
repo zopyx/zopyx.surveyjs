@@ -20,13 +20,19 @@ import httpx
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
-from ..constants import FORM_VERSIONS_KEY
+from ..constants import FORM_VERSIONS_KEY, PDF_FORM_KEY
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..validation import validate_submission
+from ..pdf_forms import (
+    build_surveyjs_from_pdf_fields,
+    extract_pdf_fields,
+    fill_pdf_form as fill_pdf_form_bytes,
+)
 
 import orjson
 import uuid
+from plone.namedfile.file import NamedBlobFile
 
 
 logger = logging.getLogger(__name__)
@@ -296,6 +302,304 @@ class Views(BrowserView):
 
         self.request.response.setHeader("content-type", "application/json")
         self.request.response.write(orjson.dumps(form_data))
+
+    @property
+    def pdf_form_available(self):
+        pdf_form = getattr(self.context, "pdf_form", None)
+        if not pdf_form:
+            return False
+        annos = IAnnotations(self.context)
+        pdf_meta = annos.get(PDF_FORM_KEY) or {}
+        return bool(pdf_meta.get("field_map"))
+
+    def _get_pdf_form_state(self):
+        annos = IAnnotations(self.context)
+        pdf_form = getattr(self.context, "pdf_form", None)
+        pdf_meta = annos.get(PDF_FORM_KEY) or {}
+        field_map = pdf_meta.get("field_map") or []
+        version_id = pdf_meta.get("version_id")
+        form_json = {}
+        if version_id and FORM_VERSIONS_KEY in annos:
+            version = annos[FORM_VERSIONS_KEY].get(version_id)
+            if version:
+                form_json = version.get("form_json") or {}
+        if not form_json:
+            form_json = self._latest_form_json(annos)
+        return dict(
+            pdf_form=pdf_form,
+            form_json=form_json,
+            field_map=field_map,
+            version_id=version_id,
+            pdf_meta=pdf_meta,
+        )
+
+    def get_pdf_form_json(self):
+        state = self._get_pdf_form_state()
+        if not state["pdf_form"]:
+            self.request.response.setStatus(404)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "error": "PDF form missing",
+                        "message": "No PDF form configured for this survey.",
+                    }
+                )
+            )
+            return
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(state["form_json"] or {}))
+
+    def upload_pdf_form(self):
+        uploaded_file = self.request.form.get("pdf_file")
+        if not uploaded_file:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "error": "No PDF uploaded",
+                        "message": "Please upload a PDF file.",
+                    }
+                )
+            )
+            return
+
+        try:
+            pdf_bytes = uploaded_file.read()
+            if not isinstance(pdf_bytes, bytes):
+                pdf_bytes = pdf_bytes.encode("utf-8")
+        except Exception as exc:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "error": "Upload failed",
+                        "message": str(exc),
+                    }
+                )
+            )
+            return
+
+        try:
+            fields = extract_pdf_fields(pdf_bytes)
+            if not fields:
+                raise ValueError("No fillable fields detected in this PDF.")
+
+            survey_title = getattr(self.context, "title", None) or "PDF Form"
+            survey_json, field_map = build_surveyjs_from_pdf_fields(
+                fields, title=survey_title
+            )
+
+            filename = getattr(uploaded_file, "filename", None) or "form.pdf"
+            self.context.pdf_form = NamedBlobFile(
+                data=pdf_bytes,
+                filename=filename,
+                contentType="application/pdf",
+            )
+
+            annos = IAnnotations(self.context)
+            annos.setdefault(FORM_VERSIONS_KEY, OOBTree())
+            version_id = str(uuid.uuid4())
+            version_data = dict(
+                id=version_id,
+                created=datetime.now(timezone.utc),
+                user=plone.api.user.get_current().getId(),
+                form_json=survey_json,
+                locked=False,
+            )
+            annos[FORM_VERSIONS_KEY][version_id] = version_data
+
+            annos[PDF_FORM_KEY] = dict(
+                version_id=version_id,
+                field_map=field_map,
+                pdf_filename=filename,
+                field_count=len(field_map),
+                created=datetime.now(timezone.utc),
+            )
+
+            result = dict(
+                success=True,
+                json=survey_json,
+                field_count=len(field_map),
+                fields=field_map,
+                version_id=version_id,
+            )
+            self.request.response.setStatus(200)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(orjson.dumps(result))
+
+        except Exception as exc:
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "error": "PDF analysis failed",
+                        "message": str(exc),
+                    }
+                )
+            )
+
+    def fill_pdf_form(self):
+        state = self._get_pdf_form_state()
+        pdf_form = state["pdf_form"]
+        if not pdf_form:
+            self.request.response.setStatus(404)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "error": "PDF form missing",
+                        "message": "No PDF form configured for this survey.",
+                    }
+                )
+            )
+            return
+
+        raw_poll = self.request.form.get("pollResult")
+        if raw_poll is None:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "missing_poll_result"})
+            )
+            return
+
+        if isinstance(raw_poll, bytes):
+            raw_bytes = raw_poll
+        elif isinstance(raw_poll, str):
+            raw_bytes = raw_poll.encode("utf-8")
+        else:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "invalid_payload"})
+            )
+            return
+
+        max_payload_mb = getattr(self.context, "max_payload_size_mb", 1) or 1
+        try:
+            max_payload_bytes = int(max_payload_mb) * 1024 * 1024
+        except (TypeError, ValueError):
+            max_payload_bytes = 1 * 1024 * 1024
+
+        content_length = self.request.getHeader("Content-Length")
+        if content_length:
+            try:
+                if int(content_length) > max_payload_bytes:
+                    self.request.response.setStatus(413)
+                    self.request.response.setHeader("content-type", "application/json")
+                    self.request.response.write(
+                        orjson.dumps(
+                            {"isSuccess": False, "error": "request_too_large"}
+                        )
+                    )
+                    return
+            except ValueError:
+                pass
+        elif len(raw_bytes) > max_payload_bytes:
+            self.request.response.setStatus(413)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "request_too_large"})
+            )
+            return
+
+        if len(raw_bytes) > max_payload_bytes:
+            self.request.response.setStatus(413)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "json_too_large"})
+            )
+            return
+
+        try:
+            poll_result = orjson.loads(raw_bytes)
+        except orjson.JSONDecodeError:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "invalid_json"})
+            )
+            return
+
+        form_json = state["form_json"] or {}
+        if not form_json:
+            self.request.response.setStatus(400)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps({"isSuccess": False, "error": "missing_form_schema"})
+            )
+            return
+
+        submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
+        if getattr(self.context, "validation_enabled", False):
+            validation = validate_submission(form_json, poll_result)
+            if not validation.ok:
+                payload = {"isSuccess": False, "error": validation.reason}
+                if validation.field:
+                    payload["field"] = validation.field
+                self.request.response.setStatus(validation.status)
+                self.request.response.setHeader("content-type", "application/json")
+                self.request.response.write(orjson.dumps(payload))
+                return
+
+        force_validation = getattr(self.context, "force_server_side_validation", False)
+        if force_validation:
+            external_validation = _run_external_validation(
+                form_json, poll_result, submission_hash
+            )
+            if not external_validation.get("ok"):
+                payload = {
+                    "isSuccess": False,
+                    "error": external_validation.get("reason"),
+                }
+                details = external_validation.get("details")
+                if details:
+                    payload["details"] = details
+                self.request.response.setStatus(external_validation.get("status", 500))
+                self.request.response.setHeader("content-type", "application/json")
+                self.request.response.write(orjson.dumps(payload))
+                return
+
+        poll_id = str(uuid.uuid1())
+        data = dict(
+            poll_id=poll_id,
+            created=datetime.now(timezone.utc),
+            user=plone.api.user.get_current().getId(),
+            form_version=state.get("version_id"),
+            result=poll_result,
+        )
+        notify(SurveyJSFormSubmitted(self.context, data))
+
+        try:
+            filled_pdf = fill_pdf_form_bytes(
+                pdf_form.data, poll_result, state["field_map"] or []
+            )
+        except Exception as exc:
+            self.request.response.setStatus(500)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "isSuccess": False,
+                        "error": "pdf_fill_failed",
+                        "message": str(exc),
+                    }
+                )
+            )
+            return
+
+        filename = state.get("pdf_meta", {}).get("pdf_filename") or "filled-form.pdf"
+        if not filename.lower().endswith(".pdf"):
+            filename = f"{filename}.pdf"
+        self.request.response.setHeader("content-type", "application/pdf")
+        self.request.response.setHeader(
+            "Content-Disposition", f'attachment; filename="{filename}"'
+        )
+        self.request.response.write(filled_pdf)
 
     def save_form_json(self):
         json_form = orjson.loads(self.request.form["surveyText"])
@@ -1296,6 +1600,7 @@ class Views(BrowserView):
         if not result_data:
             return {"error": "Poll result not found"}
 
+        annos = IAnnotations(self.context)
         form_json = self._latest_form_json(annos)
         if not form_json:
             return {"error": "No form definition available"}
