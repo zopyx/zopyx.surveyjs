@@ -1,17 +1,15 @@
-SPHINXBUILD ?= .venv/bin/sphinx-build
+SPHINXBUILD ?= sphinx-build
 SOURCEDIR = .
 BUILDDIR = _build
 
 .PHONY: html pdf clean
 
 html:
-	uv venv -p312 --clear
-	uv pip install sphinx sphinx-rtd-theme pydata-sphinx-theme
+	python -m pip install -r requirements.txt
 	$(SPHINXBUILD) -b html $(SOURCEDIR) html
 
 pdf:
-	uv venv -p312 --clear
-	uv pip install sphinx sphinx-rtd-theme pydata-sphinx-theme
+	python -m pip install -r requirements.txt
 	$(SPHINXBUILD) -b latexpdf $(SOURCEDIR) $(BUILDDIR)/latex
 
 clean:
