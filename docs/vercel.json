@@ -1,0 +1,4 @@
+{
+  "buildCommand": "pip install -r requirements.txt && sphinx-build -b html . _build/html",
+  "outputDirectory": "_build/html"
+}
