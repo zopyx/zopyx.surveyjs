@@ -2,25 +2,25 @@
 
 ## Introduction
 
-A huge of amount of work went over the last weeks into a new product call
+A huge amount of work went into this over the last few weeks: a new product called
 Privacy Forms Studio (PFS). PFS started as a successor of collective.easyform.
-In one of our latest project, we had a lot of complex forms that could not be
+In one of our latest projects, we had a lot of complex forms that could not be
 implemented with EasyForm because the functionality is too limited beside
-various issue with configurabilty, look & feel, user experience and so on. I
+various issues with configurability, look & feel, user experience and so on. I
 posted about this journey in detail
 [here](https://community.plone.org/t/from-ploneformgen-via-easyform-to-surveyjs/22724/4).
 
-Now with PFS, the scope of the project became much broader with focus on
-privacy, digitalisation of business processes, optional AI support. Part of the
+Now with PFS, the scope of the project became much broader with a focus on
+privacy, digitalization of business processes, optional AI support. Part of the
 motivation is the fact that we - in Germany - still have a certain fetish for
 fax machines and paper forms. A major lack of digitalization.
 
 ## Features (compared with EasyForms)
 
-Let me try to describe the main features of PFS from the prospective of what we
+Let me try to describe the main features of PFS from the perspective of what we
 have in EasyForm or formerly in Plone FormGen. The core functionality is to
 create and manage forms in a modern way. The underlying technology is
-[SurveyJS](https://surveyjs.io) - a family of Javascript libraries for building
+[SurveyJS](https://surveyjs.io) - a family of JavaScript libraries for building
 online surveys and forms. The core format is JSON for form data and form schema
 definitions. The core benefits of SurveyJS are:
 
@@ -55,7 +55,7 @@ JSON, CSV, Excel)
 form submission or for all form submissions 
 
 - storage options for form submissions: in Plone or external databases (e.g. PostgreSQL, MySQL, etc.)
-- storage of form schema defintions (JSON): in Plone but can be exported as JSON for further usage
+- storage of form schema definitions (JSON): in Plone but can be exported as JSON for further usage
 - full i18n support for most of the known languages (since form definitions are self-contained, you can create forms in any language)
 
 This is the core functionality of Privacy Forms Studio. There are many more
@@ -65,7 +65,7 @@ digitalization. The primary focus of Privacy Forms Studio is on forms but as the
 name `SurveyJS` implies, you can also create surveys with it. SurveyJS has
 various question types for rating, ranking, Likert scales and so on. For more
 complex survey scenarios. A survey is just a form so you can easily create nice
-surveys now with in Plone.
+surveys now in Plone.
 
 And of course, all Plone security and privacy features apply here as well. You have
 full control over your data, who can access forms and submissions, and how data
@@ -80,9 +80,9 @@ include:
 
 - AI-assisted form creation: Use AI to create and refine forms based on user
 prompts. For example, you can ask the AI to create a customer feedback form or a
-job application form. The AI will generate a form schema with relevant. You are
+job application form. The AI will generate a form schema with relevant questions. You are
 free to accept, modify or discard the generated form. An AI-generated form can
-be edited later with the build-in SurveyJS Creator. So you are free to use AI
+be edited later with the built-in SurveyJS Creator. So you are free to use AI
 but there is no obligation
 
 - support for almost all AI providers (OpenAI, Azure OpenAI, HuggingFace, etc.)
@@ -122,22 +122,22 @@ application. Embedding is the key. The idea is that any web application would be
 able to reference a form hosted in Privacy Forms Studio and embed it seamlessly.
 This would allow organizations to centralize their form management and ensure
 consistency across different platforms and applications. Embedding would be done
-via iframe or direct Javascript embedding. This is still in the early conceptual
+via iframe or direct JavaScript embedding. This is still in the early conceptual
 stage but we see a lot of potential here for supporting digitalization
 initiatives across an organization where the technology stack is diverse and
 heterogeneous (and non-Plone).
 
 
-## Privacy Feature and target audience
+## Privacy Features and target audience
 
 Privacy is one of the core principles of Privacy Forms Studio. By default, all
-data belong to you, all your data stays within your infrastructure and organization.
-AI feature are optional and can be disabled. No data is sent to third-party services.
+data belongs to you, all your data stays within your infrastructure and organization.
+AI features are optional and can be disabled. No data is sent to third-party services.
 
 The focus and target audience of Privacy Forms Studio are organizations and
 businesses that need to comply with strict privacy regulations (e.g. GDPR) and
 want to ensure that their data is handled securely and responsibly. In the
-context of Plone, we see traditional Plone customers and origanizations using
+context of Plone, we see traditional Plone customers and organizations using
 Plone on a large scale as the primary target audience for Privacy Forms Studio.
 In the near future, we also see potential for small and medium-sized businesses
 that want to leverage the power of Plone and Privacy Forms Studio for their
@@ -156,7 +156,7 @@ various deployment options including:
 ## Licensing and Contributions
 
 We are currently evaluating the best licensing model for Privacy Forms Studio in
-cooperation with the `SurveyJS` team. Parts of SurveyJS are publically available
+cooperation with the `SurveyJS` team. Parts of SurveyJS are publicly available
 as open source while other parts are commercial. We want to ensure that Privacy
 Forms Studio remains accessible and affordable for the Plone community while
 also respecting the licensing terms of SurveyJS. In general the pricing model of
@@ -174,5 +174,3 @@ website to try out the features of Privacy Forms Studio.
 
 - Main website: https://privacyforms.studio
 - Demo website: https://demo.privacyforms.studio
-
-
