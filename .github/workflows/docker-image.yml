@@ -1,5 +1,5 @@
 # Build and publish the Docker image to GHCR
-name: Docker image
+name: Build PFS demo docker image and push to production
 
 on:
   push:
