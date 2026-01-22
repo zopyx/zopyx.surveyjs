@@ -46,3 +46,20 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Deploy to remote server
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: py-berater.de
+          username: privacyforms
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" -p "${{ secrets.GHCR_TOKEN }}"
+            docker pull ghcr.io/${{ github.repository_owner }}/zopyx-surveyjs:latest
+            docker stop zopyx-surveyjs || true
+            docker rm zopyx-surveyjs || true
+            docker run -d \
+              --name zopyx-surveyjs \
+              -p 10000:8082 \
+              ghcr.io/${{ github.repository_owner }}/zopyx-surveyjs:latest
