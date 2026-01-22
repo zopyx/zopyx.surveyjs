@@ -55,11 +55,11 @@ jobs:
           username: privacyforms
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" -p "${{ secrets.GHCR_TOKEN }}"
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
             docker pull ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
-            docker stop privacyforms-demo || true
-            docker rm privacyforms-demo || true
+            docker stop pfs-demo || true
+            docker rm pfs-demo || true
             docker run -d \
-              --name privacyforms-demo \
-              -p 10000:8082 \
+              --name pfs-demo \
+              -p 10001:8082 \
               ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
