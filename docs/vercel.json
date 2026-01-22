@@ -1,4 +1,4 @@
 {
-  "buildCommand": "python -m pip install uv && make html",
+  "buildCommand": "make html",
   "outputDirectory": "html"
 }
