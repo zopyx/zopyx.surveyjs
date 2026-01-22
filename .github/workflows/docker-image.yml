@@ -61,5 +61,5 @@ jobs:
             docker rm pfs-demo || true
             docker run -d \
               --name pfs-demo \
-              -p 10001:8082 \
+              -p 10000:8082 \
               ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
