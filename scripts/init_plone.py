@@ -460,6 +460,23 @@ if plone_logo_path.exists():
 else:
     print(f"Plone logo not found at {plone_logo_path}; skipping Plone logo creation")
 
+# Create Python logo as Image content object
+python_logo_path = Path(os.getcwd()) / "scripts" / "python-logo.png"
+if python_logo_path.exists():
+    python_logo = api.content.create(
+        type="Image",
+        container=site,
+        id="python-logo",
+        title="Python Logo",
+        image=NamedBlobImage(
+            data=python_logo_path.read_bytes(), filename="python-logo.png"
+        ),
+    )
+    python_logo.reindexObject()
+    print("Created python-logo.png as Image content object")
+else:
+    print(f"python-logo.png not found at {python_logo_path}; skipping Python logo creation")
+
 transaction.commit()
 
 site._p_jar.sync()
@@ -517,7 +534,7 @@ WELCOME_STYLE = """
   .demo-card h4 a:focus { color: #084f74; text-decoration: underline; }
   .demo-card a { text-decoration: none; font-weight: 600; color: #0b6fa4; }
   .powered-by { margin: 24px 0 8px; padding: 16px 18px; border: 1px solid #dbe3ea; border-radius: 12px; background: #f8fafc; }
-  .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+  .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
   .powered-by-item { display: flex; align-items: center; gap: 14px; }
   .powered-by img { max-width: 220px; height: auto; }
   .powered-by a { color: #0b6fa4; text-decoration: none; }
@@ -733,6 +750,11 @@ def build_welcome_html(language):
     <div class="powered-by-item">
       <a href="https://plone.org" aria-label="Plone">
         <img src="/demo/plone-logo" alt="Plone" />
+      </a>
+    </div>
+    <div class="powered-by-item">
+      <a href="https://python.org" aria-label="Python">
+        <img src="/demo/python-logo" alt="Python" />
       </a>
     </div>
   </div>
@@ -1512,7 +1534,7 @@ create_demo_survey(
 # Create a demo user with Editor role
 if not api.user.get(username="forms"):
     api.user.create(
-        username="forms", email="forms@example.com", password="formsarecool"
+        username="forms", email="hello@privacyforms.studio", password="formsarecool"
     )
     api.user.grant_roles(username="forms", roles=["Editor"])
     print("Created demo user 'forms' with Editor role")
