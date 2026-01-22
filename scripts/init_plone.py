@@ -41,6 +41,7 @@ from plone.portlets.interfaces import (
 
 SITE_ID = "demo"
 ADMIN = "admin2"
+BUILD_TIMESTAMP = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
 
 def _resolve_forms_path():
@@ -786,6 +787,10 @@ def build_welcome_html(language):
   </div>
 </section>
 """
+    build_footer = f"""
+<hr style="margin:24px 0 8px;border:none;border-top:1px solid #e5e7eb;" />
+<p style="margin:0;color:#6b7280;font-size:11px;">Build: {BUILD_TIMESTAMP}</p>
+"""
     return f"""{intro}
 <div style="padding:12px 16px;margin:16px 0;border:2px solid #b45309;background:#fff7ed;border-radius:8px;color:#92400e;font-weight:700;">
   {banner}
@@ -793,6 +798,7 @@ def build_welcome_html(language):
 {WELCOME_STYLE}
 {demo_section}
 {powered_by_section}
+{build_footer}
 """
 
 
