@@ -84,11 +84,16 @@ job application form. The AI will generate a form schema with relevant. You are
 free to accept, modify or discard the generated form. An AI-generated form can
 be edited later with the build-in SurveyJS Creator. So you are free to use AI
 but there is no obligation
+
 - support for almost all AI providers (OpenAI, Azure OpenAI, HuggingFace, etc.)
 where you can choose the model you want to use (GPT-4, GPT-3.5, etc.) and
 configure your API key as a global option within the Plone configuration. If you want, you can also set up a local AI endpoint (e.g. with Ollama).
 
-AI usage is completely optional. Form data never leaves your system (unless you configure a webhook or mail actions with form data delivery by email). AI is only used to create or refine form definitions - not for processing form submissions. This way, you can benefit from AI while maintaining full control over your data and privacy. 
+AI usage is completely optional. Form data never leaves your system (unless you
+configure a webhook or mail actions with form data delivery by email). AI is
+only used to create or refine form definitions - not for processing form
+submissions. This way, you can benefit from AI while maintaining full control
+over your data and privacy. 
 
 ## Extended features and roadmap
 
@@ -148,9 +153,26 @@ various deployment options including:
 - perhaps: as SaaS solution for easy access and usage without the need for
   infrastructure management
 
-
-
-
 ## Licensing and Contributions
 
-## Website and demo website
+We are currently evaluating the best licensing model for Privacy Forms Studio in
+cooperation with the `SurveyJS` team. Parts of SurveyJS are publically available
+as open source while other parts are commercial. We want to ensure that Privacy
+Forms Studio remains accessible and affordable for the Plone community while
+also respecting the licensing terms of SurveyJS. In general the pricing model of
+SurveyJS is quite reasonable and affordable even for small organizations and we
+are currently in discussion with the SurveyJS team to find the best way forward,
+in particular for open source projects and non-profits and regarding the scope
+of our personal developer licenses.
+
+
+## Websites and further information
+
+We are currently working on a dedicated website for Privacy Forms Studio
+where you can find more information, documentation, tutorials, and a demo
+website to try out the features of Privacy Forms Studio. 
+
+- Main website: https://privacyforms.studio
+- Demo website: https://demo.privacyforms.studio
+
+
