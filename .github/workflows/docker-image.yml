@@ -20,6 +20,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Add SurveyJS license key to checkout
+        shell: bash
+        run: |
+          echo "SURVEYJS_KEY=${{ secrets.SURVEYJS_KEY }}" >> "$GITHUB_ENV"
+          printf '%s' "${{ secrets.SURVEYJS_KEY }}" > surveyjs.licensekey
+          chmod 600 surveyjs.licensekey
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:

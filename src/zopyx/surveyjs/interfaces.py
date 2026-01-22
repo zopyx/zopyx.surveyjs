@@ -36,7 +36,7 @@ class IFormsSettings(IPloneLoggingSettings):
     fieldset(
         "surveyjs",
         label="SurveyJS",
-        fields=("surveyjs_licence_key",),
+        fields=("surveyjs_license_key",),
     )
 
     fieldset(
@@ -77,7 +77,7 @@ class IFormsSettings(IPloneLoggingSettings):
         ),
     )
 
-    surveyjs_licence_key = schema.TextLine(
+    surveyjs_license_key = schema.TextLine(
         title="SurveyJS License Key",
         description="License key for SurveyJS components (optional).",
         required=False,

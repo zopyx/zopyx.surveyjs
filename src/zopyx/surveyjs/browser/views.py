@@ -1848,7 +1848,7 @@ class Views(BrowserView):
 
             registry = getUtility(IRegistry)
             settings = registry.forInterface(IFormsSettings, check=False)
-            return (getattr(settings, "surveyjs_licence_key", "") or "").strip()
+            return (getattr(settings, "surveyjs_license_key", "") or "").strip()
         except Exception:
             return ""
 

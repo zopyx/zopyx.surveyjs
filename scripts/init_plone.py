@@ -110,6 +110,31 @@ def configure_ai_model_from_env():
         print("AI registry records not found; skipping AI environment configuration")
 
 
+def configure_surveyjs_license_from_file():
+    """Set the SurveyJS license key from ../surveyjs.licensekey if present."""
+    license_path = ROOT_PATH.parent / "surveyjs.licensekey"
+    if not license_path.exists():
+        license_path = Path("surveyjs.licensekey")
+        if not license_path.exists():
+            return
+
+    license_key = license_path.read_text().strip()
+    if not license_key:
+        print("SurveyJS license key file is empty; skipping configuration")
+        return
+
+    try:
+        api.portal.set_registry_record(
+            "zopyx.surveyjs.interfaces.IFormsSettings.surveyjs_license_key",
+            license_key,
+        )
+        print("Configured SurveyJS license key from file")
+    except InvalidParameterError:
+        print(
+            "SurveyJS license key registry record not found; skipping configuration"
+        )
+
+
 def _env_bool(value, default=False):
     if value is None:
         return default
@@ -403,6 +428,7 @@ site.REQUEST.form["themeName"] = "privacyforms.theme"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
+configure_surveyjs_license_from_file()
 configure_mail_from_env()
 configure_site_languages()
 enable_language_selector()
