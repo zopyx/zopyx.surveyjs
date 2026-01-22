@@ -4,6 +4,8 @@ name: Build PFS demo docker image and push to production
 on:
   push:
   workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
 
 env:
   REGISTRY: ghcr.io
@@ -55,7 +57,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy to remote server
-        if: github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: py-berater.de
