@@ -50,6 +50,7 @@ survey_embedding_vocabulary = SimpleVocabulary(
     ]
 )
 
+
 class Counter(Persistent):
     def __init__(self, count=0):
         self.count = count
@@ -116,16 +117,12 @@ class ISurvey(model.Schema):
     fieldset(
         "pdf_form",
         label=_("PDF Form"),
-        fields=(
-            "pdf_form",
-        ),
+        fields=("pdf_form",),
     )
     fieldset(
         "embedding",
         label=_("Embedding"),
-        fields=(
-            "embedding_mode",
-        ),
+        fields=("embedding_mode",),
     )
 
     form.widget("actions", CheckBoxFieldWidget)

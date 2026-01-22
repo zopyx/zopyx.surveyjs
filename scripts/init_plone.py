@@ -130,9 +130,7 @@ def configure_surveyjs_license_from_file():
         )
         print("Configured SurveyJS license key from file")
     except InvalidParameterError:
-        print(
-            "SurveyJS license key registry record not found; skipping configuration"
-        )
+        print("SurveyJS license key registry record not found; skipping configuration")
 
 
 def _env_bool(value, default=False):
@@ -501,7 +499,9 @@ if python_logo_path.exists():
     python_logo.reindexObject()
     print("Created python-logo.png as Image content object")
 else:
-    print(f"python-logo.png not found at {python_logo_path}; skipping Python logo creation")
+    print(
+        f"python-logo.png not found at {python_logo_path}; skipping Python logo creation"
+    )
 
 transaction.commit()
 

@@ -384,8 +384,10 @@ class Views(BrowserView):
 
         try:
             extract_mode = (
-                self.request.form.get("extract_mode", "pdfcpu") or "pdfcpu"
-            ).strip().lower()
+                (self.request.form.get("extract_mode", "pdfcpu") or "pdfcpu")
+                .strip()
+                .lower()
+            )
             survey_title = getattr(self.context, "title", None) or "PDF Form"
 
             if extract_mode == "llm":
@@ -458,7 +460,10 @@ class Views(BrowserView):
 
     def _generate_survey_json_from_pdf_llm(self, pdf_bytes: bytes) -> dict:
         try:
-            from .ai_generator import generate_survey_json_from_image, strip_markdown_json
+            from .ai_generator import (
+                generate_survey_json_from_image,
+                strip_markdown_json,
+            )
         except ImportError as e:
             raise RuntimeError(f"LLM module not available: {e}") from e
 
@@ -594,9 +599,7 @@ class Views(BrowserView):
                     self.request.response.setStatus(413)
                     self.request.response.setHeader("content-type", "application/json")
                     self.request.response.write(
-                        orjson.dumps(
-                            {"isSuccess": False, "error": "request_too_large"}
-                        )
+                        orjson.dumps({"isSuccess": False, "error": "request_too_large"})
                     )
                     return
             except ValueError:
@@ -2353,9 +2356,7 @@ class EmbedViewer(Views):
         self.request.response.setHeader("X-Frame-Options", "")
 
         # Use Content-Security-Policy frame-ancestors instead.
-        self.request.response.setHeader(
-            "Content-Security-Policy", "frame-ancestors *"
-        )
+        self.request.response.setHeader("Content-Security-Policy", "frame-ancestors *")
 
         # Render the template.
         return self.index()

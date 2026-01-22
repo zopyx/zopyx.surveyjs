@@ -30,9 +30,11 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 try:
     import orjson
+
     HAS_ORJSON = True
 except ImportError:
     import json
+
     HAS_ORJSON = False
 
 from pydantic import BaseModel, Field, computed_field
@@ -45,21 +47,35 @@ from pypdf.generic import DictionaryObject
 
 # Clustering parameters (can be adjusted for different PDF layouts)
 DEFAULT_EPS_HORIZONTAL = 200.0  # Horizontal distance threshold for clustering
-DEFAULT_EPS_VERTICAL = 28.0     # Vertical distance threshold for clustering
-ALIGNMENT_TOLERANCE = 5.0       # Tolerance for alignment detection
-TABLE_MIN_ROWS = 2              # Minimum rows to be considered a table
-TABLE_MIN_COLS = 2              # Minimum columns to be considered a table
+DEFAULT_EPS_VERTICAL = 28.0  # Vertical distance threshold for clustering
+ALIGNMENT_TOLERANCE = 5.0  # Tolerance for alignment detection
+TABLE_MIN_ROWS = 2  # Minimum rows to be considered a table
+TABLE_MIN_COLS = 2  # Minimum columns to be considered a table
 COLUMN_ALIGNMENT_TOLERANCE = 10.0  # Tolerance for column alignment in tables
 
 # Semantic grouping
-MIN_PREFIX_GROUP_SIZE = 2       # Minimum fields to form a prefix group
-CONFIDENCE_HIGH = 0.9           # High confidence score for strong prefix matches
-CONFIDENCE_MEDIUM = 0.7         # Medium confidence for inferred relationships
-CONFIDENCE_LOW = 0.5            # Low confidence for weak relationships
+MIN_PREFIX_GROUP_SIZE = 2  # Minimum fields to form a prefix group
+CONFIDENCE_HIGH = 0.9  # High confidence score for strong prefix matches
+CONFIDENCE_MEDIUM = 0.7  # Medium confidence for inferred relationships
+CONFIDENCE_LOW = 0.5  # Low confidence for weak relationships
 
 # Noise words for title inference
 NOISE_WORDS = {
-    "the", "a", "an", "of", "for", "and", "or", "in", "on", "at", "to", "is", "are", "was", "were"
+    "the",
+    "a",
+    "an",
+    "of",
+    "for",
+    "and",
+    "or",
+    "in",
+    "on",
+    "at",
+    "to",
+    "is",
+    "are",
+    "was",
+    "were",
 }
 
 # Logger
@@ -70,8 +86,10 @@ logger = logging.getLogger(__name__)
 # DATA MODELS (PHASE 1)
 # ============================================================================
 
+
 class FieldType(str, Enum):
     """PDF field types enumeration."""
+
     TEXT = "Text"
     MULTILINE_TEXT = "Multiline Text"
     CHECKBOX = "Checkbox"
@@ -85,6 +103,7 @@ class FieldType(str, Enum):
 
 class BoundingBox(BaseModel):
     """Bounding box with computed geometric properties."""
+
     x: float = Field(..., description="Left coordinate")
     y: float = Field(..., description="Bottom coordinate")
     width: float = Field(..., description="Width")
@@ -146,10 +165,10 @@ class BoundingBox(BaseModel):
             True if boxes overlap
         """
         return not (
-            self.x2 < other.x or
-            self.x > other.x2 or
-            self.y2 < other.y or
-            self.y > other.y2
+            self.x2 < other.x
+            or self.x > other.x2
+            or self.y2 < other.y
+            or self.y > other.y2
         )
 
     def horizontal_distance(self, other: BoundingBox) -> float:
@@ -171,6 +190,7 @@ class BoundingBox(BaseModel):
 
 class PDFField(BaseModel):
     """Complete PDF field metadata with type safety."""
+
     key: str = Field(..., description="Field key/name")
     label: str = Field(..., description="Field label (display text)")
     field_type: FieldType = Field(..., description="Field type")
@@ -179,8 +199,12 @@ class PDFField(BaseModel):
     required: bool = Field(False, description="Is field required")
     read_only: bool = Field(False, description="Is field read-only")
     options: Optional[List[str]] = Field(None, description="Dropdown/listbox options")
-    appearance_states: Optional[List[str]] = Field(None, description="Checkbox/radio states")
-    appearance_state: Optional[str] = Field(None, description="Current appearance state")
+    appearance_states: Optional[List[str]] = Field(
+        None, description="Checkbox/radio states"
+    )
+    appearance_state: Optional[str] = Field(
+        None, description="Current appearance state"
+    )
     flags: Optional[int] = Field(None, description="PDF field flags")
     mapping_name: Optional[str] = Field(None, description="Mapping name")
     tooltip: Optional[str] = Field(None, description="Tooltip/description")
@@ -189,14 +213,16 @@ class PDFField(BaseModel):
 
 class ClusterType(str, Enum):
     """Types of field clusters based on spatial layout."""
-    ROW = "row"              # Fields aligned horizontally
-    COLUMN = "column"        # Fields aligned vertically
-    GRID = "grid"            # Table-like grid structure
+
+    ROW = "row"  # Fields aligned horizontally
+    COLUMN = "column"  # Fields aligned vertically
+    GRID = "grid"  # Table-like grid structure
     SCATTERED = "scattered"  # No clear pattern
 
 
 class FieldCluster(BaseModel):
     """Spatial cluster of fields with layout classification."""
+
     fields: List[PDFField] = Field(..., description="Fields in cluster")
     cluster_type: ClusterType = Field(..., description="Type of cluster")
     page: int = Field(..., description="Page number")
@@ -218,35 +244,50 @@ class FieldCluster(BaseModel):
 
 class SemanticGroup(BaseModel):
     """Semantic grouping of related fields with confidence scoring."""
+
     title: str = Field(..., description="Group title")
     fields: List[PDFField] = Field(..., description="Fields in group")
     prefix: Optional[str] = Field(None, description="Common prefix")
     confidence: float = Field(1.0, description="Grouping confidence (0.0-1.0)")
-    relationships: List[str] = Field(default_factory=list, description="Detected relationships")
+    relationships: List[str] = Field(
+        default_factory=list, description="Detected relationships"
+    )
     page: Optional[int] = Field(None, description="Page number if page-specific")
 
 
 class ValidationRule(BaseModel):
     """SurveyJS validation rule."""
+
     type: str = Field(..., description="Validator type")
     text: Optional[str] = Field(None, description="Error message")
-    regex: Optional[str] = Field(None, description="Regex pattern (for regex validator)")
-    min_value: Optional[float] = Field(None, description="Minimum value (for numeric validator)")
-    max_value: Optional[float] = Field(None, description="Maximum value (for numeric validator)")
+    regex: Optional[str] = Field(
+        None, description="Regex pattern (for regex validator)"
+    )
+    min_value: Optional[float] = Field(
+        None, description="Minimum value (for numeric validator)"
+    )
+    max_value: Optional[float] = Field(
+        None, description="Maximum value (for numeric validator)"
+    )
     min_length: Optional[int] = Field(None, description="Minimum length")
     max_length: Optional[int] = Field(None, description="Maximum length")
 
 
 class SurveyJSQuestion(BaseModel):
     """SurveyJS question element."""
+
     type: str = Field(..., description="Question type")
     name: str = Field(..., description="Unique question name")
     title: str = Field(..., description="Question title")
     isRequired: Optional[bool] = Field(None, description="Is required")
     readOnly: Optional[bool] = Field(None, description="Is read-only")
     defaultValue: Optional[Any] = Field(None, description="Default value")
-    choices: Optional[List[Dict[str, str]]] = Field(None, description="Choices for select types")
-    validators: Optional[List[Dict[str, Any]]] = Field(None, description="Validation rules")
+    choices: Optional[List[Dict[str, str]]] = Field(
+        None, description="Choices for select types"
+    )
+    validators: Optional[List[Dict[str, Any]]] = Field(
+        None, description="Validation rules"
+    )
     inputType: Optional[str] = Field(None, description="Input type hint")
     mask: Optional[str] = Field(None, description="Input mask")
     prefix: Optional[str] = Field(None, description="Prefix (e.g., $)")
@@ -256,6 +297,7 @@ class SurveyJSQuestion(BaseModel):
 # ============================================================================
 # PDF EXTRACTOR (PHASE 2)
 # ============================================================================
+
 
 class PDFExtractor:
     """
@@ -497,7 +539,9 @@ class PDFExtractor:
                     # Get rectangle
                     rect = self._get_number_list(annot, "/Rect")
                     if rect is None or len(rect) != 4:
-                        logger.debug(f"Invalid rectangle for field on page {page_index}")
+                        logger.debug(
+                            f"Invalid rectangle for field on page {page_index}"
+                        )
                         continue
 
                     # Extract field metadata
@@ -511,7 +555,9 @@ class PDFExtractor:
                     # Generate unique name if needed
                     if not full_name:
                         unnamed_counter += 1
-                        full_name = f"unnamed_{page_index}_{annot_idx}_{unnamed_counter}"
+                        full_name = (
+                            f"unnamed_{page_index}_{annot_idx}_{unnamed_counter}"
+                        )
 
                     # Get label
                     label = self._stringify_value(tu)
@@ -519,7 +565,9 @@ class PDFExtractor:
                         label = field_path[-1] if field_path else full_name
 
                     # Get group path
-                    group_path = ".".join(field_path[:-1]) if len(field_path) > 1 else "default"
+                    group_path = (
+                        ".".join(field_path[:-1]) if len(field_path) > 1 else "default"
+                    )
 
                     # Classify field type
                     field_type = self._classify_field_type(ft, ff)
@@ -531,7 +579,7 @@ class PDFExtractor:
                         y=y0,
                         width=max(0.0, x1 - x0),
                         height=max(0.0, y1 - y0),
-                        page=page_index
+                        page=page_index,
                     )
 
                     # Extract flags
@@ -559,14 +607,16 @@ class PDFExtractor:
                         flags=flags_val,
                         mapping_name=self._stringify_value(tm),
                         tooltip=self._stringify_value(tu),
-                        group_path=group_path
+                        group_path=group_path,
                     )
 
                     fields.append(field)
                     logger.debug(f"Extracted field: {full_name} ({field_type.value})")
 
                 except Exception as e:
-                    logger.warning(f"Error extracting field on page {page_index}, annot {annot_idx}: {e}")
+                    logger.warning(
+                        f"Error extracting field on page {page_index}, annot {annot_idx}: {e}"
+                    )
                     continue
 
         logger.info(f"Extracted {len(fields)} fields from {pdf_path.name}")
@@ -576,6 +626,7 @@ class PDFExtractor:
 # ============================================================================
 # LAYOUT ANALYZER (PHASE 3)
 # ============================================================================
+
 
 class LayoutAnalyzer:
     """
@@ -592,7 +643,7 @@ class LayoutAnalyzer:
         self,
         eps_horizontal: float = DEFAULT_EPS_HORIZONTAL,
         eps_vertical: float = DEFAULT_EPS_VERTICAL,
-        alignment_tolerance: float = ALIGNMENT_TOLERANCE
+        alignment_tolerance: float = ALIGNMENT_TOLERANCE,
     ):
         """
         Initialize layout analyzer.
@@ -628,7 +679,9 @@ class LayoutAnalyzer:
 
         # Process each page
         for page, page_fields in sorted(by_page.items()):
-            logger.debug(f"Analyzing layout for page {page} ({len(page_fields)} fields)")
+            logger.debug(
+                f"Analyzing layout for page {page} ({len(page_fields)} fields)"
+            )
 
             # Try to detect tables first
             table_clusters, remaining_fields = self._detect_tables(page_fields)
@@ -642,7 +695,9 @@ class LayoutAnalyzer:
         logger.info(f"Created {len(clusters)} layout clusters")
         return clusters
 
-    def _detect_tables(self, fields: List[PDFField]) -> Tuple[List[FieldCluster], List[PDFField]]:
+    def _detect_tables(
+        self, fields: List[PDFField]
+    ) -> Tuple[List[FieldCluster], List[PDFField]]:
         """
         Detect table-like structures in fields.
 
@@ -697,7 +752,7 @@ class LayoutAnalyzer:
                 fields=table_fields,
                 cluster_type=ClusterType.GRID,
                 page=page,
-                confidence=0.95
+                confidence=0.95,
             )
             table_clusters.append(table_cluster)
             logger.debug(f"Detected table with {len(table_fields)} fields")
@@ -751,7 +806,7 @@ class LayoutAnalyzer:
                     cluster_type=cluster_type,
                     page=page,
                     alignment=alignment,
-                    confidence=0.8
+                    confidence=0.8,
                 )
                 clusters.append(cluster)
 
@@ -762,7 +817,7 @@ class LayoutAnalyzer:
         field: PDFField,
         all_fields: List[PDFField],
         visited: Set[str],
-        cluster: List[PDFField]
+        cluster: List[PDFField],
     ) -> None:
         """
         Recursively expand cluster by finding neighbors.
@@ -787,10 +842,7 @@ class LayoutAnalyzer:
             self._expand_cluster(neighbor, all_fields, visited, cluster)
 
     def _find_neighbors(
-        self,
-        field: PDFField,
-        all_fields: List[PDFField],
-        visited: Set[str]
+        self, field: PDFField, all_fields: List[PDFField], visited: Set[str]
     ) -> List[PDFField]:
         """Find neighboring fields within epsilon distance."""
         neighbors: List[PDFField] = []
@@ -886,6 +938,7 @@ class LayoutAnalyzer:
 # SEMANTIC GROUPER (PHASE 4)
 # ============================================================================
 
+
 class SemanticGrouper:
     """
     Multi-level prefix detection and semantic relationship analysis.
@@ -897,7 +950,9 @@ class SemanticGrouper:
     - Sibling relationship detection
     """
 
-    def group_fields(self, fields: List[PDFField], clusters: List[FieldCluster]) -> List[SemanticGroup]:
+    def group_fields(
+        self, fields: List[PDFField], clusters: List[FieldCluster]
+    ) -> List[SemanticGroup]:
         """
         Group fields semantically.
 
@@ -953,10 +1008,12 @@ class SemanticGrouper:
                     fields=prefix_fields,
                     prefix=prefix,
                     confidence=CONFIDENCE_HIGH,
-                    relationships=self._detect_relationships(prefix_fields)
+                    relationships=self._detect_relationships(prefix_fields),
                 )
                 groups.append(group)
-                logger.debug(f"Created prefix group '{title}' with {len(prefix_fields)} fields")
+                logger.debug(
+                    f"Created prefix group '{title}' with {len(prefix_fields)} fields"
+                )
 
         return groups
 
@@ -994,7 +1051,7 @@ class SemanticGrouper:
             if key[0].isupper():
                 # Find first lowercase followed by uppercase
                 for i in range(1, len(key)):
-                    if key[i].isupper() and key[i-1].islower():
+                    if key[i].isupper() and key[i - 1].islower():
                         return key[:i]
 
         # Try label
@@ -1040,7 +1097,7 @@ class SemanticGrouper:
         # Tokenize
         word_sets = []
         for text in texts:
-            words = set(re.findall(r'\w+', text.lower()))
+            words = set(re.findall(r"\w+", text.lower()))
             word_sets.append(words)
 
         # Find intersection
@@ -1094,7 +1151,7 @@ class SemanticGrouper:
         count = 0
 
         for i, f1 in enumerate(fields):
-            for f2 in fields[i+1:]:
+            for f2 in fields[i + 1 :]:
                 if f1.bbox.page == f2.bbox.page:
                     total_distance += f1.bbox.distance_to(f2.bbox)
                     count += 1
@@ -1106,9 +1163,7 @@ class SemanticGrouper:
         return avg_distance < 300.0  # Threshold for "close"
 
     def _group_by_clusters(
-        self,
-        fields: List[PDFField],
-        clusters: List[FieldCluster]
+        self, fields: List[PDFField], clusters: List[FieldCluster]
     ) -> List[SemanticGroup]:
         """
         Group remaining fields by layout clusters.
@@ -1136,19 +1191,17 @@ class SemanticGrouper:
             group = SemanticGroup(
                 title=title,
                 fields=cluster_fields,
-                confidence=cluster.confidence * 0.8,  # Lower confidence for cluster-based
+                confidence=cluster.confidence
+                * 0.8,  # Lower confidence for cluster-based
                 relationships=[f"cluster_{cluster.cluster_type.value}"],
-                page=cluster.page
+                page=cluster.page,
             )
             groups.append(group)
 
         return groups
 
     def _infer_cluster_title(
-        self,
-        cluster: FieldCluster,
-        fields: List[PDFField],
-        index: int
+        self, cluster: FieldCluster, fields: List[PDFField], index: int
     ) -> str:
         """
         Infer title for cluster-based group.
@@ -1190,6 +1243,7 @@ class SemanticGrouper:
 # TYPE INFERENCE ENGINE (PHASE 5)
 # ============================================================================
 
+
 class TypeInferenceEngine:
     """
     Comprehensive validation with international format support.
@@ -1229,68 +1283,79 @@ class TypeInferenceEngine:
 
         # SSN
         if "SSN" in text or "SOCIAL SECURITY" in text:
-            validators.append(ValidationRule(
-                type="regex",
-                text="Use format: ###-##-####",
-                regex=self.PATTERNS["ssn"]
-            ))
+            validators.append(
+                ValidationRule(
+                    type="regex",
+                    text="Use format: ###-##-####",
+                    regex=self.PATTERNS["ssn"],
+                )
+            )
 
         # ZIP Code
         elif "ZIP" in text or "POSTAL" in text:
-            validators.append(ValidationRule(
-                type="regex",
-                text="Use 5-digit ZIP code",
-                regex=self.PATTERNS["zip_us"]
-            ))
+            validators.append(
+                ValidationRule(
+                    type="regex",
+                    text="Use 5-digit ZIP code",
+                    regex=self.PATTERNS["zip_us"],
+                )
+            )
 
         # Phone
         elif "PHONE" in text or "TELEPHONE" in text or "TEL" in text:
-            validators.append(ValidationRule(
-                type="regex",
-                text="Use format: (###) ###-####",
-                regex=self.PATTERNS["phone_us"]
-            ))
+            validators.append(
+                ValidationRule(
+                    type="regex",
+                    text="Use format: (###) ###-####",
+                    regex=self.PATTERNS["phone_us"],
+                )
+            )
 
         # Email
         elif "EMAIL" in text or "E-MAIL" in text:
-            validators.append(ValidationRule(
-                type="email",
-                text="Please enter a valid email address"
-            ))
+            validators.append(
+                ValidationRule(type="email", text="Please enter a valid email address")
+            )
 
         # Date
         elif "DATE" in text or "BIRTH" in text or "DOB" in text:
-            validators.append(ValidationRule(
-                type="regex",
-                text="Use format: MM/DD/YYYY",
-                regex=self.PATTERNS["date_us"]
-            ))
+            validators.append(
+                ValidationRule(
+                    type="regex",
+                    text="Use format: MM/DD/YYYY",
+                    regex=self.PATTERNS["date_us"],
+                )
+            )
 
         # Currency
         elif "SALARY" in text or "AMOUNT" in text or "PRICE" in text or "COST" in text:
-            validators.append(ValidationRule(
-                type="regex",
-                text="Enter amount (e.g., 1000.00)",
-                regex=self.PATTERNS["currency"]
-            ))
+            validators.append(
+                ValidationRule(
+                    type="regex",
+                    text="Enter amount (e.g., 1000.00)",
+                    regex=self.PATTERNS["currency"],
+                )
+            )
 
         # Number
         elif "AGE" in text or "QUANTITY" in text or "COUNT" in text or "NUMBER" in text:
-            validators.append(ValidationRule(
-                type="numeric",
-                text="Please enter a valid number",
-                min_value=0.0
-            ))
+            validators.append(
+                ValidationRule(
+                    type="numeric", text="Please enter a valid number", min_value=0.0
+                )
+            )
 
         # Add length validator based on field width
         if field.field_type in (FieldType.TEXT, FieldType.MULTILINE_TEXT):
             # Estimate max length from field width (rough heuristic)
             max_length = int(field.bbox.width / 5)  # ~5 pixels per character
             if max_length > 10:  # Only add if reasonable
-                validators.append(ValidationRule(
-                    type="text",
-                    max_length=min(max_length, 1000)  # Cap at 1000
-                ))
+                validators.append(
+                    ValidationRule(
+                        type="text",
+                        max_length=min(max_length, 1000),  # Cap at 1000
+                    )
+                )
 
         return validators
 
@@ -1346,6 +1411,7 @@ class TypeInferenceEngine:
 # SURVEYJS BUILDER (PHASE 6)
 # ============================================================================
 
+
 class SurveyJSBuilder:
     """
     Build optimal SurveyJS JSON from semantic groups.
@@ -1368,11 +1434,7 @@ class SurveyJSBuilder:
         self.type_engine = type_engine
         self.used_names: Dict[str, int] = {}
 
-    def build_survey(
-        self,
-        groups: List[SemanticGroup],
-        title: str
-    ) -> Dict[str, Any]:
+    def build_survey(self, groups: List[SemanticGroup], title: str) -> Dict[str, Any]:
         """
         Build SurveyJS JSON from semantic groups.
 
@@ -1397,12 +1459,7 @@ class SurveyJSBuilder:
             "title": self._prettify_title(title),
             "description": "Form generated from PDF",
             "showQuestionNumbers": "off",
-            "pages": [
-                {
-                    "name": "page1",
-                    "elements": panels
-                }
-            ]
+            "pages": [{"name": "page1", "elements": panels}],
         }
 
         # Add progress bar if many panels
@@ -1435,7 +1492,9 @@ class SurveyJSBuilder:
                 radio_counts[field.key] += 1
 
         # Track grouped checkboxes
-        checkbox_fields = [f for f in group.fields if f.field_type == FieldType.CHECKBOX]
+        checkbox_fields = [
+            f for f in group.fields if f.field_type == FieldType.CHECKBOX
+        ]
         grouped_checkboxes = self._group_checkboxes(checkbox_fields)
         used_checkbox_keys = {f.key for group in grouped_checkboxes for f in group}
 
@@ -1497,23 +1556,27 @@ class SurveyJSBuilder:
             "type": "panel",
             "name": self._unique_name(panel_name),
             "title": group.title,
-            "elements": questions
+            "elements": questions,
         }
 
         return panel
 
-    def _build_text_question(self, field: PDFField, multiline: bool = False) -> Dict[str, Any]:
+    def _build_text_question(
+        self, field: PDFField, multiline: bool = False
+    ) -> Dict[str, Any]:
         """Build text question."""
         question = {
             "type": "comment" if multiline else "text",
             "name": self._unique_name(field.key),
-            "title": self._prettify_label(field.label)
+            "title": self._prettify_label(field.label),
         }
 
         # Add validators
         validators = self.type_engine.infer_validators(field)
         if validators:
-            question["validators"] = [v.model_dump(exclude_none=True) for v in validators]
+            question["validators"] = [
+                v.model_dump(exclude_none=True) for v in validators
+            ]
 
         # Add input hints
         hints = self.type_engine.infer_input_hints(field)
@@ -1529,7 +1592,7 @@ class SurveyJSBuilder:
         question = {
             "type": "boolean",
             "name": self._unique_name(field.key),
-            "title": self._prettify_label(field.label)
+            "title": self._prettify_label(field.label),
         }
 
         self._add_common_props(question, field)
@@ -1540,7 +1603,7 @@ class SurveyJSBuilder:
         question = {
             "type": "dropdown",
             "name": self._unique_name(field.key),
-            "title": self._prettify_label(field.label)
+            "title": self._prettify_label(field.label),
         }
 
         # Add choices
@@ -1558,7 +1621,7 @@ class SurveyJSBuilder:
         question = {
             "type": "signaturepad",
             "name": self._unique_name(field.key),
-            "title": self._prettify_label(field.label)
+            "title": self._prettify_label(field.label),
         }
 
         self._add_common_props(question, field)
@@ -1573,7 +1636,7 @@ class SurveyJSBuilder:
         question = {
             "type": "radiogroup",
             "name": self._unique_name(first.key),
-            "title": self._prettify_label(first.label)
+            "title": self._prettify_label(first.label),
         }
 
         # Extract choices from appearance states
@@ -1613,15 +1676,18 @@ class SurveyJSBuilder:
             "name": self._unique_name(self._slugify(title)),
             "title": title,
             "choices": [
-                {"value": f.key, "text": self._prettify_label(f.label)}
-                for f in fields
-            ]
+                {"value": f.key, "text": self._prettify_label(f.label)} for f in fields
+            ],
         }
 
         # Find defaults
         defaults = []
         for field in fields:
-            if field.default_value and str(field.default_value) not in ("", "/Off", "Off"):
+            if field.default_value and str(field.default_value) not in (
+                "",
+                "/Off",
+                "Off",
+            ):
                 defaults.append(field.key)
 
         if defaults:
@@ -1649,10 +1715,7 @@ class SurveyJSBuilder:
             return []
 
         # Sort by position
-        sorted_fields = sorted(
-            fields,
-            key=lambda f: (-f.bbox.y, f.bbox.x)
-        )
+        sorted_fields = sorted(fields, key=lambda f: (-f.bbox.y, f.bbox.x))
 
         # Cluster by Y position
         groups: List[List[PDFField]] = []
@@ -1678,7 +1741,9 @@ class SurveyJSBuilder:
 
         return groups
 
-    def _extract_choices_from_appearance(self, fields: List[PDFField]) -> List[Dict[str, str]]:
+    def _extract_choices_from_appearance(
+        self, fields: List[PDFField]
+    ) -> List[Dict[str, str]]:
         """Extract choices from appearance states."""
         values: List[str] = []
         for field in fields:
@@ -1690,14 +1755,11 @@ class SurveyJSBuilder:
         if not values:
             # Generate generic choices
             return [
-                {"value": f"option_{i+1}", "text": f"Option {i+1}"}
+                {"value": f"option_{i + 1}", "text": f"Option {i + 1}"}
                 for i in range(len(fields))
             ]
 
-        return [
-            {"value": v, "text": self._prettify_label(v)}
-            for v in values
-        ]
+        return [{"value": v, "text": self._prettify_label(v)} for v in values]
 
     def _add_common_props(self, question: Dict[str, Any], field: PDFField) -> None:
         """Add common properties to question."""
@@ -1774,6 +1836,7 @@ class SurveyJSBuilder:
 # PDF FORM PARSER (PHASE 7 - ORCHESTRATOR)
 # ============================================================================
 
+
 class PDFFormParser:
     """
     Main orchestrator for PDF form parsing.
@@ -1784,7 +1847,7 @@ class PDFFormParser:
     def __init__(
         self,
         eps_horizontal: float = DEFAULT_EPS_HORIZONTAL,
-        eps_vertical: float = DEFAULT_EPS_VERTICAL
+        eps_vertical: float = DEFAULT_EPS_VERTICAL,
     ):
         """
         Initialize parser.
@@ -1824,7 +1887,7 @@ class PDFFormParser:
                     "file": pdf_path.name,
                     "fields": [],
                     "groups": [],
-                    "surveyjs": self._empty_survey(pdf_path.name)
+                    "surveyjs": self._empty_survey(pdf_path.name),
                 }
 
             # Phase 2: Analyze layout
@@ -1841,7 +1904,7 @@ class PDFFormParser:
                 "file": pdf_path.name,
                 "fields": [self._field_to_dict(f) for f in fields],
                 "groups": [self._group_to_dict(g) for g in groups],
-                "surveyjs": surveyjs
+                "surveyjs": surveyjs,
             }
 
             logger.info(f"Successfully parsed {pdf_path.name}")
@@ -1868,7 +1931,7 @@ class PDFFormParser:
             "options": field.options,
             "appearance_states": field.appearance_states,
             "appearance_state": field.appearance_state,
-            "group_path": field.group_path
+            "group_path": field.group_path,
         }
 
     def _group_to_dict(self, group: SemanticGroup) -> Dict[str, Any]:
@@ -1880,7 +1943,7 @@ class PDFFormParser:
             "prefix": group.prefix,
             "confidence": group.confidence,
             "relationships": group.relationships,
-            "page": group.page
+            "page": group.page,
         }
 
     def _empty_survey(self, filename: str) -> Dict[str, Any]:
@@ -1889,13 +1952,14 @@ class PDFFormParser:
             "title": self.surveyjs_builder._prettify_title(filename),
             "description": "No fields found in form",
             "showQuestionNumbers": "off",
-            "pages": [{"name": "page1", "elements": []}]
+            "pages": [{"name": "page1", "elements": []}],
         }
 
 
 # ============================================================================
 # CLI & OUTPUT (PHASE 8)
 # ============================================================================
+
 
 def gather_pdfs(root: Path, patterns: List[str]) -> List[Path]:
     """
@@ -1933,7 +1997,7 @@ def write_outputs(
     out_file: str,
     pretty: bool,
     per_file_out: Optional[str],
-    surveyjs_out: Optional[str]
+    surveyjs_out: Optional[str],
 ) -> None:
     """
     Write output files.
@@ -1947,11 +2011,13 @@ def write_outputs(
     """
     # Prepare JSON dump options
     if HAS_ORJSON:
+
         def dump_json(data: Any, file_path: Path) -> None:
             options = orjson.OPT_INDENT_2 if pretty else 0
             with open(file_path, "wb") as f:
                 f.write(orjson.dumps(data, option=options))
     else:
+
         def dump_json(data: Any, file_path: Path) -> None:
             indent = 2 if pretty else None
             with open(file_path, "w", encoding="utf-8") as f:
@@ -1996,51 +2062,47 @@ Examples:
   %(prog)s --glob "*.pdf" --surveyjs-out ./output --pretty
   %(prog)s --glob "forms/*.pdf" --out results.json --verbose
   %(prog)s --glob "*.pdf" --per-file-out ./json --surveyjs-out ./survey
-        """
+        """,
     )
 
     parser.add_argument(
         "--glob",
         action="append",
         default=[],
-        help="Glob pattern(s) for PDFs (default: *.pdf). Can be specified multiple times."
+        help="Glob pattern(s) for PDFs (default: *.pdf). Can be specified multiple times.",
     )
     parser.add_argument(
         "--out",
         default="forms_index.json",
-        help="Output JSON file (default: forms_index.json)"
+        help="Output JSON file (default: forms_index.json)",
     )
     parser.add_argument(
-        "--pretty",
-        action="store_true",
-        help="Pretty-print JSON output"
+        "--pretty", action="store_true", help="Pretty-print JSON output"
     )
     parser.add_argument(
         "--per-file-out",
         default=None,
-        help="Optional output directory for per-file JSON"
+        help="Optional output directory for per-file JSON",
     )
     parser.add_argument(
         "--surveyjs-out",
         default=None,
-        help="Optional output directory for per-file SurveyJS JSON"
+        help="Optional output directory for per-file SurveyJS JSON",
     )
     parser.add_argument(
-        "--verbose",
-        action="store_true",
-        help="Enable verbose logging (DEBUG level)"
+        "--verbose", action="store_true", help="Enable verbose logging (DEBUG level)"
     )
     parser.add_argument(
         "--eps-horizontal",
         type=float,
         default=DEFAULT_EPS_HORIZONTAL,
-        help=f"Horizontal clustering threshold (default: {DEFAULT_EPS_HORIZONTAL})"
+        help=f"Horizontal clustering threshold (default: {DEFAULT_EPS_HORIZONTAL})",
     )
     parser.add_argument(
         "--eps-vertical",
         type=float,
         default=DEFAULT_EPS_VERTICAL,
-        help=f"Vertical clustering threshold (default: {DEFAULT_EPS_VERTICAL})"
+        help=f"Vertical clustering threshold (default: {DEFAULT_EPS_VERTICAL})",
     )
 
     args = parser.parse_args()
@@ -2048,8 +2110,7 @@ Examples:
     # Setup logging
     log_level = logging.DEBUG if args.verbose else logging.INFO
     logging.basicConfig(
-        level=log_level,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        level=log_level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
 
     # Gather PDFs
@@ -2064,8 +2125,7 @@ Examples:
 
     # Initialize parser
     form_parser = PDFFormParser(
-        eps_horizontal=args.eps_horizontal,
-        eps_vertical=args.eps_vertical
+        eps_horizontal=args.eps_horizontal, eps_vertical=args.eps_vertical
     )
 
     # Parse all PDFs
@@ -2084,13 +2144,7 @@ Examples:
         raise SystemExit("No PDFs successfully parsed.")
 
     # Write outputs
-    write_outputs(
-        results,
-        args.out,
-        args.pretty,
-        args.per_file_out,
-        args.surveyjs_out
-    )
+    write_outputs(results, args.out, args.pretty, args.per_file_out, args.surveyjs_out)
 
     print(f"\nSuccessfully processed {len(results)} form(s)")
     print(f"Output written to: {args.out}")

@@ -4,6 +4,7 @@ Extract simplified field metadata and layout info from fillable PDFs.
 
 Outputs per-form groups with fields containing key/label/type/value/position.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -114,6 +115,7 @@ def _rect_info(rect: List[float], media_box: List[float]) -> Dict[str, Any]:
         "normalized_rect": norm,
     }
 
+
 def _stringify_value(val: Any) -> Any:
     if val is None:
         return None
@@ -149,6 +151,7 @@ def _field_type_label(ft: Any, flags: Any) -> Optional[str]:
     if ft_str == "/Sig":
         return "Signature"
     return ft_str.lstrip("/")
+
 
 def _get_options(field: DictionaryObject) -> Optional[List[str]]:
     opt = _get_field_attr(field, "/Opt")
@@ -229,19 +232,33 @@ def _input_hints(field: Dict[str, Any]) -> Dict[str, Any]:
         return {
             "inputType": "text",
             "mask": "999-99-9999",
-            "validators": [{"type": "regex", "text": "Use ###-##-####", "regex": "^[0-9]{3}-[0-9]{2}-[0-9]{4}$"}],
+            "validators": [
+                {
+                    "type": "regex",
+                    "text": "Use ###-##-####",
+                    "regex": "^[0-9]{3}-[0-9]{2}-[0-9]{4}$",
+                }
+            ],
         }
     if "ZIP" in text or "POSTAL" in text:
         return {
             "inputType": "text",
             "mask": "99999",
-            "validators": [{"type": "regex", "text": "Use 5-digit ZIP", "regex": "^[0-9]{5}$"}],
+            "validators": [
+                {"type": "regex", "text": "Use 5-digit ZIP", "regex": "^[0-9]{5}$"}
+            ],
         }
     if "PHONE" in text or "TELEPHONE" in text:
         return {
             "inputType": "tel",
             "mask": "(999) 999-9999",
-            "validators": [{"type": "regex", "text": "Use (###) ###-####", "regex": "^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$"}],
+            "validators": [
+                {
+                    "type": "regex",
+                    "text": "Use (###) ###-####",
+                    "regex": "^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$",
+                }
+            ],
         }
     if "BIRTH" in text or "DOB" in text or "DATE" in text:
         return {"inputType": "date"}
@@ -262,7 +279,8 @@ def _cluster_by_adjacency(fields: List[Dict[str, Any]]) -> List[List[Dict[str, A
             if not ys or not xs:
                 continue
             if abs(max(ys) - fy) <= SURVEYJS_CLUSTER_Y_GAP and (
-                fx >= min(xs) - SURVEYJS_CLUSTER_X_GAP and fx <= max(xs) + SURVEYJS_CLUSTER_X_GAP
+                fx >= min(xs) - SURVEYJS_CLUSTER_X_GAP
+                and fx <= max(xs) + SURVEYJS_CLUSTER_X_GAP
             ):
                 cluster.append(field)
                 placed = True
@@ -270,6 +288,7 @@ def _cluster_by_adjacency(fields: List[Dict[str, Any]]) -> List[List[Dict[str, A
         if not placed:
             clusters.append([field])
     return clusters
+
 
 def _prettify_label(text: Optional[str]) -> str:
     if not text:
@@ -328,7 +347,9 @@ def _choices_from_field(field: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]
     return [{"value": opt, "text": _prettify_label(opt)} for opt in opts]
 
 
-def _choices_from_appearance(fields: List[Dict[str, Any]]) -> Optional[List[Dict[str, Any]]]:
+def _choices_from_appearance(
+    fields: List[Dict[str, Any]],
+) -> Optional[List[Dict[str, Any]]]:
     values: List[str] = []
     for f in fields:
         states = f.get("appearance_states") or []
@@ -435,6 +456,7 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
             radio_counts[key] = radio_counts.get(key, 0) + 1
 
     used_names: Dict[str, int] = {}
+
     def unique_name(base: str) -> str:
         if base not in used_names:
             used_names[base] = 1
@@ -476,8 +498,13 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
                 cluster,
                 key=lambda f: (-(f.get("y", 0.0) or 0.0), f.get("x", 0.0) or 0.0),
             )
-            choices = [{"value": c.get("key"), "text": _surveyjs_title_from_field(c)} for c in cluster_sorted]
-            defaults = [c.get("key") for c in cluster if _bool_default(c.get("default_value"))]
+            choices = [
+                {"value": c.get("key"), "text": _surveyjs_title_from_field(c)}
+                for c in cluster_sorted
+            ]
+            defaults = [
+                c.get("key") for c in cluster if _bool_default(c.get("default_value"))
+            ]
             question = {
                 "type": "checkbox",
                 "name": unique_name(_slugify(checkbox_cluster_title(cluster))),
@@ -497,7 +524,10 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
             if key in checkbox_used:
                 continue
             ftype = field.get("type")
-            if ftype in ("Radio Button", "Push Button") and radio_counts.get(key, 0) > 1:
+            if (
+                ftype in ("Radio Button", "Push Button")
+                and radio_counts.get(key, 0) > 1
+            ):
                 if key in emitted_radio:
                     continue
                 fields_same = [f for f in fields_sorted if f.get("key") == key]
@@ -505,7 +535,7 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
                 if not choices:
                     count = radio_counts[key]
                     choices = [
-                        {"value": f"option_{idx+1}", "text": f"Option {idx+1}"}
+                        {"value": f"option_{idx + 1}", "text": f"Option {idx + 1}"}
                         for idx in range(count)
                     ]
                 question = {
@@ -578,6 +608,7 @@ def _build_surveyjs(form: Dict[str, Any]) -> Dict[str, Any]:
         "showQuestionNumbers": "off",
         "pages": [{"name": "page1", "elements": elements}],
     }
+
 
 def extract_pdf(path: Path) -> Dict[str, Any]:
     reader = PdfReader(str(path))
@@ -672,11 +703,28 @@ def gather_pdfs(root: Path, patterns: List[str]) -> List[Path]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Extract simplified PDF form fields + layout")
-    parser.add_argument("--glob", action="append", default=[], help="Glob pattern(s) for PDFs (default: *.pdf)")
-    parser.add_argument("--out", default="forms_index.json", help="Output JSON file (default: forms_index.json)")
-    parser.add_argument("--pretty", action="store_true", help="Pretty-print JSON output")
-    parser.add_argument("--per-file-out", default=None, help="Optional output directory for per-file JSON")
+    parser = argparse.ArgumentParser(
+        description="Extract simplified PDF form fields + layout"
+    )
+    parser.add_argument(
+        "--glob",
+        action="append",
+        default=[],
+        help="Glob pattern(s) for PDFs (default: *.pdf)",
+    )
+    parser.add_argument(
+        "--out",
+        default="forms_index.json",
+        help="Output JSON file (default: forms_index.json)",
+    )
+    parser.add_argument(
+        "--pretty", action="store_true", help="Pretty-print JSON output"
+    )
+    parser.add_argument(
+        "--per-file-out",
+        default=None,
+        help="Optional output directory for per-file JSON",
+    )
     parser.add_argument(
         "--surveyjs-out",
         default=None,
