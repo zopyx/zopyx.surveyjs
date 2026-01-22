@@ -5,13 +5,13 @@ BUILDDIR = _build
 .PHONY: html pdf clean
 
 html:
+	uv venv  --clear
 	uv pip install -r requirements.txt
-	uv venv 
 	$(SPHINXBUILD) -b html $(SOURCEDIR) html
 
 pdf:
-	uv pip install -r requirements.txt
 	uv venv 
+	uv pip install -r requirements.txt
 	$(SPHINXBUILD) -b latexpdf $(SOURCEDIR) $(BUILDDIR)/latex
 
 clean:
