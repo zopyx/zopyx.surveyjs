@@ -64,7 +64,8 @@ jobs:
           script: |
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
             docker pull ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
-            docker stop pfs-demo || true
+            docker stop -t 30 pfs-demo || true
+            docker kill pfs-demo || true
             docker rm pfs-demo || true
             docker run -d \
               --name pfs-demo \
