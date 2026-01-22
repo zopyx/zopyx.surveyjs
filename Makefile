@@ -1,7 +1,7 @@
 .PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test
 
 IMAGE_NAME := privacyforms/demo
-CONTAINER_NAME := privacyforms-demo
+CONTAINER_NAME := pfs-demo
 HOST_PORT := 10000
 CONTAINER_PORT := 8082
 
