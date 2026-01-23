@@ -553,8 +553,26 @@ create_demo_survey(
 
 WELCOME_STYLE = """
 <style>
-  .youtube-cta { margin: 22px 0 28px; padding: 22px 24px; border-radius: 16px; background: linear-gradient(135deg, #111827 0%, #1f2937 45%, #111827 100%); color: #f9fafb; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.22); position: relative; overflow: hidden; }
-  .youtube-cta::after { content: ""; position: absolute; top: -40%; right: -10%; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(239, 68, 68, 0.35), rgba(239, 68, 68, 0)); }
+  .welcome-shell { max-width: 1100px; margin: 0 auto; padding: 8px 6px 24px; }
+  .welcome-hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; align-items: stretch; margin: 12px 0 22px; }
+  .welcome-card { border-radius: 18px; padding: 22px 24px; background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(240,246,255,0.9)); border: 1px solid #e5eef8; box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08); }
+  .welcome-card h2, .welcome-card h3 { margin-top: 0; }
+  .welcome-card p { margin-bottom: 0; }
+  .welcome-banner { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; border: 1px solid #f59e0b; background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%); color: #92400e; font-weight: 700; }
+  .welcome-section { margin: 18px 0 26px; }
+  .welcome-section > h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+  .welcome-side { display: flex; flex-direction: column; gap: 16px; }
+  .welcome-link { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 16px; border: 1px solid #e5eef8; background: #ffffff; box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08); }
+  .welcome-link h4 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.01em; color: #0f172a; position: relative; }
+  .welcome-link h4::after { content: ""; display: block; height: 3px; width: 56px; margin-top: 8px; border-radius: 999px; background: linear-gradient(90deg, #0ea5e9, #6366f1, #f43f5e); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35); }
+  .welcome-link p { margin: 0; color: #475569; }
+  .welcome-link a { color: #0f4c81; text-decoration: none; font-weight: 700; }
+  .welcome-link a:hover,
+  .welcome-link a:focus { color: #0b3356; text-decoration: underline; }
+  .welcome-badge { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; background: #fde68a; color: #92400e; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .youtube-cta { margin: 0; padding: 22px 24px; border-radius: 18px; background: linear-gradient(135deg, #0f172a 0%, #1f2937 45%, #0f172a 100%); color: #f9fafb; box-shadow: 0 14px 34px rgba(15, 23, 42, 0.25); position: relative; overflow: hidden; }
+  .youtube-cta::after { content: ""; position: absolute; top: -40%; right: -10%; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(239, 68, 68, 0.35), rgba(239, 68, 68, 0)); }
   .youtube-cta-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; position: relative; z-index: 1; }
   .youtube-cta h3 { margin: 0 0 6px 0; font-size: 1.25rem; color: #f9fafb; }
   .youtube-cta p { margin: 0; font-size: 1rem; color: #d1d5db; }
@@ -562,20 +580,23 @@ WELCOME_STYLE = """
   .youtube-cta .youtube-button { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; background: #ef4444; color: #fff; font-weight: 700; letter-spacing: 0.01em; box-shadow: 0 8px 18px rgba(239, 68, 68, 0.35); transition: transform 0.15s ease, box-shadow 0.15s ease; }
   .youtube-cta .youtube-button:hover,
   .youtube-cta .youtube-button:focus { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(239, 68, 68, 0.45); }
-  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
-  .demo-card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 14px 16px; background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 12px 0 0; padding: 0; list-style: none; }
+  .demo-card { border: 1px solid #e5eef8; border-radius: 14px; padding: 16px 18px; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .demo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1); }
   .demo-card h4 { margin: 0 0 6px 0; font-size: 1.05rem; }
-  .demo-card h4 a { color: #0b6fa4; }
+  .demo-card h4 a { color: #0f4c81; }
   .demo-card h4 a:hover,
-  .demo-card h4 a:focus { color: #084f74; text-decoration: underline; }
-  .demo-card a { text-decoration: none; font-weight: 600; color: #0b6fa4; }
-  .powered-by { margin: 24px 0 8px; padding: 16px 18px; border: 1px solid #dbe3ea; border-radius: 12px; background: #f8fafc; }
+  .demo-card h4 a:focus { color: #0b3356; text-decoration: underline; }
+  .demo-card a { text-decoration: none; font-weight: 600; color: #0f4c81; }
+
+  .powered-by { margin: 10px 0 0; padding: 18px 20px; border: 1px solid #dbe3ea; border-radius: 16px; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
   .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
   .powered-by-item { display: flex; align-items: center; gap: 14px; }
   .powered-by img { max-width: 220px; height: auto; }
-  .powered-by a { color: #0b6fa4; text-decoration: none; }
+  .powered-by a { color: #0f4c81; text-decoration: none; }
   .powered-by a:hover,
-  .powered-by a:focus { color: #084f74; text-decoration: underline; }
+  .powered-by a:focus { color: #0b3356; text-decoration: underline; }
 </style>
 """
 
@@ -591,6 +612,8 @@ WELCOME_BANNERS = {
 }
 
 YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@privacy-forms-studio"
+PRIVACY_FORMS_STUDIO_URL = "https://www.privacyforms.studio/"
+PRIVACY_FORMS_DOCS_URL = "https://docs.privacyforms.studio"
 
 WELCOME_YOUTUBE = {
     "en": {
@@ -640,6 +663,81 @@ WELCOME_YOUTUBE = {
         "title": "PrivacyForms Studio の解説動画を見る",
         "copy": "デモ、設定のコツ、実際のフォーム構築事例。",
         "cta": "YouTube チャンネルへ",
+    },
+}
+
+WELCOME_LINKS = {
+    "en": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Visit the main site for product highlights and updates.",
+        "site_cta": "Open privacyforms.studio",
+        "docs_title": "Documentation",
+        "docs_copy": "Deep dives, API details, and deployment guides.",
+        "docs_cta": "Go to docs.privacyforms.studio",
+        "badge": "Upcoming",
+    },
+    "de": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Besuchen Sie die Hauptseite mit Produkt-Updates.",
+        "site_cta": "privacyforms.studio öffnen",
+        "docs_title": "Dokumentation",
+        "docs_copy": "API-Details, Anleitungen und Deployment-Guides.",
+        "docs_cta": "Zu docs.privacyforms.studio",
+        "badge": "Demnächst",
+    },
+    "fr": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Accédez au site principal et aux nouveautés.",
+        "site_cta": "Ouvrir privacyforms.studio",
+        "docs_title": "Documentation",
+        "docs_copy": "Guides techniques, API et déploiement.",
+        "docs_cta": "Aller sur docs.privacyforms.studio",
+        "badge": "Bientôt",
+    },
+    "it": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Vai al sito principale per novità e overview.",
+        "site_cta": "Apri privacyforms.studio",
+        "docs_title": "Documentazione",
+        "docs_copy": "Dettagli API, guide e deployment.",
+        "docs_cta": "Vai su docs.privacyforms.studio",
+        "badge": "In arrivo",
+    },
+    "es": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Visita el sitio principal para novedades.",
+        "site_cta": "Abrir privacyforms.studio",
+        "docs_title": "Documentación",
+        "docs_copy": "Detalles API, guías y despliegue.",
+        "docs_cta": "Ir a docs.privacyforms.studio",
+        "badge": "Próximamente",
+    },
+    "pt": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Visite o site principal para novidades.",
+        "site_cta": "Abrir privacyforms.studio",
+        "docs_title": "Documentação",
+        "docs_copy": "Detalhes da API, guias e implantação.",
+        "docs_cta": "Ir para docs.privacyforms.studio",
+        "badge": "Em breve",
+    },
+    "ar": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "زيارة الموقع الرئيسي لأحدث التحديثات.",
+        "site_cta": "فتح privacyforms.studio",
+        "docs_title": "التوثيق",
+        "docs_copy": "تفاصيل الواجهة البرمجية وأدلة النشر.",
+        "docs_cta": "اذهب إلى docs.privacyforms.studio",
+        "badge": "قريباً",
+    },
+    "ja": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "最新情報は公式サイトで。",
+        "site_cta": "privacyforms.studio を開く",
+        "docs_title": "ドキュメント",
+        "docs_copy": "API 詳細や導入ガイド。",
+        "docs_cta": "docs.privacyforms.studio へ",
+        "badge": "近日公開",
     },
 }
 
@@ -827,6 +925,7 @@ def build_welcome_html(language):
     demo_section = build_demo_section(language)
     dir_attr = ' dir="rtl"' if language == "ar" else ""
     youtube = WELCOME_YOUTUBE[language]
+    links = WELCOME_LINKS[language]
     powered_by_heading = WELCOME_POWERED_BY_HEADINGS[language]
     youtube_section = f"""
 <section class="youtube-cta"{dir_attr}>
@@ -839,6 +938,18 @@ def build_welcome_html(language):
       {youtube["cta"]}
     </a>
   </div>
+</section>
+"""
+    links_section = f"""
+<section class="welcome-link"{dir_attr}>
+  <h4>{links["site_title"]}</h4>
+  <p>{links["site_copy"]}</p>
+  <a href="{PRIVACY_FORMS_STUDIO_URL}">{links["site_cta"]}</a>
+</section>
+<section class="welcome-link"{dir_attr}>
+  <h4>{links["docs_title"]} <span class="welcome-badge">{links["badge"]}</span></h4>
+  <p>{links["docs_copy"]}</p>
+  <a href="{PRIVACY_FORMS_DOCS_URL}">{links["docs_cta"]}</a>
 </section>
 """
     powered_by_section = f"""
@@ -867,15 +978,26 @@ def build_welcome_html(language):
 <hr style="margin:24px 0 8px;border:none;border-top:1px solid #e5e7eb;" />
 <p style="margin:0;color:#6b7280;font-size:11px;">Build: {BUILD_TIMESTAMP}</p>
 """
-    return f"""{intro}
-<div style="padding:12px 16px;margin:16px 0;border:2px solid #b45309;background:#fff7ed;border-radius:8px;color:#92400e;font-weight:700;">
-  {banner}
+    return f"""{WELCOME_STYLE}
+<div class="welcome-shell"{dir_attr}>
+  <section class="welcome-hero">
+    <div class="welcome-card">
+      {intro}
+      <div class="welcome-banner">{banner}</div>
+    </div>
+    <div class="welcome-side">
+      {links_section}
+      {youtube_section}
+    </div>
+  </section>
+  <section class="welcome-section">
+    {demo_section}
+  </section>
+  <section class="welcome-section">
+    {powered_by_section}
+  </section>
+  {build_footer}
 </div>
-{WELCOME_STYLE}
-{youtube_section}
-{demo_section}
-{powered_by_section}
-{build_footer}
 """
 
 
