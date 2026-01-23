@@ -23,6 +23,7 @@ import os
 from Testing.makerequest import makerequest
 from pathlib import Path
 import orjson
+import re
 from plone import api
 from plone.namedfile.file import NamedBlobImage
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
@@ -558,7 +559,8 @@ WELCOME_STYLE = """
   .welcome-card { border-radius: 18px; padding: 22px 24px; background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(240,246,255,0.9)); border: 1px solid #e5eef8; box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08); }
   .welcome-card h2, .welcome-card h3 { margin-top: 0; }
   .welcome-card p { margin-bottom: 0; }
-  .welcome-banner { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; border: 1px solid #f59e0b; background: linear-gradient(135deg, #fff7ed 0%, #fffbeb 100%); color: #92400e; font-weight: 700; }
+  .welcome-banner { margin: 0 0 16px; padding: 12px 14px; border-radius: 12px; border: 2px solid #dc2626; background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%); color: #991b1b; font-weight: 700; }
+  .welcome-notices { display: flex; flex-direction: column; gap: 12px; margin: 0 0 22px; }
   .welcome-section { margin: 18px 0 26px; }
   .welcome-section > h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
   .welcome-side { display: flex; flex-direction: column; gap: 16px; }
@@ -893,6 +895,22 @@ def load_welcome_intro(language):
     return load_intro_text(f"welcome{suffix}")
 
 
+DEMO_LOGIN_RE = re.compile(
+    r"(<div[^>]*>\s*<p[^>]*>\s*Demo login.*?</div>)",
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def split_demo_login_block(intro_html):
+    match = DEMO_LOGIN_RE.search(intro_html)
+    if not match:
+        return intro_html, ""
+    block = match.group(1).strip()
+    cleaned = intro_html.replace(match.group(1), "")
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+    return cleaned, block
+
+
 def build_demo_section(language):
     items = WELCOME_DEMOS[language]
     heading = WELCOME_HEADINGS[language]
@@ -923,6 +941,7 @@ def build_demo_section(language):
 def build_welcome_html(language):
     banner = WELCOME_BANNERS[language]
     intro = load_welcome_intro(language)
+    intro, demo_login_block = split_demo_login_block(intro)
     demo_section = build_demo_section(language)
     dir_attr = ' dir="rtl"' if language == "ar" else ""
     youtube = WELCOME_YOUTUBE[language]
@@ -981,10 +1000,10 @@ def build_welcome_html(language):
 """
     return f"""{WELCOME_STYLE}
 <div class="welcome-shell"{dir_attr}>
+  <div class="welcome-banner">{banner}</div>
   <section class="welcome-hero">
     <div class="welcome-card">
       {intro}
-      <div class="welcome-banner">{banner}</div>
     </div>
     <div class="welcome-side">
       {links_section}
@@ -992,6 +1011,9 @@ def build_welcome_html(language):
       {demo_section}
       {powered_by_section}
     </div>
+  </section>
+  <section class="welcome-notices"{dir_attr}>
+    {demo_login_block}
   </section>
   {build_footer}
 </div>
