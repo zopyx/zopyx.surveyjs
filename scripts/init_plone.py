@@ -565,6 +565,8 @@ WELCOME_STYLE = """
   .welcome-link { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 16px; border: 1px solid #e5eef8; background: #ffffff; box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08); }
   .welcome-link h4 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.01em; color: #0f172a; position: relative; }
   .welcome-link h4::after { content: ""; display: block; height: 3px; width: 56px; margin-top: 8px; border-radius: 999px; background: linear-gradient(90deg, #0ea5e9, #6366f1, #f43f5e); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35); }
+  .demo-section h3 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.01em; color: #0f172a; position: relative; }
+  .demo-section h3::after { content: ""; display: block; height: 3px; width: 56px; margin-top: 8px; border-radius: 999px; background: linear-gradient(90deg, #0ea5e9, #6366f1, #f43f5e); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35); }
   .welcome-link p { margin: 0; color: #475569; }
   .welcome-link a { color: #0f4c81; text-decoration: none; font-weight: 700; }
   .welcome-link a:hover,
@@ -581,19 +583,16 @@ WELCOME_STYLE = """
   .youtube-cta .youtube-button:hover,
   .youtube-cta .youtube-button:focus { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(239, 68, 68, 0.45); }
 
-  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 12px 0 0; padding: 0; list-style: none; }
-  .demo-card { border: 1px solid #e5eef8; border-radius: 14px; padding: 16px 18px; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06); transition: transform 0.15s ease, box-shadow 0.15s ease; }
-  .demo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1); }
-  .demo-card h4 { margin: 0 0 6px 0; font-size: 1.05rem; }
-  .demo-card h4 a { color: #0f4c81; }
-  .demo-card h4 a:hover,
-  .demo-card h4 a:focus { color: #0b3356; text-decoration: underline; }
-  .demo-card a { text-decoration: none; font-weight: 600; color: #0f4c81; }
+  .demo-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 16px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .demo-list li { padding: 10px 12px; border-radius: 12px; border: 1px solid #eef2f7; background: #f9fbff; }
+  .demo-link { text-decoration: none; font-weight: 700; color: #0f4c81; display: inline-block; }
+  .demo-link:hover,
+  .demo-link:focus { color: #0b3356; text-decoration: underline; }
 
   .powered-by { margin: 0; padding: 18px 20px; border: 1px solid #e5eef8; border-radius: 16px; background: #ffffff; box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08); }
   .powered-by h3 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.01em; color: #0f172a; }
   .powered-by h3::after { content: ""; display: block; height: 3px; width: 56px; margin-top: 8px; border-radius: 999px; background: linear-gradient(90deg, #0ea5e9, #6366f1, #f43f5e); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35); }
-  .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
+  .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; margin-top: 14px; }
   .powered-by-item { display: flex; align-items: center; gap: 14px; }
   .powered-by img { max-width: 220px; height: auto; }
   .powered-by a { color: #0f4c81; text-decoration: none; }
@@ -908,13 +907,13 @@ def build_demo_section(language):
         return f"{language}/" + href.lstrip("/")
 
     cards = "\n".join(
-        f'    <li class="demo-card"><h4><a href="{_absolute_demo_href(href)}">{title}</a></h4></li>'
+        f'    <li><a class="demo-link" href="{_absolute_demo_href(href)}">{title}</a></li>'
         for title, href in items
     )
     return f"""
-<section{dir_attr}>
+<section class="welcome-link demo-section"{dir_attr}>
   <h3>{heading}</h3>
-  <ul class="demo-grid">
+  <ul class="demo-list">
 {cards}
   </ul>
 </section>
@@ -990,11 +989,9 @@ def build_welcome_html(language):
     <div class="welcome-side">
       {links_section}
       {youtube_section}
+      {demo_section}
       {powered_by_section}
     </div>
-  </section>
-  <section class="welcome-section">
-    {demo_section}
   </section>
   {build_footer}
 </div>
