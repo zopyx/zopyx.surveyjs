@@ -553,6 +553,15 @@ create_demo_survey(
 
 WELCOME_STYLE = """
 <style>
+  .youtube-cta { margin: 22px 0 28px; padding: 22px 24px; border-radius: 16px; background: linear-gradient(135deg, #111827 0%, #1f2937 45%, #111827 100%); color: #f9fafb; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.22); position: relative; overflow: hidden; }
+  .youtube-cta::after { content: ""; position: absolute; top: -40%; right: -10%; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(239, 68, 68, 0.35), rgba(239, 68, 68, 0)); }
+  .youtube-cta-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; position: relative; z-index: 1; }
+  .youtube-cta h3 { margin: 0 0 6px 0; font-size: 1.25rem; color: #f9fafb; }
+  .youtube-cta p { margin: 0; font-size: 1rem; color: #d1d5db; }
+  .youtube-cta a { color: inherit; text-decoration: none; }
+  .youtube-cta .youtube-button { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; background: #ef4444; color: #fff; font-weight: 700; letter-spacing: 0.01em; box-shadow: 0 8px 18px rgba(239, 68, 68, 0.35); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .youtube-cta .youtube-button:hover,
+  .youtube-cta .youtube-button:focus { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(239, 68, 68, 0.45); }
   .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; padding: 0; list-style: none; }
   .demo-card { border: 1px solid #e1e4e8; border-radius: 10px; padding: 14px 16px; background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
   .demo-card h4 { margin: 0 0 6px 0; font-size: 1.05rem; }
@@ -579,6 +588,59 @@ WELCOME_BANNERS = {
     "pt": "Sistema de demonstra\u00e7\u00e3o: este site \u00e9 reiniciado a cada seis horas. O conte\u00fado pode ser apagado sem aviso pr\u00e9vio.",
     "ar": "\u0646\u0638\u0627\u0645 \u062a\u062c\u0631\u064a\u0628\u064a: \u062a\u062a\u0645 \u0625\u0639\u0627\u062f\u0629 \u0636\u0628\u0637 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639 \u0643\u0644 \u0633\u062a \u0633\u0627\u0639\u0627\u062a. \u0642\u062f \u062a\u064f\u062d\u0630\u0641 \u0627\u0644\u0645\u062d\u062a\u0648\u064a\u0627\u062a \u062f\u0648\u0646 \u0625\u0634\u0639\u0627\u0631.",
     "ja": "\u30c7\u30e2\u74b0\u5883: \u3053\u306e\u30b5\u30a4\u30c8\u306f6\u6642\u9593\u3054\u3068\u306b\u30ea\u30bb\u30c3\u30c8\u3055\u308c\u307e\u3059\u3002\u5185\u5bb9\u306f\u4e88\u544a\u306a\u304f\u524a\u9664\u3055\u308c\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002",
+}
+
+YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@privacy-forms-studio"
+
+WELCOME_YOUTUBE = {
+    "en": {
+        "label": "Video Guides",
+        "title": "Watch the PrivacyForms Studio walkthroughs",
+        "copy": "See end-to-end demos, configuration tips, and real-world form builds.",
+        "cta": "Visit the YouTube channel",
+    },
+    "de": {
+        "label": "Video-Anleitungen",
+        "title": "PrivacyForms Studio im Video kennenlernen",
+        "copy": "Demos, Konfigurations-Tipps und echte Formular-Workflows ansehen.",
+        "cta": "Zum YouTube-Kanal",
+    },
+    "fr": {
+        "label": "Guides vidéo",
+        "title": "Découvrez PrivacyForms Studio en vidéo",
+        "copy": "Démos, astuces de configuration et exemples concrets de formulaires.",
+        "cta": "Voir la chaîne YouTube",
+    },
+    "it": {
+        "label": "Guide video",
+        "title": "Guarda i walkthrough di PrivacyForms Studio",
+        "copy": "Demo complete, suggerimenti di configurazione e casi reali.",
+        "cta": "Vai al canale YouTube",
+    },
+    "es": {
+        "label": "Guías en video",
+        "title": "Explora PrivacyForms Studio en video",
+        "copy": "Demos integrales, consejos de configuración y formularios reales.",
+        "cta": "Ir al canal de YouTube",
+    },
+    "pt": {
+        "label": "Guias em vídeo",
+        "title": "Assista aos walkthroughs do PrivacyForms Studio",
+        "copy": "Demonstrações completas, dicas de configuração e formulários reais.",
+        "cta": "Visitar o canal do YouTube",
+    },
+    "ar": {
+        "label": "أدلة فيديو",
+        "title": "شاهد شروحات PrivacyForms Studio",
+        "copy": "عروض توضيحية كاملة ونصائح إعداد وأمثلة واقعية.",
+        "cta": "زيارة قناة يوتيوب",
+    },
+    "ja": {
+        "label": "動画ガイド",
+        "title": "PrivacyForms Studio の解説動画を見る",
+        "copy": "デモ、設定のコツ、実際のフォーム構築事例。",
+        "cta": "YouTube チャンネルへ",
+    },
 }
 
 WELCOME_HEADINGS = {
@@ -764,7 +826,21 @@ def build_welcome_html(language):
     intro = load_welcome_intro(language)
     demo_section = build_demo_section(language)
     dir_attr = ' dir="rtl"' if language == "ar" else ""
+    youtube = WELCOME_YOUTUBE[language]
     powered_by_heading = WELCOME_POWERED_BY_HEADINGS[language]
+    youtube_section = f"""
+<section class="youtube-cta"{dir_attr}>
+  <div class="youtube-cta-inner">
+    <div>
+      <h3>{youtube["title"]}</h3>
+      <p>{youtube["copy"]}</p>
+    </div>
+    <a class="youtube-button" href="{YOUTUBE_CHANNEL_URL}" aria-label="{youtube["cta"]}">
+      {youtube["cta"]}
+    </a>
+  </div>
+</section>
+"""
     powered_by_section = f"""
 <h3>{powered_by_heading}</h3>
 <section class="powered-by"{dir_attr}>
@@ -796,6 +872,7 @@ def build_welcome_html(language):
   {banner}
 </div>
 {WELCOME_STYLE}
+{youtube_section}
 {demo_section}
 {powered_by_section}
 {build_footer}
