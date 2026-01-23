@@ -590,7 +590,9 @@ WELCOME_STYLE = """
   .demo-card h4 a:focus { color: #0b3356; text-decoration: underline; }
   .demo-card a { text-decoration: none; font-weight: 600; color: #0f4c81; }
 
-  .powered-by { margin: 10px 0 0; padding: 18px 20px; border: 1px solid #dbe3ea; border-radius: 16px; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
+  .powered-by { margin: 0; padding: 18px 20px; border: 1px solid #e5eef8; border-radius: 16px; background: #ffffff; box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08); }
+  .powered-by h3 { margin: 0; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.01em; color: #0f172a; }
+  .powered-by h3::after { content: ""; display: block; height: 3px; width: 56px; margin-top: 8px; border-radius: 999px; background: linear-gradient(90deg, #0ea5e9, #6366f1, #f43f5e); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35); }
   .powered-by-items { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
   .powered-by-item { display: flex; align-items: center; gap: 14px; }
   .powered-by img { max-width: 220px; height: auto; }
@@ -953,8 +955,8 @@ def build_welcome_html(language):
 </section>
 """
     powered_by_section = f"""
-<h3>{powered_by_heading}</h3>
 <section class="powered-by"{dir_attr}>
+  <h3>{powered_by_heading}</h3>
   <div class="powered-by-items">
     <div class="powered-by-item">
       <a href="https://surveyjs.io" aria-label="SurveyJS">
@@ -988,13 +990,11 @@ def build_welcome_html(language):
     <div class="welcome-side">
       {links_section}
       {youtube_section}
+      {powered_by_section}
     </div>
   </section>
   <section class="welcome-section">
     {demo_section}
-  </section>
-  <section class="welcome-section">
-    {powered_by_section}
   </section>
   {build_footer}
 </div>
