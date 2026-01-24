@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+<metal:block fill-slot="content-core"
+             tal:define="portal_state context/@@plone_portal_state">
+
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
+    />
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/results2.css"
+    />
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+
+    <metal:survey-actions
+        use-macro="context/@@survey-actions/macros/survey-actions"
+    />
+
+    <metal:survey-status
+        use-macro="context/@@survey-actions/macros/survey-status"
+    />
+
+    <div class="results2-shell">
+        <div class="results2-hero">
+            <div>
+                <h2 class="page-headline" i18n:translate="">Stored form data</h2>
+                <p class="storage-info">
+                    <strong i18n:translate="">Storage:</strong>
+                    <span tal:content="view/storage_info">Storage</span>
+                </p>
+            </div>
+            <div class="results2-hero-meta">
+                <span class="results2-pill" i18n:translate="">Results</span>
+                <span class="results2-count" id="results2-total-count">0</span>
+            </div>
+        </div>
+
+        <tal:block tal:condition="python: not view.storing_enabled">
+            <div class="storage-warning">
+                <strong i18n:translate="">Storage disabled.</strong>
+                <span i18n:translate="">Results are not being saved because the "Store" action is turned off.</span>
+                <span i18n:translate="">Enable it in the survey settings to collect and view responses here.</span>
+            </div>
+        </tal:block>
+
+        <tal:block tal:condition="view/storing_enabled">
+            <div class="results2-toolbar">
+                <div class="results2-toolbar-left">
+                    <label class="results2-search">
+                        <span class="sr-only" i18n:translate="">Search</span>
+                        <input id="results2-search-input" type="text" placeholder="Search by user, UUID, or date" i18n:attributes="placeholder" />
+                    </label>
+                    <button id="results2-search-btn" class="btn btn-secondary" i18n:translate="">Search</button>
+                    <button id="results2-reset-btn" class="btn btn-secondary" i18n:translate="">Reset</button>
+                </div>
+                <div class="results2-toolbar-right">
+                    <button id="results2-refresh-btn" class="btn btn-secondary" i18n:translate="">Refresh</button>
+                    <button id="results2-delete-selected-btn"
+                            class="btn btn-danger"
+                            tal:condition="view/is_manager"
+                            disabled
+                            i18n:translate="">Delete selected</button>
+                    <button id="results2-clear-results-btn" class="btn btn-danger" i18n:translate="">Clear all results</button>
+                </div>
+            </div>
+
+            <div tal:condition="view/is_manager" style="display:none;"
+                 tal:content="structure context/@@authenticator/authenticator"></div>
+
+            <div class="results2-grid-wrap">
+                <div id="results2-grid"></div>
+            </div>
+
+            <div class="results2-footer">
+                <a href="download-polls-json" class="btn btn-primary" i18n:translate="">Download results (JSON)</a>
+                <a href="download-polls-csv" class="btn btn-primary" i18n:translate="">Download results (CSV)</a>
+                <a href="download-form-json" class="btn btn-primary download-definition" i18n:translate="">Download form definition (JSON)</a>
+            </div>
+
+            <div id="json-modal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <pre id="json-content"></pre>
+                </div>
+            </div>
+
+            <div id="details-modal" class="modal" style="display:none;">
+                <div class="modal-content modal-content-large">
+                    <span class="close-button details-close-button">&times;</span>
+                    <h2 i18n:translate="">Survey Response Details</h2>
+                    <div id="details-content"></div>
+                </div>
+            </div>
+
+            <div id="clear-confirm-modal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-button clear-close-button">&times;</span>
+                    <h2 i18n:translate="">Clear All Results</h2>
+                    <div class="warning-message">
+                        <p><strong i18n:translate="">Warning:</strong> <span i18n:translate="">This action will permanently delete all survey results. This cannot be undone.</span></p>
+                        <p i18n:translate="">To confirm, please type <strong>clear</strong> in the field below:</p>
+                    </div>
+                    <input type="text"
+                           id="clear-confirm-input"
+                           data-clear-keyword="clear"
+                           placeholder="Type 'clear' to confirm"
+                           i18n:attributes="placeholder data-clear-keyword" />
+                    <div class="modal-actions">
+                        <button id="clear-confirm-btn" class="btn btn-danger" disabled i18n:translate="">Clear All Results</button>
+                        <button id="clear-cancel-btn" class="btn btn-secondary" i18n:translate="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </tal:block>
+    </div>
+
+    <script type="text/javascript"
+            tal:define="formats view/converter_formats;
+                        is_manager view/is_manager;
+                        has_mail view/has_mail_action;
+                        has_post view/has_post_action;
+                        auth_token context/@@authenticator/token;
+                        formats_json python: __import__('json').dumps(formats)">
+        window.RESULTS2_CONFIG = {
+            resultsUrl: "${context/absolute_url}/@@results2-data",
+            detailUrlBase: "${context/absolute_url}/@@result-detail?poll_id=",
+            viewJsonUrlBase: "view-result-json?poll_id=",
+            downloadUrl: "download-result",
+            authenticator: "${python: is_manager and auth_token or ''}",
+            isManager: ${python: is_manager and 'true' or 'false'},
+            hasMailAction: ${python: has_mail and 'true' or 'false'},
+            hasPostAction: ${python: has_post and 'true' or 'false'},
+            converterFormats: ${structure: formats_json}
+        };
+    </script>
+    <script src="++resource++zopyx.surveyjs/vendor/tabulator.min.js"
+            type="text/javascript"></script>
+    <script src="++resource++zopyx.surveyjs/results2.js"
+            type="text/javascript"></script>
+
+</metal:block>
+</html>
