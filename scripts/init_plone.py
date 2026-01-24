@@ -144,9 +144,7 @@ def _env_bool(value, default=False):
 def configure_authenticity_token_secret():
     """Ensure a default authenticity token secret exists in the registry."""
     secret_key = "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_secret"
-    enabled_key = (
-        "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_enabled"
-    )
+    enabled_key = "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_enabled"
     try:
         current = api.portal.get_registry_record(secret_key)
         if current:
@@ -155,9 +153,7 @@ def configure_authenticity_token_secret():
         api.portal.set_registry_record(enabled_key, True)
         print("Configured authenticity token secret in registry")
     except InvalidParameterError:
-        print(
-            "Authenticity token registry records not found; skipping configuration"
-        )
+        print("Authenticity token registry records not found; skipping configuration")
 
 
 def configure_mail_from_env():
