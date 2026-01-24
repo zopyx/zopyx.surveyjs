@@ -50,6 +50,13 @@ survey_embedding_vocabulary = SimpleVocabulary(
     ]
 )
 
+survey_access_vocabulary = SimpleVocabulary(
+    [
+        SimpleTerm(value="public", title=_("Public")),
+        SimpleTerm(value="trusted", title=_("Trusted access token")),
+    ]
+)
+
 
 class Counter(Persistent):
     def __init__(self, count=0):
@@ -112,6 +119,8 @@ class ISurvey(model.Schema):
             "validation_enabled",
             "force_server_side_validation",
             "max_payload_size_mb",
+            "access_mode",
+            "trusted_access_ttl_hours",
         ),
     )
     fieldset(
@@ -164,6 +173,25 @@ class ISurvey(model.Schema):
         description=_("Maximum allowed payload size for submissions in megabytes."),
         required=False,
         default=1,
+        min=1,
+    )
+
+    access_mode = schema.Choice(
+        title=_("Access mode"),
+        description=_(
+            "Choose whether this form is publicly accessible or requires a trusted "
+            "access token in the URL."
+        ),
+        vocabulary=survey_access_vocabulary,
+        required=True,
+        default="public",
+    )
+
+    trusted_access_ttl_hours = schema.Int(
+        title=_("Trusted access token TTL (hours)"),
+        description=_("Lifetime of trusted access tokens in hours."),
+        required=False,
+        default=168,
         min=1,
     )
 

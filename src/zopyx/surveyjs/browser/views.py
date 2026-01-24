@@ -1,5 +1,5 @@
 from BTrees.OOBTree import OOBTree
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from string import Formatter
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -10,6 +10,7 @@ import csv
 import io
 import hashlib
 import logging
+import secrets
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from sqlalchemy.engine import make_url
@@ -42,6 +43,7 @@ from plone.namedfile.file import NamedBlobFile
 
 logger = logging.getLogger(__name__)
 TOKEN_CACHE_TTL_SECONDS = 24 * 60 * 60
+TRUSTED_ACCESS_TOKEN_BYTES = 16
 
 CONVERTER_FORMATS = [
     ("text", "Text (.txt)", "txt", "text/plain"),
@@ -293,6 +295,8 @@ class Views(BrowserView):
     def get_form_json(self):
         """JSON for SurveyJS renderer"""
 
+        if not self._require_trusted_access():
+            return
         annos = IAnnotations(self.context)
         if FORM_VERSIONS_KEY not in annos:
             return {}
@@ -649,6 +653,8 @@ class Views(BrowserView):
         if not form_version_id:
             annos = IAnnotations(self.context)
             form_version_id = self._latest_form_version_id(annos)
+        if not self._require_trusted_access():
+            return
         if not self._require_auth_token(form_version_id):
             return
 
@@ -832,6 +838,9 @@ class Views(BrowserView):
             self.request.response.write(
                 orjson.dumps({"isSuccess": False, "error": "missing_form_schema"})
             )
+            return
+
+        if not self._require_trusted_access():
             return
 
         if not self._require_auth_token(form_version_id or ""):
@@ -1100,6 +1109,113 @@ class Views(BrowserView):
         registry = getUtility(IRegistry)
         return registry.forInterface(IFormsSettings, check=False)
 
+    def _trusted_access_enabled(self):
+        mode = getattr(self.context, "access_mode", "") or "public"
+        return str(mode).strip().lower() == "trusted"
+
+    def _trusted_access_cache_key(self, token: str) -> str:
+        return f"trusted:{token}"
+
+    def _trusted_access_ttl_seconds(self) -> int:
+        hours = getattr(self.context, "trusted_access_ttl_hours", 168)
+        try:
+            hours_int = int(hours)
+        except (TypeError, ValueError):
+            hours_int = 168
+        return max(hours_int, 1) * 60 * 60
+
+    def _issue_trusted_access_token(self, settings, form_version_id: str):
+        cache = self._token_cache(settings)
+        if not cache:
+            return None, None
+        token = secrets.token_urlsafe(TRUSTED_ACCESS_TOKEN_BYTES)
+        ttl_seconds = self._trusted_access_ttl_seconds()
+        expires_at = datetime.now(timezone.utc) + timedelta(seconds=ttl_seconds)
+        metadata = {
+            "form_id": self._form_id(),
+            "form_version": form_version_id,
+            "issued_at": datetime.now(timezone.utc).isoformat(),
+            "expires_at": expires_at.isoformat(),
+            "state": "ISSUED",
+        }
+        try:
+            cache.set(
+                self._trusted_access_cache_key(token),
+                metadata,
+                expire=ttl_seconds,
+            )
+            logger.info("Survey trusted access token issued: token=%s", token)
+        finally:
+            cache.close()
+        return token, metadata
+
+    def _require_trusted_access(self) -> bool:
+        if not self._trusted_access_enabled():
+            return True
+        token = (
+            self.request.form.get("access_token")
+            or self.request.get("access_token")
+            or ""
+        )
+        token = str(token).strip()
+        if not token:
+            logger.info("Survey trusted access denied: reason=missing_token")
+            self.request.response.setStatus(403)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {"isSuccess": False, "error": "trusted_access_token_missing"}
+                )
+            )
+            return False
+        settings = self._auth_settings()
+        cache = self._token_cache(settings)
+        if not cache:
+            logger.info("Survey trusted access denied: reason=cache_unavailable")
+            self.request.response.setStatus(503)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {"isSuccess": False, "error": "trusted_access_cache_unavailable"}
+                )
+            )
+            return False
+        try:
+            metadata = cache.get(self._trusted_access_cache_key(token))
+        finally:
+            cache.close()
+        if not isinstance(metadata, dict):
+            logger.info("Survey trusted access denied: reason=invalid_token")
+            self.request.response.setStatus(403)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {"isSuccess": False, "error": "trusted_access_token_invalid"}
+                )
+            )
+            return False
+        if metadata.get("state") == "REVOKED":
+            logger.info("Survey trusted access denied: reason=revoked_token")
+            self.request.response.setStatus(403)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {"isSuccess": False, "error": "trusted_access_token_revoked"}
+                )
+            )
+            return False
+        if metadata.get("form_id") != self._form_id():
+            logger.info("Survey trusted access denied: reason=form_mismatch")
+            self.request.response.setStatus(403)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {"isSuccess": False, "error": "trusted_access_form_mismatch"}
+                )
+            )
+            return False
+        return True
+
     def _auth_token_enabled(self, settings):
         return bool(getattr(settings, "authenticity_token_enabled", False))
 
@@ -1138,9 +1254,7 @@ class Views(BrowserView):
     def _cache_set(self, cache, token, value):
         try:
             cache.set(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
-            logger.info(
-                "Survey auth token cached: token=%s value=%s", token, value
-            )
+            logger.info("Survey auth token cached: token=%s value=%s", token, value)
         except Exception:
             logger.info("Survey auth token cache set failed: token=%s", token)
 
@@ -1148,9 +1262,7 @@ class Views(BrowserView):
         try:
             added = cache.add(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
             if added:
-                logger.info(
-                    "Survey auth token cached: token=%s value=%s", token, value
-                )
+                logger.info("Survey auth token cached: token=%s value=%s", token, value)
             return added
         except Exception:
             logger.info("Survey auth token cache add failed: token=%s", token)
@@ -1206,6 +1318,35 @@ class Views(BrowserView):
             annos = IAnnotations(self.context)
             form_version_id = self._latest_form_version_id(annos)
         return self._build_auth_token(form_version_id)
+
+    def trusted_access_token(self):
+        annos = IAnnotations(self.context)
+        form_version_id = self._latest_form_version_id(annos)
+        settings = self._auth_settings()
+        token, metadata = self._issue_trusted_access_token(
+            settings, form_version_id or ""
+        )
+        if not token or not metadata:
+            self.request.response.setStatus(503)
+            self.request.response.setHeader("content-type", "application/json")
+            self.request.response.write(
+                orjson.dumps(
+                    {
+                        "isSuccess": False,
+                        "error": "trusted_access_cache_unavailable",
+                    }
+                )
+            )
+            return
+        url = f"{self.context.absolute_url()}/@@viewer?access_token={token}"
+        payload = {
+            "isSuccess": True,
+            "token": token,
+            "url": url,
+            "expires_at": metadata.get("expires_at"),
+        }
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(payload))
 
     def _require_auth_token(self, form_version_id):
         settings = self._auth_settings()
@@ -1948,6 +2089,7 @@ class Views(BrowserView):
 
     def results2_data(self):
         q = (self.request.form.get("q") or "").strip().lower()
+
         def _safe_int(value, default):
             try:
                 return int(value)
@@ -1969,6 +2111,7 @@ class Views(BrowserView):
         rows = [self._results2_row(entry) for entry in self.results]
 
         if q:
+
             def _matches(row):
                 return (
                     q in str(row.get("user") or "").lower()

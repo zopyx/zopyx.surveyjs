@@ -111,6 +111,13 @@
     attribute="get_form_json"
 
   />
+  <browser:page
+    name="trusted-access-token"
+    permission="cmf.ManagePortal"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="trusted_access_token"
+  />
   <browser:page 
     name="save-form-json"
     permission="zope2.View"

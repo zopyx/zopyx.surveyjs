@@ -106,6 +106,14 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             settings.authenticity_token_cache_path = cache_path
         return settings
 
+    def _enable_trusted_access(self, cache_path: str | None = None) -> IFormsSettings:
+        self.survey.access_mode = "trusted"
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        if cache_path:
+            settings.authenticity_token_cache_path = cache_path
+        return settings
+
     def test_ensure_timezone_aware_normalizes(self) -> None:
         aware = ensure_timezone_aware(datetime(2024, 1, 1, tzinfo=timezone.utc))
         self.assertIsNotNone(aware.tzinfo)
@@ -246,6 +254,29 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             body = orjson.loads(req.response.getBody())
             self.assertTrue(body["isSuccess"])
         finally:
+            settings.authenticity_token_enabled = False
+
+    def test_get_form_json_requires_trusted_access_token(self) -> None:
+        self._add_version()
+        self.survey.access_mode = "trusted"
+        req = self._make_request()
+        Views(self.survey, req).get_form_json()
+        self.assertEqual(req.response.getStatus(), 403)
+        body = orjson.loads(req.response.getBody())
+        self.assertEqual(body["error"], "trusted_access_token_missing")
+
+    def test_get_form_json_accepts_trusted_access_token(self) -> None:
+        version_id = self._add_version()
+        with TemporaryDirectory() as tmpdir:
+            cache_path = os.path.join(tmpdir, "token_cache.db")
+            settings = self._enable_trusted_access(cache_path=cache_path)
+            view = Views(self.survey, self._make_request())
+            token, _metadata = view._issue_trusted_access_token(settings, version_id)
+            req = self._make_request(form={"access_token": token})
+            Views(self.survey, req).get_form_json()
+            self.assertEqual(req.response.getStatus(), 200)
+            body = orjson.loads(req.response.getBody())
+            self.assertIn("pages", body)
             settings.authenticity_token_enabled = False
 
     def test_save_poll_rejects_invalid_auth_token_when_enabled(self) -> None:

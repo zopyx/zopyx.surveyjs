@@ -3,13 +3,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   const normalizedLocale = String(rawLocale).replace("_", "-");
   const surveyLocale = normalizedLocale.split("-")[0] || "en";
-  const url = ACTUAL_URL + "/get-form-json";
+  const accessToken = new URLSearchParams(window.location.search).get("access_token");
+  const url = accessToken
+    ? ACTUAL_URL + "/get-form-json?access_token=" + encodeURIComponent(accessToken)
+    : ACTUAL_URL + "/get-form-json";
 
   // Load the survey JSON configuration
   fetch(url, {
     credentials: 'same-origin'
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load form");
+      }
+      return response.json();
+    })
     .then((result) => {
       // Create the survey from the loaded JSON
         console.log(result)
@@ -29,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("_authenticator", CSRF_TOKEN);
         if (typeof AUTH_TOKEN !== "undefined" && AUTH_TOKEN) {
           formData.append("auth_token", AUTH_TOKEN);
+        }
+        if (accessToken) {
+          formData.append("access_token", accessToken);
         }
 
         fetch(ACTUAL_URL + "/save-poll", {

@@ -671,6 +671,24 @@ msgstr "Word (.docx)"
 msgid "XML (.xml)"
 msgstr "XML (.xml)"
 
+msgid "Access mode"
+msgstr "Zugriffsmodus"
+
+msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
+msgstr "Wählen Sie, ob dieses Formular öffentlich zugänglich ist oder einen Trusted-Access-Token in der URL erfordert."
+
+msgid "Public"
+msgstr "Öffentlich"
+
+msgid "Trusted access token"
+msgstr "Trusted-Access-Token"
+
+msgid "Trusted access token TTL (hours)"
+msgstr "Trusted-Access-Token-Gültigkeit (Stunden)"
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr "Gültigkeitsdauer der Trusted-Access-Token in Stunden."
+
 #: generated
 msgid "You're saving ${version}. The latest version is not selected. Continue?"
 msgstr "Sie speichern ${version}. Die neüste Version ist nicht ausgewählt. Fortfahren?"
