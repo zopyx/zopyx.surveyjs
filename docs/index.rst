@@ -25,5 +25,6 @@ and developers operating a SurveyJS-enabled Plone site.
    embedding
    ai
    security
+   security2
    development
    changelog
