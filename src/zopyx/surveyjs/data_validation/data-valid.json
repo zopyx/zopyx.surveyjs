@@ -1,0 +1,12 @@
+{
+  "fullName": "Avery Morgan",
+  "email": "avery.morgan@example.com",
+  "age": 29,
+  "street": "455 Market St",
+  "city": "San Francisco",
+  "zip": "94105",
+  "employmentStatus": "self-employed",
+  "companyName": "Morgan Studio",
+  "skills": ["javascript", "typescript", "sql"],
+  "goals": "Validate survey data before saving it to an API."
+}
