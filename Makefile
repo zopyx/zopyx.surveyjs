@@ -42,6 +42,5 @@ test:
 	PYTHONWARNINGS=ignore bin/zopepy -m coverage run -m pytest \
 		src/zopyx/surveyjs/converters/tests/test_converters.py \
 		src/zopyx/surveyjs/schema/tests/test_converter.py \
-		src/zopyx/surveyjs/schema/tests/test_converters_formats.py \
-		src/zopyx/surveyjs/tests/test_validation.py
-	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py,src/zopyx/surveyjs/validation.py'
+		src/zopyx/surveyjs/schema/tests/test_converters_formats.py
+	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py'

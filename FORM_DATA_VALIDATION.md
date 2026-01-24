@@ -134,11 +134,9 @@ All limits should be configurable per form and globally.
 
 ## Implementation Hooks (Plone Add-on)
 - Validate in `save_poll` **before** calling `notify`.
-- Validation library in `zopyx.surveyjs.validation`:
-  - `build_schema_index(form_json)`
-  - `validate_submission(schema_index, payload)`
-  - `validate_attachments(payload)`
-- Optional: reuse SurveyJS schema definitions if available.
+- Validation runner in `zopyx.surveyjs.data_validation.validate_data`:
+  - `validate_data(schema_json, form_json, result_json)`
+- The result JSON includes `valid` and `errors` from SurveyJS validation.
 
 ---
 
@@ -153,4 +151,3 @@ All limits should be configurable per form and globally.
 - Should strict validation be **default on** for public forms?
 - Do we allow raw HTML answers at all?
 - Should binary submission be supported in this add-on or offloaded?
-

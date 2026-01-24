@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
-from types import SimpleNamespace
 from unittest.mock import patch
 
 import orjson
@@ -27,17 +26,14 @@ class ViewsHelperTests(unittest.TestCase):
         self.assertNotIn("secret", masked)
 
     def test_run_external_validation_success(self) -> None:
-        def fake_run(cmd, capture_output, text):
-            result_path = Path(cmd[-1])
+        def fake_run(*, schema_json, form_json, result_json):
+            result_path = Path(result_json)
             result_path.write_bytes(orjson.dumps({"valid": True}))
-            return SimpleNamespace(returncode=0, stdout="ok", stderr="")
+            return 0
 
-        with (
-            patch(
-                "zopyx.surveyjs.browser.views._resolve_validation_binary",
-                return_value=Path("/tmp/fake"),
-            ),
-            patch("zopyx.surveyjs.browser.views.subprocess.run", side_effect=fake_run),
+        with patch(
+            "zopyx.surveyjs.browser.views.run_data_validation",
+            side_effect=fake_run,
         ):
             result = _run_external_validation({"a": 1}, {"b": 2}, "hash-1")
 
@@ -45,17 +41,14 @@ class ViewsHelperTests(unittest.TestCase):
         self.assertEqual(result["reason"], "external_validation_ok")
 
     def test_run_external_validation_rejects_invalid_payload(self) -> None:
-        def fake_run(cmd, capture_output, text):
-            result_path = Path(cmd[-1])
+        def fake_run(*, schema_json, form_json, result_json):
+            result_path = Path(result_json)
             result_path.write_bytes(orjson.dumps({"valid": False, "errors": ["bad"]}))
-            return SimpleNamespace(returncode=0, stdout="nope", stderr="")
+            return 0
 
-        with (
-            patch(
-                "zopyx.surveyjs.browser.views._resolve_validation_binary",
-                return_value=Path("/tmp/fake"),
-            ),
-            patch("zopyx.surveyjs.browser.views.subprocess.run", side_effect=fake_run),
+        with patch(
+            "zopyx.surveyjs.browser.views.run_data_validation",
+            side_effect=fake_run,
         ):
             result = _run_external_validation({"a": 1}, {"b": 2}, "hash-2")
 
@@ -64,15 +57,12 @@ class ViewsHelperTests(unittest.TestCase):
         self.assertEqual(result["status"], 400)
 
     def test_run_external_validation_errors_when_binary_fails(self) -> None:
-        def fake_run(_cmd, capture_output, text):
-            return SimpleNamespace(returncode=1, stdout="", stderr="boom")
+        def fake_run(*, schema_json, form_json, result_json):
+            return 1
 
-        with (
-            patch(
-                "zopyx.surveyjs.browser.views._resolve_validation_binary",
-                return_value=Path("/tmp/fake"),
-            ),
-            patch("zopyx.surveyjs.browser.views.subprocess.run", side_effect=fake_run),
+        with patch(
+            "zopyx.surveyjs.browser.views.run_data_validation",
+            side_effect=fake_run,
         ):
             result = _run_external_validation({"a": 1}, {"b": 2}, "hash-3")
 

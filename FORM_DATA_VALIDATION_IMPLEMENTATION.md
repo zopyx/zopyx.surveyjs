@@ -14,38 +14,22 @@ Implement **strict server-side validation** for SurveyJS submissions in this add
 ## Architecture
 
 ### 1) Validation Module
-Create a new module, e.g.:
-- `src/zopyx/surveyjs/validation.py`
+Use the SurveyJS external validator via:
+- `src/zopyx/surveyjs/data_validation/validate_data.py`
 
-Exported functions:
-- `build_schema_index(form_json) -> SchemaIndex`
-- `validate_submission(schema_index, payload) -> ValidationResult`
-- `validate_attachments(payload, limits) -> ValidationResult`
+API:
+- `validate_data(schema_json, form_json, result_json) -> int`
 
-`ValidationResult`:
-- `ok: bool`
-- `status: int`
-- `reason: str`
-- `field: str | None`
-- `details: dict`
+The output JSON includes:
+- `valid: bool`
+- `errors: list`
 
-### 2) Schema Index
-Precompute a flat map of questions by `name`:
-- type (text, checkbox, file, matrix, panel, etc.)
-- choices / allowed values
-- required flag
-- min/max / length constraints
-- max selections
-- file constraints
-
-Handle nested structures (panel, matrix) by flattening into field paths or by recursive validators.
-
-### 3) Validation Flow in `save_poll`
+### 2) Validation Flow in `save_poll`
 1. Parse JSON payload.
 2. Fetch latest form JSON.
-3. Build schema index.
-4. Validate submission.
-5. If invalid: return `400` / `413` with reason code.
+3. Write schema + payload to temporary JSON files.
+4. Run `validate_data(...)` and parse result JSON.
+5. If invalid: return `400` with details.
 6. If valid: proceed with normal flow.
 
 ---
@@ -84,16 +68,15 @@ HTTP responses:
 
 ## Suggested Implementation Steps
 
-1) **Add validation module**
-- Implement strict validators for: text, comment, number, rating, boolean, date, choice, checkbox, matrix, panel, file.
-- Add helper: `normalize_value` for date/number conversions.
+1) **Use SurveyJS validator**
+- Run `validate_data(...)` with schema + payload files.
+- Parse result JSON and surface error details.
 
 2) **Integrate into save_poll**
 - Validate payload before `notify`.
 - Return JSON error response with reason code + field name.
 
 3) **Add per-form settings** (optional)
-- `validation_enabled` (default true for public forms).
 - Override limits for large enterprise forms.
 
 4) **Add tests**
@@ -120,4 +103,3 @@ HTTP responses:
 - Do we accept submissions with missing optional fields? (likely yes)
 - Should HTML content be entirely disallowed in text fields? (default: yes)
 - Are file uploads expected in public forms? If not, disable by default.
-

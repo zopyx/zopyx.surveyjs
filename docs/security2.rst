@@ -82,11 +82,7 @@ Submission validation and limits
   - Maximum request payload size (bytes derived from MB).
   - Enforced before JSON parsing.
 
-- ``validation_enabled`` (Bool, default: ``False``)
-  - Server-side SurveyJS schema validation.
-  - If enabled, invalid submissions are rejected.
-
-- ``force_server_side_validation`` (Bool, default: ``False``)
+- ``force_server_side_validation`` (Bool, default: ``True``)
   - Executes external validator for every submission.
   - If validator fails, submission is rejected.
 
@@ -181,15 +177,8 @@ Replay protection
 - Requests exceeding ``max_payload_size_mb`` are rejected with HTTP 413.
 - Protects against oversized payloads and memory pressure.
 
-5. Schema validation (optional)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- If ``validation_enabled`` is true, submissions are validated against the
-  stored SurveyJS schema.
-- Invalid submissions return HTTP 400 with error info.
-
-6. External validation (optional)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5. Server-side validation
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - If ``force_server_side_validation`` is enabled, an external validator
   is executed on every submission.

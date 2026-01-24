@@ -116,7 +116,6 @@ class ISurvey(model.Schema):
         "form_settings",
         label=_("Form Settings"),
         fields=(
-            "validation_enabled",
             "force_server_side_validation",
             "max_payload_size_mb",
             "access_mode",
@@ -149,23 +148,13 @@ class ISurvey(model.Schema):
         default={"store"},
     )
 
-    validation_enabled = schema.Bool(
-        title=_("Enable validation (experimental)"),
-        description=_(
-            "Validate submissions against the form schema before saving. "
-            "Experimental: may reject valid submissions on complex forms."
-        ),
-        required=False,
-        default=False,
-    )
-
     force_server_side_validation = schema.Bool(
         title=_("Force Server Side Validation"),
         description=_(
             "Run the external SurveyJS validator binary for every save/submit."
         ),
         required=False,
-        default=False,
+        default=True,
     )
 
     max_payload_size_mb = schema.Int(

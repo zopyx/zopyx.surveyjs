@@ -16,7 +16,10 @@ import platform
 import subprocess
 import sys
 
-from deno_build import deno_build_targets
+try:
+    from .deno_build import deno_build_targets
+except ImportError:  # pragma: no cover - fallback for standalone usage
+    from deno_build import deno_build_targets
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_SCHEMA_JSON = "./survey.json"
