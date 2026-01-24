@@ -28,7 +28,7 @@ jobs:
       - name: Decrypt environment file
         shell: bash
         run: |
-          uv run scripts/filecrypt.py --decrypt .env.encrypted "${{ secrets.ENV_PASSWORD }}"
+          uv run scripts/filecrypt.py --decrypt .env "${{ secrets.ENV_PASSWORD }}"
           ls -la .env
 
       - name: Add SurveyJS license key to checkout
