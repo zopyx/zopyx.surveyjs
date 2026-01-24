@@ -27,6 +27,7 @@ from zopyx.surveyjs.utils import ensure_timezone_aware
 from zopyx.surveyjs.testing import ZOPYX_SURVEYJS_INTEGRATION_TESTING
 from zopyx.surveyjs.interfaces import IFormsSettings
 from zopyx.surveyjs.storage import get_result_storage
+import diskcache
 
 import unittest
 
@@ -46,6 +47,9 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             title="Survey View",
         )
         self.survey.actions = {"store", "mail"}
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        settings.authenticity_token_enabled = False
         annos = IAnnotations(self.survey)
         annos[FORM_VERSIONS_KEY] = OOBTree()
         annos[RESULTS_KEY] = OOBTree()
@@ -90,7 +94,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         annos[RESULTS_KEY][poll_id] = entry
         return entry
 
-    def _enable_auth_tokens(self) -> IFormsSettings:
+    def _enable_auth_tokens(self, cache_path: str | None = None) -> IFormsSettings:
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
         settings.authenticity_token_enabled = True
@@ -98,6 +102,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         settings.authenticity_token_issuer = "test-issuer"
         settings.authenticity_token_audience = "test-audience"
         settings.authenticity_token_ttl_seconds = 600
+        if cache_path:
+            settings.authenticity_token_cache_path = cache_path
         return settings
 
     def test_ensure_timezone_aware_normalizes(self) -> None:
@@ -267,6 +273,86 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             self.assertEqual(body["error"], "auth_token_claims_mismatch")
         finally:
             settings.authenticity_token_enabled = False
+
+    def test_auth_token_cache_records_issued(self) -> None:
+        self._add_version()
+        with TemporaryDirectory() as tmpdir:
+            cache_path = os.path.join(tmpdir, "token_cache.db")
+            settings = self._enable_auth_tokens(cache_path=cache_path)
+            view = Views(self.survey, self._make_request())
+            token = view.auth_token()
+            cache = diskcache.Cache(cache_path)
+            try:
+                self.assertEqual(cache.get(f"issued:{token}"), "ISSUED")
+            finally:
+                cache.close()
+            settings.authenticity_token_enabled = False
+
+    def test_save_poll_rejects_replayed_token(self) -> None:
+        version_id = self._add_version()
+        with TemporaryDirectory() as tmpdir:
+            cache_path = os.path.join(tmpdir, "token_cache.db")
+            settings = self._enable_auth_tokens(cache_path=cache_path)
+            view = Views(self.survey, self._make_request())
+            token = build_auth_token(
+                form_id=view._form_id(),
+                form_version=version_id,
+                issuer=settings.authenticity_token_issuer,
+                audience=settings.authenticity_token_audience,
+                ttl_seconds=settings.authenticity_token_ttl_seconds,
+                secret=settings.authenticity_token_secret,
+            )
+            req = self._make_request(
+                form={
+                    "pollResult": orjson.dumps({"q1": "ok"}),
+                    "auth_token": token,
+                }
+            )
+            try:
+                Views(self.survey, req).save_poll()
+                self.assertEqual(req.response.getStatus(), 200)
+                req2 = self._make_request(
+                    form={
+                        "pollResult": orjson.dumps({"q1": "ok"}),
+                        "auth_token": token,
+                    }
+                )
+                Views(self.survey, req2).save_poll()
+                self.assertEqual(req2.response.getStatus(), 403)
+                body = orjson.loads(req2.response.getBody())
+                self.assertEqual(body["error"], "auth_token_replay")
+            finally:
+                settings.authenticity_token_enabled = False
+
+    def test_save_poll_caches_received_token(self) -> None:
+        version_id = self._add_version()
+        with TemporaryDirectory() as tmpdir:
+            cache_path = os.path.join(tmpdir, "token_cache.db")
+            settings = self._enable_auth_tokens(cache_path=cache_path)
+            view = Views(self.survey, self._make_request())
+            token = build_auth_token(
+                form_id=view._form_id(),
+                form_version=version_id,
+                issuer=settings.authenticity_token_issuer,
+                audience=settings.authenticity_token_audience,
+                ttl_seconds=settings.authenticity_token_ttl_seconds,
+                secret=settings.authenticity_token_secret,
+            )
+            req = self._make_request(
+                form={
+                    "pollResult": orjson.dumps({"q1": "ok"}),
+                    "auth_token": token,
+                }
+            )
+            try:
+                Views(self.survey, req).save_poll()
+                cache = diskcache.Cache(cache_path)
+                try:
+                    self.assertEqual(cache.get(f"received:{token}"), "RECEIVED")
+                finally:
+                    cache.close()
+            finally:
+                settings.authenticity_token_enabled = False
 
     def test_parse_json_loose_fallback(self) -> None:
         req = self._make_request()

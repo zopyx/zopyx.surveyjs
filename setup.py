@@ -64,6 +64,7 @@ setup(
         "openpyxl",
         "llm-ollama",
         "sqlmodel",
+        "diskcache",
     ],
     extras_require={
         "test": [
@@ -76,6 +77,7 @@ setup(
             "plone.app.robotframework[debug]",
             "collective.z3cform.jsonwidget",
             "orjson",
+            "diskcache",
         ],
     },
     entry_points="""

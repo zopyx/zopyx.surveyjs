@@ -19,6 +19,7 @@ from zope.event import notify
 import plone.api
 import httpx
 from plone.registry.interfaces import IRegistry
+import diskcache
 
 from .. import _
 from ..interfaces import IFormsSettings
@@ -40,6 +41,7 @@ from plone.namedfile.file import NamedBlobFile
 
 
 logger = logging.getLogger(__name__)
+TOKEN_CACHE_TTL_SECONDS = 24 * 60 * 60
 
 CONVERTER_FORMATS = [
     ("text", "Text (.txt)", "txt", "text/plain"),
@@ -1119,6 +1121,47 @@ class Views(BrowserView):
         except (TypeError, ValueError):
             return 600
 
+    def _auth_token_cache_path(self, settings):
+        path = getattr(settings, "authenticity_token_cache_path", "") or ""
+        return str(path).strip() or "var/token_cache.db"
+
+    def _token_cache(self, settings):
+        path = self._auth_token_cache_path(settings)
+        try:
+            cache = diskcache.Cache(path)
+            logger.info("Survey auth token cache opened: path=%s", path)
+            return cache
+        except Exception:
+            logger.info("Survey auth token cache unavailable: path=%s", path)
+            return None
+
+    def _cache_set(self, cache, token, value):
+        try:
+            cache.set(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
+            logger.info(
+                "Survey auth token cached: token=%s value=%s", token, value
+            )
+        except Exception:
+            logger.info("Survey auth token cache set failed: token=%s", token)
+
+    def _cache_add(self, cache, token, value):
+        try:
+            added = cache.add(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
+            if added:
+                logger.info(
+                    "Survey auth token cached: token=%s value=%s", token, value
+                )
+            return added
+        except Exception:
+            logger.info("Survey auth token cache add failed: token=%s", token)
+            return False
+
+    def _issued_cache_key(self, token):
+        return f"issued:{token}"
+
+    def _received_cache_key(self, token):
+        return f"received:{token}"
+
     def _write_json_error(self, status, payload):
         self.request.response.setStatus(status)
         self.request.response.setHeader("content-type", "application/json")
@@ -1143,6 +1186,12 @@ class Views(BrowserView):
             secret=secret,
         )
         logger.info("Survey auth token generated: token=%s", token)
+        cache = self._token_cache(settings)
+        if cache is not None:
+            try:
+                self._cache_set(cache, self._issued_cache_key(token), "ISSUED")
+            finally:
+                cache.close()
         return token
 
     def auth_token(self):
@@ -1193,6 +1242,19 @@ class Views(BrowserView):
                 exc.status, {"isSuccess": False, "error": exc.reason}
             )
             return False
+        cache = self._token_cache(settings)
+        if cache is not None:
+            try:
+                received_key = self._received_cache_key(token)
+                added = self._cache_add(cache, received_key, "RECEIVED")
+                if not added:
+                    logger.info("Survey auth token replay detected: token=%s", token)
+                    self._write_json_error(
+                        403, {"isSuccess": False, "error": "auth_token_replay"}
+                    )
+                    return False
+            finally:
+                cache.close()
         return True
 
     def _serialize_result_entry(self, result_entry):

@@ -54,10 +54,8 @@
                 <p><strong i18n:translate="">Created:</strong> <span tal:content="detail/created">Date</span></p>
                 <p><strong i18n:translate="">User:</strong> <span tal:content="detail/creator">User</span></p>
 
-                <div class="results-toolbar">
-                    <a class="btn btn-secondary"
-                       href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
-                </div>
+                <div class="survey-detail-output"
+                     tal:content="structure detail/html"></div>
 
                 <ul id="downloadActions">
                     <li tal:repeat="fmt detail/formats">
@@ -65,10 +63,11 @@
                            tal:attributes="href python: context.absolute_url() + '/download-result?poll_id=' + detail['poll_id'] + '&format=' + fmt['key']"
                            tal:content="fmt/label">Format</a>
                     </li>
+                    <li>
+                        <a class="btn btn-secondary"
+                           href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
+                    </li>
                 </ul>
-
-                <div class="survey-detail-output"
-                     tal:content="structure detail/html"></div>
             </div>
         </tal:block>
     </tal:block>
