@@ -58,10 +58,10 @@ Storage requirements:
 - TTL: token lifetime + small grace
 - Operations: atomic "check and set" to prevent race conditions
 
-Backend options:
-- Preferred: Redis or Memcached (atomic operations, TTL built-in)
-- Fallback: Plone annotations with periodic cleanup (less ideal for high volume)
-- Fallback: in-process cache for single-node deployments only
+Backend choice: Diskcache
+- Use the `diskcache` module as the primary nonce store.
+- Rationale: persistent local storage, TTL support, fast read/write, and atomic operations.
+- Deployment considerations: keep the cache directory on a local disk with sufficient space and I/O.
 
 ### 3) Key Management
 
@@ -109,11 +109,13 @@ High-level flow:
    - authenticity_token_audience (string)
    - authenticity_token_key_id (string)
    - authenticity_token_key (secret)
-   - replay_store_backend (enum: redis, memcache, zodb, memory)
+   - replay_store_backend (enum: diskcache)
+   - replay_store_path (string; filesystem path for diskcache directory)
+   - replay_store_size_limit_mb (int; optional limit for diskcache size)
 
 2. Decide storage backend for nonce registry.
-   - Prefer Redis or Memcached if already present.
-   - If not available, plan a ZODB annotations fallback with cleanup.
+   - Use diskcache as the default and supported backend.
+   - Ensure the cache directory is writable and monitored.
 
 3. Specify how to identify the form:
    - Use a stable survey id and form_version id already used in submissions.
@@ -144,9 +146,9 @@ Deliverables:
    - Verify form_id and form_version match current form.
    - Verify session/user binding if included.
 
-2. Enforce replay protection:
-   - Check-and-set jti in nonce registry.
-   - Reject if jti already consumed or if registry unavailable (policy decision).
+2. Enforce replay protection with diskcache:
+   - Perform an atomic check-and-set for jti in diskcache.
+   - Reject if jti already consumed or if diskcache is unavailable (policy decision).
 
 3. Ensure CSRF checks remain intact and run before token checks.
 
@@ -206,7 +208,7 @@ Deliverables:
 - Invalid signature: reject and log.
 - Expired token: reject, ask client to reload.
 - Replay detected: reject and log.
-- Nonce store unavailable:
+- Diskcache unavailable or read-only:
   - Strict mode: reject (highest security)
   - Lenient mode: allow but log (availability-first)
 
@@ -232,7 +234,6 @@ Deliverables:
 
 ## Open Questions
 
-- Which backend will store jti values (Redis/Memcached/ZODB)?
+- Which diskcache directory and size limit should be used in production?
 - Should anonymous forms require token binding to session id or just form id?
-- Should strict mode be enabled when nonce store is unavailable?
-
+- Should strict mode be enabled when diskcache is unavailable?
