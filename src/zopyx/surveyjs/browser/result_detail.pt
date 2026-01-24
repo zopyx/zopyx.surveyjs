@@ -39,7 +39,7 @@
             </div>
             <p>
                 <a class="btn btn-secondary"
-                   href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
+                   href="${context/absolute_url}/@@results2" i18n:translate="">Back to results</a>
             </p>
         </tal:block>
 
@@ -65,7 +65,7 @@
                     </li>
                     <li>
                         <a class="btn btn-secondary"
-                           href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
+                           href="${context/absolute_url}/@@results2" i18n:translate="">Back to results</a>
                     </li>
                 </ul>
             </div>

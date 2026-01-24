@@ -21,6 +21,13 @@
     template="results.pt"
   />
   <browser:page
+    name="results2"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    permission="cmf.ModifyPortalContent"
+    template="results2.pt"
+  />
+  <browser:page
     name="dashboard"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
@@ -125,12 +132,19 @@
     class=".views.Views"
     attribute="get_polls_json"
   />
-  <browser:page
+  <browser:page 
     name="get-polls-json2"
     permission="zope2.View"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="get_polls_json2"
+  />
+  <browser:page
+    name="results2-data"
+    permission="cmf.ModifyPortalContent"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="results2_data"
   />
 
   <!-- Download endpoints with Content-Disposition attachment -->

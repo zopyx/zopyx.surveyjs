@@ -1878,6 +1878,133 @@ class Views(BrowserView):
             q=q,
         )
 
+    def _parse_tabulator_param(self, name):
+        raw = self.request.form.get(name)
+        if raw is None or raw == "":
+            return []
+        if isinstance(raw, (list, tuple)):
+            raw = raw[0] if raw else ""
+        if not raw:
+            return []
+        try:
+            return orjson.loads(raw)
+        except orjson.JSONDecodeError:
+            return []
+
+    def _results2_row(self, entry):
+        result_payload = entry.get("result") or {}
+        created = entry.get("created")
+        created_ts = None
+        if created:
+            created_ts = ensure_timezone_aware(created).timestamp()
+        return dict(
+            poll_id=entry.get("poll_id"),
+            user=entry.get("user") or "",
+            seq_no=entry.get("seq_no") or "",
+            uuid=(result_payload.get("uuid") or ""),
+            created_ts=created_ts or 0,
+            created_display=self.format_created(created),
+        )
+
+    def _results2_apply_filters(self, rows, filters):
+        if not filters:
+            return rows
+
+        def _match(row, flt):
+            field = flt.get("field")
+            value = flt.get("value")
+            if field is None:
+                return True
+            row_value = row.get(field, "")
+            ftype = (flt.get("type") or "like").lower()
+            if ftype in ("=", "eq"):
+                return str(row_value) == str(value)
+            if ftype in ("!=", "ne"):
+                return str(row_value) != str(value)
+            if ftype in ("like", "contains"):
+                haystack = row_value
+                if field == "created_ts":
+                    haystack = row.get("created_display", "")
+                return str(value).lower() in str(haystack).lower()
+            if ftype in (">", ">=", "<", "<="):
+                try:
+                    row_num = float(row_value)
+                    val_num = float(value)
+                except (TypeError, ValueError):
+                    return False
+                if ftype == ">":
+                    return row_num > val_num
+                if ftype == ">=":
+                    return row_num >= val_num
+                if ftype == "<":
+                    return row_num < val_num
+                if ftype == "<=":
+                    return row_num <= val_num
+            if ftype == "in" and isinstance(value, (list, tuple)):
+                return row_value in value
+            return True
+
+        return [row for row in rows if all(_match(row, flt) for flt in filters)]
+
+    def results2_data(self):
+        q = (self.request.form.get("q") or "").strip().lower()
+        def _safe_int(value, default):
+            try:
+                return int(value)
+            except (TypeError, ValueError):
+                return default
+
+        page = _safe_int(self.request.form.get("page"), 1)
+        size = _safe_int(self.request.form.get("size"), 25)
+        page = max(page, 1)
+        size = max(size, 1)
+
+        sorters = self._parse_tabulator_param("sorters")
+        filters = self._parse_tabulator_param("filters")
+        if isinstance(sorters, dict):
+            sorters = [sorters]
+        if isinstance(filters, dict):
+            filters = [filters]
+
+        rows = [self._results2_row(entry) for entry in self.results]
+
+        if q:
+            def _matches(row):
+                return (
+                    q in str(row.get("user") or "").lower()
+                    or q in str(row.get("poll_id") or "").lower()
+                    or q in str(row.get("uuid") or "").lower()
+                    or q in str(row.get("created_display") or "").lower()
+                    or q in str(row.get("seq_no") or "").lower()
+                )
+
+            rows = [row for row in rows if _matches(row)]
+
+        rows = self._results2_apply_filters(rows, filters)
+
+        if sorters:
+            for sorter in reversed(sorters):
+                field = sorter.get("field")
+                direction = (sorter.get("dir") or "asc").lower()
+                reverse = direction == "desc"
+                rows.sort(key=lambda r: r.get(field), reverse=reverse)
+
+        total_rows = len(rows)
+        last_page = total_rows // size + (1 if total_rows % size else 0)
+        last_page = max(last_page, 1)
+
+        start = (page - 1) * size
+        data = rows[start : start + size]
+
+        payload = dict(
+            data=data,
+            page=page,
+            last_page=last_page,
+            total_rows=total_rows,
+        )
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(payload))
+
     def view_result_json(self):
         """Return JSON for a specific poll result for viewing"""
         poll_id = self.request.form.get("poll_id")
