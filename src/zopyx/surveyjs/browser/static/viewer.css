@@ -1,6 +1,21 @@
 #surveyContainer {
 }
 
+.survey-access-error {
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    border-radius: 12px;
+    color: #7c2d12;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0 0 1.5rem;
+    padding: 0.85rem 1rem;
+}
+
+.survey-access-error[hidden] {
+    display: none;
+}
+
 .survey-actions {
     align-items: flex-end;
     display: flex;
@@ -152,6 +167,78 @@
     font-weight: 600;
 }
 
+.survey-trusted-access {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    color: #0f172a;
+    margin: 0 0 1.5rem;
+    padding: 1rem 1.25rem;
+}
+
+.survey-trusted-access-details {
+    border-radius: 12px;
+}
+
+.survey-trusted-access-summary {
+    align-items: baseline;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+.survey-trusted-access-hint {
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+.survey-trusted-access-body {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.survey-trusted-access-row {
+    align-items: center;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: minmax(120px, 140px) minmax(0, 1fr) auto;
+}
+
+.survey-trusted-access-row:last-child {
+    grid-template-columns: minmax(120px, 140px) minmax(0, 1fr);
+}
+
+.survey-trusted-access-label {
+    color: #475569;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.survey-trusted-access-value {
+    word-break: break-all;
+}
+
+.survey-trusted-access-copy {
+    background: #1d4ed8;
+    border: 0;
+    border-radius: 999px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+}
+
+.survey-trusted-access-message {
+    color: #16a34a;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
 @media (max-width: 640px) {
     .survey-actions {
         gap: 0.5rem;
@@ -160,5 +247,13 @@
     .survey-action-button {
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
+    }
+
+    .survey-trusted-access-row {
+        grid-template-columns: 1fr;
+    }
+
+    .survey-trusted-access-row:last-child {
+        grid-template-columns: 1fr;
     }
 }

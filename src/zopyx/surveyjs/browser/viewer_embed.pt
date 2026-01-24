@@ -19,6 +19,9 @@
   <metal:surveyjs-var-auth-token
       use-macro="context/@@survey-assets/macros/surveyjs-var-auth-token"
   />
+  <script type="text/javascript"
+          tal:content="python: 'SURVEY_TRUSTED_ACCESS_ENABLED=%s;' % ('true' if view.trusted_access_enabled else 'false')">
+  </script>
   <metal:surveyjs-vars-base
       use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
   />
@@ -56,6 +59,7 @@
   </style>
 </head>
 <body>
+  <div id="surveyAccessError" class="survey-access-error" hidden="hidden"></div>
   <div id="surveyContainer"></div>
 </body>
 </html>

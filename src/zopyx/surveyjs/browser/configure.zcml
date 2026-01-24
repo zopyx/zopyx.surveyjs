@@ -113,7 +113,7 @@
   />
   <browser:page
     name="trusted-access-token"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="trusted_access_token"

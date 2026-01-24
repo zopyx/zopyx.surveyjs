@@ -2223,6 +2223,10 @@ class Views(BrowserView):
             "Modify portal content", obj=self.context
         )
 
+    @property
+    def trusted_access_enabled(self):
+        return self._trusted_access_enabled()
+
     def _require_manager(self):
         """Ensure the current user is a manager before performing a destructive action."""
         if self.is_manager:

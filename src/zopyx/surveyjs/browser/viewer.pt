@@ -17,6 +17,9 @@
     <metal:surveyjs-var-auth-token
         use-macro="context/@@survey-assets/macros/surveyjs-var-auth-token"
     />
+    <script type="text/javascript"
+            tal:content="python: 'SURVEY_TRUSTED_ACCESS_ENABLED=%s;' % ('true' if view.trusted_access_enabled else 'false')">
+    </script>
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
     />
@@ -52,6 +55,49 @@
         use-macro="context/@@survey-actions/macros/survey-status"
     />
 
+    <tal:trusted tal:condition="python: view.can_manage_portal_content and view.trusted_access_enabled">
+      <div class="survey-trusted-access"
+           id="surveyTrustedAccess"
+           data-token-endpoint="${context/absolute_url}/@@trusted-access-token">
+        <details class="survey-trusted-access-details">
+          <summary class="survey-trusted-access-summary">
+            <strong i18n:translate="">Trusted access link</strong>
+            <span class="survey-trusted-access-hint" i18n:translate="">
+              Share this link to open the form.
+            </span>
+          </summary>
+          <div class="survey-trusted-access-body">
+            <div class="survey-trusted-access-row">
+              <span class="survey-trusted-access-label" i18n:translate="">URL</span>
+              <a class="survey-trusted-access-value"
+                 id="surveyTrustedAccessUrl"
+                 href="#"
+                 rel="noopener"
+                 target="_blank">-</a>
+              <button class="survey-trusted-access-copy"
+                      id="surveyTrustedAccessCopy"
+                      type="button"
+                      i18n:translate="">Copy link</button>
+              <span class="survey-trusted-access-message"
+                    id="surveyTrustedAccessMessage"
+                    aria-live="polite"></span>
+            </div>
+            <div class="survey-trusted-access-row">
+              <span class="survey-trusted-access-label" i18n:translate="">Token</span>
+              <span class="survey-trusted-access-value"
+                    id="surveyTrustedAccessToken">-</span>
+            </div>
+            <div class="survey-trusted-access-row">
+              <span class="survey-trusted-access-label" i18n:translate="">Expires</span>
+              <span class="survey-trusted-access-value"
+                    id="surveyTrustedAccessExpires">-</span>
+            </div>
+          </div>
+        </details>
+      </div>
+    </tal:trusted>
+
+    <div id="surveyAccessError" class="survey-access-error" hidden="hidden"></div>
     <div id="surveyContainer"></div>
 
   </metal:block>
