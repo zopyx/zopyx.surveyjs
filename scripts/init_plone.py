@@ -141,6 +141,25 @@ def _env_bool(value, default=False):
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def configure_authenticity_token_secret():
+    """Ensure a default authenticity token secret exists in the registry."""
+    secret_key = "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_secret"
+    enabled_key = (
+        "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_enabled"
+    )
+    try:
+        current = api.portal.get_registry_record(secret_key)
+        if current:
+            return
+        api.portal.set_registry_record(secret_key, str(uuid.uuid4()))
+        api.portal.set_registry_record(enabled_key, True)
+        print("Configured authenticity token secret in registry")
+    except InvalidParameterError:
+        print(
+            "Authenticity token registry records not found; skipping configuration"
+        )
+
+
 def configure_mail_from_env():
     """Configure Plone mail settings from environment variables if present."""
 
@@ -429,6 +448,7 @@ view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
 configure_surveyjs_license_from_file()
+configure_authenticity_token_secret()
 configure_mail_from_env()
 configure_site_languages()
 enable_language_selector()

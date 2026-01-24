@@ -12,6 +12,18 @@
     ></script>
   </metal:surveyjs-var-csrf>
 
+  <metal:surveyjs-var-auth-token define-macro="surveyjs-var-auth-token">
+    <script type="text/javascript"
+            tal:content="string: AUTH_TOKEN='${context/@@survey-assets/auth_token}'"
+    ></script>
+  </metal:surveyjs-var-auth-token>
+
+  <metal:surveyjs-var-auth-token-pdf define-macro="surveyjs-var-auth-token-pdf">
+    <script type="text/javascript"
+            tal:content="string: AUTH_TOKEN_PDF='${context/@@survey-assets/auth_token_pdf}'"
+    ></script>
+  </metal:surveyjs-var-auth-token-pdf>
+
   <metal:surveyjs-vars-base define-macro="surveyjs-vars-base">
     <script type="text/javascript"
             tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"

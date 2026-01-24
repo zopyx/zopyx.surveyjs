@@ -34,6 +34,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append("pollResult", JSON.stringify(sender.data));
         formData.append("_authenticator", CSRF_TOKEN);
+        const authToken =
+          (typeof AUTH_TOKEN_PDF !== "undefined" && AUTH_TOKEN_PDF) ||
+          (typeof AUTH_TOKEN !== "undefined" && AUTH_TOKEN) ||
+          "";
+        if (authToken) {
+          formData.append("auth_token", authToken);
+        }
 
         fetch(ACTUAL_URL + "/@@fill-pdf-form", {
           method: "POST",

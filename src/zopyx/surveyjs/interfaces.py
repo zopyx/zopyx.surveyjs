@@ -77,6 +77,18 @@ class IFormsSettings(IPloneLoggingSettings):
         ),
     )
 
+    fieldset(
+        "security",
+        label="Security",
+        fields=(
+            "authenticity_token_enabled",
+            "authenticity_token_secret",
+            "authenticity_token_ttl_seconds",
+            "authenticity_token_issuer",
+            "authenticity_token_audience",
+        ),
+    )
+
     surveyjs_license_key = schema.TextLine(
         title="SurveyJS License Key",
         description="License key for SurveyJS components (optional).",
@@ -147,4 +159,40 @@ class IFormsSettings(IPloneLoggingSettings):
         ),
         required=False,
         default="sqlite:///var/surveyjs-results.db",
+    )
+
+    authenticity_token_enabled = schema.Bool(
+        title="Enable authenticity token",
+        description="When enabled, require a short-lived authenticity token for form submissions.",
+        required=False,
+        default=True,
+    )
+
+    authenticity_token_secret = schema.Password(
+        title="Authenticity token secret",
+        description="HMAC secret used to sign authenticity tokens (keep private).",
+        required=False,
+        default="",
+    )
+
+    authenticity_token_ttl_seconds = schema.Int(
+        title="Authenticity token TTL (seconds)",
+        description="Token lifetime in seconds.",
+        required=False,
+        default=600,
+        min=60,
+    )
+
+    authenticity_token_issuer = schema.TextLine(
+        title="Authenticity token issuer",
+        description="Issuer claim for authenticity tokens.",
+        required=False,
+        default="zopyx.surveyjs",
+    )
+
+    authenticity_token_audience = schema.TextLine(
+        title="Authenticity token audience",
+        description="Audience claim for authenticity tokens.",
+        required=False,
+        default="zopyx.surveyjs",
     )

@@ -27,6 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append("pollResult", JSON.stringify(sender.data));
         formData.append("_authenticator", CSRF_TOKEN);
+        if (typeof AUTH_TOKEN !== "undefined" && AUTH_TOKEN) {
+          formData.append("auth_token", AUTH_TOKEN);
+        }
 
         fetch(ACTUAL_URL + "/save-poll", {
           method: "POST",

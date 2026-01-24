@@ -226,6 +226,59 @@ Deliverables:
 - Stage 2: enforce validation and replay checks for a subset of forms.
 - Stage 3: enforce globally with strict mode and rate limits.
 
+## Milestone Plan
+
+Milestones are ordered to deliver core security first (token generation, validation, and tests), then expand to replay protection and operational readiness.
+
+### Milestone 1: Token Basics (JWT Generation + Validation + Tests)
+
+- Define token claims and signing scheme (HMAC-SHA256).
+- Add token issuance flow (render-time or dedicated endpoint).
+- Add verification logic in submission views (signature, exp/nbf/iat, form bindings).
+- Implement unit and integration tests for generation and validation paths.
+- Document configuration settings for issuer, audience, and TTL.
+
+Expanded tasks:
+- Decide where tokens are issued:
+  - Option A: embed in server-rendered form page.
+  - Option B: expose a dedicated token endpoint used by JS before submit.
+- Define claim set precisely:
+  - Required: iss, aud, iat, nbf, exp, jti, form_id, form_version.
+  - Optional: user_id, session_id (when available).
+- Specify validation rules:
+  - Enforce exp/nbf/iat with 60–120s skew.
+  - Match aud to the specific submission endpoint.
+  - Match form_id/form_version to current context.
+  - If user/session bound, require an exact match.
+- Decide token transport:
+  - Hidden form field or JS memory (never in localStorage).
+  - Ensure it is included with submission payload.
+- Tests to include:
+  - Valid token accepted.
+  - Expired token rejected.
+  - Token with wrong aud rejected.
+  - Token with wrong form_version rejected.
+  - Token missing required claims rejected.
+
+### Milestone 2: Replay Protection via Diskcache
+
+- Configure diskcache backend and storage path.
+- Implement atomic check-and-set for jti with TTL.
+- Add replay tests (double-submit should be rejected).
+- Add error handling policy for diskcache unavailability.
+
+### Milestone 3: Operational Hardening
+
+- Add structured security logs for token failures and replay hits.
+- Add key rotation support (kid, key ring, grace period).
+- Add monitoring/metrics (accept/reject rates, replay counts).
+
+### Milestone 4: Optional Abuse Controls
+
+- Rate limiting (per form, per session, per IP).
+- Honeypot for anonymous forms.
+- CAPTCHA for selected forms (high-risk only).
+
 ## Backward Compatibility
 
 - Keep CSRF unchanged.

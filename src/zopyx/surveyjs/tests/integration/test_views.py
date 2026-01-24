@@ -22,6 +22,7 @@ from zope.security.interfaces import Unauthorized
 from zopyx.surveyjs.browser import views
 from zopyx.surveyjs.browser.views import EmbedViewer, Views
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
+from zopyx.surveyjs.security import build_auth_token
 from zopyx.surveyjs.utils import ensure_timezone_aware
 from zopyx.surveyjs.testing import ZOPYX_SURVEYJS_INTEGRATION_TESTING
 from zopyx.surveyjs.interfaces import IFormsSettings
@@ -88,6 +89,16 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         }
         annos[RESULTS_KEY][poll_id] = entry
         return entry
+
+    def _enable_auth_tokens(self) -> IFormsSettings:
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        settings.authenticity_token_enabled = True
+        settings.authenticity_token_secret = "test-secret"
+        settings.authenticity_token_issuer = "test-issuer"
+        settings.authenticity_token_audience = "test-audience"
+        settings.authenticity_token_ttl_seconds = 600
+        return settings
 
     def test_ensure_timezone_aware_normalizes(self) -> None:
         aware = ensure_timezone_aware(datetime(2024, 1, 1, tzinfo=timezone.utc))
@@ -191,6 +202,71 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(req.response.getStatus(), 413)
         body = orjson.loads(req.response.getBody())
         self.assertEqual(body["error"], "request_too_large")
+
+    def test_save_poll_rejects_missing_auth_token_when_enabled(self) -> None:
+        settings = self._enable_auth_tokens()
+        self._add_version()
+        req = self._make_request(form={"pollResult": orjson.dumps({"q1": "ok"})})
+        view = Views(self.survey, req)
+        try:
+            view.save_poll()
+            self.assertEqual(req.response.getStatus(), 400)
+            body = orjson.loads(req.response.getBody())
+            self.assertEqual(body["error"], "missing_auth_token")
+        finally:
+            settings.authenticity_token_enabled = False
+
+    def test_save_poll_accepts_auth_token_when_enabled(self) -> None:
+        settings = self._enable_auth_tokens()
+        version_id = self._add_version()
+        view = Views(self.survey, self._make_request())
+        token = build_auth_token(
+            form_id=view._form_id(),
+            form_version=version_id,
+            issuer=settings.authenticity_token_issuer,
+            audience=settings.authenticity_token_audience,
+            ttl_seconds=settings.authenticity_token_ttl_seconds,
+            secret=settings.authenticity_token_secret,
+        )
+        req = self._make_request(
+            form={
+                "pollResult": orjson.dumps({"q1": "ok"}),
+                "auth_token": token,
+            }
+        )
+        try:
+            Views(self.survey, req).save_poll()
+            self.assertEqual(req.response.getStatus(), 200)
+            body = orjson.loads(req.response.getBody())
+            self.assertTrue(body["isSuccess"])
+        finally:
+            settings.authenticity_token_enabled = False
+
+    def test_save_poll_rejects_invalid_auth_token_when_enabled(self) -> None:
+        settings = self._enable_auth_tokens()
+        version_id = self._add_version()
+        view = Views(self.survey, self._make_request())
+        token = build_auth_token(
+            form_id=view._form_id(),
+            form_version=version_id,
+            issuer=settings.authenticity_token_issuer,
+            audience="other-audience",
+            ttl_seconds=settings.authenticity_token_ttl_seconds,
+            secret=settings.authenticity_token_secret,
+        )
+        req = self._make_request(
+            form={
+                "pollResult": orjson.dumps({"q1": "ok"}),
+                "auth_token": token,
+            }
+        )
+        try:
+            Views(self.survey, req).save_poll()
+            self.assertEqual(req.response.getStatus(), 403)
+            body = orjson.loads(req.response.getBody())
+            self.assertEqual(body["error"], "auth_token_claims_mismatch")
+        finally:
+            settings.authenticity_token_enabled = False
 
     def test_parse_json_loose_fallback(self) -> None:
         req = self._make_request()

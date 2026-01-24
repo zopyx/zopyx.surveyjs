@@ -14,6 +14,9 @@
     <metal:surveyjs-var-csrf
         use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
     />
+    <metal:surveyjs-var-auth-token-pdf
+        use-macro="context/@@survey-assets/macros/surveyjs-var-auth-token-pdf"
+    />
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
     />

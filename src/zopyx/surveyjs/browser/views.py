@@ -14,13 +14,17 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
+from zope.component import getUtility
 from zope.event import notify
 import plone.api
 import httpx
+from plone.registry.interfaces import IRegistry
 
 from .. import _
+from ..interfaces import IFormsSettings
 from ..events import SurveyJSFormSubmitted
 from ..constants import FORM_VERSIONS_KEY, PDF_FORM_KEY
+from ..security import AuthTokenError, build_auth_token, validate_auth_token
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..validation import validate_submission
@@ -639,6 +643,13 @@ class Views(BrowserView):
             )
             return
 
+        form_version_id = state.get("version_id") or ""
+        if not form_version_id:
+            annos = IAnnotations(self.context)
+            form_version_id = self._latest_form_version_id(annos)
+        if not self._require_auth_token(form_version_id):
+            return
+
         submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
         if getattr(self.context, "validation_enabled", False):
             validation = validate_submission(form_json, poll_result)
@@ -819,6 +830,9 @@ class Views(BrowserView):
             self.request.response.write(
                 orjson.dumps({"isSuccess": False, "error": "missing_form_schema"})
             )
+            return
+
+        if not self._require_auth_token(form_version_id or ""):
             return
 
         submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
@@ -1060,6 +1074,126 @@ class Views(BrowserView):
             form_versions, key=lambda x: ensure_timezone_aware(x["created"])
         )
         return form_versions[-1]["form_json"] if form_versions else {}
+
+    def _latest_form_version_id(self, annos):
+        form_versions = [d for d in annos.get(FORM_VERSIONS_KEY, {}).values()]
+        form_versions = sorted(
+            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
+        )
+        return form_versions[-1]["id"] if form_versions else ""
+
+    def _form_id(self):
+        try:
+            uid = self.context.UID()
+        except Exception:
+            uid = None
+        if uid:
+            return uid
+        get_id = getattr(self.context, "getId", None)
+        if callable(get_id):
+            return get_id()
+        return str(getattr(self.context, "id", ""))
+
+    def _auth_settings(self):
+        registry = getUtility(IRegistry)
+        return registry.forInterface(IFormsSettings, check=False)
+
+    def _auth_token_enabled(self, settings):
+        return bool(getattr(settings, "authenticity_token_enabled", False))
+
+    def _auth_token_secret(self, settings):
+        secret = getattr(settings, "authenticity_token_secret", "") or ""
+        return str(secret).strip()
+
+    def _auth_token_issuer(self, settings):
+        issuer = getattr(settings, "authenticity_token_issuer", "") or ""
+        return str(issuer).strip()
+
+    def _auth_token_audience(self, settings):
+        audience = getattr(settings, "authenticity_token_audience", "") or ""
+        return str(audience).strip()
+
+    def _auth_token_ttl(self, settings):
+        try:
+            return int(getattr(settings, "authenticity_token_ttl_seconds", 600))
+        except (TypeError, ValueError):
+            return 600
+
+    def _write_json_error(self, status, payload):
+        self.request.response.setStatus(status)
+        self.request.response.setHeader("content-type", "application/json")
+        self.request.response.write(orjson.dumps(payload))
+
+    def _build_auth_token(self, form_version_id):
+        settings = self._auth_settings()
+        if not self._auth_token_enabled(settings):
+            return ""
+        secret = self._auth_token_secret(settings)
+        if not secret:
+            return ""
+        issuer = self._auth_token_issuer(settings)
+        audience = self._auth_token_audience(settings)
+        ttl_seconds = self._auth_token_ttl(settings)
+        token = build_auth_token(
+            form_id=self._form_id(),
+            form_version=form_version_id or "",
+            issuer=issuer,
+            audience=audience,
+            ttl_seconds=ttl_seconds,
+            secret=secret,
+        )
+        logger.info("Survey auth token generated: token=%s", token)
+        return token
+
+    def auth_token(self):
+        annos = IAnnotations(self.context)
+        form_version_id = self._latest_form_version_id(annos)
+        return self._build_auth_token(form_version_id)
+
+    def auth_token_pdf(self):
+        state = self._get_pdf_form_state()
+        form_version_id = state.get("version_id") or ""
+        if not form_version_id:
+            annos = IAnnotations(self.context)
+            form_version_id = self._latest_form_version_id(annos)
+        return self._build_auth_token(form_version_id)
+
+    def _require_auth_token(self, form_version_id):
+        settings = self._auth_settings()
+        if not self._auth_token_enabled(settings):
+            return True
+        secret = self._auth_token_secret(settings)
+        if not secret:
+            self._write_json_error(
+                500,
+                {"isSuccess": False, "error": "auth_token_config_missing"},
+            )
+            return False
+        token = self.request.form.get("auth_token") or ""
+        logger.info("Survey auth token received: token=%s", token)
+        issuer = self._auth_token_issuer(settings)
+        audience = self._auth_token_audience(settings)
+        try:
+            payload = validate_auth_token(
+                token=token,
+                form_id=self._form_id(),
+                form_version=form_version_id or "",
+                issuer=issuer,
+                audience=audience,
+                secret=secret,
+            )
+            logger.info("Survey auth token validated: payload=%s", payload)
+        except AuthTokenError as exc:
+            logger.info(
+                "Survey auth token validation failed: reason=%s status=%s",
+                exc.reason,
+                exc.status,
+            )
+            self._write_json_error(
+                exc.status, {"isSuccess": False, "error": exc.reason}
+            )
+            return False
+        return True
 
     def _serialize_result_entry(self, result_entry):
         serialized = dict(result_entry)
