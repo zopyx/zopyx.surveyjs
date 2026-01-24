@@ -40,6 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const detailsCloseButton = document.querySelector(".details-close-button");
     const detailsContent = document.getElementById("details-content");
 
+    const deleteConfirmModal = document.getElementById("delete-confirm-modal");
+    const deleteCloseButton = document.querySelector(".delete-close-button");
+    const deleteConfirmBtn = document.getElementById("delete-confirm-btn");
+    const deleteCancelBtn = document.getElementById("delete-cancel-btn");
+
+    const deleteSelectedConfirmModal = document.getElementById("delete-selected-confirm-modal");
+    const deleteSelectedCloseButton = document.querySelector(".delete-selected-close-button");
+    const deleteSelectedConfirmBtn = document.getElementById("delete-selected-confirm-btn");
+    const deleteSelectedCancelBtn = document.getElementById("delete-selected-cancel-btn");
+    const deleteSelectedMessage = document.getElementById("delete-selected-message");
+
     const totalCountEl = document.getElementById("results2-total-count");
     const deleteSelectedBtn = document.getElementById("results2-delete-selected-btn");
 
@@ -306,6 +317,36 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    let pendingDeletePollId = null;
+    let pendingDeleteSelectedIds = [];
+
+    function openDeleteModal(pollId) {
+        if (!deleteConfirmModal) {
+            return;
+        }
+        pendingDeletePollId = pollId;
+        deleteConfirmModal.style.display = "block";
+        if (deleteConfirmBtn) {
+            deleteConfirmBtn.disabled = false;
+        }
+    }
+
+    function openDeleteSelectedModal(selectedIds) {
+        if (!deleteSelectedConfirmModal) {
+            return;
+        }
+        pendingDeleteSelectedIds = selectedIds.slice();
+        if (deleteSelectedMessage) {
+            deleteSelectedMessage.textContent = t("Delete ${count} selected result(s)?", {
+                count: pendingDeleteSelectedIds.length
+            });
+        }
+        deleteSelectedConfirmModal.style.display = "block";
+        if (deleteSelectedConfirmBtn) {
+            deleteSelectedConfirmBtn.disabled = pendingDeleteSelectedIds.length === 0;
+        }
+    }
+
     function createSvgIcon(pathMarkup) {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("viewBox", "0 0 24 24");
@@ -470,18 +511,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 type: "button",
                 imgSrc: "++resource++zopyx.surveyjs/icon-trash.svg",
                 onClick: function () {
-                    const table = cell.getTable();
-                    if (!confirm(t("Delete this result?"))) {
-                        return;
-                    }
-                    deletePolls([data.poll_id])
-                        .then(() => {
-                            table.setData(config.resultsUrl, { q: currentQuery });
-                        })
-                        .catch(error => {
-                            console.error(t("Error deleting result:"), error);
-                            alert(t("Failed to delete the result. Please check the console for details."));
-                        });
+                    openDeleteModal(data.poll_id);
                 }
             });
             rightGroup.appendChild(deleteBtn);
@@ -575,7 +605,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 field: "created_ts",
                 sorter: "number",
                 headerFilter: "input",
-                widthGrow: 1,
+                width: 170,
+                minWidth: 150,
                 formatter: function (cell) {
                     const data = cell.getRow().getData();
                     return data.created_display || "";
@@ -585,7 +616,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: t("User"),
                 field: "user",
                 headerFilter: "input",
-                widthGrow: 1
+                width: 160,
+                minWidth: 140
             },
             {
                 title: t("#"),
@@ -642,17 +674,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!selected.length) {
                 return;
             }
-            if (!confirm(t("Delete ${count} selected result(s)?", { count: selected.length }))) {
-                return;
-            }
-            deletePolls(selected.map(row => row.poll_id))
-                .then(() => {
-                    table.setData(config.resultsUrl, { q: currentQuery });
-                })
-                .catch(error => {
-                    console.error(t("Error deleting selected results:"), error);
-                    alert(t("Failed to delete selected results. Please check the console for details."));
-                });
+            openDeleteSelectedModal(selected.map(row => row.poll_id));
         });
     }
 
@@ -709,12 +731,108 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    if (deleteCloseButton) {
+        deleteCloseButton.addEventListener("click", function () {
+            if (deleteConfirmModal) {
+                deleteConfirmModal.style.display = "none";
+            }
+            pendingDeletePollId = null;
+        });
+    }
+
+    if (deleteCancelBtn) {
+        deleteCancelBtn.addEventListener("click", function () {
+            if (deleteConfirmModal) {
+                deleteConfirmModal.style.display = "none";
+            }
+            pendingDeletePollId = null;
+        });
+    }
+
+    if (deleteConfirmBtn) {
+        deleteConfirmBtn.addEventListener("click", function () {
+            if (!pendingDeletePollId) {
+                return;
+            }
+            deleteConfirmBtn.disabled = true;
+            deletePolls([pendingDeletePollId])
+                .then(() => {
+                    if (deleteConfirmModal) {
+                        deleteConfirmModal.style.display = "none";
+                    }
+                    pendingDeletePollId = null;
+                    if (table) {
+                        table.setData(config.resultsUrl, { q: currentQuery });
+                    }
+                })
+                .catch(error => {
+                    console.error(t("Error deleting result:"), error);
+                    alert(t("Failed to delete the result. Please check the console for details."));
+                })
+                .finally(() => {
+                    deleteConfirmBtn.disabled = false;
+                });
+        });
+    }
+
+    if (deleteSelectedCloseButton) {
+        deleteSelectedCloseButton.addEventListener("click", function () {
+            if (deleteSelectedConfirmModal) {
+                deleteSelectedConfirmModal.style.display = "none";
+            }
+            pendingDeleteSelectedIds = [];
+        });
+    }
+
+    if (deleteSelectedCancelBtn) {
+        deleteSelectedCancelBtn.addEventListener("click", function () {
+            if (deleteSelectedConfirmModal) {
+                deleteSelectedConfirmModal.style.display = "none";
+            }
+            pendingDeleteSelectedIds = [];
+        });
+    }
+
+    if (deleteSelectedConfirmBtn) {
+        deleteSelectedConfirmBtn.addEventListener("click", function () {
+            if (!pendingDeleteSelectedIds.length) {
+                return;
+            }
+            deleteSelectedConfirmBtn.disabled = true;
+            deletePolls(pendingDeleteSelectedIds)
+                .then(() => {
+                    if (deleteSelectedConfirmModal) {
+                        deleteSelectedConfirmModal.style.display = "none";
+                    }
+                    pendingDeleteSelectedIds = [];
+                    if (table) {
+                        table.setData(config.resultsUrl, { q: currentQuery });
+                    }
+                })
+                .catch(error => {
+                    console.error(t("Error deleting selected results:"), error);
+                    alert(t("Failed to delete selected results. Please check the console for details."));
+                })
+                .finally(() => {
+                    deleteSelectedConfirmBtn.disabled = false;
+                });
+        });
+    }
+
     window.addEventListener("click", function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
         }
         if (event.target === detailsModal) {
             detailsModal.style.display = "none";
+        }
+        if (event.target === deleteConfirmModal) {
+            deleteConfirmModal.style.display = "none";
+            pendingDeletePollId = null;
+        }
+        if (event.target === deleteSelectedConfirmModal) {
+            deleteSelectedConfirmModal.style.display = "none";
+            pendingDeleteSelectedIds = [];
         }
     });
 
@@ -725,6 +843,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (detailsModal && detailsModal.style.display === "block") {
                 detailsModal.style.display = "none";
+            }
+            if (deleteConfirmModal && deleteConfirmModal.style.display === "block") {
+                deleteConfirmModal.style.display = "none";
+                pendingDeletePollId = null;
+            }
+            if (deleteSelectedConfirmModal && deleteSelectedConfirmModal.style.display === "block") {
+                deleteSelectedConfirmModal.style.display = "none";
+                pendingDeleteSelectedIds = [];
             }
         }
     });

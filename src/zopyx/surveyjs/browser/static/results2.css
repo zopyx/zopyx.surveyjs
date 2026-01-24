@@ -67,7 +67,7 @@
 .results2-grid-wrap {
     background: #ffffff;
     border: 1px solid #e4e9f2;
-    border-radius: 0;
+    border-radius: 12px;
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     overflow: hidden;
     width: 100%;
@@ -135,25 +135,27 @@
 }
 
 .results2-action-left .icon-only {
-    background: #0f172a;
-    border-color: #0f172a;
-    color: #ffffff;
+    background: #e0f2fe;
+    border-color: #38bdf8;
+    color: #0c4a6e;
 }
 
 .results2-action-left .icon-only:hover,
 .results2-action-left .icon-only:focus {
-    background: #1f2937;
-    border-color: #1f2937;
-    color: #ffffff;
+    background: #bae6fd;
+    border-color: #0ea5e9;
+    color: #0c4a6e;
 }
 
 .tabulator {
     border: none;
+    color: #0f172a;
+    font-size: 13px;
 }
 
 .tabulator .tabulator-header {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #0ea5e9 120%);
-    color: #f8fafc;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 80%);
+    color: #0f172a;
     font-size: 13px;
     font-weight: 600;
     position: relative;
@@ -161,11 +163,15 @@
 
 .tabulator .tabulator-header .tabulator-col {
     background: transparent;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-title {
+    letter-spacing: 0.02em;
 }
 
 .tabulator .tabulator-header::after {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+    background: linear-gradient(90deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0));
     content: "";
     height: 100%;
     left: 0;
@@ -190,16 +196,34 @@
     min-height: 54px;
 }
 
+.tabulator .tabulator-row:nth-child(even):not(.tabulator-selected) {
+    background: #f8fafc;
+}
+
 .tabulator .tabulator-row.tabulator-selected {
     background: rgba(37, 99, 235, 0.12);
 }
 
 .tabulator .tabulator-row:hover {
-    background: rgba(15, 23, 42, 0.04);
+    background: rgba(15, 23, 42, 0.06);
 }
 
 .tabulator .tabulator-cell {
     padding: 10px 12px;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input,
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter select {
+    background: #f8fafc;
+    border: 1px solid #cbd5f5;
+    border-radius: 6px;
+    color: #0f172a;
+    font-size: 12px;
+    padding: 6px 8px;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input::placeholder {
+    color: #64748b;
 }
 
 .tabulator .tabulator-footer {

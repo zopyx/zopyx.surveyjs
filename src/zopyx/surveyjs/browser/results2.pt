@@ -99,13 +99,37 @@
                 </div>
             </div>
 
+            <div id="delete-confirm-modal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-button delete-close-button">&times;</span>
+                    <h2 i18n:translate="">Delete Result</h2>
+                    <p i18n:translate="">This will permanently delete the selected result. This cannot be undone.</p>
+                    <div class="modal-actions">
+                        <button id="delete-confirm-btn" class="btn btn-danger" i18n:translate="">Delete</button>
+                        <button id="delete-cancel-btn" class="btn btn-secondary" i18n:translate="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="delete-selected-confirm-modal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-button delete-selected-close-button">&times;</span>
+                    <h2 i18n:translate="">Delete Selected Results</h2>
+                    <p id="delete-selected-message"></p>
+                    <div class="modal-actions">
+                        <button id="delete-selected-confirm-btn" class="btn btn-danger" i18n:translate="">Delete</button>
+                        <button id="delete-selected-cancel-btn" class="btn btn-secondary" i18n:translate="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
             <div id="clear-confirm-modal" class="modal" style="display:none;">
                 <div class="modal-content">
                     <span class="close-button clear-close-button">&times;</span>
                     <h2 i18n:translate="">Clear All Results</h2>
                     <div class="warning-message">
                         <p><strong i18n:translate="">Warning:</strong> <span i18n:translate="">This action will permanently delete all survey results. This cannot be undone.</span></p>
-                        <p i18n:translate="">To confirm, please type <strong>clear</strong> in the field below:</p>
+                        <p i18n:translate="">To confirm, please type clear in the field below:</p>
                     </div>
                     <input type="text"
                            id="clear-confirm-input"

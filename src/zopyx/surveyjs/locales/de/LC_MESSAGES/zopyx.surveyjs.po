@@ -1046,6 +1046,18 @@ msgid "There are no survey responses yet. Once users submit the survey, their re
 msgstr "Es gibt noch keine Umfrageantworten. Sobald Benutzer die Umfrage absenden, erscheinen ihre Antworten hier."
 
 #: generated
+msgid "Delete Result"
+msgstr "Ergebnis löschen"
+
+#: generated
+msgid "Delete Selected Results"
+msgstr "Ausgewählte Ergebnisse löschen"
+
+#: generated
+msgid "This will permanently delete the selected result. This cannot be undone."
+msgstr "Dieses Ergebnis wird dauerhaft gelöscht. Dies kann nicht rückgängig gemacht werden."
+
+#: generated
 msgid "This action will permanently delete all survey results. This cannot be undone."
 msgstr "Diese Aktion löscht alle Umfrageergebnisse daürhaft. Dies kann nicht rückgängig gemacht werden."
 

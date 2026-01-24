@@ -236,7 +236,7 @@
                     <h2 i18n:translate="">Clear All Results</h2>
                     <div class="warning-message">
                         <p><strong i18n:translate="">Warning:</strong> <span i18n:translate="">This action will permanently delete all survey results. This cannot be undone.</span></p>
-                        <p i18n:translate="">To confirm, please type <strong>clear</strong> in the field below:</p>
+                        <p i18n:translate="">To confirm, please type clear in the field below:</p>
                     </div>
                     <input type="text"
                            id="clear-confirm-input"
