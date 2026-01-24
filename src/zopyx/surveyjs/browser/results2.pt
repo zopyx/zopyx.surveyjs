@@ -36,19 +36,11 @@
     />
 
     <div class="results2-shell">
-        <div class="results2-hero">
-            <div>
-                <h2 class="page-headline" i18n:translate="">Stored form data</h2>
-                <p class="storage-info">
-                    <strong i18n:translate="">Storage:</strong>
-                    <span tal:content="view/storage_info">Storage</span>
-                </p>
-            </div>
-            <div class="results2-hero-meta">
-                <span class="results2-pill" i18n:translate="">Results</span>
-                <span class="results2-count" id="results2-total-count">0</span>
-            </div>
-        </div>
+        <h2 class="page-headline" i18n:translate="">Stored form data</h2>
+        <p class="storage-info">
+            <strong i18n:translate="">Storage:</strong>
+            <span tal:content="view/storage_info">Storage</span>
+        </p>
 
         <tal:block tal:condition="python: not view.storing_enabled">
             <div class="storage-warning">
@@ -66,7 +58,7 @@
                         <input id="results2-search-input" type="text" placeholder="Search by user, UUID, or date" i18n:attributes="placeholder" />
                     </label>
                     <button id="results2-search-btn" class="btn btn-secondary" i18n:translate="">Search</button>
-                    <button id="results2-reset-btn" class="btn btn-secondary" i18n:translate="">Reset</button>
+                    <button id="results2-reset-btn" class="btn btn-danger" i18n:translate="">Reset</button>
                 </div>
                 <div class="results2-toolbar-right">
                     <button id="results2-refresh-btn" class="btn btn-secondary" i18n:translate="">Refresh</button>

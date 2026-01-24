@@ -1171,3 +1171,11 @@ msgstr "Store failed"
 #: generated
 msgid "Store failed. Please try again."
 msgstr "Store failed. Please try again."
+
+#: generated
+msgid "Reset"
+msgstr "Reset"
+
+#: generated
+msgid "Refresh"
+msgstr "Refresh"

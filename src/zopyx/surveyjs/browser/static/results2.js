@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const hasMailAction = Boolean(config.hasMailAction);
     const hasPostAction = Boolean(config.hasPostAction);
     const authToken = config.authenticator || "";
+    const pageLocale = (config.locale || document.documentElement.lang || "en").toLowerCase();
+    const tabulatorLocale = pageLocale.startsWith("de") ? "de-de" : "en";
     const gridMount = document.getElementById("results2-grid");
 
     if (typeof Tabulator === "undefined") {
@@ -491,6 +493,33 @@ document.addEventListener("DOMContentLoaded", function () {
         return wrapper;
     }
 
+    const tabulatorLangs = {};
+    tabulatorLangs[tabulatorLocale] = {
+        "data": {
+            "loading": t("Loading..."),
+            "error": t("Error loading data")
+        },
+        "pagination": {
+            "first": t("First"),
+            "first_title": t("First Page"),
+            "last": t("Last"),
+            "last_title": t("Last Page"),
+            "prev": t("Prev"),
+            "prev_title": t("Prev Page"),
+            "next": t("Next"),
+            "next_title": t("Next Page"),
+            "all": t("All"),
+            "page_size": t("Page Size")
+        },
+        "headerFilters": {
+            "default": t("filter column...")
+        },
+        "groups": {
+            "item": t("item"),
+            "items": t("items")
+        }
+    };
+
     const table = new Tabulator("#results2-grid", {
         ajaxURL: config.resultsUrl,
         ajaxConfig: "GET",
@@ -525,6 +554,8 @@ document.addEventListener("DOMContentLoaded", function () {
         placeholder: t("No stored results yet. Once responses are saved, analytics will appear here."),
         index: "poll_id",
         selectable: isManager,
+        locale: tabulatorLocale,
+        langs: tabulatorLangs,
         initialSort: [
             { column: "created_ts", dir: "desc" }
         ],

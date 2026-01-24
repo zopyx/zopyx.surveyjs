@@ -1170,3 +1170,11 @@ msgstr "Speichern fehlgeschlagen"
 #: generated
 msgid "Store failed. Please try again."
 msgstr "Speichern fehlgeschlagen. Bitte versuchen Sie es erneut."
+
+#: generated
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: generated
+msgid "Refresh"
+msgstr "Aktualisieren"
