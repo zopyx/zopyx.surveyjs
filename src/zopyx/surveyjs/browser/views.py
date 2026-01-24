@@ -1,5 +1,4 @@
-from BTrees.OOBTree import OOBTree
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from string import Formatter
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -9,40 +8,35 @@ import csv
 import io
 import hashlib
 import logging
-import secrets
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
-from zope.component import getUtility
 from zope.event import notify
 import plone.api
 import httpx
-from plone.registry.interfaces import IRegistry
-import diskcache
 
 from .. import _
-from ..interfaces import IFormsSettings
 from ..events import SurveyJSFormSubmitted
 from ..constants import FORM_VERSIONS_KEY, PDF_FORM_KEY
-from ..security import AuthTokenError, build_auth_token, validate_auth_token
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..data_validation.validate_data import validate_data as run_data_validation
-from ..pdf_forms import (
-    build_surveyjs_from_pdf_fields,
-    extract_pdf_fields,
-    fill_pdf_form as fill_pdf_form_bytes,
-)
+from ..pdf_forms import fill_pdf_form as fill_pdf_form_bytes
 
 import orjson
 import uuid
 from plone.namedfile.file import NamedBlobFile
 
+from .services import ai as ai_service
+from .services import auth as auth_service
+from .services import export as export_service
+from .services import forms as forms_service
+from .services import pdf as pdf_service
+from .services import results as results_service
+from .services.http import json_error, json_response, parse_json_body
 
 logger = logging.getLogger(__name__)
-TOKEN_CACHE_TTL_SECONDS = 24 * 60 * 60
-TRUSTED_ACCESS_TOKEN_BYTES = 16
 
 CONVERTER_FORMATS = [
     ("text", "Text (.txt)", "txt", "text/plain"),
@@ -249,18 +243,7 @@ class Views(BrowserView):
             return 0
 
     def format_created(self, created):
-        if isinstance(created, str):
-            value = created.strip()
-            if value.endswith("Z"):
-                value = value[:-1] + "+00:00"
-            try:
-                created = datetime.fromisoformat(value)
-            except ValueError:
-                return created
-        if isinstance(created, datetime):
-            created = ensure_timezone_aware(created).replace(tzinfo=None)
-            return created.replace(microsecond=0).isoformat()
-        return created
+        return results_service.format_created(created)
 
     def get_form_json(self):
         """JSON for SurveyJS renderer"""
@@ -268,20 +251,9 @@ class Views(BrowserView):
         if not self._require_trusted_access():
             return
         annos = IAnnotations(self.context)
-        if FORM_VERSIONS_KEY not in annos:
-            return {}
-
-        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(
-            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
-        )
-
-        form_data = {}
-        if form_versions:
-            form_data = form_versions[-1]["form_json"]
-
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(form_data))
+        form_versions = forms_service.sorted_form_versions(annos)
+        form_data = form_versions[-1]["form_json"] if form_versions else {}
+        json_response(self.request.response, form_data)
 
     @property
     def pdf_form_available(self):
@@ -293,55 +265,28 @@ class Views(BrowserView):
         return bool(pdf_meta.get("field_map"))
 
     def _get_pdf_form_state(self):
-        annos = IAnnotations(self.context)
-        pdf_form = getattr(self.context, "pdf_form", None)
-        pdf_meta = annos.get(PDF_FORM_KEY) or {}
-        field_map = pdf_meta.get("field_map") or []
-        version_id = pdf_meta.get("version_id")
-        form_json = {}
-        if version_id and FORM_VERSIONS_KEY in annos:
-            version = annos[FORM_VERSIONS_KEY].get(version_id)
-            if version:
-                form_json = version.get("form_json") or {}
-        if not form_json:
-            form_json = self._latest_form_json(annos)
-        return dict(
-            pdf_form=pdf_form,
-            form_json=form_json,
-            field_map=field_map,
-            version_id=version_id,
-            pdf_meta=pdf_meta,
-        )
+        return pdf_service.get_pdf_form_state(self.context)
 
     def get_pdf_form_json(self):
         state = self._get_pdf_form_state()
         if not state["pdf_form"]:
-            self.request.response.setStatus(404)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "error": "PDF form missing",
-                        "message": "No PDF form configured for this survey.",
-                    }
-                )
+            json_error(
+                self.request.response,
+                404,
+                "PDF form missing",
+                message="No PDF form configured for this survey.",
             )
             return
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(state["form_json"] or {}))
+        json_response(self.request.response, state["form_json"] or {})
 
     def upload_pdf_form(self):
         uploaded_file = self.request.form.get("pdf_file")
         if not uploaded_file:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "error": "No PDF uploaded",
-                        "message": "Please upload a PDF file.",
-                    }
-                )
+            json_error(
+                self.request.response,
+                400,
+                "No PDF uploaded",
+                message="Please upload a PDF file.",
             )
             return
 
@@ -350,15 +295,11 @@ class Views(BrowserView):
             if not isinstance(pdf_bytes, bytes):
                 pdf_bytes = pdf_bytes.encode("utf-8")
         except Exception as exc:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "error": "Upload failed",
-                        "message": str(exc),
-                    }
-                )
+            json_error(
+                self.request.response,
+                400,
+                "Upload failed",
+                message=str(exc),
             )
             return
 
@@ -370,16 +311,9 @@ class Views(BrowserView):
             )
             survey_title = getattr(self.context, "title", None) or "PDF Form"
 
-            if extract_mode == "llm":
-                survey_json = self._generate_survey_json_from_pdf_llm(pdf_bytes)
-                field_map = []
-            else:
-                fields = extract_pdf_fields(pdf_bytes)
-                if not fields:
-                    raise ValueError("No fillable fields detected in this PDF.")
-                survey_json, field_map = build_surveyjs_from_pdf_fields(
-                    fields, title=survey_title
-                )
+            survey_json, field_map = pdf_service.extract_pdf_form_data(
+                pdf_bytes, extract_mode, survey_title
+            )
 
             filename = getattr(uploaded_file, "filename", None) or "form.pdf"
             self.context.pdf_form = NamedBlobFile(
@@ -389,16 +323,13 @@ class Views(BrowserView):
             )
 
             annos = IAnnotations(self.context)
-            annos.setdefault(FORM_VERSIONS_KEY, OOBTree())
-            version_id = str(uuid.uuid4())
-            version_data = dict(
-                id=version_id,
-                created=datetime.now(timezone.utc),
-                user=plone.api.user.get_current().getId(),
-                form_json=survey_json,
+            version_data = forms_service.save_form_version(
+                annos,
+                survey_json,
+                plone.api.user.get_current().getId(),
                 locked=False,
             )
-            annos[FORM_VERSIONS_KEY][version_id] = version_data
+            version_id = version_data["id"]
 
             annos[PDF_FORM_KEY] = dict(
                 version_id=version_id,
@@ -423,134 +354,48 @@ class Views(BrowserView):
                     "filled PDF export will be unavailable until pdfcpu mapping is used."
                 )
             self.request.response.setStatus(200)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(orjson.dumps(result))
+            json_response(self.request.response, result)
 
         except Exception as exc:
-            self.request.response.setStatus(500)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "error": "PDF analysis failed",
-                        "message": str(exc),
-                    }
-                )
+            json_error(
+                self.request.response,
+                500,
+                "PDF analysis failed",
+                message=str(exc),
             )
 
     def _generate_survey_json_from_pdf_llm(self, pdf_bytes: bytes) -> dict:
-        try:
-            from .ai_generator import (
-                generate_survey_json_from_image,
-                strip_markdown_json,
-            )
-        except ImportError as e:
-            raise RuntimeError(f"LLM module not available: {e}") from e
-
-        with TemporaryDirectory() as temp_dir:
-            temp_path = Path(temp_dir)
-            pdf_path = temp_path / "uploaded.pdf"
-            png_path = temp_path / "uploaded.png"
-
-            pdf_path.write_bytes(pdf_bytes)
-
-            command = [
-                "convert",
-                "-density",
-                "300",
-                str(pdf_path),
-                "-background",
-                "white",
-                "-alpha",
-                "remove",
-                "-alpha",
-                "off",
-                str(png_path),
-            ]
-            logger.info(f"Executing ImageMagick convert command: {' '.join(command)}")
-            subprocess.run(command, check=True, capture_output=True)
-
-            image_path = png_path
-            if not image_path.exists():
-                candidates = sorted(temp_path.glob("uploaded*.png"))
-                if not candidates:
-                    raise ValueError("PNG conversion failed: no output created")
-                image_path = candidates[0]
-
-            from plone.registry.interfaces import IRegistry
-            from zope.component import getUtility
-            from ..interfaces import IFormsSettings
-
-            registry = getUtility(IRegistry)
-            settings = registry.forInterface(IFormsSettings, check=False)
-
-            model_name = getattr(settings, "ai_model", None)
-            api_key = getattr(settings, "ai_api_key", None)
-            ollama_url = getattr(settings, "ollama_url", None)
-
-            if model_name:
-                model_name = model_name.strip()
-            if api_key:
-                api_key = api_key.strip()
-            if ollama_url:
-                ollama_url = ollama_url.strip()
-
-            prompt = (
-                "Convert this PDF to SurveyJS JSON. Keep the layout, "
-                "keep headers and footer, make JSON as close possible as possible, "
-                "return the form JSON only"
-            )
-
-            survey_json_str = generate_survey_json_from_image(
-                str(image_path),
-                prompt,
-                model_name=model_name or None,
-                api_key=api_key or None,
-                ollama_url=ollama_url or None,
-            )
-
-        cleaned_json_str = strip_markdown_json(survey_json_str)
-        survey_data = orjson.loads(cleaned_json_str)
-        if not isinstance(survey_data, dict):
-            raise ValueError("Form JSON must be an object")
-        return survey_data
+        return pdf_service.generate_survey_json_from_pdf_llm(pdf_bytes)
 
     def fill_pdf_form(self):
         state = self._get_pdf_form_state()
         pdf_form = state["pdf_form"]
         if not pdf_form:
-            self.request.response.setStatus(404)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "error": "PDF form missing",
-                        "message": "No PDF form configured for this survey.",
-                    }
-                )
+            json_error(
+                self.request.response,
+                404,
+                "PDF form missing",
+                message="No PDF form configured for this survey.",
             )
             return
 
         if not state["field_map"]:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "isSuccess": False,
-                        "error": "pdf_mapping_missing",
-                        "message": "PDF field mapping is missing. Re-upload using pdfcpu.",
-                    }
-                )
+            json_error(
+                self.request.response,
+                400,
+                "pdf_mapping_missing",
+                message="PDF field mapping is missing. Re-upload using pdfcpu.",
+                extra={"isSuccess": False},
             )
             return
 
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "missing_poll_result"})
+            json_error(
+                self.request.response,
+                400,
+                "missing_poll_result",
+                extra={"isSuccess": False},
             )
             return
 
@@ -559,10 +404,11 @@ class Views(BrowserView):
         elif isinstance(raw_poll, str):
             raw_bytes = raw_poll.encode("utf-8")
         else:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "invalid_payload"})
+            json_error(
+                self.request.response,
+                400,
+                "invalid_payload",
+                extra={"isSuccess": False},
             )
             return
 
@@ -576,46 +422,51 @@ class Views(BrowserView):
         if content_length:
             try:
                 if int(content_length) > max_payload_bytes:
-                    self.request.response.setStatus(413)
-                    self.request.response.setHeader("content-type", "application/json")
-                    self.request.response.write(
-                        orjson.dumps({"isSuccess": False, "error": "request_too_large"})
+                    json_error(
+                        self.request.response,
+                        413,
+                        "request_too_large",
+                        extra={"isSuccess": False},
                     )
                     return
             except ValueError:
                 pass
         elif len(raw_bytes) > max_payload_bytes:
-            self.request.response.setStatus(413)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "request_too_large"})
+            json_error(
+                self.request.response,
+                413,
+                "request_too_large",
+                extra={"isSuccess": False},
             )
             return
 
         if len(raw_bytes) > max_payload_bytes:
-            self.request.response.setStatus(413)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "json_too_large"})
+            json_error(
+                self.request.response,
+                413,
+                "json_too_large",
+                extra={"isSuccess": False},
             )
             return
 
         try:
             poll_result = orjson.loads(raw_bytes)
         except orjson.JSONDecodeError:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "invalid_json"})
+            json_error(
+                self.request.response,
+                400,
+                "invalid_json",
+                extra={"isSuccess": False},
             )
             return
 
         form_json = state["form_json"] or {}
         if not form_json:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "missing_form_schema"})
+            json_error(
+                self.request.response,
+                400,
+                "missing_form_schema",
+                extra={"isSuccess": False},
             )
             return
 
@@ -662,16 +513,12 @@ class Views(BrowserView):
                 pdf_form.data, poll_result, state["field_map"] or []
             )
         except Exception as exc:
-            self.request.response.setStatus(500)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "isSuccess": False,
-                        "error": "pdf_fill_failed",
-                        "message": str(exc),
-                    }
-                )
+            json_error(
+                self.request.response,
+                500,
+                "pdf_fill_failed",
+                message=str(exc),
+                extra={"isSuccess": False},
             )
             return
 
@@ -688,30 +535,24 @@ class Views(BrowserView):
         json_form = orjson.loads(self.request.form["surveyText"])
 
         annos = IAnnotations(self.context)
-
-        data = dict(
-            id=str(uuid.uuid4()),
-            created=datetime.now(timezone.utc),
-            user=plone.api.user.get_current().getId(),
-            form_json=json_form,
+        forms_service.save_form_version(
+            annos,
+            json_form,
+            plone.api.user.get_current().getId(),
             locked=False,
         )
 
-        annos[FORM_VERSIONS_KEY][data["id"]] = data
-
-        result = dict(isSuccess=True)
-        self.request.response.setStatus(200)
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(result))
+        json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
             logger.warning("Survey save failed: status=400 reason=missing_poll_result")
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "missing_poll_result"})
+            json_error(
+                self.request.response,
+                400,
+                "missing_poll_result",
+                extra={"isSuccess": False},
             )
             return
 
@@ -721,10 +562,11 @@ class Views(BrowserView):
             raw_bytes = raw_poll.encode("utf-8")
         else:
             logger.warning("Survey save failed: status=400 reason=invalid_payload")
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "invalid_payload"})
+            json_error(
+                self.request.response,
+                400,
+                "invalid_payload",
+                extra={"isSuccess": False},
             )
             return
 
@@ -741,29 +583,32 @@ class Views(BrowserView):
                     logger.warning(
                         "Survey save failed: status=413 reason=request_too_large"
                     )
-                    self.request.response.setStatus(413)
-                    self.request.response.setHeader("content-type", "application/json")
-                    self.request.response.write(
-                        orjson.dumps({"isSuccess": False, "error": "request_too_large"})
+                    json_error(
+                        self.request.response,
+                        413,
+                        "request_too_large",
+                        extra={"isSuccess": False},
                     )
                     return
             except ValueError:
                 pass
         elif len(raw_bytes) > max_payload_bytes:
             logger.warning("Survey save failed: status=413 reason=request_too_large")
-            self.request.response.setStatus(413)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "request_too_large"})
+            json_error(
+                self.request.response,
+                413,
+                "request_too_large",
+                extra={"isSuccess": False},
             )
             return
 
         if len(raw_bytes) > max_payload_bytes:
             logger.warning("Survey save failed: status=413 reason=json_too_large")
-            self.request.response.setStatus(413)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "json_too_large"})
+            json_error(
+                self.request.response,
+                413,
+                "json_too_large",
+                extra={"isSuccess": False},
             )
             return
 
@@ -771,31 +616,30 @@ class Views(BrowserView):
             poll_result = orjson.loads(raw_bytes)
         except orjson.JSONDecodeError:
             logger.warning("Survey save failed: status=400 reason=invalid_json")
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "invalid_json"})
+            json_error(
+                self.request.response,
+                400,
+                "invalid_json",
+                extra={"isSuccess": False},
             )
             return
 
         actions = getattr(self.context, "actions", set()) or set()
         annos = IAnnotations(self.context)
         if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
+            forms_service.ensure_form_versions(annos)
 
-        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(
-            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
-        )
+        form_versions = forms_service.sorted_form_versions(annos)
         form_version_id = form_versions[-1]["id"] if form_versions else None
         form_json = form_versions[-1]["form_json"] if form_versions else {}
 
         if not form_json:
             logger.warning("Survey save failed: status=400 reason=missing_form_schema")
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"isSuccess": False, "error": "missing_form_schema"})
+            json_error(
+                self.request.response,
+                400,
+                "missing_form_schema",
+                extra={"isSuccess": False},
             )
             return
 
@@ -824,9 +668,11 @@ class Views(BrowserView):
                 details = external_validation.get("details")
                 if details:
                     payload["details"] = details
-                self.request.response.setStatus(external_validation.get("status", 500))
-                self.request.response.setHeader("content-type", "application/json")
-                self.request.response.write(orjson.dumps(payload))
+                json_response(
+                    self.request.response,
+                    payload,
+                    status=external_validation.get("status", 500),
+                )
                 return
             logger.info(
                 "Survey external validation ok: submission=%s",
@@ -856,8 +702,11 @@ class Views(BrowserView):
                 message="Storage action disabled; result not persisted.",
             )
         self.request.response.setStatus(200)
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(result))
+        json_response(
+            self.request.response,
+            result,
+            dumps_options=orjson.OPT_INDENT_2,
+        )
 
     def clear_results(self):
         storage = get_result_storage(self.context)
@@ -871,33 +720,23 @@ class Views(BrowserView):
         storage = get_result_storage(self.context)
         results = storage.list_results(self.context)
 
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(results))
+        json_response(self.request.response, results)
 
     def get_polls_json2(self):
         """get polls"""
         storage = get_result_storage(self.context)
         results = [d.get("result") for d in storage.list_results(self.context)]
 
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(results))
+        json_response(self.request.response, results)
 
     def download_form_json(self):
         """Download current form JSON as attachment"""
         annos = IAnnotations(self.context)
 
         # Initialize if doesn't exist
-        if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
-
-        form_versions = [d for d in annos[FORM_VERSIONS_KEY].values()]
-        form_versions = sorted(
-            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
-        )
-
-        form_data = {}
-        if form_versions:
-            form_data = form_versions[-1]["form_json"]
+        forms_service.ensure_form_versions(annos)
+        form_versions = forms_service.sorted_form_versions(annos)
+        form_data = form_versions[-1]["form_json"] if form_versions else {}
 
         # Prepare download with attachment header
         filename = f"{self.context.getId()}-survey-form.json"
@@ -1007,18 +846,10 @@ class Views(BrowserView):
         return None
 
     def _latest_form_json(self, annos):
-        form_versions = [d for d in annos.get(FORM_VERSIONS_KEY, {}).values()]
-        form_versions = sorted(
-            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
-        )
-        return form_versions[-1]["form_json"] if form_versions else {}
+        return forms_service.latest_form_json(annos)
 
     def _latest_form_version_id(self, annos):
-        form_versions = [d for d in annos.get(FORM_VERSIONS_KEY, {}).values()]
-        form_versions = sorted(
-            form_versions, key=lambda x: ensure_timezone_aware(x["created"])
-        )
-        return form_versions[-1]["id"] if form_versions else ""
+        return forms_service.latest_form_version_id(annos)
 
     def _form_id(self):
         try:
@@ -1032,205 +863,16 @@ class Views(BrowserView):
             return get_id()
         return str(getattr(self.context, "id", ""))
 
-    def _auth_settings(self):
-        registry = getUtility(IRegistry)
-        return registry.forInterface(IFormsSettings, check=False)
-
-    def _trusted_access_enabled(self):
-        mode = getattr(self.context, "access_mode", "") or "public"
-        return str(mode).strip().lower() == "trusted"
-
-    def _trusted_access_cache_key(self, token: str) -> str:
-        return f"trusted:{token}"
-
-    def _trusted_access_ttl_seconds(self) -> int:
-        hours = getattr(self.context, "trusted_access_ttl_hours", 168)
-        try:
-            hours_int = int(hours)
-        except (TypeError, ValueError):
-            hours_int = 168
-        return max(hours_int, 1) * 60 * 60
-
-    def _issue_trusted_access_token(self, settings, form_version_id: str):
-        cache = self._token_cache(settings)
-        if not cache:
-            return None, None
-        token = secrets.token_urlsafe(TRUSTED_ACCESS_TOKEN_BYTES)
-        ttl_seconds = self._trusted_access_ttl_seconds()
-        expires_at = datetime.now(timezone.utc) + timedelta(seconds=ttl_seconds)
-        metadata = {
-            "form_id": self._form_id(),
-            "form_version": form_version_id,
-            "issued_at": datetime.now(timezone.utc).isoformat(),
-            "expires_at": expires_at.isoformat(),
-            "state": "ISSUED",
-        }
-        try:
-            cache.set(
-                self._trusted_access_cache_key(token),
-                metadata,
-                expire=ttl_seconds,
-            )
-            logger.info("Survey trusted access token issued: token=%s", token)
-        finally:
-            cache.close()
-        return token, metadata
+    def _auth(self):
+        return auth_service.AuthService(self.context, self.request, self._form_id)
 
     def _require_trusted_access(self) -> bool:
-        if not self._trusted_access_enabled():
-            return True
-        token = (
-            self.request.form.get("access_token")
-            or self.request.get("access_token")
-            or ""
-        )
-        token = str(token).strip()
-        if not token:
-            logger.info("Survey trusted access denied: reason=missing_token")
-            self.request.response.setStatus(403)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "trusted_access_token_missing"}
-                )
-            )
-            return False
-        settings = self._auth_settings()
-        cache = self._token_cache(settings)
-        if not cache:
-            logger.info("Survey trusted access denied: reason=cache_unavailable")
-            self.request.response.setStatus(503)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "trusted_access_cache_unavailable"}
-                )
-            )
-            return False
-        try:
-            metadata = cache.get(self._trusted_access_cache_key(token))
-        finally:
-            cache.close()
-        if not isinstance(metadata, dict):
-            logger.info("Survey trusted access denied: reason=invalid_token")
-            self.request.response.setStatus(403)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "trusted_access_token_invalid"}
-                )
-            )
-            return False
-        if metadata.get("state") == "REVOKED":
-            logger.info("Survey trusted access denied: reason=revoked_token")
-            self.request.response.setStatus(403)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "trusted_access_token_revoked"}
-                )
-            )
-            return False
-        if metadata.get("form_id") != self._form_id():
-            logger.info("Survey trusted access denied: reason=form_mismatch")
-            self.request.response.setStatus(403)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {"isSuccess": False, "error": "trusted_access_form_mismatch"}
-                )
-            )
-            return False
-        return True
-
-    def _auth_token_enabled(self, settings):
-        return bool(getattr(settings, "authenticity_token_enabled", False))
-
-    def _auth_token_secret(self, settings):
-        secret = getattr(settings, "authenticity_token_secret", "") or ""
-        return str(secret).strip()
-
-    def _auth_token_issuer(self, settings):
-        issuer = getattr(settings, "authenticity_token_issuer", "") or ""
-        return str(issuer).strip()
-
-    def _auth_token_audience(self, settings):
-        audience = getattr(settings, "authenticity_token_audience", "") or ""
-        return str(audience).strip()
-
-    def _auth_token_ttl(self, settings):
-        try:
-            return int(getattr(settings, "authenticity_token_ttl_seconds", 600))
-        except (TypeError, ValueError):
-            return 600
-
-    def _auth_token_cache_path(self, settings):
-        path = getattr(settings, "authenticity_token_cache_path", "") or ""
-        return str(path).strip() or "var/token_cache.db"
-
-    def _token_cache(self, settings):
-        path = self._auth_token_cache_path(settings)
-        try:
-            cache = diskcache.Cache(path)
-            logger.info("Survey auth token cache opened: path=%s", path)
-            return cache
-        except Exception:
-            logger.info("Survey auth token cache unavailable: path=%s", path)
-            return None
-
-    def _cache_set(self, cache, token, value):
-        try:
-            cache.set(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
-            logger.info("Survey auth token cached: token=%s value=%s", token, value)
-        except Exception:
-            logger.info("Survey auth token cache set failed: token=%s", token)
-
-    def _cache_add(self, cache, token, value):
-        try:
-            added = cache.add(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
-            if added:
-                logger.info("Survey auth token cached: token=%s value=%s", token, value)
-            return added
-        except Exception:
-            logger.info("Survey auth token cache add failed: token=%s", token)
-            return False
-
-    def _issued_cache_key(self, token):
-        return f"issued:{token}"
-
-    def _received_cache_key(self, token):
-        return f"received:{token}"
-
-    def _write_json_error(self, status, payload):
-        self.request.response.setStatus(status)
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(payload))
+        return self._auth().require_trusted_access(logger=logger)
 
     def _build_auth_token(self, form_version_id):
-        settings = self._auth_settings()
-        if not self._auth_token_enabled(settings):
-            return ""
-        secret = self._auth_token_secret(settings)
-        if not secret:
-            return ""
-        issuer = self._auth_token_issuer(settings)
-        audience = self._auth_token_audience(settings)
-        ttl_seconds = self._auth_token_ttl(settings)
-        token = build_auth_token(
-            form_id=self._form_id(),
-            form_version=form_version_id or "",
-            issuer=issuer,
-            audience=audience,
-            ttl_seconds=ttl_seconds,
-            secret=secret,
-        )
-        logger.info("Survey auth token generated: token=%s", token)
-        cache = self._token_cache(settings)
-        if cache is not None:
-            try:
-                self._cache_set(cache, self._issued_cache_key(token), "ISSUED")
-            finally:
-                cache.close()
+        token = self._auth().build_auth_token(form_version_id or "")
+        if token:
+            logger.info("Survey auth token generated: token=%s", token)
         return token
 
     def auth_token(self):
@@ -1249,20 +891,13 @@ class Views(BrowserView):
     def trusted_access_token(self):
         annos = IAnnotations(self.context)
         form_version_id = self._latest_form_version_id(annos)
-        settings = self._auth_settings()
-        token, metadata = self._issue_trusted_access_token(
-            settings, form_version_id or ""
-        )
+        token, metadata = self._auth().issue_trusted_access_token(form_version_id or "")
         if not token or not metadata:
-            self.request.response.setStatus(503)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps(
-                    {
-                        "isSuccess": False,
-                        "error": "trusted_access_cache_unavailable",
-                    }
-                )
+            json_error(
+                self.request.response,
+                503,
+                "trusted_access_cache_unavailable",
+                extra={"isSuccess": False},
             )
             return
         url = f"{self.context.absolute_url()}/@@viewer?access_token={token}"
@@ -1272,65 +907,13 @@ class Views(BrowserView):
             "url": url,
             "expires_at": metadata.get("expires_at"),
         }
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(payload))
+        json_response(self.request.response, payload)
 
     def _require_auth_token(self, form_version_id):
-        settings = self._auth_settings()
-        if not self._auth_token_enabled(settings):
-            return True
-        secret = self._auth_token_secret(settings)
-        if not secret:
-            self._write_json_error(
-                500,
-                {"isSuccess": False, "error": "auth_token_config_missing"},
-            )
-            return False
-        token = self.request.form.get("auth_token") or ""
-        logger.info("Survey auth token received: token=%s", token)
-        issuer = self._auth_token_issuer(settings)
-        audience = self._auth_token_audience(settings)
-        try:
-            payload = validate_auth_token(
-                token=token,
-                form_id=self._form_id(),
-                form_version=form_version_id or "",
-                issuer=issuer,
-                audience=audience,
-                secret=secret,
-            )
-            logger.info("Survey auth token validated: payload=%s", payload)
-        except AuthTokenError as exc:
-            logger.info(
-                "Survey auth token validation failed: reason=%s status=%s",
-                exc.reason,
-                exc.status,
-            )
-            self._write_json_error(
-                exc.status, {"isSuccess": False, "error": exc.reason}
-            )
-            return False
-        cache = self._token_cache(settings)
-        if cache is not None:
-            try:
-                received_key = self._received_cache_key(token)
-                added = self._cache_add(cache, received_key, "RECEIVED")
-                if not added:
-                    logger.info("Survey auth token replay detected: token=%s", token)
-                    self._write_json_error(
-                        403, {"isSuccess": False, "error": "auth_token_replay"}
-                    )
-                    return False
-            finally:
-                cache.close()
-        return True
+        return self._auth().require_auth_token(form_version_id or "", logger=logger)
 
     def _serialize_result_entry(self, result_entry):
-        serialized = dict(result_entry)
-        created = serialized.get("created")
-        if isinstance(created, datetime):
-            serialized["created"] = ensure_timezone_aware(created).isoformat()
-        return serialized
+        return export_service.serialize_result_entry(result_entry)
 
     def _write_export(
         self,
@@ -1342,64 +925,15 @@ class Views(BrowserView):
         created,
         output_dir,
     ):
-        output_path = None
-        if format_key == "text":
-            from ..converters import write_text
-
-            output_path = write_text(
-                items, output_dir / f"{poll_id}.txt", creator, created
-            )
-        elif format_key == "md":
-            from ..converters import write_markdown
-
-            output_path = write_markdown(
-                items, poll_id, output_dir / f"{poll_id}.md", creator, created
-            )
-        elif format_key == "html":
-            from ..converters import build_markdown, write_html
-
-            markdown_body = build_markdown(items, poll_id, creator, created)
-            output_path = write_html(
-                markdown_body, attachments, output_dir / f"{poll_id}.html"
-            )
-        elif format_key == "pdf":
-            from ..converters import build_markdown, write_pdf
-            from ..converters.html import build_html
-
-            markdown_body = build_markdown(items, poll_id, creator, created)
-            html_body = build_html(markdown_body, attachments)
-            output_path = write_pdf(
-                html_body, output_dir / f"{poll_id}.pdf", creator, created
-            )
-        elif format_key in {"csv", "xlsx"}:
-            from ..converters import build_table_rows, write_csv, write_xlsx
-
-            table_rows = build_table_rows(items)
-            if format_key == "csv":
-                output_path = write_csv(table_rows, output_dir / f"{poll_id}.csv")
-            else:
-                output_path = write_xlsx(table_rows, output_dir / f"{poll_id}.xlsx")
-        elif format_key == "xml":
-            from ..converters import write_xml
-
-            output_path = write_xml(items, poll_id, output_dir / f"{poll_id}.xml")
-        elif format_key == "docx":
-            from ..converters import write_docx
-
-            output_path = write_docx(
-                items,
-                output_dir / f"{poll_id}.docx",
-                poll_id,
-                creator,
-                created,
-            )
-        elif format_key == "json":
-            from ..converters import write_json
-
-            output_path = write_json(
-                items, poll_id, output_dir / f"{poll_id}.json", creator, created
-            )
-        return output_path
+        return export_service.write_export(
+            format_key,
+            poll_id,
+            items,
+            attachments,
+            creator,
+            created,
+            output_dir,
+        )
 
     def _interpolate_text(self, text, mapping):
         if not text:
@@ -1681,18 +1215,8 @@ class Views(BrowserView):
         annos = IAnnotations(self.context)
 
         # Initialize if doesn't exist
-        if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
-
-        # Get all versions
-        form_versions = list(annos[FORM_VERSIONS_KEY].values())
-
-        # Sort by created date, newest first
-        return sorted(
-            form_versions,
-            key=lambda x: ensure_timezone_aware(x["created"]),
-            reverse=True,
-        )
+        forms_service.ensure_form_versions(annos)
+        return forms_service.sorted_form_versions(annos, reverse=True)
 
     @property
     def has_versions(self):
@@ -1752,15 +1276,12 @@ class Views(BrowserView):
             )
 
         # Create new version with old content (preserves history)
-        new_version = dict(
-            id=str(uuid.uuid4()),
-            created=datetime.now(timezone.utc),
-            user=plone.api.user.get_current().getId(),
-            form_json=old_version["form_json"],
+        forms_service.save_form_version(
+            annos,
+            old_version["form_json"],
+            plone.api.user.get_current().getId(),
             locked=False,
         )
-
-        annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
 
         plone.api.portal.show_message(
             _("Version restored successfully. A new version has been created."),
@@ -1869,18 +1390,12 @@ class Views(BrowserView):
 
         # Save as new version
         annos = IAnnotations(self.context)
-        if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
-
-        new_version = dict(
-            id=str(uuid.uuid4()),
-            created=datetime.now(timezone.utc),
-            user=plone.api.user.get_current().getId(),
-            form_json=json_data,
+        forms_service.save_form_version(
+            annos,
+            json_data,
+            plone.api.user.get_current().getId(),
             locked=False,
         )
-
-        annos[FORM_VERSIONS_KEY][new_version["id"]] = new_version
 
         plone.api.portal.show_message(
             _("JSON uploaded successfully as new version"), type="info"
@@ -1902,8 +1417,11 @@ class Views(BrowserView):
         else:
             result = version_data["form_json"]
 
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
+        json_response(
+            self.request.response,
+            result,
+            dumps_options=orjson.OPT_INDENT_2,
+        )
 
     @property
     def results(self):
@@ -1913,167 +1431,20 @@ class Views(BrowserView):
 
     def get_paginated_results(self):
         """Return paginated results"""
-        q = self.request.form.get("q", "").lower()
-        b_start = int(self.request.form.get("b_start", 0))
-        pagesize = 10
-
-        all_results = self.results
-        if q:
-
-            def _matches_query(result):
-                user = (result.get("user") or "").lower()
-                poll_id = (result.get("poll_id") or "").lower()
-                created = (self.format_created(result.get("created")) or "").lower()
-                result_uuid = ""
-                result_payload = result.get("result") or {}
-                if isinstance(result_payload, dict):
-                    result_uuid = (result_payload.get("uuid") or "").lower()
-                return q in user or q in poll_id or q in result_uuid or q in created
-
-            all_results = [r for r in all_results if _matches_query(r)]
-
-        total = len(all_results)
-        numpages = total // pagesize
-        if total % pagesize > 0:
-            numpages += 1
-        page = b_start // pagesize + 1
-        return dict(
-            items=all_results[b_start : b_start + pagesize],
-            total=total,
-            numpages=numpages,
-            page=page,
-            pagesize=pagesize,
-            q=q,
-        )
+        return results_service.get_paginated_results(self.results, self.request)
 
     def _parse_tabulator_param(self, name):
-        raw = self.request.form.get(name)
-        if raw is None or raw == "":
-            return []
-        if isinstance(raw, (list, tuple)):
-            raw = raw[0] if raw else ""
-        if not raw:
-            return []
-        try:
-            return orjson.loads(raw)
-        except orjson.JSONDecodeError:
-            return []
+        return results_service.parse_tabulator_param(self.request, name)
 
     def _results2_row(self, entry):
-        result_payload = entry.get("result") or {}
-        created = entry.get("created")
-        created_ts = None
-        if created:
-            created_ts = ensure_timezone_aware(created).timestamp()
-        return dict(
-            poll_id=entry.get("poll_id"),
-            user=entry.get("user") or "",
-            seq_no=entry.get("seq_no") or "",
-            uuid=(result_payload.get("uuid") or ""),
-            created_ts=created_ts or 0,
-            created_display=self.format_created(created),
-        )
+        return results_service.results2_row(entry)
 
     def _results2_apply_filters(self, rows, filters):
-        if not filters:
-            return rows
-
-        def _match(row, flt):
-            field = flt.get("field")
-            value = flt.get("value")
-            if field is None:
-                return True
-            row_value = row.get(field, "")
-            ftype = (flt.get("type") or "like").lower()
-            if ftype in ("=", "eq"):
-                return str(row_value) == str(value)
-            if ftype in ("!=", "ne"):
-                return str(row_value) != str(value)
-            if ftype in ("like", "contains"):
-                haystack = row_value
-                if field == "created_ts":
-                    haystack = row.get("created_display", "")
-                return str(value).lower() in str(haystack).lower()
-            if ftype in (">", ">=", "<", "<="):
-                try:
-                    row_num = float(row_value)
-                    val_num = float(value)
-                except (TypeError, ValueError):
-                    return False
-                if ftype == ">":
-                    return row_num > val_num
-                if ftype == ">=":
-                    return row_num >= val_num
-                if ftype == "<":
-                    return row_num < val_num
-                if ftype == "<=":
-                    return row_num <= val_num
-            if ftype == "in" and isinstance(value, (list, tuple)):
-                return row_value in value
-            return True
-
-        return [row for row in rows if all(_match(row, flt) for flt in filters)]
+        return results_service.results2_apply_filters(rows, filters)
 
     def results2_data(self):
-        q = (self.request.form.get("q") or "").strip().lower()
-
-        def _safe_int(value, default):
-            try:
-                return int(value)
-            except (TypeError, ValueError):
-                return default
-
-        page = _safe_int(self.request.form.get("page"), 1)
-        size = _safe_int(self.request.form.get("size"), 25)
-        page = max(page, 1)
-        size = max(size, 1)
-
-        sorters = self._parse_tabulator_param("sorters")
-        filters = self._parse_tabulator_param("filters")
-        if isinstance(sorters, dict):
-            sorters = [sorters]
-        if isinstance(filters, dict):
-            filters = [filters]
-
-        rows = [self._results2_row(entry) for entry in self.results]
-
-        if q:
-
-            def _matches(row):
-                return (
-                    q in str(row.get("user") or "").lower()
-                    or q in str(row.get("poll_id") or "").lower()
-                    or q in str(row.get("uuid") or "").lower()
-                    or q in str(row.get("created_display") or "").lower()
-                    or q in str(row.get("seq_no") or "").lower()
-                )
-
-            rows = [row for row in rows if _matches(row)]
-
-        rows = self._results2_apply_filters(rows, filters)
-
-        if sorters:
-            for sorter in reversed(sorters):
-                field = sorter.get("field")
-                direction = (sorter.get("dir") or "asc").lower()
-                reverse = direction == "desc"
-                rows.sort(key=lambda r: r.get(field), reverse=reverse)
-
-        total_rows = len(rows)
-        last_page = total_rows // size + (1 if total_rows % size else 0)
-        last_page = max(last_page, 1)
-
-        start = (page - 1) * size
-        data = rows[start : start + size]
-
-        payload = dict(
-            data=data,
-            page=page,
-            last_page=last_page,
-            total_rows=total_rows,
-        )
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(payload))
+        payload = results_service.build_results2_payload(self.results, self.request)
+        json_response(self.request.response, payload)
 
     def view_result_json(self):
         """Return JSON for a specific poll result for viewing"""
@@ -2085,8 +1456,7 @@ class Views(BrowserView):
         else:
             result = result_data["result"]
 
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(result, option=orjson.OPT_INDENT_2))
+        json_response(self.request.response, result)
 
     def result_detail(self):
         """Build HTML detail view data for a specific poll result."""
@@ -2152,7 +1522,7 @@ class Views(BrowserView):
 
     @property
     def trusted_access_enabled(self):
-        return self._trusted_access_enabled()
+        return self._auth().trusted_access_enabled()
 
     def _require_manager(self):
         """Ensure the current user is a manager before performing a destructive action."""
@@ -2175,16 +1545,9 @@ class Views(BrowserView):
         poll_ids = []
 
         # Accept JSON payload
-        raw_body = self.request.get("BODY", b"")
-        if isinstance(raw_body, str):
-            raw_body = raw_body.encode("utf-8")
-        if raw_body:
-            try:
-                payload = orjson.loads(raw_body)
-                if isinstance(payload, dict):
-                    poll_ids = payload.get("poll_ids") or []
-            except orjson.JSONDecodeError:
-                pass
+        payload = parse_json_body(self.request)
+        if isinstance(payload, dict):
+            poll_ids = payload.get("poll_ids") or []
 
         # Fallback to form parameters
         poll_id = self.request.form.get("poll_id")
@@ -2203,17 +1566,15 @@ class Views(BrowserView):
 
         poll_ids = [pid for pid in poll_ids if pid]
         if not poll_ids:
-            self.request.response.setStatus(400)
-            self.request.response.setHeader("content-type", "application/json")
-            self.request.response.write(
-                orjson.dumps({"error": "No poll IDs provided for deletion"})
+            json_error(
+                self.request.response,
+                400,
+                "No poll IDs provided for deletion",
             )
             return
         status = storage.delete_results(self.context, poll_ids)
 
-        self.request.response.setStatus(200)
-        self.request.response.setHeader("content-type", "application/json")
-        self.request.response.write(orjson.dumps(status))
+        json_response(self.request.response, status)
 
     @property
     def has_mail_action(self):
@@ -2284,33 +1645,14 @@ class Views(BrowserView):
             return
 
         try:
-            # Get AI settings from registry
-            from plone.registry.interfaces import IRegistry
-            from zope.component import getUtility
-            from ..interfaces import IFormsSettings
-
-            registry = getUtility(IRegistry)
-            settings = registry.forInterface(IFormsSettings, check=False)
-
-            # Get configured model, API key, and Ollama URL
-            model_name = getattr(settings, "ai_model", None)
-            api_key = getattr(settings, "ai_api_key", None)
-            ollama_url = getattr(settings, "ollama_url", None)
-
-            # Strip whitespace from settings
-            if model_name:
-                model_name = model_name.strip()
-            if api_key:
-                api_key = api_key.strip()
-            if ollama_url:
-                ollama_url = ollama_url.strip()
+            model_name, api_key, ollama_url = ai_service.load_ai_settings()
 
             # Generate the survey JSON using LLM with configured settings
             survey_json_str = generate_survey_json(
                 prompt,
-                model_name=model_name or None,
-                api_key=api_key or None,
-                ollama_url=ollama_url or None,
+                model_name=model_name,
+                api_key=api_key,
+                ollama_url=ollama_url,
             )
 
             # Strip any markdown formatting
@@ -2369,18 +1711,12 @@ class Views(BrowserView):
 
             # Save as version (reuse existing pattern from save_form_json)
             annos = IAnnotations(self.context)
-            if FORM_VERSIONS_KEY not in annos:
-                annos[FORM_VERSIONS_KEY] = OOBTree()
-
-            data = dict(
-                id=str(uuid.uuid4()),
-                created=datetime.now(timezone.utc),
-                user=plone.api.user.get_current().getId(),
-                form_json=json_form,
+            data = forms_service.save_form_version(
+                annos,
+                json_form,
+                plone.api.user.get_current().getId(),
                 locked=False,
             )
-
-            annos[FORM_VERSIONS_KEY][data["id"]] = data
 
             result = dict(
                 success=True, message="Form saved successfully", version_id=data["id"]
@@ -2467,34 +1803,15 @@ class Views(BrowserView):
             if not isinstance(current_json, dict):
                 raise ValueError("Current form JSON must be an object")
 
-            # Get AI settings from registry
-            from plone.registry.interfaces import IRegistry
-            from zope.component import getUtility
-            from ..interfaces import IFormsSettings
-
-            registry = getUtility(IRegistry)
-            settings = registry.forInterface(IFormsSettings, check=False)
-
-            # Get configured model, API key, and Ollama URL
-            model_name = getattr(settings, "ai_model", None)
-            api_key = getattr(settings, "ai_api_key", None)
-            ollama_url = getattr(settings, "ollama_url", None)
-
-            # Strip whitespace from settings
-            if model_name:
-                model_name = model_name.strip()
-            if api_key:
-                api_key = api_key.strip()
-            if ollama_url:
-                ollama_url = ollama_url.strip()
+            model_name, api_key, ollama_url = ai_service.load_ai_settings()
 
             # Generate the refined survey JSON using LLM with configured settings
             refined_json_str = refine_survey_json(
                 current_json,
                 refinement_prompt,
-                model_name=model_name or None,
-                api_key=api_key or None,
-                ollama_url=ollama_url or None,
+                model_name=model_name,
+                api_key=api_key,
+                ollama_url=ollama_url,
             )
 
             # Strip any markdown formatting
@@ -2606,23 +1923,7 @@ class Views(BrowserView):
                         raise ValueError("PNG conversion failed: no output created")
                     image_path = candidates[0]
 
-                from plone.registry.interfaces import IRegistry
-                from zope.component import getUtility
-                from ..interfaces import IFormsSettings
-
-                registry = getUtility(IRegistry)
-                settings = registry.forInterface(IFormsSettings, check=False)
-
-                model_name = getattr(settings, "ai_model", None)
-                api_key = getattr(settings, "ai_api_key", None)
-                ollama_url = getattr(settings, "ollama_url", None)
-
-                if model_name:
-                    model_name = model_name.strip()
-                if api_key:
-                    api_key = api_key.strip()
-                if ollama_url:
-                    ollama_url = ollama_url.strip()
+                model_name, api_key, ollama_url = ai_service.load_ai_settings()
 
                 prompt = (
                     "Convert this PDF to SurveyJS JSON. Keep the layout, "
@@ -2633,9 +1934,9 @@ class Views(BrowserView):
                 survey_json_str = generate_survey_json_from_image(
                     str(image_path),
                     prompt,
-                    model_name=model_name or None,
-                    api_key=api_key or None,
-                    ollama_url=ollama_url or None,
+                    model_name=model_name,
+                    api_key=api_key,
+                    ollama_url=ollama_url,
                 )
 
             cleaned_json_str = strip_markdown_json(survey_json_str)
@@ -2715,17 +2016,12 @@ class Views(BrowserView):
             return
 
         annos = IAnnotations(self.context)
-        if FORM_VERSIONS_KEY not in annos:
-            annos[FORM_VERSIONS_KEY] = OOBTree()
-
-        data = dict(
-            id=str(uuid.uuid4()),
-            created=datetime.now(timezone.utc),
-            user=plone.api.user.get_current().getId(),
-            form_json=survey_data,
+        data = forms_service.save_form_version(
+            annos,
+            survey_data,
+            plone.api.user.get_current().getId(),
+            locked=False,
         )
-
-        annos[FORM_VERSIONS_KEY][data["id"]] = data
 
         result = {
             "success": True,
