@@ -4,13 +4,19 @@ Privacy Forms Studio
 
 Welcome to the documentation for the SurveyJS integration for Plone.
 
-This documentation describes installation, configuration, workflows, actions,
-validation, embedding, and the AI Generator. It is intended for administrators
-and developers operating a SurveyJS-enabled Plone site.
+This documentation serves two audiences: integrators who install and operate
+the system, and end users who build and run surveys in the UI.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents
+   :caption: Audience Guides
+
+   for-integrators
+   for-end-users
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
 
    overview
    philosophy
