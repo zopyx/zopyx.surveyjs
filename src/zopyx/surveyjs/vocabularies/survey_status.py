@@ -29,7 +29,7 @@ class SurveyStatus(object):
         ]
 
         # Fix context if you are using the vocabulary in DataGridField.
-        # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501
+        # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # noqa: E501
         if not IDexterityContent.providedBy(context):
             req = getRequest()
             context = req.PARENTS[0]
