@@ -1,4 +1,4 @@
-SPHINXBUILD ?= sphinx-build
+SPHINXBUILD ?= uv run  sphinx-build
 SOURCEDIR = .
 BUILDDIR = _build
 
