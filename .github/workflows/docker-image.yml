@@ -3,6 +3,8 @@ name: Build PFS demo docker image and push to production
 
 on:
   push:
+    branches:
+      - master
   workflow_dispatch:
   schedule:
     - cron: "0 */6 * * *"

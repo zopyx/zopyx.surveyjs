@@ -1,8 +1,8 @@
-.results2-shell {
+.results-shell {
     margin: 0 auto;
 }
 
-.results2-hero {
+.results-hero {
     align-items: center;
     background: linear-gradient(120deg, #f6f7fb, #eef6ff);
     border: 1px solid #e4e9f2;
@@ -13,18 +13,18 @@
     padding: 20px 24px;
 }
 
-.results2-hero .page-headline {
+.results-hero .page-headline {
     margin-bottom: 8px;
 }
 
-.results2-hero-meta {
+.results-hero-meta {
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.results2-pill {
+.results-pill {
     background: #111827;
     border-radius: 999px;
     color: #ffffff;
@@ -34,13 +34,13 @@
     text-transform: uppercase;
 }
 
-.results2-count {
+.results-count {
     color: #111827;
     font-size: 30px;
     font-weight: 700;
 }
 
-.results2-toolbar {
+.results-toolbar {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
@@ -49,22 +49,22 @@
     margin: 24px 0 16px;
 }
 
-.results2-toolbar-left,
-.results2-toolbar-right {
+.results-toolbar-left,
+.results-toolbar-right {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-.results2-search input {
+.results-search input {
     border: 1px solid #d7dbe4;
     border-radius: 8px;
     min-width: 240px;
     padding: 10px 12px;
 }
 
-.results2-grid-wrap {
+.results-grid-wrap {
     background: #ffffff;
     border: 1px solid #e4e9f2;
     border-radius: 12px;
@@ -73,7 +73,7 @@
     width: 100%;
 }
 
-.results2-footer {
+.results-footer {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -81,7 +81,7 @@
     margin-top: 18px;
 }
 
-.results2-action-group {
+.results-action-group {
     align-items: center;
     column-gap: 6px;
     display: grid;
@@ -90,36 +90,36 @@
     width: 100%;
 }
 
-.results2-action-left,
-.results2-action-middle,
-.results2-action-right {
+.results-action-left,
+.results-action-middle,
+.results-action-right {
     align-items: center;
     display: inline-flex;
     gap: 4px;
 }
 
-.results2-action-middle {
+.results-action-middle {
     justify-self: center;
 }
 
-.results2-action-right {
+.results-action-right {
     justify-self: end;
 }
 
-.results2-action-form {
+.results-action-form {
     align-items: center;
     display: inline-flex;
     gap: 4px;
 }
 
-.results2-action-group select {
+.results-action-group select {
     border: 1px solid #d7dbe4;
     border-radius: 6px;
     font-size: 12px;
     padding: 4px 6px;
 }
 
-.results2-action-group .icon-only {
+.results-action-group .icon-only {
     align-items: center;
     display: inline-flex;
     height: 34px;
@@ -128,20 +128,20 @@
     padding: 5px 6px;
 }
 
-.results2-action-group .results2-icon {
+.results-action-group .results-icon {
     display: block;
     height: 16px;
     width: 16px;
 }
 
-.results2-action-left .icon-only {
+.results-action-left .icon-only {
     background: #e0f2fe;
     border-color: #38bdf8;
     color: #0c4a6e;
 }
 
-.results2-action-left .icon-only:hover,
-.results2-action-left .icon-only:focus {
+.results-action-left .icon-only:hover,
+.results-action-left .icon-only:focus {
     background: #bae6fd;
     border-color: #0ea5e9;
     color: #0c4a6e;
@@ -181,13 +181,13 @@
     width: 45%;
 }
 
-.tabulator .tabulator-header .tabulator-col.results2-select-col .tabulator-col-content {
+.tabulator .tabulator-header .tabulator-col.results-select-col .tabulator-col-content {
     align-items: center;
     display: flex;
     justify-content: center;
 }
 
-.tabulator .tabulator-header .tabulator-col.results2-select-col input[type="checkbox"] {
+.tabulator .tabulator-header .tabulator-col.results-select-col input[type="checkbox"] {
     margin: 0;
 }
 
@@ -231,7 +231,7 @@
     border-top: 1px solid #e4e9f2;
 }
 
-.results2-empty {
+.results-empty {
     color: #6b7280;
     padding: 24px;
     text-align: center;
@@ -426,21 +426,21 @@ pre#json-content {
 }
 
 @media (max-width: 960px) {
-    .results2-hero {
+    .results-hero {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .results2-hero-meta {
+    .results-hero-meta {
         align-items: flex-start;
     }
 
-    .results2-toolbar {
+    .results-toolbar {
         align-items: stretch;
     }
 
-    .results2-toolbar-left,
-    .results2-toolbar-right {
+    .results-toolbar-left,
+    .results-toolbar-right {
         width: 100%;
         justify-content: flex-start;
     }

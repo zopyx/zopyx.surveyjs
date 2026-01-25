@@ -14,11 +14,11 @@
     class=".views.RootRedirect"
   />
   <browser:page
-    name="results2"
+    name="results"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     permission="cmf.ModifyPortalContent"
-    template="results2.pt"
+    template="results.pt"
   />
   <browser:page
     name="dashboard"
@@ -147,11 +147,11 @@
     attribute="get_polls_json2"
   />
   <browser:page
-    name="results2-data"
+    name="results-data"
     permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
-    attribute="results2_data"
+    attribute="results_data"
   />
 
   <!-- Download endpoints with Content-Disposition attachment -->

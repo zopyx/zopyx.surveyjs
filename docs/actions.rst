@@ -10,7 +10,7 @@ Action types
 
 store
   Persist the submission in the Survey results store. Stored submissions
-  appear in ``@@results2`` and are available for exports and detail views.
+  appear in ``@@results`` and are available for exports and detail views.
 
 mail
   Generate exports in the configured formats and send them as attachments.

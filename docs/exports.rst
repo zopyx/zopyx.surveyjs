@@ -2,7 +2,7 @@
 Results and Exports
 ====================
 
-Results are available via ``@@results2`` when the ``store`` action is enabled.
+Results are available via ``@@results`` when the ``store`` action is enabled.
 Each submission can be inspected, exported, emailed, or POSTed to an endpoint.
 
 Export formats

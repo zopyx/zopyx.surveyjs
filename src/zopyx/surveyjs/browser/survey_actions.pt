@@ -29,7 +29,7 @@
         <span i18n:translate="">AI Generator</span>
       </a>
       <a class="survey-action-button action-results"
-         href="${context/absolute_url}/@@results2">
+         href="${context/absolute_url}/@@results">
         <span i18n:translate="">Results</span>
       </a>
     </div>

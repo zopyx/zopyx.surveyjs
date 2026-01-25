@@ -34,7 +34,7 @@ def parse_tabulator_param(request, name):
         return []
 
 
-def results2_row(entry):
+def results_row(entry):
     result_payload = entry.get("result") or {}
     created = entry.get("created")
     created_ts = None
@@ -50,7 +50,7 @@ def results2_row(entry):
     )
 
 
-def results2_apply_filters(rows, filters):
+def results_apply_filters(rows, filters):
     if not filters:
         return rows
 
@@ -91,7 +91,7 @@ def results2_apply_filters(rows, filters):
     return [row for row in rows if all(_match(row, flt) for flt in filters)]
 
 
-def build_results2_payload(results, request):
+def build_results_payload(results, request):
     q = (request.form.get("q") or "").strip().lower()
 
     def _safe_int(value, default):
@@ -112,7 +112,7 @@ def build_results2_payload(results, request):
     if isinstance(filters, dict):
         filters = [filters]
 
-    rows = [results2_row(entry) for entry in results]
+    rows = [results_row(entry) for entry in results]
 
     if q:
 
@@ -127,7 +127,7 @@ def build_results2_payload(results, request):
 
         rows = [row for row in rows if _matches(row)]
 
-    rows = results2_apply_filters(rows, filters)
+    rows = results_apply_filters(rows, filters)
 
     if sorters:
         for sorter in reversed(sorters):

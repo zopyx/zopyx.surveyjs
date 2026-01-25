@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    const config = window.RESULTS2_CONFIG || {};
+    const config = window.RESULTS_CONFIG || {};
     const formats = Array.isArray(config.converterFormats) ? config.converterFormats : [];
     const isManager = Boolean(config.isManager);
     const hasMailAction = Boolean(config.hasMailAction);
@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const authToken = config.authenticator || "";
     const pageLocale = (config.locale || document.documentElement.lang || "en").toLowerCase();
     const tabulatorLocale = pageLocale.startsWith("de") ? "de-de" : "en";
-    const gridMount = document.getElementById("results2-grid");
+    const gridMount = document.getElementById("results-grid");
 
     if (typeof Tabulator === "undefined") {
         if (gridMount) {
             const notice = document.createElement("div");
-            notice.className = "results2-empty";
+            notice.className = "results-empty";
             notice.textContent = t("Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/.");
             gridMount.appendChild(notice);
         }
@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleteSelectedCancelBtn = document.getElementById("delete-selected-cancel-btn");
     const deleteSelectedMessage = document.getElementById("delete-selected-message");
 
-    const totalCountEl = document.getElementById("results2-total-count");
-    const deleteSelectedBtn = document.getElementById("results2-delete-selected-btn");
+    const totalCountEl = document.getElementById("results-total-count");
+    const deleteSelectedBtn = document.getElementById("results-delete-selected-btn");
 
     const questionLabels = {};
     const questionDefinitions = {};
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         const notice = document.createElement("div");
-        notice.className = "results2-empty";
+        notice.className = "results-empty";
         notice.textContent = message;
         gridMount.innerHTML = "";
         gridMount.appendChild(notice);
@@ -352,7 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
         svg.setAttribute("viewBox", "0 0 24 24");
         svg.setAttribute("aria-hidden", "true");
         svg.setAttribute("focusable", "false");
-        svg.classList.add("results2-icon");
+        svg.classList.add("results-icon");
         svg.innerHTML = pathMarkup;
         return svg;
     }
@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const img = document.createElement("img");
             img.src = options.imgSrc;
             img.alt = label;
-            img.className = "results2-icon";
+            img.className = "results-icon";
             el.appendChild(img);
         }
 
@@ -403,13 +403,13 @@ document.addEventListener("DOMContentLoaded", function () {
     function actionFormatter(cell) {
         const data = cell.getRow().getData();
         const wrapper = document.createElement("div");
-        wrapper.className = "results2-action-group";
+        wrapper.className = "results-action-group";
         const leftGroup = document.createElement("div");
-        leftGroup.className = "results2-action-left";
+        leftGroup.className = "results-action-left";
         const middleGroup = document.createElement("div");
-        middleGroup.className = "results2-action-middle";
+        middleGroup.className = "results-action-middle";
         const rightGroup = document.createElement("div");
-        rightGroup.className = "results2-action-right";
+        rightGroup.className = "results-action-right";
 
         const jsonBtn = createIconButton({
             label: t("JSON"),
@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const form = document.createElement("form");
         form.method = "get";
         form.action = config.downloadUrl;
-        form.className = "download-form results2-action-form";
+        form.className = "download-form results-action-form";
 
         if (authToken) {
             const tokenInput = document.createElement("input");
@@ -550,7 +550,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    const table = new Tabulator("#results2-grid", {
+    const table = new Tabulator("#results-grid", {
         ajaxURL: config.resultsUrl,
         ajaxConfig: "GET",
         ajaxRequestFunc: function (url, config, params) {
@@ -598,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 headerSort: false,
                 width: 40,
                 visible: isManager,
-                cssClass: "results2-select-col"
+                cssClass: "results-select-col"
             },
             {
                 title: t("Date"),
@@ -678,10 +678,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const searchInput = document.getElementById("results2-search-input");
-    const searchBtn = document.getElementById("results2-search-btn");
-    const resetBtn = document.getElementById("results2-reset-btn");
-    const refreshBtn = document.getElementById("results2-refresh-btn");
+    const searchInput = document.getElementById("results-search-input");
+    const searchBtn = document.getElementById("results-search-btn");
+    const resetBtn = document.getElementById("results-reset-btn");
+    const refreshBtn = document.getElementById("results-refresh-btn");
 
     function applySearch() {
         currentQuery = searchInput ? searchInput.value.trim() : "";
@@ -855,7 +855,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    const clearResultsBtn = document.getElementById("results2-clear-results-btn");
+    const clearResultsBtn = document.getElementById("results-clear-results-btn");
     const clearConfirmModal = document.getElementById("clear-confirm-modal");
     const clearCloseButton = document.querySelector(".clear-close-button");
     const clearConfirmInput = document.getElementById("clear-confirm-input");

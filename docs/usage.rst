@@ -9,7 +9,7 @@ Typical workflow
 2. Open ``@@editor`` to design the form using SurveyJS Creator.
 3. Configure actions and settings on the Survey (see :doc:`configuration`).
 4. Publish and distribute the Survey URL or embed it (see :doc:`embedding`).
-5. Use ``@@results2`` and exports to review submissions.
+5. Use ``@@results`` and exports to review submissions.
 
 Roles
 =====

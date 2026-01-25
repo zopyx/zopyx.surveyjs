@@ -1521,14 +1521,14 @@ class Views(BrowserView):
     def _parse_tabulator_param(self, name):
         return results_service.parse_tabulator_param(self.request, name)
 
-    def _results2_row(self, entry):
-        return results_service.results2_row(entry)
+    def _results_row(self, entry):
+        return results_service.results_row(entry)
 
-    def _results2_apply_filters(self, rows, filters):
-        return results_service.results2_apply_filters(rows, filters)
+    def _results_apply_filters(self, rows, filters):
+        return results_service.results_apply_filters(rows, filters)
 
-    def results2_data(self):
-        payload = results_service.build_results2_payload(self.results, self.request)
+    def results_data(self):
+        payload = results_service.build_results_payload(self.results, self.request)
         json_response(self.request.response, payload)
 
     def view_result_json(self):
