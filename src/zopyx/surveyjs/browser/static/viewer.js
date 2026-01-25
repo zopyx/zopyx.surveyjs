@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const normalizedLocale = String(rawLocale).replace("_", "-");
   const surveyLocale = normalizedLocale.split("-")[0] || "en";
   const trustedAccessEnabled = Boolean(window.SURVEY_TRUSTED_ACCESS_ENABLED);
+  const canManage = Boolean(window.SURVEY_CAN_MANAGE);
   const accessToken = new URLSearchParams(window.location.search).get("access_token");
   const url = accessToken
     ? ACTUAL_URL + "/get-form-json?access_token=" + encodeURIComponent(accessToken)
@@ -28,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const showAccessError = function (message) {
     if (surveyContainer) {
+      surveyContainer.classList.add("survey-container-hidden");
+      surveyContainer.setAttribute("hidden", "hidden");
       surveyContainer.style.display = "none";
     }
     if (statusBar) {
@@ -108,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  if (trustedAccessEnabled && !accessToken) {
+  if (trustedAccessEnabled && !accessToken && !canManage) {
     showAccessError(
       trustedAccessMessages.trusted_access_token_missing
     );
@@ -175,6 +178,11 @@ document.addEventListener("DOMContentLoaded", function () {
       // Render the survey
       if (surveyContainer) {
         survey.render(surveyContainer);
+        if (!trustedAccessEnabled || (trustedAccessEnabled && (accessToken || canManage))) {
+          surveyContainer.classList.remove("survey-container-hidden");
+          surveyContainer.removeAttribute("hidden");
+          surveyContainer.style.display = "";
+        }
       }
     })
     .catch((error) => {

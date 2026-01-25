@@ -5,7 +5,7 @@
   <object name="survey-results" meta_type="CMF Action" i18n:domain="plone">
    <property name="title" i18n:translate="">Form Results</property>
    <property name="description" i18n:translate=""></property>
-   <property name="url_expr">string:${object_url}/@@results</property>
+   <property name="url_expr">string:${object_url}/@@results2</property>
    <property name="link_target"></property>
    <property name="icon_expr"></property>
    <property name="available_expr">python: object.portal_type == 'Survey'</property>

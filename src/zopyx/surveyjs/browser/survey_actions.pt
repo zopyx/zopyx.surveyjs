@@ -32,10 +32,6 @@
          href="${context/absolute_url}/@@results2">
         <span i18n:translate="">Results</span>
       </a>
-      <a class="survey-action-button action-results-legacy"
-         href="${context/absolute_url}/@@results">
-        <span i18n:translate="">Results (classic)</span>
-      </a>
     </div>
     <div class="survey-actions-row survey-actions-row--manager">
       <tal:manager tal:condition="view/is_manager">

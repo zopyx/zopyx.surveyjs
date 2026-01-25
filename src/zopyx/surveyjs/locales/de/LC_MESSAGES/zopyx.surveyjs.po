@@ -516,6 +516,10 @@ msgid "Results cleared"
 msgstr "Ergebnisse gelöscht"
 
 #: generated
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: generated
 msgid "Row"
 msgstr "Zeile"
 
@@ -1244,7 +1248,3 @@ msgstr "Sicherheitsmodus"
 #: generated
 msgid "Language"
 msgstr "Sprache"
-
-#: generated
-msgid "Survey"
-msgstr "Umfrage"

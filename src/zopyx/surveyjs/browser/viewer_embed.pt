@@ -20,7 +20,7 @@
       use-macro="context/@@survey-assets/macros/surveyjs-var-auth-token"
   />
   <script type="text/javascript"
-          tal:content="python: 'SURVEY_TRUSTED_ACCESS_ENABLED=%s;' % ('true' if view.trusted_access_enabled else 'false')">
+          tal:content="python: 'SURVEY_TRUSTED_ACCESS_ENABLED=%s; SURVEY_CAN_MANAGE=%s;' % ('true' if view.trusted_access_enabled else 'false', 'true' if view.can_manage_portal_content else 'false')">
   </script>
   <metal:surveyjs-vars-base
       use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
@@ -56,10 +56,27 @@
       width: 100%;
       max-width: 100%;
     }
+
+    .survey-container-hidden {
+      display: none !important;
+      visibility: hidden !important;
+    }
   </style>
 </head>
 <body>
-  <div id="surveyAccessError" class="survey-access-error" hidden="hidden"></div>
-  <div id="surveyContainer"></div>
+  <tal:trusted-access-state
+      tal:define="missing_token python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content">
+    <div id="surveyAccessError"
+         class="survey-access-error"
+         tal:attributes="hidden python: None if missing_token else 'hidden'">
+      <tal:trusted-access-message
+          tal:condition="missing_token"
+          i18n:translate="">
+        This form requires a trusted access link. Please use the link provided by the form owner.
+      </tal:trusted-access-message>
+    </div>
+    <div id="surveyContainer"
+         tal:attributes="class python: 'survey-container-hidden' if missing_token else None; hidden python: 'hidden' if missing_token else None"></div>
+  </tal:trusted-access-state>
 </body>
 </html>

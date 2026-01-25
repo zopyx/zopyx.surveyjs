@@ -26,7 +26,7 @@ UI views
    * - ``@@editor``
      - ``cmf.ModifyPortalContent``
      - SurveyJS Creator visual editor.
-   * - ``@@results``
+   * - ``@@results2``
      - ``cmf.ModifyPortalContent``
      - Results listing and export controls.
    * - ``@@result-detail``

@@ -126,7 +126,7 @@ The Survey type exposes UI views and service endpoints. View names are appended 
 | `@@viewer` | `zope2.View` | Renders the survey for end users and submits responses. |
 | `@@viewer-embed` | `zope2.View` | Embed-friendly viewer for iframes (requires embedding to be enabled on the survey). |
 | `@@editor` | `cmf.ModifyPortalContent` | SurveyJS Creator visual editor for building the form. |
-| `@@results` | `cmf.ModifyPortalContent` | Results listing with export, mail, and post actions. |
+| `@@results2` | `cmf.ModifyPortalContent` | Results listing with export, mail, and post actions. |
 | `@@result-detail` | `cmf.ModifyPortalContent` | Detailed view of a single submission. |
 | `@@form-versions` | `cmf.ModifyPortalContent` | Manage saved form versions (preview, restore, download). |
 | `@@ai` | `cmf.ModifyPortalContent` | AI form generator UI. |

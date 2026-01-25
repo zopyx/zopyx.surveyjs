@@ -505,6 +505,10 @@ msgid "Results cleared"
 msgstr ""
 
 #: generated
+msgid "Results"
+msgstr ""
+
+#: generated
 msgid "Row"
 msgstr ""
 
