@@ -188,14 +188,14 @@ class IFormsSettings(IPloneLoggingSettings):
         title="Authenticity token issuer",
         description="Issuer claim for authenticity tokens.",
         required=False,
-        default="zopyx.surveyjs",
+        default="privacyforms.studio",
     )
 
     authenticity_token_audience = schema.TextLine(
         title="Authenticity token audience",
         description="Audience claim for authenticity tokens.",
         required=False,
-        default="zopyx.surveyjs",
+        default="privacyforms.studio",
     )
 
     authenticity_token_cache_path = schema.TextLine(

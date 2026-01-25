@@ -30,3 +30,4 @@ and developers operating a SurveyJS-enabled Plone site.
 
    security2
    survey_settings
+   global_settings
