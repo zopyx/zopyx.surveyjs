@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master"
+>
+
+  <metal:block fill-slot="content-core">
+    <style>
+      .survey-overview-dates {
+        font-size: 0.85em;
+        color: #6f6f6f;
+      }
+      .survey-overview-asterisk {
+        color: #b30000;
+        font-weight: 700;
+      }
+      .survey-overview-description {
+        color: #6f6f6f;
+      }
+    </style>
+
+    <h2 class="page-headline" i18n:translate="">Survey overview</h2>
+    <div class="page-subtitle" i18n:translate="">
+      Overview of surveys in this section and their submission status.
+    </div>
+
+    <tal:entries tal:define="entries view/survey_overview_entries">
+      <tal:empty tal:condition="not: entries">
+        <p i18n:translate="">No surveys found below this location.</p>
+      </tal:empty>
+      <tal:hasentries tal:condition="entries">
+        <table class="listing">
+          <thead>
+            <tr>
+              <th i18n:translate="">Survey</th>
+              <th i18n:translate="">Workflow status</th>
+              <th i18n:translate="">Submitted</th>
+              <th i18n:translate="">Security mode</th>
+              <th i18n:translate="">Language</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="entry entries">
+              <td>
+                <div>
+                  <a tal:attributes="href entry/url"
+                     tal:content="entry/title">Survey</a>
+                </div>
+                <div class="survey-overview-description"
+                     tal:condition="entry/description"
+                     tal:content="entry/description">Description</div>
+              </td>
+              <td>
+                <div tal:content="entry/review_state">state</div>
+                <tal:dates tal:define="effective entry/effective; expires entry/expires">
+                  <div class="survey-overview-dates"
+                       tal:condition="python: effective and expires">
+                    <span tal:content="effective">effective</span>
+                    <span> - </span>
+                    <span tal:content="expires">expires</span>
+                    <span class="survey-overview-asterisk"
+                          tal:condition="entry/expires_future">*</span>
+                  </div>
+                  <div class="survey-overview-dates"
+                       tal:condition="python: effective and not expires"
+                       tal:content="effective">effective</div>
+                  <div class="survey-overview-dates"
+                       tal:condition="python: expires and not effective">
+                    <span tal:content="expires">expires</span>
+                    <span class="survey-overview-asterisk"
+                          tal:condition="entry/expires_future">*</span>
+                  </div>
+                </tal:dates>
+              </td>
+              <td tal:content="entry/results_count">0</td>
+              <td tal:content="entry/access_mode">mode</td>
+              <td tal:content="entry/language">lang</td>
+            </tr>
+          </tbody>
+        </table>
+      </tal:hasentries>
+    </tal:entries>
+  </metal:block>
+</html>
