@@ -7,19 +7,14 @@
 >
 
   <metal:block fill-slot="content-core">
-    <style>
-      .survey-overview-dates {
-        font-size: 0.85em;
-        color: #6f6f6f;
-      }
-      .survey-overview-asterisk {
-        color: #b30000;
-        font-weight: 700;
-      }
-      .survey-overview-description {
-        color: #6f6f6f;
-      }
-    </style>
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
+    />
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/survey_overview.css"
+    />
 
     <h2 class="page-headline" i18n:translate="">Survey overview</h2>
     <div class="page-subtitle" i18n:translate="">
@@ -31,55 +26,20 @@
         <p i18n:translate="">No surveys found below this location.</p>
       </tal:empty>
       <tal:hasentries tal:condition="entries">
-        <table class="listing">
-          <thead>
-            <tr>
-              <th i18n:translate="">Survey</th>
-              <th i18n:translate="">Workflow status</th>
-              <th i18n:translate="">Submitted</th>
-              <th i18n:translate="">Security mode</th>
-              <th i18n:translate="">Language</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr tal:repeat="entry entries">
-              <td>
-                <div>
-                  <a tal:attributes="href entry/url"
-                     tal:content="entry/title">Survey</a>
-                </div>
-                <div class="survey-overview-description"
-                     tal:condition="entry/description"
-                     tal:content="entry/description">Description</div>
-              </td>
-              <td>
-                <div tal:content="entry/review_state">state</div>
-                <tal:dates tal:define="effective entry/effective; expires entry/expires">
-                  <div class="survey-overview-dates"
-                       tal:condition="python: effective and expires">
-                    <span tal:content="effective">effective</span>
-                    <span> - </span>
-                    <span tal:content="expires">expires</span>
-                    <span class="survey-overview-asterisk"
-                          tal:condition="entry/expires_future">*</span>
-                  </div>
-                  <div class="survey-overview-dates"
-                       tal:condition="python: effective and not expires"
-                       tal:content="effective">effective</div>
-                  <div class="survey-overview-dates"
-                       tal:condition="python: expires and not effective">
-                    <span tal:content="expires">expires</span>
-                    <span class="survey-overview-asterisk"
-                          tal:condition="entry/expires_future">*</span>
-                  </div>
-                </tal:dates>
-              </td>
-              <td tal:content="entry/results_count">0</td>
-              <td tal:content="entry/access_mode">mode</td>
-              <td tal:content="entry/language">lang</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="survey-overview-grid-wrap">
+          <div class="survey-overview-pager-row">
+            <div id="survey-overview-pager" class="survey-overview-pager"></div>
+          </div>
+          <div id="survey-overview-grid"></div>
+        </div>
+        <script type="text/javascript"
+                tal:define="entries_json python: __import__('json').dumps(entries)">
+          window.SURVEY_OVERVIEW_DATA = ${structure: entries_json};
+        </script>
+        <script src="++resource++zopyx.surveyjs/vendor/tabulator.min.js"
+                type="text/javascript"></script>
+        <script src="++resource++zopyx.surveyjs/survey_overview.js"
+                type="text/javascript"></script>
       </tal:hasentries>
     </tal:entries>
   </metal:block>
