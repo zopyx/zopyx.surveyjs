@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from string import Formatter
+import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import subprocess
@@ -241,6 +242,90 @@ class Views(BrowserView):
             return len(storage.list_results(self.context))
         except Exception:
             return 0
+
+    def _format_catalog_date(self, value):
+        if callable(value):
+            value = value()
+        if value and not self._is_reasonable_date(value):
+            return ""
+        return self._format_portal_time(value) or ""
+
+    def _format_catalog_iso(self, value):
+        if callable(value):
+            value = value()
+        if value and not self._is_reasonable_date(value):
+            return ""
+        if hasattr(value, "ISO"):
+            text = value.ISO()
+        elif hasattr(value, "isoformat"):
+            try:
+                text = value.isoformat(timespec="minutes")
+            except Exception:
+                text = str(value)
+        else:
+            text = str(value) if value else ""
+        match = re.match(r"^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})", text)
+        if match:
+            return f"{match.group(1)} {match.group(2)}"
+        return text
+
+    def survey_overview_entries(self):
+        catalog = plone.api.portal.get_tool("portal_catalog")
+        context_path = "/".join(self.context.getPhysicalPath())
+        brains = catalog.searchResults(
+            portal_type="Survey",
+            path={"query": context_path, "depth": -1},
+            sort_on="sortable_title",
+        )
+        storage = get_result_storage(self.context)
+        access_labels = {
+            "public": _("Public"),
+            "trusted": _("Trusted access token"),
+        }
+        entries = []
+        for brain in brains:
+            obj = brain.getObject()
+            access_mode = getattr(obj, "access_mode", "") or ""
+            access_label = access_labels.get(access_mode, access_mode)
+            language = getattr(obj, "Language", None)
+            language = language() if callable(language) else language
+            if isinstance(language, (list, tuple)):
+                language = ", ".join([str(item) for item in language if item])
+            language = language or ""
+            try:
+                review_state = plone.api.content.get_state(obj)
+            except Exception:
+                review_state = brain.review_state or ""
+            try:
+                results_count = storage.count_results(obj)
+            except Exception:
+                results_count = 0
+            expires_value = brain.expires
+            if callable(expires_value):
+                expires_value = expires_value()
+            try:
+                expires_future = bool(
+                    expires_value
+                    and ensure_timezone_aware(expires_value)
+                    > datetime.now(timezone.utc)
+                )
+            except Exception:
+                expires_future = False
+            entries.append(
+                {
+                    "title": brain.Title or "",
+                    "description": brain.Description or "",
+                    "url": brain.getURL(),
+                    "review_state": review_state,
+                    "effective": self._format_catalog_iso(brain.effective),
+                    "expires": self._format_catalog_iso(brain.expires),
+                    "results_count": results_count,
+                    "access_mode": access_label,
+                    "language": language,
+                    "expires_future": expires_future,
+                }
+            )
+        return entries
 
     def format_created(self, created):
         return results_service.format_created(created)

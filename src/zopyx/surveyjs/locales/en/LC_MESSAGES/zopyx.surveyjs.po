@@ -1209,3 +1209,43 @@ msgstr "Reset"
 #: generated
 msgid "Refresh"
 msgstr "Refresh"
+
+#: generated
+msgid "Survey overview"
+msgstr "Survey overview"
+
+#: generated
+msgid "Overview of surveys in this section and their submission status."
+msgstr "Overview of surveys in this section and their submission status."
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "No surveys found below this location."
+
+#: generated
+msgid "Title"
+msgstr "Title"
+
+#: generated
+msgid "Description"
+msgstr "Description"
+
+#: generated
+msgid "Workflow status"
+msgstr "Workflow status"
+
+#: generated
+msgid "Submitted"
+msgstr "Submitted"
+
+#: generated
+msgid "Security mode"
+msgstr "Security mode"
+
+#: generated
+msgid "Language"
+msgstr "Language"
+
+#: generated
+msgid "Survey"
+msgstr "Survey"

@@ -1208,3 +1208,43 @@ msgstr "Zurücksetzen"
 #: generated
 msgid "Refresh"
 msgstr "Aktualisieren"
+
+#: generated
+msgid "Survey overview"
+msgstr "Umfrage-Übersicht"
+
+#: generated
+msgid "Overview of surveys in this section and their submission status."
+msgstr "Übersicht der Umfragen in diesem Bereich und ihres Einreichungsstatus."
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "Keine Umfragen unterhalb dieses Bereichs gefunden."
+
+#: generated
+msgid "Title"
+msgstr "Titel"
+
+#: generated
+msgid "Description"
+msgstr "Beschreibung"
+
+#: generated
+msgid "Workflow status"
+msgstr "Workflow-Status"
+
+#: generated
+msgid "Submitted"
+msgstr "Eingereicht"
+
+#: generated
+msgid "Security mode"
+msgstr "Sicherheitsmodus"
+
+#: generated
+msgid "Language"
+msgstr "Sprache"
+
+#: generated
+msgid "Survey"
+msgstr "Umfrage"
