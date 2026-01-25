@@ -180,7 +180,7 @@ class IFormsSettings(IPloneLoggingSettings):
         title="Authenticity token TTL (seconds)",
         description="Token lifetime in seconds.",
         required=False,
-        default=600,
+        default=3600,
         min=60,
     )
 
