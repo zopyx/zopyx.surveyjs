@@ -13,11 +13,12 @@ import validate_data
 
 class ValidateDataTests(unittest.TestCase):
     def test_validate_data_uses_existing_binary(self) -> None:
-        with mock.patch(
-            "validate_data.platform.system", return_value="Linux"
-        ), mock.patch("validate_data.os.path.exists", return_value=True), mock.patch(
-            "validate_data.subprocess.run"
-        ) as run_mock, mock.patch("validate_data.deno_build_targets") as build_mock:
+        with (
+            mock.patch("validate_data.platform.system", return_value="Linux"),
+            mock.patch("validate_data.os.path.exists", return_value=True),
+            mock.patch("validate_data.subprocess.run") as run_mock,
+            mock.patch("validate_data.deno_build_targets") as build_mock,
+        ):
             run_mock.return_value = mock.Mock(returncode=0)
 
             exit_code = validate_data.validate_data(
@@ -45,13 +46,14 @@ class ValidateDataTests(unittest.TestCase):
         def exists_side_effect(_: str) -> bool:
             return exists_responses.pop(0)
 
-        with mock.patch(
-            "validate_data.platform.system", return_value="Linux"
-        ), mock.patch(
-            "validate_data.os.path.exists", side_effect=exists_side_effect
-        ), mock.patch(
-            "validate_data.deno_build_targets", return_value=[binary_path]
-        ) as build_mock, mock.patch("validate_data.subprocess.run") as run_mock:
+        with (
+            mock.patch("validate_data.platform.system", return_value="Linux"),
+            mock.patch("validate_data.os.path.exists", side_effect=exists_side_effect),
+            mock.patch(
+                "validate_data.deno_build_targets", return_value=[binary_path]
+            ) as build_mock,
+            mock.patch("validate_data.subprocess.run") as run_mock,
+        ):
             run_mock.return_value = mock.Mock(returncode=1)
 
             exit_code = validate_data.validate_data()

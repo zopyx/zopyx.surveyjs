@@ -15,7 +15,7 @@ the system, and end users who build and run surveys in the UI.
    for-end-users
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Reference
 
    overview

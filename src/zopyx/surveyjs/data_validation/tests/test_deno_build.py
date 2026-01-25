@@ -50,13 +50,16 @@ class DenoBuildTests(unittest.TestCase):
             system, _, _ = args
             return os.path.join(deno_build.PROJECT_DIR, deno_build._binary_name(system))
 
-        with mock.patch("deno_build._is_stale", return_value=True), mock.patch(
-            "deno_build._download_deno", return_value="/tmp/deno"
-        ), mock.patch(
-            "deno_build.multiprocessing.get_context", return_value=DummyContext()
-        ), mock.patch(
-            "deno_build._build_target", side_effect=fake_build_target
-        ) as build_mock:
+        with (
+            mock.patch("deno_build._is_stale", return_value=True),
+            mock.patch("deno_build._download_deno", return_value="/tmp/deno"),
+            mock.patch(
+                "deno_build.multiprocessing.get_context", return_value=DummyContext()
+            ),
+            mock.patch(
+                "deno_build._build_target", side_effect=fake_build_target
+            ) as build_mock,
+        ):
             results = deno_build.deno_build_targets(["darwin", "linux"])
 
             expected = [
