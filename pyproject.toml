@@ -1,2 +1,3 @@
 [tool.ruff]
+exclude = ["scripts", "fillable_forms"]
 ignore = ["E402"]
