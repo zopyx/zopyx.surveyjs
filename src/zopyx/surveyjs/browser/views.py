@@ -299,6 +299,11 @@ class Views(BrowserView):
             id="demos",
             title="Demos",
         )
+        try:
+            demos.exclude_from_nav = True
+            demos.reindexObject(idxs=["exclude_from_nav"])
+        except Exception:
+            pass
         self._ensure_private(demos)
 
         created = []
@@ -338,6 +343,11 @@ class Views(BrowserView):
                     id=survey_id,
                     title=title,
                 )
+                try:
+                    survey.exclude_from_nav = True
+                    survey.reindexObject(idxs=["exclude_from_nav"])
+                except Exception:
+                    pass
                 self._ensure_private(survey)
                 annos = IAnnotations(survey)
                 forms_service.save_form_version(
