@@ -37,7 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
       statusBar.hidden = true;
     }
     if (errorContainer) {
-      errorContainer.textContent = message;
+      const messageEl = errorContainer.querySelector("#surveyAccessErrorMessage");
+      if (messageEl) {
+        messageEl.textContent = message;
+      } else {
+        errorContainer.textContent = message;
+      }
       errorContainer.hidden = false;
     }
   };

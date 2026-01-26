@@ -130,11 +130,30 @@
       <div id="surveyAccessError"
            class="survey-access-error"
            tal:attributes="hidden python: None if missing_token else 'hidden'">
-        <tal:trusted-access-message
-            tal:condition="missing_token"
-            i18n:translate="">
-          This form requires a trusted access link. Please use the link provided by the form owner.
-        </tal:trusted-access-message>
+        <div class="survey-access-error-card">
+          <div class="survey-access-error-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+              <path d="M12 2a7 7 0 0 1 7 7v3h1.2a1.8 1.8 0 0 1 1.8 1.8v6.4A1.8 1.8 0 0 1 20.2 22H3.8A1.8 1.8 0 0 1 2 20.2v-6.4A1.8 1.8 0 0 1 3.8 12H5V9a7 7 0 0 1 7-7Zm0 2a5 5 0 0 0-5 5v3h10V9a5 5 0 0 0-5-5Zm0 10.2a1.8 1.8 0 0 1 1.1 3.2l-.1 2a1 1 0 0 1-2 0l-.1-2A1.8 1.8 0 0 1 12 14.2Z"></path>
+            </svg>
+          </div>
+          <div class="survey-access-error-body">
+            <p class="survey-access-error-title" i18n:translate="">Trusted access required</p>
+            <p class="survey-access-error-message" id="surveyAccessErrorMessage" i18n:translate="">
+              This form requires a trusted access link. Please use the link provided by the form owner.
+            </p>
+            <div class="survey-access-error-meta">
+              <p class="survey-access-error-meta-title"
+                 tal:content="context/Title">Survey title</p>
+              <p class="survey-access-error-meta-description"
+                 tal:condition="context/Description"
+                 tal:content="context/Description">Survey description</p>
+            </div>
+            <ul class="survey-access-error-steps">
+              <li i18n:translate="">Ask the form owner for a trusted access link.</li>
+              <li i18n:translate="">Open the link in this browser to continue.</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div id="surveyContainer"
            tal:attributes="class python: 'survey-container-hidden' if missing_token else None; hidden python: 'hidden' if missing_token else None"></div>

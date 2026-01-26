@@ -2,6 +2,8 @@
 SurveyCreatorCore.registerSurveyTheme(SurveyTheme);
 
 document.addEventListener("DOMContentLoaded", function () {
+  const t = window._t || function (msgid) { return msgid; };
+
   function registerRichTextPropertyEditor() {
     if (
       typeof SurveyCreatorCore === "undefined" ||
@@ -181,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const updateButton = document.createElement("button");
         updateButton.type = "button";
         updateButton.className = "btn btn-secondary sv-quill-update";
-        updateButton.textContent = "Update";
+        updateButton.textContent = t("Update");
         updateButton.addEventListener("click", function () {
           const html = quill.root.innerHTML;
           const context = question.__quillContext || {};
@@ -231,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   let hasUnsavedChanges = false;
+  let isInitializing = true;
+  let userInteracted = false;
   const creatorOptions = {
     autoSaveEnabled: true,
     collapseOnDrag: true,
@@ -260,8 +264,71 @@ document.addEventListener("DOMContentLoaded", function () {
     Survey.surveyLocalization.currentLocale = locale;
   }
   creator.render("surveyContainer");
+
+  const editorRoot = document.getElementById("surveyEditorContainer");
+  if (editorRoot) {
+    const markInteraction = function () {
+      userInteracted = true;
+    };
+    editorRoot.addEventListener("pointerdown", markInteraction, { once: true });
+    editorRoot.addEventListener("keydown", markInteraction, { once: true });
+  }
+
+  const getSaveButton = function () {
+    const selectors = [
+      ".svc-toolbar__item--save",
+      "[data-action-id='save']",
+      "[data-name='save']",
+      "[data-action='save']",
+      "button[title='Save']",
+      "button[title='Save Form']",
+      "button[aria-label='Save']",
+      "button[aria-label='Save Form']",
+    ];
+    for (let i = 0; i < selectors.length; i += 1) {
+      const match = document.querySelector(selectors[i]);
+      if (match) {
+        return match;
+      }
+    }
+    return null;
+  };
+
+  const ensureUnsavedIndicator = function () {
+    const saveButton = getSaveButton();
+    if (!saveButton) {
+      return null;
+    }
+    let indicator = document.querySelector(".survey-unsaved-indicator");
+    if (!indicator) {
+      indicator = document.createElement("span");
+      indicator.className = "survey-unsaved-indicator";
+      indicator.textContent = t("Unsaved changes");
+      saveButton.insertAdjacentElement("afterend", indicator);
+    }
+    return indicator;
+  };
+
+  const setUnsavedState = function (isDirty) {
+    hasUnsavedChanges = isDirty;
+    document.body.classList.toggle("survey-has-unsaved", Boolean(isDirty));
+    const banner = document.getElementById("editorUnsavedBanner");
+    if (banner) {
+      banner.hidden = !isDirty;
+    }
+    const indicator = ensureUnsavedIndicator();
+    if (indicator) {
+      indicator.hidden = !isDirty;
+    }
+  };
+
+  setUnsavedState(false);
+  ensureUnsavedIndicator();
   creator.onModified.add(function () {
-    hasUnsavedChanges = true;
+    if (isInitializing || !userInteracted) {
+      return;
+    }
+    setUnsavedState(true);
   });
 
   window.addEventListener("beforeunload", function (event) {
@@ -277,7 +344,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $.getJSON(url, function (result) {
     creator.JSON = result;
-    hasUnsavedChanges = false;
+    window.setTimeout(function () {
+      isInitializing = false;
+      setUnsavedState(false);
+    }, 0);
+  }).fail(function () {
+    isInitializing = false;
   });
 
   creator.saveSurveyFunc = function (saveNo, callback) {
@@ -290,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
         _authenticator: CSRF_TOKEN,
       },
       success: function (data) {
-        hasUnsavedChanges = !data.isSuccess;
+        setUnsavedState(!data.isSuccess);
         callback(saveNo, data.isSuccess);
       },
       error: function (xhr, ajaxOptions, thrownError) {

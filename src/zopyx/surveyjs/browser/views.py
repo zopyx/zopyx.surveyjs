@@ -1089,6 +1089,8 @@ class Views(BrowserView):
         return auth_service.AuthService(self.context, self.request, self._form_id)
 
     def _require_trusted_access(self) -> bool:
+        if self.can_manage_portal_content:
+            return True
         return self._auth().require_trusted_access(logger=logger)
 
     def _build_auth_token(self, form_version_id):

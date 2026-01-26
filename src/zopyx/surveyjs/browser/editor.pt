@@ -70,6 +70,12 @@
         use-macro="context/@@survey-actions/macros/survey-status"
     />
 
+    <div id="editorUnsavedBanner" class="editor-unsaved-banner" hidden="hidden">
+      <span class="editor-unsaved-dot" aria-hidden="true"></span>
+      <strong i18n:translate="">Unsaved changes</strong>
+      <span i18n:translate="">You have edits that haven't been saved yet.</span>
+    </div>
+
     <div id="surveyEditorContainer">
       <div id="surveyContainer"></div>
     </div>

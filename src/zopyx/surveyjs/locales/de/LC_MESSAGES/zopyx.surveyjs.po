@@ -687,8 +687,35 @@ msgstr "Öffentlich"
 msgid "Trusted access token"
 msgstr "Trusted-Access-Token"
 
+msgid "Trusted access required"
+msgstr "Trusted Access erforderlich"
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "Bitten Sie den Formularbesitzer um einen Trusted-Access-Link."
+
+msgid "Open the link in this browser to continue."
+msgstr "Öffnen Sie den Link in diesem Browser, um fortzufahren."
+
 msgid "Trusted access token TTL (hours)"
 msgstr "Trusted-Access-Token-Gültigkeit (Stunden)"
+
+msgid "Update"
+msgstr "Aktualisieren"
+
+msgid "Unsaved changes"
+msgstr "Ungespeicherte Aenderungen"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "Sie haben Aenderungen, die noch nicht gespeichert wurden."
+
+msgid "Trusted access link"
+msgstr "Trusted-Access-Link"
+
+msgid "Share this link to open the form."
+msgstr "Teilen Sie diesen Link, um das Formular zu öffnen."
+
+msgid "Copy link"
+msgstr "Link kopieren"
 
 msgid "Lifetime of trusted access tokens in hours."
 msgstr "Gültigkeitsdauer der Trusted-Access-Token in Stunden."

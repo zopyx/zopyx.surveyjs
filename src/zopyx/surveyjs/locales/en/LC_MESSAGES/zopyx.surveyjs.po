@@ -691,6 +691,15 @@ msgstr "Trusted access token"
 msgid "Trusted access token TTL (hours)"
 msgstr "Trusted access token TTL (hours)"
 
+msgid "Update"
+msgstr "Update"
+
+msgid "Unsaved changes"
+msgstr "Unsaved changes"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "You have edits that haven't been saved yet."
+
 msgid "Lifetime of trusted access tokens in hours."
 msgstr "Lifetime of trusted access tokens in hours."
 
