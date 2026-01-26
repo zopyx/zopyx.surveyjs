@@ -101,47 +101,6 @@
 </metal:survey_actions>
 
 <metal:survey_header define-macro="survey-header">
-  <style type="text/css">
-    .survey-header {
-      align-items: flex-start;
-      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
-      justify-content: space-between;
-      margin: 0 0 1rem;
-      padding: 0.65rem 0.9rem;
-    }
-    .survey-header-main {
-      flex: 1 1 320px;
-      min-width: 0;
-    }
-    .survey-form-title {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    .survey-header .page-headline {
-      color: #0f172a;
-      font-size: 1em;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      line-height: 1.25;
-      margin: 0.4rem 0 0;
-    }
-    .survey-header-actions {
-      align-items: flex-end;
-      display: flex;
-      flex-direction: column;
-      flex: 0 0 auto;
-      gap: 0.4rem;
-    }
-    .survey-action-button {
-      font-size: 0.72rem;
-      padding: 0.25rem 0.75rem;
-    }
-  </style>
   <div class="survey-header"
        tal:define="header_class header_class | nothing"
        tal:attributes="class python: 'survey-header' + (' ' + header_class if header_class else '')">
@@ -168,6 +127,50 @@
     </div>
   </div>
 </metal:survey_header>
+
+<metal:survey_header_critical define-macro="survey-header-critical">
+  <style type="text/css">
+    .survey-header {
+      align-items: flex-start;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      justify-content: space-between;
+      margin: 0 0 1rem;
+      padding: 0.65rem 0.9rem;
+    }
+    .survey-header-main {
+      flex: 1 1 320px;
+      min-width: 0;
+    }
+    .survey-form-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .survey-header .page-headline {
+      color: #334155;
+      font-size: 1em;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.25;
+      margin: 0.25rem 0 0;
+    }
+    .survey-header-actions {
+      align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      gap: 0.4rem;
+    }
+    .survey-action-button {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.75rem;
+    }
+  </style>
+</metal:survey_header_critical>
 
 <metal:feature_disabled define-macro="feature-disabled">
   <div class="survey-feature-disabled">

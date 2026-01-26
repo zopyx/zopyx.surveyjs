@@ -5,6 +5,12 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="zopyx.surveyjs">
 
+  <metal:block fill-slot="style_slot">
+    <metal:survey-header-critical
+        use-macro="context/@@survey-actions/macros/survey-header-critical"
+    />
+  </metal:block>
+
   <metal:block fill-slot="content-core"
                tal:define="portal_state context/@@plone_portal_state">
 

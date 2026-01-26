@@ -8,6 +8,9 @@
 
   <metal:block fill-slot="style_slot"
                tal:define="missing_token_for_anonymous python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content">
+    <metal:survey-header-critical
+        use-macro="context/@@survey-actions/macros/survey-header-critical"
+    />
     <style type="text/css" tal:condition="missing_token_for_anonymous">
       /* Hide title/description immediately when token is missing for anonymous users */
       #content > header,

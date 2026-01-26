@@ -36,3 +36,20 @@
     color: #475569;
     font-size: 0.85rem;
 }
+
+.pdf-setup-file-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pdf-setup-file-row label {
+    margin: 0;
+    font-weight: 600;
+}
+
+.pdf-setup-file-row .form-control {
+    flex: 1 1 260px;
+    min-width: 220px;
+}

@@ -5,6 +5,12 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="zopyx.surveyjs">
 
+<metal:block fill-slot="style_slot">
+  <metal:survey-header-critical
+      use-macro="context/@@survey-actions/macros/survey-header-critical"
+  />
+</metal:block>
+
 <metal:block fill-slot="content-core"
              tal:define="portal_state context/@@plone_portal_state;
                          feature_ok python: view.require_feature('fillable-pdf...')">
@@ -62,27 +68,34 @@
 
     <div class="pdf-importer-flow">
       <section class="pdf-importer-panel stage-upload">
-        <div class="panel-title" i18n:translate="">Upload PDF</div>
+        <div class="panel-title">
+          <span i18n:translate="">Upload PDF</span>
+          <span class="beta-pill" i18n:translate="">Experimental</span>
+        </div>
         <form id="pdfFormSetupForm" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="pdfFormFile" i18n:translate="">Fillable PDF file</label>
-            <input type="file"
-                   id="pdfFormFile"
-                   name="pdf_file"
-                   class="form-control"
-                   accept="application/pdf"
-                   required
-            />
+            <div class="pdf-setup-file-row">
+              <label for="pdfFormFile" i18n:translate="">PDF hochladen</label>
+              <input type="file"
+                     id="pdfFormFile"
+                     name="pdf_file"
+                     class="form-control"
+                     accept="application/pdf"
+                     required
+              />
+            </div>
             <p class="help-block" i18n:translate="">
               Choose a PDF that already contains fillable fields.
             </p>
           </div>
           <div class="form-group">
-            <label for="pdfExtractionMode" i18n:translate="">Extraction mode</label>
-            <select id="pdfExtractionMode" name="extract_mode" class="form-control">
-              <option value="pdfcpu" i18n:translate="">pdfcpu (structured fields)</option>
-              <option value="llm" i18n:translate="">LLM (visual conversion)</option>
-            </select>
+            <div class="pdf-setup-file-row">
+              <label for="pdfExtractionMode" i18n:translate="">Extraction mode</label>
+              <select id="pdfExtractionMode" name="extract_mode" class="form-control">
+                <option value="pdfcpu" i18n:translate="">pdfcpu (structured fields)</option>
+                <option value="llm" i18n:translate="">LLM (visual conversion)</option>
+              </select>
+            </div>
             <p class="help-block" i18n:translate="">
               pdfcpu preserves field mapping for filled PDFs. LLM is best for layout
               but cannot always map to original PDF fields.
@@ -104,12 +117,6 @@
 
         <div id="pdfFormSetupStatus" class="alert" style="display:none;"></div>
 
-        <div class="importer-note">
-          <strong i18n:translate="">Heads up:</strong>
-          <span i18n:translate="">
-            Please review the generated SurveyJS form before using it in production.
-          </span>
-        </div>
       </section>
 
       <section class="pdf-importer-panel stage-preview">
