@@ -5,7 +5,7 @@
                       define-macro="survey-actions">
   <div class="survey-actions"
        tal:condition="view/can_manage_portal_content">
-    <div class="survey-actions-row">
+    <div class="survey-actions-row survey-actions-row--primary">
       <a class="survey-action-button action-view"
          href="${context/absolute_url}/@@viewer">
         <span i18n:translate="">View</span>
@@ -37,64 +37,76 @@
     </div>
     <div class="survey-actions-row survey-actions-row--manager">
       <tal:manager tal:condition="view/is_manager">
-        <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
-          <a class="survey-action-button action-dashboard"
-             href="${context/absolute_url}/@@dashboard">
-            <span i18n:translate="">Dashboard</span>
-          </a>
-        </tal:dashboard>
-        <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
-          <a class="survey-action-button action-pdf-generator"
-             href="${context/absolute_url}/@@pdf-generator">
-            <span i18n:translate="">PDF Generator</span>
-          </a>
-        </tal:pdfgenerator>
-        <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
-          <a class="survey-action-button action-pdf-importer"
-             href="${context/absolute_url}/@@pdf-importer">
-            <span i18n:translate="">PDF Form Import</span>
-            <span class="beta-badge" i18n:translate="">Beta</span>
-          </a>
-        </tal:pdfimporter>
-        <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
-          <a class="survey-action-button action-pdf-form-setup"
-             href="${context/absolute_url}/@@pdf-form-setup">
-            <span i18n:translate="">Fillable PDF Setup</span>
-            <span class="beta-badge" i18n:translate="">Beta</span>
-          </a>
-        </tal:pdfformsetup>
+        <div class="survey-actions-group">
+          <span class="survey-actions-label" i18n:translate="">PDF:</span>
+          <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
+            <a class="survey-action-button action-pdf-generator"
+               href="${context/absolute_url}/@@pdf-generator">
+              <span i18n:translate="">PDF Generator</span>
+            </a>
+          </tal:pdfgenerator>
+          <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
+            <a class="survey-action-button action-pdf-importer"
+               href="${context/absolute_url}/@@pdf-importer">
+              <span i18n:translate="">PDF Form Import</span>
+              <span class="beta-badge" i18n:translate="">Beta</span>
+            </a>
+          </tal:pdfimporter>
+          <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
+            <a class="survey-action-button action-pdf-form-setup"
+               href="${context/absolute_url}/@@pdf-form-setup">
+              <span i18n:translate="">Fillable PDF Setup</span>
+              <span class="beta-badge" i18n:translate="">Beta</span>
+            </a>
+          </tal:pdfformsetup>
+        </div>
+        <div class="survey-actions-group">
+          <span class="survey-actions-label" i18n:translate="">Analyse:</span>
+          <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
+            <a class="survey-action-button action-dashboard"
+               href="${context/absolute_url}/@@dashboard">
+              <span i18n:translate="">Dashboard</span>
+            </a>
+          </tal:dashboard>
+        </div>
       </tal:manager>
       <tal:notmanager tal:condition="not: view/is_manager">
-        <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
-          <span class="survey-action-button action-dashboard is-disabled"
-                aria-disabled="true">
-            <span i18n:translate="">Dashboard</span>
-            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-          </span>
-        </tal:dashboard>
-        <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
-          <span class="survey-action-button action-pdf-generator is-disabled"
-                aria-disabled="true">
-            <span i18n:translate="">PDF Generator</span>
-            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-          </span>
-        </tal:pdfgenerator>
-        <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
-          <span class="survey-action-button action-pdf-importer is-disabled"
-                aria-disabled="true">
-            <span i18n:translate="">PDF Form Import</span>
-            <span class="beta-badge" i18n:translate="">Beta</span>
-            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-          </span>
-        </tal:pdfimporter>
-        <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
-          <span class="survey-action-button action-pdf-form-setup is-disabled"
-                aria-disabled="true">
-            <span i18n:translate="">Fillable PDF Setup</span>
-            <span class="beta-badge" i18n:translate="">Beta</span>
-            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-          </span>
-        </tal:pdfformsetup>
+        <div class="survey-actions-group">
+          <span class="survey-actions-label" i18n:translate="">PDF:</span>
+          <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
+            <span class="survey-action-button action-pdf-generator is-disabled"
+                  aria-disabled="true">
+              <span i18n:translate="">PDF Generator</span>
+              <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+            </span>
+          </tal:pdfgenerator>
+          <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
+            <span class="survey-action-button action-pdf-importer is-disabled"
+                  aria-disabled="true">
+              <span i18n:translate="">PDF Form Import</span>
+              <span class="beta-badge" i18n:translate="">Beta</span>
+              <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+            </span>
+          </tal:pdfimporter>
+          <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
+            <span class="survey-action-button action-pdf-form-setup is-disabled"
+                  aria-disabled="true">
+              <span i18n:translate="">Fillable PDF Setup</span>
+              <span class="beta-badge" i18n:translate="">Beta</span>
+              <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+            </span>
+          </tal:pdfformsetup>
+        </div>
+        <div class="survey-actions-group">
+          <span class="survey-actions-label" i18n:translate="">Analyse:</span>
+          <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
+            <span class="survey-action-button action-dashboard is-disabled"
+                  aria-disabled="true">
+              <span i18n:translate="">Dashboard</span>
+              <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+            </span>
+          </tal:dashboard>
+        </div>
       </tal:notmanager>
     </div>
   </div>
@@ -104,25 +116,34 @@
   <div class="survey-header"
        tal:define="header_class header_class | nothing"
        tal:attributes="class python: 'survey-header' + (' ' + header_class if header_class else '')">
-    <div class="survey-header-main">
-      <div class="survey-form-meta">
-        <div class="survey-form-title" tal:content="context/Title">Survey title</div>
-        <div class="survey-form-description"
-             tal:condition="context/Description"
-             tal:content="context/Description">Survey description</div>
+    <div class="survey-header-top">
+      <div class="survey-header-main">
+        <div class="survey-form-meta">
+          <div class="survey-header-title-line">
+            <span class="survey-header-label" i18n:translate="">Veranstaltung:</span>
+            <span class="survey-form-title" tal:content="context/Title">Survey title</span>
+          </div>
+          <div class="survey-form-description"
+               tal:condition="context/Description"
+               tal:content="context/Description">Survey description</div>
+        </div>
+        <div class="survey-header-view">
+          <metal:survey-header-headline define-slot="view-headline">
+            <h2 class="page-headline" i18n:translate="">Survey</h2>
+          </metal:survey-header-headline>
+          <metal:survey-header-subtitle define-slot="view-subtitle" />
+        </div>
       </div>
-      <metal:survey-header-headline define-slot="view-headline">
-        <h2 class="page-headline" i18n:translate="">Survey</h2>
-      </metal:survey-header-headline>
-      <metal:survey-header-subtitle define-slot="view-subtitle" />
+      <div class="survey-header-status">
+        <metal:survey-status
+            use-macro="context/@@survey-actions/macros/survey-status"
+        />
+      </div>
     </div>
+    <div class="survey-header-divider" aria-hidden="true"></div>
     <div class="survey-header-actions">
       <metal:survey-actions
           use-macro="context/@@survey-actions/macros/survey-actions"
-      />
-
-      <metal:survey-status
-          use-macro="context/@@survey-actions/macros/survey-status"
       />
     </div>
   </div>
@@ -136,15 +157,33 @@
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
-      justify-content: space-between;
+      flex-direction: column;
       margin: 0 0 1rem;
       padding: 0.65rem 0.9rem;
+    }
+    .survey-header-top {
+      align-items: flex-start;
+      display: flex;
+      gap: 1rem 1.5rem;
+      justify-content: space-between;
+      width: 100%;
     }
     .survey-header-main {
       flex: 1 1 320px;
       min-width: 0;
+    }
+    .survey-header-label {
+      color: #475569;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .survey-header-title-line {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
     }
     .survey-form-title {
       font-size: 1rem;
@@ -158,12 +197,59 @@
       line-height: 1.25;
       margin: 0.25rem 0 0;
     }
+    .survey-header-view {
+      margin-top: 0.15rem;
+    }
     .survey-header-actions {
       align-items: flex-end;
       display: flex;
       flex-direction: column;
       flex: 0 0 auto;
       gap: 0.4rem;
+    }
+    .survey-header-status {
+      flex: 0 0 auto;
+      margin-left: auto;
+      text-align: right;
+    }
+    .survey-header-status .survey-status-bar {
+      align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.75rem;
+      gap: 0.2rem;
+      margin: 0;
+      text-align: right;
+    }
+    .survey-header-divider {
+      background: #e2e8f0;
+      height: 1px;
+      margin: 0.6rem 0;
+      width: 100%;
+    }
+    .survey-header-actions .survey-actions {
+      align-items: flex-start;
+      margin: 0;
+    }
+    .survey-header-actions .survey-actions-row {
+      justify-content: flex-start;
+    }
+    .survey-actions-row + .survey-actions-row {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 0.5rem;
+    }
+    .survey-actions-group {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .survey-actions-label {
+      color: #64748b;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
     .survey-action-button {
       font-size: 0.72rem;
