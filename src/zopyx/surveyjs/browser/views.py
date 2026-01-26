@@ -1826,16 +1826,39 @@ class Views(BrowserView):
     @property
     def surveyjs_license_key(self):
         """Return the configured SurveyJS license key."""
+        settings = self._get_forms_settings()
+        if not settings:
+            return ""
+        return (getattr(settings, "surveyjs_license_key", "") or "").strip()
+
+    def _get_forms_settings(self):
         try:
             from plone.registry.interfaces import IRegistry
             from zope.component import getUtility
             from ..interfaces import IFormsSettings
 
             registry = getUtility(IRegistry)
-            settings = registry.forInterface(IFormsSettings, check=False)
-            return (getattr(settings, "surveyjs_license_key", "") or "").strip()
+            return registry.forInterface(IFormsSettings, check=False)
         except Exception:
-            return ""
+            return None
+
+    @property
+    def features_enabled(self):
+        settings = self._get_forms_settings()
+        if not settings:
+            return set()
+        values = getattr(settings, "features_enabled", []) or []
+        return set(values)
+
+    def feature_enabled(self, feature_name):
+        return feature_name in self.features_enabled
+
+    def require_feature(self, feature_name):
+        if self.feature_enabled(feature_name):
+            return True
+        target = f"{self.context.absolute_url()}/@@feature-disabled"
+        self.request.response.redirect(target)
+        return False
 
     @property
     def embedding_allowed(self):

@@ -24,10 +24,12 @@
          href="${context/absolute_url}/@@form-versions">
         <span i18n:translate="">Versions</span>
       </a>
-      <a class="survey-action-button action-ai"
-         href="${context/absolute_url}/@@ai">
-        <span i18n:translate="">AI Generator</span>
-      </a>
+      <tal:ai tal:condition="python: view.feature_enabled('ai-generator')">
+        <a class="survey-action-button action-ai"
+           href="${context/absolute_url}/@@ai">
+          <span i18n:translate="">AI Generator</span>
+        </a>
+      </tal:ai>
       <a class="survey-action-button action-results"
          href="${context/absolute_url}/@@results">
         <span i18n:translate="">Results</span>
@@ -35,52 +37,74 @@
     </div>
     <div class="survey-actions-row survey-actions-row--manager">
       <tal:manager tal:condition="view/is_manager">
-        <a class="survey-action-button action-dashboard"
-           href="${context/absolute_url}/@@dashboard">
-          <span i18n:translate="">Dashboard</span>
-        </a>
-        <a class="survey-action-button action-pdf-generator"
-           href="${context/absolute_url}/@@pdf-generator">
-          <span i18n:translate="">PDF Generator</span>
-        </a>
-        <a class="survey-action-button action-pdf-importer"
-           href="${context/absolute_url}/@@pdf-importer">
-          <span i18n:translate="">PDF Form Import</span>
-          <span class="beta-badge" i18n:translate="">Beta</span>
-        </a>
-        <a class="survey-action-button action-pdf-form-setup"
-           href="${context/absolute_url}/@@pdf-form-setup">
-          <span i18n:translate="">Fillable PDF Setup</span>
-          <span class="beta-badge" i18n:translate="">Beta</span>
-        </a>
+        <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
+          <a class="survey-action-button action-dashboard"
+             href="${context/absolute_url}/@@dashboard">
+            <span i18n:translate="">Dashboard</span>
+          </a>
+        </tal:dashboard>
+        <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
+          <a class="survey-action-button action-pdf-generator"
+             href="${context/absolute_url}/@@pdf-generator">
+            <span i18n:translate="">PDF Generator</span>
+          </a>
+        </tal:pdfgenerator>
+        <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
+          <a class="survey-action-button action-pdf-importer"
+             href="${context/absolute_url}/@@pdf-importer">
+            <span i18n:translate="">PDF Form Import</span>
+            <span class="beta-badge" i18n:translate="">Beta</span>
+          </a>
+        </tal:pdfimporter>
+        <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
+          <a class="survey-action-button action-pdf-form-setup"
+             href="${context/absolute_url}/@@pdf-form-setup">
+            <span i18n:translate="">Fillable PDF Setup</span>
+            <span class="beta-badge" i18n:translate="">Beta</span>
+          </a>
+        </tal:pdfformsetup>
       </tal:manager>
       <tal:notmanager tal:condition="not: view/is_manager">
-        <span class="survey-action-button action-dashboard is-disabled"
-              aria-disabled="true">
-          <span i18n:translate="">Dashboard</span>
-          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-        </span>
-        <span class="survey-action-button action-pdf-generator is-disabled"
-              aria-disabled="true">
-          <span i18n:translate="">PDF Generator</span>
-          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-        </span>
-        <span class="survey-action-button action-pdf-importer is-disabled"
-              aria-disabled="true">
-          <span i18n:translate="">PDF Form Import</span>
-          <span class="beta-badge" i18n:translate="">Beta</span>
-          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-        </span>
-        <span class="survey-action-button action-pdf-form-setup is-disabled"
-              aria-disabled="true">
-          <span i18n:translate="">Fillable PDF Setup</span>
-          <span class="beta-badge" i18n:translate="">Beta</span>
-          <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-        </span>
+        <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
+          <span class="survey-action-button action-dashboard is-disabled"
+                aria-disabled="true">
+            <span i18n:translate="">Dashboard</span>
+            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+          </span>
+        </tal:dashboard>
+        <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
+          <span class="survey-action-button action-pdf-generator is-disabled"
+                aria-disabled="true">
+            <span i18n:translate="">PDF Generator</span>
+            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+          </span>
+        </tal:pdfgenerator>
+        <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
+          <span class="survey-action-button action-pdf-importer is-disabled"
+                aria-disabled="true">
+            <span i18n:translate="">PDF Form Import</span>
+            <span class="beta-badge" i18n:translate="">Beta</span>
+            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+          </span>
+        </tal:pdfimporter>
+        <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
+          <span class="survey-action-button action-pdf-form-setup is-disabled"
+                aria-disabled="true">
+            <span i18n:translate="">Fillable PDF Setup</span>
+            <span class="beta-badge" i18n:translate="">Beta</span>
+            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+          </span>
+        </tal:pdfformsetup>
       </tal:notmanager>
     </div>
   </div>
 </metal:survey_actions>
+
+<metal:feature_disabled define-macro="feature-disabled">
+  <div class="survey-feature-disabled">
+    <p i18n:translate="">Feature disabled, access forbidden.</p>
+  </div>
+</metal:feature_disabled>
 
 <metal:survey_status define-macro="survey-status">
   <tal:status tal:condition="view/can_manage_portal_content"

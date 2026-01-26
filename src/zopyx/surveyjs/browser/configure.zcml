@@ -77,6 +77,13 @@
     permission="zope2.View"
     class=".views.EmbedViewer"
   />
+  <browser:page
+    name="feature-disabled"
+    for="*"
+    permission="zope2.View"
+    class=".views.Views"
+    template="feature_disabled.pt"
+  />
 
   <browser:page
     name="survey-actions"

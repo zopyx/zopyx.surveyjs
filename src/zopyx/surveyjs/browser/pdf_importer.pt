@@ -6,50 +6,52 @@
       i18n:domain="zopyx.surveyjs">
 
 <metal:block fill-slot="content-core"
-             tal:define="portal_state context/@@plone_portal_state">
+             tal:define="portal_state context/@@plone_portal_state;
+                         feature_ok python: view.require_feature('pdf-form-import')">
 
-  <metal:surveyjs-var-actual-url
-      use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
-  />
-  <metal:surveyjs-var-csrf
-      use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
-  />
-  <metal:surveyjs-vars-base
-      use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
-  />
-  <metal:surveyjs-i18n-scripts
-      use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
-  />
+  <tal:feature tal:condition="feature_ok">
+    <metal:surveyjs-var-actual-url
+        use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
+    />
+    <metal:surveyjs-var-csrf
+        use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
+    />
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
 
-  <metal:surveyjs-viewer-css
-      use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
-  />
-  <link href="++resource++zopyx.surveyjs/pdf_importer.css"
-        rel="stylesheet"
-        type="text/css"
-  />
-  <metal:surveyjs-core
-      use-macro="context/@@survey-assets/macros/surveyjs-core"
-  />
-  <metal:surveyjs-ui
-      use-macro="context/@@survey-assets/macros/surveyjs-ui"
-  />
-  <metal:surveyjs-theme-index
-      use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
-  />
-  <script src="++resource++zopyx.surveyjs/pdf_importer.js"
-          type="text/javascript"
-  ></script>
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+    <link href="++resource++zopyx.surveyjs/pdf_importer.css"
+          rel="stylesheet"
+          type="text/css"
+    />
+    <metal:surveyjs-core
+        use-macro="context/@@survey-assets/macros/surveyjs-core"
+    />
+    <metal:surveyjs-ui
+        use-macro="context/@@survey-assets/macros/surveyjs-ui"
+    />
+    <metal:surveyjs-theme-index
+        use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+    />
+    <script src="++resource++zopyx.surveyjs/pdf_importer.js"
+            type="text/javascript"
+    ></script>
 
-  <metal:survey-actions
-      use-macro="context/@@survey-actions/macros/survey-actions"
-  />
+    <metal:survey-actions
+        use-macro="context/@@survey-actions/macros/survey-actions"
+    />
 
-  <metal:survey-status
-      use-macro="context/@@survey-actions/macros/survey-status"
-  />
+    <metal:survey-status
+        use-macro="context/@@survey-actions/macros/survey-status"
+    />
 
-  <div class="pdf-importer-container">
+    <div class="pdf-importer-container">
     <h2 class="page-headline" i18n:translate="">PDF Form Import</h2>
     <div class="page-subtitle" i18n:translate="">
       Upload a PDF form and generate SurveyJS JSON from it
@@ -125,7 +127,14 @@
         </div>
       </section>
     </div>
-  </div>
+    </div>
+  </tal:feature>
+
+  <tal:feature-disabled tal:condition="not: feature_ok">
+    <metal:feature-disabled
+        use-macro="context/@@survey-actions/macros/feature-disabled"
+    />
+  </tal:feature-disabled>
 
 </metal:block>
 </html>

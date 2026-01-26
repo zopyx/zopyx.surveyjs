@@ -4,8 +4,10 @@
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope import schema
 from zope.interface import Interface
+from plone.autoform import directives as form
 from plone.supermodel.directives import fieldset
 from zope.schema.vocabulary import SimpleVocabulary
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
 
 
 class IZopyxSurveyjsLayer(IDefaultBrowserLayer):
@@ -35,24 +37,20 @@ class IFormsSettings(IPloneLoggingSettings):
 
     fieldset(
         "surveyjs",
-        label="SurveyJS",
-        fields=("surveyjs_license_key",),
-    )
-
-    fieldset(
-        "ai_provider",
-        label="AI Provider",
+        label="General",
         fields=(
-            "ai_model",
-            "ai_api_key",
-            "ollama_url",
+            "surveyjs_license_key",
+            "features_enabled",
         ),
     )
 
     fieldset(
-        "ai_prompts",
-        label="AI Prompts",
+        "ai",
+        label="AI",
         fields=(
+            "ai_model",
+            "ai_api_key",
+            "ollama_url",
             "ai_prompt_before",
             "ai_prompt_default",
             "ai_prompt_after",
@@ -95,6 +93,30 @@ class IFormsSettings(IPloneLoggingSettings):
         description="License key for SurveyJS components (optional).",
         required=False,
         default="",
+    )
+
+    form.widget(features_enabled=CheckBoxFieldWidget)
+    features_enabled = schema.List(
+        title="Features enabled",
+        description="Toggle which features are available in the UI.",
+        value_type=schema.Choice(
+            values=[
+                "ai-generator",
+                "dashboard",
+                "pdf-generator",
+                "pdf-form-import",
+                "fillable-pdf...",
+            ]
+        ),
+        required=False,
+        default=[
+            "ai-generator",
+            "dashboard",
+            "pdf-generator",
+            "pdf-form-import",
+            "fillable-pdf...",
+        ],
+        missing_value=[],
     )
 
     ai_model = schema.TextLine(
