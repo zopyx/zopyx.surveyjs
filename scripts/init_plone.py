@@ -312,6 +312,10 @@ def set_form_locale(form_json, locale):
     form_json["locale"] = locale
 
 
+def set_form_show_toc(form_json, enabled=True):
+    form_json["showTOC"] = enabled
+
+
 def remove_navigation_portlets(context):
     """Remove navigation portlets and block them from being re-acquired."""
     for manager_name in ("plone.leftcolumn", "plone.rightcolumn"):
@@ -1060,6 +1064,7 @@ redirect_demo_root_to_en(site)
 mental_intro = load_intro_text("mental_health_intro")
 mental_form = load_form_definition("mental_health")
 set_form_intro_html(mental_form, "introText", mental_intro)
+set_form_show_toc(mental_form, True)
 
 create_demo_survey(
     site,
@@ -1075,6 +1080,7 @@ create_demo_survey(
 full_demo_intro = load_intro_text("full_demo_intro")
 full_demo_form = load_form_definition("full_demo")
 set_form_intro_html(full_demo_form, "demoIntro", full_demo_intro)
+set_form_show_toc(full_demo_form, True)
 
 create_demo_survey(
     site,
@@ -1142,6 +1148,7 @@ mental_intro_de = load_intro_text("mental_health_intro_de")
 mental_form_de = load_form_definition("mental_health_de")
 set_form_language(mental_form_de, "de")
 set_form_intro_html(mental_form_de, "introText", mental_intro_de)
+set_form_show_toc(mental_form_de, True)
 
 create_demo_survey(
     site,
@@ -1159,6 +1166,7 @@ full_demo_intro_de = load_intro_text("full_demo_intro_de")
 full_demo_form_de = load_form_definition("full_demo_de")
 set_form_language(full_demo_form_de, "de")
 set_form_intro_html(full_demo_form_de, "demoIntro", full_demo_intro_de)
+set_form_show_toc(full_demo_form_de, True)
 
 create_demo_survey(
     site,
@@ -1235,6 +1243,7 @@ mental_form_fr = load_form_definition("mental_health_fr")
 set_form_language(mental_form_fr, "fr")
 set_form_locale(mental_form_fr, "fr")
 set_form_intro_html(mental_form_fr, "introText", mental_intro_fr)
+set_form_show_toc(mental_form_fr, True)
 
 create_demo_survey(
     site,
@@ -1253,6 +1262,7 @@ full_demo_form_fr = load_form_definition("full_demo_fr")
 set_form_language(full_demo_form_fr, "fr")
 set_form_locale(full_demo_form_fr, "fr")
 set_form_intro_html(full_demo_form_fr, "demoIntro", full_demo_intro_fr)
+set_form_show_toc(full_demo_form_fr, True)
 
 create_demo_survey(
     site,
@@ -1332,6 +1342,7 @@ mental_form_it = load_form_definition("mental_health_it")
 set_form_language(mental_form_it, "it")
 set_form_locale(mental_form_it, "it")
 set_form_intro_html(mental_form_it, "introText", mental_intro_it)
+set_form_show_toc(mental_form_it, True)
 
 create_demo_survey(
     site,
@@ -1350,6 +1361,7 @@ full_demo_form_it = load_form_definition("full_demo_it")
 set_form_language(full_demo_form_it, "it")
 set_form_locale(full_demo_form_it, "it")
 set_form_intro_html(full_demo_form_it, "demoIntro", full_demo_intro_it)
+set_form_show_toc(full_demo_form_it, True)
 
 create_demo_survey(
     site,
@@ -1429,6 +1441,7 @@ mental_form_es = load_form_definition("mental_health_es")
 set_form_language(mental_form_es, "es")
 set_form_locale(mental_form_es, "es")
 set_form_intro_html(mental_form_es, "introText", mental_intro_es)
+set_form_show_toc(mental_form_es, True)
 
 create_demo_survey(
     site,
@@ -1447,6 +1460,7 @@ full_demo_form_es = load_form_definition("full_demo_es")
 set_form_language(full_demo_form_es, "es")
 set_form_locale(full_demo_form_es, "es")
 set_form_intro_html(full_demo_form_es, "demoIntro", full_demo_intro_es)
+set_form_show_toc(full_demo_form_es, True)
 
 create_demo_survey(
     site,
@@ -1526,6 +1540,7 @@ mental_form_pt = load_form_definition("mental_health_pt")
 set_form_language(mental_form_pt, "pt")
 set_form_locale(mental_form_pt, "pt")
 set_form_intro_html(mental_form_pt, "introText", mental_intro_pt)
+set_form_show_toc(mental_form_pt, True)
 
 create_demo_survey(
     site,
@@ -1544,6 +1559,7 @@ full_demo_form_pt = load_form_definition("full_demo_pt")
 set_form_language(full_demo_form_pt, "pt")
 set_form_locale(full_demo_form_pt, "pt")
 set_form_intro_html(full_demo_form_pt, "demoIntro", full_demo_intro_pt)
+set_form_show_toc(full_demo_form_pt, True)
 
 create_demo_survey(
     site,
@@ -1623,6 +1639,7 @@ mental_form_ar = load_form_definition("mental_health_ar")
 set_form_language(mental_form_ar, "ar")
 set_form_locale(mental_form_ar, "ar")
 set_form_intro_html(mental_form_ar, "introText", mental_intro_ar)
+set_form_show_toc(mental_form_ar, True)
 
 create_demo_survey(
     site,
@@ -1641,6 +1658,7 @@ full_demo_form_ar = load_form_definition("full_demo_ar")
 set_form_language(full_demo_form_ar, "ar")
 set_form_locale(full_demo_form_ar, "ar")
 set_form_intro_html(full_demo_form_ar, "demoIntro", full_demo_intro_ar)
+set_form_show_toc(full_demo_form_ar, True)
 
 create_demo_survey(
     site,
@@ -1720,6 +1738,7 @@ mental_form_ja = load_form_definition("mental_health_ja")
 set_form_language(mental_form_ja, "ja")
 set_form_locale(mental_form_ja, "ja")
 set_form_intro_html(mental_form_ja, "introText", mental_intro_ja)
+set_form_show_toc(mental_form_ja, True)
 
 create_demo_survey(
     site,
@@ -1738,6 +1757,7 @@ full_demo_form_ja = load_form_definition("full_demo_ja")
 set_form_language(full_demo_form_ja, "ja")
 set_form_locale(full_demo_form_ja, "ja")
 set_form_intro_html(full_demo_form_ja, "demoIntro", full_demo_intro_ja)
+set_form_show_toc(full_demo_form_ja, True)
 
 create_demo_survey(
     site,
