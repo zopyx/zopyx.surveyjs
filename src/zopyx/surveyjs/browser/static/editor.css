@@ -8,3 +8,7 @@
     height: 100%;
     border-bottom: 1px solid #bdbdbd;
 }
+
+.sv-quill-editor .ql-editor {
+    min-height: 160px;
+}
