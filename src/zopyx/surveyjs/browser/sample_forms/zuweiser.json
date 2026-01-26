@@ -1,0 +1,349 @@
+{
+  "title": "Zuweiserfragebogen KJA/SPZ",
+  "completedHtml": {
+    "de": "VIelen Dank für die Teilnahme an der Umfrage!"
+  },
+  "pages": [
+    {
+      "name": "intro",
+      "title": {
+        "default": "Können Sie uns helfen?",
+        "de": "Einführung"
+      },
+      "elements": [
+        {
+          "type": "html",
+          "name": "intro_text",
+          "html": "<p><b>Liebe Kolleginnen und Kollegen, sehr geehrte Damen und Herren,</b></p><p>Wir benötigen Ihre Hilfe, um die Patientenkinder mit ihren sozialpädiatrischen Fragestellungen besser versorgen zu können. Daher möchten wir Ihr Urteil hören zur:</p><ul><li>Verbesserung der Zusammenarbeit mit Ihnen.</li><li>Verbesserung der Kommunikation.</li><li>Ihre Anforderungen an die KJA/SPZ</li></ul><p>Für unsere Qualitätssicherung legen wir großen Wert auf Ihre Meinung. Ihre Angaben bleiben selbstverständlich anonym.</p><p>Bei Fragen oder Hinweisen rufen Sie uns gern an oder schreiben eine Mail: <a href='mailto:umfrage@vdk.de'>umfrage@vdk.de</a><br/>Herr Holinski: 030/20994-300</p>"
+        }
+      ]
+    },
+    {
+      "name": "basis",
+      "title": {
+        "default": "Basisangaben",
+        "de": "Basisdaten"
+      },
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "fachrichtung",
+          "title": "1. Welche Fachrichtung vertreten Sie? (Mehrfachauswahl ist möglich)",
+          "isRequired": true,
+          "choices": [
+            "Kinder- und Jugendmedizin",
+            "Kinder- und Jugendpsychiatrie",
+            "Neurologie",
+            "Innere Medizin",
+            "Allgemeinmedizin / Hausarzt"
+          ],
+          "showOtherItem": true,
+          "otherText": "Sonstiges"
+        },
+        {
+          "type": "dropdown",
+          "name": "bezirk",
+          "title": "2. In welchem Bezirk arbeiten Sie?",
+          "description": "Falls Sie mehrere Standorte in verschiedenen Bezirken betreiben, erhalten Sie an die Adresse jeweils einen Fragebogen.",
+          "isRequired": true,
+          "choices": [
+            "Charlottenburg-Wilmersdorf",
+            "Friedrichshain-Kreuzberg",
+            "Lichtenberg",
+            "Marzahn-Hellersdorf",
+            "Mitte",
+            "Neukölln",
+            "Pankow",
+            "Reinickendorf",
+            "Spandau",
+            "Steglitz-Zehlendorf",
+            "Tempelhof-Schöneberg",
+            "Treptow-Köpenick"
+          ],
+          "placeholder": "Bitte auswählen"
+        },
+        {
+          "type": "text",
+          "name": "plz",
+          "title": "3. Bitte geben Sie 5 Stellen der Postleitzahl an.",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "regex",
+              "text": "Bitte eine 5-stellige Postleitzahl (nur Ziffern) eingeben.",
+              "regex": "^\\d{5}$"
+            }
+          ],
+          "maxLength": 5
+        },
+        {
+          "type": "checkbox",
+          "name": "bekannt_durch",
+          "title": "4. Woher kennen Sie unsere KJA/SPZ? (Mehrfachauswahl ist möglich)",
+          "choices": [
+            "Persönlicher Kontakt zur KJA/SPZ",
+            "Fortbildungen in der KJA/SPZ",
+            "Durch Kollegen",
+            "Aus der Fachpresse",
+            "Aus anderen Medien"
+          ],
+          "showOtherItem": true,
+          "otherText": "Sonstiges"
+        }
+      ]
+    },
+    {
+      "name": "info_und_nutzung",
+      "title": "Information und Nutzung",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "informiert",
+          "title": "5. Fühlen Sie sich über die Arbeit des KJA/SPZ ausreichend informiert?",
+          "isRequired": true,
+          "choices": [
+            "Ja",
+            "Nein",
+            "Interessiert mich nicht"
+          ],
+          "showOtherItem": true,
+          "otherText": "Sonstiges"
+        },
+        {
+          "type": "radiogroup",
+          "name": "fortbildung_wahrgenommen",
+          "title": "6. Haben Sie bereits ein Fortbildungsangebot unseres KJA/SPZ wahrgenommen?",
+          "isRequired": true,
+          "choices": [
+            "Ja",
+            "Nein",
+            "Wusste bislang nichts davon",
+            "Wurde bisher nicht angeboten"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "unterstuetzung_wichtigkeit",
+          "title": "7. Die KJA/SPZ ist zur Unterstützung meiner Arbeit …",
+          "isRequired": true,
+          "choices": [
+            "Sehr wichtig",
+            "Wichtig",
+            "Hilfreich",
+            "Entbehrlich"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "unterstuetzung_warum_entbehrlich",
+          "visibleIf": "{unterstuetzung_wichtigkeit} = 'Entbehrlich'",
+          "title": "Wenn „Entbehrlich“: bitte kurz begründen",
+          "maxLength": 1000
+        },
+        {
+          "type": "radiogroup",
+          "name": "ueberweisungen_pro_jahr",
+          "title": "8. Wie viele Kinder überweisen Sie ca. pro Jahr an die KJA/SPZ?",
+          "isRequired": true,
+          "choices": [
+            "5 – 10 Kinder",
+            "11 – 20 Kinder",
+            "21 – 50 Kinder",
+            "Mehr als 50 Kinder",
+            "Ich überweise selten.",
+            "Trifft auf mich nicht zu, ich überweise nicht."
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "selten_warum_reasons",
+          "visibleIf": "{ueberweisungen_pro_jahr} = 'Ich überweise selten.' or {ueberweisungen_pro_jahr} = 'Trifft auf mich nicht zu, ich überweise nicht.'",
+          "title": "9. Falls Sie selten oder gar nicht überweisen, können Sie bitte sagen, warum?",
+          "choices": [
+            "Weil ich keine oder wenige Kinder mit einer SPZ-Diagnose habe",
+            "Weil die KJA/SPZ zu weit entfernt ist",
+            "Aufgrund der Erfahrungen, die ich mit der KJA/SPZ gemacht habe",
+            {
+              "value": "Ich überweise an andere Einrichtungen",
+              "showCommentArea": true
+            },
+            {
+              "value": "Sonstiges",
+              "showCommentArea": true
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "selten_andere_einrichtungen",
+          "visibleIf": "{selten_warum_reasons} contains 'Ich überweise an andere Einrichtungen'",
+          "title": "Wenn „Ich überweise an andere Einrichtungen“: welche?",
+          "maxLength": 500
+        },
+        {
+          "type": "comment",
+          "name": "selten_sonstiges",
+          "visibleIf": "{selten_warum_reasons} contains 'Sonstiges'",
+          "title": "Wenn „Sonstiges“: bitte angeben",
+          "maxLength": 500
+        }
+      ]
+    },
+    {
+      "name": "zusammenarbeit_und_erfahrung",
+      "title": "Zusammenarbeit und Erfahrung",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "kja_spz_zusammenarbeit",
+          "title": "10. Mit welchen KJA/SPZ arbeiten Sie zusammen? (Mehrfachauswahl ist möglich)",
+          "choices": [
+            "Charlottenburg-Wilmersdorf",
+            "Friedrichshain/Mitte",
+            "Hellersdorf",
+            "Köpenick",
+            "Kreuzberg",
+            "Lichtenberg/Hohenschönhausen",
+            "Marzahn",
+            "Prenzlauer Berg",
+            "Neukölln",
+            "Reinickendorf/Wedding",
+            "Schöneberg/Tiergarten",
+            "Spandau",
+            "Steglitz-Zehlendorf",
+            "Tempelhof",
+            "Treptow",
+            "Weißensee"
+          ]
+        },
+        {
+          "type": "matrix",
+          "name": "erfahrung_matrix",
+          "title": "11. Bitte geben Sie eine Einschätzung Ihrer Erfahrung mit dem KJA/SPZ im zurückliegenden Jahr:",
+          "isRequired": true,
+          "columns": [
+            {
+              "value": 1,
+              "text": "😄"
+            },
+            {
+              "value": 2,
+              "text": "🙂"
+            },
+            {
+              "value": 3,
+              "text": "😐"
+            },
+            {
+              "value": 4,
+              "text": "🙁"
+            },
+            {
+              "value": 5,
+              "text": "😞"
+            }
+          ],
+          "rows": [
+            {
+              "value": "wartezeit",
+              "text": "Wartezeiten bis zum ersten Termin."
+            },
+            {
+              "value": "arztbriefe_info",
+              "text": "Arztbriefe: Information"
+            },
+            {
+              "value": "arztbriefe_zeitnaehe",
+              "text": "Arztbriefe: Zeitnähe"
+            },
+            {
+              "value": "telefon",
+              "text": "Telefonische Erreichbarkeit"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "dringlichkeit_anmelden",
+          "title": "12. Wenn Sie aus Dringlichkeitsgründen persönlich ein Kind in der KJA/SPZ anmelden möchten, können Sie das unproblematisch umsetzen?",
+          "isRequired": true,
+          "choices": [
+            "Ja",
+            "Nein",
+            "War noch nicht nötig"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "indikationen_und_feedback",
+      "title": {
+        "default": "Indikationen und Feedback",
+        "de": "Indikation und Feedback"
+      },
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "krankheitsbilder",
+          "title": "13. Mit welchen Krankheits- und Störungsbildern schicken Sie Ihre Patienten in unsere KJA/SPZ? (Mehrfachauswahl ist möglich)",
+          "isRequired": true,
+          "choices": [
+            "Entwicklungsstörungen / allgemeine Retardierung",
+            "Sprachentwicklungsstörungen",
+            "Motorische Störungen",
+            "Epilepsien",
+            "Emotionale Störungen",
+            "ADHS",
+            "Störung des Sozialverhaltens",
+            "Genetik/Syndrome/Autismus",
+            "Behinderungen",
+            "Regulationsstörungen",
+            "Psychosomatische Störungen",
+            "Fütter- und Gedeihstörung"
+          ],
+          "showOtherItem": true,
+          "otherText": "Sonstiges"
+        },
+        {
+          "type": "comment",
+          "name": "veraenderungen",
+          "title": "14. Welche Dinge sollten nach Ihrer Auffassung in der KJA/SPZ verändert werden?",
+          "description": "Hier ist Platz für Ihre Anmerkungen und Hinweise (max. 3000 Zeichen).",
+          "maxLength": 3000
+        }
+      ]
+    },
+    {
+      "name": "panel",
+      "title": {
+        "default": "Vielen Dank!",
+        "de": "Teilnahme am Panel"
+      },
+      "elements": [
+        {
+          "type": "html",
+          "name": "danke_text",
+          "html": "<p><b>Vielen Dank für Ihre Teilnahme!</b></p><p>Wir möchten uns ganz herzlich für Ihre Mithilfe bedanken.</p><p><b>Möchten Sie in Zukunft an interessanten und spannenden Online-Befragungen teilnehmen? </b></br></br>Wir würden uns sehr freuen, wenn Sie Ihre E-Mail-Adresse für das SoSci Panel anmelden und damit wissenschaftliche Forschungsprojekte unterstützen.</p><p>Die Teilnahme am SoSci Panel ist freiwillig. Sie können das Browserfenster selbstverständlich auch schließen, ohne am SoSci Panel teilzunehmen.</p>"
+        },
+        {
+          "type": "text",
+          "name": "panel_email",
+          "title": "E-Mail (optional) – Am Panel teilnehmen",
+          "validators": [
+            {
+              "type": "email"
+            }
+          ],
+          "inputType": "email"
+        }
+      ]
+    }
+  ],
+  "showPageNumbers": true,
+  "showQuestionNumbers": "on",
+  "progressBarLocation": "top",
+  "showTOC": true,
+  "completeText": "Absenden",
+  "showPreviewBeforeComplete": true,
+  "gridLayoutEnabled": true
+}

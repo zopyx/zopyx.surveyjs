@@ -14,8 +14,10 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
+from zope.interface import alsoProvides
 import plone.api
 import httpx
+from plone.protect.interfaces import IDisableCSRFProtection
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
@@ -24,6 +26,7 @@ from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..data_validation.validate_data import validate_data as run_data_validation
 from ..pdf_forms import fill_pdf_form as fill_pdf_form_bytes
+from ..converters import slugify
 
 import orjson
 import uuid
@@ -93,6 +96,15 @@ def _mask_storage_location(location: str) -> str:
     if url.password:
         url = url.set(password="****")
     return url.render_as_string(hide_password=False)
+
+
+def _find_sample_forms_dir() -> Path | None:
+    start = Path(__file__).resolve()
+    for parent in start.parents:
+        candidate = parent / "sample_forms"
+        if candidate.is_dir():
+            return candidate
+    return None
 
 
 def _run_external_validation(form_json, poll_result, submission_hash: str):
@@ -211,6 +223,27 @@ class Views(BrowserView):
             return True
         return 1970 <= year <= 2100
 
+    def _ensure_private(self, obj):
+        try:
+            state = plone.api.content.get_state(obj)
+        except Exception:
+            return False
+        if state == "private":
+            return True
+        try:
+            transitions = plone.api.content.get_transitions(obj)
+        except Exception:
+            transitions = []
+        transition_ids = {item.get("id") for item in transitions if item.get("id")}
+        for candidate in ("retract", "hide", "make-private"):
+            if candidate in transition_ids:
+                try:
+                    plone.api.content.transition(obj=obj, transition=candidate)
+                    return True
+                except Exception:
+                    continue
+        return False
+
     def survey_status_label(self):
         try:
             state = plone.api.content.get_state(self.context)
@@ -242,6 +275,90 @@ class Views(BrowserView):
             return len(storage.list_results(self.context))
         except Exception:
             return 0
+
+    def demo_content(self):
+        alsoProvides(self.request, IDisableCSRFProtection)
+        portal = plone.api.portal.get()
+        sample_forms_dir = _find_sample_forms_dir()
+        if not sample_forms_dir:
+            json_error(
+                self.request.response,
+                500,
+                "sample_forms_missing",
+                message="sample_forms directory not found on disk.",
+            )
+            return
+
+        existing = portal.get("demos")
+        if existing is not None:
+            plone.api.content.delete(obj=existing)
+
+        demos = plone.api.content.create(
+            type="Folder",
+            container=portal,
+            id="demos",
+            title="Demos",
+        )
+        self._ensure_private(demos)
+
+        created = []
+        errors = []
+        current_user = plone.api.user.get_current()
+        user_id = current_user.getId() if current_user else ""
+
+        for form_path in sorted(sample_forms_dir.rglob("*.json")):
+            relative_path = form_path.relative_to(sample_forms_dir)
+            try:
+                form_json = orjson.loads(form_path.read_bytes())
+            except Exception as exc:
+                errors.append({"path": str(relative_path), "error": str(exc)})
+                continue
+
+            if not isinstance(form_json, dict):
+                errors.append(
+                    {"path": str(relative_path), "error": "Invalid JSON payload"}
+                )
+                continue
+
+            title = form_json.get("title") or form_json.get("name") or form_path.stem
+            if not isinstance(title, str):
+                title = str(title)
+
+            id_base = slugify(str(relative_path.with_suffix("")))
+            survey_id = id_base
+            suffix = 1
+            while survey_id in demos:
+                suffix += 1
+                survey_id = f"{id_base}-{suffix}"
+
+            try:
+                survey = plone.api.content.create(
+                    type="Survey",
+                    container=demos,
+                    id=survey_id,
+                    title=title,
+                )
+                self._ensure_private(survey)
+                annos = IAnnotations(survey)
+                forms_service.save_form_version(
+                    annos,
+                    form_json,
+                    user_id,
+                    locked=False,
+                )
+                created.append({"id": survey_id, "title": title})
+            except Exception as exc:
+                errors.append({"path": str(relative_path), "error": str(exc)})
+
+        json_response(
+            self.request.response,
+            {
+                "folder": "demos",
+                "created": created,
+                "errors": errors,
+                "count": len(created),
+            },
+        )
 
     def _format_catalog_date(self, value):
         if callable(value):
