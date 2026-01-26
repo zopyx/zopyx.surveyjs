@@ -74,6 +74,7 @@
               "regex": "^\\d{5}$"
             }
           ],
+          "inputSize": 6,
           "maxLength": 5
         },
         {
