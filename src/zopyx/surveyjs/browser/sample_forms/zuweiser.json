@@ -5,7 +5,7 @@
   },
   "pages": [
     {
-      "name": "intro",
+      "name": "Intro",
       "title": {
         "default": "Können Sie uns helfen?",
         "de": "Einführung"
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "basis",
+      "name": "Basisdaten",
       "title": {
         "default": "Basisangaben",
         "de": "Basisdaten"
@@ -93,8 +93,11 @@
       ]
     },
     {
-      "name": "info_und_nutzung",
-      "title": "Information und Nutzung",
+      "name": "Info Nutzung",
+      "title": {
+        "default": "Information und Nutzung",
+        "de": "Info und Nutzung"
+      },
       "elements": [
         {
           "type": "radiogroup",
@@ -190,7 +193,7 @@
       ]
     },
     {
-      "name": "zusammenarbeit_und_erfahrung",
+      "name": "Zusammenarbeit und Erfahrung",
       "title": "Zusammenarbeit und Erfahrung",
       "elements": [
         {
@@ -276,7 +279,7 @@
       ]
     },
     {
-      "name": "indikationen_und_feedback",
+      "name": "Indikation und Feedback",
       "title": {
         "default": "Indikationen und Feedback",
         "de": "Indikation und Feedback"
@@ -314,7 +317,7 @@
       ]
     },
     {
-      "name": "panel",
+      "name": "Panel",
       "title": {
         "default": "Vielen Dank!",
         "de": "Teilnahme am Panel"
