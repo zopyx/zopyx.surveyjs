@@ -57,11 +57,24 @@
     background: #ffffff;
     bottom: 0;
     left: 0;
-    padding: 12px 16px 16px;
+    padding: 16px 16px 16px;
     position: fixed;
     right: 0;
     top: 0;
     z-index: 9999;
+}
+
+.survey-editor-fullscreen.survey-unsaved-visible #surveyEditorContainer {
+    padding-top: 64px;
+}
+
+.survey-editor-fullscreen .editor-unsaved-banner {
+    left: 16px;
+    margin: 0;
+    position: fixed;
+    right: 16px;
+    top: 12px;
+    z-index: 10000;
 }
 
 .editor-unsaved-banner {

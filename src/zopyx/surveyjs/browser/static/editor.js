@@ -340,6 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const setUnsavedState = function (isDirty) {
     hasUnsavedChanges = isDirty;
     document.body.classList.toggle("survey-has-unsaved", Boolean(isDirty));
+    document.body.classList.toggle("survey-unsaved-visible", Boolean(isDirty));
     const banner = document.getElementById("editorUnsavedBanner");
     if (banner) {
       banner.hidden = !isDirty;
