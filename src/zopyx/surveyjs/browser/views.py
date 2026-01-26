@@ -300,6 +300,11 @@ class Views(BrowserView):
             title="Demos",
         )
         try:
+            demos.language = "de"
+            demos.reindexObject(idxs=["Language"])
+        except Exception:
+            pass
+        try:
             demos.exclude_from_nav = True
             demos.reindexObject(idxs=["exclude_from_nav"])
         except Exception:
@@ -343,6 +348,11 @@ class Views(BrowserView):
                     id=survey_id,
                     title=title,
                 )
+                try:
+                    survey.language = "de"
+                    survey.reindexObject(idxs=["Language"])
+                except Exception:
+                    pass
                 try:
                     survey.exclude_from_nav = True
                     survey.reindexObject(idxs=["exclude_from_nav"])
