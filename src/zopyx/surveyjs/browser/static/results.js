@@ -550,6 +550,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    const pagerMount = document.getElementById("results-pager");
+
     const table = new Tabulator("#results-grid", {
         ajaxURL: config.resultsUrl,
         ajaxConfig: "GET",
@@ -579,6 +581,7 @@ document.addEventListener("DOMContentLoaded", function () {
         paginationMode: "remote",
         paginationSize: 25,
         paginationSizeSelector: [10, 25, 50, 100, 250],
+        paginationElement: pagerMount || undefined,
         layout: "fitColumns",
         height: "600px",
         placeholder: t("No stored results yet. Once responses are saved, analytics will appear here."),

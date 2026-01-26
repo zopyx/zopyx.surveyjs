@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const data = Array.isArray(window.SURVEY_OVERVIEW_DATA) ? window.SURVEY_OVERVIEW_DATA : [];
+    const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
+    const tabulatorLocale = String(rawLocale).split("-")[0] || "en";
 
     function escapeHtml(text) {
         const div = document.createElement("div");
@@ -56,6 +58,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const pagerMount = document.getElementById("survey-overview-pager");
 
+    const tabulatorLangs = {};
+    tabulatorLangs[tabulatorLocale] = {
+        "pagination": {
+            "first": t("First"),
+            "first_title": t("First Page"),
+            "last": t("Last"),
+            "last_title": t("Last Page"),
+            "prev": t("Prev"),
+            "prev_title": t("Prev Page"),
+            "next": t("Next"),
+            "next_title": t("Next Page"),
+            "all": t("All"),
+            "page_size": t("Page Size"),
+        },
+    };
+
     new Tabulator(gridMount, {
         data,
         layout: "fitColumns",
@@ -65,6 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
         paginationSize: 10,
         paginationSizeSelector: [10, 25, 50, 100],
         paginationElement: pagerMount || undefined,
+        locale: tabulatorLocale,
+        langs: tabulatorLangs,
         columns: [
             {
                 title: t("Survey"),

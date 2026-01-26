@@ -8,13 +8,19 @@
 }
 
 .survey-overview-pager-row {
+    align-items: center;
     border-bottom: 1px solid #eef1f6;
     display: flex;
     justify-content: flex-end;
-    padding: 6px 10px;
+    padding: 8px 12px;
+    background: #f8fafc;
 }
 
 .survey-overview-pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
     font-size: 12px;
 }
 
@@ -24,9 +30,59 @@
     font-size: 12px;
 }
 
+.survey-overview-pager .tabulator-page-size {
+    align-items: center;
+    display: inline-flex;
+    gap: 6px;
+    color: #475569;
+    font-weight: 600;
+}
+
 .survey-overview-pager .tabulator-page-size select {
     font-size: 12px;
-    padding: 2px 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid #cbd5f5;
+    background: #ffffff;
+    color: #0f172a;
+}
+
+.survey-overview-pager .tabulator-page {
+    align-items: center;
+    border: 1px solid #d7dbe4;
+    border-radius: 999px;
+    color: #334155;
+    display: inline-flex;
+    font-weight: 600;
+    padding: 4px 10px;
+    background: #ffffff;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.survey-overview-pager .tabulator-page.active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+.survey-overview-pager .tabulator-page:not(.disabled):hover {
+    border-color: #2563eb;
+    color: #0f172a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(15, 23, 42, 0.1);
+}
+
+.survey-overview-pager .tabulator-page.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.survey-overview-pager .tabulator-paginator {
+    display: inline-flex;
+    gap: 6px;
+    flex-wrap: wrap;
 }
 
 .survey-overview-dates {

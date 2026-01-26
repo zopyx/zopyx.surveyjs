@@ -1003,6 +1003,9 @@ msgstr "Search"
 msgid "Search by user..."
 msgstr "Search by user..."
 
+msgid "Search by user, UUID, or date"
+msgstr "Search by user, UUID, or date"
+
 #: generated
 msgid "Select JSON file:"
 msgstr "Select JSON file:"
@@ -1235,6 +1238,9 @@ msgstr "Overview of surveys in this section and their submission status."
 msgid "No surveys found below this location."
 msgstr "No surveys found below this location."
 
+msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+msgstr "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+
 #: generated
 msgid "Title"
 msgstr "Title"
@@ -1258,3 +1264,33 @@ msgstr "Security mode"
 #: generated
 msgid "Language"
 msgstr "Language"
+
+msgid "First"
+msgstr "First"
+
+msgid "First Page"
+msgstr "First Page"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "Last Page"
+msgstr "Last Page"
+
+msgid "Prev"
+msgstr "Prev"
+
+msgid "Prev Page"
+msgstr "Prev Page"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Next Page"
+msgstr "Next Page"
+
+msgid "All"
+msgstr "All"
+
+msgid "Page Size"
+msgstr "Page Size"

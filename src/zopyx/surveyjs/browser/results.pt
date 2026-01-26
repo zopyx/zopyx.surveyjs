@@ -55,7 +55,7 @@
                 <div class="results-toolbar-left">
                     <label class="results-search">
                         <span class="sr-only" i18n:translate="">Search</span>
-                        <input id="results-search-input" type="text" placeholder="Search by user, UUID, or date" i18n:attributes="placeholder" />
+                        <input id="results-search-input" type="text" placeholder="Search by user, UUID, or date" i18n:attributes="placeholder" i18n:translate="" />
                     </label>
                     <button id="results-search-btn" class="btn btn-secondary" i18n:translate="">Search</button>
                     <button id="results-reset-btn" class="btn btn-danger" i18n:translate="">Reset</button>
@@ -75,6 +75,9 @@
                  tal:content="structure context/@@authenticator/authenticator"></div>
 
             <div class="results-grid-wrap">
+                <div class="results-pager-row">
+                    <div id="results-pager" class="results-pager"></div>
+                </div>
                 <div id="results-grid"></div>
             </div>
 

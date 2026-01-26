@@ -7,6 +7,12 @@
 >
 
   <metal:block fill-slot="content-core">
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
     <link rel="stylesheet"
           type="text/css"
           href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
