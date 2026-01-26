@@ -703,10 +703,10 @@ msgid "Update"
 msgstr "Aktualisieren"
 
 msgid "Unsaved changes"
-msgstr "Ungespeicherte Aenderungen"
+msgstr "Ungespeicherte Änderungen"
 
 msgid "You have edits that haven't been saved yet."
-msgstr "Sie haben Aenderungen, die noch nicht gespeichert wurden."
+msgstr "Sie haben Änderungen, die noch nicht gespeichert wurden."
 
 msgid "Trusted access link"
 msgstr "Trusted-Access-Link"
