@@ -57,13 +57,13 @@
                 <div class="survey-detail-output"
                      tal:content="structure detail/html"></div>
 
-                <ul id="downloadActions">
+                <ul id="downloadActions" class="download-actions">
                     <li tal:repeat="fmt detail/formats">
                         <a class="btn btn-primary"
                            tal:attributes="href python: context.absolute_url() + '/download-result?poll_id=' + detail['poll_id'] + '&format=' + fmt['key']"
                            tal:content="fmt/label">Format</a>
                     </li>
-                    <li>
+                    <li class="download-actions__back">
                         <a class="btn btn-secondary"
                            href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
                     </li>

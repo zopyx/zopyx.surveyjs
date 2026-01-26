@@ -128,6 +128,31 @@
     padding: 5px 6px;
 }
 
+.download-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+}
+
+.download-actions li {
+    margin: 0;
+}
+
+.download-actions .btn {
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+
+.download-actions__back {
+    margin-left: auto;
+}
+
 .results-action-group .results-icon {
     display: block;
     height: 16px;
