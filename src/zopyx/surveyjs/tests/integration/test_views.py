@@ -46,13 +46,25 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             id="survey-view",
             title="Survey View",
         )
+        self.survey.description = "Secret description"
         self.survey.actions = {"store", "mail"}
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
+        self._original_features = list(getattr(settings, "features_enabled", []) or [])
         settings.authenticity_token_enabled = False
         annos = IAnnotations(self.survey)
         annos[FORM_VERSIONS_KEY] = OOBTree()
         annos[RESULTS_KEY] = OOBTree()
+
+    def tearDown(self) -> None:
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        settings.features_enabled = list(self._original_features)
+
+    def _set_features(self, values: list[str]) -> None:
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        settings.features_enabled = list(values)
 
     def _make_request(
         self, form: Dict[str, Any] | None = None, body: bytes | None = None
@@ -648,3 +660,40 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         Views(self.survey, req).refine_ai_form()
         self.assertEqual(req.response.getStatus(), 400)
         self.assertIn("No refinement prompt", req.response.getBody().decode("utf-8"))
+
+    def test_feature_disabled_view_is_minimal(self) -> None:
+        req = self._make_request()
+        view = api.content.get_view("feature-disabled", self.survey, req)
+        body = view()
+        self.assertEqual(req.response.getStatus(), 403)
+        self.assertIn("Feature disabled, access forbidden.", body)
+        self.assertNotIn(self.survey.title, body)
+        self.assertNotIn(self.survey.description, body)
+
+    def test_feature_guards_redirect_and_allow_access(self) -> None:
+        view_specs = [
+            ("ai", "ai-generator", "AI Form Generator"),
+            ("dashboard", "dashboard", "Survey data dashboard"),
+            ("pdf-generator", "pdf-generator", "PDF generator"),
+            ("pdf-importer", "pdf-form-import", "PDF Form Import"),
+            ("pdf-form-setup", "fillable-pdf...", "Fillable PDF Form"),
+        ]
+
+        for view_name, feature_key, expected_text in view_specs:
+            with self.subTest(view=view_name, state="disabled"):
+                self._set_features([])
+                req = self._make_request()
+                view = api.content.get_view(view_name, self.survey, req)
+                view()
+                self.assertEqual(req.response.getStatus(), 302)
+                location = req.response.getHeader("location") or ""
+                self.assertIn("/@@feature-disabled", location)
+
+            with self.subTest(view=view_name, state="enabled"):
+                self._set_features([feature_key])
+                req = self._make_request()
+                view = api.content.get_view(view_name, self.survey, req)
+                body = view()
+                self.assertEqual(req.response.getStatus(), 200)
+                self.assertIsNone(req.response.getHeader("location"))
+                self.assertIn(expected_text, body)
