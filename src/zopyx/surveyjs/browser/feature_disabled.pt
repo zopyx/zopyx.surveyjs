@@ -1,0 +1,10 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="zopyx.surveyjs">
+<metal:block tal:define="_ python: request.response.setStatus(403)">
+  <metal:feature-disabled
+      use-macro="context/@@survey-actions/macros/feature-disabled"
+  />
+</metal:block>
+</html>
