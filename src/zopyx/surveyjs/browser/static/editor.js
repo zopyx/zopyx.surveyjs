@@ -266,12 +266,40 @@ document.addEventListener("DOMContentLoaded", function () {
   creator.render("surveyContainer");
 
   const editorRoot = document.getElementById("surveyEditorContainer");
+  const fullscreenToggle = document.getElementById("surveyFullscreenToggle");
+  const fullscreenClass = "survey-editor-fullscreen";
+
+  const setFullscreen = function (enabled) {
+    document.body.classList.toggle(fullscreenClass, Boolean(enabled));
+    if (!fullscreenToggle) {
+      return;
+    }
+    fullscreenToggle.textContent = enabled ? t("Exit fullscreen") : t("Fullscreen");
+    fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+  };
+
   if (editorRoot) {
     const markInteraction = function () {
       userInteracted = true;
     };
     editorRoot.addEventListener("pointerdown", markInteraction, { once: true });
     editorRoot.addEventListener("keydown", markInteraction, { once: true });
+  }
+
+  if (fullscreenToggle) {
+    fullscreenToggle.addEventListener("click", function (event) {
+      event.preventDefault();
+      const isFullscreen = document.body.classList.contains(fullscreenClass);
+      setFullscreen(!isFullscreen);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (
+        event.key === "Escape" &&
+        document.body.classList.contains(fullscreenClass)
+      ) {
+        setFullscreen(false);
+      }
+    });
   }
 
   const getSaveButton = function () {

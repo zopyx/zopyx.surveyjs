@@ -77,6 +77,15 @@
     </div>
 
     <div id="surveyEditorContainer">
+      <div class="survey-editor-toolbar">
+        <a id="surveyFullscreenToggle"
+           class="survey-fullscreen-toggle"
+           href="#"
+           role="button"
+           aria-pressed="false"
+           i18n:translate=""
+        >Fullscreen</a>
+      </div>
       <div id="surveyContainer"></div>
     </div>
 
