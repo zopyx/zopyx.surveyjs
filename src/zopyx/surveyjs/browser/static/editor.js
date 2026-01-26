@@ -32,8 +32,49 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     }
 
-    function mountQuillEditor(question, htmlElement) {
-      if (!question || !htmlElement || question.__quillEditor) {
+    function getPropertyValue(obj, property, question) {
+      if (obj && property && property.name && typeof obj.getPropertyValue === "function") {
+        return obj.getPropertyValue(property.name);
+      }
+      if (property && typeof property.getValue === "function") {
+        return property.getValue(obj);
+      }
+      if (obj && property && property.name) {
+        if (Object.prototype.hasOwnProperty.call(obj, property.name)) {
+          return obj[property.name];
+        }
+      }
+      if (question && Object.prototype.hasOwnProperty.call(question, "value")) {
+        return question.value;
+      }
+      return "";
+    }
+
+    function setPropertyValue(obj, property, value, question) {
+      if (obj && property && property.name && typeof obj.setPropertyValue === "function") {
+        obj.setPropertyValue(property.name, value);
+      } else if (property && typeof property.setValue === "function") {
+        property.setValue(obj, value);
+      } else if (obj && property && property.name) {
+        obj[property.name] = value;
+      }
+      if (
+        question &&
+        Object.prototype.hasOwnProperty.call(question, "value") &&
+        question.value !== value
+      ) {
+        question.value = value;
+      }
+    }
+
+    function mountQuillEditor(question, htmlElement, obj, property) {
+      if (!question || !htmlElement) {
+        return;
+      }
+
+      if (question.__quillEditor && question.__quillSyncFromProperty) {
+        question.__quillContext = { obj: obj, property: property };
+        question.__quillSyncFromProperty();
         return;
       }
 
@@ -57,16 +98,46 @@ document.addEventListener("DOMContentLoaded", function () {
         modules: { toolbar: toolbar },
       });
 
+      let isSyncing = false;
+      question.__quillContext = { obj: obj, property: property };
+
       const setValue = function (value) {
         const html = value || "";
         if (quill.root.innerHTML !== html) {
           quill.root.innerHTML = html;
         }
+        if (textarea && textarea.value !== html) {
+          textarea.value = html;
+        }
       };
 
-      setValue(question.value);
+      const syncFromProperty = function () {
+        if (isSyncing) {
+          return;
+        }
+        isSyncing = true;
+        const context = question.__quillContext || {};
+        const value = getPropertyValue(context.obj, context.property, question);
+        setValue(value);
+        isSyncing = false;
+      };
+
+      question.__quillSyncFromProperty = syncFromProperty;
+      syncFromProperty();
+      setTimeout(syncFromProperty, 0);
+
       quill.on("text-change", function () {
-        question.value = quill.root.innerHTML;
+        if (isSyncing) {
+          return;
+        }
+        isSyncing = true;
+        const html = quill.root.innerHTML;
+        const context = question.__quillContext || {};
+        setPropertyValue(context.obj, context.property, html, question);
+        if (textarea && textarea.value !== html) {
+          textarea.value = html;
+        }
+        isSyncing = false;
       });
 
       if (
@@ -74,12 +145,56 @@ document.addEventListener("DOMContentLoaded", function () {
         typeof question.onValueChanged.add === "function"
       ) {
         question.onValueChanged.add(function (sender, options) {
+          if (isSyncing) {
+            return;
+          }
+          isSyncing = true;
           const nextValue =
             options && Object.prototype.hasOwnProperty.call(options, "value")
               ? options.value
               : sender.value;
           setValue(nextValue);
+          isSyncing = false;
         });
+      }
+
+      if (
+        obj &&
+        property &&
+        property.name &&
+        obj.onPropertyChanged &&
+        typeof obj.onPropertyChanged.add === "function"
+      ) {
+        obj.onPropertyChanged.add(function (sender, options) {
+          if (
+            options &&
+            options.name &&
+            options.name !== property.name
+          ) {
+            return;
+          }
+          syncFromProperty();
+        });
+      }
+
+      if (!question.__quillUpdateButton) {
+        const updateButton = document.createElement("button");
+        updateButton.type = "button";
+        updateButton.className = "btn btn-secondary sv-quill-update";
+        updateButton.textContent = "Update";
+        updateButton.addEventListener("click", function () {
+          const html = quill.root.innerHTML;
+          const context = question.__quillContext || {};
+          setPropertyValue(context.obj, context.property, html, question);
+          if (textarea) {
+            textarea.value = html;
+            textarea.dispatchEvent(new Event("input", { bubbles: true }));
+            textarea.dispatchEvent(new Event("change", { bubbles: true }));
+          }
+          syncFromProperty();
+        });
+        container.insertAdjacentElement("afterend", updateButton);
+        question.__quillUpdateButton = updateButton;
       }
 
       question.__quillEditor = quill;
@@ -107,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!htmlElement || !question) {
           return;
         }
-        mountQuillEditor(question, htmlElement);
+        mountQuillEditor(question, htmlElement, obj, property);
       },
     });
   }
