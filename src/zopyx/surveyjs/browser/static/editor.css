@@ -48,6 +48,7 @@
 }
 
 .survey-editor-fullscreen footer,
+.survey-editor-fullscreen .survey-header,
 .survey-editor-fullscreen .survey-actions,
 .survey-editor-fullscreen article > header {
     display: none;

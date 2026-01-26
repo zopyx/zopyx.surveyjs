@@ -44,13 +44,11 @@
       }
     </style>
 
-    <metal:survey-actions
-        use-macro="context/@@survey-actions/macros/survey-actions"
-    />
-
-    <metal:survey-status
-        use-macro="context/@@survey-actions/macros/survey-status"
-    />
+    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+      <metal:survey-header-headline fill-slot="view-headline">
+        <h2 class="page-headline" i18n:translate="">PDF Form</h2>
+      </metal:survey-header-headline>
+    </metal:survey-header>
 
     <div id="surveyContainer"></div>
 

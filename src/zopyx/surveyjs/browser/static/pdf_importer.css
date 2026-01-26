@@ -36,6 +36,22 @@
     padding: 1.5rem;
 }
 
+.pdf-importer-file-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.pdf-importer-file-row .form-control {
+    flex: 1 1 280px;
+    min-width: 220px;
+}
+
+.pdf-importer-file-row .btn {
+    white-space: nowrap;
+}
+
 .pdf-importer-flow {
     display: grid;
     gap: 2.5rem;
@@ -53,17 +69,6 @@
     position: relative;
 }
 
-.stage-upload::before,
-.stage-preview::before {
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
-    border-radius: 999px;
-    content: "";
-    height: 4px;
-    left: 1.5rem;
-    position: absolute;
-    right: 1.5rem;
-    top: 1rem;
-}
 
 .panel-title {
     font-size: 1rem;

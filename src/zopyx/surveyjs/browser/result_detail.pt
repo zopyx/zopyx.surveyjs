@@ -23,13 +23,11 @@
         use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
 
-    <metal:survey-actions
-        use-macro="context/@@survey-actions/macros/survey-actions"
-    />
-
-    <metal:survey-status
-        use-macro="context/@@survey-actions/macros/survey-status"
-    />
+    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+      <metal:survey-header-headline fill-slot="view-headline">
+        <h2 class="page-headline" i18n:translate="">Submission Details</h2>
+      </metal:survey-header-headline>
+    </metal:survey-header>
 
     <tal:block define="detail view/result_detail">
         <tal:block tal:condition="python: detail.get('error')">
@@ -44,8 +42,6 @@
         </tal:block>
 
         <tal:block tal:condition="python: not detail.get('error')">
-            <h2 class="page-headline" i18n:translate="">Submission Details</h2>
-
             <div id="results-table">
                 <p><strong i18n:translate="">Poll ID:</strong> <span tal:content="detail/poll_id">Poll</span></p>
                 <p tal:condition="python: detail.get('seq_no')">

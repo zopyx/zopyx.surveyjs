@@ -47,19 +47,18 @@
             type="text/javascript"
     ></script>
 
-    <metal:survey-actions
-        use-macro="context/@@survey-actions/macros/survey-actions"
-    />
-
-    <metal:survey-status
-        use-macro="context/@@survey-actions/macros/survey-status"
-    />
+    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+      <metal:survey-header-headline fill-slot="view-headline">
+        <h2 class="page-headline" i18n:translate="">Fillable PDF Form</h2>
+      </metal:survey-header-headline>
+      <metal:survey-header-subtitle fill-slot="view-subtitle">
+        <div class="page-subtitle" i18n:translate="">
+          Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions.
+        </div>
+      </metal:survey-header-subtitle>
+    </metal:survey-header>
 
     <div class="pdf-importer-container">
-    <h2 class="page-headline" i18n:translate="">Fillable PDF Form</h2>
-    <div class="page-subtitle" i18n:translate="">
-      Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions.
-    </div>
 
     <div class="pdf-importer-flow">
       <section class="pdf-importer-panel stage-upload">

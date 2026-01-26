@@ -1,6 +1,94 @@
 #surveyContainer {
 }
 
+article > header {
+    display: none;
+}
+
+.survey-header {
+    align-items: flex-start;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    justify-content: space-between;
+    margin: 0 0 1rem;
+    padding: 0.65rem 0.9rem;
+}
+
+.survey-header-main {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.survey-header-actions {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    gap: 0.4rem;
+}
+
+.survey-header .page-headline {
+    color: #334155;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.25;
+    margin: 0.25rem 0 0;
+}
+
+.survey-header .page-subtitle {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 0.25rem 0 0;
+}
+
+.survey-form-meta {
+    color: #475569;
+    font-size: 0.8rem;
+    margin: 0.25rem 0 0;
+}
+
+.survey-form-title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.survey-form-description {
+    color: #64748b;
+    margin: 0.1rem 0 0;
+}
+
+.survey-header .storage-info {
+    color: #475569;
+    font-size: 0.85rem;
+    margin: 0.25rem 0 0;
+}
+
+.survey-header-actions .survey-actions {
+    margin: 0;
+}
+
+.survey-header-actions .survey-status-bar {
+    justify-content: flex-end;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .survey-header-actions {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .survey-header-actions .survey-actions-row,
+    .survey-header-actions .survey-status-bar {
+        justify-content: flex-start;
+    }
+}
+
 .survey-access-error {
     background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
     border: 1px solid #fdba74;
@@ -113,10 +201,10 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     color: #ffffff;
     display: inline-flex;
-    font-size: 0.82rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.01em;
-    padding: 0.35rem 0.95rem;
+    padding: 0.25rem 0.75rem;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
