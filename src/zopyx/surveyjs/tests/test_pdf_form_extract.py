@@ -26,7 +26,7 @@ class PDFFormExtractorTests(unittest.TestCase):
         if not shutil.which("pdfcpu"):
             raise unittest.SkipTest("pdfcpu is not available in PATH")
         repo_root = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
+            os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
         )
         sample_pdf = os.path.join(repo_root, "FilledForm.pdf")
         extractor = PDFFormExtractor(sample_pdf)
