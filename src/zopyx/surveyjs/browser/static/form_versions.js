@@ -34,6 +34,7 @@
     setupJsonViewer();
     setupPreviewModal();
     setupRestoreModal();
+    setupDeleteModal();
     setupFileInput();
     console.log('Form versions initialized');
   }
@@ -322,6 +323,63 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeRestore();
+      }
+    });
+  }
+
+  // ============================================================================
+  // Delete Modal
+  // ============================================================================
+
+  function setupDeleteModal() {
+    var modal = document.getElementById('deleteModal');
+    var overlay = document.getElementById('deleteModalOverlay');
+    var versionIdEl = document.getElementById('deleteVersionId');
+    var confirmButton = document.querySelector('.confirm-delete');
+    var pendingDeleteForm = null;
+
+    if (!modal || !overlay || !versionIdEl || !confirmButton) {
+      return;
+    }
+
+    document.querySelectorAll('.open-delete-dialog').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var vid = btn.getAttribute('data-version-id') || '';
+        pendingDeleteForm = btn.closest('form');
+
+        versionIdEl.textContent = vid || t('--');
+        modal.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeDelete() {
+      pendingDeleteForm = null;
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    confirmButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (pendingDeleteForm) {
+        pendingDeleteForm.submit();
+      }
+    });
+
+    document.querySelectorAll('.close-delete').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeDelete();
+      });
+    });
+
+    overlay.addEventListener('click', closeDelete);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeDelete();
       }
     });
   }

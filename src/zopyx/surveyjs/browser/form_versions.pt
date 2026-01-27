@@ -411,6 +411,93 @@
       .restore-modal-footer form {
         margin: 0;
       }
+      /* Delete dialog */
+      .delete-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 1040;
+      }
+      .delete-modal-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .delete-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 22px 45px rgba(15, 23, 42, 0.35);
+        width: min(500px, 92vw);
+        max-width: 520px;
+        z-index: 1041;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.2s ease;
+        overflow: hidden;
+      }
+      .delete-modal.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      .delete-modal-header {
+        padding: 16px 18px;
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border-bottom: 1px solid #fca5a5;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .delete-modal-header .icon {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #ef4444;
+        color: #fff;
+        border-radius: 10px;
+        font-weight: 800;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+      }
+      .delete-modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #991b1b;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .delete-modal-body {
+        padding: 18px;
+        color: #374151;
+        line-height: 1.6;
+      }
+      .delete-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+        background: #f3f4f6;
+        color: #374151;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        border: 1px solid #e5e7eb;
+      }
+      .delete-modal-footer {
+        padding: 16px 18px;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        background: #f9fafb;
+      }
       .btn-ghost {
         background: transparent;
         color: #4b5563;
@@ -913,8 +1000,9 @@
                                 tal:attributes="action string:${context/absolute_url}/@@delete-version">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
-                            <button type="submit"
-                                    class="btn btn-sm btn-danger action-text"
+                            <button type="button"
+                                    class="btn btn-sm btn-danger action-text open-delete-dialog"
+                                    tal:attributes="data-version-id version/id"
                                     title="Delete version"
                                     aria-label="Delete version"
                                     i18n:attributes="title aria-label">
@@ -1017,6 +1105,25 @@
               <span class="btn-label" i18n:translate="">Confirm restore</span>
             </button>
           </form>
+        </div>
+      </div>
+
+      <!-- Delete Modal -->
+      <div id="deleteModalOverlay" class="delete-modal-overlay"></div>
+      <div id="deleteModal" class="delete-modal">
+        <div class="delete-modal-header">
+          <span class="icon">!</span>
+          <h3 i18n:translate="">Delete version</h3>
+        </div>
+        <div class="delete-modal-body">
+          <p i18n:translate="">This action permanently removes the selected version. This cannot be undone.</p>
+          <div class="delete-meta">
+            <strong i18n:translate="">ID:</strong> <span id="deleteVersionId">—</span>
+          </div>
+        </div>
+        <div class="delete-modal-footer">
+          <button type="button" class="btn btn-ghost close-delete" i18n:translate="">Cancel</button>
+          <button type="button" class="btn btn-danger confirm-delete" i18n:translate="">Confirm delete</button>
         </div>
       </div>
 

@@ -749,6 +749,10 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: generated
+msgid "Confirm delete"
+msgstr "Löschen bestätigen"
+
+#: generated
 msgid "Delete version"
 msgstr "Version löschen"
 
@@ -953,6 +957,10 @@ msgid "No PDF selected yet."
 msgstr "Noch keine PDF ausgewählt."
 
 #: generated
+msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgstr "Noch keine gespeicherten Ergebnisse. Sobald Antworten gespeichert werden, erscheinen die Auswertungen hier."
+
+#: generated
 msgid "No Survey Results Yet"
 msgstr "Noch keine Umfrageergebnisse"
 
@@ -1094,6 +1102,10 @@ msgstr "Dieses Ergebnis wird dauerhaft gelöscht. Dies kann nicht rückgängig g
 #: generated
 msgid "This action will permanently delete all survey results. This cannot be undone."
 msgstr "Diese Aktion löscht alle Umfrageergebnisse daürhaft. Dies kann nicht rückgängig gemacht werden."
+
+#: generated
+msgid "This action permanently removes the selected version. This cannot be undone."
+msgstr "Diese Aktion entfernt die ausgewählte Version dauerhaft. Dies kann nicht rückgängig gemacht werden."
 
 #: generated
 msgid "This feature is experimental. Please review the generated form carefully."
