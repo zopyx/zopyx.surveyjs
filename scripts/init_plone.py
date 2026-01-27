@@ -916,7 +916,7 @@ def load_welcome_intro(language):
 
 
 DEMO_LOGIN_RE = re.compile(
-    r"(<div[^>]*>\s*<p[^>]*>\s*Demo login.*?</div>)",
+    r"(<div[^>]*>.*?<code>\s*forms\s*</code>.*?<code>\s*formsarecool\s*</code>.*?</div>)",
     re.DOTALL | re.IGNORECASE,
 )
 
