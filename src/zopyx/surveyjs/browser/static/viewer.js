@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const trustedAccessMessage = document.getElementById("surveyTrustedAccessMessage");
   const fullscreenToggle = document.getElementById("surveyViewerFullscreenToggle");
   const fullscreenClass = "survey-viewer-fullscreen";
+  const fullscreenParam = new URLSearchParams(window.location.search).get("fullscreen");
 
   const trustedAccessMessages = {
     trusted_access_token_missing: t("This form requires a trusted access link. Please use the link provided by the form owner."),
@@ -69,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
         setFullscreen(false);
       }
     });
+  }
+
+  if (fullscreenParam === "1" || fullscreenParam === "true" || fullscreenParam === "yes") {
+    setFullscreen(true);
   }
 
   const copyTrustedAccessUrl = function (text) {
