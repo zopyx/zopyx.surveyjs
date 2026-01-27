@@ -2,6 +2,34 @@
     margin: 0 auto;
 }
 
+.results-docs {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 12px;
+}
+
+.results-docs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    text-transform: uppercase;
+}
+
+.results-docs-link:hover {
+    background: #e2e8f0;
+    color: #1f2937;
+    text-decoration: none;
+}
+
 .results-hero {
     align-items: center;
     background: linear-gradient(120deg, #f6f7fb, #eef6ff);

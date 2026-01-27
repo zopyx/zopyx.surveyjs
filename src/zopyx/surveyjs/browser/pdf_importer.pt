@@ -61,6 +61,16 @@
     </metal:survey-header>
 
     <div class="pdf-importer-container">
+    <div class="pdf-importer-docs">
+      <a class="pdf-importer-docs-link"
+         href="https://docs.privacyforms.studio/functionality_pdf_import_form.html"
+         target="_blank"
+         rel="noopener noreferrer"
+         i18n:translate=""
+      >
+        DOCS
+      </a>
+    </div>
 
     <div class="pdf-importer-flow">
       <section class="pdf-importer-panel stage-upload">
@@ -87,6 +97,19 @@
             </div>
             <p class="help-block" i18n:translate="">
               Choose a PDF that contains the form layout you want to convert.
+            </p>
+          </div>
+          <div class="form-group">
+            <label for="pdfAdditionalPrompt" i18n:translate="">Additional prompt</label>
+            <textarea id="pdfAdditionalPrompt"
+                      name="additional_prompt"
+                      class="form-control"
+                      rows="3"
+                      i18n:attributes="placeholder"
+                      placeholder="Add extra conversion guidance..."
+            ></textarea>
+            <p class="help-block" i18n:translate="">
+              Optional instructions to guide the conversion.
             </p>
           </div>
           <div id="pdfImporterStatus" class="alert" style="display:none;"></div>

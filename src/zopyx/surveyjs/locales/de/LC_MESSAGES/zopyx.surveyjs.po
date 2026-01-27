@@ -1387,3 +1387,15 @@ msgstr "Ausfüllbare PDF-Formulare"
 #: generated
 msgid "Download PDF"
 msgstr "PDF herunterladen"
+
+msgid "Additional prompt"
+msgstr "Zusätzlicher Hinweis"
+
+msgid "Add extra conversion guidance..."
+msgstr "Zusätzliche Hinweise zur Konvertierung..."
+
+msgid "Optional instructions to guide the conversion."
+msgstr "Optionale Hinweise zur Konvertierung."
+
+msgid "DOCS"
+msgstr "Dokumentation"

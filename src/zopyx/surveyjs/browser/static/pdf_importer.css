@@ -92,6 +92,34 @@
     margin-top: 0.4rem;
 }
 
+.pdf-importer-docs {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.pdf-importer-docs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    text-transform: uppercase;
+}
+
+.pdf-importer-docs-link:hover {
+    background: #e2e8f0;
+    color: #1f2937;
+    text-decoration: none;
+}
+
 .pdf-importer-container .button-group {
     display: flex;
     gap: 0.75rem;

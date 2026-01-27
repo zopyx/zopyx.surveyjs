@@ -1294,3 +1294,15 @@ msgstr "All"
 
 msgid "Page Size"
 msgstr "Page Size"
+
+msgid "Additional prompt"
+msgstr "Additional prompt"
+
+msgid "Add extra conversion guidance..."
+msgstr "Add extra conversion guidance..."
+
+msgid "Optional instructions to guide the conversion."
+msgstr "Optional instructions to guide the conversion."
+
+msgid "DOCS"
+msgstr "DOCS"

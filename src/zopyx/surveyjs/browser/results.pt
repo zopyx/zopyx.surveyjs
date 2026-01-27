@@ -45,6 +45,16 @@
                 </div>
             </metal:survey-header-subtitle>
         </metal:survey-header>
+        <div class="results-docs">
+            <a class="results-docs-link"
+               href="https://docs.privacyforms.studio/functionality_results.html"
+               target="_blank"
+               rel="noopener noreferrer"
+               i18n:translate=""
+            >
+                DOCS
+            </a>
+        </div>
 
         <tal:block tal:condition="python: not view.storing_enabled">
             <div class="storage-warning">

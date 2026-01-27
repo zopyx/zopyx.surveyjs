@@ -504,6 +504,7 @@ class Views(BrowserView):
 
     def upload_pdf_form(self):
         uploaded_file = self.request.form.get("pdf_file")
+        additional_prompt = self.request.form.get("additional_prompt")
         if not uploaded_file:
             json_error(
                 self.request.response,
@@ -2214,8 +2215,13 @@ class Views(BrowserView):
                     f"Executing ImageMagick convert command: {' '.join(command)}"
                 )
                 result = subprocess.run(command, check=True, capture_output=True)
+                stdout_text = (
+                    result.stdout.decode("utf-8", errors="ignore")
+                    if isinstance(result.stdout, bytes)
+                    else (result.stdout or "")
+                )
                 logger.info(
-                    f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}"
+                    f"Convert command completed successfully. Output: {stdout_text}"
                 )
 
                 png_candidates = sorted(temp_path.glob("uploaded*.png"))
@@ -2240,6 +2246,8 @@ class Views(BrowserView):
                     "keep headers and footer, make JSON as close possible as possible, "
                     "return the form JSON only"
                 )
+                if additional_prompt:
+                    prompt = f"{prompt}\nAdditional instructions: {additional_prompt}"
                 prompt = (
                     f'{prompt}. Here is the form represenation of the form as JSON:\n"""'
                     f"\n```\n{forms_json_text}\n```\n"
@@ -2267,7 +2275,11 @@ class Views(BrowserView):
             self.request.response.write(orjson.dumps(result))
 
         except subprocess.CalledProcessError as e:
-            stderr_msg = e.stderr.decode("utf-8", errors="ignore") or str(e)
+            stderr_msg = (
+                e.stderr.decode("utf-8", errors="ignore")
+                if isinstance(e.stderr, bytes)
+                else (e.stderr or str(e))
+            )
             logger.error(f"Convert command failed: {stderr_msg}")
             error_result = {
                 "error": "PNG conversion failed",

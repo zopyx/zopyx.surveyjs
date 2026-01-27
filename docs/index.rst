@@ -35,6 +35,7 @@ the system, and end users who build and run surveys in the UI.
    changelog
 
 
+   functionality_results
    functionality_pdf_import_form
 
    security2

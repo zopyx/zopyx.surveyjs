@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const previewPlaceholder = document.getElementById("pdfPreviewPlaceholder");
   const surveyPreviewContainer = document.getElementById("surveyPreviewContainer");
   const surveyPreviewPlaceholder = document.getElementById("surveyPreviewPlaceholder");
+  const additionalPromptInput = document.getElementById("pdfAdditionalPrompt");
 
   let surveyPreview = null;
   let convertedJson = null;
@@ -97,6 +98,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const formData = new FormData();
     formData.append("pdf_file", file);
+    if (additionalPromptInput && additionalPromptInput.value.trim()) {
+      formData.append("additional_prompt", additionalPromptInput.value.trim());
+    }
     formData.append("_authenticator", CSRF_TOKEN);
 
     setLoading(true);
