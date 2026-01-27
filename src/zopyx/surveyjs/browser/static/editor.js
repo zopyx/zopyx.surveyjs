@@ -263,6 +263,23 @@ document.addEventListener("DOMContentLoaded", function () {
   if (typeof Survey !== "undefined" && Survey.surveyLocalization) {
     Survey.surveyLocalization.currentLocale = locale;
   }
+  const enablePreviewFullscreen = function (survey) {
+    if (!survey || typeof survey !== "object") {
+      return;
+    }
+    survey.allowFullScreen = true;
+  };
+  if (
+    creator.onPreviewSurveyCreated &&
+    typeof creator.onPreviewSurveyCreated.add === "function"
+  ) {
+    creator.onPreviewSurveyCreated.add(function (_sender, options) {
+      enablePreviewFullscreen(options && options.survey);
+    });
+  }
+  if (creator.previewSurvey) {
+    enablePreviewFullscreen(creator.previewSurvey);
+  }
   creator.render("surveyContainer");
 
   const editorRoot = document.getElementById("surveyEditorContainer");

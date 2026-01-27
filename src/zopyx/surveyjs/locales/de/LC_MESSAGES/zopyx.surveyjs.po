@@ -1399,3 +1399,9 @@ msgstr "Optionale Hinweise zur Konvertierung."
 
 msgid "DOCS"
 msgstr "Dokumentation"
+
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+msgid "Exit fullscreen"
+msgstr "Vollbild verlassen"

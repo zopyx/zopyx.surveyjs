@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const trustedAccessExpires = document.getElementById("surveyTrustedAccessExpires");
   const trustedAccessCopy = document.getElementById("surveyTrustedAccessCopy");
   const trustedAccessMessage = document.getElementById("surveyTrustedAccessMessage");
+  const fullscreenToggle = document.getElementById("surveyViewerFullscreenToggle");
+  const fullscreenClass = "survey-viewer-fullscreen";
 
   const trustedAccessMessages = {
     trusted_access_token_missing: t("This form requires a trusted access link. Please use the link provided by the form owner."),
@@ -46,6 +48,28 @@ document.addEventListener("DOMContentLoaded", function () {
       errorContainer.hidden = false;
     }
   };
+
+  const setFullscreen = function (enabled) {
+    document.body.classList.toggle(fullscreenClass, Boolean(enabled));
+    if (!fullscreenToggle) {
+      return;
+    }
+    fullscreenToggle.textContent = enabled ? t("Exit fullscreen") : t("Fullscreen");
+    fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+  };
+
+  if (fullscreenToggle) {
+    fullscreenToggle.addEventListener("click", function (event) {
+      event.preventDefault();
+      const isFullscreen = document.body.classList.contains(fullscreenClass);
+      setFullscreen(!isFullscreen);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && document.body.classList.contains(fullscreenClass)) {
+        setFullscreen(false);
+      }
+    });
+  }
 
   const copyTrustedAccessUrl = function (text) {
     if (!text) {
