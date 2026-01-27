@@ -1,175 +1,139 @@
-# PDF Form Import Functionality
+# PDF Form Import
 
-This document describes the **PDF Form Import** feature as implemented in the current codebase. It covers the UI flow, the data submitted by the forms, the preview experience, and the backend conversion workflow (PDF → PNG → LLM + pdfcpu metadata) that produces SurveyJS JSON.
+This document describes the PDF Form Import feature and is split into two sections: **User Guide** and **Technical Reference**.
 
-## Overview
+## User Guide
 
-The PDF Form Import feature lets users upload a PDF form and automatically convert it into a **SurveyJS JSON** definition. The conversion combines:
+### What it does
 
-- **Visual extraction** via rendering PDF pages into PNGs and sending them to an LLM.
-- **Structural hints** via `pdfcpu form export` which extracts form field metadata as JSON.
+The PDF Form Import feature lets you upload a PDF form and automatically generate a SurveyJS form from it. It combines visual analysis of the PDF pages with extracted form field metadata to produce a form that matches the layout and structure of the original document.
 
-These two signals are fused in a single prompt to improve layout and field mapping accuracy.
+### Where to find it
 
-## User Interface
+Open the **PDF Form Import** view in your survey and you will see:
 
-The main UI for the importer lives in the **PDF Importer** view (template: `src/zopyx/surveyjs/browser/pdf_importer.pt`, JS: `src/zopyx/surveyjs/browser/static/pdf_importer.js`, CSS: `src/zopyx/surveyjs/browser/static/pdf_importer.css`).
+- An upload panel for the PDF.
+- A preview panel for both the PDF and the generated SurveyJS form.
+- A small **DOCS** badge linking to the official documentation.
 
-### Upload Form
+### How to use it
 
-The upload form consists of:
+1. **Upload a PDF**
+   - Click the file picker and select a PDF.
+   - The PDF preview will appear on the right.
 
-- **PDF file input** (`name="pdf_file"`, required)
-- **Additional prompt** textarea (`name="additional_prompt"`, optional)
-- **Convert PDF** submit button
+2. **(Optional) Add additional instructions**
+   - Use the **Additional prompt** text field to provide guidance (e.g. required wording, layout constraints, field naming conventions).
 
-The “Additional prompt” field lets users inject extra instructions into the AI prompt. This is useful for emphasizing layout constraints, field naming rules, or domain-specific expectations.
+3. **Convert PDF**
+   - Click **Convert PDF** to start the conversion.
+   - A progress spinner appears while the conversion runs.
 
-### Status and Buttons
+4. **Preview and validate**
+   - The generated SurveyJS form is rendered in the preview panel.
+   - Review it for accuracy.
 
-- A status alert displays success or error messages.
-- The “Store converted form as new version” button is hidden/disabled until conversion succeeds.
+5. **Store the result**
+   - Click **Store converted form as new version** to save it as a new version of the survey.
 
-### Preview Panel
+### Troubleshooting tips
 
-The UI shows two previews side-by-side:
+- **No preview or errors:** Make sure the PDF is valid and readable.
+- **Conversion errors:** Verify the system has ImageMagick (`convert`) and `pdfcpu` installed.
+- **Unexpected layout:** Add clarifying instructions in “Additional prompt” and try again.
 
-- **PDF Preview**
-  - An `<iframe>` displays the uploaded PDF.
-  - Placeholder text is shown when no file is selected.
+## Technical Reference
 
-- **SurveyJS Preview**
-  - The generated SurveyJS JSON is rendered with SurveyJS runtime.
-  - Placeholder text is shown until conversion completes.
+### Key files
 
-## Frontend Flow
+- Template: `src/zopyx/surveyjs/browser/pdf_importer.pt`
+- JavaScript: `src/zopyx/surveyjs/browser/static/pdf_importer.js`
+- Styles: `src/zopyx/surveyjs/browser/static/pdf_importer.css`
+- Backend view: `src/zopyx/surveyjs/browser/views.py` (`import_pdf_form()`)
+- PDF form extraction: `src/zopyx/surveyjs/pdf_form_extract.py`
+- LLM integration: `src/zopyx/surveyjs/browser/ai_generator.py`
 
-The JavaScript in `pdf_importer.js` drives the UI flow:
+### UI components
 
-1. **File selection**
-   - When a PDF is selected, the preview iframe loads it using `URL.createObjectURL`.
+**Upload form**
 
-2. **Submit conversion**
-   - The form posts to `@@import-pdf-form` with:
-     - `pdf_file` (binary PDF)
-     - `additional_prompt` (optional text)
-     - `_authenticator` (CSRF token)
+- `pdf_file` (required): PDF upload
+- `additional_prompt` (optional): extra instructions appended to the LLM prompt
 
-3. **Handle response**
-   - On success, the JSON is rendered in the SurveyJS preview.
-   - The “Store converted form” button becomes active.
+**Preview area**
 
-## Backend Workflow
+- PDF preview in `<iframe>`
+- SurveyJS preview rendered from returned JSON
 
-The backend endpoint `import_pdf_form()` is implemented in:
+### Conversion workflow (backend)
 
-- `src/zopyx/surveyjs/browser/views.py`
+The `@@import-pdf-form` endpoint performs the following steps:
 
-The method performs the following pipeline:
+1) **Read upload**
+   - Reads `pdf_file` as bytes.
 
-### 1) Validate Upload
+2) **Temporary workspace**
+   - Creates a `TemporaryDirectory()` for all artifacts.
 
-- The request must include `pdf_file`.
-- If missing, it returns HTTP **400** with JSON error payload.
+3) **Write PDF to disk**
+   - Saves to `uploaded.pdf` in the temp dir.
 
-### 2) Create Temporary Workspace
+4) **Convert PDF → PNG (all pages)**
+   - Uses ImageMagick `convert`:
 
-- A `TemporaryDirectory()` is created for intermediate artifacts.
-- Files are cleaned up automatically when the request finishes.
+     ```
+     convert -density 300 uploaded.pdf -background white -alpha remove -alpha off uploaded.png
+     ```
 
-### 3) Persist Uploaded PDF
+   - Produces one PNG per page (e.g. `uploaded-0.png`, `uploaded-1.png`).
 
-- The uploaded binary content is written to:
-  - `uploaded.pdf`
+5) **Extract form metadata with pdfcpu**
+   - `PDFFormExtractor` runs:
 
-### 4) Render PDF → PNG (all pages)
+     ```
+     pdfcpu form export uploaded.pdf <tempfile>.json
+     ```
 
-- ImageMagick `convert` renders all pages into PNGs:
+   - Raw JSON is written to `forms.json`.
 
-  ```
-  convert -density 300 uploaded.pdf -background white -alpha remove -alpha off uploaded.png
-  ```
+6) **Build LLM prompt**
+   - Base prompt:
+     - “Convert this PDF to SurveyJS JSON. Keep the layout, keep headers and footer, make JSON as close possible as possible, return the form JSON only”
+   - If `additional_prompt` is present, it is appended as:
+     - `Additional instructions: ...`
+   - The extracted form JSON is embedded into the prompt in a triple-quoted block.
 
-- This generates one PNG per page (e.g. `uploaded-0.png`, `uploaded-1.png`, …).
-- All generated PNGs are collected via `uploaded*.png`.
+7) **Send to LLM**
+   - `generate_survey_json_from_assets()` is called with:
+     - All PNGs as image attachments
+     - The prompt containing the embedded `forms.json`
 
-### 5) Extract Form Metadata (pdfcpu)
+8) **Normalize + parse JSON**
+   - Markdown is stripped with `strip_markdown_json()`.
+   - JSON is parsed with `orjson` and must be a dict/object.
 
-- The PDF is passed to the `PDFFormExtractor` class in:
-  - `src/zopyx/surveyjs/pdf_form_extract.py`
+9) **Return response**
 
-- The extractor runs:
+   ```json
+   {
+     "success": true,
+     "json": { /* SurveyJS form */ }
+   }
+   ```
 
-  ```
-  pdfcpu form export uploaded.pdf <tempfile.json>
-  ```
+### Error handling
 
-- The exported JSON is read back and written to:
-  - `forms.json`
+Typical errors and their causes:
 
-This JSON represents the PDF’s form field structure and values (if present).
+- **400**: Missing `pdf_file`.
+- **500**: ImageMagick `convert` missing or failed.
+- **500**: `pdfcpu` missing or failed.
+- **500**: LLM returned invalid JSON.
+- **500**: Unexpected server error.
 
-### 6) Build the LLM Prompt
+### Dependencies
 
-A base prompt is used:
+- **ImageMagick** (`convert`) must be in `PATH`.
+- **pdfcpu** must be in `PATH`.
+- **llm** module must be installed and configured.
 
-- “Convert this PDF to SurveyJS JSON. Keep the layout, keep headers and footer, make JSON as close possible as possible, return the form JSON only”
-
-If the **Additional prompt** field is provided, it is appended as:
-
-- `Additional instructions: …`
-
-Finally, the extracted form JSON is injected into the prompt in a triple-quoted block:
-
-```
-... Here is the form represenation of the form as JSON:
-"""
-```
-<forms.json content>
-```
-"""
-```
-
-This gives the LLM explicit structural hints while still relying on the PNG images for layout accuracy.
-
-### 7) Send to LLM with PNG Attachments
-
-The function `generate_survey_json_from_assets()` (in `ai_generator.py`) is called with:
-
-- All PNG page paths as **image attachments**
-- The augmented prompt (including `forms.json` text)
-
-The LLM returns a SurveyJS JSON string.
-
-### 8) Normalize and Parse JSON
-
-- Any markdown wrapping is removed with `strip_markdown_json()`.
-- The JSON is parsed with `orjson`.
-- The result must be an object; otherwise it fails.
-
-### 9) Return Result
-
-On success:
-
-```json
-{
-  "success": true,
-  "json": { /* SurveyJS form */ }
-}
-```
-
-## Error Handling
-
-Common failure cases:
-
-- Missing file → 400
-- ImageMagick `convert` missing or fails → 500
-- `pdfcpu` missing → 500
-- LLM response is invalid JSON → 500
-- Unexpected errors → 500
-
-Errors are returned as JSON with a short message and additional detail when available.
-
-## Summary
-
-The PDF Form Import workflow combines **PDF page rendering** and **structured PDF form metadata** to produce a high-quality SurveyJS JSON conversion. The UI provides a two-panel preview experience, while the backend ensures a controlled, reproducible conversion pipeline that can be tuned via the optional “Additional prompt.”
