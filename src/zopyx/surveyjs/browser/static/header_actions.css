@@ -37,7 +37,7 @@
 }
 
 .survey-header {
-  background: linear-gradient(180deg, #fbfdff 0%, #f3f6fb 100%);
+  background: linear-gradient(135deg, #fbfdff 0%, #eef2f7 45%, #f5f7fb 100%);
   border: 1px solid rgba(148, 163, 184, 0.6);
   border-radius: 12px;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9),

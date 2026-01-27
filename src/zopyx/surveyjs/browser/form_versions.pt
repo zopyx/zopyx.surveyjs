@@ -785,6 +785,18 @@
       .btn-group form {
         margin: 0;
       }
+
+      .form-versions-upload-row {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .form-versions-upload-row .form-control {
+        flex: 1 1 280px;
+        min-width: 220px;
+      }
     </style>
 
     <div class="form-versions-container">
@@ -950,20 +962,21 @@
                 tal:attributes="action string:${context/absolute_url}/@@upload-version">
             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
             <div class="form-group">
-              <label for="json_file" style="font-weight: 500; color: #495057;" i18n:translate="">Select JSON file:</label>
-              <input type="file"
-                     name="json_file"
-                     id="json_file"
-                     accept=".json,application/json"
-                     class="form-control"
-                     required="required" />
+              <div class="form-versions-upload-row">
+                <input type="file"
+                       name="json_file"
+                       id="json_file"
+                       accept=".json,application/json"
+                       class="form-control"
+                       required="required" />
+                <button type="submit" class="btn btn-success" title="Upload and Create Version" i18n:translate="" i18n:attributes="title">
+                  Upload
+                </button>
+              </div>
               <p class="help-block" i18n:translate="">
                 Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving.
               </p>
             </div>
-            <button type="submit" class="btn btn-success" title="Upload and Create Version" i18n:translate="" i18n:attributes="title">
-              Upload
-            </button>
           </form>
         </div>
       </div>
