@@ -11,6 +11,55 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
+def _build_attachment(path: str, mime_type: str):
+    attachment_cls = None
+    try:
+        import llm
+
+        attachment_cls = llm.Attachment
+    except Exception:
+        raise ImportError(
+            "The 'llm' module is not installed. Please install it using 'pip install llm'"
+        )
+
+    if hasattr(attachment_cls, "from_path"):
+        return attachment_cls.from_path(path)
+
+    data = Path(path).read_bytes()
+    filename = Path(path).name
+    candidates = [
+        lambda: attachment_cls(path=path),
+        lambda: attachment_cls(data, mime_type, filename),
+        lambda: attachment_cls(filename, data, mime_type),
+        lambda: attachment_cls(data, filename=filename, mimetype=mime_type),
+        lambda: attachment_cls(filename=filename, content=data, type=mime_type),
+    ]
+    for builder in candidates:
+        try:
+            return builder()
+        except TypeError:
+            continue
+    try:
+        import inspect
+
+        sig = inspect.signature(attachment_cls)
+        kwargs = {}
+        for name in sig.parameters:
+            if name in ("data", "content", "body", "bytes"):
+                kwargs[name] = data
+            elif name in ("filename", "name", "file_name"):
+                kwargs[name] = filename
+            elif name in ("path", "file", "file_path"):
+                kwargs[name] = path
+            elif name in ("mime_type", "mimetype", "content_type", "type"):
+                kwargs[name] = mime_type
+        if kwargs:
+            return attachment_cls(**kwargs)
+    except Exception:
+        pass
+    raise ValueError("Unsupported llm.Attachment constructor")
+
+
 def strip_markdown_json(text: str) -> str:
     """
     Strips markdown code blocks from LLM responses that wrap JSON.
@@ -166,7 +215,6 @@ def generate_survey_json_from_image(
     Returns:
         JSON string containing the SurveyJS form definition
     """
-    # Import llm here to provide better error messages
     try:
         import llm
     except ImportError:
@@ -174,46 +222,8 @@ def generate_survey_json_from_image(
             "The 'llm' module is not installed. Please install it using 'pip install llm'"
         )
 
-    def _build_attachment(path: str):
-        attachment_cls = llm.Attachment
-        if hasattr(attachment_cls, "from_path"):
-            return attachment_cls.from_path(path)
-        data = Path(path).read_bytes()
-        filename = Path(path).name
-        candidates = [
-            lambda: attachment_cls(path=path),
-            lambda: attachment_cls(data, "image/png", filename),
-            lambda: attachment_cls(filename, data, "image/png"),
-            lambda: attachment_cls(data, filename=filename, mimetype="image/png"),
-            lambda: attachment_cls(filename=filename, content=data, type="image/png"),
-        ]
-        for builder in candidates:
-            try:
-                return builder()
-            except TypeError:
-                continue
-        try:
-            import inspect
-
-            sig = inspect.signature(attachment_cls)
-            kwargs = {}
-            for name in sig.parameters:
-                if name in ("data", "content", "body", "bytes"):
-                    kwargs[name] = data
-                elif name in ("filename", "name", "file_name"):
-                    kwargs[name] = filename
-                elif name in ("path", "file", "file_path"):
-                    kwargs[name] = path
-                elif name in ("mime_type", "mimetype", "content_type", "type"):
-                    kwargs[name] = "image/png"
-            if kwargs:
-                return attachment_cls(**kwargs)
-        except Exception:
-            pass
-        raise ValueError("Unsupported llm.Attachment constructor")
-
     try:
-        attachment = _build_attachment(image_path)
+        attachment = _build_attachment(image_path, "image/png")
     except Exception as e:
         raise ValueError(f"Failed to attach image for LLM processing: {str(e)}")
 
@@ -263,6 +273,88 @@ def generate_survey_json_from_image(
         logger.info("Successfully generated survey JSON from image")
         logger.debug(f"LLM response length: {len(response_text)} characters")
         print(f"LLM response (image):\n{response_text}")
+
+        return response_text
+    except Exception as e:
+        logger.error(f"Failed to generate form with model '{model_name}': {str(e)}")
+        raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
+
+
+def generate_survey_json_from_assets(
+    png_paths: list[str],
+    prompt: str,
+    model_name: str = None,
+    api_key: str = None,
+    ollama_url: str = None,
+) -> str:
+    """
+    Generates SurveyJS JSON data based on PNG pages and extracted PDF form JSON.
+
+    Args:
+        png_paths: List of PNG file paths to be analyzed
+        prompt: Instruction prompt for the LLM
+        model_name: Optional LLM model to use
+        api_key: Optional API key for the model provider
+        ollama_url: Optional Ollama server URL
+
+    Returns:
+        JSON string containing the SurveyJS form definition
+    """
+    try:
+        import llm
+    except ImportError:
+        raise ImportError(
+            "The 'llm' module is not installed. Please install it using 'pip install llm'"
+        )
+
+    attachments = []
+    for path in png_paths:
+        attachments.append(_build_attachment(path, "image/png"))
+
+    logger.info("Generating survey JSON from PDF assets with LLM")
+    logger.debug(
+        f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}"
+    )
+    print(f"LLM prompt (pdf assets):\n{prompt}")
+
+    if not model_name:
+        try:
+            model_name = llm.get_default_model()
+            if not model_name:
+                raise ValueError(
+                    "No AI model configured. Please configure one in Site Setup > Forms or set a default using: llm set-default MODEL_NAME"
+                )
+        except Exception as e:
+            raise ValueError(
+                f"Failed to get AI model. Please configure one in Site Setup > Forms. Error: {e}"
+            )
+
+    try:
+        if ollama_url:
+            import os
+
+            os.environ["OLLAMA_HOST"] = ollama_url
+            if model_name and not model_name.startswith("ollama/"):
+                model_name = f"ollama/{model_name}"
+            elif not model_name:
+                model_name = "ollama/llama2"
+
+        model = llm.get_model(model_name)
+
+        if api_key and not ollama_url:
+            import os
+
+            if "gpt" in model_name.lower() or "openai" in model_name.lower():
+                os.environ["OPENAI_API_KEY"] = api_key
+            elif "claude" in model_name.lower() or "anthropic" in model_name.lower():
+                os.environ["ANTHROPIC_API_KEY"] = api_key
+
+        response = model.prompt(prompt, attachments=attachments)
+        response_text = response.text() if callable(response.text) else response.text
+
+        logger.info("Successfully generated survey JSON from PDF assets")
+        logger.debug(f"LLM response length: {len(response_text)} characters")
+        print(f"LLM response (pdf assets):\n{response_text}")
 
         return response_text
     except Exception as e:
