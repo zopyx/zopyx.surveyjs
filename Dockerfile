@@ -22,6 +22,7 @@ RUN apt-get update \
         python3 \
         python3-dev \
         python3-venv \
+        xz-utils \
         zlib1g-dev \
         libglib2.0-0 \
         libcairo2 \
@@ -31,6 +32,11 @@ RUN apt-get update \
         fonts-dejavu-core \
         imagemagick \
         ghostscript \
+    && curl -L https://github.com/pdfcpu/pdfcpu/releases/download/v0.11.1/pdfcpu_0.11.1_Linux_x86_64.tar.xz -o /tmp/pdfcpu.tar.xz \
+    && tar -xJf /tmp/pdfcpu.tar.xz -C /tmp \
+    && mv /tmp/pdfcpu_0.11.1_Linux_x86_64/pdfcpu /usr/local/bin/pdfcpu \
+    && chmod +x /usr/local/bin/pdfcpu \
+    && rm -rf /tmp/pdfcpu_0.11.1_Linux_x86_64 /tmp/pdfcpu.tar.xz \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
