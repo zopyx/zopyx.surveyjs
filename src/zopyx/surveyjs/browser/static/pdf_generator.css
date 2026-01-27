@@ -5,22 +5,48 @@
     margin: -6px 0 18px;
 }
 
-.pdf-generator-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-    padding: 24px;
-    max-width: 560px;
+.pdf-generator-container {
+    width: 100%;
 }
 
-.pdf-generator-description {
+.pdf-generator-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    padding: 1.5rem;
+    max-width: 640px;
+}
+
+.pdf-generator-panel-header {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.pdf-generator-panel-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.pdf-generator-panel-description {
     color: #475569;
-    margin: 0 0 16px;
+    margin: 0 0 1.25rem;
+}
+
+.pdf-generator-actions {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
 .pdf-generator-message {
     color: #475569;
-    margin-top: 14px;
+    margin: 0;
     min-height: 1.2em;
 }
 

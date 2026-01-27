@@ -54,11 +54,21 @@
           </div>
         </metal:survey-header-subtitle>
       </metal:survey-header>
-      <div class="pdf-generator-card">
-        <button id="generatePdfButton" class="btn btn-primary" type="button" i18n:translate="">
-          Download PDF
-        </button>
-        <div id="pdfGeneratorMessage" class="pdf-generator-message" aria-live="polite"></div>
+      <div class="pdf-generator-container">
+        <section class="pdf-generator-panel">
+          <div class="pdf-generator-panel-header">
+            <h2 class="pdf-generator-panel-title" i18n:translate="">PDF export</h2>
+          </div>
+          <p class="pdf-generator-panel-description" i18n:translate="">
+            Export the current SurveyJS form as a downloadable PDF.
+          </p>
+          <div class="pdf-generator-actions">
+            <button id="generatePdfButton" class="btn btn-primary" type="button" i18n:translate="">
+              Download PDF
+            </button>
+            <div id="pdfGeneratorMessage" class="pdf-generator-message" aria-live="polite"></div>
+          </div>
+        </section>
       </div>
     </tal:feature>
 
