@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let hasUnsavedChanges = false;
   let isInitializing = true;
   let userInteracted = false;
+  let suppressModified = false;
   const creatorOptions = {
     autoSaveEnabled: true,
     collapseOnDrag: true,
@@ -287,16 +288,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const fullscreenClass = "survey-editor-fullscreen";
 
   const setFullscreen = function (enabled) {
+    suppressModified = true;
     document.body.classList.toggle(fullscreenClass, Boolean(enabled));
     if (!fullscreenToggle) {
+      setTimeout(function () {
+        suppressModified = false;
+      }, 0);
       return;
     }
     fullscreenToggle.textContent = enabled ? t("Exit fullscreen") : t("Fullscreen");
     fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+    setTimeout(function () {
+      suppressModified = false;
+    }, 0);
   };
 
   if (editorRoot) {
-    const markInteraction = function () {
+    const markInteraction = function (event) {
+      if (fullscreenToggle && event && fullscreenToggle.contains(event.target)) {
+        return;
+      }
       userInteracted = true;
     };
     editorRoot.addEventListener("pointerdown", markInteraction, { once: true });
@@ -371,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setUnsavedState(false);
   ensureUnsavedIndicator();
   creator.onModified.add(function () {
-    if (isInitializing || !userInteracted) {
+    if (isInitializing || !userInteracted || suppressModified) {
       return;
     }
     setUnsavedState(true);
