@@ -1133,7 +1133,7 @@ msgstr "PDF hochladen"
 
 #: generated
 msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr "Laden Sie ein PDF-Formular hoch und erzeugen Sie daraus ein Online-Formular""
+msgstr "Laden Sie ein PDF-Formular hoch und erzeugen Sie daraus ein Online-Formular"
 
 #: generated
 msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
