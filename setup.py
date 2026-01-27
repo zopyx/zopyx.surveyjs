@@ -65,6 +65,7 @@ setup(
         "llm-ollama",
         "sqlmodel",
         "diskcache",
+        "pypdf",
     ],
     extras_require={
         "test": [
