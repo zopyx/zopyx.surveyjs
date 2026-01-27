@@ -4,38 +4,46 @@
                       i18n:domain="zopyx.surveyjs"
                       define-macro="survey-actions">
   <div class="survey-actions"
-       tal:condition="view/can_manage_portal_content">
+       tal:condition="view/can_manage_portal_content"
+       tal:define="current_url request/ACTUAL_URL">
     <div class="survey-actions-row survey-actions-row--primary">
       <a class="survey-action-button action-view"
+         tal:attributes="class python: 'survey-action-button action-view' + (' is-active' if current_url.endswith('/@@viewer') or current_url == context.absolute_url() else '')"
          href="${context/absolute_url}/@@viewer">
         <span i18n:translate="">View</span>
       </a>
       <tal:pdfform tal:condition="view/pdf_form_available">
         <a class="survey-action-button action-pdf-form"
+           tal:attributes="class python: 'survey-action-button action-pdf-form' + (' is-active' if current_url.endswith('/@@pdf-form') else '')"
            href="${context/absolute_url}/@@pdf-form">
           <span i18n:translate="">PDF Form</span>
         </a>
       </tal:pdfform>
       <a class="survey-action-button action-editor"
+         tal:attributes="class python: 'survey-action-button action-editor' + (' is-active' if current_url.endswith('/@@editor') else '')"
          href="${context/absolute_url}/@@editor">
         <span i18n:translate="">Visual Editor</span>
       </a>
       <a class="survey-action-button action-versions"
+         tal:attributes="class python: 'survey-action-button action-versions' + (' is-active' if current_url.endswith('/@@form-versions') else '')"
          href="${context/absolute_url}/@@form-versions">
         <span i18n:translate="">Versions</span>
       </a>
       <tal:ai tal:condition="python: view.feature_enabled('ai-generator')">
         <a class="survey-action-button action-ai"
+           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '')"
            href="${context/absolute_url}/@@ai">
           <span i18n:translate="">AI Generator</span>
         </a>
       </tal:ai>
       <a class="survey-action-button action-results"
+         tal:attributes="class python: 'survey-action-button action-results' + (' is-active' if current_url.endswith('/@@results') else '')"
          href="${context/absolute_url}/@@results">
         <span i18n:translate="">Results</span>
       </a>
       <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
         <a class="survey-action-button action-dashboard"
+           tal:attributes="class python: 'survey-action-button action-dashboard' + (' is-active' if current_url.endswith('/@@dashboard') else '')"
            href="${context/absolute_url}/@@dashboard">
           <span i18n:translate="">Dashboard</span>
         </a>
@@ -46,12 +54,14 @@
         <div class="survey-actions-group">
           <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
             <a class="survey-action-button action-pdf-generator"
+               tal:attributes="class python: 'survey-action-button action-pdf-generator' + (' is-active' if current_url.endswith('/@@pdf-generator') else '')"
                href="${context/absolute_url}/@@pdf-generator">
               <span i18n:translate="">PDF Generator</span>
             </a>
           </tal:pdfgenerator>
           <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
             <a class="survey-action-button action-pdf-importer"
+               tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '')"
                href="${context/absolute_url}/@@pdf-importer">
               <span i18n:translate="">Form from PDF</span>
               <span class="beta-badge" i18n:translate="">Beta</span>
@@ -59,6 +69,7 @@
           </tal:pdfimporter>
           <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
             <a class="survey-action-button action-pdf-form-setup"
+               tal:attributes="class python: 'survey-action-button action-pdf-form-setup' + (' is-active' if current_url.endswith('/@@pdf-form-setup') else '')"
                href="${context/absolute_url}/@@pdf-form-setup">
               <span i18n:translate="">Fillable PDF Forms</span>
               <span class="beta-badge" i18n:translate="">Beta</span>

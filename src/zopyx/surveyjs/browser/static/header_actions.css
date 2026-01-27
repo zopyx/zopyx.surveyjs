@@ -28,6 +28,14 @@
   transform: translateY(0);
 }
 
+.survey-action-button.is-active {
+  background: #1f2937;
+  border-color: #1f2937;
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.16);
+  color: #ffffff;
+  transform: none;
+}
+
 .survey-header {
   background: linear-gradient(180deg, #fbfdff 0%, #f3f6fb 100%);
   border: 1px solid rgba(148, 163, 184, 0.6);
