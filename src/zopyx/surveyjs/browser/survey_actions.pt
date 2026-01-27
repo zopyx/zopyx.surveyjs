@@ -131,6 +131,44 @@
   </div>
 </metal:feature_disabled>
 
+<metal:ai_provider_gate define-macro="ai-provider-gate">
+  <tal:ai-provider-gate tal:define="ai_model ai_model | nothing">
+    <tal:ai-disabled tal:condition="python: ai_model == 'no_ai'">
+      <div class="alert alert-warning ai-warning">
+        <strong i18n:translate="">AI provider missing:</strong>
+        <span i18n:translate="">
+          AI form generation is not available because no AI provider is configured.
+        </span>
+      </div>
+      <metal:ai-provider-disabled define-slot="disabled-content" />
+    </tal:ai-disabled>
+    <tal:ai-enabled tal:condition="python: ai_model != 'no_ai'">
+      <metal:ai-provider-enabled define-slot="enabled-content" />
+    </tal:ai-enabled>
+  </tal:ai-provider-gate>
+</metal:ai_provider_gate>
+
+<metal:ai_provider_notice define-macro="ai-provider-notice">
+  <tal:ai-provider-notice tal:define="ai_model ai_model | nothing">
+    <tal:ai-provider-remote tal:condition="python: ai_model == 'remote'">
+      <div class="alert alert-warning ai-warning">
+        <strong i18n:translate="">External AI provider:</strong>
+        <span i18n:translate="">
+          A remote AI provider is configured and will be used. Your PDF may leave your network.
+        </span>
+      </div>
+    </tal:ai-provider-remote>
+    <tal:ai-provider-local tal:condition="python: ai_model == 'local'">
+      <div class="alert alert-info ai-warning">
+        <strong i18n:translate="">Local AI provider:</strong>
+        <span i18n:translate="">
+          A local AI provider is configured. Your PDF stays within your network.
+        </span>
+      </div>
+    </tal:ai-provider-local>
+  </tal:ai-provider-notice>
+</metal:ai_provider_notice>
+
 <metal:survey_status define-macro="survey-status">
   <tal:status tal:condition="view/can_manage_portal_content"
               tal:define="status view/survey_status_label;

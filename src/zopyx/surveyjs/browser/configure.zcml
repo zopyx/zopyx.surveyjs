@@ -31,7 +31,7 @@
     name="dashboard"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     template="dashboard.pt"
   />
   <browser:page

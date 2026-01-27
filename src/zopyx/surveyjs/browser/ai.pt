@@ -13,52 +13,52 @@
 
 <metal:block fill-slot="content-core"
              tal:define="portal_state context/@@plone_portal_state;
-                         feature_ok python: view.require_feature('ai-generator')">
+                         feature_ok python: view.require_feature('ai-generator');
+                         ai_model view/get_ai_model">
 
   <tal:feature tal:condition="feature_ok">
-    <!-- Inject JavaScript variables for AJAX -->
-    <metal:surveyjs-var-actual-url
-        use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
-    />
-    <metal:surveyjs-var-csrf
-        use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
-    />
-    <metal:surveyjs-vars-base
-        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
-    />
-    <metal:surveyjs-i18n-scripts
-        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
-    />
+    <metal:ai-provider-gate
+        use-macro="context/@@survey-actions/macros/ai-provider-gate"
+    >
+      <metal:ai-enabled-content fill-slot="enabled-content">
+        <!-- Inject JavaScript variables for AJAX -->
+        <metal:surveyjs-var-actual-url
+            use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
+        />
+        <metal:surveyjs-var-csrf
+            use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
+        />
+        <metal:surveyjs-vars-base
+            use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+        />
+        <metal:surveyjs-i18n-scripts
+            use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+        />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <!-- Load SurveyJS libraries for preview -->
+        <metal:surveyjs-core
+            use-macro="context/@@survey-assets/macros/surveyjs-core"
+        />
+        <metal:surveyjs-ui
+            use-macro="context/@@survey-assets/macros/surveyjs-ui"
+        />
+        <metal:surveyjs-theme-index
+            use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+        />
+        <metal:surveyjs-viewer-css
+            use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+        />
 
-    <!-- Load SurveyJS libraries for preview -->
-    <metal:surveyjs-core
-        use-macro="context/@@survey-assets/macros/surveyjs-core"
-    />
-    <metal:surveyjs-ui
-        use-macro="context/@@survey-assets/macros/surveyjs-ui"
-    />
-    <metal:surveyjs-theme-index
-        use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
-    />
-    <metal:surveyjs-viewer-css
-        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
-    />
+        <!-- Load local CSS and JS -->
+        <link rel="stylesheet"
+              type="text/css"
+              href="++resource++zopyx.surveyjs/ai.css"
+        />
+        <script src="++resource++zopyx.surveyjs/ai.js"
+                type="text/javascript"
+        ></script>
 
-    <!-- Load local CSS and JS -->
-    <link rel="stylesheet"
-          type="text/css"
-          href="++resource++zopyx.surveyjs/ai.css"
-    />
-    <script src="++resource++zopyx.surveyjs/ai.js"
-            type="text/javascript"
-    ></script>
-
-    <div class="ai-generator-container">
+        <div class="ai-generator-container">
 
     <!-- Header -->
     <div class="ai-generator-header">
@@ -72,14 +72,9 @@
           </div>
         </metal:survey-header-subtitle>
       </metal:survey-header>
-      <div class="alert alert-warning ai-warning">
-        <strong i18n:translate="">Experimental:</strong>
-        <ul>
-          <li i18n:translate="">This is a helper to get started, not a finished form.</li>
-          <li i18n:translate="">Use clear, specific prompts for best results.</li>
-          <li i18n:translate="">Always review and adjust the generated form before use.</li>
-        </ul>
-      </div>
+      <metal:ai-provider-notice
+          use-macro="context/@@survey-actions/macros/ai-provider-notice"
+      />
     </div>
 
     <!-- Refinement Mode Container (always visible) -->
@@ -183,15 +178,17 @@
   </div>
 
   <!-- JSON Preview Modal -->
-  <div id="previewJsonModal" class="modal" style="display:none;">
-    <div class="modal-content modal-content-large">
-      <span class="close-button close-json-preview">&times;</span>
-      <h2 i18n:translate="">Form JSON</h2>
+    <div id="previewJsonModal" class="modal" style="display:none;">
+      <div class="modal-content modal-content-large">
+        <span class="close-button close-json-preview">&times;</span>
+        <h2 i18n:translate="">Form JSON</h2>
       <div class="json-modal-body">
         <pre id="jsonModalDisplay"></pre>
       </div>
+      </div>
     </div>
-    </div>
+      </metal:ai-enabled-content>
+    </metal:ai-provider-gate>
   </tal:feature>
 
   <tal:feature-disabled tal:condition="not: feature_ok">

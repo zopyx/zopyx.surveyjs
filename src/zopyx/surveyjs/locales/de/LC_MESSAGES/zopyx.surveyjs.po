@@ -1417,3 +1417,21 @@ msgstr "Vollbild"
 
 msgid "Exit fullscreen"
 msgstr "Vollbild verlassen"
+
+msgid "AI provider missing:"
+msgstr "KI-Anbieter fehlt:"
+
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr "Die KI-Formulargenerierung ist nicht verfügbar, weil kein KI-Anbieter konfiguriert ist."
+
+msgid "External AI provider:"
+msgstr "Externer KI-Anbieter:"
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr "Ein externer KI-Anbieter ist konfiguriert und wird verwendet. Ihr PDF könnte Ihr Netzwerk verlassen."
+
+msgid "Local AI provider:"
+msgstr "Lokaler KI-Anbieter:"
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr "Ein lokaler KI-Anbieter ist konfiguriert. Ihr PDF bleibt innerhalb Ihres Netzwerks."

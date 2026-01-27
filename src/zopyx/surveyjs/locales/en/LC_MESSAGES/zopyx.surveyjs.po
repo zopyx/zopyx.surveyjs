@@ -1324,3 +1324,21 @@ msgstr "Fullscreen"
 
 msgid "Exit fullscreen"
 msgstr "Exit fullscreen"
+
+msgid "AI provider missing:"
+msgstr "AI provider missing:"
+
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr "AI form generation is not available because no AI provider is configured."
+
+msgid "External AI provider:"
+msgstr "External AI provider:"
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr "A remote AI provider is configured and will be used. Your PDF may leave your network."
+
+msgid "Local AI provider:"
+msgstr "Local AI provider:"
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr "A local AI provider is configured. Your PDF stays within your network."

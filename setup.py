@@ -63,6 +63,8 @@ setup(
         "weasyprint",
         "openpyxl",
         "llm-ollama",
+        "llm-anthropic",
+        "llm-deepseek",
         "sqlmodel",
         "diskcache",
         "pypdf",

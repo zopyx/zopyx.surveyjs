@@ -245,6 +245,15 @@ class Views(BrowserView):
                     continue
         return False
 
+    def get_ai_model(self) -> str:
+        """Return the AI backend type based on configured settings."""
+        model_name, _api_key, ollama_url = ai_service.load_ai_settings()
+        if ollama_url:
+            return "local"
+        if model_name:
+            return "remote"
+        return "no_ai"
+
     def survey_status_label(self):
         try:
             state = plone.api.content.get_state(self.context)

@@ -10,6 +10,7 @@ from zopyx.surveyjs.browser.views import (
     _extract_json_object,
     _mask_storage_location,
     _run_external_validation,
+    Views,
 )
 
 
@@ -68,3 +69,27 @@ class ViewsHelperTests(unittest.TestCase):
 
         self.assertFalse(result["ok"])
         self.assertEqual(result["reason"], "external_validator_error")
+
+    def test_get_ai_model_prefers_local_ollama(self) -> None:
+        view = Views.__new__(Views)
+        with patch(
+            "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
+            return_value=("model-name", "key", "http://localhost:11434"),
+        ):
+            self.assertEqual(view.get_ai_model(), "local")
+
+    def test_get_ai_model_returns_remote_when_model_configured(self) -> None:
+        view = Views.__new__(Views)
+        with patch(
+            "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
+            return_value=("model-name", None, None),
+        ):
+            self.assertEqual(view.get_ai_model(), "remote")
+
+    def test_get_ai_model_returns_no_ai_when_unconfigured(self) -> None:
+        view = Views.__new__(Views)
+        with patch(
+            "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
+            return_value=(None, None, None),
+        ):
+            self.assertEqual(view.get_ai_model(), "no_ai")

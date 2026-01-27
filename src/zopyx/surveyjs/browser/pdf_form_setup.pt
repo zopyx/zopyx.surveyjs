@@ -13,144 +13,155 @@
 
 <metal:block fill-slot="content-core"
              tal:define="portal_state context/@@plone_portal_state;
-                         feature_ok python: view.require_feature('fillable-pdf...')">
+                         feature_ok python: view.require_feature('fillable-pdf...');
+                         ai_model view/get_ai_model">
 
   <tal:feature tal:condition="feature_ok">
-    <metal:surveyjs-var-actual-url
-        use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
-    />
-    <metal:surveyjs-var-csrf
-        use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
-    />
-    <metal:surveyjs-vars-base
-        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
-    />
-    <metal:surveyjs-i18n-scripts
-        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
-    />
+    <metal:ai-provider-gate
+        use-macro="context/@@survey-actions/macros/ai-provider-gate"
+    >
+      <metal:ai-enabled-content fill-slot="enabled-content">
+        <metal:surveyjs-var-actual-url
+            use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
+        />
+        <metal:surveyjs-var-csrf
+            use-macro="context/@@survey-assets/macros/surveyjs-var-csrf"
+        />
+        <metal:surveyjs-vars-base
+            use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+        />
+        <metal:surveyjs-i18n-scripts
+            use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+        />
 
-    <metal:surveyjs-viewer-css
-        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
-    />
-    <link href="++resource++zopyx.surveyjs/pdf_importer.css"
-          rel="stylesheet"
-          type="text/css"
-    />
-    <link href="++resource++zopyx.surveyjs/pdf_form_setup.css"
-          rel="stylesheet"
-          type="text/css"
-    />
-    <metal:surveyjs-core
-        use-macro="context/@@survey-assets/macros/surveyjs-core"
-    />
-    <metal:surveyjs-ui
-        use-macro="context/@@survey-assets/macros/surveyjs-ui"
-    />
-    <metal:surveyjs-theme-index
-        use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
-    />
-    <script src="++resource++zopyx.surveyjs/pdf_form_setup.js"
-            type="text/javascript"
-    ></script>
+        <metal:surveyjs-viewer-css
+            use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+        />
+        <link href="++resource++zopyx.surveyjs/pdf_importer.css"
+              rel="stylesheet"
+              type="text/css"
+        />
+        <link href="++resource++zopyx.surveyjs/pdf_form_setup.css"
+              rel="stylesheet"
+              type="text/css"
+        />
+        <metal:surveyjs-core
+            use-macro="context/@@survey-assets/macros/surveyjs-core"
+        />
+        <metal:surveyjs-ui
+            use-macro="context/@@survey-assets/macros/surveyjs-ui"
+        />
+        <metal:surveyjs-theme-index
+            use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+        />
+        <script src="++resource++zopyx.surveyjs/pdf_form_setup.js"
+                type="text/javascript"
+        ></script>
 
-    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
-      <metal:survey-header-headline fill-slot="view-headline">
-        <div class="page-headline" i18n:translate="">Fillable PDF Form</div>
-      </metal:survey-header-headline>
-      <metal:survey-header-subtitle fill-slot="view-subtitle">
-        <div class="page-subtitle" i18n:translate="">
-          Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions.
-        </div>
-      </metal:survey-header-subtitle>
-    </metal:survey-header>
-
-    <div class="pdf-importer-container">
-
-    <div class="pdf-importer-flow">
-      <section class="pdf-importer-panel stage-upload">
-        <div class="panel-title">
-          <span i18n:translate="">Upload PDF</span>
-          <span class="beta-pill" i18n:translate="">Beta</span>
-        </div>
-        <form id="pdfFormSetupForm" enctype="multipart/form-data">
-          <div class="form-group">
-            <div class="pdf-setup-file-row">
-              <label for="pdfFormFile" i18n:translate="">PDF hochladen</label>
-              <input type="file"
-                     id="pdfFormFile"
-                     name="pdf_file"
-                     class="form-control"
-                     accept="application/pdf"
-                     required
-              />
+        <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+          <metal:survey-header-headline fill-slot="view-headline">
+            <div class="page-headline" i18n:translate="">Fillable PDF Form</div>
+          </metal:survey-header-headline>
+          <metal:survey-header-subtitle fill-slot="view-subtitle">
+            <div class="page-subtitle" i18n:translate="">
+              Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions.
             </div>
-            <p class="help-block" i18n:translate="">
-              Choose a PDF that already contains fillable fields.
-            </p>
-          </div>
-          <div class="form-group">
-            <div class="pdf-setup-file-row">
-              <label for="pdfExtractionMode" i18n:translate="">Extraction mode</label>
-              <select id="pdfExtractionMode" name="extract_mode" class="form-control">
-                <option value="pdfcpu" i18n:translate="">pdfcpu (structured fields)</option>
-                <option value="llm" i18n:translate="">LLM (visual conversion)</option>
-              </select>
-            </div>
-            <p class="help-block" i18n:translate="">
-              pdfcpu preserves field mapping for filled PDFs. LLM is best for layout
-              but cannot always map to original PDF fields.
-            </p>
-          </div>
-          <div class="button-group">
-            <button type="submit" class="btn btn-primary" id="pdfFormUploadBtn">
-              <span class="btn-text" i18n:translate="">Analyze PDF</span>
-              <span class="btn-spinner" id="pdfFormUploadSpinner" style="display:none;">
-                <span class="spinner"></span>
-                <span i18n:translate="">Processing...</span>
-              </span>
-            </button>
-            <a class="btn btn-secondary" id="openPdfFormBtn" href="#" style="display:none;">
-              <span class="btn-text" i18n:translate="">Open PDF Form</span>
-            </a>
-          </div>
-        </form>
+          </metal:survey-header-subtitle>
+        </metal:survey-header>
 
-        <div id="pdfFormSetupStatus" class="alert" style="display:none;"></div>
+        <metal:ai-provider-notice
+            use-macro="context/@@survey-actions/macros/ai-provider-notice"
+        />
 
-      </section>
+        <div class="pdf-importer-container">
 
-      <section class="pdf-importer-panel stage-preview">
-        <div class="panel-title" i18n:translate="">Preview</div>
-        <div class="preview-grid">
-          <div class="preview-card">
-            <h3 i18n:translate="">PDF Preview</h3>
-            <div class="preview-placeholder" id="pdfFormPreviewPlaceholder">
-              <span i18n:translate="">No PDF selected yet.</span>
+        <div class="pdf-importer-flow">
+          <section class="pdf-importer-panel stage-upload">
+            <div class="panel-title">
+              <span i18n:translate="">Upload PDF</span>
+              <span class="beta-pill" i18n:translate="">Beta</span>
             </div>
-            <iframe id="pdfFormPreviewFrame"
-                    title="PDF Preview"
-                    i18n:attributes="title"
-                    style="display:none;"
-                    class="pdf-preview-frame"
-            ></iframe>
-          </div>
-          <div class="preview-card">
-            <h3 i18n:translate="">SurveyJS Preview</h3>
-            <div class="preview-placeholder" id="pdfFormSurveyPlaceholder">
-              <span i18n:translate="">Generated form preview will appear here.</span>
+            <form id="pdfFormSetupForm" enctype="multipart/form-data">
+              <div class="form-group">
+                <div class="pdf-setup-file-row">
+                  <label for="pdfFormFile" i18n:translate="">PDF hochladen</label>
+                  <input type="file"
+                         id="pdfFormFile"
+                         name="pdf_file"
+                         class="form-control"
+                         accept="application/pdf"
+                         required
+                  />
+                </div>
+                <p class="help-block" i18n:translate="">
+                  Choose a PDF that already contains fillable fields.
+                </p>
+              </div>
+              <div class="form-group">
+                <div class="pdf-setup-file-row">
+                  <label for="pdfExtractionMode" i18n:translate="">Extraction mode</label>
+                  <select id="pdfExtractionMode" name="extract_mode" class="form-control">
+                    <option value="pdfcpu" i18n:translate="">pdfcpu (structured fields)</option>
+                    <option value="llm" i18n:translate="">LLM (visual conversion)</option>
+                  </select>
+                </div>
+                <p class="help-block" i18n:translate="">
+                  pdfcpu preserves field mapping for filled PDFs. LLM is best for layout
+                  but cannot always map to original PDF fields.
+                </p>
+              </div>
+              <div class="button-group">
+                <button type="submit" class="btn btn-primary" id="pdfFormUploadBtn">
+                  <span class="btn-text" i18n:translate="">Analyze PDF</span>
+                  <span class="btn-spinner" id="pdfFormUploadSpinner" style="display:none;">
+                    <span class="spinner"></span>
+                    <span i18n:translate="">Processing...</span>
+                  </span>
+                </button>
+                <a class="btn btn-secondary" id="openPdfFormBtn" href="#" style="display:none;">
+                  <span class="btn-text" i18n:translate="">Open PDF Form</span>
+                </a>
+              </div>
+            </form>
+
+            <div id="pdfFormSetupStatus" class="alert" style="display:none;"></div>
+
+          </section>
+
+          <section class="pdf-importer-panel stage-preview">
+            <div class="panel-title" i18n:translate="">Preview</div>
+            <div class="preview-grid">
+              <div class="preview-card">
+                <h3 i18n:translate="">PDF Preview</h3>
+                <div class="preview-placeholder" id="pdfFormPreviewPlaceholder">
+                  <span i18n:translate="">No PDF selected yet.</span>
+                </div>
+                <iframe id="pdfFormPreviewFrame"
+                        title="PDF Preview"
+                        i18n:attributes="title"
+                        style="display:none;"
+                        class="pdf-preview-frame"
+                ></iframe>
+              </div>
+              <div class="preview-card">
+                <h3 i18n:translate="">SurveyJS Preview</h3>
+                <div class="preview-placeholder" id="pdfFormSurveyPlaceholder">
+                  <span i18n:translate="">Generated form preview will appear here.</span>
+                </div>
+                <div id="pdfFormSurveyContainer" class="survey-preview-container"></div>
+              </div>
             </div>
-            <div id="pdfFormSurveyContainer" class="survey-preview-container"></div>
-          </div>
+            <div class="pdf-form-fields-card">
+              <h3 i18n:translate="">Detected fields</h3>
+              <div id="pdfFormFieldsList" class="pdf-form-fields-list">
+                <span class="pdf-form-fields-empty" i18n:translate="">No fields detected yet.</span>
+              </div>
+            </div>
+          </section>
         </div>
-        <div class="pdf-form-fields-card">
-          <h3 i18n:translate="">Detected fields</h3>
-          <div id="pdfFormFieldsList" class="pdf-form-fields-list">
-            <span class="pdf-form-fields-empty" i18n:translate="">No fields detected yet.</span>
-          </div>
         </div>
-      </section>
-    </div>
-    </div>
+      </metal:ai-enabled-content>
+    </metal:ai-provider-gate>
   </tal:feature>
 
   <tal:feature-disabled tal:condition="not: feature_ok">
