@@ -128,6 +128,14 @@ msgid "Enable validation (experimental)"
 msgstr "Validierung aktivieren (experimentell)"
 
 #: generated
+msgid "Form validation using pdfcpu"
+msgstr "Formularvalidierung mit pdfcpu"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr "Wenn aktiviert, wird pdfcpu verwendet, um Formularfelder zu validieren und anzureichern."
+
+#: generated
 msgid "Error clearing results:"
 msgstr "Fehler beim Löschen der Ergebnisse:"
 
@@ -1401,13 +1409,13 @@ msgid "Download PDF"
 msgstr "PDF herunterladen"
 
 msgid "Additional prompt"
-msgstr "Zusätzlicher Hinweis"
+msgstr "Zusätzlicher Prompt"
 
 msgid "Add extra conversion guidance..."
-msgstr "Zusätzliche Hinweise zur Konvertierung..."
+msgstr "Zusätzliche Prompts zur Konvertierung..."
 
 msgid "Optional instructions to guide the conversion."
-msgstr "Optionale Hinweise zur Konvertierung."
+msgstr "Optionale Prompts zur Konvertierung."
 
 msgid "DOCS"
 msgstr "Dokumentation"

@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const surveyPreviewContainer = document.getElementById("surveyPreviewContainer");
   const surveyPreviewPlaceholder = document.getElementById("surveyPreviewPlaceholder");
   const additionalPromptInput = document.getElementById("pdfAdditionalPrompt");
+  const pdfcpuValidationCheckbox = document.getElementById("pdfcpuValidationEnabled");
 
   let surveyPreview = null;
   let convertedJson = null;
@@ -100,6 +101,12 @@ document.addEventListener("DOMContentLoaded", function() {
     formData.append("pdf_file", file);
     if (additionalPromptInput && additionalPromptInput.value.trim()) {
       formData.append("additional_prompt", additionalPromptInput.value.trim());
+    }
+    if (pdfcpuValidationCheckbox) {
+      formData.append(
+        "pdfcpu_validation",
+        pdfcpuValidationCheckbox.checked ? "1" : "0"
+      );
     }
     formData.append("_authenticator", CSRF_TOKEN);
 

@@ -109,6 +109,21 @@
                 </p>
               </div>
               <div class="form-group">
+                <div class="checkbox">
+                  <label i18n:translate="">
+                    <input type="checkbox"
+                           id="pdfcpuValidationEnabled"
+                           name="pdfcpu_validation"
+                           checked="checked"
+                    />
+                    Form validation using pdfcpu
+                  </label>
+                </div>
+                <p class="help-block" i18n:translate="">
+                  When enabled, pdfcpu is used to validate and enrich form fields.
+                </p>
+              </div>
+              <div class="form-group">
                 <label for="pdfAdditionalPrompt" i18n:translate="">Additional prompt</label>
                 <textarea id="pdfAdditionalPrompt"
                           name="additional_prompt"

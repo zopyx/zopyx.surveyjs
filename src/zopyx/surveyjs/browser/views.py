@@ -2134,16 +2134,17 @@ class Views(BrowserView):
              (e.g., ``uploaded-0.png``, ``uploaded-1.png``) when the PDF has
              multiple pages.
            - The resulting PNGs are collected via ``uploaded*.png``.
-        5) Extract PDF form representation:
+        5) Optionally extract PDF form representation (if pdfcpu validation enabled):
            - Runs ``pdfcpu form export`` through :class:`PDFFormExtractor`.
            - Stores the raw JSON payload to ``forms.json`` for traceability.
         6) Log assets:
-           - Logs absolute paths to all PNGs and ``forms.json`` for diagnostics.
+           - Logs absolute paths to all PNGs and ``forms.json`` when available.
         7) Build LLM prompt:
            - Starts with a base instruction prompt to preserve layout and emit
              SurveyJS JSON only.
-           - Appends the extracted form JSON inside a triple-quoted block to
-             provide the LLM with explicit field metadata and structure hints.
+           - Appends extracted form JSON (when available) inside a triple-quoted
+             block to provide the LLM with explicit field metadata and structure
+             hints.
         8) Call LLM:
            - Uses ``generate_survey_json_from_assets`` to attach all PNG pages.
            - Provides the augmented prompt including embedded form JSON.
@@ -2167,10 +2168,19 @@ class Views(BrowserView):
 
         Dependencies
         - ImageMagick ``convert`` available on PATH.
-        - ``pdfcpu`` available on PATH (checked in :class:`PDFFormExtractor`).
+        - ``pdfcpu`` available on PATH when validation is enabled.
         - ``llm`` package and configured model for AI generation.
         """
         uploaded_file = self.request.form.get("pdf_file")
+        additional_prompt = self.request.form.get("additional_prompt")
+        pdfcpu_validation_raw = self.request.form.get("pdfcpu_validation", "1")
+        use_pdfcpu_validation = str(pdfcpu_validation_raw).strip().lower() not in (
+            "0",
+            "false",
+            "off",
+            "no",
+            "",
+        )
 
         if not uploaded_file:
             error_result = {
@@ -2203,7 +2213,6 @@ class Views(BrowserView):
                 temp_path = Path(temp_dir)
                 pdf_path = temp_path / "uploaded.pdf"
                 png_path = temp_path / "uploaded.png"
-                forms_json_path = temp_path / "forms.json"
 
                 pdf_path.write_bytes(file_content)
 
@@ -2237,16 +2246,23 @@ class Views(BrowserView):
                 if not png_candidates:
                     raise ValueError("PNG conversion failed: no output created")
 
-                extractor = PDFFormExtractor(str(pdf_path))
-                forms_json_text = extractor.extract()
-                forms_json_path.write_text(forms_json_text, encoding="utf-8")
-
-                logger.info(
-                    "Extracted PDF assets: %s",
-                    ", ".join(
-                        [str(p) for p in png_candidates] + [str(forms_json_path)]
-                    ),
-                )
+                forms_json_text = None
+                if use_pdfcpu_validation:
+                    forms_json_path = temp_path / "forms.json"
+                    extractor = PDFFormExtractor(str(pdf_path))
+                    forms_json_text = extractor.extract()
+                    forms_json_path.write_text(forms_json_text, encoding="utf-8")
+                    logger.info(
+                        "Extracted PDF assets: %s",
+                        ", ".join(
+                            [str(p) for p in png_candidates] + [str(forms_json_path)]
+                        ),
+                    )
+                else:
+                    logger.info(
+                        "Extracted PDF assets: %s",
+                        ", ".join([str(p) for p in png_candidates]),
+                    )
 
                 model_name, api_key, ollama_url = ai_service.load_ai_settings()
 
@@ -2257,11 +2273,11 @@ class Views(BrowserView):
                 )
                 if additional_prompt:
                     prompt = f"{prompt}\nAdditional instructions: {additional_prompt}"
-                prompt = (
-                    f'{prompt}. Here is the form represenation of the form as JSON:\n"""'
-                    f"\n```\n{forms_json_text}\n```\n"
-                    '"""'
-                )
+                if forms_json_text:
+                    prompt = (
+                        f"{prompt}. Here is the form represenation of the form as JSON:\n"
+                        f'"""\n```\n{forms_json_text}\n```\n"""\n'
+                    )
                 survey_json_str = generate_survey_json_from_assets(
                     [str(p) for p in png_candidates],
                     prompt,
