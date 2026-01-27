@@ -1133,7 +1133,7 @@ msgstr "PDF hochladen"
 
 #: generated
 msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr "Laden Sie ein PDF-Formular hoch und erzeugen Sie daraus SurveyJS JSON"
+msgstr "Laden Sie ein PDF-Formular hoch und erzeugen Sie daraus ein Online-Formular""
 
 #: generated
 msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
@@ -1311,3 +1311,79 @@ msgstr "Alle"
 
 msgid "Page Size"
 msgstr "Seitengröße"
+
+#: generated
+msgid "View Form"
+msgstr "Formular anzeigen"
+
+#: generated
+msgid "Preview the live survey experience."
+msgstr "Vorschau der Live-Umfrage."
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "Umfrageformular erstellen und verfeinern."
+
+#: generated
+msgid "PDF generator"
+msgstr "PDF-Generator"
+
+#: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "Erzeugen Sie eine PDF-Version des aktuellen Umfrageformulars."
+
+#: generated
+msgid "PDF export"
+msgstr "PDF-Export"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "Exportieren Sie das aktuelle SurveyJS-Formular als herunterladbares PDF."
+
+#: generated
+msgid "Survey data dashboard"
+msgstr "Dashboard für Umfragedaten"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "Antworten mit Diagrammen und Zusammenfassungen erkunden."
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "Ausfüllbares PDF-Formular"
+
+#: generated
+msgid "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions."
+msgstr "Laden Sie ein ausfüllbares PDF hoch, um ein SurveyJS-Formular zu erzeugen und PDF-basierte Einreichungen zu ermöglichen."
+
+#: generated
+msgid "Password required"
+msgstr "Passwort erforderlich"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr "Der Zugriff auf diese Umfrage ist eingeschränkt. Bitte Passwort eingeben, um fortzufahren."
+
+#: generated
+msgid "PDF Form"
+msgstr "PDF-Formular"
+
+#: generated
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: generated
+msgid "PDF Generator"
+msgstr "PDF-Generator"
+
+#: generated
+msgid "Form from PDF"
+msgstr "Formular aus PDF"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "Ausfüllbare PDF-Formulare"
+
+#: generated
+msgid "Download PDF"
+msgstr "PDF herunterladen"

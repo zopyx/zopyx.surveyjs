@@ -66,7 +66,7 @@
       <section class="pdf-importer-panel stage-upload">
         <div class="panel-title">
           <span i18n:translate="">Upload PDF</span>
-          <span class="beta-pill" i18n:translate="">Experimental</span>
+          <span class="beta-pill" i18n:translate="">Beta</span>
         </div>
         <form id="pdfImporterForm" enctype="multipart/form-data">
           <div class="form-group">

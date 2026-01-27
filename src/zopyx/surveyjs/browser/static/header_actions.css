@@ -46,9 +46,24 @@
   padding: 0.75rem 0.9rem;
 }
 
+.survey-actions-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.survey-actions-group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .survey-header-main {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 0.4rem;
   width: 100%;
 }
 
@@ -62,11 +77,20 @@
 }
 
 .survey-form-description {
+  color: #64748b;
+  font-size: 0.85em;
   text-align: right;
 }
 
 .survey-status-bar {
+  color: #64748b;
+  font-size: 0.85em;
   text-align: right;
+}
+
+.survey-status-bar strong {
+  color: #6b7280;
+  font-weight: 600;
 }
 
 .survey-form-title {
@@ -85,6 +109,8 @@
   text-align: left;
 }
 
-.survey-actions-row--primary {
-  margin-bottom: 0.3rem;
+.page-subtitle {
+  color: #6c757d;
+  font-size: 0.95em;
+  margin: -6px 0 18px;
 }

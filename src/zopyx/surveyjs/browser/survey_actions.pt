@@ -6,7 +6,7 @@
   <div class="survey-actions"
        tal:condition="view/can_manage_portal_content"
        tal:define="current_url request/ACTUAL_URL">
-    <div class="survey-actions-row survey-actions-row--primary">
+    <div class="survey-actions-row">
       <a class="survey-action-button action-view"
          tal:attributes="class python: 'survey-action-button action-view' + (' is-active' if current_url.endswith('/@@viewer') or current_url == context.absolute_url() else '')"
          href="${context/absolute_url}/@@viewer">
@@ -48,8 +48,6 @@
           <span i18n:translate="">Dashboard</span>
         </a>
       </tal:dashboard>
-    </div>
-    <div class="survey-actions-row survey-actions-row--manager">
       <tal:manager tal:condition="view/is_manager">
         <div class="survey-actions-group">
           <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">

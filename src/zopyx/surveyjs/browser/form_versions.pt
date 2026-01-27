@@ -49,11 +49,6 @@
         box-shadow: var(--fv-shadow);
         padding: 0;
       }
-      .page-subtitle {
-        color: #6c757d;
-        font-size: 0.95em;
-        margin-top: 5px;
-      }
       .panel {
         background: var(--fv-card);
         border: 1px solid var(--fv-border);

@@ -39,10 +39,10 @@
                 <div class="page-headline" i18n:translate="">Stored form data</div>
             </metal:survey-header-headline>
             <metal:survey-header-subtitle fill-slot="view-subtitle">
-                <p class="storage-info">
+                <div class="page-subtitle">
                     <strong i18n:translate="">Storage:</strong>
                     <span tal:content="view/storage_info">Storage</span>
-                </p>
+                </div>
             </metal:survey-header-subtitle>
         </metal:survey-header>
 

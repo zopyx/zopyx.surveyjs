@@ -3,12 +3,6 @@
 }
 
 
-.page-subtitle {
-    color: #6c757d;
-    font-size: 0.95em;
-    margin: -6px 0 18px;
-}
-
 .beta-pill {
     align-items: center;
     background: linear-gradient(135deg, #f97316, #facc15);
