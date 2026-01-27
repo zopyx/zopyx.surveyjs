@@ -96,13 +96,6 @@
                          accept="application/pdf"
                          required
                   />
-                  <button type="submit" class="btn btn-primary" id="importBtn">
-                    <span class="btn-text" i18n:translate="">Convert PDF</span>
-                    <span class="btn-spinner" id="importSpinner" style="display:none;">
-                      <span class="spinner"></span>
-                      <span i18n:translate="">Processing...</span>
-                    </span>
-                  </button>
                 </div>
                 <p class="help-block" i18n:translate="">
                   Choose a PDF that contains the form layout you want to convert.
@@ -138,6 +131,13 @@
               </div>
               <div id="pdfImporterStatus" class="alert" style="display:none;"></div>
               <div class="button-group">
+                <button type="submit" class="btn btn-primary" id="importBtn">
+                  <span class="btn-text" i18n:translate="">Convert PDF</span>
+                  <span class="btn-spinner" id="importSpinner" style="display:none;">
+                    <span class="spinner"></span>
+                    <span i18n:translate="">Processing...</span>
+                  </span>
+                </button>
                 <button type="button" class="btn btn-secondary" id="storeConvertedBtn" style="display:none;" disabled>
                   <span class="btn-text" i18n:translate="">Store converted form as new version</span>
                   <span class="btn-spinner" id="storeConvertedSpinner" style="display:none;">
