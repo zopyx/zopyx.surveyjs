@@ -31,7 +31,7 @@
 
     <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
       <metal:survey-header-headline fill-slot="view-headline">
-        <h2 class="page-headline" i18n:translate="">Submission Details</h2>
+        <div class="page-headline" i18n:translate="">Submission Details</div>
       </metal:survey-header-headline>
     </metal:survey-header>
 

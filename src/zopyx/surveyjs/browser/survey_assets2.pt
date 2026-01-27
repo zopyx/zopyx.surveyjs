@@ -118,5 +118,9 @@
           rel="stylesheet"
           type="text/css"
     />
+    <link href="++resource++zopyx.surveyjs/header_actions.css"
+          rel="stylesheet"
+          type="text/css"
+    />
   </metal:surveyjs-viewer-css>
 </metal:survey_assets>

@@ -49,28 +49,6 @@
         box-shadow: var(--fv-shadow);
         padding: 0;
       }
-      .form-versions-header {
-        margin-bottom: 14px;
-        padding: 0;
-        border-bottom: 1px solid var(--fv-border);
-        position: relative;
-      }
-      .form-versions-header::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -2px;
-        width: 180px;
-        height: 4px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #4c8dff, #6fd3ff);
-      }
-      .page-headline {
-        margin: 0;
-        color: #343a40;
-        font-weight: 600;
-        font-size: 1.5em;
-      }
       .page-subtitle {
         color: #6c757d;
         font-size: 0.95em;
@@ -814,7 +792,7 @@
       <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header"
                            tal:define="header_class string:form-versions-header">
         <metal:survey-header-headline fill-slot="view-headline">
-          <h2 class="page-headline" i18n:translate="">Form Version Management</h2>
+          <div class="page-headline" i18n:translate="">Form Version Management</div>
         </metal:survey-header-headline>
         <metal:survey-header-subtitle fill-slot="view-subtitle">
           <div class="subtitle page-subtitle" i18n:translate="">Manage, view, and restore previous versions of your survey forms</div>

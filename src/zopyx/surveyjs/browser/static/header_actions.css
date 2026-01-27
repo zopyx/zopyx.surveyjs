@@ -1,0 +1,82 @@
+/* Header actions styles live here. */
+
+.survey-action-button {
+  align-items: center;
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5f5;
+  border-radius: 999px;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  color: #0f172a;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.3rem 0.9rem;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.survey-action-button:hover,
+.survey-action-button:focus {
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.survey-action-button:active {
+  transform: translateY(0);
+}
+
+.survey-header {
+  background: linear-gradient(180deg, #fbfdff 0%, #f3f6fb 100%);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.6rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.survey-header-main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.survey-header-title-line {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.survey-status-item {
+  text-align: right;
+}
+
+.survey-form-description {
+  text-align: right;
+}
+
+.survey-status-bar {
+  text-align: right;
+}
+
+.survey-form-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: right;
+}
+
+.survey-form-meta {
+  margin-bottom: 0.4rem;
+}
+
+.page-headline {
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: left;
+}
+
+.survey-actions-row--primary {
+  margin-bottom: 0.3rem;
+}
