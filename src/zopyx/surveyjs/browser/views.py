@@ -27,6 +27,7 @@ from ..utils import ensure_timezone_aware
 from ..data_validation.validate_data import validate_data as run_data_validation
 from ..pdf_forms import fill_pdf_form as fill_pdf_form_bytes
 from ..converters import slugify
+from ..pdf_form_extract import PDFFormExtractor
 
 import orjson
 import uuid
@@ -2105,7 +2106,60 @@ class Views(BrowserView):
             self.request.response.write(orjson.dumps(error_result))
 
     def import_pdf_form(self):
-        """Import a SurveyJS form from a PDF by converting to PNG and using AI."""
+        """Import a SurveyJS form from an uploaded PDF and generate SurveyJS JSON.
+
+        Request/inputs
+        - Expects a multipart form upload with a ``pdf_file`` field.
+        - Reads the uploaded file as bytes to preserve PDF binary content.
+
+        Processing pipeline (high-level)
+        1) Validate upload: Ensure the PDF file is present; otherwise return 400.
+        2) Temp workspace: Create a temporary directory to isolate intermediate
+           artifacts and ensure they are removed automatically.
+        3) Persist PDF: Write the uploaded bytes to ``uploaded.pdf``.
+        4) Render all pages to PNG:
+           - Uses ImageMagick ``convert`` with 300 DPI, white background, and
+             alpha removal to produce clean raster images.
+           - Output naming pattern (``uploaded.png``) expands to multiple files
+             (e.g., ``uploaded-0.png``, ``uploaded-1.png``) when the PDF has
+             multiple pages.
+           - The resulting PNGs are collected via ``uploaded*.png``.
+        5) Extract PDF form representation:
+           - Runs ``pdfcpu form export`` through :class:`PDFFormExtractor`.
+           - Stores the raw JSON payload to ``forms.json`` for traceability.
+        6) Log assets:
+           - Logs absolute paths to all PNGs and ``forms.json`` for diagnostics.
+        7) Build LLM prompt:
+           - Starts with a base instruction prompt to preserve layout and emit
+             SurveyJS JSON only.
+           - Appends the extracted form JSON inside a triple-quoted block to
+             provide the LLM with explicit field metadata and structure hints.
+        8) Call LLM:
+           - Uses ``generate_survey_json_from_assets`` to attach all PNG pages.
+           - Provides the augmented prompt including embedded form JSON.
+        9) Parse LLM response:
+           - Removes any markdown wrapping via ``strip_markdown_json``.
+           - Parses JSON and enforces an object payload.
+        10) Respond:
+           - Returns ``{\"success\": true, \"json\": <survey>}`` as JSON.
+
+        Outputs
+        - HTTP 200 with generated SurveyJS form JSON object on success.
+        - HTTP 400/500 with JSON error payload on failure.
+
+        Error handling (JSON responses)
+        - Missing upload → 400 with ``No PDF uploaded``.
+        - Missing LLM module → 500 with module error details.
+        - ImageMagick conversion failure → 500 with stderr.
+        - ``convert`` binary missing → 500 with tool missing message.
+        - Invalid JSON from LLM → 500 with raw output for debugging.
+        - Any other exception → 500 with error message.
+
+        Dependencies
+        - ImageMagick ``convert`` available on PATH.
+        - ``pdfcpu`` available on PATH (checked in :class:`PDFFormExtractor`).
+        - ``llm`` package and configured model for AI generation.
+        """
         uploaded_file = self.request.form.get("pdf_file")
 
         if not uploaded_file:
@@ -2120,7 +2174,7 @@ class Views(BrowserView):
 
         try:
             from .ai_generator import (
-                generate_survey_json_from_image,
+                generate_survey_json_from_assets,
                 strip_markdown_json,
             )
         except ImportError as e:
@@ -2139,6 +2193,7 @@ class Views(BrowserView):
                 temp_path = Path(temp_dir)
                 pdf_path = temp_path / "uploaded.pdf"
                 png_path = temp_path / "uploaded.png"
+                forms_json_path = temp_path / "forms.json"
 
                 pdf_path.write_bytes(file_content)
 
@@ -2163,12 +2218,20 @@ class Views(BrowserView):
                     f"Convert command completed successfully. Output: {result.stdout.decode('utf-8', errors='ignore')}"
                 )
 
-                image_path = png_path
-                if not image_path.exists():
-                    candidates = sorted(temp_path.glob("uploaded*.png"))
-                    if not candidates:
-                        raise ValueError("PNG conversion failed: no output created")
-                    image_path = candidates[0]
+                png_candidates = sorted(temp_path.glob("uploaded*.png"))
+                if not png_candidates:
+                    raise ValueError("PNG conversion failed: no output created")
+
+                extractor = PDFFormExtractor(str(pdf_path))
+                forms_json_text = extractor.extract()
+                forms_json_path.write_text(forms_json_text, encoding="utf-8")
+
+                logger.info(
+                    "Extracted PDF assets: %s",
+                    ", ".join(
+                        [str(p) for p in png_candidates] + [str(forms_json_path)]
+                    ),
+                )
 
                 model_name, api_key, ollama_url = ai_service.load_ai_settings()
 
@@ -2177,9 +2240,13 @@ class Views(BrowserView):
                     "keep headers and footer, make JSON as close possible as possible, "
                     "return the form JSON only"
                 )
-
-                survey_json_str = generate_survey_json_from_image(
-                    str(image_path),
+                prompt = (
+                    f'{prompt}. Here is the form represenation of the form as JSON:\n"""'
+                    f"\n```\n{forms_json_text}\n```\n"
+                    '"""'
+                )
+                survey_json_str = generate_survey_json_from_assets(
+                    [str(p) for p in png_candidates],
                     prompt,
                     model_name=model_name,
                     api_key=api_key,
