@@ -66,7 +66,6 @@
       <section class="pdf-importer-panel stage-upload">
         <div class="panel-title">
           <span i18n:translate="">Upload PDF</span>
-          <span class="beta-pill" i18n:translate="">Beta</span>
         </div>
         <form id="pdfImporterForm" enctype="multipart/form-data">
           <div class="form-group">
@@ -90,6 +89,7 @@
               Choose a PDF that contains the form layout you want to convert.
             </p>
           </div>
+          <div id="pdfImporterStatus" class="alert" style="display:none;"></div>
           <div class="button-group">
             <button type="button" class="btn btn-secondary" id="storeConvertedBtn" style="display:none;" disabled>
               <span class="btn-text" i18n:translate="">Store converted form as new version</span>
@@ -100,8 +100,6 @@
             </button>
           </div>
         </form>
-
-        <div id="pdfImporterStatus" class="alert" style="display:none;"></div>
 
       </section>
 

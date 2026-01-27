@@ -1069,7 +1069,7 @@ msgstr "Details der Umfrageantwort"
 
 #: generated
 msgid "SurveyJS Preview"
-msgstr "SurveyJS Vorschau"
+msgstr "Formular Voransicht"
 
 #: generated
 msgid "Table"

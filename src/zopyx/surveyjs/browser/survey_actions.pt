@@ -50,21 +50,21 @@
       </tal:dashboard>
       <tal:manager tal:condition="view/is_manager">
         <div class="survey-actions-group">
-          <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
-            <a class="survey-action-button action-pdf-generator"
-               tal:attributes="class python: 'survey-action-button action-pdf-generator' + (' is-active' if current_url.endswith('/@@pdf-generator') else '')"
-               href="${context/absolute_url}/@@pdf-generator">
-              <span i18n:translate="">PDF Generator</span>
-            </a>
-          </tal:pdfgenerator>
           <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
             <a class="survey-action-button action-pdf-importer"
                tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '')"
                href="${context/absolute_url}/@@pdf-importer">
               <span i18n:translate="">Form from PDF</span>
-              <span class="beta-badge" i18n:translate="">Beta</span>
             </a>
           </tal:pdfimporter>
+          <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
+            <a class="survey-action-button action-pdf-generator"
+               tal:attributes="class python: 'survey-action-button action-pdf-generator' + (' is-active' if current_url.endswith('/@@pdf-generator') else '')"
+               href="${context/absolute_url}/@@pdf-generator">
+              <span i18n:translate="">PDF Generator</span>
+              <span class="beta-badge" i18n:translate="">Beta</span>
+            </a>
+          </tal:pdfgenerator>
           <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
             <a class="survey-action-button action-pdf-form-setup"
                tal:attributes="class python: 'survey-action-button action-pdf-form-setup' + (' is-active' if current_url.endswith('/@@pdf-form-setup') else '')"
@@ -77,21 +77,21 @@
       </tal:manager>
       <tal:notmanager tal:condition="not: view/is_manager">
         <div class="survey-actions-group">
-          <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
-            <span class="survey-action-button action-pdf-generator is-disabled"
-                  aria-disabled="true">
-              <span i18n:translate="">PDF Generator</span>
-              <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
-            </span>
-          </tal:pdfgenerator>
           <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
             <span class="survey-action-button action-pdf-importer is-disabled"
                   aria-disabled="true">
               <span i18n:translate="">Form from PDF</span>
-              <span class="beta-badge" i18n:translate="">Beta</span>
               <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
             </span>
           </tal:pdfimporter>
+          <tal:pdfgenerator tal:condition="python: view.feature_enabled('pdf-generator')">
+            <span class="survey-action-button action-pdf-generator is-disabled"
+                  aria-disabled="true">
+              <span i18n:translate="">PDF Generator</span>
+              <span class="beta-badge" i18n:translate="">Beta</span>
+              <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+            </span>
+          </tal:pdfgenerator>
           <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
             <span class="survey-action-button action-pdf-form-setup is-disabled"
                   aria-disabled="true">

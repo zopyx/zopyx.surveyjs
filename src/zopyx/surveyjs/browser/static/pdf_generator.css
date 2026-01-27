@@ -20,6 +20,20 @@
     margin-bottom: 0.5rem;
 }
 
+.beta-pill {
+    align-items: center;
+    background: linear-gradient(135deg, #f97316, #facc15);
+    border-radius: 999px;
+    color: #111827;
+    display: inline-flex;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.75rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
 .pdf-generator-panel-title {
     font-size: 1rem;
     font-weight: 600;

@@ -291,7 +291,7 @@
   <browser:page
     name="pdf-importer"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     class=".views.Views"
     template="pdf_importer.pt"
   />
@@ -360,7 +360,7 @@
   <browser:page
     name="import-pdf-form"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     class=".views.Views"
     attribute="import_pdf_form"
   />
@@ -368,7 +368,7 @@
   <browser:page
     name="store-pdf-form"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     class=".views.Views"
     attribute="store_pdf_form"
   />

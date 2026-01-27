@@ -273,7 +273,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "SurveyJS Embed: Error handling resize message": "SurveyJS-Einbettung: Fehler beim Verarbeiten der Resize-Nachricht",
   "SurveyJS Embed: Error requesting height": "SurveyJS-Einbettung: Fehler beim Anfordern der H\u00f6he",
   "SurveyJS Embed: No embed containers found. Add elements with class \\\\\\\"${className}\\\\\\": "SurveyJS-Einbettung: Keine Einbettungscontainer gefunden. F\u00fcgen Sie Elemente mit der Klasse \\\\\\\"${className}\\\\\\\" hinzu",
-  "SurveyJS Preview": "SurveyJS Vorschau",
+  "SurveyJS Preview": "Formular Voransicht",
   "Table": "Tabelle",
   "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/.": "Tabulator-Assets fehlen. Bitte installieren Sie tabulator.min.js und tabulator.min.css in ++resource++zopyx.surveyjs/vendor/.",
   "Text (.txt)": "Text (.txt)",

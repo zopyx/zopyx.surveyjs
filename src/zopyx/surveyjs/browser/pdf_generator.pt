@@ -58,6 +58,7 @@
         <section class="pdf-generator-panel">
           <div class="pdf-generator-panel-header">
             <h2 class="pdf-generator-panel-title" i18n:translate="">PDF export</h2>
+            <span class="beta-pill" i18n:translate="">Beta</span>
           </div>
           <p class="pdf-generator-panel-description" i18n:translate="">
             Export the current SurveyJS form as a downloadable PDF.
