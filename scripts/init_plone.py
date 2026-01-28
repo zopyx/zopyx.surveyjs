@@ -201,11 +201,11 @@ def configure_mail_from_env():
 
 
 def configure_site_languages():
-    """Set site languages to English + German + French + Italian + Spanish + Portuguese + Arabic + Japanese, with English as default."""
+    """Set site languages to English + German + French + Italian + Spanish + Portuguese + Finnish + Hindi + Arabic + Japanese, with English as default."""
     try:
         api.portal.set_registry_record(
             "plone.available_languages",
-            ["en", "de", "fr", "it", "es", "pt", "ar", "ja"],
+            ["en", "de", "fr", "it", "es", "pt", "fi", "hi", "ar", "ja"],
         )
         api.portal.set_registry_record("plone.default_language", "en")
         optional_settings = {
@@ -219,7 +219,7 @@ def configure_site_languages():
                 api.portal.set_registry_record(key, value)
             except InvalidParameterError:
                 continue
-        print("Configured site languages: en (default), de, fr, it, es, pt, ar, ja")
+        print("Configured site languages: en (default), de, fr, it, es, pt, fi, hi, ar, ja")
     except InvalidParameterError:
         print("Language registry records not found; skipping language configuration")
 
@@ -547,6 +547,8 @@ language_trees = {
     "it": {"root": "Italiano", "demos": "Demo (IT)"},
     "es": {"root": "Español", "demos": "Demos (ES)"},
     "pt": {"root": "Português", "demos": "Demos (PT)"},
+    "fi": {"root": "Suomi", "demos": "Demot (FI)"},
+    "hi": {"root": "हिन्दी", "demos": "डेमो (HI)"},
     "ar": {"root": "العربية", "demos": "نماذج تجريبية (AR)"},
     "ja": {"root": "日本語", "demos": "デモフォーム (JP)"},
 }
@@ -630,6 +632,8 @@ WELCOME_BANNERS = {
     "it": "Sistema dimostrativo: questo sito viene ripristinato ogni sei ore. I contenuti possono essere cancellati senza preavviso.",
     "es": "Sistema de demostraci\u00f3n: este sitio se restablece cada seis horas. El contenido puede borrarse sin previo aviso.",
     "pt": "Sistema de demonstra\u00e7\u00e3o: este site \u00e9 reiniciado a cada seis horas. O conte\u00fado pode ser apagado sem aviso pr\u00e9vio.",
+    "fi": "Demoj\u00e4rjestelm\u00e4: t\u00e4m\u00e4 sivusto nollataan kuuden tunnin v\u00e4lein. Sis\u00e4lt\u00f6 voidaan poistaa ilman ennakkoilmoitusta.",
+    "hi": "\u0921\u0947\u092e\u094b \u0938\u093f\u0938\u094d\u091f\u092e: \u092f\u0939 \u0938\u093e\u0907\u091f \u0939\u0930 \u091b\u0939 \u0918\u0902\u091f\u0947 \u092e\u0947\u0902 \u0930\u0940\u0938\u0947\u091f \u0939\u094b\u0924\u0940 \u0939\u0948\u0964 \u0938\u093e\u092e\u0917\u094d\u0930\u0940 \u092c\u093f\u0928\u093e \u0938\u0942\u091a\u0928\u093e \u0915\u0947 \u0939\u091f\u093e\u0908 \u091c\u093e \u0938\u0915\u0924\u0940 \u0939\u0948\u0964",
     "ar": "\u0646\u0638\u0627\u0645 \u062a\u062c\u0631\u064a\u0628\u064a: \u062a\u062a\u0645 \u0625\u0639\u0627\u062f\u0629 \u0636\u0628\u0637 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639 \u0643\u0644 \u0633\u062a \u0633\u0627\u0639\u0627\u062a. \u0642\u062f \u062a\u064f\u062d\u0630\u0641 \u0627\u0644\u0645\u062d\u062a\u0648\u064a\u0627\u062a \u062f\u0648\u0646 \u0625\u0634\u0639\u0627\u0631.",
     "ja": "\u30c7\u30e2\u74b0\u5883: \u3053\u306e\u30b5\u30a4\u30c8\u306f6\u6642\u9593\u3054\u3068\u306b\u30ea\u30bb\u30c3\u30c8\u3055\u308c\u307e\u3059\u3002\u5185\u5bb9\u306f\u4e88\u544a\u306a\u304f\u524a\u9664\u3055\u308c\u308b\u5834\u5408\u304c\u3042\u308a\u307e\u3059\u3002",
 }
@@ -674,6 +678,18 @@ WELCOME_YOUTUBE = {
         "title": "Assista aos walkthroughs do PrivacyForms Studio",
         "copy": "Demonstrações completas, dicas de configuração e formulários reais.",
         "cta": "Visitar o canal do YouTube",
+    },
+    "fi": {
+        "label": "Video-oppaat",
+        "title": "Katso PrivacyForms Studion walkthroughit",
+        "copy": "Tutustu end-to-end-demojen, asetusten vinkkien ja oikeiden lomakkeiden rakentamiseen.",
+        "cta": "Siirry YouTube-kanavalle",
+    },
+    "hi": {
+        "label": "वीडियो गाइड",
+        "title": "PrivacyForms Studio के walkthroughs देखें",
+        "copy": "एंड-टू-एंड डेमो, कॉन्फ़िग टिप्स और असली फ़ॉर्म बिल्ड्स देखें।",
+        "cta": "YouTube चैनल पर जाएँ",
     },
     "ar": {
         "label": "أدلة فيديو",
@@ -744,6 +760,24 @@ WELCOME_LINKS = {
         "docs_cta": "Ir para docs.privacyforms.studio",
         "badge": "Em breve",
     },
+    "fi": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "Vieraile pääsivulla tuotetietoja ja päivityksiä varten.",
+        "site_cta": "Avaa privacyforms.studio",
+        "docs_title": "Dokumentaatio",
+        "docs_copy": "Syväluotaus, API-yksityiskohdat ja käyttöönotto-oppaat.",
+        "docs_cta": "Siirry docs.privacyforms.studio",
+        "badge": "Tulossa",
+    },
+    "hi": {
+        "site_title": "Privacy Forms Studio",
+        "site_copy": "मुख्य साइट पर उत्पाद हाइलाइट्स और अपडेट देखें।",
+        "site_cta": "privacyforms.studio खोलें",
+        "docs_title": "डॉक्यूमेंटेशन",
+        "docs_copy": "गहराई से जानकारी, API विवरण और डिप्लॉयमेंट गाइड।",
+        "docs_cta": "docs.privacyforms.studio पर जाएँ",
+        "badge": "जल्द आ रहा है",
+    },
     "ar": {
         "site_title": "Privacy Forms Studio",
         "site_copy": "زيارة الموقع الرئيسي لأحدث التحديثات.",
@@ -771,6 +805,8 @@ WELCOME_HEADINGS = {
     "it": "Moduli demo",
     "es": "Formularios de demostraci\u00f3n",
     "pt": "Formul\u00e1rios de demonstra\u00e7\u00e3o",
+    "fi": "Demo-lomakkeet",
+    "hi": "\u0921\u0947\u092e\u094b \u092b\u093c\u0949\u0930\u094d\u092e",
     "ar": "\u0646\u0645\u0627\u0630\u062c \u062a\u062c\u0631\u064a\u0628\u064a\u0629",
     "ja": "\u30c7\u30e2\u30d5\u30a9\u30fc\u30e0",
 }
@@ -782,6 +818,8 @@ WELCOME_POWERED_BY_HEADINGS = {
     "it": "Realizzato con",
     "es": "Impulsado por",
     "pt": "Desenvolvido com",
+    "fi": "Powered by",
+    "hi": "Powered by",
     "ar": "\u0645\u062f\u0639\u0648\u0645 \u0645\u0646",
     "ja": "Powered by",
 }
@@ -850,6 +888,34 @@ WELCOME_DEMOS = {
         ),
         ("Formul\u00e1rio de pedido", "pt/demos/order-form-pt"),
     ],
+    "fi": [
+        ("Tapahtumaan ilmoittautuminen", "fi/demos/event-registration-fi"),
+        ("Ilmoittautuminen / peruutus", "fi/demos/event-rsvp-fi"),
+        ("Mielenterveyskysely", "fi/demos/mental-health-survey-fi"),
+        ("Sosiaalisen median k\u00e4yt\u00f6n demo", "fi/demos/full-demo-fi"),
+        ("Ruokatilauspalvelun palaute", "fi/demos/food-feedback-demo-fi"),
+        ("Tilauslomake", "fi/demos/order-form-fi"),
+    ],
+    "hi": [
+        ("\u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e \u092a\u0902\u091c\u0940\u0915\u0930\u0923", "hi/demos/event-registration-hi"),
+        (
+            "\u092a\u0902\u091c\u0940\u0915\u0930\u0923 / \u0930\u0926\u094d\u0926\u0940\u0915\u0930\u0923",
+            "hi/demos/event-rsvp-hi",
+        ),
+        (
+            "\u092e\u093e\u0928\u0938\u093f\u0915 \u0938\u094d\u0935\u093e\u0938\u094d\u0925\u094d\u092f \u0938\u0930\u094d\u0935\u0947\u0915\u094d\u0937\u0923",
+            "hi/demos/mental-health-survey-hi",
+        ),
+        (
+            "\u0938\u094b\u0936\u0932 \u092e\u0940\u0921\u093f\u092f\u093e \u0909\u092a\u092f\u094b\u0917 \u0921\u0947\u092e\u094b",
+            "hi/demos/full-demo-hi",
+        ),
+        (
+            "\u092d\u094b\u091c\u0928 \u0911\u0930\u094d\u0921\u0930 \u0938\u0947\u0935\u093e \u092b\u0940\u0921\u092c\u0948\u0915",
+            "hi/demos/food-feedback-demo-hi",
+        ),
+        ("\u0911\u0930\u094d\u0921\u0930 \u092b\u093c\u0949\u0930\u094d\u092e", "hi/demos/order-form-hi"),
+    ],
     "ar": [
         (
             "\u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0644\u0644\u0641\u0639\u0627\u0644\u064a\u0629",
@@ -905,6 +971,8 @@ WELCOME_TITLES = {
     "it": "Privacy Forms Studio",
     "es": "Privacy Forms Studio",
     "pt": "Privacy Forms Studio",
+    "fi": "Privacy Forms Studio",
+    "hi": "Privacy Forms Studio",
     "ar": "\u0628\u0631\u0627\u064a\u0641\u0633\u064a \u0641\u0648\u0631\u0645\u0632 \u0633\u062a\u0648\u062f\u064a\u0648",
     "ja": "\u30d7\u30e9\u30a4\u30d0\u30b7\u30fc \u30d5\u30a9\u30fc\u30e0\u30ba \u30b9\u30bf\u30b8\u30aa",
 }
@@ -1617,6 +1685,204 @@ create_demo_survey(
     actions={"store"},
     container=demos_by_language["pt"],
     language="pt",
+)
+
+# Finnish demos
+event_form_fi = load_form_definition("event_registration_fi")
+set_form_language(event_form_fi, "fi")
+set_form_locale(event_form_fi, "fi")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-fi",
+    title="Tapahtumaan ilmoittautuminen",
+    description="Ilmoittaudu tapahtumaan.",
+    form_json=event_form_fi,
+    container=demos_by_language["fi"],
+    language="fi",
+)
+
+mental_intro_fi = load_intro_text("mental_health_intro_fi")
+mental_form_fi = load_form_definition("mental_health_fi")
+set_form_language(mental_form_fi, "fi")
+set_form_locale(mental_form_fi, "fi")
+set_form_intro_html(mental_form_fi, "introText", mental_intro_fi)
+set_form_show_toc(mental_form_fi, True)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-fi",
+    title="Mielenterveyskysely",
+    description="Lyhyt, anonyymi hyvinvointikartoitus.",
+    form_json=mental_form_fi,
+    intro_html=mental_intro_fi,
+    actions={"store"},
+    container=demos_by_language["fi"],
+    language="fi",
+)
+
+full_demo_intro_fi = load_intro_text("full_demo_intro_fi")
+full_demo_form_fi = load_form_definition("full_demo_fi")
+set_form_language(full_demo_form_fi, "fi")
+set_form_locale(full_demo_form_fi, "fi")
+set_form_intro_html(full_demo_form_fi, "demoIntro", full_demo_intro_fi)
+set_form_show_toc(full_demo_form_fi, True)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-fi",
+    title="Sosiaalisen median käytön demo",
+    description="SurveyJS-toimintojen esittely sosiaalisen median kontekstissa.",
+    form_json=full_demo_form_fi,
+    intro_html=full_demo_intro_fi,
+    actions={"store"},
+    container=demos_by_language["fi"],
+    language="fi",
+)
+
+feedback_form_fi = load_form_definition("food_feedback_fi")
+set_form_language(feedback_form_fi, "fi")
+set_form_locale(feedback_form_fi, "fi")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-fi",
+    title="Ruokatilauspalvelun palaute",
+    description="Arvioi viimeaikainen kokemuksesi asteikolla 1–5.",
+    form_json=feedback_form_fi,
+    intro_html=load_intro_text("food_feedback_intro_fi"),
+    actions={"store"},
+    container=demos_by_language["fi"],
+    language="fi",
+)
+
+event_rsvp_form_fi = load_form_definition("event_rsvp_fi")
+set_form_language(event_rsvp_form_fi, "fi")
+set_form_locale(event_rsvp_form_fi, "fi")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-fi",
+    title="Tapahtumaan ilmoittautuminen / peruutus",
+    description="Ilmoittaudu tapahtumaan tai peruuta ilmoittautuminen.",
+    form_json=event_rsvp_form_fi,
+    actions={"store"},
+    container=demos_by_language["fi"],
+    language="fi",
+)
+
+order_form_fi = load_form_definition("order_form_fi")
+set_form_language(order_form_fi, "fi")
+set_form_locale(order_form_fi, "fi")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-fi",
+    title="Tilauslomake",
+    description="Kerää asiakastiedot ja tilausrivit.",
+    form_json=order_form_fi,
+    actions={"store"},
+    container=demos_by_language["fi"],
+    language="fi",
+)
+
+# Hindi demos
+event_form_hi = load_form_definition("event_registration_hi")
+set_form_language(event_form_hi, "hi")
+set_form_locale(event_form_hi, "hi")
+
+create_demo_survey(
+    site,
+    survey_id="event-registration-hi",
+    title="कार्यक्रम पंजीकरण",
+    description="कार्यक्रम के लिए पंजीकरण करें।",
+    form_json=event_form_hi,
+    container=demos_by_language["hi"],
+    language="hi",
+)
+
+mental_intro_hi = load_intro_text("mental_health_intro_hi")
+mental_form_hi = load_form_definition("mental_health_hi")
+set_form_language(mental_form_hi, "hi")
+set_form_locale(mental_form_hi, "hi")
+set_form_intro_html(mental_form_hi, "introText", mental_intro_hi)
+set_form_show_toc(mental_form_hi, True)
+
+create_demo_survey(
+    site,
+    survey_id="mental-health-survey-hi",
+    title="मानसिक स्वास्थ्य सर्वेक्षण",
+    description="आपकी भलाई पर एक संक्षिप्त, गुमनाम जांच।",
+    form_json=mental_form_hi,
+    intro_html=mental_intro_hi,
+    actions={"store"},
+    container=demos_by_language["hi"],
+    language="hi",
+)
+
+full_demo_intro_hi = load_intro_text("full_demo_intro_hi")
+full_demo_form_hi = load_form_definition("full_demo_hi")
+set_form_language(full_demo_form_hi, "hi")
+set_form_locale(full_demo_form_hi, "hi")
+set_form_intro_html(full_demo_form_hi, "demoIntro", full_demo_intro_hi)
+set_form_show_toc(full_demo_form_hi, True)
+
+create_demo_survey(
+    site,
+    survey_id="full-demo-hi",
+    title="सोशल मीडिया उपयोग डेमो",
+    description="सोशल मीडिया संदर्भ में SurveyJS सुविधाओं का डेमो।",
+    form_json=full_demo_form_hi,
+    intro_html=full_demo_intro_hi,
+    actions={"store"},
+    container=demos_by_language["hi"],
+    language="hi",
+)
+
+feedback_form_hi = load_form_definition("food_feedback_hi")
+set_form_language(feedback_form_hi, "hi")
+set_form_locale(feedback_form_hi, "hi")
+
+create_demo_survey(
+    site,
+    survey_id="food-feedback-demo-hi",
+    title="भोजन ऑर्डर सेवा फीडबैक",
+    description="हाल के अनुभव को 1 से 5 तक रेट करें।",
+    form_json=feedback_form_hi,
+    intro_html=load_intro_text("food_feedback_intro_hi"),
+    actions={"store"},
+    container=demos_by_language["hi"],
+    language="hi",
+)
+
+event_rsvp_form_hi = load_form_definition("event_rsvp_hi")
+set_form_language(event_rsvp_form_hi, "hi")
+set_form_locale(event_rsvp_form_hi, "hi")
+
+create_demo_survey(
+    site,
+    survey_id="event-rsvp-hi",
+    title="कार्यक्रम पंजीकरण / रद्दीकरण",
+    description="कार्यक्रम के लिए पंजीकरण करें या मौजूदा पंजीकरण रद्द करें।",
+    form_json=event_rsvp_form_hi,
+    actions={"store"},
+    container=demos_by_language["hi"],
+    language="hi",
+)
+
+order_form_hi = load_form_definition("order_form_hi")
+set_form_language(order_form_hi, "hi")
+set_form_locale(order_form_hi, "hi")
+
+create_demo_survey(
+    site,
+    survey_id="order-form-hi",
+    title="ऑर्डर फ़ॉर्म",
+    description="ग्राहक जानकारी और ऑर्डर आइटम एकत्र करें।",
+    form_json=order_form_hi,
+    actions={"store"},
+    container=demos_by_language["hi"],
+    language="hi",
 )
 
 # Arabic demos (duplicates of EN forms)

@@ -302,8 +302,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Survey open": "Umfrage offen",
   "Survey overview": "Umfrage-\u00dcbersicht",
   "SurveyJS Embed: Element not found": "SurveyJS-Einbettung: Element nicht gefunden",
-  "SurveyJS Embed: Error handling resize message": "SurveyJS-Einbettung: Fehler beim Verarbeiten der Resize-Nachricht",
-  "SurveyJS Embed: Error requesting height": "SurveyJS-Einbettung: Fehler beim Anfordern der H\u00f6he",
   "SurveyJS Embed: No embed containers found. Add elements with class \\\\\\\"${className}\\\\\\": "SurveyJS-Einbettung: Keine Einbettungscontainer gefunden. F\u00fcgen Sie Elemente mit der Klasse \\\\\\\"${className}\\\\\\\" hinzu",
   "SurveyJS Preview": "Formular Voransicht",
   "Table": "Tabelle",
