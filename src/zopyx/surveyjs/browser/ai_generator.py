@@ -231,7 +231,6 @@ def generate_survey_json_from_image(
     logger.debug(
         f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}"
     )
-    print(f"LLM prompt (image):\n{prompt}")
 
     # Determine which model to use
     if not model_name:
@@ -272,7 +271,6 @@ def generate_survey_json_from_image(
 
         logger.info("Successfully generated survey JSON from image")
         logger.debug(f"LLM response length: {len(response_text)} characters")
-        print(f"LLM response (image):\n{response_text}")
 
         return response_text
     except Exception as e:
@@ -315,7 +313,7 @@ def generate_survey_json_from_assets(
     logger.debug(
         f"Model: {model_name or 'default'}, Ollama URL: {ollama_url or 'none'}"
     )
-    print(f"LLM prompt (pdf assets):\n{prompt}")
+    logger.info(f"LLM prompt (pdf assets):\n{prompt}")
 
     if not model_name:
         try:
@@ -333,12 +331,6 @@ def generate_survey_json_from_assets(
         if ollama_url:
             import os
 
-            os.environ["OLLAMA_HOST"] = ollama_url
-            if model_name and not model_name.startswith("ollama/"):
-                model_name = f"ollama/{model_name}"
-            elif not model_name:
-                model_name = "ollama/llama2"
-
         model = llm.get_model(model_name)
 
         if api_key and not ollama_url:
@@ -354,7 +346,6 @@ def generate_survey_json_from_assets(
 
         logger.info("Successfully generated survey JSON from PDF assets")
         logger.debug(f"LLM response length: {len(response_text)} characters")
-        print(f"LLM response (pdf assets):\n{response_text}")
 
         return response_text
     except Exception as e:

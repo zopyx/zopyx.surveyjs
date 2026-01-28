@@ -121,7 +121,7 @@ class IFormsSettings(IPloneLoggingSettings):
 
     ai_model = schema.TextLine(
         title="AI Model",
-        description="The LLM model to use for form generation (e.g., 'gpt-4', 'claude-3-sonnet-20240229')",
+        description="The LLM model to use for form generation (e.g., 'gpt-5.2', 'claude-sonnet-4.5' or 'ministral-3:3b' when using Ollama)",
         required=False,
         default="",
     )
