@@ -25,10 +25,7 @@ class PDFFormExtractorTests(unittest.TestCase):
     def test_extract_returns_json_string(self) -> None:
         if not shutil.which("pdfcpu"):
             raise unittest.SkipTest("pdfcpu is not available in PATH")
-        repo_root = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
-        )
-        sample_pdf = os.path.join(repo_root, "FilledForm.pdf")
+        sample_pdf = os.path.join(os.path.dirname(__file__), "FilledForm.pdf")
         extractor = PDFFormExtractor(sample_pdf)
         json_payload = extractor.extract()
         self.assertIsInstance(json_payload, str)

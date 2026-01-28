@@ -81,6 +81,7 @@ setup(
             "collective.z3cform.jsonwidget",
             "orjson",
             "diskcache",
+            "polib",
         ],
     },
     entry_points="""

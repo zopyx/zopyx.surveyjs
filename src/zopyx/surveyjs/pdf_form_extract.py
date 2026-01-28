@@ -42,6 +42,7 @@ class PDFFormExtractor:
         pdfcpu_path = self.check_pdfcpu()
         temp_handle = tempfile.NamedTemporaryFile(suffix=".json", delete=False)
         temp_handle.close()
+
         try:
             subprocess.run(
                 [pdfcpu_path, "form", "export", self.pdf_filename, temp_handle.name],
