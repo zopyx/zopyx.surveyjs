@@ -1,0 +1,115 @@
+{
+  "title": "मानसिक स्वास्थ्य सर्वेक्षण",
+  "description": "इस सप्ताह आप कैसा महसूस कर रहे हैं, उस पर एक छोटा, निजी चिंतन।",
+  "locale": "hi",
+  "startSurveyText": "शुरू करें",
+  "pagePrevText": "पिछला",
+  "pageNextText": "अगला",
+  "completeText": "जमा करें",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>साझा करने के लिए धन्यवाद। यदि आपको सहायता चाहिए तो किसी पेशेवर से संपर्क करें।</h3>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "mood",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "overallMood",
+          "title": "इस सप्ताह आपका समग्र मूड कैसा रहा?",
+          "isRequired": true,
+          "choices": [
+            "बहुत सकारात्मक",
+            "अधिकतर सकारात्मक",
+            "न्यूट्रल या मिश्रित",
+            "अधिकतर नकारात्मक",
+            "बहुत नकारात्मक"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "stressLevel",
+          "title": "पिछले कुछ दिनों में आपका तनाव कितना रहा?",
+          "isRequired": true,
+          "choices": [
+            "बहुत कम",
+            "काबू में",
+            "ध्यान देने योग्य लेकिन ठीक",
+            "उच्च",
+            "बहुत अधिक"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sleep",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "sleepQuality",
+          "title": "हाल में आपकी नींद की गुणवत्ता कैसी रही?",
+          "isRequired": true,
+          "choices": [
+            "आरामदायक और नियमित",
+            "अधिकतर ठीक",
+            "अनियमित",
+            "खराब",
+            "बहुत खराब"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "supportNetwork",
+          "title": "दोस्तों, परिवार या समुदाय से आपको कितना समर्थन महसूस होता है?",
+          "isRequired": true,
+          "choices": [
+            "बहुत समर्थन",
+            "समर्थन",
+            "कुछ हद तक समर्थन",
+            "सीमित समर्थन",
+            "कोई समर्थन नहीं"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "focusLevel",
+          "title": "दैनिक कार्यों पर ध्यान देना कितना आसान रहा?",
+          "isRequired": true,
+          "choices": [
+            "बहुत आसान",
+            "अधिकतर आसान",
+            "काबू में",
+            "मुश्किल",
+            "बहुत मुश्किल"
+          ]
+        }
+      ]
+    }
+  ]
+}

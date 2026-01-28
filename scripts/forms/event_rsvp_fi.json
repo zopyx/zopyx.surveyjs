@@ -1,0 +1,71 @@
+{
+  "title": "Tapahtumaan ilmoittautuminen / peruutus",
+  "description": "Ilmoittaudu tapahtumaan tai kerro, jos et pääse osallistumaan.",
+  "locale": "fi",
+  "startSurveyText": "Aloita",
+  "pagePrevText": "Edellinen",
+  "pageNextText": "Seuraava",
+  "completeText": "Lähetä",
+  "pages": [
+    {
+      "name": "main",
+      "title": "Osallistumisen valinta",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "action",
+          "title": "Mitä haluat tehdä?",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "register",
+              "text": "Ilmoittaudu tapahtumaan"
+            },
+            {
+              "value": "unregister",
+              "text": "Peruuta osallistuminen"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "title": "Etunimi",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "lastName",
+          "title": "Sukunimi",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Sähköpostiosoite",
+          "inputType": "email",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "numberOfPersons",
+          "title": "Osallistujien määrä",
+          "inputType": "number",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "cancellationName",
+          "title": "Peruutettavan osallistujan nimi",
+          "description": "Kerro, kuka poistetaan osallistujalistalta.",
+          "isRequired": true,
+          "visibleIf": "{action} = 'unregister'"
+        }
+      ]
+    }
+  ]
+}

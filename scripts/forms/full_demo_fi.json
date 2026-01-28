@@ -1,0 +1,247 @@
+{
+  "title": "Sosiaalisen median käyttö",
+  "description": "SurveyJS-toimintojen demonstraatio sosiaalisen median kontekstissa.",
+  "locale": "fi",
+  "startSurveyText": "Aloita",
+  "pagePrevText": "Edellinen",
+  "pageNextText": "Seuraava",
+  "completeText": "Lähetä",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Kiitos demon kokeilusta!</h3><p>Muokkaa ja laajenna näitä kysymyksiä omiin kyselyihisi.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "demoIntro",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "basics",
+      "title": "Profiilisi",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Mikä on nimesi?",
+          "placeHolder": "Alex Esimerkki"
+        },
+        {
+          "type": "dropdown",
+          "name": "ageRange",
+          "title": "Ikähaarukkasi",
+          "isRequired": true,
+          "choices": [
+            "Alle 18",
+            "18–24",
+            "25–34",
+            "35–44",
+            "45–54",
+            "55–64",
+            "65+"
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "primaryPlatforms",
+          "title": "Mitä alustoja käytät viikoittain?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+            "Instagram",
+            "TikTok",
+            "YouTube",
+            "Facebook",
+            "LinkedIn",
+            "Snapchat",
+            "X/Twitter"
+          ]
+        },
+        {
+          "type": "rating",
+          "name": "engagementLevel",
+          "title": "Kuinka sitoutuneeksi koet olosi sosiaalisessa mediassa?",
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Ei lainkaan sitoutunut",
+          "maxRateDescription": "Erittäin sitoutunut"
+        }
+      ]
+    },
+    {
+      "name": "time",
+      "title": "Käytetty aika",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "dailyMinutes",
+          "title": "Keskimääräinen minuuttimäärä päivässä sosiaalisessa mediassa",
+          "rateMin": 0,
+          "rateMax": 5,
+          "rateStep": 1,
+          "rateValues": [
+            {
+              "value": 0,
+              "text": "Alle 30"
+            },
+            {
+              "value": 1,
+              "text": "30–60"
+            },
+            {
+              "value": 2,
+              "text": "1–2 tuntia"
+            },
+            {
+              "value": 3,
+              "text": "2–3 tuntia"
+            },
+            {
+              "value": 4,
+              "text": "3–5 tuntia"
+            },
+            {
+              "value": 5,
+              "text": "5+ tuntia"
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "timeComments",
+          "title": "Milloin selaat yleensä?",
+          "placeHolder": "Aamumatka, lounastauko, illat, ennen nukkumaanmenoa..."
+        }
+      ]
+    },
+    {
+      "name": "matrixSection",
+      "title": "Alustojen käyttötiheys",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "platformFrequency",
+          "title": "Kuinka usein tarkistat näitä alustoja?",
+          "isRequired": true,
+          "columns": [
+            {
+              "value": "rarely",
+              "text": "Harvoin"
+            },
+            {
+              "value": "weekly",
+              "text": "Viikoittain"
+            },
+            {
+              "value": "daily",
+              "text": "Päivittäin"
+            },
+            {
+              "value": "hourly",
+              "text": "Useita kertoja päivässä"
+            }
+          ],
+          "rows": [
+            {
+              "value": "instagram",
+              "text": "Instagram"
+            },
+            {
+              "value": "tiktok",
+              "text": "TikTok"
+            },
+            {
+              "value": "youtube",
+              "text": "YouTube"
+            },
+            {
+              "value": "facebook",
+              "text": "Facebook"
+            },
+            {
+              "value": "twitter",
+              "text": "X/Twitter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "matrixDynamicSection",
+      "title": "Näyttöaika laitteittain",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "screenTimeByDevice",
+          "title": "Lisää laitteita ja arvioi ruutuaikasi arkena ja viikonloppuna.",
+          "isRequired": true,
+          "rowCount": 2,
+          "minRowCount": 1,
+          "addRowText": "Lisää laite",
+          "columns": [
+            {
+              "name": "device",
+              "title": "Laite",
+              "cellType": "dropdown",
+              "choices": [
+                "Puhelin",
+                "Tabletti",
+                "Kannettava",
+                "Pöytäkone",
+                "TV",
+                "Muu"
+              ]
+            },
+            {
+              "name": "weekday",
+              "title": "Arkipäivä (h)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            },
+            {
+              "name": "weekend",
+              "title": "Viikonloppu (h)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "uploads",
+      "title": "Lataukset ja palaute",
+      "elements": [
+        {
+          "type": "file",
+          "name": "screenshot",
+          "title": "Valinnainen: lataa kuvakaappaus aloitusnäytöstäsi tai syötteestäsi",
+          "maxSize": 1024000,
+          "imageHeight": 150,
+          "imageWidth": 150
+        },
+        {
+          "type": "comment",
+          "name": "improvementIdeas",
+          "title": "Mikä parantaisi sosiaalisen median kokemustasi?"
+        },
+        {
+          "type": "boolean",
+          "name": "followUp",
+          "title": "Saammeko olla sinuun yhteydessä näiden havaintojen vuoksi?",
+          "labelTrue": "Kyllä, voitte ottaa yhteyttä",
+          "labelFalse": "Ei, pidetään tämä anonyymina"
+        }
+      ]
+    }
+  ]
+}

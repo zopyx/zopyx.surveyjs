@@ -1,0 +1,165 @@
+{
+  "title": "कपड़ों का ऑर्डर फ़ॉर्म",
+  "description": "ग्राहक विवरण और आइटम‑वाइज ऑर्डर पंक्तियाँ एकत्र करने के लिए सरल फ़ॉर्म।",
+  "locale": "hi",
+  "startSurveyText": "शुरू करें",
+  "pagePrevText": "पिछला",
+  "pageNextText": "अगला",
+  "completeText": "जमा करें",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "कपड़ों का ऑर्डर फ़ॉर्म",
+      "description": "ग्राहक विवरण भरें और आइटम ग्रिड का उपयोग करके प्रत्येक कपड़े के लिए पंक्तियाँ जोड़ें, संपादित करें या हटाएँ।",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid",
+          "defaultValue": "6f8b9d2e-2c4a-4f1b-9e2a-7d3a8c1b2f5d"
+        },
+        {
+          "type": "hidden",
+          "name": "created",
+          "defaultValue": "2026-01-11T12:34:56Z"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "title": "पहला नाम"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "उपनाम"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "ईमेल पता"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "फोन नंबर"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "order_items",
+          "title": "ऑर्डर आइटम",
+          "description": "ऑर्डर में एक या अधिक कपड़े जोड़ें। आप पंक्तियाँ जोड़, संपादित या हटा सकते हैं।",
+          "columns": [
+            {
+              "name": "item",
+              "title": "आइटम (जैसे, ड्रेस, शर्ट)",
+              "cellType": "text"
+            },
+            {
+              "name": "fabric",
+              "title": "कपड़े का प्रकार",
+              "cellType": "dropdown",
+              "choices": [
+                "कॉटन",
+                "सिल्क",
+                "ऊन",
+                "लिनेन",
+                "पॉलिएस्टर"
+              ]
+            },
+            {
+              "name": "color",
+              "title": "रंग",
+              "cellType": "text"
+            },
+            {
+              "name": "size",
+              "title": "आकार",
+              "cellType": "dropdown",
+              "choices": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ]
+            },
+            {
+              "name": "quantity",
+              "title": "मात्रा",
+              "cellType": "text"
+            },
+            {
+              "name": "unitPrice",
+              "title": "इकाई मूल्य",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "notes",
+              "title": "नोट्स",
+              "cellType": "text"
+            }
+          ],
+          "minRowCount": 1,
+          "addRowText": "आइटम जोड़ें",
+          "removeRowText": "आइटम हटाएँ"
+        },
+        {
+          "type": "radiogroup",
+          "name": "deliveryOption",
+          "title": "डिलीवरी विकल्प",
+          "description": "बताएँ कि आप ऑर्डर कैसे प्राप्त करना चाहते हैं।",
+          "choices": [
+            {
+              "value": "standard",
+              "text": "स्टैंडर्ड (5–7 दिन)"
+            },
+            {
+              "value": "express",
+              "text": "एक्सप्रेस (2–3 दिन)"
+            },
+            {
+              "value": "pickup",
+              "text": "शोरूम से पिकअप"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "extras",
+          "title": "अतिरिक्त विकल्प",
+          "choices": [
+            "गिफ्ट रैप",
+            "तत्काल उत्पादन",
+            "सिलाई लेबल शामिल करें"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "specialInstructions",
+          "title": "विशेष निर्देश",
+          "description": "ऑर्डर के लिए कोई विशेष अनुरोध या विवरण।"
+        },
+        {
+          "type": "checkbox",
+          "name": "termsAccepted",
+          "title": "नियम और शर्तें",
+          "description": "पुष्टि करें कि आप ऑर्डर की शर्तों से सहमत हैं।",
+          "choices": [
+            "मैं नियम और शर्तें स्वीकार करता/करती हूँ"
+          ],
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "हस्ताक्षर",
+          "description": "ऑर्डर विवरण की पुष्टि के लिए हस्ताक्षर करें।",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "onPage",
+  "requiredTextOnNormalMessages": false
+}

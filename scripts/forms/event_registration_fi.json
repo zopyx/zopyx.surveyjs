@@ -1,0 +1,49 @@
+{
+  "title": "Tapahtumaan ilmoittautuminen",
+  "description": "Ilmoittaudu tapahtumaan.",
+  "locale": "fi",
+  "startSurveyText": "Aloita",
+  "pagePrevText": "Edellinen",
+  "pageNextText": "Seuraava",
+  "completeText": "Lähetä",
+  "showQuestionNumbers": "off",
+  "completedHtml": "<h3>Kiitos ilmoittautumisesta!</h3>",
+  "pages": [
+    {
+      "name": "attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Koko nimi",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Sähköposti",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "Lipputyyppi",
+          "isRequired": true,
+          "choices": [
+            "Perus",
+            "Opiskelija",
+            "VIP"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "newsletter",
+          "title": "Pidä minut ajan tasalla tulevista tapahtumista",
+          "labelTrue": "Kyllä",
+          "labelFalse": "Ei"
+        }
+      ]
+    }
+  ]
+}

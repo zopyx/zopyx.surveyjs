@@ -1,0 +1,50 @@
+{
+  "title": "Ruokatilauspalvelun palaute",
+  "description": "Lyhyet arviot (1–5) viimeaikaisesta kokemuksesta.",
+  "locale": "fi",
+  "startSurveyText": "Aloita",
+  "pagePrevText": "Edellinen",
+  "pageNextText": "Seuraava",
+  "completeText": "Lähetä",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "questions",
+  "completedHtml": "<h3>Kiitos palautteestasi!</h3>",
+  "pages": [
+    {
+      "name": "ratings",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "orderEase",
+          "title": "Kuinka helppoa tilauksen tekeminen oli?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Erittäin vaikeaa",
+          "maxRateDescription": "Erittäin helppoa"
+        },
+        {
+          "type": "rating",
+          "name": "deliverySpeed",
+          "title": "Kuinka tyytyväinen olet toimitusnopeuteen?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Erittäin hidas",
+          "maxRateDescription": "Erittäin nopea"
+        },
+        {
+          "type": "rating",
+          "name": "foodQuality",
+          "title": "Miten arvioit ruoan laatua?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Erittäin huono",
+          "maxRateDescription": "Erinomainen"
+        }
+      ]
+    }
+  ]
+}

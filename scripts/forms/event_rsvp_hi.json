@@ -1,0 +1,71 @@
+{
+  "title": "कार्यक्रम पंजीकरण / रद्दीकरण",
+  "description": "कार्यक्रम के लिए पंजीकरण करें या बताएं कि आप अब शामिल नहीं हो सकते।",
+  "locale": "hi",
+  "startSurveyText": "शुरू करें",
+  "pagePrevText": "पिछला",
+  "pageNextText": "अगला",
+  "completeText": "जमा करें",
+  "pages": [
+    {
+      "name": "main",
+      "title": "भागीदारी चयन",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "action",
+          "title": "आप क्या करना चाहते हैं?",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "register",
+              "text": "कार्यक्रम के लिए पंजीकरण करें"
+            },
+            {
+              "value": "unregister",
+              "text": "पंजीकरण रद्द करें (मेरी उपस्थिति हटाएँ)"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "firstName",
+          "title": "पहला नाम",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "lastName",
+          "title": "उपनाम",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "ईमेल पता",
+          "inputType": "email",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "numberOfPersons",
+          "title": "उपस्थित होने वाले लोगों की संख्या",
+          "inputType": "number",
+          "isRequired": true,
+          "visibleIf": "{action} = 'register'"
+        },
+        {
+          "type": "text",
+          "name": "cancellationName",
+          "title": "जिस प्रतिभागी को हटाना है उसका नाम",
+          "description": "बताएँ कि किसे प्रतिभागियों की सूची से हटाना है।",
+          "isRequired": true,
+          "visibleIf": "{action} = 'unregister'"
+        }
+      ]
+    }
+  ]
+}

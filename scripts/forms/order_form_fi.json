@@ -1,0 +1,165 @@
+{
+  "title": "Vaatetilauslomake",
+  "description": "Yksinkertainen tilauslomake asiakastietojen ja tuotekohtaisten rivien keräämiseen.",
+  "locale": "fi",
+  "startSurveyText": "Aloita",
+  "pagePrevText": "Edellinen",
+  "pageNextText": "Seuraava",
+  "completeText": "Lähetä",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "Vaatetilauslomake",
+      "description": "Täytä asiakastiedot ja käytä tuoterivejä lisätäksesi, muokataksesi tai poistaaksesi rivejä kullekin vaatteelle.",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid",
+          "defaultValue": "6f8b9d2e-2c4a-4f1b-9e2a-7d3a8c1b2f5d"
+        },
+        {
+          "type": "hidden",
+          "name": "created",
+          "defaultValue": "2026-01-11T12:34:56Z"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "title": "Etunimi"
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "title": "Sukunimi"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Sähköpostiosoite"
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "Puhelinnumero"
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "order_items",
+          "title": "Tilausrivit",
+          "description": "Lisää yksi tai useampi vaate tilaukseen. Voit lisätä, muokata tai poistaa rivejä.",
+          "columns": [
+            {
+              "name": "item",
+              "title": "Tuote (esim. mekko, paita)",
+              "cellType": "text"
+            },
+            {
+              "name": "fabric",
+              "title": "Kankaan tyyppi",
+              "cellType": "dropdown",
+              "choices": [
+                "Puuvilla",
+                "Silkki",
+                "Villa",
+                "Pellava",
+                "Polyesteri"
+              ]
+            },
+            {
+              "name": "color",
+              "title": "Väri",
+              "cellType": "text"
+            },
+            {
+              "name": "size",
+              "title": "Koko",
+              "cellType": "dropdown",
+              "choices": [
+                "XS",
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ]
+            },
+            {
+              "name": "quantity",
+              "title": "Määrä",
+              "cellType": "text"
+            },
+            {
+              "name": "unitPrice",
+              "title": "Yksikköhinta",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "notes",
+              "title": "Lisätiedot",
+              "cellType": "text"
+            }
+          ],
+          "minRowCount": 1,
+          "addRowText": "Lisää tuote",
+          "removeRowText": "Poista tuote"
+        },
+        {
+          "type": "radiogroup",
+          "name": "deliveryOption",
+          "title": "Toimitusvaihtoehto",
+          "description": "Valitse, miten haluat tilauksen toimitettavan.",
+          "choices": [
+            {
+              "value": "standard",
+              "text": "Normaali (5–7 päivää)"
+            },
+            {
+              "value": "express",
+              "text": "Pikatoimitus (2–3 päivää)"
+            },
+            {
+              "value": "pickup",
+              "text": "Nouto myymälästä"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "extras",
+          "title": "Lisävaihtoehdot",
+          "choices": [
+            "Lahjapaketointi",
+            "Kiireellinen valmistus",
+            "Sisällytä ompelumerkit"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "specialInstructions",
+          "title": "Erityisohjeet",
+          "description": "Mahdolliset toiveet tai lisätiedot tilaukseen."
+        },
+        {
+          "type": "checkbox",
+          "name": "termsAccepted",
+          "title": "Toimitusehdot",
+          "description": "Vahvista, että hyväksyt tilauksen ehdot.",
+          "choices": [
+            "Hyväksyn ehdot"
+          ],
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "Allekirjoitus",
+          "description": "Allekirjoita tilauksen tietojen vahvistamiseksi.",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "onPage",
+  "requiredTextOnNormalMessages": false
+}

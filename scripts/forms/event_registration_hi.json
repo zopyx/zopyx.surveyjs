@@ -1,0 +1,49 @@
+{
+  "title": "कार्यक्रम पंजीकरण",
+  "description": "कार्यक्रम के लिए पंजीकरण करें।",
+  "locale": "hi",
+  "startSurveyText": "शुरू करें",
+  "pagePrevText": "पिछला",
+  "pageNextText": "अगला",
+  "completeText": "जमा करें",
+  "showQuestionNumbers": "off",
+  "completedHtml": "<h3>पंजीकरण के लिए धन्यवाद!</h3>",
+  "pages": [
+    {
+      "name": "attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "पूरा नाम",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "ईमेल",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "टिकट प्रकार",
+          "isRequired": true,
+          "choices": [
+            "स्टैंडर्ड",
+            "छात्र",
+            "VIP"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "newsletter",
+          "title": "आने वाले कार्यक्रमों की जानकारी मुझे देते रहें",
+          "labelTrue": "हाँ",
+          "labelFalse": "नहीं"
+        }
+      ]
+    }
+  ]
+}

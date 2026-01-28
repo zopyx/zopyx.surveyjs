@@ -1,0 +1,247 @@
+{
+  "title": "सोशल मीडिया उपयोग",
+  "description": "सोशल मीडिया संदर्भ में SurveyJS सुविधाओं का डेमो।",
+  "locale": "hi",
+  "startSurveyText": "शुरू करें",
+  "pagePrevText": "पिछला",
+  "pageNextText": "अगला",
+  "completeText": "जमा करें",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>डेमो देखने के लिए धन्यवाद!</h3><p>इन प्रश्नों को अपने सर्वे के लिए समायोजित और बढ़ाएँ।</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "demoIntro",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "basics",
+      "title": "आपकी प्रोफ़ाइल",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "आपका नाम क्या है?",
+          "placeHolder": "Alex Doe"
+        },
+        {
+          "type": "dropdown",
+          "name": "ageRange",
+          "title": "आपकी आयु-सीमा",
+          "isRequired": true,
+          "choices": [
+            "18 से कम",
+            "18–24",
+            "25–34",
+            "35–44",
+            "45–54",
+            "55–64",
+            "65+"
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "primaryPlatforms",
+          "title": "आप हर सप्ताह किन प्लेटफ़ॉर्म्स का उपयोग करते हैं?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+            "Instagram",
+            "TikTok",
+            "YouTube",
+            "Facebook",
+            "LinkedIn",
+            "Snapchat",
+            "X/Twitter"
+          ]
+        },
+        {
+          "type": "rating",
+          "name": "engagementLevel",
+          "title": "कुल मिलाकर आप सोशल मीडिया से कितना जुड़ा महसूस करते हैं?",
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "बिल्कुल नहीं जुड़े",
+          "maxRateDescription": "बहुत अधिक जुड़े"
+        }
+      ]
+    },
+    {
+      "name": "time",
+      "title": "समय बिताना",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "dailyMinutes",
+          "title": "सोशल मीडिया पर प्रतिदिन औसत मिनट",
+          "rateMin": 0,
+          "rateMax": 5,
+          "rateStep": 1,
+          "rateValues": [
+            {
+              "value": 0,
+              "text": "30 से कम"
+            },
+            {
+              "value": 1,
+              "text": "30–60"
+            },
+            {
+              "value": 2,
+              "text": "1–2 घंटे"
+            },
+            {
+              "value": 3,
+              "text": "2–3 घंटे"
+            },
+            {
+              "value": 4,
+              "text": "3–5 घंटे"
+            },
+            {
+              "value": 5,
+              "text": "5+ घंटे"
+            }
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "timeComments",
+          "title": "आप आमतौर पर कब स्क्रॉल करते हैं?",
+          "placeHolder": "सुबह की यात्रा, लंच ब्रेक, शामें, सोने से पहले..."
+        }
+      ]
+    },
+    {
+      "name": "matrixSection",
+      "title": "प्लेटफ़ॉर्म आवृत्ति",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "platformFrequency",
+          "title": "आप इन प्लेटफ़ॉर्म्स को कितनी बार देखते हैं?",
+          "isRequired": true,
+          "columns": [
+            {
+              "value": "rarely",
+              "text": "कभी-कभार"
+            },
+            {
+              "value": "weekly",
+              "text": "साप्ताहिक"
+            },
+            {
+              "value": "daily",
+              "text": "दैनिक"
+            },
+            {
+              "value": "hourly",
+              "text": "दिन में कई बार"
+            }
+          ],
+          "rows": [
+            {
+              "value": "instagram",
+              "text": "Instagram"
+            },
+            {
+              "value": "tiktok",
+              "text": "TikTok"
+            },
+            {
+              "value": "youtube",
+              "text": "YouTube"
+            },
+            {
+              "value": "facebook",
+              "text": "Facebook"
+            },
+            {
+              "value": "twitter",
+              "text": "X/Twitter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "matrixDynamicSection",
+      "title": "डिवाइस के अनुसार स्क्रीन समय",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "screenTimeByDevice",
+          "title": "डिवाइस जोड़ें और कार्यदिवस/वीकेंड स्क्रीन समय का अनुमान लगाएँ।",
+          "isRequired": true,
+          "rowCount": 2,
+          "minRowCount": 1,
+          "addRowText": "डिवाइस जोड़ें",
+          "columns": [
+            {
+              "name": "device",
+              "title": "डिवाइस",
+              "cellType": "dropdown",
+              "choices": [
+                "फोन",
+                "टैबलेट",
+                "लैपटॉप",
+                "डेस्कटॉप",
+                "टीवी",
+                "अन्य"
+              ]
+            },
+            {
+              "name": "weekday",
+              "title": "कार्यदिवस (घंटे)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            },
+            {
+              "name": "weekend",
+              "title": "वीकेंड (घंटे)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 0,
+              "max": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "uploads",
+      "title": "अपलोड और फीडबैक",
+      "elements": [
+        {
+          "type": "file",
+          "name": "screenshot",
+          "title": "वैकल्पिक: अपने होम स्क्रीन या फ़ीड का स्क्रीनशॉट अपलोड करें",
+          "maxSize": 1024000,
+          "imageHeight": 150,
+          "imageWidth": 150
+        },
+        {
+          "type": "comment",
+          "name": "improvementIdeas",
+          "title": "आपका सोशल मीडिया अनुभव बेहतर बनाने के लिए क्या मदद करेगा?"
+        },
+        {
+          "type": "boolean",
+          "name": "followUp",
+          "title": "क्या हम इन जानकारियों के बारे में आपसे संपर्क कर सकते हैं?",
+          "labelTrue": "हाँ, आप मुझसे संपर्क कर सकते हैं",
+          "labelFalse": "नहीं, इसे गुमनाम रखें"
+        }
+      ]
+    }
+  ]
+}

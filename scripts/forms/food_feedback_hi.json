@@ -1,0 +1,50 @@
+{
+  "title": "भोजन ऑर्डर सेवा फीडबैक",
+  "description": "आपके हालिया अनुभव के बारे में त्वरित 1–5 रेटिंग।",
+  "locale": "hi",
+  "startSurveyText": "शुरू करें",
+  "pagePrevText": "पिछला",
+  "pageNextText": "अगला",
+  "completeText": "जमा करें",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "questions",
+  "completedHtml": "<h3>फीडबैक के लिए धन्यवाद!</h3>",
+  "pages": [
+    {
+      "name": "ratings",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "orderEase",
+          "title": "आपका ऑर्डर देना कितना आसान था?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "बहुत कठिन",
+          "maxRateDescription": "बहुत आसान"
+        },
+        {
+          "type": "rating",
+          "name": "deliverySpeed",
+          "title": "डिलीवरी की गति से आप कितने संतुष्ट हैं?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "बहुत धीमी",
+          "maxRateDescription": "बहुत तेज़"
+        },
+        {
+          "type": "rating",
+          "name": "foodQuality",
+          "title": "भोजन की गुणवत्ता को आप कैसे रेट करेंगे?",
+          "isRequired": true,
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "बहुत खराब",
+          "maxRateDescription": "उत्कृष्ट"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "title": "Mielenterveyskysely",
+  "description": "Lyhyt, yksityinen pohdinta tämän viikon voinnista.",
+  "locale": "fi",
+  "startSurveyText": "Aloita",
+  "pagePrevText": "Edellinen",
+  "pageNextText": "Seuraava",
+  "completeText": "Lähetä",
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Kiitos jakamisesta. Jos tarvitset tukea, ota yhteyttä ammattilaiseen.</h3>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "name": "mood",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "overallMood",
+          "title": "Miten kuvailisit tämän viikon yleistä mielialaasi?",
+          "isRequired": true,
+          "choices": [
+            "Erittäin positiivinen",
+            "Enimmäkseen positiivinen",
+            "Neutraali tai vaihteleva",
+            "Enimmäkseen negatiivinen",
+            "Erittäin negatiivinen"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "stressLevel",
+          "title": "Kuinka korkealta stressi on tuntunut viime päivinä?",
+          "isRequired": true,
+          "choices": [
+            "Erittäin matala",
+            "Hallittavissa",
+            "Huomattava mutta ok",
+            "Korkea",
+            "Ylivoimainen"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sleep",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "sleepQuality",
+          "title": "Miten arvioisit viimeaikaisen unen laatusi?",
+          "isRequired": true,
+          "choices": [
+            "Virkeää ja tasaista",
+            "Enimmäkseen ok",
+            "Epäjohdonmukaista",
+            "Huono",
+            "Erittäin huono"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "supportNetwork",
+          "title": "Kuinka tuetuksi tunnet olosi ystävien, perheen tai yhteisön taholta?",
+          "isRequired": true,
+          "choices": [
+            "Erittäin tuettu",
+            "Tuettu",
+            "Jonkin verran tuettu",
+            "Vähäinen tuki",
+            "Ei tukea"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "focusLevel",
+          "title": "Kuinka helppoa on ollut keskittyä päivittäisiin tehtäviin?",
+          "isRequired": true,
+          "choices": [
+            "Erittäin helppoa",
+            "Enimmäkseen helppoa",
+            "Hallittavissa",
+            "Vaikeaa",
+            "Erittäin vaikeaa"
+          ]
+        }
+      ]
+    }
+  ]
+}
