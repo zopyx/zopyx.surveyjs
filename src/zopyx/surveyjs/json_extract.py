@@ -12,9 +12,7 @@ class NoJSONFound(ValueError):
     """Raised when no valid JSON payload can be extracted."""
 
 
-_FENCED_BLOCK_RE = re.compile(
-    r"```(?:json)?\s*(.*?)```", re.IGNORECASE | re.DOTALL
-)
+_FENCED_BLOCK_RE = re.compile(r"```(?:json)?\s*(.*?)```", re.IGNORECASE | re.DOTALL)
 _PRE_BLOCK_RE = re.compile(r"<pre[^>]*>(.*?)</pre>", re.IGNORECASE | re.DOTALL)
 _CODE_BLOCK_RE = re.compile(r"<code[^>]*>(.*?)</code>", re.IGNORECASE | re.DOTALL)
 
@@ -108,7 +106,7 @@ def extract_json_text(source: Union[str, Path]) -> str:
 
     best = _pick_best(_find_candidates(text))
     if best is not None:
-        return text[best.start:best.end].strip()
+        return text[best.start : best.end].strip()
 
     raise NoJSONFound("No valid JSON object or array found in input.")
 

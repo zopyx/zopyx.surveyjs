@@ -55,8 +55,12 @@ def _validate_po_files(language: str, po_files: List[Path], tmp_path: Path) -> N
             raise AssertionError("Failed to compile {} to .mo: {}".format(po_file, exc))
 
 
-@pytest.mark.parametrize(("language", "po_files"), PO_LANGUAGE_CASES, ids=PO_LANGUAGE_IDS)
-def test_po_files_are_valid(language: str, po_files: List[Path], tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    ("language", "po_files"), PO_LANGUAGE_CASES, ids=PO_LANGUAGE_IDS
+)
+def test_po_files_are_valid(
+    language: str, po_files: List[Path], tmp_path: Path
+) -> None:
     _validate_po_files(language, po_files, tmp_path)
 
 
