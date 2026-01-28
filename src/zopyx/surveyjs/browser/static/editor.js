@@ -231,7 +231,124 @@ document.addEventListener("DOMContentLoaded", function () {
 
   registerRichTextPropertyEditor();
 
-  const locale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
+  const normalizeLocale = function (value) {
+    const raw = value == null ? "" : String(value);
+    return raw.trim().replace("_", "-");
+  };
+
+  const toSurveyLocale = function (value) {
+    const normalized = normalizeLocale(value);
+    const base = normalized.split("-")[0];
+    return base || "en";
+  };
+
+  const extractSurveyLocale = function (formJson) {
+    if (!formJson || typeof formJson !== "object") {
+      return "";
+    }
+    if (formJson.locale) {
+      return formJson.locale;
+    }
+    if (formJson.defaultLanguage) {
+      return formJson.defaultLanguage;
+    }
+    if (Array.isArray(formJson.languages) && formJson.languages.length > 0) {
+      return formJson.languages[0];
+    }
+    return "";
+  };
+
+  const isoToCreatorLanguage = function (isoCode) {
+    const mapping = {
+      de: "german",
+      fr: "french",
+      es: "spanish",
+      it: "italian",
+      nl: "dutch",
+      pt: "portuguese",
+      pl: "polish",
+      ru: "russian",
+      ja: "japanese",
+      zh: "simplified-chinese",
+      ko: "korean",
+      ar: "arabic",
+      bg: "bulgarian",
+      hr: "croatian",
+      cs: "czech",
+      da: "danish",
+      fi: "finnish",
+      el: "greek",
+      he: "hebrew",
+      hu: "hungarian",
+      id: "indonesian",
+      ms: "malay",
+      mn: "mongolian",
+      no: "norwegian",
+      fa: "persian",
+      ro: "romanian",
+      sk: "slovak",
+      sl: "slovenian",
+      sv: "swedish",
+      th: "thai",
+      tr: "turkish",
+      en: "english"
+    };
+    return mapping[isoCode] || null;
+  };
+
+  const getCreatorI18nUrl = function (localeValue) {
+    const languageName = isoToCreatorLanguage(localeValue);
+    if (!languageName) {
+      return null;
+    }
+    const base =
+      window.SURVEYJS_CREATOR_I18N_BASE ||
+      "https://unpkg.com/survey-creator-core/i18n";
+    return base.replace(/\/$/, "") + "/survey-creator-i18n-" + languageName + ".js";
+  };
+
+  const creatorLocaleCache = {};
+  const loadCreatorLocale = function (localeValue) {
+    const locale = toSurveyLocale(localeValue);
+    if (!locale || locale === "en") {
+      return Promise.resolve("en");
+    }
+    if (creatorLocaleCache[locale]) {
+      return creatorLocaleCache[locale];
+    }
+    if (
+      window.SurveyCreatorCore &&
+      SurveyCreatorCore.localization &&
+      SurveyCreatorCore.localization.locales &&
+      SurveyCreatorCore.localization.locales[locale]
+    ) {
+      creatorLocaleCache[locale] = Promise.resolve(locale);
+      return creatorLocaleCache[locale];
+    }
+    const i18nUrl = getCreatorI18nUrl(locale);
+    if (!i18nUrl) {
+      creatorLocaleCache[locale] = Promise.resolve("en");
+      return creatorLocaleCache[locale];
+    }
+    creatorLocaleCache[locale] = new Promise(function (resolve, reject) {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = i18nUrl;
+      script.onload = function () {
+        resolve(locale);
+      };
+      script.onerror = function () {
+        reject(new Error("Failed to load Survey Creator locale: " + locale));
+      };
+      document.head.appendChild(script);
+    }).catch(function () {
+      return "en";
+    });
+    return creatorLocaleCache[locale];
+  };
+
+  const fallbackLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
+  const initialLocale = toSurveyLocale(fallbackLocale);
   let hasUnsavedChanges = false;
   let isInitializing = true;
   let userInteracted = false;
@@ -260,10 +377,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const creator = new SurveyCreator.SurveyCreator(creatorOptions);
-  creator.locale = locale;
-  if (typeof Survey !== "undefined" && Survey.surveyLocalization) {
-    Survey.surveyLocalization.currentLocale = locale;
-  }
+  const applyCreatorLocale = function (nextLocale) {
+    const localeValue = toSurveyLocale(nextLocale || initialLocale);
+    return loadCreatorLocale(localeValue).then(function () {
+      creator.locale = localeValue;
+      if (typeof Survey !== "undefined" && Survey.surveyLocalization) {
+        Survey.surveyLocalization.currentLocale = localeValue;
+      }
+      if (creator.previewSurvey) {
+        creator.previewSurvey.locale = localeValue;
+      }
+    });
+  };
+
   const enablePreviewFullscreen = function (survey) {
     if (!survey || typeof survey !== "object") {
       return;
@@ -281,7 +407,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (creator.previewSurvey) {
     enablePreviewFullscreen(creator.previewSurvey);
   }
-  creator.render("surveyContainer");
+
+  applyCreatorLocale(initialLocale).then(function () {
+    creator.render("surveyContainer");
+  });
 
   const editorRoot = document.getElementById("surveyEditorContainer");
   const fullscreenToggle = document.getElementById("surveyFullscreenToggle");
@@ -400,11 +529,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var url = ACTUAL_URL + "/get-form-json";
 
   $.getJSON(url, function (result) {
-    creator.JSON = result;
-    window.setTimeout(function () {
-      isInitializing = false;
-      setUnsavedState(false);
-    }, 0);
+    const formLocale = extractSurveyLocale(result);
+    applyCreatorLocale(formLocale || initialLocale).then(function () {
+      creator.JSON = result;
+      window.setTimeout(function () {
+        isInitializing = false;
+        setUnsavedState(false);
+      }, 0);
+    });
   }).fail(function () {
     isInitializing = false;
   });

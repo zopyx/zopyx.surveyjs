@@ -31,6 +31,9 @@
     <script type="text/javascript"
             tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
     ></script>
+    <script type="text/javascript"
+            tal:content="string: SURVEYJS_CREATOR_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/surveyjs'"
+    ></script>
   </metal:surveyjs-vars-base>
 
   <metal:surveyjs-i18n-scripts define-macro="surveyjs-i18n-scripts">
