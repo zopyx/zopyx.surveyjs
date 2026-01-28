@@ -1,15 +1,15 @@
-#: generated
 msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2026-01-28 18:59+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Autopo v1.0.8\n"
 
 #: browser/static/js
 #: generated
@@ -45,8 +45,11 @@ msgid "BCC recipient"
 msgstr "مستلم نسخة مخفية"
 
 #: generated
-msgid "Be specific about the types of questions, response formats, and any particular fields you need."
-msgstr "كن محددًا بشأن أنواع الأسئلة وتنسيقات الاستجابة وأي حقول معينة تحتاجها."
+msgid ""
+"Be specific about the types of questions, response formats, and any "
+"particular fields you need."
+msgstr ""
+"كن محددًا بشأن أنواع الأسئلة وتنسيقات الاستجابة وأي حقول معينة تحتاجها."
 
 #: generated
 msgid "Beta"
@@ -61,12 +64,18 @@ msgid "Body for notifications"
 msgstr "نص الإشعارات"
 
 #: generated
-msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
-msgstr "نص البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
+msgid ""
+"Body text for notification-only emails. Supports {title}, {detail_url}, "
+"{poll_id}."
+msgstr ""
+"نص البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
 
 #: generated
-msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
-msgstr "نص البريد الإلكتروني لتصدير النتائج. يدعم {created} و {creator} و {formats}."
+msgid ""
+"Body text for result export emails. Supports {created}, {creator}, {formats}."
+""
+msgstr ""
+"نص البريد الإلكتروني لتصدير النتائج. يدعم {created} و {creator} و {formats}."
 
 #: generated
 msgid "CC recipient"
@@ -177,12 +186,21 @@ msgid "Error: ${error}"
 msgstr "خطأ: ${error}"
 
 #: generated
-msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
-msgstr "مثال: أضف مقاييس تقييم لكل سؤال ، قم بتضمين قسم للتعليقات في النهاية ، قم بتغيير السؤال الأول إلى قائمة منسدلة"
+msgid ""
+"Example: Add rating scales for each question, Include a comments section at "
+"the end, Change the first question to a dropdown"
+msgstr ""
+"مثال: أضف مقاييس تقييم لكل سؤال ، قم بتضمين قسم للتعليقات في النهاية ، قم "
+"بتغيير السؤال الأول إلى قائمة منسدلة"
 
 #: generated
-msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
-msgstr "مثال: قم بإنشاء استطلاع رضا العملاء مع أسئلة حول جودة المنتج وتجربة التسليم والرضا العام. قم بتضمين مقاييس التقييم وقسم التعليقات."
+msgid ""
+"Example: Create a customer satisfaction survey with questions about product "
+"quality, delivery experience, and overall satisfaction. Include rating "
+"scales and a comments section."
+msgstr ""
+"مثال: قم بإنشاء استطلاع رضا العملاء مع أسئلة حول جودة المنتج وتجربة التسليم "
+"والرضا العام. قم بتضمين مقاييس التقييم وقسم التعليقات."
 
 #: generated
 msgid "Excel (.xlsx)"
@@ -197,12 +215,15 @@ msgid "Failed to POST result: ${error}"
 msgstr "فشل إرسال النتيجة: ${error}"
 
 #: generated
-msgid "Failed to clear results. Please check the console for more information."
+msgid ""
+"Failed to clear results. Please check the console for more information."
 msgstr "فشل مسح النتائج. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
 
 #: generated
-msgid "Failed to delete selected results. Please check the console for details."
-msgstr "فشل حذف النتائج المحددة. يرجى التحقق من وحدة التحكم للحصول على التفاصيل."
+msgid ""
+"Failed to delete selected results. Please check the console for details."
+msgstr ""
+"فشل حذف النتائج المحددة. يرجى التحقق من وحدة التحكم للحصول على التفاصيل."
 
 #: generated
 msgid "Failed to delete the result. Please check the console for details."
@@ -213,7 +234,8 @@ msgid "Failed to generate form. Please try again."
 msgstr "فشل إنشاء النموذج. حاول مرة اخرى."
 
 #: generated
-msgid "Failed to load JSON data. Please check the console for more information."
+msgid ""
+"Failed to load JSON data. Please check the console for more information."
 msgstr "فشل تحميل بيانات JSON. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
 
 #: generated
@@ -233,8 +255,10 @@ msgid "Failed to refine existing form. Please try again."
 msgstr "فشل تحسين النموذج الحالي. حاول مرة اخرى."
 
 #: generated
-msgid "Failed to refine form. Your current version is preserved. Please try again."
-msgstr "فشل تحسين النموذج. تم الحفاظ على الإصدار الحالي الخاص بك. حاول مرة اخرى."
+msgid ""
+"Failed to refine form. Your current version is preserved. Please try again."
+msgstr ""
+"فشل تحسين النموذج. تم الحفاظ على الإصدار الحالي الخاص بك. حاول مرة اخرى."
 
 #: generated
 msgid "Failed to render preview: ${error}"
@@ -265,11 +289,16 @@ msgid "Form View"
 msgstr "عرض النموذج"
 
 #: generated
-msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
-msgstr "تم استيراد النموذج وحفظه كإصدار جديد. <a href=\"${url}\">عرض الإصدارات</a>."
+msgid ""
+"Form imported and saved as a new version. <a href=\"${url}\">View versions</"
+"a>."
+msgstr ""
+"تم استيراد النموذج وحفظه كإصدار جديد. <a href=\"${url}\">عرض الإصدارات</a>."
 
 #: generated
-msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
+msgid ""
+"Form saved successfully! You can now view it in the Visual Editor or "
+"Versions."
 msgstr "تم حفظ النموذج بنجاح! يمكنك الآن عرضه في المحرر المرئي أو الإصدارات."
 
 #: generated
@@ -433,8 +462,11 @@ msgid "Optional CC recipients for result exports (one address per line)."
 msgstr "مستلمو نسخة اختيارية لتصدير النتائج (عنوان واحد لكل سطر)."
 
 #: generated
-msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
-msgstr "نقطة نهاية HTTP اختيارية لتلقي التقديمات كـ JSON عند تمكين إجراء POST."
+msgid ""
+"Optional HTTP endpoint to receive submissions as JSON when the POST action "
+"is enabled."
+msgstr ""
+"نقطة نهاية HTTP اختيارية لتلقي التقديمات كـ JSON عند تمكين إجراء POST."
 
 #: generated
 msgid "PDF (.pdf)"
@@ -477,7 +509,8 @@ msgid "Preview error:"
 msgstr "خطأ في المعاينة:"
 
 #: generated
-msgid "Primary recipient for notifications and result exports (single address). "
+msgid ""
+"Primary recipient for notifications and result exports (single address). "
 msgstr "المستلم الأساسي للإشعارات وتصدير النتائج (عنوان واحد). "
 
 #: generated
@@ -545,12 +578,18 @@ msgid "Select how to handle survey submissions (multiple options possible). "
 msgstr "حدد كيفية التعامل مع تقديمات الاستطلاع (خيارات متعددة ممكنة). "
 
 #: generated
-msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgid ""
+"Sender address for outgoing mail. Mandatory when the Mail action is selected."
+""
 msgstr "عنوان المرسل للبريد الصادر. إلزامي عند تحديد إجراء البريد."
 
 #: generated
-msgid "Start over? This will clear your refinement history and return to the initial prompt."
-msgstr "البدء من جديد؟ سيؤدي هذا إلى مسح سجل التحسين الخاص بك والعودة إلى المطالبة الأولية."
+msgid ""
+"Start over? This will clear your refinement history and return to the "
+"initial prompt."
+msgstr ""
+"البدء من جديد؟ سيؤدي هذا إلى مسح سجل التحسين الخاص بك والعودة إلى المطالبة "
+"الأولية."
 
 #: generated
 msgid "Store"
@@ -561,16 +600,22 @@ msgid "Subject"
 msgstr "الموضوع"
 
 #: generated
-msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
-msgstr "موضوع رسائل البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
+msgid ""
+"Subject for notification-only emails. Supports {title}, {detail_url}, "
+"{poll_id}."
+msgstr ""
+"موضوع رسائل البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و "
+"{poll_id}."
 
 #: generated
 msgid "Subject for notifications"
 msgstr "موضوع الإشعارات"
 
 #: generated
-msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
-msgstr "موضوع رسائل البريد الإلكتروني لتصدير النتائج. يدعم {poll_id} لمعرف التقديم. "
+msgid ""
+"Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr ""
+"موضوع رسائل البريد الإلكتروني لتصدير النتائج. يدعم {poll_id} لمعرف التقديم. "
 
 #: generated
 msgid "Survey Embed Error"
@@ -585,7 +630,8 @@ msgid "Survey closed"
 msgstr "تم إغلاق الاستطلاع"
 
 #: generated
-msgid "Survey embedding is not allowed. Please contact the survey administrator."
+msgid ""
+"Survey embedding is not allowed. Please contact the survey administrator."
 msgstr "تضمين الاستطلاع غير مسموح به. يرجى الاتصال بمسؤول الاستطلاع."
 
 #: generated
@@ -609,8 +655,12 @@ msgid "SurveyJS Embed: Error requesting height"
 msgstr "تضمين SurveyJS: خطأ في طلب الارتفاع"
 
 #: generated
-msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
-msgstr "تضمين SurveyJS: لم يتم العثور على حاويات تضمين. أضف عناصر بالفئة \"${className}\""
+msgid ""
+"SurveyJS Embed: No embed containers found. Add elements with class "
+"\"${className}\""
+msgstr ""
+"تضمين SurveyJS: لم يتم العثور على حاويات تضمين. أضف عناصر بالفئة "
+"\"${className}\""
 
 #: generated
 msgid "Text (.txt)"
@@ -679,8 +729,12 @@ msgstr "XML (.xml)"
 msgid "Access mode"
 msgstr "وضع الوصول"
 
-msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
-msgstr "اختر ما إذا كان هذا النموذج متاحًا للجمهور أو يتطلب رمز وصول موثوق به في عنوان URL."
+msgid ""
+"Choose whether this form is publicly accessible or requires a trusted access "
+"token in the URL."
+msgstr ""
+"اختر ما إذا كان هذا النموذج متاحًا للجمهور أو يتطلب رمز وصول موثوق به في "
+"عنوان URL."
 
 msgid "Public"
 msgstr "عام"
@@ -704,7 +758,8 @@ msgid "Lifetime of trusted access tokens in hours."
 msgstr "عمر رموز الوصول الموثوق بها بالساعات."
 
 #: generated
-msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgid ""
+"You're saving ${version}. The latest version is not selected. Continue?"
 msgstr "أنت تحفظ الإصدار ${version}. لم يتم تحديد أحدث إصدار. متابعة؟"
 
 #: generated
@@ -780,8 +835,12 @@ msgid "Restore version"
 msgstr "استعادة الإصدار"
 
 #: generated
-msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
-msgstr "ستؤدي الاستعادة إلى إنشاء إصدار جديد باستخدام اللقطة المحددة والاحتفاظ بالإصدار الحالي في السجل."
+msgid ""
+"Restoring will create a new version using the selected snapshot and keep the "
+"current version in history."
+msgstr ""
+"ستؤدي الاستعادة إلى إنشاء إصدار جديد باستخدام اللقطة المحددة والاحتفاظ "
+"بالإصدار الحالي في السجل."
 
 #: generated
 msgid "Upload and Create Version"
@@ -932,15 +991,16 @@ msgid "Manage, view, and restore previous versions of your survey forms"
 msgstr "إدارة وعرض واستعادة الإصدارات السابقة من نماذج الاستطلاع الخاصة بك"
 
 #: generated
-msgid "Next »"
-msgstr "التالي »"
+#~ msgid "Next »"
+#~ msgstr "التالي »"
 
 #: generated
 msgid "No PDF selected yet."
 msgstr "لم يتم تحديد ملف PDF بعد."
 
 #: generated
-msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgid ""
+"No stored results yet. Once responses are saved, analytics will appear here."
 msgstr "لا توجد نتائج مخزنة حتى الآن. بمجرد حفظ الردود ، ستظهر التحليلات هنا."
 
 #: generated
@@ -952,8 +1012,12 @@ msgid "No Versions Available"
 msgstr "لا توجد إصدارات متاحة"
 
 #: generated
-msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
-msgstr "لم يتم إنشاء أي إصدارات نموذج حتى الآن. استخدم منشئ النماذج لتصميم أول استطلاع لك ، أو قم بتحميل ملف JSON موجود باستخدام النموذج أعلاه."
+msgid ""
+"No form versions have been created yet. Use the Form Creator to design your "
+"first survey, or upload an existing JSON file using the form above."
+msgstr ""
+"لم يتم إنشاء أي إصدارات نموذج حتى الآن. استخدم منشئ النماذج لتصميم أول "
+"استطلاع لك ، أو قم بتحميل ملف JSON موجود باستخدام النموذج أعلاه."
 
 #: generated
 msgid "No results found matching your search query."
@@ -1067,8 +1131,12 @@ msgid "Table"
 msgstr "جدول"
 
 #: generated
-msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
-msgstr "لا توجد استجابات استطلاع حتى الآن. بمجرد أن يقدم المستخدمون الاستطلاع ، ستظهر ردودهم هنا."
+msgid ""
+"There are no survey responses yet. Once users submit the survey, their "
+"responses will appear here."
+msgstr ""
+"لا توجد استجابات استطلاع حتى الآن. بمجرد أن يقدم المستخدمون الاستطلاع ، "
+"ستظهر ردودهم هنا."
 
 #: generated
 msgid "Delete Result"
@@ -1079,23 +1147,32 @@ msgid "Delete Selected Results"
 msgstr "حذف النتائج المحددة"
 
 #: generated
-msgid "This will permanently delete the selected result. This cannot be undone."
+msgid ""
+"This will permanently delete the selected result. This cannot be undone."
 msgstr "سيؤدي هذا إلى حذف النتيجة المحددة نهائيًا. لا يمكن التراجع عن هذا."
 
 #: generated
-msgid "This action will permanently delete all survey results. This cannot be undone."
-msgstr "سيؤدي هذا الإجراء إلى حذف جميع نتائج الاستطلاع نهائيًا. لا يمكن التراجع عن هذا."
+msgid ""
+"This action will permanently delete all survey results. This cannot be "
+"undone."
+msgstr ""
+"سيؤدي هذا الإجراء إلى حذف جميع نتائج الاستطلاع نهائيًا. لا يمكن التراجع عن "
+"هذا."
 
 #: generated
-msgid "This action permanently removes the selected version. This cannot be undone."
+msgid ""
+"This action permanently removes the selected version. This cannot be undone."
 msgstr "يزيل هذا الإجراء الإصدار المحدد نهائيًا. لا يمكن التراجع عن هذا."
 
 #: generated
-msgid "This feature is experimental. Please review the generated form carefully."
+msgid ""
+"This feature is experimental. Please review the generated form carefully."
 msgstr "هذه الميزة تجريبية. يرجى مراجعة النموذج الذي تم إنشاؤه بعناية."
 
 #: generated
-msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgid ""
+"This survey is not configured to be embedded. Please contact the survey "
+"administrator."
 msgstr "هذا الاستطلاع غير مهيأ ليتم تضمينه. يرجى الاتصال بمسؤول الاستطلاع."
 
 #: generated
@@ -1131,11 +1208,17 @@ msgid "Upload a PDF form and generate SurveyJS JSON from it"
 msgstr "قم بتحميل نموذج PDF وإنشاء SurveyJS JSON منه"
 
 #: generated
-msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
-msgstr "قم بتحميل ملف SurveyJS JSON صالح لإنشاء إصدار جديد. سيتم التحقق من صحة الملف قبل الحفظ."
+msgid ""
+"Upload a valid SurveyJS JSON file to create a new version. The file will be "
+"validated before saving."
+msgstr ""
+"قم بتحميل ملف SurveyJS JSON صالح لإنشاء إصدار جديد. سيتم التحقق من صحة الملف "
+"قبل الحفظ."
 
 #: generated
-msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgid ""
+"Use the latest saved form as the starting point instead of generating a new "
+"one."
 msgstr "استخدم أحدث نموذج محفوظ كنقطة بداية بدلاً من إنشاء نموذج جديد."
 
 #: generated
@@ -1163,8 +1246,8 @@ msgid "clear"
 msgstr "مسح"
 
 #: generated
-msgid "« Previous"
-msgstr "« السابق"
+#~ msgid "« Previous"
+#~ msgstr "« السابق"
 
 #: generated
 msgid "Failed to save survey results. Please try again."
@@ -1211,8 +1294,11 @@ msgid "Store converted form as new version"
 msgstr "تخزين النموذج المحول كإصدار جديد"
 
 #: generated
-msgid "Conversion complete. Review the preview and click “Store converted form as new version”."
-msgstr "اكتمل التحويل. راجع المعاينة وانقر على “تخزين النموذج المحول كإصدار جديد”."
+#~ msgid ""
+#~ "Conversion complete. Review the preview and click “Store converted form as "
+#~ "new version”."
+#~ msgstr ""
+#~ "اكتمل التحويل. راجع المعاينة وانقر على “تخزين النموذج المحول كإصدار جديد”."
 
 #: generated
 msgid "No converted form available to store."
@@ -1250,8 +1336,12 @@ msgstr "نظرة عامة على الاستطلاعات في هذا القسم �
 msgid "No surveys found below this location."
 msgstr "لم يتم العثور على استطلاعات أسفل هذا الموقع."
 
-msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
-msgstr "أصول Tabulator مفقودة. يرجى تثبيت tabulator.min.js و tabulator.min.css في ++ resource ++ zopyx.surveyjs / vendor /."
+msgid ""
+"Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
+"css in ++resource++zopyx.surveyjs/vendor/."
+msgstr ""
+"أصول Tabulator مفقودة. يرجى تثبيت tabulator.min.js و tabulator.min.css في ++ "
+"resource ++ zopyx.surveyjs / vendor /."
 
 #: generated
 msgid "Title"
@@ -1328,17 +1418,160 @@ msgstr "الخروج من وضع ملء الشاشة"
 msgid "AI provider missing:"
 msgstr "مزود الذكاء الاصطناعي مفقود:"
 
-msgid "AI form generation is not available because no AI provider is configured."
-msgstr "إنشاء نماذج الذكاء الاصطناعي غير متاح لأنه لم يتم تكوين أي مزود للذكاء الاصطناعي."
+msgid ""
+"AI form generation is not available because no AI provider is configured."
+msgstr ""
+"إنشاء نماذج الذكاء الاصطناعي غير متاح لأنه لم يتم تكوين أي مزود للذكاء "
+"الاصطناعي."
 
 msgid "External AI provider:"
 msgstr "مزود الذكاء الاصطناعي الخارجي:"
 
-msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
-msgstr "تم تكوين مزود ذكاء اصطناعي عن بعد وسيتم استخدامه. قد يغادر ملف PDF الخاص بك شبكتك."
+msgid ""
+"A remote AI provider is configured and will be used. Your PDF may leave your "
+"network."
+msgstr ""
+"تم تكوين مزود ذكاء اصطناعي عن بعد وسيتم استخدامه. قد يغادر ملف PDF الخاص بك "
+"شبكتك."
 
 msgid "Local AI provider:"
 msgstr "مزود الذكاء الاصطناعي المحلي:"
 
 msgid "A local AI provider is configured. Your PDF stays within your network."
 msgstr "تم تكوين مزود ذكاء اصطناعي محلي. يبقى ملف PDF الخاص بك داخل شبكتك."
+
+#: generated
+msgid "Next "
+msgstr "التالي"
+
+#: generated
+msgid " Previous"
+msgstr "السابق"
+
+#: generated
+msgid ""
+"Conversion complete. Review the preview and click Store converted form as "
+"new version."
+msgstr ""
+"اكتمل التحويل راجع المعاينة ثم انقر على تخزين النموذج المحول كإصدار جديد"
+
+#: generated
+msgid "Form validation using pdfcpu"
+msgstr "التحقق من النماذج باستخدام pdfcpu"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr "عند التفعيل يتم استخدام pdfcpu للتحقق من صحة حقول النماذج وتحسينها"
+
+#: generated
+msgid ""
+"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
+"versions</a>."
+msgstr ""
+"تم استيراد النموذج وحفظه كإصدار جديد <a href=\"${url}\">عرض الإصدارات</a>"
+
+#: generated
+msgid ""
+"SurveyJS Embed: No embed containers found. Add elements with class "
+"\\\"${className}\\\""
+msgstr ""
+"SurveyJS تضمين لم يتم العثور على حاويات تضمين أضف عناصر ذات الفئة "
+"${className}"
+
+msgid "Trusted access required"
+msgstr "يتطلب وصول موثوق"
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "اطلب من مالك النموذج رابط وصول موثوق"
+
+msgid "Open the link in this browser to continue."
+msgstr "افتح الرابط في هذا المتصفح للمتابعة"
+
+msgid "Trusted access link"
+msgstr "رابط وصول موثوق"
+
+msgid "Share this link to open the form."
+msgstr "شارك هذا الرابط لفتح النموذج"
+
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+#: generated
+msgid "View Form"
+msgstr "عرض النموذج"
+
+#: generated
+msgid "Preview the live survey experience."
+msgstr "معاينة تجربة الاستبيان المباشر"
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "قم ببناء نموذج الاستبيان وصقله"
+
+#: generated
+msgid "PDF generator"
+msgstr "مولد PDF"
+
+#: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "إنشاء نسخة PDF من نموذج الاستبيان الحالي"
+
+#: generated
+msgid "PDF export"
+msgstr "تصدير PDF"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "تصدير نموذج SurveyJS الحالي كملف PDF قابل للتنزيل"
+
+#: generated
+msgid "Survey data dashboard"
+msgstr "لوحة بيانات الاستبيان"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "استكشف الردود باستخدام المخططات والرؤى الملخصة"
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "نموذج PDF قابل للتعبئة"
+
+#: generated
+msgid ""
+"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
+"submissions."
+msgstr ""
+"قم بتحميل ملف PDF قابل للتعبئة لإنشاء نموذج SurveyJS وتمكين عمليات الإرسال "
+"المعتمدة على PDF"
+
+#: generated
+msgid "Password required"
+msgstr "كلمة المرور مطلوبة"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr "الوصول إلى هذا الاستبيان مقيد أدخل كلمة المرور للمتابعة"
+
+#: generated
+msgid "PDF Form"
+msgstr "نموذج PDF"
+
+#: generated
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: generated
+msgid "PDF Generator"
+msgstr "مولد PDF"
+
+#: generated
+msgid "Form from PDF"
+msgstr "نموذج من PDF"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "نماذج PDF قابلة للتعبئة"
+
+#: generated
+msgid "Download PDF"
+msgstr "تحميل PDF"

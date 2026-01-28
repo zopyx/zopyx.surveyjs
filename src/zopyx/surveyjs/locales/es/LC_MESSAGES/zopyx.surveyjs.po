@@ -1,15 +1,15 @@
-#: generated
 msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2026-01-28 19:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Autopo v1.0.8\n"
 
 #: browser/static/js
 #: generated
@@ -45,8 +45,12 @@ msgid "BCC recipient"
 msgstr "Destinatario CCO"
 
 #: generated
-msgid "Be specific about the types of questions, response formats, and any particular fields you need."
-msgstr "Sea específico sobre los tipos de preguntas, los formatos de respuesta y cualquier campo particular que necesite."
+msgid ""
+"Be specific about the types of questions, response formats, and any "
+"particular fields you need."
+msgstr ""
+"Sea específico sobre los tipos de preguntas, los formatos de respuesta y "
+"cualquier campo particular que necesite."
 
 #: generated
 msgid "Beta"
@@ -61,12 +65,20 @@ msgid "Body for notifications"
 msgstr "Cuerpo para notificaciones"
 
 #: generated
-msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
-msgstr "Texto del cuerpo para correos electrónicos de solo notificación. Admite {title}, {detail_url}, {poll_id}."
+msgid ""
+"Body text for notification-only emails. Supports {title}, {detail_url}, "
+"{poll_id}."
+msgstr ""
+"Texto del cuerpo para correos electrónicos de solo notificación. Admite "
+"{title}, {detail_url}, {poll_id}."
 
 #: generated
-msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
-msgstr "Texto del cuerpo para correos electrónicos de exportación de resultados. Admite {created}, {creator}, {formats}."
+msgid ""
+"Body text for result export emails. Supports {created}, {creator}, {formats}."
+""
+msgstr ""
+"Texto del cuerpo para correos electrónicos de exportación de resultados. "
+"Admite {created}, {creator}, {formats}."
 
 #: generated
 msgid "CC recipient"
@@ -177,12 +189,23 @@ msgid "Error: ${error}"
 msgstr "Error: ${error}"
 
 #: generated
-msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
-msgstr "Ejemplo: Agregue escalas de calificación para cada pregunta, incluya una sección de comentarios al final, cambie la primera pregunta a un menú desplegable"
+msgid ""
+"Example: Add rating scales for each question, Include a comments section at "
+"the end, Change the first question to a dropdown"
+msgstr ""
+"Ejemplo: Agregue escalas de calificación para cada pregunta, incluya una "
+"sección de comentarios al final, cambie la primera pregunta a un menú "
+"desplegable"
 
 #: generated
-msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
-msgstr "Ejemplo: Cree una encuesta de satisfacción del cliente con preguntas sobre la calidad del producto, la experiencia de entrega y la satisfacción general. Incluya escalas de calificación y una sección de comentarios."
+msgid ""
+"Example: Create a customer satisfaction survey with questions about product "
+"quality, delivery experience, and overall satisfaction. Include rating "
+"scales and a comments section."
+msgstr ""
+"Ejemplo: Cree una encuesta de satisfacción del cliente con preguntas sobre "
+"la calidad del producto, la experiencia de entrega y la satisfacción general."
+" Incluya escalas de calificación y una sección de comentarios."
 
 #: generated
 msgid "Excel (.xlsx)"
@@ -197,28 +220,41 @@ msgid "Failed to POST result: ${error}"
 msgstr "Error al enviar el resultado: ${error}"
 
 #: generated
-msgid "Failed to clear results. Please check the console for more information."
-msgstr "No se pudieron borrar los resultados. Por favor, consulte la consola para más información."
+msgid ""
+"Failed to clear results. Please check the console for more information."
+msgstr ""
+"No se pudieron borrar los resultados. Por favor, consulte la consola para "
+"más información."
 
 #: generated
-msgid "Failed to delete selected results. Please check the console for details."
-msgstr "No se pudieron eliminar los resultados seleccionados. Por favor, consulte la consola para más detalles."
+msgid ""
+"Failed to delete selected results. Please check the console for details."
+msgstr ""
+"No se pudieron eliminar los resultados seleccionados. Por favor, consulte la "
+"consola para más detalles."
 
 #: generated
 msgid "Failed to delete the result. Please check the console for details."
-msgstr "No se pudo eliminar el resultado. Por favor, consulte la consola para más detalles."
+msgstr ""
+"No se pudo eliminar el resultado. Por favor, consulte la consola para más "
+"detalles."
 
 #: generated
 msgid "Failed to generate form. Please try again."
 msgstr "No se pudo generar el formulario. Por favor, inténtelo de nuevo."
 
 #: generated
-msgid "Failed to load JSON data. Please check the console for more information."
-msgstr "No se pudieron cargar los datos JSON. Por favor, consulte la consola para más información."
+msgid ""
+"Failed to load JSON data. Please check the console for more information."
+msgstr ""
+"No se pudieron cargar los datos JSON. Por favor, consulte la consola para "
+"más información."
 
 #: generated
 msgid "Failed to load details. Please check the console for more information."
-msgstr "No se pudieron cargar los detalles. Por favor, consulte la consola para más información."
+msgstr ""
+"No se pudieron cargar los detalles. Por favor, consulte la consola para más "
+"información."
 
 #: generated
 msgid "Failed to load survey"
@@ -226,15 +262,21 @@ msgstr "Error al cargar la encuesta"
 
 #: generated
 msgid "Failed to load survey. Please check the URL and try again."
-msgstr "No se pudo cargar la encuesta. Por favor, verifique la URL e inténtelo de nuevo."
+msgstr ""
+"No se pudo cargar la encuesta. Por favor, verifique la URL e inténtelo de "
+"nuevo."
 
 #: generated
 msgid "Failed to refine existing form. Please try again."
-msgstr "No se pudo refinar el formulario existente. Por favor, inténtelo de nuevo."
+msgstr ""
+"No se pudo refinar el formulario existente. Por favor, inténtelo de nuevo."
 
 #: generated
-msgid "Failed to refine form. Your current version is preserved. Please try again."
-msgstr "No se pudo refinar el formulario. Se conserva su versión actual. Por favor, inténtelo de nuevo."
+msgid ""
+"Failed to refine form. Your current version is preserved. Please try again."
+msgstr ""
+"No se pudo refinar el formulario. Se conserva su versión actual. Por favor, "
+"inténtelo de nuevo."
 
 #: generated
 msgid "Failed to render preview: ${error}"
@@ -265,12 +307,20 @@ msgid "Form View"
 msgstr "Vista de formulario"
 
 #: generated
-msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
-msgstr "Formulario importado y guardado como una nueva versión. <a href=\"${url}\">Ver versiones</a>."
+msgid ""
+"Form imported and saved as a new version. <a href=\"${url}\">View versions</"
+"a>."
+msgstr ""
+"Formulario importado y guardado como una nueva versión. <a href="
+"\"${url}\">Ver versiones</a>."
 
 #: generated
-msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
-msgstr "¡Formulario guardado con éxito! Ahora puede verlo en el Editor Visual o en Versiones."
+msgid ""
+"Form saved successfully! You can now view it in the Visual Editor or "
+"Versions."
+msgstr ""
+"¡Formulario guardado con éxito! Ahora puede verlo en el Editor Visual o en "
+"Versiones."
 
 #: generated
 msgid "Form/Survey"
@@ -366,7 +416,8 @@ msgstr "Correo enviado"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
-msgstr "La configuración del correo está incompleta (se requiere Mail-To y Asunto)"
+msgstr ""
+"La configuración del correo está incompleta (se requiere Mail-To y Asunto)"
 
 #: generated
 msgid "Manager only"
@@ -386,7 +437,9 @@ msgstr "Tamaño máximo de carga útil permitido para envíos en megabytes."
 
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
-msgstr "Falta el atributo data-survey-url. Por favor, especifique la URL de la encuesta."
+msgstr ""
+"Falta el atributo data-survey-url. Por favor, especifique la URL de la "
+"encuesta."
 
 #: generated
 msgid "No POST endpoint configured for this survey"
@@ -426,15 +479,23 @@ msgstr "No guardado"
 
 #: generated
 msgid "Optional BCC recipients for result exports (one address per line)."
-msgstr "Destinatarios CCO opcionales para exportaciones de resultados (una dirección por línea)."
+msgstr ""
+"Destinatarios CCO opcionales para exportaciones de resultados (una dirección "
+"por línea)."
 
 #: generated
 msgid "Optional CC recipients for result exports (one address per line)."
-msgstr "Destinatarios CC opcionales para exportaciones de resultados (una dirección por línea)."
+msgstr ""
+"Destinatarios CC opcionales para exportaciones de resultados (una dirección "
+"por línea)."
 
 #: generated
-msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
-msgstr "Punto final HTTP opcional para recibir envíos como JSON cuando la acción POST está habilitada."
+msgid ""
+"Optional HTTP endpoint to receive submissions as JSON when the POST action "
+"is enabled."
+msgstr ""
+"Punto final HTTP opcional para recibir envíos como JSON cuando la acción "
+"POST está habilitada."
 
 #: generated
 msgid "PDF (.pdf)"
@@ -477,8 +538,11 @@ msgid "Preview error:"
 msgstr "Error de vista previa:"
 
 #: generated
-msgid "Primary recipient for notifications and result exports (single address). "
-msgstr "Destinatario principal para notificaciones y exportaciones de resultados (dirección única). "
+msgid ""
+"Primary recipient for notifications and result exports (single address). "
+msgstr ""
+"Destinatario principal para notificaciones y exportaciones de resultados "
+"(dirección única). "
 
 #: generated
 msgid "Privacy Forms Studio"
@@ -526,7 +590,8 @@ msgstr "Fila"
 
 #: generated
 msgid "Run the external SurveyJS validator binary for every save/submit."
-msgstr "Ejecute el binario validador externo de SurveyJS para cada guardado/envío."
+msgstr ""
+"Ejecute el binario validador externo de SurveyJS para cada guardado/envío."
 
 #: generated
 msgid "Save failed"
@@ -538,19 +603,31 @@ msgstr "Guardando"
 
 #: generated
 msgid "Select export formats to attach when the Mail action sends results."
-msgstr "Seleccione los formatos de exportación para adjuntar cuando la acción Correo envíe los resultados."
+msgstr ""
+"Seleccione los formatos de exportación para adjuntar cuando la acción Correo "
+"envíe los resultados."
 
 #: generated
 msgid "Select how to handle survey submissions (multiple options possible). "
-msgstr "Seleccione cómo manejar los envíos de encuestas (múltiples opciones posibles). "
+msgstr ""
+"Seleccione cómo manejar los envíos de encuestas (múltiples opciones "
+"posibles). "
 
 #: generated
-msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
-msgstr "Dirección del remitente para el correo saliente. Obligatorio cuando se selecciona la acción Correo."
+msgid ""
+"Sender address for outgoing mail. Mandatory when the Mail action is selected."
+""
+msgstr ""
+"Dirección del remitente para el correo saliente. Obligatorio cuando se "
+"selecciona la acción Correo."
 
 #: generated
-msgid "Start over? This will clear your refinement history and return to the initial prompt."
-msgstr "¿Empezar de nuevo? Esto borrará su historial de refinamiento y volverá al aviso inicial."
+msgid ""
+"Start over? This will clear your refinement history and return to the "
+"initial prompt."
+msgstr ""
+"¿Empezar de nuevo? Esto borrará su historial de refinamiento y volverá al "
+"aviso inicial."
 
 #: generated
 msgid "Store"
@@ -561,16 +638,23 @@ msgid "Subject"
 msgstr "Asunto"
 
 #: generated
-msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
-msgstr "Asunto para correos electrónicos de solo notificación. Admite {title}, {detail_url}, {poll_id}."
+msgid ""
+"Subject for notification-only emails. Supports {title}, {detail_url}, "
+"{poll_id}."
+msgstr ""
+"Asunto para correos electrónicos de solo notificación. Admite {title}, "
+"{detail_url}, {poll_id}."
 
 #: generated
 msgid "Subject for notifications"
 msgstr "Asunto para notificaciones"
 
 #: generated
-msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
-msgstr "Asunto para correos electrónicos de exportación de resultados. Admite {poll_id} para el ID de envío. "
+msgid ""
+"Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr ""
+"Asunto para correos electrónicos de exportación de resultados. Admite "
+"{poll_id} para el ID de envío. "
 
 #: generated
 msgid "Survey Embed Error"
@@ -585,8 +669,11 @@ msgid "Survey closed"
 msgstr "Encuesta cerrada"
 
 #: generated
-msgid "Survey embedding is not allowed. Please contact the survey administrator."
-msgstr "No se permite la inserción de encuestas. Por favor, póngase en contacto con el administrador de la encuesta."
+msgid ""
+"Survey embedding is not allowed. Please contact the survey administrator."
+msgstr ""
+"No se permite la inserción de encuestas. Por favor, póngase en contacto con "
+"el administrador de la encuesta."
 
 #: generated
 msgid "Survey library not loaded"
@@ -609,8 +696,12 @@ msgid "SurveyJS Embed: Error requesting height"
 msgstr "SurveyJS Embed: Error al solicitar la altura"
 
 #: generated
-msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
-msgstr "SurveyJS Embed: No se encontraron contenedores de inserción. Agregue elementos con la clase \"${className}\""
+msgid ""
+"SurveyJS Embed: No embed containers found. Add elements with class "
+"\"${className}\""
+msgstr ""
+"SurveyJS Embed: No se encontraron contenedores de inserción. Agregue "
+"elementos con la clase \"${className}\""
 
 #: generated
 msgid "Text (.txt)"
@@ -679,8 +770,12 @@ msgstr "XML (.xml)"
 msgid "Access mode"
 msgstr "Modo de acceso"
 
-msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
-msgstr "Elija si este formulario es de acceso público o requiere un token de acceso de confianza en la URL."
+msgid ""
+"Choose whether this form is publicly accessible or requires a trusted access "
+"token in the URL."
+msgstr ""
+"Elija si este formulario es de acceso público o requiere un token de acceso "
+"de confianza en la URL."
 
 msgid "Public"
 msgstr "Público"
@@ -704,8 +799,11 @@ msgid "Lifetime of trusted access tokens in hours."
 msgstr "Vida útil de los tokens de acceso de confianza en horas."
 
 #: generated
-msgid "You're saving ${version}. The latest version is not selected. Continue?"
-msgstr "Está guardando la versión ${version}. No está seleccionada la última versión. ¿Continuar?"
+msgid ""
+"You're saving ${version}. The latest version is not selected. Continue?"
+msgstr ""
+"Está guardando la versión ${version}. No está seleccionada la última versión."
+" ¿Continuar?"
 
 #: generated
 msgid "version ${current} of ${total}"
@@ -780,8 +878,12 @@ msgid "Restore version"
 msgstr "Restaurar versión"
 
 #: generated
-msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
-msgstr "La restauración creará una nueva versión utilizando la instantánea seleccionada y mantendrá la versión actual en el historial."
+msgid ""
+"Restoring will create a new version using the selected snapshot and keep the "
+"current version in history."
+msgstr ""
+"La restauración creará una nueva versión utilizando la instantánea "
+"seleccionada y mantendrá la versión actual en el historial."
 
 #: generated
 msgid "Upload and Create Version"
@@ -801,7 +903,8 @@ msgstr "Esto es una ayuda para empezar, no un formulario terminado."
 
 #: generated
 msgid "Use clear, specific prompts for best results."
-msgstr "Use indicaciones claras y específicas para obtener los mejores resultados."
+msgstr ""
+"Use indicaciones claras y específicas para obtener los mejores resultados."
 
 #: generated
 msgid "Always review and adjust the generated form before use."
@@ -829,7 +932,8 @@ msgstr "Volver a los resultados"
 
 #: generated
 msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr "Elija un PDF que contenga el diseño del formulario que desea convertir."
+msgstr ""
+"Elija un PDF que contenga el diseño del formulario que desea convertir."
 
 #: generated
 msgid "Clear All Results"
@@ -869,7 +973,9 @@ msgstr "Eliminar seleccionados"
 
 #: generated
 msgid "Describe your survey in natural language and let AI generate the form"
-msgstr "Describa su encuesta en lenguaje natural y deje que la IA genere el formulario"
+msgstr ""
+"Describa su encuesta en lenguaje natural y deje que la IA genere el "
+"formulario"
 
 #: generated
 msgid "Details"
@@ -897,7 +1003,9 @@ msgstr "Inserción no permitida"
 
 #: generated
 msgid "Enable it in the survey settings to collect and view responses here."
-msgstr "Habilítelo en la configuración de la encuesta para recopilar y ver las respuestas aquí."
+msgstr ""
+"Habilítelo en la configuración de la encuesta para recopilar y ver las "
+"respuestas aquí."
 
 #: generated
 msgid "Form JSON"
@@ -929,19 +1037,24 @@ msgstr "Enviar resultado por correo"
 
 #: generated
 msgid "Manage, view, and restore previous versions of your survey forms"
-msgstr "Administre, vea y restaure versiones anteriores de sus formularios de encuesta"
+msgstr ""
+"Administre, vea y restaure versiones anteriores de sus formularios de "
+"encuesta"
 
 #: generated
-msgid "Next »"
-msgstr "Siguiente »"
+#~ msgid "Next »"
+#~ msgstr "Siguiente »"
 
 #: generated
 msgid "No PDF selected yet."
 msgstr "Aún no se ha seleccionado ningún PDF."
 
 #: generated
-msgid "No stored results yet. Once responses are saved, analytics will appear here."
-msgstr "Aún no hay resultados almacenados. Una vez que se guarden las respuestas, los análisis aparecerán aquí."
+msgid ""
+"No stored results yet. Once responses are saved, analytics will appear here."
+msgstr ""
+"Aún no hay resultados almacenados. Una vez que se guarden las respuestas, "
+"los análisis aparecerán aquí."
 
 #: generated
 msgid "No Survey Results Yet"
@@ -952,12 +1065,18 @@ msgid "No Versions Available"
 msgstr "No hay versiones disponibles"
 
 #: generated
-msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
-msgstr "Aún no se han creado versiones del formulario. Use el Creador de formularios para diseñar su primera encuesta o cargue un archivo JSON existente usando el formulario de arriba."
+msgid ""
+"No form versions have been created yet. Use the Form Creator to design your "
+"first survey, or upload an existing JSON file using the form above."
+msgstr ""
+"Aún no se han creado versiones del formulario. Use el Creador de formularios "
+"para diseñar su primera encuesta o cargue un archivo JSON existente usando "
+"el formulario de arriba."
 
 #: generated
 msgid "No results found matching your search query."
-msgstr "No se encontraron resultados que coincidan con su consulta de búsqueda."
+msgstr ""
+"No se encontraron resultados que coincidan con su consulta de búsqueda."
 
 #: generated
 msgid "PDF Form Importer"
@@ -997,7 +1116,9 @@ msgstr "Historial de refinamiento"
 
 #: generated
 msgid "Results are not being saved because the \"Store\" action is turned off."
-msgstr "Los resultados no se están guardando porque la acción \"Almacenar\" está desactivada."
+msgstr ""
+"Los resultados no se están guardando porque la acción \"Almacenar\" está "
+"desactivada."
 
 #: generated
 msgid "Save Form"
@@ -1067,8 +1188,12 @@ msgid "Table"
 msgstr "Tabla"
 
 #: generated
-msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
-msgstr "Aún no hay respuestas a la encuesta. Una vez que los usuarios envíen la encuesta, sus respuestas aparecerán aquí."
+msgid ""
+"There are no survey responses yet. Once users submit the survey, their "
+"responses will appear here."
+msgstr ""
+"Aún no hay respuestas a la encuesta. Una vez que los usuarios envíen la "
+"encuesta, sus respuestas aparecerán aquí."
 
 #: generated
 msgid "Delete Result"
@@ -1079,24 +1204,41 @@ msgid "Delete Selected Results"
 msgstr "Eliminar resultados seleccionados"
 
 #: generated
-msgid "This will permanently delete the selected result. This cannot be undone."
-msgstr "Esto eliminará permanentemente el resultado seleccionado. Esto no se puede deshacer."
+msgid ""
+"This will permanently delete the selected result. This cannot be undone."
+msgstr ""
+"Esto eliminará permanentemente el resultado seleccionado. Esto no se puede "
+"deshacer."
 
 #: generated
-msgid "This action will permanently delete all survey results. This cannot be undone."
-msgstr "Esta acción eliminará permanentemente todos los resultados de la encuesta. Esto no se puede deshacer."
+msgid ""
+"This action will permanently delete all survey results. This cannot be "
+"undone."
+msgstr ""
+"Esta acción eliminará permanentemente todos los resultados de la encuesta. "
+"Esto no se puede deshacer."
 
 #: generated
-msgid "This action permanently removes the selected version. This cannot be undone."
-msgstr "Esta acción elimina permanentemente la versión seleccionada. Esto no se puede deshacer."
+msgid ""
+"This action permanently removes the selected version. This cannot be undone."
+msgstr ""
+"Esta acción elimina permanentemente la versión seleccionada. Esto no se "
+"puede deshacer."
 
 #: generated
-msgid "This feature is experimental. Please review the generated form carefully."
-msgstr "Esta función es experimental. Por favor, revise el formulario generado cuidadosamente."
+msgid ""
+"This feature is experimental. Please review the generated form carefully."
+msgstr ""
+"Esta función es experimental. Por favor, revise el formulario generado "
+"cuidadosamente."
 
 #: generated
-msgid "This survey is not configured to be embedded. Please contact the survey administrator."
-msgstr "Esta encuesta no está configurada para ser insertada. Por favor, póngase en contacto con el administrador de la encuesta."
+msgid ""
+"This survey is not configured to be embedded. Please contact the survey "
+"administrator."
+msgstr ""
+"Esta encuesta no está configurada para ser insertada. Por favor, póngase en "
+"contacto con el administrador de la encuesta."
 
 #: generated
 msgid "To confirm, please type clear in the field below:"
@@ -1131,12 +1273,20 @@ msgid "Upload a PDF form and generate SurveyJS JSON from it"
 msgstr "Cargue un formulario PDF y genere JSON de SurveyJS a partir de él"
 
 #: generated
-msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
-msgstr "Cargue un archivo JSON de SurveyJS válido para crear una nueva versión. El archivo se validará antes de guardarlo."
+msgid ""
+"Upload a valid SurveyJS JSON file to create a new version. The file will be "
+"validated before saving."
+msgstr ""
+"Cargue un archivo JSON de SurveyJS válido para crear una nueva versión. El "
+"archivo se validará antes de guardarlo."
 
 #: generated
-msgid "Use the latest saved form as the starting point instead of generating a new one."
-msgstr "Use el último formulario guardado como punto de partida en lugar de generar uno nuevo."
+msgid ""
+"Use the latest saved form as the starting point instead of generating a new "
+"one."
+msgstr ""
+"Use el último formulario guardado como punto de partida en lugar de generar "
+"uno nuevo."
 
 #: generated
 msgid "User"
@@ -1163,16 +1313,19 @@ msgid "clear"
 msgstr "borrar"
 
 #: generated
-msgid "« Previous"
-msgstr "« Anterior"
+#~ msgid "« Previous"
+#~ msgstr "« Anterior"
 
 #: generated
 msgid "Failed to save survey results. Please try again."
-msgstr "No se pudieron guardar los resultados de la encuesta. Por favor, inténtelo de nuevo."
+msgstr ""
+"No se pudieron guardar los resultados de la encuesta. Por favor, inténtelo "
+"de nuevo."
 
 #: generated
 msgid "Unable to load survey. Please try refreshing the page."
-msgstr "No se puede cargar la encuesta. Por favor, intente actualizar la página."
+msgstr ""
+"No se puede cargar la encuesta. Por favor, intente actualizar la página."
 
 #: generated
 msgid "Lock"
@@ -1211,8 +1364,12 @@ msgid "Store converted form as new version"
 msgstr "Almacenar formulario convertido como nueva versión"
 
 #: generated
-msgid "Conversion complete. Review the preview and click “Store converted form as new version”."
-msgstr "Conversión completa. Revise la vista previa y haga clic en “Almacenar formulario convertido como nueva versión”."
+#~ msgid ""
+#~ "Conversion complete. Review the preview and click “Store converted form as "
+#~ "new version”."
+#~ msgstr ""
+#~ "Conversión completa. Revise la vista previa y haga clic en “Almacenar "
+#~ "formulario convertido como nueva versión”."
 
 #: generated
 msgid "No converted form available to store."
@@ -1250,8 +1407,12 @@ msgstr "Resumen de las encuestas en esta sección y su estado de envío."
 msgid "No surveys found below this location."
 msgstr "No se encontraron encuestas debajo de esta ubicación."
 
-msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
-msgstr "Faltan los activos de Tabulator. Por favor, instale tabulator.min.js and tabulator.min.css en ++resource++zopyx.surveyjs/vendor/."
+msgid ""
+"Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
+"css in ++resource++zopyx.surveyjs/vendor/."
+msgstr ""
+"Faltan los activos de Tabulator. Por favor, instale tabulator.min.js and "
+"tabulator.min.css en ++resource++zopyx.surveyjs/vendor/."
 
 #: generated
 msgid "Title"
@@ -1328,17 +1489,167 @@ msgstr "Salir de pantalla completa"
 msgid "AI provider missing:"
 msgstr "Falta el proveedor de IA:"
 
-msgid "AI form generation is not available because no AI provider is configured."
-msgstr "La generación de formularios de IA no está disponible porque no hay ningún proveedor de IA configurado."
+msgid ""
+"AI form generation is not available because no AI provider is configured."
+msgstr ""
+"La generación de formularios de IA no está disponible porque no hay ningún "
+"proveedor de IA configurado."
 
 msgid "External AI provider:"
 msgstr "Proveedor de IA externo:"
 
-msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
-msgstr "Hay un proveedor de IA remoto configurado y se utilizará. Su PDF puede salir de su red."
+msgid ""
+"A remote AI provider is configured and will be used. Your PDF may leave your "
+"network."
+msgstr ""
+"Hay un proveedor de IA remoto configurado y se utilizará. Su PDF puede salir "
+"de su red."
 
 msgid "Local AI provider:"
 msgstr "Proveedor de IA local:"
 
 msgid "A local AI provider is configured. Your PDF stays within your network."
-msgstr "Hay un proveedor de IA local configurado. Su PDF permanece dentro de su red."
+msgstr ""
+"Hay un proveedor de IA local configurado. Su PDF permanece dentro de su red."
+
+#: generated
+msgid "Next "
+msgstr "Siguiente"
+
+#: generated
+msgid " Previous"
+msgstr "Anterior"
+
+#: generated
+msgid ""
+"Conversion complete. Review the preview and click Store converted form as "
+"new version."
+msgstr ""
+"Conversión completa Revisa la vista previa y haz clic en Guardar formulario "
+"convertido como nueva versión"
+
+#: generated
+msgid "Form validation using pdfcpu"
+msgstr "Validación de formularios usando pdfcpu"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr ""
+"Cuando está habilitado, se utiliza pdfcpu para validar y enriquecer los "
+"campos de formulario"
+
+#: generated
+msgid ""
+"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
+"versions</a>."
+msgstr ""
+"Formulario importado y guardado como una nueva versión <a href="
+"\"${url}\">Ver versiones</a>"
+
+#: generated
+msgid ""
+"SurveyJS Embed: No embed containers found. Add elements with class "
+"\\\"${className}\\\""
+msgstr ""
+"SurveyJS Embed: No se encontraron contenedores de incrustación Añade "
+"elementos con la clase ${className}"
+
+msgid "Trusted access required"
+msgstr "Es necesario acceso confiable"
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "Pide al propietario del formulario un enlace de acceso de confianza"
+
+msgid "Open the link in this browser to continue."
+msgstr "Abre el enlace en este navegador para continuar"
+
+msgid "Trusted access link"
+msgstr "Enlace de acceso confiable"
+
+msgid "Share this link to open the form."
+msgstr "Comparte este enlace para abrir el formulario"
+
+msgid "Copy link"
+msgstr "Copiar enlace"
+
+#: generated
+msgid "View Form"
+msgstr "Ver formulario"
+
+#: generated
+msgid "Preview the live survey experience."
+msgstr "Vista previa de la experiencia de la encuesta en vivo"
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "Crear y perfeccionar el formulario de encuesta"
+
+#: generated
+msgid "PDF generator"
+msgstr "Generador de PDF"
+
+#: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "Generar una versión en PDF del formulario de encuesta actual"
+
+#: generated
+msgid "PDF export"
+msgstr "Exportar PDF"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "Exportar el formulario actual de SurveyJS como un PDF descargable"
+
+#: generated
+msgid "Survey data dashboard"
+msgstr "Panel de datos de encuestas"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "Explora respuestas con gráficos y perspectivas resumidas"
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "Formulario PDF editable"
+
+#: generated
+msgid ""
+"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
+"submissions."
+msgstr ""
+"Carga un PDF rellenable para generar un formulario SurveyJS y habilitar "
+"envíos basados en PDF"
+
+#: generated
+msgid "Password required"
+msgstr "Contraseña requerida"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr ""
+"El acceso a esta encuesta está restringido Ingresa la contraseña para "
+"continuar"
+
+#: generated
+msgid "PDF Form"
+msgstr "Formulario PDF"
+
+#: generated
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: generated
+msgid "PDF Generator"
+msgstr "Generador de PDF"
+
+#: generated
+msgid "Form from PDF"
+msgstr "Formulario desde PDF"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "Formularios PDF rellenables"
+
+#: generated
+msgid "Download PDF"
+msgstr "Descargar PDF"

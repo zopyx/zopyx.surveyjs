@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-28 15:54+0100\n"
+"PO-Revision-Date: 2026-01-28 19:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -750,3 +750,846 @@ msgstr "Tallennat ${version} Uusin versio ei ole valittuna Jatketaanko"
 #: generated
 msgid "version ${current} of ${total}"
 msgstr "versio ${current} / ${total}"
+
+msgid "Access mode"
+msgstr "Käyttötila"
+
+msgid ""
+"Choose whether this form is publicly accessible or requires a trusted access "
+"token in the URL."
+msgstr ""
+"Valitse onko tämä lomake julkisesti käytettävissä vai vaatiiko se luotetun "
+"käyttöoikeustunnuksen URL-osoitteessa"
+
+msgid "Public"
+msgstr "Julkinen"
+
+msgid "Trusted access token"
+msgstr "Luotettu käyttöoikeustunnus"
+
+msgid "Trusted access token TTL (hours)"
+msgstr "Luotetun käyttöoikeustunnuksen TTL (tunnit)"
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "Unsaved changes"
+msgstr "Tallentamattomat muutokset"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "Sinulla on muokkauksia joita ei ole vielä tallennettu"
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr "Luotettujen käyttöoikeustunnusten käyttöikä tunteina"
+
+#: generated
+msgid "Cancel"
+msgstr "Peru"
+
+#: generated
+msgid "Close"
+msgstr "Sulje"
+
+#: generated
+msgid "Confirm restore"
+msgstr "Vahvista palautus"
+
+#: generated
+msgid "Date:"
+msgstr "Päivämäärä:"
+
+#: generated
+msgid "Delete"
+msgstr "Poista"
+
+#: generated
+msgid "Confirm delete"
+msgstr "Vahvista poisto"
+
+#: generated
+msgid "Delete version"
+msgstr "Poista versio"
+
+#: generated
+msgid "Download"
+msgstr "Lataa"
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr "Lataa lomakemäärittely JSON-muodossa"
+
+#: generated
+msgid "ID:"
+msgstr "TUNNUS:"
+
+#: generated
+msgid "JSON Version Content"
+msgstr "JSON version sisältö"
+
+#: generated
+msgid "Locked"
+msgstr "Lukittu"
+
+#: generated
+msgid "Preview"
+msgstr "Esikatselu"
+
+#: generated
+msgid "Preview JSON"
+msgstr "Esikatsele JSON"
+
+#: generated
+msgid "Restore"
+msgstr "Palauta"
+
+#: generated
+msgid "Restore to previous version"
+msgstr "Palauta aiempaan versioon"
+
+#: generated
+msgid "Restore version"
+msgstr "Palauta versio"
+
+#: generated
+msgid ""
+"Restoring will create a new version using the selected snapshot and keep the "
+"current version in history."
+msgstr ""
+"Palauttaminen luo uuden version valitun tilannevedoksen perusteella ja "
+"säilyttää nykyisen version historiassa"
+
+#: generated
+msgid "Upload and Create Version"
+msgstr "Lataa ja luo versio"
+
+#: generated
+msgid "User:"
+msgstr "Käyttäjä"
+
+#: generated
+msgid "Experimental:"
+msgstr "Kokeellinen"
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr "Tämä on apu aloittamiseen ei valmis lomake"
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr ""
+"Käytä selkeitä ja täsmällisiä kehotteita parhaiden tulosten saavuttamiseksi"
+
+#: generated
+msgid "Always review and adjust the generated form before use."
+msgstr "Tarkista ja muokkaa aina luotua lomaketta ennen käyttöä"
+
+#: generated
+msgid "Error:"
+msgstr "Virhe:"
+
+#: generated
+msgid "#"
+msgstr "#"
+
+#: generated
+msgid "AI Form Generator"
+msgstr "tekoälylomakeluonti"
+
+#: generated
+msgid "Action"
+msgstr "Toiminta"
+
+#: generated
+msgid "Back to results"
+msgstr "Takaisin tuloksiin"
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr "Valitse PDF joka sisältää lomakkeen asettelun jonka haluat muuntaa"
+
+#: generated
+msgid "Clear All Results"
+msgstr "Tyhjennä kaikki tulokset"
+
+#: generated
+msgid "Clear all results"
+msgstr "Tyhjennä kaikki tulokset"
+
+#: generated
+msgid "Convert PDF"
+msgstr "Muunna PDF"
+
+#: generated
+msgid "Created:"
+msgstr "Luotu:"
+
+#: generated
+msgid "Current Version:"
+msgstr "Nykyinen versio"
+
+#: generated
+msgid "Date"
+msgstr "Päivämäärä"
+
+#: generated
+msgid "Date/Time"
+msgstr "Päivämäärä/Aika"
+
+#: generated
+msgid "Delete result"
+msgstr "Poista tulos"
+
+#: generated
+msgid "Delete selected"
+msgstr "Poista valitut"
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr ""
+"Kuvaile kyselysi luonnollisella kielellä ja anna tekoälyn luoda lomake"
+
+#: generated
+msgid "Details"
+msgstr "Yksityiskohdat"
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr "Lataa lomakemääritelmä JSON muodossa"
+
+#: generated
+msgid "Download result"
+msgstr "Lataa tulos"
+
+#: generated
+msgid "Download results (CSV)"
+msgstr "Lataa tulokset (CSV)"
+
+#: generated
+msgid "Download results (JSON)"
+msgstr "Lataa tulokset (JSON)"
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr "Upottaminen ei ole sallittua"
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
+msgstr ""
+"Ota se käyttöön kyselyn asetuksista vastauksien keräämiseksi ja "
+"tarkastelemiseksi täällä"
+
+#: generated
+msgid "Form JSON"
+msgstr "Lomakkeen JSON"
+
+#: generated
+msgid "Form Preview"
+msgstr "Lomakkeen esikatselu"
+
+#: generated
+msgid "Form Version Management"
+msgstr "Lomakeversionien hallinta"
+
+#: generated
+msgid "Generated form preview will appear here."
+msgstr "Luodun lomakkeen esikatselu näkyy tässä"
+
+#: generated
+msgid "Heads up:"
+msgstr "Huomio"
+
+#: generated
+msgid "JSON"
+msgstr "JSON"
+
+#: generated
+msgid "Mail result"
+msgstr "Postituksen tulos"
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
+msgstr "Hallitse tarkastele ja palauta kyselylomakkeidesi aiempia versioita"
+
+#: generated
+msgid "Next "
+msgstr "Seuraava"
+
+#: generated
+msgid "No PDF selected yet."
+msgstr "PDF ei ole vielä valittu"
+
+#: generated
+msgid ""
+"No stored results yet. Once responses are saved, analytics will appear here."
+msgstr ""
+"Ei tallennettuja tuloksia vielä Kun vastaukset on tallennettu analytiikka "
+"näkyy täällä"
+
+#: generated
+msgid "No Survey Results Yet"
+msgstr "Ei kyselytuloksia vielä"
+
+#: generated
+msgid "No Versions Available"
+msgstr "Ei versioita saatavilla"
+
+#: generated
+msgid ""
+"No form versions have been created yet. Use the Form Creator to design your "
+"first survey, or upload an existing JSON file using the form above."
+msgstr ""
+"Lomakeversioita ei ole vielä luotu Käytä Lomakeluontia suunnitellaksesi "
+"ensimmäisen kyselysi tai lähetä olemassa oleva JSON-tiedosto yllä olevalla "
+"lomakkeella"
+
+#: generated
+msgid "No results found matching your search query."
+msgstr "Ei hakutuloksia vastaa hakukyselyäsi"
+
+#: generated
+msgid "PDF Form Importer"
+msgstr "PDF lomakkeen tuoja"
+
+#: generated
+msgid "PDF Preview"
+msgstr "PDF esikatselu"
+
+#: generated
+msgid "PDF file"
+msgstr "PDF tiedosto"
+
+#: generated
+msgid "POST result"
+msgstr "POST tulos"
+
+#: generated
+msgid "Poll ID:"
+msgstr "Kyselyn tunnus:"
+
+#: generated
+msgid "Preview Form"
+msgstr "Esikatselulomake"
+
+#: generated
+msgid "Processing..."
+msgstr "Käsitellään"
+
+#: generated
+msgid "Refine existing form"
+msgstr "Tarkenna olemassa olevaa lomaketta"
+
+#: generated
+msgid "Refinement History"
+msgstr "Tarkennushistoria"
+
+#: generated
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr "Tuloksia ei tallenneta koska Toiminto Tallenna on pois käytöstä"
+
+#: generated
+msgid "Save Form"
+msgstr "Tallenna lomake"
+
+#: generated
+msgid "Search"
+msgstr "Haku"
+
+#: generated
+msgid "Search by user..."
+msgstr "Hae käyttäjän mukaan..."
+
+msgid "Search by user, UUID, or date"
+msgstr "Hae käyttäjän, UUID:n tai päivämäärän mukaan"
+
+#: generated
+msgid "Select JSON file:"
+msgstr "Valitse JSON tiedosto:"
+
+#: generated
+msgid "Select all results"
+msgstr "Valitse kaikki tulokset"
+
+#: generated
+msgid "Select result"
+msgstr "Valitse tulos"
+
+#: generated
+msgid "Sequence:"
+msgstr "Järjestys"
+
+#: generated
+msgid "Start Over"
+msgstr "Aloita alusta"
+
+#: generated
+msgid "Storage disabled."
+msgstr "Tallennus poistettu käytöstä"
+
+#: generated
+msgid "Storage:"
+msgstr "Tallennustila:"
+
+#: generated
+msgid "Stored form data"
+msgstr "Tallennetut lomaketiedot"
+
+#: generated
+msgid "Submission Details"
+msgstr "Lähetyksen tiedot"
+
+#: generated
+msgid "Survey"
+msgstr "Kysely"
+
+#: generated
+msgid "Survey Response Details"
+msgstr "Kyselyn vastaustiedot"
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr "SurveyJS esikatselu"
+
+#: generated
+msgid "Table"
+msgstr "Pöytä"
+
+#: generated
+msgid ""
+"There are no survey responses yet. Once users submit the survey, their "
+"responses will appear here."
+msgstr ""
+"Yhtään kyselyvastausta ei ole vielä. Kun käyttäjät lähettävät kyselyn, "
+"heidän vastauksensa näkyvät täällä"
+
+#: generated
+msgid "Delete Result"
+msgstr "Poista tulos"
+
+#: generated
+msgid "Delete Selected Results"
+msgstr "Poista valitut tulokset"
+
+#: generated
+msgid ""
+"This will permanently delete the selected result. This cannot be undone."
+msgstr "Tämä poistaa valitun tuloksen pysyvästi Tämä toimintoa ei voi perua"
+
+#: generated
+msgid ""
+"This action will permanently delete all survey results. This cannot be "
+"undone."
+msgstr ""
+"Tämä toiminto poistaa pysyvästi kaikki kyselyn tulokset Tätä toimintoa ei "
+"voi perua"
+
+#: generated
+msgid ""
+"This action permanently removes the selected version. This cannot be undone."
+msgstr ""
+"Tämä toiminto poistaa valitun version pysyvästi Tämä toimintoa ei voi "
+"peruuttaa"
+
+#: generated
+msgid ""
+"This feature is experimental. Please review the generated form carefully."
+msgstr "Tämä ominaisuus on kokeellinen Tarkista luotu lomake huolellisesti"
+
+#: generated
+msgid ""
+"This survey is not configured to be embedded. Please contact the survey "
+"administrator."
+msgstr ""
+"Tätä kyselyä ei ole määritetty upotettavaksi Ota yhteyttä kyselyn "
+"ylläpitäjään"
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr "Vahvista kirjoittamalla kenttään alasana selkeä"
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr "Kirjoita clear vahvistaaksesi"
+
+#: generated
+msgid "UUID"
+msgstr "UUID"
+
+#: generated
+msgid "Unable to load submission."
+msgstr "Lähetystä ei voi ladata"
+
+#: generated
+msgid "Upload"
+msgstr "Lataa"
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr "Lataa JSON lomake skeema"
+
+#: generated
+msgid "Upload PDF"
+msgstr "Lataa PDF"
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr "Lataa PDF lomake ja luo siitä SurveyJS JSON"
+
+#: generated
+msgid ""
+"Upload a valid SurveyJS JSON file to create a new version. The file will be "
+"validated before saving."
+msgstr ""
+"Lataa kelvollinen SurveyJS JSON -tiedosto uuden version luomiseksi Tiedosto "
+"validoidaan ennen tallentamista"
+
+#: generated
+msgid ""
+"Use the latest saved form as the starting point instead of generating a new "
+"one."
+msgstr ""
+"Käytä viimeisintä tallennettua lomaketta lähtökohtana uuden luomisen sijasta"
+
+#: generated
+msgid "User"
+msgstr "Käyttäjä"
+
+#: generated
+msgid "Version History"
+msgstr "Versiohistoria"
+
+#: generated
+msgid "Version ID"
+msgstr "Versionin tunnus"
+
+#: generated
+msgid "View JSON"
+msgstr "Näytä JSON"
+
+#: generated
+msgid "Warning:"
+msgstr "Varoitus"
+
+#: generated
+msgid "clear"
+msgstr "selkeä"
+
+#: generated
+msgid " Previous"
+msgstr "Edellinen"
+
+#: generated
+msgid "Failed to save survey results. Please try again."
+msgstr "Kyselyn tulosten tallentaminen epäonnistui Yritä uudelleen"
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr "Kyselyä ei voi ladata Yritä päivittää sivu uudelleen"
+
+#: generated
+msgid "Lock"
+msgstr "Lukitse"
+
+#: generated
+msgid "Unlock"
+msgstr "Avaa"
+
+#: generated
+msgid "Status"
+msgstr "Tila"
+
+#: generated
+msgid "Effective"
+msgstr "Tehokas"
+
+#: generated
+msgid "Expires"
+msgstr "Vanhenee"
+
+#: generated
+msgid "Stored results"
+msgstr "Tallennetut tulokset"
+
+#: generated
+msgid "Published"
+msgstr "Julkaistu"
+
+#: generated
+msgid "Inactive"
+msgstr "Passiivinen"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "Tallenna muunnettu lomake uutena versiona"
+
+#: generated
+msgid ""
+"Conversion complete. Review the preview and click Store converted form as "
+"new version."
+msgstr ""
+"Muunnos valmis Tarkista esikatselu ja napsauta Tallenna muunnettu lomake "
+"uutena versiona"
+
+#: generated
+msgid "No converted form available to store."
+msgstr "Muunnetun muodon tallennus ei ole saatavilla"
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "Muunnettu lomake tallennettu <a href=\"${url}\">Näytä versiot</a>"
+
+#: generated
+msgid "Store failed"
+msgstr "Tallennus epäonnistui"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "Tallennus epäonnistui Yritä uudelleen"
+
+#: generated
+msgid "Reset"
+msgstr "Nollaa"
+
+#: generated
+msgid "Refresh"
+msgstr "Päivitä"
+
+#: generated
+msgid "Survey overview"
+msgstr "Kyselyn yleiskuva"
+
+#: generated
+msgid "Overview of surveys in this section and their submission status."
+msgstr "Yleiskatsaus tämän osion kyselyihin ja niiden palautustilaan"
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "Tältä sijainnilta ei löytynyt kyselyjä"
+
+msgid ""
+"Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
+"css in ++resource++zopyx.surveyjs/vendor/."
+msgstr ""
+"Tabulator resurssit puuttuvat Asenna tabulator.min.js ja tabulator.min.css "
+"hakemistoon ++resource++zopyx.surveyjs/vendor/"
+
+#: generated
+msgid "Title"
+msgstr "Otsikko"
+
+#: generated
+msgid "Description"
+msgstr "Kuvaus"
+
+#: generated
+msgid "Workflow status"
+msgstr "Työnkulun tila"
+
+#: generated
+msgid "Submitted"
+msgstr "Lähetetty"
+
+#: generated
+msgid "Security mode"
+msgstr "Turvatila"
+
+#: generated
+msgid "Language"
+msgstr "Kieli"
+
+msgid "First"
+msgstr "Ensimmäinen"
+
+msgid "First Page"
+msgstr "Ensimmäinen sivu"
+
+msgid "Last"
+msgstr "Viimeinen"
+
+msgid "Last Page"
+msgstr "Viimeinen sivu"
+
+msgid "Prev"
+msgstr "Edellinen"
+
+msgid "Prev Page"
+msgstr "Edellinen sivu"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "Next Page"
+msgstr "Seuraava sivu"
+
+msgid "All"
+msgstr "Kaikki"
+
+msgid "Page Size"
+msgstr "Sivun koko"
+
+msgid "Additional prompt"
+msgstr "Lisäkehotus"
+
+msgid "Add extra conversion guidance..."
+msgstr "Lisää lisämuunnosohjeita"
+
+msgid "Optional instructions to guide the conversion."
+msgstr "Valinnaiset ohjeet muunnoksen ohjaamiseen"
+
+msgid "DOCS"
+msgstr "DOKUMENTIT"
+
+msgid "Fullscreen"
+msgstr "Koko näyttö"
+
+msgid "Exit fullscreen"
+msgstr "Poistu koko näytön tilasta"
+
+msgid "AI provider missing:"
+msgstr "Tekoälypalveluntarjoaja puuttuu"
+
+msgid ""
+"AI form generation is not available because no AI provider is configured."
+msgstr ""
+"Tekoälylomakkeen luonti ei ole käytettävissä, koska tekoälypalveluntarjoajaa "
+"ei ole määritetty"
+
+msgid "External AI provider:"
+msgstr "Ulkoinen tekoälypalveluntarjoaja"
+
+msgid ""
+"A remote AI provider is configured and will be used. Your PDF may leave your "
+"network."
+msgstr ""
+"Etäkäyttöinen tekoälypalvelu on määritetty ja sitä käytetään PDF-tiedostosi "
+"saattaa poistua verkostasi"
+
+msgid "Local AI provider:"
+msgstr "Paikallinen tekoälypalveluntarjoaja"
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr ""
+"Paikallinen tekoälypalvelu on määritetty PDF tiedostosi pysyy verkossasi"
+
+#: generated
+msgid "Form validation using pdfcpu"
+msgstr "Lomakkeen validointi pdfcpu:lla"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr ""
+"Kun tämä on käytössä pdfcpu:tä käytetään lomakekenttien validointiin ja "
+"rikastamiseen"
+
+#: generated
+msgid ""
+"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
+"versions</a>."
+msgstr ""
+"Lomake tuotu ja tallennettu uutena versiona <a href=\"${url}\">Näytä "
+"versiot</a>"
+
+#: generated
+msgid ""
+"SurveyJS Embed: No embed containers found. Add elements with class "
+"\\\"${className}\\\""
+msgstr ""
+"SurveyJS upotus: Upotussäiliöitä ei löytynyt Lisää elementtejä, joilla on "
+"luokka ${className}"
+
+msgid "Trusted access required"
+msgstr "Luotettu pääsy vaaditaan"
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "Pyydä lomakkeen omistajalta luotettavan pääsyn linkkiä"
+
+msgid "Open the link in this browser to continue."
+msgstr "Avaa linkki tässä selaimessa jatkaaksesi"
+
+msgid "Trusted access link"
+msgstr "Luotettu käyttölinkki"
+
+msgid "Share this link to open the form."
+msgstr "Jaa tämä linkki avataksesi lomakkeen"
+
+msgid "Copy link"
+msgstr "Kopioi linkki"
+
+#: generated
+msgid "View Form"
+msgstr "Näytä lomake"
+
+#: generated
+msgid "Preview the live survey experience."
+msgstr "Esikatsele kyselyn live-kokemusta"
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "Rakenna ja viimeistele kyselylomake"
+
+#: generated
+msgid "PDF generator"
+msgstr "PDF generaattori"
+
+#: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "Luo PDF-versio nykyisestä kyselylomakkeesta"
+
+#: generated
+msgid "PDF export"
+msgstr "PDF-vienti"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "Vie nykyinen SurveyJS lomake ladattavaksi PDF tiedostoksi"
+
+#: generated
+msgid "Survey data dashboard"
+msgstr "Kyselydatan koontinäyttö"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "Tutki vastauksia kaavioiden ja yhteenvetonäkemysten avulla"
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "Täytettävä PDF lomake"
+
+#: generated
+msgid ""
+"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
+"submissions."
+msgstr ""
+"Lataa täytettävä PDF luodaksesi SurveyJS-lomakkeen ja mahdollistaaksesi PDF-"
+"pohjaiset vastaukset"
+
+#: generated
+msgid "Password required"
+msgstr "Salasana vaaditaan"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr "Pääsy tähän kyselyyn on rajoitettu Syötä salasana jatkaaksesi"
+
+#: generated
+msgid "PDF Form"
+msgstr "PDF lomake"
+
+#: generated
+msgid "Dashboard"
+msgstr "Hallintapaneeli"
+
+#: generated
+msgid "PDF Generator"
+msgstr "PDF generaattori"
+
+#: generated
+msgid "Form from PDF"
+msgstr "Lomake PDFstä"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "Täytettävät PDF lomakkeet"
+
+#: generated
+msgid "Download PDF"
+msgstr "Lataa PDF"

@@ -1,5 +1,6 @@
 window.SURVEYJS_I18N_MESSAGES = {
   " (Version ${version})": " (Version ${version})",
+  " Previous": "Zur\u00fcck",
   "#": "#",
   "--": "--",
   "A local AI provider is configured. Your PDF stays within your network.": "Ein lokaler KI-Anbieter ist konfiguriert. Ihr PDF bleibt innerhalb Ihres Netzwerks.",
@@ -39,7 +40,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Close": "Schliessen",
   "Confirm delete": "L\u00f6schen best\u00e4tigen",
   "Confirm restore": "Wiederherstellen best\u00e4tigen",
-  "Conversion complete. Review the preview and click \u201cStore converted form as new version\u201d.": "Konvertierung abgeschlossen. Pr\u00fcfen Sie die Vorschau und klicken Sie auf \u201eKonvertiertes Formular als neue Version speichern\u201c.",
+  "Conversion complete. Review the preview and click Store converted form as new version.": "Konvertierung abgeschlossen \u00dcberpr\u00fcfen Sie die Vorschau und klicken Sie auf Konvertiertes Formular als neue Version speichern",
   "Convert PDF": "PDF umwandeln",
   "Converted form stored. <a href=\\\"${url}\\\">View versions</a>.": "Konvertiertes Formular gespeichert. <a href=\\\"${url}\\\">Versionen anzeigen</a>.",
   "Copy link": "Link kopieren",
@@ -132,6 +133,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Form Version Management": "Formularversionsverwaltung",
   "Form View": "Formularansicht",
   "Form from PDF": "Formular aus PDF",
+  "Form imported and saved as a new version. <a href=\\\"${url}\\\">View versions</a>.": "Formular importiert und als neue Version gespeichert <a href=\\\"${url}\\\">Versionen anzeigen</a>",
   "Form imported and saved as a new version. <a href=\\\\\\\"${url}\\\\\\\">View versions</a>.": "Formular importiert und als ne\u00fc Version gespeichert. <a href=\\\\\\\"${url}\\\\\\\">Versionen anzeigen</a>.",
   "Form saved successfully! You can now view it in the Visual Editor or Versions.": "Formular erfolgreich gespeichert! Sie k\u00f6nnen es jetzt im visuellen Editor oder unter Versionen ansehen.",
   "Form validation using pdfcpu": "Formularvalidierung mit pdfcpu",
@@ -182,8 +184,8 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Maximum allowed payload size for submissions in megabytes.": "Maximal zul\u00e4ssige Payload-Gr\u00f6sse f\u00fcr Einsendungen in Megabyte.",
   "Missing data-survey-url attribute. Please specify the survey URL.": "Fehlendes Attribut data-survey-url. Bitte geben Sie die Umfrage-URL an.",
   "Next": "Weiter",
+  "Next ": "Weiter",
   "Next Page": "Naechste Seite",
-  "Next \u00bb": "Weiter \u00bb",
   "No PDF selected yet.": "Noch keine PDF ausgew\u00e4hlt.",
   "No POST endpoint configured for this survey": "Kein POST-Endpunkt f\u00fcr diese Umfrage konfiguriert",
   "No Survey Results Yet": "Noch keine Umfrageergebnisse",
@@ -302,6 +304,9 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Survey open": "Umfrage offen",
   "Survey overview": "Umfrage-\u00dcbersicht",
   "SurveyJS Embed: Element not found": "SurveyJS-Einbettung: Element nicht gefunden",
+  "SurveyJS Embed: Error handling resize message": "SurveyJS Einbettung Fehlerbehandlung der Gr\u00f6\u00dfen\u00e4nderungsnachricht",
+  "SurveyJS Embed: Error requesting height": "SurveyJS Einbettung: Fehler beim Anfordern der H\u00f6he",
+  "SurveyJS Embed: No embed containers found. Add elements with class \\\"${className}\\": "SurveyJS Einbettung: Keine Einbettungscontainer gefunden F\u00fcgen Sie Elemente mit der Klasse ${className} hinzu",
   "SurveyJS Embed: No embed containers found. Add elements with class \\\\\\\"${className}\\\\\\": "SurveyJS-Einbettung: Keine Einbettungscontainer gefunden. F\u00fcgen Sie Elemente mit der Klasse \\\\\\\"${className}\\\\\\\" hinzu",
   "SurveyJS Preview": "Formular Voransicht",
   "Table": "Tabelle",
@@ -363,6 +368,5 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "Sie haben \u00c4nderungen, die noch nicht gespeichert wurden.",
   "You're saving ${version}. The latest version is not selected. Continue?": "Sie speichern ${version}. Die ne\u00fcste Version ist nicht ausgew\u00e4hlt. Fortfahren?",
   "clear": "l\u00f6schen",
-  "version ${current} of ${total}": "Version ${current} von ${total}",
-  "\u00ab Previous": "\u00ab Zur\u00fcck"
+  "version ${current} of ${total}": "Version ${current} von ${total}"
 };
