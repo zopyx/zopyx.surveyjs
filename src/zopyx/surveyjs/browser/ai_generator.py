@@ -8,6 +8,8 @@ Extracted from experimental/survey_bot.py for reuse in web views.
 import logging
 from pathlib import Path
 
+from zopyx.surveyjs.json_extract import NoJSONFound, extract_json_text
+
 logger = logging.getLogger(__name__)
 
 
@@ -189,7 +191,11 @@ def generate_survey_json(
         logger.info("Successfully generated survey JSON")
         logger.debug(f"LLM response length: {len(response_text)} characters")
 
-        return response_text
+        try:
+            return extract_json_text(response_text)
+        except NoJSONFound as exc:
+            logger.error(f"LLM response did not contain valid JSON: {exc}")
+            raise
     except Exception as e:
         logger.error(f"Failed to generate form with model '{model_name}': {str(e)}")
         raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
@@ -272,7 +278,11 @@ def generate_survey_json_from_image(
         logger.info("Successfully generated survey JSON from image")
         logger.debug(f"LLM response length: {len(response_text)} characters")
 
-        return response_text
+        try:
+            return extract_json_text(response_text)
+        except NoJSONFound as exc:
+            logger.error(f"LLM response did not contain valid JSON: {exc}")
+            raise
     except Exception as e:
         logger.error(f"Failed to generate form with model '{model_name}': {str(e)}")
         raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
@@ -347,7 +357,11 @@ def generate_survey_json_from_assets(
         logger.info("Successfully generated survey JSON from PDF assets")
         logger.debug(f"LLM response length: {len(response_text)} characters")
 
-        return response_text
+        try:
+            return extract_json_text(response_text)
+        except NoJSONFound as exc:
+            logger.error(f"LLM response did not contain valid JSON: {exc}")
+            raise
     except Exception as e:
         logger.error(f"Failed to generate form with model '{model_name}': {str(e)}")
         raise Exception(f"Failed to generate form with model '{model_name}': {str(e)}")
@@ -470,7 +484,11 @@ def refine_survey_json(
         logger.info("Successfully refined survey JSON")
         logger.debug(f"LLM response length: {len(response_text)} characters")
 
-        return response_text
+        try:
+            return extract_json_text(response_text)
+        except NoJSONFound as exc:
+            logger.error(f"LLM response did not contain valid JSON: {exc}")
+            raise
     except Exception as e:
         logger.error(f"Failed to refine form with model '{model_name}': {str(e)}")
         raise Exception(f"Failed to refine form with model '{model_name}': {str(e)}")
