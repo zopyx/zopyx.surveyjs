@@ -1,0 +1,1344 @@
+#: generated
+msgid ""
+msgstr ""
+"Project-Id-Version: zopyx.surveyjs\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: browser/static/js
+#: generated
+msgid " (Version ${version})"
+msgstr " (الاصدار ${version})"
+
+#: generated
+msgid "--"
+msgstr "--"
+
+#: generated
+msgid "AI Generator"
+msgstr "مولد الذكاء الاصطناعي"
+
+#: generated
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: generated
+msgid "All results have been cleared successfully."
+msgstr "تم مسح جميع النتائج بنجاح."
+
+#: generated
+msgid "Answer"
+msgstr "إجابة"
+
+#: generated
+msgid "Attached file: ${name}"
+msgstr "الملف المرفق: ${name}"
+
+#: generated
+msgid "BCC recipient"
+msgstr "مستلم نسخة مخفية"
+
+#: generated
+msgid "Be specific about the types of questions, response formats, and any particular fields you need."
+msgstr "كن محددًا بشأن أنواع الأسئلة وتنسيقات الاستجابة وأي حقول معينة تحتاجها."
+
+#: generated
+msgid "Beta"
+msgstr "تجريبي"
+
+#: generated
+msgid "Body"
+msgstr "الجسم"
+
+#: generated
+msgid "Body for notifications"
+msgstr "نص الإشعارات"
+
+#: generated
+msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "نص البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
+
+#: generated
+msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
+msgstr "نص البريد الإلكتروني لتصدير النتائج. يدعم {created} و {creator} و {formats}."
+
+#: generated
+msgid "CC recipient"
+msgstr "مستلم نسخة"
+
+#: generated
+msgid "CSV (.csv)"
+msgstr "CSV (.csv)"
+
+#: generated
+msgid "Delete ${count} selected result(s)?"
+msgstr "هل تريد حذف ${count} من النتائج المحددة؟"
+
+#: generated
+msgid "Delete this result?"
+msgstr "هل تريد حذف هذه النتيجة؟"
+
+#: generated
+msgid "Describe Your Form"
+msgstr "صف النموذج الخاص بك"
+
+#: generated
+msgid "Describe the changes you want to make to the current form."
+msgstr "صف التغييرات التي تريد إجراؤها على النموذج الحالي."
+
+#: generated
+msgid "Describe the form you want to create:"
+msgstr "صف النموذج الذي تريد إنشاءه:"
+
+#: generated
+msgid "E-Mail BCC"
+msgstr "البريد الإلكتروني نسخة مخفية"
+
+#: generated
+msgid "E-Mail CC"
+msgstr "البريد الإلكتروني نسخة"
+
+#: generated
+msgid "E-Mail recipient"
+msgstr "مستلم البريد الإلكتروني"
+
+#: generated
+msgid "E-Mail sender"
+msgstr "مرسل البريد الإلكتروني"
+
+#: generated
+msgid "Edit"
+msgstr "تعديل"
+
+#: generated
+msgid "Email address to receive a blind copy"
+msgstr "عنوان البريد الإلكتروني لتلقي نسخة مخفية"
+
+#: generated
+msgid "Email address to receive a copy"
+msgstr "عنوان البريد الإلكتروني لتلقي نسخة"
+
+#: generated
+msgid "Enable validation (experimental)"
+msgstr "تمكين التحقق (تجريبي)"
+
+#: generated
+msgid "Error clearing results:"
+msgstr "خطأ في مسح النتائج:"
+
+#: generated
+msgid "Error deleting result:"
+msgstr "خطأ في حذف النتيجة:"
+
+#: generated
+msgid "Error deleting selected results:"
+msgstr "خطأ في حذف النتائج المحددة:"
+
+#: generated
+msgid "Error fetching JSON:"
+msgstr "خطأ في جلب JSON:"
+
+#: generated
+msgid "Error fetching details:"
+msgstr "خطأ في جلب التفاصيل:"
+
+#: generated
+msgid "Error generating form:"
+msgstr "خطأ في إنشاء النموذج:"
+
+#: generated
+msgid "Error loading survey:"
+msgstr "خطأ في تحميل الاستطلاع:"
+
+#: generated
+msgid "Error refining existing form:"
+msgstr "خطأ في تحسين النموذج الحالي:"
+
+#: generated
+msgid "Error refining form:"
+msgstr "خطأ في تحسين النموذج:"
+
+#: generated
+msgid "Error rendering preview:"
+msgstr "خطأ في عرض المعاينة:"
+
+#: generated
+msgid "Error saving form:"
+msgstr "خطأ في حفظ النموذج:"
+
+#: generated
+msgid "Error: ${error}"
+msgstr "خطأ: ${error}"
+
+#: generated
+msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
+msgstr "مثال: أضف مقاييس تقييم لكل سؤال ، قم بتضمين قسم للتعليقات في النهاية ، قم بتغيير السؤال الأول إلى قائمة منسدلة"
+
+#: generated
+msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+msgstr "مثال: قم بإنشاء استطلاع رضا العملاء مع أسئلة حول جودة المنتج وتجربة التسليم والرضا العام. قم بتضمين مقاييس التقييم وقسم التعليقات."
+
+#: generated
+msgid "Excel (.xlsx)"
+msgstr "Excel (.xlsx)"
+
+#: generated
+msgid "Existing form"
+msgstr "النموذج الحالي"
+
+#: generated
+msgid "Failed to POST result: ${error}"
+msgstr "فشل إرسال النتيجة: ${error}"
+
+#: generated
+msgid "Failed to clear results. Please check the console for more information."
+msgstr "فشل مسح النتائج. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
+
+#: generated
+msgid "Failed to delete selected results. Please check the console for details."
+msgstr "فشل حذف النتائج المحددة. يرجى التحقق من وحدة التحكم للحصول على التفاصيل."
+
+#: generated
+msgid "Failed to delete the result. Please check the console for details."
+msgstr "فشل حذف النتيجة. يرجى التحقق من وحدة التحكم للحصول على التفاصيل."
+
+#: generated
+msgid "Failed to generate form. Please try again."
+msgstr "فشل إنشاء النموذج. حاول مرة اخرى."
+
+#: generated
+msgid "Failed to load JSON data. Please check the console for more information."
+msgstr "فشل تحميل بيانات JSON. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
+
+#: generated
+msgid "Failed to load details. Please check the console for more information."
+msgstr "فشل تحميل التفاصيل. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
+
+#: generated
+msgid "Failed to load survey"
+msgstr "فشل تحميل الاستطلاع"
+
+#: generated
+msgid "Failed to load survey. Please check the URL and try again."
+msgstr "فشل تحميل الاستطلاع. يرجى التحقق من عنوان URL والمحاولة مرة أخرى."
+
+#: generated
+msgid "Failed to refine existing form. Please try again."
+msgstr "فشل تحسين النموذج الحالي. حاول مرة اخرى."
+
+#: generated
+msgid "Failed to refine form. Your current version is preserved. Please try again."
+msgstr "فشل تحسين النموذج. تم الحفاظ على الإصدار الحالي الخاص بك. حاول مرة اخرى."
+
+#: generated
+msgid "Failed to render preview: ${error}"
+msgstr "فشل عرض المعاينة: ${error}"
+
+#: generated
+msgid "Failed to save form: ${error}"
+msgstr "فشل حفظ النموذج: ${error}"
+
+#: generated
+msgid "Failed to send mail: ${error}"
+msgstr "فشل إرسال البريد: ${error}"
+
+#: generated
+msgid "Force Server Side Validation"
+msgstr "فرض التحقق من جانب الخادم"
+
+#: generated
+msgid "Form Results"
+msgstr "نتائج النموذج"
+
+#: generated
+msgid "Form Settings"
+msgstr "إعدادات النموذج"
+
+#: generated
+msgid "Form View"
+msgstr "عرض النموذج"
+
+#: generated
+msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
+msgstr "تم استيراد النموذج وحفظه كإصدار جديد. <a href=\"${url}\">عرض الإصدارات</a>."
+
+#: generated
+msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
+msgstr "تم حفظ النموذج بنجاح! يمكنك الآن عرضه في المحرر المرئي أو الإصدارات."
+
+#: generated
+msgid "Form/Survey"
+msgstr "نموذج / استطلاع"
+
+#: generated
+msgid "Formats"
+msgstr "التنسيقات"
+
+#: generated
+msgid "Generate Form"
+msgstr "إنشاء نموذج"
+
+#: generated
+msgid "Generate forms using AI"
+msgstr "إنشاء نماذج باستخدام الذكاء الاصطناعي"
+
+#: generated
+msgid "Generating..."
+msgstr "جارٍ الإنشاء ..."
+
+#: generated
+msgid "Generation failed"
+msgstr "فشل الإنشاء"
+
+#: generated
+msgid "HTML (.html)"
+msgstr "HTML (.html)"
+
+#: generated
+msgid "Import failed"
+msgstr "فشل الاستيراد"
+
+#: generated
+msgid "Import failed. Please try again."
+msgstr "فشل الاستيراد. حاول مرة اخرى."
+
+#: generated
+msgid "Initial Generation"
+msgstr "الجيل الأولي"
+
+#: generated
+msgid "Invalid JSON file: ${error}"
+msgstr "ملف JSON غير صالح: ${error}"
+
+#: generated
+msgid "Invalid poll ID or format"
+msgstr "معرف الاستطلاع أو التنسيق غير صالح"
+
+#: generated
+msgid "Invalid survey URL: ${url}"
+msgstr "عنوان URL للاستطلاع غير صالح: ${url}"
+
+#: generated
+msgid "JSON (.json)"
+msgstr "JSON (.json)"
+
+#: generated
+msgid "JSON uploaded successfully as new version"
+msgstr "تم تحميل JSON بنجاح كإصدار جديد"
+
+#: generated
+msgid "Key / Question"
+msgstr "مفتاح / سؤال"
+
+#: generated
+msgid "Loading preview..."
+msgstr "جارٍ تحميل المعاينة ..."
+
+#: generated
+msgid "Loading survey..."
+msgstr "جارٍ تحميل الاستطلاع ..."
+
+#: generated
+msgid "Loading..."
+msgstr "جار التحميل..."
+
+#: generated
+msgid "Mail"
+msgstr "بريد"
+
+#: generated
+msgid "Mail (notification only)"
+msgstr "بريد (إشعار فقط)"
+
+#: generated
+msgid "Mail notifications"
+msgstr "إشعارات البريد"
+
+#: generated
+msgid "Mail sent"
+msgstr "تم إرسال البريد"
+
+#: generated
+msgid "Mail settings are incomplete (Mail-To and Subject required)"
+msgstr "إعدادات البريد غير مكتملة (مطلوب حقل إلى والموضوع)"
+
+#: generated
+msgid "Manager only"
+msgstr "مدير فقط"
+
+#: generated
+msgid "Markdown (.md)"
+msgstr "Markdown (.md)"
+
+#: generated
+msgid "Max size payload (MB)"
+msgstr "الحمولة القصوى (ميجابايت)"
+
+#: generated
+msgid "Maximum allowed payload size for submissions in megabytes."
+msgstr "الحد الأقصى لحجم الحمولة المسموح به للتقديمات بالميجابايت."
+
+#: generated
+msgid "Missing data-survey-url attribute. Please specify the survey URL."
+msgstr "سمة data-survey-url مفقودة. يرجى تحديد عنوان URL للاستطلاع."
+
+#: generated
+msgid "No POST endpoint configured for this survey"
+msgstr "لا توجد نقطة نهاية POST مهيأة لهذا الاستطلاع"
+
+#: generated
+msgid "No existing form found to refine."
+msgstr "لم يتم العثور على نموذج موجود لتحسينه."
+
+#: generated
+msgid "No file selected"
+msgstr "لم يتم تحديد ملف"
+
+#: generated
+msgid "No file uploaded"
+msgstr "لم يتم تحميل ملف"
+
+#: generated
+msgid "No form definition available to include in POST"
+msgstr "لا يوجد تعريف نموذج متاح لتضمينه في POST"
+
+#: generated
+msgid "No form to preview"
+msgstr "لا يوجد نموذج للمعاينة"
+
+#: generated
+msgid "No form to save"
+msgstr "لا يوجد نموذج للحفظ"
+
+#: generated
+msgid "No version ID provided"
+msgstr "لم يتم توفير معرف الإصدار"
+
+#: generated
+msgid "Not saved"
+msgstr "غير محفوظ"
+
+#: generated
+msgid "Optional BCC recipients for result exports (one address per line)."
+msgstr "مستلمو نسخة مخفية اختياريون لتصدير النتائج (عنوان واحد لكل سطر)."
+
+#: generated
+msgid "Optional CC recipients for result exports (one address per line)."
+msgstr "مستلمو نسخة اختيارية لتصدير النتائج (عنوان واحد لكل سطر)."
+
+#: generated
+msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+msgstr "نقطة نهاية HTTP اختيارية لتلقي التقديمات كـ JSON عند تمكين إجراء POST."
+
+#: generated
+msgid "PDF (.pdf)"
+msgstr "PDF (.pdf)"
+
+#: generated
+msgid "PDF Form Import"
+msgstr "استيراد نموذج PDF"
+
+#: generated
+msgid "POST action is not enabled for this survey"
+msgstr "إجراء POST غير ممكّن لهذا الاستطلاع"
+
+#: generated
+msgid "POST endpoint URL"
+msgstr "عنوان URL لنقطة نهاية POST"
+
+#: generated
+msgid "POST to endpoint"
+msgstr "إرسال إلى نقطة النهاية"
+
+#: generated
+msgid "Please enter a description"
+msgstr "الرجاء إدخال وصف"
+
+#: generated
+msgid "Please select a PDF file to upload."
+msgstr "الرجاء تحديد ملف PDF لتحميله."
+
+#: generated
+msgid "Poll ID is required"
+msgstr "معرف الاستطلاع مطلوب"
+
+#: generated
+msgid "Poll result not found"
+msgstr "لم يتم العثور على نتيجة الاستطلاع"
+
+#: generated
+msgid "Preview error:"
+msgstr "خطأ في المعاينة:"
+
+#: generated
+msgid "Primary recipient for notifications and result exports (single address). "
+msgstr "المستلم الأساسي للإشعارات وتصدير النتائج (عنوان واحد). "
+
+#: generated
+msgid "Privacy Forms Studio"
+msgstr "استوديو نماذج الخصوصية"
+
+#: generated
+msgid "Refine Form"
+msgstr "تحسين النموذج"
+
+#: generated
+msgid "Refine Your Form"
+msgstr "صقل النموذج الخاص بك"
+
+#: generated
+msgid "Refinement ${index}"
+msgstr "تحسين ${index}"
+
+#: generated
+msgid "Refinement failed"
+msgstr "فشل التحسين"
+
+#: generated
+msgid "Refining..."
+msgstr "جارٍ التحسين ..."
+
+#: generated
+msgid "Requested export format is not available"
+msgstr "تنسيق التصدير المطلوب غير متوفر"
+
+#: generated
+msgid "Result POSTed to endpoint (status ${status})"
+msgstr "تم إرسال النتيجة إلى نقطة النهاية (الحالة ${status})"
+
+#: generated
+msgid "Results cleared"
+msgstr "تم مسح النتائج"
+
+#: generated
+msgid "Results"
+msgstr "النتائج"
+
+#: generated
+msgid "Row"
+msgstr "صف"
+
+#: generated
+msgid "Run the external SurveyJS validator binary for every save/submit."
+msgstr "قم بتشغيل ثنائي مدقق SurveyJS الخارجي لكل عملية حفظ / إرسال."
+
+#: generated
+msgid "Save failed"
+msgstr "فشل الحفظ"
+
+#: generated
+msgid "Saving"
+msgstr "جارٍ الحفظ"
+
+#: generated
+msgid "Select export formats to attach when the Mail action sends results."
+msgstr "حدد تنسيقات التصدير لإرفاقها عندما يرسل إجراء البريد النتائج."
+
+#: generated
+msgid "Select how to handle survey submissions (multiple options possible). "
+msgstr "حدد كيفية التعامل مع تقديمات الاستطلاع (خيارات متعددة ممكنة). "
+
+#: generated
+msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgstr "عنوان المرسل للبريد الصادر. إلزامي عند تحديد إجراء البريد."
+
+#: generated
+msgid "Start over? This will clear your refinement history and return to the initial prompt."
+msgstr "البدء من جديد؟ سيؤدي هذا إلى مسح سجل التحسين الخاص بك والعودة إلى المطالبة الأولية."
+
+#: generated
+msgid "Store"
+msgstr "تخزين"
+
+#: generated
+msgid "Subject"
+msgstr "الموضوع"
+
+#: generated
+msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "موضوع رسائل البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
+
+#: generated
+msgid "Subject for notifications"
+msgstr "موضوع الإشعارات"
+
+#: generated
+msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr "موضوع رسائل البريد الإلكتروني لتصدير النتائج. يدعم {poll_id} لمعرف التقديم. "
+
+#: generated
+msgid "Survey Embed Error"
+msgstr "خطأ في تضمين الاستطلاع"
+
+#: generated
+msgid "Survey Form"
+msgstr "نموذج استطلاع"
+
+#: generated
+msgid "Survey closed"
+msgstr "تم إغلاق الاستطلاع"
+
+#: generated
+msgid "Survey embedding is not allowed. Please contact the survey administrator."
+msgstr "تضمين الاستطلاع غير مسموح به. يرجى الاتصال بمسؤول الاستطلاع."
+
+#: generated
+msgid "Survey library not loaded"
+msgstr "لم يتم تحميل مكتبة الاستطلاع"
+
+#: generated
+msgid "Survey open"
+msgstr "استطلاع مفتوح"
+
+#: generated
+msgid "SurveyJS Embed: Element not found"
+msgstr "تضمين SurveyJS: لم يتم العثور على العنصر"
+
+#: generated
+msgid "SurveyJS Embed: Error handling resize message"
+msgstr "تضمين SurveyJS: خطأ في معالجة رسالة تغيير الحجم"
+
+#: generated
+msgid "SurveyJS Embed: Error requesting height"
+msgstr "تضمين SurveyJS: خطأ في طلب الارتفاع"
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+msgstr "تضمين SurveyJS: لم يتم العثور على حاويات تضمين. أضف عناصر بالفئة \"${className}\""
+
+#: generated
+msgid "Text (.txt)"
+msgstr "نص (.txt)"
+
+#: generated
+msgid "Unknown error"
+msgstr "خطأ غير معروف"
+
+#: generated
+msgid "Validate submissions against the form schema before saving. "
+msgstr "تحقق من صحة التقديمات مقابل مخطط النموذج قبل الحفظ. "
+
+#: generated
+msgid "Version ${current} of ${total}"
+msgstr "الإصدار ${current} من ${total}"
+
+#: generated
+msgid "Version deleted"
+msgstr "تم حذف الإصدار"
+
+#: generated
+msgid "Version is locked and cannot be deleted"
+msgstr "الإصدار مقفل ولا يمكن حذفه"
+
+#: generated
+msgid "Version locked"
+msgstr "الإصدار مقفل"
+
+#: generated
+msgid "Version not found"
+msgstr "لم يتم العثور على الإصدار"
+
+#: generated
+msgid "Version restored successfully. A new version has been created."
+msgstr "تمت استعادة الإصدار بنجاح. تم إنشاء إصدار جديد."
+
+#: generated
+msgid "Version unlocked"
+msgstr "تم إلغاء قفل الإصدار"
+
+#: generated
+msgid "Versions"
+msgstr "الإصدارات"
+
+#: generated
+msgid "View"
+msgstr "عرض"
+
+#: generated
+msgid "Visual Editor"
+msgstr "محرر مرئي"
+
+#: generated
+msgid "What would you like to change?"
+msgstr "ماذا تريد ان تغير؟"
+
+#: generated
+msgid "Word (.docx)"
+msgstr "Word (.docx)"
+
+#: generated
+msgid "XML (.xml)"
+msgstr "XML (.xml)"
+
+msgid "Access mode"
+msgstr "وضع الوصول"
+
+msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
+msgstr "اختر ما إذا كان هذا النموذج متاحًا للجمهور أو يتطلب رمز وصول موثوق به في عنوان URL."
+
+msgid "Public"
+msgstr "عام"
+
+msgid "Trusted access token"
+msgstr "رمز وصول موثوق به"
+
+msgid "Trusted access token TTL (hours)"
+msgstr "مدة صلاحية رمز الوصول الموثوق به (بالساعات)"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Unsaved changes"
+msgstr "تغييرات غير محفوظة"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "لديك تعديلات لم يتم حفظها بعد."
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr "عمر رموز الوصول الموثوق بها بالساعات."
+
+#: generated
+msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgstr "أنت تحفظ الإصدار ${version}. لم يتم تحديد أحدث إصدار. متابعة؟"
+
+#: generated
+msgid "version ${current} of ${total}"
+msgstr "الإصدار ${current} من ${total}"
+
+#: generated
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: generated
+msgid "Close"
+msgstr "إغلاق"
+
+#: generated
+msgid "Confirm restore"
+msgstr "تأكيد الاستعادة"
+
+#: generated
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: generated
+msgid "Delete"
+msgstr "حذف"
+
+#: generated
+msgid "Confirm delete"
+msgstr "تأكيد الحذف"
+
+#: generated
+msgid "Delete version"
+msgstr "حذف الإصدار"
+
+#: generated
+msgid "Download"
+msgstr "تنزيل"
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr "تنزيل تعريف النموذج كـ JSON"
+
+#: generated
+msgid "ID:"
+msgstr "المعرف:"
+
+#: generated
+msgid "JSON Version Content"
+msgstr "محتوى إصدار JSON"
+
+#: generated
+msgid "Locked"
+msgstr "مقفل"
+
+#: generated
+msgid "Preview"
+msgstr "معاينة"
+
+#: generated
+msgid "Preview JSON"
+msgstr "معاينة JSON"
+
+#: generated
+msgid "Restore"
+msgstr "استعادة"
+
+#: generated
+msgid "Restore to previous version"
+msgstr "الاستعادة إلى الإصدار السابق"
+
+#: generated
+msgid "Restore version"
+msgstr "استعادة الإصدار"
+
+#: generated
+msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
+msgstr "ستؤدي الاستعادة إلى إنشاء إصدار جديد باستخدام اللقطة المحددة والاحتفاظ بالإصدار الحالي في السجل."
+
+#: generated
+msgid "Upload and Create Version"
+msgstr "تحميل وإنشاء إصدار"
+
+#: generated
+msgid "User:"
+msgstr "المستخدم:"
+
+#: generated
+msgid "Experimental:"
+msgstr "تجريبي:"
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr "هذا مساعد للبدء ، وليس نموذجًا نهائيًا."
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr "استخدم مطالبات واضحة ومحددة للحصول على أفضل النتائج."
+
+#: generated
+msgid "Always review and adjust the generated form before use."
+msgstr "راجع دائمًا النموذج الذي تم إنشاؤه واضبطه قبل الاستخدام."
+
+#: generated
+msgid "Error:"
+msgstr "خطأ:"
+
+#: generated
+msgid "#"
+msgstr "#"
+
+#: generated
+msgid "AI Form Generator"
+msgstr "مولد نماذج الذكاء الاصطناعي"
+
+#: generated
+msgid "Action"
+msgstr "إجراء"
+
+#: generated
+msgid "Back to results"
+msgstr "العودة إلى النتائج"
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr "اختر ملف PDF يحتوي على تخطيط النموذج الذي تريد تحويله."
+
+#: generated
+msgid "Clear All Results"
+msgstr "مسح كل النتائج"
+
+#: generated
+msgid "Clear all results"
+msgstr "مسح كل النتائج"
+
+#: generated
+msgid "Convert PDF"
+msgstr "تحويل PDF"
+
+#: generated
+msgid "Created:"
+msgstr "تم الإنشاء:"
+
+#: generated
+msgid "Current Version:"
+msgstr "الإصدار الحالي:"
+
+#: generated
+msgid "Date"
+msgstr "التاريخ"
+
+#: generated
+msgid "Date/Time"
+msgstr "التاريخ / الوقت"
+
+#: generated
+msgid "Delete result"
+msgstr "حذف النتيجة"
+
+#: generated
+msgid "Delete selected"
+msgstr "حذف المحدد"
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr "صف استطلاعك بلغة طبيعية ودع الذكاء الاصطناعي ينشئ النموذج"
+
+#: generated
+msgid "Details"
+msgstr "تفاصيل"
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr "تنزيل تعريف النموذج (JSON)"
+
+#: generated
+msgid "Download result"
+msgstr "تنزيل النتيجة"
+
+#: generated
+msgid "Download results (CSV)"
+msgstr "تنزيل النتائج (CSV)"
+
+#: generated
+msgid "Download results (JSON)"
+msgstr "تنزيل النتائج (JSON)"
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr "التضمين غير مسموح به"
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
+msgstr "قم بتمكينه في إعدادات الاستطلاع لجمع الردود وعرضها هنا."
+
+#: generated
+msgid "Form JSON"
+msgstr "نموذج JSON"
+
+#: generated
+msgid "Form Preview"
+msgstr "معاينة النموذج"
+
+#: generated
+msgid "Form Version Management"
+msgstr "إدارة إصدار النموذج"
+
+#: generated
+msgid "Generated form preview will appear here."
+msgstr "ستظهر معاينة النموذج الذي تم إنشاؤه هنا."
+
+#: generated
+msgid "Heads up:"
+msgstr "انتبه:"
+
+#: generated
+msgid "JSON"
+msgstr "JSON"
+
+#: generated
+msgid "Mail result"
+msgstr "إرسال النتيجة بالبريد"
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
+msgstr "إدارة وعرض واستعادة الإصدارات السابقة من نماذج الاستطلاع الخاصة بك"
+
+#: generated
+msgid "Next »"
+msgstr "التالي »"
+
+#: generated
+msgid "No PDF selected yet."
+msgstr "لم يتم تحديد ملف PDF بعد."
+
+#: generated
+msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgstr "لا توجد نتائج مخزنة حتى الآن. بمجرد حفظ الردود ، ستظهر التحليلات هنا."
+
+#: generated
+msgid "No Survey Results Yet"
+msgstr "لا توجد نتائج استطلاع حتى الآن"
+
+#: generated
+msgid "No Versions Available"
+msgstr "لا توجد إصدارات متاحة"
+
+#: generated
+msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+msgstr "لم يتم إنشاء أي إصدارات نموذج حتى الآن. استخدم منشئ النماذج لتصميم أول استطلاع لك ، أو قم بتحميل ملف JSON موجود باستخدام النموذج أعلاه."
+
+#: generated
+msgid "No results found matching your search query."
+msgstr "لم يتم العثور على نتائج تطابق استعلام البحث الخاص بك."
+
+#: generated
+msgid "PDF Form Importer"
+msgstr "مستورد نماذج PDF"
+
+#: generated
+msgid "PDF Preview"
+msgstr "معاينة PDF"
+
+#: generated
+msgid "PDF file"
+msgstr "ملف PDF"
+
+#: generated
+msgid "POST result"
+msgstr "نتيجة POST"
+
+#: generated
+msgid "Poll ID:"
+msgstr "معرف الاستطلاع:"
+
+#: generated
+msgid "Preview Form"
+msgstr "معاينة النموذج"
+
+#: generated
+msgid "Processing..."
+msgstr "جارٍ المعالجة ..."
+
+#: generated
+msgid "Refine existing form"
+msgstr "تحسين النموذج الحالي"
+
+#: generated
+msgid "Refinement History"
+msgstr "سجل التحسين"
+
+#: generated
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr "لا يتم حفظ النتائج لأن إجراء \"التخزين\" متوقف."
+
+#: generated
+msgid "Save Form"
+msgstr "حفظ النموذج"
+
+#: generated
+msgid "Search"
+msgstr "بحث"
+
+#: generated
+msgid "Search by user..."
+msgstr "البحث حسب المستخدم ..."
+
+msgid "Search by user, UUID, or date"
+msgstr "البحث حسب المستخدم أو UUID أو التاريخ"
+
+#: generated
+msgid "Select JSON file:"
+msgstr "حدد ملف JSON:"
+
+#: generated
+msgid "Select all results"
+msgstr "تحديد كل النتائج"
+
+#: generated
+msgid "Select result"
+msgstr "تحديد النتيجة"
+
+#: generated
+msgid "Sequence:"
+msgstr "تسلسل:"
+
+#: generated
+msgid "Start Over"
+msgstr "البدء من جديد"
+
+#: generated
+msgid "Storage disabled."
+msgstr "التخزين معطل."
+
+#: generated
+msgid "Storage:"
+msgstr "التخزين:"
+
+#: generated
+msgid "Stored form data"
+msgstr "بيانات النموذج المخزنة"
+
+#: generated
+msgid "Submission Details"
+msgstr "تفاصيل التقديم"
+
+#: generated
+msgid "Survey"
+msgstr "استطلاع"
+
+#: generated
+msgid "Survey Response Details"
+msgstr "تفاصيل استجابة الاستطلاع"
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr "معاينة SurveyJS"
+
+#: generated
+msgid "Table"
+msgstr "جدول"
+
+#: generated
+msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+msgstr "لا توجد استجابات استطلاع حتى الآن. بمجرد أن يقدم المستخدمون الاستطلاع ، ستظهر ردودهم هنا."
+
+#: generated
+msgid "Delete Result"
+msgstr "حذف النتيجة"
+
+#: generated
+msgid "Delete Selected Results"
+msgstr "حذف النتائج المحددة"
+
+#: generated
+msgid "This will permanently delete the selected result. This cannot be undone."
+msgstr "سيؤدي هذا إلى حذف النتيجة المحددة نهائيًا. لا يمكن التراجع عن هذا."
+
+#: generated
+msgid "This action will permanently delete all survey results. This cannot be undone."
+msgstr "سيؤدي هذا الإجراء إلى حذف جميع نتائج الاستطلاع نهائيًا. لا يمكن التراجع عن هذا."
+
+#: generated
+msgid "This action permanently removes the selected version. This cannot be undone."
+msgstr "يزيل هذا الإجراء الإصدار المحدد نهائيًا. لا يمكن التراجع عن هذا."
+
+#: generated
+msgid "This feature is experimental. Please review the generated form carefully."
+msgstr "هذه الميزة تجريبية. يرجى مراجعة النموذج الذي تم إنشاؤه بعناية."
+
+#: generated
+msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgstr "هذا الاستطلاع غير مهيأ ليتم تضمينه. يرجى الاتصال بمسؤول الاستطلاع."
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr "للتأكيد ، يرجى كتابة clear في الحقل أدناه:"
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr "اكتب 'clear' للتأكيد"
+
+#: generated
+msgid "UUID"
+msgstr "UUID"
+
+#: generated
+msgid "Unable to load submission."
+msgstr "غير قادر على تحميل التقديم."
+
+#: generated
+msgid "Upload"
+msgstr "تحميل"
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr "تحميل مخطط نموذج JSON"
+
+#: generated
+msgid "Upload PDF"
+msgstr "تحميل PDF"
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr "قم بتحميل نموذج PDF وإنشاء SurveyJS JSON منه"
+
+#: generated
+msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+msgstr "قم بتحميل ملف SurveyJS JSON صالح لإنشاء إصدار جديد. سيتم التحقق من صحة الملف قبل الحفظ."
+
+#: generated
+msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgstr "استخدم أحدث نموذج محفوظ كنقطة بداية بدلاً من إنشاء نموذج جديد."
+
+#: generated
+msgid "User"
+msgstr "المستخدم"
+
+#: generated
+msgid "Version History"
+msgstr "سجل الإصدارات"
+
+#: generated
+msgid "Version ID"
+msgstr "معرف الإصدار"
+
+#: generated
+msgid "View JSON"
+msgstr "عرض JSON"
+
+#: generated
+msgid "Warning:"
+msgstr "تحذير:"
+
+#: generated
+msgid "clear"
+msgstr "مسح"
+
+#: generated
+msgid "« Previous"
+msgstr "« السابق"
+
+#: generated
+msgid "Failed to save survey results. Please try again."
+msgstr "فشل حفظ نتائج الاستطلاع. حاول مرة اخرى."
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr "غير قادر على تحميل الاستطلاع. يرجى محاولة تحديث الصفحة."
+
+#: generated
+msgid "Lock"
+msgstr "قفل"
+
+#: generated
+msgid "Unlock"
+msgstr "فتح"
+
+#: generated
+msgid "Status"
+msgstr "الحالة"
+
+#: generated
+msgid "Effective"
+msgstr "فعال"
+
+#: generated
+msgid "Expires"
+msgstr "ينتهي"
+
+#: generated
+msgid "Stored results"
+msgstr "النتائج المخزنة"
+
+#: generated
+msgid "Published"
+msgstr "منشور"
+
+#: generated
+msgid "Inactive"
+msgstr "غير نشط"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "تخزين النموذج المحول كإصدار جديد"
+
+#: generated
+msgid "Conversion complete. Review the preview and click “Store converted form as new version”."
+msgstr "اكتمل التحويل. راجع المعاينة وانقر على “تخزين النموذج المحول كإصدار جديد”."
+
+#: generated
+msgid "No converted form available to store."
+msgstr "لا يوجد نموذج محوّل متاح للتخزين."
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "تم تخزين النموذج المحول. <a href=\"${url}\">عرض الإصدارات</a>."
+
+#: generated
+msgid "Store failed"
+msgstr "فشل التخزين"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "فشل التخزين. حاول مرة اخرى."
+
+#: generated
+msgid "Reset"
+msgstr "إعادة تعيين"
+
+#: generated
+msgid "Refresh"
+msgstr "تحديث"
+
+#: generated
+msgid "Survey overview"
+msgstr "نظرة عامة على الاستطلاع"
+
+#: generated
+msgid "Overview of surveys in this section and their submission status."
+msgstr "نظرة عامة على الاستطلاعات في هذا القسم وحالة تقديمها."
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "لم يتم العثور على استطلاعات أسفل هذا الموقع."
+
+msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+msgstr "أصول Tabulator مفقودة. يرجى تثبيت tabulator.min.js و tabulator.min.css في ++ resource ++ zopyx.surveyjs / vendor /."
+
+#: generated
+msgid "Title"
+msgstr "عنوان"
+
+#: generated
+msgid "Description"
+msgstr "وصف"
+
+#: generated
+msgid "Workflow status"
+msgstr "حالة سير العمل"
+
+#: generated
+msgid "Submitted"
+msgstr "تم التقديم"
+
+#: generated
+msgid "Security mode"
+msgstr "وضع الأمان"
+
+#: generated
+msgid "Language"
+msgstr "لغة"
+
+msgid "First"
+msgstr "الأول"
+
+msgid "First Page"
+msgstr "الصفحة الأولى"
+
+msgid "Last"
+msgstr "الأخير"
+
+msgid "Last Page"
+msgstr "آخر صفحة"
+
+msgid "Prev"
+msgstr "السابق"
+
+msgid "Prev Page"
+msgstr "الصفحة السابقة"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Next Page"
+msgstr "الصفحة التالية"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "Page Size"
+msgstr "حجم الصفحة"
+
+msgid "Additional prompt"
+msgstr "موجه إضافي"
+
+msgid "Add extra conversion guidance..."
+msgstr "إضافة إرشادات تحويل إضافية ..."
+
+msgid "Optional instructions to guide the conversion."
+msgstr "تعليمات اختيارية لتوجيه التحويل."
+
+msgid "DOCS"
+msgstr "المستندات"
+
+msgid "Fullscreen"
+msgstr "ملء الشاشة"
+
+msgid "Exit fullscreen"
+msgstr "الخروج من وضع ملء الشاشة"
+
+msgid "AI provider missing:"
+msgstr "مزود الذكاء الاصطناعي مفقود:"
+
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr "إنشاء نماذج الذكاء الاصطناعي غير متاح لأنه لم يتم تكوين أي مزود للذكاء الاصطناعي."
+
+msgid "External AI provider:"
+msgstr "مزود الذكاء الاصطناعي الخارجي:"
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr "تم تكوين مزود ذكاء اصطناعي عن بعد وسيتم استخدامه. قد يغادر ملف PDF الخاص بك شبكتك."
+
+msgid "Local AI provider:"
+msgstr "مزود الذكاء الاصطناعي المحلي:"
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr "تم تكوين مزود ذكاء اصطناعي محلي. يبقى ملف PDF الخاص بك داخل شبكتك."

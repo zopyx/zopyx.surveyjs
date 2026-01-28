@@ -607,13 +607,6 @@ msgstr "Umfrage offen"
 msgid "SurveyJS Embed: Element not found"
 msgstr "SurveyJS-Einbettung: Element nicht gefunden"
 
-#: generated
-msgid "SurveyJS Embed: Error handling resize message"
-msgstr "SurveyJS-Einbettung: Fehler beim Verarbeiten der Resize-Nachricht"
-
-#: generated
-msgid "SurveyJS Embed: Error requesting height"
-msgstr "SurveyJS-Einbettung: Fehler beim Anfordern der Höhe"
 
 #: generated
 msgid "SurveyJS Embed: No embed containers found. Add elements with class \\\"${className}\\\""
