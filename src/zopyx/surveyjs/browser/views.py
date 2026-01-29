@@ -513,7 +513,6 @@ class Views(BrowserView):
 
     def upload_pdf_form(self):
         uploaded_file = self.request.form.get("pdf_file")
-        additional_prompt = self.request.form.get("additional_prompt")
         if not uploaded_file:
             json_error(
                 self.request.response,
