@@ -3,6 +3,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="zopyx.surveyjs">
 
   <i18n:registerTranslations directory="locales" />
@@ -65,5 +66,10 @@
       for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
       handler=".subscribers.log_survey_submission"
       />
+
+      <include package="z3c.jbot" file="meta.zcml" />
+
+  <browser:jbot
+      directory="overrides"/>
 
 </configure>

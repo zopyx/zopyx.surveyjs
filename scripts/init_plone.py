@@ -1087,8 +1087,11 @@ def build_welcome_html(language):
 <p style="margin:0;color:#6b7280;font-size:11px;">Build: {BUILD_TIMESTAMP}</p>
 """
     return f"""{WELCOME_STYLE}
-<div class="welcome-shell"{dir_attr}>
+  <div class="welcome-shell"{dir_attr}>
   <div class="welcome-banner">{banner}</div>
+  <section class="welcome-notices"{dir_attr}>
+    {demo_login_block}
+  </section>
   <section class="welcome-hero">
     <div class="welcome-card">
       {intro}
@@ -1099,9 +1102,6 @@ def build_welcome_html(language):
       {demo_section}
       {powered_by_section}
     </div>
-  </section>
-  <section class="welcome-notices"{dir_attr}>
-    {demo_login_block}
   </section>
   {build_footer}
 </div>
