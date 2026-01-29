@@ -1,0 +1,24 @@
+name: Regular restart
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  restart-container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restart remote container
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: py-berater.de
+          username: privacyforms
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker restart pfs-demo
+            docker ps --filter "name=^/pfs-demo$" --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
+            docker logs --tail 50 pfs-demo
