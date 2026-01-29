@@ -32,6 +32,8 @@ report.html
 reports/
 venv/
 # excludes
+.idea/*
 .idea
 docs/_build
 src.privacyforms.theme
+
