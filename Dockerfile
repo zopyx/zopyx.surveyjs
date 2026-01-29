@@ -51,3 +51,4 @@ RUN ./bin/instance run /app/scripts/init_plone.py \
     && rm -f /app/surveyjs.licensekey
 
 CMD ["./bin/instance", "fg"]
+
