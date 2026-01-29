@@ -18,6 +18,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "All": "Todos",
   "All results have been cleared successfully.": "Todos los resultados han sido borrados con \u00e9xito.",
   "Always review and adjust the generated form before use.": "Revise y ajuste siempre el formulario generado antes de usarlo.",
+  "Analyze PDF": "Analyze PDF",
   "Answer": "Respuesta",
   "Ask the form owner for a trusted access link.": "Pide al propietario del formulario un enlace de acceso de confianza",
   "Attached file: ${name}": "Archivo adjunto: ${name}",
@@ -33,6 +34,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "CC recipient": "Destinatario CC",
   "CSV (.csv)": "CSV (.csv)",
   "Cancel": "Cancelar",
+  "Choose a PDF that already contains fillable fields": "Elige un PDF que ya contenga campos rellenables",
   "Choose a PDF that contains the form layout you want to convert.": "Elija un PDF que contenga el dise\u00f1o del formulario que desea convertir.",
   "Choose whether this form is publicly accessible or requires a trusted access token in the URL.": "Elija si este formulario es de acceso p\u00fablico o requiere un token de acceso de confianza en la URL.",
   "Clear All Results": "Borrar todos los resultados",
@@ -106,6 +108,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Explore responses with charts and summary insights.": "Explora respuestas con gr\u00e1ficos y perspectivas resumidas",
   "Export the current SurveyJS form as a downloadable PDF.": "Exportar el formulario actual de SurveyJS como un PDF descargable",
   "External AI provider:": "Proveedor de IA externo:",
+  "Extraction mode": "Modo de extracci\u00f3n",
   "Failed to POST result: ${error}": "Error al enviar el resultado: ${error}",
   "Failed to clear results. Please check the console for more information.": "No se pudieron borrar los resultados. Por favor, consulte la consola para m\u00e1s informaci\u00f3n.",
   "Failed to delete selected results. Please check the console for details.": "No se pudieron eliminar los resultados seleccionados. Por favor, consulte la consola para m\u00e1s detalles.",
@@ -368,5 +371,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "Tiene ediciones que a\u00fan no se han guardado.",
   "You're saving ${version}. The latest version is not selected. Continue?": "Est\u00e1 guardando la versi\u00f3n ${version}. No est\u00e1 seleccionada la \u00faltima versi\u00f3n. \u00bfContinuar?",
   "clear": "borrar",
+  "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields.": "pdfcpu conserva el mapeo de campos para PDFs rellenados LLM es mejor para el dise\u00f1o pero no siempre puede mapear a los campos originales del PDF",
   "version ${current} of ${total}": "versi\u00f3n ${current} de ${total}"
 };

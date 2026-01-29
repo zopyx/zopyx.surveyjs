@@ -18,6 +18,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "All": "Tutti",
   "All results have been cleared successfully.": "Tutti i risultati sono stati cancellati con successo.",
   "Always review and adjust the generated form before use.": "Rivedi e modifica sempre il modulo generato prima dell'uso.",
+  "Analyze PDF": "PDF \u0915\u093e \u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923 \u0915\u0930\u0947\u0902",
   "Answer": "Risposta",
   "Ask the form owner for a trusted access link.": "Chiedi al proprietario del modulo un link di accesso attendibile",
   "Attached file: ${name}": "File allegato: ${name}",
@@ -33,6 +34,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "CC recipient": "Destinatario CC",
   "CSV (.csv)": "CSV (.csv)",
   "Cancel": "Annulla",
+  "Choose a PDF that already contains fillable fields": "Scegli un PDF che contiene gi\u00e0 campi compilabili",
   "Choose a PDF that contains the form layout you want to convert.": "Scegli un PDF che contenga il layout del modulo che vuoi convertire.",
   "Choose whether this form is publicly accessible or requires a trusted access token in the URL.": "Scegli se questo modulo \u00e8 accessibile pubblicamente o richiede un token di accesso attendibile nell'URL.",
   "Clear All Results": "Cancella tutti i risultati",
@@ -106,6 +108,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Explore responses with charts and summary insights.": "Esplora le risposte con grafici e approfondimenti riepilogativi",
   "Export the current SurveyJS form as a downloadable PDF.": "Esporta il modulo SurveyJS corrente come PDF scaricabile",
   "External AI provider:": "Provider AI esterno:",
+  "Extraction mode": "Modalit\u00e0 estrazione",
   "Failed to POST result: ${error}": "Invio del risultato fallito: ${error}",
   "Failed to clear results. Please check the console for more information.": "Cancellazione dei risultati fallita. Controlla la console per maggiori informazioni.",
   "Failed to delete selected results. Please check the console for details.": "Eliminazione dei risultati selezionati fallita. Controlla la console per i dettagli.",
@@ -368,5 +371,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "Hai delle modifiche che non sono ancora state salvate.",
   "You're saving ${version}. The latest version is not selected. Continue?": "Stai salvando la versione ${version}. L'ultima versione non \u00e8 selezionata. Continuare?",
   "clear": "cancella",
+  "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields.": "pdfcpu \u092d\u0930\u0947 \u0939\u0941\u090f PDF \u0915\u0947 \u0932\u093f\u090f \u092b\u093c\u0940\u0932\u094d\u0921 \u092e\u0948\u092a\u093f\u0902\u0917 \u0915\u094b \u0938\u0902\u0930\u0915\u094d\u0937\u093f\u0924 \u0930\u0916\u0924\u093e \u0939\u0948 LLM \u0932\u0947\u0906\u0909\u091f \u0915\u0947 \u0932\u093f\u090f \u0938\u092c\u0938\u0947 \u0905\u091a\u094d\u091b\u093e \u0939\u0948 \u0932\u0947\u0915\u093f\u0928 \u0939\u092e\u0947\u0936\u093e \u092e\u0942\u0932 PDF \u092b\u093c\u0940\u0932\u094d\u0921\u094d\u0938 \u092a\u0930 \u092e\u0948\u092a \u0928\u0939\u0940\u0902 \u0915\u0930 \u092a\u093e\u0924\u093e",
   "version ${current} of ${total}": "versione ${current} di ${total}"
 };

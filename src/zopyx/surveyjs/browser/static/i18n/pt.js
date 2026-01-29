@@ -18,6 +18,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "All": "Todos",
   "All results have been cleared successfully.": "Todos os resultados foram apagados com sucesso.",
   "Always review and adjust the generated form before use.": "Sempre revise e ajuste o formul\u00e1rio gerado antes de usar.",
+  "Analyze PDF": "PDF \u0915\u093e \u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923 \u0915\u0930\u0947\u0902",
   "Answer": "Resposta",
   "Ask the form owner for a trusted access link.": "Pe\u00e7a ao propriet\u00e1rio do formul\u00e1rio um link de acesso confi\u00e1vel",
   "Attached file: ${name}": "Arquivo anexado: ${name}",
@@ -33,6 +34,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "CC recipient": "Destinat\u00e1rio CC",
   "CSV (.csv)": "CSV (.csv)",
   "Cancel": "Cancelar",
+  "Choose a PDF that already contains fillable fields": "Choose a PDF that already contains fillable fields",
   "Choose a PDF that contains the form layout you want to convert.": "Escolha um PDF que contenha o layout do formul\u00e1rio que voc\u00ea deseja converter.",
   "Choose whether this form is publicly accessible or requires a trusted access token in the URL.": "Escolha se este formul\u00e1rio \u00e9 acess\u00edvel publicamente ou requer um token de acesso confi\u00e1vel no URL.",
   "Clear All Results": "Limpar todos os resultados",
@@ -106,6 +108,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Explore responses with charts and summary insights.": "Explore respostas com gr\u00e1ficos e insights resumidos",
   "Export the current SurveyJS form as a downloadable PDF.": "Exporte o formul\u00e1rio SurveyJS atual como um PDF para download",
   "External AI provider:": "Provedor de IA remoto:",
+  "Extraction mode": "Extraction mode",
   "Failed to POST result: ${error}": "Falha ao POSTAR resultado: ${error}",
   "Failed to clear results. Please check the console for more information.": "Falha ao limpar os resultados. Verifique o console para obter mais informa\u00e7\u00f5es.",
   "Failed to delete selected results. Please check the console for details.": "Falha ao excluir os resultados selecionados. Verifique o console para obter detalhes.",
@@ -368,5 +371,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "Voc\u00ea tem edi\u00e7\u00f5es que ainda n\u00e3o foram salvas.",
   "You're saving ${version}. The latest version is not selected. Continue?": "Voc\u00ea est\u00e1 salvando a vers\u00e3o ${version}. A vers\u00e3o mais recente n\u00e3o est\u00e1 selecionada. Continuar?",
   "clear": "limpar",
+  "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields.": "pdfcpu \u092d\u0930\u0947 \u0939\u0941\u090f PDF \u0915\u0947 \u0932\u093f\u090f \u092b\u093c\u0940\u0932\u094d\u0921 \u092e\u0948\u092a\u093f\u0902\u0917 \u0915\u094b \u0938\u0902\u0930\u0915\u094d\u0937\u093f\u0924 \u0930\u0916\u0924\u093e \u0939\u0948 LLM \u0932\u0947\u0906\u0909\u091f \u0915\u0947 \u0932\u093f\u090f \u0938\u092c\u0938\u0947 \u0905\u091a\u094d\u091b\u093e \u0939\u0948 \u0932\u0947\u0915\u093f\u0928 \u0939\u092e\u0947\u0936\u093e \u092e\u0942\u0932 PDF \u092b\u093c\u0940\u0932\u094d\u0921\u094d\u0938 \u092a\u0930 \u092e\u0948\u092a \u0928\u0939\u0940\u0902 \u0915\u0930 \u092a\u093e\u0924\u093e",
   "version ${current} of ${total}": "vers\u00e3o ${current} de ${total}"
 };

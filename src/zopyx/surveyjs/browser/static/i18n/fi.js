@@ -18,6 +18,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "All": "Kaikki",
   "All results have been cleared successfully.": "Kaikki tulokset on tyhjennetty onnistuneesti",
   "Always review and adjust the generated form before use.": "Tarkista ja muokkaa aina luotua lomaketta ennen k\u00e4ytt\u00f6\u00e4",
+  "Analyze PDF": "Analysoi PDF",
   "Answer": "Vastaus",
   "Ask the form owner for a trusted access link.": "Pyyd\u00e4 lomakkeen omistajalta luotettavan p\u00e4\u00e4syn linkki\u00e4",
   "Attached file: ${name}": "Liitetty tiedosto: ${name}",
@@ -33,6 +34,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "CC recipient": "Kopio vastaanottaja",
   "CSV (.csv)": "CSV (.csv)",
   "Cancel": "Peru",
+  "Choose a PDF that already contains fillable fields": "Valitse PDF joka sis\u00e4lt\u00e4\u00e4 jo t\u00e4ytett\u00e4vi\u00e4 kentti\u00e4",
   "Choose a PDF that contains the form layout you want to convert.": "Valitse PDF joka sis\u00e4lt\u00e4\u00e4 lomakkeen asettelun jonka haluat muuntaa",
   "Choose whether this form is publicly accessible or requires a trusted access token in the URL.": "Valitse onko t\u00e4m\u00e4 lomake julkisesti k\u00e4ytett\u00e4viss\u00e4 vai vaatiiko se luotetun k\u00e4ytt\u00f6oikeustunnuksen URL-osoitteessa",
   "Clear All Results": "Tyhjenn\u00e4 kaikki tulokset",
@@ -106,6 +108,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Explore responses with charts and summary insights.": "Tutki vastauksia kaavioiden ja yhteenveton\u00e4kemysten avulla",
   "Export the current SurveyJS form as a downloadable PDF.": "Vie nykyinen SurveyJS lomake ladattavaksi PDF tiedostoksi",
   "External AI provider:": "Ulkoinen teko\u00e4lypalveluntarjoaja",
+  "Extraction mode": "Uuttotila",
   "Failed to POST result: ${error}": "Tuloksen POST-pyynt\u00f6 ep\u00e4onnistui: ${error}",
   "Failed to clear results. Please check the console for more information.": "Tulosten tyhjent\u00e4minen ep\u00e4onnistui Tarkista lis\u00e4tietoja varten konsolista",
   "Failed to delete selected results. Please check the console for details.": "Valittujen tulosten poistaminen ep\u00e4onnistui Tarkista lis\u00e4tiedot konsolista",
@@ -368,5 +371,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "Sinulla on muokkauksia joita ei ole viel\u00e4 tallennettu",
   "You're saving ${version}. The latest version is not selected. Continue?": "Tallennat ${version} Uusin versio ei ole valittuna Jatketaanko",
   "clear": "selke\u00e4",
+  "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields.": "pdfcpu s\u00e4ilytt\u00e4\u00e4 kentt\u00e4kartoituksen t\u00e4ytetyille PDF-tiedostoille LLM on paras asetteluun mutta ei aina pysty vastaamaan alkuper\u00e4isi\u00e4 PDF-kentti\u00e4",
   "version ${current} of ${total}": "versio ${current} / ${total}"
 };

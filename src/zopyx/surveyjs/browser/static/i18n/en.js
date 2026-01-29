@@ -18,6 +18,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "All": "All",
   "All results have been cleared successfully.": "All results have been cleared successfully.",
   "Always review and adjust the generated form before use.": "Always review and adjust the generated form before use.",
+  "Analyze PDF": "Analyze PDF",
   "Answer": "Answer",
   "Ask the form owner for a trusted access link.": "Ask the form owner for a trusted access link",
   "Attached file: ${name}": "Attached file: ${name}",
@@ -33,6 +34,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "CC recipient": "CC recipient",
   "CSV (.csv)": "CSV (.csv)",
   "Cancel": "Cancel",
+  "Choose a PDF that already contains fillable fields": "Choose a PDF that already contains fillable fields",
   "Choose a PDF that contains the form layout you want to convert.": "Choose a PDF that contains the form layout you want to convert.",
   "Choose whether this form is publicly accessible or requires a trusted access token in the URL.": "Choose whether this form is publicly accessible or requires a trusted access token in the URL.",
   "Clear All Results": "Clear All Results",
@@ -106,6 +108,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Explore responses with charts and summary insights.": "Explore responses with charts and summary insights",
   "Export the current SurveyJS form as a downloadable PDF.": "Export the current SurveyJS form as a downloadable PDF",
   "External AI provider:": "External AI provider:",
+  "Extraction mode": "Extraction mode",
   "Failed to POST result: ${error}": "Failed to POST result: ${error}",
   "Failed to clear results. Please check the console for more information.": "Failed to clear results. Please check the console for more information.",
   "Failed to delete selected results. Please check the console for details.": "Failed to delete selected results. Please check the console for details.",
@@ -368,5 +371,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "You have edits that haven't been saved yet.",
   "You're saving ${version}. The latest version is not selected. Continue?": "You're saving ${version}. The latest version is not selected. Continue?",
   "clear": "clear",
+  "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields.": "pdfcpu preserves field mapping for filled PDFs LLM is best for layout but cannot always map to original PDF fields",
   "version ${current} of ${total}": "version ${current} of ${total}"
 };

@@ -18,6 +18,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "All": "Tous",
   "All results have been cleared successfully.": "Tous les r\u00e9sultats ont \u00e9t\u00e9 effac\u00e9s avec succ\u00e8s.",
   "Always review and adjust the generated form before use.": "V\u00e9rifiez et ajustez toujours le formulaire g\u00e9n\u00e9r\u00e9 avant de l'utiliser.",
+  "Analyze PDF": "Analysoi PDF",
   "Answer": "R\u00e9ponse",
   "Ask the form owner for a trusted access link.": "Demandez au propri\u00e9taire du formulaire un lien d\u2019acc\u00e8s fiable",
   "Attached file: ${name}": "Fichier joint : ${name}",
@@ -33,6 +34,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "CC recipient": "Destinataire CC",
   "CSV (.csv)": "CSV (.csv)",
   "Cancel": "Annuler",
+  "Choose a PDF that already contains fillable fields": "Valitse PDF joka sis\u00e4lt\u00e4\u00e4 jo t\u00e4ytett\u00e4vi\u00e4 kentti\u00e4",
   "Choose a PDF that contains the form layout you want to convert.": "Choisissez un PDF contenant la mise en page du formulaire que vous souhaitez convertir.",
   "Choose whether this form is publicly accessible or requires a trusted access token in the URL.": "Choisissez si ce formulaire est accessible au public ou n\u00e9cessite un jeton d'acc\u00e8s de confiance dans l'URL.",
   "Clear All Results": "Effacer tous les r\u00e9sultats",
@@ -106,6 +108,7 @@ window.SURVEYJS_I18N_MESSAGES = {
   "Explore responses with charts and summary insights.": "Explorer les r\u00e9ponses avec des graphiques et des aper\u00e7us r\u00e9capitulatifs",
   "Export the current SurveyJS form as a downloadable PDF.": "Exporter le formulaire SurveyJS actuel sous forme de PDF t\u00e9l\u00e9chargeable",
   "External AI provider:": "Fournisseur d'IA externe :",
+  "Extraction mode": "Uuttotila",
   "Failed to POST result: ${error}": "\u00c9chec de l'envoi du r\u00e9sultat : ${error}",
   "Failed to clear results. Please check the console for more information.": "\u00c9chec de l'effacement des r\u00e9sultats. Veuillez consulter la console pour plus d'informations.",
   "Failed to delete selected results. Please check the console for details.": "\u00c9chec de la suppression des r\u00e9sultats s\u00e9lectionn\u00e9s. Veuillez consulter la console pour plus de d\u00e9tails.",
@@ -368,5 +371,6 @@ window.SURVEYJS_I18N_MESSAGES = {
   "You have edits that haven't been saved yet.": "Vous avez des modifications qui n'ont pas encore \u00e9t\u00e9 enregistr\u00e9es.",
   "You're saving ${version}. The latest version is not selected. Continue?": "Vous enregistrez la version ${version}. La derni\u00e8re version n'est pas s\u00e9lectionn\u00e9e. Continuer ?",
   "clear": "clear",
+  "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields.": "pdfcpu s\u00e4ilytt\u00e4\u00e4 kentt\u00e4kartoituksen t\u00e4ytetyille PDF-tiedostoille LLM on paras asetteluun mutta ei aina pysty vastaamaan alkuper\u00e4isi\u00e4 PDF-kentti\u00e4",
   "version ${current} of ${total}": "version ${current} sur ${total}"
 };

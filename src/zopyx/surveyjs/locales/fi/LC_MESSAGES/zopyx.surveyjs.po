@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-28 19:04+0100\n"
+"PO-Revision-Date: 2026-01-29 08:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -1593,3 +1593,19 @@ msgstr "Täytettävät PDF lomakkeet"
 #: generated
 msgid "Download PDF"
 msgstr "Lataa PDF"
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "Valitse PDF joka sisältää jo täytettäviä kenttiä"
+
+msgid "Extraction mode"
+msgstr "Uuttotila"
+
+msgid ""
+"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
+"cannot always map to original PDF fields."
+msgstr ""
+"pdfcpu säilyttää kenttäkartoituksen täytetyille PDF-tiedostoille LLM on "
+"paras asetteluun mutta ei aina pysty vastaamaan alkuperäisiä PDF-kenttiä"
+
+msgid "Analyze PDF"
+msgstr "Analysoi PDF"

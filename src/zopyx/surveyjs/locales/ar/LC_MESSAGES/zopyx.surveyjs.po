@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-28 18:59+0100\n"
+"PO-Revision-Date: 2026-01-29 08:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -1575,3 +1575,19 @@ msgstr "نماذج PDF قابلة للتعبئة"
 #: generated
 msgid "Download PDF"
 msgstr "تحميل PDF"
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "اختر ملف PDF يحتوي بالفعل على حقول قابلة للتعبئة"
+
+msgid "Extraction mode"
+msgstr "وضع الاستخراج"
+
+msgid ""
+"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
+"cannot always map to original PDF fields."
+msgstr ""
+"يحافظ pdfcpu على تعيين الحقول لملفات PDF المعبأة LLM هو الأفضل من حيث "
+"التخطيط ولكنه لا يستطيع دائمًا التعيين إلى حقول ملف PDF الأصلية"
+
+msgid "Analyze PDF"
+msgstr "تحليل PDF"

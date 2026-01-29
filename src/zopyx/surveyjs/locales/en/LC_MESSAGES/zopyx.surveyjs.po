@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-28 19:01+0100\n"
+"PO-Revision-Date: 2026-01-29 08:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -1600,3 +1600,19 @@ msgstr "Fillable PDF Forms"
 #: generated
 msgid "Download PDF"
 msgstr "Download PDF"
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "Choose a PDF that already contains fillable fields"
+
+msgid "Extraction mode"
+msgstr "Extraction mode"
+
+msgid ""
+"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
+"cannot always map to original PDF fields."
+msgstr ""
+"pdfcpu preserves field mapping for filled PDFs LLM is best for layout but "
+"cannot always map to original PDF fields"
+
+msgid "Analyze PDF"
+msgstr "Analyze PDF"

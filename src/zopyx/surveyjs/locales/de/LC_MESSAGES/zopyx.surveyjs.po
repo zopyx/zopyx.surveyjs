@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-28 19:01+0100\n"
+"PO-Revision-Date: 2026-01-29 08:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -971,7 +971,7 @@ msgstr "Erstellt:"
 
 #: generated
 msgid "Current Version:"
-msgstr "Aktülle Version:"
+msgstr "Aktuelle Version"
 
 #: generated
 msgid "Date"
@@ -1655,3 +1655,20 @@ msgid ""
 msgstr ""
 "Konvertierung abgeschlossen Überprüfen Sie die Vorschau und klicken Sie auf "
 "Konvertiertes Formular als neue Version speichern"
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "Wähle eine PDF aus die bereits ausfüllbare Felder enthält"
+
+msgid "Extraction mode"
+msgstr "Extraktionsmodus"
+
+msgid ""
+"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
+"cannot always map to original PDF fields."
+msgstr ""
+"pdfcpu behält die Feldzuordnung für ausgefüllte PDFs bei LLM ist am besten "
+"für das Layout, kann aber nicht immer auf die ursprünglichen PDF-Felder "
+"abbilden"
+
+msgid "Analyze PDF"
+msgstr "PDF analysieren"

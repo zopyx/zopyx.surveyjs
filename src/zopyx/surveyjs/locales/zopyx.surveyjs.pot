@@ -1504,3 +1504,16 @@ msgstr ""
 #: generated
 msgid "Download PDF"
 msgstr ""
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr ""
+
+
+msgid "Extraction mode"
+msgstr ""
+
+msgid "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields."
+msgstr ""
+
+msgid "Analyze PDF"
+msgstr ""

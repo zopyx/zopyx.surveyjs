@@ -103,12 +103,12 @@
               </div>
               <div class="form-group">
                 <div class="checkbox">
+                  <input type="checkbox"
+                         id="pdfcpuValidationEnabled"
+                         name="pdfcpu_validation"
+                         checked="checked"
+                  />
                   <label i18n:translate="">
-                    <input type="checkbox"
-                           id="pdfcpuValidationEnabled"
-                           name="pdfcpu_validation"
-                           checked="checked"
-                    />
                     Form validation using pdfcpu
                   </label>
                 </div>

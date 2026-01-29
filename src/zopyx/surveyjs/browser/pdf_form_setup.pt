@@ -84,7 +84,7 @@
             <form id="pdfFormSetupForm" enctype="multipart/form-data">
               <div class="form-group">
                 <div class="pdf-setup-file-row">
-                  <label for="pdfFormFile" i18n:translate="">PDF hochladen</label>
+                  <label for="pdfFormFile" i18n:translate="">Upload PDF</label>
                   <input type="file"
                          id="pdfFormFile"
                          name="pdf_file"
@@ -93,9 +93,7 @@
                          required
                   />
                 </div>
-                <p class="help-block" i18n:translate="">
-                  Choose a PDF that already contains fillable fields.
-                </p>
+                <p class="help-block" i18n:translate=""> Choose a PDF that already contains fillable fields</p>
               </div>
               <div class="form-group">
                 <div class="pdf-setup-file-row">

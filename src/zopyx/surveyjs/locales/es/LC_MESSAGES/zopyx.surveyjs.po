@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-28 19:01+0100\n"
+"PO-Revision-Date: 2026-01-29 08:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -932,8 +932,7 @@ msgstr "Volver a los resultados"
 
 #: generated
 msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr ""
-"Elija un PDF que contenga el diseño del formulario que desea convertir."
+msgstr "Elija un PDF que contenga el diseño del formulario que desea convertir."
 
 #: generated
 msgid "Clear All Results"
@@ -1653,3 +1652,19 @@ msgstr "Formularios PDF rellenables"
 #: generated
 msgid "Download PDF"
 msgstr "Descargar PDF"
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "Elige un PDF que ya contenga campos rellenables"
+
+msgid "Extraction mode"
+msgstr "Modo de extracción"
+
+msgid ""
+"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
+"cannot always map to original PDF fields."
+msgstr ""
+"pdfcpu conserva el mapeo de campos para PDFs rellenados LLM es mejor para el "
+"diseño pero no siempre puede mapear a los campos originales del PDF"
+
+msgid "Analyze PDF"
+msgstr "Analyze PDF"
