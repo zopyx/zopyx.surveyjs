@@ -1,0 +1,204 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master">
+
+  <metal:styles fill-slot="style_slot">
+    <style type="text/css">
+      .pfs-hero {
+        background: linear-gradient(135deg, #eef4ff, #fdfdff);
+        border-radius: 18px;
+        padding: 2.5rem;
+        box-shadow: 0 25px 60px rgba(0, 34, 90, 0.08);
+        margin-bottom: 2rem;
+        border: 1px solid #e2e8fa;
+      }
+      .pfs-hero-eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.85rem;
+        color: #4a63aa;
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+      }
+      .pfs-hero h1 {
+        margin: 0 0 0.8rem 0;
+        font-size: 2.3rem;
+        color: #0f172a;
+      }
+      .pfs-hero p {
+        margin: 0;
+        font-size: 1.15rem;
+        color: #475569;
+        max-width: 48rem;
+      }
+      .pfs-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      .pfs-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.75rem;
+        border-radius: 18px;
+        text-decoration: none;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+        transition: transform 120ms ease, box-shadow 120ms ease,
+          border-color 120ms ease;
+      }
+      .pfs-card:hover,
+      .pfs-card:focus {
+        transform: translateY(-4px);
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+        border-color: #93c5fd;
+      }
+      .pfs-card-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        position: relative;
+        overflow: hidden;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+      }
+      .pfs-card-icon::after {
+        content: "";
+        font-size: 1.65rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .pfs-card-icon.icon-add::after {
+        content: "+";
+      }
+      .pfs-card-icon.icon-overview::after {
+        content: "\1F4C8";
+      }
+      .pfs-card-icon.icon-add {
+        background: linear-gradient(135deg, #60a5fa, #2563eb);
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+      .pfs-card-icon.icon-overview {
+        background: linear-gradient(135deg, #4338ca, #7c3aed);
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.25);
+      }
+      .pfs-card-icon.icon-admin::after {
+        content: "\2699";
+      }
+      .pfs-card-icon.icon-admin {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+      }
+      .pfs-card-title {
+        font-size: 1.35rem;
+        color: #111827;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+      }
+      .pfs-card-description {
+        color: #475569;
+        font-size: 1rem;
+        margin: 0 0 1.25rem 0;
+        line-height: 1.5;
+      }
+      .pfs-card-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-weight: 600;
+        color: #1d4ed8;
+        font-size: 0.95rem;
+      }
+      .pfs-card-action::after {
+        content: "›";
+        transition: transform 120ms ease;
+      }
+      .pfs-card:hover .pfs-card-action::after {
+        transform: translateX(4px);
+      }
+      .pfs-empty {
+        border: 1px solid #f1f5f9;
+        border-radius: 16px;
+        padding: 2rem;
+        background: #ffffff;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+      }
+      .pfs-empty h2 {
+        margin: 0 0 0.5rem 0;
+        color: #0f172a;
+      }
+      .pfs-empty p {
+        margin: 0 0 1rem 0;
+        color: #475569;
+      }
+      .pfs-empty a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.6rem;
+        border-radius: 99px;
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        color: #ffffff;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    </style>
+  </metal:styles>
+
+  <metal:content fill-slot="content-core" tal:define="cards view/cards">
+    <section class="pfs-hero">
+      <span class="pfs-hero-eyebrow" i18n:translate="">Privacy Forms Studio</span>
+      <h1 i18n:translate="">What would you like to do today?</h1>
+      <p i18n:translate="">
+        Start with a guided action that matches your role. These shortcuts keep every
+        team member productive, confident, and in control of their survey data.
+      </p>
+    </section>
+
+    <section tal:condition="cards">
+      <div class="pfs-card-grid">
+        <a class="pfs-card"
+           tal:repeat="card cards"
+           tal:attributes="
+             href card/url;
+             class python: 'pfs-card accent-' + (card.get('accent') or 'primary')
+           ">
+          <div class="pfs-card-icon"
+               tal:attributes="class python: 'pfs-card-icon' + (' icon-' + card.get('icon') if card.get('icon') else '')"
+               aria-hidden="true"></div>
+          <h2 class="pfs-card-title" tal:content="card/title">Card title</h2>
+          <p class="pfs-card-description"
+             tal:content="card/description">Card description</p>
+          <span class="pfs-card-action" tal:content="card/action_label">
+            Go
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="pfs-empty" tal:condition="not:cards">
+      <h2 i18n:translate="">Nothing to do yet</h2>
+      <p i18n:translate="">
+        You need permission to create new SurveyJS content here.
+        Please reach out to a site manager for access.
+      </p>
+      <tal:login tal:condition="view/is_anonymous">
+        <a tal:attributes="href view/login_url" i18n:translate="">Sign in</a>
+      </tal:login>
+    </section>
+  </metal:content>
+</html>

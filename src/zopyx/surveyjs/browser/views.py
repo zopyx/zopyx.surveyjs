@@ -76,6 +76,184 @@ class RootRedirect(BrowserView):
         return self.request.response.redirect(self.context.absolute_url())
 
 
+class PFSView(BrowserView):
+    """Permission-aware landing page with prominent call-to-action cards."""
+
+    index = ViewPageTemplateFile("pfs.pt")
+
+    def __call__(self):
+        return self.index()
+
+    @property
+    def is_anonymous(self) -> bool:
+        return plone.api.user.is_anonymous()
+
+    @property
+    def can_add_survey(self) -> bool:
+        if self.is_anonymous:
+            return False
+        return plone.api.user.has_permission(
+            "zopyx.surveyjs.AddSurvey", obj=self.context
+        )
+
+    @property
+    def can_view_forms_overview(self) -> bool:
+        if self.is_anonymous:
+            return False
+        return plone.api.user.has_permission("cmf.ManagePortal", obj=self.context)
+
+    @property
+    def add_survey_url(self) -> str:
+        return f"{self.context.absolute_url()}/@@survey-add"
+
+    @property
+    def forms_overview_url(self) -> str:
+        return f"{self.context.absolute_url()}/@@survey-overview"
+
+    @property
+    def administration_url(self) -> str:
+        portal = plone.api.portal.get()
+        return f"{portal.absolute_url()}/@@overview-controlpanel"
+
+    @property
+    def cards(self) -> list[dict]:
+        cards: list[dict] = []
+        if self.can_add_survey:
+            cards.append(
+                {
+                    "title": _("New form/survey"),
+                    "description": _(
+                        "Launch a brand-new form or survey and start collecting answers."
+                    ),
+                    "action_label": _("Create form"),
+                    "url": self.add_survey_url,
+                    "accent": "primary",
+                    "icon": "add",
+                }
+            )
+        if self.can_view_forms_overview:
+            cards.append(
+                {
+                    "title": _("Forms overview"),
+                    "description": _(
+                        "See every survey at a glance, surface trends, and jump right in."
+                    ),
+                    "action_label": _("Open overview"),
+                    "url": self.forms_overview_url,
+                    "accent": "secondary",
+                    "icon": "overview",
+                }
+            )
+            cards.append(
+                {
+                    "title": _("Administration"),
+                    "description": _(
+                        "Visit the control panel to adjust site-wide settings and integrations."
+                    ),
+                    "action_label": _("Open control panel"),
+                    "url": self.administration_url,
+                    "accent": "manager",
+                    "icon": "admin",
+                }
+            )
+        return cards
+
+    @property
+    def login_url(self) -> str:
+        portal = plone.api.portal.get()
+        return f"{portal.absolute_url()}/login"
+
+
+class SurveyAddView(BrowserView):
+    """Minimal SurveyJS-inspired creator for quickly starting new surveys."""
+
+    index = ViewPageTemplateFile("survey_add.pt")
+
+    def __init__(self, context, request):
+        super().__init__(context, request)
+        self._errors: list[str] = []
+        self._form_values: dict[str, str] = {}
+
+    def __call__(self):
+        if not self.can_add:
+            self.request.response.setStatus(403)
+            return _("You are not allowed to add surveys here.")
+
+        if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            return self.handle_submit()
+        return self.index()
+
+    @property
+    def can_add(self) -> bool:
+        return plone.api.user.has_permission(
+            "zopyx.surveyjs.AddSurvey", obj=self.context
+        )
+
+    @property
+    def form_values(self) -> dict[str, str]:
+        if not self._form_values:
+            self._form_values = {
+                "title": "",
+                "description": "",
+            }
+        return self._form_values
+
+    @property
+    def initial_data_json(self) -> str:
+        return orjson.dumps(self.form_values).decode("utf-8")
+
+    @property
+    def errors(self) -> list[str]:
+        return self._errors
+
+    def handle_submit(self):
+        data = self._extract_form_data()
+        self._form_values = data
+        self._errors = []
+
+        title = data["title"]
+        if not title:
+            self._errors.append(_("Please provide a title for your survey."))
+
+        if self._errors:
+            self.request.response.setStatus(400)
+            return self.index()
+
+        description = data["description"]
+
+        try:
+            survey = plone.api.content.create(
+                container=self.context,
+                type="Survey",
+                title=title,
+                description=description,
+            )
+        except Exception:
+            logger.exception("Survey creation failed: context=%s", self.context)
+            self._errors.append(
+                _("We could not create the survey at the moment. Please try again.")
+            )
+            self.request.response.setStatus(500)
+            return self.index()
+
+        plone.api.portal.show_message(
+            _("Survey created. Let's build it!"),
+            request=self.request,
+            type="info",
+        )
+        editor_url = f"{survey.absolute_url()}/@@editor"
+        return self.request.response.redirect(editor_url)
+
+    def _extract_form_data(self) -> dict[str, str]:
+        form = self.request.form
+        title = (form.get("title") or "").strip()
+        description = (form.get("description") or "").strip()
+        return {
+            "title": title,
+            "description": description,
+        }
+
+
 def _extract_json_object(raw_text: str) -> str | None:
     """Best-effort extraction of a JSON object from noisy text."""
     if not raw_text:

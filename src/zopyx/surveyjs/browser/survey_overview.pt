@@ -31,16 +31,18 @@
           href="++resource++zopyx.surveyjs/survey_overview.css"
     />
 
-    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
-      <metal:survey-header-headline fill-slot="view-headline">
-        <div class="page-headline" i18n:translate="">Survey overview</div>
-      </metal:survey-header-headline>
-      <metal:survey-header-subtitle fill-slot="view-subtitle">
-        <div class="page-subtitle" i18n:translate="">
-          Overview of surveys in this section and their submission status.
+    <div class="survey-header survey-header--overview">
+      <div class="survey-header-top">
+        <div class="survey-header-main">
+          <div class="survey-header-view">
+            <h2 class="page-headline" i18n:translate="">Survey overview</h2>
+            <div class="page-subtitle" i18n:translate="">
+              Overview of surveys in this section and their submission status.
+            </div>
+          </div>
         </div>
-      </metal:survey-header-subtitle>
-    </metal:survey-header>
+      </div>
+    </div>
 
     <tal:entries tal:define="entries view/survey_overview_entries">
       <tal:empty tal:condition="not: entries">

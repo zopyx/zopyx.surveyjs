@@ -1,0 +1,178 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master">
+
+  <metal:styles fill-slot="style_slot">
+    <metal:survey-header-critical
+        use-macro="context/@@survey-actions/macros/survey-header-critical"
+    />
+    <style type="text/css">
+      .survey-add-hero {
+        background: linear-gradient(135deg, #eef2ff, #fdf2f8);
+        border-radius: 24px;
+        padding: 2.75rem;
+        margin-bottom: 2.5rem;
+        border: 1px solid #e0e7ff;
+        box-shadow: 0 25px 70px rgba(15, 23, 42, 0.08);
+      }
+      .survey-add-eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.85rem;
+        color: #4c1d95;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .survey-add-hero h1 {
+        margin: 0 0 0.8rem 0;
+        font-size: 2.5rem;
+        color: #111827;
+      }
+      .survey-add-hero p {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #4b5563;
+        max-width: 50rem;
+      }
+      .survey-add-card {
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 2.5rem;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.07);
+      }
+      .survey-add-errors {
+        border: 1px solid #fca5a5;
+        background: #fef2f2;
+        color: #991b1b;
+        border-radius: 18px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+      .survey-add-errors ul {
+        margin: 0.3rem 0 0 1.25rem;
+        padding: 0;
+      }
+      .survey-add-widget {
+        min-height: 320px;
+        border-radius: 20px;
+        border: 1px dashed #c7d2fe;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #fdf4ff, #f5f3ff);
+        transition: box-shadow 120ms ease;
+      }
+      .survey-add-widget.is-ready {
+        border-style: solid;
+        border-color: #c4b5fd;
+        box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.35);
+        background: #ffffff;
+      }
+      .survey-add-loading {
+        color: #7c3aed;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .survey-add-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .survey-add-cancel {
+        border-radius: 999px;
+        padding: 0.95rem 2rem;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        color: #475569;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .survey-add-hidden-form {
+        display: none;
+      }
+      .survey-add-error-message {
+        background: #fee2e2;
+        border: 1px solid #fecaca;
+        border-radius: 12px;
+        padding: 1rem;
+        color: #991b1b;
+      }
+    </style>
+  </metal:styles>
+
+  <metal:content fill-slot="content-core"
+                 tal:define="errors view/errors">
+
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
+    <metal:surveyjs-core
+        use-macro="context/@@survey-assets/macros/surveyjs-core"
+    />
+    <metal:surveyjs-ui
+        use-macro="context/@@survey-assets/macros/surveyjs-ui"
+    />
+    <metal:surveyjs-theme-index
+        use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+    />
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+
+    <script type="application/json"
+            id="survey-add-initial-data"
+            tal:content="structure view/initial_data_json">
+    </script>
+
+    <section class="survey-add-hero">
+      <div class="survey-add-eyebrow" i18n:translate="">Create</div>
+      <h1 i18n:translate="">Spin up a fresh Survey</h1>
+      <p i18n:translate="">
+        Give your survey a clear name and a short description so collaborators know what
+        it's about. We'll drop you straight into the SurveyJS editor afterwards.
+      </p>
+    </section>
+
+    <section class="survey-add-card">
+      <div class="survey-add-errors" tal:condition="errors">
+        <strong i18n:translate="">Let's fix a few things:</strong>
+        <ul>
+          <li tal:repeat="error errors" tal:content="error">Error</li>
+        </ul>
+      </div>
+
+      <div class="survey-add-widget"
+           id="survey-add-widget"
+           tal:attributes="data-schema-url string:${context/portal_url}/++resource++zopyx.surveyjs/survey_add_form.json;
+                           data-theme string:index">
+        <div class="survey-add-loading" i18n:translate="">Loading form...</div>
+      </div>
+
+      <div class="survey-add-actions">
+        <a class="survey-add-cancel"
+           tal:attributes="href context/absolute_url"
+           i18n:translate="">Cancel</a>
+      </div>
+    </section>
+
+    <form class="survey-add-hidden-form"
+          id="survey-add-hidden-form"
+          method="post"
+          tal:attributes="action request/ACTUAL_URL">
+      <span tal:replace="structure context/@@authenticator/authenticator"></span>
+      <input type="hidden" name="title" value="" />
+      <input type="hidden" name="description" value="" />
+      <input type="hidden" name="form.submitted" value="1" />
+    </form>
+
+    <script src="++resource++zopyx.surveyjs/survey_add.js"></script>
+  </metal:content>
+</html>
