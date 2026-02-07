@@ -1,31 +1,250 @@
 {
-  "title": "Survey basics",
-  "description": "Describe what you are about to build so teammates can jump in confidently.",
+  "title": "Survey setup",
+  "description": "Review each section before creating.",
+  "logoPosition": "right",
+  "questionErrorLocation": "bottom",
   "showQuestionNumbers": "off",
+  "showTitle": true,
+  "showProgressBar": "top",
   "showNavigationButtons": "bottom",
-  "progressBarType": "off",
+  "progressBarType": "buttons",
+  "goNextPageAutomatic": false,
+  "requiredText": "",
   "completeText": "Create survey",
   "pages": [
     {
-      "name": "basics",
+      "name": "page_basics",
+      "title": "Basics",
+      "navigationTitle": "Basics",
       "elements": [
+        {
+          "type": "html",
+          "name": "intro_basics",
+          "html": "<div class='survey-add-eyebrow'>Start here</div><div>Create the short intro shown across the suite.</div>"
+        },
         {
           "type": "text",
           "name": "title",
           "title": "Survey title",
-          "placeholder": "e.g. Privacy request intake",
+          "placeholder": "Privacy request intake",
           "isRequired": true,
-          "maxLength": 255,
+          "maxLength": 120,
           "autofocus": true,
-          "minWidth": "100%"
+          "minWidth": "100%",
+          "titleLocation": "hidden",
+          "description": "Give it a clear working name.",
+          "descriptionLocation": "underInput"
         },
         {
           "type": "comment",
           "name": "description",
           "title": "Description",
-          "placeholder": "Add context for teammates or embed instructions.",
-          "rows": 5,
+          "placeholder": "Who is it for? Anything teammates should know?",
+          "rows": 3,
+          "maxLength": 480,
+          "minWidth": "100%",
+          "titleLocation": "hidden",
+          "description": "Optional context for collaborators.",
+          "descriptionLocation": "underInput"
+        }
+      ]
+    },
+    {
+      "name": "page_actions",
+      "title": "Actions",
+      "navigationTitle": "Actions",
+      "elements": [
+        {
+          "type": "html",
+          "name": "intro_actions",
+          "html": "<div class='survey-add-eyebrow'>Actions</div><div>Match submission handling with Dexterity.</div>"
+        },
+       {
+         "type": "checkbox",
+         "name": "actions",
+         "title": "Submission handling",
+         "description": "Pick every workflow that should trigger on submit.",
+          "isRequired": true,
+          "choices": [
+            { "value": "store", "text": "Store in Plone" },
+            { "value": "mail", "text": "Mail (with attachments)" },
+            { "value": "mail-notification", "text": "Mail (notification only)" },
+            { "value": "post", "text": "POST to endpoint" }
+          ],
+          "defaultValue": ["store"],
+          "showSelectAllItem": true,
           "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "post_endpoint_url",
+          "title": "POST endpoint URL",
+          "inputType": "url",
+          "placeholder": "https://example.org/api/collector",
+          "visibleIf": "{actions} contains 'post'",
+          "description": "Submissions will be sent as JSON when POST is enabled.",
+          "minWidth": "100%"
+        }
+      ]
+    },
+    {
+      "name": "page_mail",
+      "title": "Mail",
+      "navigationTitle": "Mail",
+      "elements": [
+        {
+          "type": "html",
+          "name": "intro_mail",
+          "html": "<div class='survey-add-eyebrow'>Mail</div><div>Same as the Mail fieldset.</div>"
+        },
+        {
+          "type": "text",
+          "name": "email_sender",
+          "title": "Sender",
+          "inputType": "email",
+          "placeholder": "privacy@agency.example",
+          "description": "Required when sending result emails.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "email_to",
+          "title": "Recipient",
+          "inputType": "email",
+          "placeholder": "ops@agency.example",
+          "description": "Primary recipient. Required with Mail action.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "email_subject",
+          "title": "Subject",
+          "placeholder": "New submission ({poll_id})",
+          "description": "Subject for result exports.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "comment",
+          "name": "email_cc",
+          "title": "CC",
+          "placeholder": "One recipient per line",
+          "rows": 2,
+          "description": "Optional list of CC recipients.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "comment",
+          "name": "email_bcc",
+          "title": "BCC",
+          "placeholder": "One recipient per line",
+          "rows": 2,
+          "description": "Optional list of BCC recipients.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "checkbox",
+          "name": "email_formats",
+          "title": "Attachments",
+          "description": "Select export formats to include.",
+          "choices": [
+            { "value": "text", "text": "Text" },
+            { "value": "md", "text": "Markdown" },
+            { "value": "html", "text": "HTML" },
+            { "value": "pdf", "text": "PDF" },
+            { "value": "csv", "text": "CSV" },
+            { "value": "xlsx", "text": "Excel" },
+            { "value": "xml", "text": "XML" },
+            { "value": "docx", "text": "Word" },
+            { "value": "json", "text": "JSON" }
+          ],
+          "showSelectAllItem": true
+        },
+        {
+          "type": "comment",
+          "name": "email_body",
+          "title": "Email body",
+          "rows": 5,
+          "placeholder": "Provide the email text...",
+          "description": "Optional body for result exports.",
+          "minWidth": "100%"
+        }
+      ]
+    },
+    {
+      "name": "page_mail_notifications",
+      "title": "Mail notifications",
+      "navigationTitle": "Notifications",
+      "elements": [
+        {
+          "type": "html",
+          "name": "intro_mail_notifications",
+          "html": "<div class='survey-add-eyebrow'>Notifications</div><div>Matches notification-only fields.</div>"
+        },
+        {
+          "type": "text",
+          "name": "email_notification_subject",
+          "title": "Notification subject",
+          "placeholder": "Form submitted ({title})",
+          "minWidth": "100%"
+        },
+        {
+          "type": "comment",
+          "name": "email_notification_body",
+          "title": "Notification body",
+          "rows": 6,
+          "placeholder": "Hello...",
+          "description": "Supports {title}, {detail_url}, {poll_id}.",
+          "minWidth": "100%"
+        }
+      ]
+    },
+    {
+      "name": "page_form_settings",
+      "title": "Form settings",
+      "navigationTitle": "Form settings",
+      "elements": [
+        {
+          "type": "html",
+          "name": "intro_form_settings",
+          "html": "<div class='survey-add-eyebrow'>Form settings</div><div>Controls validation and tokens.</div>"
+        },
+       {
+         "type": "boolean",
+         "name": "force_server_side_validation",
+         "title": "Force server-side validation",
+         "labelTrue": "Enabled",
+         "labelFalse": "Disabled",
+          "defaultValue": true
+        },
+        {
+          "type": "text",
+          "name": "max_payload_size_mb",
+          "title": "Max payload size (MB)",
+          "inputType": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "width": "120px"
+        },
+        {
+          "type": "dropdown",
+          "name": "access_mode",
+          "title": "Access mode",
+          "choices": [
+            { "value": "public", "text": "Public" },
+            { "value": "trusted", "text": "Trusted token" }
+          ],
+          "defaultValue": "public"
+        },
+        {
+          "type": "text",
+          "name": "trusted_access_ttl_hours",
+          "title": "Trusted token lifetime (hours)",
+          "inputType": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 168,
+          "width": "120px"
         }
       ]
     }

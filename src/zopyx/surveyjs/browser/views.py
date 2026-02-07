@@ -3,6 +3,8 @@ from string import Formatter
 import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from copy import deepcopy
+from typing import Any
 import subprocess
 import time
 import csv
@@ -64,6 +66,35 @@ CONVERTER_FORMATS = [
     ),
     ("json", "JSON (.json)", "json", "application/json"),
 ]
+
+SURVEY_ADD_DEFAULT_NOTIFICATION_BODY = (
+    "Hello,\n\n"
+    'A new form submission was received for "{title}".\n'
+    "You can review the submitted data here:\n"
+    "{detail_url}\n\n"
+    "Regards,\n"
+    "Privacy Forms Studio\n"
+)
+
+SURVEY_ADD_DEFAULTS: dict[str, Any] = {
+    "title": "",
+    "description": "",
+    "actions": ["store"],
+    "post_endpoint_url": "",
+    "email_sender": "",
+    "email_subject": "",
+    "email_to": "",
+    "email_cc": "",
+    "email_bcc": "",
+    "email_formats": [],
+    "email_body": "",
+    "email_notification_subject": "Form submitted ({title})",
+    "email_notification_body": SURVEY_ADD_DEFAULT_NOTIFICATION_BODY,
+    "force_server_side_validation": True,
+    "max_payload_size_mb": 1,
+    "access_mode": "public",
+    "trusted_access_ttl_hours": 168,
+}
 
 
 class RootRedirect(BrowserView):
@@ -172,7 +203,7 @@ class SurveyAddView(BrowserView):
     def __init__(self, context, request):
         super().__init__(context, request)
         self._errors: list[str] = []
-        self._form_values: dict[str, str] = {}
+        self._form_values: dict[str, Any] = {}
 
     def __call__(self):
         if not self.can_add:
@@ -190,12 +221,9 @@ class SurveyAddView(BrowserView):
         )
 
     @property
-    def form_values(self) -> dict[str, str]:
+    def form_values(self) -> dict[str, Any]:
         if not self._form_values:
-            self._form_values = {
-                "title": "",
-                "description": "",
-            }
+            self._form_values = deepcopy(SURVEY_ADD_DEFAULTS)
         return self._form_values
 
     @property
@@ -207,27 +235,24 @@ class SurveyAddView(BrowserView):
         return self._errors
 
     def handle_submit(self):
-        data = self._extract_form_data()
+        data, extraction_errors = self._extract_form_data()
         self._form_values = data
-        self._errors = []
+        self._errors = list(extraction_errors)
 
-        title = data["title"]
+        title = (data.get("title") or "").strip()
         if not title:
             self._errors.append(_("Please provide a title for your survey."))
+
+        actions = self._ensure_list(data.get("actions"))
+        if not actions:
+            self._errors.append(_("Select at least one submission handling option."))
 
         if self._errors:
             self.request.response.setStatus(400)
             return self.index()
 
-        description = data["description"]
-
         try:
-            survey = plone.api.content.create(
-                container=self.context,
-                type="Survey",
-                title=title,
-                description=description,
-            )
+            survey = plone.api.content.create(**self._build_create_kwargs(data))
         except Exception:
             logger.exception("Survey creation failed: context=%s", self.context)
             self._errors.append(
@@ -244,14 +269,87 @@ class SurveyAddView(BrowserView):
         editor_url = f"{survey.absolute_url()}/@@editor"
         return self.request.response.redirect(editor_url)
 
-    def _extract_form_data(self) -> dict[str, str]:
+    def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
+        data = deepcopy(SURVEY_ADD_DEFAULTS)
+        errors: list[str] = []
         form = self.request.form
-        title = (form.get("title") or "").strip()
-        description = (form.get("description") or "").strip()
+        payload = form.get("payload")
+        if payload:
+            try:
+                payload_data = orjson.loads(payload)
+            except orjson.JSONDecodeError:
+                errors.append(_("We could not read the submitted form data."))
+            else:
+                for key in data:
+                    if key in payload_data:
+                        data[key] = payload_data[key]
+        else:
+            data["title"] = (form.get("title") or "").strip()
+            data["description"] = (form.get("description") or "").strip()
+        return data, errors
+
+    def _build_create_kwargs(self, data: dict[str, Any]) -> dict[str, Any]:
+        actions = self._ensure_list(data.get("actions")) or ["store"]
+        email_formats = self._ensure_list(data.get("email_formats"))
+        email_cc = self._split_lines(data.get("email_cc"))
+        email_bcc = self._split_lines(data.get("email_bcc"))
+        max_payload = self._coerce_int(data.get("max_payload_size_mb"), 1)
+        ttl = self._coerce_int(data.get("trusted_access_ttl_hours"), 168)
+        force_validation = bool(data.get("force_server_side_validation", True))
+
         return {
-            "title": title,
-            "description": description,
+            "container": self.context,
+            "type": "Survey",
+            "title": data.get("title", ""),
+            "description": data.get("description", ""),
+            "actions": set(actions),
+            "post_endpoint_url": data.get("post_endpoint_url") or None,
+            "email_sender": data.get("email_sender") or None,
+            "email_subject": data.get("email_subject") or None,
+            "email_to": data.get("email_to") or None,
+            "email_cc": email_cc,
+            "email_bcc": email_bcc,
+            "email_formats": set(email_formats),
+            "email_body": data.get("email_body") or None,
+            "email_notification_subject": data.get(
+                "email_notification_subject"
+            )
+            or "",
+            "email_notification_body": data.get("email_notification_body") or "",
+            "force_server_side_validation": force_validation,
+            "max_payload_size_mb": max_payload,
+            "access_mode": data.get("access_mode") or "public",
+            "trusted_access_ttl_hours": ttl,
         }
+
+    def _ensure_list(self, value: Any) -> list[str]:
+        if value is None:
+            return []
+        if isinstance(value, str):
+            if not value:
+                return []
+            return [value]
+        if isinstance(value, (list, tuple, set)):
+            return [str(item) for item in value if str(item).strip()]
+        return [str(value)]
+
+    def _split_lines(self, value: Any) -> list[str]:
+        if not value:
+            return []
+        if isinstance(value, list):
+            parts = value
+        else:
+            parts = re.split(r"[\n,]+", str(value))
+        return [part.strip() for part in parts if part and part.strip()]
+
+    def _coerce_int(self, value: Any, default: int) -> int:
+        try:
+            candidate = int(value)
+        except (TypeError, ValueError):
+            return default
+        if candidate < 1:
+            return default
+        return candidate
 
 
 def _extract_json_object(raw_text: str) -> str | None:

@@ -80,6 +80,25 @@
         margin-top: 1.5rem;
         display: flex;
         justify-content: flex-end;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .survey-add-submit {
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #7c3aed, #4338ca);
+        color: #ffffff;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding: 0.95rem 2.5rem;
+        cursor: pointer;
+        box-shadow: 0 15px 30px rgba(67, 56, 202, 0.35);
+        transition: transform 120ms ease, box-shadow 120ms ease;
+      }
+      .survey-add-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 20px 35px rgba(67, 56, 202, 0.4);
       }
       .survey-add-cancel {
         border-radius: 999px;
@@ -157,6 +176,10 @@
       </div>
 
       <div class="survey-add-actions">
+        <button class="survey-add-submit"
+                type="button"
+                id="survey-add-submit"
+                i18n:translate="">Create survey</button>
         <a class="survey-add-cancel"
            tal:attributes="href context/absolute_url"
            i18n:translate="">Cancel</a>
@@ -170,6 +193,7 @@
       <span tal:replace="structure context/@@authenticator/authenticator"></span>
       <input type="hidden" name="title" value="" />
       <input type="hidden" name="description" value="" />
+      <input type="hidden" name="payload" value="" />
       <input type="hidden" name="form.submitted" value="1" />
     </form>
 
