@@ -73,6 +73,7 @@ jobs:
           username: privacyforms
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            echo "Restarting on host: zopyx.com"
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
             docker pull ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
             docker stop -t 30 pfs-demo || true
