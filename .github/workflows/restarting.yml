@@ -15,7 +15,7 @@ jobs:
       - name: Restart remote container
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: zopyx.com 
+          host: public.zopyx.com 
           username: privacyforms
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
