@@ -11,12 +11,16 @@
     />
     <style type="text/css">
       .survey-add-eyebrow {
+        display: none;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         font-size: 0.85rem;
         color: #4c1d95;
         font-weight: 600;
         margin-bottom: 0.5rem;
+      }
+      .survey-add-eyebrown {
+        display: none;
       }
       .survey-add-errors {
         border: 1px solid #fca5a5;
@@ -92,6 +96,9 @@
         border-radius: 12px;
         padding: 1rem;
         color: #991b1b;
+      }
+      .sd-description {
+        font-size: 0.8em !important;
       }
     </style>
   </metal:styles>

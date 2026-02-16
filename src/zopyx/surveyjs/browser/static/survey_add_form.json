@@ -19,11 +19,6 @@
       "navigationTitle": "Basics",
       "elements": [
         {
-          "type": "html",
-          "name": "intro_basics",
-          "html": "<div class='survey-add-eyebrow'>Basics</div><div>Define the core details of this form.</div>"
-        },
-        {
           "type": "text",
           "name": "title",
           "title": "Form title",
@@ -54,11 +49,6 @@
       "name": "page_actions",
       "title": "Actions",
       "elements": [
-        {
-          "type": "html",
-          "name": "intro_actions",
-          "html": "<div class='survey-add-eyebrow'>Actions</div><div>Match submission handling with Dexterity.</div>"
-        },
        {
          "type": "checkbox",
          "name": "actions",
@@ -92,11 +82,6 @@
       "title": "Mail",
       "navigationTitle": "Mail",
       "elements": [
-        {
-          "type": "html",
-          "name": "intro_mail",
-          "html": "<div class='survey-add-eyebrow'>Mail</div><div>Same as the Mail fieldset.</div>"
-        },
         {
           "type": "text",
           "name": "email_sender",
@@ -178,11 +163,6 @@
       "navigationTitle": "Notifications",
       "elements": [
         {
-          "type": "html",
-          "name": "intro_mail_notifications",
-          "html": "<div class='survey-add-eyebrow'>Notifications</div><div>Matches notification-only fields.</div>"
-        },
-        {
           "type": "text",
           "name": "email_notification_subject",
           "title": "Notification subject",
@@ -205,11 +185,6 @@
       "title": "Form settings",
       "navigationTitle": "Form settings",
       "elements": [
-        {
-          "type": "html",
-          "name": "intro_form_settings",
-          "html": "<div class='survey-add-eyebrow'>Form settings</div><div>Controls validation and tokens.</div>"
-        },
        {
          "type": "boolean",
          "name": "force_server_side_validation",
