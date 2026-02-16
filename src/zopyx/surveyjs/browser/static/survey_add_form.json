@@ -21,15 +21,14 @@
         {
           "type": "text",
           "name": "title",
-          "title": "Form title",
+          "title": "Title of form",
           "placeholder": "Data access request form",
           "isRequired": true,
           "maxLength": 120,
           "autofocus": true,
           "minWidth": "100%",
-          "titleLocation": "hidden",
           "description": "Internal and public name of the form.",
-          "descriptionLocation": "underInput"
+          "descriptionLocation": "underTitle"
         },
         {
           "type": "comment",
@@ -39,9 +38,8 @@
           "rows": 3,
           "maxLength": 480,
           "minWidth": "100%",
-          "titleLocation": "hidden",
           "description": "Optional helper text shown with the form.",
-          "descriptionLocation": "underInput"
+          "descriptionLocation": "underTitle"
         }
       ]
     },
@@ -167,6 +165,7 @@
           "name": "email_notification_subject",
           "title": "Notification subject",
           "placeholder": "Form submitted ({title})",
+          "description": "Subject line for notification-only emails.",
           "minWidth": "100%"
         },
         {
@@ -175,7 +174,7 @@
           "title": "Notification body",
           "rows": 15,
           "placeholder": "Hello...",
-          "description": "Supports {title}, {detail_url}, {poll_id}.",
+          "description": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
           "minWidth": "100%"
         }
       ]
@@ -189,6 +188,7 @@
          "type": "boolean",
          "name": "force_server_side_validation",
          "title": "Force server-side validation",
+         "description": "Always validate submissions on the server before processing.",
          "labelTrue": "Enabled",
          "labelFalse": "Disabled",
           "defaultValue": true
@@ -197,6 +197,7 @@
           "type": "text",
           "name": "max_payload_size_mb",
           "title": "Max payload size (MB)",
+          "description": "Maximum accepted request size for one submission.",
           "inputType": "number",
           "min": 1,
           "step": 1,
@@ -207,6 +208,7 @@
           "type": "dropdown",
           "name": "access_mode",
           "title": "Access mode",
+          "description": "Choose whether the form is public or requires a trusted access token.",
           "choices": [
             { "value": "public", "text": "Public" },
             { "value": "trusted", "text": "Trusted token" }
@@ -217,6 +219,7 @@
           "type": "text",
           "name": "trusted_access_ttl_hours",
           "title": "Trusted token lifetime (hours)",
+          "description": "How long trusted access tokens remain valid.",
           "inputType": "number",
           "min": 1,
           "step": 1,
