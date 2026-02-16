@@ -5,7 +5,8 @@
   }
 
   const schemaUrl = container.dataset.schemaUrl;
-  const theme = container.dataset.theme || "index";
+  const themeName = container.dataset.theme || "flat";
+  const theme = themeName === "flach" ? "flat" : themeName;
   const initialDataScript = document.getElementById("survey-add-initial-data");
   const hiddenForm = document.getElementById("survey-add-hidden-form");
   const submitButton = document.getElementById("survey-add-submit");
@@ -47,7 +48,12 @@
 
   function renderSurvey(schema) {
     if (Survey.StylesManager && typeof Survey.StylesManager.applyTheme === "function") {
-      Survey.StylesManager.applyTheme(theme);
+      try {
+        Survey.StylesManager.applyTheme(theme);
+      } catch (error) {
+        console.warn("Survey add form: unable to apply theme, falling back to index", error);
+        Survey.StylesManager.applyTheme("index");
+      }
     }
     const survey = new Survey.Model(schema);
     currentSurvey = survey;

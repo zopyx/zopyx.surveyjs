@@ -10,14 +10,6 @@
         use-macro="context/@@survey-actions/macros/survey-header-critical"
     />
     <style type="text/css">
-      .survey-add-hero {
-        background: linear-gradient(135deg, #eef2ff, #fdf2f8);
-        border-radius: 24px;
-        padding: 2.75rem;
-        margin-bottom: 2.5rem;
-        border: 1px solid #e0e7ff;
-        box-shadow: 0 25px 70px rgba(15, 23, 42, 0.08);
-      }
       .survey-add-eyebrow {
         text-transform: uppercase;
         letter-spacing: 0.1em;
@@ -25,24 +17,6 @@
         color: #4c1d95;
         font-weight: 600;
         margin-bottom: 0.5rem;
-      }
-      .survey-add-hero h1 {
-        margin: 0 0 0.8rem 0;
-        font-size: 2.5rem;
-        color: #111827;
-      }
-      .survey-add-hero p {
-        margin: 0;
-        font-size: 1.1rem;
-        color: #4b5563;
-        max-width: 50rem;
-      }
-      .survey-add-card {
-        background: #ffffff;
-        border-radius: 24px;
-        padding: 2.5rem;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.07);
       }
       .survey-add-errors {
         border: 1px solid #fca5a5;
@@ -58,17 +32,15 @@
       }
       .survey-add-widget {
         min-height: 320px;
-        border-radius: 20px;
-        border: 1px dashed #c7d2fe;
-        padding: 1.5rem;
-        background: linear-gradient(135deg, #fdf4ff, #f5f3ff);
+        border-radius: 0;
+        border: none;
+        padding: 0;
+        background: transparent;
         transition: box-shadow 120ms ease;
       }
       .survey-add-widget.is-ready {
-        border-style: solid;
-        border-color: #c4b5fd;
-        box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.35);
-        background: #ffffff;
+        box-shadow: none;
+        background: transparent;
       }
       .survey-add-loading {
         color: #7c3aed;
@@ -151,40 +123,29 @@
             tal:content="structure view/initial_data_json">
     </script>
 
-    <section class="survey-add-hero">
-      <div class="survey-add-eyebrow" i18n:translate="">Create</div>
-      <h1 i18n:translate="">Spin up a fresh Survey</h1>
-      <p i18n:translate="">
-        Give your survey a clear name and a short description so collaborators know what
-        it's about. We'll drop you straight into the SurveyJS editor afterwards.
-      </p>
-    </section>
+    <div class="survey-add-errors" tal:condition="errors">
+      <strong i18n:translate="">Let's fix a few things:</strong>
+      <ul>
+        <li tal:repeat="error errors" tal:content="error">Error</li>
+      </ul>
+    </div>
 
-    <section class="survey-add-card">
-      <div class="survey-add-errors" tal:condition="errors">
-        <strong i18n:translate="">Let's fix a few things:</strong>
-        <ul>
-          <li tal:repeat="error errors" tal:content="error">Error</li>
-        </ul>
-      </div>
+    <div class="survey-add-widget"
+         id="survey-add-widget"
+         tal:attributes="data-schema-url string:${context/portal_url}/++resource++zopyx.surveyjs/survey_add_form.json;
+                         data-theme string:flat">
+      <div class="survey-add-loading" i18n:translate="">Loading form...</div>
+    </div>
 
-      <div class="survey-add-widget"
-           id="survey-add-widget"
-           tal:attributes="data-schema-url string:${context/portal_url}/++resource++zopyx.surveyjs/survey_add_form.json;
-                           data-theme string:index">
-        <div class="survey-add-loading" i18n:translate="">Loading form...</div>
-      </div>
-
-      <div class="survey-add-actions">
-        <button class="survey-add-submit"
-                type="button"
-                id="survey-add-submit"
-                i18n:translate="">Create survey</button>
-        <a class="survey-add-cancel"
-           tal:attributes="href context/absolute_url"
-           i18n:translate="">Cancel</a>
-      </div>
-    </section>
+    <div class="survey-add-actions">
+      <button class="survey-add-submit"
+              type="button"
+              id="survey-add-submit"
+              i18n:translate="">Create survey</button>
+      <a class="survey-add-cancel"
+         tal:attributes="href context/absolute_url"
+         i18n:translate="">Cancel</a>
+    </div>
 
     <form class="survey-add-hidden-form"
           id="survey-add-hidden-form"

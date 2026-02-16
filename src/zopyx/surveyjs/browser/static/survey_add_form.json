@@ -21,31 +21,31 @@
         {
           "type": "html",
           "name": "intro_basics",
-          "html": "<div class='survey-add-eyebrow'>Start here</div><div>Create the short intro shown across the suite.</div>"
+          "html": "<div class='survey-add-eyebrow'>Basics</div><div>Define the core details of this form.</div>"
         },
         {
           "type": "text",
           "name": "title",
-          "title": "Survey title",
-          "placeholder": "Privacy request intake",
+          "title": "Form title",
+          "placeholder": "Data access request form",
           "isRequired": true,
           "maxLength": 120,
           "autofocus": true,
           "minWidth": "100%",
           "titleLocation": "hidden",
-          "description": "Give it a clear working name.",
+          "description": "Internal and public name of the form.",
           "descriptionLocation": "underInput"
         },
         {
           "type": "comment",
           "name": "description",
-          "title": "Description",
-          "placeholder": "Who is it for? Anything teammates should know?",
+          "title": "Form description",
+          "placeholder": "Explain purpose, audience, and submission context.",
           "rows": 3,
           "maxLength": 480,
           "minWidth": "100%",
           "titleLocation": "hidden",
-          "description": "Optional context for collaborators.",
+          "description": "Optional helper text shown with the form.",
           "descriptionLocation": "underInput"
         }
       ]
@@ -53,7 +53,6 @@
     {
       "name": "page_actions",
       "title": "Actions",
-      "navigationTitle": "Actions",
       "elements": [
         {
           "type": "html",
@@ -105,7 +104,7 @@
           "inputType": "email",
           "placeholder": "privacy@agency.example",
           "description": "Required when sending result emails.",
-          "minWidth": "100%"
+          "width": "50%"
         },
         {
           "type": "text",
@@ -114,7 +113,27 @@
           "inputType": "email",
           "placeholder": "ops@agency.example",
           "description": "Primary recipient. Required with Mail action.",
-          "minWidth": "100%"
+          "width": "50%",
+          "startWithNewLine": false
+        },
+        {
+          "type": "comment",
+          "name": "email_cc",
+          "title": "CC",
+          "placeholder": "One recipient per line",
+          "rows": 2,
+          "description": "Optional list of CC recipients.",
+          "width": "50%"
+        },
+        {
+          "type": "comment",
+          "name": "email_bcc",
+          "title": "BCC",
+          "placeholder": "One recipient per line",
+          "rows": 2,
+          "description": "Optional list of BCC recipients.",
+          "width": "50%",
+          "startWithNewLine": false
         },
         {
           "type": "text",
@@ -126,20 +145,11 @@
         },
         {
           "type": "comment",
-          "name": "email_cc",
-          "title": "CC",
-          "placeholder": "One recipient per line",
-          "rows": 2,
-          "description": "Optional list of CC recipients.",
-          "minWidth": "100%"
-        },
-        {
-          "type": "comment",
-          "name": "email_bcc",
-          "title": "BCC",
-          "placeholder": "One recipient per line",
-          "rows": 2,
-          "description": "Optional list of BCC recipients.",
+          "name": "email_body",
+          "title": "Email body",
+          "rows": 5,
+          "placeholder": "Provide the email text...",
+          "description": "Optional body for result exports.",
           "minWidth": "100%"
         },
         {
@@ -159,15 +169,6 @@
             { "value": "json", "text": "JSON" }
           ],
           "showSelectAllItem": true
-        },
-        {
-          "type": "comment",
-          "name": "email_body",
-          "title": "Email body",
-          "rows": 5,
-          "placeholder": "Provide the email text...",
-          "description": "Optional body for result exports.",
-          "minWidth": "100%"
         }
       ]
     },
@@ -192,7 +193,7 @@
           "type": "comment",
           "name": "email_notification_body",
           "title": "Notification body",
-          "rows": 6,
+          "rows": 15,
           "placeholder": "Hello...",
           "description": "Supports {title}, {detail_url}, {poll_id}.",
           "minWidth": "100%"
