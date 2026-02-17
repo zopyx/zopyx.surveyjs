@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from string import Formatter
 import re
 from pathlib import Path
@@ -499,6 +499,68 @@ class Views(BrowserView):
         if year is None:
             return True
         return 1970 <= year <= 2100
+
+    def _parse_download_date(self, raw_value, is_end=False):
+        if not raw_value:
+            return None
+        value = str(raw_value).strip()
+        if not value:
+            return None
+        try:
+            if len(value) <= 10:
+                date_value = datetime.fromisoformat(value)
+                dt = datetime(
+                    date_value.year,
+                    date_value.month,
+                    date_value.day,
+                    tzinfo=timezone.utc,
+                )
+                if is_end:
+                    dt = dt + timedelta(days=1)
+                return dt
+            if value.endswith("Z"):
+                value = value[:-1] + "+00:00"
+            dt = datetime.fromisoformat(value)
+            dt = ensure_timezone_aware(dt)
+            return dt
+        except Exception:
+            return None
+
+    def _download_date_range(self):
+        raw_from = self.request.form.get("from")
+        raw_to = self.request.form.get("to")
+        start = self._parse_download_date(raw_from, is_end=False)
+        end = self._parse_download_date(raw_to, is_end=True)
+        return start, end
+
+    def _filter_results_by_date(self, results):
+        start, end = self._download_date_range()
+        if start or end:
+            logger.info(
+                "Applying export filter (from=%s, to=%s) for %s",
+                start.isoformat() if start else "",
+                end.isoformat() if end else "",
+                self.context.absolute_url(),
+            )
+        if not start and not end:
+            return results
+        filtered = []
+        for entry in results:
+            created = entry.get("created")
+            if isinstance(created, str):
+                created_value = self._parse_download_date(created, is_end=False)
+            elif isinstance(created, datetime):
+                created_value = ensure_timezone_aware(created)
+            else:
+                created_value = None
+            if not created_value:
+                continue
+            if start and created_value < start:
+                continue
+            if end and created_value >= end:
+                continue
+            filtered.append(entry)
+        return filtered
 
     def _ensure_private(self, obj):
         try:
@@ -1259,7 +1321,7 @@ class Views(BrowserView):
     def download_polls_csv(self):
         """Download all poll results as CSV."""
         storage = get_result_storage(self.context)
-        results = storage.list_results(self.context)
+        results = self._filter_results_by_date(storage.list_results(self.context))
         logger.info("Downloading poll results (CSV) from %s", _get_storage_location())
 
         output = io.StringIO()
@@ -1316,7 +1378,7 @@ class Views(BrowserView):
     def download_polls_json(self):
         """Download poll results JSON as attachment"""
         storage = get_result_storage(self.context)
-        results = storage.list_results(self.context)
+        results = self._filter_results_by_date(storage.list_results(self.context))
         logger.info("Downloading poll results (JSON) from %s", _get_storage_location())
 
         # Prepare download with attachment header

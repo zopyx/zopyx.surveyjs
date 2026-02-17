@@ -53,6 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const totalCountEl = document.getElementById("results-total-count");
     const deleteSelectedBtn = document.getElementById("results-delete-selected-btn");
+    const exportFrom = document.getElementById("results-export-from");
+    const exportTo = document.getElementById("results-export-to");
+    const exportLinks = document.querySelectorAll("[data-base-href]");
+    const exportWarning = document.getElementById("results-export-warning");
 
     const questionLabels = {};
     const questionDefinitions = {};
@@ -77,6 +81,49 @@ document.addEventListener("DOMContentLoaded", function () {
         if (totalCountEl) {
             totalCountEl.textContent = String(count || 0);
         }
+    }
+
+    function hasInvalidExportRange() {
+        if (!exportFrom || !exportTo) {
+            return false;
+        }
+        if (!exportFrom.value || !exportTo.value) {
+            return false;
+        }
+        return exportTo.value <= exportFrom.value;
+    }
+
+    function updateExportWarning() {
+        if (!exportWarning) {
+            return;
+        }
+        if (hasInvalidExportRange()) {
+            exportWarning.style.display = "inline-flex";
+        } else {
+            exportWarning.style.display = "none";
+        }
+    }
+
+    function updateExportLinks() {
+        if (!exportLinks.length) {
+            return;
+        }
+        const fromValue = exportFrom ? exportFrom.value : "";
+        const toValue = exportTo ? exportTo.value : "";
+        exportLinks.forEach(link => {
+            const baseHref = link.getAttribute("data-base-href");
+            if (!baseHref) {
+                return;
+            }
+            const url = new URL(baseHref, window.location.href);
+            if (fromValue) {
+                url.searchParams.set("from", fromValue);
+            }
+            if (toValue) {
+                url.searchParams.set("to", toValue);
+            }
+            link.setAttribute("href", `${url.pathname}${url.search}`);
+        });
     }
 
     function escapeHtml(text) {
@@ -118,6 +165,21 @@ document.addEventListener("DOMContentLoaded", function () {
         gridMount.innerHTML = "";
         gridMount.appendChild(notice);
     }
+
+    if (exportFrom) {
+        exportFrom.addEventListener("change", function () {
+            updateExportWarning();
+            updateExportLinks();
+        });
+    }
+    if (exportTo) {
+        exportTo.addEventListener("change", function () {
+            updateExportWarning();
+            updateExportLinks();
+        });
+    }
+    updateExportWarning();
+    updateExportLinks();
 
     function renderMatrixTable(value, element) {
         if (!element) {

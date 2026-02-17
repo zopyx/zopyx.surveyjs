@@ -90,15 +90,39 @@
 
             <div class="results-grid-wrap">
                 <div class="results-pager-row">
+                    <div class="results-total">
+                        <span i18n:translate="">Results</span>:
+                        <span id="results-total-count">0</span>
+                    </div>
                     <div id="results-pager" class="results-pager"></div>
                 </div>
                 <div id="results-grid"></div>
             </div>
 
-            <div class="results-footer">
-                <a href="download-polls-json" class="btn btn-primary" i18n:translate="">Download results (JSON)</a>
-                <a href="download-polls-csv" class="btn btn-primary" i18n:translate="">Download results (CSV)</a>
-                <a href="download-form-json" class="btn btn-primary download-definition" i18n:translate="">Download form definition (JSON)</a>
+            <div class="results-export-row">
+                <div class="results-export-left">
+                    <div class="results-export-filters">
+                        <div class="results-export-label" i18n:translate="">Export range</div>
+                        <label class="results-export-field">
+                            <span i18n:translate="">From</span>
+                            <input type="date" id="results-export-from" />
+                        </label>
+                        <label class="results-export-field">
+                            <span i18n:translate="">To</span>
+                            <input type="date" id="results-export-to" />
+                        </label>
+                        <div id="results-export-warning" class="results-export-warning" role="alert" aria-live="polite" style="display:none;" i18n:translate="">
+                            “To” date must be after “From” date.
+                        </div>
+                    </div>
+                    <div class="results-export-actions">
+                        <a href="download-polls-json" data-base-href="download-polls-json" class="btn btn-primary" i18n:translate="">Download results (JSON)</a>
+                        <a href="download-polls-csv" data-base-href="download-polls-csv" class="btn btn-primary" i18n:translate="">Download results (CSV)</a>
+                    </div>
+                </div>
+                <div class="results-export-right">
+                    <a href="download-form-json" class="btn btn-primary download-definition" i18n:translate="">Download form definition (JSON)</a>
+                </div>
             </div>
 
             <div id="json-modal" class="modal" style="display:none;">
