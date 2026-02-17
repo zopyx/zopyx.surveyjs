@@ -1,5 +1,5 @@
 {
-  "title": "Survey setup",
+  "title": "Create a new form or survey",
   "description": "Define basic form metadata, choose how submissions are handled, configure mail options if needed, and review validation/access settings before creating the survey.",
   "logoPosition": "right",
   "questionErrorLocation": "bottom",

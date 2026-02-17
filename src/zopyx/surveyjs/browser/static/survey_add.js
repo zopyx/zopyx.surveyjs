@@ -63,18 +63,10 @@
 
     if (navButtons) {
       const buttonsHeight = getVisibleHeight(navButtons);
-      console.log("Nav buttons height:", buttonsHeight);
       targetHeight += buttonsHeight;
     }
 
     targetHeight = Math.ceil(targetHeight) + 180;
-
-    console.log("Calculated heights:", {
-      startHeight,
-      pageHeight: activePage ? getVisibleHeight(activePage) : 0,
-      buttonsHeight: navButtons ? getVisibleHeight(navButtons) : 0,
-      targetHeight
-    });
 
     if (!targetHeight || !Number.isFinite(targetHeight)) {
       return;
