@@ -348,7 +348,6 @@ def _load_sample_addresses():
 
 def init_prefilled_address_survey(site, container):
     """Create a dedicated prefilled address survey with demo results."""
-    breakpoint()
     form_path = FORMS_PATH / "prefilled.json"
     if not form_path.exists():
         print(f"prefilled.json not found at {form_path}; skipping prefilled survey")
