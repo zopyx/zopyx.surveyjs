@@ -12,6 +12,7 @@
   const submitButton = document.getElementById("survey-add-submit");
   let currentSurvey = null;
   let heightResetTimer = null;
+  let isSubmitting = false;
 
   function getVisibleHeight(el) {
     if (!el) {
@@ -129,6 +130,25 @@
     hiddenForm.submit();
   }
 
+  function updateSubmitState(forceDisable) {
+    if (!submitButton) {
+      return;
+    }
+    if (forceDisable || isSubmitting || !currentSurvey) {
+      submitButton.disabled = true;
+      submitButton.setAttribute("aria-disabled", "true");
+      return;
+    }
+    let isValid = true;
+    try {
+      isValid = currentSurvey.validate(false, true);
+    } catch (error) {
+      isValid = false;
+    }
+    submitButton.disabled = !isValid;
+    submitButton.setAttribute("aria-disabled", isValid ? "false" : "true");
+  }
+
   function renderSurvey(schema) {
     if (Survey.StylesManager && typeof Survey.StylesManager.applyTheme === "function") {
       try {
@@ -145,8 +165,20 @@
       survey.data = initialData;
     }
     survey.onComplete.add(function (sender) {
+      isSubmitting = true;
+      updateSubmitState(true);
       submitData(sender.data || {});
     });
+    if (survey.onValueChanged && typeof survey.onValueChanged.add === "function") {
+      survey.onValueChanged.add(function () {
+        updateSubmitState(false);
+      });
+    }
+    if (survey.onValidated && typeof survey.onValidated.add === "function") {
+      survey.onValidated.add(function () {
+        updateSubmitState(false);
+      });
+    }
     survey.onCurrentPageChanging.add(function (sender, options) {
       if (options && options.allow === false) {
         options.allow = true;
@@ -167,6 +199,7 @@
       container.classList.add("is-ready");
       container.style.minHeight = "0";
       syncContainerHeight(false);
+      updateSubmitState(false);
     });
     survey.onAfterRenderPage.add(function () {
       window.requestAnimationFrame(function () {
@@ -174,6 +207,7 @@
       });
     });
     survey.onCurrentPageChanged.add(function () {
+      updateSubmitState(false);
       window.requestAnimationFrame(function () {
         window.requestAnimationFrame(function () {
           syncContainerHeight(true);
@@ -210,11 +244,14 @@
     });
 
   if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.setAttribute("aria-disabled", "true");
     submitButton.addEventListener("click", function (event) {
       event.preventDefault();
-      if (currentSurvey) {
-        currentSurvey.completeLastPage();
+      if (!currentSurvey || submitButton.disabled || isSubmitting) {
+        return;
       }
+      currentSurvey.completeLastPage();
     });
   }
 })();
