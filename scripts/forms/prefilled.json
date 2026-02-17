@@ -1,0 +1,86 @@
+{
+  "title": "Address Book",
+  "description": "Sample address form with demo data.",
+  "pages": [
+    {
+      "name": "page1",
+      "title": "Address Details",
+      "elements": [
+        {
+          "type": "hidden",
+          "name": "uuid"
+        },
+        {
+          "type": "hidden",
+          "name": "created"
+        },
+        {
+          "type": "text",
+          "name": "first_name",
+          "title": "First name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "last_name",
+          "title": "Last name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "street",
+          "title": "Street address",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "city",
+          "title": "City",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "state",
+          "title": "State",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "postal_code",
+          "title": "Postal code",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "country",
+          "title": "Country",
+          "choices": [
+            "US",
+            "CA",
+            "GB",
+            "DE",
+            "FR",
+            "ES",
+            "IT"
+          ],
+          "defaultValue": "US"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Email address",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "phone",
+          "title": "Phone number",
+          "inputType": "tel"
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "off",
+  "requiredTextOnNormalMessages": false
+}

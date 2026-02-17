@@ -316,6 +316,83 @@ def set_form_show_toc(form_json, enabled=True):
     form_json["showTOC"] = enabled
 
 
+def _parse_iso_datetime(value):
+    if not value:
+        return None
+    if isinstance(value, datetime):
+        return value
+    if isinstance(value, str):
+        normalized = value.strip()
+        if normalized.endswith("Z"):
+            normalized = normalized[:-1] + "+00:00"
+        try:
+            return datetime.fromisoformat(normalized)
+        except ValueError:
+            return None
+    return None
+
+
+def _load_sample_addresses():
+    data_path = FORMS_PATH / "sample_address.json"
+    if not data_path.exists():
+        print(f"sample_address.json not found at {data_path}; skipping prefill data")
+        return []
+    try:
+        payload = orjson.loads(data_path.read_bytes())
+        if isinstance(payload, list):
+            return payload
+    except Exception as exc:
+        print(f"Failed to load sample_address.json: {exc}")
+    return []
+
+
+def init_prefilled_address_survey(site, container):
+    """Create a dedicated prefilled address survey with demo results."""
+    breakpoint()
+    form_path = FORMS_PATH / "prefilled.json"
+    if not form_path.exists():
+        print(f"prefilled.json not found at {form_path}; skipping prefilled survey")
+        return
+
+    form_json = orjson.loads(form_path.read_bytes())
+    survey = create_demo_survey(
+        site,
+        survey_id="prefilled",
+        title="Prefilled Address Book",
+        description="Sample address form with prefilled demo data.",
+        form_json=form_json,
+        actions={"store"},
+        container=container,
+    )
+
+    sample_addresses = _load_sample_addresses()
+    if not sample_addresses:
+        return
+
+    annos = IAnnotations(survey)
+    results = annos.setdefault(RESULTS_KEY, OOBTree())
+    inserted = 0
+    for entry in sample_addresses:
+        if not isinstance(entry, dict):
+            continue
+        created = _parse_iso_datetime(entry.get("created")) or datetime.now(
+            timezone.utc
+        )
+        poll_id = str(uuid.uuid4())
+        result_payload = dict(entry)
+        if "created" not in result_payload:
+            result_payload["created"] = created.isoformat().replace("+00:00", "Z")
+        results[poll_id] = {
+            "poll_id": poll_id,
+            "created": created,
+            "user": ADMIN,
+            "result": result_payload,
+        }
+        inserted += 1
+
+    if inserted:
+        print(f"Prefilled address survey seeded with {inserted} results")
+
 def remove_navigation_portlets(context):
     """Remove navigation portlets and block them from being re-acquired."""
     for manager_name in ("plone.leftcolumn", "plone.rightcolumn"):
@@ -832,6 +909,7 @@ WELCOME_DEMOS = {
         ("Social Media Consumption Demo", "en/demos/full-demo"),
         ("Food Ordering Service Feedback", "en/demos/food-feedback-demo"),
         ("Order form", "en/demos/order-form"),
+        ("Prefilled Address Book", "en/demos/prefilled"),
     ],
     "de": [
         ("Veranstaltungsanmeldung", "de/demos/event-registration-de"),
@@ -1197,6 +1275,8 @@ create_demo_survey(
     actions={"store"},
     container=demos_by_language["en"],
 )
+
+init_prefilled_address_survey(site, demos_by_language["en"])
 
 # German demos
 event_form_de = load_form_definition("event_registration_de")
