@@ -1,17 +1,19 @@
 {
   "title": "Survey setup",
-  "description": "Review each section before creating.",
+  "description": "Define basic form metadata, choose how submissions are handled, configure mail options if needed, and review validation/access settings before creating the survey.",
   "logoPosition": "right",
   "questionErrorLocation": "bottom",
   "showQuestionNumbers": "off",
   "showTitle": true,
+  "fitToContainer": false,
   "checkErrorsMode": "onComplete",
   "showNavigationButtons": "bottom",
+  "showCompleteButton": false,
   "showTOC": true,
   "progressBarType": "buttons",
   "goNextPageAutomatic": false,
   "requiredText": "",
-  "completeText": "Create survey",
+  "completeText": "Continue",
   "pages": [
     {
       "name": "page_basics",
@@ -54,7 +56,7 @@
          "description": "Pick every workflow that should trigger on submit.",
           "isRequired": true,
           "choices": [
-            { "value": "store", "text": "Store in Plone" },
+            { "value": "store", "text": "Store in database" },
             { "value": "mail", "text": "Mail (with attachments)" },
             { "value": "mail-notification", "text": "Mail (notification only)" },
             { "value": "post", "text": "POST to endpoint" }
@@ -72,6 +74,11 @@
           "visibleIf": "{actions} contains 'post'",
           "description": "Submissions will be sent as JSON when POST is enabled.",
           "minWidth": "100%"
+        },
+        {
+          "type": "html",
+          "name": "actions_help",
+          "html": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>"
         }
       ]
     },
@@ -79,6 +86,7 @@
       "name": "page_mail",
       "title": "Mail",
       "navigationTitle": "Mail",
+      "description": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
       "elements": [
         {
           "type": "text",
@@ -139,7 +147,8 @@
           "type": "checkbox",
           "name": "email_formats",
           "title": "Attachments",
-          "description": "Select export formats to include.",
+          "description": "Select which export formats of the collected form data should be attached to the email.",
+          "colCount": 3,
           "choices": [
             { "value": "text", "text": "Text" },
             { "value": "md", "text": "Markdown" },
@@ -158,7 +167,8 @@
     {
       "name": "page_mail_notifications",
       "title": "Mail notifications",
-      "navigationTitle": "Notifications",
+      "navigationTitle": "Mail notifications",
+      "description": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
       "elements": [
         {
           "type": "text",
@@ -176,6 +186,11 @@
           "placeholder": "Hello...",
           "description": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
           "minWidth": "100%"
+        },
+        {
+          "type": "html",
+          "name": "mail_notification_placeholders_help",
+          "html": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>"
         }
       ]
     },

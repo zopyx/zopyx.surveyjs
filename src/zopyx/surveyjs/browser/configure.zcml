@@ -15,7 +15,7 @@
   />
   <browser:page
     name="pfs"
-    for="plone.base.interfaces.IPloneSiteRoot"
+    for="Products.CMFCore.interfaces.IFolderish"
     permission="zope2.View"
     class=".views.PFSView"
     template="pfs.pt"

@@ -11,6 +11,97 @@
   const hiddenForm = document.getElementById("survey-add-hidden-form");
   const submitButton = document.getElementById("survey-add-submit");
   let currentSurvey = null;
+  let heightResetTimer = null;
+
+  function getVisibleHeight(el) {
+    if (!el) {
+      return 0;
+    }
+    const style = window.getComputedStyle(el);
+    if (style.display === "none" || style.visibility === "hidden") {
+      return 0;
+    }
+    return el.getBoundingClientRect().height;
+  }
+
+  function syncContainerHeight(animate) {
+    if (heightResetTimer) {
+      window.clearTimeout(heightResetTimer);
+      heightResetTimer = null;
+    }
+
+    const root =
+      container.querySelector(".sd-root-modern") ||
+      container.querySelector(".sv-root-modern") ||
+      container.firstElementChild;
+    if (!root) {
+      return;
+    }
+
+    const startHeight = container.getBoundingClientRect().height;
+
+    const activePage =
+      root.querySelector(".sd-page.sd-page--active") ||
+      root.querySelector(".sv-page.sv-page--active") ||
+      root.querySelector(".sd-page:not(.sd-page--invisible)") ||
+      root.querySelector(".sv-page:not([style*='display: none'])");
+
+    const navButtons =
+      root.querySelector(".sd-action-bar") ||
+      root.querySelector(".sv-action-bar") ||
+      root.querySelector(".sd-footer") ||
+      root.querySelector(".sv-footer");
+
+    const pageTitle = activePage ? activePage.querySelector(".sd-title, .sv-title") : null;
+    const pageDescription = activePage ? activePage.querySelector(".sd-page__description, .sv-page__description") : null;
+
+    let targetHeight = 0;
+
+    if (activePage) {
+      targetHeight += getVisibleHeight(activePage);
+    }
+
+    if (navButtons) {
+      const buttonsHeight = getVisibleHeight(navButtons);
+      console.log("Nav buttons height:", buttonsHeight);
+      targetHeight += buttonsHeight;
+    }
+
+    targetHeight = Math.ceil(targetHeight) + 180;
+
+    console.log("Calculated heights:", {
+      startHeight,
+      pageHeight: activePage ? getVisibleHeight(activePage) : 0,
+      buttonsHeight: navButtons ? getVisibleHeight(navButtons) : 0,
+      targetHeight
+    });
+
+    if (!targetHeight || !Number.isFinite(targetHeight)) {
+      return;
+    }
+
+    if (!animate) {
+      container.style.height = targetHeight + "px";
+      container.style.minHeight = "0";
+      return;
+    }
+
+    if (Math.abs(startHeight - targetHeight) < 2) {
+      container.style.height = targetHeight + "px";
+      return;
+    }
+
+    container.style.height = startHeight + "px";
+    container.style.minHeight = "0";
+    container.offsetHeight;
+    container.style.transition = "height 160ms ease";
+    container.style.height = targetHeight + "px";
+
+    heightResetTimer = window.setTimeout(function () {
+      container.style.transition = "";
+      heightResetTimer = null;
+    }, 220);
+  }
 
   let initialData = {};
   if (initialDataScript) {
@@ -56,6 +147,7 @@
       }
     }
     const survey = new Survey.Model(schema);
+    survey.fitToContainer = false;
     currentSurvey = survey;
     if (initialData && Object.keys(initialData).length > 0) {
       survey.data = initialData;
@@ -81,6 +173,20 @@
     });
     survey.onAfterRenderSurvey.add(function () {
       container.classList.add("is-ready");
+      container.style.minHeight = "0";
+      syncContainerHeight(false);
+    });
+    survey.onAfterRenderPage.add(function () {
+      window.requestAnimationFrame(function () {
+        syncContainerHeight(true);
+      });
+    });
+    survey.onCurrentPageChanged.add(function () {
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          syncContainerHeight(true);
+        });
+      });
     });
     survey.render(container);
   }

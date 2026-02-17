@@ -41,10 +41,18 @@
         padding: 0;
         background: transparent;
         transition: box-shadow 120ms ease;
+        overflow: hidden;
       }
       .survey-add-widget.is-ready {
         box-shadow: none;
         background: transparent;
+        min-height: 0;
+      }
+      .survey-add-widget .sd-body,
+      .survey-add-widget .sv-body,
+      .survey-add-widget .sd-page,
+      .survey-add-widget .sv-page {
+        min-height: 0 !important;
       }
       .survey-add-loading {
         color: #7c3aed;
@@ -99,6 +107,13 @@
       }
       .sd-description {
         font-size: 0.8em !important;
+      }
+      .survey-add-widget .sd-btn--action.sd-navigation__complete-btn,
+      .survey-add-widget .sv-btn--action.sv-navigation__complete-btn,
+      .survey-add-widget input[value="Continue"],
+      .survey-add-widget input[value="Complete"],
+      .survey-add-widget button[title="Complete"] {
+        display: none !important;
       }
     </style>
   </metal:styles>
