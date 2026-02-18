@@ -18,6 +18,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 from zope.interface import alsoProvides
 from zope.schema import getFieldsInOrder
+from plone.dexterity.utils import iterSchemata
 from zope.schema.interfaces import ICollection, IChoice, IVocabularyFactory
 from zope.component import getUtility
 from zope.i18n import translate
@@ -1070,7 +1071,7 @@ class Views(BrowserView):
                     {
                         "label": label,
                         "value": value,
-                        "value_full": value_full,
+
                     }
                 )
             expires_value = brain.expires
@@ -2333,13 +2334,13 @@ class Views(BrowserView):
                 description=description,
                 template_json=template_json,
             )
-            for name, field in getFieldsInOrder(ISurvey):
-                if not hasattr(self.context, name):
-                    continue
-                try:
+            for schema in iterSchemata(self.context):
+                for name, field in getFieldsInOrder(schema):
+                    if getattr(field, "readonly", False):
+                        continue
+                    if not hasattr(self.context, name) or not hasattr(template, name):
+                        continue
                     setattr(template, name, getattr(self.context, name))
-                except Exception:
-                    continue
         except Exception as exc:
             plone.api.portal.show_message(
                 _("Failed to create template: ${error}", mapping={"error": str(exc)}),
