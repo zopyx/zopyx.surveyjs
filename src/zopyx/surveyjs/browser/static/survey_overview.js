@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const pagerMount = document.getElementById("survey-overview-pager");
+    const isTemplatesMode = window.SURVEY_OVERVIEW_MODE === 'templates';
 
     const tabulatorLangs = {};
     tabulatorLangs[tabulatorLocale] = {
@@ -113,89 +114,72 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     };
 
+    const columns = [
+        {
+            title: isTemplatesMode ? t("Template") : t("Survey"),
+            field: "title",
+            formatter: surveyFormatter,
+            sorter: "string",
+            minWidth: 240,
+            variableHeight: true,
+            cssClass: "survey-overview-col",
+            cellClick: function (event, cell) {
+                const target = event.target;
+                if (!target || !target.closest) {
+                    return;
+                }
+                const toggle = target.closest(".survey-overview-meta-toggle");
+                if (!toggle) {
+                    return;
+                }
+                event.preventDefault();
+                event.stopPropagation();
+
+                const row = cell.getData() || {};
+                const rowId = row.url || row.title || "";
+                const currentState = metadataToggleState.get(rowId) || false;
+                metadataToggleState.set(rowId, !currentState);
+
+                table.redraw(true);
+            },
+            headerFilter: "input",
+            headerSort: true,
+        },
+        {
+            title: t("Workflow status"),
+            field: "review_state",
+            formatter: statusFormatter,
+            sorter: "string",
+            width: 160,
+            hozAlign: "center",
+            headerHozAlign: "center",
+            headerFilter: "input",
+            headerSort: true,
+        },
+        {
+            title: t("Language"),
+            field: "language",
+            sorter: "string",
+            width: 110,
+            hozAlign: "center",
+            headerHozAlign: "center",
+            headerFilter: "input",
+            headerSort: true,
+        },
+    ];
+
     const table = new Tabulator(gridMount, {
         data,
         layout: "fitColumns",
         responsiveLayout: "collapse",
-        placeholder: t("No surveys found below this location."),
+        placeholder: isTemplatesMode ? t("No survey templates found below this location.") : t("No surveys found below this location."),
         pagination: "local",
         paginationSize: 10,
         paginationSizeSelector: [10, 25, 50, 100],
         paginationElement: pagerMount || undefined,
         locale: tabulatorLocale,
         langs: tabulatorLangs,
-        columns: [
-            {
-                title: t("Survey"),
-                field: "title",
-                formatter: surveyFormatter,
-                sorter: "string",
-                minWidth: 240,
-                variableHeight: true,
-                cssClass: "survey-overview-col",
-                cellClick: function (event, cell) {
-                    const target = event.target;
-                    if (!target || !target.closest) {
-                        return;
-                    }
-                    const toggle = target.closest(".survey-overview-meta-toggle");
-                    if (!toggle) {
-                        return;
-                    }
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const row = cell.getData() || {};
-                    const rowId = row.url || row.title || "";
-                    const currentState = metadataToggleState.get(rowId) || false;
-                    metadataToggleState.set(rowId, !currentState);
-
-                    table.redraw(true);
-                },
-                headerFilter: "input",
-                headerSort: true,
-            },
-            {
-                title: t("Workflow status"),
-                field: "review_state",
-                formatter: statusFormatter,
-                sorter: "string",
-                width: 160,
-                hozAlign: "center",
-                headerHozAlign: "center",
-                headerFilter: "input",
-                headerSort: true,
-            },
-            {
-                title: t("Submitted"),
-                field: "results_count",
-                sorter: "number",
-                hozAlign: "center",
-                headerHozAlign: "center",
-                width: 120,
-                headerSort: true,
-            },
-            {
-                title: t("Security mode"),
-                field: "access_mode",
-                sorter: "string",
-                width: 140,
-                hozAlign: "center",
-                headerHozAlign: "center",
-                headerFilter: "input",
-                headerSort: true,
-            },
-            {
-                title: t("Language"),
-                field: "language",
-                sorter: "string",
-                width: 110,
-                hozAlign: "center",
-                headerHozAlign: "center",
-                headerFilter: "input",
-                headerSort: true,
-            },
-        ],
+        columns: columns,
     });
 
 });

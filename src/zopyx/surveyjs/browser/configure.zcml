@@ -55,6 +55,13 @@
     template="survey_overview.pt"
   />
   <browser:page
+    name="survey-templates-overview"
+    for="*"
+    class=".views.Views"
+    permission="cmf.ManagePortal"
+    template="survey_templates_overview.pt"
+  />
+  <browser:page
     name="pdf-generator"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
