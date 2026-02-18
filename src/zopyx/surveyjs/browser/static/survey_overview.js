@@ -114,6 +114,38 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     };
 
+    const templateAction = window.SURVEY_TEMPLATE_ACTION || {};
+
+    function createFromTemplate(uid) {
+        if (!uid || !templateAction.createUrl) {
+            return;
+        }
+        const form = document.createElement("form");
+        form.method = "post";
+        form.action = templateAction.createUrl;
+
+        const authInput = document.createElement("input");
+        authInput.type = "hidden";
+        authInput.name = "_authenticator";
+        authInput.value = templateAction.authenticator || "";
+        form.appendChild(authInput);
+
+        const actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "pfs_action";
+        actionInput.value = "create_from_template";
+        form.appendChild(actionInput);
+
+        const uidInput = document.createElement("input");
+        uidInput.type = "hidden";
+        uidInput.name = "template_uid";
+        uidInput.value = uid;
+        form.appendChild(uidInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
     const columns = [
         {
             title: isTemplatesMode ? t("Template") : t("Survey"),
@@ -167,6 +199,38 @@ document.addEventListener("DOMContentLoaded", function () {
             headerSort: true,
         },
     ];
+
+    if (isTemplatesMode && templateAction.canCreate) {
+        columns.push({
+            title: t("Action"),
+            field: "actions",
+            headerSort: false,
+            width: 160,
+            hozAlign: "center",
+            headerHozAlign: "center",
+            formatter: function (cell) {
+                const row = cell.getData() || {};
+                const uid = escapeHtml(row.uid || "");
+                if (!uid) {
+                    return "";
+                }
+                return `<button type="button" class="survey-overview-action-btn" data-template-uid="${uid}">${escapeHtml(t("Create form"))}</button>`;
+            },
+            cellClick: function (event, cell) {
+                const target = event.target;
+                if (!target || !target.closest) {
+                    return;
+                }
+                const button = target.closest(".survey-overview-action-btn");
+                if (!button) {
+                    return;
+                }
+                event.preventDefault();
+                event.stopPropagation();
+                createFromTemplate(button.getAttribute("data-template-uid") || "");
+            },
+        });
+    }
 
     const table = new Tabulator(gridMount, {
         data,

@@ -248,3 +248,22 @@
     white-space: normal;
     overflow: visible;
 }
+
+.survey-overview-action-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border: none;
+    border-radius: 999px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.survey-overview-action-btn:hover,
+.survey-overview-action-btn:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}

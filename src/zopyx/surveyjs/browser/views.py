@@ -155,6 +155,10 @@ class PFSView(BrowserView):
         return f"{self.context.absolute_url()}/@@survey-overview"
 
     @property
+    def templates_overview_url(self) -> str:
+        return f"{self.context.absolute_url()}/@@survey-templates-overview"
+
+    @property
     def administration_url(self) -> str:
         portal = plone.api.portal.get()
         return f"{portal.absolute_url()}/@@overview-controlpanel"
@@ -188,6 +192,19 @@ class PFSView(BrowserView):
                     "icon": "overview",
                 }
             )
+            if self.has_templates:
+                cards.append(
+                    {
+                        "title": _("Templates overview"),
+                        "description": _(
+                            "Browse saved templates and reuse them for new surveys."
+                        ),
+                        "action_label": _("Open templates"),
+                        "url": self.templates_overview_url,
+                        "accent": "secondary",
+                        "icon": "template",
+                    }
+                )
             cards.append(
                 {
                     "title": _("Administration"),
@@ -222,6 +239,19 @@ class PFSView(BrowserView):
                 }
             )
         return options
+
+    @property
+    def has_templates(self) -> bool:
+        if self.is_anonymous:
+            return False
+        catalog = plone.api.portal.get_tool("portal_catalog")
+        context_path = "/".join(self.context.getPhysicalPath())
+        brains = catalog.searchResults(
+            portal_type="SurveyTemplate",
+            path={"query": context_path, "depth": -1},
+            sort_limit=1,
+        )
+        return bool(brains)
 
     def _handle_create_from_template(self):
         if not self.can_add_survey:
@@ -574,6 +604,12 @@ def _run_external_validation(form_json, poll_result, submission_hash: str):
 
 
 class Views(BrowserView):
+    @property
+    def can_add_survey(self) -> bool:
+        return plone.api.user.has_permission(
+            "zopyx.surveyjs.AddSurvey", obj=self.context
+        )
+
     @property
     def storage_info(self) -> str:
         location = _get_storage_location()
@@ -1087,6 +1123,7 @@ class Views(BrowserView):
                 expires_future = False
             entries.append(
                 {
+                    "uid": brain.UID,
                     "title": brain.Title or "",
                     "description": brain.Description or "",
                     "url": brain.getURL(),
