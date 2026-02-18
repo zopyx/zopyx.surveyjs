@@ -187,6 +187,13 @@
     class=".views.Views"
     attribute="get_polls_json2"
   />
+  <browser:page 
+    name="create-template-from-version"
+    permission="cmf.ModifyPortalContent"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    class=".views.Views"
+    attribute="create_template_from_version"
+  />
   <browser:page
     name="results-data"
     permission="cmf.ModifyPortalContent"

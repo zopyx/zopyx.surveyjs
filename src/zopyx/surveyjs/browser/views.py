@@ -1995,6 +1995,71 @@ class Views(BrowserView):
             dumps_options=orjson.OPT_INDENT_2,
         )
 
+    def create_template_from_version(self):
+        """Create a SurveyTemplate from a selected form version."""
+        version_id = (self.request.form.get("version_id") or "").strip()
+        title = (self.request.form.get("template_title") or "").strip()
+        if not version_id or not title:
+            plone.api.portal.show_message(
+                _("Template name and version are required."), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        annos = IAnnotations(self.context)
+        form_versions = annos.get(FORM_VERSIONS_KEY, {})
+        version_data = form_versions.get(version_id)
+        if not version_data:
+            plone.api.portal.show_message(_("Version not found"), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        parent = self.context.aq_parent
+        if not plone.api.user.has_permission(
+            "zopyx.surveyjs.AddSurveyTemplate", obj=parent
+        ):
+            plone.api.portal.show_message(
+                _("You do not have permission to add templates here."), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        try:
+            description = ""
+            description_attr = getattr(self.context, "Description", None)
+            if callable(description_attr):
+                description = description_attr() or ""
+            else:
+                description = getattr(self.context, "description", "") or ""
+
+            template_json = orjson.dumps(
+                version_data["form_json"], option=orjson.OPT_INDENT_2
+            ).decode("utf-8")
+
+            template = plone.api.content.create(
+                container=parent,
+                type="SurveyTemplate",
+                title=title,
+                description=description,
+                template_json=template_json,
+            )
+        except Exception as exc:
+            plone.api.portal.show_message(
+                _("Failed to create template: ${error}", mapping={"error": str(exc)}),
+                type="error",
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@form-versions"
+            )
+
+        plone.api.portal.show_message(
+            _("Template created successfully."), type="info"
+        )
+        return self.request.response.redirect(template.absolute_url())
+
     @property
     def results(self):
         """Get all poll results sorted by creation date (newest first)"""

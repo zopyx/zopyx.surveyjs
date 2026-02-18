@@ -34,6 +34,7 @@
     setupJsonViewer();
     setupPreviewModal();
     setupRestoreModal();
+    setupTemplateModal();
     setupDeleteModal();
     setupFileInput();
     console.log('Form versions initialized');
@@ -380,6 +381,73 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeDelete();
+      }
+    });
+  }
+
+  // ============================================================================
+  // Template Modal
+  // ============================================================================
+
+  function setupTemplateModal() {
+    var modal = document.getElementById('templateModal');
+    var overlay = document.getElementById('templateModalOverlay');
+    var versionIdEl = document.getElementById('templateVersionId');
+    var versionInput = document.getElementById('templateVersionInput');
+    var titleInput = document.getElementById('templateTitleInput');
+    var titleHidden = document.getElementById('templateTitleHidden');
+    var form = document.getElementById('templateForm');
+    var container = document.querySelector('.form-versions-container');
+    var surveyId = container ? container.getAttribute('data-survey-id') || '' : '';
+
+    if (!modal || !overlay || !versionIdEl || !versionInput || !titleInput || !titleHidden || !form) {
+      return;
+    }
+
+    document.querySelectorAll('.open-template-dialog').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        var vid = btn.getAttribute('data-version-id') || '';
+        versionIdEl.textContent = vid || t('--');
+        versionInput.value = vid;
+
+        var defaultTitle = 'template' + surveyId;
+        titleInput.value = defaultTitle;
+        titleHidden.value = defaultTitle;
+
+        modal.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        titleInput.focus();
+        titleInput.select();
+      });
+    });
+
+    titleInput.addEventListener('input', function() {
+      titleHidden.value = titleInput.value;
+    });
+
+    form.addEventListener('submit', function() {
+      titleHidden.value = titleInput.value;
+    });
+
+    function closeTemplate() {
+      modal.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.close-template').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeTemplate();
+      });
+    });
+
+    overlay.addEventListener('click', closeTemplate);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeTemplate();
       }
     });
   }
