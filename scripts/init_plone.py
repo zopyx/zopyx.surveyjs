@@ -514,6 +514,7 @@ addPloneSite(
 site = makerequest(app[SITE_ID])
 setSite(site)
 api.addon.install("zopyx.surveyjs")
+api.addon.install("zopyx.plone.persistentlogger")
 api.addon.install("privacyforms.theme")
 
 # Apply privacyforms.theme

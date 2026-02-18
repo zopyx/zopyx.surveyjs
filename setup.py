@@ -68,6 +68,7 @@ setup(
         "sqlmodel",
         "diskcache",
         "pypdf",
+        "zopyx.plone.persistentlogger",
     ],
     extras_require={
         "test": [
