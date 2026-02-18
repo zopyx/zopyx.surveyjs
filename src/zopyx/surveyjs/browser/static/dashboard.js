@@ -1,4 +1,11 @@
+/**
+ * Dashboard view interactions for analytics/summary widgets.
+ * Wires UI controls to data refresh and chart rendering.
+ */
 document.addEventListener("DOMContentLoaded", function () {
+/**
+ * @function
+ */
   const t = window._t || function (msgid) { return msgid; };
   const container = document.getElementById("surveyDashboardContainer");
   const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
@@ -19,9 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultsUrl = ACTUAL_URL + "/get-polls-json2";
 
   Promise.all([
+/**
+ * @function
+ */
     fetch(formUrl, { credentials: "same-origin" }).then((response) => response.json()),
+/**
+ * @function
+ */
     fetch(resultsUrl, { credentials: "same-origin" }).then((response) => response.json())
   ])
+/**
+ * @function
+ */
     .then(([formJson, results]) => {
       const survey = new Survey.Model(formJson || {});
       survey.locale = surveyLocale;
@@ -49,6 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       panel.render("surveyDashboardContainer");
     })
+/**
+ * @function
+ */
     .catch((error) => {
       console.error(t("Error loading dashboard data:"), error);
       container.innerHTML = "<div class=\"dashboard-error\">" +

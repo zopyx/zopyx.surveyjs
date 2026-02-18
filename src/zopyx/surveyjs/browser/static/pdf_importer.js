@@ -1,8 +1,18 @@
+/**
+ * PDF importer view logic for @@pdf-importer.
+ * Handles file upload, import lifecycle, and status feedback.
+ */
 document.addEventListener("DOMContentLoaded", function() {
+/**
+ * @function
+ */
   const t = window._t || function (msgid, mapping) {
     if (!mapping) {
       return msgid;
     }
+/**
+ * @function
+ */
     return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
       if (Object.prototype.hasOwnProperty.call(mapping, key)) {
         return String(mapping[key]);
@@ -32,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
+/**
+ * @function
+ */
   function setLoading(isLoading) {
     importBtn.disabled = isLoading;
     if (importSpinner) {
@@ -43,6 +56,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function setStoreLoading(isLoading) {
     if (storeBtn) {
       storeBtn.disabled = isLoading;
@@ -56,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function setStoreEnabled(enabled) {
     if (storeBtn) {
       storeBtn.disabled = !enabled;
@@ -63,12 +82,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function showStatus(message, type) {
     statusEl.style.display = "block";
     statusEl.className = "alert " + (type === "success" ? "alert-success" : "alert-danger");
     statusEl.innerHTML = message;
   }
 
+/**
+ * @function
+ */
   function renderSurveyPreview(surveyJson) {
     if (!surveyPreviewContainer || typeof Survey === "undefined") {
       return;
@@ -88,6 +113,9 @@ document.addEventListener("DOMContentLoaded", function() {
     surveyPreview = model;
   }
 
+/**
+ * @function
+ */
   importerForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -119,14 +147,23 @@ document.addEventListener("DOMContentLoaded", function() {
       body: formData,
       credentials: "same-origin"
     })
+/**
+ * @function
+ */
     .then(response => {
       if (!response.ok) {
+/**
+ * @function
+ */
         return response.json().then(data => {
           throw new Error(data.message || t("Import failed"));
         });
       }
       return response.json();
     })
+/**
+ * @function
+ */
     .then(data => {
       if (data.success) {
         showStatus(
@@ -144,15 +181,24 @@ document.addEventListener("DOMContentLoaded", function() {
         throw new Error(data.message || t("Import failed"));
       }
     })
+/**
+ * @function
+ */
     .catch(error => {
       showStatus(error.message || t("Import failed. Please try again."), "error");
     })
+/**
+ * @function
+ */
     .finally(() => {
       setLoading(false);
     });
   });
 
   if (storeBtn) {
+/**
+ * @function
+ */
     storeBtn.addEventListener("click", function() {
       if (!convertedJson) {
         showStatus(t("No converted form available to store."), "error");
@@ -171,14 +217,23 @@ document.addEventListener("DOMContentLoaded", function() {
         body: formData,
         credentials: "same-origin"
       })
+/**
+ * @function
+ */
       .then(response => {
         if (!response.ok) {
+/**
+ * @function
+ */
           return response.json().then(data => {
             throw new Error(data.message || t("Store failed"));
           });
         }
         return response.json();
       })
+/**
+ * @function
+ */
       .then(data => {
         if (data.success) {
           const versionsUrl = ACTUAL_URL + "/@@form-versions";
@@ -194,15 +249,24 @@ document.addEventListener("DOMContentLoaded", function() {
           throw new Error(data.message || t("Store failed"));
         }
       })
+/**
+ * @function
+ */
       .catch(error => {
         showStatus(error.message || t("Store failed. Please try again."), "error");
       })
+/**
+ * @function
+ */
       .finally(() => {
         setStoreLoading(false);
       });
     });
   }
 
+/**
+ * @function
+ */
   pdfInput.addEventListener("change", function() {
     const file = pdfInput.files[0];
     convertedJson = null;

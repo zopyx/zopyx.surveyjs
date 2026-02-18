@@ -1,17 +1,47 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const t = window._t || function (msgid, mapping) {
+/**
+ * Results view logic for @@results.
+ * Configures Tabulator, export filters, fullscreen, and actions.
+ */
+/**
+ * Initialize results view once the DOM is ready.
+ * @param {Event} event
+ */
+function handleResultsReady(event) {
+    /**
+     * Default translation fallback.
+     * @param {string} msgid
+     * @param {Object} [mapping]
+     * @returns {string}
+     */
+    const defaultTranslate = function (msgid, mapping) {
         if (!mapping) {
             return msgid;
         }
-        return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+        /**
+         * Replace interpolation tokens in translated strings.
+         * @param {string} match
+         * @param {string} key
+         * @returns {string}
+         */
+        const replaceToken = function (match, key) {
             if (Object.prototype.hasOwnProperty.call(mapping, key)) {
                 return String(mapping[key]);
             }
             return match;
-        });
+        };
+        return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, replaceToken);
     };
+    const t = window._t || defaultTranslate;
 
-    const config = window.RESULTS_CONFIG || {};
+    const configEl = document.getElementById("results-config");
+    let config = window.RESULTS_CONFIG || {};
+    if (configEl && configEl.textContent) {
+        try {
+            config = JSON.parse(configEl.textContent) || config;
+        } catch (error) {
+            console.error("Failed to parse results config", error);
+        }
+    }
     const formats = Array.isArray(config.converterFormats) ? config.converterFormats : [];
     const isManager = Boolean(config.isManager);
     const hasMailAction = Boolean(config.hasMailAction);
@@ -64,28 +94,61 @@ document.addEventListener("DOMContentLoaded", function () {
     const questionLabels = {};
     const questionDefinitions = {};
 
-    fetch("get-form-json", { credentials: "same-origin" })
-        .then(response => response.json())
-        .then(data => {
-            (data.pages || []).forEach(page => {
-                (page.elements || []).forEach(element => {
-                    if (element.name) {
-                        questionLabels[element.name] = element.title || element.name;
-                        questionDefinitions[element.name] = element;
-                    }
-                });
+    /**
+     * Parse the form JSON used for question labels.
+     * @param {Response} response
+     * @returns {Promise<Object>}
+     */
+    const handleFormResponse = function (response) {
+        return response.json();
+    };
+    /**
+     * Populate question label and definition maps.
+     * @param {Object} data
+     */
+    const handleFormData = function (data) {
+/**
+ * @function
+ */
+        (data.pages || []).forEach(function attachPage(page) {
+/**
+ * @function
+ */
+            (page.elements || []).forEach(function attachElement(element) {
+                if (element.name) {
+                    questionLabels[element.name] = element.title || element.name;
+                    questionDefinitions[element.name] = element;
+                }
             });
-        })
-        .catch(() => {
-            // Best-effort label mapping; fall back to keys on failure.
         });
+    };
+    /**
+     * Ignore failures when loading optional label metadata.
+     * @param {Error} error
+     */
+    const handleFormDataError = function (error) {
+        // Best-effort label mapping; fall back to keys on failure.
+    };
 
+    fetch("get-form-json", { credentials: "same-origin" })
+        .then(handleFormResponse)
+        .then(handleFormData)
+        .catch(handleFormDataError);
+
+    /**
+     * Update the total results count display.
+     * @param {number} count
+     */
     function updateTotalCount(count) {
         if (totalCountEl) {
             totalCountEl.textContent = String(count || 0);
         }
     }
 
+    /**
+     * Toggle fullscreen mode for results.
+     * @param {boolean} enabled
+     */
     function setFullscreen(enabled) {
         document.body.classList.toggle(fullscreenClass, Boolean(enabled));
         if (!fullscreenToggle) {
@@ -95,6 +158,10 @@ document.addEventListener("DOMContentLoaded", function () {
         fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
     }
 
+    /**
+     * Determine whether the export date range is invalid.
+     * @returns {boolean}
+     */
     function hasInvalidExportRange() {
         if (!exportFrom || !exportTo) {
             return false;
@@ -105,6 +172,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return exportTo.value <= exportFrom.value;
     }
 
+    /**
+     * Show or hide the export range warning.
+     */
     function updateExportWarning() {
         if (!exportWarning) {
             return;
@@ -116,12 +186,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /**
+     * Update export links with the selected date range.
+     */
     function updateExportLinks() {
         if (!exportLinks.length) {
             return;
         }
         const fromValue = exportFrom ? exportFrom.value : "";
         const toValue = exportTo ? exportTo.value : "";
+/**
+ * @function
+ */
         exportLinks.forEach(link => {
             const baseHref = link.getAttribute("data-base-href");
             if (!baseHref) {
@@ -138,12 +214,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    /**
+     * Escape text for HTML output.
+     * @param {string} text
+     * @returns {string}
+     */
     function escapeHtml(text) {
         const div = document.createElement("div");
         div.textContent = text;
         return div.innerHTML;
     }
 
+    /**
+     * Shorten long identifiers for display.
+     * @param {string} value
+     * @returns {string}
+     */
     function shortenId(value) {
         if (!value) {
             return "";
@@ -157,6 +243,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${escapeHtml(head)}...${escapeHtml(tail)}`;
     }
 
+    /**
+     * Format poll id column.
+     * @param {Object} cell
+     * @returns {string}
+     */
     function idFormatter(cell) {
         const value = cell.getValue();
         if (!value) {
@@ -167,6 +258,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return `<span title="${full}">${short}</span>`;
     }
 
+    /**
+     * Show an error banner in the results grid.
+     * @param {string} message
+     */
     function showGridError(message) {
         if (!gridMount) {
             return;
@@ -179,12 +274,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (exportFrom) {
+/**
+ * @function
+ */
         exportFrom.addEventListener("change", function () {
             updateExportWarning();
             updateExportLinks();
         });
     }
     if (exportTo) {
+/**
+ * @function
+ */
         exportTo.addEventListener("change", function () {
             updateExportWarning();
             updateExportLinks();
@@ -194,11 +295,17 @@ document.addEventListener("DOMContentLoaded", function () {
     updateExportLinks();
 
     if (fullscreenToggle) {
+/**
+ * @function
+ */
         fullscreenToggle.addEventListener("click", function (event) {
             event.preventDefault();
             const isFullscreen = document.body.classList.contains(fullscreenClass);
             setFullscreen(!isFullscreen);
         });
+/**
+ * @function
+ */
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape" && document.body.classList.contains(fullscreenClass)) {
                 setFullscreen(false);
@@ -210,12 +317,21 @@ document.addEventListener("DOMContentLoaded", function () {
         setFullscreen(true);
     }
 
+    /**
+     * Render matrix-style answers as an HTML table.
+     * @param {Object|Array} value
+     * @param {Object} element
+     * @returns {string}
+     */
     function renderMatrixTable(value, element) {
         if (!element) {
             return null;
         }
 
         if (element.type === "matrixdynamic" && Array.isArray(value)) {
+/**
+ * @function
+ */
             const columnDefs = (element.columns || []).map(col => ({
                 key: col.name || col.value || col.title || "",
                 label: col.title || col.name || col.value || "",
@@ -224,24 +340,42 @@ document.addEventListener("DOMContentLoaded", function () {
             const allKeys = Array.from(
                 new Set(
                     columnDefs.length
+/**
+ * @function
+ */
                         ? columnDefs.map(col => col.key)
+/**
+ * @function
+ */
                         : value.flatMap(row => Object.keys(row || {})),
                 ),
             ).filter(Boolean);
 
             const headers = columnDefs.length
                 ? columnDefs
+/**
+ * @function
+ */
                 : allKeys.map(key => ({ key, label: key }));
 
             let html = "<table class='details-table matrix-table'>";
             html += "<thead><tr>";
+/**
+ * @function
+ */
             headers.forEach(col => {
                 html += `<th>${escapeHtml(col.label)}</th>`;
             });
             html += "</tr></thead><tbody>";
 
+/**
+ * @function
+ */
             value.forEach(row => {
                 html += "<tr>";
+/**
+ * @function
+ */
                 headers.forEach(col => {
                     const cell = row ? row[col.key] : "";
                     html += `<td>${escapeHtml(cell != null ? String(cell) : "")}</td>`;
@@ -260,15 +394,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const columnLookup = new Map(
                 columnDefs
+/**
+ * @function
+ */
                     .filter(col => col && (col.value || col.name))
+/**
+ * @function
+ */
                     .map(col => [col.value || col.name, col.text || col.title || col.name]),
             );
 
             let html = "<table class='details-table matrix-table'>";
             html += "<thead><tr><th>" + t("Row") + "</th><th>" + t("Answer") + "</th></tr></thead><tbody>";
 
+/**
+ * @function
+ */
             rows.forEach(([rowKey, answer]) => {
                 const rowLabel =
+/**
+ * @function
+ */
                     (rowDefs.find(r => r && (r.value === rowKey || r.name === rowKey)) || {})
                         .text ||
                     rowKey;
@@ -277,10 +423,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     answerText = columnLookup.get(answer) || answer;
                 } else if (Array.isArray(answer)) {
                     answerText = answer
+/**
+ * @function
+ */
                         .map(val => columnLookup.get(val) || String(val))
                         .join(", ");
                 } else if (answer && typeof answer === "object") {
                     answerText = Object.entries(answer)
+/**
+ * @function
+ */
                         .map(([k, v]) => `${k}: ${v}`)
                         .join(", ");
                 } else {
@@ -300,6 +452,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return null;
     }
 
+    /**
+     * Render the details modal HTML for a poll result.
+     * @param {Object} data
+     * @returns {string}
+     */
     function renderDetailsTable(data) {
         let html = "<table class='details-table'>";
         html += "<thead><tr><th>" + t("Key / Question") + "</th><th>" + t("Answer") + "</th></tr></thead>";
@@ -328,12 +485,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         html += t("Attached file: ${name}", { name: escapeHtml(item.name) });
                     }
                 } else {
+/**
+ * @function
+ */
                     html += value.map(v => escapeHtml(String(v))).join("<br>");
                 }
             } else if (typeof value === "string" && value.startsWith("data:image/")) {
                 html += `<div class="image-preview"><img src="${value}" alt="${escapeHtml(key)}" /></div>`;
             } else if (typeof value === "object" && value !== null) {
                 html += Object.entries(value)
+/**
+ * @function
+ */
                     .map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`)
                     .join("<br>");
             } else {
@@ -347,32 +510,55 @@ document.addEventListener("DOMContentLoaded", function () {
         detailsContent.innerHTML = html;
     }
 
+    /**
+     * Open the JSON modal for a poll result.
+     * @param {string} pollId
+     */
     function openJsonModal(pollId) {
         fetch(`${config.viewJsonUrlBase}${encodeURIComponent(pollId)}`, { credentials: "same-origin" })
+/**
+ * @function
+ */
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
+/**
+ * @function
+ */
             .then(data => {
                 jsonContent.textContent = JSON.stringify(data, null, 2);
                 modal.style.display = "block";
             })
+/**
+ * @function
+ */
             .catch(error => {
                 console.error(t("Error fetching JSON:"), error);
                 alert(t("Failed to load JSON data. Please check the console for more information."));
             });
     }
 
+    /**
+     * Open the details modal for a poll result.
+     * @param {string} pollId
+     */
     function openDetailsModal(pollId) {
         fetch(`${config.viewJsonUrlBase}${encodeURIComponent(pollId)}`, { credentials: "same-origin" })
+/**
+ * @function
+ */
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
+/**
+ * @function
+ */
             .then(data => {
                 if (data.error) {
                     alert(t("Error: ${error}", { error: data.error }));
@@ -381,12 +567,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 renderDetailsTable(data);
                 detailsModal.style.display = "block";
             })
+/**
+ * @function
+ */
             .catch(error => {
                 console.error(t("Error fetching details:"), error);
                 alert(t("Failed to load details. Please check the console for more information."));
             });
     }
 
+    /**
+     * Delete one or more poll results.
+     * @param {Array<string>} pollIds
+     * @returns {Promise<void>}
+     */
     function deletePolls(pollIds) {
         const headers = {
             "Content-Type": "application/json"
@@ -400,10 +594,16 @@ document.addEventListener("DOMContentLoaded", function () {
             credentials: "same-origin",
             headers,
             body: JSON.stringify({ poll_ids: pollIds })
+/**
+ * @function
+ */
         }).then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+/**
+ * @function
+ */
             return response.json().catch(() => ({}));
         });
     }
@@ -411,6 +611,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let pendingDeletePollId = null;
     let pendingDeleteSelectedIds = [];
 
+    /**
+     * Open the delete confirmation modal for a single poll.
+     * @param {string} pollId
+     */
     function openDeleteModal(pollId) {
         if (!deleteConfirmModal) {
             return;
@@ -422,6 +626,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /**
+     * Open the delete confirmation modal for multiple polls.
+     * @param {Array<string>} selectedIds
+     */
     function openDeleteSelectedModal(selectedIds) {
         if (!deleteSelectedConfirmModal) {
             return;
@@ -438,6 +646,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    /**
+     * Build an SVG element from path markup.
+     * @param {string} pathMarkup
+     * @returns {string}
+     */
     function createSvgIcon(pathMarkup) {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("viewBox", "0 0 24 24");
@@ -448,6 +661,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return svg;
     }
 
+    /**
+     * Build a button element for table actions.
+     * @param {Object} options
+     * @returns {HTMLElement}
+     */
     function createIconButton(options) {
         const label = options.label || "";
         const tag = options.tag || "button";
@@ -491,6 +709,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentQuery = "";
 
+    /**
+     * Render action buttons for a table row.
+     * @param {Object} cell
+     * @returns {HTMLElement}
+     */
     function actionFormatter(cell) {
         const data = cell.getRow().getData();
         const wrapper = document.createElement("div");
@@ -507,6 +730,9 @@ document.addEventListener("DOMContentLoaded", function () {
             className: "btn-primary view-json",
             type: "button",
             svg: "<path d=\"M6 3h8l4 4v14H6z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M14 3v5h5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M8 13h2m-2 4h2m2-4h4m-4 4h4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>",
+/**
+ * @function
+ */
             onClick: function () {
                 openJsonModal(data.poll_id);
             }
@@ -518,6 +744,9 @@ document.addEventListener("DOMContentLoaded", function () {
             className: "btn-success view-details",
             type: "button",
             svg: "<path d=\"M3 5h18v14H3z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M3 9h18M8 5v14M16 5v14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>",
+/**
+ * @function
+ */
             onClick: function () {
                 openDetailsModal(data.poll_id);
             }
@@ -554,6 +783,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const select = document.createElement("select");
         select.name = "format";
+/**
+ * @function
+ */
         formats.forEach(fmt => {
             const option = document.createElement("option");
             option.value = fmt.key;
@@ -601,6 +833,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 className: "btn-danger delete-result",
                 type: "button",
                 imgSrc: "++resource++zopyx.surveyjs/icon-trash.svg",
+/**
+ * @function
+ */
                 onClick: function () {
                     openDeleteModal(data.poll_id);
                 }
@@ -646,8 +881,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const table = new Tabulator("#results-grid", {
         ajaxURL: config.resultsUrl,
         ajaxConfig: "GET",
+/**
+ * @function
+ */
         ajaxRequestFunc: function (url, config, params) {
             const requestUrl = new URL(url, window.location.href);
+/**
+ * @function
+ */
             Object.entries(params || {}).forEach(([key, value]) => {
                 if (value === null || typeof value === "undefined") {
                     return;
@@ -659,6 +900,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
             return fetch(requestUrl.toString(), { credentials: "same-origin" })
+/**
+ * @function
+ */
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -701,6 +945,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 headerFilter: "input",
                 width: 170,
                 minWidth: 150,
+/**
+ * @function
+ */
                 formatter: function (cell) {
                     const data = cell.getRow().getData();
                     return data.created_display || "";
@@ -747,27 +994,42 @@ document.addEventListener("DOMContentLoaded", function () {
             current_page: "page",
             total_rows: "total_rows"
         },
+/**
+ * @function
+ */
         ajaxResponse: function (url, params, response) {
             if (response && typeof response.total_rows !== "undefined") {
                 updateTotalCount(response.total_rows);
             }
             return response;
         },
+/**
+ * @function
+ */
         ajaxError: function () {
             showGridError(t("Failed to load results. Please check the console for details."));
         }
     });
 
     if (isManager && deleteSelectedBtn) {
+/**
+ * @function
+ */
         table.on("rowSelectionChanged", function (data) {
             deleteSelectedBtn.disabled = data.length === 0;
         });
 
+/**
+ * @function
+ */
         deleteSelectedBtn.addEventListener("click", function () {
             const selected = table.getSelectedData() || [];
             if (!selected.length) {
                 return;
             }
+/**
+ * @function
+ */
             openDeleteSelectedModal(selected.map(row => row.poll_id));
         });
     }
@@ -777,18 +1039,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const resetBtn = document.getElementById("results-reset-btn");
     const refreshBtn = document.getElementById("results-refresh-btn");
 
+    /**
+     * Apply the search term to the table.
+     */
     function applySearch() {
         currentQuery = searchInput ? searchInput.value.trim() : "";
         table.setData(config.resultsUrl, { q: currentQuery });
     }
 
     if (searchBtn) {
+/**
+ * @function
+ */
         searchBtn.addEventListener("click", function () {
             applySearch();
         });
     }
 
     if (searchInput) {
+/**
+ * @function
+ */
         searchInput.addEventListener("keypress", function (event) {
             if (event.key === "Enter") {
                 applySearch();
@@ -797,6 +1068,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (resetBtn) {
+/**
+ * @function
+ */
         resetBtn.addEventListener("click", function () {
             if (searchInput) {
                 searchInput.value = "";
@@ -808,24 +1082,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (refreshBtn) {
+/**
+ * @function
+ */
         refreshBtn.addEventListener("click", function () {
             table.setData(config.resultsUrl, { q: currentQuery });
         });
     }
 
     if (closeButton) {
+/**
+ * @function
+ */
         closeButton.addEventListener("click", function () {
             modal.style.display = "none";
         });
     }
 
     if (detailsCloseButton) {
+/**
+ * @function
+ */
         detailsCloseButton.addEventListener("click", function () {
             detailsModal.style.display = "none";
         });
     }
 
     if (deleteCloseButton) {
+/**
+ * @function
+ */
         deleteCloseButton.addEventListener("click", function () {
             if (deleteConfirmModal) {
                 deleteConfirmModal.style.display = "none";
@@ -835,6 +1121,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (deleteCancelBtn) {
+/**
+ * @function
+ */
         deleteCancelBtn.addEventListener("click", function () {
             if (deleteConfirmModal) {
                 deleteConfirmModal.style.display = "none";
@@ -844,12 +1133,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (deleteConfirmBtn) {
+/**
+ * @function
+ */
         deleteConfirmBtn.addEventListener("click", function () {
             if (!pendingDeletePollId) {
                 return;
             }
             deleteConfirmBtn.disabled = true;
             deletePolls([pendingDeletePollId])
+/**
+ * @function
+ */
                 .then(() => {
                     if (deleteConfirmModal) {
                         deleteConfirmModal.style.display = "none";
@@ -859,10 +1154,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         table.setData(config.resultsUrl, { q: currentQuery });
                     }
                 })
+/**
+ * @function
+ */
                 .catch(error => {
                     console.error(t("Error deleting result:"), error);
                     alert(t("Failed to delete the result. Please check the console for details."));
                 })
+/**
+ * @function
+ */
                 .finally(() => {
                     deleteConfirmBtn.disabled = false;
                 });
@@ -870,6 +1171,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (deleteSelectedCloseButton) {
+/**
+ * @function
+ */
         deleteSelectedCloseButton.addEventListener("click", function () {
             if (deleteSelectedConfirmModal) {
                 deleteSelectedConfirmModal.style.display = "none";
@@ -879,6 +1183,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (deleteSelectedCancelBtn) {
+/**
+ * @function
+ */
         deleteSelectedCancelBtn.addEventListener("click", function () {
             if (deleteSelectedConfirmModal) {
                 deleteSelectedConfirmModal.style.display = "none";
@@ -888,12 +1195,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (deleteSelectedConfirmBtn) {
+/**
+ * @function
+ */
         deleteSelectedConfirmBtn.addEventListener("click", function () {
             if (!pendingDeleteSelectedIds.length) {
                 return;
             }
             deleteSelectedConfirmBtn.disabled = true;
             deletePolls(pendingDeleteSelectedIds)
+/**
+ * @function
+ */
                 .then(() => {
                     if (deleteSelectedConfirmModal) {
                         deleteSelectedConfirmModal.style.display = "none";
@@ -903,16 +1216,25 @@ document.addEventListener("DOMContentLoaded", function () {
                         table.setData(config.resultsUrl, { q: currentQuery });
                     }
                 })
+/**
+ * @function
+ */
                 .catch(error => {
                     console.error(t("Error deleting selected results:"), error);
                     alert(t("Failed to delete selected results. Please check the console for details."));
                 })
+/**
+ * @function
+ */
                 .finally(() => {
                     deleteSelectedConfirmBtn.disabled = false;
                 });
         });
     }
 
+/**
+ * @function
+ */
     window.addEventListener("click", function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
@@ -930,6 +1252,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+/**
+ * @function
+ */
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             if (modal && modal.style.display === "block") {
@@ -960,6 +1285,9 @@ document.addEventListener("DOMContentLoaded", function () {
         : "clear";
 
     if (clearResultsBtn) {
+/**
+ * @function
+ */
         clearResultsBtn.addEventListener("click", function () {
             clearConfirmModal.style.display = "block";
             clearConfirmInput.value = "";
@@ -969,10 +1297,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (clearConfirmInput) {
+/**
+ * @function
+ */
         clearConfirmInput.addEventListener("input", function () {
             clearConfirmBtn.disabled = this.value.toLowerCase() !== clearKeyword.toLowerCase();
         });
 
+/**
+ * @function
+ */
         clearConfirmInput.addEventListener("keypress", function (event) {
             if (event.key === "Enter" && this.value.toLowerCase() === clearKeyword.toLowerCase()) {
                 clearConfirmBtn.click();
@@ -981,6 +1315,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (clearConfirmBtn) {
+/**
+ * @function
+ */
         clearConfirmBtn.addEventListener("click", function () {
             const headers = {};
             if (authToken) {
@@ -992,17 +1329,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 credentials: "same-origin",
                 headers
             })
+/**
+ * @function
+ */
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.text();
                 })
+/**
+ * @function
+ */
                 .then(() => {
                     clearConfirmModal.style.display = "none";
                     alert(t("All results have been cleared successfully."));
                     table.setData(config.resultsUrl, { q: currentQuery });
                 })
+/**
+ * @function
+ */
                 .catch(error => {
                     console.error(t("Error clearing results:"), error);
                     alert(t("Failed to clear results. Please check the console for more information."));
@@ -1011,26 +1357,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (clearCloseButton) {
+/**
+ * @function
+ */
         clearCloseButton.addEventListener("click", function () {
             clearConfirmModal.style.display = "none";
         });
     }
 
     if (clearCancelBtn) {
+/**
+ * @function
+ */
         clearCancelBtn.addEventListener("click", function () {
             clearConfirmModal.style.display = "none";
         });
     }
 
+/**
+ * @function
+ */
     window.addEventListener("click", function (event) {
         if (event.target === clearConfirmModal) {
             clearConfirmModal.style.display = "none";
         }
     });
 
+/**
+ * @function
+ */
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape" && clearConfirmModal && clearConfirmModal.style.display === "block") {
             clearConfirmModal.style.display = "none";
         }
     });
-});
+}
+
+document.addEventListener("DOMContentLoaded", handleResultsReady);

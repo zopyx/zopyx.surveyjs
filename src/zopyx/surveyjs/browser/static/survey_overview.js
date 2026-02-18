@@ -1,7 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const t = window._t || function (msgid) {
+/**
+ * Survey overview grid logic for @@survey-overview and templates overview.
+ * Builds Tabulator table, metadata toggles, and template actions.
+ */
+/**
+ * Initialize the survey overview grid once the DOM is ready.
+ * @param {Event} event
+ */
+function handleSurveyOverviewReady(event) {
+    /**
+     * Default translation fallback.
+     * @param {string} msgid
+     * @returns {string}
+     */
+    const defaultTranslate = function (msgid) {
         return msgid;
     };
+    const t = window._t || defaultTranslate;
 
     const gridMount = document.getElementById("survey-overview-grid");
     if (!gridMount) {
@@ -17,19 +31,40 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const data = Array.isArray(window.SURVEY_OVERVIEW_DATA) ? window.SURVEY_OVERVIEW_DATA : [];
+    const dataEl = document.getElementById("survey-overview-data");
+    let data = Array.isArray(window.SURVEY_OVERVIEW_DATA) ? window.SURVEY_OVERVIEW_DATA : [];
+    if (dataEl && dataEl.textContent) {
+        try {
+            const parsed = JSON.parse(dataEl.textContent);
+            if (Array.isArray(parsed)) {
+                data = parsed;
+            }
+        } catch (error) {
+            console.error("Failed to parse survey overview data", error);
+        }
+    }
     const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
     const tabulatorLocale = String(rawLocale).split("-")[0] || "en";
 
     // Store metadata toggle state for each row
     const metadataToggleState = new Map();
 
+    /**
+     * Escape text for HTML output.
+     * @param {string} text
+     * @returns {string}
+     */
     function escapeHtml(text) {
         const div = document.createElement("div");
         div.textContent = text == null ? "" : String(text);
         return div.innerHTML;
     }
 
+    /**
+     * Render survey cell content.
+     * @param {Object} cell
+     * @returns {string}
+     */
     function surveyFormatter(cell) {
         const row = cell.getData() || {};
         const rowId = row.url || row.title || "";
@@ -44,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let metadataBlock = "";
         if (metadata.length) {
             const items = metadata
+/**
+ * @function
+ */
                 .map((item) => {
                     const label = escapeHtml(item.label || "");
                     const value = escapeHtml(item.value || "");
@@ -76,6 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     }
 
+    /**
+     * Render status cell content.
+     * @param {Object} cell
+     * @returns {string}
+     */
     function statusFormatter(cell) {
         const row = cell.getData() || {};
         const status = escapeHtml(row.review_state || "");
@@ -96,7 +139,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const pagerMount = document.getElementById("survey-overview-pager");
-    const isTemplatesMode = window.SURVEY_OVERVIEW_MODE === 'templates';
+    const configEl = document.getElementById("survey-overview-config");
+    let config = {};
+    if (configEl && configEl.textContent) {
+        try {
+            config = JSON.parse(configEl.textContent) || {};
+        } catch (error) {
+            console.error("Failed to parse survey overview config", error);
+        }
+    }
+    const isTemplatesMode = config.mode === "templates" || window.SURVEY_OVERVIEW_MODE === "templates";
 
     const tabulatorLangs = {};
     tabulatorLangs[tabulatorLocale] = {
@@ -114,8 +166,12 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     };
 
-    const templateAction = window.SURVEY_TEMPLATE_ACTION || {};
+    const templateAction = config.templateAction || window.SURVEY_TEMPLATE_ACTION || {};
 
+    /**
+     * Submit a create-from-template action.
+     * @param {string} uid
+     */
     function createFromTemplate(uid) {
         if (!uid || !templateAction.createUrl) {
             return;
@@ -146,6 +202,31 @@ document.addEventListener("DOMContentLoaded", function () {
         form.submit();
     }
 
+    /**
+     * Toggle metadata expansion for a row.
+     * @param {MouseEvent} event
+     * @param {Object} cell
+     */
+    function handleMetadataToggleClick(event, cell) {
+        const target = event.target;
+        if (!target || !target.closest) {
+            return;
+        }
+        const toggle = target.closest(".survey-overview-meta-toggle");
+        if (!toggle) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+
+        const row = cell.getData() || {};
+        const rowId = row.url || row.title || "";
+        const currentState = metadataToggleState.get(rowId) || false;
+        metadataToggleState.set(rowId, !currentState);
+
+        table.redraw(true);
+    }
+
     const columns = [
         {
             title: isTemplatesMode ? t("Template") : t("Forms"),
@@ -155,25 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
             minWidth: 240,
             variableHeight: true,
             cssClass: "survey-overview-col",
-            cellClick: function (event, cell) {
-                const target = event.target;
-                if (!target || !target.closest) {
-                    return;
-                }
-                const toggle = target.closest(".survey-overview-meta-toggle");
-                if (!toggle) {
-                    return;
-                }
-                event.preventDefault();
-                event.stopPropagation();
-
-                const row = cell.getData() || {};
-                const rowId = row.url || row.title || "";
-                const currentState = metadataToggleState.get(rowId) || false;
-                metadataToggleState.set(rowId, !currentState);
-
-                table.redraw(true);
-            },
+            cellClick: handleMetadataToggleClick,
             headerFilter: "input",
             headerSort: true,
         },
@@ -201,6 +264,37 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     if (isTemplatesMode && templateAction.canCreate) {
+        /**
+         * Render the template action button.
+         * @param {Object} cell
+         * @returns {string}
+         */
+        function templateActionFormatter(cell) {
+            const row = cell.getData() || {};
+            const uid = escapeHtml(row.uid || "");
+            if (!uid) {
+                return "";
+            }
+            return `<button type="button" class="survey-overview-action-btn" data-template-uid="${uid}">${escapeHtml(t("Create form"))}</button>`;
+        }
+        /**
+         * Handle template action button clicks.
+         * @param {MouseEvent} event
+         * @param {Object} cell
+         */
+        function handleTemplateActionClick(event, cell) {
+            const target = event.target;
+            if (!target || !target.closest) {
+                return;
+            }
+            const button = target.closest(".survey-overview-action-btn");
+            if (!button) {
+                return;
+            }
+            event.preventDefault();
+            event.stopPropagation();
+            createFromTemplate(button.getAttribute("data-template-uid") || "");
+        }
         columns.push({
             title: t("Action"),
             field: "actions",
@@ -208,27 +302,8 @@ document.addEventListener("DOMContentLoaded", function () {
             width: 160,
             hozAlign: "center",
             headerHozAlign: "center",
-            formatter: function (cell) {
-                const row = cell.getData() || {};
-                const uid = escapeHtml(row.uid || "");
-                if (!uid) {
-                    return "";
-                }
-                return `<button type="button" class="survey-overview-action-btn" data-template-uid="${uid}">${escapeHtml(t("Create form"))}</button>`;
-            },
-            cellClick: function (event, cell) {
-                const target = event.target;
-                if (!target || !target.closest) {
-                    return;
-                }
-                const button = target.closest(".survey-overview-action-btn");
-                if (!button) {
-                    return;
-                }
-                event.preventDefault();
-                event.stopPropagation();
-                createFromTemplate(button.getAttribute("data-template-uid") || "");
-            },
+            formatter: templateActionFormatter,
+            cellClick: handleTemplateActionClick,
         });
     }
 
@@ -246,4 +321,6 @@ document.addEventListener("DOMContentLoaded", function () {
         columns: columns,
     });
 
-});
+}
+
+document.addEventListener("DOMContentLoaded", handleSurveyOverviewReady);

@@ -58,6 +58,11 @@ article > header {
     display: none;
 }
 
+.survey-container-hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
 .survey-access-error {
     background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
     border: 1px solid #fdba74;

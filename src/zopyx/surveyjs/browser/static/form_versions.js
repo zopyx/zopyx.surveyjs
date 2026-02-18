@@ -1,14 +1,27 @@
+/**
+ * Form versions management UI for @@form-versions.
+ * Handles modal dialogs, preview rendering, and version actions.
+ */
 // ============================================================================
 // Form Versions Management - Clean Simple Implementation
 // ============================================================================
 
+/**
+ * @function
+ */
 (function() {
   'use strict';
 
+/**
+ * @function
+ */
   var t = window._t || function (msgid, mapping) {
     if (!mapping) {
       return msgid;
     }
+/**
+ * @function
+ */
     return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
       if (Object.prototype.hasOwnProperty.call(mapping, key)) {
         return String(mapping[key]);
@@ -28,6 +41,9 @@
     init();
   }
 
+/**
+ * @function
+ */
   function init() {
     console.log('Form versions initializing...');
     baseUrl = window.location.href.split('/@@')[0];
@@ -44,6 +60,9 @@
   // JSON Viewer
   // ============================================================================
 
+/**
+ * @function
+ */
   function setupJsonViewer() {
     var modal = document.getElementById('jsonViewerModal');
     var overlay = document.getElementById('jsonModalOverlay');
@@ -55,7 +74,13 @@
     }
 
     // Handle JSON button clicks
+/**
+ * @function
+ */
     document.querySelectorAll('.view-json-btn').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         var versionId = btn.getAttribute('data-version-id');
@@ -85,16 +110,28 @@
 
         // Fetch JSON
         fetch(url, fetchOptions)
+/**
+ * @function
+ */
           .then(function(res) { return res.json(); })
+/**
+ * @function
+ */
           .then(function(data) {
             content.textContent = JSON.stringify(data, null, 2);
           })
+/**
+ * @function
+ */
           .catch(function(err) {
             if (err.name === 'AbortError') {
               return;
             }
             content.textContent = t('Error: ${error}', { error: err.message });
           })
+/**
+ * @function
+ */
           .finally(function() {
             if (activeJsonRequest === jsonController) {
               activeJsonRequest = null;
@@ -106,12 +143,18 @@
     // Close handlers
     modal.querySelector('.json-modal-close').addEventListener('click', closeJsonModal);
     overlay.addEventListener('click', closeJsonModal);
+/**
+ * @function
+ */
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeJsonModal();
       }
     });
 
+/**
+ * @function
+ */
     function closeJsonModal() {
       if (activeJsonRequest && activeJsonRequest.abort) {
         activeJsonRequest.abort();
@@ -127,6 +170,9 @@
   // Preview Modal
   // ============================================================================
 
+/**
+ * @function
+ */
   function setupPreviewModal() {
     var modal = document.getElementById('previewModal');
     var overlay = document.getElementById('previewModalOverlay');
@@ -140,7 +186,13 @@
     console.log('Setting up preview handlers for', document.querySelectorAll('.preview-btn').length, 'buttons');
 
     // Handle Preview button clicks
+/**
+ * @function
+ */
     document.querySelectorAll('.preview-btn').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         var versionId = btn.getAttribute('data-version-id');
@@ -154,6 +206,9 @@
       });
     });
 
+/**
+ * @function
+ */
     function openPreview(versionId) {
       if (activePreviewRequest && activePreviewRequest.abort) {
         activePreviewRequest.abort();
@@ -184,10 +239,16 @@
 
       // Fetch and render
       fetch(url, fetchOptions)
+/**
+ * @function
+ */
         .then(function(res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           return res.json();
         })
+/**
+ * @function
+ */
         .then(function(json) {
           console.log('JSON received, rendering survey...');
           container.innerHTML = '';
@@ -230,6 +291,9 @@
             console.log('First child display:', window.getComputedStyle(firstChild).display);
           }
         })
+/**
+ * @function
+ */
         .catch(function(err) {
           if (err.name === 'AbortError') {
             return;
@@ -240,6 +304,9 @@
             t('Error: ${error}', { error: err.message }) +
             '</div>';
         })
+/**
+ * @function
+ */
         .finally(function() {
           if (activePreviewRequest === previewController) {
             activePreviewRequest = null;
@@ -250,12 +317,18 @@
     // Close handlers
     modal.querySelector('.preview-modal-close').addEventListener('click', closePreview);
     overlay.addEventListener('click', closePreview);
+/**
+ * @function
+ */
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closePreview();
       }
     });
 
+/**
+ * @function
+ */
     function closePreview() {
       if (activePreviewRequest && activePreviewRequest.abort) {
         activePreviewRequest.abort();
@@ -277,6 +350,9 @@
   // Restore Modal
   // ============================================================================
 
+/**
+ * @function
+ */
   function setupRestoreModal() {
     var modal = document.getElementById('restoreModal');
     var overlay = document.getElementById('restoreModalOverlay');
@@ -289,7 +365,13 @@
       return;
     }
 
+/**
+ * @function
+ */
     document.querySelectorAll('.open-restore-dialog').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         var vid = btn.getAttribute('data-version-id') || '';
@@ -307,13 +389,22 @@
       });
     });
 
+/**
+ * @function
+ */
     function closeRestore() {
       modal.classList.remove('active');
       overlay.classList.remove('active');
       document.body.style.overflow = '';
     }
 
+/**
+ * @function
+ */
     document.querySelectorAll('.close-restore').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         closeRestore();
@@ -321,6 +412,9 @@
     });
 
     overlay.addEventListener('click', closeRestore);
+/**
+ * @function
+ */
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeRestore();
@@ -332,6 +426,9 @@
   // Delete Modal
   // ============================================================================
 
+/**
+ * @function
+ */
   function setupDeleteModal() {
     var modal = document.getElementById('deleteModal');
     var overlay = document.getElementById('deleteModalOverlay');
@@ -343,7 +440,13 @@
       return;
     }
 
+/**
+ * @function
+ */
     document.querySelectorAll('.open-delete-dialog').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         var vid = btn.getAttribute('data-version-id') || '';
@@ -356,6 +459,9 @@
       });
     });
 
+/**
+ * @function
+ */
     function closeDelete() {
       pendingDeleteForm = null;
       modal.classList.remove('active');
@@ -363,6 +469,9 @@
       document.body.style.overflow = '';
     }
 
+/**
+ * @function
+ */
     confirmButton.addEventListener('click', function(e) {
       e.preventDefault();
       if (pendingDeleteForm) {
@@ -370,7 +479,13 @@
       }
     });
 
+/**
+ * @function
+ */
     document.querySelectorAll('.close-delete').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         closeDelete();
@@ -378,6 +493,9 @@
     });
 
     overlay.addEventListener('click', closeDelete);
+/**
+ * @function
+ */
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeDelete();
@@ -389,6 +507,9 @@
   // Template Modal
   // ============================================================================
 
+/**
+ * @function
+ */
   function setupTemplateModal() {
     var modal = document.getElementById('templateModal');
     var overlay = document.getElementById('templateModalOverlay');
@@ -404,7 +525,13 @@
       return;
     }
 
+/**
+ * @function
+ */
     document.querySelectorAll('.open-template-dialog').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         var vid = btn.getAttribute('data-version-id') || '';
@@ -423,21 +550,36 @@
       });
     });
 
+/**
+ * @function
+ */
     titleInput.addEventListener('input', function() {
       titleHidden.value = titleInput.value;
     });
 
+/**
+ * @function
+ */
     form.addEventListener('submit', function() {
       titleHidden.value = titleInput.value;
     });
 
+/**
+ * @function
+ */
     function closeTemplate() {
       modal.classList.remove('active');
       overlay.classList.remove('active');
       document.body.style.overflow = '';
     }
 
+/**
+ * @function
+ */
     document.querySelectorAll('.close-template').forEach(function(btn) {
+/**
+ * @function
+ */
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         closeTemplate();
@@ -445,6 +587,9 @@
     });
 
     overlay.addEventListener('click', closeTemplate);
+/**
+ * @function
+ */
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
         closeTemplate();
@@ -456,9 +601,15 @@
   // File Input
   // ============================================================================
 
+/**
+ * @function
+ */
   function setupFileInput() {
     var input = document.getElementById('json_file');
     if (input) {
+/**
+ * @function
+ */
       input.addEventListener('change', function() {
         var fileName = this.files[0]
           ? this.files[0].name

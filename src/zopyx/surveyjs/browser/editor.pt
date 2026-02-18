@@ -26,10 +26,10 @@
     <metal:surveyjs-i18n-scripts
         use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
     />
-    <script type="text/javascript"
-            tal:condition="view/surveyjs_license_key"
-            tal:content="string: LICENSE_KEY='${view/surveyjs_license_key}'"
-    ></script>
+    <span id="survey-editor-config"
+          hidden="hidden"
+          tal:condition="view/surveyjs_license_key"
+          tal:attributes="data-license-key view/surveyjs_license_key"></span>
 
     <metal:surveyjs-core
         use-macro="context/@@survey-assets/macros/surveyjs-core"

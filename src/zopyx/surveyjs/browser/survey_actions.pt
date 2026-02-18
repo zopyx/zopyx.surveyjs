@@ -113,16 +113,10 @@
 </metal:survey_header>
 
 <metal:survey_header_critical define-macro="survey-header-critical">
-  <style type="text/css">
-    #content > header,
-    article > header,
-    #parent-fieldname-title,
-    #parent-fieldname-description,
-    .documentFirstHeading,
-    .documentDescription {
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet"
+        type="text/css"
+        href="++resource++zopyx.surveyjs/survey_actions.css"
+  />
 </metal:survey_header_critical>
 
 <metal:feature_disabled define-macro="feature-disabled">

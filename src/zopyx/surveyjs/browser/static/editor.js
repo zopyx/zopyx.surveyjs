@@ -1,13 +1,29 @@
+/**
+ * SurveyJS visual editor bootstrapping for @@editor.
+ * Reads config, applies locale/license, and initializes the creator UI.
+ */
 
 SurveyCreatorCore.registerSurveyTheme(SurveyTheme);
 
+/**
+ * @function
+ */
 document.addEventListener("DOMContentLoaded", function () {
+/**
+ * @function
+ */
   const t = window._t || function (msgid) { return msgid; };
 
+/**
+ * @function
+ */
   function registerRichTextPropertyEditor() {
     if (
       typeof SurveyCreatorCore === "undefined" ||
       !SurveyCreatorCore.PropertyGridEditorCollection ||
+/**
+ * @function
+ */
       typeof SurveyCreatorCore.PropertyGridEditorCollection.register !== "function" ||
       typeof window.Quill === "undefined"
     ) {
@@ -22,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
       ["clean"],
     ];
 
+/**
+ * @function
+ */
     function isHtmlProperty(prop) {
       if (!prop) {
         return false;
@@ -34,10 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     }
 
+/**
+ * @function
+ */
     function getPropertyValue(obj, property, question) {
+/**
+ * @function
+ */
       if (obj && property && property.name && typeof obj.getPropertyValue === "function") {
         return obj.getPropertyValue(property.name);
       }
+/**
+ * @function
+ */
       if (property && typeof property.getValue === "function") {
         return property.getValue(obj);
       }
@@ -52,9 +80,18 @@ document.addEventListener("DOMContentLoaded", function () {
       return "";
     }
 
+/**
+ * @function
+ */
     function setPropertyValue(obj, property, value, question) {
+/**
+ * @function
+ */
       if (obj && property && property.name && typeof obj.setPropertyValue === "function") {
         obj.setPropertyValue(property.name, value);
+/**
+ * @function
+ */
       } else if (property && typeof property.setValue === "function") {
         property.setValue(obj, value);
       } else if (obj && property && property.name) {
@@ -69,6 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
+/**
+ * @function
+ */
     function mountQuillEditor(question, htmlElement, obj, property) {
       if (!question || !htmlElement) {
         return;
@@ -103,6 +143,9 @@ document.addEventListener("DOMContentLoaded", function () {
       let isSyncing = false;
       question.__quillContext = { obj: obj, property: property };
 
+/**
+ * @function
+ */
       const setValue = function (value) {
         const html = value || "";
         if (quill.root.innerHTML !== html) {
@@ -113,6 +156,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       };
 
+/**
+ * @function
+ */
       const syncFromProperty = function () {
         if (isSyncing) {
           return;
@@ -128,6 +174,9 @@ document.addEventListener("DOMContentLoaded", function () {
       syncFromProperty();
       setTimeout(syncFromProperty, 0);
 
+/**
+ * @function
+ */
       quill.on("text-change", function () {
         if (isSyncing) {
           return;
@@ -144,8 +193,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (
         question.onValueChanged &&
+/**
+ * @function
+ */
         typeof question.onValueChanged.add === "function"
       ) {
+/**
+ * @function
+ */
         question.onValueChanged.add(function (sender, options) {
           if (isSyncing) {
             return;
@@ -165,8 +220,14 @@ document.addEventListener("DOMContentLoaded", function () {
         property &&
         property.name &&
         obj.onPropertyChanged &&
+/**
+ * @function
+ */
         typeof obj.onPropertyChanged.add === "function"
       ) {
+/**
+ * @function
+ */
         obj.onPropertyChanged.add(function (sender, options) {
           if (
             options &&
@@ -184,6 +245,9 @@ document.addEventListener("DOMContentLoaded", function () {
         updateButton.type = "button";
         updateButton.className = "btn btn-secondary sv-quill-update";
         updateButton.textContent = t("Update");
+/**
+ * @function
+ */
         updateButton.addEventListener("click", function () {
           const html = quill.root.innerHTML;
           const context = question.__quillContext || {};
@@ -203,15 +267,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     SurveyCreatorCore.PropertyGridEditorCollection.register({
+/**
+ * @function
+ */
       fit: function (property) {
         return isHtmlProperty(property);
       },
+/**
+ * @function
+ */
       getJSON: function (obj, property, options) {
         return {
           type: "comment",
           rows: 8,
         };
       },
+/**
+ * @function
+ */
       onAfterRenderQuestion: function (obj, property, options) {
         if (!options) {
           return;
@@ -231,17 +304,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   registerRichTextPropertyEditor();
 
+/**
+ * @function
+ */
   const normalizeLocale = function (value) {
     const raw = value == null ? "" : String(value);
     return raw.trim().replace("_", "-");
   };
 
+/**
+ * @function
+ */
   const toSurveyLocale = function (value) {
     const normalized = normalizeLocale(value);
     const base = normalized.split("-")[0];
     return base || "en";
   };
 
+/**
+ * @function
+ */
   const extractSurveyLocale = function (formJson) {
     if (!formJson || typeof formJson !== "object") {
       return "";
@@ -258,6 +340,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return "";
   };
 
+/**
+ * @function
+ */
   const isoToCreatorLanguage = function (isoCode) {
     const mapping = {
       de: "german",
@@ -296,6 +381,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return mapping[isoCode] || null;
   };
 
+/**
+ * @function
+ */
   const getCreatorI18nUrl = function (localeValue) {
     const languageName = isoToCreatorLanguage(localeValue);
     if (!languageName) {
@@ -308,6 +396,9 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const creatorLocaleCache = {};
+/**
+ * @function
+ */
   const loadCreatorLocale = function (localeValue) {
     const locale = toSurveyLocale(localeValue);
     if (!locale || locale === "en") {
@@ -330,17 +421,29 @@ document.addEventListener("DOMContentLoaded", function () {
       creatorLocaleCache[locale] = Promise.resolve("en");
       return creatorLocaleCache[locale];
     }
+/**
+ * @function
+ */
     creatorLocaleCache[locale] = new Promise(function (resolve, reject) {
       const script = document.createElement("script");
       script.async = true;
       script.src = i18nUrl;
+/**
+ * @function
+ */
       script.onload = function () {
         resolve(locale);
       };
+/**
+ * @function
+ */
       script.onerror = function () {
         reject(new Error("Failed to load Survey Creator locale: " + locale));
       };
       document.head.appendChild(script);
+/**
+ * @function
+ */
     }).catch(function () {
       return "en";
     });
@@ -364,21 +467,32 @@ document.addEventListener("DOMContentLoaded", function () {
     autoSaveEnabled: false,
   };
 
-  if (typeof LICENSE_KEY !== "undefined" && LICENSE_KEY) {
+  const licenseEl = document.getElementById("survey-editor-config");
+  const licenseKey = licenseEl
+    ? licenseEl.getAttribute("data-license-key")
+    : (typeof window.LICENSE_KEY !== "undefined" ? window.LICENSE_KEY : "");
+
+  if (licenseKey) {
     if (typeof SurveyCreator !== "undefined" && SurveyCreator.slk) {
-      SurveyCreator.slk(LICENSE_KEY);
+      SurveyCreator.slk(licenseKey);
     }
     if (typeof SurveyCreatorCore !== "undefined" && SurveyCreatorCore.slk) {
-      SurveyCreatorCore.slk(LICENSE_KEY);
+      SurveyCreatorCore.slk(licenseKey);
     }
     if (typeof Survey !== "undefined" && Survey.slk) {
-      Survey.slk(LICENSE_KEY);
+      Survey.slk(licenseKey);
     }
   }
 
   const creator = new SurveyCreator.SurveyCreator(creatorOptions);
+/**
+ * @function
+ */
   const applyCreatorLocale = function (nextLocale) {
     const localeValue = toSurveyLocale(nextLocale || initialLocale);
+/**
+ * @function
+ */
     return loadCreatorLocale(localeValue).then(function () {
       creator.locale = localeValue;
       if (typeof Survey !== "undefined" && Survey.surveyLocalization) {
@@ -390,6 +504,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
+/**
+ * @function
+ */
   const enablePreviewFullscreen = function (survey) {
     if (!survey || typeof survey !== "object") {
       return;
@@ -398,8 +515,14 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   if (
     creator.onPreviewSurveyCreated &&
+/**
+ * @function
+ */
     typeof creator.onPreviewSurveyCreated.add === "function"
   ) {
+/**
+ * @function
+ */
     creator.onPreviewSurveyCreated.add(function (_sender, options) {
       enablePreviewFullscreen(options && options.survey);
     });
@@ -408,6 +531,9 @@ document.addEventListener("DOMContentLoaded", function () {
     enablePreviewFullscreen(creator.previewSurvey);
   }
 
+/**
+ * @function
+ */
   applyCreatorLocale(initialLocale).then(function () {
     creator.render("surveyContainer");
   });
@@ -416,10 +542,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const fullscreenToggle = document.getElementById("surveyFullscreenToggle");
   const fullscreenClass = "survey-editor-fullscreen";
 
+/**
+ * @function
+ */
   const setFullscreen = function (enabled) {
     suppressModified = true;
     document.body.classList.toggle(fullscreenClass, Boolean(enabled));
     if (!fullscreenToggle) {
+/**
+ * @function
+ */
       setTimeout(function () {
         suppressModified = false;
       }, 0);
@@ -427,12 +559,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     fullscreenToggle.textContent = enabled ? t("Exit fullscreen") : t("Fullscreen");
     fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+/**
+ * @function
+ */
     setTimeout(function () {
       suppressModified = false;
     }, 0);
   };
 
   if (editorRoot) {
+/**
+ * @function
+ */
     const markInteraction = function (event) {
       if (fullscreenToggle && event && fullscreenToggle.contains(event.target)) {
         return;
@@ -444,11 +582,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (fullscreenToggle) {
+/**
+ * @function
+ */
     fullscreenToggle.addEventListener("click", function (event) {
       event.preventDefault();
       const isFullscreen = document.body.classList.contains(fullscreenClass);
       setFullscreen(!isFullscreen);
     });
+/**
+ * @function
+ */
     document.addEventListener("keydown", function (event) {
       if (
         event.key === "Escape" &&
@@ -459,6 +603,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+/**
+ * @function
+ */
   const getSaveButton = function () {
     const selectors = [
       ".svc-toolbar__item--save",
@@ -479,6 +626,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return null;
   };
 
+/**
+ * @function
+ */
   const ensureUnsavedIndicator = function () {
     const saveButton = getSaveButton();
     if (!saveButton) {
@@ -494,6 +644,9 @@ document.addEventListener("DOMContentLoaded", function () {
     return indicator;
   };
 
+/**
+ * @function
+ */
   const setUnsavedState = function (isDirty) {
     hasUnsavedChanges = isDirty;
     document.body.classList.toggle("survey-has-unsaved", Boolean(isDirty));
@@ -510,6 +663,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setUnsavedState(false);
   ensureUnsavedIndicator();
+/**
+ * @function
+ */
   creator.onModified.add(function () {
     if (isInitializing || !userInteracted || suppressModified) {
       return;
@@ -517,6 +673,9 @@ document.addEventListener("DOMContentLoaded", function () {
     setUnsavedState(true);
   });
 
+/**
+ * @function
+ */
   window.addEventListener("beforeunload", function (event) {
     if (!hasUnsavedChanges) {
       return undefined;
@@ -528,19 +687,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var url = ACTUAL_URL + "/get-form-json";
 
+/**
+ * @function
+ */
   $.getJSON(url, function (result) {
     const formLocale = extractSurveyLocale(result);
+/**
+ * @function
+ */
     applyCreatorLocale(formLocale || initialLocale).then(function () {
       creator.JSON = result;
+/**
+ * @function
+ */
       window.setTimeout(function () {
         isInitializing = false;
         setUnsavedState(false);
       }, 0);
     });
+/**
+ * @function
+ */
   }).fail(function () {
     isInitializing = false;
   });
 
+/**
+ * @function
+ */
   creator.saveSurveyFunc = function (saveNo, callback) {
     $.ajax({
       url: ACTUAL_URL + "/save-form-json",
@@ -550,10 +724,16 @@ document.addEventListener("DOMContentLoaded", function () {
         surveyText: creator.text,
         _authenticator: CSRF_TOKEN,
       },
+/**
+ * @function
+ */
       success: function (data) {
         setUnsavedState(!data.isSuccess);
         callback(saveNo, data.isSuccess);
       },
+/**
+ * @function
+ */
       error: function (xhr, ajaxOptions, thrownError) {
         callback(saveNo, false);
         alert(thrownError);

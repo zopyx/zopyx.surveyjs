@@ -1,8 +1,18 @@
+/**
+ * AI generator view interactions.
+ * Handles form submission, progress polling, and error display for @@ai.
+ */
 document.addEventListener("DOMContentLoaded", function() {
+/**
+ * @function
+ */
   const t = window._t || function (msgid, mapping) {
     if (!mapping) {
       return msgid;
     }
+/**
+ * @function
+ */
     return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
       if (Object.prototype.hasOwnProperty.call(mapping, key)) {
         return String(mapping[key]);
@@ -53,6 +63,9 @@ document.addEventListener("DOMContentLoaded", function() {
     refinementHistory: [],
     currentHistoryIndex: -1,
 
+/**
+ * @function
+ */
     addVersion: function(prompt, json, type) {
       this.refinementHistory.push({
         id: generateUUID(),
@@ -64,6 +77,9 @@ document.addEventListener("DOMContentLoaded", function() {
       this.currentHistoryIndex = this.refinementHistory.length - 1;
     },
 
+/**
+ * @function
+ */
     navigateToVersion: function(index) {
       if (index >= 0 && index < this.refinementHistory.length) {
         this.currentHistoryIndex = index;
@@ -72,6 +88,9 @@ document.addEventListener("DOMContentLoaded", function() {
       return null;
     },
 
+/**
+ * @function
+ */
     getCurrentVersion: function() {
       if (this.currentHistoryIndex >= 0) {
         return this.refinementHistory[this.currentHistoryIndex];
@@ -79,10 +98,16 @@ document.addEventListener("DOMContentLoaded", function() {
       return null;
     },
 
+/**
+ * @function
+ */
     hasHistory: function() {
       return this.refinementHistory.length > 0;
     },
 
+/**
+ * @function
+ */
     reset: function() {
       this.refinementHistory = [];
       this.currentHistoryIndex = -1;
@@ -90,7 +115,13 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   // Utility functions
+/**
+ * @function
+ */
   function generateUUID() {
+/**
+ * @function
+ */
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       const r = Math.random() * 16 | 0;
       const v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -98,16 +129,25 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+/**
+ * @function
+ */
   function formatTime(timestamp) {
     const date = new Date(timestamp);
     return date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   }
 
+/**
+ * @function
+ */
   function truncate(str, maxLength) {
     if (str.length <= maxLength) return str;
     return str.substring(0, maxLength) + '...';
   }
 
+/**
+ * @function
+ */
   function requestRefinement(prompt, currentJson) {
     const formData = new FormData();
     formData.append("current_json", JSON.stringify(currentJson));
@@ -119,8 +159,14 @@ document.addEventListener("DOMContentLoaded", function() {
       body: formData,
       credentials: 'same-origin'
     })
+/**
+ * @function
+ */
     .then(response => {
       if (!response.ok) {
+/**
+ * @function
+ */
         return response.json().then(data => {
           throw new Error(data.message || t("Refinement failed"));
         });
@@ -130,6 +176,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Refinement form submission handler
+/**
+ * @function
+ */
   refinementForm.addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -151,7 +200,13 @@ document.addEventListener("DOMContentLoaded", function() {
       fetch(ACTUAL_URL + "/get-form-json", {
         credentials: 'same-origin'
       })
+/**
+ * @function
+ */
       .then(response => response.json())
+/**
+ * @function
+ */
       .then(existingJson => {
         if (!existingJson || Object.keys(existingJson).length === 0) {
           throw new Error(t("No existing form found to refine."));
@@ -164,6 +219,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return requestRefinement(prompt, existingJson);
       })
+/**
+ * @function
+ */
       .then(data => {
         if (data.success) {
           AppState.addVersion(prompt, data.json, "refinement");
@@ -180,12 +238,18 @@ document.addEventListener("DOMContentLoaded", function() {
           throw new Error(data.message || t("Refinement failed"));
         }
       })
+/**
+ * @function
+ */
       .catch(error => {
         console.error(t("Error refining existing form:"), error);
         showError(
           error.message || t("Failed to refine existing form. Please try again.")
         );
       })
+/**
+ * @function
+ */
       .finally(() => {
         setRefinementLoadingState(false);
       });
@@ -203,14 +267,23 @@ document.addEventListener("DOMContentLoaded", function() {
         body: formData,
         credentials: 'same-origin'
       })
+/**
+ * @function
+ */
       .then(response => {
         if (!response.ok) {
+/**
+ * @function
+ */
           return response.json().then(data => {
             throw new Error(data.message || t("Generation failed"));
           });
         }
         return response.json();
       })
+/**
+ * @function
+ */
       .then(data => {
         if (data.success) {
           // Add to history
@@ -227,16 +300,25 @@ document.addEventListener("DOMContentLoaded", function() {
           throw new Error(data.message || t("Generation failed"));
         }
       })
+/**
+ * @function
+ */
       .catch(error => {
         console.error(t("Error generating form:"), error);
         showError(error.message || t("Failed to generate form. Please try again."));
       })
+/**
+ * @function
+ */
       .finally(() => {
         setRefinementLoadingState(false);
       });
     } else {
       // Refinement
       requestRefinement(prompt, currentVersion.json)
+/**
+ * @function
+ */
       .then(data => {
         if (data.success) {
           // Add to history
@@ -258,6 +340,9 @@ document.addEventListener("DOMContentLoaded", function() {
           throw new Error(data.message || t("Refinement failed"));
         }
       })
+/**
+ * @function
+ */
       .catch(error => {
         console.error(t("Error refining form:"), error);
         showError(
@@ -267,6 +352,9 @@ document.addEventListener("DOMContentLoaded", function() {
             )
         );
       })
+/**
+ * @function
+ */
       .finally(() => {
         setRefinementLoadingState(false);
       });
@@ -274,6 +362,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Preview JSON button handler
+/**
+ * @function
+ */
   previewJsonBtn.addEventListener("click", function() {
     const currentVersion = AppState.getCurrentVersion();
     if (!currentVersion) {
@@ -287,6 +378,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Preview Form button handler
+/**
+ * @function
+ */
   previewFormBtn.addEventListener("click", function() {
     const currentVersion = AppState.getCurrentVersion();
     if (!currentVersion) {
@@ -296,6 +390,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Clear previous survey if exists
     if (survey) {
+/**
+ * @function
+ */
         if (typeof survey.clear === 'function') {
             survey.clear();
         }
@@ -334,6 +431,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Save button handler
+/**
+ * @function
+ */
   saveBtn.addEventListener("click", function() {
     const currentVersion = AppState.getCurrentVersion();
     if (!currentVersion) {
@@ -379,14 +479,23 @@ document.addEventListener("DOMContentLoaded", function() {
       body: formData,
       credentials: 'same-origin'
     })
+/**
+ * @function
+ */
     .then(response => {
       if (!response.ok) {
+/**
+ * @function
+ */
         return response.json().then(data => {
           throw new Error(data.message || t("Save failed"));
         });
       }
       return response.json();
     })
+/**
+ * @function
+ */
     .then(data => {
       if (data.success) {
         // Show success message
@@ -399,6 +508,9 @@ document.addEventListener("DOMContentLoaded", function() {
         throw new Error(data.message || t("Save failed"));
       }
     })
+/**
+ * @function
+ */
     .catch(error => {
       console.error(t("Error saving form:"), error);
       showError(
@@ -407,6 +519,9 @@ document.addEventListener("DOMContentLoaded", function() {
         })
       );
     })
+/**
+ * @function
+ */
     .finally(() => {
       saveBtn.disabled = false;
       saveBtn.innerHTML = originalText;
@@ -414,6 +529,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Start Over button handler
+/**
+ * @function
+ */
   startOverBtn.addEventListener("click", function() {
     if (confirm(
       t(
@@ -437,8 +555,14 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Modal close handlers
+/**
+ * @function
+ */
   closeFormPreview.addEventListener("click", function() {
     previewFormModal.style.display = "none";
+/**
+ * @function
+ */
     if (survey && typeof survey.destroy === 'function') {
         survey.destroy();
         survey = null;
@@ -446,13 +570,22 @@ document.addEventListener("DOMContentLoaded", function() {
     surveyContainer.innerHTML = "";
   });
 
+/**
+ * @function
+ */
   closeJsonPreview.addEventListener("click", function() {
     previewJsonModal.style.display = "none";
   });
 
+/**
+ * @function
+ */
   window.addEventListener("click", function(event) {
     if (event.target === previewFormModal) {
       previewFormModal.style.display = "none";
+/**
+ * @function
+ */
       if (survey && typeof survey.destroy === 'function') {
           survey.destroy();
           survey = null;
@@ -465,10 +598,16 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Close modals with ESC key
+/**
+ * @function
+ */
   document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
       if (previewFormModal.style.display === "block") {
         previewFormModal.style.display = "none";
+/**
+ * @function
+ */
         if (survey && typeof survey.destroy === 'function') {
           survey.destroy();
           survey = null;
@@ -482,6 +621,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // UI Helper Functions
+/**
+ * @function
+ */
   function updateUIAfterGeneration() {
     // Change panel title
     if (formPanelTitle) {
@@ -536,6 +678,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function resetUIToInitial() {
     // Reset panel title
     if (formPanelTitle) {
@@ -590,6 +735,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function updateVersionIndicator() {
     if (currentVersionInfo && AppState.hasHistory()) {
       currentVersionInfo.textContent = t("Version ${current} of ${total}", {
@@ -599,12 +747,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function renderHistoryTimeline() {
     const timeline = document.getElementById("historyTimeline");
     if (!timeline) return;
 
     timeline.innerHTML = "";
 
+/**
+ * @function
+ */
     AppState.refinementHistory.forEach((version, index) => {
       const item = document.createElement("div");
       item.className = "history-item";
@@ -626,11 +780,17 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
       `;
 
+/**
+ * @function
+ */
       item.addEventListener("click", () => navigateToVersion(index));
       timeline.appendChild(item);
     });
   }
 
+/**
+ * @function
+ */
   function navigateToVersion(index) {
     const json = AppState.navigateToVersion(index);
     if (json) {
@@ -640,6 +800,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function setRefinementLoadingState(loading) {
     if (!refineBtn) return;
 
@@ -654,6 +817,9 @@ document.addEventListener("DOMContentLoaded", function() {
         btnSpinner.style.display = "inline";
 
         // Disable history navigation
+/**
+ * @function
+ */
         historyItems.forEach(item => {
           item.style.pointerEvents = "none";
           item.style.opacity = "0.6";
@@ -663,6 +829,9 @@ document.addEventListener("DOMContentLoaded", function() {
         btnSpinner.style.display = "none";
 
         // Re-enable history navigation
+/**
+ * @function
+ */
         historyItems.forEach(item => {
           item.style.pointerEvents = "auto";
           item.style.opacity = "1";
@@ -672,6 +841,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Error handling functions
+/**
+ * @function
+ */
   function showError(message) {
     if (errorMessage && errorContainer) {
       errorMessage.textContent = message;
@@ -679,6 +851,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function hideError() {
     if (errorContainer) {
       errorContainer.style.display = "none";

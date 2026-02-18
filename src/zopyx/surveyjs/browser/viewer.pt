@@ -6,43 +6,16 @@
       metal:use-macro="context/main_template/macros/master"
 >
 
-  <metal:block fill-slot="style_slot"
-               tal:define="missing_token_for_anonymous python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content;
-                           can_modify python: context.portal_membership.checkPermission('Modify portal content', context)">
+  <metal:block fill-slot="style_slot">
     <metal:survey-header-critical
         use-macro="context/@@survey-actions/macros/survey-header-critical"
     />
-    <style type="text/css" tal:condition="not: can_modify">
-      .survey-header {
-        display: none !important;
-        visibility: hidden !important;
-      }
-    </style>
-    <style type="text/css" tal:condition="missing_token_for_anonymous">
-      /* Hide title/description immediately when token is missing for anonymous users */
-      #content > header,
-      #parent-fieldname-title,
-      #parent-fieldname-description,
-      article > header,
-      .documentFirstHeading,
-      .documentDescription,
-      .survey-header,
-      .survey-actions,
-      .survey-status-bar,
-      #surveyContainer {
-        display: none !important;
-        visibility: hidden !important;
-      }
-      /* Ensure error message is visible */
-      #surveyAccessError {
-        display: block !important;
-        visibility: visible !important;
-      }
-    </style>
   </metal:block>
 
   <metal:block fill-slot="content-core"
-               tal:define="portal_state context/@@plone_portal_state">
+               tal:define="portal_state context/@@plone_portal_state;
+                           missing_token python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content;
+                           can_modify python: context.portal_membership.checkPermission('Modify portal content', context)">
     <metal:surveyjs-var-actual-url
         use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
     />
@@ -52,9 +25,10 @@
     <metal:surveyjs-var-auth-token
         use-macro="context/@@survey-assets/macros/surveyjs-var-auth-token"
     />
-    <script type="text/javascript"
-            tal:content="python: 'SURVEY_TRUSTED_ACCESS_ENABLED=%s; SURVEY_CAN_MANAGE=%s;' % ('true' if view.trusted_access_enabled else 'false', 'true' if view.can_manage_portal_content else 'false')">
-    </script>
+    <script type="application/json"
+            id="survey-viewer-config"
+            tal:define="config_json python: __import__('json').dumps({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content)})"
+            tal:content="structure config_json"></script>
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
     />
@@ -76,17 +50,9 @@
     <metal:surveyjs-viewer-css
         use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
-    <style type="text/css">
-      article > header {
-        display: none;
-      }
-      .survey-container-hidden {
-        display: none !important;
-        visibility: hidden !important;
-      }
-    </style>
 
-    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+    <metal:survey-header tal:condition="python: can_modify and not missing_token"
+                         use-macro="context/@@survey-actions/macros/survey-header">
       <metal:survey-header-headline fill-slot="view-headline">
         <div class="page-headline" i18n:translate="">View Form</div>
       </metal:survey-header-headline>
@@ -139,8 +105,7 @@
       </div>
     </tal:trusted>
 
-    <tal:trusted-access-state
-        tal:define="missing_token python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content">
+    <tal:trusted-access-state>
       <div id="surveyAccessError"
            class="survey-access-error"
            tal:attributes="hidden python: None if missing_token else 'hidden'">

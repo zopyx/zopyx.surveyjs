@@ -7,11 +7,10 @@
 >
 
   <metal:block fill-slot="style_slot">
-    <style type="text/css">
-      article > header {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/survey_template_viewer.css"
+    />
   </metal:block>
 
   <metal:block fill-slot="content-core"

@@ -1,4 +1,11 @@
+/**
+ * PDF generator view logic for @@pdf-generator.
+ * Submits generation requests and manages UI state/progress.
+ */
 document.addEventListener("DOMContentLoaded", function () {
+/**
+ * @function
+ */
   const t = window._t || function (msgid) { return msgid; };
   const button = document.getElementById("generatePdfButton");
   const message = document.getElementById("pdfGeneratorMessage");
@@ -21,12 +28,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const formUrl = ACTUAL_URL + "/get-form-json";
 
+/**
+ * @function
+ */
   button.addEventListener("click", function () {
     message.textContent = t("Preparing PDF...");
     message.classList.remove("is-error");
 
     fetch(formUrl, { credentials: "same-origin" })
+/**
+ * @function
+ */
       .then((response) => response.json())
+/**
+ * @function
+ */
       .then((formJson) => {
         const surveyPDF = new SurveyPdfCtor(formJson || {}, {
           locale: surveyLocale
@@ -35,6 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
         surveyPDF.save("survey.pdf");
         message.textContent = t("PDF download started.");
       })
+/**
+ * @function
+ */
       .catch((error) => {
         console.error(t("Error generating PDF:"), error);
         message.textContent = t("Failed to generate PDF. Please check the console for details.");

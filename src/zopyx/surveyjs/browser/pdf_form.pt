@@ -44,11 +44,10 @@
     <metal:surveyjs-viewer-css
         use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
-    <style type="text/css">
-      article > header {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/pdf_form.css"
+    />
 
     <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
       <metal:survey-header-headline fill-slot="view-headline">

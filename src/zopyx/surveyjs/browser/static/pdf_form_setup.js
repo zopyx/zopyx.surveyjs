@@ -1,8 +1,18 @@
+/**
+ * PDF form setup view logic for @@pdf-form-setup.
+ * Manages uploads, mappings, and validation for fillable PDFs.
+ */
 document.addEventListener("DOMContentLoaded", function() {
+/**
+ * @function
+ */
   const t = window._t || function (msgid, mapping) {
     if (!mapping) {
       return msgid;
     }
+/**
+ * @function
+ */
     return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
       if (Object.prototype.hasOwnProperty.call(mapping, key)) {
         return String(mapping[key]);
@@ -30,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let surveyPreview = null;
 
+/**
+ * @function
+ */
   function setLoading(isLoading) {
     uploadBtn.disabled = isLoading;
     if (uploadSpinner) {
@@ -41,12 +54,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
+/**
+ * @function
+ */
   function showStatus(message, type) {
     statusEl.style.display = "block";
     statusEl.className = "alert " + (type === "success" ? "alert-success" : "alert-danger");
     statusEl.innerHTML = message;
   }
 
+/**
+ * @function
+ */
   function renderSurveyPreview(surveyJson) {
     if (!surveyContainer || typeof Survey === "undefined") {
       return;
@@ -64,6 +83,9 @@ document.addEventListener("DOMContentLoaded", function() {
     surveyPreview = model;
   }
 
+/**
+ * @function
+ */
   function renderFieldList(fields) {
     if (!fieldsList) {
       return;
@@ -73,6 +95,9 @@ document.addEventListener("DOMContentLoaded", function() {
       fieldsList.innerHTML = '<span class="pdf-form-fields-empty">' + t("No fields detected yet.") + "</span>";
       return;
     }
+/**
+ * @function
+ */
     fields.forEach((field) => {
       const item = document.createElement("div");
       item.className = "pdf-form-field-item";
@@ -88,6 +113,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+/**
+ * @function
+ */
   setupForm.addEventListener("submit", function(event) {
     event.preventDefault();
     const file = pdfInput.files[0];
@@ -114,14 +142,23 @@ document.addEventListener("DOMContentLoaded", function() {
       body: formData,
       credentials: "same-origin"
     })
+/**
+ * @function
+ */
       .then((response) => {
         if (!response.ok) {
+/**
+ * @function
+ */
           return response.json().then((data) => {
             throw new Error(data.message || t("Upload failed"));
           });
         }
         return response.json();
       })
+/**
+ * @function
+ */
       .then((data) => {
         if (!data.success) {
           throw new Error(data.message || t("Upload failed"));
@@ -144,14 +181,23 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         }
       })
+/**
+ * @function
+ */
       .catch((error) => {
         showStatus(error.message || t("Upload failed. Please try again."), "error");
       })
+/**
+ * @function
+ */
       .finally(() => {
         setLoading(false);
       });
   });
 
+/**
+ * @function
+ */
   pdfInput.addEventListener("change", function() {
     const file = pdfInput.files[0];
     if (!file) {

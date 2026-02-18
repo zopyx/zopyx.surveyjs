@@ -1,39 +1,48 @@
 <metal:survey_assets xmlns:metal="http://xml.zope.org/namespaces/metal"
                      xmlns:tal="http://xml.zope.org/namespaces/tal">
   <metal:surveyjs-var-actual-url define-macro="surveyjs-var-actual-url">
-    <script type="text/javascript"
-            tal:content="string: ACTUAL_URL='${context/absolute_url}'"
-    ></script>
+    <script type="application/json"
+            id="surveyjs-actual-url"
+            tal:define="value context/absolute_url; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
   </metal:surveyjs-var-actual-url>
 
   <metal:surveyjs-var-csrf define-macro="surveyjs-var-csrf">
-    <script type="text/javascript"
-            tal:content="string: CSRF_TOKEN='${context/@@authenticator/token}'"
-    ></script>
+    <script type="application/json"
+            id="surveyjs-csrf-token"
+            tal:define="value context/@@authenticator/token; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
   </metal:surveyjs-var-csrf>
 
   <metal:surveyjs-var-auth-token define-macro="surveyjs-var-auth-token">
-    <script type="text/javascript"
-            tal:content="string: AUTH_TOKEN='${context/@@survey-assets/auth_token}'"
-    ></script>
+    <script type="application/json"
+            id="surveyjs-auth-token"
+            tal:define="value context/@@survey-assets/auth_token; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
   </metal:surveyjs-var-auth-token>
 
   <metal:surveyjs-var-auth-token-pdf define-macro="surveyjs-var-auth-token-pdf">
-    <script type="text/javascript"
-            tal:content="string: AUTH_TOKEN_PDF='${context/@@survey-assets/auth_token_pdf}'"
-    ></script>
+    <script type="application/json"
+            id="surveyjs-auth-token-pdf"
+            tal:define="value context/@@survey-assets/auth_token_pdf; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
   </metal:surveyjs-var-auth-token-pdf>
 
   <metal:surveyjs-vars-base define-macro="surveyjs-vars-base">
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_I18N_LOCALE='${portal_state/language}'"
-    ></script>
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/i18n'"
-    ></script>
-    <script type="text/javascript"
-            tal:content="string: SURVEYJS_CREATOR_I18N_BASE='${context/portal_url}/++resource++zopyx.surveyjs/surveyjs'"
-    ></script>
+    <script type="application/json"
+            id="surveyjs-i18n-locale"
+            tal:define="value portal_state/language; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
+    <script type="application/json"
+            id="surveyjs-i18n-base"
+            tal:define="value string:${context/portal_url}/++resource++zopyx.surveyjs/i18n; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
+    <script type="application/json"
+            id="surveyjs-creator-i18n-base"
+            tal:define="value string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs; json python: __import__('json').dumps(value)"
+            tal:content="structure json"></script>
+    <script src="++resource++zopyx.surveyjs/survey_assets.js"
+            type="text/javascript"></script>
   </metal:surveyjs-vars-base>
 
   <metal:surveyjs-i18n-scripts define-macro="surveyjs-i18n-scripts">

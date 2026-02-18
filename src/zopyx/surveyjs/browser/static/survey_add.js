@@ -1,3 +1,7 @@
+/**
+ * Survey add wizard for @@survey-add.
+ * Renders the add form and posts data to create a survey.
+ */
 (function () {
   const container = document.getElementById("survey-add-widget");
   if (!container || typeof Survey === "undefined") {
@@ -14,6 +18,9 @@
   let heightResetTimer = null;
   let isSubmitting = false;
 
+/**
+ * @function
+ */
   function getVisibleHeight(el) {
     if (!el) {
       return 0;
@@ -25,6 +32,9 @@
     return el.getBoundingClientRect().height;
   }
 
+/**
+ * @function
+ */
   function syncContainerHeight(animate) {
     if (heightResetTimer) {
       window.clearTimeout(heightResetTimer);
@@ -90,6 +100,9 @@
     container.style.transition = "height 160ms ease";
     container.style.height = targetHeight + "px";
 
+/**
+ * @function
+ */
     heightResetTimer = window.setTimeout(function () {
       container.style.transition = "";
       heightResetTimer = null;
@@ -105,6 +118,9 @@
     }
   }
 
+/**
+ * @function
+ */
   function submitData(data) {
     if (!hiddenForm) {
       return;
@@ -130,6 +146,9 @@
     hiddenForm.submit();
   }
 
+/**
+ * @function
+ */
   function updateSubmitState(forceDisable) {
     if (!submitButton) {
       return;
@@ -149,7 +168,13 @@
     submitButton.setAttribute("aria-disabled", isValid ? "false" : "true");
   }
 
+/**
+ * @function
+ */
   function renderSurvey(schema) {
+/**
+ * @function
+ */
     if (Survey.StylesManager && typeof Survey.StylesManager.applyTheme === "function") {
       try {
         Survey.StylesManager.applyTheme(theme);
@@ -164,21 +189,39 @@
     if (initialData && Object.keys(initialData).length > 0) {
       survey.data = initialData;
     }
+/**
+ * @function
+ */
     survey.onComplete.add(function (sender) {
       isSubmitting = true;
       updateSubmitState(true);
       submitData(sender.data || {});
     });
+/**
+ * @function
+ */
     if (survey.onValueChanged && typeof survey.onValueChanged.add === "function") {
+/**
+ * @function
+ */
       survey.onValueChanged.add(function () {
         updateSubmitState(false);
       });
     }
+/**
+ * @function
+ */
     if (survey.onValidated && typeof survey.onValidated.add === "function") {
+/**
+ * @function
+ */
       survey.onValidated.add(function () {
         updateSubmitState(false);
       });
     }
+/**
+ * @function
+ */
     survey.onCurrentPageChanging.add(function (sender, options) {
       if (options && options.allow === false) {
         options.allow = true;
@@ -188,6 +231,9 @@
         options.cancel = false;
       }
     });
+/**
+ * @function
+ */
     survey.onCurrentPageChanging.add(function (sender, options) {
       if (options) {
         options.allow = true;
@@ -195,20 +241,38 @@
         options.cancel = false;
       }
     });
+/**
+ * @function
+ */
     survey.onAfterRenderSurvey.add(function () {
       container.classList.add("is-ready");
       container.style.minHeight = "0";
       syncContainerHeight(false);
       updateSubmitState(false);
     });
+/**
+ * @function
+ */
     survey.onAfterRenderPage.add(function () {
+/**
+ * @function
+ */
       window.requestAnimationFrame(function () {
         syncContainerHeight(true);
       });
     });
+/**
+ * @function
+ */
     survey.onCurrentPageChanged.add(function () {
       updateSubmitState(false);
+/**
+ * @function
+ */
       window.requestAnimationFrame(function () {
+/**
+ * @function
+ */
         window.requestAnimationFrame(function () {
           syncContainerHeight(true);
         });
@@ -217,6 +281,9 @@
     survey.render(container);
   }
 
+/**
+ * @function
+ */
   function showError(message) {
     container.classList.remove("is-ready");
     container.innerHTML =
@@ -231,6 +298,9 @@
   }
 
   fetch(schemaUrl, { cache: "no-store" })
+/**
+ * @function
+ */
     .then(function (response) {
       if (!response.ok) {
         throw new Error("Schema fetch failed");
@@ -238,6 +308,9 @@
       return response.json();
     })
     .then(renderSurvey)
+/**
+ * @function
+ */
     .catch(function (error) {
       console.error("Survey add form failed", error);
       showError();
@@ -246,6 +319,9 @@
   if (submitButton) {
     submitButton.disabled = true;
     submitButton.setAttribute("aria-disabled", "true");
+/**
+ * @function
+ */
     submitButton.addEventListener("click", function (event) {
       event.preventDefault();
       if (!currentSurvey || submitButton.disabled || isSubmitting) {

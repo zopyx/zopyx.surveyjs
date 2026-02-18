@@ -1,10 +1,39 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const t = window._t || function (msgid) { return msgid; };
+/**
+ * Survey viewer logic for @@viewer and @@viewer_embed.
+ * Handles trusted access, fullscreen, and submission flow.
+ */
+/**
+ * Initialize the SurveyJS viewer when the DOM is ready.
+ * @param {Event} event
+ */
+function handleViewerReady(event) {
+  /**
+   * Default translation function fallback.
+   * @param {string} msgid
+   * @returns {string}
+   */
+  const defaultTranslate = function (msgid) {
+    return msgid;
+  };
+  const t = window._t || defaultTranslate;
   const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   const normalizedLocale = String(rawLocale).replace("_", "-");
   const surveyLocale = normalizedLocale.split("-")[0] || "en";
-  const trustedAccessEnabled = Boolean(window.SURVEY_TRUSTED_ACCESS_ENABLED);
-  const canManage = Boolean(window.SURVEY_CAN_MANAGE);
+  const viewerConfigEl = document.getElementById("survey-viewer-config");
+  let viewerConfig = {};
+  if (viewerConfigEl && viewerConfigEl.textContent) {
+    try {
+      viewerConfig = JSON.parse(viewerConfigEl.textContent) || {};
+    } catch (error) {
+      console.error("Failed to parse viewer config", error);
+    }
+  }
+  const trustedAccessEnabled = typeof viewerConfig.trustedAccessEnabled !== "undefined"
+    ? Boolean(viewerConfig.trustedAccessEnabled)
+    : Boolean(window.SURVEY_TRUSTED_ACCESS_ENABLED);
+  const canManage = typeof viewerConfig.canManage !== "undefined"
+    ? Boolean(viewerConfig.canManage)
+    : Boolean(window.SURVEY_CAN_MANAGE);
   const accessToken = new URLSearchParams(window.location.search).get("access_token");
   const url = accessToken
     ? ACTUAL_URL + "/get-form-json?access_token=" + encodeURIComponent(accessToken)
@@ -30,6 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
     trusted_access_cache_unavailable: t("Trusted access service is temporarily unavailable. Please try again later."),
   };
 
+  /**
+   * Show the trusted-access error state and hide the survey container.
+   * @param {string} message
+   */
   const showAccessError = function (message) {
     if (surveyContainer) {
       surveyContainer.classList.add("survey-container-hidden");
@@ -50,6 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  /**
+   * Toggle fullscreen mode for the viewer container.
+   * @param {boolean} enabled
+   */
   const setFullscreen = function (enabled) {
     document.body.classList.toggle(fullscreenClass, Boolean(enabled));
     if (!fullscreenToggle) {
@@ -60,38 +97,67 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   if (fullscreenToggle) {
-    fullscreenToggle.addEventListener("click", function (event) {
+    /**
+     * Handle fullscreen toggle click.
+     * @param {MouseEvent} event
+     */
+    const handleFullscreenClick = function (event) {
       event.preventDefault();
       const isFullscreen = document.body.classList.contains(fullscreenClass);
       setFullscreen(!isFullscreen);
-    });
-    document.addEventListener("keydown", function (event) {
+    };
+    /**
+     * Exit fullscreen on Escape.
+     * @param {KeyboardEvent} event
+     */
+    const handleFullscreenKeydown = function (event) {
       if (event.key === "Escape" && document.body.classList.contains(fullscreenClass)) {
         setFullscreen(false);
       }
-    });
+    };
+    fullscreenToggle.addEventListener("click", handleFullscreenClick);
+    document.addEventListener("keydown", handleFullscreenKeydown);
   }
 
   if (fullscreenParam === "1" || fullscreenParam === "true" || fullscreenParam === "yes") {
     setFullscreen(true);
   }
 
+  /**
+   * Copy the trusted access URL to clipboard and show a confirmation.
+   * @param {string} text
+   */
   const copyTrustedAccessUrl = function (text) {
     if (!text) {
       return;
     }
+    /**
+     * Update UI to confirm a copy operation.
+     */
+    /**
+     * Clear the copy confirmation message.
+     */
+    const clearCopyMessage = function () {
+      trustedAccessMessage.textContent = "";
+    };
+    /**
+     * Show the copy confirmation message.
+     */
     const confirmCopy = function () {
       if (trustedAccessMessage) {
         trustedAccessMessage.textContent = t("Copied");
-        window.setTimeout(function () {
-          trustedAccessMessage.textContent = "";
-        }, 2000);
+        window.setTimeout(clearCopyMessage, 2000);
       }
     };
+    /**
+     * Handle clipboard API errors (fallback to legacy copy).
+     * @param {Error} error
+     */
+    const handleClipboardError = function (error) {
+      /* fallback below */
+    };
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(confirmCopy).catch(function () {
-        /* fallback below */
-      });
+      navigator.clipboard.writeText(text).then(confirmCopy).catch(handleClipboardError);
     } else {
       if (document.queryCommandSupported && document.queryCommandSupported("copy") === false) {
         return;
@@ -118,25 +184,43 @@ document.addEventListener("DOMContentLoaded", function () {
     const tokenEndpoint = trustedAccessPanel.getAttribute("data-token-endpoint");
     if (tokenEndpoint) {
       fetch(tokenEndpoint, { credentials: "same-origin" })
-        .then((response) => {
+        /**
+         * Validate trusted access token response.
+         * @param {Response} response
+         * @returns {Promise<Object>}
+         */
+        .then(function handleTrustedAccessResponse(response) {
           if (!response.ok) {
             throw new Error("Failed to load trusted access link");
           }
           return response.json();
         })
-        .then((data) => {
+        /**
+         * Apply trusted access token data to the UI.
+         * @param {Object} data
+         */
+        .then(function handleTrustedAccessData(data) {
           const urlValue = data.url || "";
           trustedAccessUrl.textContent = urlValue || "-";
           trustedAccessUrl.href = urlValue || "#";
           trustedAccessToken.textContent = data.token || "-";
           trustedAccessExpires.textContent = data.expires_at || "-";
           if (trustedAccessCopy && urlValue) {
-            trustedAccessCopy.addEventListener("click", function () {
+            /**
+             * Copy trusted access URL from the panel.
+             * @param {MouseEvent} event
+             */
+            const handleTrustedAccessCopy = function (event) {
               copyTrustedAccessUrl(urlValue);
-            });
+            };
+            trustedAccessCopy.addEventListener("click", handleTrustedAccessCopy);
           }
         })
-        .catch((error) => {
+        /**
+         * Handle trusted access token failures.
+         * @param {Error} error
+         */
+        .catch(function handleTrustedAccessError(error) {
           if (trustedAccessUrl) {
             trustedAccessUrl.textContent = t("Failed to load trusted access link.");
           }
@@ -156,20 +240,40 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch(url, {
     credentials: 'same-origin'
   })
-    .then((response) => {
+    /**
+     * Parse the form JSON payload from the response.
+     * @param {Response} response
+     * @returns {Promise<Object>}
+     */
+    .then(function handleFormResponse(response) {
       if (!response.ok) {
-        return response.json().then((payload) => {
+        return response.json().then(
+          /**
+           * Attach payload details to the load error.
+           * @param {Object} payload
+           * @returns {never}
+           */
+          function handleErrorPayload(payload) {
           const error = new Error("Failed to load form");
           error.status = response.status;
           error.payload = payload;
           throw error;
-        }).catch(() => {
+        }).catch(
+          /**
+           * Fallback when error payload parsing fails.
+           * @returns {never}
+           */
+          function handleErrorPayloadFailure() {
           throw new Error("Failed to load form");
         });
       }
       return response.json();
     })
-    .then((result) => {
+    /**
+     * Initialize SurveyJS with the loaded form definition.
+     * @param {Object} result
+     */
+    .then(function handleFormLoaded(result) {
       // Create the survey from the loaded JSON
         console.log(result)
       const survey = new Survey.Model(result);
@@ -180,7 +284,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
       // Set up the onComplete handler to save results
-      survey.onComplete.add(function (sender) {
+      /**
+       * Persist survey results when the form completes.
+       * @param {Survey.Model} sender
+       */
+      const handleSurveyComplete = function (sender) {
 
         // Save the survey results
         const formData = new FormData();
@@ -198,16 +306,25 @@ document.addEventListener("DOMContentLoaded", function () {
           body: formData,
           credentials: 'same-origin'
         })
-          .then((response) => {
+          /**
+           * Validate save response.
+           * @param {Response} response
+           */
+          .then(function handleSaveResponse(response) {
             if (!response.ok) {
               throw new Error(t("Save failed"));
             }
           })
-          .catch((error) => {
+          /**
+           * Handle save errors.
+           * @param {Error} error
+           */
+          .catch(function handleSaveError(error) {
             alert(t("Not saved"));
             console.error(error);
           });
-      });
+      };
+      survey.onComplete.add(handleSurveyComplete);
 
       // Render the survey
       if (surveyContainer) {
@@ -219,7 +336,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     })
-    .catch((error) => {
+    /**
+     * Handle form load failures.
+     * @param {Error} error
+     */
+    .catch(function handleFormLoadError(error) {
       const errorKey = error && error.payload && error.payload.error;
       if (trustedAccessEnabled && errorKey && trustedAccessMessages[errorKey]) {
         showAccessError(trustedAccessMessages[errorKey]);
@@ -231,4 +352,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       console.error(t("Error loading survey:"), error);
     });
-});
+}
+
+document.addEventListener("DOMContentLoaded", handleViewerReady);
