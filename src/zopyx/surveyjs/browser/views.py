@@ -113,6 +113,9 @@ class PFSView(BrowserView):
     index = ViewPageTemplateFile("pfs.pt")
 
     def __call__(self):
+        if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            if (self.request.form.get("pfs_action") or "").strip() == "create_from_template":
+                return self._handle_create_from_template()
         return self.index()
 
     @property
@@ -132,6 +135,10 @@ class PFSView(BrowserView):
         if self.is_anonymous:
             return False
         return plone.api.user.has_permission("cmf.ManagePortal", obj=self.context)
+
+    @property
+    def can_create_from_template(self) -> bool:
+        return self.can_add_survey and bool(self.template_options)
 
     @property
     def add_survey_url(self) -> str:
@@ -188,6 +195,99 @@ class PFSView(BrowserView):
                 }
             )
         return cards
+
+    @property
+    def template_options(self) -> list[dict]:
+        if self.is_anonymous:
+            return []
+        catalog = plone.api.portal.get_tool("portal_catalog")
+        brains = catalog.searchResults(
+            portal_type="SurveyTemplate",
+            sort_on="sortable_title",
+        )
+        options: list[dict] = []
+        for brain in brains:
+            options.append(
+                {
+                    "uid": brain.UID,
+                    "title": brain.Title or "",
+                    "description": brain.Description or "",
+                    "url": brain.getURL(),
+                }
+            )
+        return options
+
+    def _handle_create_from_template(self):
+        if not self.can_add_survey:
+            self.request.response.setStatus(403)
+            return _("You are not allowed to add surveys here.")
+
+        template_uid = (self.request.form.get("template_uid") or "").strip()
+        if not template_uid:
+            plone.api.portal.show_message(
+                _("Please select a template."), type="error"
+            )
+            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+
+        template = plone.api.content.get(UID=template_uid)
+        if template is None:
+            plone.api.portal.show_message(_("Template not found."), type="error")
+            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+
+        raw_json = getattr(template, "template_json", "") or ""
+        if not raw_json:
+            plone.api.portal.show_message(
+                _("Template JSON is missing."), type="error"
+            )
+            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+
+        try:
+            form_json = orjson.loads(raw_json)
+        except Exception as exc:
+            plone.api.portal.show_message(
+                _("Template JSON is invalid: ${error}", mapping={"error": str(exc)}),
+                type="error",
+            )
+            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+
+        title = (
+            (self.request.form.get("survey_title") or "").strip()
+            or getattr(template, "Title", lambda: "")()
+            or _("New Survey")
+        )
+
+        try:
+            description = ""
+            template_description = getattr(template, "Description", None)
+            if callable(template_description):
+                description = template_description() or ""
+            else:
+                description = getattr(template, "description", "") or ""
+
+            survey = plone.api.content.create(
+                container=self.context,
+                type="Survey",
+                title=title,
+                description=description,
+            )
+            annos = IAnnotations(survey)
+            forms_service.save_form_version(
+                annos,
+                form_json,
+                plone.api.user.get_current().getId(),
+                locked=False,
+            )
+        except Exception as exc:
+            plone.api.portal.show_message(
+                _("Failed to create survey: ${error}", mapping={"error": str(exc)}),
+                type="error",
+            )
+            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+
+        plone.api.portal.show_message(
+            _("Survey created from template."), type="info"
+        )
+        return self.request.response.redirect(survey.absolute_url())
 
     @property
     def login_url(self) -> str:

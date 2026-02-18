@@ -39,12 +39,19 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0;
+      }
+      @media (min-width: 1100px) {
+        .pfs-card-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
       }
       .pfs-card {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 1.75rem;
+        padding: 1.4rem 1.6rem;
         border-radius: 18px;
         text-decoration: none;
         background: #ffffff;
@@ -59,25 +66,31 @@
         box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
         border-color: #93c5fd;
       }
+      .pfs-card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        width: 100%;
+        margin-bottom: 0.6rem;
+      }
       .pfs-card-icon {
-        width: 3rem;
-        height: 3rem;
+        width: 2.4rem;
+        height: 2.4rem;
         border-radius: 50%;
         background: linear-gradient(135deg, #2563eb, #3b82f6);
         color: #ffffff;
         font-weight: 700;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1rem;
         position: relative;
         overflow: hidden;
         text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
       }
       .pfs-card-icon::after {
         content: "";
-        font-size: 1.65rem;
+        font-size: 1.35rem;
         font-weight: 700;
         line-height: 1;
       }
@@ -102,16 +115,23 @@
         background: linear-gradient(135deg, #0f172a, #1e3a8a);
         box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
       }
+      .pfs-card-icon.icon-template::after {
+        content: "\2726";
+      }
+      .pfs-card-icon.icon-template {
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+      }
       .pfs-card-title {
-        font-size: 1.35rem;
+        font-size: 1.2rem;
         color: #111827;
         font-weight: 600;
-        margin: 0 0 0.5rem 0;
+        margin: 0;
       }
       .pfs-card-description {
         color: #475569;
         font-size: 1rem;
-        margin: 0 0 1.25rem 0;
+        margin: 0 0 1rem 0;
         line-height: 1.5;
       }
       .pfs-card-action {
@@ -122,12 +142,115 @@
         color: #1d4ed8;
         font-size: 0.95rem;
       }
+      .pfs-card-button {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.3rem;
+        border-radius: 999px;
+        border: none;
+        color: #f8fafc;
+        font-weight: 600;
+        text-decoration: none;
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+        transition: transform 120ms ease, box-shadow 120ms ease;
+      }
+      .pfs-card-button::after {
+        content: "";
+      }
+      .pfs-card-button:hover,
+      .pfs-card-button:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(37, 99, 235, 0.4);
+      }
+      .pfs-card-button.button-secondary {
+        background: linear-gradient(135deg, #334155, #475569);
+        box-shadow: 0 10px 24px rgba(51, 65, 85, 0.3);
+      }
+      .pfs-card-button.button-secondary:hover,
+      .pfs-card-button.button-secondary:focus {
+        box-shadow: 0 14px 30px rgba(51, 65, 85, 0.4);
+      }
+      .pfs-card-button.button-manager {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+      }
+      .pfs-card-button.button-primary {
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+      }
+      .pfs-card-button.button-manager:hover,
+      .pfs-card-button.button-manager:focus {
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.45);
+      }
       .pfs-card-action::after {
         content: "›";
         transition: transform 120ms ease;
       }
       .pfs-card:hover .pfs-card-action::after {
         transform: translateX(4px);
+      }
+      .pfs-card-form {
+        position: relative;
+        overflow: hidden;
+      }
+      .pfs-card-form::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 45%);
+        pointer-events: none;
+      }
+      .pfs-form-row {
+        width: 100%;
+        display: grid;
+        gap: 0.9rem;
+        margin-top: 0.5rem;
+      }
+      .pfs-form-row label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #475569;
+      }
+      .pfs-select {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid #cbd5f5;
+        padding: 0.65rem 0.8rem;
+        font-size: 0.95rem;
+        color: #0f172a;
+        background: #f8fafc;
+        box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+      }
+      .pfs-select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        background: #ffffff;
+      }
+      .pfs-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.7rem 1.2rem;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        color: #e0f2fe;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+      }
+      .pfs-submit:hover {
+        background: linear-gradient(135deg, #0284c7, #1d4ed8);
+      }
+      .pfs-card-meta {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-top: 0.2rem;
       }
       .pfs-empty {
         border: 1px solid #f1f5f9;
@@ -169,28 +292,87 @@
       </p>
     </section>
 
-    <section tal:condition="cards">
+    <section tal:condition="python: cards or view.can_create_from_template"
+             tal:define="first_card python: cards[0] if cards else None;
+                         remaining_cards python: cards[1:] if cards else []">
       <div class="pfs-card-grid">
+        <tal:first-card tal:condition="first_card">
+          <a class="pfs-card"
+             tal:define="card first_card"
+             tal:attributes="
+               href card/url;
+               class python: 'pfs-card accent-' + (card.get('accent') or 'primary')
+             ">
+            <div class="pfs-card-header">
+              <div class="pfs-card-icon"
+                   tal:attributes="class python: 'pfs-card-icon' + (' icon-' + card.get('icon') if card.get('icon') else '')"
+                   aria-hidden="true"></div>
+              <h2 class="pfs-card-title" tal:content="card/title">Card title</h2>
+            </div>
+            <p class="pfs-card-description"
+               tal:content="card/description">Card description</p>
+            <span class="pfs-card-button"
+                  tal:attributes="class python: 'pfs-card-button button-' + (card.get('accent') or 'primary')"
+                  tal:content="card/action_label">Go</span>
+          </a>
+        </tal:first-card>
+
+        <tal:template-card tal:condition="view/can_create_from_template"
+                           tal:define="templates view/template_options">
+          <form class="pfs-card pfs-card-form"
+                method="post"
+                tal:attributes="action string:${context/absolute_url}/@@pfs">
+            <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
+            <input type="hidden" name="pfs_action" value="create_from_template" />
+            <div class="pfs-card-header">
+              <div class="pfs-card-icon icon-template" aria-hidden="true"></div>
+              <h2 class="pfs-card-title" i18n:translate="">Create from template</h2>
+            </div>
+            <p class="pfs-card-description" i18n:translate="">
+              Start a new form or survey using one of your curate presets.
+            </p>
+            <div class="pfs-form-row">
+              <select id="pfs-template-select" name="template_uid" class="pfs-select" required="required">
+                <option value="" i18n:translate="">Select a template</option>
+                <tal:option repeat="template templates">
+                  <option tal:attributes="value template/uid"
+                          tal:content="template/title">Template</option>
+                </tal:option>
+              </select>
+            </div>
+            <div class="pfs-card-meta" i18n:translate="">
+              The new form will be created in this workspace.
+            </div>
+            <div style="margin-top: auto; padding-top: 0.8rem;">
+              <button type="submit" class="pfs-submit" i18n:translate="">
+                Create form
+              </button>
+            </div>
+          </form>
+        </tal:template-card>
+
         <a class="pfs-card"
-           tal:repeat="card cards"
+           tal:repeat="card remaining_cards"
            tal:attributes="
              href card/url;
              class python: 'pfs-card accent-' + (card.get('accent') or 'primary')
            ">
-          <div class="pfs-card-icon"
-               tal:attributes="class python: 'pfs-card-icon' + (' icon-' + card.get('icon') if card.get('icon') else '')"
-               aria-hidden="true"></div>
-          <h2 class="pfs-card-title" tal:content="card/title">Card title</h2>
+          <div class="pfs-card-header">
+            <div class="pfs-card-icon"
+                 tal:attributes="class python: 'pfs-card-icon' + (' icon-' + card.get('icon') if card.get('icon') else '')"
+                 aria-hidden="true"></div>
+            <h2 class="pfs-card-title" tal:content="card/title">Card title</h2>
+          </div>
           <p class="pfs-card-description"
              tal:content="card/description">Card description</p>
-          <span class="pfs-card-action" tal:content="card/action_label">
-            Go
-          </span>
+          <span class="pfs-card-button"
+                tal:attributes="class python: 'pfs-card-button button-' + (card.get('accent') or 'primary')"
+                tal:content="card/action_label">Go</span>
         </a>
       </div>
     </section>
 
-    <section class="pfs-empty" tal:condition="not:cards">
+    <section class="pfs-empty" tal:condition="python: not cards and not view.can_create_from_template">
       <h2 i18n:translate="">Nothing to do yet</h2>
       <p i18n:translate="">
         You need permission to create new SurveyJS content here.
