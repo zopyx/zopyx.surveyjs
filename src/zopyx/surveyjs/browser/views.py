@@ -120,7 +120,9 @@ class PFSView(BrowserView):
 
     def __call__(self):
         if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
-            if (self.request.form.get("pfs_action") or "").strip() == "create_from_template":
+            if (
+                self.request.form.get("pfs_action") or ""
+            ).strip() == "create_from_template":
                 return self._handle_create_from_template()
         return self.index()
 
@@ -260,22 +262,24 @@ class PFSView(BrowserView):
 
         template_uid = (self.request.form.get("template_uid") or "").strip()
         if not template_uid:
-            plone.api.portal.show_message(
-                _("Please select a template."), type="error"
+            plone.api.portal.show_message(_("Please select a template."), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@pfs"
             )
-            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
 
         template = plone.api.content.get(UID=template_uid)
         if template is None:
             plone.api.portal.show_message(_("Template not found."), type="error")
-            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@pfs"
+            )
 
         raw_json = getattr(template, "template_json", "") or ""
         if not raw_json:
-            plone.api.portal.show_message(
-                _("Template JSON is missing."), type="error"
+            plone.api.portal.show_message(_("Template JSON is missing."), type="error")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@pfs"
             )
-            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
 
         try:
             form_json = orjson.loads(raw_json)
@@ -284,7 +288,9 @@ class PFSView(BrowserView):
                 _("Template JSON is invalid: ${error}", mapping={"error": str(exc)}),
                 type="error",
             )
-            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@pfs"
+            )
 
         title = (
             (self.request.form.get("survey_title") or "").strip()
@@ -325,11 +331,11 @@ class PFSView(BrowserView):
                 _("Failed to create survey: ${error}", mapping={"error": str(exc)}),
                 type="error",
             )
-            return self.request.response.redirect(self.context.absolute_url() + "/@@pfs")
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/@@pfs"
+            )
 
-        plone.api.portal.show_message(
-            _("Survey created from template."), type="info"
-        )
+        plone.api.portal.show_message(_("Survey created from template."), type="info")
         return self.request.response.redirect(survey.absolute_url())
 
     @property
@@ -454,10 +460,7 @@ class SurveyAddView(BrowserView):
             "email_bcc": email_bcc,
             "email_formats": set(email_formats),
             "email_body": data.get("email_body") or None,
-            "email_notification_subject": data.get(
-                "email_notification_subject"
-            )
-            or "",
+            "email_notification_subject": data.get("email_notification_subject") or "",
             "email_notification_body": data.get("email_notification_body") or "",
             "force_server_side_validation": force_validation,
             "max_payload_size_mb": max_payload,
@@ -1071,7 +1074,7 @@ class Views(BrowserView):
         entries = []
         for brain in brains:
             obj = brain.getObject()
-            language = obj.Language() 
+            language = obj.Language()
             try:
                 review_state = plone.api.content.get_state(obj)
             except Exception:
@@ -1107,7 +1110,6 @@ class Views(BrowserView):
                     {
                         "label": label,
                         "value": value,
-
                     }
                 )
             expires_value = brain.expires
@@ -2387,9 +2389,7 @@ class Views(BrowserView):
                 self.context.absolute_url() + "/@@form-versions"
             )
 
-        plone.api.portal.show_message(
-            _("Template created successfully."), type="info"
-        )
+        plone.api.portal.show_message(_("Template created successfully."), type="info")
         return self.request.response.redirect(template.absolute_url())
 
     @property
