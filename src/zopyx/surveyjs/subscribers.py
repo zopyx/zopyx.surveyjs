@@ -19,8 +19,10 @@ import httpx
 from plone.registry.interfaces import IRegistry
 from email.message import EmailMessage
 
+import zope.component
 from plone.app.dexterity.behaviors.metadata import IDublinCore
-from plone.dexterity.interfaces import IDexterityContent
+from plone.behavior.interfaces import IBehaviorAssignable
+from plone.dexterity.interfaces import IDexterityFTI, IDexterityContent
 from zope.schema import getFieldsInOrder
 from zopyx.plone.persistentlogger.logger import IPersistentLogger
 
@@ -33,6 +35,19 @@ from .interfaces import IFormsSettings
 
 logger = logging.getLogger(__name__)
 _METADATA_FIELDS = {name for name, _field in getFieldsInOrder(IDublinCore)}
+
+
+def _get_all_fields(context):
+    """Return all schema + behavior fields for a Dexterity object."""
+    schema = zope.component.getUtility(IDexterityFTI, name=context.portal_type).lookupSchema()
+    fields = dict((fieldname, schema[fieldname]) for fieldname in schema)
+
+    assignable = IBehaviorAssignable(context)
+    for behavior in assignable.enumerateBehaviors():
+        behavior_schema = behavior.interface
+        fields.update((name, behavior_schema[name]) for name in behavior_schema)
+
+    return fields
 
 
 def log_survey_submission(context, event):
@@ -80,12 +95,13 @@ def log_metadata_changes(context, event):
     if not changed_fields:
         return
 
-    matched = sorted(changed_fields & _METADATA_FIELDS)
+    fields = _get_all_fields(context)
+    matched = sorted(changed_fields & set(fields.keys()))
     if not matched:
         return
 
     values: dict[str, object] = {}
-    for name in matched:
+    for name in fields:
         value = getattr(context, name, None)
         if callable(value):
             try:
