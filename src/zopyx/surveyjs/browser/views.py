@@ -18,6 +18,9 @@ from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 from zope.interface import alsoProvides
 from zope.schema import getFieldsInOrder
+from zope.schema.interfaces import ICollection, IChoice, IVocabularyFactory
+from zope.component import getUtility
+from zope.i18n import translate
 import plone.api
 import httpx
 from plone.protect.interfaces import IDisableCSRFProtection
@@ -863,6 +866,76 @@ class Views(BrowserView):
             return f"{match.group(1)} {match.group(2)}"
         return text
 
+    def _translate_label(self, value):
+        if not value:
+            return ""
+        try:
+            return translate(value, context=self.request)
+        except Exception:
+            return str(value)
+
+    def _vocabulary_title(self, field, value):
+        if not field:
+            return str(value)
+        vocab = getattr(field, "vocabulary", None)
+        if vocab is None:
+            vocab_name = getattr(field, "vocabularyName", None)
+            if vocab_name:
+                try:
+                    vocab = getUtility(IVocabularyFactory, vocab_name)(self.context)
+                except Exception:
+                    vocab = None
+        if vocab is None:
+            return str(value)
+        try:
+            term = vocab.getTerm(value)
+            title = term.title if term else value
+            return self._translate_label(title)
+        except Exception:
+            return str(value)
+
+    def _survey_field_value_text(self, obj, name, field):
+        if not hasattr(obj, name):
+            return ""
+        value = getattr(obj, name)
+        if callable(value):
+            try:
+                value = value()
+            except Exception:
+                return ""
+        if value is None:
+            return ""
+        if hasattr(value, "filename"):
+            return value.filename or ""
+        if isinstance(value, bool):
+            return "Yes" if value else "No"
+        if ICollection.providedBy(field):
+            if not value:
+                return ""
+            values = list(value)
+            if isinstance(value, set):
+                values = sorted(values, key=lambda item: str(item))
+            return ", ".join(
+                [
+                    str(self._vocabulary_title(field.value_type, item))
+                    for item in values
+                    if item or item == 0
+                ]
+            )
+        if IChoice.providedBy(field):
+            return str(self._vocabulary_title(field, value))
+        if isinstance(value, (list, tuple)):
+            return ", ".join([str(item) for item in value if item or item == 0])
+        return str(value)
+
+    def _compact_metadata_value(self, value, max_len=160):
+        text = (value or "").strip()
+        if not text:
+            return "—", ""
+        if len(text) <= max_len:
+            return text, text
+        return text[: max_len - 3].rstrip() + "...", text
+
     def survey_overview_entries(self):
         catalog = plone.api.portal.get_tool("portal_catalog")
         context_path = "/".join(self.context.getPhysicalPath())
@@ -894,6 +967,37 @@ class Views(BrowserView):
                 results_count = storage.count_results(obj)
             except Exception:
                 results_count = 0
+            actions = getattr(obj, "actions", set()) or set()
+            has_mail = "mail" in actions
+            has_post = "post" in actions
+            email_fields = {
+                "email_sender",
+                "email_subject",
+                "email_to",
+                "email_cc",
+                "email_bcc",
+                "email_formats",
+                "email_body",
+            }
+            post_fields = {"post_endpoint_url"}
+            metadata = []
+            for name, field in getFieldsInOrder(ISurvey):
+                # Skip email fields if mail action not enabled
+                if name in email_fields and not has_mail:
+                    continue
+                # Skip POST fields if post action not enabled
+                if name in post_fields and not has_post:
+                    continue
+                label = self._translate_label(field.title) or name
+                raw_value = self._survey_field_value_text(obj, name, field)
+                value, value_full = self._compact_metadata_value(raw_value)
+                metadata.append(
+                    {
+                        "label": label,
+                        "value": value,
+                        "value_full": value_full,
+                    }
+                )
             expires_value = brain.expires
             if callable(expires_value):
                 expires_value = expires_value()
@@ -917,6 +1021,7 @@ class Views(BrowserView):
                     "access_mode": access_label,
                     "language": language,
                     "expires_future": expires_future,
+                    "metadata": metadata,
                 }
             )
         return entries

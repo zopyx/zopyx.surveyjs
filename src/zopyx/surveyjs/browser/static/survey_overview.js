@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
     const tabulatorLocale = String(rawLocale).split("-")[0] || "en";
 
+    // Store metadata toggle state for each row
+    const metadataToggleState = new Map();
+
     function escapeHtml(text) {
         const div = document.createElement("div");
         div.textContent = text == null ? "" : String(text);
@@ -29,12 +32,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function surveyFormatter(cell) {
         const row = cell.getData() || {};
+        const rowId = row.url || row.title || "";
+        const isOpen = metadataToggleState.get(rowId) || false;
+
         const title = escapeHtml(row.title || "");
         const url = escapeHtml(row.url || "#");
         const description = row.description
             ? `<div class="survey-overview-description">${escapeHtml(row.description)}</div>`
             : "";
-        return `<div><a href="${url}">${title}</a></div>${description}`;
+        const metadata = Array.isArray(row.metadata) ? row.metadata : [];
+        let metadataBlock = "";
+        if (metadata.length) {
+            const items = metadata
+                .map((item) => {
+                    const label = escapeHtml(item.label || "");
+                    const value = escapeHtml(item.value || "");
+                    const full = escapeHtml(item.value_full || "");
+                    const titleAttr = full ? ` title="${full}"` : "";
+                    return `<div class="survey-overview-meta-item"><span class="survey-overview-meta-label">${label}:</span><span class="survey-overview-meta-value"${titleAttr}>${value}</span></div>`;
+                })
+                .join("");
+            const openClass = isOpen ? " is-open" : "";
+            const ariaExpanded = isOpen ? "true" : "false";
+            const hiddenAttr = isOpen ? "" : " hidden";
+            const gridBlock = isOpen ? `<div class="survey-overview-meta-grid-wrapper"><div class="survey-overview-meta-grid">${items}</div></div>` : "";
+            metadataBlock = `
+                <div class="survey-overview-meta${openClass}">
+                    <button type="button" class="survey-overview-meta-toggle" aria-expanded="${ariaExpanded}">
+                        ${escapeHtml(t("Metadata"))}
+                    </button>
+                </div>
+                ${gridBlock}
+            `;
+        }
+        return `
+            <div class="survey-overview-cell-wrapper">
+                <div class="survey-overview-content">
+                    <div><a href="${url}">${title}</a></div>
+                    ${description}
+                </div>
+                ${metadataBlock}
+            </div>
+        `;
     }
 
     function statusFormatter(cell) {
@@ -74,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     };
 
-    new Tabulator(gridMount, {
+    const table = new Tabulator(gridMount, {
         data,
         layout: "fitColumns",
         responsiveLayout: "collapse",
@@ -92,6 +131,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 formatter: surveyFormatter,
                 sorter: "string",
                 minWidth: 240,
+                variableHeight: true,
+                cssClass: "survey-overview-col",
+                cellClick: function (event, cell) {
+                    const target = event.target;
+                    if (!target || !target.closest) {
+                        return;
+                    }
+                    const toggle = target.closest(".survey-overview-meta-toggle");
+                    if (!toggle) {
+                        return;
+                    }
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const row = cell.getData() || {};
+                    const rowId = row.url || row.title || "";
+                    const currentState = metadataToggleState.get(rowId) || false;
+                    metadataToggleState.set(rowId, !currentState);
+
+                    table.redraw(true);
+                },
                 headerFilter: "input",
                 headerSort: true,
             },
@@ -137,4 +197,5 @@ document.addEventListener("DOMContentLoaded", function () {
             },
         ],
     });
+
 });
