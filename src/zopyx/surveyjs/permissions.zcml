@@ -10,6 +10,10 @@
         id="zopyx.surveyjs.AddSurvey"
         title="zopyx.surveyjs: Add Survey"
     />
+    <permission
+        id="zopyx.surveyjs.AddSurveyTemplate"
+        title="zopyx.surveyjs: Add Survey Template"
+    />
 
 
 

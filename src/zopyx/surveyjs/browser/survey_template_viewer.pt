@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master"
+>
+
+  <metal:block fill-slot="style_slot">
+    <style type="text/css">
+      article > header {
+        display: none;
+      }
+    </style>
+  </metal:block>
+
+  <metal:block fill-slot="content-core"
+               tal:define="portal_state context/@@plone_portal_state">
+    <metal:surveyjs-var-actual-url
+        use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
+    />
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
+    <metal:surveyjs-core
+        use-macro="context/@@survey-assets/macros/surveyjs-core"
+    />
+    <metal:surveyjs-ui
+        use-macro="context/@@survey-assets/macros/surveyjs-ui"
+    />
+    <metal:surveyjs-theme-contrast
+        use-macro="context/@@survey-assets/macros/surveyjs-theme-contrast"
+    />
+    <script src="++resource++zopyx.surveyjs/survey_template_viewer.js"
+            type="text/javascript"
+    ></script>
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+
+    <div class="survey-header">
+      <div class="survey-header-top">
+        <div class="survey-header-main">
+          <div class="survey-header-view">
+            <div class="page-headline" i18n:translate="">View Template</div>
+            <div class="page-subtitle" i18n:translate="">
+              Preview the SurveyJS template.
+            </div>
+          </div>
+          <div class="survey-form-meta">
+            <div class="survey-header-title-line">
+              <span class="survey-form-title" tal:content="context/Title">Template title</span>
+            </div>
+            <div class="survey-form-description"
+                 tal:condition="context/Description"
+                 tal:content="context/Description">Template description</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="surveyTemplateError" class="survey-access-error" hidden>
+      <div class="survey-access-error-card">
+        <div class="survey-access-error-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+            <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 5a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0V8a1 1 0 0 0-1-1Zm0 10a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z"></path>
+          </svg>
+        </div>
+        <div class="survey-access-error-body">
+          <p class="survey-access-error-title" i18n:translate="">Template unavailable</p>
+          <p class="survey-access-error-message" id="surveyTemplateErrorMessage" i18n:translate="">
+            The template JSON could not be loaded.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="surveyViewerContainer" class="survey-viewer-container">
+      <div class="survey-viewer-toolbar">
+        <a id="surveyViewerFullscreenToggle"
+           class="survey-fullscreen-toggle"
+           href="#"
+           role="button"
+           aria-pressed="false"
+           i18n:translate=""
+        >Fullscreen</a>
+      </div>
+      <div id="surveyContainer"></div>
+    </div>
+  </metal:block>
+</html>

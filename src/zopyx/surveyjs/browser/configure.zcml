@@ -83,6 +83,20 @@
     class=".views.Views"
     template="viewer.pt"
   />
+  <browser:page
+    name="viewer"
+    for="zopyx.surveyjs.content.survey_template.ISurveyTemplate"
+    permission="zope2.View"
+    class=".survey_template_views.SurveyTemplateViewer"
+    template="survey_template_viewer.pt"
+  />
+  <browser:page
+    name="get-template-json"
+    for="zopyx.surveyjs.content.survey_template.ISurveyTemplate"
+    permission="zope2.View"
+    class=".survey_template_views.SurveyTemplateViewer"
+    attribute="get_template_json"
+  />
 
   <browser:page
     name="viewer-embed"

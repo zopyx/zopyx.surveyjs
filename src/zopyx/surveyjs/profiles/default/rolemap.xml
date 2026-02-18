@@ -9,6 +9,12 @@
       <role name="Owner"/>
       <role name="Contributor"/>
     </permission>
+    <permission name="zopyx.surveyjs: Add Survey Template" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Owner"/>
+      <role name="Contributor"/>
+    </permission>
 
 
   </permissions>
