@@ -57,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const exportTo = document.getElementById("results-export-to");
     const exportLinks = document.querySelectorAll("[data-base-href]");
     const exportWarning = document.getElementById("results-export-warning");
+    const fullscreenToggle = document.getElementById("surveyResultsFullscreenToggle");
+    const fullscreenClass = "survey-results-fullscreen";
+    const fullscreenParam = new URLSearchParams(window.location.search).get("fullscreen");
 
     const questionLabels = {};
     const questionDefinitions = {};
@@ -81,6 +84,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (totalCountEl) {
             totalCountEl.textContent = String(count || 0);
         }
+    }
+
+    function setFullscreen(enabled) {
+        document.body.classList.toggle(fullscreenClass, Boolean(enabled));
+        if (!fullscreenToggle) {
+            return;
+        }
+        fullscreenToggle.textContent = enabled ? t("Exit fullscreen") : t("Fullscreen");
+        fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
     }
 
     function hasInvalidExportRange() {
@@ -180,6 +192,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     updateExportWarning();
     updateExportLinks();
+
+    if (fullscreenToggle) {
+        fullscreenToggle.addEventListener("click", function (event) {
+            event.preventDefault();
+            const isFullscreen = document.body.classList.contains(fullscreenClass);
+            setFullscreen(!isFullscreen);
+        });
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && document.body.classList.contains(fullscreenClass)) {
+                setFullscreen(false);
+            }
+        });
+    }
+
+    if (fullscreenParam === "1" || fullscreenParam === "true" || fullscreenParam === "yes") {
+        setFullscreen(true);
+    }
 
     function renderMatrixTable(value, element) {
         if (!element) {

@@ -33,7 +33,7 @@
         use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
 
-    <div class="results-shell">
+    <div id="surveyResultsContainer" class="results-shell">
         <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
             <metal:survey-header-headline fill-slot="view-headline">
                 <div class="page-headline" i18n:translate="">Stored form data</div>
@@ -45,15 +45,26 @@
                 </div>
             </metal:survey-header-subtitle>
         </metal:survey-header>
-        <div class="results-docs">
-            <a class="results-docs-link"
-               href="https://docs.privacyforms.studio/functionality_results.html"
-               target="_blank"
-               rel="noopener noreferrer"
-               i18n:translate=""
-            >
-                DOCS
-            </a>
+        <div class="results-top-actions">
+            <div class="results-docs">
+                <a class="results-docs-link"
+                   href="https://docs.privacyforms.studio/functionality_results.html"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   i18n:translate=""
+                >
+                    DOCS
+                </a>
+            </div>
+            <div class="results-fullscreen-toggle">
+                <a id="surveyResultsFullscreenToggle"
+                   class="survey-fullscreen-toggle"
+                   href="#"
+                   role="button"
+                   aria-pressed="false"
+                   i18n:translate=""
+                >Fullscreen</a>
+            </div>
         </div>
 
         <tal:block tal:condition="python: not view.storing_enabled">

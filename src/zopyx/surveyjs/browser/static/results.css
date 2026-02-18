@@ -2,10 +2,40 @@
     margin: 0 auto;
 }
 
+.survey-results-fullscreen {
+    overflow: hidden;
+}
+
+.survey-results-fullscreen footer,
+.survey-results-fullscreen .survey-header,
+.survey-results-fullscreen .survey-actions,
+.survey-results-fullscreen article > header {
+    display: none;
+}
+
+.survey-results-fullscreen #surveyResultsContainer {
+    background: #ffffff;
+    bottom: 0;
+    left: 0;
+    padding: 16px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow: auto;
+    z-index: 9999;
+}
+
+.results-top-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 12px;
+}
+
 .results-docs {
     display: flex;
     justify-content: flex-end;
-    margin: 0 0 12px;
 }
 
 .results-docs-link {
