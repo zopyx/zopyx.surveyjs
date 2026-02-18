@@ -606,7 +606,7 @@ transaction.commit()
 site._p_jar.sync()
 
 # Restrict addable types to essentials
-allowed_types = {"Folder", "Document", "Survey", "Image"}
+allowed_types = {"Folder", "Document", "Survey", "Image", "SurveyTemplate"}
 portal_types = api.portal.get_tool("portal_types")
 for fti in portal_types.objectValues():
     fti.global_allow = fti.getId() in allowed_types
