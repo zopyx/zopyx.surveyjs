@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.autoform import directives as form
-from plone.dexterity.content import Item
+from zopyx.surveyjs.content.survey import ISurvey, Survey
 from plone.supermodel import model
 from z3c.form.browser.textarea import TextAreaFieldWidget
 from zope import schema
@@ -22,7 +22,7 @@ def _parse_template_json(value: str) -> dict:
     return parsed
 
 
-class ISurveyTemplate(model.Schema):
+class ISurveyTemplate(ISurvey, model.Schema):
     """Marker interface and Dexterity Python Schema for SurveyTemplate"""
 
     form.widget("template_json", TextAreaFieldWidget, rows=20, cols=80)
@@ -38,10 +38,5 @@ class ISurveyTemplate(model.Schema):
 
 
 @implementer(ISurveyTemplate)
-class SurveyTemplate(Item):
+class SurveyTemplate(Survey):
     """Content-type class for ISurveyTemplate"""
-
-    def __init__(self, *args, **kw):
-        for k, v in kw.items():
-            setattr(self, k, v)
-        super().__init__(*args, **kw)

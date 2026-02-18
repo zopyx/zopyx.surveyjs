@@ -17,12 +17,14 @@ from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 from zope.interface import alsoProvides
+from zope.schema import getFieldsInOrder
 import plone.api
 import httpx
 from plone.protect.interfaces import IDisableCSRFProtection
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
+from ..content.survey import ISurvey
 from ..constants import FORM_VERSIONS_KEY, PDF_FORM_KEY
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
@@ -270,6 +272,13 @@ class PFSView(BrowserView):
                 title=title,
                 description=description,
             )
+            for name, field in getFieldsInOrder(ISurvey):
+                if not hasattr(template, name):
+                    continue
+                try:
+                    setattr(survey, name, getattr(template, name))
+                except Exception:
+                    continue
             annos = IAnnotations(survey)
             forms_service.save_form_version(
                 annos,
@@ -2146,6 +2155,13 @@ class Views(BrowserView):
                 description=description,
                 template_json=template_json,
             )
+            for name, field in getFieldsInOrder(ISurvey):
+                if not hasattr(self.context, name):
+                    continue
+                try:
+                    setattr(template, name, getattr(self.context, name))
+                except Exception:
+                    continue
         except Exception as exc:
             plone.api.portal.show_message(
                 _("Failed to create template: ${error}", mapping={"error": str(exc)}),
