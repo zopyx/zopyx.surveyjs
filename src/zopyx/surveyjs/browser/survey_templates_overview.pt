@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master"
+>
+
+  <metal:block fill-slot="style_slot">
+    <metal:survey-header-critical
+        use-macro="context/@@survey-actions/macros/survey-header-critical"
+    />
+  </metal:block>
+
+  <metal:block fill-slot="content-core">
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
+    />
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/survey_overview.css"
+    />
+
+    <div class="survey-header survey-header--overview">
+      <div class="survey-header-top">
+        <div class="survey-header-main">
+          <div class="survey-header-view">
+            <h2 class="page-headline" i18n:translate="">Survey Templates Overview</h2>
+            <div class="page-subtitle" i18n:translate="">
+              Overview of survey templates available in this section.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <tal:entries tal:define="entries view/survey_templates_overview_entries">
+      <tal:empty tal:condition="not: entries">
+        <p i18n:translate="">No survey templates found below this location.</p>
+      </tal:empty>
+      <tal:hasentries tal:condition="entries">
+        <div class="survey-overview-grid-wrap">
+          <div class="survey-overview-pager-row">
+            <div id="survey-overview-pager" class="survey-overview-pager"></div>
+          </div>
+          <div id="survey-overview-grid"></div>
+        </div>
+        <script type="text/javascript"
+                tal:define="entries_json python: __import__('json').dumps(entries)">
+          window.SURVEY_OVERVIEW_DATA = ${structure: entries_json};
+          window.SURVEY_OVERVIEW_MODE = 'templates';
+        </script>
+        <script src="++resource++zopyx.surveyjs/vendor/tabulator.min.js"
+                type="text/javascript"></script>
+        <script src="++resource++zopyx.surveyjs/survey_overview.js"
+                type="text/javascript"></script>
+      </tal:hasentries>
+    </tal:entries>
+  </metal:block>
+</html>
