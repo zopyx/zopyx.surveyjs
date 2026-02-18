@@ -186,7 +186,7 @@ class PFSView(BrowserView):
                 {
                     "title": _("Forms overview"),
                     "description": _(
-                        "See every survey at a glance, surface trends, and jump right in."
+                        "See every form or survey at a glance, surface trends, and jump right in."
                     ),
                     "action_label": _("Open overview"),
                     "url": self.forms_overview_url,
@@ -199,7 +199,7 @@ class PFSView(BrowserView):
                     {
                         "title": _("Templates overview"),
                         "description": _(
-                            "Browse saved templates and reuse them for new surveys."
+                            "Browse saved templates and reuse them for new forms or surveys."
                         ),
                         "action_label": _("Open templates"),
                         "url": self.templates_overview_url,

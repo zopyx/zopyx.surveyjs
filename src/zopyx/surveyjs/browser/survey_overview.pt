@@ -35,9 +35,9 @@
       <div class="survey-header-top">
         <div class="survey-header-main">
           <div class="survey-header-view">
-            <h2 class="page-headline" i18n:translate="">Survey overview</h2>
+            <h2 class="page-headline" i18n:translate="">Forms overview</h2>
             <div class="page-subtitle" i18n:translate="">
-              Overview of surveys in this section and their submission status.
+              Overview of forms in this section and their submission status.
             </div>
           </div>
         </div>

@@ -1295,11 +1295,11 @@ msgid "Refresh"
 msgstr "更新"
 
 #: generated
-msgid "Survey overview"
+msgid "Forms overview"
 msgstr "アンケートの概要"
 
 #: generated
-msgid "Overview of surveys in this section and their submission status."
+msgid "Overview of forms in this section and their submission status."
 msgstr "このセクションのアンケートとその提出状況の概要。"
 
 #: generated

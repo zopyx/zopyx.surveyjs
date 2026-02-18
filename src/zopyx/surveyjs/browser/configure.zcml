@@ -20,6 +20,13 @@
     class=".views.PFSView"
     template="pfs.pt"
   />
+  <browser:menuItem
+    for="Products.CMFCore.interfaces.IFolderish"
+    menu="plone_displayviews"
+    title="Forms overview"
+    action="@@pfs"
+    description="Open Forms overview"
+  />
   <browser:page
     name="survey-add"
     for="*"

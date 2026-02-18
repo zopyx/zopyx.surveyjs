@@ -1415,11 +1415,11 @@ msgid "Refresh"
 msgstr "Aktualisieren"
 
 #: generated
-msgid "Survey overview"
+msgid "Forms overview"
 msgstr "Umfrage-Übersicht"
 
 #: generated
-msgid "Overview of surveys in this section and their submission status."
+msgid "Overview of forms in this section and their submission status."
 msgstr ""
 "Übersicht der Umfragen in diesem Bereich und ihres Einreichungsstatus."
 

@@ -4,4 +4,5 @@
   <!--<object name="example_ct" meta_type="Dexterity FTI"/>-->
   <object name="Survey" meta_type="Dexterity FTI"/>
   <object name="SurveyTemplate" meta_type="Dexterity FTI"/>
+  <object name="Folder" meta_type="Dexterity FTI"/>
 </object>

@@ -1359,11 +1359,11 @@ msgid "Refresh"
 msgstr "ताज़ा करें"
 
 #: generated
-msgid "Survey overview"
+msgid "Forms overview"
 msgstr "सर्वेक्षण अवलोकन"
 
 #: generated
-msgid "Overview of surveys in this section and their submission status."
+msgid "Overview of forms in this section and their submission status."
 msgstr "इस खंड में सर्वेक्षणों का अवलोकन और उनकी प्रस्तुति की स्थिति"
 
 #: generated

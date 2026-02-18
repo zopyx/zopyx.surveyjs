@@ -1354,11 +1354,11 @@ msgid "Refresh"
 msgstr "Päivitä"
 
 #: generated
-msgid "Survey overview"
+msgid "Forms overview"
 msgstr "Kyselyn yleiskuva"
 
 #: generated
-msgid "Overview of surveys in this section and their submission status."
+msgid "Overview of forms in this section and their submission status."
 msgstr "Yleiskatsaus tämän osion kyselyihin ja niiden palautustilaan"
 
 #: generated

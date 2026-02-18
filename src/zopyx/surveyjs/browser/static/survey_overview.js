@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const columns = [
         {
-            title: isTemplatesMode ? t("Template") : t("Survey"),
+            title: isTemplatesMode ? t("Template") : t("Forms"),
             field: "title",
             formatter: surveyFormatter,
             sorter: "string",

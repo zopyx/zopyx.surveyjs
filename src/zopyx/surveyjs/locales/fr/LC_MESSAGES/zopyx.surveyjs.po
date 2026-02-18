@@ -1400,11 +1400,11 @@ msgid "Refresh"
 msgstr "Actualiser"
 
 #: generated
-msgid "Survey overview"
+msgid "Forms overview"
 msgstr "Aperçu du sondage"
 
 #: generated
-msgid "Overview of surveys in this section and their submission status."
+msgid "Overview of forms in this section and their submission status."
 msgstr ""
 "Aperçu des sondages dans cette section et de leur statut de soumission."
 

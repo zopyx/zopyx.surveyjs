@@ -1350,12 +1350,12 @@ msgid "Refresh"
 msgstr "Refresh"
 
 #: generated
-msgid "Survey overview"
-msgstr "Survey overview"
+msgid "Forms overview"
+msgstr "Forms overview"
 
 #: generated
-msgid "Overview of surveys in this section and their submission status."
-msgstr "Overview of surveys in this section and their submission status."
+msgid "Overview of forms in this section and their submission status."
+msgstr "Overview of forms in this section and their submission status."
 
 #: generated
 msgid "No surveys found below this location."
