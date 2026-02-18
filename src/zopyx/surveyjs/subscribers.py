@@ -19,6 +19,11 @@ import httpx
 from plone.registry.interfaces import IRegistry
 from email.message import EmailMessage
 
+from plone.app.dexterity.behaviors.metadata import IDublinCore
+from plone.dexterity.interfaces import IDexterityContent
+from zope.schema import getFieldsInOrder
+from zopyx.plone.persistentlogger.logger import IPersistentLogger
+
 from .constants import FORM_VERSIONS_KEY
 from .storage import _get_storage_location, get_result_storage
 from .utils import ensure_timezone_aware
@@ -27,12 +32,76 @@ from .converters.cli import SurveyConverter
 from .interfaces import IFormsSettings
 
 logger = logging.getLogger(__name__)
+_METADATA_FIELDS = {name for name, _field in getFieldsInOrder(IDublinCore)}
 
 
 def log_survey_submission(context, event):
     """Sample listener that logs form submissions to stdout."""
     context_info = getattr(context, "absolute_url", lambda: repr(context))()
     print(f"SurveyJSFormSubmitted: context={context_info} data={event.form_data}")
+
+
+def _normalize_field_name(name: str | None) -> str | None:
+    if not name:
+        return None
+    value = str(name).strip()
+    if not value:
+        return None
+    if "." in value:
+        return value.split(".")[-1]
+    return value
+
+
+def _extract_changed_fields(event) -> set[str]:
+    changed: set[str] = set()
+    for description in getattr(event, "descriptions", []) or []:
+        attributes = getattr(description, "attributes", None)
+        if attributes:
+            for attr in attributes:
+                normalized = _normalize_field_name(attr)
+                if normalized:
+                    changed.add(normalized)
+        name = getattr(description, "name", None) or getattr(
+            description, "attribute", None
+        )
+        normalized = _normalize_field_name(name)
+        if normalized:
+            changed.add(normalized)
+    return changed
+
+
+def log_metadata_changes(context, event):
+    """Log changes to metadata fields on any Dexterity object."""
+
+    if not IDexterityContent.providedBy(context):
+        return
+
+    changed_fields = _extract_changed_fields(event)
+    if not changed_fields:
+        return
+
+    matched = sorted(changed_fields & _METADATA_FIELDS)
+    if not matched:
+        return
+
+    values: dict[str, object] = {}
+    for name in matched:
+        value = getattr(context, name, None)
+        if callable(value):
+            try:
+                value = value()
+            except Exception:
+                value = None
+        values[name] = value
+
+    adapter = IPersistentLogger(context)
+    comment = "Metadata updated: " + ", ".join(matched)
+    adapter.log(
+        comment,
+        level="info",
+        info_url=getattr(context, "absolute_url", lambda: "")(),
+        details={"fields": matched, "values": values},
+    )
 
 
 def _interpolate_text(text: str | None, mapping: dict) -> str | None:

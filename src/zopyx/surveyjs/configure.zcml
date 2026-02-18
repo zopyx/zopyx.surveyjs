@@ -67,6 +67,12 @@
       handler=".subscribers.log_survey_submission"
       />
 
+  <subscriber
+      for="plone.dexterity.interfaces.IDexterityContent
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+      handler=".subscribers.log_metadata_changes"
+      />
+
       <include package="z3c.jbot" file="meta.zcml" />
 
   <browser:jbot
