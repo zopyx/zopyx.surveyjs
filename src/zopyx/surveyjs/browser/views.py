@@ -2374,7 +2374,7 @@ class Views(BrowserView):
                         continue
                     v = self.context.__dict__.get(name, object)
                     if v is not object:
-                        setattr(template, name, v) 
+                        setattr(template, name, v)
 
             template.reindexObject()
         except Exception as exc:

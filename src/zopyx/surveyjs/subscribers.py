@@ -39,7 +39,9 @@ _METADATA_FIELDS = {name for name, _field in getFieldsInOrder(IDublinCore)}
 
 def _get_all_fields(context):
     """Return all schema + behavior fields for a Dexterity object."""
-    schema = zope.component.getUtility(IDexterityFTI, name=context.portal_type).lookupSchema()
+    schema = zope.component.getUtility(
+        IDexterityFTI, name=context.portal_type
+    ).lookupSchema()
     fields = dict((fieldname, schema[fieldname]) for fieldname in schema)
 
     assignable = IBehaviorAssignable(context)

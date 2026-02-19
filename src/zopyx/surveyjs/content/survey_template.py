@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone.autoform import directives as form
-from zopyx.surveyjs.content.survey import ISurvey, Survey
-from plone.supermodel import model
+from zopyx.surveyjs.content.survey import ISurvey
 from plone.dexterity.content import Item
 from z3c.form.browser.textarea import TextAreaFieldWidget
 from zope import schema
