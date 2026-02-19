@@ -435,9 +435,15 @@ class SurveyAddView(BrowserView):
                 for key in data:
                     if key in payload_data:
                         data[key] = payload_data[key]
+                if "effective" not in payload_data:
+                    data["effective"] = None
+                if "expires" not in payload_data:
+                    data["expires"] = None
         else:
             data["title"] = (form.get("title") or "").strip()
             data["description"] = (form.get("description") or "").strip()
+            data["effective"] = None
+            data["expires"] = None
         return data, errors
 
     def _build_survey_fields(self, data: dict[str, Any]) -> dict[str, Any]:
@@ -531,6 +537,9 @@ class SurveyAddView(BrowserView):
             return ""
         if not value:
             return ""
+        year = self._extract_datetime_year(value)
+        if year is not None and (year < 1970 or year > 2100):
+            return ""
         if hasattr(value, "ISO"):
             text = value.ISO()
         elif hasattr(value, "isoformat"):
@@ -544,6 +553,33 @@ class SurveyAddView(BrowserView):
         if match:
             return f"{match.group(1)}T{match.group(2)}"
         return ""
+
+    def _extract_datetime_year(self, value: Any) -> int | None:
+        year_attr = getattr(value, "year", None)
+        if year_attr is not None:
+            try:
+                return int(year_attr() if callable(year_attr) else year_attr)
+            except Exception:
+                pass
+        if hasattr(value, "ISO"):
+            try:
+                text = value.ISO()
+            except Exception:
+                text = ""
+        elif hasattr(value, "isoformat"):
+            try:
+                text = value.isoformat()
+            except Exception:
+                text = ""
+        else:
+            text = str(value)
+        match = re.match(r"^(\d{4})-", text)
+        if match:
+            try:
+                return int(match.group(1))
+            except Exception:
+                return None
+        return None
 
     def _get_effective_value(self, survey) -> Any:
         value = getattr(survey, "effective", None)
@@ -661,9 +697,15 @@ class SurveyEditView(SurveyAddView):
                 for key in data:
                     if key in payload_data:
                         data[key] = payload_data[key]
+                if "effective" not in payload_data:
+                    data["effective"] = None
+                if "expires" not in payload_data:
+                    data["expires"] = None
         else:
             data["title"] = (form.get("title") or "").strip()
             data["description"] = (form.get("description") or "").strip()
+            data["effective"] = None
+            data["expires"] = None
         return data, errors
 
     def handle_submit(self):
