@@ -12,6 +12,11 @@
          href="${context/absolute_url}/@@viewer">
         <span i18n:translate="">View</span>
       </a>
+      <a class="survey-action-button action-settings"
+         tal:attributes="class python: 'survey-action-button action-settings' + (' is-active' if current_url.endswith('/@@survey-edit') else '')"
+         href="${context/absolute_url}/@@survey-edit">
+        <span i18n:translate="">Settings</span>
+      </a>
       <tal:pdfform tal:condition="view/pdf_form_available">
         <a class="survey-action-button action-pdf-form"
            tal:attributes="class python: 'survey-action-button action-pdf-form' + (' is-active' if current_url.endswith('/@@pdf-form') else '')"

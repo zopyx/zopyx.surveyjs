@@ -49,19 +49,33 @@
       "name": "page_actions",
       "title": "Actions",
       "elements": [
-       {
-         "type": "checkbox",
-         "name": "actions",
-         "title": "Submission handling",
-         "description": "Pick every workflow that should trigger on submit.",
+        {
+          "type": "checkbox",
+          "name": "actions",
+          "title": "Submission handling",
+          "description": "Pick every workflow that should trigger on submit.",
           "isRequired": true,
           "choices": [
-            { "value": "store", "text": "Store in database" },
-            { "value": "mail", "text": "Mail (with attachments)" },
-            { "value": "mail-notification", "text": "Mail (notification only)" },
-            { "value": "post", "text": "POST to endpoint" }
+            {
+              "value": "store",
+              "text": "Store in database"
+            },
+            {
+              "value": "mail",
+              "text": "Mail (with attachments)"
+            },
+            {
+              "value": "mail-notification",
+              "text": "Mail (notification only)"
+            },
+            {
+              "value": "post",
+              "text": "POST to endpoint"
+            }
           ],
-          "defaultValue": ["store"],
+          "defaultValue": [
+            "store"
+          ],
           "showSelectAllItem": true,
           "minWidth": "100%"
         },
@@ -150,15 +164,42 @@
           "description": "Select which export formats of the collected form data should be attached to the email.",
           "colCount": 3,
           "choices": [
-            { "value": "text", "text": "Text" },
-            { "value": "md", "text": "Markdown" },
-            { "value": "html", "text": "HTML" },
-            { "value": "pdf", "text": "PDF" },
-            { "value": "csv", "text": "CSV" },
-            { "value": "xlsx", "text": "Excel" },
-            { "value": "xml", "text": "XML" },
-            { "value": "docx", "text": "Word" },
-            { "value": "json", "text": "JSON" }
+            {
+              "value": "text",
+              "text": "Text"
+            },
+            {
+              "value": "md",
+              "text": "Markdown"
+            },
+            {
+              "value": "html",
+              "text": "HTML"
+            },
+            {
+              "value": "pdf",
+              "text": "PDF"
+            },
+            {
+              "value": "csv",
+              "text": "CSV"
+            },
+            {
+              "value": "xlsx",
+              "text": "Excel"
+            },
+            {
+              "value": "xml",
+              "text": "XML"
+            },
+            {
+              "value": "docx",
+              "text": "Word"
+            },
+            {
+              "value": "json",
+              "text": "JSON"
+            }
           ],
           "showSelectAllItem": true
         }
@@ -199,13 +240,13 @@
       "title": "Form settings",
       "navigationTitle": "Form settings",
       "elements": [
-       {
-         "type": "boolean",
-         "name": "force_server_side_validation",
-         "title": "Force server-side validation",
-         "description": "Always validate submissions on the server before processing.",
-         "labelTrue": "Enabled",
-         "labelFalse": "Disabled",
+        {
+          "type": "boolean",
+          "name": "force_server_side_validation",
+          "title": "Force server-side validation",
+          "description": "Always validate submissions on the server before processing.",
+          "labelTrue": "Enabled",
+          "labelFalse": "Disabled",
           "defaultValue": true
         },
         {
@@ -225,8 +266,14 @@
           "title": "Access mode",
           "description": "Choose whether the form is public or requires a trusted access token.",
           "choices": [
-            { "value": "public", "text": "Public" },
-            { "value": "trusted", "text": "Trusted token" }
+            {
+              "value": "public",
+              "text": "Public"
+            },
+            {
+              "value": "trusted",
+              "text": "Trusted token"
+            }
           ],
           "defaultValue": "public"
         },
@@ -240,6 +287,34 @@
           "step": 1,
           "defaultValue": 168,
           "width": "120px"
+        }
+      ]
+    },
+    {
+      "name": "page_dates",
+      "title": "Dates",
+      "navigationTitle": "Dates",
+      "description": "Control when this survey becomes visible and when it should expire.",
+      "elements": [
+        {
+          "type": "text",
+          "name": "effective",
+          "title": "Effective",
+          "inputType": "datetime-local",
+          "placeholder": "YYYY-MM-DD HH:MM",
+          "description": "Optional. Leave empty to make the survey effective immediately.",
+          "descriptionLocation": "underTitle",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "expires",
+          "title": "Expires",
+          "inputType": "datetime-local",
+          "placeholder": "YYYY-MM-DD HH:MM",
+          "description": "Optional. Leave empty to keep the survey available.",
+          "descriptionLocation": "underTitle",
+          "minWidth": "100%"
         }
       ]
     }

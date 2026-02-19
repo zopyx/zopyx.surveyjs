@@ -34,6 +34,12 @@
     class=".views.SurveyAddView"
   />
   <browser:page
+    name="survey-edit"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".views.SurveyEditView"
+  />
+  <browser:page
     name="demo-content"
     for="plone.base.interfaces.IPloneSiteRoot"
     permission="cmf.ManagePortal"

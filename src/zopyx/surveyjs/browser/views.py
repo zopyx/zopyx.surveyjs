@@ -85,6 +85,8 @@ SURVEY_ADD_DEFAULT_NOTIFICATION_BODY = (
 SURVEY_ADD_DEFAULTS: dict[str, Any] = {
     "title": "",
     "description": "",
+    "effective": "",
+    "expires": "",
     "actions": ["store"],
     "post_endpoint_url": "",
     "email_sender": "",
@@ -402,6 +404,7 @@ class SurveyAddView(BrowserView):
 
         try:
             survey = plone.api.content.create(**self._build_create_kwargs(data))
+            self._apply_effective_expires(survey, data)
         except Exception:
             logger.exception("Survey creation failed: context=%s", self.context)
             self._errors.append(
@@ -437,7 +440,7 @@ class SurveyAddView(BrowserView):
             data["description"] = (form.get("description") or "").strip()
         return data, errors
 
-    def _build_create_kwargs(self, data: dict[str, Any]) -> dict[str, Any]:
+    def _build_survey_fields(self, data: dict[str, Any]) -> dict[str, Any]:
         actions = self._ensure_list(data.get("actions")) or ["store"]
         email_formats = self._ensure_list(data.get("email_formats"))
         email_cc = self._split_lines(data.get("email_cc"))
@@ -447,8 +450,6 @@ class SurveyAddView(BrowserView):
         force_validation = bool(data.get("force_server_side_validation", True))
 
         return {
-            "container": self.context,
-            "type": "Survey",
             "title": data.get("title", ""),
             "description": data.get("description", ""),
             "actions": set(actions),
@@ -467,6 +468,11 @@ class SurveyAddView(BrowserView):
             "access_mode": data.get("access_mode") or "public",
             "trusted_access_ttl_hours": ttl,
         }
+
+    def _build_create_kwargs(self, data: dict[str, Any]) -> dict[str, Any]:
+        payload = self._build_survey_fields(data)
+        payload.update({"container": self.context, "type": "Survey"})
+        return payload
 
     def _ensure_list(self, value: Any) -> list[str]:
         if value is None:
@@ -496,6 +502,207 @@ class SurveyAddView(BrowserView):
         if candidate < 1:
             return default
         return candidate
+
+    def _parse_datetime_value(self, value: Any) -> datetime | None:
+        if value is None:
+            return None
+        if isinstance(value, datetime):
+            return ensure_timezone_aware(value)
+        text = str(value).strip()
+        if not text:
+            return None
+        text = text.replace(" ", "T")
+        if text.endswith("Z"):
+            text = text[:-1] + "+00:00"
+        if len(text) == 10:
+            text = f"{text}T00:00"
+        try:
+            parsed = datetime.fromisoformat(text)
+        except ValueError:
+            return None
+        return ensure_timezone_aware(parsed)
+
+    def _format_datetime_value(self, value: Any) -> str:
+        if callable(value):
+            value = value()
+        if value is None:
+            return ""
+        if isinstance(value, str) and value.strip().lower() in {"none", "null"}:
+            return ""
+        if not value:
+            return ""
+        if hasattr(value, "ISO"):
+            text = value.ISO()
+        elif hasattr(value, "isoformat"):
+            try:
+                text = value.isoformat(timespec="minutes")
+            except Exception:
+                text = str(value)
+        else:
+            text = str(value)
+        match = re.match(r"^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})", text)
+        if match:
+            return f"{match.group(1)}T{match.group(2)}"
+        return ""
+
+    def _get_effective_value(self, survey) -> Any:
+        value = getattr(survey, "effective", None)
+        return value() if callable(value) else value
+
+    def _get_expires_value(self, survey) -> Any:
+        value = getattr(survey, "expires", None)
+        return value() if callable(value) else value
+
+    def _apply_effective_expires(self, survey, data: dict[str, Any]) -> None:
+        effective = self._parse_datetime_value(data.get("effective"))
+        expires = self._parse_datetime_value(data.get("expires"))
+        self._normalize_dublincore_dates(survey)
+        survey.setEffectiveDate(effective)
+        survey.setExpirationDate(expires)
+        survey.reindexObject(idxs=["effective", "expires"])
+
+    def _normalize_dublincore_dates(self, survey) -> None:
+        for field_name, setter_name in (
+            ("effective", "setEffectiveDate"),
+            ("expires", "setExpirationDate"),
+        ):
+            value = getattr(survey, field_name, None)
+            if callable(value):
+                continue
+            if hasattr(survey, field_name):
+                try:
+                    delattr(survey, field_name)
+                except Exception:
+                    pass
+            if value:
+                try:
+                    getattr(survey, setter_name)(value)
+                except Exception:
+                    continue
+
+
+class SurveyEditView(SurveyAddView):
+    """Survey settings editor based on the add wizard."""
+
+    index = ViewPageTemplateFile("survey_edit.pt")
+
+    def __call__(self):
+        if not self.can_edit:
+            self.request.response.setStatus(403)
+            return _("You are not allowed to edit this survey.")
+
+        self._normalize_dublincore_dates(self.context)
+
+        if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            return self.handle_submit()
+        return self.index()
+
+    @property
+    def can_edit(self) -> bool:
+        return plone.api.user.has_permission(
+            "cmf.ModifyPortalContent", obj=self.context
+        )
+
+    @property
+    def form_values(self) -> dict[str, Any]:
+        if not self._form_values:
+            data = deepcopy(SURVEY_ADD_DEFAULTS)
+            data.update(self._extract_context_values())
+            self._form_values = data
+        return self._form_values
+
+    def _extract_context_values(self) -> dict[str, Any]:
+        survey = self.context
+        force_validation = getattr(survey, "force_server_side_validation", True)
+        max_payload = getattr(survey, "max_payload_size_mb", 1)
+        access_mode = getattr(survey, "access_mode", "public") or "public"
+        ttl = getattr(survey, "trusted_access_ttl_hours", 168)
+
+        return {
+            "title": getattr(survey, "title", "") or "",
+            "description": getattr(survey, "description", "") or "",
+            "effective": self._format_datetime_value(self._get_effective_value(survey)),
+            "expires": self._format_datetime_value(self._get_expires_value(survey)),
+            "actions": list(getattr(survey, "actions", []) or []),
+            "post_endpoint_url": getattr(survey, "post_endpoint_url", None) or "",
+            "email_sender": getattr(survey, "email_sender", None) or "",
+            "email_subject": getattr(survey, "email_subject", None) or "",
+            "email_to": getattr(survey, "email_to", None) or "",
+            "email_cc": "\n".join(getattr(survey, "email_cc", []) or []),
+            "email_bcc": "\n".join(getattr(survey, "email_bcc", []) or []),
+            "email_formats": list(getattr(survey, "email_formats", []) or []),
+            "email_body": getattr(survey, "email_body", None) or "",
+            "email_notification_subject": getattr(
+                survey, "email_notification_subject", None
+            )
+            or "",
+            "email_notification_body": getattr(survey, "email_notification_body", None)
+            or "",
+            "force_server_side_validation": True
+            if force_validation is None
+            else bool(force_validation),
+            "max_payload_size_mb": max_payload or 1,
+            "access_mode": access_mode,
+            "trusted_access_ttl_hours": ttl or 168,
+        }
+
+    def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
+        data = deepcopy(SURVEY_ADD_DEFAULTS)
+        data.update(self._extract_context_values())
+        errors: list[str] = []
+        form = self.request.form
+        payload = form.get("payload")
+        if payload:
+            try:
+                payload_data = orjson.loads(payload)
+            except orjson.JSONDecodeError:
+                errors.append(_("We could not read the submitted form data."))
+            else:
+                for key in data:
+                    if key in payload_data:
+                        data[key] = payload_data[key]
+        else:
+            data["title"] = (form.get("title") or "").strip()
+            data["description"] = (form.get("description") or "").strip()
+        return data, errors
+
+    def handle_submit(self):
+        data, extraction_errors = self._extract_form_data()
+        self._form_values = data
+        self._errors = list(extraction_errors)
+
+        title = (data.get("title") or "").strip()
+        if not title:
+            self._errors.append(_("Please provide a title for your survey."))
+
+        actions = self._ensure_list(data.get("actions"))
+        if not actions:
+            self._errors.append(_("Select at least one submission handling option."))
+
+        if self._errors:
+            self.request.response.setStatus(400)
+            return self.index()
+
+        try:
+            updates = self._build_survey_fields(data)
+            for key, value in updates.items():
+                setattr(self.context, key, value)
+            self._apply_effective_expires(self.context, data)
+            self.context.reindexObject()
+        except Exception:
+            logger.exception("Survey update failed: context=%s", self.context)
+            self._errors.append(
+                _("We could not update the survey at the moment. Please try again.")
+            )
+            self.request.response.setStatus(500)
+            return self.index()
+
+        plone.api.portal.show_message(
+            _("Survey updated."),
+            request=self.request,
+            type="info",
+        )
+        return self.request.response.redirect(self.context.absolute_url())
 
 
 def _extract_json_object(raw_text: str) -> str | None:
