@@ -635,9 +635,7 @@ class SurveyEditView(SurveyAddView):
 
     @property
     def can_edit(self) -> bool:
-        return plone.api.user.has_permission(
-            "cmf.ModifyPortalContent", obj=self.context
-        )
+        return plone.api.user.has_permission("Modify portal content", obj=self.context)
 
     @property
     def form_values(self) -> dict[str, Any]:
