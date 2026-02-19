@@ -15,7 +15,7 @@
       <a class="survey-action-button action-settings"
          tal:attributes="class python: 'survey-action-button action-settings' + (' is-active' if current_url.endswith('/@@survey-edit') else '')"
          href="${context/absolute_url}/@@survey-edit">
-        <span i18n:translate="">Settings</span>
+        <span i18n:translate="">Metadata</span>
       </a>
       <tal:pdfform tal:condition="view/pdf_form_available">
         <a class="survey-action-button action-pdf-form"
