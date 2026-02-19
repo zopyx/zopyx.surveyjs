@@ -1,0 +1,323 @@
+{
+  "title": "Update survey settings",
+  "description": "Adjust the form title, submission handling, mail settings, and validation/access rules for this survey.",
+  "logoPosition": "right",
+  "questionErrorLocation": "bottom",
+  "showQuestionNumbers": "off",
+  "showTitle": true,
+  "fitToContainer": false,
+  "checkErrorsMode": "onComplete",
+  "showNavigationButtons": "bottom",
+  "showCompleteButton": false,
+  "showTOC": true,
+  "progressBarType": "buttons",
+  "goNextPageAutomatic": false,
+  "requiredText": "",
+  "completeText": "Continue",
+  "pages": [
+    {
+      "name": "page_basics",
+      "title": "Basics",
+      "navigationTitle": "Basics",
+      "elements": [
+        {
+          "type": "text",
+          "name": "title",
+          "title": "Title of form",
+          "placeholder": "Data access request form",
+          "isRequired": true,
+          "maxLength": 120,
+          "autofocus": true,
+          "minWidth": "100%",
+          "description": "Internal and public name of the form.",
+          "descriptionLocation": "underTitle"
+        },
+        {
+          "type": "comment",
+          "name": "description",
+          "title": "Form description",
+          "placeholder": "Explain purpose, audience, and submission context.",
+          "rows": 3,
+          "maxLength": 480,
+          "minWidth": "100%",
+          "description": "Optional helper text shown with the form.",
+          "descriptionLocation": "underTitle"
+        }
+      ]
+    },
+    {
+      "name": "page_actions",
+      "title": "Actions",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "actions",
+          "title": "Submission handling",
+          "description": "Pick every workflow that should trigger on submit.",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "store",
+              "text": "Store in database"
+            },
+            {
+              "value": "mail",
+              "text": "Mail (with attachments)"
+            },
+            {
+              "value": "mail-notification",
+              "text": "Mail (notification only)"
+            },
+            {
+              "value": "post",
+              "text": "POST to endpoint"
+            }
+          ],
+          "defaultValue": [
+            "store"
+          ],
+          "showSelectAllItem": true,
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "post_endpoint_url",
+          "title": "POST endpoint URL",
+          "inputType": "url",
+          "placeholder": "https://example.org/api/collector",
+          "visibleIf": "{actions} contains 'post'",
+          "description": "Submissions will be sent as JSON when POST is enabled.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "html",
+          "name": "actions_help",
+          "html": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>"
+        }
+      ]
+    },
+    {
+      "name": "page_mail",
+      "title": "Mail",
+      "navigationTitle": "Mail",
+      "description": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
+      "elements": [
+        {
+          "type": "text",
+          "name": "email_sender",
+          "title": "Sender",
+          "inputType": "email",
+          "placeholder": "privacy@agency.example",
+          "description": "Required when sending result emails.",
+          "width": "50%"
+        },
+        {
+          "type": "text",
+          "name": "email_to",
+          "title": "Recipient",
+          "inputType": "email",
+          "placeholder": "ops@agency.example",
+          "description": "Primary recipient. Required with Mail action.",
+          "width": "50%",
+          "startWithNewLine": false
+        },
+        {
+          "type": "comment",
+          "name": "email_cc",
+          "title": "CC",
+          "placeholder": "One recipient per line",
+          "rows": 2,
+          "description": "Optional list of CC recipients.",
+          "width": "50%"
+        },
+        {
+          "type": "comment",
+          "name": "email_bcc",
+          "title": "BCC",
+          "placeholder": "One recipient per line",
+          "rows": 2,
+          "description": "Optional list of BCC recipients.",
+          "width": "50%",
+          "startWithNewLine": false
+        },
+        {
+          "type": "text",
+          "name": "email_subject",
+          "title": "Subject",
+          "placeholder": "New submission ({poll_id})",
+          "description": "Subject for result exports.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "comment",
+          "name": "email_body",
+          "title": "Email body",
+          "rows": 5,
+          "placeholder": "Provide the email text...",
+          "description": "Optional body for result exports.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "checkbox",
+          "name": "email_formats",
+          "title": "Attachments",
+          "description": "Select which export formats of the collected form data should be attached to the email.",
+          "colCount": 3,
+          "choices": [
+            {
+              "value": "text",
+              "text": "Text"
+            },
+            {
+              "value": "md",
+              "text": "Markdown"
+            },
+            {
+              "value": "html",
+              "text": "HTML"
+            },
+            {
+              "value": "pdf",
+              "text": "PDF"
+            },
+            {
+              "value": "csv",
+              "text": "CSV"
+            },
+            {
+              "value": "xlsx",
+              "text": "Excel"
+            },
+            {
+              "value": "xml",
+              "text": "XML"
+            },
+            {
+              "value": "docx",
+              "text": "Word"
+            },
+            {
+              "value": "json",
+              "text": "JSON"
+            }
+          ],
+          "showSelectAllItem": true
+        }
+      ]
+    },
+    {
+      "name": "page_mail_notifications",
+      "title": "Mail notifications",
+      "navigationTitle": "Mail notifications",
+      "description": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
+      "elements": [
+        {
+          "type": "text",
+          "name": "email_notification_subject",
+          "title": "Notification subject",
+          "placeholder": "Form submitted ({title})",
+          "description": "Subject line for notification-only emails.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "comment",
+          "name": "email_notification_body",
+          "title": "Notification body",
+          "rows": 15,
+          "placeholder": "Hello...",
+          "description": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
+          "minWidth": "100%"
+        },
+        {
+          "type": "html",
+          "name": "mail_notification_placeholders_help",
+          "html": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>"
+        }
+      ]
+    },
+    {
+      "name": "page_form_settings",
+      "title": "Form settings",
+      "navigationTitle": "Form settings",
+      "elements": [
+        {
+          "type": "boolean",
+          "name": "force_server_side_validation",
+          "title": "Force server-side validation",
+          "description": "Always validate submissions on the server before processing.",
+          "labelTrue": "Enabled",
+          "labelFalse": "Disabled",
+          "defaultValue": true
+        },
+        {
+          "type": "text",
+          "name": "max_payload_size_mb",
+          "title": "Max payload size (MB)",
+          "description": "Maximum accepted request size for one submission.",
+          "inputType": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 1,
+          "width": "120px"
+        },
+        {
+          "type": "dropdown",
+          "name": "access_mode",
+          "title": "Access mode",
+          "description": "Choose whether the form is public or requires a trusted access token.",
+          "choices": [
+            {
+              "value": "public",
+              "text": "Public"
+            },
+            {
+              "value": "trusted",
+              "text": "Trusted token"
+            }
+          ],
+          "defaultValue": "public"
+        },
+        {
+          "type": "text",
+          "name": "trusted_access_ttl_hours",
+          "title": "Trusted token lifetime (hours)",
+          "description": "How long trusted access tokens remain valid.",
+          "inputType": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 168,
+          "width": "120px"
+        }
+      ]
+    },
+    {
+      "name": "page_dates",
+      "title": "Dates",
+      "navigationTitle": "Dates",
+      "description": "Control when this survey becomes visible and when it should expire.",
+      "elements": [
+        {
+          "type": "text",
+          "name": "effective",
+          "title": "Effective",
+          "inputType": "datetime-local",
+          "placeholder": "YYYY-MM-DD HH:MM",
+          "description": "Optional. Leave empty to make the survey effective immediately.",
+          "descriptionLocation": "underTitle",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "expires",
+          "title": "Expires",
+          "inputType": "datetime-local",
+          "placeholder": "YYYY-MM-DD HH:MM",
+          "description": "Optional. Leave empty to keep the survey available.",
+          "descriptionLocation": "underTitle",
+          "minWidth": "100%"
+        }
+      ]
+    }
+  ],
+  "completedHtml": "<div class='survey-add-loading'>Saving your changes...</div>"
+}
