@@ -44,9 +44,9 @@
       <div class="survey-header-top">
         <div class="survey-header-main">
           <div class="survey-header-view">
-            <div class="page-headline" i18n:translate="">View Template</div>
+              <div class="page-headline" i18n:translate="">View form/survey template</div>
             <div class="page-subtitle" i18n:translate="">
-              Preview the SurveyJS template.
+                Preview the form/surveey template.
             </div>
           </div>
           <div class="survey-form-meta">

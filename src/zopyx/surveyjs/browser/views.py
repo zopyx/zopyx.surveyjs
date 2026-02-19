@@ -2355,12 +2355,7 @@ class Views(BrowserView):
             )
 
         try:
-            description = ""
-            description_attr = getattr(self.context, "Description", None)
-            if callable(description_attr):
-                description = description_attr() or ""
-            else:
-                description = getattr(self.context, "description", "") or ""
+            description = self.context.Description()
 
             template_json = orjson.dumps(
                 version_data["form_json"], option=orjson.OPT_INDENT_2
@@ -2371,15 +2366,17 @@ class Views(BrowserView):
                 type="SurveyTemplate",
                 title=title,
                 description=description,
-                template_json=template_json,
             )
+            template.template_json = template_json
             for schema in iterSchemata(self.context):
                 for name, field in getFieldsInOrder(schema):
-                    if getattr(field, "readonly", False):
+                    if name in ["id", "title", "description"]:
                         continue
-                    if not hasattr(self.context, name) or not hasattr(template, name):
-                        continue
-                    setattr(template, name, getattr(self.context, name))
+                    v = self.context.__dict__.get(name, object)
+                    if v is not object:
+                        setattr(template, name, v) 
+
+            template.reindexObject()
         except Exception as exc:
             plone.api.portal.show_message(
                 _("Failed to create template: ${error}", mapping={"error": str(exc)}),
@@ -2388,7 +2385,6 @@ class Views(BrowserView):
             return self.request.response.redirect(
                 self.context.absolute_url() + "/@@form-versions"
             )
-
         plone.api.portal.show_message(_("Template created successfully."), type="info")
         return self.request.response.redirect(template.absolute_url())
 

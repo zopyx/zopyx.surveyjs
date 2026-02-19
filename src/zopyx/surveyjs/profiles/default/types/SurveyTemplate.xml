@@ -6,10 +6,10 @@
 
   <property
       i18n:translate=""
-      name="title">Survey Template</property>
+      name="title">Form/Survey Template</property>
   <property
       i18n:translate=""
-      name="description">Survey Template</property>
+      name="description">Form/Survey Template</property>
 
   <property name="allow_discussion">False</property>
   <property name="factory">SurveyTemplate</property>
