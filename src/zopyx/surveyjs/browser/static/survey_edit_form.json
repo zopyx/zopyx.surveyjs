@@ -3,15 +3,21 @@
     "default": "Update form/survey metadata",
     "de": "Formular-/Umfragemetadaten aktualisieren",
     "en": "Update form/survey metadata",
+    "es": "Actualizar metadatos del formulario/encuesta",
     "fr": "Mettre à jour les métadonnées du formulaire/sondage",
-    "it": "Aggiornare i metadati del modulo/sondaggio"
+    "it": "Aggiornare i metadati del modulo/sondaggio",
+    "pt": "Atualizar metadados do formulário/pesquisa",
+    "fi": "Päivitä lomakkeen/kyselyn metatiedot"
   },
   "description": {
     "default": "Adjust the form title, submission handling, mail settings, and validation/access rules for this survey.",
     "de": "Passen Sie den Formular-Titel, die Einreichungsverarbeitung, die Mail-Einstellungen sowie Validierungs-/Zugriffsregeln für diese Umfrage an.",
     "en": "Adjust the form title, submission handling, mail settings, and validation/access rules for this survey.",
+    "es": "Ajuste el título del formulario, la gestión de envíos, la configuración de correo y las reglas de validación/acceso para esta encuesta.",
     "fr": "Ajustez le titre du formulaire, le traitement des soumissions, les paramètres d’e-mail et les règles de validation/d’accès pour ce sondage.",
-    "it": "Regola il titolo del modulo, la gestione degli invii, le impostazioni e-mail e le regole di validazione/accesso per questo sondaggio."
+    "it": "Regola il titolo del modulo, la gestione degli invii, le impostazioni e-mail e le regole di validazione/accesso per questo sondaggio.",
+    "pt": "Ajuste o título do formulário, o tratamento de envios, as configurações de e-mail e as regras de validação/acesso para esta pesquisa.",
+    "fi": "Säädä lomakkeen otsikkoa, lähetyskäsittelyä, sähköpostiasetuksia ja tämän kyselyn validointi-/käyttösääntöjä."
   },
   "logoPosition": "right",
   "questionErrorLocation": "bottom",
@@ -29,8 +35,11 @@
     "default": "Continue",
     "de": "Weiter",
     "en": "Continue",
+    "es": "Continuar",
     "fr": "Continuer",
-    "it": "Continua"
+    "it": "Continua",
+    "pt": "Continuar",
+    "fi": "Jatka"
   },
   "pages": [
     {
@@ -39,15 +48,21 @@
         "default": "Basics",
         "de": "Grundlagen",
         "en": "Basics",
+        "es": "Conceptos básicos",
         "fr": "Notions de base",
-        "it": "Basi"
+        "it": "Basi",
+        "pt": "Noções básicas",
+        "fi": "Perustiedot"
       },
       "navigationTitle": {
         "default": "Basics",
         "de": "Grundlagen",
         "en": "Basics",
+        "es": "Conceptos básicos",
         "fr": "Notions de base",
-        "it": "Basi"
+        "it": "Basi",
+        "pt": "Noções básicas",
+        "fi": "Perustiedot"
       },
       "elements": [
         {
@@ -57,15 +72,21 @@
             "default": "Title of form",
             "de": "Titel des Formulars",
             "en": "Title of form",
+            "es": "Título del formulario",
             "fr": "Titre du formulaire",
-            "it": "Titolo del modulo"
+            "it": "Titolo del modulo",
+            "pt": "Título do formulário",
+            "fi": "Lomakkeen otsikko"
           },
           "placeholder": {
             "default": "Data access request form",
             "de": "Formular für Datenzugriffsanfrage",
             "en": "Data access request form",
+            "es": "Formulario de solicitud de acceso a datos",
             "fr": "Formulaire de demande d’accès aux données",
-            "it": "Modulo di richiesta di accesso ai dati"
+            "it": "Modulo di richiesta di accesso ai dati",
+            "pt": "Formulário de solicitação de acesso a dados",
+            "fi": "Tietojen käyttöpyyntölomake"
           },
           "isRequired": true,
           "maxLength": 120,
@@ -75,8 +96,11 @@
             "default": "Internal and public name of the form.",
             "de": "Interner und öffentlicher Name des Formulars.",
             "en": "Internal and public name of the form.",
+            "es": "Nombre interno y público del formulario.",
             "fr": "Nom interne et public du formulaire.",
-            "it": "Nome interno e pubblico del modulo."
+            "it": "Nome interno e pubblico del modulo.",
+            "pt": "Nome interno e público do formulário.",
+            "fi": "Lomakkeen sisäinen ja julkinen nimi."
           },
           "descriptionLocation": "underTitle"
         },
@@ -87,15 +111,21 @@
             "default": "Form description",
             "de": "Formularbeschreibung",
             "en": "Form description",
+            "es": "Descripción del formulario",
             "fr": "Description du formulaire",
-            "it": "Descrizione del modulo"
+            "it": "Descrizione del modulo",
+            "pt": "Descrição do formulário",
+            "fi": "Lomakkeen kuvaus"
           },
           "placeholder": {
             "default": "Explain purpose, audience, and submission context.",
             "de": "Zweck, Zielgruppe und Einreichungskontext erläutern.",
             "en": "Explain purpose, audience, and submission context.",
+            "es": "Explique el propósito, la audiencia y el contexto del envío.",
             "fr": "Expliquez l’objectif, le public et le contexte de soumission.",
-            "it": "Spiega scopo, pubblico e contesto di invio."
+            "it": "Spiega scopo, pubblico e contesto di invio.",
+            "pt": "Explique o propósito, o público e o contexto do envio.",
+            "fi": "Kuvaa tarkoitus, kohdeyleisö ja lähetyskonteksti."
           },
           "rows": 3,
           "maxLength": 480,
@@ -104,8 +134,11 @@
             "default": "Optional helper text shown with the form.",
             "de": "Optionaler Hilfetext, der beim Formular angezeigt wird.",
             "en": "Optional helper text shown with the form.",
+            "es": "Texto de ayuda opcional que se muestra con el formulario.",
             "fr": "Texte d’aide optionnel affiché avec le formulaire.",
-            "it": "Testo di aiuto opzionale mostrato con il modulo."
+            "it": "Testo di aiuto opzionale mostrato con il modulo.",
+            "pt": "Texto de ajuda opcional exibido com o formulário.",
+            "fi": "Valinnainen ohjeteksti, joka näytetään lomakkeen yhteydessä."
           },
           "descriptionLocation": "underTitle"
         }
@@ -117,8 +150,11 @@
         "default": "Actions",
         "de": "Aktionen",
         "en": "Actions",
+        "es": "Acciones",
         "fr": "Actions",
-        "it": "Azioni"
+        "it": "Azioni",
+        "pt": "Ações",
+        "fi": "Toiminnot"
       },
       "elements": [
         {
@@ -128,15 +164,21 @@
             "default": "Submission handling",
             "de": "Einreichungsverarbeitung",
             "en": "Submission handling",
+            "es": "Gestión de envíos",
             "fr": "Traitement des soumissions",
-            "it": "Gestione degli invii"
+            "it": "Gestione degli invii",
+            "pt": "Gestão de envios",
+            "fi": "Lähetysten käsittely"
           },
           "description": {
             "default": "Pick every workflow that should trigger on submit.",
             "de": "Wählen Sie alle Workflows aus, die beim Absenden ausgelöst werden sollen.",
             "en": "Pick every workflow that should trigger on submit.",
+            "es": "Seleccione todos los flujos de trabajo que deben activarse al enviar.",
             "fr": "Sélectionnez tous les workflows à déclencher lors de l’envoi.",
-            "it": "Seleziona tutti i flussi di lavoro da attivare all’invio."
+            "it": "Seleziona tutti i flussi di lavoro da attivare all’invio.",
+            "pt": "Selecione todos os fluxos de trabalho que devem ser acionados ao enviar.",
+            "fi": "Valitse kaikki työnkulut, jotka käynnistyvät lähetettäessä."
           },
           "isRequired": true,
           "choices": [
@@ -146,8 +188,11 @@
                 "default": "Store in database",
                 "de": "In Datenbank speichern",
                 "en": "Store in database",
+                "es": "Guardar en la base de datos",
                 "fr": "Enregistrer dans la base de données",
-                "it": "Salva nel database"
+                "it": "Salva nel database",
+                "pt": "Guardar na base de dados",
+                "fi": "Tallenna tietokantaan"
               }
             },
             {
@@ -156,8 +201,11 @@
                 "default": "Mail (with attachments)",
                 "de": "E-Mail (mit Anhängen)",
                 "en": "Mail (with attachments)",
+                "es": "Correo (con adjuntos)",
                 "fr": "E-mail (avec pièces jointes)",
-                "it": "E-mail (con allegati)"
+                "it": "E-mail (con allegati)",
+                "pt": "E-mail (com anexos)",
+                "fi": "Sähköposti (liitteillä)"
               }
             },
             {
@@ -166,8 +214,11 @@
                 "default": "Mail (notification only)",
                 "de": "E-Mail (nur Benachrichtigung)",
                 "en": "Mail (notification only)",
+                "es": "Correo (solo notificación)",
                 "fr": "E-mail (notification uniquement)",
-                "it": "E-mail (solo notifica)"
+                "it": "E-mail (solo notifica)",
+                "pt": "E-mail (somente notificação)",
+                "fi": "Sähköposti (vain ilmoitus)"
               }
             },
             {
@@ -176,8 +227,11 @@
                 "default": "POST to endpoint",
                 "de": "POST an Endpunkt",
                 "en": "POST to endpoint",
+                "es": "POST al endpoint",
                 "fr": "POST vers un endpoint",
-                "it": "POST a un endpoint"
+                "it": "POST a un endpoint",
+                "pt": "POST para endpoint",
+                "fi": "POST päätepisteeseen"
               }
             }
           ],
@@ -194,8 +248,11 @@
             "default": "POST endpoint URL",
             "de": "POST-Endpunkt-URL",
             "en": "POST endpoint URL",
+            "es": "URL del endpoint POST",
             "fr": "URL de l’endpoint POST",
-            "it": "URL dell’endpoint POST"
+            "it": "URL dell’endpoint POST",
+            "pt": "URL do endpoint POST",
+            "fi": "POST-päätepisteen URL"
           },
           "inputType": "url",
           "placeholder": "https://example.org/api/collector",
@@ -204,8 +261,11 @@
             "default": "Submissions will be sent as JSON when POST is enabled.",
             "de": "Einreichungen werden als JSON gesendet, wenn POST aktiviert ist.",
             "en": "Submissions will be sent as JSON when POST is enabled.",
+            "es": "Los envíos se enviarán como JSON cuando POST esté habilitado.",
             "fr": "Les soumissions seront envoyées en JSON lorsque POST est activé.",
-            "it": "Gli invii verranno inviati come JSON quando POST è abilitato."
+            "it": "Gli invii verranno inviati come JSON quando POST è abilitato.",
+            "pt": "Os envios serão enviados como JSON quando o POST estiver ativado.",
+            "fi": "Lähetykset lähetetään JSONina, kun POST on käytössä."
           },
           "minWidth": "100%"
         },
@@ -216,8 +276,11 @@
             "default": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>",
             "de": "<div><strong>Aktionstypen erklärt</strong><ul><li><strong>In Datenbank speichern:</strong> Speichert jede Einreichung in der konfigurierten Ablage, entweder in Plone (ZODB) oder in einer externen relationalen Datenbank.</li><li><strong>E-Mail (mit Anhängen):</strong> Sendet eine E-Mail und hängt ausgewählte Exportformate an.</li><li><strong>E-Mail (nur Benachrichtigung):</strong> Sendet eine kurze Benachrichtigungs-E-Mail ohne Ergebnisanhänge.</li><li><strong>POST an Endpunkt:</strong> Sendet Einreichungsdaten als JSON an die konfigurierte externe URL.</li><li><strong>Alle auswählen:</strong> Aktiviert schnell alle verfügbaren Aktionstypen oben.</li></ul></div>",
             "en": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>",
+            "es": "<div><strong>Tipos de acción explicados</strong><ul><li><strong>Guardar en la base de datos:</strong> Guarda cada envío en el almacenamiento configurado, ya sea dentro de Plone (ZODB) o en una base de datos relacional externa.</li><li><strong>Correo (con adjuntos):</strong> Envía un correo y adjunta los formatos de exportación seleccionados.</li><li><strong>Correo (solo notificación):</strong> Envía un correo de notificación ligero sin adjuntos de resultados.</li><li><strong>POST al endpoint:</strong> Envía los datos del envío como JSON a la URL externa configurada.</li><li><strong>Seleccionar todo:</strong> Activa rápidamente todos los tipos de acción disponibles arriba.</li></ul></div>",
             "fr": "<div><strong>Types d’actions expliqués</strong><ul><li><strong>Enregistrer dans la base de données :</strong> Enregistre chaque soumission dans le stockage configuré, soit dans Plone (ZODB), soit dans une base de données relationnelle externe.</li><li><strong>E-mail (avec pièces jointes) :</strong> Envoie un e-mail et joint les formats d’export sélectionnés.</li><li><strong>E-mail (notification uniquement) :</strong> Envoie un e-mail de notification léger sans pièces jointes des résultats.</li><li><strong>POST vers un endpoint :</strong> Envoie les données de soumission en JSON vers l’URL externe configurée.</li><li><strong>Tout sélectionner :</strong> Active rapidement tous les types d’actions disponibles ci-dessus.</li></ul></div>",
-            "it": "<div><strong>Tipi di azione spiegati</strong><ul><li><strong>Salva nel database:</strong> Salva ogni invio nell’archiviazione configurata, in Plone (ZODB) o in un database relazionale esterno.</li><li><strong>E-mail (con allegati):</strong> Invia un’e-mail e allega i formati di export selezionati.</li><li><strong>E-mail (solo notifica):</strong> Invia una breve e-mail di notifica senza allegati dei risultati.</li><li><strong>POST a un endpoint:</strong> Invia i dati di invio come JSON all’URL esterno configurato.</li><li><strong>Seleziona tutto:</strong> Attiva rapidamente tutti i tipi di azione disponibili sopra.</li></ul></div>"
+            "it": "<div><strong>Tipi di azione spiegati</strong><ul><li><strong>Salva nel database:</strong> Salva ogni invio nell’archiviazione configurata, in Plone (ZODB) o in un database relazionale esterno.</li><li><strong>E-mail (con allegati):</strong> Invia un’e-mail e allega i formati di export selezionati.</li><li><strong>E-mail (solo notifica):</strong> Invia una breve e-mail di notifica senza allegati dei risultati.</li><li><strong>POST a un endpoint:</strong> Invia i dati di invio come JSON all’URL esterno configurato.</li><li><strong>Seleziona tutto:</strong> Attiva rapidamente tutti i tipi di azione disponibili sopra.</li></ul></div>",
+            "pt": "<div><strong>Tipos de ação explicados</strong><ul><li><strong>Guardar na base de dados:</strong> Guarda cada envio no armazenamento configurado, seja no Plone (ZODB) ou em um banco de dados relacional externo.</li><li><strong>E-mail (com anexos):</strong> Envia um e-mail e anexa os formatos de exportação selecionados.</li><li><strong>E-mail (somente notificação):</strong> Envia um e-mail de notificação leve sem anexos de resultados.</li><li><strong>POST para endpoint:</strong> Envia os dados do envio como JSON para a URL externa configurada.</li><li><strong>Selecionar tudo:</strong> Ativa rapidamente todos os tipos de ação disponíveis acima.</li></ul></div>",
+            "fi": "<div><strong>Toimintotyypit selitetty</strong><ul><li><strong>Tallenna tietokantaan:</strong> Tallentaa jokaisen lähetyksen määritettyyn tallennukseen, joko Plonen (ZODB) sisällä tai ulkoiseen relaatiotietokantaan.</li><li><strong>Sähköposti (liitteillä):</strong> Lähettää sähköpostin ja liittää valitut vientimuodot.</li><li><strong>Sähköposti (vain ilmoitus):</strong> Lähettää kevyen ilmoitussähköpostin ilman tulosliitteitä.</li><li><strong>POST päätepisteeseen:</strong> Lähettää lähetyksen tiedot JSONina määritettyyn ulkoiseen URL-osoitteeseen.</li><li><strong>Valitse kaikki:</strong> Ottaa nopeasti käyttöön kaikki yllä olevat toimintotyypit.</li></ul></div>"
           }
         }
       ]
@@ -228,22 +291,31 @@
         "default": "Mail",
         "de": "E-Mail",
         "en": "Mail",
+        "es": "Correo",
         "fr": "E-mail",
-        "it": "E-mail"
+        "it": "E-mail",
+        "pt": "E-mail",
+        "fi": "Sähköposti"
       },
       "navigationTitle": {
         "default": "Mail",
         "de": "E-Mail",
         "en": "Mail",
+        "es": "Correo",
         "fr": "E-mail",
-        "it": "E-mail"
+        "it": "E-mail",
+        "pt": "E-mail",
+        "fi": "Sähköposti"
       },
       "description": {
         "default": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
         "de": "Konfigurieren Sie Absender, Empfänger, Inhalt und Anhänge, die verwendet werden, wenn die Aktion \"E-Mail (mit Anhängen)\" aktiviert ist.",
         "en": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
+        "es": "Configure el remitente, los destinatarios, el contenido y los adjuntos utilizados cuando la acción \"Correo (con adjuntos)\" está habilitada.",
         "fr": "Configurez l’expéditeur, les destinataires, le contenu et les pièces jointes utilisés lorsque l’action \"E-mail (avec pièces jointes)\" est activée.",
-        "it": "Configura mittente, destinatari, contenuto e allegati usati quando è abilitata l’azione \"E-mail (con allegati)\"."
+        "it": "Configura mittente, destinatari, contenuto e allegati usati quando è abilitata l’azione \"E-mail (con allegati)\".",
+        "pt": "Configure o remetente, os destinatários, o conteúdo e os anexos usados quando a ação \"E-mail (com anexos)\" estiver ativada.",
+        "fi": "Määritä lähettäjä, vastaanottajat, sisältö ja liitteet, kun toiminto \"Sähköposti (liitteillä)\" on käytössä."
       },
       "elements": [
         {
@@ -253,8 +325,11 @@
             "default": "Sender",
             "de": "Absender",
             "en": "Sender",
+            "es": "Remitente",
             "fr": "Expéditeur",
-            "it": "Mittente"
+            "it": "Mittente",
+            "pt": "Remetente",
+            "fi": "Lähettäjä"
           },
           "inputType": "email",
           "placeholder": "privacy@agency.example",
@@ -262,8 +337,11 @@
             "default": "Required when sending result emails.",
             "de": "Erforderlich beim Versand von Ergebnis-E-Mails.",
             "en": "Required when sending result emails.",
+            "es": "Obligatorio al enviar correos con resultados.",
             "fr": "Obligatoire lors de l’envoi des e-mails de résultats.",
-            "it": "Obbligatorio per l’invio delle e-mail dei risultati."
+            "it": "Obbligatorio per l’invio delle e-mail dei risultati.",
+            "pt": "Obrigatório ao enviar e-mails de resultados.",
+            "fi": "Pakollinen tulossähköposteja lähetettäessä."
           },
           "width": "50%"
         },
@@ -274,8 +352,11 @@
             "default": "Recipient",
             "de": "Empfänger",
             "en": "Recipient",
+            "es": "Destinatario",
             "fr": "Destinataire",
-            "it": "Destinatario"
+            "it": "Destinatario",
+            "pt": "Destinatário",
+            "fi": "Vastaanottaja"
           },
           "inputType": "email",
           "placeholder": "ops@agency.example",
@@ -283,8 +364,11 @@
             "default": "Primary recipient. Required with Mail action.",
             "de": "Hauptempfänger. Erforderlich bei der Mail-Aktion.",
             "en": "Primary recipient. Required with Mail action.",
+            "es": "Destinatario principal. Requerido con la acción de correo.",
             "fr": "Destinataire principal. Requis avec l’action E-mail.",
-            "it": "Destinatario principale. Obbligatorio con l’azione E-mail."
+            "it": "Destinatario principale. Obbligatorio con l’azione E-mail.",
+            "pt": "Destinatário principal. Obrigatório com a ação de e-mail.",
+            "fi": "Päävastaanottaja. Pakollinen sähköpostitoiminnon kanssa."
           },
           "width": "50%",
           "startWithNewLine": false
@@ -296,23 +380,32 @@
             "default": "CC",
             "de": "CC",
             "en": "CC",
+            "es": "CC",
             "fr": "CC",
-            "it": "CC"
+            "it": "CC",
+            "pt": "CC",
+            "fi": "CC"
           },
           "placeholder": {
             "default": "One recipient per line",
             "de": "Ein Empfänger pro Zeile",
             "en": "One recipient per line",
+            "es": "Un destinatario por línea",
             "fr": "Un destinataire par ligne",
-            "it": "Un destinatario per riga"
+            "it": "Un destinatario per riga",
+            "pt": "Um destinatário por linha",
+            "fi": "Yksi vastaanottaja per rivi"
           },
           "rows": 2,
           "description": {
             "default": "Optional list of CC recipients.",
             "de": "Optionale Liste der CC-Empfänger.",
             "en": "Optional list of CC recipients.",
+            "es": "Lista opcional de destinatarios en CC.",
             "fr": "Liste facultative des destinataires en CC.",
-            "it": "Elenco opzionale dei destinatari in CC."
+            "it": "Elenco opzionale dei destinatari in CC.",
+            "pt": "Lista opcional de destinatários em CC.",
+            "fi": "Valinnainen CC-vastaanottajien lista."
           },
           "width": "50%"
         },
@@ -323,23 +416,32 @@
             "default": "BCC",
             "de": "BCC",
             "en": "BCC",
+            "es": "CCO",
             "fr": "CCI",
-            "it": "CCN"
+            "it": "CCN",
+            "pt": "CCO",
+            "fi": "Piilokopio"
           },
           "placeholder": {
             "default": "One recipient per line",
             "de": "Ein Empfänger pro Zeile",
             "en": "One recipient per line",
+            "es": "Un destinatario por línea",
             "fr": "Un destinataire par ligne",
-            "it": "Un destinatario per riga"
+            "it": "Un destinatario per riga",
+            "pt": "Um destinatário por linha",
+            "fi": "Yksi vastaanottaja per rivi"
           },
           "rows": 2,
           "description": {
             "default": "Optional list of BCC recipients.",
             "de": "Optionale Liste der BCC-Empfänger.",
             "en": "Optional list of BCC recipients.",
+            "es": "Lista opcional de destinatarios en CCO.",
             "fr": "Liste facultative des destinataires en CCI.",
-            "it": "Elenco opzionale dei destinatari in CCN."
+            "it": "Elenco opzionale dei destinatari in CCN.",
+            "pt": "Lista opcional de destinatários em CCO.",
+            "fi": "Valinnainen piilokopio-vastaanottajien lista."
           },
           "width": "50%",
           "startWithNewLine": false
@@ -351,22 +453,31 @@
             "default": "Subject",
             "de": "Betreff",
             "en": "Subject",
+            "es": "Asunto",
             "fr": "Objet",
-            "it": "Oggetto"
+            "it": "Oggetto",
+            "pt": "Assunto",
+            "fi": "Aihe"
           },
           "placeholder": {
             "default": "New submission ({poll_id})",
             "de": "Neue Einreichung ({poll_id})",
             "en": "New submission ({poll_id})",
+            "es": "Nuevo envío ({poll_id})",
             "fr": "Nouvelle soumission ({poll_id})",
-            "it": "Nuovo invio ({poll_id})"
+            "it": "Nuovo invio ({poll_id})",
+            "pt": "Novo envio ({poll_id})",
+            "fi": "Uusi lähetys ({poll_id})"
           },
           "description": {
             "default": "Subject for result exports.",
             "de": "Betreff für Ergebnisexporte.",
             "en": "Subject for result exports.",
+            "es": "Asunto para exportaciones de resultados.",
             "fr": "Objet pour les exports de résultats.",
-            "it": "Oggetto per gli export dei risultati."
+            "it": "Oggetto per gli export dei risultati.",
+            "pt": "Assunto para exportações de resultados.",
+            "fi": "Aihe tulosten vientiä varten."
           },
           "minWidth": "100%"
         },
@@ -377,23 +488,32 @@
             "default": "Email body",
             "de": "E-Mail-Text",
             "en": "Email body",
+            "es": "Cuerpo del correo",
             "fr": "Corps de l’e-mail",
-            "it": "Corpo dell’e-mail"
+            "it": "Corpo dell’e-mail",
+            "pt": "Corpo do e-mail",
+            "fi": "Sähköpostin sisältö"
           },
           "rows": 5,
           "placeholder": {
             "default": "Provide the email text...",
             "de": "E-Mail-Text eingeben...",
             "en": "Provide the email text...",
+            "es": "Escriba el texto del correo...",
             "fr": "Indiquez le texte de l’e-mail...",
-            "it": "Inserisci il testo dell’e-mail..."
+            "it": "Inserisci il testo dell’e-mail...",
+            "pt": "Forneça o texto do e-mail...",
+            "fi": "Kirjoita sähköpostin teksti..."
           },
           "description": {
             "default": "Optional body for result exports.",
             "de": "Optionaler Text für Ergebnisexporte.",
             "en": "Optional body for result exports.",
+            "es": "Cuerpo opcional para exportaciones de resultados.",
             "fr": "Corps optionnel pour les exports de résultats.",
-            "it": "Corpo opzionale per gli export dei risultati."
+            "it": "Corpo opzionale per gli export dei risultati.",
+            "pt": "Corpo opcional para exportações de resultados.",
+            "fi": "Valinnainen sisältö tulosten vientiä varten."
           },
           "minWidth": "100%"
         },
@@ -404,15 +524,21 @@
             "default": "Attachments",
             "de": "Anhänge",
             "en": "Attachments",
+            "es": "Adjuntos",
             "fr": "Pièces jointes",
-            "it": "Allegati"
+            "it": "Allegati",
+            "pt": "Anexos",
+            "fi": "Liitteet"
           },
           "description": {
             "default": "Select which export formats of the collected form data should be attached to the email.",
             "de": "Wählen Sie, welche Exportformate der erfassten Formulardaten der E-Mail angehängt werden sollen.",
             "en": "Select which export formats of the collected form data should be attached to the email.",
+            "es": "Seleccione qué formatos de exportación de los datos recopilados deben adjuntarse al correo.",
             "fr": "Sélectionnez les formats d’export des données du formulaire à joindre à l’e-mail.",
-            "it": "Seleziona quali formati di export dei dati del modulo raccolti devono essere allegati all’e-mail."
+            "it": "Seleziona quali formati di export dei dati del modulo raccolti devono essere allegati all’e-mail.",
+            "pt": "Selecione quais formatos de exportação dos dados coletados devem ser anexados ao e-mail.",
+            "fi": "Valitse, mitkä kerättyjen lomaketietojen vientimuodot liitetään sähköpostiin."
           },
           "colCount": 3,
           "choices": [
@@ -422,8 +548,11 @@
                 "default": "Text",
                 "de": "Text",
                 "en": "Text",
+                "es": "Texto",
                 "fr": "Texte",
-                "it": "Testo"
+                "it": "Testo",
+                "pt": "Texto",
+                "fi": "Teksti"
               }
             },
             {
@@ -432,8 +561,11 @@
                 "default": "Markdown",
                 "de": "Markdown",
                 "en": "Markdown",
+                "es": "Markdown",
                 "fr": "Markdown",
-                "it": "Markdown"
+                "it": "Markdown",
+                "pt": "Markdown",
+                "fi": "Markdown"
               }
             },
             {
@@ -442,8 +574,11 @@
                 "default": "HTML",
                 "de": "HTML",
                 "en": "HTML",
+                "es": "HTML",
                 "fr": "HTML",
-                "it": "HTML"
+                "it": "HTML",
+                "pt": "HTML",
+                "fi": "HTML"
               }
             },
             {
@@ -452,8 +587,11 @@
                 "default": "PDF",
                 "de": "PDF",
                 "en": "PDF",
+                "es": "PDF",
                 "fr": "PDF",
-                "it": "PDF"
+                "it": "PDF",
+                "pt": "PDF",
+                "fi": "PDF"
               }
             },
             {
@@ -462,8 +600,11 @@
                 "default": "CSV",
                 "de": "CSV",
                 "en": "CSV",
+                "es": "CSV",
                 "fr": "CSV",
-                "it": "CSV"
+                "it": "CSV",
+                "pt": "CSV",
+                "fi": "CSV"
               }
             },
             {
@@ -472,8 +613,11 @@
                 "default": "Excel",
                 "de": "Excel",
                 "en": "Excel",
+                "es": "Excel",
                 "fr": "Excel",
-                "it": "Excel"
+                "it": "Excel",
+                "pt": "Excel",
+                "fi": "Excel"
               }
             },
             {
@@ -482,8 +626,11 @@
                 "default": "XML",
                 "de": "XML",
                 "en": "XML",
+                "es": "XML",
                 "fr": "XML",
-                "it": "XML"
+                "it": "XML",
+                "pt": "XML",
+                "fi": "XML"
               }
             },
             {
@@ -492,8 +639,11 @@
                 "default": "Word",
                 "de": "Word",
                 "en": "Word",
+                "es": "Word",
                 "fr": "Word",
-                "it": "Word"
+                "it": "Word",
+                "pt": "Word",
+                "fi": "Word"
               }
             },
             {
@@ -502,8 +652,11 @@
                 "default": "JSON",
                 "de": "JSON",
                 "en": "JSON",
+                "es": "JSON",
                 "fr": "JSON",
-                "it": "JSON"
+                "it": "JSON",
+                "pt": "JSON",
+                "fi": "JSON"
               }
             }
           ],
@@ -517,22 +670,31 @@
         "default": "Mail notifications",
         "de": "E-Mail-Benachrichtigungen",
         "en": "Mail notifications",
+        "es": "Notificaciones por correo",
         "fr": "Notifications par e-mail",
-        "it": "Notifiche e-mail"
+        "it": "Notifiche e-mail",
+        "pt": "Notificações por e-mail",
+        "fi": "Sähköposti-ilmoitukset"
       },
       "navigationTitle": {
         "default": "Mail notifications",
         "de": "E-Mail-Benachrichtigungen",
         "en": "Mail notifications",
+        "es": "Notificaciones por correo",
         "fr": "Notifications par e-mail",
-        "it": "Notifiche e-mail"
+        "it": "Notifiche e-mail",
+        "pt": "Notificações por e-mail",
+        "fi": "Sähköposti-ilmoitukset"
       },
       "description": {
         "default": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
         "de": "Benachrichtigungs-E-Mails senden einen kurzen Hinweis auf eine neue Einreichung ohne Anhänge, im Gegensatz zur Aktion \"E-Mail (mit Anhängen)\", die exportierte Einreichungsdateien sendet.",
         "en": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
+        "es": "Los correos de notificación envían un aviso breve sobre un nuevo envío sin adjuntos, a diferencia de la acción \"Correo (con adjuntos)\" que envía archivos exportados de las respuestas.",
         "fr": "Les e-mails de notification envoient une courte alerte sur une nouvelle soumission sans pièces jointes, contrairement à l’action \"E-mail (avec pièces jointes)\" qui envoie les fichiers exportés des soumissions.",
-        "it": "Le e-mail di notifica inviano un breve avviso di un nuovo invio senza allegati, a differenza dell’azione \"E-mail (con allegati)\" che invia i file esportati degli invii."
+        "it": "Le e-mail di notifica inviano un breve avviso di un nuovo invio senza allegati, a differenza dell’azione \"E-mail (con allegati)\" che invia i file esportati degli invii.",
+        "pt": "Os e-mails de notificação enviam um alerta breve sobre um novo envio sem anexos, diferente da ação \"E-mail (com anexos)\" que envia arquivos exportados dos envios.",
+        "fi": "Ilmoitussähköpostit lähettävät lyhyen ilmoituksen uudesta lähetyksestä ilman liitteitä, toisin kuin \"Sähköposti (liitteillä)\" -toiminto, joka lähettää vietyjä lähetys­tiedostoja."
       },
       "elements": [
         {
@@ -542,22 +704,31 @@
             "default": "Notification subject",
             "de": "Benachrichtigungsbetreff",
             "en": "Notification subject",
+            "es": "Asunto de notificación",
             "fr": "Objet de notification",
-            "it": "Oggetto di notifica"
+            "it": "Oggetto di notifica",
+            "pt": "Assunto da notificação",
+            "fi": "Ilmoituksen aihe"
           },
           "placeholder": {
             "default": "Form submitted ({title})",
             "de": "Formular eingereicht ({title})",
             "en": "Form submitted ({title})",
+            "es": "Formulario enviado ({title})",
             "fr": "Formulaire envoyé ({title})",
-            "it": "Modulo inviato ({title})"
+            "it": "Modulo inviato ({title})",
+            "pt": "Formulário enviado ({title})",
+            "fi": "Lomake lähetetty ({title})"
           },
           "description": {
             "default": "Subject line for notification-only emails.",
             "de": "Betreffzeile für reine Benachrichtigungs-E-Mails.",
             "en": "Subject line for notification-only emails.",
+            "es": "Línea de asunto para correos solo de notificación.",
             "fr": "Ligne d’objet pour les e-mails de notification uniquement.",
-            "it": "Oggetto per le e-mail di sola notifica."
+            "it": "Oggetto per le e-mail di sola notifica.",
+            "pt": "Linha de assunto para e-mails somente de notificação.",
+            "fi": "Aihekenttä vain ilmoitussähköposteille."
           },
           "minWidth": "100%"
         },
@@ -568,23 +739,32 @@
             "default": "Notification body",
             "de": "Benachrichtigungstext",
             "en": "Notification body",
+            "es": "Cuerpo de notificación",
             "fr": "Corps de notification",
-            "it": "Corpo della notifica"
+            "it": "Corpo della notifica",
+            "pt": "Corpo da notificação",
+            "fi": "Ilmoituksen sisältö"
           },
           "rows": 15,
           "placeholder": {
             "default": "Hello...",
             "de": "Hallo...",
             "en": "Hello...",
+            "es": "Hola...",
             "fr": "Bonjour...",
-            "it": "Ciao..."
+            "it": "Ciao...",
+            "pt": "Olá...",
+            "fi": "Hei..."
           },
           "description": {
             "default": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
             "de": "Nachricht für reine Benachrichtigungs-E-Mails. Unterstützt {title}, {detail_url}, {poll_id}.",
             "en": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
+            "es": "Mensaje enviado para correos solo de notificación. Admite {title}, {detail_url}, {poll_id}.",
             "fr": "Message envoyé pour les e-mails de notification uniquement. Prend en charge {title}, {detail_url}, {poll_id}.",
-            "it": "Messaggio inviato per e-mail di sola notifica. Supporta {title}, {detail_url}, {poll_id}."
+            "it": "Messaggio inviato per e-mail di sola notifica. Supporta {title}, {detail_url}, {poll_id}.",
+            "pt": "Mensagem enviada para e-mails somente de notificação. Suporta {title}, {detail_url}, {poll_id}.",
+            "fi": "Vain ilmoitussähköposteissa lähetettävä viesti. Tukee {title}, {detail_url}, {poll_id}."
           },
           "minWidth": "100%"
         },
@@ -595,8 +775,11 @@
             "default": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>",
             "de": "<div><strong>Verfügbare Platzhalter</strong><ul><li><code>&#123;title&#125;</code>: Umfragetitel</li><li><code>&#123;detail_url&#125;</code>: Link zur Detailseite der Einreichung</li><li><code>&#123;poll_id&#125;</code>: Einreichungskennung</li></ul></div>",
             "en": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>",
+            "es": "<div><strong>Marcadores disponibles</strong><ul><li><code>&#123;title&#125;</code>: Título de la encuesta</li><li><code>&#123;detail_url&#125;</code>: Enlace a la página de detalle del envío</li><li><code>&#123;poll_id&#125;</code>: Identificador del envío</li></ul></div>",
             "fr": "<div><strong>Espaces réservés disponibles</strong><ul><li><code>&#123;title&#125;</code> : Titre du sondage</li><li><code>&#123;detail_url&#125;</code> : Lien vers la page de détail de la soumission</li><li><code>&#123;poll_id&#125;</code> : Identifiant de soumission</li></ul></div>",
-            "it": "<div><strong>Segnaposto disponibili</strong><ul><li><code>&#123;title&#125;</code>: Titolo del sondaggio</li><li><code>&#123;detail_url&#125;</code>: Link alla pagina di dettaglio dell’invio</li><li><code>&#123;poll_id&#125;</code>: Identificativo dell’invio</li></ul></div>"
+            "it": "<div><strong>Segnaposto disponibili</strong><ul><li><code>&#123;title&#125;</code>: Titolo del sondaggio</li><li><code>&#123;detail_url&#125;</code>: Link alla pagina di dettaglio dell’invio</li><li><code>&#123;poll_id&#125;</code>: Identificativo dell’invio</li></ul></div>",
+            "pt": "<div><strong>Marcadores disponíveis</strong><ul><li><code>&#123;title&#125;</code>: Título da pesquisa</li><li><code>&#123;detail_url&#125;</code>: Link para a página de detalhes do envio</li><li><code>&#123;poll_id&#125;</code>: Identificador do envio</li></ul></div>",
+            "fi": "<div><strong>Saatavilla olevat paikkamerkit</strong><ul><li><code>&#123;title&#125;</code>: Kyselyn otsikko</li><li><code>&#123;detail_url&#125;</code>: Linkki lähetyksen tietosivulle</li><li><code>&#123;poll_id&#125;</code>: Lähetyksen tunniste</li></ul></div>"
           }
         }
       ]
@@ -607,15 +790,21 @@
         "default": "Form settings",
         "de": "Formulareinstellungen",
         "en": "Form settings",
+        "es": "Configuración del formulario",
         "fr": "Paramètres du formulaire",
-        "it": "Impostazioni del modulo"
+        "it": "Impostazioni del modulo",
+        "pt": "Configurações do formulário",
+        "fi": "Lomakkeen asetukset"
       },
       "navigationTitle": {
         "default": "Form settings",
         "de": "Formulareinstellungen",
         "en": "Form settings",
+        "es": "Configuración del formulario",
         "fr": "Paramètres du formulaire",
-        "it": "Impostazioni del modulo"
+        "it": "Impostazioni del modulo",
+        "pt": "Configurações do formulário",
+        "fi": "Lomakkeen asetukset"
       },
       "elements": [
         {
@@ -625,29 +814,41 @@
             "default": "Force server-side validation",
             "de": "Serverseitige Validierung erzwingen",
             "en": "Force server-side validation",
+            "es": "Forzar validación del lado del servidor",
             "fr": "Forcer la validation côté serveur",
-            "it": "Forzare la validazione lato server"
+            "it": "Forzare la validazione lato server",
+            "pt": "Forçar validação no servidor",
+            "fi": "Pakota palvelinpuolen validointi"
           },
           "description": {
             "default": "Always validate submissions on the server before processing.",
             "de": "Einreichungen immer serverseitig validieren, bevor sie verarbeitet werden.",
             "en": "Always validate submissions on the server before processing.",
+            "es": "Validar siempre los envíos en el servidor antes de procesarlos.",
             "fr": "Toujours valider les soumissions côté serveur avant traitement.",
-            "it": "Convalidare sempre gli invii lato server prima dell’elaborazione."
+            "it": "Convalidare sempre gli invii lato server prima dell’elaborazione.",
+            "pt": "Validar sempre os envios no servidor antes do processamento.",
+            "fi": "Validoi aina lähetykset palvelimella ennen käsittelyä."
           },
           "labelTrue": {
             "default": "Enabled",
             "de": "Aktiviert",
             "en": "Enabled",
+            "es": "Habilitado",
             "fr": "Activé",
-            "it": "Abilitato"
+            "it": "Abilitato",
+            "pt": "Ativado",
+            "fi": "Käytössä"
           },
           "labelFalse": {
             "default": "Disabled",
             "de": "Deaktiviert",
             "en": "Disabled",
+            "es": "Deshabilitado",
             "fr": "Désactivé",
-            "it": "Disabilitato"
+            "it": "Disabilitato",
+            "pt": "Desativado",
+            "fi": "Pois käytöstä"
           },
           "defaultValue": true
         },
@@ -658,15 +859,21 @@
             "default": "Max payload size (MB)",
             "de": "Maximale Payload-Größe (MB)",
             "en": "Max payload size (MB)",
+            "es": "Tamaño máximo del payload (MB)",
             "fr": "Taille maximale de la charge utile (Mo)",
-            "it": "Dimensione massima del payload (MB)"
+            "it": "Dimensione massima del payload (MB)",
+            "pt": "Tamanho máximo do payload (MB)",
+            "fi": "Suurin hyötykuorman koko (MB)"
           },
           "description": {
             "default": "Maximum accepted request size for one submission.",
             "de": "Maximal akzeptierte Anfragegröße für eine Einreichung.",
             "en": "Maximum accepted request size for one submission.",
+            "es": "Tamaño máximo de solicitud aceptado para un envío.",
             "fr": "Taille maximale acceptée de la requête pour une soumission.",
-            "it": "Dimensione massima accettata della richiesta per un invio."
+            "it": "Dimensione massima accettata della richiesta per un invio.",
+            "pt": "Tamanho máximo de solicitação aceito para um envio.",
+            "fi": "Suurin hyväksytty pyyntökoon yhden lähetyksen osalta."
           },
           "inputType": "number",
           "min": 1,
@@ -681,15 +888,21 @@
             "default": "Access mode",
             "de": "Zugriffsmodus",
             "en": "Access mode",
+            "es": "Modo de acceso",
             "fr": "Mode d’accès",
-            "it": "Modalità di accesso"
+            "it": "Modalità di accesso",
+            "pt": "Modo de acesso",
+            "fi": "Käyttötila"
           },
           "description": {
             "default": "Choose whether the form is public or requires a trusted access token.",
             "de": "Wählen Sie, ob das Formular öffentlich ist oder ein vertrauenswürdiges Zugriffstoken erfordert.",
             "en": "Choose whether the form is public or requires a trusted access token.",
+            "es": "Elija si el formulario es público o requiere un token de acceso de confianza.",
             "fr": "Choisissez si le formulaire est public ou nécessite un jeton d’accès de confiance.",
-            "it": "Scegli se il modulo è pubblico o richiede un token di accesso affidabile."
+            "it": "Scegli se il modulo è pubblico o richiede un token di accesso affidabile.",
+            "pt": "Escolha se o formulário é público ou requer um token de acesso confiável.",
+            "fi": "Valitse, onko lomake julkinen vai vaatiiko se luotetun käyttö­tunnuksen."
           },
           "choices": [
             {
@@ -698,8 +911,11 @@
                 "default": "Public",
                 "de": "Öffentlich",
                 "en": "Public",
+                "es": "Público",
                 "fr": "Public",
-                "it": "Pubblico"
+                "it": "Pubblico",
+                "pt": "Público",
+                "fi": "Julkinen"
               }
             },
             {
@@ -708,8 +924,11 @@
                 "default": "Trusted token",
                 "de": "Vertrauenswürdiges Token",
                 "en": "Trusted token",
+                "es": "Token de confianza",
                 "fr": "Jeton de confiance",
-                "it": "Token affidabile"
+                "it": "Token affidabile",
+                "pt": "Token confiável",
+                "fi": "Luotettu tunnus"
               }
             }
           ],
@@ -722,15 +941,21 @@
             "default": "Trusted token lifetime (hours)",
             "de": "Lebensdauer des vertrauenswürdigen Tokens (Stunden)",
             "en": "Trusted token lifetime (hours)",
+            "es": "Duración del token de confianza (horas)",
             "fr": "Durée de vie du jeton de confiance (heures)",
-            "it": "Durata del token affidabile (ore)"
+            "it": "Durata del token affidabile (ore)",
+            "pt": "Duração do token confiável (horas)",
+            "fi": "Luotetun tunnuksen voimassaolo (tuntia)"
           },
           "description": {
             "default": "How long trusted access tokens remain valid.",
             "de": "Wie lange vertrauenswürdige Zugriffstoken gültig bleiben.",
             "en": "How long trusted access tokens remain valid.",
+            "es": "Durante cuánto tiempo los tokens de acceso de confianza siguen siendo válidos.",
             "fr": "Durée de validité des jetons d’accès de confiance.",
-            "it": "Per quanto tempo i token di accesso affidabili restano validi."
+            "it": "Per quanto tempo i token di accesso affidabili restano validi.",
+            "pt": "Por quanto tempo os tokens de acesso confiáveis permanecem válidos.",
+            "fi": "Kuinka kauan luotetut käyttö­tunnukset ovat voimassa."
           },
           "inputType": "number",
           "min": 1,
@@ -746,22 +971,31 @@
         "default": "Dates",
         "de": "Daten",
         "en": "Dates",
+        "es": "Fechas",
         "fr": "Dates",
-        "it": "Date"
+        "it": "Date",
+        "pt": "Datas",
+        "fi": "Päivämäärät"
       },
       "navigationTitle": {
         "default": "Dates",
         "de": "Daten",
         "en": "Dates",
+        "es": "Fechas",
         "fr": "Dates",
-        "it": "Date"
+        "it": "Date",
+        "pt": "Datas",
+        "fi": "Päivämäärät"
       },
       "description": {
         "default": "Control when this survey becomes visible and when it should expire.",
         "de": "Steuern Sie, wann diese Umfrage sichtbar wird und wann sie ablaufen soll.",
         "en": "Control when this survey becomes visible and when it should expire.",
+        "es": "Controle cuándo esta encuesta se vuelve visible y cuándo debe expirar.",
         "fr": "Contrôlez quand ce sondage devient visible et quand il doit expirer.",
-        "it": "Controlla quando questo sondaggio diventa visibile e quando deve scadere."
+        "it": "Controlla quando questo sondaggio diventa visibile e quando deve scadere.",
+        "pt": "Controle quando esta pesquisa se torna visível e quando deve expirar.",
+        "fi": "Hallitse, milloin tämä kysely tulee näkyviin ja milloin sen tulee päättyä."
       },
       "elements": [
         {
@@ -771,8 +1005,11 @@
             "default": "Effective",
             "de": "Wirksam ab",
             "en": "Effective",
+            "es": "Vigente",
             "fr": "Date d’effet",
-            "it": "Data di inizio"
+            "it": "Data di inizio",
+            "pt": "Vigente",
+            "fi": "Voimassa"
           },
           "inputType": "datetime-local",
           "placeholder": "YYYY-MM-DD HH:MM",
@@ -780,8 +1017,11 @@
             "default": "Optional. Leave empty to make the survey effective immediately.",
             "de": "Optional. Leer lassen, damit die Umfrage sofort wirksam ist.",
             "en": "Optional. Leave empty to make the survey effective immediately.",
+            "es": "Opcional. Deje vacío para que la encuesta sea efectiva inmediatamente.",
             "fr": "Facultatif. Laissez vide pour rendre le sondage effectif immédiatement.",
-            "it": "Opzionale. Lascia vuoto per rendere il sondaggio efficace immediatamente."
+            "it": "Opzionale. Lascia vuoto per rendere il sondaggio efficace immediatamente.",
+            "pt": "Opcional. Deixe vazio para tornar a pesquisa efetiva imediatamente.",
+            "fi": "Valinnainen. Jätä tyhjäksi, jotta kysely tulee voimaan heti."
           },
           "descriptionLocation": "underTitle",
           "minWidth": "100%"
@@ -793,8 +1033,11 @@
             "default": "Expires",
             "de": "Ablaufdatum",
             "en": "Expires",
+            "es": "Expira",
             "fr": "Expiration",
-            "it": "Scadenza"
+            "it": "Scadenza",
+            "pt": "Expira",
+            "fi": "Päättyy"
           },
           "inputType": "datetime-local",
           "placeholder": "YYYY-MM-DD HH:MM",
@@ -802,8 +1045,11 @@
             "default": "Optional. Leave empty to keep the survey available.",
             "de": "Optional. Leer lassen, um die Umfrage verfügbar zu halten.",
             "en": "Optional. Leave empty to keep the survey available.",
+            "es": "Opcional. Deje vacío para mantener la encuesta disponible.",
             "fr": "Facultatif. Laissez vide pour garder le sondage disponible.",
-            "it": "Opzionale. Lascia vuoto per mantenere disponibile il sondaggio."
+            "it": "Opzionale. Lascia vuoto per mantenere disponibile il sondaggio.",
+            "pt": "Opcional. Deixe vazio para manter a pesquisa disponível.",
+            "fi": "Valinnainen. Jätä tyhjäksi, jotta kysely pysyy saatavilla."
           },
           "descriptionLocation": "underTitle",
           "minWidth": "100%"
@@ -815,7 +1061,10 @@
     "default": "<div class='survey-add-loading'>Saving your changes...</div>",
     "de": "<div class='survey-add-loading'>Ihre Änderungen werden gespeichert...</div>",
     "en": "<div class='survey-add-loading'>Saving your changes...</div>",
+    "es": "<div class='survey-add-loading'>Guardando sus cambios...</div>",
     "fr": "<div class='survey-add-loading'>Enregistrement de vos modifications...</div>",
-    "it": "<div class='survey-add-loading'>Salvataggio delle modifiche...</div>"
+    "it": "<div class='survey-add-loading'>Salvataggio delle modifiche...</div>",
+    "pt": "<div class='survey-add-loading'>Salvando suas alterações...</div>",
+    "fi": "<div class='survey-add-loading'>Tallennetaan muutoksia...</div>"
   }
 }
