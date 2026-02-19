@@ -1,0 +1,133 @@
+.survey-add-eyebrow {
+        display: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.85rem;
+        color: #4c1d95;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .survey-add-eyebrown {
+        display: none;
+      }
+      .survey-add-errors {
+        border: 1px solid #fca5a5;
+        background: #fef2f2;
+        color: #991b1b;
+        border-radius: 18px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+      .survey-add-errors ul {
+        margin: 0.3rem 0 0 1.25rem;
+        padding: 0;
+      }
+      .survey-add-widget {
+        min-height: 320px;
+        border-radius: 0;
+        border: none;
+        padding: 0;
+        background: transparent;
+        transition: box-shadow 120ms ease;
+        overflow: hidden;
+        text-align: left;
+      }
+      .survey-add-widget .sd-root-modern,
+      .survey-add-widget .sv-root-modern,
+      .survey-add-widget .sd-body,
+      .survey-add-widget .sv-body {
+        text-align: left;
+      }
+      .survey-add-widget .sd-body,
+      .survey-add-widget .sv-body,
+      .survey-add-widget .sd-page,
+      .survey-add-widget .sv-page,
+      .survey-add-widget .sd-page__content,
+      .survey-add-widget .sv-page__content,
+      .survey-add-widget .sd-panel__content,
+      .survey-add-widget .sv-panel__content,
+      .survey-add-widget fieldset {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        max-width: none !important;
+        justify-content: flex-start;
+      }
+      .survey-add-widget.is-ready {
+        box-shadow: none;
+        background: transparent;
+        min-height: 0;
+      }
+      .survey-add-widget .sd-body,
+      .survey-add-widget .sv-body,
+      .survey-add-widget .sd-page,
+      .survey-add-widget .sv-page {
+        min-height: 0 !important;
+      }
+      .survey-add-loading {
+        color: #7c3aed;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .survey-add-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .survey-add-submit {
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #16a34a, #059669);
+        color: #ffffff;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding: 0.95rem 2.5rem;
+        cursor: pointer;
+        box-shadow: 0 15px 30px rgba(5, 150, 105, 0.35);
+        transition: transform 120ms ease, box-shadow 120ms ease;
+      }
+      .survey-add-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 20px 35px rgba(5, 150, 105, 0.4);
+      }
+      .survey-add-submit:disabled,
+      .survey-add-submit[aria-disabled="true"] {
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+        opacity: 0.55;
+      }
+      .survey-add-cancel {
+        border-radius: 999px;
+        padding: 0.95rem 2rem;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        color: #475569;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .survey-add-hidden-form {
+        display: none;
+      }
+      .survey-add-error-message {
+        background: #fee2e2;
+        border: 1px solid #fecaca;
+        border-radius: 12px;
+        padding: 1rem;
+        color: #991b1b;
+      }
+      .sd-description {
+        font-size: 0.8em !important;
+      }
+      .survey-add-widget .sd-btn--action.sd-navigation__complete-btn,
+      .survey-add-widget .sv-btn--action.sv-navigation__complete-btn,
+      .survey-add-widget input[value="Continue"],
+      .survey-add-widget input[value="Complete"],
+      .survey-add-widget button[title="Complete"] {
+        display: none !important;
+      }

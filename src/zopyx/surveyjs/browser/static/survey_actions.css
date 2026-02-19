@@ -1,0 +1,8 @@
+#content > header,
+article > header,
+#parent-fieldname-title,
+#parent-fieldname-description,
+.documentFirstHeading,
+.documentDescription {
+  display: none;
+}
