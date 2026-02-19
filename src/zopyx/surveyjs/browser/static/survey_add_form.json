@@ -1,6 +1,18 @@
 {
-  "title": "Create a new form or survey",
-  "description": "Define basic form metadata, choose how submissions are handled, configure mail options if needed, and review validation/access settings before creating the survey.",
+  "title": {
+    "default": "Create a new form or survey",
+    "de": "Neues Formular oder neue Umfrage erstellen",
+    "en": "Create a new form or survey",
+    "fr": "Créer un nouveau formulaire ou sondage",
+    "it": "Crea un nuovo modulo o sondaggio"
+  },
+  "description": {
+    "default": "Define basic form metadata, choose how submissions are handled, configure mail options if needed, and review validation/access settings before creating the survey.",
+    "de": "Definieren Sie grundlegende Formularmetadaten, wählen Sie die Einreichungsverarbeitung, konfigurieren Sie bei Bedarf E-Mail-Optionen und prüfen Sie Validierungs-/Zugriffseinstellungen vor dem Erstellen der Umfrage.",
+    "en": "Define basic form metadata, choose how submissions are handled, configure mail options if needed, and review validation/access settings before creating the survey.",
+    "fr": "Définissez les métadonnées de base du formulaire, choisissez le traitement des soumissions, configurez les options e-mail si nécessaire et vérifiez les paramètres de validation/d’accès avant de créer le sondage.",
+    "it": "Definisci i metadati di base del modulo, scegli la gestione degli invii, configura le opzioni e-mail se necessario e verifica le impostazioni di validazione/accesso prima di creare il sondaggio."
+  },
   "logoPosition": "right",
   "questionErrorLocation": "bottom",
   "showQuestionNumbers": "off",
@@ -13,64 +25,160 @@
   "progressBarType": "buttons",
   "goNextPageAutomatic": false,
   "requiredText": "",
-  "completeText": "Continue",
+  "completeText": {
+    "default": "Continue",
+    "de": "Weiter",
+    "en": "Continue",
+    "fr": "Continuer",
+    "it": "Continua"
+  },
   "pages": [
     {
       "name": "page_basics",
-      "title": "Basics",
-      "navigationTitle": "Basics",
+      "title": {
+        "default": "Basics",
+        "de": "Grundlagen",
+        "en": "Basics",
+        "fr": "Notions de base",
+        "it": "Basi"
+      },
+      "navigationTitle": {
+        "default": "Basics",
+        "de": "Grundlagen",
+        "en": "Basics",
+        "fr": "Notions de base",
+        "it": "Basi"
+      },
       "elements": [
         {
           "type": "text",
           "name": "title",
-          "title": "Title of form",
-          "placeholder": "Data access request form",
+          "title": {
+            "default": "Title of form",
+            "de": "Titel des Formulars",
+            "en": "Title of form",
+            "fr": "Titre du formulaire",
+            "it": "Titolo del modulo"
+          },
+          "placeholder": {
+            "default": "Data access request form",
+            "de": "Formular für Datenzugriffsanfrage",
+            "en": "Data access request form",
+            "fr": "Formulaire de demande d’accès aux données",
+            "it": "Modulo di richiesta di accesso ai dati"
+          },
           "isRequired": true,
           "maxLength": 120,
           "autofocus": true,
           "minWidth": "100%",
-          "description": "Internal and public name of the form.",
+          "description": {
+            "default": "Internal and public name of the form.",
+            "de": "Interner und öffentlicher Name des Formulars.",
+            "en": "Internal and public name of the form.",
+            "fr": "Nom interne et public du formulaire.",
+            "it": "Nome interno e pubblico del modulo."
+          },
           "descriptionLocation": "underTitle"
         },
         {
           "type": "comment",
           "name": "description",
-          "title": "Form description",
-          "placeholder": "Explain purpose, audience, and submission context.",
+          "title": {
+            "default": "Form description",
+            "de": "Formularbeschreibung",
+            "en": "Form description",
+            "fr": "Description du formulaire",
+            "it": "Descrizione del modulo"
+          },
+          "placeholder": {
+            "default": "Explain purpose, audience, and submission context.",
+            "de": "Zweck, Zielgruppe und Einreichungskontext erläutern.",
+            "en": "Explain purpose, audience, and submission context.",
+            "fr": "Expliquez l’objectif, le public et le contexte de soumission.",
+            "it": "Spiega scopo, pubblico e contesto di invio."
+          },
           "rows": 3,
           "maxLength": 480,
           "minWidth": "100%",
-          "description": "Optional helper text shown with the form.",
+          "description": {
+            "default": "Optional helper text shown with the form.",
+            "de": "Optionaler Hilfetext, der beim Formular angezeigt wird.",
+            "en": "Optional helper text shown with the form.",
+            "fr": "Texte d’aide optionnel affiché avec le formulaire.",
+            "it": "Testo di aiuto opzionale mostrato con il modulo."
+          },
           "descriptionLocation": "underTitle"
         }
       ]
     },
     {
       "name": "page_actions",
-      "title": "Actions",
+      "title": {
+        "default": "Actions",
+        "de": "Aktionen",
+        "en": "Actions",
+        "fr": "Actions",
+        "it": "Azioni"
+      },
       "elements": [
         {
           "type": "checkbox",
           "name": "actions",
-          "title": "Submission handling",
-          "description": "Pick every workflow that should trigger on submit.",
+          "title": {
+            "default": "Submission handling",
+            "de": "Einreichungsverarbeitung",
+            "en": "Submission handling",
+            "fr": "Traitement des soumissions",
+            "it": "Gestione degli invii"
+          },
+          "description": {
+            "default": "Pick every workflow that should trigger on submit.",
+            "de": "Wählen Sie alle Workflows aus, die beim Absenden ausgelöst werden sollen.",
+            "en": "Pick every workflow that should trigger on submit.",
+            "fr": "Sélectionnez tous les workflows à déclencher lors de l’envoi.",
+            "it": "Seleziona tutti i flussi di lavoro da attivare all’invio."
+          },
           "isRequired": true,
           "choices": [
             {
               "value": "store",
-              "text": "Store in database"
+              "text": {
+                "default": "Store in database",
+                "de": "In Datenbank speichern",
+                "en": "Store in database",
+                "fr": "Enregistrer dans la base de données",
+                "it": "Salva nel database"
+              }
             },
             {
               "value": "mail",
-              "text": "Mail (with attachments)"
+              "text": {
+                "default": "Mail (with attachments)",
+                "de": "E-Mail (mit Anhängen)",
+                "en": "Mail (with attachments)",
+                "fr": "E-mail (avec pièces jointes)",
+                "it": "E-mail (con allegati)"
+              }
             },
             {
               "value": "mail-notification",
-              "text": "Mail (notification only)"
+              "text": {
+                "default": "Mail (notification only)",
+                "de": "E-Mail (nur Benachrichtigung)",
+                "en": "Mail (notification only)",
+                "fr": "E-mail (notification uniquement)",
+                "it": "E-mail (solo notifica)"
+              }
             },
             {
               "value": "post",
-              "text": "POST to endpoint"
+              "text": {
+                "default": "POST to endpoint",
+                "de": "POST an Endpunkt",
+                "en": "POST to endpoint",
+                "fr": "POST vers un endpoint",
+                "it": "POST a un endpoint"
+              }
             }
           ],
           "defaultValue": [
@@ -82,123 +190,321 @@
         {
           "type": "text",
           "name": "post_endpoint_url",
-          "title": "POST endpoint URL",
+          "title": {
+            "default": "POST endpoint URL",
+            "de": "POST-Endpunkt-URL",
+            "en": "POST endpoint URL",
+            "fr": "URL de l’endpoint POST",
+            "it": "URL dell’endpoint POST"
+          },
           "inputType": "url",
           "placeholder": "https://example.org/api/collector",
           "visibleIf": "{actions} contains 'post'",
-          "description": "Submissions will be sent as JSON when POST is enabled.",
+          "description": {
+            "default": "Submissions will be sent as JSON when POST is enabled.",
+            "de": "Einreichungen werden als JSON gesendet, wenn POST aktiviert ist.",
+            "en": "Submissions will be sent as JSON when POST is enabled.",
+            "fr": "Les soumissions seront envoyées en JSON lorsque POST est activé.",
+            "it": "Gli invii verranno inviati come JSON quando POST è abilitato."
+          },
           "minWidth": "100%"
         },
         {
           "type": "html",
           "name": "actions_help",
-          "html": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>"
+          "html": {
+            "default": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>",
+            "de": "<div><strong>Aktionstypen erklärt</strong><ul><li><strong>In Datenbank speichern:</strong> Speichert jede Einreichung in der konfigurierten Ablage, entweder in Plone (ZODB) oder in einer externen relationalen Datenbank.</li><li><strong>E-Mail (mit Anhängen):</strong> Sendet eine E-Mail und hängt ausgewählte Exportformate an.</li><li><strong>E-Mail (nur Benachrichtigung):</strong> Sendet eine kurze Benachrichtigungs-E-Mail ohne Ergebnisanhänge.</li><li><strong>POST an Endpunkt:</strong> Sendet Einreichungsdaten als JSON an die konfigurierte externe URL.</li><li><strong>Alle auswählen:</strong> Aktiviert schnell alle verfügbaren Aktionstypen oben.</li></ul></div>",
+            "en": "<div><strong>Action types explained</strong><ul><li><strong>Store in database:</strong> Saves each submission in configured storage, either inside Plone (ZODB) or in an external relational database.</li><li><strong>Mail (with attachments):</strong> Sends an email and attaches selected export formats.</li><li><strong>Mail (notification only):</strong> Sends a lightweight notification email without result attachments.</li><li><strong>POST to endpoint:</strong> Sends submission data as JSON to the configured external URL.</li><li><strong>Select all:</strong> Quickly enables all available action types above.</li></ul></div>",
+            "fr": "<div><strong>Types d’actions expliqués</strong><ul><li><strong>Enregistrer dans la base de données :</strong> Enregistre chaque soumission dans le stockage configuré, soit dans Plone (ZODB), soit dans une base de données relationnelle externe.</li><li><strong>E-mail (avec pièces jointes) :</strong> Envoie un e-mail et joint les formats d’export sélectionnés.</li><li><strong>E-mail (notification uniquement) :</strong> Envoie un e-mail de notification léger sans pièces jointes des résultats.</li><li><strong>POST vers un endpoint :</strong> Envoie les données de soumission en JSON vers l’URL externe configurée.</li><li><strong>Tout sélectionner :</strong> Active rapidement tous les types d’actions disponibles ci-dessus.</li></ul></div>",
+            "it": "<div><strong>Tipi di azione spiegati</strong><ul><li><strong>Salva nel database:</strong> Salva ogni invio nell’archiviazione configurata, in Plone (ZODB) o in un database relazionale esterno.</li><li><strong>E-mail (con allegati):</strong> Invia un’e-mail e allega i formati di export selezionati.</li><li><strong>E-mail (solo notifica):</strong> Invia una breve e-mail di notifica senza allegati dei risultati.</li><li><strong>POST a un endpoint:</strong> Invia i dati di invio come JSON all’URL esterno configurato.</li><li><strong>Seleziona tutto:</strong> Attiva rapidamente tutti i tipi di azione disponibili sopra.</li></ul></div>"
+          }
         }
       ]
     },
     {
       "name": "page_mail",
-      "title": "Mail",
-      "navigationTitle": "Mail",
-      "description": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
+      "title": {
+        "default": "Mail",
+        "de": "E-Mail",
+        "en": "Mail",
+        "fr": "E-mail",
+        "it": "E-mail"
+      },
+      "navigationTitle": {
+        "default": "Mail",
+        "de": "E-Mail",
+        "en": "Mail",
+        "fr": "E-mail",
+        "it": "E-mail"
+      },
+      "description": {
+        "default": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
+        "de": "Konfigurieren Sie Absender, Empfänger, Inhalt und Anhänge, die verwendet werden, wenn die Aktion \"E-Mail (mit Anhängen)\" aktiviert ist.",
+        "en": "Configure sender, recipients, content, and attachments used when the \"Mail (with attachments)\" action is enabled.",
+        "fr": "Configurez l’expéditeur, les destinataires, le contenu et les pièces jointes utilisés lorsque l’action \"E-mail (avec pièces jointes)\" est activée.",
+        "it": "Configura mittente, destinatari, contenuto e allegati usati quando è abilitata l’azione \"E-mail (con allegati)\"."
+      },
       "elements": [
         {
           "type": "text",
           "name": "email_sender",
-          "title": "Sender",
+          "title": {
+            "default": "Sender",
+            "de": "Absender",
+            "en": "Sender",
+            "fr": "Expéditeur",
+            "it": "Mittente"
+          },
           "inputType": "email",
           "placeholder": "privacy@agency.example",
-          "description": "Required when sending result emails.",
+          "description": {
+            "default": "Required when sending result emails.",
+            "de": "Erforderlich beim Versand von Ergebnis-E-Mails.",
+            "en": "Required when sending result emails.",
+            "fr": "Obligatoire lors de l’envoi des e-mails de résultats.",
+            "it": "Obbligatorio per l’invio delle e-mail dei risultati."
+          },
           "width": "50%"
         },
         {
           "type": "text",
           "name": "email_to",
-          "title": "Recipient",
+          "title": {
+            "default": "Recipient",
+            "de": "Empfänger",
+            "en": "Recipient",
+            "fr": "Destinataire",
+            "it": "Destinatario"
+          },
           "inputType": "email",
           "placeholder": "ops@agency.example",
-          "description": "Primary recipient. Required with Mail action.",
+          "description": {
+            "default": "Primary recipient. Required with Mail action.",
+            "de": "Hauptempfänger. Erforderlich bei der Mail-Aktion.",
+            "en": "Primary recipient. Required with Mail action.",
+            "fr": "Destinataire principal. Requis avec l’action E-mail.",
+            "it": "Destinatario principale. Obbligatorio con l’azione E-mail."
+          },
           "width": "50%",
           "startWithNewLine": false
         },
         {
           "type": "comment",
           "name": "email_cc",
-          "title": "CC",
-          "placeholder": "One recipient per line",
+          "title": {
+            "default": "CC",
+            "de": "CC",
+            "en": "CC",
+            "fr": "CC",
+            "it": "CC"
+          },
+          "placeholder": {
+            "default": "One recipient per line",
+            "de": "Ein Empfänger pro Zeile",
+            "en": "One recipient per line",
+            "fr": "Un destinataire par ligne",
+            "it": "Un destinatario per riga"
+          },
           "rows": 2,
-          "description": "Optional list of CC recipients.",
+          "description": {
+            "default": "Optional list of CC recipients.",
+            "de": "Optionale Liste der CC-Empfänger.",
+            "en": "Optional list of CC recipients.",
+            "fr": "Liste facultative des destinataires en CC.",
+            "it": "Elenco opzionale dei destinatari in CC."
+          },
           "width": "50%"
         },
         {
           "type": "comment",
           "name": "email_bcc",
-          "title": "BCC",
-          "placeholder": "One recipient per line",
+          "title": {
+            "default": "BCC",
+            "de": "BCC",
+            "en": "BCC",
+            "fr": "CCI",
+            "it": "CCN"
+          },
+          "placeholder": {
+            "default": "One recipient per line",
+            "de": "Ein Empfänger pro Zeile",
+            "en": "One recipient per line",
+            "fr": "Un destinataire par ligne",
+            "it": "Un destinatario per riga"
+          },
           "rows": 2,
-          "description": "Optional list of BCC recipients.",
+          "description": {
+            "default": "Optional list of BCC recipients.",
+            "de": "Optionale Liste der BCC-Empfänger.",
+            "en": "Optional list of BCC recipients.",
+            "fr": "Liste facultative des destinataires en CCI.",
+            "it": "Elenco opzionale dei destinatari in CCN."
+          },
           "width": "50%",
           "startWithNewLine": false
         },
         {
           "type": "text",
           "name": "email_subject",
-          "title": "Subject",
-          "placeholder": "New submission ({poll_id})",
-          "description": "Subject for result exports.",
+          "title": {
+            "default": "Subject",
+            "de": "Betreff",
+            "en": "Subject",
+            "fr": "Objet",
+            "it": "Oggetto"
+          },
+          "placeholder": {
+            "default": "New submission ({poll_id})",
+            "de": "Neue Einreichung ({poll_id})",
+            "en": "New submission ({poll_id})",
+            "fr": "Nouvelle soumission ({poll_id})",
+            "it": "Nuovo invio ({poll_id})"
+          },
+          "description": {
+            "default": "Subject for result exports.",
+            "de": "Betreff für Ergebnisexporte.",
+            "en": "Subject for result exports.",
+            "fr": "Objet pour les exports de résultats.",
+            "it": "Oggetto per gli export dei risultati."
+          },
           "minWidth": "100%"
         },
         {
           "type": "comment",
           "name": "email_body",
-          "title": "Email body",
+          "title": {
+            "default": "Email body",
+            "de": "E-Mail-Text",
+            "en": "Email body",
+            "fr": "Corps de l’e-mail",
+            "it": "Corpo dell’e-mail"
+          },
           "rows": 5,
-          "placeholder": "Provide the email text...",
-          "description": "Optional body for result exports.",
+          "placeholder": {
+            "default": "Provide the email text...",
+            "de": "E-Mail-Text eingeben...",
+            "en": "Provide the email text...",
+            "fr": "Indiquez le texte de l’e-mail...",
+            "it": "Inserisci il testo dell’e-mail..."
+          },
+          "description": {
+            "default": "Optional body for result exports.",
+            "de": "Optionaler Text für Ergebnisexporte.",
+            "en": "Optional body for result exports.",
+            "fr": "Corps optionnel pour les exports de résultats.",
+            "it": "Corpo opzionale per gli export dei risultati."
+          },
           "minWidth": "100%"
         },
         {
           "type": "checkbox",
           "name": "email_formats",
-          "title": "Attachments",
-          "description": "Select which export formats of the collected form data should be attached to the email.",
+          "title": {
+            "default": "Attachments",
+            "de": "Anhänge",
+            "en": "Attachments",
+            "fr": "Pièces jointes",
+            "it": "Allegati"
+          },
+          "description": {
+            "default": "Select which export formats of the collected form data should be attached to the email.",
+            "de": "Wählen Sie, welche Exportformate der erfassten Formulardaten der E-Mail angehängt werden sollen.",
+            "en": "Select which export formats of the collected form data should be attached to the email.",
+            "fr": "Sélectionnez les formats d’export des données du formulaire à joindre à l’e-mail.",
+            "it": "Seleziona quali formati di export dei dati del modulo raccolti devono essere allegati all’e-mail."
+          },
           "colCount": 3,
           "choices": [
             {
               "value": "text",
-              "text": "Text"
+              "text": {
+                "default": "Text",
+                "de": "Text",
+                "en": "Text",
+                "fr": "Texte",
+                "it": "Testo"
+              }
             },
             {
               "value": "md",
-              "text": "Markdown"
+              "text": {
+                "default": "Markdown",
+                "de": "Markdown",
+                "en": "Markdown",
+                "fr": "Markdown",
+                "it": "Markdown"
+              }
             },
             {
               "value": "html",
-              "text": "HTML"
+              "text": {
+                "default": "HTML",
+                "de": "HTML",
+                "en": "HTML",
+                "fr": "HTML",
+                "it": "HTML"
+              }
             },
             {
               "value": "pdf",
-              "text": "PDF"
+              "text": {
+                "default": "PDF",
+                "de": "PDF",
+                "en": "PDF",
+                "fr": "PDF",
+                "it": "PDF"
+              }
             },
             {
               "value": "csv",
-              "text": "CSV"
+              "text": {
+                "default": "CSV",
+                "de": "CSV",
+                "en": "CSV",
+                "fr": "CSV",
+                "it": "CSV"
+              }
             },
             {
               "value": "xlsx",
-              "text": "Excel"
+              "text": {
+                "default": "Excel",
+                "de": "Excel",
+                "en": "Excel",
+                "fr": "Excel",
+                "it": "Excel"
+              }
             },
             {
               "value": "xml",
-              "text": "XML"
+              "text": {
+                "default": "XML",
+                "de": "XML",
+                "en": "XML",
+                "fr": "XML",
+                "it": "XML"
+              }
             },
             {
               "value": "docx",
-              "text": "Word"
+              "text": {
+                "default": "Word",
+                "de": "Word",
+                "en": "Word",
+                "fr": "Word",
+                "it": "Word"
+              }
             },
             {
               "value": "json",
-              "text": "JSON"
+              "text": {
+                "default": "JSON",
+                "de": "JSON",
+                "en": "JSON",
+                "fr": "JSON",
+                "it": "JSON"
+              }
             }
           ],
           "showSelectAllItem": true
@@ -207,53 +513,161 @@
     },
     {
       "name": "page_mail_notifications",
-      "title": "Mail notifications",
-      "navigationTitle": "Mail notifications",
-      "description": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
+      "title": {
+        "default": "Mail notifications",
+        "de": "E-Mail-Benachrichtigungen",
+        "en": "Mail notifications",
+        "fr": "Notifications par e-mail",
+        "it": "Notifiche e-mail"
+      },
+      "navigationTitle": {
+        "default": "Mail notifications",
+        "de": "E-Mail-Benachrichtigungen",
+        "en": "Mail notifications",
+        "fr": "Notifications par e-mail",
+        "it": "Notifiche e-mail"
+      },
+      "description": {
+        "default": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
+        "de": "Benachrichtigungs-E-Mails senden einen kurzen Hinweis auf eine neue Einreichung ohne Anhänge, im Gegensatz zur Aktion \"E-Mail (mit Anhängen)\", die exportierte Einreichungsdateien sendet.",
+        "en": "Notification emails send a short alert about a new submission without attachments, unlike the \"Mail (with attachments)\" action which sends exported submission files.",
+        "fr": "Les e-mails de notification envoient une courte alerte sur une nouvelle soumission sans pièces jointes, contrairement à l’action \"E-mail (avec pièces jointes)\" qui envoie les fichiers exportés des soumissions.",
+        "it": "Le e-mail di notifica inviano un breve avviso di un nuovo invio senza allegati, a differenza dell’azione \"E-mail (con allegati)\" che invia i file esportati degli invii."
+      },
       "elements": [
         {
           "type": "text",
           "name": "email_notification_subject",
-          "title": "Notification subject",
-          "placeholder": "Form submitted ({title})",
-          "description": "Subject line for notification-only emails.",
+          "title": {
+            "default": "Notification subject",
+            "de": "Benachrichtigungsbetreff",
+            "en": "Notification subject",
+            "fr": "Objet de notification",
+            "it": "Oggetto di notifica"
+          },
+          "placeholder": {
+            "default": "Form submitted ({title})",
+            "de": "Formular eingereicht ({title})",
+            "en": "Form submitted ({title})",
+            "fr": "Formulaire envoyé ({title})",
+            "it": "Modulo inviato ({title})"
+          },
+          "description": {
+            "default": "Subject line for notification-only emails.",
+            "de": "Betreffzeile für reine Benachrichtigungs-E-Mails.",
+            "en": "Subject line for notification-only emails.",
+            "fr": "Ligne d’objet pour les e-mails de notification uniquement.",
+            "it": "Oggetto per le e-mail di sola notifica."
+          },
           "minWidth": "100%"
         },
         {
           "type": "comment",
           "name": "email_notification_body",
-          "title": "Notification body",
+          "title": {
+            "default": "Notification body",
+            "de": "Benachrichtigungstext",
+            "en": "Notification body",
+            "fr": "Corps de notification",
+            "it": "Corpo della notifica"
+          },
           "rows": 15,
-          "placeholder": "Hello...",
-          "description": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
+          "placeholder": {
+            "default": "Hello...",
+            "de": "Hallo...",
+            "en": "Hello...",
+            "fr": "Bonjour...",
+            "it": "Ciao..."
+          },
+          "description": {
+            "default": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
+            "de": "Nachricht für reine Benachrichtigungs-E-Mails. Unterstützt {title}, {detail_url}, {poll_id}.",
+            "en": "Message sent for notification-only emails. Supports {title}, {detail_url}, {poll_id}.",
+            "fr": "Message envoyé pour les e-mails de notification uniquement. Prend en charge {title}, {detail_url}, {poll_id}.",
+            "it": "Messaggio inviato per e-mail di sola notifica. Supporta {title}, {detail_url}, {poll_id}."
+          },
           "minWidth": "100%"
         },
         {
           "type": "html",
           "name": "mail_notification_placeholders_help",
-          "html": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>"
+          "html": {
+            "default": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>",
+            "de": "<div><strong>Verfügbare Platzhalter</strong><ul><li><code>&#123;title&#125;</code>: Umfragetitel</li><li><code>&#123;detail_url&#125;</code>: Link zur Detailseite der Einreichung</li><li><code>&#123;poll_id&#125;</code>: Einreichungskennung</li></ul></div>",
+            "en": "<div><strong>Available placeholders</strong><ul><li><code>&#123;title&#125;</code>: Survey title</li><li><code>&#123;detail_url&#125;</code>: Link to the submission detail page</li><li><code>&#123;poll_id&#125;</code>: Submission identifier</li></ul></div>",
+            "fr": "<div><strong>Espaces réservés disponibles</strong><ul><li><code>&#123;title&#125;</code> : Titre du sondage</li><li><code>&#123;detail_url&#125;</code> : Lien vers la page de détail de la soumission</li><li><code>&#123;poll_id&#125;</code> : Identifiant de soumission</li></ul></div>",
+            "it": "<div><strong>Segnaposto disponibili</strong><ul><li><code>&#123;title&#125;</code>: Titolo del sondaggio</li><li><code>&#123;detail_url&#125;</code>: Link alla pagina di dettaglio dell’invio</li><li><code>&#123;poll_id&#125;</code>: Identificativo dell’invio</li></ul></div>"
+          }
         }
       ]
     },
     {
       "name": "page_form_settings",
-      "title": "Form settings",
-      "navigationTitle": "Form settings",
+      "title": {
+        "default": "Form settings",
+        "de": "Formulareinstellungen",
+        "en": "Form settings",
+        "fr": "Paramètres du formulaire",
+        "it": "Impostazioni del modulo"
+      },
+      "navigationTitle": {
+        "default": "Form settings",
+        "de": "Formulareinstellungen",
+        "en": "Form settings",
+        "fr": "Paramètres du formulaire",
+        "it": "Impostazioni del modulo"
+      },
       "elements": [
         {
           "type": "boolean",
           "name": "force_server_side_validation",
-          "title": "Force server-side validation",
-          "description": "Always validate submissions on the server before processing.",
-          "labelTrue": "Enabled",
-          "labelFalse": "Disabled",
+          "title": {
+            "default": "Force server-side validation",
+            "de": "Serverseitige Validierung erzwingen",
+            "en": "Force server-side validation",
+            "fr": "Forcer la validation côté serveur",
+            "it": "Forzare la validazione lato server"
+          },
+          "description": {
+            "default": "Always validate submissions on the server before processing.",
+            "de": "Einreichungen immer serverseitig validieren, bevor sie verarbeitet werden.",
+            "en": "Always validate submissions on the server before processing.",
+            "fr": "Toujours valider les soumissions côté serveur avant traitement.",
+            "it": "Convalidare sempre gli invii lato server prima dell’elaborazione."
+          },
+          "labelTrue": {
+            "default": "Enabled",
+            "de": "Aktiviert",
+            "en": "Enabled",
+            "fr": "Activé",
+            "it": "Abilitato"
+          },
+          "labelFalse": {
+            "default": "Disabled",
+            "de": "Deaktiviert",
+            "en": "Disabled",
+            "fr": "Désactivé",
+            "it": "Disabilitato"
+          },
           "defaultValue": true
         },
         {
           "type": "text",
           "name": "max_payload_size_mb",
-          "title": "Max payload size (MB)",
-          "description": "Maximum accepted request size for one submission.",
+          "title": {
+            "default": "Max payload size (MB)",
+            "de": "Maximale Payload-Größe (MB)",
+            "en": "Max payload size (MB)",
+            "fr": "Taille maximale de la charge utile (Mo)",
+            "it": "Dimensione massima del payload (MB)"
+          },
+          "description": {
+            "default": "Maximum accepted request size for one submission.",
+            "de": "Maximal akzeptierte Anfragegröße für eine Einreichung.",
+            "en": "Maximum accepted request size for one submission.",
+            "fr": "Taille maximale acceptée de la requête pour une soumission.",
+            "it": "Dimensione massima accettata della richiesta per un invio."
+          },
           "inputType": "number",
           "min": 1,
           "step": 1,
@@ -263,16 +677,40 @@
         {
           "type": "dropdown",
           "name": "access_mode",
-          "title": "Access mode",
-          "description": "Choose whether the form is public or requires a trusted access token.",
+          "title": {
+            "default": "Access mode",
+            "de": "Zugriffsmodus",
+            "en": "Access mode",
+            "fr": "Mode d’accès",
+            "it": "Modalità di accesso"
+          },
+          "description": {
+            "default": "Choose whether the form is public or requires a trusted access token.",
+            "de": "Wählen Sie, ob das Formular öffentlich ist oder ein vertrauenswürdiges Zugriffstoken erfordert.",
+            "en": "Choose whether the form is public or requires a trusted access token.",
+            "fr": "Choisissez si le formulaire est public ou nécessite un jeton d’accès de confiance.",
+            "it": "Scegli se il modulo è pubblico o richiede un token di accesso affidabile."
+          },
           "choices": [
             {
               "value": "public",
-              "text": "Public"
+              "text": {
+                "default": "Public",
+                "de": "Öffentlich",
+                "en": "Public",
+                "fr": "Public",
+                "it": "Pubblico"
+              }
             },
             {
               "value": "trusted",
-              "text": "Trusted token"
+              "text": {
+                "default": "Trusted token",
+                "de": "Vertrauenswürdiges Token",
+                "en": "Trusted token",
+                "fr": "Jeton de confiance",
+                "it": "Token affidabile"
+              }
             }
           ],
           "defaultValue": "public"
@@ -280,8 +718,20 @@
         {
           "type": "text",
           "name": "trusted_access_ttl_hours",
-          "title": "Trusted token lifetime (hours)",
-          "description": "How long trusted access tokens remain valid.",
+          "title": {
+            "default": "Trusted token lifetime (hours)",
+            "de": "Lebensdauer des vertrauenswürdigen Tokens (Stunden)",
+            "en": "Trusted token lifetime (hours)",
+            "fr": "Durée de vie du jeton de confiance (heures)",
+            "it": "Durata del token affidabile (ore)"
+          },
+          "description": {
+            "default": "How long trusted access tokens remain valid.",
+            "de": "Wie lange vertrauenswürdige Zugriffstoken gültig bleiben.",
+            "en": "How long trusted access tokens remain valid.",
+            "fr": "Durée de validité des jetons d’accès de confiance.",
+            "it": "Per quanto tempo i token di accesso affidabili restano validi."
+          },
           "inputType": "number",
           "min": 1,
           "step": 1,
@@ -292,32 +742,80 @@
     },
     {
       "name": "page_dates",
-      "title": "Dates",
-      "navigationTitle": "Dates",
-      "description": "Control when this survey becomes visible and when it should expire.",
+      "title": {
+        "default": "Dates",
+        "de": "Daten",
+        "en": "Dates",
+        "fr": "Dates",
+        "it": "Date"
+      },
+      "navigationTitle": {
+        "default": "Dates",
+        "de": "Daten",
+        "en": "Dates",
+        "fr": "Dates",
+        "it": "Date"
+      },
+      "description": {
+        "default": "Control when this survey becomes visible and when it should expire.",
+        "de": "Steuern Sie, wann diese Umfrage sichtbar wird und wann sie ablaufen soll.",
+        "en": "Control when this survey becomes visible and when it should expire.",
+        "fr": "Contrôlez quand ce sondage devient visible et quand il doit expirer.",
+        "it": "Controlla quando questo sondaggio diventa visibile e quando deve scadere."
+      },
       "elements": [
         {
           "type": "text",
           "name": "effective",
-          "title": "Effective",
+          "title": {
+            "default": "Effective",
+            "de": "Wirksam ab",
+            "en": "Effective",
+            "fr": "Date d’effet",
+            "it": "Data di inizio"
+          },
           "inputType": "datetime-local",
           "placeholder": "YYYY-MM-DD HH:MM",
-          "description": "Optional. Leave empty to make the survey effective immediately.",
+          "description": {
+            "default": "Optional. Leave empty to make the survey effective immediately.",
+            "de": "Optional. Leer lassen, damit die Umfrage sofort wirksam ist.",
+            "en": "Optional. Leave empty to make the survey effective immediately.",
+            "fr": "Facultatif. Laissez vide pour rendre le sondage effectif immédiatement.",
+            "it": "Opzionale. Lascia vuoto per rendere il sondaggio efficace immediatamente."
+          },
           "descriptionLocation": "underTitle",
           "minWidth": "100%"
         },
         {
           "type": "text",
           "name": "expires",
-          "title": "Expires",
+          "title": {
+            "default": "Expires",
+            "de": "Ablaufdatum",
+            "en": "Expires",
+            "fr": "Expiration",
+            "it": "Scadenza"
+          },
           "inputType": "datetime-local",
           "placeholder": "YYYY-MM-DD HH:MM",
-          "description": "Optional. Leave empty to keep the survey available.",
+          "description": {
+            "default": "Optional. Leave empty to keep the survey available.",
+            "de": "Optional. Leer lassen, um die Umfrage verfügbar zu halten.",
+            "en": "Optional. Leave empty to keep the survey available.",
+            "fr": "Facultatif. Laissez vide pour garder le sondage disponible.",
+            "it": "Opzionale. Lascia vuoto per mantenere disponibile il sondaggio."
+          },
           "descriptionLocation": "underTitle",
           "minWidth": "100%"
         }
       ]
     }
   ],
-  "completedHtml": "<div class='survey-add-loading'>Creating your survey...</div>"
+  "completedHtml": {
+    "default": "<div class='survey-add-loading'>Creating your survey...</div>",
+    "de": "<div class='survey-add-loading'>Ihre Umfrage wird erstellt...</div>",
+    "en": "<div class='survey-add-loading'>Creating your survey...</div>",
+    "fr": "<div class='survey-add-loading'>Création de votre sondage...</div>",
+    "it": "<div class='survey-add-loading'>Creazione del sondaggio...</div>"
+  }
 }

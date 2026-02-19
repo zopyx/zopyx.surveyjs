@@ -8,6 +8,8 @@
     return;
   }
 
+  const t = window._t || function (msgid) { return msgid; };
+
   const schemaUrl = container.dataset.schemaUrl;
   const themeName = container.dataset.theme || "flat";
   const theme = themeName === "flach" ? "flat" : themeName;
@@ -17,6 +19,7 @@
   let currentSurvey = null;
   let heightResetTimer = null;
   let isSubmitting = false;
+  const datasetLocale = container.dataset.surveyLanguage;
 
 /**
  * @function
@@ -114,8 +117,41 @@
     try {
       initialData = JSON.parse(initialDataScript.textContent || "{}");
     } catch (error) {
-      console.warn("Survey add form: unable to parse initial data", error);
+      console.warn(t("Survey add form: unable to parse initial data"), error);
     }
+  }
+
+/**
+ * @function
+ */
+  function normalizeLocale(value) {
+    const raw = value == null ? "" : String(value);
+    return raw.trim().replace("_", "-");
+  }
+
+/**
+ * @function
+ */
+  function toSurveyLocale(value) {
+    const normalized = normalizeLocale(value);
+    const base = normalized.split("-")[0];
+    return base || "en";
+  }
+
+/**
+ * @function
+ */
+  function getSurveyLocale() {
+    const initialLocale =
+      (initialData && (initialData.language || initialData.locale || initialData.defaultLanguage)) ||
+      "";
+    const fallbackLocale =
+      datasetLocale ||
+      initialLocale ||
+      window.SURVEYJS_I18N_LOCALE ||
+      navigator.language ||
+      "en";
+    return toSurveyLocale(fallbackLocale);
   }
 
 /**
@@ -172,6 +208,7 @@
  * @function
  */
   function renderSurvey(schema) {
+    const surveyLocale = getSurveyLocale();
 /**
  * @function
  */
@@ -185,6 +222,10 @@
     }
     const survey = new Survey.Model(schema);
     survey.fitToContainer = false;
+    survey.locale = surveyLocale;
+    if (Survey && Survey.surveyLocalization) {
+      Survey.surveyLocalization.currentLocale = surveyLocale;
+    }
     currentSurvey = survey;
     if (initialData && Object.keys(initialData).length > 0) {
       survey.data = initialData;
@@ -288,12 +329,12 @@
     container.classList.remove("is-ready");
     container.innerHTML =
       '<div class="survey-add-error-message">' +
-      (message || "We cannot load the form right now. Please reload the page.") +
+      (message || t("We cannot load the form right now. Please reload the page.")) +
       "</div>";
   }
 
   if (!schemaUrl) {
-    showError("Missing form definition.");
+    showError(t("Missing form definition."));
     return;
   }
 
@@ -312,7 +353,7 @@
  * @function
  */
     .catch(function (error) {
-      console.error("Survey add form failed", error);
+      console.error(t("Survey add form failed"), error);
       showError();
     });
 

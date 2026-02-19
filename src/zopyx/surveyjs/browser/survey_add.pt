@@ -52,7 +52,8 @@
     <div class="survey-add-widget"
          id="survey-add-widget"
          tal:attributes="data-schema-url string:${context/portal_url}/++resource++zopyx.surveyjs/survey_add_form.json;
-                         data-theme string:flat">
+                         data-theme string:flat;
+                         data-survey-language python: (portal_state.language() or '')">
       <div class="survey-add-loading" i18n:translate="">Loading form...</div>
     </div>
 
