@@ -3,8 +3,6 @@ from string import Formatter
 import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from copy import deepcopy
-from typing import Any
 import subprocess
 import time
 import csv
@@ -17,19 +15,16 @@ from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 from zope.interface import alsoProvides
-from zope.schema import getFieldsInOrder
-from plone.dexterity.utils import iterSchemata
 from zope.schema.interfaces import ICollection, IChoice, IVocabularyFactory
 from zope.component import getUtility
 from zope.i18n import translate
 import plone.api
-import httpx
 from plone.protect.interfaces import IDisableCSRFProtection
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
-from ..content.survey import ISurvey
 from ..constants import FORM_VERSIONS_KEY, PDF_FORM_KEY
+from ..audit import audit_form_version_change
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..data_validation.validate_data import validate_data as run_data_validation
@@ -47,7 +42,7 @@ from .services import export as export_service
 from .services import forms as forms_service
 from .services import pdf as pdf_service
 from .services import results as results_service
-from .services.http import json_error, json_response, parse_json_body
+from .services.http import json_error, json_response
 
 logger = logging.getLogger(__name__)
 
@@ -72,6 +67,7 @@ CONVERTER_FORMATS = [
     ),
     ("json", "JSON (.json)", "json", "application/json"),
 ]
+
 
 def _extract_json_object(raw_text: str) -> str | None:
     """Best-effort extraction of a JSON object from noisy text."""
@@ -642,6 +638,8 @@ class Views(BrowserView):
             )
 
             annos = IAnnotations(self.context)
+            previous_versions = forms_service.sorted_form_versions(annos)
+            previous_version = previous_versions[-1] if previous_versions else None
             version_data = forms_service.save_form_version(
                 annos,
                 survey_json,
@@ -649,6 +647,24 @@ class Views(BrowserView):
                 locked=False,
             )
             version_id = version_data["id"]
+            audit_form_version_change(
+                self.context,
+                form_json=survey_json,
+                source="upload_pdf_form",
+                new_version_id=version_id,
+                previous_version_id=previous_version["id"]
+                if previous_version
+                else None,
+                previous_form_json=previous_version.get("form_json")
+                if previous_version
+                else None,
+                locked=version_data.get("locked"),
+                extra={
+                    "pdf_filename": filename,
+                    "pdf_extract_mode": extract_mode,
+                    "pdf_field_count": len(field_map),
+                },
+            )
 
             annos[PDF_FORM_KEY] = dict(
                 version_id=version_id,
@@ -854,11 +870,24 @@ class Views(BrowserView):
         json_form = orjson.loads(self.request.form["surveyText"])
 
         annos = IAnnotations(self.context)
-        forms_service.save_form_version(
+        previous_versions = forms_service.sorted_form_versions(annos)
+        previous_version = previous_versions[-1] if previous_versions else None
+        data = forms_service.save_form_version(
             annos,
             json_form,
             plone.api.user.get_current().getId(),
             locked=False,
+        )
+        audit_form_version_change(
+            self.context,
+            form_json=json_form,
+            source="editor",
+            new_version_id=data["id"],
+            previous_version_id=previous_version["id"] if previous_version else None,
+            previous_form_json=previous_version.get("form_json")
+            if previous_version
+            else None,
+            locked=data.get("locked"),
         )
 
         json_response(self.request.response, dict(isSuccess=True))
@@ -1598,11 +1627,24 @@ class Views(BrowserView):
             return
 
         annos = IAnnotations(self.context)
+        previous_versions = forms_service.sorted_form_versions(annos)
+        previous_version = previous_versions[-1] if previous_versions else None
         data = forms_service.save_form_version(
             annos,
             survey_data,
             plone.api.user.get_current().getId(),
             locked=False,
+        )
+        audit_form_version_change(
+            self.context,
+            form_json=survey_data,
+            source="store_pdf_form",
+            new_version_id=data["id"],
+            previous_version_id=previous_version["id"] if previous_version else None,
+            previous_form_json=previous_version.get("form_json")
+            if previous_version
+            else None,
+            locked=data.get("locked"),
         )
 
         result = {

@@ -2,6 +2,7 @@ import orjson
 import plone.api
 from zope.annotation.interfaces import IAnnotations
 
+from ..audit import audit_form_version_change
 from .services import ai as ai_service
 from .services import forms as forms_service
 from .views import Views
@@ -90,11 +91,26 @@ class SurveyAI(Views):
                 raise ValueError("Form JSON must be an object")
 
             annos = IAnnotations(self.context)
+            previous_versions = forms_service.sorted_form_versions(annos)
+            previous_version = previous_versions[-1] if previous_versions else None
             data = forms_service.save_form_version(
                 annos,
                 json_form,
                 plone.api.user.get_current().getId(),
                 locked=False,
+            )
+            audit_form_version_change(
+                self.context,
+                form_json=json_form,
+                source="ai",
+                new_version_id=data["id"],
+                previous_version_id=previous_version["id"]
+                if previous_version
+                else None,
+                previous_form_json=previous_version.get("form_json")
+                if previous_version
+                else None,
+                locked=data.get("locked"),
             )
 
             result = dict(

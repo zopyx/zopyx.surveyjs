@@ -5,6 +5,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.schema import getFieldsInOrder
 
 from .. import _
+from ..audit import audit_form_version_change, audit_form_version_state_change
 from ..constants import FORM_VERSIONS_KEY
 from .services import forms as forms_service
 from .services.http import json_response
@@ -75,11 +76,25 @@ class SurveyVersions(Views):
                 self.context.absolute_url() + "/@@form-versions"
             )
 
-        forms_service.save_form_version(
+        previous_versions = forms_service.sorted_form_versions(annos)
+        previous_version = previous_versions[-1] if previous_versions else None
+        new_version = forms_service.save_form_version(
             annos,
             old_version["form_json"],
             plone.api.user.get_current().getId(),
             locked=False,
+        )
+        audit_form_version_change(
+            self.context,
+            form_json=old_version["form_json"],
+            source="restore_version",
+            new_version_id=new_version["id"],
+            previous_version_id=previous_version["id"] if previous_version else None,
+            previous_form_json=previous_version.get("form_json")
+            if previous_version
+            else None,
+            locked=new_version.get("locked"),
+            extra={"restored_from_version_id": version_id},
         )
 
         plone.api.portal.show_message(
@@ -111,6 +126,18 @@ class SurveyVersions(Views):
         locked = bool(version_data.get("locked"))
         version_data["locked"] = not locked
         form_versions[version_id] = version_data
+        audit_form_version_state_change(
+            self.context,
+            action="form.version.lock"
+            if version_data["locked"]
+            else "form.version.unlock",
+            comment="Form version locked"
+            if version_data["locked"]
+            else "Form version unlocked",
+            version_id=version_id,
+            source="form_versions",
+            extra={"locked": version_data["locked"]},
+        )
 
         message = (
             _("Version locked") if version_data["locked"] else _("Version unlocked")
@@ -147,6 +174,14 @@ class SurveyVersions(Views):
             )
 
         del form_versions[version_id]
+        audit_form_version_state_change(
+            self.context,
+            action="form.version.delete",
+            comment="Form version deleted",
+            version_id=version_id,
+            source="form_versions",
+            extra={"was_locked": bool(version_data.get("locked"))},
+        )
         plone.api.portal.show_message(_("Version deleted"), type="info")
         return self.request.response.redirect(
             self.context.absolute_url() + "/@@form-versions"
@@ -181,11 +216,25 @@ class SurveyVersions(Views):
             )
 
         annos = IAnnotations(self.context)
-        forms_service.save_form_version(
+        previous_versions = forms_service.sorted_form_versions(annos)
+        previous_version = previous_versions[-1] if previous_versions else None
+        new_version = forms_service.save_form_version(
             annos,
             json_data,
             plone.api.user.get_current().getId(),
             locked=False,
+        )
+        audit_form_version_change(
+            self.context,
+            form_json=json_data,
+            source="upload_version",
+            new_version_id=new_version["id"],
+            previous_version_id=previous_version["id"] if previous_version else None,
+            previous_form_json=previous_version.get("form_json")
+            if previous_version
+            else None,
+            locked=new_version.get("locked"),
+            extra={"upload_filename": getattr(uploaded_file, "filename", None)},
         )
 
         plone.api.portal.show_message(

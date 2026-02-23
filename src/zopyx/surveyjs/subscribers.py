@@ -1,5 +1,27 @@
 # -*- coding: utf-8 -*-
-"""Event subscribers for zopyx.surveyjs."""
+"""Event subscribers for zopyx.surveyjs.
+
+This module contains two categories of subscribers:
+
+1. Submission pipeline subscribers (``ISurveyJSFormSubmittedEvent``)
+   These run after a survey submission has passed validation and was accepted.
+   Each subscriber performs one side effect (store result, send emails, POST to an
+   endpoint, etc.). The functions are intentionally independent so deployments can
+   reason about each side effect in isolation and failures are easier to diagnose.
+
+2. Content modification audit subscribers (``IObjectModifiedEvent``)
+   These track editor changes to Survey content metadata. The project uses
+   ``zopyx.plone.persistentlogger`` to persist audit entries on the object, which
+   complements normal application logging (``logging``) that is often ephemeral.
+
+Operational notes:
+
+- Submission subscribers should never mutate unrelated content state.
+- Side effects should fail safely: exceptions are logged and should not break the
+  request path that already accepted the submission.
+- Audit payloads should be compact and privacy-aware. Do not persist full survey
+  answers or full content object dumps in the persistent logger.
+"""
 
 import logging
 import os
@@ -20,25 +42,28 @@ from plone.registry.interfaces import IRegistry
 from email.message import EmailMessage
 
 import zope.component
-from plone.app.dexterity.behaviors.metadata import IDublinCore
 from plone.behavior.interfaces import IBehaviorAssignable
 from plone.dexterity.interfaces import IDexterityFTI, IDexterityContent
-from zope.schema import getFieldsInOrder
-from zopyx.plone.persistentlogger.logger import IPersistentLogger
 
 from .constants import FORM_VERSIONS_KEY
 from .storage import _get_storage_location, get_result_storage
 from .utils import ensure_timezone_aware
+from .audit import audit_metadata_update
 from .content.survey import Counter
 from .converters.cli import SurveyConverter
 from .interfaces import IFormsSettings
 
 logger = logging.getLogger(__name__)
-_METADATA_FIELDS = {name for name, _field in getFieldsInOrder(IDublinCore)}
 
 
 def _get_all_fields(context):
-    """Return all schema + behavior fields for a Dexterity object."""
+    """Return all schema and behavior fields for a Dexterity object.
+
+    ``IObjectModifiedEvent`` descriptions do not always carry enough information to
+    map changed attribute names back to their schema definitions. This helper builds
+    a complete field map so we can intersect event field names with real fields and
+    safely read the current values for a compact audit payload.
+    """
     schema = zope.component.getUtility(
         IDexterityFTI, name=context.portal_type
     ).lookupSchema()
@@ -53,7 +78,11 @@ def _get_all_fields(context):
 
 
 def log_survey_submission(context, event):
-    """Sample listener that logs form submissions to stdout."""
+    """Debug-only sample listener that prints accepted submissions to stdout.
+
+    This is useful during local development but should not be treated as the audit
+    trail; persistent audit logging for editor actions uses ``IPersistentLogger``.
+    """
     context_info = getattr(context, "absolute_url", lambda: repr(context))()
     print(f"SurveyJSFormSubmitted: context={context_info} data={event.form_data}")
 
@@ -70,6 +99,12 @@ def _normalize_field_name(name: str | None) -> str | None:
 
 
 def _extract_changed_fields(event) -> set[str]:
+    """Extract normalized field names from lifecycle event descriptions.
+
+    Plone/Zope lifecycle events may expose changes via ``attributes``, ``name`` or
+    ``attribute`` depending on the event description type. This helper merges those
+    forms into a single normalized field-name set.
+    """
     changed: set[str] = set()
     for description in getattr(event, "descriptions", []) or []:
         attributes = getattr(description, "attributes", None)
@@ -88,7 +123,21 @@ def _extract_changed_fields(event) -> set[str]:
 
 
 def log_metadata_changes(context, event):
-    """Log changes to metadata fields on any Dexterity object."""
+    """Persist a compact audit record for Dexterity metadata/content edits.
+
+    Trigger:
+        ``IObjectModifiedEvent`` for any ``IDexterityContent`` (registered in
+        ``configure.zcml``).
+
+    Behavior:
+        - Determine which fields changed from event descriptions.
+        - Intersect with actual schema/behavior fields on the object.
+        - Read current values only for the changed fields.
+        - Write a compact, redacted persistent log entry.
+
+    We intentionally avoid persisting the full object state because Survey objects
+    can contain large/sensitive text fields (email bodies, endpoint URLs, etc.).
+    """
 
     if not IDexterityContent.providedBy(context):
         return
@@ -103,7 +152,7 @@ def log_metadata_changes(context, event):
         return
 
     values: dict[str, object] = {}
-    for name in fields:
+    for name in matched:
         value = getattr(context, name, None)
         if callable(value):
             try:
@@ -112,14 +161,7 @@ def log_metadata_changes(context, event):
                 value = None
         values[name] = value
 
-    adapter = IPersistentLogger(context)
-    comment = "Metadata updated: " + ", ".join(matched)
-    adapter.log(
-        comment,
-        level="info",
-        info_url=getattr(context, "absolute_url", lambda: "")(),
-        details={"fields": matched, "values": values},
-    )
+    audit_metadata_update(context, matched, values)
 
 
 def _interpolate_text(text: str | None, mapping: dict) -> str | None:
@@ -134,6 +176,7 @@ def _interpolate_text(text: str | None, mapping: dict) -> str | None:
 
 
 def _latest_form_json(annos) -> dict:
+    """Return the most recent stored form JSON from annotations."""
     form_versions = [d for d in annos.get(FORM_VERSIONS_KEY, {}).values()]
     form_versions = sorted(
         form_versions, key=lambda x: ensure_timezone_aware(x["created"])
@@ -142,6 +185,7 @@ def _latest_form_json(annos) -> dict:
 
 
 def _serialize_result_entry(result_entry: dict) -> dict:
+    """Convert result entry fields (mainly datetimes) to JSON-safe values."""
     serialized = dict(result_entry)
     created = serialized.get("created")
     if isinstance(created, datetime):
@@ -150,6 +194,7 @@ def _serialize_result_entry(result_entry: dict) -> dict:
 
 
 def _get_converter_format(format_key: str):
+    """Resolve converter metadata from ``CONVERTER_FORMATS`` by key."""
     from .browser.views import CONVERTER_FORMATS
 
     for key, label, ext, content_type in CONVERTER_FORMATS:
@@ -167,6 +212,7 @@ def _write_export(
     created,
     output_dir: Path,
 ):
+    """Render one export format and return the output path if successful."""
     output_path = None
     if format_key == "text":
         from .converters import write_text
@@ -224,7 +270,20 @@ def _write_export(
 
 
 def send_submission_email(context, event):
-    """Send submission email when the mail action is enabled."""
+    """Send exported submission artifacts by email when the ``mail`` action is set.
+
+    Expected event payload:
+        ``event.form_data`` contains ``poll_id``, ``result``, ``user`` and
+        ``created`` (as assembled by the submit endpoint).
+
+    Side effects:
+        - Reads latest form JSON version from annotations.
+        - Renders one or more export formats via ``SurveyConverter``.
+        - Sends email through MailHost.
+
+    Failures are logged and swallowed so a mail problem does not break accepted
+    submissions.
+    """
     actions = getattr(context, "actions", set()) or set()
     if "mail" not in actions:
         return
@@ -349,7 +408,11 @@ def send_submission_email(context, event):
 
 
 def send_submission_notification(context, event):
-    """Send notification-only email when the mail-notification action is enabled."""
+    """Send a lightweight notification email when ``mail-notification`` is enabled.
+
+    Unlike ``send_submission_email`` this subscriber does not generate attachments;
+    it sends a link to the submission detail page.
+    """
     actions = getattr(context, "actions", set()) or set()
     if "mail-notification" not in actions:
         return
@@ -423,7 +486,11 @@ def send_submission_notification(context, event):
 
 
 def post_submission_payload(context, event):
-    """POST submission to external endpoint when the post action is enabled."""
+    """POST the accepted submission plus latest form schema to an external endpoint.
+
+    This is useful for integrating with downstream systems while preserving enough
+    context (survey URL + form schema + poll payload) for external processing.
+    """
     actions = getattr(context, "actions", set()) or set()
     if "post" not in actions:
         return
@@ -473,7 +540,11 @@ def post_submission_payload(context, event):
 
 
 def store_submission_result(context, event):
-    """Store submission data when the store action is enabled."""
+    """Persist accepted submission data when the ``store`` action is enabled.
+
+    Optional request metadata (IP/user-agent) is included only when enabled via
+    registry settings. Sequence numbers are generated per survey object.
+    """
     actions = getattr(context, "actions", set()) or set()
     if "store" not in actions:
         return
