@@ -58,7 +58,7 @@
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".survey_dashboard.SurveyDashboard"
     permission="cmf.ModifyPortalContent"
-    template="survey_dashboar.pt"
+    template="survey_dashboard.pt"
   />
   <browser:page
     name="survey-overview"
