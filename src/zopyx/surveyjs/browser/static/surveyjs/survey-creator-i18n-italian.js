@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v2.5.8
+ * SurveyJS Creator v2.5.11
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/licensing
@@ -18,15 +18,15 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "survey-creator-core":
+/***/ "survey-creator-core"
 /*!********************************************************************************************************************************************!*\
   !*** external {"root":"SurveyCreatorCore","commonjs2":"survey-creator-core","commonjs":"survey-creator-core","amd":"survey-creator-core"} ***!
   \********************************************************************************************************************************************/
-/***/ ((module) => {
+(module) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_survey_creator_core__;
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -39,6 +39,12 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_survey_creator_core__;
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
