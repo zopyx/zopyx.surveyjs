@@ -17,7 +17,7 @@
     name="pfs"
     for="Products.CMFCore.interfaces.IFolderish"
     permission="zope2.View"
-    class=".views.PFSView"
+    class=".psf.PFSView"
     template="pfs.pt"
   />
   <browser:menuItem
@@ -31,7 +31,7 @@
     name="survey-add"
     for="*"
     permission="zopyx.surveyjs.AddSurvey"
-    class=".views.SurveyAddView"
+    class=".survey_add.SurveyAddView"
   />
   <browser:page
     name="survey-metadata"

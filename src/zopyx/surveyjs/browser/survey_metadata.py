@@ -7,7 +7,7 @@ import plone.api
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from .. import _
-from .views import SURVEY_ADD_DEFAULTS, SurveyAddView
+from .survey_add import SURVEY_ADD_DEFAULTS, SurveyAddView
 
 logger = logging.getLogger(__name__)
 
