@@ -1,3 +1,10 @@
+"""Storage backends for SurveyJS form submissions.
+
+This module provides a small abstraction for persisting survey results either
+in ZODB annotations (default/legacy behavior) or in an SQL database via
+SQLModel. The active backend is selected from Plone registry settings.
+"""
+
 from __future__ import annotations
 
 import os
@@ -24,6 +31,10 @@ _ENGINE_CACHE: Dict[str, object] = {}
 
 
 def _normalize_datetime(value: object) -> datetime:
+    """Return a timezone-aware datetime from a datetime or ISO string.
+
+    Invalid or missing values fall back to the current UTC time.
+    """
     if isinstance(value, datetime):
         return ensure_timezone_aware(value)
     if isinstance(value, str):
@@ -38,6 +49,7 @@ def _normalize_datetime(value: object) -> datetime:
 
 
 def _survey_storage_key(context) -> str:
+    """Build a stable survey identifier for the given content context."""
     uid = getattr(context, "UID", None)
     if callable(uid):
         uid_value = uid()
@@ -50,6 +62,7 @@ def _survey_storage_key(context) -> str:
 
 
 def _get_site_id(context) -> str:
+    """Resolve the current Plone site id for multi-site result isolation."""
     try:
         site = getSite()
         if site is not None:
@@ -69,6 +82,7 @@ def _get_site_id(context) -> str:
 
 
 def _get_database_uri() -> str:
+    """Read the configured database URI from the Plone registry."""
     try:
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
@@ -81,6 +95,7 @@ def _get_database_uri() -> str:
 
 
 def _get_backend_name() -> str:
+    """Return the configured storage backend name."""
     try:
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
@@ -91,6 +106,7 @@ def _get_backend_name() -> str:
 
 
 def _get_storage_location() -> str:
+    """Return a human-readable storage location for diagnostics/UI use."""
     backend = _get_backend_name()
     if backend == "rdbms":
         return _get_database_uri()
@@ -98,6 +114,7 @@ def _get_storage_location() -> str:
 
 
 def _sqlite_path_to_uri(sqlite_path: str) -> str:
+    """Convert a filesystem SQLite path into a SQLAlchemy SQLite URI."""
     sqlite_path = sqlite_path.strip()
     if sqlite_path in (":memory:", "file::memory:?cache=shared"):
         return "sqlite:///" + sqlite_path
@@ -108,6 +125,7 @@ def _sqlite_path_to_uri(sqlite_path: str) -> str:
 
 
 def _get_engine(db_uri: str):
+    """Get or create a cached SQLModel engine for the configured database."""
     db_uri = db_uri.strip()
     if db_uri in _ENGINE_CACHE:
         return _ENGINE_CACHE[db_uri]
@@ -133,32 +151,44 @@ def _get_engine(db_uri: str):
 
 
 class ResultStorage:
+    """Abstract interface for survey result persistence backends."""
+
     def store_result(self, context, form_data: dict) -> str:
+        """Store a single result entry and return its poll id."""
         raise NotImplementedError
 
     def get_result(self, context, poll_id: str) -> Optional[dict]:
+        """Return one stored result for this context, or ``None``."""
         raise NotImplementedError
 
     def list_results(self, context) -> List[dict]:
+        """Return all results for this context, newest first."""
         raise NotImplementedError
 
     def delete_results(self, context, poll_ids: Iterable[str]) -> Dict[str, List[str]]:
+        """Delete selected results and report deleted/missing ids."""
         raise NotImplementedError
 
     def clear_results(self, context) -> None:
+        """Delete all results for the given context."""
         raise NotImplementedError
 
     def count_results(self, context) -> int:
+        """Return the number of stored results for the given context."""
         raise NotImplementedError
 
 
 class ZODBResultStorage(ResultStorage):
+    """Store survey results in a ZODB annotation tree on the survey object."""
+
     def _results_tree(self, context):
+        """Return the annotation mapping used to store result entries."""
         annos = IAnnotations(context)
         annos.setdefault(RESULTS_KEY, OOBTree())
         return annos[RESULTS_KEY]
 
     def store_result(self, context, form_data: dict) -> str:
+        """Persist one result entry in the annotation tree for this context."""
         results = self._results_tree(context)
         poll_id = form_data.get("poll_id") or str(uuid.uuid1())
         created = _normalize_datetime(form_data.get("created"))
@@ -169,16 +199,19 @@ class ZODBResultStorage(ResultStorage):
         return poll_id
 
     def get_result(self, context, poll_id: str) -> Optional[dict]:
+        """Fetch one stored annotation entry by poll id."""
         results = self._results_tree(context)
         return results.get(poll_id)
 
     def list_results(self, context) -> List[dict]:
+        """List all annotation-backed results sorted by creation time."""
         results = list(self._results_tree(context).values())
         return sorted(
             results, key=lambda x: ensure_timezone_aware(x["created"]), reverse=True
         )
 
     def delete_results(self, context, poll_ids: Iterable[str]) -> Dict[str, List[str]]:
+        """Delete selected annotation entries and return deletion status."""
         results = self._results_tree(context)
         deleted: List[str] = []
         missing: List[str] = []
@@ -191,14 +224,18 @@ class ZODBResultStorage(ResultStorage):
         return {"deleted": deleted, "missing": missing}
 
     def clear_results(self, context) -> None:
+        """Replace the annotation result tree with a new empty tree."""
         annos = IAnnotations(context)
         annos[RESULTS_KEY] = OOBTree()
 
     def count_results(self, context) -> int:
+        """Count annotation-backed results stored for this context."""
         return len(self._results_tree(context))
 
 
 class SurveyResult(SQLModel, table=True):
+    """SQLModel table storing normalized metadata and the original JSON entry."""
+
     __tablename__ = "survey_results"
 
     poll_id: str = Field(primary_key=True)
@@ -210,14 +247,19 @@ class SurveyResult(SQLModel, table=True):
 
 
 class SQLResultStorage(ResultStorage):
+    """Store survey results in an SQL database using SQLModel."""
+
     def __init__(self, database_uri: str):
+        """Initialize a storage backend for the given database URI."""
         self._database_uri = database_uri
         self._engine = _get_engine(database_uri)
 
     def _session(self) -> Session:
+        """Create a new SQLModel session for the configured engine."""
         return Session(self._engine)
 
     def store_result(self, context, form_data: dict) -> str:
+        """Insert or update one SQL-backed result entry for this context."""
         poll_id = form_data.get("poll_id") or str(uuid.uuid1())
         created = _normalize_datetime(form_data.get("created"))
         site_id = _get_site_id(context)
@@ -251,6 +293,7 @@ class SQLResultStorage(ResultStorage):
         return poll_id
 
     def get_result(self, context, poll_id: str) -> Optional[dict]:
+        """Fetch one SQL-backed result scoped to the current site and survey."""
         site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
@@ -260,6 +303,7 @@ class SQLResultStorage(ResultStorage):
             return self._row_to_entry(row)
 
     def list_results(self, context) -> List[dict]:
+        """List SQL-backed results for this context ordered by newest first."""
         site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
@@ -275,6 +319,7 @@ class SQLResultStorage(ResultStorage):
         return [self._row_to_entry(row) for row in rows]
 
     def delete_results(self, context, poll_ids: Iterable[str]) -> Dict[str, List[str]]:
+        """Delete SQL-backed results for this context and report outcomes."""
         site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         deleted: List[str] = []
@@ -291,6 +336,7 @@ class SQLResultStorage(ResultStorage):
         return {"deleted": deleted, "missing": missing}
 
     def clear_results(self, context) -> None:
+        """Delete all SQL-backed results belonging to this context."""
         site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
@@ -304,6 +350,7 @@ class SQLResultStorage(ResultStorage):
             session.commit()
 
     def count_results(self, context) -> int:
+        """Count SQL-backed results belonging to this context."""
         site_id = _get_site_id(context)
         survey_id = _survey_storage_key(context)
         with self._session() as session:
@@ -315,6 +362,7 @@ class SQLResultStorage(ResultStorage):
         return len(rows)
 
     def _row_to_entry(self, row: SurveyResult) -> dict:
+        """Convert a database row back into the expected result entry dict."""
         try:
             entry = orjson.loads(row.entry_json)
         except orjson.JSONDecodeError:
@@ -326,6 +374,7 @@ class SQLResultStorage(ResultStorage):
 
 
 def get_result_storage(context) -> ResultStorage:
+    """Return the configured result storage backend instance."""
     backend = _get_backend_name()
     if backend == "rdbms":
         return SQLResultStorage(_get_database_uri())
