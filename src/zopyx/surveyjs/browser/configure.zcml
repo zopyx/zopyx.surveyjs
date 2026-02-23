@@ -49,7 +49,7 @@
   <browser:page
     name="results"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     permission="cmf.ModifyPortalContent"
     template="results.pt"
   />
@@ -84,7 +84,7 @@
   <browser:page
     name="result-detail"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     permission="cmf.ModifyPortalContent"
     template="result_detail.pt"
   />
@@ -218,7 +218,7 @@
     name="results-data"
     permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     attribute="results_data"
   />
 
@@ -248,21 +248,21 @@
     name="download-result"
     permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     attribute="download_result"
   />
   <browser:page
     name="mail-result"
     permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     attribute="mail_result"
   />
   <browser:page
     name="post-result"
     permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     attribute="post_result"
   />
 
@@ -321,14 +321,14 @@
     name="view-result-json"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     attribute="view_result_json"
   />
   <browser:page
     name="delete-results"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_results.SurveyResults"
     attribute="delete_results"
   />
 
