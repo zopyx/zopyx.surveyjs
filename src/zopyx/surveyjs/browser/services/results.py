@@ -1,3 +1,5 @@
+"""Helpers for formatting, filtering, and paginating survey results."""
+
 from datetime import datetime
 
 import orjson
@@ -6,6 +8,7 @@ from ...utils import ensure_timezone_aware
 
 
 def format_created(created):
+    """Normalize result timestamps for display and sorting."""
     if isinstance(created, str):
         value = created.strip()
         if value.endswith("Z"):
@@ -21,6 +24,7 @@ def format_created(created):
 
 
 def parse_tabulator_param(request, name):
+    """Parse a Tabulator JSON parameter from the request form."""
     raw = request.form.get(name)
     if raw is None or raw == "":
         return []
@@ -35,6 +39,7 @@ def parse_tabulator_param(request, name):
 
 
 def results_row(entry):
+    """Build a table row representation from a stored result entry."""
     result_payload = entry.get("result") or {}
     created = entry.get("created")
     created_ts = None
@@ -51,10 +56,12 @@ def results_row(entry):
 
 
 def results_apply_filters(rows, filters):
+    """Apply Tabulator-style filters to result rows."""
     if not filters:
         return rows
 
     def _match(row, flt):
+        """Return whether a row matches a single filter specification."""
         field = flt.get("field")
         value = flt.get("value")
         if field is None:
@@ -92,9 +99,11 @@ def results_apply_filters(rows, filters):
 
 
 def build_results_payload(results, request):
+    """Build a paginated, filtered payload for the results API."""
     q = (request.form.get("q") or "").strip().lower()
 
     def _safe_int(value, default):
+        """Parse an integer value and fall back to ``default``."""
         try:
             return int(value)
         except (TypeError, ValueError):
@@ -117,6 +126,7 @@ def build_results_payload(results, request):
     if q:
 
         def _matches(row):
+            """Return whether a row matches the free-text query."""
             return (
                 q in str(row.get("user") or "").lower()
                 or q in str(row.get("poll_id") or "").lower()
@@ -152,6 +162,7 @@ def build_results_payload(results, request):
 
 
 def get_paginated_results(results, request):
+    """Build legacy pagination data for browser-rendered results views."""
     q = request.form.get("q", "").lower()
     b_start = int(request.form.get("b_start", 0))
     pagesize = 10
@@ -160,6 +171,7 @@ def get_paginated_results(results, request):
     if q:
 
         def _matches_query(result):
+            """Return whether a stored result matches the search query."""
             user = (result.get("user") or "").lower()
             poll_id = (result.get("poll_id") or "").lower()
             created = (format_created(result.get("created")) or "").lower()

@@ -1,3 +1,5 @@
+"""HTTP helpers for JSON request parsing and response rendering."""
+
 import orjson
 
 
@@ -8,6 +10,7 @@ def json_response(
     content_type="application/json",
     dumps_options=None,
 ):
+    """Write a JSON payload to the Zope response object."""
     response.setStatus(status)
     response.setHeader("content-type", content_type)
     if dumps_options is None:
@@ -17,6 +20,7 @@ def json_response(
 
 
 def json_error(response, status, error, message=None, extra=None):
+    """Write a standardized JSON error response."""
     payload = {"error": error}
     if message:
         payload["message"] = message
@@ -26,6 +30,7 @@ def json_error(response, status, error, message=None, extra=None):
 
 
 def parse_json_body(request):
+    """Parse a JSON request body and return ``None`` on invalid input."""
     raw_body = request.get("BODY", b"")
     if isinstance(raw_body, str):
         raw_body = raw_body.encode("utf-8")

@@ -1,3 +1,5 @@
+"""PDF import helpers for field extraction and SurveyJS conversion."""
+
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import subprocess
@@ -12,6 +14,7 @@ from .ai import load_ai_settings
 
 
 def get_pdf_form_state(context):
+    """Return PDF form metadata together with the mapped SurveyJS form JSON."""
     annos = IAnnotations(context)
     pdf_form = getattr(context, "pdf_form", None)
     pdf_meta = annos.get(PDF_FORM_KEY) or {}
@@ -34,6 +37,7 @@ def get_pdf_form_state(context):
 
 
 def generate_survey_json_from_pdf_llm(pdf_bytes):
+    """Generate SurveyJS JSON from a PDF using the optional LLM pipeline."""
     try:
         from ..ai_generator import generate_survey_json_from_image, strip_markdown_json
     except ImportError as exc:
@@ -92,6 +96,7 @@ def generate_survey_json_from_pdf_llm(pdf_bytes):
 
 
 def extract_pdf_form_data(pdf_bytes, extract_mode, survey_title):
+    """Extract form data from a PDF using field parsing or the LLM mode."""
     if extract_mode == "llm":
         survey_json = generate_survey_json_from_pdf_llm(pdf_bytes)
         field_map = []

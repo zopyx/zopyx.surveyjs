@@ -1,3 +1,5 @@
+"""Authentication and trusted-access helpers for survey browser services."""
+
 import secrets
 from datetime import datetime, timezone, timedelta
 
@@ -14,26 +16,34 @@ TRUSTED_ACCESS_TOKEN_BYTES = 16
 
 
 class AuthService:
+    """Encapsulate auth token and trusted access validation for a form."""
+
     def __init__(self, context, request, form_id_getter):
+        """Store request context and the callback used to resolve form IDs."""
         self.context = context
         self.request = request
         self._form_id_getter = form_id_getter
 
     def _form_id(self):
+        """Return the current form identifier."""
         return self._form_id_getter()
 
     def _auth_settings(self):
+        """Load auth-related registry settings."""
         registry = getUtility(IRegistry)
         return registry.forInterface(IFormsSettings, check=False)
 
     def trusted_access_enabled(self):
+        """Return whether trusted access mode is enabled for the context."""
         mode = getattr(self.context, "access_mode", "") or "public"
         return str(mode).strip().lower() == "trusted"
 
     def _trusted_access_cache_key(self, token):
+        """Build the cache key used for trusted access tokens."""
         return f"trusted:{token}"
 
     def _trusted_access_ttl_seconds(self):
+        """Return the trusted access token TTL in seconds."""
         hours = getattr(self.context, "trusted_access_ttl_hours", 168)
         try:
             hours_int = int(hours)
@@ -42,31 +52,38 @@ class AuthService:
         return max(hours_int, 1) * 60 * 60
 
     def _auth_token_enabled(self, settings):
+        """Return whether authenticity tokens are enabled in settings."""
         return bool(getattr(settings, "authenticity_token_enabled", False))
 
     def _auth_token_secret(self, settings):
+        """Return the configured authenticity token secret."""
         secret = getattr(settings, "authenticity_token_secret", "") or ""
         return str(secret).strip()
 
     def _auth_token_issuer(self, settings):
+        """Return the configured token issuer."""
         issuer = getattr(settings, "authenticity_token_issuer", "") or ""
         return str(issuer).strip()
 
     def _auth_token_audience(self, settings):
+        """Return the configured token audience."""
         audience = getattr(settings, "authenticity_token_audience", "") or ""
         return str(audience).strip()
 
     def _auth_token_ttl(self, settings):
+        """Return the authenticity token TTL in seconds."""
         try:
             return int(getattr(settings, "authenticity_token_ttl_seconds", 600))
         except (TypeError, ValueError):
             return 600
 
     def _auth_token_cache_path(self, settings):
+        """Return the diskcache path for token tracking."""
         path = getattr(settings, "authenticity_token_cache_path", "") or ""
         return str(path).strip() or "var/token_cache.db"
 
     def _token_cache(self, settings):
+        """Open the token cache and return ``None`` if unavailable."""
         path = self._auth_token_cache_path(settings)
         try:
             cache = diskcache.Cache(path)
@@ -75,24 +92,29 @@ class AuthService:
             return None
 
     def _cache_set(self, cache, token, value):
+        """Store a token marker in the cache, ignoring cache failures."""
         try:
             cache.set(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
         except Exception:
             return
 
     def _cache_add(self, cache, token, value):
+        """Add a token marker once and report whether it was inserted."""
         try:
             return cache.add(token, value, expire=TOKEN_CACHE_TTL_SECONDS)
         except Exception:
             return False
 
     def _issued_cache_key(self, token):
+        """Build the cache key for issued authenticity tokens."""
         return f"issued:{token}"
 
     def _received_cache_key(self, token):
+        """Build the cache key for received authenticity tokens."""
         return f"received:{token}"
 
     def build_auth_token(self, form_version_id):
+        """Create and record an authenticity token for a form version."""
         settings = self._auth_settings()
         if not self._auth_token_enabled(settings):
             return ""
@@ -119,6 +141,7 @@ class AuthService:
         return token
 
     def issue_trusted_access_token(self, form_version_id):
+        """Issue a single trusted-access token and persist its metadata."""
         settings = self._auth_settings()
         cache = self._token_cache(settings)
         if not cache:
@@ -144,6 +167,7 @@ class AuthService:
         return token, metadata
 
     def require_trusted_access(self, logger=None):
+        """Validate trusted access token requirements for the current request."""
         if not self.trusted_access_enabled():
             return True
         token = (
@@ -206,6 +230,7 @@ class AuthService:
         return True
 
     def require_auth_token(self, form_version_id, logger=None):
+        """Validate the submitted authenticity token and block replay."""
         settings = self._auth_settings()
         if not self._auth_token_enabled(settings):
             return True

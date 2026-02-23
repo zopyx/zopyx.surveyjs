@@ -1,3 +1,5 @@
+"""Registry-backed helpers for AI-related service configuration."""
+
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
@@ -5,6 +7,7 @@ from ...interfaces import IFormsSettings
 
 
 def load_ai_settings():
+    """Load and normalize AI provider settings from the Plone registry."""
     registry = getUtility(IRegistry)
     settings = registry.forInterface(IFormsSettings, check=False)
 

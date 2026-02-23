@@ -1,9 +1,12 @@
+"""Helpers for serializing and exporting stored survey results."""
+
 from datetime import datetime
 
 from ...utils import ensure_timezone_aware
 
 
 def serialize_result_entry(result_entry):
+    """Convert a stored result entry to a JSON-friendly structure."""
     serialized = dict(result_entry)
     created = serialized.get("created")
     if isinstance(created, datetime):
@@ -12,6 +15,7 @@ def serialize_result_entry(result_entry):
 
 
 def write_export(format_key, poll_id, items, attachments, creator, created, output_dir):
+    """Write an export file in the requested format and return its path."""
     output_path = None
     if format_key == "text":
         from zopyx.surveyjs.converters import write_text
