@@ -34,10 +34,10 @@
     class=".views.SurveyAddView"
   />
   <browser:page
-    name="survey-edit"
+    name="survey-metadata"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".survey_edit.SurveyEdit"
+    class=".survey_metadata.SurveyMetadata"
   />
   <browser:page
     name="demo-content"
@@ -86,7 +86,7 @@
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".survey_results.SurveyResults"
     permission="cmf.ModifyPortalContent"
-    template="result_detail.pt"
+    template="survey_result_detail.pt"
   />
   <browser:page
     name="view-main"
@@ -101,7 +101,7 @@
     for="*"
     permission="zope2.View"
     class=".views.Views"
-    template="viewer.pt"
+    template="survey_viewer.pt"
   />
   <browser:page
     name="viewer"

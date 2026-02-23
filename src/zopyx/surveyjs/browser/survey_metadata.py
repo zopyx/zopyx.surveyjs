@@ -12,10 +12,10 @@ from .views import SURVEY_ADD_DEFAULTS, SurveyAddView
 logger = logging.getLogger(__name__)
 
 
-class SurveyEdit(SurveyAddView):
+class SurveyMetadata(SurveyAddView):
     """Survey settings editor based on the add wizard."""
 
-    index = ViewPageTemplateFile("survey_edit.pt")
+    index = ViewPageTemplateFile("survey_metadata.pt")
 
     def __call__(self):
         if not self.can_edit:
