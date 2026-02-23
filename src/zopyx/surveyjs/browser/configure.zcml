@@ -37,7 +37,7 @@
     name="survey-edit"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.SurveyEditView"
+    class=".survey_edit.SurveyEdit"
   />
   <browser:page
     name="demo-content"
@@ -51,14 +51,14 @@
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".survey_results.SurveyResults"
     permission="cmf.ModifyPortalContent"
-    template="results.pt"
+    template="survey_results.pt"
   />
   <browser:page
     name="dashboard"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_dashboard.SurveyDashboard"
     permission="cmf.ModifyPortalContent"
-    template="dashboard.pt"
+    template="survey_dashboar.pt"
   />
   <browser:page
     name="survey-overview"
@@ -152,8 +152,8 @@
     name="editor"
     for="*"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
-    template="editor.pt"
+    class=".survey_editor.SurveyEditor"
+    template="survey_editor.pt"
   />
 
   <browser:page 
@@ -211,7 +211,7 @@
     name="create-template-from-version"
     permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="create_template_from_version"
   />
   <browser:page
@@ -271,49 +271,49 @@
     name="form-versions"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
-    template="form_versions.pt"
+    class=".survey_versions.SurveyVersions"
+    template="survey_versions.pt"
   />
   <browser:page
     name="download-version"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="download_version"
   />
   <browser:page
     name="restore-version"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="restore_version"
   />
   <browser:page
     name="toggle-version-lock"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="toggle_version_lock"
   />
   <browser:page
     name="delete-version"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="delete_version"
   />
   <browser:page
     name="upload-version"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="upload_version"
   />
   <browser:page
     name="view-version-json"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_versions.SurveyVersions"
     attribute="view_version_json"
   />
 
@@ -337,8 +337,8 @@
     name="ai"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
-    template="ai.pt"
+    class=".survey_ai.SurveyAI"
+    template="survey_ai.pt"
   />
 
   <!-- PDF Form Importer -->
@@ -391,7 +391,7 @@
     name="generate-ai-form"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_ai.SurveyAI"
     attribute="generate_ai_form"
   />
 
@@ -399,7 +399,7 @@
     name="save-ai-form"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_ai.SurveyAI"
     attribute="save_ai_form"
   />
 
@@ -407,7 +407,7 @@
     name="refine-ai-form"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".views.Views"
+    class=".survey_ai.SurveyAI"
     attribute="refine_ai_form"
   />
 
