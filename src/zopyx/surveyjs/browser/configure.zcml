@@ -63,7 +63,7 @@
   <browser:page
     name="survey-overview"
     for="*"
-    class=".views.Views"
+    class=".survey_overview.SurveyOverview"
     permission="cmf.ManagePortal"
     template="survey_overview.pt"
   />
