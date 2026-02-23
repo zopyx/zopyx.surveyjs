@@ -70,7 +70,7 @@
   <browser:page
     name="survey-templates-overview"
     for="*"
-    class=".views.Views"
+    class=".survey_templates_overview.SurveyTemplatesOverview"
     permission="cmf.ManagePortal"
     template="survey_templates_overview.pt"
   />
