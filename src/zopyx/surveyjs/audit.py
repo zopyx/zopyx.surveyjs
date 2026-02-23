@@ -252,3 +252,26 @@ def audit_form_version_state_change(
     if extra:
         details.update(extra)
     persistent_audit_log(context, comment, action=action, details=details)
+
+
+def audit_controlpanel_change(
+    context,
+    changed_fields: list[str],
+    field_values: dict[str, Any],
+) -> None:
+    """Log controlpanel settings changes via persistent logger.
+
+    Args:
+        context: The context object (usually the site root or controlpanel)
+        changed_fields: List of field names that were modified
+        field_values: Dictionary of field names to their new values
+    """
+    safe_values = {
+        name: summarize_value(name, field_values.get(name)) for name in changed_fields
+    }
+    persistent_audit_log(
+        context,
+        "Controlpanel settings updated: " + ", ".join(changed_fields),
+        action="controlpanel.update",
+        details={"changed_fields": changed_fields, "values": safe_values},
+    )

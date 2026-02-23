@@ -42,13 +42,14 @@ from plone.registry.interfaces import IRegistry
 from email.message import EmailMessage
 
 import zope.component
+import plone.api
 from plone.behavior.interfaces import IBehaviorAssignable
 from plone.dexterity.interfaces import IDexterityFTI, IDexterityContent
 
 from .constants import FORM_VERSIONS_KEY
 from .storage import _get_storage_location, get_result_storage
 from .utils import ensure_timezone_aware
-from .audit import audit_metadata_update
+from .audit import audit_metadata_update, audit_controlpanel_change
 from .content.survey import Counter
 from .converters.cli import SurveyConverter
 from .interfaces import IFormsSettings
@@ -596,3 +597,52 @@ def store_submission_result(context, event):
     logger.info(
         "Stored survey submission for poll %s in %s", poll_id, _get_storage_location()
     )
+
+
+# Controlpanel audit logging
+
+from plone.registry.interfaces import IRecordModifiedEvent
+from plone.registry.interfaces import IRegistry
+from .interfaces import IFormsSettings
+
+# Prefix for our settings in the registry
+FORMS_SETTINGS_PREFIX = "zopyx.surveyjs.interfaces.IFormsSettings."
+
+
+def log_controlpanel_change(event):
+    """Log changes to Forms controlpanel settings via persistent logger.
+
+    This subscriber listens for IRecordModifiedEvent and logs changes
+    to settings defined in IFormsSettings.
+    """
+    record = event.record
+
+    # Only log changes to our settings
+    if not record.interfaceName or not record.interfaceName.endswith("IFormsSettings"):
+        return
+
+    field_name = record.fieldName
+    if not field_name:
+        return
+
+    try:
+        portal = plone.api.portal.get()
+        # Get the old value if available
+        old_value = getattr(event, "oldValue", None)
+        new_value = record.value
+
+        # Skip if value hasn't actually changed
+        if old_value == new_value:
+            return
+
+        field_values = {field_name: new_value}
+        if old_value is not None:
+            field_values["_previous_value"] = old_value
+
+        audit_controlpanel_change(
+            portal,
+            [field_name],
+            field_values,
+        )
+    except Exception:
+        logger.exception("Failed to log controlpanel change for %s", field_name)

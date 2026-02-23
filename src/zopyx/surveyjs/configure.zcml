@@ -73,6 +73,11 @@
       handler=".subscribers.log_metadata_changes"
       />
 
+  <subscriber
+      for="plone.registry.interfaces.IRecordModifiedEvent"
+      handler=".subscribers.log_controlpanel_change"
+      />
+
       <include package="z3c.jbot" file="meta.zcml" />
 
   <browser:jbot
