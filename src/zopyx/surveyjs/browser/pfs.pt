@@ -67,9 +67,11 @@
                        class="pfs-combobox-input"
                        type="search"
                        placeholder="Select a template"
+                       i18n:attributes="placeholder aria-label"
                        aria-label="Select a template"
                        autocomplete="off" />
                 <button type="button"
+                       i18n:attributes="placeholder aria-label"
                         class="pfs-combobox-toggle"
                         aria-label="Toggle template list"></button>
                 <div class="pfs-combobox-options" role="listbox"></div>
