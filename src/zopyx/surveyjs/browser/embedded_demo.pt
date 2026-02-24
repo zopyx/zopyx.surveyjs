@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embedded Survey Demo</title>
+  <style type="text/css">
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #f5f7fa;
+      font-family: sans-serif;
+    }
+    .wrap {
+      box-sizing: border-box;
+      height: 100%;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .note {
+      background: #eef4ff;
+      border: 1px solid #c9dafc;
+      border-radius: 8px;
+      color: #22324d;
+      padding: 0.75rem 1rem;
+      line-height: 1.4;
+    }
+    .frame {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 480px;
+      border: 1px solid #cfd7e3;
+      border-radius: 8px;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="note">
+      This is a demo page for demonstrating the embedded mode using the survey's
+      iframe viewer.
+    </div>
+    <iframe
+      class="frame"
+      title="Embedded mental health survey demo"
+      tal:attributes="src view/iframe_url"
+    ></iframe>
+  </div>
+</body>
+</html>
