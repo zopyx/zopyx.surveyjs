@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-02-24 07:51+0100\n"
+"PO-Revision-Date: 2026-02-24 08:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -625,7 +625,7 @@ msgstr ""
 
 #: generated
 msgid "Store"
-msgstr "Archivia"
+msgstr "Negozio"
 
 #: generated
 msgid "Subject"
@@ -999,8 +999,8 @@ msgstr "Incorporamento non consentito"
 #: generated
 msgid "Enable it in the survey settings to collect and view responses here."
 msgstr ""
-"Abilitalo nelle impostazioni del sondaggio per raccogliere e visualizzare le "
-"risposte qui."
+"Abilitalo nelle impostazioni del sondaggio per raccogliere e visualizzare "
+"qui le risposte"
 
 #: generated
 msgid "Form JSON"
@@ -1331,7 +1331,7 @@ msgstr "Stato"
 
 #: generated
 msgid "Effective"
-msgstr "Effettivo"
+msgstr "Efficace"
 
 #: generated
 msgid "Expires"
@@ -1388,7 +1388,7 @@ msgstr "Aggiorna"
 
 #: generated
 msgid "Forms overview"
-msgstr "Panoramica dei sondaggi"
+msgstr "Panoramica dei moduli"
 
 #: generated
 msgid "Overview of forms in this section and their submission status."
@@ -1445,13 +1445,13 @@ msgid "Prev"
 msgstr "Prec"
 
 msgid "Prev Page"
-msgstr "Pagina prec"
+msgstr "Pagina precedente"
 
 msgid "Next"
-msgstr "Succ"
+msgstr "Avanti"
 
 msgid "Next Page"
-msgstr "Pagina succ"
+msgstr "Pagina successiva"
 
 msgid "All"
 msgstr "Tutti"
@@ -1463,7 +1463,7 @@ msgid "Additional prompt"
 msgstr "Prompt aggiuntivo"
 
 msgid "Add extra conversion guidance..."
-msgstr "Aggiungi guida alla conversione extra..."
+msgstr "Aggiungi indicazioni aggiuntive per la conversione"
 
 msgid "Optional instructions to guide the conversion."
 msgstr "Istruzioni opzionali per guidare la conversione."
@@ -1659,7 +1659,7 @@ msgstr ""
 "सबसे अच्छा है लेकिन हमेशा मूल PDF फ़ील्ड्स पर मैप नहीं कर पाता"
 
 msgid "Analyze PDF"
-msgstr "PDF का विश्लेषण करें"
+msgstr "Analizza PDF"
 
 #: zopyx/surveyjs/browser/psf.py:109
 msgid "Administration"
@@ -1966,7 +1966,7 @@ msgstr "attributo aria-label"
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
-msgstr "dati-cancella-parola-chiave"
+msgstr "parola chiave di cancellazione dati"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"

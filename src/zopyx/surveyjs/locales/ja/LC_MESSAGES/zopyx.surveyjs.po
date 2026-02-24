@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-02-24 07:51+0100\n"
+"PO-Revision-Date: 2026-02-24 08:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -14,7 +14,7 @@ msgstr ""
 #: browser/static/js
 #: generated
 msgid " (Version ${version})"
-msgstr " (バージョン ${version})"
+msgstr "（バージョン ${version}）"
 
 #: generated
 msgid "--"
@@ -22,7 +22,7 @@ msgstr "--"
 
 #: generated
 msgid "AI Generator"
-msgstr "AIジェネレーター"
+msgstr "AI ジェネレーター"
 
 #: generated
 msgid "Actions"
@@ -30,7 +30,7 @@ msgstr "アクション"
 
 #: generated
 msgid "All results have been cleared successfully."
-msgstr "すべての結果が正常にクリアされました。"
+msgstr "すべての結果が正常に消去されました"
 
 #: generated
 msgid "Answer"
@@ -42,13 +42,13 @@ msgstr "添付ファイル: ${name}"
 
 #: generated
 msgid "BCC recipient"
-msgstr "BCC受信者"
+msgstr "BCC 受信者"
 
 #: generated
 msgid ""
 "Be specific about the types of questions, response formats, and any "
 "particular fields you need."
-msgstr "質問の種類、回答形式、および必要な特定のフィールドについて具体的に記述してください。"
+msgstr "必要な質問の種類や回答形式、特定の項目について具体的に示してください"
 
 #: generated
 msgid "Beta"
@@ -60,23 +60,23 @@ msgstr "本文"
 
 #: generated
 msgid "Body for notifications"
-msgstr "通知の本文"
+msgstr "通知本文"
 
 #: generated
 msgid ""
 "Body text for notification-only emails. Supports {title}, {detail_url}, "
 "{poll_id}."
-msgstr "通知専用メールの本文テキスト。{title}、{detail_url}、{poll_id}をサポートします。"
+msgstr "通知専用メールの本文テキストです {title} {detail_url} {poll_id} をサポートします"
 
 #: generated
 msgid ""
 "Body text for result export emails. Supports {created}, {creator}, {formats}."
 ""
-msgstr "結果エクスポートメールの本文テキスト。{created}、{creator}、{formats}をサポートします。"
+msgstr "結果エクスポートメール用の本文テキスト {created} {creator} {formats} をサポート"
 
 #: generated
 msgid "CC recipient"
-msgstr "CC受信者"
+msgstr "CC 受信者"
 
 #: generated
 msgid "CSV (.csv)"
@@ -84,23 +84,23 @@ msgstr "CSV (.csv)"
 
 #: generated
 msgid "Delete ${count} selected result(s)?"
-msgstr "選択した${count}件の結果を削除しますか？"
+msgstr "選択した結果を${count}件削除しますか"
 
 #: generated
 msgid "Delete this result?"
-msgstr "この結果を削除しますか？"
+msgstr "この結果を削除しますか"
 
 #: generated
 msgid "Describe Your Form"
-msgstr "フォームを説明する"
+msgstr "フォームの説明"
 
 #: generated
 msgid "Describe the changes you want to make to the current form."
-msgstr "現在のフォームに加えたい変更を説明してください。"
+msgstr "現在のフォームに加えたい変更内容を記述してください"
 
 #: generated
 msgid "Describe the form you want to create:"
-msgstr "作成したいフォームを説明してください："
+msgstr "作成したいフォームについて説明してください"
 
 #: generated
 msgid "E-Mail BCC"
@@ -116,7 +116,7 @@ msgstr "Eメール受信者"
 
 #: generated
 msgid "E-Mail sender"
-msgstr "Eメール送信者"
+msgstr "メール送信者"
 
 #: generated
 msgid "Edit"
@@ -128,55 +128,55 @@ msgstr "ブラインドコピーを受信するメールアドレス"
 
 #: generated
 msgid "Email address to receive a copy"
-msgstr "コピーを受信するメールアドレス"
+msgstr "コピーを受け取るメールアドレス"
 
 #: generated
 msgid "Enable validation (experimental)"
-msgstr "検証を有効にする（実験的）"
+msgstr "バリデーションを有効にする（実験的）"
 
 #: generated
 msgid "Error clearing results:"
-msgstr "結果のクリア中にエラーが発生しました："
+msgstr "結果のクリア中にエラーが発生しました"
 
 #: generated
 msgid "Error deleting result:"
-msgstr "結果の削除中にエラーが発生しました："
+msgstr "結果の削除中にエラーが発生しました"
 
 #: generated
 msgid "Error deleting selected results:"
-msgstr "選択した結果の削除中にエラーが発生しました："
+msgstr "選択した結果の削除中にエラーが発生しました"
 
 #: generated
 msgid "Error fetching JSON:"
-msgstr "JSONの取得中にエラーが発生しました："
+msgstr "JSON の取得中にエラーが発生しました"
 
 #: generated
 msgid "Error fetching details:"
-msgstr "詳細の取得中にエラーが発生しました："
+msgstr "詳細の取得中にエラーが発生しました"
 
 #: generated
 msgid "Error generating form:"
-msgstr "フォームの生成中にエラーが発生しました："
+msgstr "フォームの生成中にエラーが発生しました"
 
 #: generated
 msgid "Error loading survey:"
-msgstr "アンケートの読み込み中にエラーが発生しました："
+msgstr "アンケートの読み込みエラー"
 
 #: generated
 msgid "Error refining existing form:"
-msgstr "既存のフォームの改良中にエラーが発生しました："
+msgstr "既存フォームの更新中にエラーが発生しました"
 
 #: generated
 msgid "Error refining form:"
-msgstr "フォームの改良中にエラーが発生しました："
+msgstr "フォームの精査中にエラー"
 
 #: generated
 msgid "Error rendering preview:"
-msgstr "プレビューのレンダリング中にエラーが発生しました："
+msgstr "プレビューのレンダリング中にエラーが発生しました"
 
 #: generated
 msgid "Error saving form:"
-msgstr "フォームの保存中にエラーが発生しました："
+msgstr "フォームの保存中にエラーが発生しました"
 
 #: generated
 msgid "Error: ${error}"
@@ -186,14 +186,14 @@ msgstr "エラー: ${error}"
 msgid ""
 "Example: Add rating scales for each question, Include a comments section at "
 "the end, Change the first question to a dropdown"
-msgstr "例：各質問に評価尺度を追加し、最後にコメントセクションを含め、最初の質問をドロップダウンに変更します"
+msgstr "例: 各質問に評価尺度を追加する 最後にコメント欄を含める 最初の質問をドロップダウンに変更する"
 
 #: generated
 msgid ""
 "Example: Create a customer satisfaction survey with questions about product "
 "quality, delivery experience, and overall satisfaction. Include rating "
 "scales and a comments section."
-msgstr "例：製品の品質、配送体験、総合的な満足度に関する質問を含む顧客満足度調査を作成します。評価尺度とコメントセクションを含めます。"
+msgstr "例: 製品品質、配送体験、全体的な満足度に関する質問を含む顧客満足度調査を作成します 評価尺度とコメント欄を含めます"
 
 #: generated
 msgid "Excel (.xlsx)"
@@ -201,7 +201,7 @@ msgstr "Excel (.xlsx)"
 
 #: generated
 msgid "Existing form"
-msgstr "既存のフォーム"
+msgstr "既存フォーム"
 
 #: generated
 msgid "Failed to POST result: ${error}"
@@ -210,29 +210,29 @@ msgstr "結果のPOSTに失敗しました: ${error}"
 #: generated
 msgid ""
 "Failed to clear results. Please check the console for more information."
-msgstr "結果のクリアに失敗しました。詳細については、コンソールを確認してください。"
+msgstr "結果を消去できませんでした 詳細はコンソールを確認してください"
 
 #: generated
 msgid ""
 "Failed to delete selected results. Please check the console for details."
-msgstr "選択した結果の削除に失敗しました。詳細については、コンソールを確認してください。"
+msgstr "選択した結果を削除できませんでした 詳細はコンソールを確認してください"
 
 #: generated
 msgid "Failed to delete the result. Please check the console for details."
-msgstr "結果の削除に失敗しました。詳細については、コンソールを確認してください。"
+msgstr "結果を削除できませんでした 詳細はコンソールを確認してください"
 
 #: generated
 msgid "Failed to generate form. Please try again."
-msgstr "フォームの生成に失敗しました。もう一度お試しください。"
+msgstr "フォームの生成に失敗しました もう一度お試しください"
 
 #: generated
 msgid ""
 "Failed to load JSON data. Please check the console for more information."
-msgstr "JSONデータの読み込みに失敗しました。詳細については、コンソールを確認してください。"
+msgstr "JSONデータの読み込みに失敗しました 詳細についてはコンソールを確認してください"
 
 #: generated
 msgid "Failed to load details. Please check the console for more information."
-msgstr "詳細の読み込みに失敗しました。詳細については、コンソールを確認してください。"
+msgstr "詳細の読み込みに失敗しました さらに詳しい情報についてはコンソールを確認してください"
 
 #: generated
 msgid "Failed to load survey"
@@ -240,16 +240,16 @@ msgstr "アンケートの読み込みに失敗しました"
 
 #: generated
 msgid "Failed to load survey. Please check the URL and try again."
-msgstr "アンケートの読み込みに失敗しました。URLを確認して、もう一度お試しください。"
+msgstr "アンケートの読み込みに失敗しました URLを確認してもう一度お試しください"
 
 #: generated
 msgid "Failed to refine existing form. Please try again."
-msgstr "既存のフォームの改良に失敗しました。もう一度お試しください。"
+msgstr "既存のフォームの改善に失敗しました もう一度お試しください"
 
 #: generated
 msgid ""
 "Failed to refine form. Your current version is preserved. Please try again."
-msgstr "フォームの改良に失敗しました。現在のバージョンは保持されています。もう一度お試しください。"
+msgstr "フォームの洗練に失敗しました 現在のバージョンは保持されています もう一度お試しください"
 
 #: generated
 msgid "Failed to render preview: ${error}"
@@ -265,15 +265,15 @@ msgstr "メールの送信に失敗しました: ${error}"
 
 #: generated
 msgid "Force Server Side Validation"
-msgstr "サーバーサイド検証を強制する"
+msgstr "サーバー側検証を強制"
 
 #: generated
 msgid "Form Results"
-msgstr "フォームの結果"
+msgstr "フォーム結果"
 
 #: generated
 msgid "Form Settings"
-msgstr "フォームの設定"
+msgstr "フォーム設定"
 
 #: generated
 msgid "Form View"
@@ -283,21 +283,21 @@ msgstr "フォームビュー"
 msgid ""
 "Form imported and saved as a new version. <a href=\"${url}\">View versions</"
 "a>."
-msgstr "フォームがインポートされ、新しいバージョンとして保存されました。<a href=\"${url}\">バージョンを表示</a>。"
+msgstr "フォームがインポートされ、新しいバージョンとして保存されました <a href=\"${url}\">バージョンを表示</a>"
 
 #: generated
 msgid ""
 "Form saved successfully! You can now view it in the Visual Editor or "
 "Versions."
-msgstr "フォームが正常に保存されました！ビジュアルエディタまたはバージョンで表示できます。"
+msgstr "フォームが正常に保存されました Visual Editor または Versions で表示できます"
 
 #: generated
 msgid "Form/Survey"
-msgstr "フォーム/アンケート"
+msgstr "フォーム／アンケート"
 
 #: generated
 msgid "Formats"
-msgstr "フォーマット"
+msgstr "形式"
 
 #: generated
 msgid "Generate Form"
@@ -309,7 +309,7 @@ msgstr "AIを使用してフォームを生成する"
 
 #: generated
 msgid "Generating..."
-msgstr "生成中..."
+msgstr "生成中"
 
 #: generated
 msgid "Generation failed"
@@ -317,7 +317,7 @@ msgstr "生成に失敗しました"
 
 #: generated
 msgid "HTML (.html)"
-msgstr "HTML (.html)"
+msgstr "HTML（.html）"
 
 #: generated
 msgid "Import failed"
@@ -325,7 +325,7 @@ msgstr "インポートに失敗しました"
 
 #: generated
 msgid "Import failed. Please try again."
-msgstr "インポートに失敗しました。もう一度お試しください。"
+msgstr "インポートに失敗しました もう一度お試しください"
 
 #: generated
 msgid "Initial Generation"
@@ -349,23 +349,23 @@ msgstr "JSON (.json)"
 
 #: generated
 msgid "JSON uploaded successfully as new version"
-msgstr "JSONが新しいバージョンとして正常にアップロードされました"
+msgstr "JSON が新しいバージョンとして正常にアップロードされました"
 
 #: generated
 msgid "Key / Question"
-msgstr "キー/質問"
+msgstr "キー / 質問"
 
 #: generated
 msgid "Loading preview..."
-msgstr "プレビューを読み込み中..."
+msgstr "プレビューを読み込んでいます"
 
 #: generated
 msgid "Loading survey..."
-msgstr "アンケートを読み込み中..."
+msgstr "アンケートを読み込んでいます"
 
 #: generated
 msgid "Loading..."
-msgstr "読み込み中..."
+msgstr "読み込み中"
 
 #: generated
 msgid "Mail"
@@ -381,11 +381,11 @@ msgstr "メール通知"
 
 #: generated
 msgid "Mail sent"
-msgstr "メールを送信しました"
+msgstr "メール送信完了"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
-msgstr "メール設定が不完全です（宛先と件名が必要です）"
+msgstr "メール設定が不完全です（宛先と件名が必須です）"
 
 #: generated
 msgid "Manager only"
@@ -397,15 +397,15 @@ msgstr "Markdown (.md)"
 
 #: generated
 msgid "Max size payload (MB)"
-msgstr "最大ペイロードサイズ（MB）"
+msgstr "最大ペイロードサイズ (MB)"
 
 #: generated
 msgid "Maximum allowed payload size for submissions in megabytes."
-msgstr "メガバイト単位での提出物の最大許容ペイロードサイズ。"
+msgstr "送信で許可される最大ペイロードサイズ（メガバイト単位）"
 
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
-msgstr "data-survey-url属性がありません。アンケートのURLを指定してください。"
+msgstr "data-survey-url 属性がありません 指定されたアンケートのURLを入力してください"
 
 #: generated
 msgid "No POST endpoint configured for this survey"
@@ -413,7 +413,7 @@ msgstr "このアンケートにはPOSTエンドポイントが設定されて�
 
 #: generated
 msgid "No existing form found to refine."
-msgstr "改良する既存のフォームが見つかりません。"
+msgstr "絞り込む既存フォームが見つかりません"
 
 #: generated
 msgid "No file selected"
@@ -421,11 +421,11 @@ msgstr "ファイルが選択されていません"
 
 #: generated
 msgid "No file uploaded"
-msgstr "アップロードされたファイルはありません"
+msgstr "ファイルがアップロードされていません"
 
 #: generated
 msgid "No form definition available to include in POST"
-msgstr "POSTに含めるフォーム定義がありません"
+msgstr "POST に含めるフォーム定義がありません"
 
 #: generated
 msgid "No form to preview"
@@ -437,25 +437,25 @@ msgstr "保存するフォームがありません"
 
 #: generated
 msgid "No version ID provided"
-msgstr "バージョンIDが提供されていません"
+msgstr "バージョンIDが指定されていません"
 
 #: generated
 msgid "Not saved"
-msgstr "保存されていません"
+msgstr "未保存"
 
 #: generated
 msgid "Optional BCC recipients for result exports (one address per line)."
-msgstr "結果エクスポートのオプションのBCC受信者（1行に1アドレス）。"
+msgstr "結果エクスポート用の任意のBCC受信者（1行につき1アドレス）"
 
 #: generated
 msgid "Optional CC recipients for result exports (one address per line)."
-msgstr "結果エクスポートのオプションのCC受信者（1行に1アドレス）。"
+msgstr "結果エクスポート用の任意のCC受信者（1行につき1件のアドレス）"
 
 #: generated
 msgid ""
 "Optional HTTP endpoint to receive submissions as JSON when the POST action "
 "is enabled."
-msgstr "POSTアクションが有効になっている場合にJSONとして送信を受信するためのオプションのHTTPエンドポイント。"
+msgstr "POST アクションが有効な場合に送信内容を JSON として受信するための任意の HTTP エンドポイント"
 
 #: generated
 msgid "PDF (.pdf)"
@@ -463,7 +463,7 @@ msgstr "PDF (.pdf)"
 
 #: generated
 msgid "PDF Form Import"
-msgstr "PDFフォームのインポート"
+msgstr "PDFフォームインポート"
 
 #: generated
 msgid "POST action is not enabled for this survey"
@@ -471,11 +471,11 @@ msgstr "このアンケートではPOSTアクションが有効になってい�
 
 #: generated
 msgid "POST endpoint URL"
-msgstr "POSTエンドポイントURL"
+msgstr "POST エンドポイント URL"
 
 #: generated
 msgid "POST to endpoint"
-msgstr "エンドポイントにPOST"
+msgstr "エンドポイントへのPOST"
 
 #: generated
 msgid "Please enter a description"
@@ -483,11 +483,11 @@ msgstr "説明を入力してください"
 
 #: generated
 msgid "Please select a PDF file to upload."
-msgstr "アップロードするPDFファイルを選択してください。"
+msgstr "アップロードするPDFファイルを選択してください"
 
 #: generated
 msgid "Poll ID is required"
-msgstr "投票IDが必要です"
+msgstr "投票IDは必須です"
 
 #: generated
 msgid "Poll result not found"
@@ -495,12 +495,12 @@ msgstr "投票結果が見つかりません"
 
 #: generated
 msgid "Preview error:"
-msgstr "プレビューエラー："
+msgstr "プレビューエラー"
 
 #: generated
 msgid ""
 "Primary recipient for notifications and result exports (single address). "
-msgstr "通知および結果エクスポートのプライマリ受信者（単一アドレス）。"
+msgstr "通知および結果エクスポートの主な受信者（単一アドレス）"
 
 #: generated
 msgid "Privacy Forms Studio"
@@ -508,23 +508,23 @@ msgstr "プライバシーフォームスタジオ"
 
 #: generated
 msgid "Refine Form"
-msgstr "フォームを改良する"
+msgstr "フォームを洗練する"
 
 #: generated
 msgid "Refine Your Form"
-msgstr "フォームを改良する"
+msgstr "フォームを洗練する"
 
 #: generated
 msgid "Refinement ${index}"
-msgstr "改良 ${index}"
+msgstr "洗練 ${index}"
 
 #: generated
 msgid "Refinement failed"
-msgstr "改良に失敗しました"
+msgstr "洗練に失敗しました"
 
 #: generated
 msgid "Refining..."
-msgstr "改良中..."
+msgstr "洗練中"
 
 #: generated
 msgid "Requested export format is not available"
@@ -536,7 +536,7 @@ msgstr "結果がエンドポイントにPOSTされました（ステータス $
 
 #: generated
 msgid "Results cleared"
-msgstr "結果がクリアされました"
+msgstr "結果を消去"
 
 #: generated
 msgid "Results"
@@ -548,7 +548,7 @@ msgstr "行"
 
 #: generated
 msgid "Run the external SurveyJS validator binary for every save/submit."
-msgstr "保存/送信ごとに外部のSurveyJSバリデーターバイナリを実行します。"
+msgstr "保存や送信のたびに外部の SurveyJS バリデータバイナリを実行する"
 
 #: generated
 msgid "Save failed"
@@ -556,27 +556,27 @@ msgstr "保存に失敗しました"
 
 #: generated
 msgid "Saving"
-msgstr "保存中"
+msgstr "保存"
 
 #: generated
 msgid "Select export formats to attach when the Mail action sends results."
-msgstr "メールアクションが結果を送信するときに添付するエクスポート形式を選択します。"
+msgstr "メールアクションが結果を送信する際に添付するエクスポート形式を選択してください"
 
 #: generated
 msgid "Select how to handle survey submissions (multiple options possible). "
-msgstr "アンケートの提出を処理する方法を選択します（複数のオプションが可能）。"
+msgstr "アンケートの送信をどのように処理するかを選択してください（複数選択可）"
 
 #: generated
 msgid ""
 "Sender address for outgoing mail. Mandatory when the Mail action is selected."
 ""
-msgstr "送信メールの送信者アドレス。メールアクションが選択されている場合は必須です。"
+msgstr "送信メールの送信者アドレス メールアクションが選択されている場合は必須"
 
 #: generated
 msgid ""
 "Start over? This will clear your refinement history and return to the "
 "initial prompt."
-msgstr "最初からやり直しますか？これにより、改良履歴がクリアされ、最初のプロンプトに戻ります。"
+msgstr "最初からやり直しますか これまでの調整履歴がすべて消去され最初のプロンプトに戻ります"
 
 #: generated
 msgid "Store"
@@ -590,7 +590,7 @@ msgstr "件名"
 msgid ""
 "Subject for notification-only emails. Supports {title}, {detail_url}, "
 "{poll_id}."
-msgstr "通知専用メールの件名。{title}、{detail_url}、{poll_id}をサポートします。"
+msgstr "通知専用メールの件名 {title} {detail_url} {poll_id} をサポート"
 
 #: generated
 msgid "Subject for notifications"
@@ -599,7 +599,7 @@ msgstr "通知の件名"
 #: generated
 msgid ""
 "Subject for result export emails. Supports {poll_id} for the submission ID. "
-msgstr "結果エクスポートメールの件名。提出IDの{poll_id}をサポートします。"
+msgstr "結果エクスポートメールの件名 送信IDとして {poll_id} をサポートします"
 
 #: generated
 msgid "Survey Embed Error"
@@ -616,7 +616,7 @@ msgstr "アンケートは終了しました"
 #: generated
 msgid ""
 "Survey embedding is not allowed. Please contact the survey administrator."
-msgstr "アンケートの埋め込みは許可されていません。アンケートの管理者に連絡してください。"
+msgstr "アンケートの埋め込みは許可されていません 管理者に連絡してください"
 
 #: generated
 msgid "Survey library not loaded"
@@ -624,25 +624,25 @@ msgstr "アンケートライブラリが読み込まれていません"
 
 #: generated
 msgid "Survey open"
-msgstr "アンケート受付中"
+msgstr "アンケート公開"
 
 #: generated
 msgid "SurveyJS Embed: Element not found"
-msgstr "SurveyJS埋め込み：要素が見つかりません"
+msgstr "SurveyJS 埋め込み 要素が見つかりません"
 
 #: generated
 msgid "SurveyJS Embed: Error handling resize message"
-msgstr "SurveyJS埋め込み：サイズ変更メッセージの処理中にエラーが発生しました"
+msgstr "SurveyJS 埋め込み エラー処理 リサイズメッセージ"
 
 #: generated
 msgid "SurveyJS Embed: Error requesting height"
-msgstr "SurveyJS埋め込み：高さの要求中にエラーが発生しました"
+msgstr "SurveyJS 埋め込み 高さのリクエスト中にエラー"
 
 #: generated
 msgid ""
 "SurveyJS Embed: No embed containers found. Add elements with class "
 "\"${className}\""
-msgstr "SurveyJS埋め込み：埋め込みコンテナが見つかりません。クラス「${className}」を持つ要素を追加してください"
+msgstr "SurveyJS 埋め込み 埋め込みコンテナーが見つかりません クラス「${className}」を持つ要素を追加してください"
 
 #: generated
 msgid "Text (.txt)"
@@ -654,7 +654,7 @@ msgstr "不明なエラー"
 
 #: generated
 msgid "Validate submissions against the form schema before saving. "
-msgstr "保存する前に、フォームスキーマに対して提出物を検証します。"
+msgstr "保存前に送信内容をフォームスキーマに対して検証する"
 
 #: generated
 msgid "Version ${current} of ${total}"
@@ -666,11 +666,11 @@ msgstr "バージョンが削除されました"
 
 #: generated
 msgid "Version is locked and cannot be deleted"
-msgstr "バージョンはロックされており、削除できません"
+msgstr "バージョンはロックされており削除できません"
 
 #: generated
 msgid "Version locked"
-msgstr "バージョンがロックされました"
+msgstr "バージョン固定"
 
 #: generated
 msgid "Version not found"
@@ -678,11 +678,11 @@ msgstr "バージョンが見つかりません"
 
 #: generated
 msgid "Version restored successfully. A new version has been created."
-msgstr "バージョンが正常に復元されました。新しいバージョンが作成されました。"
+msgstr "バージョンの復元に成功しました 新しいバージョンが作成されました"
 
 #: generated
 msgid "Version unlocked"
-msgstr "バージョンのロックが解除されました"
+msgstr "バージョンのロック解除"
 
 #: generated
 msgid "Versions"
@@ -694,15 +694,15 @@ msgstr "表示"
 
 #: generated
 msgid "Visual Editor"
-msgstr "ビジュアルエディタ"
+msgstr "ビジュアルエディター"
 
 #: generated
 msgid "What would you like to change?"
-msgstr "何を変更しますか？"
+msgstr "何を変更したいですか"
 
 #: generated
 msgid "Word (.docx)"
-msgstr "Word (.docx)"
+msgstr "Word（.docx）"
 
 #: generated
 msgid "XML (.xml)"
@@ -714,16 +714,16 @@ msgstr "アクセスモード"
 msgid ""
 "Choose whether this form is publicly accessible or requires a trusted access "
 "token in the URL."
-msgstr "このフォームを一般公開するか、URLで信頼できるアクセストークンを要求するかを選択します。"
+msgstr "このフォームを公開アクセス可能にするか URL に信頼されたアクセス トークンを必要とするかを選択してください"
 
 msgid "Public"
 msgstr "公開"
 
 msgid "Trusted access token"
-msgstr "信頼できるアクセストークン"
+msgstr "信頼されたアクセス トークン"
 
 msgid "Trusted access token TTL (hours)"
-msgstr "信頼できるアクセストークンのTTL（時間）"
+msgstr "信頼済みアクセストークンのTTL（時間）"
 
 msgid "Update"
 msgstr "更新"
@@ -732,19 +732,19 @@ msgid "Unsaved changes"
 msgstr "未保存の変更"
 
 msgid "You have edits that haven't been saved yet."
-msgstr "まだ保存されていない編集があります。"
+msgstr "まだ保存されていない編集内容があります"
 
 msgid "Lifetime of trusted access tokens in hours."
-msgstr "信頼できるアクセストークンの有効期間（時間）。"
+msgstr "信頼されたアクセス トークンの有効期間（時間単位）"
 
 #: generated
 msgid ""
 "You're saving ${version}. The latest version is not selected. Continue?"
-msgstr "バージョン${version}を保存しています。最新バージョンが選択されていません。続行しますか？"
+msgstr "${version}を保存しようとしています 最新バージョンが選択されていません 続行しますか"
 
 #: generated
 msgid "version ${current} of ${total}"
-msgstr "バージョン ${current} / ${total}"
+msgstr "バージョン ${total} 中 ${current}"
 
 #: generated
 msgid "Cancel"
@@ -760,7 +760,7 @@ msgstr "復元を確認"
 
 #: generated
 msgid "Date:"
-msgstr "日付："
+msgstr "日付"
 
 #: generated
 msgid "Delete"
@@ -768,7 +768,7 @@ msgstr "削除"
 
 #: generated
 msgid "Confirm delete"
-msgstr "削除の確認"
+msgstr "削除を確認"
 
 #: generated
 msgid "Delete version"
@@ -784,11 +784,11 @@ msgstr "フォーム定義をJSONとしてダウンロード"
 
 #: generated
 msgid "ID:"
-msgstr "ID："
+msgstr "ID"
 
 #: generated
 msgid "JSON Version Content"
-msgstr "JSONバージョンコンテンツ"
+msgstr "JSON バージョン コンテンツ"
 
 #: generated
 msgid "Locked"
@@ -800,7 +800,7 @@ msgstr "プレビュー"
 
 #: generated
 msgid "Preview JSON"
-msgstr "JSONをプレビュー"
+msgstr "JSON をプレビュー"
 
 #: generated
 msgid "Restore"
@@ -818,35 +818,35 @@ msgstr "バージョンを復元"
 msgid ""
 "Restoring will create a new version using the selected snapshot and keep the "
 "current version in history."
-msgstr "復元すると、選択したスナップショットを使用して新しいバージョンが作成され、現在のバージョンは履歴に保持されます。"
+msgstr "復元すると選択したスナップショットを使用して新しいバージョンが作成され現在のバージョンは履歴に保持されます"
 
 #: generated
 msgid "Upload and Create Version"
-msgstr "アップロードしてバージョンを作成"
+msgstr "アップロードとバージョンを作成"
 
 #: generated
 msgid "User:"
-msgstr "ユーザー："
+msgstr "ユーザー"
 
 #: generated
 msgid "Experimental:"
-msgstr "実験的："
+msgstr "実験的"
 
 #: generated
 msgid "This is a helper to get started, not a finished form."
-msgstr "これは開始するためのヘルパーであり、完成したフォームではありません。"
+msgstr "これは開始するための補助であり 完成したフォームではありません"
 
 #: generated
 msgid "Use clear, specific prompts for best results."
-msgstr "最良の結果を得るには、明確で具体的なプロンプトを使用してください。"
+msgstr "最良の結果を得るために明確で具体的なプロンプトを使用してください"
 
 #: generated
 msgid "Always review and adjust the generated form before use."
-msgstr "使用する前に、生成されたフォームを常に確認および調整してください。"
+msgstr "使用前に必ず生成されたフォームを確認し調整してください"
 
 #: generated
 msgid "Error:"
-msgstr "エラー："
+msgstr "エラー"
 
 #: generated
 msgid "#"
@@ -854,7 +854,7 @@ msgstr "#"
 
 #: generated
 msgid "AI Form Generator"
-msgstr "AIフォームジェネレーター"
+msgstr "AI フォーム ジェネレーター"
 
 #: generated
 msgid "Action"
@@ -866,7 +866,7 @@ msgstr "結果に戻る"
 
 #: generated
 msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr "変換したいフォームレイアウトを含むPDFを選択してください。"
+msgstr "変換したいフォームレイアウトを含むPDFを選択してください"
 
 #: generated
 msgid "Clear All Results"
@@ -878,15 +878,15 @@ msgstr "すべての結果をクリア"
 
 #: generated
 msgid "Convert PDF"
-msgstr "PDFを変換"
+msgstr "PDF 変換"
 
 #: generated
 msgid "Created:"
-msgstr "作成日："
+msgstr "作成日"
 
 #: generated
 msgid "Current Version:"
-msgstr "現在のバージョン："
+msgstr "現在のバージョン"
 
 #: generated
 msgid "Date"
@@ -894,7 +894,7 @@ msgstr "日付"
 
 #: generated
 msgid "Date/Time"
-msgstr "日時"
+msgstr "日付/時刻"
 
 #: generated
 msgid "Delete result"
@@ -902,11 +902,11 @@ msgstr "結果を削除"
 
 #: generated
 msgid "Delete selected"
-msgstr "選択項目を削除"
+msgstr "選択したものを削除"
 
 #: generated
 msgid "Describe your survey in natural language and let AI generate the form"
-msgstr "自然言語でアンケートを説明し、AIにフォームを生成させます"
+msgstr "アンケートを自然な言葉で説明するとAIがフォームを生成します"
 
 #: generated
 msgid "Details"
@@ -922,11 +922,11 @@ msgstr "結果をダウンロード"
 
 #: generated
 msgid "Download results (CSV)"
-msgstr "結果をダウンロード（CSV）"
+msgstr "結果をダウンロード (CSV)"
 
 #: generated
 msgid "Download results (JSON)"
-msgstr "結果をダウンロード（JSON）"
+msgstr "結果をダウンロード (JSON)"
 
 #: generated
 msgid "Embedding Not Allowed"
@@ -934,7 +934,7 @@ msgstr "埋め込みは許可されていません"
 
 #: generated
 msgid "Enable it in the survey settings to collect and view responses here."
-msgstr "アンケート設定で有効にして、ここで回答を収集および表示します。"
+msgstr "アンケート設定で有効にしてここで回答を収集および表示します"
 
 #: generated
 msgid "Form JSON"
@@ -950,11 +950,11 @@ msgstr "フォームバージョン管理"
 
 #: generated
 msgid "Generated form preview will appear here."
-msgstr "生成されたフォームのプレビューがここに表示されます。"
+msgstr "生成されたフォームのプレビューがここに表示されます"
 
 #: generated
 msgid "Heads up:"
-msgstr "お知らせ："
+msgstr "注意"
 
 #: generated
 msgid "JSON"
@@ -962,11 +962,11 @@ msgstr "JSON"
 
 #: generated
 msgid "Mail result"
-msgstr "結果をメールで送信"
+msgstr "メール結果"
 
 #: generated
 msgid "Manage, view, and restore previous versions of your survey forms"
-msgstr "アンケートフォームの以前のバージョンを管理、表示、復元します"
+msgstr "アンケートフォームの過去バージョンを管理、表示、復元する"
 
 #: generated
 #~ msgid "Next »"
@@ -974,12 +974,12 @@ msgstr "アンケートフォームの以前のバージョンを管理、表示
 
 #: generated
 msgid "No PDF selected yet."
-msgstr "まだPDFが選択されていません。"
+msgstr "まだPDFが選択されていません"
 
 #: generated
 msgid ""
 "No stored results yet. Once responses are saved, analytics will appear here."
-msgstr "まだ保存された結果はありません。回答が保存されると、分析がここに表示されます。"
+msgstr "まだ保存された結果はありません 回答が保存されるとここに分析が表示されます"
 
 #: generated
 msgid "No Survey Results Yet"
@@ -987,18 +987,19 @@ msgstr "まだアンケート結果はありません"
 
 #: generated
 msgid "No Versions Available"
-msgstr "利用可能なバージョンはありません"
+msgstr "利用可能なバージョンがありません"
 
 #: generated
 msgid ""
 "No form versions have been created yet. Use the Form Creator to design your "
 "first survey, or upload an existing JSON file using the form above."
 msgstr ""
-"まだフォームバージョンが作成されていません。フォームクリエーターを使用して最初のアンケートを設計するか、上のフォームを使用して既存のJSONファイルをアップロードしてください。"
+"フォームバージョンはまだ作成されていません フォームクリエイターを使用して最初のアンケートを作成するか "
+"上のフォームを使って既存のJSONファイルをアップロードしてください"
 
 #: generated
 msgid "No results found matching your search query."
-msgstr "検索クエリに一致する結果が見つかりませんでした。"
+msgstr "検索クエリに一致する結果が見つかりません"
 
 #: generated
 msgid "PDF Form Importer"
@@ -1006,19 +1007,19 @@ msgstr "PDFフォームインポーター"
 
 #: generated
 msgid "PDF Preview"
-msgstr "PDFプレビュー"
+msgstr "PDF プレビュー"
 
 #: generated
 msgid "PDF file"
-msgstr "PDFファイル"
+msgstr "PDF ファイル"
 
 #: generated
 msgid "POST result"
-msgstr "POST結果"
+msgstr "POST 結果"
 
 #: generated
 msgid "Poll ID:"
-msgstr "投票ID："
+msgstr "投票ID"
 
 #: generated
 msgid "Preview Form"
@@ -1026,11 +1027,11 @@ msgstr "フォームをプレビュー"
 
 #: generated
 msgid "Processing..."
-msgstr "処理中..."
+msgstr "処理中"
 
 #: generated
 msgid "Refine existing form"
-msgstr "既存のフォームを改良する"
+msgstr "既存フォームを改善"
 
 #: generated
 msgid "Refinement History"
@@ -1038,7 +1039,7 @@ msgstr "改良履歴"
 
 #: generated
 msgid "Results are not being saved because the \"Store\" action is turned off."
-msgstr "「保存」アクションがオフになっているため、結果は保存されません。"
+msgstr "結果は「保存」アクションがオフになっているため保存されていません"
 
 #: generated
 msgid "Save Form"
@@ -1050,14 +1051,14 @@ msgstr "検索"
 
 #: generated
 msgid "Search by user..."
-msgstr "ユーザーで検索..."
+msgstr "ユーザーで検索"
 
 msgid "Search by user, UUID, or date"
-msgstr "ユーザー、UUID、または日付で検索"
+msgstr "ユーザー UUID または日付で検索"
 
 #: generated
 msgid "Select JSON file:"
-msgstr "JSONファイルを選択："
+msgstr "JSONファイルを選択"
 
 #: generated
 msgid "Select all results"
@@ -1069,7 +1070,7 @@ msgstr "結果を選択"
 
 #: generated
 msgid "Sequence:"
-msgstr "シーケンス："
+msgstr "シーケンス"
 
 #: generated
 msgid "Start Over"
@@ -1077,11 +1078,11 @@ msgstr "最初からやり直す"
 
 #: generated
 msgid "Storage disabled."
-msgstr "ストレージが無効です。"
+msgstr "ストレージは無効です"
 
 #: generated
 msgid "Storage:"
-msgstr "ストレージ："
+msgstr "保存"
 
 #: generated
 msgid "Stored form data"
@@ -1089,7 +1090,7 @@ msgstr "保存されたフォームデータ"
 
 #: generated
 msgid "Submission Details"
-msgstr "提出の詳細"
+msgstr "提出詳細"
 
 #: generated
 msgid "Survey"
@@ -1097,11 +1098,11 @@ msgstr "アンケート"
 
 #: generated
 msgid "Survey Response Details"
-msgstr "アンケート回答の詳細"
+msgstr "アンケート回答詳細"
 
 #: generated
 msgid "SurveyJS Preview"
-msgstr "SurveyJSプレビュー"
+msgstr "SurveyJS プレビュー"
 
 #: generated
 msgid "Table"
@@ -1111,7 +1112,7 @@ msgstr "テーブル"
 msgid ""
 "There are no survey responses yet. Once users submit the survey, their "
 "responses will appear here."
-msgstr "まだアンケートの回答はありません。ユーザーがアンケートを送信すると、回答がここに表示されます。"
+msgstr "まだアンケートの回答はありません ユーザーがアンケートを送信するとここに回答が表示されます"
 
 #: generated
 msgid "Delete Result"
@@ -1124,37 +1125,37 @@ msgstr "選択した結果を削除"
 #: generated
 msgid ""
 "This will permanently delete the selected result. This cannot be undone."
-msgstr "これにより、選択した結果が完全に削除されます。この操作は元に戻せません。"
+msgstr "選択した結果は完全に削除されます この操作は元に戻せません"
 
 #: generated
 msgid ""
 "This action will permanently delete all survey results. This cannot be "
 "undone."
-msgstr "この操作により、すべてのアンケート結果が完全に削除されます。この操作は元に戻せません。"
+msgstr "この操作を行うとすべてのアンケート結果が完全に削除されます この操作は元に戻せません"
 
 #: generated
 msgid ""
 "This action permanently removes the selected version. This cannot be undone."
-msgstr "この操作により、選択したバージョンが完全に削除されます。この操作は元に戻せません。"
+msgstr "この操作は選択されたバージョンを完全に削除します この操作は元に戻せません"
 
 #: generated
 msgid ""
 "This feature is experimental. Please review the generated form carefully."
-msgstr "この機能は実験的なものです。生成されたフォームを注意深く確認してください。"
+msgstr "この機能は実験的なものです 生成されたフォームを慎重に確認してください"
 
 #: generated
 msgid ""
 "This survey is not configured to be embedded. Please contact the survey "
 "administrator."
-msgstr "このアンケートは埋め込み用に設定されていません。アンケートの管理者に連絡してください。"
+msgstr "このアンケートは埋め込み用に設定されていません アンケート管理者に連絡してください"
 
 #: generated
 msgid "To confirm, please type clear in the field below:"
-msgstr "確認するには、下のフィールドに「clear」と入力してください："
+msgstr "確認のため、下のフィールドに clear と入力してください"
 
 #: generated
 msgid "Type 'clear' to confirm"
-msgstr "確認するには「clear」と入力してください"
+msgstr "確認するには clear と入力してください"
 
 #: generated
 msgid "UUID"
@@ -1162,7 +1163,7 @@ msgstr "UUID"
 
 #: generated
 msgid "Unable to load submission."
-msgstr "提出物を読み込めません。"
+msgstr "送信を読み込めません"
 
 #: generated
 msgid "Upload"
@@ -1170,7 +1171,7 @@ msgstr "アップロード"
 
 #: generated
 msgid "Upload JSON form schema"
-msgstr "JSONフォームスキーマをアップロード"
+msgstr "JSON フォームスキーマをアップロード"
 
 #: generated
 msgid "Upload PDF"
@@ -1178,19 +1179,19 @@ msgstr "PDFをアップロード"
 
 #: generated
 msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr "PDFフォームをアップロードしてSurveyJS JSONを生成する"
+msgstr "PDFフォームをアップロードしてそこからSurveyJSのJSONを生成する"
 
 #: generated
 msgid ""
 "Upload a valid SurveyJS JSON file to create a new version. The file will be "
 "validated before saving."
-msgstr "有効なSurveyJS JSONファイルをアップロードして新しいバージョンを作成します。ファイルは保存前に検証されます。"
+msgstr "新しいバージョンを作成するために有効な SurveyJS の JSON ファイルをアップロードしてください ファイルは保存前に検証されます"
 
 #: generated
 msgid ""
 "Use the latest saved form as the starting point instead of generating a new "
 "one."
-msgstr "新しいフォームを生成する代わりに、最後に保存したフォームを開始点として使用します。"
+msgstr "新しいフォームを生成する代わりに最新の保存済みフォームを開始点として使用する"
 
 #: generated
 msgid "User"
@@ -1206,11 +1207,11 @@ msgstr "バージョンID"
 
 #: generated
 msgid "View JSON"
-msgstr "JSONを表示"
+msgstr "JSON を表示"
 
 #: generated
 msgid "Warning:"
-msgstr "警告："
+msgstr "警告"
 
 #: generated
 msgid "clear"
@@ -1222,11 +1223,11 @@ msgstr "クリア"
 
 #: generated
 msgid "Failed to save survey results. Please try again."
-msgstr "アンケート結果の保存に失敗しました。もう一度お試しください。"
+msgstr "アンケート結果の保存に失敗しました もう一度お試しください"
 
 #: generated
 msgid "Unable to load survey. Please try refreshing the page."
-msgstr "アンケートを読み込めません。ページを更新してみてください。"
+msgstr "アンケートを読み込めません ページを再読み込みしてください"
 
 #: generated
 msgid "Lock"
@@ -1234,7 +1235,7 @@ msgstr "ロック"
 
 #: generated
 msgid "Unlock"
-msgstr "ロック解除"
+msgstr "アンロック"
 
 #: generated
 msgid "Status"
@@ -1242,11 +1243,11 @@ msgstr "ステータス"
 
 #: generated
 msgid "Effective"
-msgstr "有効"
+msgstr "効果的"
 
 #: generated
 msgid "Expires"
-msgstr "期限切れ"
+msgstr "有効期限"
 
 #: generated
 msgid "Stored results"
@@ -1258,7 +1259,7 @@ msgstr "公開済み"
 
 #: generated
 msgid "Inactive"
-msgstr "非アクティブ"
+msgstr "無効"
 
 #: generated
 msgid "Store converted form as new version"
@@ -1272,11 +1273,11 @@ msgstr "変換されたフォームを新しいバージョンとして保存"
 
 #: generated
 msgid "No converted form available to store."
-msgstr "保存できる変換済みフォームがありません。"
+msgstr "保存できる変換済みフォームはありません"
 
 #: generated
 msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
-msgstr "変換されたフォームが保存されました。<a href=\"${url}\">バージョンを表示</a>。"
+msgstr "変換されたフォームが保存されました <a href=\"${url}\">バージョンを表示</a>"
 
 #: generated
 msgid "Store failed"
@@ -1284,7 +1285,7 @@ msgstr "保存に失敗しました"
 
 #: generated
 msgid "Store failed. Please try again."
-msgstr "保存に失敗しました。もう一度お試しください。"
+msgstr "保存に失敗しました もう一度お試しください"
 
 #: generated
 msgid "Reset"
@@ -1296,22 +1297,22 @@ msgstr "更新"
 
 #: generated
 msgid "Forms overview"
-msgstr "アンケートの概要"
+msgstr "フォーム概要"
 
 #: generated
 msgid "Overview of forms in this section and their submission status."
-msgstr "このセクションのアンケートとその提出状況の概要。"
+msgstr "このセクションのフォームの概要とその送信状況"
 
 #: generated
 msgid "No surveys found below this location."
-msgstr "この場所の下にアンケートは見つかりませんでした。"
+msgstr "この場所より下にはアンケートが見つかりません"
 
 msgid ""
 "Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
 "css in ++resource++zopyx.surveyjs/vendor/."
 msgstr ""
-"Tabulatorアセットがありません。++resource++zopyx.surveyjs/vendor/にtabulator.min."
-"jsとtabulator.min.cssをインストールしてください。"
+"Tabulator アセットが見つかりません tabulator.min.js と tabulator.min.css を "
+"++resource++zopyx.surveyjs/vendor/ にインストールしてください"
 
 #: generated
 msgid "Title"
@@ -1323,11 +1324,11 @@ msgstr "説明"
 
 #: generated
 msgid "Workflow status"
-msgstr "ワークフローのステータス"
+msgstr "ワークフロー状態"
 
 #: generated
 msgid "Submitted"
-msgstr "提出済み"
+msgstr "送信済み"
 
 #: generated
 msgid "Security mode"
@@ -1347,7 +1348,7 @@ msgid "Last"
 msgstr "最後"
 
 msgid "Last Page"
-msgstr "最後のページ"
+msgstr "最終ページ"
 
 msgid "Prev"
 msgstr "前へ"
@@ -1368,13 +1369,13 @@ msgid "Page Size"
 msgstr "ページサイズ"
 
 msgid "Additional prompt"
-msgstr "追加のプロンプト"
+msgstr "追加プロンプト"
 
 msgid "Add extra conversion guidance..."
-msgstr "追加の変換ガイダンスを追加..."
+msgstr "追加のコンバージョンガイダンスを追加"
 
 msgid "Optional instructions to guide the conversion."
-msgstr "変換をガイドするためのオプションの指示。"
+msgstr "変換を案内するための任意の指示"
 
 msgid "DOCS"
 msgstr "ドキュメント"
@@ -1386,29 +1387,29 @@ msgid "Exit fullscreen"
 msgstr "全画面表示を終了"
 
 msgid "AI provider missing:"
-msgstr "AIプロバイダーがありません："
+msgstr "AIプロバイダーがありません"
 
 msgid ""
 "AI form generation is not available because no AI provider is configured."
-msgstr "AIプロバイダーが設定されていないため、AIフォーム生成は利用できません。"
+msgstr "AIプロバイダーが設定されていないためAIフォーム生成は利用できません"
 
 msgid "External AI provider:"
-msgstr "外部AIプロバイダー："
+msgstr "外部AIプロバイダー"
 
 msgid ""
 "A remote AI provider is configured and will be used. Your PDF may leave your "
 "network."
-msgstr "リモートAIプロバイダーが設定されており、使用されます。PDFがネットワークから離れる可能性があります。"
+msgstr "リモートのAIプロバイダーが設定されており使用されます あなたのPDFはネットワーク外に送信される可能性があります"
 
 msgid "Local AI provider:"
-msgstr "ローカルAIプロバイダー："
+msgstr "ローカルAIプロバイダー"
 
 msgid "A local AI provider is configured. Your PDF stays within your network."
-msgstr "ローカルAIプロバイダーが設定されています。PDFはネットワーク内に留まります。"
+msgstr "ローカルのAIプロバイダーが構成されています あなたのPDFはネットワーク内に留まります"
 
 #: generated
 msgid "Next "
-msgstr "次"
+msgstr "次へ"
 
 #: generated
 msgid " Previous"
@@ -1418,7 +1419,7 @@ msgstr "前へ"
 msgid ""
 "Conversion complete. Review the preview and click Store converted form as "
 "new version."
-msgstr "変換が完了しました プレビューを確認し 変換されたフォームを新しいバージョンとして保存 をクリックしてください"
+msgstr "変換が完了しました プレビューを確認し 変換されたフォームを新しいバージョンとして保存をクリックしてください"
 
 #: generated
 msgid "Form validation using pdfcpu"
@@ -1426,25 +1427,25 @@ msgstr "pdfcpu を使用したフォーム検証"
 
 #: generated
 msgid "When enabled, pdfcpu is used to validate and enrich form fields."
-msgstr "有効にすると pdfcpu が使用され フォームフィールドの検証と拡充が行われます"
+msgstr "有効にすると pdfcpu がフォームフィールドを検証および拡充するために使用されます"
 
 #: generated
 msgid ""
 "Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
 "versions</a>."
-msgstr "フォームがインポートされ新しいバージョンとして保存されました <a href=\"${url}\">バージョンを表示</a>"
+msgstr "フォームがインポートされ、新しいバージョンとして保存されました <a href=\"${url}\">バージョンを表示</a>"
 
 #: generated
 msgid ""
 "SurveyJS Embed: No embed containers found. Add elements with class "
 "\\\"${className}\\\""
-msgstr "SurveyJS 埋め込み: 埋め込みコンテナーが見つかりませんでした クラス ${className} を持つ要素を追加してください"
+msgstr "SurveyJS 埋め込み 対応する埋め込みコンテナが見つかりません クラス名が「${className}」の要素を追加してください"
 
 msgid "Trusted access required"
-msgstr "信頼できるアクセスが必要"
+msgstr "信頼されたアクセスが必要"
 
 msgid "Ask the form owner for a trusted access link."
-msgstr "フォームの所有者に信頼できるアクセスリンクを依頼してください"
+msgstr "フォーム所有者に信頼できるアクセスリンクを依頼してください"
 
 msgid "Open the link in this browser to continue."
 msgstr "続行するにはこのブラウザでリンクを開いてください"
@@ -1453,7 +1454,7 @@ msgid "Trusted access link"
 msgstr "信頼できるアクセスリンク"
 
 msgid "Share this link to open the form."
-msgstr "このリンクを共有してフォームを開てください"
+msgstr "フォームを開くにはこのリンクを共有してください"
 
 msgid "Copy link"
 msgstr "リンクをコピー"
@@ -1464,11 +1465,11 @@ msgstr "フォームを表示"
 
 #: generated
 msgid "Preview the live survey experience."
-msgstr "ライブアンケートの体験をプレビューする"
+msgstr "ライブアンケートの体験をプレビュー"
 
 #: generated
 msgid "Build and refine the survey form."
-msgstr "アンケートフォームを作成して洗練する"
+msgstr "アンケートフォームを作成し洗練させる"
 
 #: generated
 msgid "PDF generator"
@@ -1476,7 +1477,7 @@ msgstr "PDF ジェネレーター"
 
 #: generated
 msgid "Generate a PDF version of the current survey form."
-msgstr "現在の調査フォームのPDF版を生成する"
+msgstr "現在のアンケートフォームのPDF版を生成する"
 
 #: generated
 msgid "PDF export"
@@ -1484,7 +1485,7 @@ msgstr "PDF エクスポート"
 
 #: generated
 msgid "Export the current SurveyJS form as a downloadable PDF."
-msgstr "現在のSurveyJSフォームをダウンロード可能なPDFとしてエクスポートする"
+msgstr "現在の SurveyJS フォームをダウンロード可能な PDF としてエクスポートする"
 
 #: generated
 msgid "Survey data dashboard"
@@ -1502,7 +1503,7 @@ msgstr "入力可能なPDFフォーム"
 msgid ""
 "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
 "submissions."
-msgstr "入力可能なPDFをアップロードしてSurveyJSフォームを生成しPDFベースの送信を有効にします"
+msgstr "記入可能なPDFをアップロードしてSurveyJSフォームを生成しPDFベースの送信を有効にする"
 
 #: generated
 msgid "Password required"
@@ -1537,173 +1538,167 @@ msgid "Download PDF"
 msgstr "PDF をダウンロード"
 
 msgid "Choose a PDF that already contains fillable fields"
-msgstr "एक PDF चुनें जिसमें पहले से भरण योग्य फ़ील्ड्स हों"
+msgstr "すでに入力可能なフィールドを含むPDFを選択"
 
 msgid "Extraction mode"
-msgstr "निकर्ष मोड"
+msgstr "抽出モード"
 
 msgid ""
 "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
 "cannot always map to original PDF fields."
 msgstr ""
-"pdfcpu भरे हुए PDF के लिए फ़ील्ड मैपिंग को संरक्षित रखता है LLM लेआउट के लिए "
-"सबसे अच्छा है लेकिन हमेशा मूल PDF फ़ील्ड्स पर मैप नहीं कर पाता"
+"pdfcpu は入力済み PDF のフィールドマッピングを保持します LLM はレイアウトには最適ですが元の PDF "
+"フィールドに常にマッピングできるわけではありません"
 
 msgid "Analyze PDF"
-msgstr "PDF का विश्लेषण करें"
+msgstr "PDF を解析"
 
 #: zopyx/surveyjs/browser/psf.py:109
 msgid "Administration"
-msgstr "Amministrazione"
+msgstr "管理"
 
 #: zopyx/surveyjs/browser/psf.py:98
 msgid "Browse saved templates and reuse them for new forms or surveys."
-msgstr "Sfoglia i modelli salvati e riutilizzali per nuovi moduli o sondaggi"
+msgstr "保存済みのテンプレートを閲覧し新しいフォームやアンケートに再利用します"
 
 #: zopyx/surveyjs/browser/psf.py:75
 msgid "Create form"
-msgstr "Crea modulo"
+msgstr "フォームを作成"
 
 #: zopyx/surveyjs/browser/pfs.pt:59
 msgid "Create from template"
-msgstr "Crea da modello"
+msgstr "テンプレートから作成"
 
 #: zopyx/surveyjs/browser/survey_add.pt:61
 msgid "Create survey"
-msgstr "Crea sondaggio"
+msgstr "アンケートを作成"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:287
 msgid "Create template"
-msgstr "Crea modello"
+msgstr "テンプレートを作成"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:153
 msgid "Detected fields"
-msgstr "Campi rilevati"
+msgstr "検出されたフィールド"
 
 #: zopyx/surveyjs/browser/survey_results.pt:116
 msgid "Export range"
-msgstr "Esporta intervallo"
+msgstr "エクスポート範囲"
 
 #: zopyx/surveyjs/browser/psf.py:228
 msgid "Failed to create survey: ${error}"
-msgstr "Impossibile creare il sondaggio: ${error}"
+msgstr "アンケートの作成に失敗しました: ${error}"
 
 #: zopyx/surveyjs/browser/survey_versions.py:322
 msgid "Failed to create template: ${error}"
-msgstr "Impossibile creare il modello: ${error}"
+msgstr "テンプレートの作成に失敗しました: ${error}"
 
 #: zopyx/surveyjs/browser/survey_results.pt:118
 msgid "From"
-msgstr "Da"
+msgstr "から"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:290
 msgid ""
 "Generate a new SurveyTemplate from the selected version. You can adjust the "
 "name before creation."
-msgstr ""
-"Genera un nuovo SurveyTemplate dalla versione selezionata Puoi modificare il "
-"nome prima della creazione"
+msgstr "選択したバージョンから新しいSurveyTemplateを生成します 作成前に名前を調整できます"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:103
 msgid "LLM (visual conversion)"
-msgstr "LLM (conversione visiva)"
+msgstr "LLM（ビジュアル変換）"
 
 #: zopyx/surveyjs/browser/psf.py:72
 msgid "Launch a brand-new form or survey and start collecting answers."
-msgstr "Lancia un nuovo modulo o sondaggio e inizia a raccogliere risposte"
+msgstr "新しいフォームやアンケートを立ち上げて回答の収集を開始する"
 
 #: zopyx/surveyjs/browser/survey_add.pt:46
 #: zopyx/surveyjs/browser/survey_metadata.pt:46
 msgid "Let's fix a few things:"
-msgstr "Sistemiamo alcune cose"
+msgstr "いくつか修正しましょう"
 
 #: zopyx/surveyjs/browser/survey_add.pt:57
 #: zopyx/surveyjs/browser/survey_metadata.pt:57
 msgid "Loading form..."
-msgstr "Caricamento modulo..."
+msgstr "フォームを読み込んでいます"
 
 #: zopyx/surveyjs/browser/survey_actions.pt:18
 msgid "Metadata"
-msgstr "Metadati"
+msgstr "メタデータ"
 
 #: zopyx/surveyjs/browser/psf.py:195
 msgid "New Survey"
-msgstr "Nuovo sondaggio"
+msgstr "新しいアンケート"
 
 #: zopyx/surveyjs/browser/psf.py:71
 msgid "New form/survey"
-msgstr "Nuovo modulo/sondaggio"
+msgstr "新しいフォーム/アンケート"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:155
 msgid "No fields detected yet."
-msgstr "Nessun campo rilevato ancora"
+msgstr "まだフィールドが検出されていません"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:49
 msgid "No survey templates found below this location."
-msgstr "Nessun modello di sondaggio trovato sotto questa posizione"
+msgstr "この場所より下にはアンケートテンプレートが見つかりません"
 
 #: zopyx/surveyjs/browser/survey_template_views.py:22
 msgid "No template JSON configured."
-msgstr "Nessun JSON di modello configurato"
+msgstr "テンプレートJSONが設定されていません"
 
 #: zopyx/surveyjs/browser/configure.zcml:29
 msgid "Open Forms overview"
-msgstr "Panoramica moduli aperti"
+msgstr "フォーム概要を開く"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:120
 msgid "Open PDF Form"
-msgstr "Apri modulo PDF"
+msgstr "PDFフォームを開く"
 
 #: zopyx/surveyjs/browser/psf.py:113
 msgid "Open control panel"
-msgstr "Apri pannello di controllo"
+msgstr "コントロールパネルを開く"
 
 #: zopyx/surveyjs/browser/psf.py:88
 msgid "Open overview"
-msgstr "Apri panoramica"
+msgstr "概要を開く"
 
 #: zopyx/surveyjs/browser/psf.py:101
 msgid "Open templates"
-msgstr "Apri modelli"
+msgstr "テンプレートを開く"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:39
 msgid "Overview of survey templates available in this section."
-msgstr "Panoramica dei modelli di sondaggio disponibili in questa sezione"
+msgstr "このセクションで利用可能なアンケートテンプレートの概要"
 
 #: zopyx/surveyjs/browser/survey_add.py:96
 #: zopyx/surveyjs/browser/survey_metadata.py:111
 msgid "Please provide a title for your survey."
-msgstr "Si prega di fornire un titolo per il tuo sondaggio"
+msgstr "アンケートのタイトルを入力してください"
 
 #: zopyx/surveyjs/browser/psf.py:162
 msgid "Please select a template."
-msgstr "Seleziona un modello"
+msgstr "テンプレートを選択してください"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:48
 msgid "Preview the form/surveey template."
-msgstr "Anteprima del modello di modulo/sondaggio"
+msgstr "フォーム/アンケートテンプレートをプレビューする"
 
 #: zopyx/surveyjs/browser/survey_metadata.pt:61
 msgid "Save changes"
-msgstr "Salva modifiche"
+msgstr "変更を保存"
 
 #: zopyx/surveyjs/browser/psf.py:85
 msgid ""
 "See every form or survey at a glance, surface trends, and jump right in."
-msgstr ""
-"Visualizza ogni modulo o sondaggio a colpo d’occhio individua le tendenze e "
-"intervieni subito"
+msgstr "あらゆるフォームやアンケートを一目で把握し トレンドを可視化して すぐに取りかかる"
 
 #: zopyx/surveyjs/browser/survey_add.py:100
 #: zopyx/surveyjs/browser/survey_metadata.py:115
 msgid "Select at least one submission handling option."
-msgstr "Seleziona almeno un'opzione di gestione dell'invio"
+msgstr "少なくとも一つの送信処理オプションを選択してください"
 
 #: zopyx/surveyjs/browser/pfs.pt:61
 msgid "Start a new form or survey using one of your curate presets."
-msgstr ""
-"Avvia un nuovo modulo o sondaggio utilizzando una delle tue preimpostazioni "
-"curate"
+msgstr "キュレートしたプリセットのいずれかを使って新しいフォームまたはアンケートを開始する"
 
 #: zopyx/surveyjs/browser/pfs.pt:19
 msgid ""
@@ -1711,90 +1706,87 @@ msgid ""
 "every team member productive, confident, and in control of their form/survey "
 "data."
 msgstr ""
-"Inizia con un’azione guidata che corrisponde al tuo ruolo Queste scorciatoie "
-"mantengono ogni membro del team produttivo sicuro di sé e in controllo dei "
-"propri dati di modulo/sondaggio"
+"自分の役割に合ったガイド付きアクションから始めましょう "
+"これらのショートカットによりチームの全メンバーがフォームやアンケートのデータを生産的かつ自信を持って自在に扱えるようになります"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:38
 msgid "Survey Templates Overview"
-msgstr "Panoramica dei modelli di sondaggi"
+msgstr "アンケートテンプレート概要"
 
 #: zopyx/surveyjs/browser/psf.py:235
 msgid "Survey created from template."
-msgstr "Sondaggio creato dal modello"
+msgstr "テンプレートから作成されたアンケート"
 
 #: zopyx/surveyjs/browser/survey_add.py:118
 msgid "Survey created. Let's build it!"
-msgstr "Sondaggio creato. Costruiamolo!"
+msgstr "アンケートが作成されました さあ作り上げましょう"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:136
 msgid "Survey updated."
-msgstr "Sondaggio aggiornato"
+msgstr "アンケートが更新されました"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:165
 msgid "Template"
-msgstr "Modello"
+msgstr "テンプレート"
 
 #: zopyx/surveyjs/browser/psf.py:185
 msgid "Template JSON is invalid: ${error}"
-msgstr "Il JSON del modello non è valido: ${error}"
+msgstr "テンプレートJSONが無効です: ${error}"
 
 #: zopyx/surveyjs/browser/psf.py:176
 msgid "Template JSON is missing."
-msgstr "JSON del modello mancante"
+msgstr "テンプレートJSONがありません"
 
 #: zopyx/surveyjs/browser/survey_template_views.py:40
 msgid "Template JSON must be a JSON object."
-msgstr "JSON modello deve essere un oggetto JSON"
+msgstr "テンプレートJSONはJSONオブジェクトでなければなりません"
 
 #: zopyx/surveyjs/browser/survey_versions.py:328
 msgid "Template created successfully."
-msgstr "Modello creato con successo"
+msgstr "テンプレートが正常に作成されました"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:296
 msgid "Template name"
-msgstr "Nome modello"
+msgstr "テンプレート名"
 
 #: zopyx/surveyjs/browser/survey_versions.py:272
 msgid "Template name and version are required."
-msgstr "Il nome e la versione del modello sono obbligatori"
+msgstr "テンプレート名とバージョンは必須です"
 
 #: zopyx/surveyjs/browser/psf.py:169
 msgid "Template not found."
-msgstr "Template non trovato"
+msgstr "テンプレートが見つかりません"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:72
 msgid "Template unavailable"
-msgstr "Modello non disponibile"
+msgstr "テンプレートを利用できません"
 
 #: zopyx/surveyjs/browser/psf.py:97
 msgid "Templates overview"
-msgstr "Panoramica dei modelli"
+msgstr "テンプレート概要"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:73
 msgid "The template JSON could not be loaded."
-msgstr "Impossibile caricare il JSON del modello"
+msgstr "テンプレートJSONを読み込めませんでした"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:120
 #: zopyx/surveyjs/browser/viewer_embed.pt:58
 msgid ""
 "This form requires a trusted access link. Please use the link provided by "
 "the form owner."
-msgstr ""
-"Questo modulo richiede un link di accesso attendibile Usa il link fornito "
-"dal proprietario del modulo"
+msgstr "このフォームには信頼できるアクセスリンクが必要です フォームの所有者から提供されたリンクを使用してください"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:303
 msgid "This template will be created next to the current survey."
-msgstr "Questo modello verrà creato accanto al sondaggio corrente"
+msgstr "このテンプレートは現在のアンケートの横に作成されます"
 
 #: zopyx/surveyjs/browser/survey_results.pt:122
 msgid "To"
-msgstr "A"
+msgstr "宛先"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:94
 msgid "Token"
-msgstr "Token"
+msgstr "トークン"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:79
 msgid "URL"
@@ -1802,67 +1794,62 @@ msgstr "URL"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:294
 msgid "Version:"
-msgstr "Versione:"
+msgstr "バージョン"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:47
 msgid "View form/survey template"
-msgstr "Visualizza modello di modulo/sondaggio"
+msgstr "フォーム/アンケートテンプレートを表示"
 
 #: zopyx/surveyjs/browser/psf.py:110
 msgid "Visit the control panel to adjust site-wide settings and integrations."
-msgstr ""
-"Visita il pannello di controllo per regolare le impostazioni e le "
-"integrazioni a livello di sito"
+msgstr "サイト全体の設定と連携を調整するにはコントロールパネルにアクセスしてください"
 
 #: zopyx/surveyjs/browser/survey_add.py:112
 msgid "We could not create the survey at the moment. Please try again."
-msgstr ""
-"Non è stato possibile creare il sondaggio al momento Per favore riprova"
+msgstr "現在アンケートを作成できませんでした もう一度お試しください"
 
 #: zopyx/surveyjs/browser/survey_add.py:134
 #: zopyx/surveyjs/browser/survey_metadata.py:88
 msgid "We could not read the submitted form data."
-msgstr "Non è stato possibile leggere i dati del modulo inviato"
+msgstr "送信されたフォームデータを読み取ることができませんでした"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:130
 msgid "We could not update the survey at the moment. Please try again."
-msgstr ""
-"Al momento non è stato possibile aggiornare il sondaggio Ti preghiamo di "
-"riprovare"
+msgstr "現在アンケートを更新できませんでした もう一度お試しください"
 
 #: zopyx/surveyjs/browser/pfs.pt:18
 msgid "What would you like to do today?"
-msgstr "Cosa vorresti fare oggi?"
+msgstr "今日は何をしたいですか"
 
 #: zopyx/surveyjs/browser/psf.py:158
 #: zopyx/surveyjs/browser/survey_add.py:63
 msgid "You are not allowed to add surveys here."
-msgstr "Non ti è consentito aggiungere sondaggi qui"
+msgstr "ここにアンケートを追加することは許可されていません"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:23
 msgid "You are not allowed to edit this survey."
-msgstr "Non ti è consentito modificare questo sondaggio"
+msgstr "このアンケートは編集できません"
 
 #: zopyx/surveyjs/browser/survey_versions.py:292
 msgid "You do not have permission to add templates here."
-msgstr "Non hai l autorizzazione per aggiungere modelli qui"
+msgstr "ここにテンプレートを追加する権限がありません"
 
 #. Default: "Select a template"
 #: zopyx/surveyjs/browser/pfs.pt:66
 #: zopyx/surveyjs/browser/survey_actions.pt:79
 #: zopyx/surveyjs/browser/survey_versions.pt:116
 msgid "aria-label"
-msgstr "attributo aria-label"
+msgstr "ariaラベル"
 
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
-msgstr "dati-cancella-parola-chiave"
+msgstr "データクリアキーワード"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"
-msgstr "pdfcpu (campi strutturati)"
+msgstr "pdfcpu（構造化フィールド）"
 
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
-msgstr "La data “A” deve essere successiva alla data “Da”"
+msgstr "「終了」日付は「開始」日付より後でなければなりません"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-02-24 07:48+0100\n"
+"PO-Revision-Date: 2026-02-24 08:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -561,7 +561,7 @@ msgstr "Affinement ${index}"
 
 #: generated
 msgid "Refinement failed"
-msgstr "L'affinement a échoué"
+msgstr "Échec du raffinement"
 
 #: generated
 msgid "Refining..."
@@ -631,7 +631,7 @@ msgstr ""
 
 #: generated
 msgid "Store"
-msgstr "Stocker"
+msgstr "Magasin"
 
 #: generated
 msgid "Subject"
@@ -1117,7 +1117,7 @@ msgstr "Affiner le formulaire existant"
 
 #: generated
 msgid "Refinement History"
-msgstr "Historique d'affinement"
+msgstr "Historique des affinements"
 
 #: generated
 msgid "Results are not being saved because the \"Store\" action is turned off."
@@ -1345,7 +1345,7 @@ msgstr "Statut"
 
 #: generated
 msgid "Effective"
-msgstr "Effectif"
+msgstr "Efficace"
 
 #: generated
 msgid "Expires"
@@ -1401,7 +1401,7 @@ msgstr "Actualiser"
 
 #: generated
 msgid "Forms overview"
-msgstr "Aperçu du sondage"
+msgstr "Aperçu des formulaires"
 
 #: generated
 msgid "Overview of forms in this section and their submission status."
@@ -1456,16 +1456,16 @@ msgid "Last Page"
 msgstr "Dernière page"
 
 msgid "Prev"
-msgstr "Préc"
+msgstr "Précédent"
 
 msgid "Prev Page"
 msgstr "Page préc"
 
 msgid "Next"
-msgstr "Suiv"
+msgstr "Suivant"
 
 msgid "Next Page"
-msgstr "Page suiv"
+msgstr "Page suivante"
 
 msgid "All"
 msgstr "Tous"
@@ -1560,7 +1560,7 @@ msgstr ""
 "éléments avec la classe « ${className} »"
 
 msgid "Trusted access required"
-msgstr "Accès fiable requis"
+msgstr "Accès de confiance requis"
 
 msgid "Ask the form owner for a trusted access link."
 msgstr "Demandez au propriétaire du formulaire un lien d’accès fiable"
@@ -1664,7 +1664,7 @@ msgid "Choose a PDF that already contains fillable fields"
 msgstr "Valitse PDF joka sisältää jo täytettäviä kenttiä"
 
 msgid "Extraction mode"
-msgstr "Uuttotila"
+msgstr "Mode d extraction"
 
 msgid ""
 "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
@@ -1674,7 +1674,7 @@ msgstr ""
 "paras asetteluun mutta ei aina pysty vastaamaan alkuperäisiä PDF-kenttiä"
 
 msgid "Analyze PDF"
-msgstr "Analysoi PDF"
+msgstr "Analyser PDF"
 
 #: zopyx/surveyjs/browser/psf.py:109
 msgid "Administration"
@@ -1792,7 +1792,7 @@ msgstr "Ouvrir l’aperçu"
 
 #: zopyx/surveyjs/browser/psf.py:101
 msgid "Open templates"
-msgstr "Modèles ouverts"
+msgstr "Ouvrir des modèles"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:39
 msgid "Overview of survey templates available in this section."
@@ -1985,7 +1985,7 @@ msgstr "aria-label"
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
-msgstr "données-effacer-mot clé"
+msgstr "mot-cle-effacement-des-donnees"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"

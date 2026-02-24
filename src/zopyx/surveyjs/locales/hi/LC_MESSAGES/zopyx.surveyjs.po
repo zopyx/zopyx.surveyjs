@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-02-24 07:48+0100\n"
+"PO-Revision-Date: 2026-02-24 08:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hi\n"
@@ -22,11 +22,11 @@ msgstr "--"
 
 #: generated
 msgid "AI Generator"
-msgstr "एआई जेनरेटर"
+msgstr "एआई जनरेटर"
 
 #: generated
 msgid "Actions"
-msgstr "कार्रवाइयां"
+msgstr "कार्रवाइयाँ"
 
 #: generated
 msgid "All results have been cleared successfully."
@@ -49,8 +49,8 @@ msgid ""
 "Be specific about the types of questions, response formats, and any "
 "particular fields you need."
 msgstr ""
-"प्रश्नों के प्रकार, उत्तर के प्रारूप, और किसी विशेष क्षेत्र के बारे में "
-"स्पष्ट रूप से बताएं जिसकी आपको आवश्यकता है"
+"प्रश्नों के प्रकार, उत्तर प्रारूपों और जिन विशेष फ़ील्ड्स की आपको आवश्यकता "
+"है उनके बारे में स्पष्ट रूप से बताएं"
 
 #: generated
 msgid "Beta"
@@ -69,15 +69,15 @@ msgid ""
 "Body text for notification-only emails. Supports {title}, {detail_url}, "
 "{poll_id}."
 msgstr ""
-"केवल सूचना वाले ईमेल के लिए मुख्य पाठ {title} {detail_url} {poll_id} को "
-"समर्थन करता है"
+"केवल सूचना वाली ईमेल के लिए मुख्य पाठ {title} {detail_url} {poll_id} को "
+"सपोर्ट करता है"
 
 #: generated
 msgid ""
 "Body text for result export emails. Supports {created}, {creator}, {formats}."
 ""
 msgstr ""
-"परिणाम निर्यात ईमेल के लिए मुख्य पाठ {created} {creator} {formats} को समर्थन "
+"परिणाम निर्यात ईमेल के लिए मुख्य पाठ {created} {creator} {formats} का समर्थन "
 "करता है"
 
 #: generated
@@ -90,23 +90,23 @@ msgstr "CSV (.csv)"
 
 #: generated
 msgid "Delete ${count} selected result(s)?"
-msgstr "क्या आप ${count} चुने हुए परिणाम हटाना चाहते हैं"
+msgstr "${count} चयनित परिणाम हटाएं"
 
 #: generated
 msgid "Delete this result?"
-msgstr "इस परिणाम को हटाएं"
+msgstr "क्या आप इस परिणाम को हटाना चाहते हैं"
 
 #: generated
 msgid "Describe Your Form"
-msgstr "अपना फ़ॉर्म वर्णन करें"
+msgstr "अपने फॉर्म का वर्णन करें"
 
 #: generated
 msgid "Describe the changes you want to make to the current form."
-msgstr "वर्तमान फॉर्म में आप जो बदलाव करना चाहते हैं उनका वर्णन करें"
+msgstr "वर्तमान फॉर्म में आप कौन से परिवर्तन करना चाहते हैं उनका वर्णन करें"
 
 #: generated
 msgid "Describe the form you want to create:"
-msgstr "वह फ़ॉर्म वर्णन करें जिसे आप बनाना चाहते हैं"
+msgstr "आप जिस फॉर्म को बनाना चाहते हैं उसका वर्णन करें"
 
 #: generated
 msgid "E-Mail BCC"
@@ -118,11 +118,11 @@ msgstr "ई मेल सीसी"
 
 #: generated
 msgid "E-Mail recipient"
-msgstr "ई-मेल प्राप्तकर्ता"
+msgstr "ई मेल प्राप्तकर्ता"
 
 #: generated
 msgid "E-Mail sender"
-msgstr "ई मेल प्रेषक"
+msgstr "ईमेल प्रेषक"
 
 #: generated
 msgid "Edit"
@@ -134,11 +134,11 @@ msgstr "ब्लाइंड कॉपी प्राप्त करने �
 
 #: generated
 msgid "Email address to receive a copy"
-msgstr "प्रतिलिपि प्राप्त करने के लिए ईमेल पता"
+msgstr "एक प्रति प्राप्त करने के लिए ईमेल पता"
 
 #: generated
 msgid "Enable validation (experimental)"
-msgstr "मान्यकरण सक्षम करें (प्रायोगिक)"
+msgstr "मान्यकरण सक्षम करें प्रयोगात्मक"
 
 #: generated
 msgid "Error clearing results:"
@@ -146,11 +146,11 @@ msgstr "परिणाम साफ करने में त्रुटि"
 
 #: generated
 msgid "Error deleting result:"
-msgstr "परिणाम हटाने में त्रुटि"
+msgstr "परिणाम हटाने में त्रुटि:"
 
 #: generated
 msgid "Error deleting selected results:"
-msgstr "चयनित परिणामों को हटाने में त्रुटि"
+msgstr "चयनित परिणाम हटाने में त्रुटि"
 
 #: generated
 msgid "Error fetching JSON:"
@@ -158,7 +158,7 @@ msgstr "JSON प्राप्त करने में त्रुटि"
 
 #: generated
 msgid "Error fetching details:"
-msgstr "विवरण लाने में त्रुटि"
+msgstr "विवरण प्राप्त करने में त्रुटि"
 
 #: generated
 msgid "Error generating form:"
@@ -174,11 +174,11 @@ msgstr "मौजूदा फ़ॉर्म को परिष्कृत �
 
 #: generated
 msgid "Error refining form:"
-msgstr "फ़ॉर्म को परिष्कृत करने में त्रुटि"
+msgstr "फॉर्म को परिष्कृत करने में त्रुटि"
 
 #: generated
 msgid "Error rendering preview:"
-msgstr "पूर्वावलोकन रेंडर करते समय त्रुटि"
+msgstr "पूर्वावलोकन प्रस्तुत करने में त्रुटि"
 
 #: generated
 msgid "Error saving form:"
@@ -194,7 +194,7 @@ msgid ""
 "the end, Change the first question to a dropdown"
 msgstr ""
 "उदाहरण प्रत्येक प्रश्न के लिए रेटिंग स्केल जोड़ें अंत में एक टिप्पणियाँ "
-"अनुभाग शामिल करें पहली प्रश्न को एक ड्रॉपडाउन में बदलें"
+"अनुभाग शामिल करें पहले प्रश्न को ड्रॉपडाउन में बदलें"
 
 #: generated
 msgid ""
@@ -202,9 +202,9 @@ msgid ""
 "quality, delivery experience, and overall satisfaction. Include rating "
 "scales and a comments section."
 msgstr ""
-"उदाहरण एक ग्राहक संतुष्टि सर्वे बनाएं जिसमें उत्पाद की गुणवत्ता डिलीवरी के "
-"अनुभव और कुल संतुष्टि से संबंधित प्रश्न हों रेटिंग स्केल और टिप्पणियों के "
-"लिए एक अनुभाग शामिल करें"
+"उदाहरण: उत्पाद की गुणवत्ता, डिलीवरी अनुभव और समग्र संतुष्टि से संबंधित "
+"प्रश्नों के साथ एक ग्राहक संतुष्टि सर्वेक्षण बनाएं रेटिंग स्केल और "
+"टिप्पणियों का अनुभाग शामिल करें"
 
 #: generated
 msgid "Excel (.xlsx)"
@@ -221,20 +221,20 @@ msgstr "परिणाम POST करने में विफल: ${error}"
 #: generated
 msgid ""
 "Failed to clear results. Please check the console for more information."
-msgstr "परिणाम साफ करने में विफल कृपया अधिक जानकारी के लिए कंसोल जांचें"
+msgstr "परिणाम साफ़ करने में विफल रहा कृपया अधिक जानकारी के लिए कंसोल जांचें"
 
 #: generated
 msgid ""
 "Failed to delete selected results. Please check the console for details."
-msgstr "चयनित परिणामों को हटाने में विफल कृपया विवरण के लिए कंसोल जांचें"
+msgstr "चयनित परिणामों को हटाने में विफल रहा कृपया विवरण के लिए कंसोल जांचें"
 
 #: generated
 msgid "Failed to delete the result. Please check the console for details."
-msgstr "परिणाम को हटाने में विफल रहा कृपया विवरण के लिए कंसोल जांचें"
+msgstr "परिणाम हटाने में विफल रहा कृपया विवरण के लिए कंसोल जांचें"
 
 #: generated
 msgid "Failed to generate form. Please try again."
-msgstr "फॉर्म बनाने में विफल कृपया पुनः प्रयास करें"
+msgstr "फॉर्म बनाने में विफल कृपया दोबारा प्रयास करें"
 
 #: generated
 msgid ""
@@ -244,7 +244,7 @@ msgstr ""
 
 #: generated
 msgid "Failed to load details. Please check the console for more information."
-msgstr "विवरण लोड करने में विफल कृपया अधिक जानकारी के लिए कंसोल जांचें"
+msgstr "विवरण लोड करने में विफल रहा कृपया अधिक जानकारी के लिए कंसोल जांचें"
 
 #: generated
 msgid "Failed to load survey"
@@ -252,11 +252,11 @@ msgstr "सर्वे लोड करने में विफल"
 
 #: generated
 msgid "Failed to load survey. Please check the URL and try again."
-msgstr "सर्वे लोड करने में विफल रहा कृपया URL जांचें और पुनः प्रयास करें"
+msgstr "सर्वे लोड करने में विफल कृपया URL जांचें और पुनः प्रयास करें"
 
 #: generated
 msgid "Failed to refine existing form. Please try again."
-msgstr "मौजूदा फॉर्म को परिष्कृत करने में विफल कृपया पुनः प्रयास करें"
+msgstr "मौजूदा फॉर्म को परिष्कृत करने में विफल रहा कृपया पुनः प्रयास करें"
 
 #: generated
 msgid ""
@@ -267,7 +267,7 @@ msgstr ""
 
 #: generated
 msgid "Failed to render preview: ${error}"
-msgstr "पूर्वावलोकन रेंडर करने में विफल: ${error}"
+msgstr "पूर्वावलोकन प्रस्तुत करने में विफल: ${error}"
 
 #: generated
 msgid "Failed to save form: ${error}"
@@ -275,11 +275,11 @@ msgstr "फॉर्म सहेजने में विफल: ${error}"
 
 #: generated
 msgid "Failed to send mail: ${error}"
-msgstr "मेल भेजने में विफल रहा: ${error}"
+msgstr "मेल भेजने में विफल: ${error}"
 
 #: generated
 msgid "Force Server Side Validation"
-msgstr "सर्वर साइड वैलिडेशन बाध्य करें"
+msgstr "सर्वर साइड वैलिडेशन को बाध्य करें"
 
 #: generated
 msgid "Form Results"
@@ -287,7 +287,7 @@ msgstr "फॉर्म परिणाम"
 
 #: generated
 msgid "Form Settings"
-msgstr "फ़ॉर्म सेटिंग्स"
+msgstr "फॉर्म सेटिंग्स"
 
 #: generated
 msgid "Form View"
@@ -298,16 +298,16 @@ msgid ""
 "Form imported and saved as a new version. <a href=\"${url}\">View versions</"
 "a>."
 msgstr ""
-"फॉर्म आयात कर लिया गया है और नए संस्करण के रूप में सहेजा गया है <a href="
-"\"${url}\">संस्करण देखें</a>"
+"फॉर्म आयात किया गया और एक नए संस्करण के रूप में सहेजा गया a href="
+"\"${url}\"संस्करण देखेंa"
 
 #: generated
 msgid ""
 "Form saved successfully! You can now view it in the Visual Editor or "
 "Versions."
 msgstr ""
-"फॉर्म सफलतापूर्वक सहेजा गया है अब आप इसे विज़ुअल एडिटर या वर्ज़न्स में देख "
-"सकते हैं"
+"फॉर्म सफलतापूर्वक सहेजा गया है अब आप इसे विजुअल एडिटर या वर्ज़न में देख सकते "
+"हैं"
 
 #: generated
 msgid "Form/Survey"
@@ -323,15 +323,15 @@ msgstr "फॉर्म बनाएं"
 
 #: generated
 msgid "Generate forms using AI"
-msgstr "एआई का उपयोग करके फॉर्म उत्पन्न करें"
+msgstr "एआई का उपयोग करके फॉर्म बनाएं"
 
 #: generated
 msgid "Generating..."
-msgstr "उत्पन्न कर रहा हूँ"
+msgstr "उत्पन्न कर रहा है"
 
 #: generated
 msgid "Generation failed"
-msgstr "जनरेशन असफल"
+msgstr "उत्पादन विफल हुआ"
 
 #: generated
 msgid "HTML (.html)"
@@ -339,7 +339,7 @@ msgstr "एचटीएमएल (.html)"
 
 #: generated
 msgid "Import failed"
-msgstr "आयात विफल हुआ"
+msgstr "आयात असफल रहा"
 
 #: generated
 msgid "Import failed. Please try again."
@@ -355,11 +355,11 @@ msgstr "अमान्य JSON फ़ाइल: ${error}"
 
 #: generated
 msgid "Invalid poll ID or format"
-msgstr "अमान्य मतदान आईडी या प्रारूप"
+msgstr "अमान्य पोल आईडी या प्रारूप"
 
 #: generated
 msgid "Invalid survey URL: ${url}"
-msgstr "अमान्य सर्वे URL: ${url}"
+msgstr "अमान्य सर्वेक्षण URL: ${url}"
 
 #: generated
 msgid "JSON (.json)"
@@ -387,11 +387,11 @@ msgstr "लोड हो रहा है"
 
 #: generated
 msgid "Mail"
-msgstr "डाक"
+msgstr "मेल"
 
 #: generated
 msgid "Mail (notification only)"
-msgstr "मेल (केवल अधिसूचना)"
+msgstr "मेल (केवल सूचना)"
 
 #: generated
 msgid "Mail notifications"
@@ -403,11 +403,11 @@ msgstr "मेल भेजा गया"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
-msgstr "मेल सेटिंग्स अधूरी हैं (मेल-टू और सब्जेक्ट आवश्यक हैं)"
+msgstr "मेल सेटिंग्स अधूरी हैं (मेल-टू और विषय आवश्यक हैं)"
 
 #: generated
 msgid "Manager only"
-msgstr "केवल प्रबंधक"
+msgstr "केवल Manager"
 
 #: generated
 msgid "Markdown (.md)"
@@ -419,11 +419,11 @@ msgstr "अधिकतम आकार पेलोड (एमबी)"
 
 #: generated
 msgid "Maximum allowed payload size for submissions in megabytes."
-msgstr "सबमिशन के लिए अधिकतम अनुमत पेलोड आकार मेगाबाइट्स में"
+msgstr "सबमिशन के लिए अधिकतम अनुमत पेलोड आकार मेगाबाइट में"
 
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
-msgstr "data-survey-url विशेषता अनुपस्थित है कृपया सर्वे URL निर्दिष्ट करें"
+msgstr "लापता data-survey-url विशेषता कृपया सर्वेक्षण URL निर्दिष्ट करें"
 
 #: generated
 msgid "No POST endpoint configured for this survey"
@@ -431,7 +431,7 @@ msgstr "इस सर्वे के लिए कोई POST एंडपॉ�
 
 #: generated
 msgid "No existing form found to refine."
-msgstr "सुधारने के लिए कोई मौजूदा फॉर्म नहीं मिला"
+msgstr "कोई मौजूदा फॉर्म परिष्कृत करने के लिए नहीं मिला"
 
 #: generated
 msgid "No file selected"
@@ -447,11 +447,11 @@ msgstr "POST में शामिल करने के लिए कोई �
 
 #: generated
 msgid "No form to preview"
-msgstr "पूर्वावलोकन के लिए कोई प्रपत्र नहीं"
+msgstr "पूर्वावलोकन करने के लिए कोई फॉर्म नहीं"
 
 #: generated
 msgid "No form to save"
-msgstr "सहेजने के लिए कोई फ़ॉर्म नहीं"
+msgstr "सहेजने के लिए कोई फॉर्म नहीं"
 
 #: generated
 msgid "No version ID provided"
@@ -464,20 +464,20 @@ msgstr "सहेजा नहीं गया"
 #: generated
 msgid "Optional BCC recipients for result exports (one address per line)."
 msgstr ""
-"परिणाम निर्यातों के लिए वैकल्पिक बीसीसी प्राप्तकर्ता (प्रत्येक पंक्ति में एक "
-"पता)"
+"परिणाम निर्यात के लिए वैकल्पिक बीसीसी प्राप्तकर्ता (प्रति पंक्ति एक पता)"
 
 #: generated
 msgid "Optional CC recipients for result exports (one address per line)."
-msgstr "परिणाम निर्यात के लिए वैकल्पिक CC प्राप्तकर्ता (प्रति पंक्ति एक पता)"
+msgstr ""
+"परिणाम निर्यातों के लिए वैकल्पिक CC प्राप्तकर्ता (प्रति पंक्ति एक पता)"
 
 #: generated
 msgid ""
 "Optional HTTP endpoint to receive submissions as JSON when the POST action "
 "is enabled."
 msgstr ""
-"वैकल्पिक HTTP एंडपॉइंट जो POST क्रिया सक्षम होने पर सबमिशन को JSON के रूप "
-"में प्राप्त करता है"
+"POST क्रिया सक्षम होने पर सबमिशन को JSON के रूप में प्राप्त करने के लिए "
+"वैकल्पिक HTTP एंडपॉइंट"
 
 #: generated
 msgid "PDF (.pdf)"
@@ -485,11 +485,11 @@ msgstr "पीडीएफ (.pdf)"
 
 #: generated
 msgid "PDF Form Import"
-msgstr "PDF फॉर्म आयात"
+msgstr "पीडीएफ फॉर्म आयात"
 
 #: generated
 msgid "POST action is not enabled for this survey"
-msgstr "इस सर्वेक्षण के लिए POST क्रिया सक्षम नहीं है"
+msgstr "इस सर्वे के लिए POST क्रिया सक्षम नहीं है"
 
 #: generated
 msgid "POST endpoint URL"
@@ -497,7 +497,7 @@ msgstr "POST एंडपॉइंट URL"
 
 #: generated
 msgid "POST to endpoint"
-msgstr "एंडपॉइंट पर POST करें"
+msgstr "एंडपॉइंट पर POST"
 
 #: generated
 msgid "Please enter a description"
@@ -509,7 +509,7 @@ msgstr "कृपया अपलोड करने के लिए एक PDF
 
 #: generated
 msgid "Poll ID is required"
-msgstr "Poll ID आवश्यक है"
+msgstr "पोल आईडी आवश्यक है"
 
 #: generated
 msgid "Poll result not found"
@@ -522,11 +522,11 @@ msgstr "पूर्वावलोकन त्रुटि"
 #: generated
 msgid ""
 "Primary recipient for notifications and result exports (single address). "
-msgstr "सूचनाओं और परिणाम निर्यात के लिए प्राथमिक प्राप्तकर्ता (एकल पता)"
+msgstr "सूचनाओं और परिणाम निर्यातों के लिए प्राथमिक प्राप्तकर्ता (एकल पता)"
 
 #: generated
 msgid "Privacy Forms Studio"
-msgstr "गोपनीयता प्रपत्र स्टूडियो"
+msgstr "प्राइवेसी फॉर्म्स स्टूडियो"
 
 #: generated
 msgid "Refine Form"
@@ -534,7 +534,7 @@ msgstr "फॉर्म परिष्कृत करें"
 
 #: generated
 msgid "Refine Your Form"
-msgstr "अपने फॉर्म को निखारें"
+msgstr "अपना फॉर्म परिष्कृत करें"
 
 #: generated
 msgid "Refinement ${index}"
@@ -542,11 +542,11 @@ msgstr "परिष्करण ${index}"
 
 #: generated
 msgid "Refinement failed"
-msgstr "संवर्धन असफल हुआ"
+msgstr "परिष्करण विफल हुआ"
 
 #: generated
 msgid "Refining..."
-msgstr "परिष्कृत किया जा रहा"
+msgstr "परिष्कृत किया जा रहा है"
 
 #: generated
 msgid "Requested export format is not available"
@@ -554,11 +554,11 @@ msgstr "अनुरोधित निर्यात प्रारूप उ
 
 #: generated
 msgid "Result POSTed to endpoint (status ${status})"
-msgstr "परिणाम endpoint पर POST किया गया (status ${status})"
+msgstr "परिणाम एंडपॉइंट पर POST किया गया (स्थिति ${status})"
 
 #: generated
 msgid "Results cleared"
-msgstr "परिणाम साफ हुए"
+msgstr "परिणाम साफ किए गए"
 
 #: generated
 msgid "Results"
@@ -582,31 +582,30 @@ msgstr "सहेजना"
 
 #: generated
 msgid "Select export formats to attach when the Mail action sends results."
-msgstr "जब मेल क्रिया परिणाम भेजे तो संलग्न करने के लिए निर्यात प्रारूप चुनें"
+msgstr ""
+"जब मेल क्रिया परिणाम भेजती है तो संलग्न करने के लिए निर्यात प्रारूप चुनें"
 
 #: generated
 msgid "Select how to handle survey submissions (multiple options possible). "
-msgstr "सर्वेक्षण सबमिशन को कैसे संभालना है चुनें (एकाधिक विकल्प संभव)"
+msgstr "सर्वे सबमिशन को संभालने का तरीका चुनें (कई विकल्प संभव हैं)"
 
 #: generated
 msgid ""
 "Sender address for outgoing mail. Mandatory when the Mail action is selected."
 ""
-msgstr ""
-"बाहर जाने वाले मेल के लिए प्रेषक पता जब मेल कार्रवाई चुनी जाती है तो यह "
-"अनिवार्य होता है"
+msgstr "बाहरी मेल के लिए प्रेषक पता मेल क्रिया चुने जाने पर अनिवार्य है"
 
 #: generated
 msgid ""
 "Start over? This will clear your refinement history and return to the "
 "initial prompt."
 msgstr ""
-"फिर से शुरू करें यह आपकी परिशोधन इतिहास को साफ कर देगा और प्रारंभिक "
-"प्रॉम्प्ट पर वापस ले जाएगा"
+"फिर से शुरू करें यह आपकी परिष्करण इतिहास को साफ करेगा और प्रारंभिक प्रॉम्प्ट "
+"पर वापस ले जाएगा"
 
 #: generated
 msgid "Store"
-msgstr "दुकान"
+msgstr "स्टोर"
 
 #: generated
 msgid "Subject"
@@ -617,8 +616,8 @@ msgid ""
 "Subject for notification-only emails. Supports {title}, {detail_url}, "
 "{poll_id}."
 msgstr ""
-"केवल अधिसूचना ईमेल के लिए विषय {title} {detail_url} {poll_id} को समर्थन देता "
-"है"
+"केवल सूचना वाली ईमेल के लिए विषय पंक्ति {title} {detail_url} {poll_id} को "
+"सपोर्ट करता है"
 
 #: generated
 msgid "Subject for notifications"
@@ -628,8 +627,8 @@ msgstr "सूचनाओं के लिए विषय"
 msgid ""
 "Subject for result export emails. Supports {poll_id} for the submission ID. "
 msgstr ""
-"परिणाम निर्यात ईमेल के लिए विषय पंक्ति सबमिशन ID के लिए {poll_id} को सपोर्ट "
-"करता है"
+"परिणाम निर्यात ईमेल के लिए विषय पंक्ति सबमिशन आईडी के लिए {poll_id} को "
+"सपोर्ट करता है"
 
 #: generated
 msgid "Survey Embed Error"
@@ -650,7 +649,7 @@ msgstr "सर्वे एम्बेडिंग की अनुमति �
 
 #: generated
 msgid "Survey library not loaded"
-msgstr "सर्वे पुस्तकालय लोड नहीं हुआ"
+msgstr "सर्वे लाइब्रेरी लोड नहीं हुई"
 
 #: generated
 msgid "Survey open"
@@ -662,19 +661,19 @@ msgstr "SurveyJS एम्बेड: तत्व नहीं मिला"
 
 #: generated
 msgid "SurveyJS Embed: Error handling resize message"
-msgstr "SurveyJS एम्बेड रिसाइज़ संदेश में त्रुटि प्रबंधन"
+msgstr "SurveyJS एम्बेड त्रुटि हैंडलिंग रीसाइज़ संदेश"
 
 #: generated
 msgid "SurveyJS Embed: Error requesting height"
-msgstr "SurveyJS एम्बेड: ऊँचाई का अनुरोध करते समय त्रुटि"
+msgstr "SurveyJS एम्बेड ऊंचाई का अनुरोध करते समय त्रुटि"
 
 #: generated
 msgid ""
 "SurveyJS Embed: No embed containers found. Add elements with class "
 "\"${className}\""
 msgstr ""
-"SurveyJS एम्बेड: कोई एम्बेड कंटेनर नहीं मिला ${className} क्लास वाले "
-"एलिमेंट्स जोड़ें"
+"SurveyJS एम्बेड कोई एम्बेड कंटेनर नहीं मिला class \"${className}\" वाले "
+"एलिमेंट जोड़ें"
 
 #: generated
 msgid "Text (.txt)"
@@ -686,7 +685,7 @@ msgstr "अज्ञात त्रुटि"
 
 #: generated
 msgid "Validate submissions against the form schema before saving. "
-msgstr "सहेजने से पहले फॉर्म स्कीमा के अनुसार सबमिशन को मान्य करें"
+msgstr "सहेजने से पहले सबमिशन को फॉर्म स्कीमा के अनुसार मान्य करें"
 
 #: generated
 msgid "Version ${current} of ${total}"
@@ -715,7 +714,7 @@ msgstr ""
 
 #: generated
 msgid "Version unlocked"
-msgstr "संस्करण अनलॉक्ड"
+msgstr "संस्करण अनलॉक किया गया"
 
 #: generated
 msgid "Versions"
@@ -727,7 +726,7 @@ msgstr "देखें"
 
 #: generated
 msgid "Visual Editor"
-msgstr "विजुअल एडिटर"
+msgstr "दृश्य संपादक"
 
 #: generated
 msgid "What would you like to change?"
@@ -735,11 +734,11 @@ msgstr "आप क्या बदलना चाहेंगे"
 
 #: generated
 msgid "Word (.docx)"
-msgstr "Word (.docx)"
+msgstr "वर्ड (.docx)"
 
 #: generated
 msgid "XML (.xml)"
-msgstr "XML (.xml)"
+msgstr "एक्सएमएल (.xml)"
 
 #: generated
 msgid ""
@@ -751,7 +750,7 @@ msgid "version ${current} of ${total}"
 msgstr "संस्करण ${current} में से ${total}"
 
 msgid "Access mode"
-msgstr "पहुंच मोड"
+msgstr "प्रवेश मोड"
 
 msgid ""
 "Choose whether this form is publicly accessible or requires a trusted access "
@@ -764,7 +763,7 @@ msgid "Public"
 msgstr "सार्वजनिक"
 
 msgid "Trusted access token"
-msgstr "विश्वसनीय अभिगम टोकन"
+msgstr "विश्वसनीय एक्सेस टोकन"
 
 msgid "Trusted access token TTL (hours)"
 msgstr "विश्वसनीय एक्सेस टोकन टीटीएल (घंटे)"
@@ -773,13 +772,13 @@ msgid "Update"
 msgstr "अपडेट"
 
 msgid "Unsaved changes"
-msgstr "असहेजे परिवर्तन"
+msgstr "असहेजे गए परिवर्तन"
 
 msgid "You have edits that haven't been saved yet."
-msgstr "आपके पास ऐसे परिवर्तन हैं जो अभी तक सहेजे नहीं गए हैं"
+msgstr "आपके पास ऐसे संपादन हैं जो अभी तक सहेजे नहीं गए हैं"
 
 msgid "Lifetime of trusted access tokens in hours."
-msgstr "विश्वसनीय एक्सेस टोकन का जीवनकाल घंटों में"
+msgstr "विश्वसनीय एक्सेस टोकन की आयु घंटों में"
 
 #: generated
 msgid "Cancel"
@@ -795,7 +794,7 @@ msgstr "पुनर्स्थापना की पुष्टि करे
 
 #: generated
 msgid "Date:"
-msgstr "तारीख:"
+msgstr "तिथि:"
 
 #: generated
 msgid "Delete"
@@ -815,7 +814,7 @@ msgstr "डाउनलोड"
 
 #: generated
 msgid "Download form definition as JSON"
-msgstr "JSON के रूप में प्रपत्र परिभाषा डाउनलोड करें"
+msgstr "JSON के रूप में फॉर्म परिभाषा डाउनलोड करें"
 
 #: generated
 msgid "ID:"
@@ -827,7 +826,7 @@ msgstr "JSON संस्करण सामग्री"
 
 #: generated
 msgid "Locked"
-msgstr "ताला लगा हुआ"
+msgstr "लॉक्ड"
 
 #: generated
 msgid "Preview"
@@ -854,12 +853,12 @@ msgid ""
 "Restoring will create a new version using the selected snapshot and keep the "
 "current version in history."
 msgstr ""
-"रीस्टोर करने से चयनित स्नैपशॉट का उपयोग करके एक नया संस्करण बनेगा और वर्तमान "
-"संस्करण इतिहास में सुरक्षित रहेगा"
+"पुनर्स्थापित करने से चयनित स्नैपशॉट का उपयोग करके एक नया संस्करण बनाया जाएगा "
+"और वर्तमान संस्करण को इतिहास में रखा जाएगा"
 
 #: generated
 msgid "Upload and Create Version"
-msgstr "संस्करण अपलोड करें और बनाएं"
+msgstr "संस्करण अपलोड करें और बनाएँ"
 
 #: generated
 msgid "User:"
@@ -867,15 +866,15 @@ msgstr "उपयोगकर्ता"
 
 #: generated
 msgid "Experimental:"
-msgstr "प्रयोगात्मक"
+msgstr "प्रायोगिक"
 
 #: generated
 msgid "This is a helper to get started, not a finished form."
-msgstr "यह शुरू करने में मदद के लिए है न कि कोई तैयार फॉर्म"
+msgstr "यह शुरू करने में मदद करने वाला साधन है कोई तैयार फॉर्म नहीं"
 
 #: generated
 msgid "Use clear, specific prompts for best results."
-msgstr "सर्वोत्तम परिणामों के लिए स्पष्ट और विशिष्ट संकेतों का उपयोग करें"
+msgstr "सर्वोत्तम परिणामों के लिए स्पष्ट और विशिष्ट प्रॉम्प्ट का उपयोग करें"
 
 #: generated
 msgid "Always review and adjust the generated form before use."
@@ -893,11 +892,11 @@ msgstr "#"
 
 #: generated
 msgid "AI Form Generator"
-msgstr "एआई फॉर्म जेनरेटर"
+msgstr "एआई फॉर्म जनरेटर"
 
 #: generated
 msgid "Action"
-msgstr "क्रिया"
+msgstr "कार्रवाई"
 
 #: generated
 msgid "Back to results"
@@ -905,8 +904,7 @@ msgstr "परिणामों पर वापस"
 
 #: generated
 msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr ""
-"ऐसा PDF चुनें जिसमें वह फ़ॉर्म लेआउट हो जिसे आप कन्वर्ट करना चाहते हैं"
+msgstr "एक PDF चुनें जिसमें वह फॉर्म लेआउट हो जिसे आप कनवर्ट करना चाहते हैं"
 
 #: generated
 msgid "Clear All Results"
@@ -918,11 +916,11 @@ msgstr "सभी परिणाम साफ करें"
 
 #: generated
 msgid "Convert PDF"
-msgstr "पीडीएफ रूपांतरित करें"
+msgstr "पीडीएफ बदलें"
 
 #: generated
 msgid "Created:"
-msgstr "निर्मित:"
+msgstr "निर्मित"
 
 #: generated
 msgid "Current Version:"
@@ -942,12 +940,13 @@ msgstr "परिणाम हटाएं"
 
 #: generated
 msgid "Delete selected"
-msgstr "चयनित हटाएँ"
+msgstr "चयनित हटाएं"
 
 #: generated
 msgid "Describe your survey in natural language and let AI generate the form"
 msgstr ""
-"अपना सर्वेक्षण सामान्य भाषा में वर्णन करें और एआई को फ़ॉर्म तैयार करने दें"
+"अपना सर्वेक्षण प्राकृतिक भाषा में वर्णन करें और एआई को फॉर्म उत्पन्न करने "
+"दें"
 
 #: generated
 msgid "Details"
@@ -976,8 +975,8 @@ msgstr "एम्बेडिंग की अनुमति नहीं ह�
 #: generated
 msgid "Enable it in the survey settings to collect and view responses here."
 msgstr ""
-"इसे सर्वे सेटिंग्स में सक्षम करें ताकि आप यहां प्रतिक्रियाएं एकत्रित कर सकें "
-"और देख सकें"
+"प्रतिक्रियाएँ एकत्रित करने और उन्हें यहाँ देखने के लिए सर्वे सेटिंग्स में "
+"इसे सक्षम करें"
 
 #: generated
 msgid "Form JSON"
@@ -997,7 +996,7 @@ msgstr "उत्पन्न फॉर्म पूर्वावलोकन 
 
 #: generated
 msgid "Heads up:"
-msgstr "सावधान"
+msgstr "ध्यान दें"
 
 #: generated
 msgid "JSON"
@@ -1010,12 +1009,12 @@ msgstr "मेल परिणाम"
 #: generated
 msgid "Manage, view, and restore previous versions of your survey forms"
 msgstr ""
-"अपनी सर्वेक्षण फॉर्मों के पिछले संस्करणों का प्रबंधन करें देखें और "
-"पुनर्स्थापित करें"
+"अपने सर्वे फॉर्म के पिछले संस्करणों को प्रबंधित करें देखें और पुनर्स्थापित "
+"करें"
 
 #: generated
 msgid "Next "
-msgstr "अगला"
+msgstr "आगे"
 
 #: generated
 msgid "No PDF selected yet."
@@ -1025,12 +1024,12 @@ msgstr "अभी तक कोई PDF चयनित नहीं"
 msgid ""
 "No stored results yet. Once responses are saved, analytics will appear here."
 msgstr ""
-"अभी कोई संग्रहीत परिणाम नहीं हैं एक बार प्रतिक्रियाएँ सहेज ली जाएँगी तो यहाँ "
-"विश्लेषण दिखाई देंगे"
+"अभी तक कोई परिणाम संग्रहीत नहीं हैं जैसे ही प्रतिक्रियाएँ सहेजी जाएँगी "
+"विश्लेषण यहाँ दिखाई देगा"
 
 #: generated
 msgid "No Survey Results Yet"
-msgstr "अभी तक कोई सर्वेक्षण परिणाम नहीं"
+msgstr "अभी तक कोई सर्वे परिणाम नहीं"
 
 #: generated
 msgid "No Versions Available"
@@ -1041,9 +1040,9 @@ msgid ""
 "No form versions have been created yet. Use the Form Creator to design your "
 "first survey, or upload an existing JSON file using the form above."
 msgstr ""
-"अभी तक कोई फॉर्म संस्करण नहीं बनाए गए हैं फॉर्म क्रिएटर का उपयोग करके अपना "
-"पहला सर्वेक्षण डिज़ाइन करें या ऊपर दिए गए फॉर्म का उपयोग करके किसी मौजूदा "
-"JSON फ़ाइल को अपलोड करें"
+"अभी तक कोई फ़ॉर्म संस्करण नहीं बनाए गए हैं फ़ॉर्म क्रिएटर का उपयोग करके अपना "
+"पहला सर्वे डिज़ाइन करें या ऊपर दिए गए फ़ॉर्म का उपयोग करके किसी मौजूदा JSON "
+"फ़ाइल को अपलोड करें"
 
 #: generated
 msgid "No results found matching your search query."
@@ -1051,7 +1050,7 @@ msgstr "आपकी खोज क्वेरी से मेल खाते 
 
 #: generated
 msgid "PDF Form Importer"
-msgstr "PDF फॉर्म आयातक"
+msgstr "पीडीएफ फॉर्म आयातक"
 
 #: generated
 msgid "PDF Preview"
@@ -1059,7 +1058,7 @@ msgstr "PDF पूर्वावलोकन"
 
 #: generated
 msgid "PDF file"
-msgstr "PDF फ़ाइल"
+msgstr "पीडीएफ फ़ाइल"
 
 #: generated
 msgid "POST result"
@@ -1079,7 +1078,7 @@ msgstr "प्रसंस्करण"
 
 #: generated
 msgid "Refine existing form"
-msgstr "मौजूदा फ़ॉर्म को परिष्कृत करें"
+msgstr "मौजूदा फॉर्म को परिष्कृत करें"
 
 #: generated
 msgid "Refinement History"
@@ -1099,14 +1098,14 @@ msgstr "खोज"
 
 #: generated
 msgid "Search by user..."
-msgstr "उपयोगकर्ता द्वारा खोजें…"
+msgstr "उपयोगकर्ता द्वारा खोजें"
 
 msgid "Search by user, UUID, or date"
-msgstr "उपयोगकर्ता UUID या दिनांक से खोजें"
+msgstr "उपयोगकर्ता UUID या तिथि द्वारा खोजें"
 
 #: generated
 msgid "Select JSON file:"
-msgstr "JSON फ़ाइल चुनें:"
+msgstr "JSON फ़ाइल चुनें"
 
 #: generated
 msgid "Select all results"
@@ -1118,11 +1117,11 @@ msgstr "परिणाम चुनें"
 
 #: generated
 msgid "Sequence:"
-msgstr "अनुक्रम:"
+msgstr "क्रम"
 
 #: generated
 msgid "Start Over"
-msgstr "दोबारा शुरू करें"
+msgstr "फिर से शुरू करें"
 
 #: generated
 msgid "Storage disabled."
@@ -1134,11 +1133,11 @@ msgstr "भंडारण"
 
 #: generated
 msgid "Stored form data"
-msgstr "संग्रहीत प्रपत्र डेटा"
+msgstr "संग्रहीत फ़ॉर्म डेटा"
 
 #: generated
 msgid "Submission Details"
-msgstr "प्रस्तुति विवरण"
+msgstr "जमा करने का विवरण"
 
 #: generated
 msgid "Survey"
@@ -1146,7 +1145,7 @@ msgstr "सर्वे"
 
 #: generated
 msgid "Survey Response Details"
-msgstr "सर्वेक्षण प्रतिक्रिया विवरण"
+msgstr "सर्वे प्रतिक्रिया विवरण"
 
 #: generated
 msgid "SurveyJS Preview"
@@ -1154,15 +1153,15 @@ msgstr "SurveyJS पूर्वावलोकन"
 
 #: generated
 msgid "Table"
-msgstr "टेबल"
+msgstr "तालिका"
 
 #: generated
 msgid ""
 "There are no survey responses yet. Once users submit the survey, their "
 "responses will appear here."
 msgstr ""
-"अभी तक कोई सर्वेक्षण प्रतिक्रियाएँ नहीं हैं जैसे ही उपयोगकर्ता सर्वेक्षण जमा "
-"करेंगे उनकी प्रतिक्रियाएँ यहाँ दिखाई देंगी"
+"अभी तक कोई सर्वेक्षण प्रतिक्रियाएँ नहीं हैं जैसे ही उपयोगकर्ता सर्वेक्षण "
+"सबमिट करेंगे उनकी प्रतिक्रियाएँ यहाँ दिखाई देंगी"
 
 #: generated
 msgid "Delete Result"
@@ -1175,35 +1174,35 @@ msgstr "चयनित परिणाम हटाएं"
 #: generated
 msgid ""
 "This will permanently delete the selected result. This cannot be undone."
-msgstr "यह चयनित परिणाम को स्थायी रूप से हटा देगा यह वापस नहीं किया जा सकता"
+msgstr ""
+"यह चयनित परिणाम को स्थायी रूप से हटा देगा यह पूर्ववत नहीं किया जा सकता"
 
 #: generated
 msgid ""
 "This action will permanently delete all survey results. This cannot be "
 "undone."
 msgstr ""
-"यह क्रिया सभी सर्वेक्षण परिणामों को स्थायी रूप से हटा देगी इसे पूर्ववत नहीं "
-"किया जा सकता"
+"यह क्रिया सभी सर्वेक्षण परिणामों को स्थायी रूप से हटा देगी यह वापस नहीं किया "
+"जा सकता"
 
 #: generated
 msgid ""
 "This action permanently removes the selected version. This cannot be undone."
 msgstr ""
-"यह क्रिया चयनित संस्करण को स्थायी रूप से हटा देती है यह वापस नहीं लिया जा "
+"यह क्रिया चयनित संस्करण को स्थायी रूप से हटा देती है यह वापस नहीं किया जा "
 "सकता"
 
 #: generated
 msgid ""
 "This feature is experimental. Please review the generated form carefully."
-msgstr ""
-"यह सुविधा प्रायोगिक है कृपया उत्पन्न किए गए फॉर्म को ध्यान से समीक्षा करें"
+msgstr "यह सुविधा प्रायोगिक है कृपया उत्पन्न फॉर्म को ध्यान से समीक्षा करें"
 
 #: generated
 msgid ""
 "This survey is not configured to be embedded. Please contact the survey "
 "administrator."
 msgstr ""
-"यह सर्वे एम्बेड किए जाने के लिए कॉन्फ़िगर नहीं है कृपया सर्वे व्यवस्थापक से "
+"यह सर्वे एम्बेड किए जाने के लिए कॉन्फ़िगर नहीं है कृपया सर्वे प्रशासक से "
 "संपर्क करें"
 
 #: generated
@@ -1232,7 +1231,7 @@ msgstr "JSON फॉर्म स्कीमा अपलोड करें"
 
 #: generated
 msgid "Upload PDF"
-msgstr "PDF अपलोड करें"
+msgstr "पीडीएफ अपलोड करें"
 
 #: generated
 msgid "Upload a PDF form and generate SurveyJS JSON from it"
@@ -1244,15 +1243,15 @@ msgid ""
 "validated before saving."
 msgstr ""
 "एक नया संस्करण बनाने के लिए एक मान्य SurveyJS JSON फ़ाइल अपलोड करें फ़ाइल को "
-"सहेजने से पहले सत्यापित किया जाएगा"
+"सहेजने से पहले मान्य किया जाएगा"
 
 #: generated
 msgid ""
 "Use the latest saved form as the starting point instead of generating a new "
 "one."
 msgstr ""
-"एक नया फॉर्म बनाने के बजाय शुरुआती बिंदु के रूप में नवीनतम सहेजे गए फॉर्म का "
-"उपयोग करें"
+"एक नया फॉर्म जनरेट करने के बजाय प्रारंभिक बिंदु के रूप में नवीनतम सहेजे गए "
+"फॉर्म का उपयोग करें"
 
 #: generated
 msgid "User"
@@ -1272,7 +1271,7 @@ msgstr "JSON देखें"
 
 #: generated
 msgid "Warning:"
-msgstr "चेतावनी:"
+msgstr "चेतावनी"
 
 #: generated
 msgid "clear"
@@ -1284,7 +1283,7 @@ msgstr "पिछला"
 
 #: generated
 msgid "Failed to save survey results. Please try again."
-msgstr "सर्वे परिणाम सहेजने में असफल रहा कृपया पुनः प्रयास करें"
+msgstr "सर्वे परिणाम सहेजने में विफल रहा कृपया पुनः प्रयास करें"
 
 #: generated
 msgid "Unable to load survey. Please try refreshing the page."
@@ -1308,7 +1307,7 @@ msgstr "प्रभावी"
 
 #: generated
 msgid "Expires"
-msgstr "समाप्ति तिथि"
+msgstr "समाप्ति"
 
 #: generated
 msgid "Stored results"
@@ -1324,31 +1323,32 @@ msgstr "निष्क्रिय"
 
 #: generated
 msgid "Store converted form as new version"
-msgstr "परिवर्तित फ़ॉर्म को नए संस्करण के रूप में संग्रहीत करें"
+msgstr "परिवर्तित फॉर्म को नए संस्करण के रूप में सहेजें"
 
 #: generated
 msgid ""
 "Conversion complete. Review the preview and click Store converted form as "
 "new version."
 msgstr ""
-"रूपांतरण पूरा हुआ पूर्वावलोकन की समीक्षा करें और परिवर्तित फॉर्म को नई "
-"संस्करण के रूप में संग्रहीत पर क्लिक करें"
+"रूपांतरण पूर्ण हुआ पूर्वावलोकन की समीक्षा करें और परिवर्तित फॉर्म को नए "
+"संस्करण के रूप में सहेजें पर क्लिक करें"
 
 #: generated
 msgid "No converted form available to store."
-msgstr "संग्रह करने के लिए कोई परिवर्तित रूप उपलब्ध नहीं"
+msgstr "संग्रह करने के लिए कोई परिवर्तित फॉर्म उपलब्ध नहीं"
 
 #: generated
 msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
-msgstr "परिवर्तित रूप सहेजा गया a href=\"${url}\">संस्करण देखें</a>"
+msgstr ""
+"परिवर्तित फॉर्म संग्रहीत किया गया है <a href=\"${url}\">संस्करण देखें</a>"
 
 #: generated
 msgid "Store failed"
-msgstr "संग्रह विफल हुआ"
+msgstr "संग्रह विफल"
 
 #: generated
 msgid "Store failed. Please try again."
-msgstr "संग्रह विफल हुआ कृपया फिर से प्रयास करें"
+msgstr "संग्रह विफल हुआ कृपया पुनः प्रयास करें"
 
 #: generated
 msgid "Reset"
@@ -1356,15 +1356,15 @@ msgstr "रीसेट"
 
 #: generated
 msgid "Refresh"
-msgstr "ताज़ा करें"
+msgstr "रिफ्रेश"
 
 #: generated
 msgid "Forms overview"
-msgstr "सर्वेक्षण अवलोकन"
+msgstr "फॉर्म्स अवलोकन"
 
 #: generated
 msgid "Overview of forms in this section and their submission status."
-msgstr "इस खंड में सर्वेक्षणों का अवलोकन और उनकी प्रस्तुति की स्थिति"
+msgstr "इस अनुभाग में फॉर्म्स का अवलोकन और उनकी सबमिशन स्थिति"
 
 #: generated
 msgid "No surveys found below this location."
@@ -1374,8 +1374,8 @@ msgid ""
 "Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
 "css in ++resource++zopyx.surveyjs/vendor/."
 msgstr ""
-"Tabulator संपत्तियाँ अनुपस्थित हैं कृपया tabulator.min.js और tabulator.min."
-"css को ++resource++zopyx.surveyjs/vendor/ में स्थापित करें"
+"Tabulator संसाधन गायब हैं कृपया tabulator.min.js और tabulator.min.css को "
+"++resource++zopyx.surveyjs/vendor/ में इंस्टॉल करें"
 
 #: generated
 msgid "Title"
@@ -1438,7 +1438,7 @@ msgid "Add extra conversion guidance..."
 msgstr "अतिरिक्त रूपांतरण मार्गदर्शन जोड़ें"
 
 msgid "Optional instructions to guide the conversion."
-msgstr "रूपांतरण को निर्देशित करने के लिए वैकल्पिक निर्देश"
+msgstr "रूपांतरण का मार्गदर्शन करने के लिए वैकल्पिक निर्देश"
 
 msgid "DOCS"
 msgstr "दस्तावेज़"
@@ -1450,12 +1450,13 @@ msgid "Exit fullscreen"
 msgstr "पूर्ण स्क्रीन से बाहर"
 
 msgid "AI provider missing:"
-msgstr "एआई प्रदाता गायब"
+msgstr "AI प्रदाता अनुपस्थित"
 
 msgid ""
 "AI form generation is not available because no AI provider is configured."
 msgstr ""
-"AI फॉर्म जेनरेशन उपलब्ध नहीं है क्योंकि कोई AI प्रोवाइडर कॉन्फ़िगर नहीं है"
+"AI फॉर्म जनरेशन उपलब्ध नहीं है क्योंकि कोई AI प्रदाता कॉन्फ़िगर नहीं किया "
+"गया है"
 
 msgid "External AI provider:"
 msgstr "बाहरी एआई प्रदाता"
@@ -1464,7 +1465,7 @@ msgid ""
 "A remote AI provider is configured and will be used. Your PDF may leave your "
 "network."
 msgstr ""
-"एक दूरस्थ एआई प्रदाता कॉन्फ़िगर किया गया है और उपयोग किया जाएगा आपका पीडीएफ "
+"एक रिमोट एआई प्रदाता कॉन्फ़िगर किया गया है और उपयोग किया जाएगा आपका पीडीएफ "
 "आपके नेटवर्क से बाहर जा सकता है"
 
 msgid "Local AI provider:"
@@ -1472,56 +1473,56 @@ msgstr "स्थानीय एआई प्रदाता"
 
 msgid "A local AI provider is configured. Your PDF stays within your network."
 msgstr ""
-"एक स्थानीय एआई प्रदाता कॉन्फ़िगर किया गया है आपका पीडीएफ़ आपके नेटवर्क के "
+"एक स्थानीय एआई प्रदाता कॉन्फ़िगर किया गया है आपका पीडीएफ आपके नेटवर्क के "
 "भीतर ही रहता है"
 
 #: generated
 msgid "Form validation using pdfcpu"
-msgstr "pdfcpu का उपयोग करके फॉर्म सत्यापन"
+msgstr "pdfcpu का उपयोग करके फ़ॉर्म सत्यापन"
 
 #: generated
 msgid "When enabled, pdfcpu is used to validate and enrich form fields."
 msgstr ""
-"जब सक्षम किया जाता है तो pdfcpu का उपयोग फ़ॉर्म फ़ील्ड्स को सत्यापित और "
-"समृद्ध करने के लिए किया जाता है"
+"सक्रिय होने पर pdfcpu का उपयोग फॉर्म फ़ील्ड्स को मान्य करने और समृद्ध करने "
+"के लिए किया जाता है"
 
 #: generated
 msgid ""
 "Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
 "versions</a>."
 msgstr ""
-"फॉर्म आयात किया गया और एक नए संस्करण के रूप में सहेजा गया a href="
-"\"${url}\"संस्करण देखेंa"
+"फॉर्म आयात किया गया और एक नए संस्करण के रूप में सहेजा गया <a href="
+"\"${url}\">संस्करण देखें</a>"
 
 #: generated
 msgid ""
 "SurveyJS Embed: No embed containers found. Add elements with class "
 "\\\"${className}\\\""
 msgstr ""
-"SurveyJS एम्बेड कोई एम्बेड कंटेनर नहीं मिला class \"${className}\" वाले "
-"एलिमेंट्स जोड़ें"
+"SurveyJS एम्बेड: कोई एम्बेड कंटेनर नहीं मिला class \"${className}\" वाले "
+"एलिमेंट जोड़ें"
 
 msgid "Trusted access required"
 msgstr "विश्वसनीय पहुंच आवश्यक"
 
 msgid "Ask the form owner for a trusted access link."
-msgstr "फॉर्म के स्वामी से विश्वसनीय एक्सेस लिंक के लिए पूछें"
+msgstr "फॉर्म मालिक से विश्वसनीय एक्सेस लिंक के लिए पूछें"
 
 msgid "Open the link in this browser to continue."
 msgstr "जारी रखने के लिए इस ब्राउज़र में लिंक खोलें"
 
 msgid "Trusted access link"
-msgstr "विश्वसनीय अभिगम लिंक"
+msgstr "विश्वसनीय प्रवेश लिंक"
 
 msgid "Share this link to open the form."
-msgstr "इस लिंक को साझा करें ताकि फ़ॉर्म खुल सके"
+msgstr "फॉर्म खोलने के लिए इस लिंक को साझा करें"
 
 msgid "Copy link"
 msgstr "लिंक कॉपी करें"
 
 #: generated
 msgid "View Form"
-msgstr "फ़ॉर्म देखें"
+msgstr "फॉर्म देखें"
 
 #: generated
 msgid "Preview the live survey experience."
@@ -1529,32 +1530,32 @@ msgstr "लाइव सर्वे अनुभव का पूर्वा�
 
 #: generated
 msgid "Build and refine the survey form."
-msgstr "सर्वे फ़ॉर्म बनाएँ और सुधारें"
+msgstr "सर्वेक्षण फॉर्म बनाएं और परिष्कृत करें"
 
 #: generated
 msgid "PDF generator"
-msgstr "पीडीएफ जेनरेटर"
+msgstr "PDF जनरेटर"
 
 #: generated
 msgid "Generate a PDF version of the current survey form."
-msgstr "वर्तमान सर्वे फॉर्म का पीडीएफ संस्करण तैयार करें"
+msgstr "वर्तमान सर्वेक्षण फॉर्म का एक PDF संस्करण बनाएं"
 
 #: generated
 msgid "PDF export"
-msgstr "PDF निर्यात"
+msgstr "पीडीएफ निर्यात"
 
 #: generated
 msgid "Export the current SurveyJS form as a downloadable PDF."
 msgstr ""
-"वर्तमान SurveyJS फ़ॉर्म को डाउनलोड करने योग्य PDF के रूप में निर्यात करें"
+"वर्तमान SurveyJS फॉर्म को डाउनलोड करने योग्य PDF के रूप में निर्यात करें"
 
 #: generated
 msgid "Survey data dashboard"
-msgstr "सर्वेक्षण डेटा डैशबोर्ड"
+msgstr "सर्वे डेटा डैशबोर्ड"
 
 #: generated
 msgid "Explore responses with charts and summary insights."
-msgstr "चार्ट और सारांश अंतर्दृष्टियों के साथ प्रतिक्रियाओं का अन्वेषण करें"
+msgstr "चार्ट और सारांश अंतर्दृष्टि के साथ प्रतिक्रियाओं का अन्वेषण करें"
 
 #: generated
 msgid "Fillable PDF Form"
@@ -1565,7 +1566,7 @@ msgid ""
 "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
 "submissions."
 msgstr ""
-"एक भरने योग्य PDF अपलोड करें ताकि एक SurveyJS फॉर्म बनाया जा सके और PDF "
+"एक भरने योग्य PDF अपलोड करें ताकि एक SurveyJS फॉर्म जेनरेट हो सके और PDF "
 "आधारित सबमिशन सक्षम हो सकें"
 
 #: generated
@@ -1578,7 +1579,7 @@ msgstr "इस सर्वे तक पहुंच प्रतिबंध�
 
 #: generated
 msgid "PDF Form"
-msgstr "PDF फ़ॉर्म"
+msgstr "पीडीएफ फॉर्म"
 
 #: generated
 msgid "Dashboard"
@@ -1586,7 +1587,7 @@ msgstr "डैशबोर्ड"
 
 #: generated
 msgid "PDF Generator"
-msgstr "PDF जनरेटर"
+msgstr "पीडीएफ जनरेटर"
 
 #: generated
 msgid "Form from PDF"
@@ -1594,184 +1595,183 @@ msgstr "पीडीएफ से फॉर्म"
 
 #: generated
 msgid "Fillable PDF Forms"
-msgstr "भरने योग्य PDF फॉर्म्स"
+msgstr "भरने योग्य पीडीएफ फॉर्म"
 
 #: generated
 msgid "Download PDF"
 msgstr "PDF डाउनलोड करें"
 
 msgid "Choose a PDF that already contains fillable fields"
-msgstr "एक PDF चुनें जिसमें पहले से भरण योग्य फ़ील्ड्स हों"
+msgstr "एक PDF चुनें जिसमें पहले से ही भरणीय फ़ील्ड हों"
 
 msgid "Extraction mode"
-msgstr "निकर्ष मोड"
+msgstr "एक्सट्रैक्शन मोड"
 
 msgid ""
 "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
 "cannot always map to original PDF fields."
 msgstr ""
 "pdfcpu भरे हुए PDF के लिए फ़ील्ड मैपिंग को संरक्षित रखता है LLM लेआउट के लिए "
-"सबसे अच्छा है लेकिन हमेशा मूल PDF फ़ील्ड्स पर मैप नहीं कर पाता"
+"सबसे अच्छा है लेकिन हमेशा मूल PDF फ़ील्ड्स पर मैप नहीं कर सकता"
 
 msgid "Analyze PDF"
 msgstr "PDF का विश्लेषण करें"
 
 #: zopyx/surveyjs/browser/psf.py:109
 msgid "Administration"
-msgstr "Administration"
+msgstr "प्रशासन"
 
 #: zopyx/surveyjs/browser/psf.py:98
 msgid "Browse saved templates and reuse them for new forms or surveys."
 msgstr ""
-"Parcourez les modèles enregistrés et réutilisez-les pour de nouveaux "
-"formulaires ou sondages"
+"सहेजे गए टेम्पलेट ब्राउज़ करें और उन्हें नए फॉर्म या सर्वे के लिए पुनः उपयोग "
+"करें"
 
 #: zopyx/surveyjs/browser/psf.py:75
 msgid "Create form"
-msgstr "Créer un formulaire"
+msgstr "फॉर्म बनाएं"
 
 #: zopyx/surveyjs/browser/pfs.pt:59
 msgid "Create from template"
-msgstr "Créer à partir du modèle"
+msgstr "टेम्पलेट से बनाएँ"
 
 #: zopyx/surveyjs/browser/survey_add.pt:61
 msgid "Create survey"
-msgstr "Créer un sondage"
+msgstr "सर्वे बनाएं"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:287
 msgid "Create template"
-msgstr "Créer un modèle"
+msgstr "टेम्पलेट बनाएं"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:153
 msgid "Detected fields"
-msgstr "Champs détectés"
+msgstr "पता लगाए गए फ़ील्ड"
 
 #: zopyx/surveyjs/browser/survey_results.pt:116
 msgid "Export range"
-msgstr "Plage d’exportation"
+msgstr "निर्यात सीमा"
 
 #: zopyx/surveyjs/browser/psf.py:228
 msgid "Failed to create survey: ${error}"
-msgstr "Échec de la création du sondage : ${error}"
+msgstr "सर्वे बनाने में विफल: ${error}"
 
 #: zopyx/surveyjs/browser/survey_versions.py:322
 msgid "Failed to create template: ${error}"
-msgstr "Échec de création du modèle : ${error}"
+msgstr "टेम्पलेट बनाने में विफल रहा: ${error}"
 
 #: zopyx/surveyjs/browser/survey_results.pt:118
 msgid "From"
-msgstr "De"
+msgstr "से"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:290
 msgid ""
 "Generate a new SurveyTemplate from the selected version. You can adjust the "
 "name before creation."
 msgstr ""
-"Générer un nouveau modèle d’enquête à partir de la version sélectionnée Vous "
-"pouvez ajuster le nom avant la création"
+"चयनित संस्करण से एक नया SurveyTemplate उत्पन्न करें आप निर्माण से पहले नाम "
+"समायोजित कर सकते हैं"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:103
 msgid "LLM (visual conversion)"
-msgstr "LLM (conversion visuelle)"
+msgstr "एलएलएम (दृश्य रूपांतरण)"
 
 #: zopyx/surveyjs/browser/psf.py:72
 msgid "Launch a brand-new form or survey and start collecting answers."
 msgstr ""
-"Lancez un tout nouveau formulaire ou sondage et commencez à recueillir des "
-"réponses"
+"एक बिल्कुल नया फॉर्म या सर्वे शुरू करें और उत्तर एकत्रित करना शुरू करें"
 
 #: zopyx/surveyjs/browser/survey_add.pt:46
 #: zopyx/surveyjs/browser/survey_metadata.pt:46
 msgid "Let's fix a few things:"
-msgstr "Corrigeons quelques éléments"
+msgstr "आइए कुछ चीजें ठीक करें"
 
 #: zopyx/surveyjs/browser/survey_add.pt:57
 #: zopyx/surveyjs/browser/survey_metadata.pt:57
 msgid "Loading form..."
-msgstr "Chargement du formulaire..."
+msgstr "फॉर्म लोड हो रहा है"
 
 #: zopyx/surveyjs/browser/survey_actions.pt:18
 msgid "Metadata"
-msgstr "Métadonnées"
+msgstr "मेटाडेटा"
 
 #: zopyx/surveyjs/browser/psf.py:195
 msgid "New Survey"
-msgstr "Nouvelle enquête"
+msgstr "नया सर्वे"
 
 #: zopyx/surveyjs/browser/psf.py:71
 msgid "New form/survey"
-msgstr "Nouveau formulaire/questionnaire"
+msgstr "नया फॉर्म सर्वे"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:155
 msgid "No fields detected yet."
-msgstr "Aucun champ détecté pour le moment"
+msgstr "अभी तक कोई फ़ील्ड नहीं मिली"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:49
 msgid "No survey templates found below this location."
-msgstr "Aucun modèle de sondage trouvé en dessous de cet emplacement"
+msgstr "इस स्थान के नीचे कोई सर्वे टेम्पलेट नहीं मिला"
 
 #: zopyx/surveyjs/browser/survey_template_views.py:22
 msgid "No template JSON configured."
-msgstr "Aucun JSON de modèle configuré"
+msgstr "कोई टेम्पलेट JSON कॉन्फ़िगर नहीं किया गया"
 
 #: zopyx/surveyjs/browser/configure.zcml:29
 msgid "Open Forms overview"
-msgstr "Vue d’ensemble des formulaires ouverts"
+msgstr "फॉर्म्स अवलोकन खोलें"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:120
 msgid "Open PDF Form"
-msgstr "Ouvrir le formulaire PDF"
+msgstr "पीडीएफ फॉर्म खोलें"
 
 #: zopyx/surveyjs/browser/psf.py:113
 msgid "Open control panel"
-msgstr "Ouvrir le panneau de configuration"
+msgstr "कंट्रोल पैनल खोलें"
 
 #: zopyx/surveyjs/browser/psf.py:88
 msgid "Open overview"
-msgstr "Ouvrir l’aperçu"
+msgstr "सारांश खोलें"
 
 #: zopyx/surveyjs/browser/psf.py:101
 msgid "Open templates"
-msgstr "Modèles ouverts"
+msgstr "टेम्पलेट खोलें"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:39
 msgid "Overview of survey templates available in this section."
-msgstr "Vue d’ensemble des modèles de sondage disponibles dans cette section"
+msgstr "इस अनुभाग में उपलब्ध सर्वे टेम्पलेट्स का अवलोकन"
 
 #: zopyx/surveyjs/browser/survey_add.py:96
 #: zopyx/surveyjs/browser/survey_metadata.py:111
 msgid "Please provide a title for your survey."
-msgstr "Veuillez fournir un titre pour votre enquête"
+msgstr "कृपया अपने सर्वे के लिए एक शीर्षक प्रदान करें"
 
 #: zopyx/surveyjs/browser/psf.py:162
 msgid "Please select a template."
-msgstr "Veuillez sélectionner un modèle"
+msgstr "कृपया एक टेम्पलेट चुनें"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:48
 msgid "Preview the form/surveey template."
-msgstr "Aperçu du modèle de formulaire/enquête"
+msgstr "फॉर्म सर्वे टेम्पलेट का पूर्वावलोकन करें"
 
 #: zopyx/surveyjs/browser/survey_metadata.pt:61
 msgid "Save changes"
-msgstr "Enregistrer les modifications"
+msgstr "परिवर्तन सहेजें"
 
 #: zopyx/surveyjs/browser/psf.py:85
 msgid ""
 "See every form or survey at a glance, surface trends, and jump right in."
 msgstr ""
-"Voyez chaque formulaire ou sondage en un coup d’œil, identifiez les "
-"tendances et plongez directement dedans"
+"हर फॉर्म या सर्वेक्षण को एक नज़र में देखें रुझानों को सामने लाएं और तुरंत "
+"शुरू हो जाएं"
 
 #: zopyx/surveyjs/browser/survey_add.py:100
 #: zopyx/surveyjs/browser/survey_metadata.py:115
 msgid "Select at least one submission handling option."
-msgstr "Sélectionnez au moins une option de traitement des soumissions"
+msgstr "कम से कम एक सबमिशन हैंडलिंग विकल्प चुनें"
 
 #: zopyx/surveyjs/browser/pfs.pt:61
 msgid "Start a new form or survey using one of your curate presets."
 msgstr ""
-"Commencer un nouveau formulaire ou sondage à l’aide de l’un de vos "
-"préréglages organisés"
+"अपने चुने हुए प्रीसेट्स में से किसी एक का उपयोग करके एक नया फॉर्म या सर्वे "
+"शुरू करें"
 
 #: zopyx/surveyjs/browser/pfs.pt:19
 msgid ""
@@ -1779,69 +1779,69 @@ msgid ""
 "every team member productive, confident, and in control of their form/survey "
 "data."
 msgstr ""
-"Commencez par une action guidée correspondant à votre rôle Ces raccourcis "
-"permettent à chaque membre de l équipe de rester productif confiant et "
-"maître de ses données de formulaire enquête"
+"अपनी भूमिका से मेल खाने वाली निर्देशित कार्रवाई से शुरू करें ये शॉर्टकट "
+"प्रत्येक टीम सदस्य को उनकी फॉर्म सर्वे डेटा पर उत्पादक आत्मविश्वासी और "
+"नियंत्रण में रखते हैं"
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:38
 msgid "Survey Templates Overview"
-msgstr "Aperçu des modèles d’enquête"
+msgstr "सर्वे टेम्पलेट्स अवलोकन"
 
 #: zopyx/surveyjs/browser/psf.py:235
 msgid "Survey created from template."
-msgstr "Enquête créée à partir du modèle"
+msgstr "टेम्पलेट से सर्वे बनाया गया"
 
 #: zopyx/surveyjs/browser/survey_add.py:118
 msgid "Survey created. Let's build it!"
-msgstr "Sondage créé. Construisons le ensemble !"
+msgstr "सर्वे बनाया गया है चलो इसे बनाते हैं"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:136
 msgid "Survey updated."
-msgstr "Sondage mis à jour"
+msgstr "सर्वेक्षण अपडेट किया गया"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:165
 msgid "Template"
-msgstr "Modèle"
+msgstr "टेम्पलेट"
 
 #: zopyx/surveyjs/browser/psf.py:185
 msgid "Template JSON is invalid: ${error}"
-msgstr "Le modèle JSON est invalide: ${error}"
+msgstr "टेम्पलेट JSON अमान्य है: ${error}"
 
 #: zopyx/surveyjs/browser/psf.py:176
 msgid "Template JSON is missing."
-msgstr "Le JSON du modèle est manquant"
+msgstr "टेम्पलेट JSON गायब है"
 
 #: zopyx/surveyjs/browser/survey_template_views.py:40
 msgid "Template JSON must be a JSON object."
-msgstr "Le JSON du modèle doit être un objet JSON"
+msgstr "टेम्पलेट JSON एक JSON ऑब्जेक्ट होना चाहिए"
 
 #: zopyx/surveyjs/browser/survey_versions.py:328
 msgid "Template created successfully."
-msgstr "Modèle créé avec succès"
+msgstr "टेम्पलेट सफलतापूर्वक बनाया गया"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:296
 msgid "Template name"
-msgstr "Nom du modèle"
+msgstr "टेम्पलेट नाम"
 
 #: zopyx/surveyjs/browser/survey_versions.py:272
 msgid "Template name and version are required."
-msgstr "Le nom et la version du modèle sont requis"
+msgstr "टेम्पलेट नाम और संस्करण आवश्यक हैं"
 
 #: zopyx/surveyjs/browser/psf.py:169
 msgid "Template not found."
-msgstr "Modèle introuvable"
+msgstr "टेम्पलेट नहीं मिला"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:72
 msgid "Template unavailable"
-msgstr "Modèle indisponible"
+msgstr "टेम्पलेट उपलब्ध नहीं"
 
 #: zopyx/surveyjs/browser/psf.py:97
 msgid "Templates overview"
-msgstr "Aperçu des modèles"
+msgstr "टेम्पलेट्स अवलोकन"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:73
 msgid "The template JSON could not be loaded."
-msgstr "Le JSON du modèle n’a pas pu être chargé"
+msgstr "टेम्पलेट JSON लोड नहीं किया जा सका"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:120
 #: zopyx/surveyjs/browser/viewer_embed.pt:58
@@ -1849,88 +1849,84 @@ msgid ""
 "This form requires a trusted access link. Please use the link provided by "
 "the form owner."
 msgstr ""
-"Ce formulaire nécessite un lien d’accès de confiance Veuillez utiliser le "
-"lien fourni par le propriétaire du formulaire"
+"इस फ़ॉर्म के लिए एक विश्वसनीय एक्सेस लिंक आवश्यक है कृपया फ़ॉर्म मालिक "
+"द्वारा प्रदान किए गए लिंक का उपयोग करें"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:303
 msgid "This template will be created next to the current survey."
-msgstr "Ce modèle sera créé à côté de l’enquête actuelle"
+msgstr "यह टेम्पलेट वर्तमान सर्वे के बगल में बनाया जाएगा"
 
 #: zopyx/surveyjs/browser/survey_results.pt:122
 msgid "To"
-msgstr "À"
+msgstr "को"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:94
 msgid "Token"
-msgstr "Jeton"
+msgstr "टोकन"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:79
 msgid "URL"
-msgstr "URL"
+msgstr "यूआरएल"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:294
 msgid "Version:"
-msgstr "Version"
+msgstr "संस्करण"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:47
 msgid "View form/survey template"
-msgstr "Voir le modèle de formulaire/enquête"
+msgstr "फॉर्म सर्वे टेम्पलेट देखें"
 
 #: zopyx/surveyjs/browser/psf.py:110
 msgid "Visit the control panel to adjust site-wide settings and integrations."
 msgstr ""
-"Visitez le panneau de contrôle pour ajuster les paramètres et les "
-"intégrations à l’échelle du site"
+"साइट-वाइड सेटिंग्स और इंटीग्रेशन समायोजित करने के लिए कंट्रोल पैनल पर जाएं"
 
 #: zopyx/surveyjs/browser/survey_add.py:112
 msgid "We could not create the survey at the moment. Please try again."
-msgstr ""
-"Nous ne pouvons pas créer le questionnaire pour le moment Veuillez réessayer"
+msgstr "हम इस समय सर्वे नहीं बना सके कृपया दोबारा प्रयास करें"
 
 #: zopyx/surveyjs/browser/survey_add.py:134
 #: zopyx/surveyjs/browser/survey_metadata.py:88
 msgid "We could not read the submitted form data."
-msgstr "Nous n’avons pas pu lire les données du formulaire envoyé"
+msgstr "हम प्रस्तुत किए गए फ़ॉर्म डेटा को पढ़ नहीं सके"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:130
 msgid "We could not update the survey at the moment. Please try again."
-msgstr ""
-"Nous n’avons pas pu mettre à jour le sondage pour le moment Veuillez "
-"réessayer"
+msgstr "हम इस समय सर्वे को अपडेट नहीं कर सके कृपया पुनः प्रयास करें"
 
 #: zopyx/surveyjs/browser/pfs.pt:18
 msgid "What would you like to do today?"
-msgstr "Que voudriez-vous faire aujourd’hui"
+msgstr "आज आप क्या करना चाहेंगे"
 
 #: zopyx/surveyjs/browser/psf.py:158
 #: zopyx/surveyjs/browser/survey_add.py:63
 msgid "You are not allowed to add surveys here."
-msgstr "Vous n'êtes pas autorisé à ajouter des sondages ici"
+msgstr "आपको यहाँ सर्वे जोड़ने की अनुमति नहीं है"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:23
 msgid "You are not allowed to edit this survey."
-msgstr "Vous n’êtes pas autorisé à modifier ce sondage"
+msgstr "आपको इस सर्वे को संपादित करने की अनुमति नहीं है"
 
 #: zopyx/surveyjs/browser/survey_versions.py:292
 msgid "You do not have permission to add templates here."
-msgstr "Vous n'avez pas l'autorisation d'ajouter des modèles ici"
+msgstr "आपको यहाँ टेम्पलेट जोड़ने की अनुमति नहीं है"
 
 #. Default: "Select a template"
 #: zopyx/surveyjs/browser/pfs.pt:66
 #: zopyx/surveyjs/browser/survey_actions.pt:79
 #: zopyx/surveyjs/browser/survey_versions.pt:116
 msgid "aria-label"
-msgstr "aria-label"
+msgstr "एरिया-लेबल"
 
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
-msgstr "données-effacer-mot clé"
+msgstr "डेटा क्लियर कीवर्ड"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"
-msgstr "pdfcpu (champs structurés)"
+msgstr "pdfcpu (संरचित फ़ील्ड्स)"
 
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
-msgstr "La date « Au » doit être postérieure à la date « Du »"
+msgstr "\"To\" तारीख \"From\" तारीख के बाद की होनी चाहिए"

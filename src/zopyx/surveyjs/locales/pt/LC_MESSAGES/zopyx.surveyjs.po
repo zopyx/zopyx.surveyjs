@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-02-24 07:53+0100\n"
+"PO-Revision-Date: 2026-02-24 08:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
@@ -82,7 +82,7 @@ msgstr ""
 
 #: generated
 msgid "CC recipient"
-msgstr "Destinatário CC"
+msgstr "Destinatário em cópia"
 
 #: generated
 msgid "CSV (.csv)"
@@ -217,7 +217,7 @@ msgstr "Formulário existente"
 
 #: generated
 msgid "Failed to POST result: ${error}"
-msgstr "Falha ao POSTAR resultado: ${error}"
+msgstr "Falha ao enviar resultado via POST: ${error}"
 
 #: generated
 msgid ""
@@ -339,7 +339,7 @@ msgstr "Gerando..."
 
 #: generated
 msgid "Generation failed"
-msgstr "Geração falhou"
+msgstr "Falha na geração"
 
 #: generated
 msgid "HTML (.html)"
@@ -399,15 +399,15 @@ msgstr "Correio"
 
 #: generated
 msgid "Mail (notification only)"
-msgstr "Correio (apenas notificação)"
+msgstr "Correio (somente notificação)"
 
 #: generated
 msgid "Mail notifications"
-msgstr "Notificações por correio"
+msgstr "Notificações de correio"
 
 #: generated
 msgid "Mail sent"
-msgstr "Correio enviado"
+msgstr "Email enviada"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
@@ -624,7 +624,7 @@ msgstr ""
 
 #: generated
 msgid "Store"
-msgstr "Armazenar"
+msgstr "Loja"
 
 #: generated
 msgid "Subject"
@@ -651,7 +651,7 @@ msgstr ""
 
 #: generated
 msgid "Survey Embed Error"
-msgstr "Erro de incorporação de pesquisa"
+msgstr "Erro de incorporação da pesquisa"
 
 #: generated
 msgid "Survey Form"
@@ -853,7 +853,7 @@ msgstr "Bloqueado"
 
 #: generated
 msgid "Preview"
-msgstr "Visualizar"
+msgstr "Pré-visualização"
 
 #: generated
 msgid "Preview JSON"
@@ -1162,7 +1162,7 @@ msgstr "Dados do formulário armazenados"
 
 #: generated
 msgid "Submission Details"
-msgstr "Detalhes do envio"
+msgstr "Detalhes da Submissão"
 
 #: generated
 msgid "Survey"
@@ -1328,7 +1328,7 @@ msgstr "Status"
 
 #: generated
 msgid "Effective"
-msgstr "Efetivo"
+msgstr "Eficaz"
 
 #: generated
 msgid "Expires"
@@ -1385,11 +1385,11 @@ msgstr "Atualizar"
 
 #: generated
 msgid "Forms overview"
-msgstr "Visão geral da pesquisa"
+msgstr "Visão geral dos formulários"
 
 #: generated
 msgid "Overview of forms in this section and their submission status."
-msgstr "Visão geral das pesquisas nesta seção e seu status de envio."
+msgstr "Visão geral dos formulários nesta seção e seu status de envio"
 
 #: generated
 msgid "No surveys found below this location."
@@ -1631,7 +1631,7 @@ msgstr "Gerador de PDF"
 
 #: generated
 msgid "Form from PDF"
-msgstr "Formulário de PDF"
+msgstr "Formulário a partir de PDF"
 
 #: generated
 msgid "Fillable PDF Forms"
@@ -1651,11 +1651,11 @@ msgid ""
 "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
 "cannot always map to original PDF fields."
 msgstr ""
-"pdfcpu भरे हुए PDF के लिए फ़ील्ड मैपिंग को संरक्षित रखता है LLM लेआउट के लिए "
-"सबसे अच्छा है लेकिन हमेशा मूल PDF फ़ील्ड्स पर मैप नहीं कर पाता"
+"pdfcpu preserva o mapeamento de campos para PDFs preenchidos LLM é melhor "
+"para layout mas nem sempre consegue mapear para os campos originais do PDF"
 
 msgid "Analyze PDF"
-msgstr "PDF का विश्लेषण करें"
+msgstr "Analisar PDF"
 
 #: zopyx/surveyjs/browser/psf.py:109
 msgid "Administration"
@@ -1673,7 +1673,7 @@ msgstr "Criar formulário"
 
 #: zopyx/surveyjs/browser/pfs.pt:59
 msgid "Create from template"
-msgstr "Criar de modelo"
+msgstr "Criar a partir de modelo"
 
 #: zopyx/surveyjs/browser/survey_add.pt:61
 msgid "Create survey"
@@ -1799,7 +1799,7 @@ msgid ""
 "See every form or survey at a glance, surface trends, and jump right in."
 msgstr ""
 "Veja cada formulário ou pesquisa de relance identifique tendências e "
-"mergulhe direto"
+"mergulhe diretamente"
 
 #: zopyx/surveyjs/browser/survey_add.py:100
 #: zopyx/surveyjs/browser/survey_metadata.py:115
@@ -1957,12 +1957,12 @@ msgstr "Você não tem permissão para adicionar modelos aqui"
 #: zopyx/surveyjs/browser/survey_actions.pt:79
 #: zopyx/surveyjs/browser/survey_versions.pt:116
 msgid "aria-label"
-msgstr "rótulo-aria"
+msgstr "aria-label"
 
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
-msgstr "dados-limpar-palavra-chave"
+msgstr "palavra-chave-limpar-dados"
 
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"
