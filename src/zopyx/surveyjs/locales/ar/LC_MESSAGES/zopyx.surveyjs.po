@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-29 08:03+0100\n"
+"PO-Revision-Date: 2026-02-24 07:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -1591,3 +1591,310 @@ msgstr ""
 
 msgid "Analyze PDF"
 msgstr "تحليل PDF"
+
+#: zopyx/surveyjs/browser/psf.py:109
+msgid "Administration"
+msgstr "إدارة"
+
+#: zopyx/surveyjs/browser/psf.py:98
+msgid "Browse saved templates and reuse them for new forms or surveys."
+msgstr "تصفح القوالب المحفوظة وأعد استخدامها للنماذج أو الاستبيانات الجديدة"
+
+#: zopyx/surveyjs/browser/psf.py:75
+msgid "Create form"
+msgstr "إنشاء نموذج"
+
+#: zopyx/surveyjs/browser/pfs.pt:59
+msgid "Create from template"
+msgstr "إنشاء من القالب"
+
+#: zopyx/surveyjs/browser/survey_add.pt:61
+msgid "Create survey"
+msgstr "إنشاء استطلاع"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:287
+msgid "Create template"
+msgstr "إنشاء قالب"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
+msgid "Detected fields"
+msgstr "الحقول المكتشفة"
+
+#: zopyx/surveyjs/browser/survey_results.pt:116
+msgid "Export range"
+msgstr "نطاق التصدير"
+
+#: zopyx/surveyjs/browser/psf.py:228
+msgid "Failed to create survey: ${error}"
+msgstr "فشل في إنشاء الاستبيان: ${error}"
+
+#: zopyx/surveyjs/browser/survey_versions.py:322
+msgid "Failed to create template: ${error}"
+msgstr "فشل إنشاء القالب: ${error}"
+
+#: zopyx/surveyjs/browser/survey_results.pt:118
+msgid "From"
+msgstr "من"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:290
+msgid ""
+"Generate a new SurveyTemplate from the selected version. You can adjust the "
+"name before creation."
+msgstr ""
+"إنشاء قالب استبيان جديد من الإصدار المحدد يمكنك تعديل الاسم قبل الإنشاء"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
+msgid "LLM (visual conversion)"
+msgstr "نموذج لغة كبير (تحويل بصري)"
+
+#: zopyx/surveyjs/browser/psf.py:72
+msgid "Launch a brand-new form or survey and start collecting answers."
+msgstr "أطلق نموذجا أو استبيانا جديدا وابدأ في جمع الإجابات"
+
+#: zopyx/surveyjs/browser/survey_add.pt:46
+#: zopyx/surveyjs/browser/survey_metadata.pt:46
+msgid "Let's fix a few things:"
+msgstr "دعنا نصلح بعض الأشياء"
+
+#: zopyx/surveyjs/browser/survey_add.pt:57
+#: zopyx/surveyjs/browser/survey_metadata.pt:57
+msgid "Loading form..."
+msgstr "جارٍ تحميل النموذج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt:18
+msgid "Metadata"
+msgstr "البيانات الوصفية"
+
+#: zopyx/surveyjs/browser/psf.py:195
+msgid "New Survey"
+msgstr "استبيان جديد"
+
+#: zopyx/surveyjs/browser/psf.py:71
+msgid "New form/survey"
+msgstr "نموذج/استبيان جديد"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
+msgid "No fields detected yet."
+msgstr "لم يتم اكتشاف أي حقول بعد"
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
+msgid "No survey templates found below this location."
+msgstr "لم يتم العثور على قوالب استبيان أسفل هذا الموقع"
+
+#: zopyx/surveyjs/browser/survey_template_views.py:22
+msgid "No template JSON configured."
+msgstr "لا يوجد قالب JSON مهيأ"
+
+#: zopyx/surveyjs/browser/configure.zcml:29
+msgid "Open Forms overview"
+msgstr "نظرة عامة على Open Forms"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:120
+msgid "Open PDF Form"
+msgstr "فتح نموذج PDF"
+
+#: zopyx/surveyjs/browser/psf.py:113
+msgid "Open control panel"
+msgstr "افتح لوحة التحكم"
+
+#: zopyx/surveyjs/browser/psf.py:88
+msgid "Open overview"
+msgstr "فتح نظرة عامة"
+
+#: zopyx/surveyjs/browser/psf.py:101
+msgid "Open templates"
+msgstr "فتح القوالب"
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:39
+msgid "Overview of survey templates available in this section."
+msgstr "نظرة عامة على قوالب الاستبيانات المتاحة في هذا القسم"
+
+#: zopyx/surveyjs/browser/survey_add.py:96
+#: zopyx/surveyjs/browser/survey_metadata.py:111
+msgid "Please provide a title for your survey."
+msgstr "يرجى تقديم عنوان لاستبيانك"
+
+#: zopyx/surveyjs/browser/psf.py:162
+msgid "Please select a template."
+msgstr "يرجى اختيار قالب"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:48
+msgid "Preview the form/surveey template."
+msgstr "معاينة قالب النموذج/الاستبيان"
+
+#: zopyx/surveyjs/browser/survey_metadata.pt:61
+msgid "Save changes"
+msgstr "حفظ التغييرات"
+
+#: zopyx/surveyjs/browser/psf.py:85
+msgid ""
+"See every form or survey at a glance, surface trends, and jump right in."
+msgstr ""
+"شاهد كل نموذج أو استبيان بنظرة واحدة واكتشف الاتجاهات وابدأ العمل فورًا"
+
+#: zopyx/surveyjs/browser/survey_add.py:100
+#: zopyx/surveyjs/browser/survey_metadata.py:115
+msgid "Select at least one submission handling option."
+msgstr "حدد خيار معالجة إرسال واحد على الأقل"
+
+#: zopyx/surveyjs/browser/pfs.pt:61
+msgid "Start a new form or survey using one of your curate presets."
+msgstr ""
+"ابدأ نموذجًا أو استبيانًا جديدًا باستخدام أحد الإعدادات المسبقة المنسقة "
+"الخاصة بك"
+
+#: zopyx/surveyjs/browser/pfs.pt:19
+msgid ""
+"Start with a guided action that matches your role. These shortcuts keep "
+"every team member productive, confident, and in control of their form/survey "
+"data."
+msgstr ""
+"ابدأ بإجراء موجه يتوافق مع دورك هذه الاختصارات تحافظ على إنتاجية كل عضو في "
+"الفريق وتعزز ثقته وتمنحه التحكم في بيانات النماذج أو الاستبيانات الخاصة به"
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:38
+msgid "Survey Templates Overview"
+msgstr "نظرة عامة على قوالب الاستبيان"
+
+#: zopyx/surveyjs/browser/psf.py:235
+msgid "Survey created from template."
+msgstr "تم إنشاء الاستبيان من قالب"
+
+#: zopyx/surveyjs/browser/survey_add.py:118
+msgid "Survey created. Let's build it!"
+msgstr "تم إنشاء الاستبيان لنقم ببنائه"
+
+#: zopyx/surveyjs/browser/survey_metadata.py:136
+msgid "Survey updated."
+msgstr "تم تحديث الاستبيان"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:165
+msgid "Template"
+msgstr "قالب"
+
+#: zopyx/surveyjs/browser/psf.py:185
+msgid "Template JSON is invalid: ${error}"
+msgstr "قالب JSON غير صالح: ${error}"
+
+#: zopyx/surveyjs/browser/psf.py:176
+msgid "Template JSON is missing."
+msgstr "قالب JSON مفقود"
+
+#: zopyx/surveyjs/browser/survey_template_views.py:40
+msgid "Template JSON must be a JSON object."
+msgstr "يجب أن يكون قالب JSON كائن JSON"
+
+#: zopyx/surveyjs/browser/survey_versions.py:328
+msgid "Template created successfully."
+msgstr "تم إنشاء القالب بنجاح"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:296
+msgid "Template name"
+msgstr "اسم القالب"
+
+#: zopyx/surveyjs/browser/survey_versions.py:272
+msgid "Template name and version are required."
+msgstr "اسم القالب والإصدار مطلوبان"
+
+#: zopyx/surveyjs/browser/psf.py:169
+msgid "Template not found."
+msgstr "لم يتم العثور على القالب"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:72
+msgid "Template unavailable"
+msgstr "القالب غير متاح"
+
+#: zopyx/surveyjs/browser/psf.py:97
+msgid "Templates overview"
+msgstr "نظرة عامة على القوالب"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:73
+msgid "The template JSON could not be loaded."
+msgstr "تعذر تحميل قالب JSON"
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:120
+#: zopyx/surveyjs/browser/viewer_embed.pt:58
+msgid ""
+"This form requires a trusted access link. Please use the link provided by "
+"the form owner."
+msgstr ""
+"يتطلب هذا النموذج رابط وصول موثوقا الرجاء استخدام الرابط الذي وفره مالك "
+"النموذج"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:303
+msgid "This template will be created next to the current survey."
+msgstr "سيتم إنشاء هذا القالب بجانب الاستبيان الحالي"
+
+#: zopyx/surveyjs/browser/survey_results.pt:122
+msgid "To"
+msgstr "إلى"
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:94
+msgid "Token"
+msgstr "رمز"
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:79
+msgid "URL"
+msgstr "رابط URL"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:294
+msgid "Version:"
+msgstr "الإصدار"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:47
+msgid "View form/survey template"
+msgstr "عرض قالب النموذج/الاستبيان"
+
+#: zopyx/surveyjs/browser/psf.py:110
+msgid "Visit the control panel to adjust site-wide settings and integrations."
+msgstr "قم بزيارة لوحة التحكم لضبط إعدادات الموقع العامة وعمليات التكامل"
+
+#: zopyx/surveyjs/browser/survey_add.py:112
+msgid "We could not create the survey at the moment. Please try again."
+msgstr "لم نتمكن من إنشاء الاستبيان في الوقت الحالي يرجى المحاولة مرة أخرى"
+
+#: zopyx/surveyjs/browser/survey_add.py:134
+#: zopyx/surveyjs/browser/survey_metadata.py:88
+msgid "We could not read the submitted form data."
+msgstr "لم نتمكن من قراءة بيانات النموذج المرسلة"
+
+#: zopyx/surveyjs/browser/survey_metadata.py:130
+msgid "We could not update the survey at the moment. Please try again."
+msgstr "لم نتمكن من تحديث الاستبيان في الوقت الحالي الرجاء المحاولة مرة أخرى"
+
+#: zopyx/surveyjs/browser/pfs.pt:18
+msgid "What would you like to do today?"
+msgstr "ماذا تود أن تفعل اليوم"
+
+#: zopyx/surveyjs/browser/psf.py:158
+#: zopyx/surveyjs/browser/survey_add.py:63
+msgid "You are not allowed to add surveys here."
+msgstr "لا يُسمح لك بإضافة استبيانات هنا"
+
+#: zopyx/surveyjs/browser/survey_metadata.py:23
+msgid "You are not allowed to edit this survey."
+msgstr "لا يُسمح لك بتعديل هذا الاستبيان"
+
+#: zopyx/surveyjs/browser/survey_versions.py:292
+msgid "You do not have permission to add templates here."
+msgstr "ليس لديك إذن لإضافة القوالب هنا"
+
+#. Default: "Select a template"
+#: zopyx/surveyjs/browser/pfs.pt:66
+#: zopyx/surveyjs/browser/survey_actions.pt:79
+#: zopyx/surveyjs/browser/survey_versions.pt:116
+msgid "aria-label"
+msgstr "aria-label"
+
+#. Default: "Type 'clear' to confirm"
+#: zopyx/surveyjs/browser/survey_results.pt:186
+msgid "data-clear-keyword"
+msgstr "مسح-الكلمة-الدلالية"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:102
+msgid "pdfcpu (structured fields)"
+msgstr "pdfcpu (الحقول المهيكلة)"
+
+#: zopyx/surveyjs/browser/survey_results.pt:125
+msgid "“To” date must be after “From” date."
+msgstr "يجب أن يكون تاريخ \"إلى\" بعد تاريخ \"من\""

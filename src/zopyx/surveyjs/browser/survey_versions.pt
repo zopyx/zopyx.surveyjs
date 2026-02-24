@@ -135,7 +135,7 @@
                                       tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
                                                       title lock_label;
                                                       aria-label lock_label"
-                                      i18n:attributes="title aria-label">
+                                      i18n:attributes="aria-label">
                                 <span i18n:translate="" tal:content="lock_label">Lock</span>
                               </button>
                             </tal:block>

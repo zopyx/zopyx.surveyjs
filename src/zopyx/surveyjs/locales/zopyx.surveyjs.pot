@@ -1,21 +1,81 @@
-#: generated
 msgid ""
 msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2026-02-24 06:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
 
 #: browser/static/js generated
 msgid " (Version ${version})"
 msgstr ""
 
 #: generated
+msgid " Previous"
+msgstr ""
+
+#: generated
+msgid "#"
+msgstr ""
+
+#: generated
 msgid "--"
+msgstr ""
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr ""
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr ""
+
+#: generated
+msgid "AI Form Generator"
 msgstr ""
 
 #: generated
 msgid "AI Generator"
 msgstr ""
 
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr ""
+
+msgid "AI provider missing:"
+msgstr ""
+
+msgid "Access mode"
+msgstr ""
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr ""
+
+#: generated
+msgid "Action"
+msgstr ""
+
 #: generated
 msgid "Actions"
+msgstr ""
+
+msgid "Add extra conversion guidance..."
+msgstr ""
+
+msgid "Additional prompt"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:109
+msgid "Administration"
+msgstr ""
+
+msgid "All"
 msgstr ""
 
 #: generated
@@ -23,7 +83,17 @@ msgid "All results have been cleared successfully."
 msgstr ""
 
 #: generated
+msgid "Always review and adjust the generated form before use."
+msgstr ""
+
+msgid "Analyze PDF"
+msgstr ""
+
+#: generated
 msgid "Answer"
+msgstr ""
+
+msgid "Ask the form owner for a trusted access link."
 msgstr ""
 
 #: generated
@@ -35,9 +105,11 @@ msgid "BCC recipient"
 msgstr ""
 
 #: generated
-msgid ""
-"Be specific about the types of questions, response formats, and any "
-"particular fields you need."
+msgid "Back to results"
+msgstr ""
+
+#: generated
+msgid "Be specific about the types of questions, response formats, and any particular fields you need."
 msgstr ""
 
 #: generated
@@ -53,14 +125,19 @@ msgid "Body for notifications"
 msgstr ""
 
 #: generated
-msgid ""
-"Body text for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
+msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
 msgstr ""
 
 #: generated
-msgid ""
-"Body text for result export emails. Supports {created}, {creator}, {formats}."
+msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:98
+msgid "Browse saved templates and reuse them for new forms or surveys."
+msgstr ""
+
+#: generated
+msgid "Build and refine the survey form."
 msgstr ""
 
 #: generated
@@ -72,11 +149,127 @@ msgid "CSV (.csv)"
 msgstr ""
 
 #: generated
+msgid "Cancel"
+msgstr ""
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr ""
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr ""
+
+msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
+msgstr ""
+
+#: generated
+msgid "Clear All Results"
+msgstr ""
+
+#: generated
+msgid "Clear all results"
+msgstr ""
+
+#: generated
+msgid "Close"
+msgstr ""
+
+#: generated
+msgid "Confirm delete"
+msgstr ""
+
+#: generated
+msgid "Confirm restore"
+msgstr ""
+
+#: generated
+msgid "Conversion complete. Review the preview and click Store converted form as new version."
+msgstr ""
+
+#: generated
+msgid "Convert PDF"
+msgstr ""
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr ""
+
+msgid "Copy link"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:75
+msgid "Create form"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pfs.pt:59
+msgid "Create from template"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.pt:61
+msgid "Create survey"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.pt:287
+msgid "Create template"
+msgstr ""
+
+#: generated
+msgid "Created:"
+msgstr ""
+
+#: generated
+msgid "Current Version:"
+msgstr ""
+
+msgid "DOCS"
+msgstr ""
+
+#: generated
+msgid "Dashboard"
+msgstr ""
+
+#: generated
+msgid "Date"
+msgstr ""
+
+#: generated
+msgid "Date/Time"
+msgstr ""
+
+#: generated
+msgid "Date:"
+msgstr ""
+
+#: generated
+msgid "Delete"
+msgstr ""
+
+#: generated
 msgid "Delete ${count} selected result(s)?"
 msgstr ""
 
 #: generated
+msgid "Delete Result"
+msgstr ""
+
+#: generated
+msgid "Delete Selected Results"
+msgstr ""
+
+#: generated
+msgid "Delete result"
+msgstr ""
+
+#: generated
+msgid "Delete selected"
+msgstr ""
+
+#: generated
 msgid "Delete this result?"
+msgstr ""
+
+#: generated
+msgid "Delete version"
 msgstr ""
 
 #: generated
@@ -89,6 +282,50 @@ msgstr ""
 
 #: generated
 msgid "Describe the form you want to create:"
+msgstr ""
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr ""
+
+#: generated
+msgid "Description"
+msgstr ""
+
+#: generated
+msgid "Details"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
+msgid "Detected fields"
+msgstr ""
+
+#: generated
+msgid "Download"
+msgstr ""
+
+#: generated
+msgid "Download PDF"
+msgstr ""
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr ""
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr ""
+
+#: generated
+msgid "Download result"
+msgstr ""
+
+#: generated
+msgid "Download results (CSV)"
+msgstr ""
+
+#: generated
+msgid "Download results (JSON)"
 msgstr ""
 
 #: generated
@@ -112,11 +349,23 @@ msgid "Edit"
 msgstr ""
 
 #: generated
+msgid "Effective"
+msgstr ""
+
+#: generated
 msgid "Email address to receive a blind copy"
 msgstr ""
 
 #: generated
 msgid "Email address to receive a copy"
+msgstr ""
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr ""
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
 msgstr ""
 
 #: generated
@@ -168,20 +417,19 @@ msgid "Error saving form:"
 msgstr ""
 
 #: generated
+msgid "Error:"
+msgstr ""
+
+#: generated
 msgid "Error: ${error}"
 msgstr ""
 
 #: generated
-msgid ""
-"Example: Add rating scales for each question, Include a comments section at "
-"the end, Change the first question to a dropdown"
+msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
 msgstr ""
 
 #: generated
-msgid ""
-"Example: Create a customer satisfaction survey with questions about product "
-"quality, delivery experience, and overall satisfaction. Include rating "
-"scales and a comments section."
+msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
 msgstr ""
 
 #: generated
@@ -192,6 +440,35 @@ msgstr ""
 msgid "Existing form"
 msgstr ""
 
+msgid "Exit fullscreen"
+msgstr ""
+
+#: generated
+msgid "Experimental:"
+msgstr ""
+
+#: generated
+msgid "Expires"
+msgstr ""
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:116
+msgid "Export range"
+msgstr ""
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr ""
+
+msgid "External AI provider:"
+msgstr ""
+
+msgid "Extraction mode"
+msgstr ""
+
 #: generated
 msgid "Failed to POST result: ${error}"
 msgstr ""
@@ -200,9 +477,16 @@ msgstr ""
 msgid "Failed to clear results. Please check the console for more information."
 msgstr ""
 
+#: zopyx/surveyjs/browser/psf.py:228
+msgid "Failed to create survey: ${error}"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.py:322
+msgid "Failed to create template: ${error}"
+msgstr ""
+
 #: generated
-msgid ""
-"Failed to delete selected results. Please check the console for details."
+msgid "Failed to delete selected results. Please check the console for details."
 msgstr ""
 
 #: generated
@@ -214,8 +498,7 @@ msgid "Failed to generate form. Please try again."
 msgstr ""
 
 #: generated
-msgid ""
-"Failed to load JSON data. Please check the console for more information."
+msgid "Failed to load JSON data. Please check the console for more information."
 msgstr ""
 
 #: generated
@@ -235,8 +518,7 @@ msgid "Failed to refine existing form. Please try again."
 msgstr ""
 
 #: generated
-msgid ""
-"Failed to refine form. Your current version is preserved. Please try again."
+msgid "Failed to refine form. Your current version is preserved. Please try again."
 msgstr ""
 
 #: generated
@@ -248,11 +530,37 @@ msgid "Failed to save form: ${error}"
 msgstr ""
 
 #: generated
+msgid "Failed to save survey results. Please try again."
+msgstr ""
+
+#: generated
 msgid "Failed to send mail: ${error}"
 msgstr ""
 
 #: generated
+msgid "Fillable PDF Form"
+msgstr ""
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr ""
+
+msgid "First"
+msgstr ""
+
+msgid "First Page"
+msgstr ""
+
+#: generated
 msgid "Force Server Side Validation"
+msgstr ""
+
+#: generated
+msgid "Form JSON"
+msgstr ""
+
+#: generated
+msgid "Form Preview"
 msgstr ""
 
 #: generated
@@ -264,19 +572,31 @@ msgid "Form Settings"
 msgstr ""
 
 #: generated
+msgid "Form Version Management"
+msgstr ""
+
+#: generated
 msgid "Form View"
 msgstr ""
 
 #: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\"${url}\">View versions</"
-"a>."
+msgid "Form from PDF"
 msgstr ""
 
 #: generated
-msgid ""
-"Form saved successfully! You can now view it in the Visual Editor or "
-"Versions."
+msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
+msgstr ""
+
+#: generated
+msgid "Form imported and saved as a new version. <a href=\\\"${url}\\\">View versions</a>."
+msgstr ""
+
+#: generated
+msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
+msgstr ""
+
+#: generated
+msgid "Form validation using pdfcpu"
 msgstr ""
 
 #: generated
@@ -288,11 +608,34 @@ msgid "Formats"
 msgstr ""
 
 #: generated
+msgid "Forms overview"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:118
+msgid "From"
+msgstr ""
+
+msgid "Fullscreen"
+msgstr ""
+
+#: generated
 msgid "Generate Form"
 msgstr ""
 
 #: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.pt:290
+msgid "Generate a new SurveyTemplate from the selected version. You can adjust the name before creation."
+msgstr ""
+
+#: generated
 msgid "Generate forms using AI"
+msgstr ""
+
+#: generated
+msgid "Generated form preview will appear here."
 msgstr ""
 
 #: generated
@@ -308,11 +651,23 @@ msgid "HTML (.html)"
 msgstr ""
 
 #: generated
+msgid "Heads up:"
+msgstr ""
+
+#: generated
+msgid "ID:"
+msgstr ""
+
+#: generated
 msgid "Import failed"
 msgstr ""
 
 #: generated
 msgid "Import failed. Please try again."
+msgstr ""
+
+#: generated
+msgid "Inactive"
 msgstr ""
 
 #: generated
@@ -332,7 +687,15 @@ msgid "Invalid survey URL: ${url}"
 msgstr ""
 
 #: generated
+msgid "JSON"
+msgstr ""
+
+#: generated
 msgid "JSON (.json)"
+msgstr ""
+
+#: generated
+msgid "JSON Version Content"
 msgstr ""
 
 #: generated
@@ -341,6 +704,37 @@ msgstr ""
 
 #: generated
 msgid "Key / Question"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
+msgid "LLM (visual conversion)"
+msgstr ""
+
+#: generated
+msgid "Language"
+msgstr ""
+
+msgid "Last"
+msgstr ""
+
+msgid "Last Page"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:72
+msgid "Launch a brand-new form or survey and start collecting answers."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.pt:46
+#: zopyx/surveyjs/browser/survey_metadata.pt:46
+msgid "Let's fix a few things:"
+msgstr ""
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.pt:57
+#: zopyx/surveyjs/browser/survey_metadata.pt:57
+msgid "Loading form..."
 msgstr ""
 
 #: generated
@@ -353,6 +747,17 @@ msgstr ""
 
 #: generated
 msgid "Loading..."
+msgstr ""
+
+msgid "Local AI provider:"
+msgstr ""
+
+#: generated
+msgid "Lock"
+msgstr ""
+
+#: generated
+msgid "Locked"
 msgstr ""
 
 #: generated
@@ -368,11 +773,19 @@ msgid "Mail notifications"
 msgstr ""
 
 #: generated
+msgid "Mail result"
+msgstr ""
+
+#: generated
 msgid "Mail sent"
 msgstr ""
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
+msgstr ""
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
 msgstr ""
 
 #: generated
@@ -391,8 +804,34 @@ msgstr ""
 msgid "Maximum allowed payload size for submissions in megabytes."
 msgstr ""
 
+#: zopyx/surveyjs/browser/survey_actions.pt:18
+msgid "Metadata"
+msgstr ""
+
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:195
+msgid "New Survey"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:71
+msgid "New form/survey"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+#: generated
+msgid "Next "
+msgstr ""
+
+msgid "Next Page"
+msgstr ""
+
+#: generated
+msgid "No PDF selected yet."
 msgstr ""
 
 #: generated
@@ -400,7 +839,23 @@ msgid "No POST endpoint configured for this survey"
 msgstr ""
 
 #: generated
+msgid "No Survey Results Yet"
+msgstr ""
+
+#: generated
+msgid "No Versions Available"
+msgstr ""
+
+#: generated
+msgid "No converted form available to store."
+msgstr ""
+
+#: generated
 msgid "No existing form found to refine."
+msgstr ""
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
+msgid "No fields detected yet."
 msgstr ""
 
 #: generated
@@ -424,11 +879,58 @@ msgid "No form to save"
 msgstr ""
 
 #: generated
+msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+msgstr ""
+
+#: generated
+msgid "No results found matching your search query."
+msgstr ""
+
+#: generated
+msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
+msgid "No survey templates found below this location."
+msgstr ""
+
+#: generated
+msgid "No surveys found below this location."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_template_views.py:22
+msgid "No template JSON configured."
+msgstr ""
+
+#: generated
 msgid "No version ID provided"
 msgstr ""
 
 #: generated
 msgid "Not saved"
+msgstr ""
+
+#: zopyx/surveyjs/browser/configure.zcml:29
+msgid "Open Forms overview"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:120
+msgid "Open PDF Form"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:113
+msgid "Open control panel"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:88
+msgid "Open overview"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:101
+msgid "Open templates"
+msgstr ""
+
+msgid "Open the link in this browser to continue."
 msgstr ""
 
 #: generated
@@ -440,9 +942,18 @@ msgid "Optional CC recipients for result exports (one address per line)."
 msgstr ""
 
 #: generated
-msgid ""
-"Optional HTTP endpoint to receive submissions as JSON when the POST action "
-"is enabled."
+msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+msgstr ""
+
+msgid "Optional instructions to guide the conversion."
+msgstr ""
+
+#: generated
+msgid "Overview of forms in this section and their submission status."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:39
+msgid "Overview of survey templates available in this section."
 msgstr ""
 
 #: generated
@@ -450,7 +961,35 @@ msgid "PDF (.pdf)"
 msgstr ""
 
 #: generated
+msgid "PDF Form"
+msgstr ""
+
+#: generated
 msgid "PDF Form Import"
+msgstr ""
+
+#: generated
+msgid "PDF Form Importer"
+msgstr ""
+
+#: generated
+msgid "PDF Generator"
+msgstr ""
+
+#: generated
+msgid "PDF Preview"
+msgstr ""
+
+#: generated
+msgid "PDF export"
+msgstr ""
+
+#: generated
+msgid "PDF file"
+msgstr ""
+
+#: generated
+msgid "PDF generator"
 msgstr ""
 
 #: generated
@@ -462,15 +1001,35 @@ msgid "POST endpoint URL"
 msgstr ""
 
 #: generated
+msgid "POST result"
+msgstr ""
+
+#: generated
 msgid "POST to endpoint"
+msgstr ""
+
+msgid "Page Size"
+msgstr ""
+
+#: generated
+msgid "Password required"
 msgstr ""
 
 #: generated
 msgid "Please enter a description"
 msgstr ""
 
+#: zopyx/surveyjs/browser/survey_add.py:96
+#: zopyx/surveyjs/browser/survey_metadata.py:111
+msgid "Please provide a title for your survey."
+msgstr ""
+
 #: generated
 msgid "Please select a PDF file to upload."
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:162
+msgid "Please select a template."
 msgstr ""
 
 #: generated
@@ -478,20 +1037,60 @@ msgid "Poll ID is required"
 msgstr ""
 
 #: generated
+msgid "Poll ID:"
+msgstr ""
+
+#: generated
 msgid "Poll result not found"
+msgstr ""
+
+msgid "Prev"
+msgstr ""
+
+msgid "Prev Page"
+msgstr ""
+
+#: generated
+msgid "Preview"
+msgstr ""
+
+#: generated
+msgid "Preview Form"
+msgstr ""
+
+#: generated
+msgid "Preview JSON"
 msgstr ""
 
 #: generated
 msgid "Preview error:"
 msgstr ""
 
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:48
+msgid "Preview the form/surveey template."
+msgstr ""
+
 #: generated
-msgid ""
-"Primary recipient for notifications and result exports (single address). "
+msgid "Preview the live survey experience."
+msgstr ""
+
+#: generated
+msgid "Primary recipient for notifications and result exports (single address). "
 msgstr ""
 
 #: generated
 msgid "Privacy Forms Studio"
+msgstr ""
+
+#: generated
+msgid "Processing..."
+msgstr ""
+
+msgid "Public"
+msgstr ""
+
+#: generated
+msgid "Published"
 msgstr ""
 
 #: generated
@@ -503,7 +1102,15 @@ msgid "Refine Your Form"
 msgstr ""
 
 #: generated
+msgid "Refine existing form"
+msgstr ""
+
+#: generated
 msgid "Refinement ${index}"
+msgstr ""
+
+#: generated
+msgid "Refinement History"
 msgstr ""
 
 #: generated
@@ -515,7 +1122,31 @@ msgid "Refining..."
 msgstr ""
 
 #: generated
+msgid "Refresh"
+msgstr ""
+
+#: generated
 msgid "Requested export format is not available"
+msgstr ""
+
+#: generated
+msgid "Reset"
+msgstr ""
+
+#: generated
+msgid "Restore"
+msgstr ""
+
+#: generated
+msgid "Restore to previous version"
+msgstr ""
+
+#: generated
+msgid "Restore version"
+msgstr ""
+
+#: generated
+msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
 msgstr ""
 
 #: generated
@@ -523,11 +1154,15 @@ msgid "Result POSTed to endpoint (status ${status})"
 msgstr ""
 
 #: generated
-msgid "Results cleared"
+msgid "Results"
 msgstr ""
 
 #: generated
-msgid "Results"
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr ""
+
+#: generated
+msgid "Results cleared"
 msgstr ""
 
 #: generated
@@ -539,11 +1174,51 @@ msgid "Run the external SurveyJS validator binary for every save/submit."
 msgstr ""
 
 #: generated
+msgid "Save Form"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_metadata.pt:61
+msgid "Save changes"
+msgstr ""
+
+#: generated
 msgid "Save failed"
 msgstr ""
 
 #: generated
 msgid "Saving"
+msgstr ""
+
+#: generated
+msgid "Search"
+msgstr ""
+
+msgid "Search by user, UUID, or date"
+msgstr ""
+
+#: generated
+msgid "Search by user..."
+msgstr ""
+
+#: generated
+msgid "Security mode"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:85
+msgid "See every form or survey at a glance, surface trends, and jump right in."
+msgstr ""
+
+#: generated
+msgid "Select JSON file:"
+msgstr ""
+
+#: generated
+msgid "Select all results"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.py:100
+#: zopyx/surveyjs/browser/survey_metadata.py:115
+msgid "Select at least one submission handling option."
 msgstr ""
 
 #: generated
@@ -555,14 +1230,46 @@ msgid "Select how to handle survey submissions (multiple options possible). "
 msgstr ""
 
 #: generated
-msgid ""
-"Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgid "Select result"
 msgstr ""
 
 #: generated
-msgid ""
-"Start over? This will clear your refinement history and return to the "
-"initial prompt."
+msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgstr ""
+
+#: generated
+msgid "Sequence:"
+msgstr ""
+
+msgid "Share this link to open the form."
+msgstr ""
+
+#: generated
+msgid "Start Over"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pfs.pt:61
+msgid "Start a new form or survey using one of your curate presets."
+msgstr ""
+
+#: generated
+msgid "Start over? This will clear your refinement history and return to the initial prompt."
+msgstr ""
+
+#: zopyx/surveyjs/browser/pfs.pt:19
+msgid "Start with a guided action that matches your role. These shortcuts keep every team member productive, confident, and in control of their form/survey data."
+msgstr ""
+
+#: generated
+msgid "Status"
+msgstr ""
+
+#: generated
+msgid "Storage disabled."
+msgstr ""
+
+#: generated
+msgid "Storage:"
 msgstr ""
 
 #: generated
@@ -570,13 +1277,31 @@ msgid "Store"
 msgstr ""
 
 #: generated
+msgid "Store converted form as new version"
+msgstr ""
+
+#: generated
+msgid "Store failed"
+msgstr ""
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr ""
+
+#: generated
+msgid "Stored form data"
+msgstr ""
+
+#: generated
+msgid "Stored results"
+msgstr ""
+
+#: generated
 msgid "Subject"
 msgstr ""
 
 #: generated
-msgid ""
-"Subject for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
+msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
 msgstr ""
 
 #: generated
@@ -584,8 +1309,19 @@ msgid "Subject for notifications"
 msgstr ""
 
 #: generated
-msgid ""
-"Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr ""
+
+#: generated
+msgid "Submission Details"
+msgstr ""
+
+#: generated
+msgid "Submitted"
+msgstr ""
+
+#: generated
+msgid "Survey"
 msgstr ""
 
 #: generated
@@ -597,12 +1333,31 @@ msgid "Survey Form"
 msgstr ""
 
 #: generated
-msgid "Survey closed"
+msgid "Survey Response Details"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:38
+msgid "Survey Templates Overview"
 msgstr ""
 
 #: generated
-msgid ""
-"Survey embedding is not allowed. Please contact the survey administrator."
+msgid "Survey closed"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:235
+msgid "Survey created from template."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.py:118
+msgid "Survey created. Let's build it!"
+msgstr ""
+
+#: generated
+msgid "Survey data dashboard"
+msgstr ""
+
+#: generated
+msgid "Survey embedding is not allowed. Please contact the survey administrator."
 msgstr ""
 
 #: generated
@@ -611,6 +1366,10 @@ msgstr ""
 
 #: generated
 msgid "Survey open"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_metadata.py:136
+msgid "Survey updated."
 msgstr ""
 
 #: generated
@@ -626,17 +1385,213 @@ msgid "SurveyJS Embed: Error requesting height"
 msgstr ""
 
 #: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class \"$"
-"{className}\""
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+msgstr ""
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \\\"${className}\\\""
+msgstr ""
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr ""
+
+#: generated
+msgid "Table"
+msgstr ""
+
+msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.pt:165
+msgid "Template"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:185
+msgid "Template JSON is invalid: ${error}"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:176
+msgid "Template JSON is missing."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_template_views.py:40
+msgid "Template JSON must be a JSON object."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.py:328
+msgid "Template created successfully."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.pt:296
+msgid "Template name"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.py:272
+msgid "Template name and version are required."
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:169
+msgid "Template not found."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:72
+msgid "Template unavailable"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:97
+msgid "Templates overview"
 msgstr ""
 
 #: generated
 msgid "Text (.txt)"
 msgstr ""
 
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:73
+msgid "The template JSON could not be loaded."
+msgstr ""
+
+#: generated
+msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+msgstr ""
+
+#: generated
+msgid "This action permanently removes the selected version. This cannot be undone."
+msgstr ""
+
+#: generated
+msgid "This action will permanently delete all survey results. This cannot be undone."
+msgstr ""
+
+#: generated
+msgid "This feature is experimental. Please review the generated form carefully."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:120
+#: zopyx/surveyjs/browser/viewer_embed.pt:58
+msgid "This form requires a trusted access link. Please use the link provided by the form owner."
+msgstr ""
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr ""
+
+#: generated
+msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.pt:303
+msgid "This template will be created next to the current survey."
+msgstr ""
+
+#: generated
+msgid "This will permanently delete the selected result. This cannot be undone."
+msgstr ""
+
+#: generated
+msgid "Title"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:122
+msgid "To"
+msgstr ""
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:94
+msgid "Token"
+msgstr ""
+
+msgid "Trusted access link"
+msgstr ""
+
+msgid "Trusted access required"
+msgstr ""
+
+msgid "Trusted access token"
+msgstr ""
+
+msgid "Trusted access token TTL (hours)"
+msgstr ""
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:79
+msgid "URL"
+msgstr ""
+
+#: generated
+msgid "UUID"
+msgstr ""
+
+#: generated
+msgid "Unable to load submission."
+msgstr ""
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr ""
+
 #: generated
 msgid "Unknown error"
+msgstr ""
+
+#: generated
+msgid "Unlock"
+msgstr ""
+
+msgid "Unsaved changes"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+#: generated
+msgid "Upload"
+msgstr ""
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr ""
+
+#: generated
+msgid "Upload PDF"
+msgstr ""
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr ""
+
+#: generated
+msgid "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions."
+msgstr ""
+
+#: generated
+msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+msgstr ""
+
+#: generated
+msgid "Upload and Create Version"
+msgstr ""
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr ""
+
+#: generated
+msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgstr ""
+
+#: generated
+msgid "User"
+msgstr ""
+
+#: generated
+msgid "User:"
 msgstr ""
 
 #: generated
@@ -645,6 +1600,14 @@ msgstr ""
 
 #: generated
 msgid "Version ${current} of ${total}"
+msgstr ""
+
+#: generated
+msgid "Version History"
+msgstr ""
+
+#: generated
+msgid "Version ID"
 msgstr ""
 
 #: generated
@@ -671,6 +1634,10 @@ msgstr ""
 msgid "Version unlocked"
 msgstr ""
 
+#: zopyx/surveyjs/browser/survey_versions.pt:294
+msgid "Version:"
+msgstr ""
+
 #: generated
 msgid "Versions"
 msgstr ""
@@ -680,717 +1647,48 @@ msgid "View"
 msgstr ""
 
 #: generated
-msgid "Visual Editor"
-msgstr ""
-
-#: generated
-msgid "What would you like to change?"
-msgstr ""
-
-#: generated
-msgid "Word (.docx)"
-msgstr ""
-
-#: generated
-msgid "XML (.xml)"
-msgstr ""
-
-msgid "Access mode"
-msgstr ""
-
-msgid ""
-"Choose whether this form is publicly accessible or requires a trusted access "
-"token in the URL."
-msgstr ""
-
-msgid "Public"
-msgstr ""
-
-msgid "Trusted access token"
-msgstr ""
-
-msgid "Trusted access token TTL (hours)"
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Unsaved changes"
-msgstr ""
-
-msgid "You have edits that haven't been saved yet."
-msgstr ""
-
-msgid "Lifetime of trusted access tokens in hours."
-msgstr ""
-
-#: generated
-msgid "You're saving ${version}. The latest version is not selected. Continue?"
-msgstr ""
-
-#: generated
-msgid "version ${current} of ${total}"
-msgstr ""
-
-#: generated
-msgid "Cancel"
-msgstr ""
-
-#: generated
-msgid "Close"
-msgstr ""
-
-#: generated
-msgid "Confirm restore"
-msgstr ""
-
-#: generated
-msgid "Date:"
-msgstr ""
-
-#: generated
-msgid "Delete"
-msgstr ""
-
-#: generated
-msgid "Confirm delete"
-msgstr ""
-
-#: generated
-msgid "Delete version"
-msgstr ""
-
-#: generated
-msgid "Download"
-msgstr ""
-
-#: generated
-msgid "Download form definition as JSON"
-msgstr ""
-
-#: generated
-msgid "ID:"
-msgstr ""
-
-#: generated
-msgid "JSON Version Content"
-msgstr ""
-
-#: generated
-msgid "Locked"
-msgstr ""
-
-#: generated
-msgid "Preview"
-msgstr ""
-
-#: generated
-msgid "Preview JSON"
-msgstr ""
-
-#: generated
-msgid "Restore"
-msgstr ""
-
-#: generated
-msgid "Restore to previous version"
-msgstr ""
-
-#: generated
-msgid "Restore version"
-msgstr ""
-
-#: generated
-msgid ""
-"Restoring will create a new version using the selected snapshot and keep the "
-"current version in history."
-msgstr ""
-
-#: generated
-msgid "Upload and Create Version"
-msgstr ""
-
-#: generated
-msgid "User:"
-msgstr ""
-
-#: generated
-msgid "Experimental:"
-msgstr ""
-
-#: generated
-msgid "This is a helper to get started, not a finished form."
-msgstr ""
-
-#: generated
-msgid "Use clear, specific prompts for best results."
-msgstr ""
-
-#: generated
-msgid "Always review and adjust the generated form before use."
-msgstr ""
-
-#: generated
-msgid "Error:"
-msgstr ""
-
-#: generated
-msgid "#"
-msgstr ""
-
-#: generated
-msgid "AI Form Generator"
-msgstr ""
-
-#: generated
-msgid "Action"
-msgstr ""
-
-#: generated
-msgid "Back to results"
-msgstr ""
-
-#: generated
-msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr ""
-
-#: generated
-msgid "Clear All Results"
-msgstr ""
-
-#: generated
-msgid "Clear all results"
-msgstr ""
-
-#: generated
-msgid "Convert PDF"
-msgstr ""
-
-#: generated
-msgid "Created:"
-msgstr ""
-
-#: generated
-msgid "Current Version:"
-msgstr ""
-
-#: generated
-msgid "Date"
-msgstr ""
-
-#: generated
-msgid "Date/Time"
-msgstr ""
-
-#: generated
-msgid "Delete result"
-msgstr ""
-
-#: generated
-msgid "Delete selected"
-msgstr ""
-
-#: generated
-msgid "Describe your survey in natural language and let AI generate the form"
-msgstr ""
-
-#: generated
-msgid "Details"
-msgstr ""
-
-#: generated
-msgid "Download form definition (JSON)"
-msgstr ""
-
-#: generated
-msgid "Download result"
-msgstr ""
-
-#: generated
-msgid "Download results (CSV)"
-msgstr ""
-
-#: generated
-msgid "Download results (JSON)"
-msgstr ""
-
-#: generated
-msgid "Embedding Not Allowed"
-msgstr ""
-
-#: generated
-msgid "Enable it in the survey settings to collect and view responses here."
-msgstr ""
-
-#: generated
-msgid "Form JSON"
-msgstr ""
-
-#: generated
-msgid "Form Preview"
-msgstr ""
-
-#: generated
-msgid "Form Version Management"
-msgstr ""
-
-#: generated
-msgid "Generated form preview will appear here."
-msgstr ""
-
-#: generated
-msgid "Heads up:"
-msgstr ""
-
-#: generated
-msgid "JSON"
-msgstr ""
-
-#: generated
-msgid "Mail result"
-msgstr ""
-
-#: generated
-msgid "Manage, view, and restore previous versions of your survey forms"
-msgstr ""
-
-#: generated
-msgid "Next "
-msgstr ""
-
-#: generated
-msgid "No PDF selected yet."
-msgstr ""
-
-#: generated
-msgid ""
-"No stored results yet. Once responses are saved, analytics will appear here."
-msgstr ""
-
-#: generated
-msgid "No Survey Results Yet"
-msgstr ""
-
-#: generated
-msgid "No Versions Available"
-msgstr ""
-
-#: generated
-msgid ""
-"No form versions have been created yet. Use the Form Creator to design your "
-"first survey, or upload an existing JSON file using the form above."
-msgstr ""
-
-#: generated
-msgid "No results found matching your search query."
-msgstr ""
-
-#: generated
-msgid "PDF Form Importer"
-msgstr ""
-
-#: generated
-msgid "PDF Preview"
-msgstr ""
-
-#: generated
-msgid "PDF file"
-msgstr ""
-
-#: generated
-msgid "POST result"
-msgstr ""
-
-#: generated
-msgid "Poll ID:"
-msgstr ""
-
-#: generated
-msgid "Preview Form"
-msgstr ""
-
-#: generated
-msgid "Processing..."
-msgstr ""
-
-#: generated
-msgid "Refine existing form"
-msgstr ""
-
-#: generated
-msgid "Refinement History"
-msgstr ""
-
-#: generated
-msgid "Results are not being saved because the \"Store\" action is turned off."
-msgstr ""
-
-#: generated
-msgid "Save Form"
-msgstr ""
-
-#: generated
-msgid "Search"
-msgstr ""
-
-#: generated
-msgid "Search by user..."
-msgstr ""
-
-msgid "Search by user, UUID, or date"
-msgstr ""
-
-#: generated
-msgid "Select JSON file:"
-msgstr ""
-
-#: generated
-msgid "Select all results"
-msgstr ""
-
-#: generated
-msgid "Select result"
-msgstr ""
-
-#: generated
-msgid "Sequence:"
-msgstr ""
-
-#: generated
-msgid "Start Over"
-msgstr ""
-
-#: generated
-msgid "Storage disabled."
-msgstr ""
-
-#: generated
-msgid "Storage:"
-msgstr ""
-
-#: generated
-msgid "Stored form data"
-msgstr ""
-
-#: generated
-msgid "Submission Details"
-msgstr ""
-
-#: generated
-msgid "Survey"
-msgstr ""
-
-#: generated
-msgid "Survey Response Details"
-msgstr ""
-
-#: generated
-msgid "SurveyJS Preview"
-msgstr ""
-
-#: generated
-msgid "Table"
-msgstr ""
-
-#: generated
-msgid ""
-"There are no survey responses yet. Once users submit the survey, their "
-"responses will appear here."
-msgstr ""
-
-#: generated
-msgid "Delete Result"
-msgstr ""
-
-#: generated
-msgid "Delete Selected Results"
-msgstr ""
-
-#: generated
-msgid ""
-"This will permanently delete the selected result. This cannot be undone."
-msgstr ""
-
-#: generated
-msgid ""
-"This action will permanently delete all survey results. This cannot be "
-"undone."
-msgstr ""
-
-#: generated
-msgid ""
-"This action permanently removes the selected version. This cannot be undone."
-msgstr ""
-
-#: generated
-msgid ""
-"This feature is experimental. Please review the generated form carefully."
-msgstr ""
-
-#: generated
-msgid ""
-"This survey is not configured to be embedded. Please contact the survey "
-"administrator."
-msgstr ""
-
-#: generated
-msgid "To confirm, please type clear in the field below:"
-msgstr ""
-
-#: generated
-msgid "Type 'clear' to confirm"
-msgstr ""
-
-#: generated
-msgid "UUID"
-msgstr ""
-
-#: generated
-msgid "Unable to load submission."
-msgstr ""
-
-#: generated
-msgid "Upload"
-msgstr ""
-
-#: generated
-msgid "Upload JSON form schema"
-msgstr ""
-
-#: generated
-msgid "Upload PDF"
-msgstr ""
-
-#: generated
-msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr ""
-
-#: generated
-msgid ""
-"Upload a valid SurveyJS JSON file to create a new version. The file will be "
-"validated before saving."
-msgstr ""
-
-#: generated
-msgid ""
-"Use the latest saved form as the starting point instead of generating a new "
-"one."
-msgstr ""
-
-#: generated
-msgid "User"
-msgstr ""
-
-#: generated
-msgid "Version History"
-msgstr ""
-
-#: generated
-msgid "Version ID"
+msgid "View Form"
 msgstr ""
 
 #: generated
 msgid "View JSON"
 msgstr ""
 
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:47
+msgid "View form/survey template"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:110
+msgid "Visit the control panel to adjust site-wide settings and integrations."
+msgstr ""
+
+#: generated
+msgid "Visual Editor"
+msgstr ""
+
 #: generated
 msgid "Warning:"
 msgstr ""
 
-#: generated
-msgid "clear"
+#: zopyx/surveyjs/browser/survey_add.py:112
+msgid "We could not create the survey at the moment. Please try again."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.py:134
+#: zopyx/surveyjs/browser/survey_metadata.py:88
+msgid "We could not read the submitted form data."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_metadata.py:130
+msgid "We could not update the survey at the moment. Please try again."
 msgstr ""
 
 #: generated
-msgid " Previous"
+msgid "What would you like to change?"
 msgstr ""
 
-#: generated
-msgid "Failed to save survey results. Please try again."
-msgstr ""
-
-#: generated
-msgid "Unable to load survey. Please try refreshing the page."
-msgstr ""
-
-#: generated
-msgid "Lock"
-msgstr ""
-
-#: generated
-msgid "Unlock"
-msgstr ""
-
-#: generated
-msgid "Status"
-msgstr ""
-
-#: generated
-msgid "Effective"
-msgstr ""
-
-#: generated
-msgid "Expires"
-msgstr ""
-
-#: generated
-msgid "Stored results"
-msgstr ""
-
-#: generated
-msgid "Published"
-msgstr ""
-
-#: generated
-msgid "Inactive"
-msgstr ""
-
-#: generated
-msgid "Store converted form as new version"
-msgstr ""
-
-#: generated
-msgid ""
-"Conversion complete. Review the preview and click Store converted form as "
-"new version."
-msgstr ""
-
-#: generated
-msgid "No converted form available to store."
-msgstr ""
-
-#: generated
-msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
-msgstr ""
-
-#: generated
-msgid "Store failed"
-msgstr ""
-
-#: generated
-msgid "Store failed. Please try again."
-msgstr ""
-
-#: generated
-msgid "Reset"
-msgstr ""
-
-#: generated
-msgid "Refresh"
-msgstr ""
-
-#: generated
-msgid "Forms overview"
-msgstr ""
-
-#: generated
-msgid "Overview of forms in this section and their submission status."
-msgstr ""
-
-#: generated
-msgid "No surveys found below this location."
-msgstr ""
-
-msgid ""
-"Tabulator assets missing. Please install tabulator.min.js and "
-"tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
-msgstr ""
-
-#: generated
-msgid "Title"
-msgstr ""
-
-#: generated
-msgid "Description"
-msgstr ""
-
-#: generated
-msgid "Workflow status"
-msgstr ""
-
-#: generated
-msgid "Submitted"
-msgstr ""
-
-#: generated
-msgid "Security mode"
-msgstr ""
-
-#: generated
-msgid "Language"
-msgstr ""
-
-msgid "First"
-msgstr ""
-
-msgid "First Page"
-msgstr ""
-
-msgid "Last"
-msgstr ""
-
-msgid "Last Page"
-msgstr ""
-
-msgid "Prev"
-msgstr ""
-
-msgid "Prev Page"
-msgstr ""
-
-msgid "Next"
-msgstr ""
-
-msgid "Next Page"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "Page Size"
-msgstr ""
-
-msgid "Additional prompt"
-msgstr ""
-
-msgid "Add extra conversion guidance..."
-msgstr ""
-
-msgid "Optional instructions to guide the conversion."
-msgstr ""
-
-msgid "DOCS"
-msgstr ""
-
-msgid "Fullscreen"
-msgstr ""
-
-msgid "Exit fullscreen"
-msgstr ""
-
-msgid "AI provider missing:"
-msgstr ""
-
-msgid ""
-"AI form generation is not available because no AI provider is configured."
-msgstr ""
-
-msgid "External AI provider:"
-msgstr ""
-
-msgid ""
-"A remote AI provider is configured and will be used. Your PDF may leave your "
-"network."
-msgstr ""
-
-msgid "Local AI provider:"
-msgstr ""
-
-msgid "A local AI provider is configured. Your PDF stays within your network."
-msgstr ""
-
-#: generated
-msgid "Form validation using pdfcpu"
+#: zopyx/surveyjs/browser/pfs.pt:18
+msgid "What would you like to do today?"
 msgstr ""
 
 #: generated
@@ -1398,122 +1696,64 @@ msgid "When enabled, pdfcpu is used to validate and enrich form fields."
 msgstr ""
 
 #: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
-"versions</a>."
+msgid "Word (.docx)"
 msgstr ""
 
 #: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class \\\"$"
-"{className}\\\""
-msgstr ""
-
-msgid "Trusted access required"
-msgstr ""
-
-msgid "Ask the form owner for a trusted access link."
-msgstr ""
-
-msgid "Open the link in this browser to continue."
-msgstr ""
-
-msgid "Trusted access link"
-msgstr ""
-
-msgid "Share this link to open the form."
-msgstr ""
-
-msgid "Copy link"
+msgid "Workflow status"
 msgstr ""
 
 #: generated
-msgid "View Form"
+msgid "XML (.xml)"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:158
+#: zopyx/surveyjs/browser/survey_add.py:63
+msgid "You are not allowed to add surveys here."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_metadata.py:23
+msgid "You are not allowed to edit this survey."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_versions.py:292
+msgid "You do not have permission to add templates here."
+msgstr ""
+
+msgid "You have edits that haven't been saved yet."
 msgstr ""
 
 #: generated
-msgid "Preview the live survey experience."
+msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgstr ""
+
+#. Default: "Select a template"
+#: zopyx/surveyjs/browser/pfs.pt:66
+#: zopyx/surveyjs/browser/survey_actions.pt:79
+#: zopyx/surveyjs/browser/survey_versions.pt:116
+msgid "aria-label"
 msgstr ""
 
 #: generated
-msgid "Build and refine the survey form."
+msgid "clear"
 msgstr ""
 
-#: generated
-msgid "PDF generator"
+#. Default: "Type 'clear' to confirm"
+#: zopyx/surveyjs/browser/survey_results.pt:186
+msgid "data-clear-keyword"
 msgstr ""
 
-#: generated
-msgid "Generate a PDF version of the current survey form."
-msgstr ""
-
-#: generated
-msgid "PDF export"
-msgstr ""
-
-#: generated
-msgid "Export the current SurveyJS form as a downloadable PDF."
-msgstr ""
-
-#: generated
-msgid "Survey data dashboard"
-msgstr ""
-
-#: generated
-msgid "Explore responses with charts and summary insights."
-msgstr ""
-
-#: generated
-msgid "Fillable PDF Form"
-msgstr ""
-
-#: generated
-msgid ""
-"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
-"submissions."
-msgstr ""
-
-#: generated
-msgid "Password required"
-msgstr ""
-
-#: generated
-msgid "Access to this survey is restricted. Enter the password to continue."
-msgstr ""
-
-#: generated
-msgid "PDF Form"
-msgstr ""
-
-#: generated
-msgid "Dashboard"
-msgstr ""
-
-#: generated
-msgid "PDF Generator"
-msgstr ""
-
-#: generated
-msgid "Form from PDF"
-msgstr ""
-
-#: generated
-msgid "Fillable PDF Forms"
-msgstr ""
-
-#: generated
-msgid "Download PDF"
-msgstr ""
-
-msgid "Choose a PDF that already contains fillable fields"
-msgstr ""
-
-
-msgid "Extraction mode"
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:102
+msgid "pdfcpu (structured fields)"
 msgstr ""
 
 msgid "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields."
 msgstr ""
 
-msgid "Analyze PDF"
+#: generated
+msgid "version ${current} of ${total}"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:125
+msgid "“To” date must be after “From” date."
 msgstr ""

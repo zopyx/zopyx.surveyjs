@@ -76,7 +76,7 @@
                 aria-disabled="true">
             <span i18n:translate="">Fillable PDF Forms</span>
             <span class="beta-badge" i18n:translate="">Beta</span>
-            <span class="manager-badge" aria-label="Manager only" title="Manager only">&#128274;</span>
+            <span class="manager-badge" i18n:attributes="title aria-label" aria-label="Manager only" title="Manager only">&#128274;</span>
           </span>
         </tal:pdfformsetup>
       </tal:notmanager>
