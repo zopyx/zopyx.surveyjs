@@ -10,7 +10,7 @@ from zope.annotation.interfaces import IAnnotations
 
 from .. import _
 from ..storage import _get_storage_location, get_result_storage
-from ..utils import ensure_timezone_aware
+from ..utils import ensure_timezone_aware, resolve_mail_settings
 from .services import results as results_service
 from .services.http import json_error, json_response, parse_json_body
 from .views import Views
@@ -192,12 +192,23 @@ class SurveyResults(Views):
                 self.context.absolute_url() + "/results"
             )
 
-        email_to = getattr(self.context, "email_to", None)
-        email_subject = getattr(self.context, "email_subject", None)
-        email_body = getattr(self.context, "email_body", "") or ""
-        email_sender = getattr(self.context, "email_sender", None)
-        email_cc = getattr(self.context, "email_cc", None) or []
-        email_bcc = getattr(self.context, "email_bcc", None) or []
+        mail_settings = resolve_mail_settings(
+            self.context,
+            [
+                "email_to",
+                "email_subject",
+                "email_body",
+                "email_sender",
+                "email_cc",
+                "email_bcc",
+            ],
+        )
+        email_to = mail_settings.get("email_to")
+        email_subject = mail_settings.get("email_subject")
+        email_body = mail_settings.get("email_body", "") or ""
+        email_sender = mail_settings.get("email_sender")
+        email_cc = mail_settings.get("email_cc") or []
+        email_bcc = mail_settings.get("email_bcc") or []
 
         if not email_to or not email_subject:
             plone.api.portal.show_message(

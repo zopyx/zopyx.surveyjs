@@ -7,7 +7,9 @@ from zope.interface import Interface
 from plone.autoform import directives as form
 from plone.supermodel.directives import fieldset
 from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from z3c.form.browser.textarea import TextAreaFieldWidget
 
 
 class IZopyxSurveyjsLayer(IDefaultBrowserLayer):
@@ -30,6 +32,21 @@ class IPloneLoggingSettings(Interface):
         required=False,
         default=False,
     )
+
+
+survey_mail_formats_vocabulary = SimpleVocabulary(
+    [
+        SimpleTerm(value="text", title="Text (.txt)"),
+        SimpleTerm(value="md", title="Markdown (.md)"),
+        SimpleTerm(value="html", title="HTML (.html)"),
+        SimpleTerm(value="pdf", title="PDF (.pdf)"),
+        SimpleTerm(value="csv", title="CSV (.csv)"),
+        SimpleTerm(value="xlsx", title="Excel (.xlsx)"),
+        SimpleTerm(value="xml", title="XML (.xml)"),
+        SimpleTerm(value="docx", title="Word (.docx)"),
+        SimpleTerm(value="json", title="JSON (.json)"),
+    ]
+)
 
 
 class IFormsSettings(IPloneLoggingSettings):
@@ -63,6 +80,20 @@ class IFormsSettings(IPloneLoggingSettings):
         fields=(
             "log_ip_addresses",
             "log_user_agent",
+        ),
+    )
+
+    fieldset(
+        "mail",
+        label="Mail",
+        fields=(
+            "email_sender",
+            "email_subject",
+            "email_to",
+            "email_cc",
+            "email_bcc",
+            "email_formats",
+            "email_body",
         ),
     )
 
@@ -156,6 +187,68 @@ class IFormsSettings(IPloneLoggingSettings):
     ai_prompt_after = schema.Text(
         title="Prompt after",
         description="Text/Instructions to be used after the user's form prompt",
+        required=False,
+        default="",
+    )
+
+    email_sender = schema.TextLine(
+        title="E-Mail sender",
+        description="Default sender address for outgoing mail.",
+        required=False,
+        default="",
+    )
+
+    email_to = schema.TextLine(
+        title="E-Mail recipient",
+        description="Default primary recipient for notifications and result exports.",
+        required=False,
+        default="",
+    )
+
+    email_subject = schema.TextLine(
+        title="Subject",
+        description="Default subject for result export emails. Supports {poll_id}.",
+        required=False,
+        default="",
+    )
+
+    email_cc = schema.List(
+        title="E-Mail CC",
+        description="Default CC recipients for result exports (one address per line).",
+        value_type=schema.TextLine(
+            title="CC recipient",
+            description="Email address to receive a copy",
+            required=False,
+        ),
+        required=False,
+        defaultFactory=list,
+    )
+
+    email_bcc = schema.List(
+        title="E-Mail BCC",
+        description="Default BCC recipients for result exports (one address per line).",
+        value_type=schema.TextLine(
+            title="BCC recipient",
+            description="Email address to receive a blind copy",
+            required=False,
+        ),
+        required=False,
+        defaultFactory=list,
+    )
+
+    form.widget("email_formats", CheckBoxFieldWidget)
+    email_formats = schema.Set(
+        title="Formats",
+        description="Default export formats to attach when Mail sends results.",
+        value_type=schema.Choice(vocabulary=survey_mail_formats_vocabulary),
+        required=False,
+        default=set(),
+    )
+
+    form.widget("email_body", TextAreaFieldWidget, rows=10, cols=80)
+    email_body = schema.Text(
+        title="Body",
+        description="Default body text for result export emails. Supports {created}, {creator}, {formats}.",
         required=False,
         default="",
     )

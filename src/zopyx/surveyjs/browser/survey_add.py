@@ -31,6 +31,7 @@ SURVEY_ADD_DEFAULTS: dict[str, Any] = {
     "expires": "",
     "actions": ["store"],
     "post_endpoint_url": "",
+    "use_global_mail_settings": True,
     "email_sender": "",
     "email_subject": "",
     "email_to": "",
@@ -90,6 +91,10 @@ class SurveyAddView(BrowserView):
         data, extraction_errors = self._extract_form_data()
         self._form_values = data
         self._errors = list(extraction_errors)
+        logger.info(
+            "Survey add save: use_global_mail_settings=%r",
+            data.get("use_global_mail_settings"),
+        )
 
         title = (data.get("title") or "").strip()
         if not title:
@@ -161,6 +166,9 @@ class SurveyAddView(BrowserView):
             "description": data.get("description", ""),
             "actions": set(actions),
             "post_endpoint_url": data.get("post_endpoint_url") or None,
+            "use_global_mail_settings": bool(
+                data.get("use_global_mail_settings", True)
+            ),
             "email_sender": data.get("email_sender") or None,
             "email_subject": data.get("email_subject") or None,
             "email_to": data.get("email_to") or None,

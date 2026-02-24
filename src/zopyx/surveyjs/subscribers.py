@@ -48,7 +48,7 @@ from plone.dexterity.interfaces import IDexterityFTI, IDexterityContent
 
 from .constants import FORM_VERSIONS_KEY
 from .storage import _get_storage_location, get_result_storage
-from .utils import ensure_timezone_aware
+from .utils import ensure_timezone_aware, resolve_mail_settings
 from .audit import audit_metadata_update, audit_controlpanel_change
 from .content.survey import Counter
 from .converters.cli import SurveyConverter
@@ -289,13 +289,25 @@ def send_submission_email(context, event):
     if "mail" not in actions:
         return
 
-    email_to = getattr(context, "email_to", None)
-    email_subject = getattr(context, "email_subject", None)
-    email_body = getattr(context, "email_body", "") or ""
-    email_sender = getattr(context, "email_sender", None)
-    email_cc = getattr(context, "email_cc", None) or []
-    email_bcc = getattr(context, "email_bcc", None) or []
-    email_formats = getattr(context, "email_formats", None) or set()
+    mail_settings = resolve_mail_settings(
+        context,
+        [
+            "email_to",
+            "email_subject",
+            "email_body",
+            "email_sender",
+            "email_cc",
+            "email_bcc",
+            "email_formats",
+        ],
+    )
+    email_to = mail_settings.get("email_to")
+    email_subject = mail_settings.get("email_subject")
+    email_body = mail_settings.get("email_body", "") or ""
+    email_sender = mail_settings.get("email_sender")
+    email_cc = mail_settings.get("email_cc") or []
+    email_bcc = mail_settings.get("email_bcc") or []
+    email_formats = mail_settings.get("email_formats") or set()
     if not email_formats:
         email_formats = {"pdf"}
     if "md" in email_formats:
@@ -418,7 +430,18 @@ def send_submission_notification(context, event):
     if "mail-notification" not in actions:
         return
 
-    email_to = getattr(context, "email_to", None)
+    mail_settings = resolve_mail_settings(
+        context,
+        [
+            "email_to",
+            "email_sender",
+            "email_cc",
+            "email_bcc",
+            "email_notification_subject",
+            "email_notification_body",
+        ],
+    )
+    email_to = mail_settings.get("email_to")
     if not email_to:
         logger.info(
             "Mail notification enabled but no recipient configured for %s",
@@ -434,10 +457,10 @@ def send_submission_notification(context, event):
         f"/@@result-detail?poll_id={poll_id}"
     )
 
-    subject_template = getattr(context, "email_notification_subject", None) or (
+    subject_template = mail_settings.get("email_notification_subject") or (
         "Form submitted ({title})"
     )
-    body_template = getattr(context, "email_notification_body", None) or (
+    body_template = mail_settings.get("email_notification_body") or (
         "Hello,\n\n"
         'A new form submission was received for "{title}".\n'
         "You can review the submitted data here:\n"
@@ -453,14 +476,21 @@ def send_submission_notification(context, event):
         from plone import api as plone_api
 
         portal = plone_api.portal.get()
-        email_sender = getattr(context, "email_sender", None)
+        email_sender = mail_settings.get("email_sender")
         sender = (
             email_sender
             or portal.getProperty("email_from_address", None)
             or f"surveyjs@{os.uname().nodename}"
         )
         recipients = SurveyConverter._normalize_recipients(email_to)
-        if not recipients:
+        cc_recipients = SurveyConverter._normalize_recipients(
+            mail_settings.get("email_cc") or []
+        )
+        bcc_recipients = SurveyConverter._normalize_recipients(
+            mail_settings.get("email_bcc") or []
+        )
+        all_recipients = recipients + cc_recipients + bcc_recipients
+        if not all_recipients:
             logger.info(
                 "Mail notification enabled but no valid recipients for %s",
                 getattr(context, "absolute_url", lambda: repr(context))(),
@@ -470,18 +500,22 @@ def send_submission_notification(context, event):
         message = EmailMessage()
         message["From"] = sender
         message["To"] = ", ".join(recipients)
+        if cc_recipients:
+            message["Cc"] = ", ".join(cc_recipients)
         message["Subject"] = subject
         message.set_content(body)
 
         mailhost = plone_api.portal.get_tool("MailHost")
         mailhost.send(
             message.as_string(),
-            mto=recipients,
+            mto=all_recipients,
             mfrom=sender,
             subject=subject,
             charset="utf-8",
         )
-        logger.info("Notification mail sent for poll %s to %s", poll_id, recipients)
+        logger.info(
+            "Notification mail sent for poll %s to %s", poll_id, all_recipients
+        )
     except Exception:
         logger.exception("Failed to send notification mail for poll %s", poll_id)
 

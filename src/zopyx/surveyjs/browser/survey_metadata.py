@@ -54,6 +54,9 @@ class SurveyMetadata(SurveyAddView):
             "expires": self._format_datetime_value(self._get_expires_value(survey)),
             "actions": list(getattr(survey, "actions", []) or []),
             "post_endpoint_url": getattr(survey, "post_endpoint_url", None) or "",
+            "use_global_mail_settings": bool(
+                getattr(survey, "use_global_mail_settings", True)
+            ),
             "email_sender": getattr(survey, "email_sender", None) or "",
             "email_subject": getattr(survey, "email_subject", None) or "",
             "email_to": getattr(survey, "email_to", None) or "",
@@ -105,6 +108,10 @@ class SurveyMetadata(SurveyAddView):
         data, extraction_errors = self._extract_form_data()
         self._form_values = data
         self._errors = list(extraction_errors)
+        logger.info(
+            "Survey metadata save: use_global_mail_settings=%r",
+            data.get("use_global_mail_settings"),
+        )
 
         title = (data.get("title") or "").strip()
         if not title:

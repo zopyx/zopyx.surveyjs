@@ -391,6 +391,16 @@
       },
       "elements": [
         {
+          "type": "boolean",
+          "name": "use_global_mail_settings",
+          "title": "Use global mail settings",
+          "description": "If enabled, mail settings from the global control panel are used and local mail fields are disabled.",
+          "labelTrue": "Global settings",
+          "labelFalse": "Local settings",
+          "defaultValue": true,
+          "minWidth": "100%"
+        },
+        {
           "type": "text",
           "name": "email_sender",
           "title": {
@@ -421,6 +431,7 @@
             "ar": "مطلوب عند إرسال رسائل نتائج البريد الإلكتروني.",
             "ja": "結果メール送信時に必須。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "width": "50%"
         },
         {
@@ -454,6 +465,7 @@
             "ar": "المستلم الأساسي. مطلوب مع إجراء البريد.",
             "ja": "主要受信者。メールアクションで必須。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "width": "50%",
           "startWithNewLine": false
         },
@@ -500,6 +512,7 @@
             "ar": "قائمة اختيارية بمستلمي CC.",
             "ja": "CC 受信者の任意リスト。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "width": "50%"
         },
         {
@@ -545,6 +558,7 @@
             "ar": "قائمة اختيارية بمستلمي BCC.",
             "ja": "BCC 受信者の任意リスト。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "width": "50%",
           "startWithNewLine": false
         },
@@ -590,6 +604,7 @@
             "ar": "موضوع لعمليات تصدير النتائج.",
             "ja": "結果エクスポート用の件名。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "minWidth": "100%"
         },
         {
@@ -635,6 +650,7 @@
             "ar": "نص اختياري لتصدير النتائج.",
             "ja": "結果エクスポート用の任意の本文。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "minWidth": "100%"
         },
         {
@@ -666,6 +682,7 @@
             "ar": "اختر تنسيقات التصدير لبيانات النموذج التي يجب إرفاقها بالبريد.",
             "ja": "収集したフォームデータのどのエクスポート形式をメールに添付するか選択してください。"
           },
+          "visibleIf": "{use_global_mail_settings} = false",
           "colCount": 3,
           "choices": [
             {

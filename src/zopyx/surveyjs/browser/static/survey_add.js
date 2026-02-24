@@ -18,6 +18,8 @@
   const submitButton = document.getElementById("survey-add-submit");
   let currentSurvey = null;
   let heightResetTimer = null;
+  let pendingHeightSyncFrame = null;
+  let pendingHeightSyncTimer = null;
   let isSubmitting = false;
   const datasetLocale = container.dataset.surveyLanguage;
 
@@ -110,6 +112,31 @@
       container.style.transition = "";
       heightResetTimer = null;
     }, 220);
+  }
+
+/**
+ * @function
+ */
+  function scheduleContainerHeightSync(animate) {
+    if (pendingHeightSyncFrame) {
+      window.cancelAnimationFrame(pendingHeightSyncFrame);
+      pendingHeightSyncFrame = null;
+    }
+    if (pendingHeightSyncTimer) {
+      window.clearTimeout(pendingHeightSyncTimer);
+      pendingHeightSyncTimer = null;
+    }
+    pendingHeightSyncFrame = window.requestAnimationFrame(function () {
+      pendingHeightSyncFrame = null;
+      window.requestAnimationFrame(function () {
+        syncContainerHeight(animate);
+      });
+    });
+    // SurveyJS may apply visibility/layout changes asynchronously; re-measure once more.
+    pendingHeightSyncTimer = window.setTimeout(function () {
+      pendingHeightSyncTimer = null;
+      syncContainerHeight(animate);
+    }, 260);
   }
 
   let initialData = {};
@@ -247,6 +274,7 @@
  */
       survey.onValueChanged.add(function () {
         updateSubmitState(false);
+        scheduleContainerHeightSync(true);
       });
     }
 /**
@@ -295,29 +323,14 @@
  * @function
  */
     survey.onAfterRenderPage.add(function () {
-/**
- * @function
- */
-      window.requestAnimationFrame(function () {
-        syncContainerHeight(true);
-      });
+      scheduleContainerHeightSync(true);
     });
 /**
  * @function
  */
     survey.onCurrentPageChanged.add(function () {
       updateSubmitState(false);
-/**
- * @function
- */
-      window.requestAnimationFrame(function () {
-/**
- * @function
- */
-        window.requestAnimationFrame(function () {
-          syncContainerHeight(true);
-        });
-      });
+      scheduleContainerHeightSync(true);
     });
     survey.render(container);
   }
