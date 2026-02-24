@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-01-29 08:04+0100\n"
+"PO-Revision-Date: 2026-02-24 07:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -1616,3 +1616,323 @@ msgstr ""
 
 msgid "Analyze PDF"
 msgstr "Analyze PDF"
+
+#: zopyx/surveyjs/browser/psf.py:109
+msgid "Administration"
+msgstr "Verwaltung"
+
+#: zopyx/surveyjs/browser/psf.py:98
+msgid "Browse saved templates and reuse them for new forms or surveys."
+msgstr ""
+"Gespeicherte Vorlagen durchsuchen und sie für neue Formulare oder Umfragen "
+"wiederverwenden"
+
+#: zopyx/surveyjs/browser/psf.py:75
+msgid "Create form"
+msgstr "Formular erstellen"
+
+#: zopyx/surveyjs/browser/pfs.pt:59
+msgid "Create from template"
+msgstr "Aus Vorlage erstellen"
+
+#: zopyx/surveyjs/browser/survey_add.pt:61
+msgid "Create survey"
+msgstr "Umfrage erstellen"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:287
+msgid "Create template"
+msgstr "Vorlage erstellen"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
+msgid "Detected fields"
+msgstr "Erkannte Felder"
+
+#: zopyx/surveyjs/browser/survey_results.pt:116
+msgid "Export range"
+msgstr "Exportbereich"
+
+#: zopyx/surveyjs/browser/psf.py:228
+msgid "Failed to create survey: ${error}"
+msgstr "Umfrage konnte nicht erstellt werden: ${error}"
+
+#: zopyx/surveyjs/browser/survey_versions.py:322
+msgid "Failed to create template: ${error}"
+msgstr "Erstellen der Vorlage fehlgeschlagen: ${error}"
+
+#: zopyx/surveyjs/browser/survey_results.pt:118
+msgid "From"
+msgstr "Von"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:290
+msgid ""
+"Generate a new SurveyTemplate from the selected version. You can adjust the "
+"name before creation."
+msgstr ""
+"Neue SurveyTemplate aus der ausgewählten Version erzeugen Du kannst den "
+"Namen vor der Erstellung anpassen"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
+msgid "LLM (visual conversion)"
+msgstr "LLM (visuelle Konvertierung)"
+
+#: zopyx/surveyjs/browser/psf.py:72
+msgid "Launch a brand-new form or survey and start collecting answers."
+msgstr ""
+"Starten Sie ein brandneues Formular oder eine neue Umfrage und beginnen Sie "
+"mit dem Sammeln von Antworten"
+
+#: zopyx/surveyjs/browser/survey_add.pt:46
+#: zopyx/surveyjs/browser/survey_metadata.pt:46
+msgid "Let's fix a few things:"
+msgstr "Lassen wir ein paar Dinge beheben"
+
+#: zopyx/surveyjs/browser/survey_add.pt:57
+#: zopyx/surveyjs/browser/survey_metadata.pt:57
+msgid "Loading form..."
+msgstr "Formular wird geladen"
+
+#: zopyx/surveyjs/browser/survey_actions.pt:18
+msgid "Metadata"
+msgstr "Metadaten"
+
+#: zopyx/surveyjs/browser/psf.py:195
+msgid "New Survey"
+msgstr "Neue Umfrage"
+
+#: zopyx/surveyjs/browser/psf.py:71
+msgid "New form/survey"
+msgstr "Neues Formular/Umfrage"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
+msgid "No fields detected yet."
+msgstr "Noch keine Felder erkannt"
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
+msgid "No survey templates found below this location."
+msgstr "Keine Umfragevorlagen unterhalb dieses Ortes gefunden"
+
+#: zopyx/surveyjs/browser/survey_template_views.py:22
+msgid "No template JSON configured."
+msgstr "Keine Vorlagen JSON konfiguriert"
+
+#: zopyx/surveyjs/browser/configure.zcml:29
+msgid "Open Forms overview"
+msgstr "Übersicht Formulare öffnen"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:120
+msgid "Open PDF Form"
+msgstr "PDF Formular öffnen"
+
+#: zopyx/surveyjs/browser/psf.py:113
+msgid "Open control panel"
+msgstr "Systemsteuerung öffnen"
+
+#: zopyx/surveyjs/browser/psf.py:88
+msgid "Open overview"
+msgstr "Übersicht öffnen"
+
+#: zopyx/surveyjs/browser/psf.py:101
+msgid "Open templates"
+msgstr "Vorlagen öffnen"
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:39
+msgid "Overview of survey templates available in this section."
+msgstr "Überblick über die in diesem Abschnitt verfügbaren Umfragevorlagen"
+
+#: zopyx/surveyjs/browser/survey_add.py:96
+#: zopyx/surveyjs/browser/survey_metadata.py:111
+msgid "Please provide a title for your survey."
+msgstr "Bitte geben Sie einen Titel für Ihre Umfrage an"
+
+#: zopyx/surveyjs/browser/psf.py:162
+msgid "Please select a template."
+msgstr "Bitte wählen Sie eine Vorlage aus"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:48
+msgid "Preview the form/surveey template."
+msgstr "Vorschau der Formular/Umfragevorlage"
+
+#: zopyx/surveyjs/browser/survey_metadata.pt:61
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: zopyx/surveyjs/browser/psf.py:85
+msgid ""
+"See every form or survey at a glance, surface trends, and jump right in."
+msgstr ""
+"Sieh jedes Formular oder jede Umfrage auf einen Blick, erkenne Trends und "
+"lege direkt los"
+
+#: zopyx/surveyjs/browser/survey_add.py:100
+#: zopyx/surveyjs/browser/survey_metadata.py:115
+msgid "Select at least one submission handling option."
+msgstr "Wählen Sie mindestens eine Option zur Einreichungsbearbeitung"
+
+#: zopyx/surveyjs/browser/pfs.pt:61
+msgid "Start a new form or survey using one of your curate presets."
+msgstr ""
+"Erstelle ein neues Formular oder eine neue Umfrage mit einer deiner "
+"kuratierten Voreinstellungen"
+
+#: zopyx/surveyjs/browser/pfs.pt:19
+msgid ""
+"Start with a guided action that matches your role. These shortcuts keep "
+"every team member productive, confident, and in control of their form/survey "
+"data."
+msgstr ""
+"Beginnen Sie mit einer geführten Aktion, die zu Ihrer Rolle passt Diese "
+"Shortcuts halten jedes Teammitglied produktiv, selbstbewusst und in "
+"Kontrolle über seine Formular- und Umfragedaten"
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:38
+msgid "Survey Templates Overview"
+msgstr "Übersicht der Umfragevorlagen"
+
+#: zopyx/surveyjs/browser/psf.py:235
+msgid "Survey created from template."
+msgstr "Umfrage aus Vorlage erstellt"
+
+#: zopyx/surveyjs/browser/survey_add.py:118
+msgid "Survey created. Let's build it!"
+msgstr "Umfrage erstellt Lass sie uns erstellen"
+
+#: zopyx/surveyjs/browser/survey_metadata.py:136
+msgid "Survey updated."
+msgstr "Umfrage aktualisiert"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:165
+msgid "Template"
+msgstr "Vorlage"
+
+#: zopyx/surveyjs/browser/psf.py:185
+msgid "Template JSON is invalid: ${error}"
+msgstr "Vorlagen JSON ist ungültig: ${error}"
+
+#: zopyx/surveyjs/browser/psf.py:176
+msgid "Template JSON is missing."
+msgstr "Template JSON fehlt"
+
+#: zopyx/surveyjs/browser/survey_template_views.py:40
+msgid "Template JSON must be a JSON object."
+msgstr "Template JSON muss ein JSON Objekt sein"
+
+#: zopyx/surveyjs/browser/survey_versions.py:328
+msgid "Template created successfully."
+msgstr "Vorlage erfolgreich erstellt"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:296
+msgid "Template name"
+msgstr "Vorlagenname"
+
+#: zopyx/surveyjs/browser/survey_versions.py:272
+msgid "Template name and version are required."
+msgstr "Vorlagenname und Version sind erforderlich"
+
+#: zopyx/surveyjs/browser/psf.py:169
+msgid "Template not found."
+msgstr "Vorlage nicht gefunden"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:72
+msgid "Template unavailable"
+msgstr "Vorlage nicht verfügbar"
+
+#: zopyx/surveyjs/browser/psf.py:97
+msgid "Templates overview"
+msgstr "Vorlagenübersicht"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:73
+msgid "The template JSON could not be loaded."
+msgstr "Die Vorlagen JSON konnte nicht geladen werden"
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:120
+#: zopyx/surveyjs/browser/viewer_embed.pt:58
+msgid ""
+"This form requires a trusted access link. Please use the link provided by "
+"the form owner."
+msgstr ""
+"Dieses Formular erfordert einen vertrauenswürdigen Zugriffslink Bitte "
+"verwenden Sie den vom Formularbesitzer bereitgestellten Link"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:303
+msgid "This template will be created next to the current survey."
+msgstr "Diese Vorlage wird neben der aktuellen Umfrage erstellt"
+
+#: zopyx/surveyjs/browser/survey_results.pt:122
+msgid "To"
+msgstr "Zu"
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:94
+msgid "Token"
+msgstr "Token"
+
+#: zopyx/surveyjs/browser/survey_viewer.pt:79
+msgid "URL"
+msgstr "URL"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:294
+msgid "Version:"
+msgstr "Version:"
+
+#: zopyx/surveyjs/browser/survey_template_viewer.pt:47
+msgid "View form/survey template"
+msgstr "Formular/Umfragevorlage anzeigen"
+
+#: zopyx/surveyjs/browser/psf.py:110
+msgid "Visit the control panel to adjust site-wide settings and integrations."
+msgstr ""
+"Besuche das Kontrollzentrum um globale Seiteneinstellungen und Integrationen "
+"anzupassen"
+
+#: zopyx/surveyjs/browser/survey_add.py:112
+msgid "We could not create the survey at the moment. Please try again."
+msgstr ""
+"Wir konnten die Umfrage im Moment nicht erstellen Bitte versuchen Sie es "
+"erneut"
+
+#: zopyx/surveyjs/browser/survey_add.py:134
+#: zopyx/surveyjs/browser/survey_metadata.py:88
+msgid "We could not read the submitted form data."
+msgstr "Wir konnten die übermittelten Formulardaten nicht lesen"
+
+#: zopyx/surveyjs/browser/survey_metadata.py:130
+msgid "We could not update the survey at the moment. Please try again."
+msgstr ""
+"Wir konnten die Umfrage im Moment nicht aktualisieren Bitte versuche es "
+"erneut"
+
+#: zopyx/surveyjs/browser/pfs.pt:18
+msgid "What would you like to do today?"
+msgstr "Was würdest du heute gerne machen?"
+
+#: zopyx/surveyjs/browser/psf.py:158
+#: zopyx/surveyjs/browser/survey_add.py:63
+msgid "You are not allowed to add surveys here."
+msgstr "Du darfst hier keine Umfragen hinzufügen"
+
+#: zopyx/surveyjs/browser/survey_metadata.py:23
+msgid "You are not allowed to edit this survey."
+msgstr "Sie dürfen diese Umfrage nicht bearbeiten"
+
+#: zopyx/surveyjs/browser/survey_versions.py:292
+msgid "You do not have permission to add templates here."
+msgstr "Sie haben keine Berechtigung, hier Vorlagen hinzuzufügen"
+
+#. Default: "Select a template"
+#: zopyx/surveyjs/browser/pfs.pt:66
+#: zopyx/surveyjs/browser/survey_actions.pt:79
+#: zopyx/surveyjs/browser/survey_versions.pt:116
+msgid "aria-label"
+msgstr "aria-label"
+
+#. Default: "Type 'clear' to confirm"
+#: zopyx/surveyjs/browser/survey_results.pt:186
+msgid "data-clear-keyword"
+msgstr "daten-clear-keyword"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:102
+msgid "pdfcpu (structured fields)"
+msgstr "pdfcpu (strukturierte Felder)"
+
+#: zopyx/surveyjs/browser/survey_results.pt:125
+msgid "“To” date must be after “From” date."
+msgstr "Bis Datum muss nach Von Datum sein"
