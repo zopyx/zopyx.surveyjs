@@ -34,7 +34,9 @@ def resolve_mail_settings(context, field_names: list[str]) -> dict[str, Any]:
             registry = getUtility(IRegistry)
             settings = registry.forInterface(IFormsSettings, check=False)
         except Exception:
-            logger.exception("Failed to load global mail settings; falling back to local")
+            logger.exception(
+                "Failed to load global mail settings; falling back to local"
+            )
             settings = None
             use_global = False
 

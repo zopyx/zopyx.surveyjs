@@ -513,9 +513,7 @@ def send_submission_notification(context, event):
             subject=subject,
             charset="utf-8",
         )
-        logger.info(
-            "Notification mail sent for poll %s to %s", poll_id, all_recipients
-        )
+        logger.info("Notification mail sent for poll %s to %s", poll_id, all_recipients)
     except Exception:
         logger.exception("Failed to send notification mail for poll %s", poll_id)
 
@@ -635,9 +633,6 @@ def store_submission_result(context, event):
 
 # Controlpanel audit logging
 
-from plone.registry.interfaces import IRecordModifiedEvent
-from plone.registry.interfaces import IRegistry
-from .interfaces import IFormsSettings
 
 # Prefix for our settings in the registry
 FORMS_SETTINGS_PREFIX = "zopyx.surveyjs.interfaces.IFormsSettings."
