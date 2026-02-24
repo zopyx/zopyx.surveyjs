@@ -1163,6 +1163,71 @@
       },
       "elements": [
         {
+          "type": "dropdown",
+          "name": "embedding_mode",
+          "title": {
+            "default": "Embedding mode",
+            "de": "Einbettungsmodus",
+            "en": "Embedding mode",
+            "es": "Modo de incrustación",
+            "fr": "Mode d’intégration",
+            "it": "Modalità di incorporamento",
+            "pt": "Modo de incorporação",
+            "fi": "Upotustila",
+            "hi": "एम्बेडिंग मोड",
+            "ar": "وضع التضمين",
+            "ja": "埋め込みモード"
+          },
+          "description": {
+            "default": "Controls whether this survey may be embedded. Use Iframe to allow embedding.",
+            "de": "Steuert, ob diese Umfrage eingebettet werden darf. Verwenden Sie Iframe, um das Einbetten zu erlauben.",
+            "en": "Controls whether this survey may be embedded. Use Iframe to allow embedding.",
+            "es": "Controla si esta encuesta puede incrustarse. Use Iframe para permitir la incrustación.",
+            "fr": "Détermine si ce sondage peut être intégré. Utilisez Iframe pour autoriser l’intégration.",
+            "it": "Controlla se questo sondaggio può essere incorporato. Usa Iframe per consentire l'incorporamento.",
+            "pt": "Controla se esta pesquisa pode ser incorporada. Use Iframe para permitir a incorporação.",
+            "fi": "Määrittää, voiko tämän kyselyn upottaa. Salli upotus valitsemalla Iframe.",
+            "hi": "यह नियंत्रित करता है कि इस सर्वे को एम्बेड किया जा सकता है या नहीं। एम्बेडिंग की अनुमति देने के लिए Iframe चुनें।",
+            "ar": "يتحكم فيما إذا كان يمكن تضمين هذا الاستبيان. استخدم Iframe للسماح بالتضمين.",
+            "ja": "このアンケートを埋め込み可能にするかどうかを制御します。埋め込みを許可するには Iframe を使用します。"
+          },
+          "choices": [
+            {
+              "value": "none",
+              "text": {
+                "default": "None",
+                "de": "Keine",
+                "en": "None",
+                "es": "Ninguno",
+                "fr": "Aucun",
+                "it": "Nessuno",
+                "pt": "Nenhum",
+                "fi": "Ei mitään",
+                "hi": "कोई नहीं",
+                "ar": "بدون",
+                "ja": "なし"
+              }
+            },
+            {
+              "value": "iframe",
+              "text": {
+                "default": "Iframe",
+                "de": "Iframe",
+                "en": "Iframe",
+                "es": "Iframe",
+                "fr": "Iframe",
+                "it": "Iframe",
+                "pt": "Iframe",
+                "fi": "Iframe",
+                "hi": "Iframe",
+                "ar": "Iframe",
+                "ja": "Iframe"
+              }
+            }
+          ],
+          "defaultValue": "none"
+        },
+        {
           "type": "boolean",
           "name": "force_server_side_validation",
           "title": {

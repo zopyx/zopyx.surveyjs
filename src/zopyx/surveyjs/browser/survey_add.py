@@ -45,6 +45,7 @@ SURVEY_ADD_DEFAULTS: dict[str, Any] = {
     "max_payload_size_mb": 1,
     "access_mode": "public",
     "trusted_access_ttl_hours": 168,
+    "embedding_mode": "none",
 }
 
 
@@ -182,6 +183,7 @@ class SurveyAddView(BrowserView):
             "max_payload_size_mb": max_payload,
             "access_mode": data.get("access_mode") or "public",
             "trusted_access_ttl_hours": ttl,
+            "embedding_mode": data.get("embedding_mode") or "none",
         }
 
     def _build_create_kwargs(self, data: dict[str, Any]) -> dict[str, Any]:

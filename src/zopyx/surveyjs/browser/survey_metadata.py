@@ -81,6 +81,7 @@ class SurveyMetadata(SurveyAddView):
         max_payload = getattr(survey, "max_payload_size_mb", 1)
         access_mode = getattr(survey, "access_mode", "public") or "public"
         ttl = getattr(survey, "trusted_access_ttl_hours", 168)
+        embedding_mode = getattr(survey, "embedding_mode", "none") or "none"
 
         return {
             "title": getattr(survey, "title", "") or "",
@@ -111,6 +112,7 @@ class SurveyMetadata(SurveyAddView):
             "max_payload_size_mb": max_payload or 1,
             "access_mode": access_mode,
             "trusted_access_ttl_hours": ttl or 168,
+            "embedding_mode": embedding_mode,
         }
 
     def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
@@ -143,10 +145,6 @@ class SurveyMetadata(SurveyAddView):
         data, extraction_errors = self._extract_form_data()
         self._form_values = data
         self._errors = list(extraction_errors)
-        logger.info(
-            "Survey metadata save: use_global_mail_settings=%r",
-            data.get("use_global_mail_settings"),
-        )
 
         title = (data.get("title") or "").strip()
         if not title:

@@ -1677,3 +1677,15 @@ class EmbedViewer(Views):
 
         # Render the template.
         return self.index()
+
+
+class EmbeddedDemoView(BrowserView):
+    """Manager-only demo page embedding a fixed survey via iframe."""
+
+
+    @property
+    def iframe_url(self):
+        portal = plone.api.portal.get()
+        return (
+            f"{portal.absolute_url()}/de/demos/mental-health-survey-de/@@viewer-embed"
+        )
