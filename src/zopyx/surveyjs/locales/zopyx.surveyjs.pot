@@ -1249,7 +1249,7 @@ msgid "Start Over"
 msgstr ""
 
 #: zopyx/surveyjs/browser/pfs.pt:61
-msgid "Start a new form or survey using one of your curate presets."
+msgid "Create a new form or survey using one of your curated presets."
 msgstr ""
 
 #: generated
@@ -1257,7 +1257,7 @@ msgid "Start over? This will clear your refinement history and return to the ini
 msgstr ""
 
 #: zopyx/surveyjs/browser/pfs.pt:19
-msgid "Start with a guided action that matches your role. These shortcuts keep every team member productive, confident, and in control of their form/survey data."
+msgid "Choose a guided action appropriate to your role. These shortcuts help team members manage form and survey data consistently and efficiently."
 msgstr ""
 
 #: generated
@@ -1688,7 +1688,7 @@ msgid "What would you like to change?"
 msgstr ""
 
 #: zopyx/surveyjs/browser/pfs.pt:18
-msgid "What would you like to do today?"
+msgid "Select an action"
 msgstr ""
 
 #: generated

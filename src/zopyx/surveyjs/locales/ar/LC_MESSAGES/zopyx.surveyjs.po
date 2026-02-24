@@ -1738,16 +1738,15 @@ msgid "Select at least one submission handling option."
 msgstr "حدد خيار معالجة إرسال واحد على الأقل"
 
 #: zopyx/surveyjs/browser/pfs.pt:61
-msgid "Start a new form or survey using one of your curate presets."
+msgid "Create a new form or survey using one of your curated presets."
 msgstr ""
 "ابدأ نموذجًا أو استبيانًا جديدًا باستخدام أحد الإعدادات المسبقة المنسقة "
 "الخاصة بك"
 
 #: zopyx/surveyjs/browser/pfs.pt:19
 msgid ""
-"Start with a guided action that matches your role. These shortcuts keep "
-"every team member productive, confident, and in control of their form/survey "
-"data."
+"Choose a guided action appropriate to your role. These shortcuts help team "
+"members manage form and survey data consistently and efficiently."
 msgstr ""
 "ابدأ بإجراء موجه يتوافق مع دورك هذه الاختصارات تحافظ على إنتاجية كل عضو في "
 "الفريق وتعزز ثقته وتمنحه التحكم في بيانات النماذج أو الاستبيانات الخاصة به"
@@ -1863,7 +1862,7 @@ msgid "We could not update the survey at the moment. Please try again."
 msgstr "لم نتمكن من تحديث الاستبيان في الوقت الحالي الرجاء المحاولة مرة أخرى"
 
 #: zopyx/surveyjs/browser/pfs.pt:18
-msgid "What would you like to do today?"
+msgid "Select an action"
 msgstr "ماذا تود أن تفعل اليوم"
 
 #: zopyx/surveyjs/browser/psf.py:158

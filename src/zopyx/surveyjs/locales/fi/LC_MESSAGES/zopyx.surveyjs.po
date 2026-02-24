@@ -1764,16 +1764,15 @@ msgid "Select at least one submission handling option."
 msgstr "Selecciona al menos una opción de manejo de envíos"
 
 #: zopyx/surveyjs/browser/pfs.pt:61
-msgid "Start a new form or survey using one of your curate presets."
+msgid "Create a new form or survey using one of your curated presets."
 msgstr ""
 "Inicia un nuevo formulario o encuesta utilizando uno de tus presets "
 "seleccionados"
 
 #: zopyx/surveyjs/browser/pfs.pt:19
 msgid ""
-"Start with a guided action that matches your role. These shortcuts keep "
-"every team member productive, confident, and in control of their form/survey "
-"data."
+"Choose a guided action appropriate to your role. These shortcuts help team "
+"members manage form and survey data consistently and efficiently."
 msgstr ""
 "Comienza con una acción guiada que se ajuste a tu función Estos atajos "
 "mantienen a cada miembro del equipo productivo seguro y en control de los "
@@ -1895,7 +1894,7 @@ msgstr ""
 "nuevo"
 
 #: zopyx/surveyjs/browser/pfs.pt:18
-msgid "What would you like to do today?"
+msgid "Select an action"
 msgstr "Que te gustaría hacer hoy"
 
 #: zopyx/surveyjs/browser/psf.py:158
