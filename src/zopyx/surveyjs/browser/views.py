@@ -360,15 +360,6 @@ class Views(BrowserView):
     def demo_content(self):
         alsoProvides(self.request, IDisableCSRFProtection)
         portal = plone.api.portal.get()
-        sample_forms_dir = _find_sample_forms_dir()
-        if not sample_forms_dir:
-            json_error(
-                self.request.response,
-                500,
-                "sample_forms_missing",
-                message="sample_forms directory not found on disk.",
-            )
-            return
 
         existing = portal.get("demos")
         if existing is not None:
@@ -397,59 +388,38 @@ class Views(BrowserView):
         current_user = plone.api.user.get_current()
         user_id = current_user.getId() if current_user else ""
 
-        for form_path in sorted(sample_forms_dir.rglob("*.json")):
-            relative_path = form_path.relative_to(sample_forms_dir)
+        # Generate multilingual demo survey
+        try:
+            form_json = self._generate_multilingual_demo_survey()
+            survey_id = "multilingual-demo-survey"
+
+            survey = plone.api.content.create(
+                type="Survey",
+                container=demos,
+                id=survey_id,
+                title="Multilingual Demo Survey",
+            )
             try:
-                form_json = orjson.loads(form_path.read_bytes())
-            except Exception as exc:
-                errors.append({"path": str(relative_path), "error": str(exc)})
-                continue
-
-            if not isinstance(form_json, dict):
-                errors.append(
-                    {"path": str(relative_path), "error": "Invalid JSON payload"}
-                )
-                continue
-
-            title = form_json.get("title") or form_json.get("name") or form_path.stem
-            if not isinstance(title, str):
-                title = str(title)
-
-            id_base = slugify(str(relative_path.with_suffix("")))
-            survey_id = id_base
-            suffix = 1
-            while survey_id in demos:
-                suffix += 1
-                survey_id = f"{id_base}-{suffix}"
-
+                survey.language = "en"
+                survey.reindexObject(idxs=["Language"])
+            except Exception:
+                pass
             try:
-                survey = plone.api.content.create(
-                    type="Survey",
-                    container=demos,
-                    id=survey_id,
-                    title=title,
-                )
-                try:
-                    survey.language = "de"
-                    survey.reindexObject(idxs=["Language"])
-                except Exception:
-                    pass
-                try:
-                    survey.exclude_from_nav = True
-                    survey.reindexObject(idxs=["exclude_from_nav"])
-                except Exception:
-                    pass
-                self._ensure_private(survey)
-                annos = IAnnotations(survey)
-                forms_service.save_form_version(
-                    annos,
-                    form_json,
-                    user_id,
-                    locked=False,
-                )
-                created.append({"id": survey_id, "title": title})
-            except Exception as exc:
-                errors.append({"path": str(relative_path), "error": str(exc)})
+                survey.exclude_from_nav = True
+                survey.reindexObject(idxs=["exclude_from_nav"])
+            except Exception:
+                pass
+            self._ensure_private(survey)
+            annos = IAnnotations(survey)
+            forms_service.save_form_version(
+                annos,
+                form_json,
+                user_id,
+                locked=False,
+            )
+            created.append({"id": survey_id, "title": "Multilingual Demo Survey"})
+        except Exception as exc:
+            errors.append({"path": "generated", "error": str(exc)})
 
         json_response(
             self.request.response,
@@ -460,6 +430,323 @@ class Views(BrowserView):
                 "count": len(created),
             },
         )
+
+    def _generate_multilingual_demo_survey(self):
+        """Generate a multilingual survey with 3 random questions and 3 answer choices.
+        
+        Supports: DE, IT, FR, PL (Polish), RU (Russian), SR (Serbian), TR (Turkish), VI (Vietnamese)
+        """
+        import random
+
+        # Translations dictionary
+        translations = {
+            "survey_title": {
+                "default": "Customer Satisfaction Survey",
+                "de": "Kundenzufriedenheitsumfrage",
+                "it": "Sondaggio sulla soddisfazione del cliente",
+                "fr": "Enquête de satisfaction client",
+                "pl": "Ankieta satysfakcji klienta",
+                "ru": "Опрос удовлетворенности клиентов",
+                "sr": "Anketa o zadovoljstvu kupaca",
+                "tr": "Müşteri Memnuniyeti Anketi",
+                "vi": "Khảo sát sự hài lòng của khách hàng",
+            },
+            "survey_description": {
+                "default": "Please share your feedback to help us improve our services.",
+                "de": "Bitte teilen Sie uns Ihr Feedback mit, um unsere Dienstleistungen zu verbessern.",
+                "it": "Condividi il tuo feedback per aiutarci a migliorare i nostri servizi.",
+                "fr": "Veuillez partager vos commentaires pour nous aider à améliorer nos services.",
+                "pl": "Prosimy o podzielenie się opinią, aby pomóc nam ulepszyć nasze usługi.",
+                "ru": "Пожалуйста, поделитесь своими отзывами, чтобы помочь нам улучшить наши услуги.",
+                "sr": "Molimo vas da podelite svoje mišljenje kako bismo unapredili naše usluge.",
+                "tr": "Hizmetlerimizi geliştirmemize yardımcı olmak için lütfen geri bildiriminizi paylaşın.",
+                "vi": "Vui lòng chia sẻ phản hồi của bạn để giúp chúng tôi cải thiện dịch vụ.",
+            },
+            "page_title": {
+                "default": "Survey Questions",
+                "de": "Umfragefragen",
+                "it": "Domande del sondaggio",
+                "fr": "Questions de l'enquête",
+                "pl": "Pytania ankiety",
+                "ru": "Вопросы опроса",
+                "sr": "Pitanja ankete",
+                "tr": "Anket Soruları",
+                "vi": "Câu hỏi khảo sát",
+            },
+            # Question 1: Service Quality
+            "question1_title": {
+                "default": "How would you rate the quality of our service?",
+                "de": "Wie würden Sie die Qualität unserer Dienstleistung bewerten?",
+                "it": "Come valuteresti la qualità del nostro servizio?",
+                "fr": "Comment évalueriez-vous la qualité de notre service ?",
+                "pl": "Jak oceniasz jakość naszych usług?",
+                "ru": "Как бы вы оценили качество нашего обслуживания?",
+                "sr": "Kako biste ocenili kvalitet naše usluge?",
+                "tr": "Hizmet kalitemizi nasıl değerlendirirsiniz?",
+                "vi": "Bạn đánh giá chất lượng dịch vụ của chúng tôi như thế nào?",
+            },
+            # Question 2: Product Satisfaction
+            "question2_title": {
+                "default": "How satisfied are you with our product?",
+                "de": "Wie zufrieden sind Sie mit unserem Produkt?",
+                "it": "Quanto sei soddisfatto del nostro prodotto?",
+                "fr": "Êtes-vous satisfait de notre produit ?",
+                "pl": "Jak bardzo jesteś zadowolony z naszego produktu?",
+                "ru": "Насколько вы довольны нашим продуктом?",
+                "sr": "Koliko ste zadovoljni našim proizvodom?",
+                "tr": "Ürünümüzden ne kadar memnunsunuz?",
+                "vi": "Bạn hài lòng với sản phẩm của chúng tôi đến mức nào?",
+            },
+            # Question 3: Recommendation
+            "question3_title": {
+                "default": "Would you recommend us to others?",
+                "de": "Würden Sie uns anderen weiterempfehlen?",
+                "it": "Ci consiglieresti ad altri?",
+                "fr": "Nous recommanderiez-vous à d'autres ?",
+                "pl": "Czy poleciłbyś nas innym?",
+                "ru": "Порекомендуете ли вы нас другим?",
+                "sr": "Da li biste nas preporučili drugima?",
+                "tr": "Bizi başkalarına tavsiye eder misiniz?",
+                "vi": "Bạn có giới thiệu chúng tôi với người khác không?",
+            },
+            # Answer choices
+            "excellent": {
+                "default": "Excellent",
+                "de": "Ausgezeichnet",
+                "it": "Eccellente",
+                "fr": "Excellent",
+                "pl": "Doskonałe",
+                "ru": "Отлично",
+                "sr": "Odlično",
+                "tr": "Mükemmel",
+                "vi": "Xuất sắc",
+            },
+            "good": {
+                "default": "Good",
+                "de": "Gut",
+                "it": "Buono",
+                "fr": "Bon",
+                "pl": "Dobre",
+                "ru": "Хорошо",
+                "sr": "Dobro",
+                "tr": "İyi",
+                "vi": "Tốt",
+            },
+            "average": {
+                "default": "Average",
+                "de": "Durchschnittlich",
+                "it": "Medio",
+                "fr": "Moyen",
+                "pl": "Przeciętne",
+                "ru": "Средне",
+                "sr": "Prosečno",
+                "tr": "Ortalama",
+                "vi": "Trung bình",
+            },
+            "poor": {
+                "default": "Poor",
+                "de": "Schlecht",
+                "it": "Scarso",
+                "fr": "Faible",
+                "pl": "Słabe",
+                "ru": "Плохо",
+                "sr": "Loše",
+                "tr": "Zayıf",
+                "vi": "Kém",
+            },
+            "very_satisfied": {
+                "default": "Very Satisfied",
+                "de": "Sehr zufrieden",
+                "it": "Molto soddisfatto",
+                "fr": "Très satisfait",
+                "pl": "Bardzo zadowolony",
+                "ru": "Очень доволен",
+                "sr": "Veoma zadovoljan",
+                "tr": "Çok Memnun",
+                "vi": "Rất hài lòng",
+            },
+            "satisfied": {
+                "default": "Satisfied",
+                "de": "Zufrieden",
+                "it": "Soddisfatto",
+                "fr": "Satisfait",
+                "pl": "Zadowolony",
+                "ru": "Доволен",
+                "sr": "Zadovoljan",
+                "tr": "Memnun",
+                "vi": "Hài lòng",
+            },
+            "dissatisfied": {
+                "default": "Dissatisfied",
+                "de": "Unzufrieden",
+                "it": "Insoddisfatto",
+                "fr": "Insatisfait",
+                "pl": "Niezadowolony",
+                "ru": "Недоволен",
+                "sr": "Nezadovoljan",
+                "tr": "Memnun değil",
+                "vi": "Không hài lòng",
+            },
+            "definitely_yes": {
+                "default": "Definitely Yes",
+                "de": "Definitiv ja",
+                "it": "Decisamente sì",
+                "fr": "Définitivement oui",
+                "pl": "Zdecydowanie tak",
+                "ru": "Определенно да",
+                "sr": "Definitivno da",
+                "tr": "Kesinlikle Evet",
+                "vi": "Chắc chắn có",
+            },
+            "probably_yes": {
+                "default": "Probably Yes",
+                "de": "Wahrscheinlich ja",
+                "it": "Probabilmente sì",
+                "fr": "Probablement oui",
+                "pl": "Prawdopodobnie tak",
+                "ru": "Вероятно да",
+                "sr": "Verovatno da",
+                "tr": "Muhtemelen Evet",
+                "vi": "Có lẽ có",
+            },
+            "not_sure": {
+                "default": "Not Sure",
+                "de": "Nicht sicher",
+                "it": "Non sono sicuro",
+                "fr": "Pas sûr",
+                "pl": "Nie jestem pewien",
+                "ru": "Не уверен",
+                "sr": "Nisam siguran",
+                "tr": "Emin Değilim",
+                "vi": "Không chắc",
+            },
+            "probably_not": {
+                "default": "Probably Not",
+                "de": "Wahrscheinlich nicht",
+                "it": "Probabilmente no",
+                "fr": "Probablement pas",
+                "pl": "Prawdopodobnie nie",
+                "ru": "Вероятно нет",
+                "sr": "Verovatno ne",
+                "tr": "Muhtemelen Hayır",
+                "vi": "Có lẽ không",
+            },
+            "definitely_not": {
+                "default": "Definitely Not",
+                "de": "Definitiv nicht",
+                "it": "Decisamente no",
+                "fr": "Définitivement pas",
+                "pl": "Zdecydowanie nie",
+                "ru": "Определенно нет",
+                "sr": "Definitivno ne",
+                "tr": "Kesinlikle Hayır",
+                "vi": "Chắc chắn không",
+            },
+            "complete": {
+                "default": "Complete",
+                "de": "Abschließen",
+                "it": "Completa",
+                "fr": "Terminer",
+                "pl": "Zakończ",
+                "ru": "Завершить",
+                "sr": "Završi",
+                "tr": "Tamamla",
+                "vi": "Hoàn thành",
+            },
+            "page_next": {
+                "default": "Next",
+                "de": "Weiter",
+                "it": "Avanti",
+                "fr": "Suivant",
+                "pl": "Dalej",
+                "ru": "Далее",
+                "sr": "Dalje",
+                "tr": "İleri",
+                "vi": "Tiếp theo",
+            },
+            "page_prev": {
+                "default": "Previous",
+                "de": "Zurück",
+                "it": "Indietro",
+                "fr": "Précédent",
+                "pl": "Wstecz",
+                "ru": "Назад",
+                "sr": "Nazad",
+                "tr": "Geri",
+                "vi": "Quay lại",
+            },
+        }
+
+        # Question pool with translations
+        question_pool = [
+            {
+                "name": "service_quality",
+                "title": translations["question1_title"],
+                "choices": [
+                    {"value": "excellent", "text": translations["excellent"]},
+                    {"value": "good", "text": translations["good"]},
+                    {"value": "average", "text": translations["average"]},
+                    {"value": "poor", "text": translations["poor"]},
+                ],
+            },
+            {
+                "name": "product_satisfaction",
+                "title": translations["question2_title"],
+                "choices": [
+                    {"value": "very_satisfied", "text": translations["very_satisfied"]},
+                    {"value": "satisfied", "text": translations["satisfied"]},
+                    {"value": "average", "text": translations["average"]},
+                    {"value": "dissatisfied", "text": translations["dissatisfied"]},
+                ],
+            },
+            {
+                "name": "recommendation",
+                "title": translations["question3_title"],
+                "choices": [
+                    {"value": "definitely_yes", "text": translations["definitely_yes"]},
+                    {"value": "probably_yes", "text": translations["probably_yes"]},
+                    {"value": "not_sure", "text": translations["not_sure"]},
+                    {"value": "probably_not", "text": translations["probably_not"]},
+                    {"value": "definitely_not", "text": translations["definitely_not"]},
+                ],
+            },
+        ]
+
+        # Select 3 random questions
+        selected_questions = random.sample(question_pool, min(3, len(question_pool)))
+
+        # Build survey elements
+        elements = []
+        for q in selected_questions:
+            elements.append({
+                "type": "radiogroup",
+                "name": q["name"],
+                "title": q["title"],
+                "isRequired": True,
+                "choices": q["choices"],
+                "colCount": 1,
+            })
+
+        # Build survey JSON
+        survey_json = {
+            "title": translations["survey_title"],
+            "description": translations["survey_description"],
+            "locale": "en",
+            "locales": ["en", "de", "it", "fr", "pl", "ru", "sr", "tr", "vi"],
+            "showQuestionNumbers": "on",
+            "completeText": translations["complete"],
+            "pageNextText": translations["page_next"],
+            "pagePrevText": translations["page_prev"],
+            "pages": [
+                {
+                    "name": "page1",
+                    "title": translations["page_title"],
+                    "elements": elements,
+                }
+            ],
+        }
+
+        return survey_json
 
     def _format_catalog_date(self, value):
         if callable(value):

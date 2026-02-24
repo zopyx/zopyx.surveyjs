@@ -8,9 +8,36 @@
 }
 
 .survey-viewer-toolbar {
+    align-items: center;
     display: flex;
+    gap: 10px;
     justify-content: flex-end;
     margin-bottom: 10px;
+}
+
+.survey-language-selector {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    color: #374151;
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 6px 28px 6px 12px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    min-width: 140px;
+}
+
+.survey-language-selector:hover,
+.survey-language-selector:focus {
+    border-color: #9ca3af;
+    outline: none;
+}
+
+.survey-language-selector:focus {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 .survey-fullscreen-toggle {

@@ -48,8 +48,11 @@ function handleViewerReady(event) {
   const trustedAccessCopy = document.getElementById("surveyTrustedAccessCopy");
   const trustedAccessMessage = document.getElementById("surveyTrustedAccessMessage");
   const fullscreenToggle = document.getElementById("surveyViewerFullscreenToggle");
+  const languageSelector = document.getElementById("surveyLanguageSelector");
   const fullscreenClass = "survey-viewer-fullscreen";
   const fullscreenParam = new URLSearchParams(window.location.search).get("fullscreen");
+  const urlLocaleParam = new URLSearchParams(window.location.search).get("locale");
+  let currentSurvey = null;
 
   const trustedAccessMessages = {
     trusted_access_token_missing: t("This form requires a trusted access link. Please use the link provided by the form owner."),
@@ -275,13 +278,63 @@ function handleViewerReady(event) {
      */
     .then(function handleFormLoaded(result) {
       // Create the survey from the loaded JSON
-        console.log(result)
       const survey = new Survey.Model(result);
-        survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
-        survey.locale = surveyLocale;
-        if (Survey && Survey.surveyLocalization) {
-          Survey.surveyLocalization.currentLocale = surveyLocale;
-        }
+      currentSurvey = survey;
+      survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
+      
+      // Determine effective locale: URL param > survey locale > browser locale
+      const effectiveLocale = urlLocaleParam || result.locale || surveyLocale;
+      survey.locale = effectiveLocale;
+      if (Survey && Survey.surveyLocalization) {
+        Survey.surveyLocalization.currentLocale = effectiveLocale;
+      }
+      
+      // Set up language selector
+      if (languageSelector) {
+        // Only show language selector for multilingual demo survey
+        const isMultilingualSurvey = window.location.pathname.includes("/multilingual-demo-survey");
+        
+        // Get available locales from survey
+        const availableLocales = result.locales || [result.locale || "en"];
+        const localeNames = {
+          en: "English",
+          de: "Deutsch",
+          it: "Italiano",
+          fr: "Français",
+          pl: "Polski",
+          ru: "Русский",
+          sr: "Srpski",
+          tr: "Türkçe",
+          vi: "Tiếng Việt"
+        };
+        
+        // Populate selector with available locales
+        languageSelector.innerHTML = "";
+        availableLocales.forEach(function(locale) {
+          const option = document.createElement("option");
+          option.value = locale;
+          option.textContent = localeNames[locale] || locale;
+          if (locale === effectiveLocale) {
+            option.selected = true;
+          }
+          languageSelector.appendChild(option);
+        });
+        
+        // Show selector only for multilingual demo survey with multiple locales
+        languageSelector.style.display = (isMultilingualSurvey && availableLocales.length > 1) ? "" : "none";
+        
+        // Handle language change
+        languageSelector.addEventListener("change", function(event) {
+          const selectedLocale = event.target.value;
+          if (currentSurvey) {
+            currentSurvey.locale = selectedLocale;
+            // Update URL without reloading
+            const url = new URL(window.location.href);
+            url.searchParams.set("locale", selectedLocale);
+            window.history.replaceState({}, "", url);
+          }
+        });
+      }
 
       // Set up the onComplete handler to save results
       /**

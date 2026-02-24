@@ -138,6 +138,19 @@
            class="survey-viewer-container"
            tal:attributes="class python: 'survey-viewer-container survey-container-hidden' if missing_token else 'survey-viewer-container'; hidden python: 'hidden' if missing_token else None">
         <div class="survey-viewer-toolbar">
+          <select id="surveyLanguageSelector"
+                  class="survey-language-selector"
+                  aria-label="Select language">
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="fr">Français</option>
+            <option value="pl">Polski</option>
+            <option value="ru">Русский</option>
+            <option value="sr">Srpski</option>
+            <option value="tr">Türkçe</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
           <a id="surveyViewerFullscreenToggle"
              class="survey-fullscreen-toggle"
              href="#"
