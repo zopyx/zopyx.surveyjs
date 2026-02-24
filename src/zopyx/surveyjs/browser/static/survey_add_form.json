@@ -174,6 +174,107 @@
             "ja": "フォームに表示される任意のヘルプテキスト。"
           },
           "descriptionLocation": "underTitle"
+        },
+        {
+          "type": "dropdown",
+          "name": "access_mode",
+          "title": {
+            "default": "Access mode",
+            "de": "Zugriffsmodus",
+            "en": "Access mode",
+            "es": "Modo de acceso",
+            "fr": "Mode d’accès",
+            "it": "Modalità di accesso",
+            "pt": "Modo de acesso",
+            "fi": "Käyttötila",
+            "hi": "एक्सेस मोड",
+            "ar": "وضع الوصول",
+            "ja": "アクセスモード"
+          },
+          "description": {
+            "default": "Choose whether the form is public or requires a trusted access token.",
+            "de": "Wählen Sie, ob das Formular öffentlich ist oder ein vertrauenswürdiges Zugriffstoken erfordert.",
+            "en": "Choose whether the form is public or requires a trusted access token.",
+            "es": "Elija si el formulario es público o requiere un token de acceso de confianza.",
+            "fr": "Choisissez si le formulaire est public ou nécessite un jeton d’accès de confiance.",
+            "it": "Scegli se il modulo è pubblico o richiede un token di accesso affidabile.",
+            "pt": "Escolha se o formulário é público ou requer um token de acesso confiável.",
+            "fi": "Valitse, onko lomake julkinen vai vaatiiko se luotetun käyttö­tunnuksen.",
+            "hi": "चुनें कि फ़ॉर्म सार्वजनिक है या विश्वसनीय एक्सेस टोकन की आवश्यकता है।",
+            "ar": "اختر ما إذا كان النموذج عامًا أو يتطلب رمز وصول موثوقًا.",
+            "ja": "フォームを公開にするか、信頼できるアクセストークンを必要とするかを選択します。"
+          },
+          "choices": [
+            {
+              "value": "public",
+              "text": {
+                "default": "Public",
+                "de": "Öffentlich",
+                "en": "Public",
+                "es": "Público",
+                "fr": "Public",
+                "it": "Pubblico",
+                "pt": "Público",
+                "fi": "Julkinen",
+                "hi": "सार्वजनिक",
+                "ar": "عام",
+                "ja": "公開"
+              }
+            },
+            {
+              "value": "trusted",
+              "text": {
+                "default": "Trusted token",
+                "de": "Vertrauenswürdiges Token",
+                "en": "Trusted token",
+                "es": "Token de confianza",
+                "fr": "Jeton de confiance",
+                "it": "Token affidabile",
+                "pt": "Token confiável",
+                "fi": "Luotettu tunnus",
+                "hi": "विश्वसनीय टोकन",
+                "ar": "رمز موثوق",
+                "ja": "信頼済みトークン"
+              }
+            }
+          ],
+          "defaultValue": "public"
+        },
+        {
+          "type": "text",
+          "name": "trusted_access_ttl_hours",
+          "title": {
+            "default": "Trusted token lifetime (hours)",
+            "de": "Lebensdauer des vertrauenswürdigen Tokens (Stunden)",
+            "en": "Trusted token lifetime (hours)",
+            "es": "Duración del token de confianza (horas)",
+            "fr": "Durée de vie du jeton de confiance (heures)",
+            "it": "Durata del token affidabile (ore)",
+            "pt": "Duração do token confiável (horas)",
+            "fi": "Luotetun tunnuksen voimassaolo (tuntia)",
+            "hi": "विश्वसनीय टोकन की अवधि (घंटे)",
+            "ar": "مدة صلاحية الرمز الموثوق (ساعات)",
+            "ja": "信頼済みトークンの有効期限（時間）"
+          },
+          "description": {
+            "default": "How long trusted access tokens remain valid.",
+            "de": "Wie lange vertrauenswürdige Zugriffstoken gültig bleiben.",
+            "en": "How long trusted access tokens remain valid.",
+            "es": "Durante cuánto tiempo los tokens de acceso de confianza siguen siendo válidos.",
+            "fr": "Durée de validité des jetons d’accès de confiance.",
+            "it": "Per quanto tempo i token di accesso affidabili restano validi.",
+            "pt": "Por quanto tempo os tokens de acesso confiáveis permanecem válidos.",
+            "fi": "Kuinka kauan luotetut käyttö­tunnukset ovat voimassa.",
+            "hi": "विश्वसनीय एक्सेस टोकन कितने समय तक मान्य रहते हैं।",
+            "ar": "مدة بقاء رموز الوصول الموثوقة صالحة.",
+            "ja": "信頼済みアクセストークンの有効期間。"
+          },
+          "visibleIf": "{access_mode} = 'trusted'",
+          "inputType": "number",
+          "min": 1,
+          "step": 1,
+          "defaultValue": 168,
+          "width": "120px"
         }
       ]
     },
@@ -1151,106 +1252,6 @@
           "min": 1,
           "step": 1,
           "defaultValue": 1,
-          "width": "120px"
-        },
-        {
-          "type": "dropdown",
-          "name": "access_mode",
-          "title": {
-            "default": "Access mode",
-            "de": "Zugriffsmodus",
-            "en": "Access mode",
-            "es": "Modo de acceso",
-            "fr": "Mode d’accès",
-            "it": "Modalità di accesso",
-            "pt": "Modo de acesso",
-            "fi": "Käyttötila",
-            "hi": "एक्सेस मोड",
-            "ar": "وضع الوصول",
-            "ja": "アクセスモード"
-          },
-          "description": {
-            "default": "Choose whether the form is public or requires a trusted access token.",
-            "de": "Wählen Sie, ob das Formular öffentlich ist oder ein vertrauenswürdiges Zugriffstoken erfordert.",
-            "en": "Choose whether the form is public or requires a trusted access token.",
-            "es": "Elija si el formulario es público o requiere un token de acceso de confianza.",
-            "fr": "Choisissez si le formulaire est public ou nécessite un jeton d’accès de confiance.",
-            "it": "Scegli se il modulo è pubblico o richiede un token di accesso affidabile.",
-            "pt": "Escolha se o formulário é público ou requer um token de acesso confiável.",
-            "fi": "Valitse, onko lomake julkinen vai vaatiiko se luotetun käyttö­tunnuksen.",
-            "hi": "चुनें कि फ़ॉर्म सार्वजनिक है या विश्वसनीय एक्सेस टोकन की आवश्यकता है।",
-            "ar": "اختر ما إذا كان النموذج عامًا أو يتطلب رمز وصول موثوقًا.",
-            "ja": "フォームを公開にするか、信頼できるアクセストークンを必要とするかを選択します。"
-          },
-          "choices": [
-            {
-              "value": "public",
-              "text": {
-                "default": "Public",
-                "de": "Öffentlich",
-                "en": "Public",
-                "es": "Público",
-                "fr": "Public",
-                "it": "Pubblico",
-                "pt": "Público",
-                "fi": "Julkinen",
-                "hi": "सार्वजनिक",
-                "ar": "عام",
-                "ja": "公開"
-              }
-            },
-            {
-              "value": "trusted",
-              "text": {
-                "default": "Trusted token",
-                "de": "Vertrauenswürdiges Token",
-                "en": "Trusted token",
-                "es": "Token de confianza",
-                "fr": "Jeton de confiance",
-                "it": "Token affidabile",
-                "pt": "Token confiável",
-                "fi": "Luotettu tunnus",
-                "hi": "विश्वसनीय टोकन",
-                "ar": "رمز موثوق",
-                "ja": "信頼済みトークン"
-              }
-            }
-          ],
-          "defaultValue": "public"
-        },
-        {
-          "type": "text",
-          "name": "trusted_access_ttl_hours",
-          "title": {
-            "default": "Trusted token lifetime (hours)",
-            "de": "Lebensdauer des vertrauenswürdigen Tokens (Stunden)",
-            "en": "Trusted token lifetime (hours)",
-            "es": "Duración del token de confianza (horas)",
-            "fr": "Durée de vie du jeton de confiance (heures)",
-            "it": "Durata del token affidabile (ore)",
-            "pt": "Duração do token confiável (horas)",
-            "fi": "Luotetun tunnuksen voimassaolo (tuntia)",
-            "hi": "विश्वसनीय टोकन की अवधि (घंटे)",
-            "ar": "مدة صلاحية الرمز الموثوق (ساعات)",
-            "ja": "信頼済みトークンの有効期限（時間）"
-          },
-          "description": {
-            "default": "How long trusted access tokens remain valid.",
-            "de": "Wie lange vertrauenswürdige Zugriffstoken gültig bleiben.",
-            "en": "How long trusted access tokens remain valid.",
-            "es": "Durante cuánto tiempo los tokens de acceso de confianza siguen siendo válidos.",
-            "fr": "Durée de validité des jetons d’accès de confiance.",
-            "it": "Per quanto tempo i token di accesso affidabili restano validi.",
-            "pt": "Por quanto tempo os tokens de acesso confiáveis permanecem válidos.",
-            "fi": "Kuinka kauan luotetut käyttö­tunnukset ovat voimassa.",
-            "hi": "विश्वसनीय एक्सेस टोकन कितने समय तक मान्य रहते हैं।",
-            "ar": "مدة بقاء رموز الوصول الموثوقة صالحة.",
-            "ja": "信頼済みアクセストークンの有効期間。"
-          },
-          "inputType": "number",
-          "min": 1,
-          "step": 1,
-          "defaultValue": 168,
           "width": "120px"
         }
       ]
