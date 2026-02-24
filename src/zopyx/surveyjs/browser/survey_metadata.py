@@ -17,6 +17,41 @@ class SurveyMetadata(SurveyAddView):
 
     index = ViewPageTemplateFile("survey_metadata.pt")
 
+    @property
+    def _survey_actions_view(self):
+        return self.context.restrictedTraverse("@@survey-actions")
+
+    @property
+    def can_manage_portal_content(self):
+        return self._survey_actions_view.can_manage_portal_content
+
+    @property
+    def pdf_form_available(self):
+        return self._survey_actions_view.pdf_form_available
+
+    @property
+    def is_manager(self):
+        return self._survey_actions_view.is_manager
+
+    @property
+    def survey_status_label(self):
+        return self._survey_actions_view.survey_status_label
+
+    @property
+    def survey_effective_display(self):
+        return self._survey_actions_view.survey_effective_display
+
+    @property
+    def survey_expires_display(self):
+        return self._survey_actions_view.survey_expires_display
+
+    @property
+    def survey_results_count(self):
+        return self._survey_actions_view.survey_results_count
+
+    def feature_enabled(self, feature_name):
+        return self._survey_actions_view.feature_enabled(feature_name)
+
     def __call__(self):
         if not self.can_edit:
             self.request.response.setStatus(403)

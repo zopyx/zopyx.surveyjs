@@ -18,6 +18,15 @@
   <metal:content fill-slot="content-core"
                  tal:define="errors view/errors">
 
+    <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+      <metal:survey-header-headline fill-slot="view-headline">
+        <h2 i18n:translate="">Metadata</h2>
+      </metal:survey-header-headline>
+      <metal:survey-header-subtitle fill-slot="view-subtitle">
+        <p i18n:translate="">Update form and submission handling settings.</p>
+      </metal:survey-header-subtitle>
+    </metal:survey-header>
+
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
     />
