@@ -15,10 +15,10 @@
   <metal:content fill-slot="content-core" tal:define="cards view/cards">
     <section class="pfs-hero">
       <span class="pfs-hero-eyebrow" i18n:translate="">Privacy Forms Studio</span>
-      <h1 i18n:translate="">What would you like to do today?</h1>
+      <h1 i18n:translate="">Select an action</h1>
       <p i18n:translate="">
-        Start with a guided action that matches your role. These shortcuts keep every
-          team member productive, confident, and in control of their form/survey data.
+        Choose a guided action appropriate to your role. These shortcuts help
+          team members manage form and survey data consistently and efficiently.
       </p>
     </section>
 
@@ -59,7 +59,7 @@
               <h2 class="pfs-card-title" i18n:translate="">Create from template</h2>
             </div>
             <p class="pfs-card-description" i18n:translate="">
-              Start a new form or survey using one of your curate presets.
+              Create a new form or survey using one of your curated presets.
             </p>
             <div class="pfs-form-row">
               <div class="pfs-combobox" id="pfs-template-combobox">
@@ -123,10 +123,10 @@
             type="text/javascript"></script>
 
     <section class="pfs-empty" tal:condition="python: not cards and not view.can_create_from_template">
-      <h2 i18n:translate="">Nothing to do yet</h2>
+      <h2 i18n:translate="">No actions available</h2>
       <p i18n:translate="">
-        You need permission to create new SurveyJS content here.
-        Please reach out to a site manager for access.
+        You do not currently have permission to create new SurveyJS content in this location.
+        Please contact a site manager to request access.
       </p>
       <tal:login tal:condition="view/is_anonymous">
         <a tal:attributes="href view/login_url" i18n:translate="">Sign in</a>
