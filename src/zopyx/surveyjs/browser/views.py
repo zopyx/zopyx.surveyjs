@@ -189,6 +189,19 @@ class RootRedirect(BrowserView):
 
 class Views(BrowserView):
     @property
+    def survey_language_labels(self) -> dict[str, str]:
+        from ..content.survey import survey_languages_vocabulary
+
+        labels: dict[str, str] = {}
+        for term in survey_languages_vocabulary:
+            value = getattr(term, "value", None)
+            if not value:
+                continue
+            title = getattr(term, "title", None) or str(value)
+            labels[str(value)] = str(title)
+        return labels
+
+    @property
     def can_add_survey(self) -> bool:
         return plone.api.user.has_permission(
             "zopyx.surveyjs.AddSurvey", obj=self.context

@@ -59,6 +59,10 @@ function handleViewerReady(event) {
       });
   };
   const configuredSurveyLanguages = parseLocales(viewerConfig.surveyLanguages);
+  const configuredSurveyLanguageLabels = (
+    viewerConfig && viewerConfig.surveyLanguageLabels &&
+    typeof viewerConfig.surveyLanguageLabels === "object"
+  ) ? viewerConfig.surveyLanguageLabels : {};
   const accessToken = new URLSearchParams(window.location.search).get("access_token");
   const url = accessToken
     ? ACTUAL_URL + "/get-form-json?access_token=" + encodeURIComponent(accessToken)
@@ -321,25 +325,19 @@ function handleViewerReady(event) {
         const availableLocales = configuredSurveyLanguages.length > 0
           ? configuredSurveyLanguages
           : (result.locales || [result.locale || "en"]);
-        const localeNames = {
-          en: "English",
-          de: "Deutsch",
-          sq: "Shqip",
-          fr: "Français",
-          hr: "Hrvatski",
-          pl: "Polski",
-          ru: "Русский",
-          sr: "Srpski",
-          tr: "Türkçe",
-          vi: "Tiếng Việt"
-        };
-        
         // Populate selector with available locales
         languageSelector.innerHTML = "";
         availableLocales.forEach(function(locale) {
           const option = document.createElement("option");
           option.value = locale;
-          option.textContent = localeNames[locale] || locale;
+          const localeLabel = configuredSurveyLanguageLabels[locale];
+          if (!localeLabel) {
+            console.warn(
+              "Missing survey language label from vocabulary for locale:",
+              locale
+            );
+          }
+          option.textContent = localeLabel || locale;
           if (locale === effectiveLocale) {
             option.selected = true;
           }
