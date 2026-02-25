@@ -17,6 +17,7 @@ from zopyx.surveyjs import _
 from plone.autoform import directives as form
 from plone.supermodel.directives import fieldset
 from zope.annotation.interfaces import IAnnotations
+from langcodes import Language
 
 from ..constants import FORM_VERSIONS_KEY, RESULTS_KEY
 
@@ -56,6 +57,33 @@ survey_access_vocabulary = SimpleVocabulary(
         SimpleTerm(value="trusted", title=_("Trusted access token")),
     ]
 )
+
+
+def _build_survey_languages_vocabulary():
+    """Language code vocabulary with English display names."""
+
+    # Prefer using langcodes' shipped language metadata when available.
+    from langcodes import data_dicts
+
+    code_map = getattr(data_dicts, "LANGUAGE_ALPHA3", {}) or {}
+    codes = sorted(
+        code for code in code_map.keys() if code and len(code) == 2 and code.isalpha()
+    )
+
+    terms = []
+    for code in codes:
+        name = Language.get(code.upper()).display_name("en")
+        terms.append(
+            SimpleTerm(
+                value=code,
+                token=code,
+                title=f"{name} ({code})",
+            )
+        )
+    return SimpleVocabulary(terms)
+
+
+survey_languages_vocabulary = _build_survey_languages_vocabulary()
 
 
 class Counter(Persistent):
@@ -135,6 +163,16 @@ class ISurvey(model.Schema):
 
     form.widget("actions", CheckBoxFieldWidget)
     form.widget("email_body", TextAreaFieldWidget, rows=10, cols=80)
+    survey_languages = schema.List(
+        title=_("Survey languages"),
+        description=_(
+            "Allowed languages for this survey (language codes with English labels)."
+        ),
+        value_type=schema.Choice(vocabulary=survey_languages_vocabulary),
+        required=False,
+        defaultFactory=list,
+    )
+
     actions = schema.Set(
         title=_("Actions"),
         description=_(
