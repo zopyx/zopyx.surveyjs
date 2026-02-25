@@ -43,6 +43,7 @@ SURVEY_ADD_DEFAULTS: dict[str, Any] = {
     "email_notification_body": SURVEY_ADD_DEFAULT_NOTIFICATION_BODY,
     "force_server_side_validation": True,
     "max_payload_size_mb": 1,
+    "survey_languages": [],
     "access_mode": "public",
     "trusted_access_ttl_hours": 168,
     "embedding_mode": "none",
@@ -82,11 +83,28 @@ class SurveyAddView(BrowserView):
 
     @property
     def initial_data_json(self) -> str:
-        return orjson.dumps(self.form_values).decode("utf-8")
+        payload = deepcopy(self.form_values)
+        payload["__survey_languages_choices"] = self._survey_languages_choices()
+        return orjson.dumps(payload).decode("utf-8")
 
     @property
     def errors(self) -> list[str]:
         return self._errors
+
+    def _survey_languages_choices(self) -> list[dict[str, str]]:
+        try:
+            from ..content.survey import survey_languages_vocabulary
+        except Exception:
+            return []
+
+        choices: list[dict[str, str]] = []
+        for term in survey_languages_vocabulary:
+            value = getattr(term, "value", None)
+            if not value:
+                continue
+            title = getattr(term, "title", None) or str(value)
+            choices.append({"value": str(value), "text": str(title)})
+        return choices
 
     def handle_submit(self):
         data, extraction_errors = self._extract_form_data()
@@ -159,6 +177,7 @@ class SurveyAddView(BrowserView):
         email_cc = self._split_lines(data.get("email_cc"))
         email_bcc = self._split_lines(data.get("email_bcc"))
         max_payload = self._coerce_int(data.get("max_payload_size_mb"), 1)
+        survey_languages = self._ensure_list(data.get("survey_languages"))
         ttl = self._coerce_int(data.get("trusted_access_ttl_hours"), 168)
         force_validation = bool(data.get("force_server_side_validation", True))
 
@@ -181,6 +200,7 @@ class SurveyAddView(BrowserView):
             "email_notification_body": data.get("email_notification_body") or "",
             "force_server_side_validation": force_validation,
             "max_payload_size_mb": max_payload,
+            "survey_languages": survey_languages,
             "access_mode": data.get("access_mode") or "public",
             "trusted_access_ttl_hours": ttl,
             "embedding_mode": data.get("embedding_mode") or "none",

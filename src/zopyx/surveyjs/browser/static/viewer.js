@@ -34,6 +34,31 @@ function handleViewerReady(event) {
   const canManage = typeof viewerConfig.canManage !== "undefined"
     ? Boolean(viewerConfig.canManage)
     : Boolean(window.SURVEY_CAN_MANAGE);
+  /**
+   * Parse/normalize a locale list from config.
+   * @param {unknown} value
+   * @returns {string[]}
+   */
+  const parseLocales = function (value) {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+    const seen = {};
+    return value
+      .map(function (item) {
+        const raw = item == null ? "" : String(item);
+        const normalized = raw.trim().replace("_", "-");
+        return normalized.split("-")[0] || "";
+      })
+      .filter(function (item) {
+        if (!item || seen[item]) {
+          return false;
+        }
+        seen[item] = true;
+        return true;
+      });
+  };
+  const configuredSurveyLanguages = parseLocales(viewerConfig.surveyLanguages);
   const accessToken = new URLSearchParams(window.location.search).get("access_token");
   const url = accessToken
     ? ACTUAL_URL + "/get-form-json?access_token=" + encodeURIComponent(accessToken)
@@ -291,16 +316,17 @@ function handleViewerReady(event) {
       
       // Set up language selector
       if (languageSelector) {
-        // Only show language selector for multilingual demo survey
-        const isMultilingualSurvey = window.location.pathname.includes("/multilingual-demo-survey");
-        
-        // Get available locales from survey
-        const availableLocales = result.locales || [result.locale || "en"];
+        // Use survey_languages (viewer config) as the source of truth. Only
+        // fall back to form locales when the field is not configured.
+        const availableLocales = configuredSurveyLanguages.length > 0
+          ? configuredSurveyLanguages
+          : (result.locales || [result.locale || "en"]);
         const localeNames = {
           en: "English",
           de: "Deutsch",
-          it: "Italiano",
+          sq: "Shqip",
           fr: "Français",
+          hr: "Hrvatski",
           pl: "Polski",
           ru: "Русский",
           sr: "Srpski",
@@ -320,8 +346,11 @@ function handleViewerReady(event) {
           languageSelector.appendChild(option);
         });
         
-        // Show selector only for multilingual demo survey with multiple locales
-        languageSelector.style.display = (isMultilingualSurvey && availableLocales.length > 1) ? "" : "none";
+        // Show selector only when survey_languages is configured and has
+        // multiple values.
+        languageSelector.style.display = (
+          configuredSurveyLanguages.length > 1 && availableLocales.length > 1
+        ) ? "" : "none";
         
         // Handle language change
         languageSelector.addEventListener("change", function(event) {

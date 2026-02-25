@@ -79,6 +79,7 @@ class SurveyMetadata(SurveyAddView):
         survey = self.context
         force_validation = getattr(survey, "force_server_side_validation", True)
         max_payload = getattr(survey, "max_payload_size_mb", 1)
+        survey_languages = list(getattr(survey, "survey_languages", []) or [])
         access_mode = getattr(survey, "access_mode", "public") or "public"
         ttl = getattr(survey, "trusted_access_ttl_hours", 168)
         embedding_mode = getattr(survey, "embedding_mode", "none") or "none"
@@ -110,6 +111,7 @@ class SurveyMetadata(SurveyAddView):
             if force_validation is None
             else bool(force_validation),
             "max_payload_size_mb": max_payload or 1,
+            "survey_languages": survey_languages,
             "access_mode": access_mode,
             "trusted_access_ttl_hours": ttl or 168,
             "embedding_mode": embedding_mode,

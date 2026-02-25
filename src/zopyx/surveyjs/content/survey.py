@@ -80,6 +80,7 @@ def _build_survey_languages_vocabulary():
                 title=f"{name} ({code})",
             )
         )
+    terms.sort(key=lambda term: (str(term.title).lower(), str(term.value)))
     return SimpleVocabulary(terms)
 
 

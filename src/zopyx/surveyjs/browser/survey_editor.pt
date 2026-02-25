@@ -28,8 +28,8 @@
     />
     <span id="survey-editor-config"
           hidden="hidden"
-          tal:condition="view/surveyjs_license_key"
-          tal:attributes="data-license-key view/surveyjs_license_key"></span>
+          tal:attributes="data-license-key python: view.surveyjs_license_key or '';
+                          data-survey-languages view/survey_languages_json"></span>
 
     <metal:surveyjs-core
         use-macro="context/@@survey-assets/macros/surveyjs-core"

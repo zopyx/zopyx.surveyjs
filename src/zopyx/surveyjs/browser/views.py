@@ -409,6 +409,22 @@ class Views(BrowserView):
                 survey.reindexObject(idxs=["exclude_from_nav"])
             except Exception:
                 pass
+            try:
+                locales = (
+                    form_json.get("locales") if isinstance(form_json, dict) else None
+                )
+                if not isinstance(locales, list) or not locales:
+                    fallback_locale = (
+                        form_json.get("locale") if isinstance(form_json, dict) else None
+                    ) or "en"
+                    locales = [fallback_locale]
+                survey.survey_languages = [
+                    str(code).strip().lower().split("-", 1)[0]
+                    for code in locales
+                    if str(code).strip()
+                ]
+            except Exception:
+                pass
             self._ensure_private(survey)
             annos = IAnnotations(survey)
             forms_service.save_form_version(
@@ -433,8 +449,8 @@ class Views(BrowserView):
 
     def _generate_multilingual_demo_survey(self):
         """Generate a multilingual survey with 3 random questions and 3 answer choices.
-        
-        Supports: DE, IT, FR, PL (Polish), RU (Russian), SR (Serbian), TR (Turkish), VI (Vietnamese)
+
+        Supports: DE, SQ (Albanian), EN, FR, HR (Croatian), PL, RU, SR, TR, VI
         """
         import random
 
@@ -443,8 +459,9 @@ class Views(BrowserView):
             "survey_title": {
                 "default": "Customer Satisfaction Survey",
                 "de": "Kundenzufriedenheitsumfrage",
-                "it": "Sondaggio sulla soddisfazione del cliente",
+                "sq": "Anketa e kënaqësisë së klientit",
                 "fr": "Enquête de satisfaction client",
+                "hr": "Anketa zadovoljstva korisnika",
                 "pl": "Ankieta satysfakcji klienta",
                 "ru": "Опрос удовлетворенности клиентов",
                 "sr": "Anketa o zadovoljstvu kupaca",
@@ -454,8 +471,9 @@ class Views(BrowserView):
             "survey_description": {
                 "default": "Please share your feedback to help us improve our services.",
                 "de": "Bitte teilen Sie uns Ihr Feedback mit, um unsere Dienstleistungen zu verbessern.",
-                "it": "Condividi il tuo feedback per aiutarci a migliorare i nostri servizi.",
+                "sq": "Ju lutemi ndani mendimin tuaj për të na ndihmuar të përmirësojmë shërbimet tona.",
                 "fr": "Veuillez partager vos commentaires pour nous aider à améliorer nos services.",
+                "hr": "Molimo podijelite svoje povratne informacije kako bismo poboljšali naše usluge.",
                 "pl": "Prosimy o podzielenie się opinią, aby pomóc nam ulepszyć nasze usługi.",
                 "ru": "Пожалуйста, поделитесь своими отзывами, чтобы помочь нам улучшить наши услуги.",
                 "sr": "Molimo vas da podelite svoje mišljenje kako bismo unapredili naše usluge.",
@@ -465,8 +483,9 @@ class Views(BrowserView):
             "page_title": {
                 "default": "Survey Questions",
                 "de": "Umfragefragen",
-                "it": "Domande del sondaggio",
+                "sq": "Pyetjet e anketës",
                 "fr": "Questions de l'enquête",
+                "hr": "Anketna pitanja",
                 "pl": "Pytania ankiety",
                 "ru": "Вопросы опроса",
                 "sr": "Pitanja ankete",
@@ -477,8 +496,9 @@ class Views(BrowserView):
             "question1_title": {
                 "default": "How would you rate the quality of our service?",
                 "de": "Wie würden Sie die Qualität unserer Dienstleistung bewerten?",
-                "it": "Come valuteresti la qualità del nostro servizio?",
+                "sq": "Si do ta vlerësonit cilësinë e shërbimit tonë?",
                 "fr": "Comment évalueriez-vous la qualité de notre service ?",
+                "hr": "Kako biste ocijenili kvalitetu naše usluge?",
                 "pl": "Jak oceniasz jakość naszych usług?",
                 "ru": "Как бы вы оценили качество нашего обслуживания?",
                 "sr": "Kako biste ocenili kvalitet naše usluge?",
@@ -489,8 +509,9 @@ class Views(BrowserView):
             "question2_title": {
                 "default": "How satisfied are you with our product?",
                 "de": "Wie zufrieden sind Sie mit unserem Produkt?",
-                "it": "Quanto sei soddisfatto del nostro prodotto?",
+                "sq": "Sa të kënaqur jeni me produktin tonë?",
                 "fr": "Êtes-vous satisfait de notre produit ?",
+                "hr": "Koliko ste zadovoljni našim proizvodom?",
                 "pl": "Jak bardzo jesteś zadowolony z naszego produktu?",
                 "ru": "Насколько вы довольны нашим продуктом?",
                 "sr": "Koliko ste zadovoljni našim proizvodom?",
@@ -501,8 +522,9 @@ class Views(BrowserView):
             "question3_title": {
                 "default": "Would you recommend us to others?",
                 "de": "Würden Sie uns anderen weiterempfehlen?",
-                "it": "Ci consiglieresti ad altri?",
+                "sq": "A do të na rekomandonit tek të tjerët?",
                 "fr": "Nous recommanderiez-vous à d'autres ?",
+                "hr": "Biste li nas preporučili drugima?",
                 "pl": "Czy poleciłbyś nas innym?",
                 "ru": "Порекомендуете ли вы нас другим?",
                 "sr": "Da li biste nas preporučili drugima?",
@@ -513,8 +535,9 @@ class Views(BrowserView):
             "excellent": {
                 "default": "Excellent",
                 "de": "Ausgezeichnet",
-                "it": "Eccellente",
+                "sq": "Shkëlqyeshëm",
                 "fr": "Excellent",
+                "hr": "Odlično",
                 "pl": "Doskonałe",
                 "ru": "Отлично",
                 "sr": "Odlično",
@@ -524,8 +547,9 @@ class Views(BrowserView):
             "good": {
                 "default": "Good",
                 "de": "Gut",
-                "it": "Buono",
+                "sq": "Mirë",
                 "fr": "Bon",
+                "hr": "Dobro",
                 "pl": "Dobre",
                 "ru": "Хорошо",
                 "sr": "Dobro",
@@ -535,8 +559,9 @@ class Views(BrowserView):
             "average": {
                 "default": "Average",
                 "de": "Durchschnittlich",
-                "it": "Medio",
+                "sq": "Mesatare",
                 "fr": "Moyen",
+                "hr": "Prosječno",
                 "pl": "Przeciętne",
                 "ru": "Средне",
                 "sr": "Prosečno",
@@ -546,8 +571,9 @@ class Views(BrowserView):
             "poor": {
                 "default": "Poor",
                 "de": "Schlecht",
-                "it": "Scarso",
+                "sq": "Dobët",
                 "fr": "Faible",
+                "hr": "Loše",
                 "pl": "Słabe",
                 "ru": "Плохо",
                 "sr": "Loše",
@@ -557,8 +583,9 @@ class Views(BrowserView):
             "very_satisfied": {
                 "default": "Very Satisfied",
                 "de": "Sehr zufrieden",
-                "it": "Molto soddisfatto",
+                "sq": "Shumë i kënaqur",
                 "fr": "Très satisfait",
+                "hr": "Vrlo zadovoljan",
                 "pl": "Bardzo zadowolony",
                 "ru": "Очень доволен",
                 "sr": "Veoma zadovoljan",
@@ -568,8 +595,9 @@ class Views(BrowserView):
             "satisfied": {
                 "default": "Satisfied",
                 "de": "Zufrieden",
-                "it": "Soddisfatto",
+                "sq": "I kënaqur",
                 "fr": "Satisfait",
+                "hr": "Zadovoljan",
                 "pl": "Zadowolony",
                 "ru": "Доволен",
                 "sr": "Zadovoljan",
@@ -579,8 +607,9 @@ class Views(BrowserView):
             "dissatisfied": {
                 "default": "Dissatisfied",
                 "de": "Unzufrieden",
-                "it": "Insoddisfatto",
+                "sq": "I pakënaqur",
                 "fr": "Insatisfait",
+                "hr": "Nezadovoljan",
                 "pl": "Niezadowolony",
                 "ru": "Недоволен",
                 "sr": "Nezadovoljan",
@@ -590,8 +619,9 @@ class Views(BrowserView):
             "definitely_yes": {
                 "default": "Definitely Yes",
                 "de": "Definitiv ja",
-                "it": "Decisamente sì",
+                "sq": "Patjetër po",
                 "fr": "Définitivement oui",
+                "hr": "Definitivno da",
                 "pl": "Zdecydowanie tak",
                 "ru": "Определенно да",
                 "sr": "Definitivno da",
@@ -601,8 +631,9 @@ class Views(BrowserView):
             "probably_yes": {
                 "default": "Probably Yes",
                 "de": "Wahrscheinlich ja",
-                "it": "Probabilmente sì",
+                "sq": "Ndoshta po",
                 "fr": "Probablement oui",
+                "hr": "Vjerojatno da",
                 "pl": "Prawdopodobnie tak",
                 "ru": "Вероятно да",
                 "sr": "Verovatno da",
@@ -612,8 +643,9 @@ class Views(BrowserView):
             "not_sure": {
                 "default": "Not Sure",
                 "de": "Nicht sicher",
-                "it": "Non sono sicuro",
+                "sq": "Nuk jam i sigurt",
                 "fr": "Pas sûr",
+                "hr": "Nisam siguran",
                 "pl": "Nie jestem pewien",
                 "ru": "Не уверен",
                 "sr": "Nisam siguran",
@@ -623,8 +655,9 @@ class Views(BrowserView):
             "probably_not": {
                 "default": "Probably Not",
                 "de": "Wahrscheinlich nicht",
-                "it": "Probabilmente no",
+                "sq": "Ndoshta jo",
                 "fr": "Probablement pas",
+                "hr": "Vjerojatno ne",
                 "pl": "Prawdopodobnie nie",
                 "ru": "Вероятно нет",
                 "sr": "Verovatno ne",
@@ -634,8 +667,9 @@ class Views(BrowserView):
             "definitely_not": {
                 "default": "Definitely Not",
                 "de": "Definitiv nicht",
-                "it": "Decisamente no",
+                "sq": "Patjetër jo",
                 "fr": "Définitivement pas",
+                "hr": "Definitivno ne",
                 "pl": "Zdecydowanie nie",
                 "ru": "Определенно нет",
                 "sr": "Definitivno ne",
@@ -645,8 +679,9 @@ class Views(BrowserView):
             "complete": {
                 "default": "Complete",
                 "de": "Abschließen",
-                "it": "Completa",
+                "sq": "Përfundo",
                 "fr": "Terminer",
+                "hr": "Završi",
                 "pl": "Zakończ",
                 "ru": "Завершить",
                 "sr": "Završi",
@@ -656,8 +691,9 @@ class Views(BrowserView):
             "page_next": {
                 "default": "Next",
                 "de": "Weiter",
-                "it": "Avanti",
+                "sq": "Tjetër",
                 "fr": "Suivant",
+                "hr": "Dalje",
                 "pl": "Dalej",
                 "ru": "Далее",
                 "sr": "Dalje",
@@ -667,8 +703,9 @@ class Views(BrowserView):
             "page_prev": {
                 "default": "Previous",
                 "de": "Zurück",
-                "it": "Indietro",
+                "sq": "Mbrapa",
                 "fr": "Précédent",
+                "hr": "Natrag",
                 "pl": "Wstecz",
                 "ru": "Назад",
                 "sr": "Nazad",
@@ -718,21 +755,23 @@ class Views(BrowserView):
         # Build survey elements
         elements = []
         for q in selected_questions:
-            elements.append({
-                "type": "radiogroup",
-                "name": q["name"],
-                "title": q["title"],
-                "isRequired": True,
-                "choices": q["choices"],
-                "colCount": 1,
-            })
+            elements.append(
+                {
+                    "type": "radiogroup",
+                    "name": q["name"],
+                    "title": q["title"],
+                    "isRequired": True,
+                    "choices": q["choices"],
+                    "colCount": 1,
+                }
+            )
 
         # Build survey JSON
         survey_json = {
             "title": translations["survey_title"],
             "description": translations["survey_description"],
             "locale": "en",
-            "locales": ["en", "de", "it", "fr", "pl", "ru", "sr", "tr", "vi"],
+            "locales": ["en", "de", "sq", "fr", "hr", "pl", "ru", "sr", "tr", "vi"],
             "showQuestionNumbers": "on",
             "completeText": translations["complete"],
             "pageNextText": translations["page_next"],
@@ -1968,7 +2007,6 @@ class EmbedViewer(Views):
 
 class EmbeddedDemoView(BrowserView):
     """Manager-only demo page embedding a fixed survey via iframe."""
-
 
     @property
     def iframe_url(self):

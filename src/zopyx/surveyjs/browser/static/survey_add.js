@@ -212,6 +212,41 @@
 /**
  * @function
  */
+  function getDynamicSurveyLanguageChoices() {
+    if (!initialData || !Array.isArray(initialData.__survey_languages_choices)) {
+      return [];
+    }
+    return initialData.__survey_languages_choices.filter(function (item) {
+      return item && item.value && item.text;
+    });
+  }
+
+/**
+ * @function
+ */
+  function applyDynamicSchemaChoices(schema) {
+    if (!schema || !Array.isArray(schema.pages)) {
+      return;
+    }
+    const languageChoices = getDynamicSurveyLanguageChoices();
+    if (!languageChoices.length) {
+      return;
+    }
+    schema.pages.forEach(function (page) {
+      if (!page || !Array.isArray(page.elements)) {
+        return;
+      }
+      page.elements.forEach(function (element) {
+        if (element && element.name === "survey_languages") {
+          element.choices = languageChoices;
+        }
+      });
+    });
+  }
+
+/**
+ * @function
+ */
   function updateSubmitState(forceDisable) {
     if (!submitButton) {
       return;
@@ -236,6 +271,7 @@
  */
   function renderSurvey(schema) {
     const surveyLocale = getSurveyLocale();
+    applyDynamicSchemaChoices(schema);
 /**
  * @function
  */
@@ -255,7 +291,9 @@
     }
     currentSurvey = survey;
     if (initialData && Object.keys(initialData).length > 0) {
-      survey.data = initialData;
+      const surveyData = Object.assign({}, initialData);
+      delete surveyData.__survey_languages_choices;
+      survey.data = surveyData;
     }
 /**
  * @function

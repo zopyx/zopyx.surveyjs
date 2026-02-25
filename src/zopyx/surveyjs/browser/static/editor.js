@@ -456,6 +456,24 @@ document.addEventListener("DOMContentLoaded", function () {
   let isInitializing = true;
   let userInteracted = false;
   let suppressModified = false;
+  const parseJsonArray = function (value) {
+    if (!value) {
+      return [];
+    }
+    try {
+      const parsed = JSON.parse(value);
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+      return parsed
+        .map(function (item) { return toSurveyLocale(item); })
+        .filter(function (item, index, list) {
+          return item && list.indexOf(item) === index;
+        });
+    } catch (_error) {
+      return [];
+    }
+  };
   const creatorOptions = {
     autoSaveEnabled: true,
     collapseOnDrag: true,
@@ -463,14 +481,21 @@ document.addEventListener("DOMContentLoaded", function () {
     showState: true,
     showPropertyGrid: "right",
     showThemeTab: true,
+    showTranslationTab: false,
     rightContainerActiveItem: "toolbox",
     autoSaveEnabled: false,
   };
 
   const licenseEl = document.getElementById("survey-editor-config");
+  const configuredSurveyLanguages = licenseEl
+    ? parseJsonArray(licenseEl.getAttribute("data-survey-languages"))
+    : [];
   const licenseKey = licenseEl
     ? licenseEl.getAttribute("data-license-key")
     : (typeof window.LICENSE_KEY !== "undefined" ? window.LICENSE_KEY : "");
+  if (configuredSurveyLanguages.length > 0) {
+    creatorOptions.showTranslationTab = true;
+  }
 
   if (licenseKey) {
     if (typeof SurveyCreator !== "undefined" && SurveyCreator.slk) {
@@ -485,6 +510,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const creator = new SurveyCreator.SurveyCreator(creatorOptions);
+  if (configuredSurveyLanguages.length > 0) {
+    creator.showTranslationTab = true;
+    if (
+      typeof creator.initialTabs === "function" &&
+      typeof creator.setTabs === "function"
+    ) {
+      creator.setTabs(creator.initialTabs());
+    }
+    if (typeof creator.setVisibleLocales === "function") {
+      creator.setVisibleLocales(configuredSurveyLanguages);
+    }
+  }
 /**
  * @function
  */
@@ -691,6 +728,16 @@ document.addEventListener("DOMContentLoaded", function () {
  * @function
  */
   $.getJSON(url, function (result) {
+    if (
+      configuredSurveyLanguages.length > 0 &&
+      result &&
+      typeof result === "object"
+    ) {
+      result.locales = configuredSurveyLanguages.slice();
+      if (!result.locale) {
+        result.locale = configuredSurveyLanguages[0];
+      }
+    }
     const formLocale = extractSurveyLocale(result);
 /**
  * @function

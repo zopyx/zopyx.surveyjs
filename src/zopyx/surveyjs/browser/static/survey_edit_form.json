@@ -176,6 +176,35 @@
           "descriptionLocation": "underTitle"
         },
         {
+          "type": "tagbox",
+          "name": "survey_languages",
+          "title": {
+            "default": "Survey languages",
+            "en": "Survey languages"
+          },
+          "description": {
+            "default": "Select the allowed languages for this survey (shown as country names with codes).",
+            "en": "Select the allowed languages for this survey (shown as country names with codes)."
+          },
+          "choices": [
+            { "value": "de", "text": "Germany (de)" },
+            { "value": "en", "text": "England (en)" },
+            { "value": "es", "text": "Spain (es)" },
+            { "value": "fr", "text": "France (fr)" },
+            { "value": "it", "text": "Italy (it)" },
+            { "value": "pt", "text": "Portugal (pt)" },
+            { "value": "fi", "text": "Finland (fi)" },
+            { "value": "hi", "text": "India (hi)" },
+            { "value": "ar", "text": "Saudi Arabia (ar)" },
+            { "value": "ja", "text": "Japan (ja)" }
+          ],
+          "placeholder": {
+            "default": "Choose one or more languages",
+            "en": "Choose one or more languages"
+          },
+          "closeOnSelect": false
+        },
+        {
           "type": "dropdown",
           "name": "access_mode",
           "title": {
