@@ -532,20 +532,20 @@ enable_language_selector()
 remove_navigation_portlets(site)
 remove_home_tab(site)
 
-# Create logo.jpg as Image content object
-logo_path = Path(os.getcwd()) / "scripts" / "logo.jpg"
+# Create logo as Image content object (transparent cropped version)
+logo_path = Path(os.getcwd()) / "scripts" / "logos" / "logo-with-text-cropped-transparent.png"
 if logo_path.exists():
     logo_image = api.content.create(
         type="Image",
         container=site,
         id="logo",
         title="Privacy Forms Studio Logo",
-        image=NamedBlobImage(data=logo_path.read_bytes(), filename="logo.jpg"),
+        image=NamedBlobImage(data=logo_path.read_bytes(), filename="logo.png"),
     )
     logo_image.reindexObject()
-    print("Created logo.jpg as Image content object")
+    print("Created logo as Image content object (transparent cropped)")
 else:
-    print(f"logo.jpg not found at {logo_path}; skipping logo image creation")
+    print(f"Logo not found at {logo_path}; skipping logo image creation")
 
 # Create surveyjs.png as Image content object
 surveyjs_logo_path = Path(os.getcwd()) / "scripts" / "surveyjs.png"
