@@ -176,3 +176,4 @@ See `data-validation/README.md` for build and usage details.
 Andreas Jung | info@zopyx.com | www.zopyx.com
 
 Paid service for `zopyx.surveyjs` is available on request.
+
