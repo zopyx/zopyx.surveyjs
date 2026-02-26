@@ -180,11 +180,29 @@
           "name": "survey_languages",
           "title": {
             "default": "Survey languages",
-            "en": "Survey languages"
+            "de": "Umfragesprachen",
+            "en": "Survey languages",
+            "es": "Idiomas de la encuesta",
+            "fr": "Langues de l’enquête",
+            "it": "Lingue del sondaggio",
+            "pt": "Idiomas da pesquisa",
+            "fi": "Kyselyn kielet",
+            "hi": "सर्वे की भाषाएँ",
+            "ar": "لغات الاستبيان",
+            "ja": "アンケートの言語"
           },
           "description": {
             "default": "Select the allowed languages for this survey (shown as country names with codes).",
-            "en": "Select the allowed languages for this survey (shown as country names with codes)."
+            "de": "Wählen Sie die für diese Umfrage zulässigen Sprachen aus (angezeigt als Ländernamen mit Codes).",
+            "en": "Select the allowed languages for this survey (shown as country names with codes).",
+            "es": "Seleccione los idiomas permitidos para esta encuesta (mostrados como nombres de países con códigos).",
+            "fr": "Sélectionnez les langues autorisées pour cette enquête (affichées comme noms de pays avec codes).",
+            "it": "Seleziona le lingue consentite per questo sondaggio (mostrate come nomi di paesi con codici).",
+            "pt": "Selecione os idiomas permitidos para esta pesquisa (mostrados como nomes de países com códigos).",
+            "fi": "Valitse tälle kyselylle sallitut kielet (näytetään maiden niminä koodeineen).",
+            "hi": "इस सर्वे के लिए अनुमत भाषाएँ चुनें (देशों के नाम और कोड के रूप में दिखाई जाएंगी)।",
+            "ar": "حدّد اللغات المسموح بها لهذا الاستبيان (تُعرض كأسماء دول مع الرموز).",
+            "ja": "このアンケートで許可する言語を選択します（国名とコードで表示されます）。"
           },
           "choices": [
             { "value": "de", "text": "Germany (de)" },
@@ -200,7 +218,16 @@
           ],
           "placeholder": {
             "default": "Choose one or more languages",
-            "en": "Choose one or more languages"
+            "de": "Eine oder mehrere Sprachen wählen",
+            "en": "Choose one or more languages",
+            "es": "Elija uno o más idiomas",
+            "fr": "Choisissez une ou plusieurs langues",
+            "it": "Scegli una o più lingue",
+            "pt": "Escolha um ou mais idiomas",
+            "fi": "Valitse yksi tai useampi kieli",
+            "hi": "एक या अधिक भाषाएँ चुनें",
+            "ar": "اختر لغة واحدة أو أكثر",
+            "ja": "1つ以上の言語を選択"
           },
           "closeOnSelect": false
         },
