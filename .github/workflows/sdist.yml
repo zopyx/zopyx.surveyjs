@@ -21,10 +21,6 @@ jobs:
         uses: astral-sh/setup-uv@v3
         with:
           uv-version: "latest"
-          enable-cache: true
-          cache-dependency-glob: |
-            requirements.txt
-            setup.py
 
       - name: Install Python with uv
         run: uv python install 3.12
