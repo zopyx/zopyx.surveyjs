@@ -1989,3 +1989,84 @@ msgstr "pdfcpu (campos estructurados)"
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
 msgstr "La fecha Hasta debe ser posterior a la fecha Desde"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View survey form"
+msgstr "Ver formulario"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing survey form"
+msgstr "Viendo formulario"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Edit metadata"
+msgstr "Editar metadatos"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently editing metadata"
+msgstr "Editando metadatos"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "PDF form"
+msgstr "Formulario PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on PDF form"
+msgstr "En formulario PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Open visual editor"
+msgstr "Abrir editor visual"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in visual editor"
+msgstr "En editor visual"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Manage versions"
+msgstr "Gestionar versiones"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently managing versions"
+msgstr "Gestionando versiones"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "AI form generator"
+msgstr "Generador de formularios IA"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in AI generator"
+msgstr "En generador IA"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View results"
+msgstr "Ver resultados"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing results"
+msgstr "Viendo resultados"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View dashboard"
+msgstr "Ver panel"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on dashboard"
+msgstr "En panel"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Import form from PDF"
+msgstr "Importar formulario de PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently importing from PDF"
+msgstr "Importando de PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Fillable PDF forms setup"
+msgstr "Configurar formularios PDF rellenables"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in fillable PDF forms setup"
+msgstr "En configuración de formularios PDF rellenables"
+

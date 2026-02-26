@@ -1897,3 +1897,84 @@ msgstr "pdfcpu (الحقول المهيكلة)"
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
 msgstr "يجب أن يكون تاريخ \"إلى\" بعد تاريخ \"من\""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View survey form"
+msgstr "عرض النموذج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing survey form"
+msgstr "جارٍ عرض النموذج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Edit metadata"
+msgstr "تحرير البيانات الوصفية"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently editing metadata"
+msgstr "جارٍ تحرير البيانات الوصفية"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "PDF form"
+msgstr "نموذج PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on PDF form"
+msgstr "في نموذج PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Open visual editor"
+msgstr "فتح المحرر المرئي"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in visual editor"
+msgstr "في المحرر المرئي"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Manage versions"
+msgstr "إدارة الإصدارات"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently managing versions"
+msgstr "جارٍ إدارة الإصدارات"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "AI form generator"
+msgstr "مولد النماذج بالذكاء الاصطناعي"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in AI generator"
+msgstr "في مولد الذكاء الاصطناعي"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View results"
+msgstr "عرض النتائج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing results"
+msgstr "جارٍ عرض النتائج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View dashboard"
+msgstr "عرض لوحة التحكم"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on dashboard"
+msgstr "في لوحة التحكم"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Import form from PDF"
+msgstr "استيراد نموذج من PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently importing from PDF"
+msgstr "جارٍ الاستيراد من PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Fillable PDF forms setup"
+msgstr "إعداد نماذج PDF القابلة للتعبئة"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in fillable PDF forms setup"
+msgstr "في إعداد نماذج PDF القابلة للتعبئة"
+
