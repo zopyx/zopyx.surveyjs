@@ -29,6 +29,9 @@ jobs:
       - name: Create venv
         run: uv venv --python 3.12
 
+      - name: Install sdist build tooling
+        run: uv pip install --python .venv/bin/python setuptools
+
       - name: Build source distribution
         run: make sdist
 
