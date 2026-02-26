@@ -8,54 +8,72 @@
        tal:define="current_url request/ACTUAL_URL">
     <div class="survey-actions-row">
       <a class="survey-action-button action-view"
-         tal:attributes="class python: 'survey-action-button action-view' + (' is-active' if current_url.endswith('/@@viewer') or current_url == context.absolute_url() else '')"
+         tal:attributes="class python: 'survey-action-button action-view' + (' is-active' if current_url.endswith('/@@viewer') or current_url == context.absolute_url() else '');
+                         title python: 'View survey form' if not (current_url.endswith('/@@viewer') or current_url == context.absolute_url()) else 'Currently viewing survey form';
+                         aria-label python: 'View survey form' if not (current_url.endswith('/@@viewer') or current_url == context.absolute_url()) else 'Currently viewing survey form'"
          href="${context/absolute_url}/@@viewer">
         <span i18n:translate="">View</span>
       </a>
       <a class="survey-action-button action-settings"
-         tal:attributes="class python: 'survey-action-button action-settings' + (' is-active' if current_url.endswith('/@@survey-metadata') else '')"
+         tal:attributes="class python: 'survey-action-button action-settings' + (' is-active' if current_url.endswith('/@@survey-metadata') else '');
+                         title python: 'Edit metadata' if not current_url.endswith('/@@survey-metadata') else 'Currently editing metadata';
+                         aria-label python: 'Edit metadata' if not current_url.endswith('/@@survey-metadata') else 'Currently editing metadata'"
          href="${context/absolute_url}/@@survey-metadata">
         <span i18n:translate="">Metadata</span>
       </a>
       <tal:pdfform tal:condition="view/pdf_form_available">
         <a class="survey-action-button action-pdf-form"
-           tal:attributes="class python: 'survey-action-button action-pdf-form' + (' is-active' if current_url.endswith('/@@pdf-form') else '')"
+           tal:attributes="class python: 'survey-action-button action-pdf-form' + (' is-active' if current_url.endswith('/@@pdf-form') else '');
+                           title python: 'PDF form' if not current_url.endswith('/@@pdf-form') else 'Currently on PDF form';
+                           aria-label python: 'PDF form' if not current_url.endswith('/@@pdf-form') else 'Currently on PDF form'"
            href="${context/absolute_url}/@@pdf-form">
           <span i18n:translate="">PDF Form</span>
         </a>
       </tal:pdfform>
       <a class="survey-action-button action-editor"
-         tal:attributes="class python: 'survey-action-button action-editor' + (' is-active' if current_url.endswith('/@@editor') else '')"
+         tal:attributes="class python: 'survey-action-button action-editor' + (' is-active' if current_url.endswith('/@@editor') else '');
+                         title python: 'Open visual editor' if not current_url.endswith('/@@editor') else 'Currently in visual editor';
+                         aria-label python: 'Open visual editor' if not current_url.endswith('/@@editor') else 'Currently in visual editor'"
          href="${context/absolute_url}/@@editor">
         <span i18n:translate="">Visual Editor</span>
       </a>
       <a class="survey-action-button action-versions"
-         tal:attributes="class python: 'survey-action-button action-versions' + (' is-active' if current_url.endswith('/@@form-versions') else '')"
+         tal:attributes="class python: 'survey-action-button action-versions' + (' is-active' if current_url.endswith('/@@form-versions') else '');
+                         title python: 'Manage versions' if not current_url.endswith('/@@form-versions') else 'Currently managing versions';
+                         aria-label python: 'Manage versions' if not current_url.endswith('/@@form-versions') else 'Currently managing versions'"
          href="${context/absolute_url}/@@form-versions">
         <span i18n:translate="">Versions</span>
       </a>
       <tal:ai tal:condition="python: view.feature_enabled('ai-generator')">
         <a class="survey-action-button action-ai"
-           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '')"
+           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
+                           title python: 'AI form generator' if not current_url.endswith('/@@ai') else 'Currently in AI generator';
+                           aria-label python: 'AI form generator' if not current_url.endswith('/@@ai') else 'Currently in AI generator'"
            href="${context/absolute_url}/@@ai">
           <span i18n:translate="">AI Generator</span>
         </a>
       </tal:ai>
       <a class="survey-action-button action-results"
-         tal:attributes="class python: 'survey-action-button action-results' + (' is-active' if current_url.endswith('/@@results') else '')"
+         tal:attributes="class python: 'survey-action-button action-results' + (' is-active' if current_url.endswith('/@@results') else '');
+                         title python: 'View results' if not current_url.endswith('/@@results') else 'Currently viewing results';
+                         aria-label python: 'View results' if not current_url.endswith('/@@results') else 'Currently viewing results'"
          href="${context/absolute_url}/@@results">
         <span i18n:translate="">Results</span>
       </a>
       <tal:dashboard tal:condition="python: view.feature_enabled('dashboard')">
         <a class="survey-action-button action-dashboard"
-           tal:attributes="class python: 'survey-action-button action-dashboard' + (' is-active' if current_url.endswith('/@@dashboard') else '')"
+           tal:attributes="class python: 'survey-action-button action-dashboard' + (' is-active' if current_url.endswith('/@@dashboard') else '');
+                           title python: 'View dashboard' if not current_url.endswith('/@@dashboard') else 'Currently on dashboard';
+                           aria-label python: 'View dashboard' if not current_url.endswith('/@@dashboard') else 'Currently on dashboard'"
            href="${context/absolute_url}/@@dashboard">
           <span i18n:translate="">Dashboard</span>
         </a>
       </tal:dashboard>
       <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
         <a class="survey-action-button action-pdf-importer"
-           tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '')"
+           tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '');
+                           title python: 'Import form from PDF' if not current_url.endswith('/@@pdf-importer') else 'Currently importing from PDF';
+                           aria-label python: 'Import form from PDF' if not current_url.endswith('/@@pdf-importer') else 'Currently importing from PDF'"
            href="${context/absolute_url}/@@pdf-importer">
           <span i18n:translate="">Form from PDF</span>
         </a>
@@ -63,7 +81,9 @@
       <tal:manager tal:condition="view/is_manager">
         <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
           <a class="survey-action-button action-pdf-form-setup"
-             tal:attributes="class python: 'survey-action-button action-pdf-form-setup' + (' is-active' if current_url.endswith('/@@pdf-form-setup') else '')"
+             tal:attributes="class python: 'survey-action-button action-pdf-form-setup' + (' is-active' if current_url.endswith('/@@pdf-form-setup') else '');
+                             title python: 'Fillable PDF forms setup' if not current_url.endswith('/@@pdf-form-setup') else 'Currently in fillable PDF forms setup';
+                             aria-label python: 'Fillable PDF forms setup' if not current_url.endswith('/@@pdf-form-setup') else 'Currently in fillable PDF forms setup'"
              href="${context/absolute_url}/@@pdf-form-setup">
             <span i18n:translate="">Fillable PDF Forms</span>
             <span class="beta-badge" i18n:translate="">Beta</span>
