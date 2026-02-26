@@ -8,7 +8,8 @@ BASE_URL="https://unpkg.com/survey-creator-core@${CREATOR_VERSION}/i18n"
 
 if [ -z "$1" ]; then
   echo "Downloading commonly used creator i18n files..."
-  languages=(german french spanish italian dutch portuguese polish russian japanese simplified-chinese)
+  languages=(arabic bulgarian burmese catalan croatian czech danish dutch english finnish french german greek haitian-creole hebrew hungarian indonesian italian japanese korean malay mongolian norwegian persian polish portuguese romanian russian simplified-chinese slovak slovenian spanish swedish tajik thai traditional-chinese turkish)
+
 else
   echo "Downloading: $1"
   languages=("$1")

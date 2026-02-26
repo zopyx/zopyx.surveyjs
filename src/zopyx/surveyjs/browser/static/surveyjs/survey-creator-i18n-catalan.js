@@ -8,9 +8,9 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("survey-creator-core"));
 	else if(typeof define === 'function' && define.amd)
-		define("i18n/spanish", ["survey-creator-core"], factory);
+		define("i18n/catalan", ["survey-creator-core"], factory);
 	else if(typeof exports === 'object')
-		exports["i18n/spanish"] = factory(require("survey-creator-core"));
+		exports["i18n/catalan"] = factory(require("survey-creator-core"));
 	else
 		root["SurveyCreatorLocales"] = factory(root["SurveyCreatorCore"]);
 })(this, (__WEBPACK_EXTERNAL_MODULE_survey_creator_core__) => {
@@ -106,36 +106,36 @@ var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 /*!*************************************!*\
-  !*** ./src/localization/spanish.ts ***!
+  !*** ./src/localization/catalan.ts ***!
   \*************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   spanishTranslation: () => (/* binding */ spanishTranslation)
+/* harmony export */   catalanTranslation: () => (/* binding */ catalanTranslation)
 /* harmony export */ });
 /* harmony import */ var survey_creator_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! survey-creator-core */ "survey-creator-core");
 /* harmony import */ var survey_creator_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(survey_creator_core__WEBPACK_IMPORTED_MODULE_0__);
 
-var spanishTranslation = {
+var catalanTranslation = {
     // survey templates
     survey: {
         // "Edit"
         edit: "Editar",
         // "Watch and learn how to create surveys"
-        externalHelpLink: "Mira y aprende a crear encuestas",
+        externalHelpLink: "Mira y aprende a crear enquestes",
         // "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
         externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
         // "Please drop a question here from the Toolbox."
-        dropQuestion: "¡Arrastra un tipo de pregunta para empezar a diseñar tu encuesta!",
+        dropQuestion: "Arrossega un tipus de pregunta per començar a dissenyar la teva enquesta!",
         // "Create a rule to customize the flow of the survey."
-        addLogicItem: "Cree una regla para personalizar el flujo de la encuesta",
+        addLogicItem: "Crea una regla per personalitzar el flux de l'enquesta",
         // "Copy"
         copy: "Copiar",
         // "Duplicate"
         duplicate: "Duplicar",
         // "Add to toolbox"
-        addToToolbox: "Añadir a la caja de herramientas",
-        // "Delete Panel"
-        deletePanel: "Eliminar panel",
+        addToToolbox: "Afegir a la caixa d'eines",
+        // "Delete Panell"
+        deletePanel: "Eliminar panell",
         // "Delete Question"
         deleteQuestion: "Eliminar pregunta",
         // "Convert to"
@@ -146,169 +146,169 @@ var spanishTranslation = {
     // Creator tabs
     tabs: {
         // "Preview"
-        preview: "Encuesta de prueba",
+        preview: "Vista prèvia",
         // "Themes"
         theme: "Temas",
         // "Translations"
-        translation: "Traducción",
+        translation: "Traducció",
         // "Designer"
-        designer: "Diseñador de la encuesta",
+        designer: "Dissenyador de la enquesta",
         // "JSON Editor"
         json: "Editor de JSON",
         // "Logic"
-        logic: "Lógica de la encuesta"
+        logic: "Lògica de la enquesta"
     },
     // Question types
     qt: {
         // "Default"
-        default: "Defecto",
+        default: "Defecte",
         // "Checkboxes"
-        checkbox: "Caja",
+        checkbox: "Caselles",
         // "Long Text"
-        comment: "Comentario",
+        comment: "Text llarg",
         // "Image Picker"
-        imagepicker: "Selector de imágenes",
+        imagepicker: "Selector de imatges",
         // "Ranking"
         ranking: "Ranking",
         // "Image"
-        image: "Imagen",
+        image: "Imatge",
         // "Dropdown"
         dropdown: "Desplegable",
         // [Auto-translated] "Multi-Select Dropdown"
         tagbox: "Menú desplegable de selección múltiple",
         // "File Upload"
-        file: "Archivo",
+        file: "Fitxer",
         // "HTML"
         html: "Html",
         // "Single-Select Matrix"
-        matrix: "Matriz (selección única)",
+        matrix: "Matriu (selecció única)",
         // "Multi-Select Matrix"
-        matrixdropdown: "Matriz (opción múltiple)",
+        matrixdropdown: "Matriu (opció múltiple)",
         // "Dynamic Matrix"
-        matrixdynamic: "Matriz (filas dinámicas)",
+        matrixdynamic: "Matriu (files dinàmiques)",
         // "Multiple Textboxes"
         multipletext: "Múltiples textos",
         // "Panel"
-        panel: "Panel",
-        // "Dynamic Panel"
-        paneldynamic: "Panel (paneles dinámicos)",
+        panel: "Panell",
+        // "Dynamic Panell"
+        paneldynamic: "Panell (panells dinámicos)",
         // "Radio Button Group"
-        radiogroup: "Grupo de radio",
+        radiogroup: "Grup de botons d'opció",
         // "Rating Scale"
-        rating: "Clasificación",
+        rating: "Escala de valoració",
         // [Auto-translated] "Slider"
         slider: "Slider",
         // "Single-Line Input"
-        text: "Entrada única",
+        text: "Entrada de línia única",
         // "Yes/No (Boolean)"
-        boolean: "Booleano",
+        boolean: "Sí/No (Booleà)",
         // "Expression (read-only)"
-        expression: "Expresión (solo lectura)",
+        expression: "Expressió (només lectura)",
         // "Signature"
-        signaturepad: "Almohadilla de firma",
+        signaturepad: "Signatura",
         // [Auto-translated] "Button Group"
-        buttongroup: "Grupo de botones"
+        buttongroup: "Grup de botons"
     },
     toolboxCategories: {
         // "General"
         general: "general",
         // "Choice Questions"
-        choice: "Preguntas de selección",
+        choice: "Preguntes de selecció",
         // "Text Input Questions"
-        text: "Preguntas entrada de texto",
+        text: "Preguntes d'entrada de text",
         // "Containers"
-        containers: "Contenedores",
+        containers: "Contenidors",
         // "Matrix Questions"
-        matrix: "Preguntas matriz",
+        matrix: "Preguntes matriu",
         // "Misc"
         misc: "Misc"
     },
     // Strings in SurveyJS Creator
     ed: {
         // "Default ({0})"
-        defaultLocale: "Predeterminado ({0})",
+        defaultLocale: "Per defecte ({0})",
         // "Survey"
-        survey: "Encuesta",
+        survey: "Enquesta",
         // "Settings"
-        settings: "Configuración de la encuesta",
+        settings: "Configuració de la enquesta",
         // "Open settings"
-        settingsTooltip: "Configuración de encuesta abierta",
+        settingsTooltip: "Configuració de enquesta abierta",
         // "Survey Settings"
-        surveySettings: "Opciones encuesta",
+        surveySettings: "Opcions enquesta",
         // "Survey settings"
-        surveySettingsTooltip: "Configuración de la encuesta",
+        surveySettingsTooltip: "Configuració de la enquesta",
         // [Auto-translated] "Theme Settings"
-        themeSettings: "Configuración del tema",
+        themeSettings: "Configuració del tema",
         // [Auto-translated] "Theme settings"
-        themeSettingsTooltip: "Configuración del tema",
+        themeSettingsTooltip: "Configuració del tema",
         // [Auto-translated] "Creator Settings"
-        creatorSettingTitle: "Configuración del creador",
-        // "Show Panel"
-        showPanel: "Mostrar panel",
-        // "Hide Panel"
-        hidePanel: "Ocultar panel",
+        creatorSettingTitle: "Configuració del creador",
+        // "Show Panell"
+        showPanel: "Mostrar panell",
+        // "Hide Panell"
+        hidePanel: "Ocultar panell",
         // "Select previous"
         prevSelected: "Seleccionar anterior",
         // "Select next"
-        nextSelected: "Seleccionar siguiente",
+        nextSelected: "Seleccionar següent",
         // [Auto-translated] "Focus previous"
         prevFocus: "Enfoque anterior",
         // [Auto-translated] "Focus next"
-        nextFocus: "Enfoque siguiente",
+        nextFocus: "Enfoque següent",
         // "Survey"
-        surveyTypeName: "Encuesta",
+        surveyTypeName: "Enquesta",
         // "Page"
-        pageTypeName: "Página",
-        // "Panel"
-        panelTypeName: "Panel",
+        pageTypeName: "Pàgina",
+        // "Panell"
+        panelTypeName: "Panell",
         // "Question"
         questionTypeName: "Pregunta",
         // "Column"
         columnTypeName: "Columna",
         // "Add New Page"
-        addNewPage: "Añadir nueva página",
+        addNewPage: "Afegir nova pàgina",
         // "Scroll to the Right"
         moveRight: "Desplácese a la derecha",
         // "Scroll to the Left"
         moveLeft: "Desplácese a la izquierda",
         // "Delete Page"
-        deletePage: "Eliminar página",
+        deletePage: "Eliminar pàgina",
         // "Edit Page"
-        editPage: "Editar página",
+        editPage: "Editar pàgina",
         // "Edit"
         edit: "Editar",
         // "page"
-        newPageName: "Página",
+        newPageName: "Pàgina",
         // "question"
         newQuestionName: "Pregunta",
-        // "panel"
-        newPanelName: "Panel",
+        // "panell"
+        newPanelName: "Panell",
         // "text"
-        newTextItemName: "Texto",
+        newTextItemName: "Text",
         // [Auto-translated] "Default"
-        defaultV2Theme: "Predeterminado",
+        defaultV2Theme: "Per defecte",
         // [Auto-translated] "Modern"
-        modernTheme: "Moderno",
+        modernTheme: "Modern",
         // [Auto-translated] "Default (legacy)"
-        defaultTheme: "Incumplimiento (heredado)",
+        defaultTheme: "Incumplimiento (heretat)",
         // "Preview Survey Again"
-        testSurveyAgain: "Encuesta de prueba de nuevo",
+        testSurveyAgain: "Enquesta de prueba de nou",
         // "Survey width: "
-        testSurveyWidth: "Ancho de la encuesta:",
+        testSurveyWidth: "Ancho de la enquesta:",
         // "You had to navigate to"
         navigateToMsg: "Tuviste que navegar a:",
         // "Save Survey"
-        saveSurvey: "Guardar la encuesta",
+        saveSurvey: "Desar la enquesta",
         // "Save Survey"
-        saveSurveyTooltip: "Guardar la encuesta",
+        saveSurveyTooltip: "Desar la enquesta",
         // [Auto-translated] "Save Theme"
-        saveTheme: "Guardar tema",
+        saveTheme: "Desar tema",
         // [Auto-translated] "Save Theme"
-        saveThemeTooltip: "Guardar tema",
+        saveThemeTooltip: "Desar tema",
         // "Hide errors"
-        jsonHideErrors: "Ocultar errores",
+        jsonHideErrors: "Ocultar errors",
         // "Show errors"
-        jsonShowErrors: "Mostrar errores",
+        jsonShowErrors: "Mostrar errors",
         // "Undo"
         undo: "Deshacer",
         // "Redo"
@@ -332,7 +332,7 @@ var spanishTranslation = {
         // [Auto-translated] "Zoom Out"
         zoomOutTooltip: "Alejar",
         // [Auto-translated] "Lock expand/collapse state for questions"
-        lockQuestionsTooltip: "Bloquear el estado de expansión/contracción de las preguntas",
+        lockQuestionsTooltip: "Bloquear el estado de expansión/contracción de las preguntes",
         // "Show more"
         showMoreChoices: "Mostrar más",
         // "Show less"
@@ -350,7 +350,7 @@ var spanishTranslation = {
         // "Paste from clipboard"
         pasteTooltip: "Pega de portapapeles",
         // "Options"
-        options: "Opciones",
+        options: "Opcions",
         // "Generate Valid JSON"
         generateValidJSON: "Generar un JSON válido",
         // "Generate Readable JSON"
@@ -374,19 +374,19 @@ var spanishTranslation = {
         // [Auto-translated] "Start configuring your form"
         propertyGridPlaceholderTitle: "Empieza a configurar tu formulario",
         // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
-        propertyGridPlaceholderDescription: "Haga clic en cualquier icono de categoría para explorar la configuración de la encuesta. Los ajustes adicionales estarán disponibles una vez que agregue un elemento de topografía a la superficie de diseño.",
+        propertyGridPlaceholderDescription: "Haga clic en cualquier icono de categoría para explorar la configuració de la enquesta. Los ajustes adicionales estarán disponibles una vez que agregue un elemento de topografía a la superficie de diseño.",
         // "Please correct JSON."
         correctJSON: "Por favor, corrija JSON",
         // "Survey Results "
-        surveyResults: "Resultado de la encuesta:",
+        surveyResults: "Resultado de la enquesta:",
         // "As Table"
         surveyResultsTable: "Como Tabla",
         // "As JSON"
         surveyResultsJson: "Como JSON",
         // "Question Title"
-        resultsTitle: "Título de la pregunta",
+        resultsTitle: "Títol de la pregunta",
         // "Question Name"
-        resultsName: "Nombre de la pregunta",
+        resultsName: "Nom de la pregunta",
         // "Answer Value"
         resultsValue: "Valor de respuesta",
         // "Display Value"
@@ -402,9 +402,9 @@ var spanishTranslation = {
         // "Error! Editor content is not saved."
         saveError: "¡Error!El contenido del editor no se ha guardado",
         // "Language Settings"
-        translationPropertyGridTitle: "Opciones de lenguaje",
+        translationPropertyGridTitle: "Opcions de lenguaje",
         // [Auto-translated] "Theme Settings"
-        themePropertyGridTitle: "Configuración del tema",
+        themePropertyGridTitle: "Configuració del tema",
         // [Auto-translated] "Add Language"
         addLanguageTooltip: "Agregar idioma",
         // "Languages"
@@ -418,7 +418,7 @@ var spanishTranslation = {
         // "Used Strings Only"
         translationShowUsedStringsOnly: "Sólo textos utilizados",
         // "All Pages"
-        translationShowAllPages: "Mostrar todas las páginas",
+        translationShowAllPages: "Mostrar todas las pàgines",
         // "No strings to translate. Please change the filter."
         translationNoStrings: "Sin cuerdas para traducir. Por favor, cambie el filtro",
         // "Export to CSV"
@@ -432,9 +432,9 @@ var spanishTranslation = {
         // [Auto-translated] "Untranslated strings"
         translationDialogTitle: "Cadenas sin traducir",
         // "Merge {0} with default locale"
-        translationMergeLocaleWithDefault: "Merge {0} con lugar predeterminado",
+        translationMergeLocaleWithDefault: "Merge {0} con lugar per defecte",
         // "Translation..."
-        translationPlaceHolder: "Traducción...",
+        translationPlaceHolder: "Traducció...",
         // [Auto-translated] "Source: "
         translationSource: "Fuente: ",
         // [Auto-translated] "Target: "
@@ -452,7 +452,7 @@ var spanishTranslation = {
         // [Auto-translated] "Copy to clipboard"
         surveyJsonCopyButton: "Copiar en el portapapeles",
         // [Auto-translated] "Reset theme settings to default"
-        themeResetButton: "Restablecer la configuración predeterminada del tema",
+        themeResetButton: "Restablecer la configuració per defecte del tema",
         // [Auto-translated] "Do you really want to reset the theme? All your customizations will be lost."
         themeResetConfirmation: "¿Realmente quieres resetear el tema? Todas tus personalizaciones se perderán.",
         // [Auto-translated] "Yes, reset the theme"
@@ -464,27 +464,27 @@ var spanishTranslation = {
         // "Underline"
         underline: "Subrayar",
         // "Add Question"
-        addNewQuestion: "Añadir pregunta",
+        addNewQuestion: "Afegir pregunta",
         // "Select page..."
-        selectPage: "Seleccionar página ...",
+        selectPage: "Seleccionar pàgina ...",
         // [Auto-translated] "Choices are copied from"
-        carryForwardChoicesCopied: "Las opciones se copian de",
+        carryForwardChoicesCopied: "Las opcions se copian de",
         // [Auto-translated] "Choices are loaded from a web service."
-        choicesLoadedFromWebText: "Las opciones se cargan desde un servicio web.",
+        choicesLoadedFromWebText: "Las opcions se cargan desde un servicio web.",
         // [Auto-translated] "Go to settings"
-        choicesLoadedFromWebLinkText: "Ir a la configuración",
+        choicesLoadedFromWebLinkText: "Ir a la configuració",
         // [Auto-translated] "Preview of loaded choice options"
-        choicesLoadedFromWebPreviewTitle: "Vista previa de las opciones de elección cargadas",
+        choicesLoadedFromWebPreviewTitle: "Vista prèvia de las opcions de elección cargadas",
         // "HTML content will be here."
         htmlPlaceHolder: "Contenido HTML irá aquí.",
         // "Drop a question from the toolbox here."
         panelPlaceHolder: "Arrastra aquí una pregunta desde la caja de herramientas.",
         // "The survey is empty. Drag an element from the toolbox or click the button below."
-        surveyPlaceHolder: "La encuesta está vacía. Arrastra una pregunta desde la caja de herramientas o haz click en el botón de abajo.",
+        surveyPlaceHolder: "La enquesta está vacía. Arrastra una pregunta desde la caja de herramientas o haz click en el botón de abajo.",
         // [Auto-translated] "The page is empty. Drag an element from the toolbox or click the button below."
-        pagePlaceHolder: "La página está vacía. Arrastre un elemento desde la caja de herramientas o haga clic en el botón de abajo.",
+        pagePlaceHolder: "La pàgina está vacía. Arrastre un elemento desde la caja de herramientas o haga clic en el botón de abajo.",
         // [Auto-translated] "Drag and drop an image here or click the button below and choose an image to upload"
-        imagePlaceHolder: "Arrastre y suelte una imagen aquí o haga clic en el botón de abajo y elija una imagen para cargar",
+        imagePlaceHolder: "Arrastre y suelte una imagen aquí o haga clic en el botón de abajo y elija una imatge para cargar",
         // "Click the \"Add Question\" button below to start creating your form."
         surveyPlaceHolderMobile: "Haga clic en el botón \"Agregar pregunta\" a continuación para comenzar a crear su formulario.",
         // [Auto-translated] "Your form is empty"
@@ -496,13 +496,13 @@ var spanishTranslation = {
         // [Auto-translated] "Drag an element from the toolbox or click the button below."
         surveyPlaceholderDescriptionMobile: "Arrastre un elemento desde la caja de herramientas o haga clic en el botón de abajo.",
         // [Auto-translated] "No preview"
-        previewPlaceholderTitle: "Sin vista previa",
+        previewPlaceholderTitle: "Sin vista prèvia",
         // [Auto-translated] "No preview"
-        previewPlaceholderTitleMobile: "Sin vista previa",
+        previewPlaceholderTitleMobile: "Sin vista prèvia",
         // [Auto-translated] "The survey doesn't contain any visible elements."
-        previewPlaceholderDescription: "La encuesta no contiene ningún elemento visible.",
+        previewPlaceholderDescription: "La enquesta no contiene ningún elemento visible.",
         // [Auto-translated] "The survey doesn't contain any visible elements."
-        previewPlaceholderDescriptionMobile: "La encuesta no contiene ningún elemento visible.",
+        previewPlaceholderDescriptionMobile: "La enquesta no contiene ningún elemento visible.",
         // [Auto-translated] "No strings to translate"
         translationsPlaceholderTitle: "Sin ataduras para traducir",
         // [Auto-translated] "No strings to translate"
@@ -512,48 +512,48 @@ var spanishTranslation = {
         // [Auto-translated] "Add elements to your form or change the strings filter in the toolbar."
         translationsPlaceholderDescriptionMobile: "Agregue elementos a su formulario o cambie el filtro de cadenas en la barra de herramientas.",
         // "Click the \"Add Question\" button below to add a new element to the page."
-        pagePlaceHolderMobile: "Haga clic en el botón \"Agregar pregunta\" a continuación para agregar un nuevo elemento a la página.",
-        // "Click the \"Add Question\" button below to add a new element to the panel."
-        panelPlaceHolderMobile: "Haga clic en el botón \"Agregar pregunta\" a continuación para agregar un nuevo elemento al panel.",
+        pagePlaceHolderMobile: "Haga clic en el botón \"Agregar pregunta\" a continuación para agregar un nou elemento a la pàgina.",
+        // "Click the \"Add Question\" button below to add a new element to the panell."
+        panelPlaceHolderMobile: "Haga clic en el botón \"Agregar pregunta\" a continuación para agregar un nou elemento al panell.",
         // [Auto-translated] "Click the button below and choose an image to upload"
-        imagePlaceHolderMobile: "Haga clic en el botón de abajo y elija una imagen para cargar",
+        imagePlaceHolderMobile: "Haga clic en el botón de abajo y elija una imatge para cargar",
         // [Auto-translated] "Choose Image"
-        imageChooseImage: "Elegir imagen",
+        imageChooseImage: "Elegir imatge",
         // "Add {0}"
-        addNewTypeQuestion: "Añadir {0}", // {0} is localizable question type
+        addNewTypeQuestion: "Afegir {0}", // {0} is localizable question type
         // [Auto-translated] "[LOGO]"
         chooseLogoPlaceholder: "[LOGOTIPO]",
         // [Auto-translated] "Item "
         choices_Item: "Artículo ",
         // [Auto-translated] "Select a file"
-        selectFile: "Seleccionar un archivo",
+        selectFile: "Seleccionar un fitxer",
         // [Auto-translated] "Remove the file"
-        removeFile: "Eliminar el archivo",
+        removeFile: "Eliminar el fitxer",
         lg: {
             // "Add New Rule"
-            addNewItem: "Añadir nueva regla",
+            addNewItem: "Afegir nova regla",
             // "Create a rule to customize the flow of the survey."
-            empty_tab: "Crea una regla para personalizar el flujo de la encuesta.",
+            empty_tab: "Crea una regla para personalizar el flujo de la enquesta.",
             // [Auto-translated] "No logical rules"
-            logicPlaceholderTitle: "Sin reglas lógicas",
+            logicPlaceholderTitle: "Sin regles lógicas",
             // [Auto-translated] "No logical rules"
-            logicPlaceholderTitleMobile: "Sin reglas lógicas",
+            logicPlaceholderTitleMobile: "Sin regles lógicas",
             // [Auto-translated] "Create a rule to customize the flow of the survey."
-            logicPlaceholderDescription: "Cree una regla para personalizar el flujo de la encuesta.",
+            logicPlaceholderDescription: "Cree una regla para personalizar el flujo de la enquesta.",
             // [Auto-translated] "Create a rule to customize the flow of the survey."
-            logicPlaceholderDescriptionMobile: "Cree una regla para personalizar el flujo de la encuesta.",
+            logicPlaceholderDescriptionMobile: "Cree una regla para personalizar el flujo de la enquesta.",
             // "Show/hide page"
             page_visibilityName: "Visibilidad de la pagina",
             // "Enable/disable page"
-            page_enableName: "Habilitar (deshabilitar) página",
+            page_enableName: "Habilitar (deshabilitar) pàgina",
             // [Auto-translated] "Make page required"
-            page_requireName: "Hacer que la página sea obligatoria",
-            // "Show/hide panel"
-            panel_visibilityName: "Visibilidad del panel",
-            // "Enable/disable panel"
-            panel_enableName: "Panel habilitar / deshabilitar",
-            // [Auto-translated] "Make panel required"
-            panel_requireName: "Hacer que el panel sea obligatorio",
+            page_requireName: "Hacer que la pàgina sea obligatòria",
+            // "Show/hide panell"
+            panel_visibilityName: "Visibilidad del panell",
+            // "Enable/disable panell"
+            panel_enableName: "Panell habilitar / deshabilitar",
+            // [Auto-translated] "Make panell required"
+            panel_requireName: "Hacer que el panell sea obligatori",
             // "Show/hide question"
             question_visibilityName: "Pregunta visibilidad",
             // "Enable/disable question"
@@ -575,7 +575,7 @@ var spanishTranslation = {
             // [Auto-translated] "Set column value"
             column_setValueName: "Establecer el valor de la columna",
             // "Complete survey"
-            trigger_completeName: "Encuesta completa",
+            trigger_completeName: "Enquesta completa",
             // "Set answer"
             trigger_setvalueName: "Establecer valor de la pregunta",
             // "Copy answer"
@@ -583,43 +583,43 @@ var spanishTranslation = {
             // "Skip to question"
             trigger_skipName: "Saltar a la pregunta",
             // "Run expression"
-            trigger_runExpressionName: "Ejecutar la expresión personalizada",
+            trigger_runExpressionName: "Ejecutar la expressió personalitzada",
             // "Set \"Thank You\" page markup"
-            completedHtmlOnConditionName: "Texto personalizado 'Página de agradecimiento'",
+            completedHtmlOnConditionName: "Text personalitzat 'Pàgina de agradecimiento'",
             // "Make the page visible when the logical expression evaluates to true. Otherwise, keep the page invisible."
-            page_visibilityDescription: "Haga que la página sea visible cuando la expresión lógica vuelva verdadera. De lo contrario, manténgalo invisible",
-            // "Make the page visible when the logical expression evaluates to true. Otherwise, keep the panel invisible."
-            panel_visibilityDescription: "Haga que el panel sea visible cuando la expresión lógica vuelva verdadera. De lo contrario, manténgalo invisible",
-            // "Make the panel and all elements inside it enabled when the logical expression evaluates to true. Otherwise, keep them disabled."
-            panel_enableDescription: "Haga el panel, y todos los elementos dentro de él, habiliten cuando la expresión lógica devuelve verdadero. De lo contrario, manténgalos deshabilitados",
+            page_visibilityDescription: "Haga que la pàgina sea visible cuando la expressió lògica vuelva verdadera. De lo contrario, manténgalo invisible",
+            // "Make the page visible when the logical expression evaluates to true. Otherwise, keep the panell invisible."
+            panel_visibilityDescription: "Haga que el panell sea visible cuando la expressió lògica vuelva verdadera. De lo contrario, manténgalo invisible",
+            // "Make the panell and all elements inside it enabled when the logical expression evaluates to true. Otherwise, keep them disabled."
+            panel_enableDescription: "Haga el panell, y todos los elementos dentro de él, habiliten cuando la expressió lògica devuelve verdadero. De lo contrario, manténgalos deshabilitados",
             // "Make the question visible when the logical expression evaluates to true. Otherwise, keep the question invisible."
-            question_visibilityDescription: "Haz que la pregunta sea visible cuando la expresión lógica se devuelve 'verdadero'. De lo contrario, se mantiene invisible",
+            question_visibilityDescription: "Haz que la pregunta sea visible cuando la expressió lògica se devuelve 'verdadero'. De lo contrario, se mantiene invisible",
             // "Make the question enabled when the logical expression evaluates to true. Otherwise, keep the question disabled."
-            question_enableDescription: "Haz que la pregunta se habilite cuando la expresión lógica devuelve 'verdadero'. De lo contrario, se mantiene deshabilitado",
+            question_enableDescription: "Haz que la pregunta se habilite cuando la expressió lògica devuelve 'verdadero'. De lo contrario, se mantiene deshabilitat",
             // "Question becomes required when the logical expression evaluates to true."
-            question_requireDescription: "La pregunta se requiere cuando la expresión lógica devuelve 'verdadero'",
+            question_requireDescription: "La pregunta se requiere cuando la expressió lògica devuelve 'verdadero'",
             // "When the logical expression evaluates to true, the survey ends, and the respondent sees the \"Thank you\" page."
-            trigger_completeDescription: "Cuando la expresión lógica devuelve 'verdadero', la encuesta se completa y el usuario final ve la 'página de agradecimiento'",
+            trigger_completeDescription: "Cuando la expressió lògica devuelve 'verdadero', la enquesta se completa y el usuario final ve la 'pàgina de agradecimiento'",
             // "When question values used in the logical expression are changed, and the expression evaluates to true, the specified value is assigned to the selected question."
-            trigger_setvalueDescription: "Cuando se cambian los valores de las preguntas, que se usan en la expresión lógica, se cambian y la expresión lógica devuelve 'verdadero', entonces el valor se establece en la pregunta seleccionada",
+            trigger_setvalueDescription: "Cuando se cambian los valors de las preguntes, que se usan en la expresión lógica, se cambian y la expressió lògica devuelve 'verdadero', entonces el valor se establece en la pregunta seleccionada",
             // "When question values used in the logical expression are changed, and the expression evaluates to true, the value of the selected question is copied to another question."
-            trigger_copyvalueDescription: "Cuando se cambian los valores de las preguntas, que se usan en la expresión lógica, se cambian y la expresión lógica devuelve 'verdadero', entonces el valor de una pregunta seleccionada se copia a otra pregunta seleccionada",
+            trigger_copyvalueDescription: "Cuando se cambian los valors de las preguntes, que se usan en la expresión lógica, se cambian y la expressió lògica devuelve 'verdadero', entonces el valor de una pregunta seleccionada se copia a otra pregunta seleccionada",
             // "When the logical expression evaluates to true, the survey focuses/jumps to the selected question."
-            trigger_skipDescription: "Cuando la expresión lógica devuelve 'verdadero', la encuesta salta a la pregunta seleccionada",
+            trigger_skipDescription: "Cuando la expressió lògica devuelve 'verdadero', la enquesta salta a la pregunta seleccionada",
             // "When the logical expression evaluates to true, the survey evaluates another expression. Optionally, the result of the latter expression can be assigned as a value to the selected question"
-            trigger_runExpressionDescription: "Cuando la expresión lógica devuelve 'verdadero', entonces se realiza la expresión personalizada. Es posible que opcionalmente establezca este resultado de expresión en la pregunta seleccionada",
+            trigger_runExpressionDescription: "Cuando la expresión lògica devuelve 'verdadero', entonces se realiza la expresión personalitzada. Es posible que opcionalmente establezca este resultado de expressió en la pregunta seleccionada",
             // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
-            completedHtmlOnConditionDescription: "Si la expresión lógica devuelve 'verdadero', entonces el texto predeterminado para la 'página de agradecimiento' se cambia por el texto dado",
+            completedHtmlOnConditionDescription: "Si la expressió lògica devuelve 'verdadero', entonces el texto per defecte para la 'pàgina de agradecimiento' se cambia por el text dado",
             // "When expression: '{0}' returns true"
-            itemExpressionText: "Cuando la expresión: '{0}' devuelve VERDADERO:", // {0} - the expression
+            itemExpressionText: "Cuando la expressió: '{0}' devuelve VERDADERO:", // {0} - the expression
             // "New rule"
-            itemEmptyExpressionText: "Nueva regla",
+            itemEmptyExpressionText: "Nova regla",
             // "make page {0} visible"
-            page_visibilityText: "Hacer la página {0} Visible", // {0} page name
-            // "make panel {0} visible"
-            panel_visibilityText: "Hacer panel {0} visible", // {0} panel name
-            // "make panel {0} enable"
-            panel_enableText: "Hacer panel {0} habilitar", // {0} panel name
+            page_visibilityText: "Hacer la pàgina {0} Visible", // {0} page name
+            // "make panell {0} visible"
+            panel_visibilityText: "Hacer panell {0} visible", // {0} panel name
+            // "make panell {0} enable"
+            panel_enableText: "Hacer panell {0} habilitar", // {0} panel name
             // "make question {0} visible"
             question_visibilityText: "Hacer Pregunta {0} Visible", // {0} question name
             // "make question {0} enable"
@@ -641,9 +641,9 @@ var spanishTranslation = {
             // [Auto-translated] "assign cell value: {1} to column: {0}"
             column_setValueText: "Asignar valor de celda: {1} a columna: {0}", // {0} column name and {1} setValueExpression
             // [Auto-translated] "An expression whose result will be assigned to the target question."
-            setValueExpressionPlaceholder: "Una expresión cuyo resultado se asignará a la pregunta de destino.",
+            setValueExpressionPlaceholder: "Una expressió cuyo resultado se asignará a la pregunta de destino.",
             // "survey becomes completed"
-            trigger_completeText: "La encuesta se completa",
+            trigger_completeText: "La enquesta se completa",
             // "set into question: {0} value {1}"
             trigger_setvalueText: "En cuestión: {0} valor {1}", // {0} question name, {1} setValue
             // [Auto-translated] "clear question value: {0}"
@@ -651,162 +651,162 @@ var spanishTranslation = {
             // "copy into question: {0} value from question {1}"
             trigger_copyvalueText: "Copiar en cuestión: {0} valor de la pregunta {1}", // {0} and {1} question names
             // "survey skip to the question {0}"
-            trigger_skipText: "Encuesta salta a la pregunta {0}", // {0} question name
+            trigger_skipText: "Enquesta salta a la pregunta {0}", // {0} question name
             // "run expression: '{0}'"
-            trigger_runExpressionText1: "Expresión de ejecución: '{0}'", // {0} the expression
+            trigger_runExpressionText1: "Expressió de ejecución: '{0}'", // {0} the expression
             // " and set its result into question: {0}"
             trigger_runExpressionText2: "y establecer su resultado en cuestión: {0}", // {0} question name
             // "show custom text for the \"Thank You\" page."
-            completedHtmlOnConditionText: "Mostrar texto personalizado para la 'gracias página'",
+            completedHtmlOnConditionText: "Mostrar text personalitzat para la 'gracias pàgina'",
             // "All Questions"
-            showAllQuestions: "Todas las preguntas",
+            showAllQuestions: "Todas las preguntes",
             // "All Action Types"
-            showAllActionTypes: "Todos los tipos de acción",
+            showAllActionTypes: "Todos los tipos de acció",
             // "Condition(s)"
-            conditions: "Condición(es)",
+            conditions: "Condició(es)",
             // "Action(s)"
             actions: "Comportamiento",
             // "Define condition(s)"
-            expressionEditorTitle: "Definir la(s) condición(es)",
+            expressionEditorTitle: "Definir la(s) condició(es)",
             // "Define action(s)"
-            actionsEditorTitle: "Definir la(s) acción(es)",
+            actionsEditorTitle: "Definir la(s) acció(es)",
             // "Delete Action"
-            deleteAction: "Eliminar acción",
+            deleteAction: "Eliminar acció",
             // "Add Action"
-            addNewAction: "Añadir nueva acción",
+            addNewAction: "Afegir nova acció",
             // "Select action..."
-            selectedActionCaption: "Seleccione una acción para agregar ...",
+            selectedActionCaption: "Seleccione una acció para agregar ...",
             // "The logic expression is empty or invalid. Please correct it."
-            expressionInvalid: "La expresión lógica está vacía o inválida. Por favor corríjalo",
+            expressionInvalid: "La expressió lògica está vacía o inválida. Por favor corríjalo",
             // "Please add at least one action."
-            noActionError: "Por favor, agregue al menos una acción",
+            noActionError: "Por favor, agregue al menos una acció",
             // "Please fix issues in your action(s)."
-            actionInvalid: "Por favor, solucione problemas en su(s) acción(es)",
+            actionInvalid: "Por favor, solucione problemas en su(s) acció(es)",
             // [Auto-translated] "Logical rules are incomplete"
-            uncompletedRule_title: "Las reglas lógicas están incompletas",
+            uncompletedRule_title: "Las regles lógicas están incompletas",
             // [Auto-translated] "You have not completed some of the logical rules. If you leave the tab now, the changes will be lost. Do you still want to leave the tab without completing the changes?"
-            uncompletedRule_text: "No ha completado algunas de las reglas lógicas. Si deja la pestaña ahora, los cambios se perderán. ¿Aún desea salir de la pestaña sin completar los cambios?",
+            uncompletedRule_text: "No ha completado algunas de las regles lógicas. Si deja la pestaña ahora, los cambios se perderán. ¿Aún desea salir de la pestaña sin completar los cambios?",
             // [Auto-translated] "Yes"
             uncompletedRule_apply: "Sí",
             // [Auto-translated] "No, I want to complete the rules"
-            uncompletedRule_cancel: "No, quiero completar las reglas"
+            uncompletedRule_cancel: "No, quiero completar las regles"
         }
     },
     // Property Editors
     pe: {
         panel: {
-            // [Auto-translated] "Panel name"
-            name: "Nombre del panel",
-            // [Auto-translated] "Panel title"
-            title: "Título de la viñeta",
-            // [Auto-translated] "Panel description"
-            description: "Descripción del panel",
-            // [Auto-translated] "Make the panel visible if"
-            visibleIf: "Haga que el panel sea visible si",
-            // [Auto-translated] "Make the panel required if"
-            requiredIf: "Haga que el panel sea obligatorio si",
-            // [Auto-translated] "Question order within the panel"
-            questionOrder: "Orden de las preguntas dentro del panel",
-            // [Auto-translated] "Move the panel to page"
-            page: "Mover el panel a la página",
-            // [Auto-translated] "Display the panel on a new line"
-            startWithNewLine: "Mostrar el panel en una nueva línea",
-            // [Auto-translated] "Panel collapse state"
-            state: "Estado de contracción del panel",
-            // [Auto-translated] "Inline panel width"
-            width: "Ancho del panel en línea",
-            // [Auto-translated] "Minimum panel width"
-            minWidth: "Anchura mínima del panel",
-            // [Auto-translated] "Maximum panel width"
-            maxWidth: "Anchura máxima del panel",
-            // [Auto-translated] "Number this panel"
-            showNumber: "Numerar este panel"
+            // [Auto-translated] "Panell name"
+            name: "Nom del panell",
+            // [Auto-translated] "Panell title"
+            title: "Títol de la viñeta",
+            // [Auto-translated] "Panell description"
+            description: "Descripció del panell",
+            // [Auto-translated] "Make the panell visible if"
+            visibleIf: "Haga que el panell sea visible si",
+            // [Auto-translated] "Make the panell required if"
+            requiredIf: "Haga que el panell sea obligatori si",
+            // [Auto-translated] "Question order within the panell"
+            questionOrder: "Orden de las preguntes dentro del panell",
+            // [Auto-translated] "Move the panell to page"
+            page: "Mover el panell a la pàgina",
+            // [Auto-translated] "Display the panell on a new line"
+            startWithNewLine: "Mostrar el panell en una nova línea",
+            // [Auto-translated] "Panell collapse state"
+            state: "Estado de contracción del panell",
+            // [Auto-translated] "Inline panell width"
+            width: "Ancho del panell en línea",
+            // [Auto-translated] "Minimum panell width"
+            minWidth: "Anchura mínima del panell",
+            // [Auto-translated] "Maximum panell width"
+            maxWidth: "Anchura máxima del panell",
+            // [Auto-translated] "Number this panell"
+            showNumber: "Numerar este panell"
         },
         panellayoutcolumn: {
             // [Auto-translated] "Effective width, %"
             effectiveWidth: "Anchura efectiva, %",
             // [Auto-translated] "Question title width, px"
-            questionTitleWidth: "Ancho del título de la pregunta, px"
+            questionTitleWidth: "Ancho del títol de la pregunta, px"
         },
         paneldynamic: {
-            // [Auto-translated] "Panel name"
-            name: "Nombre del panel",
-            // [Auto-translated] "Panel title"
-            title: "Título de la viñeta",
-            // [Auto-translated] "Panel description"
-            description: "Descripción del panel",
+            // [Auto-translated] "Panell name"
+            name: "Nom del panell",
+            // [Auto-translated] "Panell title"
+            title: "Títol de la viñeta",
+            // [Auto-translated] "Panell description"
+            description: "Descripció del panell",
             // [Auto-translated] "Entry display mode"
             displayMode: "Modo de visualización de entrada",
-            // [Auto-translated] "Make the panel visible if"
-            visibleIf: "Haga que el panel sea visible si",
-            // [Auto-translated] "Make the panel required if"
-            requiredIf: "Haga que el panel sea obligatorio si",
-            // [Auto-translated] "Move the panel to page"
-            page: "Mover el panel a la página",
-            // [Auto-translated] "Display the panel on a new line"
-            startWithNewLine: "Mostrar el panel en una nueva línea",
-            // [Auto-translated] "Panel collapse state"
-            state: "Estado de contracción del panel",
-            // [Auto-translated] "Inline panel width"
-            width: "Ancho del panel en línea",
-            // [Auto-translated] "Minimum panel width"
-            minWidth: "Anchura mínima del panel",
-            // [Auto-translated] "Maximum panel width"
-            maxWidth: "Anchura máxima del panel",
+            // [Auto-translated] "Make the panell visible if"
+            visibleIf: "Haga que el panell sea visible si",
+            // [Auto-translated] "Make the panell required if"
+            requiredIf: "Haga que el panell sea obligatori si",
+            // [Auto-translated] "Move the panell to page"
+            page: "Mover el panell a la pàgina",
+            // [Auto-translated] "Display the panell on a new line"
+            startWithNewLine: "Mostrar el panell en una nova línea",
+            // [Auto-translated] "Panell collapse state"
+            state: "Estado de contracción del panell",
+            // [Auto-translated] "Inline panell width"
+            width: "Ancho del panell en línea",
+            // [Auto-translated] "Minimum panell width"
+            minWidth: "Anchura mínima del panell",
+            // [Auto-translated] "Maximum panell width"
+            maxWidth: "Anchura máxima del panell",
             // [Auto-translated] "Confirm entry removal"
             confirmDelete: "Confirmar la eliminación de la entrada",
             // [Auto-translated] "Entry description pattern"
-            templateDescription: "Patrón de descripción de la entrada",
+            templateDescription: "Patrón de descripció de la entrada",
             // [Auto-translated] "Entry title pattern"
-            templateTitle: "Patrón de título de entrada",
-            // [Auto-translated] "Empty panel text"
-            noEntriesText: "Texto de panel vacío",
+            templateTitle: "Patrón de títol de entrada",
+            // [Auto-translated] "Empty panell text"
+            noEntriesText: "Text de panell vacío",
             // [Auto-translated] "Tab title pattern"
-            templateTabTitle: "Patrón de título de tabulación",
+            templateTabTitle: "Patrón de títol de tabulación",
             // [Auto-translated] "Tab title placeholder"
-            tabTitlePlaceholder: "Marcador de posición del título de la pestaña",
+            tabTitlePlaceholder: "Marcador de posición del títol de la pestaña",
             // [Auto-translated] "Make an individual entry visible if"
             templateVisibleIf: "Haga visible una entrada individual si",
-            // [Auto-translated] "Number the panel"
-            showNumber: "Numerar el panel",
-            // [Auto-translated] "Panel title alignment"
-            titleLocation: "Alineación del título del panel",
-            // [Auto-translated] "Panel description alignment"
-            descriptionLocation: "Alineación de la descripción del panel",
+            // [Auto-translated] "Number the panell"
+            showNumber: "Numerar el panell",
+            // [Auto-translated] "Panell title alignment"
+            titleLocation: "Alineación del títol del panell",
+            // [Auto-translated] "Panell description alignment"
+            descriptionLocation: "Alineación de la descripció del panell",
             // [Auto-translated] "Question title alignment"
-            templateQuestionTitleLocation: "Alineación del título de la pregunta",
+            templateQuestionTitleLocation: "Alineación del títol de la pregunta",
             // [Auto-translated] "Question title width"
-            templateQuestionTitleWidth: "Ancho del título de la pregunta",
+            templateQuestionTitleWidth: "Ancho del títol de la pregunta",
             // [Auto-translated] "Error message alignment"
             templateErrorLocation: "Alineación de mensajes de error",
             // [Auto-translated] "New entry location"
-            newPanelPosition: "Nueva ubicación de entrada",
+            newPanelPosition: "Nova ubicación de entrada",
             // [Auto-translated] "Prevent duplicate responses in the following question"
-            keyName: "Evitar respuestas duplicadas en la siguiente pregunta"
+            keyName: "Evitar respuestas duplicadas en la següent pregunta"
         },
         question: {
             // [Auto-translated] "Question name"
-            name: "Nombre de la pregunta",
+            name: "Nom de la pregunta",
             // [Auto-translated] "Question title"
-            title: "Título de la pregunta",
+            title: "Títol de la pregunta",
             // [Auto-translated] "Question description"
-            description: "Descripción de la pregunta",
+            description: "Descripció de la pregunta",
             // [Auto-translated] "Show the title and description"
-            showTitle: "Mostrar el título y la descripción",
+            showTitle: "Mostrar el títol y la descripció",
             // [Auto-translated] "Make the question visible if"
             visibleIf: "Haz que la pregunta sea visible si",
             // [Auto-translated] "Make the question required if"
-            requiredIf: "Haga que la pregunta sea obligatoria si:",
+            requiredIf: "Haga que la pregunta sea obligatòria si:",
             // [Auto-translated] "Move the question to page"
-            page: "Mover la pregunta a la página",
+            page: "Mover la pregunta a la pàgina",
             // [Auto-translated] "Question box collapse state"
             state: "Estado de contracción del cuadro de pregunta",
             // [Auto-translated] "Number this question"
             showNumber: "Numerar esta pregunta",
             // [Auto-translated] "Question title alignment"
-            titleLocation: "Alineación del título de la pregunta",
+            titleLocation: "Alineación del títol de la pregunta",
             // [Auto-translated] "Question description alignment"
-            descriptionLocation: "Alineación de la descripción de la pregunta",
+            descriptionLocation: "Alineación de la descripció de la pregunta",
             // [Auto-translated] "Error message alignment"
             errorLocation: "Alineación de mensajes de error",
             // [Auto-translated] "Increase the inner indent"
@@ -826,13 +826,13 @@ var spanishTranslation = {
             // [Auto-translated] "Signature area height"
             signatureHeight: "Altura del área de firma",
             // [Auto-translated] "Auto-scale the signature area"
-            signatureAutoScaleEnabled: "Escalado automático del área de firma",
+            signatureAutoScaleEnabled: "Escalado automàtic del área de firma",
             // [Auto-translated] "Show a placeholder within signature area"
             showPlaceholder: "Mostrar un marcador de posición dentro del área de firma",
             // [Auto-translated] "Placeholder text"
-            placeholder: "Texto de marcador de posición",
+            placeholder: "Text de marcador de posición",
             // [Auto-translated] "Placeholder text in read-only or preview mode"
-            placeholderReadOnly: "Texto de marcador de posición en modo de solo lectura o vista previa",
+            placeholderReadOnly: "Text de marcador de posición en modo de solo lectura o vista prèvia",
             // [Auto-translated] "Show the Clear button within signature area"
             allowClear: "Mostrar el botón Borrar dentro del área de firma",
             // [Auto-translated] "Minimum stroke width"
@@ -852,52 +852,52 @@ var spanishTranslation = {
         questionStartIndex: "Índice de inicio de la pregunta (1, 2 o 'A', 'A')",
         expression: {
             // [Auto-translated] "Expression name"
-            name: "Nombre de la expresión",
+            name: "Nom de la expressió",
             // [Auto-translated] "Expression title"
-            title: "Título de la expresión",
+            title: "Títol de la expressió",
             // [Auto-translated] "Expression description"
-            description: "Descripción de la expresión",
+            description: "Descripció de la expressió",
             // [Auto-translated] "Expression"
-            expression: "Expresión"
+            expression: "Expressió"
         },
         trigger: {
             // [Auto-translated] "Expression"
-            expression: "Expresión"
+            expression: "Expressió"
         },
         calculatedvalue: {
             // [Auto-translated] "Expression"
-            expression: "Expresión"
+            expression: "Expressió"
         },
         // survey templates
         survey: {
             // [Auto-translated] "Survey title"
-            title: "Título de la encuesta",
+            title: "Títol de la enquesta",
             // [Auto-translated] "Survey description"
-            description: "Descripción de la encuesta",
+            description: "Descripció de la enquesta",
             // [Auto-translated] "Make the survey read-only"
-            readOnly: "Hacer que la encuesta sea de solo lectura"
+            readOnly: "Hacer que la enquesta sea de solo lectura"
         },
         page: {
             // [Auto-translated] "Page name"
-            name: "Nombre de la página",
+            name: "Nom de la pàgina",
             // [Auto-translated] "Page title"
-            title: "Título de la página",
+            title: "Títol de la pàgina",
             // [Auto-translated] "Page description"
-            description: "Descripción de la página",
+            description: "Descripció de la pàgina",
             // [Auto-translated] "Make the page visible if"
-            visibleIf: "Hacer que la página sea visible si",
+            visibleIf: "Hacer que la pàgina sea visible si",
             // [Auto-translated] "Make the page required if"
-            requiredIf: "Haga que la página sea obligatoria si",
+            requiredIf: "Haga que la pàgina sea obligatòria si",
             // [Auto-translated] "Time limit to complete the page"
-            timeLimit: "Límite de tiempo para completar la página",
+            timeLimit: "Límite de tiempo para completar la pàgina",
             // [Auto-translated] "Question order on the page"
-            questionOrder: "Orden de las preguntas en la página"
+            questionOrder: "Orden de las preguntes en la pàgina"
         },
         matrixdropdowncolumn: {
             // [Auto-translated] "Column name"
-            name: "Nombre de la columna",
+            name: "Nom de la columna",
             // [Auto-translated] "Column title"
-            title: "Título de la columna",
+            title: "Títol de la columna",
             // [Auto-translated] "Prevent duplicate responses"
             isUnique: "Evitar respuestas duplicadas",
             // [Auto-translated] "Column width"
@@ -909,7 +909,7 @@ var spanishTranslation = {
             // [Auto-translated] "Make the column visible if"
             visibleIf: "Haga que la columna sea visible si",
             // [Auto-translated] "Make the column required if"
-            requiredIf: "Haga que la columna sea obligatoria si",
+            requiredIf: "Haga que la columna sea obligatòria si",
             // [Auto-translated] "Each option in a separate column"
             showInMultipleColumns: "Cada opción en una columna separada"
         },
@@ -919,17 +919,17 @@ var spanishTranslation = {
         },
         multipletextitem: {
             // [Auto-translated] "Name"
-            name: "Nombre",
+            name: "Nom",
             // [Auto-translated] "Title"
-            title: "Título"
+            title: "Títol"
         },
         masksettings: {
             // [Auto-translated] "Save masked value in survey results"
-            saveMaskedValue: "Guardar el valor enmascarado en los resultados de la encuesta"
+            saveMaskedValue: "Desar el valor enmascarado en los resultados de la enquesta"
         },
         patternmask: {
             // [Auto-translated] "Value pattern"
-            pattern: "Patrón de valores"
+            pattern: "Patrón de valors"
         },
         datetimemask: {
             // [Auto-translated] "Minimum value"
@@ -939,7 +939,7 @@ var spanishTranslation = {
         },
         numericmask: {
             // [Auto-translated] "Allow negative values"
-            allowNegativeValues: "Permitir valores negativos",
+            allowNegativeValues: "Permitir valors negativos",
             // [Auto-translated] "Thousands separator"
             thousandsSeparator: "Separador de millares",
             // [Auto-translated] "Decimal separator"
@@ -960,17 +960,17 @@ var spanishTranslation = {
         // [Auto-translated] "Clear others when selected"
         isExclusive: "Borrar otros cuando se selecciona",
         // [Auto-translated] "Display both text and value"
-        showValue: "Mostrar texto y valor",
+        showValue: "Mostrar text y valor",
         // [Auto-translated] "Require user to enter a comment"
         isCommentRequired: "Requerir al usuario que introduzca un comentario",
         // "Display area height"
-        imageHeight: "Altura de imagen",
+        imageHeight: "Altura de imatge",
         // "Display area width"
-        imageWidth: "Ancho de la imagen",
+        imageWidth: "Ancho de la imatge",
         // "Join identifier"
-        valueName: "Nombre de valor",
+        valueName: "Nom de valor",
         // [Auto-translated] "Default display value for dynamic texts"
-        defaultDisplayValue: "Valor de visualización predeterminado para textos dinámicos",
+        defaultDisplayValue: "Valor de visualización per defecte para textos dinámicos",
         // [Auto-translated] "Label alignment"
         rateDescriptionLocation: "Alineación de etiquetas",
         // "Input field width (in characters)"
@@ -978,23 +978,21 @@ var spanishTranslation = {
         // [Auto-translated] "Cell error message alignment"
         cellErrorLocation: "Alineación de mensajes de error de celda",
         // [Auto-translated] "Enabled"
-        enabled: "Habilitado",
+        enabled: "Habilitat",
         // [Auto-translated] "Disabled"
-        disabled: "Deshabilitado",
-        // [Auto-translated] "Inherit"
-        inherit: "Heredar",
+        disabled: "Deshabilitat",
         // "Apply"
         apply: "Solicitar",
         // "OK"
         ok: "ok",
         // "Save"
-        save: "Guardar",
+        save: "Desar",
         // "Clear"
         clear: "Limpiar",
         // "Save"
-        saveTooltip: "Guardar",
+        saveTooltip: "Desar",
         // "Cancel"
-        cancel: "Cancelar",
+        cancel: "Cancel·lar",
         // [Auto-translated] "Set"
         set: "Poner",
         // "Reset"
@@ -1010,7 +1008,7 @@ var spanishTranslation = {
         // "Add"
         add: "Agregar",
         // "Add New"
-        addNew: "Añadir nuevo",
+        addNew: "Afegir nou",
         // "Click to add an item..."
         addItem: "Haga clic para agregar un artículo ...",
         // "Click to remove the item..."
@@ -1028,19 +1026,19 @@ var spanishTranslation = {
         // "Edit"
         edit: "Editar",
         // "Return without saving"
-        back: "Volver sin guardar",
+        back: "Volver sin desar",
         // "Return without saving"
-        backTooltip: "Volver sin guardar",
+        backTooltip: "Volver sin desar",
         // "Save and return"
-        saveAndBack: "Guardar y volver",
+        saveAndBack: "Desar y volver",
         // "Save and return"
-        saveAndBackTooltip: "Guardar y volver",
+        saveAndBackTooltip: "Desar y volver",
         // "Done"
         doneEditing: "Hecho",
         // "Edit Choices"
-        editChoices: "Editar opciones",
+        editChoices: "Editar opcions",
         // "Show Choices"
-        showChoices: "Mostrar opciones",
+        showChoices: "Mostrar opcions",
         // "Move"
         move: "Moverse",
         // "<empty>"
@@ -1056,7 +1054,7 @@ var spanishTranslation = {
         // [Auto-translated] "Please enter at least {0} items"
         fastEntryChoicesMinCountError: "Introduce al menos {0} artículos",
         // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
-        fastEntryPlaceholder: "Puedes introducir datos en el siguiente formato:\nvalue1|text\nvalue2",
+        fastEntryPlaceholder: "Puedes introducir datos en el següent formato:\nvalue1|text\nvalue2",
         // "Form Entry"
         formEntry: "Entrada de forma",
         // "Test the service"
@@ -1064,21 +1062,21 @@ var spanishTranslation = {
         // "Please select the element"
         itemSelectorEmpty: "Por favor seleccione el elemento",
         // "Please select the action"
-        conditionActionEmpty: "Por favor seleccione la acción",
+        conditionActionEmpty: "Por favor seleccione la acció",
         // "Select a question..."
         conditionSelectQuestion: "Seleccionar pregunta ...",
         // "Select a page..."
-        conditionSelectPage: "Seleccionar página ...",
-        // "Select a panel..."
-        conditionSelectPanel: "Seleccionar panel ...",
+        conditionSelectPage: "Seleccionar pàgina ...",
+        // "Select a panell..."
+        conditionSelectPanel: "Seleccionar panell ...",
         // "Please enter/select the value"
         conditionValueQuestionTitle: "Por favor ingrese / seleccione el valor",
         // "Press ctrl+space to get expression completion hint"
-        aceEditorHelp: "Presione CTRL + ESPACIO para obtener sugerencia de completar la expresión",
+        aceEditorHelp: "Presione CTRL + ESPACIO para obtener sugerencia de completar la expressió",
         // "Current row"
         aceEditorRowTitle: "Fila actual",
-        // "Current panel"
-        aceEditorPanelTitle: "Panel actual",
+        // "Current panell"
+        aceEditorPanelTitle: "Panell actual",
         // "For more details please check the documentation"
         showMore: "Para más detalles, por favor revise la documentación",
         // "Available questions"
@@ -1086,9 +1084,9 @@ var spanishTranslation = {
         // "There is should be at least one column or row"
         cellsEmptyRowsColumns: "Debe haber al menos una columna o fila",
         // "Review before submit"
-        showPreviewBeforeComplete: "Previsualizar respuestas entes de enviar la encuesta",
+        showPreviewBeforeComplete: "Previsualitzar respuestas entes de enviar la enquesta",
         // [Auto-translated] "Enabled by a condition"
-        overridingPropertyPrefix: "Habilitado por una condición",
+        overridingPropertyPrefix: "Habilitat por una condició",
         // [Auto-translated] "Reset"
         resetToDefaultCaption: "Restablecimiento",
         // "Please enter a value"
@@ -1096,51 +1094,51 @@ var spanishTranslation = {
         // "Please enter a unique value"
         propertyIsNoUnique: "Por favor ingrese un valor único",
         // "Please enter a unique name"
-        propertyNameIsNotUnique: "Por favor ingrese un nombre único",
-        // "Do not use reserved words: \"item\", \"choice\", \"panel\", \"row\"."
-        propertyNameIsIncorrect: "No utilice palabras reservadas: \"elemento\", \"elección\", \"panel\", \"fila\".",
+        propertyNameIsNotUnique: "Por favor ingrese un nom único",
+        // "Do not use reserved words: \"item\", \"choice\", \"panell\", \"row\"."
+        propertyNameIsIncorrect: "No utilice palabras reservadas: \"elemento\", \"elección\", \"panell\", \"fila\".",
         // "You don't have any items yet"
-        listIsEmpty: "Añadir un nuevo artículo",
+        listIsEmpty: "Afegir un nou artículo",
         // "You don't have any choices yet"
-        "listIsEmpty@choices": "No se han añadido opciones todavía",
+        "listIsEmpty@choices": "No se han añadido opcions todavía",
         // [Auto-translated] "You don't have any columns yet"
         "listIsEmpty@columns": "Todavía no tienes ninguna columna",
         // [Auto-translated] "You don't have layout columns yet"
-        "listIsEmpty@gridLayoutColumns": "Todavía no tiene columnas de diseño",
+        "listIsEmpty@gridLayoutColumns": "Todavía no tiene columnes de diseño",
         // [Auto-translated] "You don't have any rows yet"
         "listIsEmpty@rows": "Todavía no tienes ninguna fila",
         // [Auto-translated] "You don't have any validation rules yet"
-        "listIsEmpty@validators": "Todavía no tiene ninguna regla de validación",
+        "listIsEmpty@validators": "Todavía no tiene ninguna regla de validació",
         // [Auto-translated] "You don't have any custom variables yet"
-        "listIsEmpty@calculatedValues": "Todavía no tiene ninguna variable personalizada",
+        "listIsEmpty@calculatedValues": "Todavía no tiene ninguna variable personalitzada",
         // [Auto-translated] "You don't have any triggers yet"
         "listIsEmpty@triggers": "Todavía no tienes ningún desencadenante",
         // [Auto-translated] "You don't have any links yet"
         "listIsEmpty@navigateToUrlOnCondition": "Todavía no tienes ningún enlace",
         // [Auto-translated] "You don't have any pages yet"
-        "listIsEmpty@pages": "Todavía no tienes ninguna página",
+        "listIsEmpty@pages": "Todavía no tienes ninguna pàgina",
         // "Add new choice"
         "addNew@choices": "Añade una opción",
         // [Auto-translated] "Add new column"
-        "addNew@columns": "Agregar nueva columna",
+        "addNew@columns": "Agregar nova columna",
         // [Auto-translated] "Add new row"
-        "addNew@rows": "Agregar nueva fila",
+        "addNew@rows": "Agregar nova fila",
         // [Auto-translated] "Add new rule"
-        "addNew@validators": "Agregar nueva regla",
+        "addNew@validators": "Agregar nova regla",
         // [Auto-translated] "Add new variable"
-        "addNew@calculatedValues": "Adición de una nueva variable",
+        "addNew@calculatedValues": "Adición de una nova variable",
         // [Auto-translated] "Add new trigger"
-        "addNew@triggers": "Agregar nuevo disparador",
+        "addNew@triggers": "Agregar nou disparador",
         // [Auto-translated] "Add new URL"
-        "addNew@navigateToUrlOnCondition": "Agregar nueva URL",
+        "addNew@navigateToUrlOnCondition": "Agregar nova URL",
         // [Auto-translated] "Add new page"
-        "addNew@pages": "Agregar nueva página",
+        "addNew@pages": "Agregar nova pàgina",
         // "Expression is empty"
-        expressionIsEmpty: "La expresión está vacía",
+        expressionIsEmpty: "La expressió está vacía",
         // "Value"
         value: "Valor",
         // "Text"
-        text: "Texto",
+        text: "Text",
         // "Row ID"
         rowid: "ID de fila",
         // "Image or video file URL"
@@ -1157,34 +1155,34 @@ var spanishTranslation = {
             // [Auto-translated] "Web service URL"
             url: "URL del servicio web",
             // [Auto-translated] "Get value to store from the following property"
-            valueName: "Obtenga el valor para almacenar de la siguiente propiedad"
+            valueName: "Obtenga el valor para almacenar de la següent propiedad"
         },
         // "Get value to display from the following property"
-        titleName: "Nombre del título",
+        titleName: "Nom del títol",
         // "Get file URLs from the following property"
-        imageLinkName: "Obtener URLs de imagen desde el siguiente campo JSON",
+        imageLinkName: "Obtener URLs de imatge desde el següent campo JSON",
         // "Accept empty response"
         allowEmptyResponse: "Permitir respuestas vacías",
         // "Title"
-        titlePlaceholder: "Título de entrada aquí",
+        titlePlaceholder: "Títol de entrada aquí",
         // "Survey Title"
-        surveyTitlePlaceholder: "Título de la encuesta de entrada aquí",
+        surveyTitlePlaceholder: "Títol de la enquesta de entrada aquí",
         // "Page {num}"
-        pageTitlePlaceholder: "Título de la página de entrada aquí",
+        pageTitlePlaceholder: "Títol de la pàgina de entrada aquí",
         // [Auto-translated] "Start Page"
-        startPageTitlePlaceholder: "Página de inicio",
+        startPageTitlePlaceholder: "Pàgina de inicio",
         // "Description"
-        descriptionPlaceholder: "Ingrese una descripción",
+        descriptionPlaceholder: "Ingrese una descripció",
         // "Description"
-        surveyDescriptionPlaceholder: "Ingrese una descripción de la encuesta",
+        surveyDescriptionPlaceholder: "Ingrese una descripció de la enquesta",
         // "Description"
-        pageDescriptionPlaceholder: "Ingrese una descripción de la página",
+        pageDescriptionPlaceholder: "Ingrese una descripció de la pàgina",
         // [Auto-translated] "Wrap choices"
-        textWrapEnabled: "Opciones de envoltura",
+        textWrapEnabled: "Opcions de envoltura",
         // "Enable the \"Other\" option"
         showOtherItem: "Tiene opción 'Otro'",
         // "Rename the \"Other\" option"
-        otherText: "Cambiar texto 'Otro'",
+        otherText: "Cambiar text 'Otro'",
         // "Enable the \"None\" option"
         showNoneItem: "Tiene opcion 'Ninguno'",
         // [Auto-translated] "Enable the \"Refuse to Answer\" option"
@@ -1192,29 +1190,29 @@ var spanishTranslation = {
         // [Auto-translated] "Enable the \"Don't Know\" option"
         showDontKnowItem: "Habilite la opción \"No sé\"",
         // "Rename the \"None\" option"
-        noneText: "Cambiar texto 'Ninguno'",
+        noneText: "Cambiar text 'Ninguno'",
         // "Enable the \"Select All\" option"
         showSelectAllItem: "Tiene opción 'Selecionar todo'",
         // "Rename the \"Select All\" option"
-        selectAllText: "Cambiar texto de 'Seleccionar todo'",
+        selectAllText: "Cambiar text de 'Seleccionar todo'",
         // "Minimum value for auto-generated items"
-        choicesMin: "Valor mínimo para artículos generados automáticos",
+        choicesMin: "Valor mínimo para artículos generados automàtics",
         // "Maximum value for auto-generated items"
-        choicesMax: "Valor máximo para artículos generados automáticos",
+        choicesMax: "Valor máximo para artículos generados automàtics",
         // "Step value for auto-generated items"
-        choicesStep: "La diferencia entre los artículos generados automáticos",
+        choicesStep: "La diferencia entre los artículos generados automàtics",
         // "Name"
-        name: "Nombre",
+        name: "Nom",
         // "Title"
-        title: "Título",
+        title: "Títol",
         // "Cell input type"
         cellType: "Tipo de célula",
         // "Column count"
-        colCount: "Recuento de columnas",
+        colCount: "Recuento de columnes",
         // "Choice order"
-        choicesOrder: "Seleccione el orden de las opciones",
+        choicesOrder: "Seleccione el orden de las opcions",
         // [Auto-translated] "Allow custom choices"
-        allowCustomChoices: "Permitir opciones personalizadas",
+        allowCustomChoices: "Permitir opcions personalitzades",
         // "Visible"
         visible: "¿Es visible?",
         // "Required"
@@ -1224,59 +1222,59 @@ var spanishTranslation = {
         // [Auto-translated] "Remove the required mark"
         removeRequiredMark: "Quitar la marca requerida",
         // "Require an answer in each row"
-        eachRowRequired: "Requerir respuesta para todas las filas",
+        eachRowRequired: "Requerir respuesta para todas las files",
         // [Auto-translated] "Prevent duplicate responses in rows"
-        eachRowUnique: "Evitar respuestas duplicadas en filas",
+        eachRowUnique: "Evitar respuestas duplicadas en files",
         // "Error message for required questions"
-        requiredErrorText: "Texto de error requerido",
+        requiredErrorText: "Text de error requerit",
         // "Display the question on a new line"
-        startWithNewLine: "¿Empieza con la nueva línea?",
+        startWithNewLine: "¿Empieza con la nova línea?",
         // "Rows"
-        rows: "Número de filas",
+        rows: "Número de files",
         // "Columns"
-        cols: "Recuento de columnas",
+        cols: "Recuento de columnes",
         // "Placeholder text within input field"
         placeholder: "Placeholder de entrada",
         // "Show preview area"
-        showPreview: "Mostrar área de vista previa",
+        showPreview: "Mostrar área de vista prèvia",
         // "Store file content in JSON result as text"
-        storeDataAsText: "Tienda el contenido del archivo en el resultado de JSON como texto",
+        storeDataAsText: "Tienda el contenido del fitxer en el resultado de JSON como text",
         // "Maximum file size (in bytes)"
-        maxSize: "Tamaño máximo de archivo en bytes",
+        maxSize: "Tamaño máximo de fitxer en bytes",
         // [Auto-translated] "Maximum number of files"
-        maxFiles: "Número máximo de archivos",
+        maxFiles: "Número máximo de fitxers",
         // "Row count"
-        rowCount: "Número de filas",
+        rowCount: "Número de files",
         // "Columns layout"
-        columnLayout: "Diseño de columnas",
+        columnLayout: "Diseño de columnes",
         // "\"Add Row\" button alignment"
-        addRowButtonLocation: "Añadir la ubicación del botón de la fila",
+        addRowButtonLocation: "Afegir la ubicación del botón de la fila",
         // [Auto-translated] "Transpose rows to columns"
-        transposeData: "Transponer filas a columnas",
+        transposeData: "Transponer files a columnes",
         // "\"Add Row\" button text"
-        addRowText: "Añadir texto de botón de fila",
+        addRowText: "Afegir text de botón de fila",
         // "\"Remove Row\" button text"
-        removeRowText: "Eliminar el texto del botón de fila",
+        removeRowText: "Eliminar el text del botón de fila",
         // [Auto-translated] "Input field title pattern"
-        singleInputTitleTemplate: "Patrón de título de campo de entrada",
+        singleInputTitleTemplate: "Patrón de títol de campo de entrada",
         // "Minimum rating value"
         rateMin: "Valor mínimo",
         // "Maximum rating value"
         rateMax: "Valor máximo",
         // "Step value"
-        rateStep: "Rango de los valores",
+        rateStep: "Rango de los valors",
         // "Minimum value label"
-        minRateDescription: "Descripción del valor mínimo",
+        minRateDescription: "Descripció del valor mínimo",
         // "Maximum value label"
-        maxRateDescription: "Descripción del valor máximo",
+        maxRateDescription: "Descripció del valor máximo",
         // "Input type"
         inputType: "Tipo de entrada",
         // "Default Answer"
-        defaultValue: "Valor por defecto",
+        defaultValue: "Valor por defecte",
         // "Default texts"
-        cellsDefaultRow: "Textos de celdas predeterminados",
+        cellsDefaultRow: "Textos de celdas per defecte",
         // "Edit survey settings"
-        surveyEditorTitle: "Editar configuración de encuesta",
+        surveyEditorTitle: "Editar configuració de enquesta",
         // "Edit: {0}"
         qEditorTitle: "Editar: {0}",
         // "Maximum character limit"
@@ -1292,9 +1290,9 @@ var spanishTranslation = {
         // "Remove"
         remove: "Eliminar",
         // "Add Condition"
-        addCondition: "Añadir condición",
+        addCondition: "Afegir condició",
         // "Select a question to start configuring conditions."
-        emptyLogicPopupMessage: "Selecciona una pegunta para epezar a configurar condiciones.",
+        emptyLogicPopupMessage: "Selecciona una pegunta para epezar a configurar condicions.",
         // "If"
         if: "Si",
         // "then"
@@ -1308,13 +1306,13 @@ var spanishTranslation = {
         // "Rule is incorrect"
         ruleIsNotSet: "La regla no es correcta",
         // "Add to the survey results"
-        includeIntoResult: "Incluir en los resultados de la encuesta",
+        includeIntoResult: "Incluir en los resultados de la enquesta",
         // "Make the title and description visible"
-        showTitle: "Mostrar / Ocultar Título",
+        showTitle: "Mostrar / Ocultar Títol",
         // "Expand/collapse title"
-        expandCollapseTitle: "Expandir / Contraer título",
+        expandCollapseTitle: "Expandir / Contraer títol",
         // "Select a survey language"
-        locale: "Idioma predeterminado",
+        locale: "Idioma per defecte",
         // "Select device type"
         simulator: "Elige dispositivo",
         // "Switch to landscape orientation"
@@ -1322,103 +1320,103 @@ var spanishTranslation = {
         // "Switch to portrait orientation"
         portraitOrientation: "Cambiar a orientatión retrato",
         // "Clear hidden question values"
-        clearInvisibleValues: "Claros valores invisibles",
+        clearInvisibleValues: "Claros valors invisibles",
         // "Limit to one response"
-        cookieName: "Nombre de la cookie (para deshabilitar la encuesta de ejecución dos veces localmente)",
+        cookieName: "Nom de la cookie (para deshabilitar la enquesta de ejecución dos veces localmente)",
         // "Auto-save survey progress on page change"
-        partialSendEnabled: "Enviar resultados de encuestas en la página Siguiente",
+        partialSendEnabled: "Enviar resultados de enquestes en la pàgina Següent",
         // "Save the \"Other\" option value as a separate property"
         storeOthersAsComment: "Almacenar 'Otros' valor en campo separado",
         // "Show page titles"
-        showPageTitles: "Mostrar descripción de la página",
+        showPageTitles: "Mostrar descripció de la pàgina",
         // "Show page numbers"
-        showPageNumbers: "Mostrar números de página",
+        showPageNumbers: "Mostrar números de pàgina",
         // "\"Previous Page\" button text"
-        pagePrevText: "Página de texto del botón anterior",
+        pagePrevText: "Pàgina de text del botón anterior",
         // "\"Next Page\" button text"
-        pageNextText: "Página Siguiente botón de texto",
+        pageNextText: "Pàgina Següent botón de text",
         // "\"Complete Survey\" button text"
-        completeText: "Texto completo del botón",
+        completeText: "Text complet del botón",
         // "\"Review Answers\" button text"
-        previewText: "Vista previa del botón del botón",
+        previewText: "Vista prèvia del botón del botón",
         // "\"Edit Answer\" button text"
-        editText: "Editar botón de texto",
+        editText: "Editar botón de text",
         // "\"Start Survey\" button text"
-        startSurveyText: "Texto de inicio de la encuesta",
+        startSurveyText: "Text de inicio de la enquesta",
         // "Show navigation buttons"
-        showNavigationButtons: "Mostrar botones de navegación (navegación predeterminada)",
+        showNavigationButtons: "Mostrar botones de navegación (navegación per defecte)",
         // [Auto-translated] "Navigation buttons alignment"
         navigationButtonsLocation: "Alineación de los botones de navegación",
         // "Show the \"Previous Page\" button"
-        showPrevButton: "Mostrar botón anterior (el usuario puede volver a la página anterior)",
+        showPrevButton: "Mostrar botón anterior (el usuario puede volver a la pàgina anterior)",
         // "First page is a start page"
-        firstPageIsStartPage: "La primera página en la encuesta es una página iniciada",
+        firstPageIsStartPage: "La primera página en la enquesta es una pàgina iniciada",
         // "Show the \"Thank You\" page"
-        showCompletePage: "Mostrar la página completa al final (HTML finalizado)",
+        showCompletePage: "Mostrar la pàgina completa al final (HTML finalizado)",
         // "Auto-advance to the next page"
-        autoAdvanceEnabled: "Al responder todas las preguntas, vaya a la página siguiente automáticamente",
+        autoAdvanceEnabled: "Al responder todas las preguntes, vaya a la pàgina següent automáticamente",
         // [Auto-translated] "Complete the survey automatically"
-        autoAdvanceAllowComplete: "Completar la encuesta automáticamente",
+        autoAdvanceAllowComplete: "Completar la enquesta automáticamente",
         // "Show the progress bar"
         showProgressBar: "Mostrar barra de progreso",
         // [Auto-translated] "Progress bar alignment"
         progressBarLocation: "Alineación de la barra de progreso",
         // "Question title alignment"
-        questionTitleLocation: "Ubicación del título de la pregunta",
+        questionTitleLocation: "Ubicación del títol de la pregunta",
         // "Question title width"
-        questionTitleWidth: "Ancho del título de la pregunta",
+        questionTitleWidth: "Ancho del títol de la pregunta",
         // "Required symbol(s)"
         requiredMark: "La pregunta requerida (s) símbolo (s)",
         // "Question title template, default is: '{no}. {require} {title}'"
-        questionTitleTemplate: "Plantilla de título de la pregunta, el valor predeterminado es: '{no}.{requiere} {título} '",
+        questionTitleTemplate: "Plantilla de título de la pregunta, el valor per defecte es: '{no}.{requiere} {títol} '",
         // "Error message alignment"
         questionErrorLocation: "Ubicación de error de la pregunta",
         // "Focus first question on a new page"
-        autoFocusFirstQuestion: "Enfoca la primera pregunta al cambiar la página",
+        autoFocusFirstQuestion: "Enfoca la primera pregunta al cambiar la pàgina",
         // "Question order"
-        questionOrder: "Orden de elementos en la página",
+        questionOrder: "Orden de elementos en la pàgina",
         // "Time limit to complete the survey"
-        timeLimit: "Tiempo máximo para terminar la encuesta",
+        timeLimit: "Tiempo máximo para terminar la enquesta",
         // "Time limit to complete one page"
-        timeLimitPerPage: "Tiempo máximo para terminar una página en la encuesta",
+        timeLimitPerPage: "Tiempo máximo para terminar una pàgina en la enquesta",
         // [Auto-translated] "Use a timer"
         showTimer: "Usar un temporizador",
         // "Timer alignment"
-        timerLocation: "Mostrar panel de temporizador",
+        timerLocation: "Mostrar panell de temporizador",
         // "Timer mode"
-        timerInfoMode: "Mostrar modo de panel del temporizador",
+        timerInfoMode: "Mostrar modo de panell del temporizador",
         // "Enable entry addition"
-        allowAddPanel: "Permitir agregar un panel",
+        allowAddPanel: "Permitir agregar un panell",
         // "Enable entry removal"
-        allowRemovePanel: "Permitir eliminar el panel",
+        allowRemovePanel: "Permitir eliminar el panell",
         // "\"Add Entry\" button text"
-        addPanelText: "Añadiendo texto del panel",
+        addPanelText: "Añadiendo text del panell",
         // "\"Remove Entry\" button text"
-        removePanelText: "Eliminar texto del panel",
+        removePanelText: "Eliminar text del panell",
         // "Show all elements on one page"
-        isSinglePage: "Mostrar todos los elementos en una página",
+        isSinglePage: "Mostrar todos los elementos en una pàgina",
         // "HTML markup"
         html: "Html",
         // "Answer"
         setValue: "Respuesta",
         // "Storage format"
-        dataFormat: "Formato imagen",
+        dataFormat: "Formato imatge",
         // "Enable row addition"
-        allowAddRows: "Permitir añadir filas",
+        allowAddRows: "Permitir afegir files",
         // "Enable row removal"
-        allowRemoveRows: "Permitir eliminar filas",
+        allowRemoveRows: "Permitir eliminar files",
         // "Enable row reordering"
-        allowRowReorder: "Permitor drag and drop de filas",
+        allowRowReorder: "Permitor drag and drop de files",
         // "Does not apply if you specify the exact display area width or height."
-        responsiveImageSizeHelp: "No aplica si especificas el ancho o alto exacto de la imagen.",
+        responsiveImageSizeHelp: "No aplica si especificas el ancho o alto exacto de la imatge.",
         // "Minimum display area width"
-        minImageWidth: "Ancho de imagen mínimo",
+        minImageWidth: "Ancho de imatge mínimo",
         // "Maximum display area width"
-        maxImageWidth: "Ancho de imagen máximo",
+        maxImageWidth: "Ancho de imatge máximo",
         // "Minimum display area height"
-        minImageHeight: "Alto de imagen mínimo",
+        minImageHeight: "Alto de imatge mínimo",
         // "Maximum display area height"
-        maxImageHeight: "Alto de imagen máximo",
+        maxImageHeight: "Alto de imatge máximo",
         // "Minimum value"
         minValue: "Valor mínimo",
         // "Maximum value"
@@ -1434,23 +1432,23 @@ var spanishTranslation = {
         // "Maximum count"
         maxCount: "Cantidad máxima",
         // "Regular expression"
-        regex: "Expresión regular",
+        regex: "Expressió regular",
         surveyvalidator: {
             // [Auto-translated] "Validation message"
-            text: "Mensaje de validación",
+            text: "Mensaje de validació",
             // [Auto-translated] "Validation expression"
-            expression: "Expresión de validación",
+            expression: "Expressió de validació",
             // [Auto-translated] "Notification type"
             notificationType: "Tipo de notificación",
             // [Auto-translated] "Maximum length (in characters)"
             maxLength: "Longitud máxima (en caracteres)"
         },
         // "Total row header"
-        totalText: "Texto total",
+        totalText: "Text total",
         // "Aggregation method"
         totalType: "Tipo total",
         // "Total value expression"
-        totalExpression: "Expresión total",
+        totalExpression: "Expressió total",
         // "Total value display format"
         totalDisplayStyle: "Estilo de visualización total",
         // "Currency"
@@ -1460,7 +1458,7 @@ var spanishTranslation = {
         // "Survey logo"
         logo: "Logo (URL o cadene codificada en base64)",
         // "Survey layout"
-        questionsOnPageMode: "Estructura de la encuesta",
+        questionsOnPageMode: "Estructura de la enquesta",
         // "Restrict answer length"
         maxTextLength: "Longitud máxima de la respuesta (en caracteres)",
         // "Restrict comment length"
@@ -1470,15 +1468,15 @@ var spanishTranslation = {
         // "Auto-expand text areas"
         autoGrowComment: "Auto-expand de comentario si es necesario",
         // [Auto-translated] "Allow users to resize text areas"
-        allowResizeComment: "Permitir a los usuarios cambiar el tamaño de las áreas de texto",
+        allowResizeComment: "Permitir a los usuarios cambiar el tamaño de las áreas de text",
         // "Update input field values"
-        textUpdateMode: "Actualizar valor del texto de la pregunta",
+        textUpdateMode: "Actualizar valor del text de la pregunta",
         // [Auto-translated] "Input mask type"
         maskType: "Tipo de máscara de entrada",
         // "Set focus on the first invalid answer"
         autoFocusFirstError: "Fijar foco en la primera respuesta no válida",
         // "Run validation"
-        checkErrorsMode: "Ejecutar validación",
+        checkErrorsMode: "Ejecutar validació",
         // [Auto-translated] "Validate empty fields on lost focus"
         validateVisitedEmptyFields: "Validar campos vacíos en caso de pérdida de foco",
         // "Redirect to an external link after submission"
@@ -1486,15 +1484,15 @@ var spanishTranslation = {
         // "Dynamic external link"
         navigateToUrlOnCondition: "URL dinámica",
         // "Markup to show if the user already filled out this survey"
-        completedBeforeHtml: "Markup para mostrar si el usuario ya completó la encuesta",
+        completedBeforeHtml: "Markup para mostrar si el usuario ya completó la enquesta",
         // "\"Thank You\" page markup"
-        completedHtml: "Markup de página de encuesta completada",
+        completedHtml: "Markup de pàgina de enquesta completada",
         // "Dynamic \"Thank You\" page markup"
-        completedHtmlOnCondition: "Markup de página de encuesta dinámica completada",
+        completedHtmlOnCondition: "Markup de pàgina de enquesta dinámica completada",
         // "Markup to show while survey model is loading"
-        loadingHtml: "Markup para mostrar mienstras que la encuesta se está cargando",
+        loadingHtml: "Markup para mostrar mienstras que la enquesta se está cargando",
         // "Comment area text"
-        commentText: "Area de texto de comentario",
+        commentText: "Area de text de comentario",
         // "Autocomplete type"
         autocomplete: "Tipo autocompletado",
         // "Label for \"True\""
@@ -1518,49 +1516,49 @@ var spanishTranslation = {
         // "Enable multiple file upload"
         allowMultiple: "Permitir múltiples ficheros",
         // "Preview uploaded images"
-        allowImagesPreview: "Previsualizar imágenes",
+        allowImagesPreview: "Previsualitzar imatges",
         // [Auto-translated] "Accepted file categories"
-        acceptedCategories: "Categorías de archivo aceptadas",
+        acceptedCategories: "Categorías de fitxer aceptadas",
         // [Auto-translated] "Additional file extensions"
-        acceptedTypes: "Extensiones de archivo adicionales",
+        acceptedTypes: "Extensiones de fitxer adicionales",
         // "Wait for upload to complete"
         waitForUpload: "Espera a que se complete la carga",
         // "Confirm file deletion"
         needConfirmRemoveFile: "Confirmar borrado de fichero",
         // "Row details alignment"
-        detailPanelMode: "Localización del panel de detalle",
+        detailPanelMode: "Localización del panell de detalle",
         // "Minimum row count"
-        minRowCount: "Mínimo número de filas",
+        minRowCount: "Mínimo número de files",
         // "Maximum row count"
-        maxRowCount: "Máximo número de filas",
+        maxRowCount: "Máximo número de files",
         // "Confirm row removal"
         confirmDelete: "Confirmar borrado de fila",
         // "Confirmation message"
         confirmDeleteText: "Mensaje de confirmación",
         // "Initial number of entries"
-        panelCount: "Número incial de panel",
+        panelCount: "Número incial de panell",
         // "Minimum number of entries"
-        minPanelCount: "Número mínimo de paneles",
+        minPanelCount: "Número mínimo de panells",
         // "Maximum number of entries"
-        maxPanelCount: "Número máximo de paneles",
+        maxPanelCount: "Número máximo de panells",
         // "Initial entry state"
-        panelsState: "Estado de expansión del panel interno",
+        panelsState: "Estado de expansión del panell interno",
         // "\"Previous Entry\" button text"
-        prevPanelText: "Tooltip del botón de panel previo",
+        prevPanelText: "Tooltip del botón de panell previo",
         // "\"Next Entry\" button text"
-        nextPanelText: "Tooltip del botón de siguiente panel",
+        nextPanelText: "Tooltip del botón de següent panell",
         // "\"Remove Entry\" button alignment"
-        removePanelButtonLocation: "Localización del botón eliminar panel",
+        removePanelButtonLocation: "Localización del botón eliminar panell",
         // "Hide the question if it has no rows"
-        hideIfRowsEmpty: "Ocultar pregunta si no hay más filas",
+        hideIfRowsEmpty: "Ocultar pregunta si no hay más files",
         // "Hide columns if there are no rows"
-        hideColumnsIfEmpty: "Ocultar columnas si no hay filas",
+        hideColumnsIfEmpty: "Ocultar columnes si no hay files",
         // [Auto-translated] "Custom rating values"
-        rateValues: "Valores de clasificación personalizados",
+        rateValues: "Valores de clasificación personalitzats",
         // [Auto-translated] "Rating count"
         rateCount: "Recuento de calificaciones",
         // [Auto-translated] "Rating configuration"
-        autoGenerate: "Configuración de clasificación",
+        autoGenerate: "Configuració de clasificación",
         slider: {
             // [Auto-translated] "Min value"
             min: "Valor mínimo",
@@ -1577,11 +1575,11 @@ var spanishTranslation = {
             // [Auto-translated] "Number of auto-generated labels"
             labelCount: "Número de etiquetas generadas automáticamente",
             // [Auto-translated] "Min value expression"
-            minValueExpression: "Expresión de valor mínimo",
+            minValueExpression: "Expressió de valor mínimo",
             // [Auto-translated] "Max value expression"
-            maxValueExpression: "Expresión de valor máximo",
+            maxValueExpression: "Expressió de valor máximo",
             // [Auto-translated] "Scale labels configuration"
-            autoGenerate: "Configuración de etiquetas de escala",
+            autoGenerate: "Configuració de etiquetas de escala",
             // [Auto-translated] "Slider type"
             sliderType: "Tipo de control deslizante",
             // [Auto-translated] "Min range length"
@@ -1589,7 +1587,7 @@ var spanishTranslation = {
             // [Auto-translated] "Max range length"
             maxRangeLength: "Longitud máxima de rango",
             // [Auto-translated] "Custom labels"
-            customLabels: "Etiquetas personalizadas",
+            customLabels: "Etiquetas personalitzades",
             // [Auto-translated] "Label format"
             labelFormat: "Formato de etiqueta",
             // [Auto-translated] "Tooltip format"
@@ -1597,26 +1595,26 @@ var spanishTranslation = {
         },
         file: {
             // [Auto-translated] "Image height"
-            imageHeight: "Altura de la imagen",
+            imageHeight: "Altura de la imatge",
             // [Auto-translated] "Image width"
-            imageWidth: "Ancho de la imagen"
+            imageWidth: "Ancho de la imatge"
         },
         // "Hide the question if it has no choices"
-        hideIfChoicesEmpty: "Ocultar la pregunta si no contiene opciones",
+        hideIfChoicesEmpty: "Ocultar la pregunta si no contiene opcions",
         // "Minimum width"
-        minWidth: "Anchura mímima (en valores aceptados CSS)",
+        minWidth: "Anchura mímima (en valors aceptados CSS)",
         // "Maximum width"
-        maxWidth: "Anchura máxima (en valores aceptados CSS)",
+        maxWidth: "Anchura máxima (en valors aceptados CSS)",
         // "Width"
-        width: "Ancho (en valores aceptados CSS)",
+        width: "Ancho (en valors aceptados CSS)",
         // "Show column headers"
         showHeader: "Mostrar cabeceras de columna",
         // "Show horizontal scrollbar"
         horizontalScroll: "Mostrar scrollbar horizontal",
         // "Minimum column width"
-        columnMinWidth: "Anchura mímima de columna (en valores aceptados CSS)",
+        columnMinWidth: "Anchura mímima de columna (en valors aceptados CSS)",
         // "Row header width"
-        rowTitleWidth: "Anchura de cabecera de fila (en valores aceptados CSS)",
+        rowTitleWidth: "Anchura de cabecera de fila (en valors aceptados CSS)",
         // "Value to store when \"True\" is selected"
         valueTrue: "Valor \"verdadero\"",
         // "Value to store when \"False\" is selected"
@@ -1630,53 +1628,53 @@ var spanishTranslation = {
         // "Error message for duplicate responses"
         keyDuplicationError: "Mensaje de error \"Valor de clave no único\"",
         // [Auto-translated] "Minimum choices to select"
-        minSelectedChoices: "Opciones mínimas para seleccionar",
+        minSelectedChoices: "Opcions mínimas para seleccionar",
         // [Auto-translated] "Maximum choices to select"
-        maxSelectedChoices: "Máximo de opciones para seleccionar",
+        maxSelectedChoices: "Máximo de opcions para seleccionar",
         // "Logo width"
-        logoWidth: "Ancho de Logo (en valores aceptados CSS)",
+        logoWidth: "Ancho de Logo (en valors aceptados CSS)",
         // "Logo height"
-        logoHeight: "Alto de Logo (en valores aceptados CSS)",
+        logoHeight: "Alto de Logo (en valors aceptados CSS)",
         // "Read-only"
         readOnly: "Sólo-lectura",
         // "Disable the read-only mode if"
         enableIf: "Editable si",
         // "\"No rows\" message"
-        noRowsText: "Mensaje \"Sin filas\"",
+        noRowsText: "Mensaje \"Sin files\"",
         // "Separate special choices"
-        separateSpecialChoices: "Opciones de separación especiales (None, Other, Select All)",
+        separateSpecialChoices: "Opcions de separación especiales (None, Other, Select All)",
         // "Copy choices from the following question"
-        choicesFromQuestion: "Copiar opciones de la siguiente pregunta",
+        choicesFromQuestion: "Copiar opcions de la següent pregunta",
         // "Which choice options to copy"
-        choicesFromQuestionMode: "Qué opciones a copiar?",
-        // [Auto-translated] "Use values from the following matrix column or panel question as choice IDs"
-        choiceValuesFromQuestion: "Utilice los valores de la siguiente columna de matriz o pregunta de panel como ID de opción",
-        // [Auto-translated] "Use values from the following matrix column or panel question as choice texts"
-        choiceTextsFromQuestion: "Utilice los valores de la siguiente columna de matriz o pregunta de panel como textos de elección",
+        choicesFromQuestionMode: "Qué opcions a copiar?",
+        // [Auto-translated] "Use values from the following matrix column or panell question as choice IDs"
+        choiceValuesFromQuestion: "Utilice los valors de la següent columna de matriz o pregunta de panell como ID de opción",
+        // [Auto-translated] "Use values from the following matrix column or panell question as choice texts"
+        choiceTextsFromQuestion: "Utilice los valors de la següent columna de matriz o pregunta de panell como textos de elección",
         // [Auto-translated] "Display page titles in the progress bar"
-        progressBarShowPageTitles: "Mostrar los títulos de las páginas en la barra de progreso",
+        progressBarShowPageTitles: "Mostrar los títols de las pàgines en la barra de progreso",
         // [Auto-translated] "Display page numbers in the progress bar"
-        progressBarShowPageNumbers: "Mostrar números de página en la barra de progreso",
+        progressBarShowPageNumbers: "Mostrar números de pàgina en la barra de progreso",
         // "Add a comment box"
         showCommentArea: "Mostrar el área de comentarios",
         // [Auto-translated] "Placeholder text for the comment box"
-        commentPlaceholder: "Texto de marcador de posición para el cuadro de comentarios",
+        commentPlaceholder: "Text de marcador de posición para el cuadro de comentarios",
         // [Auto-translated] "Show the labels as extreme values"
-        displayRateDescriptionsAsExtremeItems: "Mostrar las etiquetas como valores extremos",
+        displayRateDescriptionsAsExtremeItems: "Mostrar las etiquetas como valors extremos",
         // "Row order"
-        rowOrder: "Orden de filas",
+        rowOrder: "Orden de files",
         // "Column layout"
-        columnsLayout: "Disposición de columnas",
+        columnsLayout: "Disposición de columnes",
         // "Nested column count"
-        columnColCount: "Número de columnas anidadas",
+        columnColCount: "Número de columnes anidadas",
         // "Correct Answer"
         correctAnswer: "Respuesta correcta",
         // "Default Values"
-        defaultPanelValue: "Valores por defecto",
+        defaultPanelValue: "Valores por defecte",
         // "Cell Texts"
         cells: "Textos de celda",
         // [Auto-translated] "Select a file or paste a file link..."
-        fileInputPlaceholder: "Seleccione un archivo o pegue un enlace de archivo...",
+        fileInputPlaceholder: "Seleccione un archivo o pegue un enlace de fitxer...",
         // "Prevent duplicate responses in the following column"
         keyName: "Columna clave",
         itemvalue: {
@@ -1693,12 +1691,12 @@ var spanishTranslation = {
         },
         imageitemvalue: {
             // "Alt text"
-            text: "Texto alternativo"
+            text: "Text alternativo"
         },
         // "Logo alignment"
         logoPosition: "Posición del logotipo",
         // "Add logo..."
-        addLogo: "Añadir logo ...",
+        addLogo: "Afegir logo ...",
         // "Change logo..."
         changeLogo: "Cambiar logo ...",
         logoPositions: {
@@ -1714,7 +1712,7 @@ var spanishTranslation = {
             bottom: "En la parte inferior"
         },
         // [Auto-translated] "Preview mode"
-        previewMode: "Modo de vista previa",
+        previewMode: "Modo de vista prèvia",
         // [Auto-translated] "Enable grid layout"
         gridLayoutEnabled: "Habilitar el diseño de cuadrícula",
         // [Auto-translated] "Grid columns"
@@ -1726,13 +1724,13 @@ var spanishTranslation = {
         // Creator tabs
         tabs: {
             panel: {
-                // [Auto-translated] "Panel Layout"
-                layout: "Diseño de paneles"
+                // [Auto-translated] "Panell Layout"
+                layout: "Diseño de panells"
             },
             // "General"
             general: "General",
             // "Options"
-            fileOptions: "Opciones",
+            fileOptions: "Opcions",
             // "HTML Editor"
             html: "Editor HTML",
             // "Columns"
@@ -1740,7 +1738,7 @@ var spanishTranslation = {
             // "Rows"
             rows: "Filas",
             // "Choice Options"
-            choices: "Opciones",
+            choices: "Opcions",
             // "Items"
             items: "Artículos",
             // "Visible If"
@@ -1748,21 +1746,21 @@ var spanishTranslation = {
             // "Editable If"
             enableIf: "Habilitar si",
             // "Required If"
-            requiredIf: "Requerido si",
+            requiredIf: "Requerit si",
             // "Rating Values"
             rateValues: "Valores de la tasa",
             // [Auto-translated] "Slider Settings"
-            sliderSettings: "Configuración del control deslizante",
+            sliderSettings: "Configuració del control deslizante",
             // "Choices from a Web Service"
-            choicesByUrl: "Opciones de la web",
+            choicesByUrl: "Opcions de la web",
             // "Default Choices"
-            matrixChoices: "Opciones predeterminadas",
+            matrixChoices: "Opcions per defecte",
             // "Text Inputs"
-            multipleTextItems: "Entradas de texto",
+            multipleTextItems: "Entradas de text",
             // "Numbering"
             numbering: "Numeración",
             // "Validators"
-            validators: "Validadores",
+            validators: "Validadors",
             // "Navigation"
             navigation: "Navegación",
             // "Question Settings"
@@ -1774,18 +1772,18 @@ var spanishTranslation = {
             // "Calculated Values"
             calculatedValues: "Valores calculados",
             // "Triggers"
-            triggers: "Disparadores",
+            triggers: "Disparadors",
             // "Title template"
-            templateTitle: "Título de la plantilla",
+            templateTitle: "Títol de la plantilla",
             // "Totals"
             totals: "Totales",
             // "Conditions"
-            logic: "Lógica",
+            logic: "Lògica",
             // [Auto-translated] "Input Mask Settings"
-            mask: "Configuración de la máscara de entrada",
+            mask: "Configuració de la máscara de entrada",
             layout: {
-                // [Auto-translated] "Panel Layout"
-                panel: "Diseño de panel",
+                // [Auto-translated] "Panell Layout"
+                panel: "Disseny de panell",
                 // [Auto-translated] "Layout"
                 question: "Diseño",
                 // [Auto-translated] "Layout"
@@ -1794,19 +1792,19 @@ var spanishTranslation = {
             // "Data"
             data: "Datos",
             // "Validation"
-            validation: "Validación",
+            validation: "Validació",
             // "Individual Cell Texts"
             cells: "Células",
             // "\"Thank You\" Page"
             showOnCompleted: "Mostrar en completado",
             // "Logo in the Survey Header"
-            logo: "Logo en el título de la encuesta",
+            logo: "Logo en el títol de la enquesta",
             // "Slider"
             slider: "Slider",
             // "Expression"
-            expression: "Expresión",
+            expression: "Expressió",
             // [Auto-translated] "Question Settings"
-            questionSettings: "Configuración de la pregunta",
+            questionSettings: "Configuració de la pregunta",
             // "Header"
             header: "Encabezado",
             // "Background"
@@ -1827,21 +1825,21 @@ var spanishTranslation = {
         // "Items"
         items: "[Artículos: {0}]",
         // "Make choices visible if"
-        choicesVisibleIf: "Opciones son visibles si",
+        choicesVisibleIf: "Opcions son visibles si",
         // "Make choices selectable if"
-        choicesEnableIf: "Opciones son seleccionables si",
+        choicesEnableIf: "Opcions son seleccionables si",
         // "Make columns visible if"
         columnsEnableIf: "Columnas son visibles si",
         // "Make rows visible if"
         rowsEnableIf: "Filas son visibles si",
         // "Increase the inner indent"
-        innerIndent: "Añadir indents internos",
+        innerIndent: "Afegir indents internos",
         // [Auto-translated] "Use answers from the last entry as default"
-        copyDefaultValueFromLastEntry: "Usar las respuestas de la última entrada como predeterminadas",
+        copyDefaultValueFromLastEntry: "Usar las respuestas de la última entrada como per defecte",
         // "Please enter a value."
         enterNewValue: "Por favor, ingrese el valor",
         // "There are no questions in the survey."
-        noquestions: "No hay ninguna pregunta en la encuesta",
+        noquestions: "No hay ninguna pregunta en la enquesta",
         // "Please create a trigger"
         createtrigger: "Por favor crea un gatillo",
         // "Press enter button to edit"
@@ -1851,11 +1849,11 @@ var spanishTranslation = {
         // "On "
         triggerOn: "En",
         // "Make pages visible"
-        triggerMakePagesVisible: "Hacer visibles las páginas:",
+        triggerMakePagesVisible: "Hacer visibles las pàgines:",
         // "Make elements visible"
         triggerMakeQuestionsVisible: "Hacer elementos visibles:",
         // "Complete the survey if successful."
-        triggerCompleteText: "Completa la encuesta si tiene éxito",
+        triggerCompleteText: "Completa la enquesta si tiene éxito",
         // "The trigger is not set"
         triggerNotSet: "El gatillo no se establece",
         // "Run if"
@@ -1865,23 +1863,23 @@ var spanishTranslation = {
         // "Copy value from: "
         triggerFromName: "Copie el valor de:",
         // "Run this Expression"
-        triggerRunExpression: "Ejecute esta expresión:",
+        triggerRunExpression: "Ejecute esta expressió:",
         // "to: "
         triggerSetValue: "a:",
         // "Go to the question"
         triggerGotoName: "Ir a la pregunta:",
         // "Do not put the variable into the survey result."
-        triggerIsVariable: "No coloque la variable en el resultado de la encuesta",
+        triggerIsVariable: "No coloque la variable en el resultado de la enquesta",
         // "Please enter a valid expression"
-        triggerRunExpressionEmpty: "Por favor ingrese una expresión válida",
+        triggerRunExpressionEmpty: "Por favor ingrese una expressió válida",
         // "Type expression here..."
-        emptyExpressionPlaceHolder: "Escribir expresión aquí...",
+        emptyExpressionPlaceHolder: "Escribir expressió aquí...",
         // "No file chosen"
-        noFile: "Ningún archivo elegido",
+        noFile: "Ningún fitxer elegido",
         // "Clear hidden question values"
         clearIfInvisible: "Limpiar el valor si la pregunta se oculta",
         // "Store values in the following property"
-        valuePropertyName: "Valor del nombre de propiedad",
+        valuePropertyName: "Valor del nom de propiedad",
         // "Enable search-as-you-type"
         searchEnabled: "Habilitar búsqueda",
         // "Hide selected items"
@@ -1891,19 +1889,19 @@ var spanishTranslation = {
         // "Vertical alignment within cells"
         verticalAlign: "Alineación vertical",
         // "Alternate row colors"
-        alternateRows: "Alternar filas",
+        alternateRows: "Alternar files",
         // "Make columns visible if"
         columnsVisibleIf: "Columnas son visibles si",
         // "Make rows visible if"
         rowsVisibleIf: "Filas son visibes si",
         // [Auto-translated] "Placeholder text for the comment box"
-        otherPlaceholder: "Texto de marcador de posición para el cuadro de comentarios",
+        otherPlaceholder: "Text de marcador de posición para el cuadro de comentarios",
         // [Auto-translated] "Placeholder text for Local file"
-        filePlaceholder: "Texto de marcador de posición para archivo local",
+        filePlaceholder: "Text de marcador de posición para fitxer local",
         // [Auto-translated] "Placeholder text for Camera"
-        photoPlaceholder: "Texto de marcador de posición para la cámara",
+        photoPlaceholder: "Text de marcador de posición para la cámara",
         // [Auto-translated] "Placeholder text for Local file or Camera"
-        fileOrPhotoPlaceholder: "Texto de marcador de posición para archivo local o cámara",
+        fileOrPhotoPlaceholder: "Text de marcador de posición para fitxer local o cámara",
         // [Auto-translated] "Rating icon"
         rateType: "Icono de calificación",
         // [Auto-translated] "Ex.: https://api.example.com/books"
@@ -1919,9 +1917,9 @@ var spanishTranslation = {
         // [Auto-translated] "Ex.: 50%"
         maxWidth_placeholder: "Ej.: 50%",
         // "auto"
-        imageHeight_placeholder: "Automático",
+        imageHeight_placeholder: "Automàtic",
         // "auto"
-        imageWidth_placeholder: "Automático",
+        imageWidth_placeholder: "Automàtic",
         // [Auto-translated] "Ex.: 100px"
         itemTitleWidth_placeholder: "Ej.: 100px",
         theme: {
@@ -1935,26 +1933,26 @@ var spanishTranslation = {
             questionPanel: "Fondo y radio de esquina",
             // [Auto-translated] "Accent color"
             primaryColor: "Color de acento",
-            // [Auto-translated] "Panel and question box opacity"
-            panelBackgroundTransparency: "Opacidad del panel y del cuadro de preguntas",
+            // [Auto-translated] "Panell and question box opacity"
+            panelBackgroundTransparency: "Opacidad del panell y del cuadro de preguntes",
             // [Auto-translated] "Input element opacity"
             questionBackgroundTransparency: "Opacidad del elemento de entrada",
             // [Auto-translated] "Survey font size"
-            fontSize: "Tamaño de fuente de la encuesta",
+            fontSize: "Tamaño de fuente de la enquesta",
             // [Auto-translated] "Survey scale factor"
-            scale: "Factor de escala de la encuesta",
+            scale: "Factor de escala de la enquesta",
             // [Auto-translated] "Corner radius"
             cornerRadius: "Radio de esquina",
             // [Auto-translated] "Advanced mode"
             advancedMode: "Modo avanzado",
             // [Auto-translated] "Title font"
-            pageTitle: "Fuente del título",
+            pageTitle: "Fuente del títol",
             // [Auto-translated] "Description font"
-            pageDescription: "Descripción fuente",
+            pageDescription: "Descripció fuente",
             // [Auto-translated] "Title font"
-            questionTitle: "Fuente del título",
+            questionTitle: "Fuente del títol",
             // [Auto-translated] "Description font"
-            questionDescription: "Descripción fuente",
+            questionDescription: "Descripció fuente",
             // [Auto-translated] "Font"
             editorFont: "Fuente",
             // [Auto-translated] "Opacity"
@@ -1982,21 +1980,21 @@ var spanishTranslation = {
             // [Auto-translated] "Logo alignment"
             logoPosition: "Alineación del logotipo",
             // [Auto-translated] "Survey title font"
-            surveyTitle: "Fuente del título de la encuesta",
+            surveyTitle: "Fuente del títol de la enquesta",
             // [Auto-translated] "Survey description font"
-            surveyDescription: "Fuente de descripción de la encuesta",
+            surveyDescription: "Fuente de descripció de la enquesta",
             // [Auto-translated] "Survey title font"
-            headerTitle: "Fuente del título de la encuesta",
+            headerTitle: "Fuente del títol de la enquesta",
             // [Auto-translated] "Survey description font"
-            headerDescription: "Fuente de descripción de la encuesta",
+            headerDescription: "Fuente de descripció de la enquesta",
             // [Auto-translated] "Content area width"
             inheritWidthFrom: "Ancho del área de contenido",
             // [Auto-translated] "Text width"
-            textAreaWidth: "Ancho del texto",
+            textAreaWidth: "Ancho del text",
             // [Auto-translated] "Background color"
             backgroundColorSwitch: "Color de fondo",
             // [Auto-translated] "Background image"
-            backgroundImage: "Imagen de fondo",
+            backgroundImage: "Imatge de fondo",
             // [Auto-translated] "Opacity"
             backgroundImageOpacity: "Opacidad",
             // [Auto-translated] "Overlap"
@@ -2004,9 +2002,9 @@ var spanishTranslation = {
             // [Auto-translated] "Logo alignment"
             logoPositionX: "Alineación del logotipo",
             // [Auto-translated] "Survey title alignment"
-            titlePositionX: "Alineación del título de la encuesta",
+            titlePositionX: "Alineación del títol de la enquesta",
             // [Auto-translated] "Survey description alignment"
-            descriptionPositionX: "Alineación de la descripción de la encuesta"
+            descriptionPositionX: "Alineación de la descripció de la enquesta"
         }
     },
     // Property values
@@ -2016,19 +2014,17 @@ var spanishTranslation = {
         // [Auto-translated] "false"
         "false": "falso",
         // [Auto-translated] "Local file"
-        file: "Archivo local",
+        file: "Fitxer local",
         // [Auto-translated] "Camera"
         camera: "Cámara",
         // [Auto-translated] "Local file or Camera"
-        "file-camera": "Archivo local o cámara",
-        // "Inherit"
-        inherit: "heredar",
+        "file-camera": "Fitxer local o cámara",
         // "Visible"
         show: "mostrar",
         // "Hidden"
         hide: "esconder",
-        // "Inherit"
-        default: "defecto",
+        // "Heredar"
+        default: "defecte",
         // "Initial"
         initial: "inicial",
         // "Random"
@@ -2055,7 +2051,7 @@ var spanishTranslation = {
         currency: "divisa",
         // "percent"
         percent: "porcentaje",
-        // "First panel is expanded"
+        // "First panell is expanded"
         firstExpanded: "Primer Expandido",
         // "Hide question numbers"
         off: "no mostrar",
@@ -2065,11 +2061,11 @@ var spanishTranslation = {
         carousel: "Carrusel",
         // [Auto-translated] "Tabs"
         tab: "Pestañas",
-        // "Panel navigator + Progress bar at the top"
+        // "Panell navigator + Progress bar at the top"
         progressTop: "Progreso superior",
-        // "Panel navigator + Progress bar at the bottom"
+        // "Panell navigator + Progress bar at the bottom"
         progressBottom: "Progreso inferior",
-        // "Panel navigator + Progress bar at the top and bottom"
+        // "Panell navigator + Progress bar at the top and bottom"
         progressTopBottom: "Progreso inferior/superior",
         // "Horizontal"
         horizontal: "horizontal",
@@ -2114,7 +2110,7 @@ var spanishTranslation = {
         // [Auto-translated] "tel"
         tel: "Tel",
         // "text"
-        text: "texto",
+        text: "text",
         // "time"
         time: "hora",
         // [Auto-translated] "url"
@@ -2141,8 +2137,8 @@ var spanishTranslation = {
         onComplete: "Al completarse",
         // "When question gets hidden"
         onHidden: "Al ocultarse",
-        // "When question or its panel/page gets hidden"
-        onHiddenContainer: "Cuando la pregunta o su panel/página se oculta",
+        // "When question or its panell/page gets hidden"
+        onHiddenContainer: "Cuando la pregunta o su panell/pàgina se oculta",
         clearInvisibleValues: {
             // "Never"
             none: "Nunca"
@@ -2173,7 +2169,7 @@ var spanishTranslation = {
             // [Auto-translated] "Phone Number"
             tel: "Número de teléfono",
             // [Auto-translated] "Text"
-            text: "Mensaje de texto",
+            text: "Mensaje de text",
             // [Auto-translated] "Time"
             time: "Hora",
             // [Auto-translated] "URL"
@@ -2189,7 +2185,7 @@ var spanishTranslation = {
         },
         tooltipVisibility: {
             // [Auto-translated] "Auto"
-            auto: "Automático",
+            auto: "Automàtic",
             // [Auto-translated] "Always"
             always: "Siempre",
             // [Auto-translated] "Never"
@@ -2213,19 +2209,19 @@ var spanishTranslation = {
             // [Auto-translated] "Documents"
             document: "Documentos",
             // [Auto-translated] "Archives"
-            archive: "Archivo",
+            archive: "Fitxer",
             // [Auto-translated] "Custom"
             custom: "Costumbre"
         },
         autocomplete: {
             // [Auto-translated] "Full Name"
-            name: "Nombre completo",
+            name: "Nom complet",
             // [Auto-translated] "Prefix"
             "honorific-prefix": "Prefijo",
             // [Auto-translated] "First Name"
-            "given-name": "Nombre",
+            "given-name": "Nom",
             // [Auto-translated] "Middle Name"
-            "additional-name": "Segundo nombre",
+            "additional-name": "Segundo nom",
             // [Auto-translated] "Last Name"
             "family-name": "Apellido",
             // [Auto-translated] "Suffix"
@@ -2233,15 +2229,15 @@ var spanishTranslation = {
             // [Auto-translated] "Nickname"
             nickname: "Apodo",
             // [Auto-translated] "Job Title"
-            "organization-title": "Título del trabajo",
+            "organization-title": "Títol del trabajo",
             // [Auto-translated] "User Name"
-            username: "Nombre de usuario",
+            username: "Nom de usuario",
             // [Auto-translated] "New Password"
-            "new-password": "Nueva contraseña",
+            "new-password": "Nova contraseña",
             // [Auto-translated] "Current Password"
             "current-password": "Contraseña actual",
             // [Auto-translated] "Organization Name"
-            organization: "Nombre de la organización",
+            organization: "Nom de la organización",
             // [Auto-translated] "Full Street Address"
             "street-address": "Dirección completa",
             // [Auto-translated] "Address Line 1"
@@ -2261,15 +2257,15 @@ var spanishTranslation = {
             // [Auto-translated] "Country Code"
             country: "Código de país",
             // [Auto-translated] "Country Name"
-            "country-name": "Nombre del país",
+            "country-name": "Nom del país",
             // [Auto-translated] "Postal Code"
             "postal-code": "Código postal",
             // [Auto-translated] "Cardholder Name"
-            "cc-name": "Nombre del titular de la tarjeta",
+            "cc-name": "Nom del titular de la tarjeta",
             // [Auto-translated] "Cardholder First Name"
-            "cc-given-name": "Nombre del titular de la tarjeta",
+            "cc-given-name": "Nom del titular de la tarjeta",
             // [Auto-translated] "Cardholder Middle Name"
-            "cc-additional-name": "Segundo nombre del titular de la tarjeta",
+            "cc-additional-name": "Segundo nom del titular de la tarjeta",
             // [Auto-translated] "Cardholder Last Name"
             "cc-family-name": "Apellido del titular de la tarjeta",
             // [Auto-translated] "Credit Card Number"
@@ -2339,7 +2335,7 @@ var spanishTranslation = {
         },
         inputTextAlignment: {
             // [Auto-translated] "Auto"
-            auto: "Automático",
+            auto: "Automàtic",
             // [Auto-translated] "Left"
             left: "Izquierda",
             // [Auto-translated] "Right"
@@ -2348,11 +2344,11 @@ var spanishTranslation = {
         // "All"
         all: "todas",
         // "Page"
-        page: "página",
+        page: "pàgina",
         // "Survey"
-        survey: "encuesta",
+        survey: "enquesta",
         // "When switching to the next page"
-        onNextPage: "Al cambiar página",
+        onNextPage: "Al cambiar pàgina",
         // "After an answer is changed"
         onValueChanged: "Al cambiar valor",
         // "Before an answer is changed"
@@ -2361,36 +2357,36 @@ var spanishTranslation = {
             // [Auto-translated] "Original structure"
             standard: "Estructura original",
             // [Auto-translated] "Show all questions on one page"
-            singlePage: "Mostrar todas las preguntas en una sola página",
+            singlePage: "Mostrar todas las preguntes en una sola pàgina",
             // [Auto-translated] "Show single question per page"
-            questionPerPage: "Mostrar una sola pregunta por página",
+            questionPerPage: "Mostrar una sola pregunta por pàgina",
             // [Auto-translated] "Show single input field per page"
-            inputPerPage: "Mostrar un solo campo de entrada por página"
+            inputPerPage: "Mostrar un solo campo de entrada por pàgina"
         },
         // "No preview"
-        noPreview: "sin vista previa",
+        noPreview: "sin vista prèvia",
         // "Show all questions"
-        showAllQuestions: "Mostrar vista previa con todas las preguntas",
+        showAllQuestions: "Mostrar vista prèvia con todas las preguntes",
         // "Show answered questions only"
-        showAnsweredQuestions: "Mostrar vista previa con preguntas contestadas",
+        showAnsweredQuestions: "Mostrar vista prèvia con preguntes contestadas",
         // [Auto-translated] "Show all questions"
-        allQuestions: "Mostrar todas las preguntas",
+        allQuestions: "Mostrar todas las preguntes",
         // [Auto-translated] "Show answered questions only"
-        answeredQuestions: "Mostrar solo las preguntas respondidas",
+        answeredQuestions: "Mostrar solo las preguntes respondidas",
         // "Completed pages"
-        pages: "páginas",
+        pages: "pàgines",
         // "Answered questions"
-        questions: "preguntas",
+        questions: "preguntes",
         // "Answered required questions"
-        requiredQuestions: "preguntas requeridas",
+        requiredQuestions: "preguntes requerides",
         // "Valid answers"
-        correctQuestions: "preguntas correctas",
+        correctQuestions: "preguntes correctas",
         // "Completed pages (button UI)"
         buttons: "botones",
         // "Under the input field"
         underInput: "debajo de la respuesta",
         // "Under the question title"
-        underTitle: "debajo del título",
+        underTitle: "debajo del títol",
         // [Auto-translated] "On lost focus"
         onBlur: "Sobre el enfoque perdido",
         // "While typing"
@@ -2398,9 +2394,9 @@ var spanishTranslation = {
         // "Under the row"
         underRow: "Debajo de la fila",
         // "Under the row, display one section only"
-        underRowSingle: "Debajo de la fila, sólo un panel es visible",
+        underRowSingle: "Debajo de la fila, sólo un panell es visible",
         // "Auto"
-        auto: "Automático",
+        auto: "Automàtic",
         timerInfoMode: {
             // "Both"
             combined: "Ambos"
@@ -2411,11 +2407,11 @@ var spanishTranslation = {
         },
         panelsState: {
             // "Locked"
-            default: "Usuarios no pueden expandir o colapsar paneles",
+            default: "Usuarios no pueden expandir o colapsar panells",
             // "Collapse all"
-            collapsed: "Todos los paneles colapsados",
+            collapsed: "Todos los panells colapsados",
             // "Expand all"
-            expanded: "Todos los paneles expandidos",
+            expanded: "Todos los panells expandidos",
             // [Auto-translated] "First expanded"
             firstExpanded: "Primera expansión"
         },
@@ -2427,7 +2423,7 @@ var spanishTranslation = {
         },
         contentMode: {
             // "Image"
-            image: "Imagen",
+            image: "Imatge",
             // [Auto-translated] "Video"
             video: "Vídeo",
             // [Auto-translated] "YouTube"
@@ -2441,7 +2437,7 @@ var spanishTranslation = {
         },
         rateColorMode: {
             // [Auto-translated] "Default"
-            default: "Predeterminado",
+            default: "Per defecte",
             // [Auto-translated] "Scale"
             scale: "Escama"
         },
@@ -2453,7 +2449,7 @@ var spanishTranslation = {
         },
         autoGenerate: {
             // [Auto-translated] "Auto-generate"
-            "true": "Generación automática",
+            "true": "Generación automàtica",
             // [Auto-translated] "Manual"
             "false": "Manual"
         },
@@ -2471,33 +2467,33 @@ var spanishTranslation = {
         },
         showQuestionNumbers: {
             // [Auto-translated] "Auto-numbering"
-            default: "Numeración automática",
+            default: "Numeración automàtica",
             // [Auto-translated] "Auto-numbering"
-            on: "Numeración automática",
+            on: "Numeración automàtica",
             // [Auto-translated] "Reset on each page"
-            onPage: "Restablecer en cada página",
-            // [Auto-translated] "Reset on each panel"
-            onpanel: "Restablecer en cada panel",
-            // [Auto-translated] "Reset on each panel"
-            onPanel: "Restablecer en cada panel",
+            onPage: "Restablecer en cada pàgina",
+            // [Auto-translated] "Reset on each panell"
+            onpanel: "Restablecer en cada panell",
+            // [Auto-translated] "Reset on each panell"
+            onPanel: "Restablecer en cada panell",
             // [Auto-translated] "Recursive numbering"
             recursive: "Numeración recursiva",
             // [Auto-translated] "Continue across the survey"
-            onSurvey: "Continuar a través de la encuesta",
+            onSurvey: "Continuar a través de la enquesta",
             // [Auto-translated] "No numbering"
             off: "Sin numeración"
         },
         descriptionLocation: {
             // [Auto-translated] "Under the question title"
-            underTitle: "Bajo el título de la pregunta",
+            underTitle: "Bajo el títol de la pregunta",
             // [Auto-translated] "Under the input field"
             underInput: "En el campo de entrada"
         },
         selectToRankAreasLayout: {
             // [Auto-translated] "Next to choices"
-            horizontal: "Junto a las opciones",
+            horizontal: "Junto a las opcions",
             // [Auto-translated] "Above choices"
-            vertical: "Opciones anteriores"
+            vertical: "Opcions anteriores"
         },
         displayStyle: {
             // [Auto-translated] "Decimal"
@@ -2521,11 +2517,11 @@ var spanishTranslation = {
         },
         rowOrder: {
             // [Auto-translated] "Original"
-            initial: "Texto original en"
+            initial: "Text original en"
         },
         questionOrder: {
             // [Auto-translated] "Original"
-            initial: "Texto original en"
+            initial: "Text original en"
         },
         progressBarLocation: {
             // [Auto-translated] "Top"
@@ -2559,7 +2555,7 @@ var spanishTranslation = {
         },
         backgroundImageFit: {
             // [Auto-translated] "Auto"
-            auto: "Automático",
+            auto: "Automàtic",
             // [Auto-translated] "Cover"
             cover: "Cubrir",
             // [Auto-translated] "Contain"
@@ -2583,7 +2579,7 @@ var spanishTranslation = {
         },
         inheritWidthFrom: {
             // [Auto-translated] "Same as survey"
-            survey: "Igual que la encuesta",
+            survey: "Igual que la enquesta",
             // [Auto-translated] "Same as container"
             container: "Igual que el contenedor"
         },
@@ -2603,13 +2599,13 @@ var spanishTranslation = {
         },
         isPanelless: {
             // [Auto-translated] "Default"
-            "false": "Predeterminado",
+            "false": "Per defecte",
             // [Auto-translated] "Without Panels"
-            "true": "Sin paneles"
+            "true": "Sin panells"
         },
         progressBarInheritWidthFrom: {
             // [Auto-translated] "Same as survey"
-            survey: "Igual que la encuesta",
+            survey: "Igual que la enquesta",
             // [Auto-translated] "Same as container"
             container: "Igual que el contenedor"
         }
@@ -2662,9 +2658,9 @@ var spanishTranslation = {
         // "For bootstrap framework"
         bootstrap: "Para marco de bootstrap",
         // "Modern theme"
-        modern: "Tema moderno",
+        modern: "Tema modern",
         // "Default theme"
-        default: "Tema predeterminado",
+        default: "Tema per defecte",
         // "Orange theme"
         orange: "Tema naranja",
         // "Darkblue theme"
@@ -2678,11 +2674,11 @@ var spanishTranslation = {
         // "Winter-Stone theme"
         winterstone: "Tema de piedra de invierno",
         // "Show survey on a page"
-        showOnPage: "Mostrar encuesta en una página",
+        showOnPage: "Mostrar enquesta en una pàgina",
         // "Show survey in a window"
-        showInWindow: "Mostrar encuesta en una ventana",
+        showInWindow: "Mostrar enquesta en una ventana",
         // "Load Survey JSON from server"
-        loadFromServer: "Encuesta de carga JSON del servidor",
+        loadFromServer: "Enquesta de carga JSON del servidor",
         // "Scripts and styles"
         titleScript: "Scripts y estilos",
         // "HTML"
@@ -2693,7 +2689,7 @@ var spanishTranslation = {
     // Preview (Survey)
     ts: {
         // "Select the page to test it"
-        selectPage: "Seleccione la página para probarlo:",
+        selectPage: "Seleccione la pàgina para probarlo:",
         // "Show invisible elements"
         showInvisibleElements: "Mostrar elementos invisibles",
         // "Hide invisible elements"
@@ -2709,17 +2705,17 @@ var spanishTranslation = {
         // "Email"
         emailvalidator: "Email",
         // "Expression"
-        expressionvalidator: "expresión",
+        expressionvalidator: "expressió",
         // "Number"
         numericvalidator: "numérica",
         // "Regex"
         regexvalidator: "regex",
         // "Text"
-        textvalidator: "texto"
+        textvalidator: "text"
     },
     triggers: {
         // "Complete survey"
-        completetrigger: "encuesta completa",
+        completetrigger: "enquesta completa",
         // "Set answer"
         setvaluetrigger: "valor ajustado",
         // "Copy answer"
@@ -2727,7 +2723,7 @@ var spanishTranslation = {
         // "Skip to question"
         skiptrigger: "Saltar a la pregunta",
         // "Run expression"
-        runexpressiontrigger: "expresión de ejecución",
+        runexpressiontrigger: "expressió de ejecución",
         // "change visibility (deprecated)"
         visibletrigger: "Cambiar visibilidad"
     },
@@ -2760,110 +2756,110 @@ var spanishTranslation = {
     pehelp: {
         panel: {
             // "A panel ID that is not visible to respondents."
-            name: "Un ID de panel que no es visible para los encuestados.",
-            // [Auto-translated] "Type a panel subtitle."
-            description: "Escriba un subtítulo de panel.",
-            // "Use the magic wand icon to set a conditional rule that determines panel visibility."
-            visibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad del panel.",
-            // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panel."
-            enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que desactive el modo de solo lectura para el panel.",
+            name: "Un ID de panell que no es visible para los encuestados.",
+            // [Auto-translated] "Type a panell subtitle."
+            description: "Escriba un subtítulo de panell.",
+            // "Use the magic wand icon to set a conditional rule that determines panell visibility."
+            visibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad del panell.",
+            // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panell."
+            enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que desactive el modo de solo lectura para el panell.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de encuestas a menos que al menos una pregunta anidada tenga una respuesta.",
-            // [Auto-translated] "Applies to all questions within this panel. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default). "
-            questionTitleLocation: "Se aplica a todas las preguntas dentro de este panel. Cuando se establece en \"Oculto\", también oculta las descripciones de las preguntas. Si desea anular esta configuración, defina reglas de alineación de títulos para preguntas individuales. La opción \"Heredar\" aplica la configuración a nivel de página (si está establecida) o a nivel de encuesta (\"Superior\" de forma predeterminada). ",
+            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de enquestes a menos que al menos una pregunta anidada tenga una respuesta.",
+            // [Auto-translated] "Applies to all questions within this panell. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions. The \"Heredar\" option applies the page-level (if set) or survey-level setting (\"Top\" by default). "
+            questionTitleLocation: "Se aplica a todas las preguntes dentro de este panell. Cuando se establece en \"Oculto\", también oculta las descripcions de las preguntas. Si desea anular esta configuració, defina regles de alineación de títols para preguntes individuales. La opción \"Heredar\" aplica la configuració a nivel de pàgina (si está establecida) o a nivel de enquesta (\"Superior\" de forma per defecte). ",
             // [Auto-translated] "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)."
-            questionTitleWidth: "Establece un ancho coherente para los títulos de las preguntas cuando están alineados a la izquierda de sus cuadros de preguntas. Acepta valores CSS (px, %, in, pt, etc.).",
-            // "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting."
-            questionErrorLocation: "Establece la ubicación de un mensaje de error en relación con todas las preguntas del panel. La opción \"Heredar\" aplica la configuración a nivel de página (si se establece) o a nivel de encuesta.",
-            // [Auto-translated] "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting."
-            questionOrder: "Mantiene el orden original de las preguntas o las aleatoriza. La opción \"Heredar\" aplica la configuración de nivel de página (si está establecida) o de nivel de encuesta.",
-            // "Repositions the panel to the end of a selected page."
-            page: "Cambia la posición del panel al final de una página seleccionada.",
-            // [Auto-translated] "Adds space or margin between the panel content and the left border of the panel box."
-            innerIndent: "Añade espacio o margen entre el contenido del panel y el borde izquierdo del cuadro del panel.",
-            // "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form."
-            startWithNewLine: "Anule la selección para mostrar el panel en una línea con la pregunta o el panel anterior. La configuración no se aplica si el panel es el primer elemento del formulario.",
-            // "Choose from: \"Expanded\" - the panel is displayed in full and can be collapsed; \"Collapsed\" - the panel displays only the title and description and can be expanded; \"Locked\" - the panel is displayed in full and cannot be collapsed."
-            state: "Elija entre: \"Expandido\": el panel se muestra en su totalidad y se puede contraer; \"Contraído\": el panel muestra solo el título y la descripción y se puede expandir; \"Bloqueado\": el panel se muestra en su totalidad y no se puede contraer.",
-            // [Auto-translated] "Sets the width of the panel in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
-            width: "Establece la anchura del panel en proporción a otros elementos de topografía de la misma línea. Acepta valores CSS (px, %, in, pt, etc.).",
-            // [Auto-translated] "Assigns numbers to questions nested within this panel."
-            showQuestionNumbers: "Asigna números a las preguntas anidadas dentro de este panel.",
-            // [Auto-translated] "Specifies how many columns this panel spans within the grid layout."
-            effectiveColSpan: "Especifica el número de columnas que abarca este panel dentro del diseño de cuadrícula.",
-            // [Auto-translated] "This table lets you configure each grid column within the panel. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column."
-            gridLayoutColumns: "Esta tabla le permite configurar cada columna de cuadrícula dentro del panel. Establece automáticamente el porcentaje de ancho para cada columna en función del número máximo de elementos en una fila. Para personalizar el diseño de la cuadrícula, ajuste manualmente estos valores y defina el ancho del título para todas las preguntas de cada columna."
+            questionTitleWidth: "Establece un ancho coherente para los títols de las preguntas cuando están alineados a la izquierda de sus cuadros de preguntes. Acepta valors CSS (px, %, in, pt, etc.).",
+            // "Sets the location of an error message in relation to all questions within the panell. The \"Heredar\" option applies the page-level (if set) or survey-level setting."
+            questionErrorLocation: "Establece la ubicación de un mensaje de error en relación con todas las preguntes del panell. La opción \"Heredar\" aplica la configuració a nivel de pàgina (si se establece) o a nivel de enquesta.",
+            // [Auto-translated] "Keeps the original order of questions or randomizes them. The \"Heredar\" option applies the page-level (if set) or survey-level setting."
+            questionOrder: "Mantiene el orden original de las preguntes o las aleatoriza. La opción \"Heredar\" aplica la configuració de nivel de pàgina (si está establecida) o de nivel de enquesta.",
+            // "Repositions the panell to the end of a selected page."
+            page: "Cambia la posición del panell al final de una pàgina seleccionada.",
+            // [Auto-translated] "Adds space or margin between the panel content and the left border of the panell box."
+            innerIndent: "Añade espacio o margen entre el contenido del panel y el borde izquierdo del cuadro del panell.",
+            // "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panell is the first element in your form."
+            startWithNewLine: "Anule la selección para mostrar el panel en una línea con la pregunta o el panel anterior. La configuració no se aplica si el panell es el primer elemento del formulario.",
+            // "Choose from: \"Expanded\" - the panell is displayed in full and can be collapsed; \"Collapsed\" - the panell displays only the title and description and can be expanded; \"Locked\" - the panell is displayed in full and cannot be collapsed."
+            state: "Elija entre: \"Expandido\": el panell se muestra en su totalidad y se puede contraer; \"Contraído\": el panell muestra solo el títol y la descripció y se puede expandir; \"Bloqueado\": el panell se muestra en su totalidad y no se puede contraer.",
+            // [Auto-translated] "Sets the width of the panell in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
+            width: "Establece la anchura del panell en proporción a otros elementos de topografía de la misma línea. Acepta valors CSS (px, %, in, pt, etc.).",
+            // [Auto-translated] "Assigns numbers to questions nested within this panell."
+            showQuestionNumbers: "Asigna números a las preguntes anidadas dentro de este panell.",
+            // [Auto-translated] "Specifies how many columns this panell spans within the grid layout."
+            effectiveColSpan: "Especifica el número de columnes que abarca este panell dentro del diseño de cuadrícula.",
+            // [Auto-translated] "This table lets you configure each grid column within the panell. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column."
+            gridLayoutColumns: "Esta tabla le permite configurar cada columna de cuadrícula dentro del panell. Establece automáticamente el porcentaje de ancho para cada columna en función del número máximo de elementos en una fila. Para personalizar el diseño de la cuadrícula, ajuste manualmente estos valors y defina el ancho del títol para todas las preguntes de cada columna."
         },
         paneldynamic: {
-            // "A panel ID that is not visible to respondents."
-            name: "Un ID de panel que no es visible para los encuestados.",
-            // "Type a panel subtitle."
-            description: "Escriba un subtítulo de panel.",
-            // "Use the magic wand icon to set a conditional rule that determines panel visibility."
-            visibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad del panel.",
-            // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panel."
-            enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que desactive el modo de solo lectura para el panel.",
+            // "A panell ID that is not visible to respondents."
+            name: "Un ID de panell que no es visible para los encuestados.",
+            // "Type a panell subtitle."
+            description: "Escriba un subtítulo de panell.",
+            // "Use the magic wand icon to set a conditional rule that determines panell visibility."
+            visibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad del panell.",
+            // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panell."
+            enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que desactive el modo de solo lectura para el panell.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de encuestas a menos que al menos una pregunta anidada tenga una respuesta.",
-            // "Applies to all questions within this dynamic panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
-            templateQuestionTitleLocation: "Se aplica a todas las preguntas de este panel. Si desea anular esta configuración, defina reglas de alineación de títulos para preguntas individuales. La opción \"Heredar\" aplica la configuración a nivel de página (si está establecida) o a nivel de encuesta (\"Superior\" de forma predeterminada).",
+            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de enquestes a menos que al menos una pregunta anidada tenga una respuesta.",
+            // "Applies to all questions within this dynamic panell. If you want to override this setting, define title alignment rules for individual questions. The \"Heredar\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
+            templateQuestionTitleLocation: "Se aplica a todas las preguntas de este panell. Si desea anular esta configuració, defina regles de alineación de títols para preguntes individuales. La opción \"Heredar\" aplica la configuració a nivel de pàgina (si está establecida) o a nivel de enquesta (\"Superior\" de forma per defecte).",
             // "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)."
-            templateQuestionTitleWidth: "Establece un ancho coherente para los títulos de las preguntas cuando están alineados a la izquierda de sus cuadros de pregunta. Acepta valores CSS (px, %, in, pt, etc.).",
-            // "Sets the location of an error message in relation to a question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
-            templateErrorLocation: "Establece la ubicación de un mensaje de error en relación con una pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un texto de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un texto de error en la parte inferior del cuadro de pregunta. La opción \"Heredar\" aplica la configuración a nivel de página (si está establecida) o a nivel de encuesta (\"Superior\" de forma predeterminada).",
-            // "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting."
-            errorLocation: "Establece la ubicación de un mensaje de error en relación con todas las preguntas del panel. La opción \"Heredar\" aplica la configuración a nivel de página (si se establece) o a nivel de encuesta.",
-            // "Repositions the panel to the end of a selected page."
-            page: "Cambia la posición del panel al final de una página seleccionada.",
-            // [Auto-translated] "Adds space or margin between the panel content and the left border of the panel box."
-            indent: "Añade espacio o margen entre el contenido del panel y el borde izquierdo del cuadro del panel.",
-            // "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form."
-            startWithNewLine: "Anule la selección para mostrar el panel en una línea con la pregunta o el panel anterior. La configuración no se aplica si el panel es el primer elemento del formulario.",
-            // "Choose from: \"Expanded\" - the panel is displayed in full and can be collapsed; \"Collapsed\" - the panel displays only the title and description and can be expanded; \"Locked\" - the panel is displayed in full and cannot be collapsed."
-            state: "Elija entre: \"Expandido\": el panel se muestra en su totalidad y se puede contraer; \"Contraído\": el panel muestra solo el título y la descripción y se puede expandir; \"Bloqueado\": el panel se muestra en su totalidad y no se puede contraer.",
-            // "Sets the width of the panel in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
-            width: "Define la anchura del panel en proporción a otros elementos topográficos de la misma línea. Acepta valores CSS (px, %, in, pt, etc.).",
+            templateQuestionTitleWidth: "Establece un ancho coherente para los títols de las preguntes cuando están alineados a la izquierda de sus cuadros de pregunta. Acepta valors CSS (px, %, in, pt, etc.).",
+            // "Sets the location of an error message in relation to a question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Heredar\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
+            templateErrorLocation: "Establece la ubicación de un mensaje de error en relación con una pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un text de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un text de error en la parte inferior del cuadro de pregunta. La opción \"Heredar\" aplica la configuració a nivel de pàgina (si está establecida) o a nivel de enquesta (\"Superior\" de forma per defecte).",
+            // "Sets the location of an error message in relation to all questions within the panell. The \"Heredar\" option applies the page-level (if set) or survey-level setting."
+            errorLocation: "Establece la ubicación de un mensaje de error en relación con todas las preguntes del panell. La opción \"Heredar\" aplica la configuració a nivel de pàgina (si se establece) o a nivel de enquesta.",
+            // "Repositions the panell to the end of a selected page."
+            page: "Cambia la posición del panell al final de una pàgina seleccionada.",
+            // [Auto-translated] "Adds space or margin between the panel content and the left border of the panell box."
+            indent: "Añade espacio o margen entre el contenido del panel y el borde izquierdo del cuadro del panell.",
+            // "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panell is the first element in your form."
+            startWithNewLine: "Anule la selección para mostrar el panel en una línea con la pregunta o el panel anterior. La configuració no se aplica si el panell es el primer elemento del formulario.",
+            // "Choose from: \"Expanded\" - the panell is displayed in full and can be collapsed; \"Collapsed\" - the panell displays only the title and description and can be expanded; \"Locked\" - the panell is displayed in full and cannot be collapsed."
+            state: "Elija entre: \"Expandido\": el panell se muestra en su totalidad y se puede contraer; \"Contraído\": el panell muestra solo el títol y la descripció y se puede expandir; \"Bloqueado\": el panell se muestra en su totalidad y no se puede contraer.",
+            // "Sets the width of the panell in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
+            width: "Define la anchura del panell en proporción a otros elementos topográficos de la misma línea. Acepta valors CSS (px, %, in, pt, etc.).",
             // "Type in a template for entry titles. Use {panelIndex} for the entry's general position and {visiblePanelIndex} for its order among visible entries. Insert these placeholders into the pattern to add automatic numbering."
-            templateTitle: "Escriba una plantilla para los títulos de los paneles dinámicos. Utilice {panelIndex} para la posición general del panel y {visiblePanelIndex} para su orden entre los paneles visibles. Inserte estos marcadores de posición en el patrón para agregar numeración automática.",
+            templateTitle: "Escriba una plantilla para los títols de los paneles dinámicos. Utilice {panelIndex} para la posición general del panell y {visiblePanelIndex} para su orden entre los panells visibles. Inserte estos marcadores de posición en el patrón para agregar numeración automàtica.",
             // "Type in a template for tab titles. Use {panelIndex} for an entry's general position and {visiblePanelIndex} for its order among visible entries. Insert these placeholders into the pattern to add automatic numbering."
-            templateTabTitle: "Escriba una plantilla para los títulos de las pestañas. Utilice {panelIndex} para la posición general de un panel y {visiblePanelIndex} para su orden entre los paneles visibles. Inserte estos marcadores de posición en el patrón para agregar numeración automática.",
+            templateTabTitle: "Escriba una plantilla para los títols de las pestañas. Utilice {panelIndex} para la posición general de un panell y {visiblePanelIndex} para su orden entre los panells visibles. Inserte estos marcadores de posición en el patrón para agregar numeración automàtica.",
             // "A fallback text for tab titles that applies when the tab title pattern doesn't produce a meaningful value."
-            tabTitlePlaceholder: "Texto de reserva para los títulos de tabulación que se aplica cuando el patrón de título de tabulación no genera un valor significativo.",
-            // "This setting allows you to control the visibility of individual entries within the dynamic panel. Use the `{panel}` placeholder to reference the current entry in your expression."
-            templateVisibleIf: "Esta configuración le permite controlar la visibilidad de paneles individuales dentro del panel dinámico. Utilice el marcador de posición '{panel}' para hacer referencia al panel actual en la expresión.",
-            // "This setting is automatically inherited by all questions within this dynamic panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
-            titleLocation: "Esta configuración es heredada automáticamente por todas las preguntas dentro de este panel. Si desea anular esta configuración, defina reglas de alineación de títulos para preguntas individuales. La opción \"Heredar\" aplica la configuración a nivel de página (si está establecida) o a nivel de encuesta (\"Superior\" de forma predeterminada).",
-            // "The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Under the panel title\" by default)."
-            descriptionLocation: "La opción \"Heredar\" aplica la configuración a nivel de página (si está establecida) o a nivel de encuesta (\"Debajo del título del panel\" de forma predeterminada).",
+            tabTitlePlaceholder: "Text de reserva para los títols de tabulación que se aplica cuando el patrón de títol de tabulación no genera un valor significativo.",
+            // "This setting allows you to control the visibility of individual entries within the dynamic panel. Use the `{panell}` placeholder to reference the current entry in your expression."
+            templateVisibleIf: "Esta configuració le permite controlar la visibilidad de panells individuales dentro del panel dinámico. Utilice el marcador de posición '{panel}' para hacer referencia al panell actual en la expressió.",
+            // "This setting is automatically inherited by all questions within this dynamic panell. If you want to override this setting, define title alignment rules for individual questions. The \"Heredar\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
+            titleLocation: "Esta configuración es heretada automáticamente por todas las preguntas dentro de este panell. Si desea anular esta configuració, defina regles de alineación de títols para preguntes individuales. La opción \"Heredar\" aplica la configuració a nivel de pàgina (si está establecida) o a nivel de enquesta (\"Superior\" de forma per defecte).",
+            // "The \"Heredar\" option applies the page-level (if set) or survey-level setting (\"Under the panell title\" by default)."
+            descriptionLocation: "La opción \"Heredar\" aplica la configuració a nivel de pàgina (si está establecida) o a nivel de enquesta (\"Debajo del títol del panell\" de forma per defecte).",
             // "Defines the position of a newly added entry. By default, new entries are added to the end. Select \"Next\" to insert a new entry after the current one."
-            newPanelPosition: "Define la posición de un panel recién añadido. De forma predeterminada, los nuevos paneles se agregan al final. Seleccione \"Siguiente\" para insertar un nuevo panel después del actual.",
+            newPanelPosition: "Define la posición de un panell recién añadido. De forma per defecte, los nous panells se agregan al final. Seleccione \"Següent\" para insertar un nou panell después del actual.",
             // [Auto-translated] "Duplicates answers from the last entry and assigns them to the next added entry."
-            copyDefaultValueFromLastEntry: "Duplica las respuestas de la última entrada y las asigna a la siguiente entrada agregada.",
+            copyDefaultValueFromLastEntry: "Duplica las respuestas de la última entrada y las asigna a la següent entrada agregada.",
             // "Reference a question name to require a user to provide a unique response for this question in each entry."
-            keyName: "Haga referencia a un nombre de pregunta para requerir que un usuario proporcione una respuesta única para esta pregunta en cada panel.",
+            keyName: "Haga referencia a un nom de pregunta para requerir que un usuario proporcione una respuesta única para esta pregunta en cada panell.",
             // [Auto-translated] "Triggers a confirmation prompt before removing an entry."
             confirmDelete: "Activa un mensaje de confirmación antes de eliminar una entrada.",
-            // [Auto-translated] "Assigns numbers to questions nested within the dynamic panel."
-            showQuestionNumbers: "Asigna números a las preguntas anidadas dentro del panel dinámico."
+            // [Auto-translated] "Assigns numbers to questions nested within the dynamic panell."
+            showQuestionNumbers: "Asigna números a las preguntes anidadas dentro del panell dinámico."
         },
         matrixdynamic: {
             // [Auto-translated] "Triggers a confirmation prompt before removing a row."
             confirmDelete: "Desencadena un mensaje de confirmación antes de quitar una fila.",
             // [Auto-translated] "Automatically expands the detail section when a new row is added to the matrix."
-            detailPanelShowOnAdding: "Expande automáticamente la sección de detalles cuando se agrega una nueva fila a la matriz."
+            detailPanelShowOnAdding: "Expande automáticamente la sección de detalles cuando se agrega una nova fila a la matriz."
         },
         // "Duplicates answers from the last row and assigns them to the next added dynamic row."
-        copyDefaultValueFromLastEntry: "Duplica las respuestas de la última fila y las asigna a la siguiente fila dinámica agregada.",
+        copyDefaultValueFromLastEntry: "Duplica las respuestas de la última fila y las asigna a la següent fila dinámica agregada.",
         // [Auto-translated] "This setting allows you to assign a default answer value based on an expression. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression serves as the initial default value that can be overridden by a respondent's manual input."
-        defaultValueExpression: "Esta configuración le permite asignar un valor de respuesta predeterminado basado en una expresión. La expresión puede incluir cálculos básicos: '{q1_id} + {q2_id}', expresiones booleanas, como '{edad} > 60', y funciones: 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', etc. El valor determinado por esta expresión sirve como el valor predeterminado inicial que puede ser anulado por la entrada manual de un encuestado.",
+        defaultValueExpression: "Esta configuració le permite asignar un valor de respuesta predeterminado basado en una expresión. La expresión puede incluir cálculos básicos: '{q1_id} + {q2_id}', expressions booleanas, como '{edad} > 60', y funciones: 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', etc. El valor determinado por esta expressió sirve como el valor per defecte inicial que puede ser anulado por la entrada manual de un encuestado.",
         // "Use the magic wand icon to set a conditional rule that determines when a respondent's input is reset to the value based on the \"Default value expression\" or \"Set value expression\" or to the \"Default answer\" value (if either is set)."
-        resetValueIf: "Usa el ícono de la varita mágica para establecer una regla condicional que determine cuándo la entrada de un encuestado se restablece al valor basado en la \"Expresión de valor predeterminado\" o \"Expresión de valor establecido\" o al valor de \"Respuesta predeterminada\" (si cualquiera de los dos está establecido).",
+        resetValueIf: "Usa el ícono de la varita mágica para establecer una regla condicional que determine cuándo la entrada de un encuestado se restablece al valor basado en la \"Expressió de valor per defecte\" o \"Expressió de valor establecido\" o al valor de \"Respuesta per defecte\" (si cualquiera de los dos está establecido).",
         // "Use the magic wand icon to set a conditional rule that determines when to run the \"Set value expression\" and dynamically assign the resulting value as a response."
-        setValueIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine cuándo ejecutar la \"Expresión de valor establecido\" y asigne dinámicamente el valor resultante como respuesta.",
+        setValueIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine cuándo ejecutar la \"Expressió de valor establecido\" y asigne dinámicamente el valor resultante como respuesta.",
         // "Specify an expression that defines the value to be set when the conditions in the \"Set value if\" rule are met. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression can be overridden by a respondent's manual input."
-        setValueExpression: "Especifique una expresión que defina el valor que se establecerá cuando se cumplan las condiciones de la regla \"Establecer valor si\". La expresión puede incluir cálculos básicos: '{q1_id} + {q2_id}', expresiones booleanas, como '{edad} > 60', y funciones: 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', etc. El valor determinado por esta expresión puede ser anulado por la entrada manual de un encuestado.",
-        // "Survey Creator allows you to manually adjust the inline widths of form elements to control the layout. If this doesn't produce the desired outcome, you can enable the grid layout, which structures form elements using a column-based system. To configure layout columns, select a page or panel and use the \"Question Settings\" → \"Grid columns\" table. To adjust how many columns a question spans, select it and set the desired value in the \"Layout\" → \"Column span\" field."
-        gridLayoutEnabled: "Survey Creator le permite ajustar manualmente los anchos en línea de los elementos del formulario para controlar el diseño. Si esto no produce el resultado deseado, puede habilitar el diseño de cuadrícula, que estructura elementos mediante un sistema basado en columnas. Para configurar las columnas de diseño, seleccione una página o un panel y utilice la tabla \"Configuración de preguntas\" → \"Columnas de cuadrícula\". Para ajustar el número de columnas que abarca una pregunta, selecciónela y establezca el valor deseado en el campo \"Diseño\" → \"Intervalo de columnas\".",
+        setValueExpression: "Especifique una expressió que defina el valor que se establecerá cuando se cumplan las condicions de la regla \"Establecer valor si\". La expresión puede incluir cálculos básicos: '{q1_id} + {q2_id}', expressions booleanas, como '{edad} > 60', y funciones: 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', etc. El valor determinado por esta expressió puede ser anulado por la entrada manual de un encuestado.",
+        // "Survey Creator allows you to manually adjust the inline widths of form elements to control the layout. If this doesn't produce the desired outcome, you can enable the grid layout, which structures form elements using a column-based system. To configure layout columns, select a page or panell and use the \"Question Settings\" → \"Grid columns\" table. To adjust how many columns a question spans, select it and set the desired value in the \"Layout\" → \"Column span\" field."
+        gridLayoutEnabled: "Survey Creator le permite ajustar manualmente los anchos en línea de los elementos del formulario para controlar el diseño. Si esto no produce el resultado deseado, puede habilitar el diseño de cuadrícula, que estructura elementos mediante un sistema basado en columnas. Para configurar las columnes de diseño, seleccione una pàgina o un panell y utilice la tabla \"Configuració de preguntes\" → \"Columnas de cuadrícula\". Para ajustar el número de columnes que abarca una pregunta, selecciónela y establezca el valor deseado en el campo \"Diseño\" → \"Intervalo de columnes\".",
         question: {
             // "A question ID that is not visible to respondents."
             name: "Un identificador de pregunta que no es visible para los encuestados.",
@@ -2874,73 +2870,73 @@ var spanishTranslation = {
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the question."
             enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que deshabilite el modo de solo lectura para la pregunta.",
             // "Use the magic wand icon to set a conditional rule that prevents survey advancing or submission unless the question received an answer."
-            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida que la encuesta avance o se envíe a menos que la pregunta reciba una respuesta.",
-            // [Auto-translated] "Unselect to display the question in one line with the previous question or panel. The setting doesn't apply if the question is the first element in your form."
-            startWithNewLine: "Anule la selección para mostrar la pregunta en una línea con la pregunta o el panel anterior. La configuración no se aplica si la pregunta es el primer elemento del formulario.",
+            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida que la enquesta avance o se envíe a menos que la pregunta reciba una respuesta.",
+            // [Auto-translated] "Unselect to display the question in one line with the previous question or panell. The setting doesn't apply if the question is the first element in your form."
+            startWithNewLine: "Anule la selección para mostrar la pregunta en una línea con la pregunta o el panell anterior. La configuració no se aplica si la pregunta es el primer elemento del formulario.",
             // "Repositions the question to the end of a selected page."
-            page: "Cambia la posición de la pregunta al final de una página seleccionada.",
+            page: "Cambia la posición de la pregunta al final de una pàgina seleccionada.",
             // "Choose from: \"Expanded\" - the question box is displayed in full and can be collapsed; \"Collapsed\" - the question box displays only the title and description and can be expanded; \"Locked\" - the question box is displayed in full and cannot be collapsed."
-            state: "Elija entre: \"Expandido\": el cuadro de pregunta se muestra en su totalidad y se puede contraer; \"Contraído\": el cuadro de pregunta muestra solo el título y la descripción y se puede expandir; \"Bloqueado\": el cuadro de pregunta se muestra en su totalidad y no se puede contraer.",
-            // "Overrides title alignment rules defined on a panel, page, or survey level. When set to \"Hidden\", it also hides question descriptions. The \"Inherit\" option applies any higher-level settings (if set) or survey-level setting (\"Top\" by default)."
-            titleLocation: "Anula las reglas de alineación de títulos definidas en un panel, página o encuesta. La opción \"Heredar\" aplica cualquier configuración de nivel superior (si está establecida) o configuración de nivel de encuesta (\"Superior\" de forma predeterminada).",
-            // "The \"Inherit\" option applies the survey-level setting (\"Under the question title\" by default)."
-            descriptionLocation: "La opción \"Heredar\" aplica la configuración a nivel de encuesta (\"Bajo el título de la pregunta\" de forma predeterminada).",
-            // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)."
-            errorLocation: "Establece la ubicación de un mensaje de error en relación con la pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un texto de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un texto de error en la parte inferior del cuadro de pregunta. La opción \"Heredar\" aplica la configuración a nivel de encuesta (\"Superior\" de forma predeterminada).",
+            state: "Elija entre: \"Expandido\": el cuadro de pregunta se muestra en su totalidad y se puede contraer; \"Contraído\": el cuadro de pregunta muestra solo el títol y la descripció y se puede expandir; \"Bloqueado\": el cuadro de pregunta se muestra en su totalidad y no se puede contraer.",
+            // "Overrides title alignment rules defined on a panell, page, or survey level. When set to \"Hidden\", it also hides question descriptions. The \"Heredar\" option applies any higher-level settings (if set) or survey-level setting (\"Top\" by default)."
+            titleLocation: "Anula las regles de alineación de títols definidas en un panell, pàgina o enquesta. La opción \"Heredar\" aplica cualquier configuración de nivel superior (si está establecida) o configuració de nivel de enquesta (\"Superior\" de forma per defecte).",
+            // "The \"Heredar\" option applies the survey-level setting (\"Under the question title\" by default)."
+            descriptionLocation: "La opción \"Heredar\" aplica la configuració a nivel de enquesta (\"Bajo el títol de la pregunta\" de forma per defecte).",
+            // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Heredar\" option applies the survey-level setting (\"Top\" by default)."
+            errorLocation: "Establece la ubicación de un mensaje de error en relación con la pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un text de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un text de error en la parte inferior del cuadro de pregunta. La opción \"Heredar\" aplica la configuració a nivel de enquesta (\"Superior\" de forma per defecte).",
             // "Adds space or margin between the question content and the left border of the question box."
             indent: "Agrega espacio o margen entre el contenido de la pregunta y el borde izquierdo del cuadro de pregunta.",
             // "Sets the width of the question in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
-            width: "Establece el ancho de la pregunta en proporción a otros elementos de la encuesta en la misma línea. Acepta valores CSS (px, %, in, pt, etc.).",
-            // "Choose from: \"On lost focus\" - the value is updated when the input field loses focus; \"While typing\" - the value is updated in real-time, as users are typing. The \"Inherit\" option applies the survey-level setting (\"On lost focus\" by default)."
-            textUpdateMode: "Elija entre: \"Al perder el foco\": el valor se actualiza cuando el campo de entrada pierde el foco; \"Mientras escribes\": el valor se actualiza en tiempo real, a medida que los usuarios escriben. La opción \"Heredar\" aplica la configuración a nivel de encuesta (\"Al perder el foco\" de forma predeterminada).",
+            width: "Establece el ancho de la pregunta en proporción a otros elementos de la enquesta en la misma línea. Acepta valors CSS (px, %, in, pt, etc.).",
+            // "Choose from: \"On lost focus\" - the value is updated when the input field loses focus; \"While typing\" - the value is updated in real-time, as users are typing. The \"Heredar\" option applies the survey-level setting (\"On lost focus\" by default)."
+            textUpdateMode: "Elija entre: \"Al perder el foco\": el valor se actualiza cuando el campo de entrada pierde el foco; \"Mientras escribes\": el valor se actualiza en tiempo real, a medida que los usuarios escriben. La opción \"Heredar\" aplica la configuració a nivel de enquesta (\"Al perder el foco\" de forma per defecte).",
             // [Auto-translated] "You can use any web service as a data source for multiple-choice questions. To populate choice values, enter the URL of the service providing the data."
-            url: "Puede utilizar cualquier servicio web como fuente de datos para preguntas de opción múltiple. Para rellenar los valores de opción, introduzca la dirección URL del servicio que proporciona los datos.",
+            url: "Puede utilizar cualquier servicio web como fuente de datos para preguntes de opción múltiple. Para rellenar los valors de opción, introduzca la dirección URL del servicio que proporciona los datos.",
             // [Auto-translated] "A comparison operation used to filter the drop-down list."
             searchMode: "Operación de comparación que se utiliza para filtrar la lista desplegable.",
             // [Auto-translated] "Long texts in choice options will automatically generate line breaks to fit within the drop-down menu. Unselect if you want the texts to clip."
-            textWrapEnabled: "Los textos largos en las opciones de elección generarán automáticamente saltos de línea para que se ajusten al menú desplegable. Anule la selección si desea que los textos se recorten.",
+            textWrapEnabled: "Los textos largos en las opcions de elección generarán automáticamente saltos de línea para que se ajusten al menú desplegable. Anule la selección si desea que los textos se recorten.",
             // [Auto-translated] "Specifies how many columns this question spans within the grid layout."
-            effectiveColSpan: "Especifica el número de columnas que abarca esta pregunta dentro del diseño de cuadrícula."
+            effectiveColSpan: "Especifica el número de columnes que abarca esta pregunta dentro del diseño de cuadrícula."
         },
         surveyvalidator: {
             // "Use the magic wand icon to define when the question's value is considered valid."
             expression: "Utilice el icono de la varita mágica para definir cuándo se considera válido el valor de la pregunta.",
             // [Auto-translated] "Errors block progress until resolved. Warnings highlight issues but allow to continue. Informational notes offer additional context or neutral guidance. When using warnings or informational notes, we recommend enabling immediate validation: \"Survey\" → \"Validation\" → \"Run validation\" → \"After an answer has changed\"."
-            notificationType: "Los errores bloquean el progreso hasta que se resuelven. Las advertencias resaltan los problemas, pero permiten continuar. Las notas informativas ofrecen contexto adicional u orientación neutral. Cuando utilice advertencias o notas informativas, se recomienda habilitar la validación inmediata: \"Encuesta\" → \"Validación\" → \"Ejecutar validación\" → \"Después de que haya cambiado una respuesta\"."
+            notificationType: "Los errors bloquean el progreso hasta que se resuelven. Las advertencias resaltan los problemas, pero permiten continuar. Las notas informativas ofrecen contexto adicional u orientación neutral. Cuando utilice advertencias o notas informativas, se recomienda habilitar la validació inmediata: \"Enquesta\" → \"Validació\" → \"Ejecutar validació\" → \"Después de que haya cambiado una respuesta\"."
         },
         signaturepad: {
             // "Sets the width of the displayed signature area and the resulting image."
-            signatureWidth: "Define la anchura del área de firma mostrada y de la imagen resultante.",
+            signatureWidth: "Define la anchura del área de firma mostrada y de la imatge resultante.",
             // "Sets the height of the displayed signature area and the resulting image."
-            signatureHeight: "Define la altura del área de firma mostrada y de la imagen resultante.",
+            signatureHeight: "Define la altura del área de firma mostrada y de la imatge resultante.",
             // "Select if you want the signature area to fill all available space within the question box while maintaining the default 3:2 aspect ratio. When custom width and height values are set, the setting will keep the aspect ratio of these dimensions."
-            signatureAutoScaleEnabled: "Seleccione esta opción si desea que el área de firma ocupe todo el espacio disponible dentro del cuadro de pregunta manteniendo la relación de aspecto predeterminada de 3:2. Cuando se establecen valores de anchura y altura personalizados, la configuración mantendrá la relación de aspecto de estas dimensiones."
+            signatureAutoScaleEnabled: "Seleccione esta opción si desea que el área de firma ocupe todo el espacio disponible dentro del cuadro de pregunta manteniendo la relación de aspecto per defecte de 3:2. Cuando se establecen valors de anchura y altura personalitzats, la configuració mantendrá la relación de aspecto de estas dimensiones."
         },
         file: {
             // "Specifies the display height of uploaded images in the preview and the actual height of images taken with the camera. In single file upload mode, the display height is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
-            imageHeight: "Especifica la altura de visualización de las imágenes cargadas en la vista previa y la altura real de las imágenes tomadas con la cámara. En el modo de carga de un solo archivo, la altura de la pantalla está limitada por el área de vista previa; En el modo de carga de archivos múltiples, está limitado por el área de miniaturas.",
+            imageHeight: "Especifica la altura de visualización de las imágenes cargadas en la vista previa y la altura real de las imatges tomadas con la cámara. En el modo de carga de un solo fitxer, la altura de la pantalla está limitada por el área de vista prèvia; En el modo de carga de fitxers múltiples, está limitado por el área de miniaturas.",
             // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
-            imageWidth: "Especifica la anchura de visualización de las imágenes cargadas en la vista previa y la anchura real de las imágenes tomadas con la cámara. En el modo de carga de un solo archivo, el ancho de la pantalla está limitado por el área de vista previa; En el modo de carga de archivos múltiples, está limitado por el área de miniaturas.",
+            imageWidth: "Especifica la anchura de visualización de las imágenes cargadas en la vista previa y la anchura real de las imatges tomadas con la cámara. En el modo de carga de un solo fitxer, el ancho de la pantalla está limitado por el área de vista prèvia; En el modo de carga de fitxers múltiples, está limitado por el área de miniaturas.",
             // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-            allowImagesPreview: "Muestra vistas previas en miniatura de los archivos cargados cuando es posible. Anule la selección si desea mostrar los iconos de archivo en su lugar."
+            allowImagesPreview: "Muestra vistas previas en miniatura de los fitxers cargados cuando es posible. Anule la selección si desea mostrar los iconos de fitxer en su lugar."
         },
         image: {
             // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
-            contentMode: "La opción \"Auto\" determina automáticamente el modo adecuado para la visualización (Imagen, Video o YouTube) en función de la URL de origen proporcionada."
+            contentMode: "La opción \"Auto\" determina automáticamente el modo adecuado para la visualización (Imatge, Video o YouTube) en función de la URL de origen proporcionada."
         },
         imagepicker: {
             // [Auto-translated] "Overrides the minimum and maximum height values."
-            imageHeight: "Anula los valores de altura mínima y máxima.",
+            imageHeight: "Anula los valors de altura mínima y máxima.",
             // [Auto-translated] "Overrides the minimum and maximum width values."
-            imageWidth: "Anula los valores de anchura mínima y máxima.",
+            imageWidth: "Anula los valors de anchura mínima y máxima.",
             // [Auto-translated] "\"Value\" serves as an item ID used in conditional rules; \"Text\" is displayed to respondents."
-            choices: "\"Valor\" sirve como identificador de elemento utilizado en reglas condicionales; \"Texto\" se muestra a los encuestados.",
+            choices: "\"Valor\" sirve como identificador de elemento utilizado en regles condicionales; \"Text\" se muestra a los encuestados.",
             // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
-            contentMode: "Elija entre \"Imagen\" y \"Video\" para configurar el modo de contenido del selector de medios. Si se selecciona \"Imagen\", asegúrese de que todas las opciones proporcionadas sean archivos de imagen en los siguientes formatos: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Del mismo modo, si se selecciona \"Vídeo\", asegúrese de que todas las opciones sean enlaces directos a archivos de vídeo en los siguientes formatos: MP4, MOV, WMV, FLV, AVI, MKV. Tenga en cuenta que los enlaces de YouTube no son compatibles con las opciones de video."
+            contentMode: "Elija entre \"Imatge\" y \"Video\" para configurar el modo de contenido del selector de medios. Si se selecciona \"Imatge\", asegúrese de que todas las opcions proporcionadas sean fitxers de imatge en los siguientes formatos: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Del mismo modo, si se selecciona \"Vídeo\", asegúrese de que todas las opciones sean enlaces directos a fitxers de vídeo en los siguientes formatos: MP4, MOV, WMV, FLV, AVI, MKV. Tenga en cuenta que los enlaces de YouTube no son compatibles con las opcions de video."
         },
         text: {
             // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-            size: "Esta configuración solo cambia el tamaño del campo de entrada y no afecta el ancho del cuadro de preguntas. Para limitar la longitud de entrada aceptada, vaya a \"Validación\" → \"Límite máximo de caracteres\"."
+            size: "Esta configuració solo cambia el tamaño del campo de entrada y no afecta el ancho del cuadro de preguntes. Para limitar la longitud de entrada aceptada, vaya a \"Validació\" → \"Límite máximo de caracteres\"."
         },
         comment: {
             // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -2949,9 +2945,9 @@ var spanishTranslation = {
         // survey templates
         survey: {
             // "Select if you want to prevent respondents from filling out your survey."
-            readOnly: "Seleccione si desea evitar que los encuestados completen su encuesta.",
+            readOnly: "Seleccione si desea evitar que los encuestados completen su enquesta.",
             // "Sets the location of the progress bar. The \"Auto\" value displays the progress bar above or below the survey header."
-            progressBarLocation: "Establece la ubicación de la barra de progreso. El valor \"Auto\" muestra la barra de progreso por encima o por debajo del encabezado de la encuesta."
+            progressBarLocation: "Establece la ubicación de la barra de progreso. El valor \"Auto\" muestra la barra de progreso por encima o por debajo del encabezado de la enquesta."
         },
         matrixdropdowncolumn: {
             // "A column ID that is not visible to respondents."
@@ -2965,11 +2961,11 @@ var spanishTranslation = {
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the column."
             enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que deshabilite el modo de solo lectura para la columna.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de encuestas a menos que al menos una pregunta anidada tenga una respuesta.",
+            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de enquestes a menos que al menos una pregunta anidada tenga una respuesta.",
             // "When selected, creates an individual column for each choice option."
             showInMultipleColumns: "Cuando se selecciona, crea una columna individual para cada opción de opción.",
             // [Auto-translated] "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. When set to -1, the actual value is inherited from the \"Nested column count\" property of the parent matrix."
-            colCount: "Organiza las opciones de elección en un diseño de varias columnas. Cuando se establece en 0, las opciones se muestran en una sola línea. Cuando se establece en -1, el valor real se hereda de la propiedad \"Recuento de columnas anidadas\" de la matriz primaria."
+            colCount: "Organiza las opciones de elección en un diseño de varias columnes. Cuando se establece en 0, las opcions se muestran en una sola línea. Cuando se establece en -1, el valor real se hereda de la propiedad \"Recuento de columnas anidadas\" de la matriz primaria."
         },
         slider: {
             // "The lowest number that users can select."
@@ -2977,7 +2973,7 @@ var spanishTranslation = {
             // "The highest number that users can select."
             max: "El número más alto que los usuarios pueden seleccionar.",
             // "The interval between selectable scale values. For example, a step of 5 will allow users to select 0, 5, 10, etc."
-            step: "El intervalo entre los valores de escala seleccionables. Por ejemplo, un paso de 5 permitirá a los usuarios seleccionar 0, 5, 10, etc.",
+            step: "El intervalo entre los valors de escala seleccionables. Por ejemplo, un paso de 5 permitirá a los usuarios seleccionar 0, 5, 10, etc.",
             // "The minimum distance between the slider thumbs a user can set."
             minRangeLength: "La distancia mínima entre los pulgares del control deslizante que un usuario puede establecer.",
             // "The maximum distance between the slider thumbs a user can set."
@@ -2987,7 +2983,7 @@ var spanishTranslation = {
             // "Use `{0}` as a placeholder for the actual value."
             labelFormat: "Utilice '{0}' como marcador de posición para el valor real.",
             // "Allows you to define custom labels at specific values and optionally assign corresponding text to them (e.g., 0 = \"Poor\", 100 = \"Excellent\")."
-            customLabels: "Le permite definir etiquetas personalizadas en valores específicos y, opcionalmente, asignarles el texto correspondiente (por ejemplo, 0 = \"Pobre\", 100 = \"Excelente\").",
+            customLabels: "Le permite definir etiquetas personalitzades en valors específicos y, opcionalmente, asignarles el text correspondiente (por ejemplo, 0 = \"Pobre\", 100 = \"Excelente\").",
             // "Use `{0}` as a placeholder for the actual value."
             tooltipFormat: "Utilice '{0}' como marcador de posición para el valor real.",
             // "Allows users to move one thumb past the other."
@@ -2995,180 +2991,180 @@ var spanishTranslation = {
             // [Auto-translated] "Displays a button that clears the selected slider value and sets it to undefined."
             allowClear: "Muestra un botón que borra el valor del control deslizante seleccionado y lo establece en indefinido.",
             // "Defines the slider's minimum value dynamically using an expression. Supports basic calculations (e.g, `{q1_id} + {q2_id}`), Boolean logic (e.g., `{age} > 60`), and functions like `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, and more."
-            minValueExpression: "Define el valor mínimo del control deslizante de forma dinámica mediante una expresión. Admite cálculos básicos (por ejemplo, '{q1_id} + {q2_id}'), lógica booleana (por ejemplo, '{edad} > 60') y funciones como 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()' y más.",
+            minValueExpression: "Define el valor mínimo del control deslizante de forma dinámica mediante una expressió. Admite cálculos básicos (por ejemplo, '{q1_id} + {q2_id}'), lògica booleana (por ejemplo, '{edad} > 60') y funciones como 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()' y más.",
             // "Defines the slider's maximum value dynamically using an expression. Supports basic calculations (e.g, `{q1_id} + {q2_id}`), Boolean logic (e.g., `{age} > 60`), and functions like `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, and more."
-            maxValueExpression: "Define el valor máximo del control deslizante de forma dinámica mediante una expresión. Admite cálculos básicos (por ejemplo, '{q1_id} + {q2_id}'), lógica booleana (por ejemplo, '{edad} > 60') y funciones como 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()' y más."
+            maxValueExpression: "Define el valor máximo del control deslizante de forma dinámica mediante una expressió. Admite cálculos básicos (por ejemplo, '{q1_id} + {q2_id}'), lògica booleana (por ejemplo, '{edad} > 60') y funciones como 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()' y más."
         },
         // [Auto-translated] "Makes this choice exclusive. When selected by a user, it will automatically deselect all other options in the question."
-        isExclusive: "Hace que esta elección sea exclusiva. Cuando un usuario lo selecciona, anulará automáticamente la selección de todas las demás opciones de la pregunta.",
+        isExclusive: "Hace que esta elección sea exclusiva. Cuando un usuario lo selecciona, anulará automáticamente la selección de todas las demás opcions de la pregunta.",
         matrixcolumn: {
             // [Auto-translated] "Makes checkboxes in this column exclusive. When selected by a user, they will automatically deselect all other checkboxes in the same row."
             isExclusive: "Hace que las casillas de verificación de esta columna sean exclusivas. Cuando un usuario lo selecciona, anulará automáticamente la selección de todas las demás casillas de verificación en la misma fila."
         },
         // [Auto-translated] "Select if uppercase and lowercase letters in the regular expression must be treated as equivalent."
-        caseInsensitive: "Seleccione si las letras mayúsculas y minúsculas de la expresión regular deben tratarse como equivalentes.",
+        caseInsensitive: "Seleccione si las letras mayúsculas y minúsculas de la expressió regular deben tratarse como equivalentes.",
         // "Choose from: \"Static\" - sets a fixed width; \"Responsive\" - makes the survey occupy the full width of the screen; \"Auto\" - applies either of the two depending on the question types used."
-        widthMode: "Elija entre: \"Estático\": establece un ancho fijo; \"Responsivo\": hace que la encuesta ocupe todo el ancho de la pantalla; \"Auto\": aplica cualquiera de los dos dependiendo de los tipos de preguntas utilizados.",
+        widthMode: "Elija entre: \"Estático\": establece un ancho fijo; \"Responsivo\": hace que la enquesta ocupe todo el ancho de la pantalla; \"Auto\": aplica cualquiera de los dos dependiendo de los tipos de preguntes utilizados.",
         // [Auto-translated] "Assign a unique cookie value for your survey. The cookie will be set in a respondent's browser upon survey completion to prevent repetitive survey submissions."
-        cookieName: "Asigne un valor de cookie único para su encuesta. La cookie se establecerá en el navegador del encuestado al completar la encuesta para evitar envíos repetitivos de encuestas.",
+        cookieName: "Asigne un valor de cookie único para su encuesta. La cookie se establecerá en el navegador del encuestado al completar la enquesta para evitar envíos repetitivos de enquestes.",
         // [Auto-translated] "Paste an image link (no size limits) or click the folder icon to browse a file from your computer (up to 64KB)."
-        logo: "Pegue un enlace de imagen (sin límites de tamaño) o haga clic en el icono de la carpeta para buscar un archivo desde su computadora (hasta 64 KB).",
+        logo: "Pegue un enlace de imatge (sin límites de tamaño) o haga clic en el icono de la carpeta para buscar un fitxer desde su computadora (hasta 64 KB).",
         // [Auto-translated] "Sets a logo width in CSS units (px, %, in, pt, etc.)."
         logoWidth: "Establece el ancho del logotipo en unidades CSS (px, %, in, pt, etc.).",
         // [Auto-translated] "Sets a logo height in CSS units (px, %, in, pt, etc.)."
         logoHeight: "Establece la altura del logotipo en unidades CSS (px, %, in, pt, etc.).",
         // "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio."
-        logoFit: "Elija entre: \"Ninguno\": la imagen mantiene su tamaño original; \"Contener\": se cambia el tamaño de la imagen para que se ajuste manteniendo su relación de aspecto; \"Portada\": la imagen llena toda la caja manteniendo su relación de aspecto; \"Relleno\": la imagen se estira para llenar el cuadro sin mantener su relación de aspecto.",
+        logoFit: "Elija entre: \"Ninguno\": la imatge mantiene su tamaño original; \"Contener\": se cambia el tamaño de la imatge para que se ajuste manteniendo su relación de aspecto; \"Portada\": la imatge llena toda la caja manteniendo su relación de aspecto; \"Relleno\": la imatge se estira para llenar el cuadro sin mantener su relación de aspecto.",
         // [Auto-translated] "Select if you want the survey to auto-advance to the next page once a respondent has answered all questions on the current page. This feature won't apply if the last question on the page is open-ended or allows multiple answers."
-        autoAdvanceEnabled: "Seleccione si desea que la encuesta avance automáticamente a la página siguiente una vez que un encuestado haya respondido todas las preguntas en la página actual. Esta función no se aplicará si la última pregunta de la página es abierta o permite varias respuestas.",
+        autoAdvanceEnabled: "Seleccione si desea que la enquesta avance automáticamente a la página següent una vez que un encuestado haya respondido todas las preguntes en la página actual. Esta función no se aplicará si la última pregunta de la pàgina es abierta o permite varias respuestas.",
         // [Auto-translated] "Select if you want the survey to complete automatically after a respondent answers all questions."
-        autoAdvanceAllowComplete: "Seleccione si desea que la encuesta se complete automáticamente después de que un encuestado responda todas las preguntas.",
+        autoAdvanceAllowComplete: "Seleccione si desea que la enquesta se complete automáticamente después de que un encuestado responda todas las preguntes.",
         // [Auto-translated] "Sets the visibility of navigation buttons on a page."
-        showNavigationButtons: "Establece la visibilidad de los botones de navegación de una página.",
+        showNavigationButtons: "Establece la visibilidad de los botones de navegación de una pàgina.",
         // [Auto-translated] "Sets the location of navigation buttons on a page."
-        navigationButtonsLocation: "Establece la ubicación de los botones de navegación en una página.",
+        navigationButtonsLocation: "Establece la ubicación de los botones de navegación en una pàgina.",
         // [Auto-translated] "Enable the preview page with all or answered questions only."
-        showPreviewBeforeComplete: "Habilite la página de vista previa con todas las preguntas o solo las respondidas.",
-        // "Applies to all questions within the survey. This setting can be overridden by title alignment rules at lower levels: panel, page, or question. A lower-level setting will override those on a higher level."
-        questionTitleLocation: "Se aplica a todas las preguntas de la encuesta. Esta configuración se puede anular mediante reglas de alineación de títulos en niveles inferiores: panel, página o pregunta. Una configuración de nivel inferior anulará las de un nivel superior.",
+        showPreviewBeforeComplete: "Habilite la pàgina de vista prèvia con todas las preguntes o solo las respondidas.",
+        // "Applies to all questions within the survey. This setting can be overridden by title alignment rules at lower levels: panell, page, or question. A lower-level setting will override those on a higher level."
+        questionTitleLocation: "Se aplica a todas las preguntes de la enquesta. Esta configuración se puede anular mediante regles de alineación de títols en niveles inferiores: panell, pàgina o pregunta. Una configuració de nivel inferior anulará las de un nivel superior.",
         // [Auto-translated] "A symbol or a sequence of symbols indicating that an answer is required."
         requiredMark: "Un símbolo o una secuencia de símbolos que indican que se requiere una respuesta.",
         // [Auto-translated] "Enter a number or letter with which you want to start numbering."
         questionStartIndex: "Introduzca un número o una letra con la que desee empezar a numerar.",
         // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box."
-        questionErrorLocation: "Establece la ubicación de un mensaje de error en relación con la pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un texto de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un texto de error en la parte inferior del cuadro de pregunta.",
+        questionErrorLocation: "Establece la ubicación de un mensaje de error en relación con la pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un text de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un text de error en la parte inferior del cuadro de pregunta.",
         // [Auto-translated] "Select if you want the first input field on each page ready for text entry."
-        autoFocusFirstQuestion: "Seleccione si desea que el primer campo de entrada de cada página esté listo para la entrada de texto.",
+        autoFocusFirstQuestion: "Seleccione si desea que el primer campo de entrada de cada pàgina esté listo para la entrada de text.",
         // "Keeps the original order of questions or randomizes them. The effect of this setting is only visible in the Preview tab."
-        questionOrder: "Mantiene el orden original de las preguntas o las aleatoriza. El efecto de esta configuración solo es visible en la pestaña Vista previa.",
+        questionOrder: "Mantiene el orden original de las preguntes o las aleatoriza. El efecto de esta configuració solo es visible en la pestaña Vista prèvia.",
         // [Auto-translated] "For text entry questions only."
-        maxTextLength: "Solo para preguntas de entrada de texto.",
+        maxTextLength: "Solo para preguntes de entrada de text.",
         // [Auto-translated] "For question comments only."
-        maxCommentLength: "Solo para comentarios de preguntas.",
+        maxCommentLength: "Solo para comentarios de preguntes.",
         // [Auto-translated] "Sets the number of displayed lines in text areas for question comments. If the input takes up more lines, the scroll bar appears."
-        commentAreaRows: "Establece el número de líneas mostradas en las áreas de texto para los comentarios de las preguntas. Si la entrada ocupa más líneas, aparece la barra de desplazamiento.",
+        commentAreaRows: "Establece el número de líneas mostradas en las áreas de text para los comentarios de las preguntes. Si la entrada ocupa más líneas, aparece la barra de desplazamiento.",
         // [Auto-translated] "Select if you want question comments and Long Text questions to auto-grow in height based on the entered text length."
-        autoGrowComment: "Seleccione si desea que los comentarios de las preguntas y las preguntas de texto largo aumenten automáticamente en altura en función de la longitud del texto introducido.",
+        autoGrowComment: "Seleccione si desea que los comentarios de las preguntas y las preguntes de texto largo aumenten automáticamente en altura en función de la longitud del text introducido.",
         // [Auto-translated] "For question comments and Long Text questions only."
-        allowResizeComment: "Solo para comentarios de preguntas y preguntas de texto largo.",
+        allowResizeComment: "Solo para comentarios de preguntas y preguntes de text largo.",
         // [Auto-translated] "Custom variables serve as intermediate or auxiliary variables used in form calculations. They take respondent inputs as source values. Each custom variable has a unique name and an expression it's based on."
-        calculatedValues: "Las variables personalizadas sirven como variables intermedias o auxiliares que se utilizan en los cálculos de formularios. Toman las entradas de los encuestados como valores de origen. Cada variable personalizada tiene un nombre único y una expresión en la que se basa.",
+        calculatedValues: "Las variables personalitzades sirven como variables intermedias o auxiliares que se utilizan en los cálculos de formularios. Toman las entradas de los encuestados como valors de origen. Cada variable personalitzada tiene un nom único y una expressió en la que se basa.",
         // [Auto-translated] "Select if you wish the calculated value of the expression to be saved along with survey results."
-        includeIntoResult: "Seleccione si desea que el valor calculado de la expresión se guarde junto con los resultados de la encuesta.",
+        includeIntoResult: "Seleccione si desea que el valor calculado de la expressió se guarde junto con los resultados de la enquesta.",
         // "A trigger is an event or condition that is based on an expression. Once the expression is evaluated to \"true\", a trigger sets off an action. Such an action can optionally have a target question it affects."
-        triggers: "Un desencadenador es un evento o condición que se basa en una expresión. Una vez que la expresión se evalúa como \"verdadera\", un desencadenador desencadena una acción. Opcionalmente, una acción de este tipo puede tener una pregunta de destino a la que afecta.",
+        triggers: "Un desencadenador es un evento o condició que se basa en una expresión. Una vez que la expressió se evalúa como \"verdadera\", un desencadenador desencadena una acción. Opcionalmente, una acció de este tipo puede tener una pregunta de destino a la que afecta.",
         // [Auto-translated] "Choose whether or not to clear values for questions hidden by conditional logic and when to do it."
-        clearInvisibleValues: "Elija si desea o no borrar los valores de las preguntas ocultas por la lógica condicional y cuándo hacerlo.",
+        clearInvisibleValues: "Elija si desea o no borrar los valors de las preguntes ocultas por la lògica condicional y cuándo hacerlo.",
         // "Choose from: \"On lost focus\" - the value is updated when the input field loses focus; \"While typing\" - the value is updated in real-time, as users are typing."
         textUpdateMode: "Elija entre: \"Al perder el foco\": el valor se actualiza cuando el campo de entrada pierde el foco; \"Mientras escribes\": el valor se actualiza en tiempo real, a medida que los usuarios escriben.",
         // [Auto-translated] "The left value serves as a column ID used in conditional rules, the right value is displayed to respondents."
-        columns: "El valor de la izquierda sirve como identificador de columna que se usa en las reglas condicionales, el valor de la derecha se muestra a los encuestados.",
+        columns: "El valor de la izquierda sirve como identificador de columna que se usa en las regles condicionales, el valor de la derecha se muestra a los encuestados.",
         // "The left value serves as a row ID used in conditional rules, the right value is displayed to respondents."
-        rows: "El valor de la izquierda sirve como un ID de fila que se usa en las reglas condicionales, el valor de la derecha se muestra a los encuestados.",
+        rows: "El valor de la izquierda sirve como un ID de fila que se usa en las regles condicionales, el valor de la derecha se muestra a los encuestados.",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        columnMinWidth: "Acepta valores CSS (px, %, in, pt, etc.).",
+        columnMinWidth: "Acepta valors CSS (px, %, in, pt, etc.).",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        rowTitleWidth: "Acepta valores CSS (px, %, in, pt, etc.).",
+        rowTitleWidth: "Acepta valors CSS (px, %, in, pt, etc.).",
         // [Auto-translated] "Visible only if at least one column displays total values set with \"Aggregation method\" or \"Total value expression\"."
-        totalText: "Visible solo si al menos una columna muestra los valores totales establecidos con \"Método de agregación\" o \"Expresión de valor total\".",
-        // "Sets the location of an error message in relation to a cell with invalid input. The \"Inherit\" option applies the setting from the \"Error message alignment\" property."
-        cellErrorLocation: "Establece la ubicación de un mensaje de error en relación con una celda con entrada no válida. La opción \"Heredar\" aplica la configuración de la propiedad \"Alineación de mensajes de error\".",
-        // "Sets the location of error messages for questions nested in detail sections. The \"Inherit\" option applies the setting from the \"Error message alignment\" property."
-        detailErrorLocation: "Establece la ubicación de los mensajes de error para las preguntas anidadas en secciones de detalle. La opción \"Heredar\" aplica la configuración de la propiedad \"Alineación de mensajes de error\".",
+        totalText: "Visible solo si al menos una columna muestra los valors totales establecidos con \"Método de agregación\" o \"Expressió de valor total\".",
+        // "Sets the location of an error message in relation to a cell with invalid input. The \"Heredar\" option applies the setting from the \"Error message alignment\" property."
+        cellErrorLocation: "Establece la ubicación de un mensaje de error en relación con una celda con entrada no válida. La opción \"Heredar\" aplica la configuració de la propiedad \"Alineación de mensajes de error\".",
+        // "Sets the location of error messages for questions nested in detail sections. The \"Heredar\" option applies the setting from the \"Error message alignment\" property."
+        detailErrorLocation: "Establece la ubicación de los mensajes de error para las preguntes anidadas en secciones de detalle. La opción \"Heredar\" aplica la configuració de la propiedad \"Alineación de mensajes de error\".",
         // "When the \"Prevent duplicate responses\" property is enabled, a respondent attempting to submit a duplicate entry will receive the following error message."
-        keyDuplicationError: "Cuando la propiedad \"Evitar respuestas duplicadas\" está habilitada, un encuestado que intente enviar una entrada duplicada recibirá el siguiente mensaje de error.",
+        keyDuplicationError: "Cuando la propiedad \"Evitar respuestas duplicadas\" está habilitada, un encuestado que intente enviar una entrada duplicada recibirá el següent mensaje de error.",
         matrixdropdown: {
             // [Auto-translated] "When the \"Prevent duplicate responses\" property is enabled for a matrix column, a respondent attempting to submit a duplicate entry will receive the following error message."
-            keyDuplicationError: "Cuando la propiedad \"Evitar respuestas duplicadas\" está habilitada para una columna de matriz, un encuestado que intente enviar una entrada duplicada recibirá el siguiente mensaje de error."
+            keyDuplicationError: "Cuando la propiedad \"Evitar respuestas duplicadas\" está habilitada para una columna de matriz, un encuestado que intente enviar una entrada duplicada recibirá el següent mensaje de error."
         },
         // [Auto-translated] "Allows you to calculate total values based on an expression. The expression can include basic calculations (`{q1_id} + {q2_id}`), Boolean expressions (`{age} > 60`) and functions ('iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc.)."
-        totalExpression: "Permite calcular los valores totales en función de una expresión. La expresión puede incluir cálculos básicos ('{q1_id} + {q2_id}'), expresiones booleanas ('{edad} > 60') y funciones ('iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', etc.).",
+        totalExpression: "Permite calcular los valors totales en función de una expresión. La expressió puede incluir cálculos básicos ('{q1_id} + {q2_id}'), expressions booleanas ('{edad} > 60') y funciones ('iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', etc.).",
         // "Reference a column ID to require a user to provide a unique response for each question within the specified column."
-        keyName: "Si la columna especificada contiene valores idénticos, la encuesta arroja el error \"Valor de clave no única\".",
+        keyName: "Si la columna especificada contiene valors idénticos, la enquesta arroja el error \"Valor de clave no única\".",
         // "Type a subtitle."
         description: "Escribe un subtítulo.",
         // [Auto-translated] "Choose a language to begin creating your survey. To add a translation, switch to a new language and translate the original text here or in the Translations tab."
-        locale: "Elige un idioma para comenzar a crear tu encuesta. Para agregar una traducción, cambie a un nuevo idioma y traduzca el texto original aquí o en la pestaña Traducciones.",
+        locale: "Elige un idioma para comenzar a crear tu enquesta. Para agregar una traducció, cambie a un nou idioma y traduzca el text original aquí o en la pestaña Traducciones.",
         // "Sets the location of a detail section in relation to a row. Choose from: \"None\" - no detail section is added; \"Under the row\" - a detail section is placed under each row of the matrix; \"Under the row, display one detail section only\" - a detail section is displayed under a single row only, the remaining sections are collapsed."
         detailPanelMode: "Establece la ubicación de una sección de detalles en relación con una fila. Elija entre: \"Ninguno\": no se agrega ninguna expansión; \"Debajo de la fila\": se coloca una expansión de fila debajo de cada fila de la matriz; \"Debajo de la fila, mostrar solo una expansión de fila\": una expansión se muestra solo debajo de una sola fila, las expansiones de fila restantes se contraen.",
         // "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio."
-        imageFit: "Elija entre: \"Ninguno\": la imagen mantiene su tamaño original; \"Contener\": se cambia el tamaño de la imagen para que se ajuste manteniendo su relación de aspecto; \"Portada\": la imagen llena toda la caja manteniendo su relación de aspecto; \"Relleno\": la imagen se estira para llenar el cuadro sin mantener su relación de aspecto.",
-        // "The \"Inherit\" option applies a survey-level setting (\"Disabled\" by default)."
+        imageFit: "Elija entre: \"Ninguno\": la imatge mantiene su tamaño original; \"Contener\": se cambia el tamaño de la imatge para que se ajuste manteniendo su relación de aspecto; \"Portada\": la imatge llena toda la caja manteniendo su relación de aspecto; \"Relleno\": la imatge se estira para llenar el cuadro sin mantener su relación de aspecto.",
+        // "The \"Heredar\" option applies a survey-level setting (\"Disabled\" by default)."
         autoGrow: "Aumenta gradualmente la altura del campo de entrada a medida que se introducen los datos. Anula el ajuste \"Altura del campo de entrada (en líneas)\".",
-        // [Auto-translated] "The \"Inherit\" option applies a survey-level setting (\"Enabled\" by default)."
-        allowResize: "La opción \"Heredar\" aplica una configuración a nivel de encuesta (\"Habilitado\" de forma predeterminada).",
+        // [Auto-translated] "The \"Heredar\" option applies a survey-level setting (\"Enabled\" by default)."
+        allowResize: "La opción \"Heredar\" aplica una configuració a nivel de enquesta (\"Habilitat\" de forma per defecte).",
         // [Auto-translated] "A time interval in seconds after which the survey auto-advances to the \"Thank You\" page. When set to 0, counts the time spent on the survey."
-        timeLimit: "Un intervalo de tiempo en segundos después del cual la encuesta avanza automáticamente a la página \"Gracias\". Cuando se establece en 0, cuenta el tiempo dedicado a la encuesta.",
+        timeLimit: "Un intervalo de tiempo en segundos después del cual la enquesta avanza automáticamente a la pàgina \"Gracias\". Cuando se establece en 0, cuenta el tiempo dedicado a la enquesta.",
         // [Auto-translated] "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button. When set to 0, counts the time spent on the current page."
-        timeLimitPerPage: "Intervalo de tiempo en segundos después del cual la encuesta avanza automáticamente a la página siguiente. Oculta el botón de navegación \"Anterior\". Cuando se establece en 0, cuenta el tiempo dedicado a la página actual.",
+        timeLimitPerPage: "Intervalo de tiempo en segundos después del cual la enquesta avanza automáticamente a la pàgina següent. Oculta el botón de navegación \"Anterior\". Cuando se establece en 0, cuenta el tiempo dedicado a la pàgina actual.",
         // [Auto-translated] "Enable this option to trigger validation when a user focuses on an empty input field and then leaves it without making any changes."
-        validateVisitedEmptyFields: "Habilite esta opción para desencadenar la validación cuando un usuario se centre en un campo de entrada vacío y, a continuación, lo abandone sin realizar ningún cambio.",
+        validateVisitedEmptyFields: "Habilite esta opción para desencadenar la validació cuando un usuario se centre en un campo de entrada vacío y, a continuación, lo abandone sin realizar ningún cambio.",
         page: {
             // "A page ID that is not visible to respondents."
-            name: "Un ID de página que no es visible para los encuestados.",
+            name: "Un ID de pàgina que no es visible para los encuestados.",
             // "Type a page subtitle."
-            description: "Escribe un subtítulo de página.",
+            description: "Escribe un subtítulo de pàgina.",
             // "A caption displayed on a navigation button in the progress bar or table of contents (TOC). If you leave this field empty, the navigation button will use the page title or page name. To enable the progress bar or TOC, go to \"Survey\" → \"Navigation\"."
-            navigationTitle: "Un título que se muestra en un botón de navegación en la barra de progreso o en la tabla de contenido (TDC). Si dejas este campo vacío, el botón de navegación utilizará el título o el nombre de la página. Para habilitar la barra de progreso o la tabla de contenido, vaya a \"Encuesta\" → \"Navegación\".",
+            navigationTitle: "Un título que se muestra en un botón de navegación en la barra de progreso o en la tabla de contenido (TDC). Si dejas este campo vacío, el botón de navegación utilizará el títol o el nom de la pàgina. Para habilitar la barra de progreso o la tabla de contenido, vaya a \"Enquesta\" → \"Navegación\".",
             // "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button. When set to 0, counts the time spent on the current page."
-            timeLimit: "Un intervalo de tiempo en segundos después del cual la encuesta avanza automáticamente a la página siguiente.",
+            timeLimit: "Un intervalo de tiempo en segundos después del cual la enquesta avanza automáticamente a la pàgina següent.",
             // "Use the magic wand icon to set a conditional rule that determines page visibility."
-            visibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad de la página.",
+            visibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad de la pàgina.",
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the page."
-            enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que deshabilite el modo de solo lectura de la página.",
+            enableIf: "Utilice el icono de la varita mágica para establecer una regla condicional que deshabilite el modo de solo lectura de la pàgina.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de encuestas a menos que al menos una pregunta anidada tenga una respuesta.",
-            // "Applies to all questions within this page. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions or panels. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)."
-            questionTitleLocation: "Se aplica a todas las preguntas de esta página. Si desea anular esta configuración, defina reglas de alineación de títulos para preguntas o paneles individuales. La opción \"Heredar\" aplica la configuración a nivel de encuesta (\"Superior\" de forma predeterminada).",
+            requiredIf: "Utilice el icono de la varita mágica para establecer una regla condicional que impida el envío de enquestes a menos que al menos una pregunta anidada tenga una respuesta.",
+            // "Applies to all questions within this page. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions or panels. The \"Heredar\" option applies the survey-level setting (\"Top\" by default)."
+            questionTitleLocation: "Se aplica a todas las preguntas de esta pàgina. Si desea anular esta configuració, defina regles de alineación de títols para preguntes o panells individuales. La opción \"Heredar\" aplica la configuració a nivel de enquesta (\"Superior\" de forma per defecte).",
             // [Auto-translated] "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)."
-            questionTitleWidth: "Establece un ancho coherente para los títulos de las preguntas cuando están alineados a la izquierda de sus cuadros de preguntas. Acepta valores CSS (px, %, in, pt, etc.).",
-            // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)."
-            questionErrorLocation: "Establece la ubicación de un mensaje de error en relación con la pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un texto de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un texto de error en la parte inferior del cuadro de pregunta. La opción \"Heredar\" aplica la configuración a nivel de encuesta (\"Superior\" de forma predeterminada).",
-            // "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab."
-            questionOrder: "Mantiene el orden original de las preguntas o las aleatoriza. La opción \"Heredar\" aplica la configuración a nivel de encuesta (\"Original\" de forma predeterminada). El efecto de esta configuración solo es visible en la pestaña Vista previa.",
-            // "Sets the visibility of navigation buttons on the page. The \"Inherit\" option applies the survey-level setting, which defaults to \"Visible\"."
-            showNavigationButtons: "Establece la visibilidad de los botones de navegación en la página. La opción \"Heredar\" aplica la configuración de nivel de encuesta, que por defecto es \"Visible\".",
+            questionTitleWidth: "Establece un ancho coherente para los títols de las preguntas cuando están alineados a la izquierda de sus cuadros de preguntes. Acepta valors CSS (px, %, in, pt, etc.).",
+            // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Heredar\" option applies the survey-level setting (\"Top\" by default)."
+            questionErrorLocation: "Establece la ubicación de un mensaje de error en relación con la pregunta con entrada no válida. Elija entre: \"Arriba\": se coloca un text de error en la parte superior del cuadro de pregunta; \"Abajo\": se coloca un text de error en la parte inferior del cuadro de pregunta. La opción \"Heredar\" aplica la configuració a nivel de enquesta (\"Superior\" de forma per defecte).",
+            // "Keeps the original order of questions or randomizes them. The \"Heredar\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab."
+            questionOrder: "Mantiene el orden original de las preguntes o las aleatoriza. La opción \"Heredar\" aplica la configuració a nivel de enquesta (\"Original\" de forma per defecte). El efecto de esta configuració solo es visible en la pestaña Vista prèvia.",
+            // "Sets the visibility of navigation buttons on the page. The \"Heredar\" option applies the survey-level setting, which defaults to \"Visible\"."
+            showNavigationButtons: "Establece la visibilidad de los botones de navegación en la pàgina. La opción \"Heredar\" aplica la configuració de nivel de enquesta, que por defecte es \"Visible\".",
             // [Auto-translated] "This table lets you configure each grid column on the page. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column."
-            gridLayoutColumns: "Esta tabla le permite configurar cada columna de cuadrícula en la página. Establece automáticamente el porcentaje de ancho para cada columna en función del número máximo de elementos en una fila. Para personalizar el diseño de la cuadrícula, ajuste manualmente estos valores y defina el ancho del título para todas las preguntas de cada columna."
+            gridLayoutColumns: "Esta tabla le permite configurar cada columna de cuadrícula en la pàgina. Establece automáticamente el porcentaje de ancho para cada columna en función del número máximo de elementos en una fila. Para personalizar el diseño de la cuadrícula, ajuste manualmente estos valors y defina el ancho del títol para todas las preguntes de cada columna."
         },
         // [Auto-translated] "Sets the location of a timer on a page."
-        timerLocation: "Establece la ubicación de un temporizador en una página.",
+        timerLocation: "Establece la ubicación de un temporizador en una pàgina.",
         // "Choose from: \"Locked\" - users cannot expand or collapse entries; \"Collapse all\" - all entries start in a collapsed state; \"Expand all\" - all entries start in an expanded state; \"First expanded\" - only the first entry is initially expanded. Applies if \"Entry display mode\" is set to \"List\" and the \"Entry title pattern\" property is specified."
-        panelsState: "Elija entre: \"Bloqueado\": los usuarios no pueden expandir ni contraer paneles; \"Contraer todo\": todos los paneles comienzan en un estado contraído; \"Expandir todo\": todos los paneles comienzan en un estado expandido; \"Primero expandido\": solo el primer panel se expande inicialmente.",
+        panelsState: "Elija entre: \"Bloqueado\": los usuarios no pueden expandir ni contraer panells; \"Contraer todo\": todos los panells comienzan en un estado contraído; \"Expandir todo\": todos los panells comienzan en un estado expandido; \"Primero expandido\": solo el primer panell se expande inicialmente.",
         // [Auto-translated] "Enter a shared property name within the array of objects that contains the image or video file URLs you want to display in the choice list."
-        imageLinkName: "Introduzca un nombre de propiedad compartida dentro de la matriz de objetos que contiene las direcciones URL de los archivos de imagen o vídeo que desea mostrar en la lista de opciones.",
+        imageLinkName: "Introduzca un nom de propiedad compartida dentro de la matriz de objetos que contiene las direcciones URL de los fitxers de imatge o vídeo que desea mostrar en la lista de opcions.",
         // "The left value serves as an item ID used in conditional rules, the right value is displayed to respondents."
-        choices: "El valor de la izquierda sirve como un identificador de elemento utilizado en las reglas condicionales, el valor de la derecha se muestra a los encuestados.",
+        choices: "El valor de la izquierda sirve como un identificador de elemento utilizado en las regles condicionales, el valor de la derecha se muestra a los encuestados.",
         // [Auto-translated] "Type a user-friendly title to display."
-        title: "Escriba un título fácil de usar para mostrar.",
+        title: "Escriba un títol fácil de usar para mostrar.",
         // [Auto-translated] "Ensures that users won't complete the survey until files are uploaded."
-        waitForUpload: "Garantiza que los usuarios no completen la encuesta hasta que se carguen los archivos.",
+        waitForUpload: "Garantiza que los usuarios no completen la enquesta hasta que se carguen los fitxers.",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        minWidth: "Acepta valores CSS (px, %, in, pt, etc.).",
+        minWidth: "Acepta valors CSS (px, %, in, pt, etc.).",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        maxWidth: "Acepta valores CSS (px, %, in, pt, etc.).",
+        maxWidth: "Acepta valors CSS (px, %, in, pt, etc.).",
         // "Accepts CSS values (px, %, in, pt, etc.)."
-        width: "Acepta valores CSS (px, %, in, pt, etc.).",
+        width: "Acepta valors CSS (px, %, in, pt, etc.).",
         // [Auto-translated] "A join identifier is a custom key that you can assign to several questions to link them together and sync their values. These values will be merged into a single array or object and stored in survey results using the key as the property name."
-        valueName: "Un identificador de combinación es una clave personalizada que puede asignar a varias preguntas para vincularlas y sincronizar sus valores. Estos valores se combinarán en una sola matriz u objeto y se almacenarán en los resultados de la encuesta utilizando la clave como nombre de propiedad.",
+        valueName: "Un identificador de combinación es una clave personalitzada que puede asignar a varias preguntes para vincularlas y sincronizar sus valores. Estos valors se combinarán en una sola matriz u objeto y se almacenarán en los resultados de la enquesta utilizando la clave como nom de propiedad.",
         // [Auto-translated] "A value displayed in HTML questions and in the dynamic titles and descriptions of survey elements when the question value is empty."
-        defaultDisplayValue: "Un valor que se muestra en las preguntas HTML y en los títulos dinámicos y las descripciones de los elementos de la encuesta cuando el valor de la pregunta está vacío.",
+        defaultDisplayValue: "Un valor que se muestra en las preguntes HTML y en los títols dinámicos y las descripcions de los elementos de la enquesta cuando el valor de la pregunta está vacío.",
         // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. When selected, this setting shows a display value instead of an ID value in HTML questions and dynamic titles and descriptions of survey elements."
-        useDisplayValuesInDynamicTexts: "En los tipos de preguntas de selección única y múltiple, cada opción de opción tiene un ID y un valor de visualización. Cuando se selecciona, esta configuración muestra un valor de visualización en lugar de un valor de ID en las preguntas HTML y en los títulos dinámicos y las descripciones de los elementos de la encuesta.",
-        // "Choose whether or not to clear question values hidden by conditional logic and when to do it. The \"Inherit\" option applies the survey-level setting (\"Upon survey completion\" by default)."
-        clearIfInvisible: "Elija si desea o no borrar los valores de las preguntas ocultos por la lógica condicional y cuándo hacerlo. La opción \"Heredar\" aplica la configuración de nivel de encuesta (\"Al finalizar la encuesta\" de forma predeterminada).",
+        useDisplayValuesInDynamicTexts: "En los tipos de preguntas de selección única y múltiple, cada opción de opción tiene un ID y un valor de visualización. Cuando se selecciona, esta configuració muestra un valor de visualización en lugar de un valor de ID en las preguntes HTML y en los títols dinámicos y las descripcions de los elementos de la enquesta.",
+        // "Choose whether or not to clear question values hidden by conditional logic and when to do it. The \"Heredar\" option applies the survey-level setting (\"Upon survey completion\" by default)."
+        clearIfInvisible: "Elija si desea o no borrar los valors de las preguntes ocultos por la lògica condicional y cuándo hacerlo. La opción \"Heredar\" aplica la configuració de nivel de enquesta (\"Al finalizar la encuesta\" de forma per defecte).",
         // "Choose from: \"All\" - copies all choice options from the selected question; \"Selected\" - dynamically copies only selected choice options; \"Unselected\" - dynamically copies only unselected choice options. The \"None\" and \"Other\" options are copied by default if enabled in the source question."
-        choicesFromQuestionMode: "Elija entre: \"Todas\": copia todas las opciones de elección de la pregunta seleccionada; \"Seleccionado\": copia dinámicamente solo las opciones de elección seleccionadas; \"No seleccionado\": copia dinámicamente solo las opciones de elección no seleccionadas. Las opciones \"Ninguno\" y \"Otro\" se copian de forma predeterminada si están habilitadas en la pregunta de origen.",
-        // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the IDs."
-        choiceValuesFromQuestion: "En los tipos de preguntas de selección única y múltiple, cada opción de opción tiene un ID y un valor de visualización. Esta configuración especifica qué columna de matriz o pregunta de panel debe proporcionar los identificadores.",
-        // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the display texts."
-        choiceTextsFromQuestion: "En los tipos de preguntas de selección única y múltiple, cada opción de opción tiene un ID y un valor de visualización. Esta configuración especifica qué columna de matriz o pregunta de panel debe proporcionar los textos de visualización.",
+        choicesFromQuestionMode: "Elija entre: \"Todas\": copia todas las opcions de elección de la pregunta seleccionada; \"Seleccionado\": copia dinámicamente solo las opcions de elección seleccionadas; \"No seleccionado\": copia dinámicamente solo las opciones de elección no seleccionadas. Las opcions \"Ninguno\" y \"Otro\" se copian de forma per defecte si están habilitadas en la pregunta de origen.",
+        // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panell question should provide the IDs."
+        choiceValuesFromQuestion: "En los tipos de preguntes de selección única y múltiple, cada opción de opción tiene un ID y un valor de visualización. Esta configuració especifica qué columna de matriz o pregunta de panell debe proporcionar los identificadores.",
+        // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panell question should provide the display texts."
+        choiceTextsFromQuestion: "En los tipos de preguntes de selección única y múltiple, cada opción de opción tiene un ID y un valor de visualización. Esta configuració especifica qué columna de matriz o pregunta de panell debe proporcionar los textos de visualización.",
         // [Auto-translated] "Select to let respondents add their own choices if the desired option isn't available in the dropdown. Custom choices will only be stored temporarily for the duration of the current browser session."
-        allowCustomChoices: "Seleccione esta opción para permitir que los encuestados agreguen sus propias opciones si la opción deseada no está disponible en el menú desplegable. Las opciones personalizadas solo se almacenarán temporalmente durante la sesión actual del navegador.",
+        allowCustomChoices: "Seleccione esta opción para permitir que los encuestados agreguen sus propias opciones si la opción deseada no está disponible en el menú desplegable. Las opcions personalitzades solo se almacenarán temporalmente durante la sesión actual del navegador.",
         // [Auto-translated] "When selected, users can include additional input in a separate comment box."
         showOtherItem: "Cuando se selecciona, los usuarios pueden incluir entradas adicionales en un cuadro de comentarios independiente.",
         // "Displays each special choice option (\"None\", \"Other\", \"Select All\") on a new line, even when using a multiple-column layout."
-        separateSpecialChoices: "Muestra cada opción de opción especial (\"Ninguno\", \"Otro\", \"Seleccionar todo\") en una nueva línea, incluso cuando se utiliza un diseño de varias columnas.",
+        separateSpecialChoices: "Muestra cada opción de opción especial (\"Ninguno\", \"Otro\", \"Seleccionar todo\") en una nova línea, incluso cuando se utiliza un diseño de varias columnes.",
         // [Auto-translated] "Specify the location within the service dataset where the target array of objects is located. Leave empty if the URL already points to the array."
         path: "Especifique la ubicación dentro del dataset de servicio donde se encuentra la matriz de objetos de destino. Déjelo en vacío si la dirección URL ya apunta a la matriz.",
         choicesbyurl: {
@@ -3176,63 +3172,63 @@ var spanishTranslation = {
             valueName: " "
         },
         // [Auto-translated] "Enter a uniform property name within the array of objects that contains the values you want to display in the choice list."
-        titleName: "Escriba un nombre de propiedad uniforme dentro de la matriz de objetos que contiene los valores que desea mostrar en la lista de opciones.",
+        titleName: "Escriba un nom de propiedad uniforme dentro de la matriz de objetos que contiene los valors que desea mostrar en la lista de opcions.",
         // [Auto-translated] "Select to allow the service to return an empty response or array."
         allowEmptyResponse: "Seleccione esta opción para permitir que el servicio devuelva una respuesta o matriz vacía.",
         // [Auto-translated] "Use the magic wand icon to set a conditional rule that determines the visibility of all choice options."
-        choicesVisibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad de todas las opciones de elección.",
+        choicesVisibleIf: "Utilice el icono de la varita mágica para establecer una regla condicional que determine la visibilidad de todas las opcions de elección.",
         // [Auto-translated] "The left value serves as an item ID used in conditional rules, the right value is displayed to respondents."
-        rateValues: "El valor de la izquierda sirve como un identificador de elemento utilizado en las reglas condicionales, el valor de la derecha se muestra a los encuestados.",
+        rateValues: "El valor de la izquierda sirve como un identificador de elemento utilizado en las regles condicionales, el valor de la derecha se muestra a los encuestados.",
         rating: {
             // "\"Auto\" selects between the \"Buttons\" and \"Dropdown\" modes based on the available width. When the width is insufficient to display buttons, the question displays a dropdown."
             displayMode: "\"Auto\" selecciona entre los modos \"Botones\" y \"Desplegable\" en función del ancho disponible. Cuando el ancho es insuficiente para mostrar los botones, la pregunta muestra un menú desplegable."
         },
         // [Auto-translated] "Allows you to connect questions that produce results in different formats. When such questions are linked together using a join identifier, this shared property stores selected question values."
-        valuePropertyName: "Permite conectar preguntas que producen resultados en diferentes formatos. Cuando estas preguntas se vinculan entre sí mediante un identificador de combinación, esta propiedad compartida almacena los valores de pregunta seleccionados.",
+        valuePropertyName: "Permite conectar preguntas que producen resultados en diferentes formatos. Cuando estas preguntes se vinculan entre sí mediante un identificador de combinación, esta propiedad compartida almacena los valors de pregunta seleccionados.",
         // [Auto-translated] "Select if you want to update the drop-down menu contents to match the search query that a user is typing in the input field."
         searchEnabled: "Seleccione si desea actualizar el contenido del menú desplegable para que coincida con la consulta de búsqueda que un usuario está escribiendo en el campo de entrada.",
         // [Auto-translated] "A value to save in survey results when respondents give a positive answer."
-        valueTrue: "Un valor que se debe guardar en los resultados de la encuesta cuando los encuestados dan una respuesta positiva.",
+        valueTrue: "Un valor que se debe desar en los resultados de la enquesta cuando los encuestados dan una respuesta positiva.",
         // [Auto-translated] "A value to save in survey results when respondents give a negative answer."
-        valueFalse: "Un valor que se debe guardar en los resultados de la encuesta cuando los encuestados dan una respuesta negativa.",
+        valueFalse: "Un valor que se debe desar en los resultados de la enquesta cuando los encuestados dan una respuesta negativa.",
         // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
-        showPreview: "No se recomienda deshabilitar esta opción, ya que invalida la imagen de vista previa y dificulta que un usuario comprenda si los archivos se han cargado.",
+        showPreview: "No se recomienda deshabilitar esta opción, ya que invalida la imatge de vista prèvia y dificulta que un usuario comprenda si los fitxers se han cargado.",
         // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-        needConfirmRemoveFile: "Activa un mensaje que le pide que confirme la eliminación del archivo.",
+        needConfirmRemoveFile: "Activa un mensaje que le pide que confirme la eliminación del fitxer.",
         // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
-        selectToRankEnabled: "Habilite esta opción para clasificar solo las opciones seleccionadas. Los usuarios arrastrarán los elementos seleccionados de la lista de opciones para ordenarlos dentro del área de clasificación.",
+        selectToRankEnabled: "Habilite esta opción para clasificar solo las opciones seleccionadas. Los usuarios arrastrarán los elementos seleccionados de la lista de opcions para ordenarlos dentro del área de clasificación.",
         // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
-        dataList: "Ingrese una lista de opciones que se sugerirán al encuestado durante la entrada.",
+        dataList: "Ingrese una lista de opcions que se sugerirán al encuestado durante la entrada.",
         // [Auto-translated] "The setting only resizes the input fields and doesn't affect the width of the question box."
-        inputSize: "La configuración solo cambia el tamaño de los campos de entrada y no afecta al ancho del cuadro de pregunta.",
+        inputSize: "La configuració solo cambia el tamaño de los campos de entrada y no afecta al ancho del cuadro de pregunta.",
         // [Auto-translated] "Sets consistent width for all item labels. Accepts CSS values (px, %, in, pt, etc.)."
-        itemTitleWidth: "Establece un ancho consistente para todas las etiquetas de artículos. Acepta valores CSS (px, %, in, pt, etc.).",
+        itemTitleWidth: "Establece un ancho consistente para todas las etiquetas de artículos. Acepta valors CSS (px, %, in, pt, etc.).",
         // "Select how to align input value within the field. The default setting \"Auto\" aligns the input value to the right if currency or numeric masking is applied and to the left if not."
-        inputTextAlignment: "Seleccione cómo alinear el valor de entrada dentro del campo. La configuración predeterminada \"Auto\" alinea el valor de entrada a la derecha si se aplica el enmascaramiento numérico o de moneda y a la izquierda si no se aplica.",
+        inputTextAlignment: "Seleccione cómo alinear el valor de entrada dentro del campo. La configuració per defecte \"Auto\" alinea el valor de entrada a la derecha si se aplica el enmascaramiento numérico o de moneda y a la izquierda si no se aplica.",
         // [Auto-translated] "Serves as a substitute when the image cannot be displayed on a user's device and for accessibility purposes."
-        altText: "Sirve como sustituto cuando la imagen no se puede mostrar en el dispositivo de un usuario y por motivos de accesibilidad.",
+        altText: "Sirve como sustituto cuando la imatge no se puede mostrar en el dispositivo de un usuario y por motivos de accesibilidad.",
         // "Defines the color of the selected emoji when the Rating icon type is set to \"Smileys\". Choose between: \"Default\" - the selected emoji appears in default survey color; \"Scale\" - the selected emoji inherits color from the rating scale."
-        rateColorMode: "Define el color del emoji seleccionado cuando el tipo de icono de clasificación se establece en \"Emoticonos\". Elija entre: \"Predeterminado\": el emoji seleccionado aparece en el color predeterminado de la encuesta; \"Escala\": el emoji seleccionado hereda el color de la escala de calificación.",
+        rateColorMode: "Define el color del emoji seleccionado cuando el tipo de icono de clasificación se establece en \"Emoticonos\". Elija entre: \"Per defecte\": el emoji seleccionado aparece en el color per defecte de la enquesta; \"Escala\": el emoji seleccionado hereda el color de la escala de calificación.",
         expression: {
             // "An expression ID that is not visible to respondents."
-            name: "Un identificador de expresión que no es visible para los encuestados.",
+            name: "Un identificador de expressió que no es visible para los encuestados.",
             // "Type an expression subtitle."
-            description: "Escriba un subtítulo de expresión.",
+            description: "Escriba un subtítulo de expressió.",
             // "An expression can include basic calculations (`{q1_id} + {q2_id}`), conditions (`{age} > 60`), and functions ('iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc.)."
-            expression: "Una expresión puede incluir cálculos básicos ('{q1_id} + {q2_id}'), condiciones ('{edad} > 60') y funciones ('iif()', 'hoy()', 'edad()', 'min()', 'max()', 'avg()', etc.)."
+            expression: "Una expressió puede incluir cálculos básicos ('{q1_id} + {q2_id}'), condicions ('{edad} > 60') y funciones ('iif()', 'hoy()', 'edad()', 'min()', 'max()', 'avg()', etc.)."
         },
         // "Select to store the \"Other\" option value as a separate property in survey results."
-        storeOthersAsComment: "Seleccione esta opción para almacenar el valor de la opción \"Otro\" como una propiedad independiente en los resultados de la encuesta.",
+        storeOthersAsComment: "Seleccione esta opción para almacenar el valor de la opción \"Otro\" como una propiedad independiente en los resultados de la enquesta.",
         // [Auto-translated] "Use {0} as a placeholder for the actual value."
         format: "Utilice {0} como marcador de posición para el valor real.",
         // [Auto-translated] "Select \"Custom\" to add your own file extensions on top of the predefined categories."
-        acceptedCategories: "Selecciona \"Personalizado\" para añadir tus propias extensiones de archivo encima de las categorías predefinidas.",
+        acceptedCategories: "Selecciona \"Personalitzat\" para afegir tus propias extensiones de fitxer encima de las categorías predefinidas.",
         // [Auto-translated] "Enter file extensions separated by commas (e.g., .csv, .xml)."
-        acceptedTypes: "Introduce extensiones de archivo separadas por comas (por ejemplo, .csv, .xml).",
+        acceptedTypes: "Introduce extensiones de fitxer separadas por comas (por ejemplo, .csv, .xml).",
         // [Auto-translated] "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. Applies only to columns with \"Cell input type\" set to Radio Button Group or Checkboxes."
-        columnColCount: "Organiza las opciones de elección en un diseño de varias columnas. Cuando se establece en 0, las opciones se muestran en una sola línea. Se aplica solo a las columnas con \"Tipo de entrada de celda\" establecido en Grupo de botones de opción o Casillas de verificación.",
+        columnColCount: "Organiza las opciones de elección en un diseño de varias columnas. Cuando se establece en 0, las opcions se muestran en una sola línea. Se aplica solo a las columnes con \"Tipo de entrada de celda\" establecido en Grupo de botones de opción o Casillas de verificación.",
         // [Auto-translated] "Select the data type that the user's browser can retrieve. This data is sourced either from past values entered by the user or from pre-configured values if any have been saved by the user for autocompletion."
-        autocomplete: "Seleccione el tipo de datos que puede recuperar el explorador del usuario. Estos datos se obtienen de valores anteriores ingresados por el usuario o de valores preconfigurados si el usuario ha guardado alguno para completarlos automáticamente.",
+        autocomplete: "Seleccione el tipo de datos que puede recuperar el explorador del usuario. Estos datos se obtienen de valores anteriores ingresados por el usuario o de valors preconfigurados si el usuario ha guardado alguno para completarlos automáticamente.",
         // "Applies when \"File source type\" is \"Local file\" or when camera is unavailable"
         filePlaceholder: "Se aplica cuando \"Tipo de fuente\" es \"Archivos locales\" o cuando la cámara no está disponible",
         // "Applies when \"File source type\" is \"Camera\"."
@@ -3240,14 +3236,14 @@ var spanishTranslation = {
         // "Applies when \"File source type\" is \"Local file or camera\"."
         fileOrPhotoPlaceholder: "Se aplica cuando \"Tipo de fuente\" es \"Archivos locales o cámara\".",
         // "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line."
-        colCount: "Organiza las opciones de elección en un diseño de varias columnas. Cuando se establece en 0, las opciones se muestran en una sola línea.",
+        colCount: "Organiza las opciones de elección en un diseño de varias columnes. Cuando se establece en 0, las opcions se muestran en una sola línea.",
         multipletext: {
             // [Auto-translated] "Arranges text boxes in a multi-column layout."
-            colCount: "Organiza los cuadros de texto en un diseño de varias columnas."
+            colCount: "Organiza los cuadros de text en un diseño de varias columnes."
         },
         masksettings: {
             // "Select if you want to store the question value with an applied mask in survey results."
-            saveMaskedValue: "Seleccione si desea almacenar el valor de la pregunta con una máscara aplicada en los resultados de la encuesta."
+            saveMaskedValue: "Seleccione si desea almacenar el valor de la pregunta con una máscara aplicada en los resultados de la enquesta."
         },
         patternmask: {
             // "The pattern can contain string literals and the following placeholders: `9` - for a digit; `a` - for an upper- or lower-case letter; `#` - for a digit or an upper- or lower-case letter. Use backslash `\\` to escape a character."
@@ -3255,7 +3251,7 @@ var spanishTranslation = {
         },
         datetimemask: {
             // "The pattern can contain separator characters and the following placeholders:<br>`m` - Month number.<br>`mm` - Month number, with leading zero for single-digit values.<br>`d` - Day of the month.<br>`dd` - Day of the month, with leading zero for single-digit values.<br>`yy` - The last two digits of the year.<br>`yyyy` - Four-digit year.<br>`H` - Hours in 24-hour format.<br>`HH` - Hours in 24-hour format, with leading zero for single-digit values.<br>`h` - Hours in 12-hour format.<br>`hh` - Hours in 12-hour format, with leading zero for single-digit values.<br>`MM` - Minutes.<br>`ss` - Seconds.<br>`TT` - 12-hour clock period in upper case (AM/PM).<br>`tt` - 12-hour clock period in lower case (am/pm)."
-            pattern: "El patrón puede contener caracteres separadores y los siguientes marcadores de posición:<br>'m' - Número de mes.<br>'mm': número de mes, con cero a la izquierda para valores de un solo dígito. <br>'d' - Día del mes. <br>'dd': día del mes, con cero a la izquierda para valores de un solo dígito. <br>'yy': los dos últimos dígitos del año. <br>'yyyy' - Año de cuatro dígitos. <br>'H' - Horas en formato de 24 horas. <br>'HH': horas en formato de 24 horas, con cero a la izquierda para valores de un solo dígito. <br>'h' - Horas en formato de 12 horas. <br>'hh': horas en formato de 12 horas, con cero a la izquierda para valores de un solo dígito. <br>'MM' - Actas. <br>'ss' - Segundos. <br>'TT': período de reloj de 12 horas en mayúsculas (AM/PM). <br>'tt' - Período de reloj de 12 horas en minúsculas (am/pm)."
+            pattern: "El patrón puede contener caracteres separadores y los siguientes marcadores de posición:<br>'m' - Número de mes.<br>'mm': número de mes, con cero a la izquierda para valores de un solo dígito. <br>'d' - Día del mes. <br>'dd': día del mes, con cero a la izquierda para valores de un solo dígito. <br>'yy': los dos últimos dígitos del año. <br>'yyyy' - Año de cuatro dígitos. <br>'H' - Horas en formato de 24 horas. <br>'HH': horas en formato de 24 horas, con cero a la izquierda para valores de un solo dígito. <br>'h' - Horas en formato de 12 horas. <br>'hh': horas en formato de 12 horas, con cero a la izquierda para valors de un solo dígito. <br>'MM' - Actas. <br>'ss' - Segundos. <br>'TT': período de reloj de 12 horas en mayúsculas (AM/PM). <br>'tt' - Período de reloj de 12 horas en minúsculas (am/pm)."
         },
         numericmask: {
             // "A symbol used to separate the fractional part from the integer part of a displayed number."
@@ -3272,46 +3268,46 @@ var spanishTranslation = {
             suffix: "Uno o varios símbolos que se mostrarán después del valor."
         },
         theme: {
-            // "This setting applies only to questions outside of a panel."
-            isPanelless: "Esta configuración solo se aplica a las preguntas fuera de un panel.",
+            // "This setting applies only to questions outside of a panell."
+            isPanelless: "Esta configuració solo se aplica a las preguntes fuera de un panell.",
             // "Sets a supplementary color that highlights key survey elements."
-            primaryColor: "Establece un color complementario que resalta los elementos clave de la encuesta.",
+            primaryColor: "Establece un color complementario que resalta los elementos clave de la enquesta.",
             // "Adjusts the transparency of panels and question boxes relative to the survey background."
-            panelBackgroundTransparency: "Ajusta la transparencia de los paneles y cuadros de preguntas en relación con el fondo de la encuesta.",
+            panelBackgroundTransparency: "Ajusta la transparencia de los panells y cuadros de preguntes en relación con el fondo de la enquesta.",
             // "Adjusts the transparency of input elements relative to the survey background."
-            questionBackgroundTransparency: "Ajusta la transparencia de los elementos de entrada en relación con el fondo de la encuesta.",
+            questionBackgroundTransparency: "Ajusta la transparencia de los elementos de entrada en relación con el fondo de la enquesta.",
             // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
-            cornerRadius: "Define el radio de vértice de todos los elementos rectangulares. Active el modo avanzado si desea establecer valores de radio de vértice individuales para elementos de entrada o paneles y cuadros de preguntas.",
+            cornerRadius: "Define el radio de vértice de todos los elementos rectangulares. Active el modo avanzado si desea establecer valors de radio de vértice individuales para elementos de entrada o panells y cuadros de preguntes.",
             // "Sets the main background color of the survey."
-            "--sjs-general-backcolor-dim": "Establece el color de fondo principal de la encuesta."
+            "--sjs-general-backcolor-dim": "Establece el color de fondo principal de la enquesta."
         },
         header: {
             // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
-            inheritWidthFrom: "La opción \"Igual que el contenedor\" ajusta automáticamente el ancho del área de contenido del encabezado para que quepa en el elemento HTML en el que se coloca la encuesta.",
+            inheritWidthFrom: "La opción \"Igual que el contenedor\" ajusta automáticamente el ancho del área de contenido del encabezado para que quepa en el elemento HTML en el que se coloca la enquesta.",
             // [Auto-translated] "The width of the header area that contains the survey title and description, measured in pixels."
-            textAreaWidth: "El ancho del área de encabezado que contiene el título y la descripción de la encuesta, medido en píxeles.",
+            textAreaWidth: "El ancho del área de encabezado que contiene el títol y la descripció de la enquesta, medido en píxeles.",
             // [Auto-translated] "When enabled, the top of the survey overlays the bottom of the header."
-            overlapEnabled: "Cuando se habilita, la parte superior de la encuesta se superpone a la parte inferior del encabezado.",
+            overlapEnabled: "Cuando se habilita, la parte superior de la enquesta se superpone a la parte inferior del encabezado.",
             // [Auto-translated] "When set to 0, the height is calculated automatically to accommodate the header's content."
             mobileHeight: "Cuando se establece en 0, la altura se calcula automáticamente para acomodar el contenido del encabezado."
         },
         // "The \"Same as container\" option auto-adjusts the progress bar area width to fit into the HTML element the survey is placed in."
-        progressBarInheritWidthFrom: "La opción \"Igual que el contenedor\" ajusta automáticamente el ancho del área de la barra de progreso para que quepa en el elemento HTML en el que se coloca la encuesta.",
+        progressBarInheritWidthFrom: "La opción \"Igual que el contenedor\" ajusta automáticamente el ancho del área de la barra de progreso para que quepa en el elemento HTML en el que se coloca la enquesta.",
         // [Auto-translated] "Used when the 'Survey layout' is set to 'Single input field per page'. In this layout, the matrix is split so that each input field appears on a separate page. Use the {rowIndex} placeholder to insert auto numbering, {rowTitle} or {rowName} to reference the row's title or ID, and {row.columnid} to include the value of a specific matrix column."
-        singleInputTitleTemplate: "Se utiliza cuando el 'Diseño de encuesta' se establece en 'Campo de entrada único por página'. En este diseño, la matriz se divide para que cada campo de entrada aparezca en una página separada. Use el marcador de posición {rowIndex} para insertar la numeración automática, {rowTitle} o {rowName} para hacer referencia al título o identificador de la fila y {row.columnid} para incluir el valor de una columna de matriz específica."
+        singleInputTitleTemplate: "Se utiliza cuando el 'Diseño de enquesta' se establece en 'Campo de entrada único por página'. En este diseño, la matriz se divide para que cada campo de entrada aparezca en una pàgina separada. Use el marcador de posición {rowIndex} para insertar la numeración automàtica, {rowTitle} o {rowName} para hacer referencia al títol o identificador de la fila y {row.columnid} para incluir el valor de una columna de matriz específica."
     },
     // Properties
     p: {
         title: {
             // "title"
-            name: "título",
+            name: "títol",
             // "Leave it empty, if it is the same as 'Name'"
             title: "Dejarlo vacío, si es lo mismo que 'Name'"
         },
         // "Allow multiple selection"
         multiSelect: "Permitir múltiple selección",
         // "Show image and video captions"
-        showLabel: "Mostrar leyenda de imagen",
+        showLabel: "Mostrar leyenda de imatge",
         // [Auto-translated] "Swap the order of Yes and No"
         swapOrder: "Cambiar el orden de Sí y No",
         // "Value"
@@ -3319,13 +3315,13 @@ var spanishTranslation = {
         // [Auto-translated] "Tab alignment"
         tabAlign: "Alineación de tabulaciones",
         // [Auto-translated] "File source type"
-        sourceType: "Tipo de origen de archivo",
+        sourceType: "Tipo de origen de fitxer",
         // [Auto-translated] "Fit to container"
         fitToContainer: "Ajuste al contenedor",
         // [Auto-translated] "Set value expression"
-        setValueExpression: "Establecer expresión de valor",
+        setValueExpression: "Establecer expressió de valor",
         // "Description"
-        description: "Descripción", // Auto-generated string
+        description: "Descripció", // Auto-generated string
         // [Auto-translated] "Logo fit"
         logoFit: "Ajuste del logotipo",
         // [Auto-translated] "Pages"
@@ -3333,17 +3329,17 @@ var spanishTranslation = {
         // [Auto-translated] "Questions"
         questions: "Preguntas", // Auto-generated string
         // "Triggers"
-        triggers: "disparadores",
+        triggers: "disparadors",
         // [Auto-translated] "Custom variables"
-        calculatedValues: "Variables personalizadas",
+        calculatedValues: "Variables personalitzades",
         // [Auto-translated] "Survey id"
-        surveyId: "ID de la encuesta", // Auto-generated string
+        surveyId: "ID de la enquesta", // Auto-generated string
         // [Auto-translated] "Survey post id"
-        surveyPostId: "ID de publicación de la encuesta", // Auto-generated string
+        surveyPostId: "ID de publicación de la enquesta", // Auto-generated string
         // [Auto-translated] "Survey show data saving"
-        surveyShowDataSaving: "La encuesta muestra el ahorro de datos", // Auto-generated string
+        surveyShowDataSaving: "La enquesta muestra el ahorro de datos", // Auto-generated string
         // [Auto-translated] "Question description alignment"
-        questionDescriptionLocation: "Alineación de la descripción de la pregunta",
+        questionDescriptionLocation: "Alineación de la descripció de la pregunta",
         // [Auto-translated] "Progress bar type"
         progressBarType: "Tipo de barra de progreso", // Auto-generated string
         // [Auto-translated] "Show table of contents (TOC)"
@@ -3351,25 +3347,25 @@ var spanishTranslation = {
         // [Auto-translated] "TOC alignment"
         tocLocation: "Alineación de la tabla de contenido",
         // [Auto-translated] "Question title pattern"
-        questionTitlePattern: "Patrón de título de pregunta", // Auto-generated string
+        questionTitlePattern: "Patrón de títol de pregunta", // Auto-generated string
         // [Auto-translated] "Survey width mode"
         widthMode: "Modo de ancho de topografía",
         // [Auto-translated] "Show brand info"
         showBrandInfo: "Mostrar información de la marca", // Auto-generated string
         // [Auto-translated] "Use display values in dynamic texts"
-        useDisplayValuesInDynamicTexts: "Usar valores de visualización en textos dinámicos",
+        useDisplayValuesInDynamicTexts: "Usar valors de visualización en textos dinámicos",
         // "Visible if"
         visibleIf: "visible si", // Auto-generated string
         // [Auto-translated] "Default value expression"
-        defaultValueExpression: "Expresión de valor predeterminada",
+        defaultValueExpression: "Expressió de valor per defecte",
         // "Required if"
-        requiredIf: "Requerido si", // Auto-generated string
+        requiredIf: "Requerit si", // Auto-generated string
         // [Auto-translated] "Reset value if"
         resetValueIf: "Restablecer valor si",
         // [Auto-translated] "Set value if"
         setValueIf: "Establezca el valor si",
         // "Validation rules"
-        validators: "Validadores",
+        validators: "Validadors",
         // [Auto-translated] "Bindings"
         bindings: "Enlaces", // Auto-generated string
         // [Auto-translated] "Render as"
@@ -3377,9 +3373,9 @@ var spanishTranslation = {
         // [Auto-translated] "Attach original items"
         attachData: "Adjuntar elementos originales", // Auto-generated string
         // "Choices"
-        choices: "opciones",
+        choices: "opcions",
         // "Choices by url"
-        choicesByUrl: "opciones por URL", // Auto-generated string
+        choicesByUrl: "opcions por URL", // Auto-generated string
         // "Currency"
         currency: "divisa", // Auto-generated string
         // [Auto-translated] "Cell hint"
@@ -3389,19 +3385,19 @@ var spanishTranslation = {
         // [Auto-translated] "Total minimum fraction digits"
         totalMinimumFractionDigits: "Total de dígitos de fracción mínima", // Auto-generated string
         // "Columns"
-        columns: "columnas", // Auto-generated string
+        columns: "columnes", // Auto-generated string
         // [Auto-translated] "Detail elements"
         detailElements: "Elementos de detalle", // Auto-generated string
         // [Auto-translated] "Allow adaptive actions"
-        allowAdaptiveActions: "Permitir acciones adaptables", // Auto-generated string
+        allowAdaptiveActions: "Permitir accions adaptables", // Auto-generated string
         // "Default row value"
-        defaultRowValue: "Valor por defecto Fila", // Auto-generated string
+        defaultRowValue: "Valor por defecte Fila", // Auto-generated string
         // [Auto-translated] "Auto-expand new row details"
-        detailPanelShowOnAdding: "Expandir automáticamente los detalles de las nuevas filas",
+        detailPanelShowOnAdding: "Expandir automáticamente los detalles de las noves files",
         // [Auto-translated] "Choices lazy load enabled"
-        choicesLazyLoadEnabled: "Opciones de carga diferida habilitadas", // Auto-generated string
+        choicesLazyLoadEnabled: "Opcions de carga diferida habilitadas", // Auto-generated string
         // [Auto-translated] "Choices lazy load page size"
-        choicesLazyLoadPageSize: "Opciones de tamaño de página de carga diferida", // Auto-generated string
+        choicesLazyLoadPageSize: "Opcions de tamaño de pàgina de carga diferida", // Auto-generated string
         // [Auto-translated] "Input field component"
         inputFieldComponent: "Componente de campo de entrada", // Auto-generated string
         // [Auto-translated] "Item component"
@@ -3411,9 +3407,9 @@ var spanishTranslation = {
         // [Auto-translated] "Max"
         max: "Máximo", // Auto-generated string
         // [Auto-translated] "Min value expression"
-        minValueExpression: "Expresión de valor mínimo", // Auto-generated string
+        minValueExpression: "Expressió de valor mínimo", // Auto-generated string
         // [Auto-translated] "Max value expression"
-        maxValueExpression: "Expresión de valor máximo", // Auto-generated string
+        maxValueExpression: "Expressió de valor máximo", // Auto-generated string
         // [Auto-translated] "Step"
         step: "Paso", // Auto-generated string
         // [Auto-translated] "Items for auto-suggest"
@@ -3423,15 +3419,15 @@ var spanishTranslation = {
         // [Auto-translated] "Item label width"
         itemTitleWidth: "Ancho de la etiqueta del artículo",
         // [Auto-translated] "Input value alignment"
-        inputTextAlignment: "Alineación de valores de entrada",
+        inputTextAlignment: "Alineación de valors de entrada",
         // [Auto-translated] "Elements"
         elements: "Elementos", // Auto-generated string
         // [Auto-translated] "Content"
         content: "Contenido", // Auto-generated string
         // [Auto-translated] "Navigation title"
-        navigationTitle: "Título de navegación", // Auto-generated string
+        navigationTitle: "Títol de navegación", // Auto-generated string
         // [Auto-translated] "Navigation description"
-        navigationDescription: "Descripción de navegación", // Auto-generated string
+        navigationDescription: "Descripció de navegación", // Auto-generated string
         // [Auto-translated] "Long tap"
         longTap: "Toque largo", // Auto-generated string
         // [Auto-translated] "Expand input field dynamically"
@@ -3439,7 +3435,7 @@ var spanishTranslation = {
         // [Auto-translated] "Enable resize handle"
         allowResize: "Habilitar el identificador de cambio de tamaño",
         // [Auto-translated] "Accept carriage return"
-        acceptCarriageReturn: "Aceptar devolución de transporte", // Auto-generated string
+        acceptCarriageReturn: "Acceptar devolución de transporte", // Auto-generated string
         // [Auto-translated] "Display mode"
         displayMode: "Modo de visualización",
         // [Auto-translated] "Rate type"
@@ -3449,9 +3445,9 @@ var spanishTranslation = {
         // [Auto-translated] "Content mode"
         contentMode: "Modo de contenido",
         // [Auto-translated] "Image and thumbnail fit"
-        imageFit: "Ajuste de imagen y miniatura",
+        imageFit: "Ajuste de imatge y miniatura",
         // [Auto-translated] "Alt text"
-        altText: "Texto alternativo",
+        altText: "Text alternativo",
         // [Auto-translated] "Height"
         height: "Altura", // Auto-generated string
         // [Auto-translated] "Height on smartphones"
@@ -3467,11 +3463,11 @@ var spanishTranslation = {
         // [Auto-translated] "Is variable"
         isVariable: "Es variable", // Auto-generated string
         // [Auto-translated] "Run expression"
-        runExpression: "Ejecutar expresión", // Auto-generated string
+        runExpression: "Ejecutar expressió", // Auto-generated string
         // [Auto-translated] "Show caption"
         showCaption: "Mostrar pie de foto", // Auto-generated string
         // [Auto-translated] "Icon name"
-        iconName: "Nombre del icono", // Auto-generated string
+        iconName: "Nom del icono", // Auto-generated string
         // [Auto-translated] "Icon size"
         iconSize: "Tamaño del icono", // Auto-generated string
         // [Auto-translated] "Precision"
@@ -3479,11 +3475,11 @@ var spanishTranslation = {
         // [Auto-translated] "Matrix drag handle area"
         matrixDragHandleArea: "Área del controlador de arrastre de matriz", // Auto-generated string
         // [Auto-translated] "Background image"
-        backgroundImage: "Imagen de fondo",
+        backgroundImage: "Imatge de fondo",
         // [Auto-translated] "Background image fit"
-        backgroundImageFit: "Ajuste de imagen de fondo", // Auto-generated string
+        backgroundImageFit: "Ajuste de imatge de fondo", // Auto-generated string
         // [Auto-translated] "Background image attachment"
-        backgroundImageAttachment: "Datos adjuntos de imagen de fondo", // Auto-generated string
+        backgroundImageAttachment: "Datos adjuntos de imatge de fondo", // Auto-generated string
         // [Auto-translated] "Background opacity"
         backgroundOpacity: "Opacidad de fondo", // Auto-generated string
         // [Auto-translated] "Allow selective ranking"
@@ -3491,9 +3487,9 @@ var spanishTranslation = {
         // [Auto-translated] "Ranking area alignment"
         selectToRankAreasLayout: "Alineación del área de clasificación",
         // [Auto-translated] "Text to show if all options are selected"
-        selectToRankEmptyRankedAreaText: "Texto para mostrar si todas las opciones están seleccionadas",
+        selectToRankEmptyRankedAreaText: "Text para mostrar si todas las opcions están seleccionadas",
         // [Auto-translated] "Placeholder text for the ranking area"
-        selectToRankEmptyUnrankedAreaText: "Texto de marcador de posición para el área de clasificación",
+        selectToRankEmptyUnrankedAreaText: "Text de marcador de posición para el área de clasificación",
         // [Auto-translated] "Allow camera access"
         allowCameraAccess: "Permitir el acceso a la cámara", // Auto-generated string
         // [Auto-translated] "Rating icon color mode"
@@ -3507,21 +3503,21 @@ var spanishTranslation = {
         // [Auto-translated] "Progress bar area width"
         progressBarInheritWidthFrom: "Ancho del área de la barra de progreso",
         // [Auto-translated] "Theme name"
-        themeName: "Nombre del tema"
+        themeName: "Nom del tema"
     },
     theme: {
         // "Advanced mode"
         advancedMode: "Modo avanzado",
         // "Page"
-        pageTitle: "Fuente del título de la página",
+        pageTitle: "Fuente del títol de la pàgina",
         // "Question box"
-        questionTitle: "Fuente del título de la pregunta",
+        questionTitle: "Fuente del títol de la pregunta",
         // "Input element"
         editorPanel: "Elemento de entrada",
         // [Auto-translated] "Lines"
         lines: "Lineas",
         // [Auto-translated] "Default"
-        primaryDefaultColor: "Predeterminado",
+        primaryDefaultColor: "Per defecte",
         // [Auto-translated] "Hover"
         primaryDarkColor: "Cernerse",
         // [Auto-translated] "Selected"
@@ -3531,7 +3527,7 @@ var spanishTranslation = {
         // "Corner radius"
         cornerRadius: "Radio de esquina",
         // [Auto-translated] "Default background"
-        backcolor: "Fondo predeterminado",
+        backcolor: "Fondo per defecte",
         // [Auto-translated] "Hover background"
         hovercolor: "Pasar el cursor de fondo",
         // [Auto-translated] "Border decoration"
@@ -3541,9 +3537,9 @@ var spanishTranslation = {
         // [Auto-translated] "Background color"
         backgroundColor: "Color de fondo",
         // [Auto-translated] "Default color"
-        primaryForecolor: "Color predeterminado",
+        primaryForecolor: "Color per defecte",
         // [Auto-translated] "Disabled color"
-        primaryForecolorLight: "Color deshabilitado",
+        primaryForecolorLight: "Color deshabilitat",
         // [Auto-translated] "Font"
         font: "Fuente",
         // [Auto-translated] "Darker"
@@ -3584,7 +3580,7 @@ var spanishTranslation = {
         boxShadowInner: "Interior",
         names: {
             // [Auto-translated] "Default"
-            default: "Predeterminado",
+            default: "Per defecte",
             // [Auto-translated] "Sharp"
             sharp: "Afilado",
             // [Auto-translated] "Borderless"
@@ -3638,7 +3634,7 @@ var spanishTranslation = {
         fontScale: "Fuente",
         names: {
             // [Auto-translated] "Survey Creator 2020"
-            sc2020: "Creador de encuestas 2020",
+            sc2020: "Creador de enquestes 2020",
             // [Auto-translated] "Light"
             "default-light": "Luz",
             // [Auto-translated] "Dark"
@@ -3648,7 +3644,7 @@ var spanishTranslation = {
         }
     }
 };
-(0,survey_creator_core__WEBPACK_IMPORTED_MODULE_0__.setupLocale)({ localeCode: "es", strings: spanishTranslation });
+(0,survey_creator_core__WEBPACK_IMPORTED_MODULE_0__.setupLocale)({ localeCode: "ca", strings: catalanTranslation });
 
 })();
 
@@ -3656,4 +3652,4 @@ var spanishTranslation = {
 /******/ })()
 ;
 });
-//# sourceMappingURL=spanish.js.map
+//# sourceMappingURL=catalan.js.map

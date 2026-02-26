@@ -8,9 +8,9 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("survey-creator-core"));
 	else if(typeof define === 'function' && define.amd)
-		define("i18n/simplified-chinese", ["survey-creator-core"], factory);
+		define("i18n/indonesian", ["survey-creator-core"], factory);
 	else if(typeof exports === 'object')
-		exports["i18n/simplified-chinese"] = factory(require("survey-creator-core"));
+		exports["i18n/indonesian"] = factory(require("survey-creator-core"));
 	else
 		root["SurveyCreatorLocales"] = factory(root["SurveyCreatorCore"]);
 })(this, (__WEBPACK_EXTERNAL_MODULE_survey_creator_core__) => {
@@ -105,2564 +105,2564 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_survey_creator_core__;
 var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-/*!************************************************!*\
-  !*** ./src/localization/simplified-chinese.ts ***!
-  \************************************************/
+/*!****************************************!*\
+  !*** ./src/localization/indonesian.ts ***!
+  \****************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   simplifiedChineseTranslation: () => (/* binding */ simplifiedChineseTranslation)
+/* harmony export */   indonesianStrings: () => (/* binding */ indonesianStrings)
 /* harmony export */ });
 /* harmony import */ var survey_creator_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! survey-creator-core */ "survey-creator-core");
 /* harmony import */ var survey_creator_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(survey_creator_core__WEBPACK_IMPORTED_MODULE_0__);
 
-var simplifiedChineseTranslation = {
+var indonesianStrings = {
     // survey templates
     survey: {
         // "Edit"
-        edit: "编辑",
+        edit: "Ubah",
         // "Watch and learn how to create surveys"
-        externalHelpLink: "教学小片",
+        externalHelpLink: "Tonton dan pelajari cara membuat survei",
         // "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
         externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
         // "Please drop a question here from the Toolbox."
-        dropQuestion: "从左侧工具箱拖个问题",
+        dropQuestion: "Silahkan letakkan pertanyaan di sini dari Kotak Perkakas di sebelah kiri.",
         // [Auto-translated] "Create a rule to customize the flow of the survey."
-        addLogicItem: "创建规则以自定义调查流。",
+        addLogicItem: "Buat aturan untuk menyesuaikan alur survei.",
         // "Copy"
-        copy: "复制",
+        copy: "Salin",
         // [Auto-translated] "Duplicate"
-        duplicate: "重复",
+        duplicate: "Duplikat",
         // "Add to toolbox"
-        addToToolbox: "添加到工具箱",
+        addToToolbox: "Tambahkan ke Kotak Perkakas",
         // "Delete Panel"
-        deletePanel: "删除面板",
+        deletePanel: "Hapus Panel",
         // "Delete Question"
-        deleteQuestion: "删除题目",
+        deleteQuestion: "Hapus Pertanyaan",
         // "Convert to"
-        convertTo: "转变为",
+        convertTo: "Mengubah ke",
         // "Drag element"
-        drag: "拖放元件"
+        drag: "Tarik elemen"
     },
     // Creator tabs
     tabs: {
         // "Preview"
-        preview: "测试问卷",
+        preview: "Coba Survei",
         // "Themes"
-        theme: "主题",
+        theme: "Tema",
         // "Translations"
-        translation: "转换",
+        translation: "Terjemahan",
         // "Designer"
-        designer: "问卷设计器",
+        designer: "Rancangan Survei",
         // "JSON Editor"
-        json: "JSON 编辑器",
+        json: "Pengubah JSON",
         // [Auto-translated] "Logic"
-        logic: "逻辑"
+        logic: "Logika"
     },
     // Question types
     qt: {
         // "Default"
-        default: "默认",
+        default: "Default",
         // "Checkboxes"
-        checkbox: "多项选择",
+        checkbox: "Kotak Centang",
         // "Long Text"
-        comment: "多行文本",
+        comment: "Komentar",
         // "Image Picker"
-        imagepicker: "选图片",
+        imagepicker: "Gambar",
         // [Auto-translated] "Ranking"
-        ranking: "排名",
+        ranking: "Peringkat",
         // [Auto-translated] "Image"
-        image: "图像",
+        image: "Citra",
         // "Dropdown"
-        dropdown: "下拉框",
+        dropdown: "Kotak Kombo",
         // [Auto-translated] "Multi-Select Dropdown"
-        tagbox: "多选下拉列表",
+        tagbox: "Dropdown Multi-Pilih",
         // "File Upload"
-        file: "文件上传",
+        file: "Berkas",
         // "HTML"
-        html: "Html 代码",
+        html: "Html",
         // "Single-Select Matrix"
-        matrix: "矩阵 (单选题)",
+        matrix: "Matriks (pilihan tunggal)",
         // "Multi-Select Matrix"
-        matrixdropdown: "矩阵 (下拉框)",
+        matrixdropdown: "Matriks (pilihan ganda)",
         // "Dynamic Matrix"
-        matrixdynamic: "矩阵 (动态问题)",
+        matrixdynamic: "Matriks (baris dinamis)",
         // "Multiple Textboxes"
-        multipletext: "文本框组",
+        multipletext: "Teks Ganda",
         // "Panel"
-        panel: "面板",
+        panel: "Panel",
         // "Dynamic Panel"
-        paneldynamic: "面板(动态)",
+        paneldynamic: "Panel (panel dinamis)",
         // "Radio Button Group"
-        radiogroup: "单项选择",
+        radiogroup: "Pilihan Ganda",
         // "Rating Scale"
-        rating: "评分",
+        rating: "Peringkat",
         // [Auto-translated] "Slider"
-        slider: "滑 块",
+        slider: "Slider",
         // "Single-Line Input"
-        text: "单行文本",
+        text: "Input Tunggal",
         // "Yes/No (Boolean)"
-        boolean: "逻辑项",
+        boolean: "Yes/No (Boolean)",
         // "Expression (read-only)"
-        expression: "表达式(只读)",
+        expression: "Ekspresi (dibaca saja)",
         // [Auto-translated] "Signature"
-        signaturepad: "签名",
+        signaturepad: "Tanda tangan",
         // [Auto-translated] "Button Group"
-        buttongroup: "按钮组"
+        buttongroup: "Grup Tombol"
     },
     toolboxCategories: {
         // "General"
-        general: "一般",
+        general: "Umum",
         // "Choice Questions"
-        choice: "选择题",
+        choice: "Pertanyaan Pilihan",
         // "Text Input Questions"
-        text: "文本输入问题",
+        text: "Pertanyaan Input Teks",
         // "Containers"
-        containers: "器皿",
+        containers: "Wadah",
         // "Matrix Questions"
-        matrix: "矩阵问题",
+        matrix: "Pertanyaan Matriks",
         // "Misc"
-        misc: "杂项"
+        misc: "Misc"
     },
     // Strings in SurveyJS Creator
     ed: {
         // "Default ({0})"
-        defaultLocale: "默认语言 ({0})",
+        defaultLocale: "Default ({0})",
         // "Survey"
-        survey: "调查问卷",
+        survey: "Survei",
         // "Settings"
-        settings: "问卷设置",
+        settings: "Pengaturan Survei",
         // [Auto-translated] "Open settings"
-        settingsTooltip: "打开设置",
+        settingsTooltip: "Buka pengaturan",
         // [Auto-translated] "Survey Settings"
-        surveySettings: "调查设置",
+        surveySettings: "Pengaturan Survei",
         // [Auto-translated] "Survey settings"
-        surveySettingsTooltip: "调查设置",
+        surveySettingsTooltip: "Setelan survei",
         // [Auto-translated] "Theme Settings"
-        themeSettings: "主题设置",
+        themeSettings: "Pengaturan Tema",
         // [Auto-translated] "Theme settings"
-        themeSettingsTooltip: "主题设置",
+        themeSettingsTooltip: "Pengaturan tema",
         // [Auto-translated] "Creator Settings"
-        creatorSettingTitle: "Creator 设置",
+        creatorSettingTitle: "Pengaturan Kreator",
         // [Auto-translated] "Show Panel"
-        showPanel: "显示面板",
+        showPanel: "Tampilkan Panel",
         // [Auto-translated] "Hide Panel"
-        hidePanel: "“隐藏”面板",
+        hidePanel: "Sembunyikan Panel",
         // [Auto-translated] "Select previous"
-        prevSelected: "选择上一个",
+        prevSelected: "Pilih sebelumnya",
         // [Auto-translated] "Select next"
-        nextSelected: "选择下一步",
+        nextSelected: "Pilih selanjutnya",
         // [Auto-translated] "Focus previous"
-        prevFocus: "焦点 上一页",
+        prevFocus: "Fokus sebelumnya",
         // [Auto-translated] "Focus next"
-        nextFocus: "接下来的重点",
+        nextFocus: "Fokus berikutnya",
         // [Auto-translated] "Survey"
-        surveyTypeName: "调查",
+        surveyTypeName: "Survei",
         // [Auto-translated] "Page"
-        pageTypeName: "页",
+        pageTypeName: "Halaman",
         // [Auto-translated] "Panel"
-        panelTypeName: "面板",
+        panelTypeName: "Panel",
         // [Auto-translated] "Question"
-        questionTypeName: "问题",
+        questionTypeName: "Pertanyaan",
         // [Auto-translated] "Column"
-        columnTypeName: "列",
+        columnTypeName: "Kolom",
         // "Add New Page"
-        addNewPage: "添加新页面",
+        addNewPage: "Tambah Halaman Baru",
         // "Scroll to the Right"
-        moveRight: "滚动到右侧",
+        moveRight: "Geser ke Kanan",
         // "Scroll to the Left"
-        moveLeft: "滚动到左侧",
+        moveLeft: "Geser ke Kiri",
         // "Delete Page"
-        deletePage: "删除页面",
+        deletePage: "Hapus Halaman",
         // "Edit Page"
-        editPage: "编辑页面",
+        editPage: "Ubah Halaman",
         // "Edit"
-        edit: "编辑",
+        edit: "Ubah",
         // "page"
-        newPageName: "页面",
+        newPageName: "halaman",
         // "question"
-        newQuestionName: "问题",
+        newQuestionName: "pertanyaan",
         // "panel"
-        newPanelName: "面板",
-        // "text"
-        newTextItemName: "文本",
+        newPanelName: "panel",
+        // [Auto-translated] "text"
+        newTextItemName: "Teks",
         // [Auto-translated] "Default"
-        defaultV2Theme: "违约",
+        defaultV2Theme: "Default",
         // [Auto-translated] "Modern"
-        modernTheme: "摩登",
+        modernTheme: "Modern",
         // [Auto-translated] "Default (legacy)"
-        defaultTheme: "默认（旧版）",
+        defaultTheme: "Default (warisan)",
         // "Preview Survey Again"
-        testSurveyAgain: "再次测试问卷",
+        testSurveyAgain: "Coba Survei Lagi",
         // "Survey width: "
-        testSurveyWidth: "问卷宽度: ",
+        testSurveyWidth: "Lebar survei: ",
         // [Auto-translated] "You had to navigate to"
-        navigateToMsg: "你必须导航到",
+        navigateToMsg: "Anda harus menavigasi ke",
         // "Save Survey"
-        saveSurvey: "保存问卷",
+        saveSurvey: "Simpan Survei",
         // [Auto-translated] "Save Survey"
-        saveSurveyTooltip: "保存调查",
+        saveSurveyTooltip: "Simpan Survei",
         // [Auto-translated] "Save Theme"
-        saveTheme: "保存主题",
+        saveTheme: "Simpan Tema",
         // [Auto-translated] "Save Theme"
-        saveThemeTooltip: "保存主题",
+        saveThemeTooltip: "Simpan Tema",
         // [Auto-translated] "Hide errors"
-        jsonHideErrors: "隐藏错误",
+        jsonHideErrors: "Menyembunyikan kesalahan",
         // [Auto-translated] "Show errors"
-        jsonShowErrors: "显示错误",
+        jsonShowErrors: "Tampilkan kesalahan",
         // "Undo"
-        undo: "撤销",
+        undo: "Urungkan",
         // "Redo"
-        redo: "恢复",
+        redo: "Ulangi",
         // [Auto-translated] "Undo last change"
-        undoTooltip: "撤消上次更改",
+        undoTooltip: "Mengurungkan perubahan terakhir",
         // [Auto-translated] "Redo the change"
-        redoTooltip: "重做更改",
+        redoTooltip: "Mengulangi perubahan",
         // [Auto-translated] "Expand"
-        expandTooltip: "扩大",
+        expandTooltip: "Memperluas",
         // [Auto-translated] "Collapse"
-        collapseTooltip: "崩溃",
+        collapseTooltip: "Roboh",
         // "Expand All"
-        expandAllTooltip: "全部展开",
+        expandAllTooltip: "Perluas Semua",
         // "Collapse All"
-        collapseAllTooltip: "全部折叠",
+        collapseAllTooltip: "Ciutkan Semua",
         // [Auto-translated] "Zoom In"
-        zoomInTooltip: "放大",
+        zoomInTooltip: "Perbesar",
         // [Auto-translated] "Zoom to 100%"
-        zoom100Tooltip: "缩放到 100%",
+        zoom100Tooltip: "Perbesar hingga 100%",
         // [Auto-translated] "Zoom Out"
-        zoomOutTooltip: "缩小",
+        zoomOutTooltip: "Perkecil",
         // [Auto-translated] "Lock expand/collapse state for questions"
-        lockQuestionsTooltip: "锁定问题的展开/折叠状态",
+        lockQuestionsTooltip: "Kunci status perluasan/ciutkan untuk pertanyaan",
         // [Auto-translated] "Show more"
-        showMoreChoices: "显示更多",
+        showMoreChoices: "Tampilkan lebih banyak",
         // [Auto-translated] "Show less"
-        showLessChoices: "显示更少",
+        showLessChoices: "Tampilkan lebih sedikit",
         // [Auto-translated] "Copy"
-        copy: "复制",
+        copy: "Menyalin",
         // [Auto-translated] "Cut"
-        cut: "切",
+        cut: "Memotong",
         // [Auto-translated] "Paste"
-        paste: "糊",
+        paste: "Pasta",
         // [Auto-translated] "Copy selection to clipboard"
-        copyTooltip: "将所选内容复制到剪贴板",
+        copyTooltip: "Salin pilihan ke clipboard",
         // [Auto-translated] "Cut selection to clipboard"
-        cutTooltip: "将所选内容剪切到剪贴板",
+        cutTooltip: "Memotong pilihan ke clipboard",
         // [Auto-translated] "Paste from clipboard"
-        pasteTooltip: "从剪贴板粘贴",
+        pasteTooltip: "Tempel dari papan klip",
         // "Options"
-        options: "选项",
+        options: "Pilihan",
         // "Generate Valid JSON"
-        generateValidJSON: "生成 JSON 数据",
+        generateValidJSON: "Hasilkan JSON yang Valid",
         // "Generate Readable JSON"
-        generateReadableJSON: "生成易读的 JSON 数据",
+        generateReadableJSON: "Hasilkan JSON yang dapat dibaca",
         // "Toolbox"
-        toolbox: "工具箱",
+        toolbox: "Kotak Perkakas",
         // [Auto-translated] "Properties"
-        "property-grid": "性能",
+        "property-grid": "Properti",
         // [Auto-translated] "Search"
-        toolboxSearch: "搜索",
+        toolboxSearch: "Mencari",
         // [Auto-translated] "Type to search..."
-        toolboxFilteredTextPlaceholder: "键入以搜索...",
+        toolboxFilteredTextPlaceholder: "Ketik untuk mencari...",
         // [Auto-translated] "No results found"
-        toolboxNoResultsFound: "未找到结果",
+        toolboxNoResultsFound: "Tidak ada hasil yang ditemukan",
         // [Auto-translated] "Type to search..."
-        propertyGridFilteredTextPlaceholder: "键入以搜索...",
+        propertyGridFilteredTextPlaceholder: "Ketik untuk mencari...",
         // [Auto-translated] "No results found"
-        propertyGridNoResultsFound: "未找到结果",
+        propertyGridNoResultsFound: "Tidak ada hasil yang ditemukan",
         // [Auto-translated] "Start configuring your form"
-        propertyGridPlaceholderTitle: "开始配置表单",
+        propertyGridPlaceholderTitle: "Mulai mengonfigurasi formulir Anda",
         // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
-        propertyGridPlaceholderDescription: "单击任何类别图标以浏览调查设置。将测量元素添加到设计图面后，其他设置将变为可用。",
+        propertyGridPlaceholderDescription: "Klik ikon kategori apa pun untuk menjelajahi pengaturan survei. Pengaturan tambahan akan tersedia setelah Anda menambahkan elemen survei ke permukaan desain.",
         // "Please correct JSON."
-        correctJSON: "请修正 JSON 数据",
+        correctJSON: "Please correct JSON.",
         // "Survey Results "
-        surveyResults: "问卷结果: ",
+        surveyResults: "Hasil survei: ",
         // "As Table"
-        surveyResultsTable: "表格形式",
+        surveyResultsTable: "Sebagai tabel",
         // "As JSON"
-        surveyResultsJson: "JSON形式",
+        surveyResultsJson: "Sebagai JSON",
         // "Question Title"
-        resultsTitle: "问题标题",
+        resultsTitle: "Judul Pertanyaan",
         // "Question Name"
-        resultsName: "问题名称",
+        resultsName: "Nama Pertanyaan",
         // "Answer Value"
-        resultsValue: "答案名称",
+        resultsValue: "Nilai Jawaban",
         // "Display Value"
-        resultsDisplayValue: "显示答案",
+        resultsDisplayValue: "Tampilkan Nilai",
         // "Modified"
-        modified: "已修改",
+        modified: "Dimodifikasi",
         // "Saving"
-        saving: "保存中...",
+        saving: "Menyimpan",
         // "Saved"
-        saved: "已保存",
+        saved: "Tersimpan",
         // [Auto-translated] "Error"
-        propertyEditorError: "错误",
+        propertyEditorError: "Kesalahan",
         // "Error! Editor content is not saved."
-        saveError: "错误，未保存",
+        saveError: "Error! Konten editor tidak berhasil disimpan.",
         // [Auto-translated] "Language Settings"
-        translationPropertyGridTitle: "语言设置",
+        translationPropertyGridTitle: "Pengaturan Bahasa",
         // [Auto-translated] "Theme Settings"
-        themePropertyGridTitle: "主题设置",
+        themePropertyGridTitle: "Pengaturan Tema",
         // [Auto-translated] "Add Language"
-        addLanguageTooltip: "添加语言",
+        addLanguageTooltip: "Tambahkan Bahasa",
         // [Auto-translated] "Languages"
-        translationLanguages: "语言",
+        translationLanguages: "Bahasa",
         // [Auto-translated] "Are you certain you wish to delete all strings for this language?"
-        translationDeleteLanguage: "您确定要删除此语言的所有字符串吗？",
+        translationDeleteLanguage: "Apakah Anda yakin ingin menghapus semua string untuk bahasa ini?",
         // "Select language to translate"
-        translationAddLanguage: "语言选择",
+        translationAddLanguage: "Pilih bahasa untuk terjemahan",
         // "All Strings"
-        translationShowAllStrings: "全部名词",
+        translationShowAllStrings: "Tampilkan seluruh string",
         // [Auto-translated] "Used Strings Only"
-        translationShowUsedStringsOnly: "仅使用的字符串",
+        translationShowUsedStringsOnly: "Hanya String yang Digunakan",
         // "All Pages"
-        translationShowAllPages: "全部页面",
+        translationShowAllPages: "Tampilkan seluruh halaman",
         // "No strings to translate. Please change the filter."
-        translationNoStrings: "未翻译，重新选",
+        translationNoStrings: "Tidak ada string diterjemahkan. Silahkan ganti penyaring.",
         // "Export to CSV"
-        translationExportToSCVButton: "导出CSV",
+        translationExportToSCVButton: "Eksport ke CSV",
         // "Import from CSV"
-        translationImportFromSCVButton: "导入CSV",
+        translationImportFromSCVButton: "Import dari CSV",
         // [Auto-translated] "Auto-translate All"
-        translateUsigAI: "自动翻译全部",
+        translateUsigAI: "Terjemahkan otomatis Semua",
         // [Auto-translated] "Translate from: "
-        translateUsigAIFrom: "翻译语言组合：",
+        translateUsigAIFrom: "Terjemahkan dari: ",
         // [Auto-translated] "Untranslated strings"
-        translationDialogTitle: "未翻译的字符串",
+        translationDialogTitle: "String yang tidak diterjemahkan",
         // "Merge {0} with default locale"
-        translationMergeLocaleWithDefault: "同默认合并 {0} ",
+        translationMergeLocaleWithDefault: "Gabungkan {0} dengan default locale",
         // [Auto-translated] "Translation..."
-        translationPlaceHolder: "译本。。。",
+        translationPlaceHolder: "Terjemahan...",
         // [Auto-translated] "Source: "
-        translationSource: "源：",
+        translationSource: "Sumber: ",
         // [Auto-translated] "Target: "
-        translationTarget: "目标：",
+        translationTarget: "Target: ",
         // [Auto-translated] "YouTube links are not supported."
-        translationYouTubeNotSupported: "不支持 YouTube 链接。",
+        translationYouTubeNotSupported: "Tautan YouTube tidak didukung.",
         // [Auto-translated] "Export"
-        themeExportButton: "出口",
+        themeExportButton: "Ekspor",
         // [Auto-translated] "Import"
-        themeImportButton: "进口",
+        themeImportButton: "Mengimpor",
         // [Auto-translated] "Export"
-        surveyJsonExportButton: "出口",
+        surveyJsonExportButton: "Ekspor",
         // [Auto-translated] "Import"
-        surveyJsonImportButton: "进口",
+        surveyJsonImportButton: "Mengimpor",
         // [Auto-translated] "Copy to clipboard"
-        surveyJsonCopyButton: "复制到剪贴板",
+        surveyJsonCopyButton: "Salin ke papan klip",
         // [Auto-translated] "Reset theme settings to default"
-        themeResetButton: "将主题设置重置为默认值",
+        themeResetButton: "Setel ulang pengaturan tema ke default",
         // [Auto-translated] "Do you really want to reset the theme? All your customizations will be lost."
-        themeResetConfirmation: "你真的要重置主题吗？您的所有自定义项都将丢失。",
+        themeResetConfirmation: "Apakah Anda benar-benar ingin mengatur ulang tema? Semua penyesuaian Anda akan hilang.",
         // [Auto-translated] "Yes, reset the theme"
-        themeResetConfirmationOk: "是，重置主题",
+        themeResetConfirmationOk: "Ya, atur ulang tema",
         // "Bold"
-        bold: "加粗",
+        bold: "Tebal",
         // "Italic"
-        italic: "斜体",
+        italic: "Miring",
         // "Underline"
-        underline: "下划线",
+        underline: "Garis Bawah",
         // "Add Question"
-        addNewQuestion: "添加问题",
+        addNewQuestion: "Tambah pertanyaan",
         // [Auto-translated] "Select page..."
-        selectPage: "选择页面...",
+        selectPage: "Pilih halaman...",
         // [Auto-translated] "Choices are copied from"
-        carryForwardChoicesCopied: "选择是从",
+        carryForwardChoicesCopied: "Pilihan disalin dari",
         // [Auto-translated] "Choices are loaded from a web service."
-        choicesLoadedFromWebText: "选项是从 Web 服务加载的。",
+        choicesLoadedFromWebText: "Pilihan dimuat dari layanan web.",
         // [Auto-translated] "Go to settings"
-        choicesLoadedFromWebLinkText: "前往“设置”",
+        choicesLoadedFromWebLinkText: "Buka pengaturan",
         // [Auto-translated] "Preview of loaded choice options"
-        choicesLoadedFromWebPreviewTitle: "加载选项的预览",
+        choicesLoadedFromWebPreviewTitle: "Pratinjau opsi pilihan yang dimuat",
         // [Auto-translated] "HTML content will be here."
-        htmlPlaceHolder: "HTML内容将在这里。",
+        htmlPlaceHolder: "Konten HTML akan ada di sini.",
         // [Auto-translated] "Drop a question from the toolbox here."
-        panelPlaceHolder: "在此处从工具箱中删除问题。",
+        panelPlaceHolder: "Jatuhkan pertanyaan dari kotak alat di sini.",
         // [Auto-translated] "The survey is empty. Drag an element from the toolbox or click the button below."
-        surveyPlaceHolder: "调查为空。从工具箱中拖动元素或单击下面的按钮。",
+        surveyPlaceHolder: "Survei kosong. Seret elemen dari kotak alat atau klik tombol di bawah.",
         // [Auto-translated] "The page is empty. Drag an element from the toolbox or click the button below."
-        pagePlaceHolder: "页面为空。从工具箱中拖动元素或单击下面的按钮。",
+        pagePlaceHolder: "Halaman kosong. Seret elemen dari kotak alat atau klik tombol di bawah.",
         // [Auto-translated] "Drag and drop an image here or click the button below and choose an image to upload"
-        imagePlaceHolder: "将图像拖放到此处或单击下面的按钮并选择要上传的图像",
+        imagePlaceHolder: "Seret dan lepas gambar di sini atau klik tombol di bawah ini dan pilih gambar untuk diunggah",
         // "Click the \"Add Question\" button below to start creating your form."
-        surveyPlaceHolderMobile: "单击下面的“添加问题”按钮开始创建表单。",
+        surveyPlaceHolderMobile: "Klik tombol \"Tambahkan Pertanyaan\" di bawah ini untuk mulai membuat formulir Anda.",
         // [Auto-translated] "Your form is empty"
-        surveyPlaceholderTitle: "您的表单为空",
+        surveyPlaceholderTitle: "Formulir Anda kosong",
         // [Auto-translated] "Your form is empty"
-        surveyPlaceholderTitleMobile: "您的表单为空",
+        surveyPlaceholderTitleMobile: "Formulir Anda kosong",
         // [Auto-translated] "Drag an element from the toolbox or click the button below."
-        surveyPlaceholderDescription: "从工具箱中拖动元素或单击下面的按钮。",
+        surveyPlaceholderDescription: "Seret elemen dari kotak alat atau klik tombol di bawah ini.",
         // [Auto-translated] "Drag an element from the toolbox or click the button below."
-        surveyPlaceholderDescriptionMobile: "从工具箱中拖动元素或单击下面的按钮。",
+        surveyPlaceholderDescriptionMobile: "Seret elemen dari kotak alat atau klik tombol di bawah ini.",
         // [Auto-translated] "No preview"
-        previewPlaceholderTitle: "无预览",
+        previewPlaceholderTitle: "Tidak ada pratinjau",
         // [Auto-translated] "No preview"
-        previewPlaceholderTitleMobile: "无预览",
+        previewPlaceholderTitleMobile: "Tidak ada pratinjau",
         // [Auto-translated] "The survey doesn't contain any visible elements."
-        previewPlaceholderDescription: "调查不包含任何可见元素。",
+        previewPlaceholderDescription: "Survei tidak berisi elemen yang terlihat.",
         // [Auto-translated] "The survey doesn't contain any visible elements."
-        previewPlaceholderDescriptionMobile: "调查不包含任何可见元素。",
+        previewPlaceholderDescriptionMobile: "Survei tidak berisi elemen yang terlihat.",
         // [Auto-translated] "No strings to translate"
-        translationsPlaceholderTitle: "无需翻译字符串",
+        translationsPlaceholderTitle: "Tidak ada ikatan untuk diterjemahkan",
         // [Auto-translated] "No strings to translate"
-        translationsPlaceholderTitleMobile: "无需翻译字符串",
+        translationsPlaceholderTitleMobile: "Tidak ada ikatan untuk diterjemahkan",
         // [Auto-translated] "Add elements to your form or change the strings filter in the toolbar."
-        translationsPlaceholderDescription: "将元素添加到表单或更改工具栏中的字符串筛选器。",
+        translationsPlaceholderDescription: "Tambahkan elemen ke formulir Anda atau ubah filter string di toolbar.",
         // [Auto-translated] "Add elements to your form or change the strings filter in the toolbar."
-        translationsPlaceholderDescriptionMobile: "将元素添加到表单或更改工具栏中的字符串筛选器。",
+        translationsPlaceholderDescriptionMobile: "Tambahkan elemen ke formulir Anda atau ubah filter string di toolbar.",
         // "Click the \"Add Question\" button below to add a new element to the page."
-        pagePlaceHolderMobile: "单击下面的“添加问题”按钮，向页面添加新元素。",
+        pagePlaceHolderMobile: "Klik tombol \"Tambahkan Pertanyaan\" di bawah ini untuk menambahkan elemen baru ke halaman.",
         // "Click the \"Add Question\" button below to add a new element to the panel."
-        panelPlaceHolderMobile: "单击下面的“添加问题”按钮，将新元素添加到面板中。",
+        panelPlaceHolderMobile: "Klik tombol \"Tambahkan Pertanyaan\" di bawah ini untuk menambahkan elemen baru ke panel.",
         // [Auto-translated] "Click the button below and choose an image to upload"
-        imagePlaceHolderMobile: "点击下面的按钮，选择要上传的图片",
+        imagePlaceHolderMobile: "Klik tombol di bawah ini dan pilih gambar untuk diunggah",
         // [Auto-translated] "Choose Image"
-        imageChooseImage: "选择图像",
+        imageChooseImage: "Pilih Gambar",
         // [Auto-translated] "Add {0}"
-        addNewTypeQuestion: "添加{0}", // {0} is localizable question type
+        addNewTypeQuestion: "Tambahkan {0}", // {0} is localizable question type
         // [Auto-translated] "[LOGO]"
-        chooseLogoPlaceholder: "[徽标]",
+        chooseLogoPlaceholder: "[LOGO]",
         // [Auto-translated] "Item "
-        choices_Item: "项目",
+        choices_Item: "Benda ",
         // [Auto-translated] "Select a file"
-        selectFile: "选择文件",
+        selectFile: "Pilih file",
         // [Auto-translated] "Remove the file"
-        removeFile: "删除文件",
+        removeFile: "Menghapus file",
         lg: {
             // [Auto-translated] "Add New Rule"
-            addNewItem: "添加新规则",
+            addNewItem: "Tambahkan Aturan Baru",
             // [Auto-translated] "Create a rule to customize the flow of the survey."
-            empty_tab: "创建规则以自定义调查流。",
+            empty_tab: "Buat aturan untuk menyesuaikan alur survei.",
             // [Auto-translated] "No logical rules"
-            logicPlaceholderTitle: "无逻辑规则",
+            logicPlaceholderTitle: "Tidak ada aturan logis",
             // [Auto-translated] "No logical rules"
-            logicPlaceholderTitleMobile: "无逻辑规则",
+            logicPlaceholderTitleMobile: "Tidak ada aturan logis",
             // [Auto-translated] "Create a rule to customize the flow of the survey."
-            logicPlaceholderDescription: "创建规则以自定义调查流程。",
+            logicPlaceholderDescription: "Buat aturan untuk menyesuaikan alur survei.",
             // [Auto-translated] "Create a rule to customize the flow of the survey."
-            logicPlaceholderDescriptionMobile: "创建规则以自定义调查流程。",
+            logicPlaceholderDescriptionMobile: "Buat aturan untuk menyesuaikan alur survei.",
             // [Auto-translated] "Show/hide page"
-            page_visibilityName: "显示/隐藏页面",
+            page_visibilityName: "Menampilkan/menyembunyikan halaman",
             // [Auto-translated] "Enable/disable page"
-            page_enableName: "启用/禁用页面",
+            page_enableName: "Mengaktifkan/menonaktifkan halaman",
             // [Auto-translated] "Make page required"
-            page_requireName: "将页面设为必填项",
+            page_requireName: "Buat halaman diperlukan",
             // [Auto-translated] "Show/hide panel"
-            panel_visibilityName: "显示/隐藏面板",
+            panel_visibilityName: "Tampilkan/sembunyikan panel",
             // [Auto-translated] "Enable/disable panel"
-            panel_enableName: "启用/禁用面板",
+            panel_enableName: "Aktifkan/nonaktifkan panel",
             // [Auto-translated] "Make panel required"
-            panel_requireName: "使面板成为必填项",
+            panel_requireName: "Membuat panel diperlukan",
             // [Auto-translated] "Show/hide question"
-            question_visibilityName: "显示/隐藏问题",
+            question_visibilityName: "Tampilkan/sembunyikan pertanyaan",
             // [Auto-translated] "Enable/disable question"
-            question_enableName: "启用/禁用问题",
+            question_enableName: "Mengaktifkan/menonaktifkan pertanyaan",
             // [Auto-translated] "Make question required"
-            question_requireName: "提出必填题",
+            question_requireName: "Buat pertanyaan diperlukan",
             // [Auto-translated] "Reset question value"
-            question_resetValueName: "重置问题值",
+            question_resetValueName: "Mereset nilai pertanyaan",
             // [Auto-translated] "Set question value"
-            question_setValueName: "设置问题值",
+            question_setValueName: "Tetapkan nilai pertanyaan",
             // [Auto-translated] "Show/hide column"
-            column_visibilityName: "显示/隐藏列",
+            column_visibilityName: "Tampilkan/sembunyikan kolom",
             // [Auto-translated] "Enable/disable column"
-            column_enableName: "启用/禁用列",
+            column_enableName: "Aktifkan/nonaktifkan kolom",
             // [Auto-translated] "Make column required"
-            column_requireName: "使列成为必填项",
+            column_requireName: "Buat kolom diperlukan",
             // [Auto-translated] "Reset column value"
-            column_resetValueName: "重置列值",
+            column_resetValueName: "Mereset nilai kolom",
             // [Auto-translated] "Set column value"
-            column_setValueName: "设置列值",
+            column_setValueName: "Mengatur nilai kolom",
             // [Auto-translated] "Complete survey"
-            trigger_completeName: "完成调查",
+            trigger_completeName: "Survei lengkap",
             // [Auto-translated] "Set answer"
-            trigger_setvalueName: "设置答案",
+            trigger_setvalueName: "Tetapkan jawaban",
             // [Auto-translated] "Copy answer"
-            trigger_copyvalueName: "复制答案",
+            trigger_copyvalueName: "Salin jawaban",
             // [Auto-translated] "Skip to question"
-            trigger_skipName: "跳至问题",
+            trigger_skipName: "Lanjut ke pertanyaan",
             // [Auto-translated] "Run expression"
-            trigger_runExpressionName: "运行表达式",
+            trigger_runExpressionName: "Menjalankan ekspresi",
             // "Set \"Thank You\" page markup"
-            completedHtmlOnConditionName: "设置“调查完成”页面标记",
+            completedHtmlOnConditionName: "Mengatur markup halaman \"Survei Selesai\"",
             // [Auto-translated] "Make the page visible when the logical expression evaluates to true. Otherwise, keep the page invisible."
-            page_visibilityDescription: "当逻辑表达式计算结果为 true 时，使页面可见。否则，请保持页面不可见。",
+            page_visibilityDescription: "Jadikan halaman terlihat saat ekspresi logis dievaluasi menjadi true. Jika tidak, jaga agar halaman tidak terlihat.",
             // [Auto-translated] "Make the page visible when the logical expression evaluates to true. Otherwise, keep the panel invisible."
-            panel_visibilityDescription: "当逻辑表达式计算结果为 true 时，使页面可见。否则，请保持面板不可见。",
+            panel_visibilityDescription: "Jadikan halaman terlihat saat ekspresi logis dievaluasi menjadi true. Jika tidak, jaga agar panel tidak terlihat.",
             // [Auto-translated] "Make the panel and all elements inside it enabled when the logical expression evaluates to true. Otherwise, keep them disabled."
-            panel_enableDescription: "当逻辑表达式计算结果为 true 时，启用面板及其中的所有元素。否则，请禁用它们。",
+            panel_enableDescription: "Buat panel dan semua elemen di dalamnya diaktifkan saat ekspresi logis dievaluasi menjadi true. Jika tidak, biarkan mereka tetap nonaktif.",
             // [Auto-translated] "Make the question visible when the logical expression evaluates to true. Otherwise, keep the question invisible."
-            question_visibilityDescription: "当逻辑表达式的计算结果为 true 时，使问题可见。否则，请保持问题不可见。",
+            question_visibilityDescription: "Buat pertanyaan terlihat saat ekspresi logis dievaluasi menjadi true. Jika tidak, jaga agar pertanyaan tidak terlihat.",
             // [Auto-translated] "Make the question enabled when the logical expression evaluates to true. Otherwise, keep the question disabled."
-            question_enableDescription: "当逻辑表达式的计算结果为 true 时启用问题。否则，请禁用该问题。",
+            question_enableDescription: "Aktifkan pertanyaan saat ekspresi logis dievaluasi menjadi true. Jika tidak, biarkan pertanyaan tetap dinonaktifkan.",
             // [Auto-translated] "Question becomes required when the logical expression evaluates to true."
-            question_requireDescription: "当逻辑表达式的计算结果为 true 时，Question 变为必填项。",
+            question_requireDescription: "Pertanyaan menjadi diperlukan ketika ekspresi logis dievaluasi menjadi true.",
             // [Auto-translated] "When the logical expression evaluates to true, the survey ends, and the respondent sees the \"Thank you\" page."
-            trigger_completeDescription: "当逻辑表达式的计算结果为 true 时，调查结束，受访者将看到“谢谢”页面。",
+            trigger_completeDescription: "Saat ekspresi logis dievaluasi menjadi true, survei berakhir, dan responden melihat halaman \"Terima kasih\".",
             // [Auto-translated] "When question values used in the logical expression are changed, and the expression evaluates to true, the specified value is assigned to the selected question."
-            trigger_setvalueDescription: "当逻辑表达式中使用的问题值发生更改，并且表达式的计算结果为 true 时，将指定值分配给所选问题。",
+            trigger_setvalueDescription: "Ketika nilai pertanyaan yang digunakan dalam ekspresi logis diubah, dan ekspresi dievaluasi menjadi true, nilai yang ditentukan ditetapkan ke pertanyaan yang dipilih.",
             // [Auto-translated] "When question values used in the logical expression are changed, and the expression evaluates to true, the value of the selected question is copied to another question."
-            trigger_copyvalueDescription: "当逻辑表达式中使用的问题值发生更改，并且表达式的计算结果为 true 时，所选问题的值将复制到另一个问题中。",
+            trigger_copyvalueDescription: "Ketika nilai pertanyaan yang digunakan dalam ekspresi logis diubah, dan ekspresi dievaluasi menjadi true, nilai pertanyaan yang dipilih disalin ke pertanyaan lain.",
             // [Auto-translated] "When the logical expression evaluates to true, the survey focuses/jumps to the selected question."
-            trigger_skipDescription: "当逻辑表达式的计算结果为 true 时，调查将聚焦/跳转到所选问题。",
+            trigger_skipDescription: "Ketika ekspresi logis dievaluasi menjadi true, survei memfokuskan/melompat ke pertanyaan yang dipilih.",
             // [Auto-translated] "When the logical expression evaluates to true, the survey evaluates another expression. Optionally, the result of the latter expression can be assigned as a value to the selected question"
-            trigger_runExpressionDescription: "当逻辑表达式的计算结果为 true 时，调查将计算另一个表达式。可选地，可以将后一个表达式的结果作为值分配给所选问题",
+            trigger_runExpressionDescription: "Ketika ekspresi logis dievaluasi menjadi true, survei mengevaluasi ekspresi lain. Secara opsional, hasil dari ekspresi terakhir dapat ditetapkan sebagai nilai untuk pertanyaan yang dipilih",
             // [Auto-translated] "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
-            completedHtmlOnConditionDescription: "如果逻辑表达式的计算结果为 true，则“谢谢”页面将显示指定的内容。",
+            completedHtmlOnConditionDescription: "Jika ekspresi logis dievaluasi menjadi true, halaman \"Terima kasih\" menampilkan konten yang ditentukan.",
             // [Auto-translated] "When expression: '{0}' returns true"
-            itemExpressionText: "当表达式：“{0}”返回 true", // {0} - the expression
+            itemExpressionText: "Ketika ekspresi: '{0}' mengembalikan true", // {0} - the expression
             // [Auto-translated] "New rule"
-            itemEmptyExpressionText: "新规则",
+            itemEmptyExpressionText: "Aturan baru",
             // [Auto-translated] "make page {0} visible"
-            page_visibilityText: "使页面{0}可见", // {0} page name
+            page_visibilityText: "Membuat halaman {0} terlihat", // {0} page name
             // [Auto-translated] "make panel {0} visible"
-            panel_visibilityText: "使面板{0}可见", // {0} panel name
+            panel_visibilityText: "Membuat panel {0} terlihat", // {0} panel name
             // [Auto-translated] "make panel {0} enable"
-            panel_enableText: "使面板{0}启用", // {0} panel name
+            panel_enableText: "Membuat panel {0} mengaktifkan", // {0} panel name
             // [Auto-translated] "make question {0} visible"
-            question_visibilityText: "使问题{0}可见", // {0} question name
+            question_visibilityText: "Buat pertanyaan {0} terlihat", // {0} question name
             // [Auto-translated] "make question {0} enable"
-            question_enableText: "使问题{0}启用", // {0} question name
+            question_enableText: "Buat pertanyaan {0} aktifkan", // {0} question name
             // [Auto-translated] "make question {0} required"
-            question_requireText: "将问题{0}为必填项", // {0} question name
+            question_requireText: "Buat pertanyaan {0} diperlukan", // {0} question name
             // [Auto-translated] "reset value for question: {0}"
-            question_resetValueText: "重置问题的值：{0}", // {0} question name.
+            question_resetValueText: "reset nilai untuk pertanyaan: {0}", // {0} question name.
             // [Auto-translated] "assign value: {1} to question: {0}"
-            question_setValueText: "分配值：{1}问题：{0}", // {0} question name and {1} setValueExpression
+            question_setValueText: "Tetapkan nilai: {1} pertanyaan: {0}", // {0} question name and {1} setValueExpression
             // [Auto-translated] "make column {0} of question {1} visible"
-            column_visibilityText: "使问题{1}的列{0}可见", // {0} column name, {1} question name
+            column_visibilityText: "Membuat kolom {0} pertanyaan {1} terlihat", // {0} column name, {1} question name
             // [Auto-translated] "make column {0} of question {1} enable"
-            column_enableText: "使问题{1}列{0}启用", // {0} column name, {1} question name
+            column_enableText: "Buat kolom {0} pertanyaan {1} aktifkan", // {0} column name, {1} question name
             // [Auto-translated] "make column {0} of question {1} required"
-            column_requireText: "{0}将问题{1}列为必填项", // {0} column name, {1} question name
+            column_requireText: "membuat kolom {0} pertanyaan {1} diperlukan", // {0} column name, {1} question name
             // [Auto-translated] "reset cell value for column: {0}"
-            column_resetValueText: "重置列的单元格值：{0}", // {0} column name
+            column_resetValueText: "Setel ulang nilai sel untuk kolom: {0}", // {0} column name
             // [Auto-translated] "assign cell value: {1} to column: {0}"
-            column_setValueText: "将单元格值：{1}分配给列：{0}", // {0} column name and {1} setValueExpression
+            column_setValueText: "Menetapkan nilai sel: {1} ke kolom: {0}", // {0} column name and {1} setValueExpression
             // [Auto-translated] "An expression whose result will be assigned to the target question."
-            setValueExpressionPlaceholder: "一个表达式，其结果将分配给目标问题。",
+            setValueExpressionPlaceholder: "Ekspresi yang hasilnya akan ditetapkan ke pertanyaan target.",
             // [Auto-translated] "survey becomes completed"
-            trigger_completeText: "调查完成",
+            trigger_completeText: "Survei menjadi selesai",
             // [Auto-translated] "set into question: {0} value {1}"
-            trigger_setvalueText: "受到质疑：{0}价值{1}", // {0} question name, {1} setValue
+            trigger_setvalueText: "Pertanyaan: {0} nilai {1}", // {0} question name, {1} setValue
             // [Auto-translated] "clear question value: {0}"
-            trigger_setvalueEmptyText: "明确问题值：{0}", // {0} question name
+            trigger_setvalueEmptyText: "Nilai Pertanyaan yang Jelas: {0}", // {0} question name
             // [Auto-translated] "copy into question: {0} value from question {1}"
-            trigger_copyvalueText: "复制到问题：{0}问题 {1} 的值", // {0} and {1} question names
+            trigger_copyvalueText: "Salin ke pertanyaan: {0} nilai dari pertanyaan {1}", // {0} and {1} question names
             // [Auto-translated] "survey skip to the question {0}"
-            trigger_skipText: "调查 跳至问题{0}", // {0} question name
+            trigger_skipText: "Survei Lewati ke pertanyaan {0}", // {0} question name
             // [Auto-translated] "run expression: '{0}'"
-            trigger_runExpressionText1: "运行表达式：“{0}”", // {0} the expression
+            trigger_runExpressionText1: "menjalankan ekspresi: '{0}'", // {0} the expression
             // [Auto-translated] " and set its result into question: {0}"
-            trigger_runExpressionText2: "并质疑其结果：{0}", // {0} question name
-            // [Auto-translated] "show custom text for the \"Thank You\" page."
-            completedHtmlOnConditionText: "显示“谢谢”页面的自定义文本。",
+            trigger_runExpressionText2: " dan mempertanyakan hasilnya: {0}", // {0} question name
+            // "show custom text for the \"Thank You\" page."
+            completedHtmlOnConditionText: "tampilkan teks kustom untuk \"Halaman terima kasih\".",
             // [Auto-translated] "All Questions"
-            showAllQuestions: "所有问题",
+            showAllQuestions: "Semua Pertanyaan",
             // [Auto-translated] "All Action Types"
-            showAllActionTypes: "所有操作类型",
+            showAllActionTypes: "Semua Jenis Tindakan",
             // [Auto-translated] "Condition(s)"
-            conditions: "条件",
+            conditions: "Ketentuan",
             // [Auto-translated] "Action(s)"
-            actions: "操作 （s）",
+            actions: "Tindakan",
             // [Auto-translated] "Define condition(s)"
-            expressionEditorTitle: "定义条件",
+            expressionEditorTitle: "Tentukan kondisi",
             // [Auto-translated] "Define action(s)"
-            actionsEditorTitle: "定义操作",
+            actionsEditorTitle: "Menentukan tindakan",
             // [Auto-translated] "Delete Action"
-            deleteAction: "删除操作",
+            deleteAction: "Hapus Tindakan",
             // [Auto-translated] "Add Action"
-            addNewAction: "添加操作",
+            addNewAction: "Tambahkan Tindakan",
             // [Auto-translated] "Select action..."
-            selectedActionCaption: "选择操作...",
+            selectedActionCaption: "Pilih tindakan...",
             // [Auto-translated] "The logic expression is empty or invalid. Please correct it."
-            expressionInvalid: "逻辑表达式为空或无效。请更正。",
+            expressionInvalid: "Ekspresi logika kosong atau tidak valid. Mohon koreksinya.",
             // [Auto-translated] "Please add at least one action."
-            noActionError: "请添加至少一个作。",
+            noActionError: "Silakan tambahkan setidaknya satu tindakan.",
             // [Auto-translated] "Please fix issues in your action(s)."
-            actionInvalid: "请解决作中的问题。",
+            actionInvalid: "Harap perbaiki masalah dalam tindakan Anda.",
             // [Auto-translated] "Logical rules are incomplete"
-            uncompletedRule_title: "逻辑规则不完整",
+            uncompletedRule_title: "Aturan logis tidak lengkap",
             // [Auto-translated] "You have not completed some of the logical rules. If you leave the tab now, the changes will be lost. Do you still want to leave the tab without completing the changes?"
-            uncompletedRule_text: "您尚未完成某些逻辑规则。如果现在离开该选项卡，更改将丢失。是否仍要离开选项卡而不完成更改？",
+            uncompletedRule_text: "Anda belum menyelesaikan beberapa aturan logis. Jika Anda meninggalkan tab sekarang, perubahan akan hilang. Apakah Anda masih ingin meninggalkan tab tanpa menyelesaikan perubahan?",
             // [Auto-translated] "Yes"
-            uncompletedRule_apply: "是的",
+            uncompletedRule_apply: "Ya",
             // [Auto-translated] "No, I want to complete the rules"
-            uncompletedRule_cancel: "不，我想完成规则"
+            uncompletedRule_cancel: "Tidak, saya ingin menyelesaikan aturan"
         }
     },
     // Property Editors
     pe: {
         panel: {
             // [Auto-translated] "Panel name"
-            name: "面板名称",
+            name: "Nama panel",
             // [Auto-translated] "Panel title"
-            title: "面板标题",
+            title: "Judul panel",
             // [Auto-translated] "Panel description"
-            description: "面板说明",
+            description: "Deskripsi panel",
             // [Auto-translated] "Make the panel visible if"
-            visibleIf: "如果出现以下情况，则使面板可见",
+            visibleIf: "Buat panel terlihat jika",
             // [Auto-translated] "Make the panel required if"
-            requiredIf: "如果出现以下情况，则使面板成为必需的",
+            requiredIf: "Buat panel diperlukan jika",
             // [Auto-translated] "Question order within the panel"
-            questionOrder: "小组内的问题顺序",
+            questionOrder: "Urutan pertanyaan dalam panel",
             // [Auto-translated] "Move the panel to page"
-            page: "将面板移动到页面",
+            page: "Memindahkan panel ke halaman",
             // [Auto-translated] "Display the panel on a new line"
-            startWithNewLine: "在新行上显示面板",
+            startWithNewLine: "Menampilkan panel pada baris baru",
             // [Auto-translated] "Panel collapse state"
-            state: "面板折叠状态",
+            state: "Status penciwunan panel",
             // [Auto-translated] "Inline panel width"
-            width: "内联面板宽度",
+            width: "Lebar panel sebaris",
             // [Auto-translated] "Minimum panel width"
-            minWidth: "最小面板宽度",
+            minWidth: "Lebar panel minimum",
             // [Auto-translated] "Maximum panel width"
-            maxWidth: "最大面板宽度",
+            maxWidth: "Lebar panel maksimum",
             // [Auto-translated] "Number this panel"
-            showNumber: "对此面板进行编号"
+            showNumber: "Beri nomor panel ini"
         },
         panellayoutcolumn: {
             // [Auto-translated] "Effective width, %"
-            effectiveWidth: "有效宽度，%",
+            effectiveWidth: "Lebar efektif, %",
             // [Auto-translated] "Question title width, px"
-            questionTitleWidth: "问题标题宽度，像素"
+            questionTitleWidth: "Lebar judul pertanyaan, px"
         },
         paneldynamic: {
             // [Auto-translated] "Panel name"
-            name: "面板名称",
+            name: "Nama panel",
             // [Auto-translated] "Panel title"
-            title: "面板标题",
+            title: "Judul panel",
             // [Auto-translated] "Panel description"
-            description: "面板说明",
+            description: "Deskripsi panel",
             // [Auto-translated] "Entry display mode"
-            displayMode: "入口显示模式",
+            displayMode: "Mode tampilan entri",
             // [Auto-translated] "Make the panel visible if"
-            visibleIf: "如果出现以下情况，则使面板可见",
+            visibleIf: "Buat panel terlihat jika",
             // [Auto-translated] "Make the panel required if"
-            requiredIf: "如果出现以下情况，则使面板成为必需的",
+            requiredIf: "Buat panel diperlukan jika",
             // [Auto-translated] "Move the panel to page"
-            page: "将面板移动到页面",
+            page: "Memindahkan panel ke halaman",
             // [Auto-translated] "Display the panel on a new line"
-            startWithNewLine: "在新行上显示面板",
+            startWithNewLine: "Menampilkan panel pada baris baru",
             // [Auto-translated] "Panel collapse state"
-            state: "面板折叠状态",
+            state: "Status keruntuhan panel",
             // [Auto-translated] "Inline panel width"
-            width: "内嵌面板宽度",
+            width: "Lebar panel sejajar",
             // [Auto-translated] "Minimum panel width"
-            minWidth: "最小面板宽度",
+            minWidth: "Lebar panel minimum",
             // [Auto-translated] "Maximum panel width"
-            maxWidth: "最大面板宽度",
+            maxWidth: "Lebar panel maksimum",
             // [Auto-translated] "Confirm entry removal"
-            confirmDelete: "确认条目移除",
+            confirmDelete: "Konfirmasi penghapusan entri",
             // [Auto-translated] "Entry description pattern"
-            templateDescription: "条目描述模式",
+            templateDescription: "Pola deskripsi entri",
             // [Auto-translated] "Entry title pattern"
-            templateTitle: "条目标题模式",
+            templateTitle: "Pola judul entri",
             // [Auto-translated] "Empty panel text"
-            noEntriesText: "空面板文本",
+            noEntriesText: "Teks panel kosong",
             // [Auto-translated] "Tab title pattern"
-            templateTabTitle: "选项卡标题模式",
+            templateTabTitle: "Pola judul tab",
             // [Auto-translated] "Tab title placeholder"
-            tabTitlePlaceholder: "选项卡标题占位符",
+            tabTitlePlaceholder: "Tempat penampung judul tab",
             // [Auto-translated] "Make an individual entry visible if"
-            templateVisibleIf: "如果出现以下情况，则单个条目可见",
+            templateVisibleIf: "Membuat entri individual terlihat jika",
             // [Auto-translated] "Number the panel"
-            showNumber: "为面板编号",
+            showNumber: "Nomor panel",
             // [Auto-translated] "Panel title alignment"
-            titleLocation: "面板标题对齐方式",
+            titleLocation: "Perataan judul panel",
             // [Auto-translated] "Panel description alignment"
-            descriptionLocation: "面板描述对齐方式",
+            descriptionLocation: "Perataan deskripsi panel",
             // [Auto-translated] "Question title alignment"
-            templateQuestionTitleLocation: "问题标题对齐",
+            templateQuestionTitleLocation: "Perataan judul pertanyaan",
             // [Auto-translated] "Question title width"
-            templateQuestionTitleWidth: "问题标题宽度",
+            templateQuestionTitleWidth: "Lebar judul pertanyaan",
             // [Auto-translated] "Error message alignment"
-            templateErrorLocation: "错误消息对齐",
+            templateErrorLocation: "Perataan pesan kesalahan",
             // [Auto-translated] "New entry location"
-            newPanelPosition: "新入场地点",
+            newPanelPosition: "Lokasi entri baru",
             // [Auto-translated] "Prevent duplicate responses in the following question"
-            keyName: "防止以下问题中的重复回答"
+            keyName: "Cegah respons duplikat dalam pertanyaan berikut"
         },
         question: {
             // [Auto-translated] "Question name"
-            name: "问题名称",
+            name: "Nama pertanyaan",
             // [Auto-translated] "Question title"
-            title: "问题标题",
+            title: "Judul pertanyaan",
             // [Auto-translated] "Question description"
-            description: "问题描述",
+            description: "Deskripsi pertanyaan",
             // [Auto-translated] "Show the title and description"
-            showTitle: "显示标题和描述",
+            showTitle: "Tampilkan judul dan deskripsi",
             // [Auto-translated] "Make the question visible if"
-            visibleIf: "如果出现以下情况，请使问题可见",
+            visibleIf: "Buat pertanyaan terlihat jika",
             // [Auto-translated] "Make the question required if"
-            requiredIf: "如果出现以下情况，则将问题设为必填项",
+            requiredIf: "Buat pertanyaan diperlukan jika",
             // [Auto-translated] "Move the question to page"
-            page: "将问题移至页面",
+            page: "Memindahkan pertanyaan ke halaman",
             // [Auto-translated] "Question box collapse state"
-            state: "问题框折叠状态",
+            state: "Status ciutkan kotak pertanyaan",
             // [Auto-translated] "Number this question"
-            showNumber: "为这个问题编号",
+            showNumber: "Nomor pertanyaan ini",
             // [Auto-translated] "Question title alignment"
-            titleLocation: "问题标题对齐方式",
+            titleLocation: "Perataan judul pertanyaan",
             // [Auto-translated] "Question description alignment"
-            descriptionLocation: "问题描述对齐方式",
+            descriptionLocation: "Perataan deskripsi pertanyaan",
             // [Auto-translated] "Error message alignment"
-            errorLocation: "错误消息对齐",
+            errorLocation: "Perataan pesan kesalahan",
             // [Auto-translated] "Increase the inner indent"
-            indent: "增加内缩进",
+            indent: "Tingkatkan lekukan bagian dalam",
             // [Auto-translated] "Inline question width"
-            width: "内联问题宽度",
+            width: "Lebar pertanyaan sebaris",
             // [Auto-translated] "Minimum question width"
-            minWidth: "最小问题宽度",
+            minWidth: "Lebar pertanyaan minimum",
             // [Auto-translated] "Maximum question width"
-            maxWidth: "最大问题宽度",
+            maxWidth: "Lebar pertanyaan maksimum",
             // [Auto-translated] "Update input field value"
-            textUpdateMode: "更新输入字段值"
+            textUpdateMode: "Perbarui nilai bidang input"
         },
         signaturepad: {
             // [Auto-translated] "Signature area width"
-            signatureWidth: "签名区域宽度",
+            signatureWidth: "Lebar area tanda tangan",
             // [Auto-translated] "Signature area height"
-            signatureHeight: "签名区高度",
+            signatureHeight: "Tinggi area tanda tangan",
             // [Auto-translated] "Auto-scale the signature area"
-            signatureAutoScaleEnabled: "自动缩放签名区域",
+            signatureAutoScaleEnabled: "Menskalakan area tanda tangan secara otomatis",
             // [Auto-translated] "Show a placeholder within signature area"
-            showPlaceholder: "在签名区域内显示占位符",
+            showPlaceholder: "Tampilkan placeholder dalam area tanda tangan",
             // [Auto-translated] "Placeholder text"
-            placeholder: "占位符文本",
+            placeholder: "Teks tempat penampung",
             // [Auto-translated] "Placeholder text in read-only or preview mode"
-            placeholderReadOnly: "只读或预览模式下的占位符文本",
+            placeholderReadOnly: "Teks tempat penampung dalam mode baca-saja atau pratinjau",
             // [Auto-translated] "Show the Clear button within signature area"
-            allowClear: "在签名区域内显示“清除”按钮",
+            allowClear: "Tampilkan tombol Hapus dalam area tanda tangan",
             // [Auto-translated] "Minimum stroke width"
-            penMinWidth: "最小笔画宽度",
+            penMinWidth: "Lebar goresan minimum",
             // [Auto-translated] "Maximum stroke width"
-            penMaxWidth: "最大行程宽度",
+            penMaxWidth: "Lebar goresan maksimum",
             // [Auto-translated] "Stroke color"
-            penColor: "描边颜色"
+            penColor: "Warna goresan"
         },
         comment: {
             // [Auto-translated] "Input field height (in lines)"
-            rows: "输入字段高度（以行为单位）"
+            rows: "Tinggi bidang input (dalam baris)"
         },
         // "Question numbering"
-        showQuestionNumbers: "显示问题编号",
+        showQuestionNumbers: "Tampilkan nomor pertanyaan",
         // "Question indexing type"
-        questionStartIndex: "问题起始标志 (1, 2 or 'A', 'a')",
+        questionStartIndex: "Indeks mulai pertanyaan (1, 2 atau 'A', 'a')",
         expression: {
             // [Auto-translated] "Expression name"
-            name: "表达式名称",
+            name: "Nama ekspresi",
             // [Auto-translated] "Expression title"
-            title: "表达式标题",
+            title: "Judul ekspresi",
             // [Auto-translated] "Expression description"
-            description: "表达式说明",
+            description: "Deskripsi ekspresi",
             // [Auto-translated] "Expression"
-            expression: "表达"
+            expression: "Ekspresi"
         },
         trigger: {
             // [Auto-translated] "Expression"
-            expression: "表达"
+            expression: "Ekspresi"
         },
         calculatedvalue: {
             // [Auto-translated] "Expression"
-            expression: "表达"
+            expression: "Ekspresi"
         },
         // survey templates
         survey: {
             // [Auto-translated] "Survey title"
-            title: "调查标题",
+            title: "Judul survei",
             // [Auto-translated] "Survey description"
-            description: "调查说明",
+            description: "Deskripsi survei",
             // [Auto-translated] "Make the survey read-only"
-            readOnly: "将调查设为只读"
+            readOnly: "Jadikan survei baca-saja"
         },
         page: {
             // [Auto-translated] "Page name"
-            name: "页面名称",
+            name: "Nama halaman",
             // [Auto-translated] "Page title"
-            title: "页面标题",
+            title: "Judul halaman",
             // [Auto-translated] "Page description"
-            description: "页面描述",
+            description: "Deskripsi halaman",
             // [Auto-translated] "Make the page visible if"
-            visibleIf: "如果出现以下情况，则使页面可见",
+            visibleIf: "Membuat halaman terlihat jika",
             // [Auto-translated] "Make the page required if"
-            requiredIf: "如果出现以下情况，则使页面为必填项",
+            requiredIf: "Buat halaman diperlukan jika",
             // [Auto-translated] "Time limit to complete the page"
-            timeLimit: "完成页面的时间限制",
+            timeLimit: "Batas waktu untuk menyelesaikan halaman",
             // [Auto-translated] "Question order on the page"
-            questionOrder: "页面上的问题顺序"
+            questionOrder: "Urutan pertanyaan di halaman"
         },
         matrixdropdowncolumn: {
             // [Auto-translated] "Column name"
-            name: "列名称",
+            name: "Nama kolom",
             // [Auto-translated] "Column title"
-            title: "专栏标题",
+            title: "Judul kolom",
             // [Auto-translated] "Prevent duplicate responses"
-            isUnique: "防止重复响应",
+            isUnique: "Mencegah respons duplikat",
             // [Auto-translated] "Column width"
-            width: "列宽",
+            width: "Lebar kolom",
             // [Auto-translated] "Minimum column width"
-            minWidth: "最小列宽",
+            minWidth: "Lebar kolom minimum",
             // [Auto-translated] "Input field height (in lines)"
-            rows: "输入字段高度（以行为单位）",
+            rows: "Tinggi bidang input (dalam baris)",
             // [Auto-translated] "Make the column visible if"
-            visibleIf: "如果出现以下情况，则使列可见",
+            visibleIf: "Membuat kolom terlihat jika",
             // [Auto-translated] "Make the column required if"
-            requiredIf: "如果满足以下条件，则使该列为必填项",
+            requiredIf: "Buat kolom diperlukan jika",
             // [Auto-translated] "Each option in a separate column"
-            showInMultipleColumns: "每个选项都在单独的列中"
+            showInMultipleColumns: "Setiap opsi dalam kolom terpisah"
         },
         matrixcolumn: {
             // [Auto-translated] "Clear others in the same row"
-            isExclusive: "清除同一行中的其他人"
+            isExclusive: "Hapus yang lain di baris yang sama"
         },
         multipletextitem: {
             // [Auto-translated] "Name"
-            name: "名字",
+            name: "Nama",
             // [Auto-translated] "Title"
-            title: "标题"
+            title: "Titel"
         },
         masksettings: {
             // [Auto-translated] "Save masked value in survey results"
-            saveMaskedValue: "在调查结果中保存掩码值"
+            saveMaskedValue: "Simpan nilai terselubung dalam hasil survei"
         },
         patternmask: {
             // [Auto-translated] "Value pattern"
-            pattern: "价值模式"
+            pattern: "Pola nilai"
         },
         datetimemask: {
             // [Auto-translated] "Minimum value"
-            min: "最小值",
+            min: "Nilai minimum",
             // [Auto-translated] "Maximum value"
-            max: "最大值"
+            max: "Nilai maksimum"
         },
         numericmask: {
             // [Auto-translated] "Allow negative values"
-            allowNegativeValues: "允许负值",
+            allowNegativeValues: "Izinkan nilai negatif",
             // [Auto-translated] "Thousands separator"
-            thousandsSeparator: "千分隔符",
+            thousandsSeparator: "Pemisah ribuan",
             // [Auto-translated] "Decimal separator"
-            decimalSeparator: "小数点分隔符",
+            decimalSeparator: "Pemisah desimal",
             // [Auto-translated] "Value precision"
-            precision: "值精度",
+            precision: "Presisi nilai",
             // [Auto-translated] "Minimum value"
-            min: "最小值",
+            min: "Nilai minimum",
             // [Auto-translated] "Maximum value"
-            max: "最大值"
+            max: "Nilai maksimum"
         },
         currencymask: {
             // [Auto-translated] "Currency prefix"
-            prefix: "货币前缀",
+            prefix: "Awalan mata uang",
             // [Auto-translated] "Currency suffix"
-            suffix: "货币后缀"
+            suffix: "Akhiran mata uang"
         },
         // [Auto-translated] "Clear others when selected"
-        isExclusive: "选中时清除其他",
+        isExclusive: "Hapus yang lain saat dipilih",
         // [Auto-translated] "Display both text and value"
-        showValue: "同时显示文本和值",
+        showValue: "Tampilkan teks dan nilai",
         // [Auto-translated] "Require user to enter a comment"
-        isCommentRequired: "要求用户输入注释",
+        isCommentRequired: "Mengharuskan pengguna untuk memasukkan komentar",
         // "Display area height"
-        imageHeight: "图片高度",
+        imageHeight: "Tinggi gambar",
         // "Display area width"
-        imageWidth: "图片宽度",
+        imageWidth: "Lebar gambar",
         // "Join identifier"
-        valueName: "值名",
+        valueName: "Nama nilai",
         // [Auto-translated] "Default display value for dynamic texts"
-        defaultDisplayValue: "动态文本的默认显示值",
+        defaultDisplayValue: "Nilai tampilan default untuk teks dinamis",
         // [Auto-translated] "Label alignment"
-        rateDescriptionLocation: "标签对齐",
+        rateDescriptionLocation: "Perataan label",
         // [Auto-translated] "Input field width (in characters)"
-        size: "输入字段宽度（以字符为单位）",
+        size: "Lebar bidang input (dalam karakter)",
         // [Auto-translated] "Cell error message alignment"
-        cellErrorLocation: "单元格错误消息对齐方式",
+        cellErrorLocation: "Perataan pesan kesalahan sel",
         // [Auto-translated] "Enabled"
-        enabled: "启用",
+        enabled: "Diaktifkan",
         // [Auto-translated] "Disabled"
-        disabled: "禁用",
+        disabled: "Cacat",
         // [Auto-translated] "Inherit"
-        inherit: "继承",
+        inherit: "Mewarisi",
         // "Apply"
-        apply: "应用",
+        apply: "Terapkan",
         // "OK"
-        ok: "确定",
+        ok: "OK",
         // [Auto-translated] "Save"
-        save: "救",
+        save: "Simpan",
         // [Auto-translated] "Clear"
-        clear: "清楚",
+        clear: "Jelas",
         // [Auto-translated] "Save"
-        saveTooltip: "救",
+        saveTooltip: "Simpan",
         // "Cancel"
-        cancel: "取消",
+        cancel: "Batal",
         // [Auto-translated] "Set"
-        set: "设置",
+        set: "Mengeset",
         // "Reset"
-        reset: "重置",
+        reset: "Reset",
         // [Auto-translated] "Change"
-        change: "改变",
+        change: "Ubah",
         // [Auto-translated] "Refresh"
-        refresh: "刷新",
+        refresh: "Refresh",
         // "Close"
-        close: "关闭",
+        close: "Tutup",
         // "Delete"
-        delete: "删除",
+        delete: "Hapus",
         // [Auto-translated] "Add"
-        add: "加",
+        add: "Tambah",
         // "Add New"
-        addNew: "新建",
+        addNew: "Tambahkan Baru",
         // "Click to add an item..."
-        addItem: "添加项...",
+        addItem: "Klik untuk menambahkan sebuah item...",
         // [Auto-translated] "Click to remove the item..."
-        removeItem: "单击以删除该项目...",
+        removeItem: "Klik untuk menghapus item...",
         // [Auto-translated] "Drag the item"
-        dragItem: "拖动项目",
-        // "Other"
-        addOther: "其他",
-        // "Select All"
-        addSelectAll: "全选",
-        // "None"
-        addNone: "无",
+        dragItem: "Seret item",
+        // [Auto-translated] "Other"
+        addOther: "Lain",
+        // [Auto-translated] "Select All"
+        addSelectAll: "Pilih Semua",
+        // [Auto-translated] "None"
+        addNone: "Tidak",
         // "Remove All"
-        removeAll: "全部删除",
+        removeAll: "Hapus Semua",
         // "Edit"
-        edit: "编辑器",
+        edit: "Ubah",
         // [Auto-translated] "Return without saving"
-        back: "退货而不保存",
+        back: "Pengembalian tanpa menabung",
         // [Auto-translated] "Return without saving"
-        backTooltip: "退货而不保存",
+        backTooltip: "Pengembalian tanpa menabung",
         // [Auto-translated] "Save and return"
-        saveAndBack: "保存并返回",
+        saveAndBack: "Simpan dan kembalikan",
         // [Auto-translated] "Save and return"
-        saveAndBackTooltip: "保存并返回",
+        saveAndBackTooltip: "Simpan dan kembalikan",
         // [Auto-translated] "Done"
-        doneEditing: "做",
+        doneEditing: "Selesai",
         // "Edit Choices"
-        editChoices: "编辑选项",
+        editChoices: "Ubah Pilihan",
         // [Auto-translated] "Show Choices"
-        showChoices: "显示选项",
+        showChoices: "Tampilkan Pilihan",
         // "Move"
-        move: "移动",
+        move: "Pindah",
         // "<empty>"
-        empty: "<空>",
+        empty: "<kosong>",
         // [Auto-translated] "Value is empty"
-        emptyValue: "值为空",
+        emptyValue: "Nilai kosong",
         // "Manual Entry"
-        fastEntry: "快速输入",
+        fastEntry: "Entri Cepat",
         // [Auto-translated] "Value '{0}' is not unique"
-        fastEntryNonUniqueError: "值“{0}”不是唯一的",
+        fastEntryNonUniqueError: "Nilai '{0}' tidak unik",
         // [Auto-translated] "Please limit the number of items from {0} to {1}"
-        fastEntryChoicesCountError: "请将项目数量限制在{0}到{1}",
+        fastEntryChoicesCountError: "Harap batasi jumlah item dari {0} ke {1}",
         // [Auto-translated] "Please enter at least {0} items"
-        fastEntryChoicesMinCountError: "请输入至少{0}项目",
+        fastEntryChoicesMinCountError: "Harap masukkan setidaknya {0} item",
         // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
-        fastEntryPlaceholder: "按以下格式输入选择选项列表及其 ID：\n\nid|选项\n\n选择选项 ID 对受访者不可见，可用于条件规则。",
+        fastEntryPlaceholder: "Masukkan daftar opsi pilihan dan ID-nya dalam format berikut:\n\nid|opsi\n\nID opsi pilihan tidak terlihat oleh responden dan dapat digunakan dalam aturan bersyarat.",
         // "Form Entry"
-        formEntry: "表单输入",
+        formEntry: "Entri Form",
         // "Test the service"
-        testService: "测试服务",
+        testService: "Coba layanan",
         // [Auto-translated] "Please select the element"
-        itemSelectorEmpty: "请选择元素",
+        itemSelectorEmpty: "Silakan pilih elemen",
         // [Auto-translated] "Please select the action"
-        conditionActionEmpty: "请选择操作",
+        conditionActionEmpty: "Silakan pilih tindakan",
         // "Select a question..."
-        conditionSelectQuestion: "选择问题...",
+        conditionSelectQuestion: "Pilih pertanyaan...",
         // [Auto-translated] "Select a page..."
-        conditionSelectPage: "选择一个页面...",
+        conditionSelectPage: "Pilih halaman...",
         // [Auto-translated] "Select a panel..."
-        conditionSelectPanel: "选择面板...",
+        conditionSelectPanel: "Pilih panel...",
         // "Please enter/select the value"
-        conditionValueQuestionTitle: "选择值",
+        conditionValueQuestionTitle: "Silahkan masukkan/pilih nilai",
         // "Press ctrl+space to get expression completion hint"
-        aceEditorHelp: "trl+space公式补完提示",
+        aceEditorHelp: "Tekan ctrl+spasi untuk mendapatkan petunjuk penyelesaian ekspresi",
         // "Current row"
-        aceEditorRowTitle: "当前行",
+        aceEditorRowTitle: "Baris saat ini",
         // "Current panel"
-        aceEditorPanelTitle: "当前面板",
+        aceEditorPanelTitle: "Panel saat ini",
         // "For more details please check the documentation"
-        showMore: "更多细节请查看文档",
+        showMore: "Untuk detil selanjutnya silahkan periksa dokumentasi",
         // "Available questions"
-        assistantTitle: "Available questions:",
+        assistantTitle: "Pertanyaan tersedia:",
         // "There is should be at least one column or row"
-        cellsEmptyRowsColumns: "至少有1行",
+        cellsEmptyRowsColumns: "Harus ada setidaknya satu kolom atau baris",
         // [Auto-translated] "Review before submit"
-        showPreviewBeforeComplete: "提交前审核",
+        showPreviewBeforeComplete: "Tinjau sebelum mengirimkan",
         // [Auto-translated] "Enabled by a condition"
-        overridingPropertyPrefix: "由条件启用",
+        overridingPropertyPrefix: "Diaktifkan oleh kondisi",
         // [Auto-translated] "Reset"
-        resetToDefaultCaption: "重置",
+        resetToDefaultCaption: "Reset",
         // "Please enter a value"
-        propertyIsEmpty: "请为该属性设定一个值",
+        propertyIsEmpty: "Silahkan masukkan nilai",
         // [Auto-translated] "Please enter a unique value"
-        propertyIsNoUnique: "请输入唯一值",
+        propertyIsNoUnique: "Silakan masukkan nilai unik",
         // [Auto-translated] "Please enter a unique name"
-        propertyNameIsNotUnique: "请输入唯一名称",
+        propertyNameIsNotUnique: "Silakan masukkan nama yang unik",
         // "Do not use reserved words: \"item\", \"choice\", \"panel\", \"row\"."
-        propertyNameIsIncorrect: "不要使用保留字：“项目”、“选项”、“面板”、“行”。",
+        propertyNameIsIncorrect: "Jangan gunakan kata-kata khusus: \"item\", \"pilihan\", \"panel\", \"baris\".",
         // [Auto-translated] "You don't have any items yet"
-        listIsEmpty: "您还没有任何物品",
+        listIsEmpty: "Anda belum memiliki item apa pun",
         // [Auto-translated] "You don't have any choices yet"
-        "listIsEmpty@choices": "你还没有任何选择",
+        "listIsEmpty@choices": "Anda belum punya pilihan",
         // [Auto-translated] "You don't have any columns yet"
-        "listIsEmpty@columns": "您还没有任何列",
+        "listIsEmpty@columns": "Anda belum memiliki kolom apa pun",
         // [Auto-translated] "You don't have layout columns yet"
-        "listIsEmpty@gridLayoutColumns": "您还没有布局列",
+        "listIsEmpty@gridLayoutColumns": "Anda belum memiliki kolom tata letak",
         // [Auto-translated] "You don't have any rows yet"
-        "listIsEmpty@rows": "您还没有任何行",
+        "listIsEmpty@rows": "Anda belum memiliki baris",
         // [Auto-translated] "You don't have any validation rules yet"
-        "listIsEmpty@validators": "尚无任何验证规则",
+        "listIsEmpty@validators": "Anda belum memiliki aturan validasi apa pun",
         // [Auto-translated] "You don't have any custom variables yet"
-        "listIsEmpty@calculatedValues": "您还没有任何自定义变量",
+        "listIsEmpty@calculatedValues": "Anda belum memiliki variabel khusus",
         // [Auto-translated] "You don't have any triggers yet"
-        "listIsEmpty@triggers": "您还没有任何触发器",
+        "listIsEmpty@triggers": "Anda belum memiliki pemicu apa pun",
         // [Auto-translated] "You don't have any links yet"
-        "listIsEmpty@navigateToUrlOnCondition": "您还没有任何链接",
+        "listIsEmpty@navigateToUrlOnCondition": "Anda belum memiliki tautan apa pun",
         // [Auto-translated] "You don't have any pages yet"
-        "listIsEmpty@pages": "您还没有任何页面",
+        "listIsEmpty@pages": "Anda belum memiliki halaman apa pun",
         // [Auto-translated] "Add new choice"
-        "addNew@choices": "添加新选择",
+        "addNew@choices": "Tambahkan pilihan baru",
         // [Auto-translated] "Add new column"
-        "addNew@columns": "添加新列",
+        "addNew@columns": "Tambahkan kolom baru",
         // [Auto-translated] "Add new row"
-        "addNew@rows": "添加新行",
+        "addNew@rows": "Menambahkan baris baru",
         // [Auto-translated] "Add new rule"
-        "addNew@validators": "添加新规则",
+        "addNew@validators": "Tambahkan aturan baru",
         // [Auto-translated] "Add new variable"
-        "addNew@calculatedValues": "添加新变量",
+        "addNew@calculatedValues": "Tambahkan variabel baru",
         // [Auto-translated] "Add new trigger"
-        "addNew@triggers": "添加新触发器",
+        "addNew@triggers": "Tambahkan pemicu baru",
         // [Auto-translated] "Add new URL"
-        "addNew@navigateToUrlOnCondition": "添加新 URL",
+        "addNew@navigateToUrlOnCondition": "Tambahkan URL baru",
         // [Auto-translated] "Add new page"
-        "addNew@pages": "添加新页面",
+        "addNew@pages": "Tambahkan halaman baru",
         // [Auto-translated] "Expression is empty"
-        expressionIsEmpty: "表达式为空",
+        expressionIsEmpty: "Ekspresi kosong",
         // "Value"
-        value: "值",
+        value: "Nilai",
         // "Text"
-        text: "显示文本",
+        text: "Teks",
         // "Row ID"
-        rowid: "行号",
+        rowid: "ID baris",
         // "Image or video file URL"
-        imageLink: "图片链接",
+        imageLink: "Link Gambar",
         // "Edit column: {0}"
-        columnEdit: "编辑列: {0}",
+        columnEdit: "Ubah kolom: {0}",
         // "Edit item: {0}"
-        itemEdit: "编辑选项: {0}",
+        itemEdit: "Ubah item: {0}",
         // "URL"
         url: "URL",
         // "Path to data"
-        path: "路径",
+        path: "Path",
         choicesbyurl: {
             // [Auto-translated] "Web service URL"
-            url: "Web 服务 URL",
+            url: "URL layanan web",
             // [Auto-translated] "Get value to store from the following property"
-            valueName: "从以下属性获取要存储的值"
+            valueName: "Dapatkan nilai untuk disimpan dari properti berikut"
         },
         // "Get value to display from the following property"
-        titleName: "标题名",
+        titleName: "Nama judul",
         // [Auto-translated] "Get file URLs from the following property"
-        imageLinkName: "从以下属性获取文件 URL",
+        imageLinkName: "Mendapatkan URL file dari properti berikut",
         // [Auto-translated] "Accept empty response"
-        allowEmptyResponse: "接受空响应",
+        allowEmptyResponse: "Terima respons kosong",
         // [Auto-translated] "Title"
-        titlePlaceholder: "标题",
+        titlePlaceholder: "Titel",
         // [Auto-translated] "Survey Title"
-        surveyTitlePlaceholder: "调查标题",
+        surveyTitlePlaceholder: "Judul Survei",
         // [Auto-translated] "Page {num}"
-        pageTitlePlaceholder: "页数 {num}",
+        pageTitlePlaceholder: "Halaman {num}",
         // [Auto-translated] "Start Page"
-        startPageTitlePlaceholder: "起始页",
+        startPageTitlePlaceholder: "Halaman Awal",
         // [Auto-translated] "Description"
-        descriptionPlaceholder: "描述",
+        descriptionPlaceholder: "Deskripsi",
         // [Auto-translated] "Description"
-        surveyDescriptionPlaceholder: "描述",
+        surveyDescriptionPlaceholder: "Deskripsi",
         // [Auto-translated] "Description"
-        pageDescriptionPlaceholder: "描述",
+        pageDescriptionPlaceholder: "Deskripsi",
         // [Auto-translated] "Wrap choices"
-        textWrapEnabled: "换行选项",
+        textWrapEnabled: "Pilihan bungkus",
         // "Enable the \"Other\" option"
-        showOtherItem: "可添加其他答案?",
+        showOtherItem: "Memiliki item lain",
         // "Rename the \"Other\" option"
-        otherText: "其他答案文本",
-        // "Enable the \"None\" option"
-        showNoneItem: "无",
+        otherText: "Teks item lain",
+        // [Auto-translated] "Enable the \"None\" option"
+        showNoneItem: "Aktifkan opsi \"Tidak Ada\"",
         // [Auto-translated] "Enable the \"Refuse to Answer\" option"
-        showRefuseItem: "启用“拒绝接听”选项",
+        showRefuseItem: "Aktifkan opsi \"Tolak Menjawab\"",
         // [Auto-translated] "Enable the \"Don't Know\" option"
-        showDontKnowItem: "启用“不知道”选项",
-        // "Rename the \"None\" option"
-        noneText: "无文本",
-        // "Enable the \"Select All\" option"
-        showSelectAllItem: "有全选项",
-        // "Rename the \"Select All\" option"
-        selectAllText: "选择全部文本",
-        // "Minimum value for auto-generated items"
-        choicesMin: "选项最小值",
-        // "Maximum value for auto-generated items"
-        choicesMax: "选项最大值",
-        // "Step value for auto-generated items"
-        choicesStep: "选项间隔",
+        showDontKnowItem: "Aktifkan opsi \"Tidak Tahu\"",
+        // [Auto-translated] "Rename the \"None\" option"
+        noneText: "Ganti nama opsi \"Tidak Ada\"",
+        // [Auto-translated] "Enable the \"Select All\" option"
+        showSelectAllItem: "Aktifkan opsi \"Pilih Semua\"",
+        // [Auto-translated] "Rename the \"Select All\" option"
+        selectAllText: "Ganti nama opsi \"Pilih Semua\"",
+        // [Auto-translated] "Minimum value for auto-generated items"
+        choicesMin: "Nilai minimum untuk item yang dibuat secara otomatis",
+        // [Auto-translated] "Maximum value for auto-generated items"
+        choicesMax: "Nilai maksimum untuk item yang dibuat secara otomatis",
+        // [Auto-translated] "Step value for auto-generated items"
+        choicesStep: "Nilai langkah untuk item yang dibuat secara otomatis",
         // "Name"
-        name: "题目名",
+        name: "Nama",
         // "Title"
-        title: "题目文本",
+        title: "Judul",
         // "Cell input type"
-        cellType: "单元格类型",
+        cellType: "Jenis sel",
         // "Column count"
-        colCount: "列数",
+        colCount: "Jumlah kolom",
         // "Choice order"
-        choicesOrder: "设置选项顺序",
+        choicesOrder: "Tentukan urutan pilihan",
         // [Auto-translated] "Allow custom choices"
-        allowCustomChoices: "允许自定义选项",
+        allowCustomChoices: "Izinkan pilihan khusus",
         // "Visible"
-        visible: "是否可见?",
+        visible: "Terlihat?",
         // "Required"
-        isRequired: "是否为必填项?",
+        isRequired: "Wajib?",
         // [Auto-translated] "Mark as required"
-        markRequired: "标记为必填",
+        markRequired: "Tandai sesuai kebutuhan",
         // [Auto-translated] "Remove the required mark"
-        removeRequiredMark: "删除所需的标记",
+        removeRequiredMark: "Hapus tanda yang diperlukan",
         // [Auto-translated] "Require an answer in each row"
-        eachRowRequired: "要求在每一行中都有答案",
+        eachRowRequired: "Memerlukan jawaban di setiap baris",
         // [Auto-translated] "Prevent duplicate responses in rows"
-        eachRowUnique: "防止行中出现重复响应",
+        eachRowUnique: "Mencegah respons duplikat dalam baris",
         // "Error message for required questions"
-        requiredErrorText: "错误文字",
+        requiredErrorText: "Pesan kesalahan \"Wajib\"",
         // "Display the question on a new line"
-        startWithNewLine: "问题是否新起一行?",
+        startWithNewLine: "Mulai dengan baris baru?",
         // "Rows"
-        rows: "文本框行数",
+        rows: "Jumlah baris",
         // [Auto-translated] "Columns"
-        cols: "列",
+        cols: "Kolom",
         // "Placeholder text within input field"
-        placeholder: "占位文本",
+        placeholder: "Masukkan placeholder",
         // "Show preview area"
-        showPreview: "是否显示图像预览?",
+        showPreview: "Tunjukkan tinjauan gambar?",
         // "Store file content in JSON result as text"
-        storeDataAsText: "以 JSON 文本方式存储文件",
+        storeDataAsText: "Simpan konten berkas dalam hasil JSON sebagai teks",
         // "Maximum file size (in bytes)"
-        maxSize: "文件最大尺寸 (Bytes)",
+        maxSize: "Ukuran maksimum berkas dalam byte",
         // "Row count"
-        rowCount: "默认行数",
+        rowCount: "Jumlah baris",
         // "Columns layout"
-        columnLayout: "列布局",
+        columnLayout: "Tata letak kolom",
         // "\"Add Row\" button alignment"
-        addRowButtonLocation: "添加行按钮位置",
+        addRowButtonLocation: "Tambah lokasi tombol baris",
         // [Auto-translated] "Transpose rows to columns"
-        transposeData: "将行转置为列",
+        transposeData: "Mengubah urutan baris menjadi kolom",
         // "\"Add Row\" button text"
-        addRowText: "添加条目按钮文本",
+        addRowText: "Teks tambah tombol baris",
         // "\"Remove Row\" button text"
-        removeRowText: "删除条目按钮文本",
+        removeRowText: "Teks hapus tombol baris",
         // [Auto-translated] "Input field title pattern"
-        singleInputTitleTemplate: "输入字段标题模式",
-        // "Minimum rating value"
-        rateMin: "最小评分",
-        // "Maximum rating value"
-        rateMax: "最大评分",
-        // "Step value"
-        rateStep: "评分间隔",
+        singleInputTitleTemplate: "Pola judul bidang input",
+        // [Auto-translated] "Minimum rating value"
+        rateMin: "Nilai peringkat minimum",
+        // [Auto-translated] "Maximum rating value"
+        rateMax: "Nilai peringkat maksimum",
+        // [Auto-translated] "Step value"
+        rateStep: "Nilai langkah",
         // "Minimum value label"
-        minRateDescription: "最小值提示",
+        minRateDescription: "Deskripsi nilai minimum",
         // "Maximum value label"
-        maxRateDescription: "最大值提示",
+        maxRateDescription: "Deskripsi nilai maksimum",
         // "Input type"
-        inputType: "文本框类型",
+        inputType: "Jenis masukan",
         // "Default Answer"
-        defaultValue: "默认值",
+        defaultValue: "Nilai standar",
         // "Default texts"
-        cellsDefaultRow: "Default cells texts",
+        cellsDefaultRow: "Teks sel standar",
         // "Edit survey settings"
-        surveyEditorTitle: "问卷设置",
+        surveyEditorTitle: "Ubah pengaturan survei",
         // "Edit: {0}"
-        qEditorTitle: "编辑问题: {0}",
+        qEditorTitle: "Ubah: {0}",
         // "Maximum character limit"
-        maxLength: "最大长度",
+        maxLength: "Panjang maksimum",
         // [Auto-translated] "Build"
-        buildExpression: "建",
+        buildExpression: "Membangun",
         // [Auto-translated] "Edit"
-        editExpression: "编辑",
+        editExpression: "Mengedit",
         // [Auto-translated] "and"
-        and: "和",
+        and: "dan",
         // [Auto-translated] "or"
-        or: "或",
+        or: "atau",
         // [Auto-translated] "Remove"
-        remove: "删除",
+        remove: "Buka",
         // [Auto-translated] "Add Condition"
-        addCondition: "添加条件",
+        addCondition: "Tambahkan Kondisi",
         // [Auto-translated] "Select a question to start configuring conditions."
-        emptyLogicPopupMessage: "选择一个问题以开始配置条件。",
+        emptyLogicPopupMessage: "Pilih pertanyaan untuk mulai mengonfigurasi kondisi.",
         // [Auto-translated] "If"
-        if: "如果",
+        if: "Kalau",
         // [Auto-translated] "then"
-        then: "然后",
+        then: "kemudian",
         // [Auto-translated] "Target question"
-        setToName: "目标问题",
+        setToName: "Pertanyaan target",
         // [Auto-translated] "Question to copy answer from"
-        fromName: "要从中复制答案的问题",
+        fromName: "Pertanyaan untuk disalin jawabannya",
         // [Auto-translated] "Question to skip to"
-        gotoName: "要跳到的问题",
+        gotoName: "Pertanyaan untuk dilewati",
         // [Auto-translated] "Rule is incorrect"
-        ruleIsNotSet: "规则不正确",
+        ruleIsNotSet: "Aturan salah",
         // [Auto-translated] "Add to the survey results"
-        includeIntoResult: "添加到调查结果",
+        includeIntoResult: "Tambahkan ke hasil survei",
         // "Make the title and description visible"
-        showTitle: "显示/隐藏 标题",
+        showTitle: "Tampilkan/sembunyikan judul",
         // [Auto-translated] "Expand/collapse title"
-        expandCollapseTitle: "展开/折叠标题",
+        expandCollapseTitle: "Perluas/ciutkan judul",
         // "Select a survey language"
-        locale: "默认语言",
+        locale: "Bahasa standar",
         // [Auto-translated] "Select device type"
-        simulator: "选择设备类型",
+        simulator: "Pilih jenis perangkat",
         // [Auto-translated] "Switch to landscape orientation"
-        landscapeOrientation: "切换到横向",
+        landscapeOrientation: "Beralih ke orientasi lanskap",
         // [Auto-translated] "Switch to portrait orientation"
-        portraitOrientation: "切换到纵向",
+        portraitOrientation: "Beralih ke orientasi potret",
         // "Clear hidden question values"
-        clearInvisibleValues: "清除隐藏值",
+        clearInvisibleValues: "Bersihkan nilai tak terlihat",
         // "Limit to one response"
-        cookieName: "Cookie名，避免多次运行)",
+        cookieName: "Nama cookie (untuk menonaktifkan menjalankan survei dua kali secara lokal)",
         // "Auto-save survey progress on page change"
-        partialSendEnabled: "切换页时保存结果",
+        partialSendEnabled: "Kirim hasil survei pada halaman selanjutnya",
         // "Save the \"Other\" option value as a separate property"
-        storeOthersAsComment: "其他值单独储存",
+        storeOthersAsComment: "Simpan nilai 'lainnya' pada bidang lainnya",
         // "Show page titles"
-        showPageTitles: "显示页面标题",
+        showPageTitles: "Tampilkan judul halaman",
         // "Show page numbers"
-        showPageNumbers: "显示页数",
+        showPageNumbers: "Tampilkan nomor halaman",
         // "\"Previous Page\" button text"
-        pagePrevText: "前一页按钮文本",
+        pagePrevText: "Teks halaman tombol sebelumnya",
         // "\"Next Page\" button text"
-        pageNextText: "后一页按钮文本",
+        pageNextText: "Teks halaman tombol selanjutnya",
         // "\"Complete Survey\" button text"
-        completeText: "完成按钮文本",
+        completeText: "Teks tombol selesai",
         // [Auto-translated] "\"Review Answers\" button text"
-        previewText: "“查看答案”按钮文本",
+        previewText: "Teks tombol \"Tinjau Jawaban\"",
         // [Auto-translated] "\"Edit Answer\" button text"
-        editText: "“编辑答案”按钮文本",
+        editText: "Teks tombol \"Edit Jawaban\"",
         // "\"Start Survey\" button text"
-        startSurveyText: "开始按钮文本",
+        startSurveyText: "Teks tombol mulai",
         // "Show navigation buttons"
-        showNavigationButtons: "显示导航按钮 (默认导航)",
+        showNavigationButtons: "Tampilkan tombol navigasi (navigasi standar)",
         // [Auto-translated] "Navigation buttons alignment"
-        navigationButtonsLocation: "导航按钮对齐",
+        navigationButtonsLocation: "Perataan tombol navigasi",
         // "Show the \"Previous Page\" button"
-        showPrevButton: "显示前一页按钮 (用户可返回至前一页面)",
+        showPrevButton: "Tampilkan tombol sebelumnya (pengguna mungkin kembali ke halaman sebelumnya)",
         // "First page is a start page"
-        firstPageIsStartPage: "调查的第一页面为起始页.",
+        firstPageIsStartPage: "Halaman pertama pada survei adalah halaman yang telah dimulai.",
         // "Show the \"Thank You\" page"
-        showCompletePage: "结尾展示完成后的页面 (completedHtml)",
+        showCompletePage: "Tampilkan keseluruhan halaman di akhir (completedHtml)",
         // "Auto-advance to the next page"
-        autoAdvanceEnabled: "回答本页所有问题后，自动跳转到下一页",
+        autoAdvanceEnabled: "Setelah menjawa seluruh pertanyaan, pergi ke halaman berikutnya secara otomatis",
         // [Auto-translated] "Complete the survey automatically"
-        autoAdvanceAllowComplete: "自动完成调查",
+        autoAdvanceAllowComplete: "Selesaikan survei secara otomatis",
         // "Show the progress bar"
-        showProgressBar: "显示进度条",
+        showProgressBar: "Tampilkan progress bar",
         // [Auto-translated] "Progress bar alignment"
-        progressBarLocation: "进度条对齐",
+        progressBarLocation: "Perataan bilah kemajuan",
         // "Question title alignment"
-        questionTitleLocation: "问题的标题位置",
+        questionTitleLocation: "Lokasi judul pertanyaan",
         // "Question title width"
-        questionTitleWidth: "问题标题宽度",
+        questionTitleWidth: "Lebar judul pertanyaan",
         // "Required symbol(s)"
-        requiredMark: "问题必填标志",
+        requiredMark: "Simbil pertanyaan wajib",
         // "Question title template, default is: '{no}. {require} {title}'"
-        questionTitleTemplate: "问题标题模板, 默认为: '{no}. {require} {title}'",
+        questionTitleTemplate: "Template Judul Pertanyaan, default adalah: '{no}. {require} {title}'",
         // "Error message alignment"
-        questionErrorLocation: "问题错误定位",
+        questionErrorLocation: "Lokasi Pertanyaan Error",
         // "Focus first question on a new page"
-        autoFocusFirstQuestion: "改变页面时聚焦在第一个问题",
+        autoFocusFirstQuestion: "Fokus ke pertanyaan pertama saat pergantian halaman",
         // "Question order"
-        questionOrder: "页内问题顺序",
+        questionOrder: "Urutakan elemen pada halaan",
         // "Time limit to complete the survey"
-        timeLimit: "完成调查的最长时间",
+        timeLimit: "Waktu maksimum untuk menyelesaikan survei",
         // "Time limit to complete one page"
-        timeLimitPerPage: "完成调查中页面的最长时间",
+        timeLimitPerPage: "Waktu maksimum untuk menyelesaikan suatu halaman",
         // [Auto-translated] "Use a timer"
-        showTimer: "使用计时器",
+        showTimer: "Gunakan pengatur waktu",
         // "Timer alignment"
-        timerLocation: "显示计时器面板",
+        timerLocation: "Tampilkan panel pengatur waktu",
         // "Timer mode"
-        timerInfoMode: "显示计时器面板模式",
+        timerInfoMode: "Tampilkan mode panel pengatur waktu",
         // "Enable entry addition"
-        allowAddPanel: "允许添加面板",
+        allowAddPanel: "Bolehkan penambahan panel",
         // "Enable entry removal"
-        allowRemovePanel: "允许删除面板",
+        allowRemovePanel: "Bolehkan penghapusan panel",
         // "\"Add Entry\" button text"
-        addPanelText: "添加面板文本",
+        addPanelText: "Teks tambah panel",
         // "\"Remove Entry\" button text"
-        removePanelText: "删除面板文本",
+        removePanelText: "Teks hapus panel",
         // "Show all elements on one page"
-        isSinglePage: "在一个页面上展示所有元素",
+        isSinglePage: "Tampilkan seluruh elemen pada halaman",
         // "HTML markup"
         html: "Html",
         // [Auto-translated] "Answer"
-        setValue: "答",
+        setValue: "Menjawab",
         // [Auto-translated] "Storage format"
-        dataFormat: "存储格式",
+        dataFormat: "Format penyimpanan",
         // [Auto-translated] "Enable row addition"
-        allowAddRows: "启用行添加",
+        allowAddRows: "Mengaktifkan penambahan baris",
         // [Auto-translated] "Enable row removal"
-        allowRemoveRows: "启用行删除",
+        allowRemoveRows: "Mengaktifkan penghapusan baris",
         // [Auto-translated] "Enable row reordering"
-        allowRowReorder: "启用行重新排序",
+        allowRowReorder: "Mengaktifkan penyusunan ulang baris",
         // [Auto-translated] "Does not apply if you specify the exact display area width or height."
-        responsiveImageSizeHelp: "如果指定了确切的显示区域宽度或高度，则不适用。",
+        responsiveImageSizeHelp: "Tidak berlaku jika Anda menentukan lebar atau tinggi area tampilan yang tepat.",
         // [Auto-translated] "Minimum display area width"
-        minImageWidth: "最小显示区域宽度",
+        minImageWidth: "Lebar area tampilan minimum",
         // [Auto-translated] "Maximum display area width"
-        maxImageWidth: "最大显示区域宽度",
+        maxImageWidth: "Lebar area tampilan maksimum",
         // [Auto-translated] "Minimum display area height"
-        minImageHeight: "最小显示区域高度",
+        minImageHeight: "Tinggi area tampilan minimum",
         // [Auto-translated] "Maximum display area height"
-        maxImageHeight: "最大显示区域高度",
+        maxImageHeight: "Tinggi area tampilan maksimum",
         // "Minimum value"
-        minValue: "最小值",
+        minValue: "Nilai minimum",
         // "Maximum value"
-        maxValue: "最大值",
+        maxValue: "Nilai maksimum",
         // [Auto-translated] "Case insensitive"
-        caseInsensitive: "不区分大小写",
+        caseInsensitive: "Tidak peka huruf besar/kecil",
         // "Minimum length (in characters)"
-        minLength: "最小长度",
+        minLength: "Panjang minimum",
         // "Allow digits"
-        allowDigits: "允许的位数",
+        allowDigits: "Bolehkan angka",
         // "Minimum count"
-        minCount: "最小数量",
+        minCount: "Hitungan minimum",
         // "Maximum count"
-        maxCount: "最大数量",
+        maxCount: "Hitungan maksimum",
         // "Regular expression"
-        regex: "正则表达式",
+        regex: "Ekspresi reguler",
         surveyvalidator: {
             // [Auto-translated] "Validation message"
-            text: "验证消息",
+            text: "Pesan validasi",
             // [Auto-translated] "Validation expression"
-            expression: "验证表达式",
+            expression: "Ekspresi validasi",
             // [Auto-translated] "Notification type"
-            notificationType: "通知类型",
+            notificationType: "Jenis notifikasi",
             // [Auto-translated] "Maximum length (in characters)"
-            maxLength: "最大长度（以字符为单位）"
+            maxLength: "Panjang maksimum (dalam karakter)"
         },
         // "Total row header"
-        totalText: "总文本",
+        totalText: "Total teks",
         // "Aggregation method"
-        totalType: "总类型",
+        totalType: "Total jenis",
         // "Total value expression"
-        totalExpression: "总公式",
+        totalExpression: "Total ekspresi",
         // "Total value display format"
-        totalDisplayStyle: "总显示风格",
+        totalDisplayStyle: "Total gaya tampilan",
         // "Currency"
-        totalCurrency: "总currency",
+        totalCurrency: "Total mata uang",
         // "Formatted string"
-        totalFormat: "总格式",
+        totalFormat: "Total format",
         // [Auto-translated] "Survey logo"
-        logo: "调查标志",
+        logo: "Logo survei",
         // [Auto-translated] "Survey layout"
-        questionsOnPageMode: "测量布局",
+        questionsOnPageMode: "Tata letak survei",
         // [Auto-translated] "Restrict answer length"
-        maxTextLength: "限制答案长度",
+        maxTextLength: "Membatasi panjang jawaban",
         // [Auto-translated] "Restrict comment length"
-        maxCommentLength: "限制注释长度",
+        maxCommentLength: "Membatasi panjang komentar",
         // [Auto-translated] "Comment area height (in lines)"
-        commentAreaRows: "评论区高度（以行为单位）",
+        commentAreaRows: "Tinggi area komentar (dalam baris)",
         // [Auto-translated] "Auto-expand text areas"
-        autoGrowComment: "自动展开文本区域",
+        autoGrowComment: "Perluas area teks secara otomatis",
         // [Auto-translated] "Allow users to resize text areas"
-        allowResizeComment: "允许用户调整文本区域的大小",
+        allowResizeComment: "Mengizinkan pengguna mengubah ukuran area teks",
         // "Update input field values"
-        textUpdateMode: "更新文本问题值",
+        textUpdateMode: "Memperbarui nilai pertanyaan teks",
         // [Auto-translated] "Input mask type"
-        maskType: "输入掩码类型",
+        maskType: "Jenis masker input",
         // [Auto-translated] "Set focus on the first invalid answer"
-        autoFocusFirstError: "将焦点放在第一个无效答案上",
+        autoFocusFirstError: "Mengatur fokus pada jawaban pertama yang tidak valid",
         // [Auto-translated] "Run validation"
-        checkErrorsMode: "运行验证",
+        checkErrorsMode: "Jalankan validasi",
         // [Auto-translated] "Validate empty fields on lost focus"
-        validateVisitedEmptyFields: "验证失去焦点时的空字段",
+        validateVisitedEmptyFields: "Memvalidasi bidang kosong saat fokus hilang",
         // [Auto-translated] "Redirect to an external link after submission"
-        navigateToUrl: "提交后重定向到外部链接",
+        navigateToUrl: "Mengalihkan ke pranala eksternal setelah pengiriman",
         // [Auto-translated] "Dynamic external link"
-        navigateToUrlOnCondition: "动态外部链接",
+        navigateToUrlOnCondition: "Tautan eksternal dinamis",
         // [Auto-translated] "Markup to show if the user already filled out this survey"
-        completedBeforeHtml: "用于显示用户是否已填写此调查的标记",
+        completedBeforeHtml: "Markup untuk menunjukkan apakah pengguna sudah mengisi survei ini",
         // [Auto-translated] "\"Thank You\" page markup"
-        completedHtml: "“谢谢”页面标记",
+        completedHtml: "Markup halaman \"Terima kasih\"",
         // [Auto-translated] "Dynamic \"Thank You\" page markup"
-        completedHtmlOnCondition: "动态“谢谢”页面标记",
+        completedHtmlOnCondition: "Markup halaman \"Terima kasih\" dinamis",
         // [Auto-translated] "Markup to show while survey model is loading"
-        loadingHtml: "加载调查模型时要显示的标记",
+        loadingHtml: "Markup untuk ditampilkan saat model survei dimuat",
         // [Auto-translated] "Comment area text"
-        commentText: "注释区文本",
+        commentText: "Teks area komentar",
         // [Auto-translated] "Autocomplete type"
-        autocomplete: "自动完成类型",
+        autocomplete: "Tipe pelengkapan otomatis",
         // "Label for \"True\""
-        labelTrue: "“真实”标签",
+        labelTrue: "Label \"Benar\"",
         // "Label for \"False\""
-        labelFalse: "“虚假”标签",
+        labelFalse: "Label \"Salah\"",
         // "Show the Clear button"
-        allowClear: "显示“清除”按钮",
+        allowClear: "Tampilkan tombol Hapus",
         // [Auto-translated] "Search mode"
-        searchMode: "搜索模式",
+        searchMode: "Mode pencarian",
         // [Auto-translated] "Display format"
-        displayStyle: "显示格式",
+        displayStyle: "Format tampilan",
         // [Auto-translated] "Formatted string"
-        format: "带格式的字符串",
+        format: "String yang diformat",
         // [Auto-translated] "Maximum fractional digits"
-        maximumFractionDigits: "最大小数位数",
+        maximumFractionDigits: "Digit pecahan maksimum",
         // [Auto-translated] "Minimum fractional digits"
-        minimumFractionDigits: "最小小数位数",
+        minimumFractionDigits: "Digit pecahan minimum",
         // [Auto-translated] "Display grouping separators"
-        useGrouping: "显示分组分隔符",
+        useGrouping: "Menampilkan pemisah pengelompokan",
         // [Auto-translated] "Enable multiple file upload"
-        allowMultiple: "启用多个文件上传",
+        allowMultiple: "Mengaktifkan pengunggahan beberapa file",
         // [Auto-translated] "Preview uploaded images"
-        allowImagesPreview: "预览上传的图片",
+        allowImagesPreview: "Pratinjau gambar yang diunggah",
         // [Auto-translated] "Accepted file types"
-        acceptedTypes: "接受的文件类型",
+        acceptedTypes: "Jenis file yang diterima",
         // [Auto-translated] "Wait for upload to complete"
-        waitForUpload: "等待上传完成",
+        waitForUpload: "Tunggu hingga upload selesai",
         // [Auto-translated] "Confirm file deletion"
-        needConfirmRemoveFile: "确认文件删除",
+        needConfirmRemoveFile: "Konfirmasi penghapusan file",
         // [Auto-translated] "Row details alignment"
-        detailPanelMode: "行详细信息对齐方式",
+        detailPanelMode: "Perataan detail baris",
         // [Auto-translated] "Minimum row count"
-        minRowCount: "最小行数",
+        minRowCount: "Jumlah baris minimum",
         // [Auto-translated] "Maximum row count"
-        maxRowCount: "最大行数",
+        maxRowCount: "Jumlah baris maksimum",
         // "Confirm row removal"
-        confirmDelete: "确认删除行",
+        confirmDelete: "Mengonfirmasi penghapusan baris",
         // [Auto-translated] "Confirmation message"
-        confirmDeleteText: "确认消息",
+        confirmDeleteText: "Pesan konfirmasi",
         // [Auto-translated] "Initial number of entries"
-        panelCount: "初始条目数",
+        panelCount: "Jumlah awal entri",
         // [Auto-translated] "Minimum number of entries"
-        minPanelCount: "最少参赛作品数量",
+        minPanelCount: "Jumlah minimum entri",
         // [Auto-translated] "Maximum number of entries"
-        maxPanelCount: "最大条目数",
+        maxPanelCount: "Jumlah maksimum entri",
         // [Auto-translated] "Initial entry state"
-        panelsState: "初始进入状态",
+        panelsState: "Status entri awal",
         // [Auto-translated] "\"Previous Entry\" button text"
-        prevPanelText: "“上一个条目”按钮文本",
+        prevPanelText: "Teks tombol \"Entri Sebelumnya\"",
         // [Auto-translated] "\"Next Entry\" button text"
-        nextPanelText: "“下一个条目”按钮文本",
+        nextPanelText: "Teks tombol \"Entri Berikutnya\"",
         // [Auto-translated] "\"Remove Entry\" button alignment"
-        removePanelButtonLocation: "“删除条目”按钮对齐方式",
+        removePanelButtonLocation: "Perataan tombol \"Hapus Entri\"",
         // [Auto-translated] "Hide the question if it has no rows"
-        hideIfRowsEmpty: "如果问题没有行，则隐藏问题",
+        hideIfRowsEmpty: "Sembunyikan pertanyaan jika tidak memiliki baris",
         // [Auto-translated] "Hide columns if there are no rows"
-        hideColumnsIfEmpty: "如果没有行，则隐藏列",
+        hideColumnsIfEmpty: "Menyembunyikan kolom jika tidak ada baris",
         // [Auto-translated] "Custom rating values"
-        rateValues: "自定义评分值",
+        rateValues: "Nilai rating kustom",
         // [Auto-translated] "Rating count"
-        rateCount: "评分计数",
+        rateCount: "Jumlah peringkat",
         // [Auto-translated] "Rating configuration"
-        autoGenerate: "评级配置",
+        autoGenerate: "Konfigurasi peringkat",
         slider: {
             // [Auto-translated] "Min value"
-            min: "最小值",
+            min: "Nilai minimum",
             // [Auto-translated] "Max value"
-            max: "最大值",
+            max: "Nilai maks",
             // [Auto-translated] "Step value"
-            step: "步长值",
+            step: "Nilai langkah",
             // [Auto-translated] "Show scale labels"
-            showLabels: "显示刻度标签",
+            showLabels: "Tampilkan label skala",
             // [Auto-translated] "Show tooltips"
-            tooltipVisibility: "显示工具提示",
+            tooltipVisibility: "Tampilkan tooltip",
             // [Auto-translated] "Allow thumb crossing"
-            allowSwap: "允许 Thumb Crossing",
+            allowSwap: "Izinkan menyilangkan ibu jari",
             // [Auto-translated] "Number of auto-generated labels"
-            labelCount: "自动生成的标签数量",
+            labelCount: "Jumlah label yang dibuat secara otomatis",
             // [Auto-translated] "Min value expression"
-            minValueExpression: "最小值表达式",
+            minValueExpression: "Ekspresi nilai min",
             // [Auto-translated] "Max value expression"
-            maxValueExpression: "最大值表达式",
+            maxValueExpression: "Ekspresi nilai maks",
             // [Auto-translated] "Scale labels configuration"
-            autoGenerate: "刻度标签配置",
+            autoGenerate: "Konfigurasi label skala",
             // [Auto-translated] "Slider type"
-            sliderType: "滑块类型",
+            sliderType: "Jenis penggeser",
             // [Auto-translated] "Min range length"
-            minRangeLength: "最小范围长度",
+            minRangeLength: "Panjang rentang min",
             // [Auto-translated] "Max range length"
-            maxRangeLength: "最大范围长度",
+            maxRangeLength: "Panjang rentang maks",
             // [Auto-translated] "Custom labels"
-            customLabels: "自定义标签",
+            customLabels: "Label khusus",
             // [Auto-translated] "Label format"
-            labelFormat: "标签格式",
+            labelFormat: "Format label",
             // [Auto-translated] "Tooltip format"
-            tooltipFormat: "工具提示格式"
+            tooltipFormat: "Format tooltip"
         },
         file: {
             // [Auto-translated] "Image height"
-            imageHeight: "图像高度",
+            imageHeight: "Tinggi gambar",
             // [Auto-translated] "Image width"
-            imageWidth: "图像宽度"
+            imageWidth: "Lebar gambar"
         },
         // [Auto-translated] "Hide the question if it has no choices"
-        hideIfChoicesEmpty: "如果没有选择，则隐藏问题",
+        hideIfChoicesEmpty: "Sembunyikan pertanyaan jika tidak punya pilihan",
         // "Minimum width"
-        minWidth: "最小宽度（以 CSS 接受的值为单位）",
+        minWidth: "Lebar minimum (dalam nilai yang diterima CSS)",
         // "Maximum width"
-        maxWidth: "最大宽度（以 CSS 接受的值为单位）",
+        maxWidth: "Lebar maksimum (dalam nilai yang diterima CSS)",
         // "Width"
-        width: "宽度（以 CSS 接受的值为单位）",
+        width: "Lebar (dalam nilai yang diterima CSS)",
         // [Auto-translated] "Show column headers"
-        showHeader: "显示列标题",
+        showHeader: "Perlihatkan header kolom",
         // [Auto-translated] "Show horizontal scrollbar"
-        horizontalScroll: "显示水平滚动条",
+        horizontalScroll: "Tampilkan scrollbar horizontal",
         // [Auto-translated] "Minimum column width"
-        columnMinWidth: "最小列宽",
+        columnMinWidth: "Lebar kolom minimum",
         // [Auto-translated] "Row header width"
-        rowTitleWidth: "行标题宽度",
+        rowTitleWidth: "Lebar header baris",
         // "Value to store when \"True\" is selected"
-        valueTrue: "“真”值",
+        valueTrue: "Nilai \"Benar\"",
         // "Value to store when \"False\" is selected"
-        valueFalse: "“假”值",
+        valueFalse: "Nilai \"False\"",
         // "\"Value is below minimum\" error message"
-        minErrorText: "“值低于最小值”错误消息",
+        minErrorText: "Pesan kesalahan \"Nilai di bawah minimum\"",
         // "\"Value exceeds maximum\" error message"
-        maxErrorText: "“值超过最大值”错误消息",
+        maxErrorText: "Pesan kesalahan \"Nilai melebihi maksimum\"",
         // "\"Empty comment\" error message"
-        otherErrorText: "“空评论”错误消息",
+        otherErrorText: "Pesan kesalahan \"Komentar kosong\"",
         // "Error message for duplicate responses"
-        keyDuplicationError: "“非唯一键值”错误消息",
+        keyDuplicationError: "Pesan galat \"Nilai kunci tidak unik\"",
         // [Auto-translated] "Minimum choices to select"
-        minSelectedChoices: "要选择的最少选项",
+        minSelectedChoices: "Pilihan minimum untuk dipilih",
         // [Auto-translated] "Maximum choices to select"
-        maxSelectedChoices: "可供选择的最大选择",
+        maxSelectedChoices: "Pilihan maksimum untuk dipilih",
         // [Auto-translated] "Logo width"
-        logoWidth: "徽标宽度",
+        logoWidth: "Lebar logo",
         // [Auto-translated] "Logo height"
-        logoHeight: "标志高度",
+        logoHeight: "Tinggi logo",
         // "Read-only"
-        readOnly: "只读",
+        readOnly: "Baca-saja",
         // [Auto-translated] "Disable the read-only mode if"
-        enableIf: "在以下情况下禁用只读模式",
+        enableIf: "Nonaktifkan mode baca-saja jika",
         // "\"No rows\" message"
-        noRowsText: "“无行”消息",
+        noRowsText: "Pesan \"Tidak ada baris\"",
         // [Auto-translated] "Separate special choices"
-        separateSpecialChoices: "单独的特殊选择",
+        separateSpecialChoices: "Pilihan khusus terpisah",
         // [Auto-translated] "Copy choices from the following question"
-        choicesFromQuestion: "复制以下问题的选项",
+        choicesFromQuestion: "Salin pilihan dari pertanyaan berikut",
         // [Auto-translated] "Which choice options to copy"
-        choicesFromQuestionMode: "要复制哪些选择选项",
+        choicesFromQuestionMode: "Opsi pilihan mana yang akan disalin",
         // [Auto-translated] "Use values from the following matrix column or panel question as choice IDs"
-        choiceValuesFromQuestion: "使用以下矩阵、列或面板问题中的值作为选项 ID",
+        choiceValuesFromQuestion: "Gunakan nilai dari matriks, kolom atau pertanyaan panel berikut sebagai ID pilihan",
         // [Auto-translated] "Use values from the following matrix column or panel question as choice texts"
-        choiceTextsFromQuestion: "使用以下矩阵、列或面板问题中的值作为选择文本",
+        choiceTextsFromQuestion: "Gunakan nilai dari kolom matriks atau pertanyaan panel berikut sebagai teks pilihan",
         // [Auto-translated] "Display page titles in the progress bar"
-        progressBarShowPageTitles: "在进度条中显示页面标题",
+        progressBarShowPageTitles: "Menampilkan judul halaman di bilah kemajuan",
         // [Auto-translated] "Display page numbers in the progress bar"
-        progressBarShowPageNumbers: "在进度条中显示页码",
+        progressBarShowPageNumbers: "Menampilkan nomor halaman di bilah kemajuan",
         // [Auto-translated] "Add a comment box"
-        showCommentArea: "添加注释框",
+        showCommentArea: "Menambahkan kotak komentar",
         // [Auto-translated] "Placeholder text for the comment box"
-        commentPlaceholder: "注释框的占位符文本",
+        commentPlaceholder: "Teks placeholder untuk kotak komentar",
         // [Auto-translated] "Show the labels as extreme values"
-        displayRateDescriptionsAsExtremeItems: "将标签显示为极值",
+        displayRateDescriptionsAsExtremeItems: "Menampilkan label sebagai nilai ekstrem",
         // [Auto-translated] "Row order"
-        rowOrder: "行顺序",
+        rowOrder: "Urutan baris",
         // [Auto-translated] "Column layout"
-        columnsLayout: "列布局",
+        columnsLayout: "Tata letak kolom",
         // [Auto-translated] "Nested column count"
-        columnColCount: "嵌套列计数",
+        columnColCount: "Jumlah kolom bertumpuk",
         // [Auto-translated] "Correct Answer"
-        correctAnswer: "正确答案",
+        correctAnswer: "Jawaban yang Benar",
         // [Auto-translated] "Default Values"
-        defaultPanelValue: "默认值",
+        defaultPanelValue: "Nilai Default",
         // [Auto-translated] "Cell Texts"
-        cells: "单元格文本",
+        cells: "Teks Sel",
         // [Auto-translated] "Select a file or paste a file link..."
-        fileInputPlaceholder: "选择文件或粘贴文件链接...",
+        fileInputPlaceholder: "Pilih file atau tempel tautan file...",
         // "Prevent duplicate responses in the following column"
-        keyName: "键列",
+        keyName: "Kolom kunci",
         itemvalue: {
             // [Auto-translated] "Make the option visible if"
-            visibleIf: "如果出现以下情况，则使该选项可见",
+            visibleIf: "Buat opsi terlihat jika",
             // [Auto-translated] "Make the option selectable if"
-            enableIf: "如果出现以下情况，则使该选项可选"
+            enableIf: "Buat opsi dapat dipilih jika"
         },
         "itemvalue@rows": {
             // [Auto-translated] "Make the row visible if"
-            visibleIf: "如果出现以下情况，则使行可见",
+            visibleIf: "Membuat baris terlihat jika",
             // [Auto-translated] "Make the row editable if"
-            enableIf: "如果出现以下情况，则使行可编辑"
+            enableIf: "Membuat baris dapat diedit jika"
         },
         imageitemvalue: {
             // "Alt text"
-            text: "可选文字"
+            text: "Teks alternatif"
         },
         // [Auto-translated] "Logo alignment"
-        logoPosition: "徽标对齐",
+        logoPosition: "Perataan logo",
         // [Auto-translated] "Add logo..."
-        addLogo: "添加徽标...",
+        addLogo: "Tambahkan logo...",
         // [Auto-translated] "Change logo..."
-        changeLogo: "更改徽标...",
+        changeLogo: "Ubah logo...",
         logoPositions: {
             // [Auto-translated] "Remove logo"
-            none: "删除徽标",
+            none: "Hapus logo",
             // [Auto-translated] "Left"
-            left: "左",
+            left: "Kiri",
             // [Auto-translated] "Right"
-            right: "右",
+            right: "Kanan",
             // [Auto-translated] "On the top"
-            top: "在顶部",
+            top: "Di atas",
             // [Auto-translated] "In the bottom"
-            bottom: "在底部"
+            bottom: "Di bagian bawah"
         },
         // [Auto-translated] "Preview mode"
-        previewMode: "预览模式",
+        previewMode: "Mode pratinjau",
         // [Auto-translated] "Enable grid layout"
-        gridLayoutEnabled: "启用网格布局",
+        gridLayoutEnabled: "Mengaktifkan tata letak kisi",
         // [Auto-translated] "Grid columns"
-        gridLayoutColumns: "网格列",
+        gridLayoutColumns: "Kolom kisi",
         // [Auto-translated] "Mask settings"
-        maskSettings: "蒙版设置",
+        maskSettings: "Pengaturan topeng",
         // [Auto-translated] "Row details error message alignment"
-        detailErrorLocation: "行详细信息错误消息对齐方式",
+        detailErrorLocation: "Perataan pesan kesalahan detail baris",
         // Creator tabs
         tabs: {
             panel: {
                 // [Auto-translated] "Panel Layout"
-                layout: "面板布局"
+                layout: "Tata Letak Panel"
             },
             // "General"
-            general: "一般",
+            general: "Umum",
             // "Options"
-            fileOptions: "选项",
+            fileOptions: "Pilihan berkas",
             // "HTML Editor"
-            html: "HTML 编辑器",
+            html: "Editor Html",
             // "Columns"
-            columns: "设置列",
+            columns: "Kolom",
             // "Rows"
-            rows: "设置行",
+            rows: "Baris",
             // "Choice Options"
-            choices: "设置选项",
-            // [Auto-translated] "Items"
-            items: "项目",
+            choices: "Pilihan",
+            // "Items"
+            items: "Barang",
             // "Visible If"
-            visibleIf: "设置可见条件",
+            visibleIf: "Terlihat Jika",
             // "Editable If"
-            enableIf: "设置有效条件",
-            // [Auto-translated] "Required If"
-            requiredIf: "如果",
+            enableIf: "Memungkinkan Jika",
+            // "Required If"
+            requiredIf: "Wajib Jika",
             // "Rating Values"
-            rateValues: "设置评分值",
+            rateValues: "Nilai Tingkat",
             // [Auto-translated] "Slider Settings"
-            sliderSettings: "滑块设置",
+            sliderSettings: "Pengaturan Penggeser",
             // "Choices from a Web Service"
-            choicesByUrl: "通过 URL 导入选项",
+            choicesByUrl: "Pilih dari Web",
             // "Default Choices"
-            matrixChoices: "默认选项",
+            matrixChoices: "Pilihan Standar",
             // "Text Inputs"
-            multipleTextItems: "文本输入",
+            multipleTextItems: "Masukan Teks",
             // [Auto-translated] "Numbering"
-            numbering: "编号",
+            numbering: "Penomoran",
             // "Validators"
-            validators: "校验规则",
+            validators: "Validator",
             // "Navigation"
-            navigation: "导航",
+            navigation: "Navigasi",
             // "Question Settings"
-            question: "问题",
+            question: "Pertanyaan",
             // [Auto-translated] "Pages"
-            pages: "页面",
+            pages: "Halaman",
             // "Quiz Mode"
-            timer: "问卷计时器",
+            timer: "Pengatur Waktu/Kuis",
             // [Auto-translated] "Calculated Values"
-            calculatedValues: "计算值",
-            // [Auto-translated] "Triggers"
-            triggers: "触发器",
-            // [Auto-translated] "Title template"
-            templateTitle: "标题模板",
-            // [Auto-translated] "Totals"
-            totals: "总数",
+            calculatedValues: "Nilai terhitung",
+            // "Triggers"
+            triggers: "Trigger",
+            // "Title template"
+            templateTitle: "Judul templat",
+            // "Totals"
+            totals: "Total",
             // "Conditions"
-            logic: "逻辑",
+            logic: "Logika",
             // [Auto-translated] "Input Mask Settings"
-            mask: "输入掩码设置",
+            mask: "Pengaturan Masker Input",
             layout: {
                 // [Auto-translated] "Panel Layout"
-                panel: "面板布局",
+                panel: "Tata Letak Panel",
                 // [Auto-translated] "Layout"
-                question: "布局",
+                question: "Tata letak",
                 // [Auto-translated] "Layout"
-                base: "布局"
+                base: "Tata letak"
             },
             // [Auto-translated] "Data"
-            data: "数据",
+            data: "Data",
             // [Auto-translated] "Validation"
-            validation: "验证",
+            validation: "Validasi",
             // [Auto-translated] "Individual Cell Texts"
-            cells: "单个单元格文本",
+            cells: "Teks Sel Individu",
             // [Auto-translated] "\"Thank You\" Page"
-            showOnCompleted: "“谢谢”页面",
+            showOnCompleted: "Halaman \"Terima kasih\"",
             // [Auto-translated] "Logo in the Survey Header"
-            logo: "调查标题中的徽标",
+            logo: "Logo di Header Survei",
             // [Auto-translated] "Slider"
-            slider: "滑 块",
+            slider: "Slider",
             // [Auto-translated] "Expression"
-            expression: "表达",
+            expression: "Ekspresi",
             // [Auto-translated] "Question Settings"
-            questionSettings: "问题设置",
+            questionSettings: "Pengaturan Pertanyaan",
             // "Header"
-            header: "页眉",
+            header: "Header",
             // "Background"
-            background: "背景",
+            background: "Latar",
             // "Appearance"
-            appearance: "外观",
+            appearance: "Rupa",
             // [Auto-translated] "Accent colors"
-            accentColors: "强调色",
+            accentColors: "Warna aksen",
             // [Auto-translated] "Surface background"
-            surfaceBackground: "表面背景",
+            surfaceBackground: "Latar belakang permukaan",
             // [Auto-translated] "Scaling"
-            scaling: "缩放",
+            scaling: "Scaling",
             // [Auto-translated] "Others"
-            others: "别人"
+            others: "Lain"
         },
         // "Edit property '{0}'"
-        editProperty: "编辑属性: '{0}'",
+        editProperty: "Ubah properti '{0}'",
         // "Items"
-        items: "[ 项目数量: {0} ]",
+        items: "[ Barang: {0} ]",
         // [Auto-translated] "Make choices visible if"
-        choicesVisibleIf: "在以下情况下使选择可见",
+        choicesVisibleIf: "Buat pilihan terlihat jika",
         // [Auto-translated] "Make choices selectable if"
-        choicesEnableIf: "在以下情况下选择选项",
+        choicesEnableIf: "Buat pilihan yang dapat dipilih jika",
         // [Auto-translated] "Make columns visible if"
-        columnsEnableIf: "在以下情况下使列可见",
+        columnsEnableIf: "Membuat kolom terlihat jika",
         // [Auto-translated] "Make rows visible if"
-        rowsEnableIf: "在以下情况下使行可见",
+        rowsEnableIf: "Membuat baris terlihat jika",
         // [Auto-translated] "Increase the inner indent"
-        innerIndent: "增加内缩进",
+        innerIndent: "Tingkatkan lekukan bagian dalam",
         // [Auto-translated] "Use answers from the last entry as default"
-        copyDefaultValueFromLastEntry: "使用最后一个条目中的答案作为默认值",
+        copyDefaultValueFromLastEntry: "Gunakan jawaban dari entri terakhir sebagai default",
         // "Please enter a value."
-        enterNewValue: "请设定值",
+        enterNewValue: "Silahkan masukkan nilai",
         // "There are no questions in the survey."
-        noquestions: "问卷中还没有创建任何问题",
+        noquestions: "Tidak ada pertanyaan dalam survei.",
         // "Please create a trigger"
-        createtrigger: "请创建触发器",
+        createtrigger: "Silahkan buat sebuah trigger",
         // [Auto-translated] "Press enter button to edit"
-        titleKeyboardAdornerTip: "按回车键编辑",
+        titleKeyboardAdornerTip: "Tekan tombol enter untuk mengedit",
         // [Auto-translated] "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-        keyboardAdornerTip: "按回车键编辑项目，按删除按钮删除项目，按 Alt 加向上箭头或向下箭头移动项目",
+        keyboardAdornerTip: "Tekan tombol enter untuk mengedit item, tekan tombol hapus untuk menghapus item, tekan alt plus panah ke atas atau panah ke bawah untuk memindahkan item",
         // "On "
-        triggerOn: "当 ",
+        triggerOn: "On ",
         // "Make pages visible"
-        triggerMakePagesVisible: "使页面可见:",
+        triggerMakePagesVisible: "Buat halaman terlihat:",
         // "Make elements visible"
-        triggerMakeQuestionsVisible: "使问题可见:",
+        triggerMakeQuestionsVisible: "Buat elemen terlihat:",
         // "Complete the survey if successful."
-        triggerCompleteText: "如果满足条件，则完成问卷",
+        triggerCompleteText: "Selesaikan survei jika sukses.",
         // "The trigger is not set"
-        triggerNotSet: "触发器尚未设置",
+        triggerNotSet: "Trigger belum diatur",
         // "Run if"
-        triggerRunIf: "满足下列条件时执行",
+        triggerRunIf: "Berjalan jika",
         // "Change value of: "
-        triggerSetToName: "修改下列问题值: ",
+        triggerSetToName: "Ubah nilai dari: ",
         // "Copy value from: "
-        triggerFromName: "复制值: ",
+        triggerFromName: "Salin nilai dari: ",
         // "Run this Expression"
-        triggerRunExpression: "运行公式:",
+        triggerRunExpression: "Jalankan ekspresi ini:",
         // "to: "
-        triggerSetValue: "修改为: ",
+        triggerSetValue: "ke: ",
         // [Auto-translated] "Go to the question"
-        triggerGotoName: "转到问题",
+        triggerGotoName: "Pergi ke pertanyaan",
         // "Do not put the variable into the survey result."
-        triggerIsVariable: "在问卷提交结果中不要包含该变量",
+        triggerIsVariable: "Jangan meletakkan variabel ke hasil survey.",
         // [Auto-translated] "Please enter a valid expression"
-        triggerRunExpressionEmpty: "请输入有效的表达式",
+        triggerRunExpressionEmpty: "Silakan masukkan ekspresi yang valid",
         // [Auto-translated] "Type expression here..."
-        emptyExpressionPlaceHolder: "在此处键入表达式...",
+        emptyExpressionPlaceHolder: "Ketik ekspresi di sini...",
         // [Auto-translated] "No file chosen"
-        noFile: "未选择文件",
+        noFile: "Tidak ada file yang dipilih",
         // [Auto-translated] "Clear hidden question values"
-        clearIfInvisible: "清除隐藏的问题值",
+        clearIfInvisible: "Hapus nilai pertanyaan tersembunyi",
         // [Auto-translated] "Store values in the following property"
-        valuePropertyName: "在以下属性中存储值",
+        valuePropertyName: "Simpan nilai di properti berikut",
         // [Auto-translated] "Enable search-as-you-type"
-        searchEnabled: "启用键入时搜索",
+        searchEnabled: "Mengaktifkan pencarian saat Anda mengetik",
         // [Auto-translated] "Hide selected items"
-        hideSelectedItems: "隐藏所选项目",
+        hideSelectedItems: "Menyembunyikan item yang dipilih",
         // [Auto-translated] "Collapse the dropdown upon selection"
-        closeOnSelect: "选择时折叠下拉列表",
+        closeOnSelect: "Ciutkan dropdown saat memilih",
         // [Auto-translated] "Vertical alignment within cells"
-        verticalAlign: "单元格内的垂直对齐",
+        verticalAlign: "Perataan vertikal di dalam sel",
         // [Auto-translated] "Alternate row colors"
-        alternateRows: "替代行颜色",
+        alternateRows: "Warna baris alternatif",
         // [Auto-translated] "Make columns visible if"
-        columnsVisibleIf: "在以下情况下使列可见",
+        columnsVisibleIf: "Membuat kolom terlihat jika",
         // [Auto-translated] "Make rows visible if"
-        rowsVisibleIf: "在以下情况下使行可见",
+        rowsVisibleIf: "Membuat baris terlihat jika",
         // [Auto-translated] "Placeholder text for the comment box"
-        otherPlaceholder: "注释框的占位符文本",
+        otherPlaceholder: "Teks placeholder untuk kotak komentar",
         // [Auto-translated] "Placeholder text for Local file"
-        filePlaceholder: "本地文件的占位符文本",
+        filePlaceholder: "Teks placeholder untuk file lokal",
         // [Auto-translated] "Placeholder text for Camera"
-        photoPlaceholder: "相机的占位符文本",
+        photoPlaceholder: "Teks placeholder untuk Kamera",
         // [Auto-translated] "Placeholder text for Local file or Camera"
-        fileOrPhotoPlaceholder: "本地文件或相机的占位符文本",
+        fileOrPhotoPlaceholder: "Teks placeholder untuk file lokal atau Kamera",
         // [Auto-translated] "Rating icon"
-        rateType: "评级图标",
+        rateType: "Ikon peringkat",
         // [Auto-translated] "Ex.: https://api.example.com/books"
-        url_placeholder: "例如：https://api.example.com/books",
+        url_placeholder: "Mis.: https://api.example.com/books",
         // [Auto-translated] "Ex.: categories.fiction"
-        path_placeholder: "例如：categories.fiction",
+        path_placeholder: "Mis.: categories.fiction",
         // [Auto-translated] "Ex.: a)"
-        questionStartIndex_placeholder: "例如：a）",
+        questionStartIndex_placeholder: "Mis.: a)",
         // [Auto-translated] "Ex.: 6in"
-        width_placeholder: "例：6in",
+        width_placeholder: "Contoh: 6in",
         // [Auto-translated] "Ex.: 600px"
-        minWidth_placeholder: "例如：600px",
+        minWidth_placeholder: "Contoh: 600px",
         // [Auto-translated] "Ex.: 50%"
-        maxWidth_placeholder: "例：50%",
+        maxWidth_placeholder: "Contoh: 50%",
         // "auto"
-        imageHeight_placeholder: "自动",
+        imageHeight_placeholder: "Auto",
         // "auto"
-        imageWidth_placeholder: "自动",
+        imageWidth_placeholder: "Auto",
         // [Auto-translated] "Ex.: 100px"
-        itemTitleWidth_placeholder: "例：100px",
+        itemTitleWidth_placeholder: "Contoh: 100px",
         theme: {
             // [Auto-translated] "Theme"
-            themeName: "主题",
+            themeName: "Tema",
             // [Auto-translated] "Question appearance"
-            isPanelless: "问题外观",
+            isPanelless: "Penampilan pertanyaan",
             // [Auto-translated] "Background and corner radius"
-            editorPanel: "背景和角半径",
+            editorPanel: "Latar belakang dan radius sudut",
             // [Auto-translated] "Background and corner radius"
-            questionPanel: "背景和角半径",
+            questionPanel: "Latar belakang dan radius sudut",
             // [Auto-translated] "Accent color"
-            primaryColor: "强调色",
+            primaryColor: "Warna aksen",
             // [Auto-translated] "Panel and question box opacity"
-            panelBackgroundTransparency: "面板和问题框的不透明��",
+            panelBackgroundTransparency: "Opasitas panel dan kotak pertanyaan",
             // [Auto-translated] "Input element opacity"
-            questionBackgroundTransparency: "输入元素不透明度",
+            questionBackgroundTransparency: "Opasitas elemen input",
             // [Auto-translated] "Survey font size"
-            fontSize: "调查字体大小",
+            fontSize: "Ukuran font survei",
             // [Auto-translated] "Survey scale factor"
-            scale: "调查比例因子",
+            scale: "Faktor skala survei",
             // [Auto-translated] "Corner radius"
-            cornerRadius: "拐角半径",
+            cornerRadius: "Radius sudut",
             // [Auto-translated] "Advanced mode"
-            advancedMode: "高级模式",
+            advancedMode: "Mode lanjutan",
             // [Auto-translated] "Title font"
-            pageTitle: "标题字体",
+            pageTitle: "Font judul",
             // [Auto-translated] "Description font"
-            pageDescription: "描述字体",
+            pageDescription: "Font deskripsi",
             // [Auto-translated] "Title font"
-            questionTitle: "标题字体",
+            questionTitle: "Font judul",
             // [Auto-translated] "Description font"
-            questionDescription: "描述字体",
+            questionDescription: "Font deskripsi",
             // [Auto-translated] "Font"
-            editorFont: "字体",
+            editorFont: "Font",
             // [Auto-translated] "Opacity"
-            backgroundOpacity: "不透明度", // Auto-generated string
+            backgroundOpacity: "Opacity", // Auto-generated string
             // [Auto-translated] "Survey font family"
-            "--sjs-font-family": "调查字体系列",
+            "--sjs-font-family": "Keluarga font survei",
             // [Auto-translated] "Background color"
-            "--sjs-general-backcolor-dim": "背景颜色",
+            "--sjs-general-backcolor-dim": "Warna latar belakang",
             // [Auto-translated] "Accent background colors"
-            "--sjs-primary-backcolor": "强调背景色",
+            "--sjs-primary-backcolor": "Warna latar belakang aksen",
             // [Auto-translated] "Accent foreground colors"
-            "--sjs-primary-forecolor": "强调前景色",
+            "--sjs-primary-forecolor": "Warna latar depan aksen",
             // [Auto-translated] "Error message colors"
-            "--sjs-special-red": "错误消息颜色",
+            "--sjs-special-red": "Warna pesan kesalahan",
             // [Auto-translated] "Shadow effects"
-            "--sjs-shadow-small": "阴影效果",
+            "--sjs-shadow-small": "Efek bayangan",
             // [Auto-translated] "Shadow effects"
-            "--sjs-shadow-inner": "阴影效果",
+            "--sjs-shadow-inner": "Efek bayangan",
             // [Auto-translated] "Colors"
-            "--sjs-border-default": "颜色"
+            "--sjs-border-default": "Warna"
         },
         "header@header": {
             // [Auto-translated] "View"
-            headerView: "视图",
+            headerView: "Melihat",
             // [Auto-translated] "Logo alignment"
-            logoPosition: "徽标对齐",
+            logoPosition: "Perataan logo",
             // [Auto-translated] "Survey title font"
-            surveyTitle: "调查标题字体",
+            surveyTitle: "Font judul survei",
             // [Auto-translated] "Survey description font"
-            surveyDescription: "调查描述字体",
+            surveyDescription: "Font deskripsi survei",
             // [Auto-translated] "Survey title font"
-            headerTitle: "调查标题字体",
+            headerTitle: "Font judul survei",
             // [Auto-translated] "Survey description font"
-            headerDescription: "调查描述字体",
+            headerDescription: "Font deskripsi survei",
             // [Auto-translated] "Content area width"
-            inheritWidthFrom: "内容区宽度",
+            inheritWidthFrom: "Lebar area konten",
             // [Auto-translated] "Text width"
-            textAreaWidth: "文本宽度",
+            textAreaWidth: "Lebar teks",
             // [Auto-translated] "Background color"
-            backgroundColorSwitch: "背景颜色",
+            backgroundColorSwitch: "Warna latar belakang",
             // [Auto-translated] "Background image"
-            backgroundImage: "背景图片",
+            backgroundImage: "Gambar latar belakang",
             // [Auto-translated] "Opacity"
-            backgroundImageOpacity: "不透明度",
+            backgroundImageOpacity: "Opacity",
             // [Auto-translated] "Overlap"
-            overlapEnabled: "重叠",
+            overlapEnabled: "Tumpang tindih",
             // [Auto-translated] "Logo alignment"
-            logoPositionX: "徽标对齐",
+            logoPositionX: "Perataan logo",
             // [Auto-translated] "Survey title alignment"
-            titlePositionX: "调查标题对齐",
+            titlePositionX: "Penyelarasan judul survei",
             // [Auto-translated] "Survey description alignment"
-            descriptionPositionX: "调查描述对齐"
+            descriptionPositionX: "Penyelarasan deskripsi survei"
         }
     },
     // Property values
     pv: {
         // [Auto-translated] "true"
-        "true": "真",
+        "true": "benar",
         // [Auto-translated] "false"
-        "false": "假",
+        "false": "palsu",
         // [Auto-translated] "Local file"
-        file: "本地文件",
+        file: "File lokal",
         // [Auto-translated] "Camera"
-        camera: "照相机",
+        camera: "Kamera",
         // [Auto-translated] "Local file or Camera"
-        "file-camera": "本地文件或摄像机",
+        "file-camera": "File lokal atau Kamera",
         // "Inherit"
-        inherit: "继承",
+        inherit: "inherit",
         // "Visible"
-        show: "显示",
+        show: "tampilkan",
         // "Hidden"
-        hide: "隐藏",
+        hide: "sembunyikan",
         // "Inherit"
-        default: "默认",
+        default: "standar",
         // "Initial"
-        initial: "初始化",
+        initial: "inisial",
         // "Random"
-        random: "随机",
+        random: "acak",
         // "Collapsed"
-        collapsed: "折叠",
+        collapsed: "dilipat",
         // "Expanded"
-        expanded: "扩展",
+        expanded: "direntangkan",
         // "None"
-        none: "无",
+        none: "tidak ada",
         // "Ascending"
-        asc: "升序",
+        asc: "naik",
         // "Descending"
-        desc: "降序",
+        desc: "turun",
         // "Indeterminate"
-        indeterminate: "indeterminate",
+        indeterminate: "tidak tentu",
         // [Auto-translated] "Selected"
-        selected: "选择",
+        selected: "Dipilih",
         // [Auto-translated] "Unselected"
-        unselected: "未选中",
+        unselected: "Tidak dipilih",
         // [Auto-translated] "decimal"
-        decimal: "十进制",
+        decimal: "desimal",
         // [Auto-translated] "currency"
-        currency: "货币",
+        currency: "mata uang",
         // [Auto-translated] "percent"
-        percent: "百分之",
+        percent: "persen",
         // "First panel is expanded"
-        firstExpanded: "firstExpanded",
+        firstExpanded: "perluasanPertama",
         // "Hide question numbers"
-        off: "关闭",
+        off: "mati",
         // "List"
-        list: "列表",
+        list: "daftar",
         // [Auto-translated] "Carousel"
-        carousel: "旋转 木马",
+        carousel: "Korsel",
         // [Auto-translated] "Tabs"
-        tab: "制表符",
+        tab: "Tab",
         // "Panel navigator + Progress bar at the top"
-        progressTop: "progressTop",
+        progressTop: "progress atas",
         // "Panel navigator + Progress bar at the bottom"
-        progressBottom: "progressBottom",
+        progressBottom: "progress bawah",
         // "Panel navigator + Progress bar at the top and bottom"
-        progressTopBottom: "progressTopBottom",
+        progressTopBottom: "progress atas bawah",
         // "Horizontal"
-        horizontal: "水平",
+        horizontal: "horizontal",
         // "Vertical"
-        vertical: "垂直",
+        vertical: "vertikal",
         // "Top"
-        top: "顶",
+        top: "atas",
         // "Bottom"
-        bottom: "底",
+        bottom: "bawah",
         // "Top and bottom"
-        topBottom: "顶和底",
+        topBottom: "atas dan bawah",
         // [Auto-translated] "Both"
-        both: "双",
+        both: "Keduanya",
         // "Left"
-        left: "左",
+        left: "kiri",
         // [Auto-translated] "Right"
-        right: "右",
+        right: "Kanan",
         // [Auto-translated] "Center"
-        center: "中心",
+        center: "Pusat",
         // [Auto-translated] "Left and right"
-        leftRight: "左和右",
+        leftRight: "Kiri dan kanan",
         // [Auto-translated] "Middle"
-        middle: "中间",
+        middle: "Tengah",
         // [Auto-translated] "color"
-        color: "颜色",
+        color: "warna",
         // [Auto-translated] "date"
-        date: "日期",
+        date: "tanggal",
         // [Auto-translated] "datetime"
-        datetime: "日期时间",
+        datetime: "Waktu tanggal",
         // [Auto-translated] "datetime-local"
-        "datetime-local": "日期时间-本地",
+        "datetime-local": "datetime-lokal",
         // [Auto-translated] "email"
-        email: "电子邮件",
+        email: "Email",
         // [Auto-translated] "month"
-        month: "月",
+        month: "bulan",
         // [Auto-translated] "number"
-        number: "数",
+        number: "angka",
         // [Auto-translated] "password"
-        password: "密码",
+        password: "kata sandi",
         // [Auto-translated] "range"
-        range: "范围",
+        range: "lingkup",
         // [Auto-translated] "tel"
-        tel: "电话",
+        tel: "Tel",
         // [Auto-translated] "text"
-        text: "发短信",
+        text: "Teks",
         // [Auto-translated] "time"
-        time: "时间",
+        time: "Waktu",
         // [Auto-translated] "url"
-        url: "网址",
+        url: "URL",
         // [Auto-translated] "week"
-        week: "周",
+        week: "minggu",
         // "Hidden"
-        hidden: "隐藏",
+        hidden: "tersembunyi",
         // "Editable"
-        edit: "编辑",
+        edit: "ubah",
         // "Read-only"
-        display: "仅显示",
+        display: "tampilan",
         // [Auto-translated] "Contain"
-        contain: "包含",
+        contain: "Mengandung",
         // [Auto-translated] "Cover"
-        cover: "盖",
+        cover: "Menutupi",
         // [Auto-translated] "Fill"
-        fill: "填补",
+        fill: "Isi",
         // [Auto-translated] "Next"
-        next: "下一个",
+        next: "Depan",
         // [Auto-translated] "Last"
-        last: "最后",
+        last: "Terakhir",
         // "Upon survey completion"
-        onComplete: "完成时",
+        onComplete: "saat selesai",
         // "When question gets hidden"
-        onHidden: "隐藏中",
+        onHidden: "saat tersembunyi",
         // [Auto-translated] "When question or its panel/page gets hidden"
-        onHiddenContainer: "当问题或其面板/页面被隐藏时",
+        onHiddenContainer: "Ketika pertanyaan atau panel/halamannya disembunyikan",
         clearInvisibleValues: {
             // [Auto-translated] "Never"
-            none: "从不"
+            none: "Tidak pernah"
         },
         clearIfInvisible: {
             // [Auto-translated] "Never"
-            none: "从不"
+            none: "Tidak pernah"
         },
         // [Auto-translated] "Radio Buttons"
-        radio: "单选按钮",
+        radio: "Tombol Radio",
         inputType: {
             // [Auto-translated] "Color"
-            color: "颜色",
+            color: "Warna",
             // [Auto-translated] "Date"
-            date: "日期",
+            date: "Tanggal",
             // [Auto-translated] "Date and Time"
-            "datetime-local": "日期和时间",
+            "datetime-local": "Tanggal dan Waktu",
             // [Auto-translated] "Email"
-            email: "电子邮件",
+            email: "Email",
             // [Auto-translated] "Month"
-            month: "月",
+            month: "Bulan",
             // [Auto-translated] "Number"
-            number: "数",
+            number: "Angka",
             // [Auto-translated] "Password"
-            password: "密码",
+            password: "Kata sandi",
             // [Auto-translated] "Range"
-            range: "范围",
+            range: "Lingkup",
             // [Auto-translated] "Phone Number"
-            tel: "电话号码",
+            tel: "Nomor Telepon",
             // [Auto-translated] "Text"
-            text: "发短信",
+            text: "Teks",
             // [Auto-translated] "Time"
-            time: "时间",
+            time: "Waktu",
             // [Auto-translated] "URL"
-            url: "网址",
+            url: "URL",
             // [Auto-translated] "Week"
-            week: "周"
+            week: "Minggu"
         },
         sliderType: {
             // [Auto-translated] "Single-Value"
-            single: "单值",
+            single: "Nilai Tunggal",
             // [Auto-translated] "Range"
-            range: "范围"
+            range: "Lingkup"
         },
         tooltipVisibility: {
             // [Auto-translated] "Auto"
-            auto: "自动",
+            auto: "Auto",
             // [Auto-translated] "Always"
-            always: "总是",
+            always: "Selalu",
             // [Auto-translated] "Never"
-            never: "从不"
+            never: "Tidak pernah"
         },
         notificationType: {
             // [Auto-translated] "Error"
-            error: "错误",
+            error: "Kesalahan",
             // [Auto-translated] "Warning"
-            warning: "警告",
+            warning: "Peringatan",
             // [Auto-translated] "Informational"
-            info: "信息"
+            info: "Informasi"
         },
         autocomplete: {
             // [Auto-translated] "Full Name"
-            name: "全名",
+            name: "Nama lengkap",
             // [Auto-translated] "Prefix"
-            "honorific-prefix": "前缀",
+            "honorific-prefix": "Awalan",
             // [Auto-translated] "First Name"
-            "given-name": "名字",
+            "given-name": "Nama depan",
             // [Auto-translated] "Middle Name"
-            "additional-name": "中间名",
+            "additional-name": "Nama tengah",
             // [Auto-translated] "Last Name"
-            "family-name": "姓",
+            "family-name": "Nama Belakang",
             // [Auto-translated] "Suffix"
-            "honorific-suffix": "后缀",
+            "honorific-suffix": "Akhiran",
             // [Auto-translated] "Nickname"
-            nickname: "昵称",
+            nickname: "Nickname",
             // [Auto-translated] "Job Title"
-            "organization-title": "职称",
+            "organization-title": "Judul Pekerjaan",
             // [Auto-translated] "User Name"
-            username: "用户名",
+            username: "Nama pengguna",
             // [Auto-translated] "New Password"
-            "new-password": "新密码",
+            "new-password": "Kata sandi baru",
             // [Auto-translated] "Current Password"
-            "current-password": "当前密码",
+            "current-password": "Kata Sandi Saat Ini",
             // [Auto-translated] "Organization Name"
-            organization: "组织名称",
+            organization: "Nama Organisasi",
             // [Auto-translated] "Full Street Address"
-            "street-address": "全街地址",
+            "street-address": "Alamat Jalan Lengkap",
             // [Auto-translated] "Address Line 1"
-            "address-line1": "地址行 1",
+            "address-line1": "Baris Alamat 1",
             // [Auto-translated] "Address Line 2"
-            "address-line2": "地址行 2",
+            "address-line2": "Baris Alamat 2",
             // [Auto-translated] "Address Line 3"
-            "address-line3": "地址行 3",
+            "address-line3": "Baris Alamat 3",
             // [Auto-translated] "Level 4 Address"
-            "address-level4": "4 级地址",
+            "address-level4": "Alamat Level 4",
             // [Auto-translated] "Level 3 Address"
-            "address-level3": "3 级地址",
+            "address-level3": "Alamat Level 3",
             // [Auto-translated] "Level 2 Address"
-            "address-level2": "2 级地址",
+            "address-level2": "Alamat Level 2",
             // [Auto-translated] "Level 1 Address"
-            "address-level1": "1 级地址",
+            "address-level1": "Alamat Level 1",
             // [Auto-translated] "Country Code"
-            country: "国家代码",
+            country: "Kode Negara",
             // [Auto-translated] "Country Name"
-            "country-name": "国家/地区名称",
+            "country-name": "Nama Negara",
             // [Auto-translated] "Postal Code"
-            "postal-code": "邮政编码",
+            "postal-code": "Kode Pos",
             // [Auto-translated] "Cardholder Name"
-            "cc-name": "持卡人姓名",
+            "cc-name": "Nama Pemegang Kartu",
             // [Auto-translated] "Cardholder First Name"
-            "cc-given-name": "持卡人名字",
+            "cc-given-name": "Nama Depan Pemegang Kartu",
             // [Auto-translated] "Cardholder Middle Name"
-            "cc-additional-name": "持卡人中间名",
+            "cc-additional-name": "Nama Tengah Pemegang Kartu",
             // [Auto-translated] "Cardholder Last Name"
-            "cc-family-name": "持卡人姓氏",
+            "cc-family-name": "Nama Belakang Pemegang Kartu",
             // [Auto-translated] "Credit Card Number"
-            "cc-number": "信用卡号",
+            "cc-number": "Nomor Kartu Kredit",
             // [Auto-translated] "Expiration Date"
-            "cc-exp": "有效期",
+            "cc-exp": "Tanggal kedaluwarsa",
             // [Auto-translated] "Expiration Month"
-            "cc-exp-month": "到期月份",
+            "cc-exp-month": "Bulan Kedaluwarsa",
             // [Auto-translated] "Expiration Year"
-            "cc-exp-year": "到期年份",
+            "cc-exp-year": "Tahun Kedaluwarsa",
             // [Auto-translated] "Card Security Code"
-            "cc-csc": "卡安全码",
+            "cc-csc": "Kode Keamanan Kartu",
             // [Auto-translated] "Credit Card Type"
-            "cc-type": "信用卡类型",
+            "cc-type": "Jenis Kartu Kredit",
             // [Auto-translated] "Transaction Currency"
-            "transaction-currency": "交易货币",
+            "transaction-currency": "Mata Uang Transaksi",
             // [Auto-translated] "Transaction Amount"
-            "transaction-amount": "交易金额",
+            "transaction-amount": "Jumlah Transaksi",
             // [Auto-translated] "Preferred Language"
-            language: "首选语言",
+            language: "Bahasa Pilihan",
             // [Auto-translated] "Birthday"
-            bday: "生日",
+            bday: "Ulang tahun",
             // [Auto-translated] "Birthday Day"
-            "bday-day": "生日",
+            "bday-day": "Hari Ulang Tahun",
             // [Auto-translated] "Birthday Month"
-            "bday-month": "生日月份",
+            "bday-month": "Bulan Ulang Tahun",
             // [Auto-translated] "Birthday Year"
-            "bday-year": "生日年份",
+            "bday-year": "Tahun Ulang Tahun",
             // [Auto-translated] "Gender"
-            sex: "性",
+            sex: "Jenis kelamin",
             // [Auto-translated] "Website URL"
-            url: "网站 URL",
+            url: "URL situs web",
             // [Auto-translated] "Profile Photo"
-            photo: "个人头像",
+            photo: "Foto Profil",
             // [Auto-translated] "Telephone Number"
-            tel: "电话号码",
+            tel: "Nomor Telepon",
             // [Auto-translated] "Country Code for Phone"
-            "tel-country-code": "电话的国家代码",
+            "tel-country-code": "Kode Negara untuk Telepon",
             // [Auto-translated] "National Telephone Number"
-            "tel-national": "全国电话号码",
+            "tel-national": "Nomor Telepon Nasional",
             // [Auto-translated] "Area Code"
-            "tel-area-code": "区号",
+            "tel-area-code": "Kode Area",
             // [Auto-translated] "Local Phone Number"
-            "tel-local": "本地电话号码",
+            "tel-local": "Nomor Telepon Lokal",
             // [Auto-translated] "Local Phone Prefix"
-            "tel-local-prefix": "本地电话前缀",
+            "tel-local-prefix": "Awalan Telepon Lokal",
             // [Auto-translated] "Local Phone Suffix"
-            "tel-local-suffix": "本地电话后缀",
+            "tel-local-suffix": "Akhiran Telepon Lokal",
             // [Auto-translated] "Phone Extension"
-            "tel-extension": "电话分机",
+            "tel-extension": "Ekstensi Telepon",
             // [Auto-translated] "Email Address"
-            email: "电子邮件地址",
+            email: "Alamat Email",
             // [Auto-translated] "Instant Messaging Protocol"
-            impp: "即时通讯协议"
+            impp: "Protokol Pesan Instan"
         },
         maskType: {
             // [Auto-translated] "None"
-            none: "没有",
+            none: "Tidak",
             // [Auto-translated] "Pattern"
-            pattern: "模式",
+            pattern: "Pola",
             // [Auto-translated] "Numeric"
-            numeric: "数值的",
+            numeric: "Numerik",
             // [Auto-translated] "Date and Time"
-            datetime: "日期和时间",
+            datetime: "Tanggal dan Waktu",
             // [Auto-translated] "Currency"
-            currency: "货币"
+            currency: "Mata uang"
         },
         inputTextAlignment: {
             // [Auto-translated] "Auto"
-            auto: "自动",
+            auto: "Auto",
             // [Auto-translated] "Left"
-            left: "左",
+            left: "Kiri",
             // [Auto-translated] "Right"
-            right: "右"
+            right: "Kanan"
         },
         // "All"
-        all: "全部",
+        all: "semua",
         // "Page"
-        page: "页",
+        page: "halaman",
         // "Survey"
-        survey: "问卷",
+        survey: "survei",
         // "When switching to the next page"
-        onNextPage: "下一页时",
+        onNextPage: "pada halaman selanjutnya",
         // "After an answer is changed"
-        onValueChanged: "值变动时",
+        onValueChanged: "saat nilai berubah",
         // [Auto-translated] "Before an answer is changed"
-        onValueChanging: "更改答案之前",
+        onValueChanging: "Sebelum jawaban diubah",
         questionsOnPageMode: {
             // [Auto-translated] "Original structure"
-            standard: "原始结构",
+            standard: "Struktur asli",
             // [Auto-translated] "Show all questions on one page"
-            singlePage: "在一页上显示所有问题",
+            singlePage: "Tampilkan semua pertanyaan di satu halaman",
             // [Auto-translated] "Show single question per page"
-            questionPerPage: "每页显示一个问题",
+            questionPerPage: "Tampilkan satu pertanyaan per halaman",
             // [Auto-translated] "Show single input field per page"
-            inputPerPage: "每页显示单个输入字段"
+            inputPerPage: "Tampilkan satu bidang input per halaman"
         },
         // [Auto-translated] "No preview"
-        noPreview: "无预览",
+        noPreview: "Tidak ada pratinjau",
         // [Auto-translated] "Show all questions"
-        showAllQuestions: "显示所有问题",
+        showAllQuestions: "Tampilkan semua pertanyaan",
         // [Auto-translated] "Show answered questions only"
-        showAnsweredQuestions: "仅显示已回答的问题",
+        showAnsweredQuestions: "Tampilkan pertanyaan yang sudah terjawab saja",
         // [Auto-translated] "Show all questions"
-        allQuestions: "显示所有问题",
+        allQuestions: "Tampilkan semua pertanyaan",
         // [Auto-translated] "Show answered questions only"
-        answeredQuestions: "仅显示已回答的问题",
+        answeredQuestions: "Tampilkan pertanyaan yang dijawab saja",
         // [Auto-translated] "Completed pages"
-        pages: "已完成的页面",
+        pages: "Halaman lengkap",
         // [Auto-translated] "Answered questions"
-        questions: "已回答的问题",
+        questions: "Pertanyaan yang dijawab",
         // [Auto-translated] "Answered required questions"
-        requiredQuestions: "回答必填问题",
+        requiredQuestions: "Menjawab pertanyaan yang diperlukan",
         // [Auto-translated] "Valid answers"
-        correctQuestions: "有效答案",
+        correctQuestions: "Jawaban yang valid",
         // [Auto-translated] "Completed pages (button UI)"
-        buttons: "已完成的页面（按钮 UI）",
+        buttons: "Halaman selesai (tombol UI)",
         // [Auto-translated] "Under the input field"
-        underInput: "在输入字段下",
+        underInput: "Di bawah bidang input",
         // [Auto-translated] "Under the question title"
-        underTitle: "在问题标题下",
+        underTitle: "Di bawah judul pertanyaan",
         // [Auto-translated] "On lost focus"
-        onBlur: "关于失去焦点",
+        onBlur: "Tentang fokus yang hilang",
         // [Auto-translated] "While typing"
-        onTyping: "打字时",
+        onTyping: "Saat mengetik",
         // [Auto-translated] "Under the row"
-        underRow: "在行下",
+        underRow: "Di bawah baris",
         // [Auto-translated] "Under the row, display one section only"
-        underRowSingle: "在行下，仅显示一个部分",
+        underRowSingle: "Di bawah baris, tampilkan satu bagian saja",
         // "Auto"
-        auto: "自动",
+        auto: "Auto",
         timerInfoMode: {
             // "Both"
-            combined: "双"
+            combined: "Keduanya"
         },
         addRowButtonLocation: {
             // [Auto-translated] "Based on matrix layout"
-            default: "基于矩阵布局"
+            default: "Berdasarkan tata letak matriks"
         },
         panelsState: {
             // [Auto-translated] "Locked"
-            default: "锁",
+            default: "Terkunci",
             // [Auto-translated] "Collapse all"
-            collapsed: "全部折叠",
+            collapsed: "Ciutkan semua",
             // [Auto-translated] "Expand all"
-            expanded: "全部展开",
+            expanded: "Perluas semua",
             // [Auto-translated] "First expanded"
-            firstExpanded: "首次扩展"
+            firstExpanded: "Pertama diperluas"
         },
         widthMode: {
             // [Auto-translated] "Static"
-            static: "静态的",
+            static: "Statis",
             // [Auto-translated] "Responsive"
-            responsive: "响应"
+            responsive: "Responsif"
         },
         contentMode: {
             // [Auto-translated] "Image"
-            image: "图像",
+            image: "Citra",
             // [Auto-translated] "Video"
-            video: "视频",
+            video: "Video",
             // [Auto-translated] "YouTube"
-            youtube: "优酷"
+            youtube: "YouTube"
         },
         displayMode: {
             // [Auto-translated] "Buttons"
-            buttons: "按钮",
+            buttons: "Tombol",
             // [Auto-translated] "Dropdown"
-            dropdown: "下拉列表"
+            dropdown: "Tarik-turun"
         },
         rateColorMode: {
             // [Auto-translated] "Default"
-            default: "违约",
+            default: "Default",
             // [Auto-translated] "Scale"
-            scale: "规模"
+            scale: "Sisik"
         },
         scaleColorMode: {
             // [Auto-translated] "Monochrome"
-            monochrome: "单色",
+            monochrome: "Monokrom",
             // [Auto-translated] "Colored"
-            colored: "彩色"
+            colored: "Berwarna"
         },
         autoGenerate: {
             // [Auto-translated] "Auto-generate"
-            "true": "自动生成",
+            "true": "Hasilkan otomatis",
             // [Auto-translated] "Manual"
-            "false": "手动"
+            "false": "Manual"
         },
         rateType: {
             // [Auto-translated] "Labels"
-            labels: "标签",
+            labels: "Label",
             // [Auto-translated] "Stars"
-            stars: "星星",
+            stars: "Bintang",
             // [Auto-translated] "Smileys"
-            smileys: "笑脸"
+            smileys: "Smiley"
         },
         state: {
             // [Auto-translated] "Locked"
-            default: "锁"
+            default: "Terkunci"
         },
         showQuestionNumbers: {
             // [Auto-translated] "Auto-numbering"
-            default: "自动编号",
+            default: "Penomoran otomatis",
             // [Auto-translated] "Auto-numbering"
-            on: "自动编号",
+            on: "Penomoran otomatis",
             // [Auto-translated] "Reset on each page"
-            onPage: "在每个页面上重置",
+            onPage: "Setel ulang di setiap halaman",
             // [Auto-translated] "Reset on each panel"
-            onpanel: "在每个面板上重置",
+            onpanel: "Atur ulang di setiap panel",
             // [Auto-translated] "Reset on each panel"
-            onPanel: "在每个面板上重置",
+            onPanel: "Setel ulang pada setiap panel",
             // [Auto-translated] "Recursive numbering"
-            recursive: "递归编号",
+            recursive: "Penomoran rekursif",
             // [Auto-translated] "Continue across the survey"
-            onSurvey: "在整个调查中继续",
+            onSurvey: "Lanjutkan di seluruh survei",
             // [Auto-translated] "No numbering"
-            off: "无编号"
+            off: "Tanpa penomoran"
         },
         descriptionLocation: {
             // [Auto-translated] "Under the question title"
-            underTitle: "在问题标题下",
+            underTitle: "Di bawah judul pertanyaan",
             // [Auto-translated] "Under the input field"
-            underInput: "在输入字段下"
+            underInput: "Di bawah bidang input"
         },
         selectToRankAreasLayout: {
             // [Auto-translated] "Next to choices"
-            horizontal: "在选项旁边",
+            horizontal: "Di samping pilihan",
             // [Auto-translated] "Above choices"
-            vertical: "以上选择"
+            vertical: "Pilihan di atas"
         },
         displayStyle: {
             // [Auto-translated] "Decimal"
-            decimal: "十进制",
+            decimal: "Desimal",
             // [Auto-translated] "Currency"
-            currency: "货币",
+            currency: "Mata uang",
             // [Auto-translated] "Percentage"
-            percent: "百分比",
+            percent: "Persentase",
             // [Auto-translated] "Date"
-            date: "日期"
+            date: "Tanggal"
         },
         totalDisplayStyle: {
             // [Auto-translated] "Decimal"
-            decimal: "十进制",
+            decimal: "Desimal",
             // [Auto-translated] "Currency"
-            currency: "货币",
+            currency: "Mata uang",
             // [Auto-translated] "Percentage"
-            percent: "百分比",
+            percent: "Persentase",
             // [Auto-translated] "Date"
-            date: "日期"
+            date: "Tanggal"
         },
         rowOrder: {
             // [Auto-translated] "Original"
-            initial: "源语言"
+            initial: "Asli"
         },
         questionOrder: {
             // [Auto-translated] "Original"
-            initial: "源语言"
+            initial: "Asli"
         },
         progressBarLocation: {
             // [Auto-translated] "Top"
-            top: "返回页首",
+            top: "Puncak",
             // [Auto-translated] "Bottom"
-            bottom: "底",
+            bottom: "Dasar",
             // [Auto-translated] "Top and bottom"
-            topbottom: "顶部和底部",
+            topbottom: "Atas dan bawah",
             // [Auto-translated] "Above the header"
-            aboveheader: "标题上方",
+            aboveheader: "Di atas header",
             // [Auto-translated] "Below the header"
-            belowheader: "标题下方",
+            belowheader: "Di bawah header",
             // [Auto-translated] "Hidden"
-            off: "隐藏"
+            off: "Sembunyi"
         },
         // [Auto-translated] "Sum"
-        sum: "和",
+        sum: "Jumlah",
         // [Auto-translated] "Count"
-        count: "计数",
+        count: "Hitung",
         // [Auto-translated] "Min"
-        min: "最小值",
+        min: "Min",
         // [Auto-translated] "Max"
-        max: "麦克斯",
+        max: "Maks",
         // [Auto-translated] "Avg"
-        avg: "平均",
+        avg: "Avg",
         searchMode: {
             // [Auto-translated] "Contains"
-            contains: "包含",
+            contains: "Berisi",
             // [Auto-translated] "Starts with"
-            startsWith: "开头为"
+            startsWith: "Dimulai dengan"
         },
         backgroundImageFit: {
             // [Auto-translated] "Auto"
-            auto: "自动",
+            auto: "Auto",
             // [Auto-translated] "Cover"
-            cover: "盖",
+            cover: "Menutupi",
             // [Auto-translated] "Contain"
-            contain: "包含",
+            contain: "Mengandung",
             // [Auto-translated] "Stretch"
-            fill: "伸展",
+            fill: "Merentangkan",
             // [Auto-translated] "Tile"
-            tile: "瓦"
+            tile: "Ubin"
         },
         backgroundImageAttachment: {
             // [Auto-translated] "Fixed"
-            fixed: "固定",
+            fixed: "Tetap",
             // [Auto-translated] "Scroll"
-            scroll: "滚动"
+            scroll: "Gulir"
         },
         headerView: {
             // [Auto-translated] "Basic"
-            basic: "基本",
+            basic: "Dasar",
             // [Auto-translated] "Advanced"
-            advanced: "高深"
+            advanced: "Maju"
         },
         inheritWidthFrom: {
             // [Auto-translated] "Same as survey"
-            survey: "与调查相同",
+            survey: "Sama seperti survei",
             // [Auto-translated] "Same as container"
-            container: "与容器相同"
+            container: "Sama seperti kontainer"
         },
         backgroundColorSwitch: {
             // [Auto-translated] "None"
-            none: "没有",
+            none: "Tidak",
             // [Auto-translated] "Accent color"
-            accentColor: "强调色",
+            accentColor: "Warna aksen",
             // [Auto-translated] "Custom"
-            custom: "习惯"
+            custom: "Adat"
         },
         colorPalette: {
             // [Auto-translated] "Light"
-            light: "光",
+            light: "Ringan",
             // [Auto-translated] "Dark"
-            dark: "黑暗"
+            dark: "Gelap"
         },
         isPanelless: {
             // [Auto-translated] "Default"
-            "false": "违约",
+            "false": "Default",
             // [Auto-translated] "Without Panels"
-            "true": "不带面板"
+            "true": "Tanpa Panel"
         },
         progressBarInheritWidthFrom: {
             // [Auto-translated] "Same as survey"
-            survey: "与调查相同",
+            survey: "Sama seperti survei",
             // [Auto-translated] "Same as container"
-            container: "与容器相同"
+            container: "Sama seperti wadah"
         }
     },
     // Operators
     op: {
         // "Empty"
-        empty: "为空",
+        empty: "kosong",
         // "Not empty"
-        notempty: "不为空",
+        notempty: "tidak kosong",
         // "Equals"
-        equal: "等于",
+        equal: "sama dengan",
         // "Does not equal"
-        notequal: "不等于",
+        notequal: "tidak sama dengan",
         // "Contains"
-        contains: "包含",
+        contains: "mengandung",
         // "Does not contain"
-        notcontains: "不包含",
-        // "Any of"
-        anyof: "任意",
-        // "All of"
-        allof: "全部",
+        notcontains: "tidak mengandung",
+        // [Auto-translated] "Any of"
+        anyof: "Salah satu dari",
+        // [Auto-translated] "All of"
+        allof: "Semua",
         // "Greater than"
-        greater: "大于",
+        greater: "lebih besar",
         // "Less than"
-        less: "小于",
+        less: "lebih kecil",
         // "Greater than or equal to"
-        greaterorequal: "大于等于",
+        greaterorequal: "lebih besar atau sama dengan",
         // "Less than or equal to"
-        lessorequal: "小于等于",
+        lessorequal: "lebih kecil atau sama dengan",
         // [Auto-translated] "and"
-        and: "和",
+        and: "dan",
         // [Auto-translated] "or"
-        or: "或"
+        or: "atau"
     },
     // Embed window
     ew: {
         // "Use Angular version"
-        angular: "使用 Angular 时",
+        angular: "Gunakan versi Angular",
         // "Use jQuery version"
-        jquery: "使用 JQuery 时",
+        jquery: "Gunakan versi JQuery",
         // "Use Knockout version"
-        knockout: "使用 Knockout 时",
+        knockout: "Gunakan versi Knockout",
         // "Use React version"
-        react: "使用 React 时",
+        react: "Gunakan versi React",
         // "Use Vue version"
-        vue: "使用 Vue 时",
+        vue: "Gunakan versi Vue",
         // "For bootstrap framework"
-        bootstrap: "使用 Bootstrap 时",
+        bootstrap: "Untuk framework bootstrap",
         // [Auto-translated] "Modern theme"
-        modern: "现代主题",
+        modern: "Tema modern",
         // [Auto-translated] "Default theme"
-        default: "默认主题",
+        default: "Tema default",
         // [Auto-translated] "Orange theme"
-        orange: "橙色主题",
+        orange: "Tema oranye",
         // [Auto-translated] "Darkblue theme"
-        darkblue: "深蓝色主题",
+        darkblue: "Tema biru tua",
         // [Auto-translated] "Darkrose theme"
-        darkrose: "“暗玫瑰”主题",
+        darkrose: "Tema Darkrose",
         // [Auto-translated] "Stone theme"
-        stone: "“石头”主题",
+        stone: "Tema batu",
         // [Auto-translated] "Winter theme"
-        winter: "“冬季”主题",
+        winter: "Tema musim dingin",
         // [Auto-translated] "Winter-Stone theme"
-        winterstone: "“冬日之石”主题",
+        winterstone: "Tema Winter-Stone",
         // "Show survey on a page"
-        showOnPage: "嵌入页面显示",
+        showOnPage: "Tampilkan survei pada sebuah halaman",
         // "Show survey in a window"
-        showInWindow: "使用单独的问卷窗口",
+        showInWindow: "Tampilkan survei pada sebuah jendela",
         // "Load Survey JSON from server"
-        loadFromServer: "从服务器加载问卷 JSON 数据",
+        loadFromServer: "Muat survei JSON dari server",
         // "Scripts and styles"
-        titleScript: "脚本和样式",
+        titleScript: "Skrip dan gaya",
         // "HTML"
         titleHtml: "HTML",
         // "JavaScript"
@@ -2671,960 +2671,960 @@ var simplifiedChineseTranslation = {
     // Preview (Survey)
     ts: {
         // "Select the page to test it"
-        selectPage: "选择测试页",
+        selectPage: "Pilih halaman untuk dicoba:",
         // "Show invisible elements"
-        showInvisibleElements: "显示隐藏元件",
+        showInvisibleElements: "Tampilkan elemen tak terlihat",
         // [Auto-translated] "Hide invisible elements"
-        hideInvisibleElements: "隐藏不可见元素",
+        hideInvisibleElements: "Sembunyikan elemen tak terlihat",
         // [Auto-translated] "Previous"
-        prevPage: "以前",
+        prevPage: "Mantan",
         // [Auto-translated] "Next"
-        nextPage: "下一个"
+        nextPage: "Depan"
     },
     validators: {
         // "Answer count"
-        answercountvalidator: "数量检查",
+        answercountvalidator: "jumlah jawaban",
         // "Email"
-        emailvalidator: "Email",
+        emailvalidator: "surel",
         // "Expression"
-        expressionvalidator: "公式",
+        expressionvalidator: "ekspresi",
         // "Number"
-        numericvalidator: "数字",
+        numericvalidator: "numerik",
         // "Regex"
-        regexvalidator: "正则表达式",
+        regexvalidator: "ekspresi reguler",
         // "Text"
-        textvalidator: "文本"
+        textvalidator: "teks"
     },
     triggers: {
         // "Complete survey"
-        completetrigger: "完成问卷",
+        completetrigger: "selesaikan survei",
         // "Set answer"
-        setvaluetrigger: "设置问题值",
+        setvaluetrigger: "atur nilai",
         // "Copy answer"
-        copyvaluetrigger: "复制值",
+        copyvaluetrigger: "salin nilai",
         // [Auto-translated] "Skip to question"
-        skiptrigger: "跳至问题",
+        skiptrigger: "Lanjut ke pertanyaan",
         // "Run expression"
-        runexpressiontrigger: "运行公式",
+        runexpressiontrigger: "jalankan ekspresi",
         // "change visibility (deprecated)"
-        visibletrigger: "修改可见性"
+        visibletrigger: "ubah visibilitas"
     },
     peplaceholder: {
         patternmask: {
             // "Ex.: +1(999)-999-99-99"
-            pattern: "例如：+1（999）-999-99-99"
+            pattern: "Contoh: +1(999)-999-99-99"
         },
         datetimemask: {
             // [Auto-translated] "Ex.: mm/dd/yyyy HH:MM:ss"
-            pattern: "例如：mm/dd/yyyy HH：MM：ss"
+            pattern: "Contoh: mm / dd / yyyy HH: MM: ss"
         },
         currencymask: {
             // "Ex.: $"
-            prefix: "例：$",
+            prefix: "Contoh.: $",
             // "Ex.: USD"
-            suffix: "例如：美元"
+            suffix: "Contoh: USD"
         },
         panelbase: {
             // [Auto-translated] "Ex.: 200px"
-            questionTitleWidth: "例如：200px"
+            questionTitleWidth: "Contoh: 200px"
         },
         panellayoutcolumn: {
             // "Ex.: 30%"
-            effectiveWidth: "例如：30%",
+            effectiveWidth: "Contoh: 30%",
             // "Ex.: 200px"
-            questionTitleWidth: "例如：200px"
+            questionTitleWidth: "Contoh: 200px"
         }
     },
     pehelp: {
         panel: {
             // "A panel ID that is not visible to respondents."
-            name: "受访者不可见的面板 ID。",
+            name: "ID panel yang tidak terlihat oleh responden.",
             // [Auto-translated] "Type a panel subtitle."
-            description: "键入面板字幕。",
+            description: "Ketik subtitle panel.",
             // "Use the magic wand icon to set a conditional rule that determines panel visibility."
-            visibleIf: "使用魔棒图标设置确定面板可见性的条件规则。",
+            visibleIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang menentukan visibilitas panel.",
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panel."
-            enableIf: "使用魔棒图标设置禁用面板只读模式的条件规则。",
+            enableIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menonaktifkan mode baca-saja untuk panel.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "使用魔杖图标设置条件规则，除非至少有一个嵌套问题有答案，否则该规则将阻止调查提交。",
+            requiredIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang mencegah pengiriman survei kecuali setidaknya satu pertanyaan bertingkat memiliki jawaban.",
             // [Auto-translated] "Applies to all questions within this panel. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default). "
-            questionTitleLocation: "适用于此面板中的所有问题。当设置为“隐藏”时，它还会隐藏问题描述。如果要覆盖此设置，请为各个问题定义标题对齐规则。“继承”选项应用页面级别（如果设置）或调查级别设置（默认为“顶部”）。",
+            questionTitleLocation: "Berlaku untuk semua pertanyaan dalam panel ini. Saat diatur ke \"Tersembunyi\", itu juga menyembunyikan deskripsi pertanyaan. Jika Anda ingin mengganti pengaturan ini, tentukan aturan perataan judul untuk setiap pertanyaan. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei (\"Teratas\" secara default). ",
             // [Auto-translated] "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)."
-            questionTitleWidth: "当问题标题与问题框左侧对齐时，为问题标题设置一致的宽度。接受 CSS 值（px、%、in、pt 等）。",
+            questionTitleWidth: "Mengatur lebar yang konsisten untuk judul pertanyaan bila disejajarkan di sebelah kiri kotak pertanyaan. Menerima nilai CSS (px, %, in, pt, dll.).",
             // "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting."
-            questionErrorLocation: "设置与面板中所有问题相关的错误消息的位置。“继承”选项应用页面级别（如果已设置）或调查级别设置。",
+            questionErrorLocation: "Mengatur lokasi pesan kesalahan sehubungan dengan semua pertanyaan dalam panel. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei.",
             // [Auto-translated] "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the page-level (if set) or survey-level setting."
-            questionOrder: "保留问题的原始顺序或随机化问题。“继承”选项应用页面级（如果已设置）或调查级设置。",
+            questionOrder: "Menjaga urutan pertanyaan asli atau mengacaknya. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei.",
             // "Repositions the panel to the end of a selected page."
-            page: "将面板重新定位到所选页面的末尾。",
+            page: "Memposisikan ulang panel ke akhir halaman yang dipilih.",
             // [Auto-translated] "Adds space or margin between the panel content and the left border of the panel box."
-            innerIndent: "在面板内容和面板框的左边框之间添加空格或边距。",
+            innerIndent: "Menambahkan spasi atau margin antara konten panel dan batas kiri kotak panel.",
             // "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form."
-            startWithNewLine: "取消选择以将面板与上一个问题或面板显示在一行中。如果面板是窗体中的第一个元素，则该设置不适用。",
+            startWithNewLine: "Batalkan pilihan untuk menampilkan panel dalam satu baris dengan pertanyaan atau panel sebelumnya. Pengaturan tidak berlaku jika panel adalah elemen pertama dalam formulir Anda.",
             // "Choose from: \"Expanded\" - the panel is displayed in full and can be collapsed; \"Collapsed\" - the panel displays only the title and description and can be expanded; \"Locked\" - the panel is displayed in full and cannot be collapsed."
-            state: "从中选择：“展开” - 面板完整显示，可以折叠;“已折叠” - 面板仅显示标题和描述，可以展开;“已锁定” - 面板完整显示，无法折叠。",
+            state: "Pilih dari: \"Diperluas\" - panel ditampilkan secara penuh dan dapat diciutkan; \"Collapsed\" - panel hanya menampilkan judul dan deskripsi dan dapat diperluas; \"Terkunci\" - panel ditampilkan secara penuh dan tidak dapat diciutkan.",
             // [Auto-translated] "Sets the width of the panel in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
-            width: "设置面板的宽度，与同一条线中的其他测量元素成比例。接受 CSS 值（px、%、in、pt 等）。",
+            width: "Mengatur lebar panel sebanding dengan elemen survei lain di garis yang sama. Menerima nilai CSS (px, %, in, pt, dll.).",
             // [Auto-translated] "Assigns numbers to questions nested within this panel."
-            showQuestionNumbers: "为嵌套在此面板中的问题分配编号。",
+            showQuestionNumbers: "Menetapkan nomor untuk pertanyaan yang bersarang dalam panel ini.",
             // [Auto-translated] "Specifies how many columns this panel spans within the grid layout."
-            effectiveColSpan: "指定此面板在网格布局中跨越的列数。",
+            effectiveColSpan: "Menentukan berapa banyak kolom panel ini dalam tata letak kisi.",
             // [Auto-translated] "This table lets you configure each grid column within the panel. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column."
-            gridLayoutColumns: "此表允许您配置面板中的每个网格列。它根据行中的最大元素数自动设置每列的宽度百分比。要自定义网格布局，请手动调整这些值并定义每列中所有问题的标题宽度。"
+            gridLayoutColumns: "Tabel ini memungkinkan Anda mengonfigurasi setiap kolom kisi dalam panel. Ini secara otomatis mengatur persentase lebar untuk setiap kolom berdasarkan jumlah maksimum elemen dalam satu baris. Untuk menyesuaikan tata letak kisi, sesuaikan nilai ini secara manual dan tentukan lebar judul untuk semua pertanyaan di setiap kolom."
         },
         paneldynamic: {
             // "A panel ID that is not visible to respondents."
-            name: "受访者不可见的面板 ID。",
+            name: "ID panel yang tidak terlihat oleh responden.",
             // "Type a panel subtitle."
-            description: "键入面板字幕。",
+            description: "Ketik subtitle panel.",
             // "Use the magic wand icon to set a conditional rule that determines panel visibility."
-            visibleIf: "使用魔棒图标设置确定面板可见性的条件规则。",
+            visibleIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang menentukan visibilitas panel.",
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the panel."
-            enableIf: "使用魔棒图标设置禁用面板只读模式的条件规则。",
+            enableIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menonaktifkan mode baca-saja untuk panel.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "使用魔杖图标设置条件规则，除非至少有一个嵌套问题有答案，否则该规则将阻止调查提交。",
+            requiredIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang mencegah pengiriman survei kecuali setidaknya satu pertanyaan bertingkat memiliki jawaban.",
             // "Applies to all questions within this dynamic panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
-            templateQuestionTitleLocation: "适用于此面板中的所有问题。如果要覆盖此设置，请为单个问题定义标题对齐规则。“继承”选项应用页面级别（如果已设置）或调查级别设置（默认为“顶部”）。",
+            templateQuestionTitleLocation: "Berlaku untuk semua pertanyaan dalam panel ini. Jika Anda ingin mengganti setelan ini, tentukan aturan perataan judul untuk masing-masing pertanyaan. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei (\"Teratas\" secara default).",
             // "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)."
-            templateQuestionTitleWidth: "当问题标题与问题框的左侧对齐时，为问题标题设置一致的宽度。接受 CSS 值（px、%、in、pt 等）。",
+            templateQuestionTitleWidth: "Mengatur lebar yang konsisten untuk judul pertanyaan saat disejajarkan ke kiri kotak pertanyaan mereka. Menerima nilai CSS (px, %, in, pt, dll.).",
             // "Sets the location of an error message in relation to a question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
-            templateErrorLocation: "设置与输入无效的问题相关的错误消息的位置。选择：“顶部” - 错误文本放置在问题框的顶部;“底部” - 错误文本放置在问题框的底部。“继承”选项应用页面级别（如果已设置）或调查级别设置（默认为“顶部”）。",
+            templateErrorLocation: "Mengatur lokasi pesan kesalahan sehubungan dengan pertanyaan dengan input yang tidak valid. Pilih antara: \"Atas\" - teks kesalahan ditempatkan di bagian atas kotak pertanyaan; \"Bawah\" - teks kesalahan ditempatkan di bagian bawah kotak pertanyaan. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei (\"Teratas\" secara default).",
             // "Sets the location of an error message in relation to all questions within the panel. The \"Inherit\" option applies the page-level (if set) or survey-level setting."
-            errorLocation: "设置与面板中所有问题相关的错误消息的位置。“继承”选项应用页面级别（如果已设置）或调查级别设置。",
+            errorLocation: "Mengatur lokasi pesan kesalahan sehubungan dengan semua pertanyaan dalam panel. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei.",
             // "Repositions the panel to the end of a selected page."
-            page: "将面板重新定位到所选页面的末尾。",
+            page: "Memposisikan ulang panel ke akhir halaman yang dipilih.",
             // [Auto-translated] "Adds space or margin between the panel content and the left border of the panel box."
-            indent: "在面板内容和面板框的左边框之间添加空间或边距。",
+            indent: "Menambahkan ruang atau margin antara konten panel dan batas kiri kotak panel.",
             // "Unselect to display the panel in one line with the previous question or panel. The setting doesn't apply if the panel is the first element in your form."
-            startWithNewLine: "取消选择以将面板与上一个问题或面板显示在一行中。如果面板是窗体中的第一个元素，则该设置不适用。",
+            startWithNewLine: "Batalkan pilihan untuk menampilkan panel dalam satu baris dengan pertanyaan atau panel sebelumnya. Pengaturan tidak berlaku jika panel adalah elemen pertama dalam formulir Anda.",
             // "Choose from: \"Expanded\" - the panel is displayed in full and can be collapsed; \"Collapsed\" - the panel displays only the title and description and can be expanded; \"Locked\" - the panel is displayed in full and cannot be collapsed."
-            state: "从中选择：“展开” - 面板完整显示，可以折叠;“已折叠” - 面板仅显示标题和描述，可以展开;“已锁定” - 面板完整显示，无法折叠。",
+            state: "Pilih dari: \"Diperluas\" - panel ditampilkan secara penuh dan dapat diciutkan; \"Collapsed\" - panel hanya menampilkan judul dan deskripsi dan dapat diperluas; \"Terkunci\" - panel ditampilkan secara penuh dan tidak dapat diciutkan.",
             // "Sets the width of the panel in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
-            width: "设置面板的宽度，使其与同一行中的其他测量图元成比例。接受 CSS 值（px、%、in、pt 等）。",
+            width: "Mengatur lebar panel secara proporsional dengan elemen survei lainnya di baris yang sama. Menerima nilai CSS (px, %, in, pt, dll.).",
             // "Type in a template for entry titles. Use {panelIndex} for the entry's general position and {visiblePanelIndex} for its order among visible entries. Insert these placeholders into the pattern to add automatic numbering."
-            templateTitle: "键入动态面板标题的模板。使用 {panelIndex} 作为面板的常规位置，使用 {visiblePanelIndex} 作为其在可见面板中的顺序。将这些占位符插入到图案中以添加自动编号。",
+            templateTitle: "Ketik template untuk judul panel dinamis. Gunakan {panelIndex} untuk posisi umum panel dan {visiblePanelIndex} untuk urutannya di antara panel yang terlihat. Masukkan tempat penampung ini ke dalam pola untuk menambahkan penomoran otomatis.",
             // "Type in a template for tab titles. Use {panelIndex} for an entry's general position and {visiblePanelIndex} for its order among visible entries. Insert these placeholders into the pattern to add automatic numbering."
-            templateTabTitle: "键入选项卡标题的模板。使用 {panelIndex} 表示面板的大致位置，使用 {visiblePanelIndex} 表示其在可见面板中的顺序。将这些占位符插入到图案中以添加自动编号。",
+            templateTabTitle: "Ketik templat untuk judul tab. Gunakan {panelIndex} untuk posisi umum panel dan {visiblePanelIndex} untuk urutannya di antara panel yang terlihat. Masukkan tempat penampung ini ke dalam pola untuk menambahkan penomoran otomatis.",
             // "A fallback text for tab titles that applies when the tab title pattern doesn't produce a meaningful value."
-            tabTitlePlaceholder: "选项卡标题的回退文本，当选项卡标题模式未生成有意义的值时应用。",
+            tabTitlePlaceholder: "Teks fallback untuk judul tab yang berlaku saat pola judul tab tidak menghasilkan nilai yang berarti.",
             // "This setting allows you to control the visibility of individual entries within the dynamic panel. Use the `{panel}` placeholder to reference the current entry in your expression."
-            templateVisibleIf: "此设置允许您控制动态面板中各个面板的可见性。使用“{panel}”占位符在表达式中引用当前面板。",
+            templateVisibleIf: "Pengaturan ini memungkinkan Anda mengontrol visibilitas masing-masing panel dalam panel dinamis. Gunakan placeholder '{panel}' untuk mereferensikan panel saat ini dalam ekspresi Anda.",
             // "This setting is automatically inherited by all questions within this dynamic panel. If you want to override this setting, define title alignment rules for individual questions. The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Top\" by default)."
-            titleLocation: "此面板中的所有问题都会自动继承此设置。如果要覆盖此设置，请为单个问题定义标题对齐规则。“继承”选项应用页面级别（如果已设置）或调查级别设置（默认为“顶部”）。",
+            titleLocation: "Setelan ini secara otomatis diwarisi oleh semua pertanyaan dalam panel ini. Jika Anda ingin mengganti setelan ini, tentukan aturan perataan judul untuk masing-masing pertanyaan. Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei (\"Teratas\" secara default).",
             // "The \"Inherit\" option applies the page-level (if set) or survey-level setting (\"Under the panel title\" by default)."
-            descriptionLocation: "“继承”选项应用页面级别（如果已设置）或调查级别设置（默认为“在面板标题下”）。",
+            descriptionLocation: "Opsi \"Warisi\" menerapkan setelan tingkat halaman (jika ditetapkan) atau tingkat survei (\"Di bawah judul panel\" secara default).",
             // "Defines the position of a newly added entry. By default, new entries are added to the end. Select \"Next\" to insert a new entry after the current one."
-            newPanelPosition: "定义新添加的面板的位置。默认情况下，新面板将添加到末尾。选择“下一步”以在当前面板之后插入新面板。",
+            newPanelPosition: "Menentukan posisi panel yang baru ditambahkan. Secara default, panel baru ditambahkan ke akhir. Pilih \"Next\" untuk memasukkan panel baru setelah yang sekarang.",
             // [Auto-translated] "Duplicates answers from the last entry and assigns them to the next added entry."
-            copyDefaultValueFromLastEntry: "复制上一个条目的答案，并将它们分配给下一个添加的条目。",
+            copyDefaultValueFromLastEntry: "Menduplikasi jawaban dari entri terakhir dan menetapkannya ke entri tambahan berikutnya.",
             // "Reference a question name to require a user to provide a unique response for this question in each entry."
-            keyName: "引用问题名称以要求用户在每个面板中为此问题提供唯一的答案。",
+            keyName: "Rujuk nama pertanyaan untuk mengharuskan pengguna memberikan respons unik untuk pertanyaan ini di setiap panel.",
             // [Auto-translated] "Triggers a confirmation prompt before removing an entry."
-            confirmDelete: "在删除条目之前触发确认提示。",
+            confirmDelete: "Memicu prompt konfirmasi sebelum menghapus entri.",
             // [Auto-translated] "Assigns numbers to questions nested within the dynamic panel."
-            showQuestionNumbers: "为嵌套在动态面板中的问题分配编号。"
+            showQuestionNumbers: "Menetapkan nomor ke pertanyaan yang bersarang dalam panel dinamis."
         },
         matrixdynamic: {
             // [Auto-translated] "Triggers a confirmation prompt before removing a row."
-            confirmDelete: "在删除行之前触发确认提示。",
+            confirmDelete: "Memicu perintah konfirmasi sebelum menghapus baris.",
             // [Auto-translated] "Automatically expands the detail section when a new row is added to the matrix."
-            detailPanelShowOnAdding: "在向矩阵添加新行时自动展开详细信息部分。"
+            detailPanelShowOnAdding: "Secara otomatis memperluas bagian detail saat baris baru ditambahkan ke matriks."
         },
         // "Duplicates answers from the last row and assigns them to the next added dynamic row."
-        copyDefaultValueFromLastEntry: "复制最后一行的答案，并将其分配给下一个添加的动态行。",
+        copyDefaultValueFromLastEntry: "Menduplikasi jawaban dari baris terakhir dan menetapkannya ke baris dinamis berikutnya yang ditambahkan.",
         // [Auto-translated] "This setting allows you to assign a default answer value based on an expression. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression serves as the initial default value that can be overridden by a respondent's manual input."
-        defaultValueExpression: "此设置允许您根据表达式分配默认答案值。表达式可以包括基本计算 - '{q1_id} + {q2_id}'、布尔表达式，例如 '{age} > 60'，以及函数：'iif（）'、'today（）'、'age（）'、'min（）'、'max（）'、'avg（）'等。此表达式确定的值用作初始默认值，可由响应者的手动输入覆盖。",
+        defaultValueExpression: "Pengaturan ini memungkinkan Anda menetapkan nilai jawaban default berdasarkan ekspresi. Ekspresi dapat mencakup perhitungan dasar - '{q1_id} + {q2_id}', ekspresi Boolean, seperti '{age} > 60', dan fungsi: 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', dll. Nilai yang ditentukan oleh ekspresi ini berfungsi sebagai nilai default awal yang dapat ditimpa oleh input manual responden.",
         // "Use the magic wand icon to set a conditional rule that determines when a respondent's input is reset to the value based on the \"Default value expression\" or \"Set value expression\" or to the \"Default answer\" value (if either is set)."
-        resetValueIf: "使用魔杖图标设置条件规则，该规则确定何时将受访者的输入重置为基于“默认值表达式”或“设置值表达式”的值，或重置为“默认答案”值（如果设置了其中任何一个）。",
+        resetValueIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menentukan kapan input responden diatur ulang ke nilai berdasarkan \"Ekspresi nilai default\" atau \"Atur ekspresi nilai\" atau ke nilai \"Jawaban default\" (jika salah satu diatur).",
         // "Use the magic wand icon to set a conditional rule that determines when to run the \"Set value expression\" and dynamically assign the resulting value as a response."
-        setValueIf: "使用魔杖图标设置条件规则，该规则确定何时运行“设置值表达式”，并将结果值动态分配为响应。",
+        setValueIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menentukan kapan harus menjalankan \"Atur ekspresi nilai\" dan secara dinamis menetapkan nilai yang dihasilkan sebagai respons.",
         // "Specify an expression that defines the value to be set when the conditions in the \"Set value if\" rule are met. The expression can include basic calculations - `{q1_id} + {q2_id}`, Boolean expressions, such as `{age} > 60`, and functions: `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc. The value determined by this expression can be overridden by a respondent's manual input."
-        setValueExpression: "指定一个表达式，该表达式定义在满足“如果设置值”规则中的条件时要设置的值。表达式可以包括基本计算 - '{q1_id} + {q2_id}'、布尔表达式，例如 '{age} > 60'，以及函数：'iif（）'、'today（）'、'age（）'、'min（）'、'max（）'、'avg（）'等。由此表达式确定的值可以被受访者的手动输入覆盖。",
+        setValueExpression: "Tentukan ekspresi yang menentukan nilai yang akan ditetapkan saat kondisi dalam aturan \"Tetapkan nilai jika\" terpenuhi. Ekspresi dapat mencakup perhitungan dasar - '{q1_id} + {q2_id}', ekspresi Boolean, seperti '{age} > 60', dan fungsi: 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', dll. Nilai yang ditentukan oleh ekspresi ini dapat ditimpa oleh input manual responden.",
         // "Survey Creator allows you to manually adjust the inline widths of form elements to control the layout. If this doesn't produce the desired outcome, you can enable the grid layout, which structures form elements using a column-based system. To configure layout columns, select a page or panel and use the \"Question Settings\" → \"Grid columns\" table. To adjust how many columns a question spans, select it and set the desired value in the \"Layout\" → \"Column span\" field."
-        gridLayoutEnabled: "Survey Creator 允许您手动调整表单元素的内联宽度以控制布局。如果这没有产生所需的结果，您可以启用网格布局，该布局使用基于列的系统构建表单元素。要配置布局列，请选择一个页面或面板，然后使用 “Question Settings” → “Grid columns” 表格。要调整问题跨越的列数，请选择它并在 “Layout” → “Column span” 字段中设置所需的值。",
+        gridLayoutEnabled: "Pembuat Survei memungkinkan Anda menyesuaikan lebar sebaris elemen formulir secara manual untuk mengontrol tata letak. Jika ini tidak menghasilkan hasil yang diinginkan, Anda dapat mengaktifkan tata letak kisi, yang menyusun elemen bentuk menggunakan sistem berbasis kolom. Untuk mengonfigurasi kolom tata letak, pilih halaman atau panel dan gunakan tabel \"Pengaturan Pertanyaan\" → \"Kolom kisi\". Untuk menyesuaikan berapa banyak kolom rentang pertanyaan, pilih dan atur nilai yang diinginkan di bidang \"Tata Letak\" → \"Rentang kolom\".",
         question: {
             // "A question ID that is not visible to respondents."
-            name: "受访者不可见的问题 ID。",
+            name: "ID pertanyaan yang tidak terlihat oleh responden.",
             // "Type a question subtitle."
-            description: "键入问题副标题。",
+            description: "Ketik subtitle pertanyaan.",
             // "Use the magic wand icon to set a conditional rule that determines question visibility."
-            visibleIf: "使用魔杖图标设置确定问题可见性的条件规则。",
+            visibleIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang menentukan visibilitas pertanyaan.",
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the question."
-            enableIf: "使用魔杖图标设置条件规则，以禁用问题的只读模式。",
+            enableIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang menonaktifkan mode baca-saja untuk pertanyaan.",
             // "Use the magic wand icon to set a conditional rule that prevents survey advancing or submission unless the question received an answer."
-            requiredIf: "使用魔杖图标设置条件规则，除非问题得到答案，否则阻止调查推进或提交。",
+            requiredIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang mencegah survei maju atau dikirim kecuali pertanyaan menerima jawaban.",
             // [Auto-translated] "Unselect to display the question in one line with the previous question or panel. The setting doesn't apply if the question is the first element in your form."
-            startWithNewLine: "取消选择以将问题与上一个问题或面板显示在一行中。如果问题是表单中的第一个元素，则该设置不适用。",
+            startWithNewLine: "Batalkan pilihan untuk menampilkan pertanyaan dalam satu baris dengan pertanyaan atau panel sebelumnya. Pengaturan tidak berlaku jika pertanyaan adalah elemen pertama dalam formulir Anda.",
             // "Repositions the question to the end of a selected page."
-            page: "将问题重新定位到所选页面的末尾。",
+            page: "Memposisikan ulang pertanyaan ke akhir halaman yang dipilih.",
             // "Choose from: \"Expanded\" - the question box is displayed in full and can be collapsed; \"Collapsed\" - the question box displays only the title and description and can be expanded; \"Locked\" - the question box is displayed in full and cannot be collapsed."
-            state: "从以下选项中选择：“展开” - 问题框完整显示，可以折叠;“已折叠” - 问题框仅显示标题和描述，可以展开;“已锁定” - 问题框完整显示，无法折叠。",
+            state: "Pilih dari: \"Diperluas\" - kotak pertanyaan ditampilkan secara penuh dan dapat diciutkan; \"Diciutkan\" - kotak pertanyaan hanya menampilkan judul dan deskripsi dan dapat diperluas; \"Terkunci\" - kotak pertanyaan ditampilkan secara penuh dan tidak dapat diciutkan.",
             // "Overrides title alignment rules defined on a panel, page, or survey level. When set to \"Hidden\", it also hides question descriptions. The \"Inherit\" option applies any higher-level settings (if set) or survey-level setting (\"Top\" by default)."
-            titleLocation: "覆盖在面板、页面或调查级别上定义的标题对齐规则。“继承”选项将应用任何更高级别的设置（如果已设置）或调查级别的设置（默认为“顶部”）。",
+            titleLocation: "Mengganti aturan penyelarasan judul yang ditentukan pada tingkat panel, halaman, atau survei. Opsi \"Warisi\" menerapkan pengaturan tingkat yang lebih tinggi (jika diatur) atau pengaturan tingkat survei (\"Atas\" secara default).",
             // "The \"Inherit\" option applies the survey-level setting (\"Under the question title\" by default)."
-            descriptionLocation: "“继承”选项应用调查级别设置（默认为“在问题标题下”）。",
+            descriptionLocation: "Opsi \"Warisi\" menerapkan setelan tingkat survei (\"Di bawah judul pertanyaan\" secara default).",
             // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)."
-            errorLocation: "设置与输入无效的问题相关的错误消息的位置。选择：“顶部” - 错误文本放置在问题框的顶部;“底部” - 错误文本放置在问题框的底部。“继承”选项将应用调查级别设置（默认为“顶部”）。",
+            errorLocation: "Mengatur lokasi pesan kesalahan sehubungan dengan pertanyaan dengan input yang tidak valid. Pilih antara: \"Atas\" - teks kesalahan ditempatkan di bagian atas kotak pertanyaan; \"Bawah\" - teks kesalahan ditempatkan di bagian bawah kotak pertanyaan. Opsi \"Warisi\" menerapkan setelan tingkat survei (\"Teratas\" secara default).",
             // "Adds space or margin between the question content and the left border of the question box."
-            indent: "在问题内容和问题框的左边框之间添加空格或边距。",
+            indent: "Menambahkan spasi atau margin antara konten pertanyaan dan batas kiri kotak pertanyaan.",
             // "Sets the width of the question in proportion to other survey elements in the same line. Accepts CSS values (px, %, in, pt, etc.)."
-            width: "设置问题的宽度，使其与同一行中的其他调查元素成比例。接受 CSS 值（px、%、in、pt 等）。",
+            width: "Mengatur lebar pertanyaan secara proporsional dengan elemen survei lain di baris yang sama. Menerima nilai CSS (px, %, in, pt, dll.).",
             // "Choose from: \"On lost focus\" - the value is updated when the input field loses focus; \"While typing\" - the value is updated in real-time, as users are typing. The \"Inherit\" option applies the survey-level setting (\"On lost focus\" by default)."
-            textUpdateMode: "从中选择：“失焦时” - 当输入字段失去焦点时，该值会更新;“键入时” - 当用户键入时，该值会实时更新。“继承”选项将应用调查级别设置（默认为“失去焦点时”）。",
+            textUpdateMode: "Pilih dari: \"On lost focus\" - nilai diperbarui ketika bidang input kehilangan fokus; \"Saat mengetik\" - nilainya diperbarui secara real-time, saat pengguna mengetik. Opsi \"Warisi\" menerapkan pengaturan tingkat survei (\"Pada fokus yang hilang\" secara default).",
             // [Auto-translated] "You can use any web service as a data source for multiple-choice questions. To populate choice values, enter the URL of the service providing the data."
-            url: "您可以使用任何 Web 服务作为多项选择题的数据源。要填充选项值，请输入提供数据的服务的 URL。",
+            url: "Anda dapat menggunakan layanan web apa pun sebagai sumber data untuk pertanyaan pilihan ganda. Untuk mengisi nilai pilihan, masukkan URL layanan yang menyediakan data.",
             // [Auto-translated] "A comparison operation used to filter the drop-down list."
-            searchMode: "用于筛选下拉列表的比较操作。",
+            searchMode: "Operasi perbandingan yang digunakan untuk memfilter daftar turun bawah.",
             // [Auto-translated] "Long texts in choice options will automatically generate line breaks to fit within the drop-down menu. Unselect if you want the texts to clip."
-            textWrapEnabled: "选项选项中的长文本将自动生成换行符以适合下拉菜单。如果要剪裁文本，请取消选择。",
+            textWrapEnabled: "Teks panjang dalam opsi pilihan akan secara otomatis menghasilkan jeda baris agar sesuai dengan menu tarik-turun. Batalkan pilihan jika Anda ingin teks dipotong.",
             // [Auto-translated] "Specifies how many columns this question spans within the grid layout."
-            effectiveColSpan: "指定此问题在网格布局中跨越多少列。"
+            effectiveColSpan: "Menentukan berapa banyak kolom yang mencakup pertanyaan ini dalam tata letak kisi."
         },
         surveyvalidator: {
             // "Use the magic wand icon to define when the question's value is considered valid."
-            expression: "使用魔杖图标定义问题值何时被视为有效。",
+            expression: "Gunakan ikon tongkat ajaib untuk menentukan kapan nilai pertanyaan dianggap valid.",
             // [Auto-translated] "Errors block progress until resolved. Warnings highlight issues but allow to continue. Informational notes offer additional context or neutral guidance. When using warnings or informational notes, we recommend enabling immediate validation: \"Survey\" → \"Validation\" → \"Run validation\" → \"After an answer has changed\"."
-            notificationType: "错误会阻止进度，直到解决。警告突出显示问题，但允许继续。信息性说明提供额外的背景信息或中立指导。使用警告或信息性注释时，建议启用即时验证：“调查”→“验证”→“运行验证”→“答案更改后”。"
+            notificationType: "Kesalahan memblokir kemajuan hingga teratasi. Peringatan menyoroti masalah tetapi memungkinkan untuk melanjutkan. Catatan informasi menawarkan konteks tambahan atau panduan netral. Saat menggunakan peringatan atau catatan informasi, sebaiknya aktifkan validasi segera: \"Survei\" → \"Validasi\" → \"Jalankan validasi\" → \"Setelah jawaban berubah\"."
         },
         signaturepad: {
             // "Sets the width of the displayed signature area and the resulting image."
-            signatureWidth: "设置显示的签名区域和生成的图像的宽度。",
+            signatureWidth: "Mengatur lebar area tanda tangan yang ditampilkan dan gambar yang dihasilkan.",
             // "Sets the height of the displayed signature area and the resulting image."
-            signatureHeight: "设置显示的签名区域和生成的图像的高度。",
+            signatureHeight: "Mengatur ketinggian area tanda tangan yang ditampilkan dan gambar yang dihasilkan.",
             // "Select if you want the signature area to fill all available space within the question box while maintaining the default 3:2 aspect ratio. When custom width and height values are set, the setting will keep the aspect ratio of these dimensions."
-            signatureAutoScaleEnabled: "选择是否希望签名区域填充问题框中的所有可用空间，同时保持默认的 3：2 纵横比。设置自定义宽度和高度值后，该设置将保留这些尺寸的纵横比。"
+            signatureAutoScaleEnabled: "Pilih apakah Anda ingin area tanda tangan mengisi semua ruang yang tersedia di dalam kotak pertanyaan sambil mempertahankan rasio aspek default 3:2. Saat nilai lebar dan tinggi kustom ditetapkan, pengaturan akan mempertahankan rasio aspek dimensi ini."
         },
         file: {
             // "Specifies the display height of uploaded images in the preview and the actual height of images taken with the camera. In single file upload mode, the display height is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
-            imageHeight: "指定预览中上传图像的显示高度以及使用相机拍摄的图像的实际高度。在单个文件上传模式下，显示高度受预览区域限制;在多文件上传模式下，它受缩略图区域限制。",
+            imageHeight: "Menentukan tinggi tampilan gambar yang diunggah dalam pratinjau dan tinggi sebenarnya gambar yang diambil dengan kamera. Dalam mode unggah file tunggal, tinggi tampilan dibatasi oleh area pratinjau; Dalam mode unggah beberapa file, itu dibatasi oleh area thumbnail.",
             // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
-            imageWidth: "指定预览中上传图像的显示宽度以及使用相机拍摄的图像的实际宽度。在单个文件上传模式下，显示宽度受预览区域限制;在多文件上传模式下，它受缩略图区域限制。",
+            imageWidth: "Menentukan lebar tampilan gambar yang diunggah dalam pratinjau dan lebar sebenarnya gambar yang diambil dengan kamera. Dalam mode unggah file tunggal, lebar tampilan dibatasi oleh area pratinjau; Dalam mode unggah beberapa file, itu dibatasi oleh area thumbnail.",
             // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-            allowImagesPreview: "尽可能显示已上传文件的缩略图预览。取消选择是否要显示文件图标。"
+            allowImagesPreview: "Menampilkan pratinjau thumbnail untuk file yang diunggah jika memungkinkan. Batalkan pilihan jika Anda ingin menampilkan ikon file sebagai gantinya."
         },
         image: {
             // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
-            contentMode: "“自动”选项会根据提供的源 URL 自动确定适合的显示模式 - 图像、视频或 YouTube。"
+            contentMode: "Opsi \"Otomatis\" secara otomatis menentukan mode yang sesuai untuk tampilan - Gambar, Video, atau YouTube - berdasarkan URL sumber yang disediakan."
         },
         imagepicker: {
             // [Auto-translated] "Overrides the minimum and maximum height values."
-            imageHeight: "覆盖最小和最大高度值。",
+            imageHeight: "Mengganti nilai tinggi minimum dan maksimum.",
             // [Auto-translated] "Overrides the minimum and maximum width values."
-            imageWidth: "覆盖最小和最大宽度值。",
+            imageWidth: "Mengganti nilai lebar minimum dan maksimum.",
             // [Auto-translated] "\"Value\" serves as an item ID used in conditional rules; \"Text\" is displayed to respondents."
-            choices: "“值”用作条件规则中使用的项目 ID;“文本”将显示给受访者。",
+            choices: "\"Nilai\" berfungsi sebagai ID item yang digunakan dalam aturan bersyarat; \"Teks\" ditampilkan kepada responden.",
             // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
-            contentMode: "在“图像”和“视频”之间进行选择以设置媒体选择器的内容模式。如果选择“图像”，请确保提供的所有选项都是以下格式的图像文件：JPEG、GIF、PNG、APNG、SVG、BMP、ICO。同样，如果选择“视频”，请确保所有选项都是指向以下格式的视频文件的直接链接：MP4、MOV、WMV、FLV、AVI、MKV。请注意，视频选项不支持 YouTube 链接。"
+            contentMode: "Pilih antara \"Gambar\" dan \"Video\" untuk mengatur mode konten pemilih media. Jika \"Gambar\" dipilih, pastikan bahwa semua opsi yang disediakan adalah file gambar dalam format berikut: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Demikian pula, jika \"Video\" dipilih, pastikan bahwa semua opsi adalah tautan langsung ke file video dalam format berikut: MP4, MOV, WMV, FLV, AVI, MKV. Perhatikan bahwa tautan YouTube tidak didukung untuk opsi video."
         },
         text: {
             // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-            size: "此设置仅调整输入字段的大小，不会影响问题框的宽度。要限制接受的输入长度，请转到“验证”→“最大字符限制”。"
+            size: "Pengaturan ini hanya mengubah ukuran bidang input dan tidak memengaruhi lebar kotak pertanyaan. Untuk membatasi panjang input yang diterima, buka \"Validasi\" → \"Batas karakter maksimum\"."
         },
         comment: {
             // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
-            rows: "设置输入字段中显示的行数。如果输入占用更多行，则会出现滚动条。"
+            rows: "Mengatur jumlah baris yang ditampilkan di bidang input. Jika input memakan lebih banyak baris, bilah gulir akan muncul."
         },
         // survey templates
         survey: {
             // "Select if you want to prevent respondents from filling out your survey."
-            readOnly: "选择是否要阻止受访者填写您的调查。",
+            readOnly: "Pilih jika Anda ingin mencegah responden mengisi survei Anda.",
             // "Sets the location of the progress bar. The \"Auto\" value displays the progress bar above or below the survey header."
-            progressBarLocation: "设置进度条的位置。“自动”值在调查标题的上方或下方显示进度条。"
+            progressBarLocation: "Mengatur lokasi bilah progres. Nilai \"Otomatis\" menampilkan bilah kemajuan di atas atau di bawah header survei."
         },
         matrixdropdowncolumn: {
             // "A column ID that is not visible to respondents."
-            name: "受访者不可见的列 ID。",
+            name: "ID kolom yang tidak terlihat oleh responden.",
             // "When enabled for a column, a respondent is required to provide a unique response for each question within this column."
-            isUnique: "为列启用后，受访者需要为此列中的每个问题提供唯一的回答。",
+            isUnique: "Saat diaktifkan untuk kolom, responden diharuskan memberikan respons unik untuk setiap pertanyaan dalam kolom ini.",
             // "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
-            rows: "设置输入字段中显示的行数。如果输入占用更多行，则会出现滚动条。",
+            rows: "Mengatur jumlah baris yang ditampilkan di bidang input. Jika input mengambil lebih banyak baris, bilah gulir akan muncul.",
             // "Use the magic wand icon to set a conditional rule that determines column visibility."
-            visibleIf: "使用魔杖图标设置确定列可见性的条件规则。",
+            visibleIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menentukan visibilitas kolom.",
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the column."
-            enableIf: "使用魔杖图标设置禁用列只读模式的条件规则。",
+            enableIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menonaktifkan mode baca-saja untuk kolom.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "使用魔杖图标设置条件规则，除非至少有一个嵌套问题有答案，否则该规则将阻止调查提交。",
+            requiredIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang mencegah pengiriman survei kecuali setidaknya satu pertanyaan bertingkat memiliki jawaban.",
             // "When selected, creates an individual column for each choice option."
-            showInMultipleColumns: "选中后，为每个选项创建一个单独的列。",
+            showInMultipleColumns: "Saat dipilih, buat kolom individual untuk setiap opsi pilihan.",
             // [Auto-translated] "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. When set to -1, the actual value is inherited from the \"Nested column count\" property of the parent matrix."
-            colCount: "在多列布局中排列选择选项。设置为 0 时，选项将显示在一行中。当设置为 -1 时，实际值将继承自父矩阵的“嵌套列计数”属性。"
+            colCount: "Mengatur opsi pilihan dalam tata letak multi-kolom. Saat diatur ke 0, opsi ditampilkan dalam satu baris. Saat diatur ke -1, nilai aktual diwarisi dari properti \"Jumlah kolom berlapis\" dari matriks induk."
         },
         slider: {
             // "The lowest number that users can select."
-            min: "用户可以选择的最小数字。",
+            min: "Angka terendah yang dapat dipilih pengguna.",
             // "The highest number that users can select."
-            max: "用户可以选择的最大数字。",
+            max: "Angka tertinggi yang dapat dipilih pengguna.",
             // "The interval between selectable scale values. For example, a step of 5 will allow users to select 0, 5, 10, etc."
-            step: "可选刻度值之间的间隔。例如，步长 5 将允许用户选择 0、5、10 等。",
+            step: "Interval antara nilai skala yang dapat dipilih. Misalnya, langkah 5 akan memungkinkan pengguna untuk memilih 0, 5, 10, dll.",
             // "The minimum distance between the slider thumbs a user can set."
-            minRangeLength: "用户可以设置的滑块块之间的最小距离。",
+            minRangeLength: "Jarak minimum antara ibu jari penggeser yang dapat diatur pengguna.",
             // "The maximum distance between the slider thumbs a user can set."
-            maxRangeLength: "用户可以设置滑块滑块之间的最大距离。",
+            maxRangeLength: "Jarak maksimum antara ibu jari penggeser yang dapat diatur pengguna.",
             // "Specifies how many scale labels to generate. A value of -1 means the number is calculated automatically based on the Min value and Max value."
-            labelCount: "指定要生成的刻度标签数量。值 -1 表示该数字是根据 最小值 和 最大值 自动计算的。",
+            labelCount: "Menentukan berapa banyak label skala yang akan dihasilkan. Nilai -1 berarti angka dihitung secara otomatis berdasarkan nilai Min dan nilai Maks.",
             // "Use `{0}` as a placeholder for the actual value."
-            labelFormat: "使用 '{0}' 作为实际值的占位符。",
+            labelFormat: "Gunakan '{0}' sebagai placeholder untuk nilai aktual.",
             // "Allows you to define custom labels at specific values and optionally assign corresponding text to them (e.g., 0 = \"Poor\", 100 = \"Excellent\")."
-            customLabels: "允许您定义特定值的自定义标签，并可选择为其分配相应的文本（例如，0 = “差”，100 = “优秀”）。",
+            customLabels: "Memungkinkan Anda untuk menentukan label kustom pada nilai tertentu dan secara opsional menetapkan teks yang sesuai untuk label tersebut (misalnya, 0 = \"Buruk\", 100 = \"Sangat Baik\").",
             // "Use `{0}` as a placeholder for the actual value."
-            tooltipFormat: "使用 '{0}' 作为实际值的占位符。",
+            tooltipFormat: "Gunakan '{0}' sebagai placeholder untuk nilai aktual.",
             // "Allows users to move one thumb past the other."
-            allowSwap: "允许用户将一个滑块移过另一个滑块。",
+            allowSwap: "Memungkinkan pengguna untuk menggerakkan satu ibu jari melewati yang lain.",
             // [Auto-translated] "Displays a button that clears the selected slider value and sets it to undefined."
-            allowClear: "显示一个按钮，用于清除选定的滑块值并将其设置为 undefined。",
+            allowClear: "Menampilkan tombol yang menghapus nilai penggeser yang dipilih dan mengaturnya ke tidak ditentukan.",
             // "Defines the slider's minimum value dynamically using an expression. Supports basic calculations (e.g, `{q1_id} + {q2_id}`), Boolean logic (e.g., `{age} > 60`), and functions like `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, and more."
-            minValueExpression: "使用表达式动态定义滑块的最小值。支持基本计算（例如 '{q1_id} + {q2_id}'）、布尔逻辑（例如 '{age} > 60'），以及 'iif（）'、'today（）'、'age（）'、'min（）'、'max（）'、'avg（）' 等函数。",
+            minValueExpression: "Menentukan nilai minimum penggeser secara dinamis menggunakan ekspresi. Mendukung perhitungan dasar (misalnya, '{q1_id} + {q2_id}'), logika Boolean (misalnya, '{age} > 60'), dan fungsi seperti 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', dan banyak lagi.",
             // "Defines the slider's maximum value dynamically using an expression. Supports basic calculations (e.g, `{q1_id} + {q2_id}`), Boolean logic (e.g., `{age} > 60`), and functions like `iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, and more."
-            maxValueExpression: "使用表达式动态定义滑块的最大值。支持基本计算（例如 '{q1_id} + {q2_id}'）、布尔逻辑（例如 '{age} > 60'），以及 'iif（）'、'today（）'、'age（）'、'min（）'、'max（）'、'avg（）' 等函数。"
+            maxValueExpression: "Menentukan nilai maksimum penggeser secara dinamis menggunakan ekspresi. Mendukung perhitungan dasar (misalnya, '{q1_id} + {q2_id}'), logika Boolean (misalnya, '{age} > 60'), dan fungsi seperti 'iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', dan banyak lagi."
         },
         // [Auto-translated] "Makes this choice exclusive. When selected by a user, it will automatically deselect all other options in the question."
-        isExclusive: "将此选择设为独占。当用户选择时，它将自动取消选择问题中的所有其他选项。",
+        isExclusive: "Membuat pilihan ini eksklusif. Saat dipilih oleh pengguna, itu akan secara otomatis membatalkan pilihan semua opsi lain dalam pertanyaan.",
         matrixcolumn: {
             // [Auto-translated] "Makes checkboxes in this column exclusive. When selected by a user, they will automatically deselect all other checkboxes in the same row."
-            isExclusive: "使此列中的复选框独占。当用户选择时，他们将自动取消选中同一行中的所有其他复选框。"
+            isExclusive: "Membuat kotak centang di kolom ini eksklusif. Saat dipilih oleh pengguna, mereka akan secara otomatis membatalkan centang semua kotak centang lainnya di baris yang sama."
         },
         // [Auto-translated] "Select if uppercase and lowercase letters in the regular expression must be treated as equivalent."
-        caseInsensitive: "如果必须将正则表达式中的大写字母和小写字母视为等效字母，请选择此项。",
+        caseInsensitive: "Pilih apakah huruf besar dan kecil dalam ekspresi reguler harus diperlakukan sebagai setara.",
         // "Choose from: \"Static\" - sets a fixed width; \"Responsive\" - makes the survey occupy the full width of the screen; \"Auto\" - applies either of the two depending on the question types used."
-        widthMode: "从以下选项中选择： “静态” - 设置固定宽度;“响应式” - 使调查占据屏幕的整个宽度;“自动” - 根据所使用的问题类型应用两者中的任何一个。",
+        widthMode: "Pilih dari: \"Statis\" - menetapkan lebar tetap; \"Responsif\" - membuat survei menempati lebar penuh layar; \"Otomatis\" - berlaku salah satu dari keduanya tergantung pada jenis pertanyaan yang digunakan.",
         // [Auto-translated] "Assign a unique cookie value for your survey. The cookie will be set in a respondent's browser upon survey completion to prevent repetitive survey submissions."
-        cookieName: "为您的调查分配一个唯一的 Cookie 值。调查完成后，Cookie 将在受访者的浏览器中设置，以防止重复提交调查。",
+        cookieName: "Tetapkan nilai cookie unik untuk survei Anda. Cookie akan diatur di browser responden setelah survei selesai untuk mencegah pengiriman survei yang berulang.",
         // [Auto-translated] "Paste an image link (no size limits) or click the folder icon to browse a file from your computer (up to 64KB)."
-        logo: "粘贴图像链接（无大小限制）或单击文件夹图标以浏览计算机中的文件（最大 64KB）。",
+        logo: "Tempel tautan gambar (tanpa batas ukuran) atau klik ikon folder untuk menelusuri file dari komputer Anda (hingga 64 KB).",
         // [Auto-translated] "Sets a logo width in CSS units (px, %, in, pt, etc.)."
-        logoWidth: "以 CSS 单位（px、%、in、pt 等）设置徽标宽度。",
+        logoWidth: "Mengatur lebar logo dalam satuan CSS (px, %, in, pt, dll.).",
         // [Auto-translated] "Sets a logo height in CSS units (px, %, in, pt, etc.)."
-        logoHeight: "以 CSS 单位（px、%、in、pt 等）设置徽标高度。",
+        logoHeight: "Mengatur tinggi logo dalam satuan CSS (px, %, in, pt, dll.).",
         // "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio."
-        logoFit: "从以下选项中选择：“无” - 图像保持其原始大小;“包含” - 调整图像大小以适应其纵横比;“封面” - 图像填充整个框，同时保持其纵横比;“填充” - 拉伸图像以填充框，而不保持其纵横比。",
+        logoFit: "Pilih dari: \"Tidak ada\" - gambar mempertahankan ukuran aslinya; \"Berisi\" - gambar diubah ukurannya agar pas dengan tetap mempertahankan rasio aspeknya; \"Cover\" - gambar mengisi seluruh kotak sambil mempertahankan rasio aspeknya; \"Isi\" - gambar direntangkan untuk mengisi kotak tanpa mempertahankan rasio aspeknya.",
         // [Auto-translated] "Select if you want the survey to auto-advance to the next page once a respondent has answered all questions on the current page. This feature won't apply if the last question on the page is open-ended or allows multiple answers."
-        autoAdvanceEnabled: "选择是否希望调查在受访者回答了当前页面上的所有问题后自动前进到下一页。如果页面上的最后一个问题是开放式的或允许多个答案，则此功能将不适用。",
+        autoAdvanceEnabled: "Pilih apakah Anda ingin survei maju secara otomatis ke halaman berikutnya setelah responden menjawab semua pertanyaan di halaman saat ini. Fitur ini tidak akan berlaku jika pertanyaan terakhir di halaman bersifat terbuka atau mengizinkan banyak jawaban.",
         // [Auto-translated] "Select if you want the survey to complete automatically after a respondent answers all questions."
-        autoAdvanceAllowComplete: "选择是否希望在受访者回答所有问题后自动完成调查。",
+        autoAdvanceAllowComplete: "Pilih apakah Anda ingin survei selesai secara otomatis setelah responden menjawab semua pertanyaan.",
         // [Auto-translated] "Sets the visibility of navigation buttons on a page."
-        showNavigationButtons: "设置页面上导航按钮的可见性。",
+        showNavigationButtons: "Mengatur visibilitas tombol navigasi pada halaman.",
         // [Auto-translated] "Sets the location of navigation buttons on a page."
-        navigationButtonsLocation: "设置页面上导航按钮的位置。",
+        navigationButtonsLocation: "Mengatur lokasi tombol navigasi pada halaman.",
         // [Auto-translated] "Enable the preview page with all or answered questions only."
-        showPreviewBeforeComplete: "启用仅包含所有问题或已回答问题的预览页面。",
+        showPreviewBeforeComplete: "Aktifkan halaman pratinjau hanya dengan semua atau pertanyaan yang dijawab.",
         // "Applies to all questions within the survey. This setting can be overridden by title alignment rules at lower levels: panel, page, or question. A lower-level setting will override those on a higher level."
-        questionTitleLocation: "适用于调查中的所有问题。此设置可以被较低级别的标题对齐规则覆盖：面板、页面或问题。较低级别的设置将覆盖较高级别的设置。",
+        questionTitleLocation: "Berlaku untuk semua pertanyaan dalam survei. Setelan ini dapat diganti dengan aturan penyelarasan judul di tingkat yang lebih rendah: panel, halaman, atau pertanyaan. Pengaturan tingkat yang lebih rendah akan menggantikan pengaturan tingkat yang lebih tinggi.",
         // [Auto-translated] "A symbol or a sequence of symbols indicating that an answer is required."
-        requiredMark: "一个符号或一系列符号，表示需要答案。",
+        requiredMark: "Simbol atau urutan simbol yang menunjukkan bahwa jawaban diperlukan.",
         // [Auto-translated] "Enter a number or letter with which you want to start numbering."
-        questionStartIndex: "输入要开始编号的数字或字母。",
+        questionStartIndex: "Masukkan angka atau huruf yang ingin Anda gunakan untuk memulai penomoran.",
         // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box."
-        questionErrorLocation: "设置与输入无效的问题相关的错误消息的位置。选择：“顶部” - 错误文本放置在问题框的顶部;“底部” - 错误文本放置在问题框的底部。",
+        questionErrorLocation: "Mengatur lokasi pesan kesalahan sehubungan dengan pertanyaan dengan input yang tidak valid. Pilih antara: \"Atas\" - teks kesalahan ditempatkan di bagian atas kotak pertanyaan; \"Bawah\" - teks kesalahan ditempatkan di bagian bawah kotak pertanyaan.",
         // [Auto-translated] "Select if you want the first input field on each page ready for text entry."
-        autoFocusFirstQuestion: "选择是否希望每个页面上的第一个输入字段准备好进行文本输入。",
+        autoFocusFirstQuestion: "Pilih apakah Anda ingin bidang input pertama pada setiap halaman siap untuk entri teks.",
         // "Keeps the original order of questions or randomizes them. The effect of this setting is only visible in the Preview tab."
-        questionOrder: "保持问题的原始顺序或随机化问题。此设置的效果仅在“预览”选项卡中可见。",
+        questionOrder: "Menyimpan urutan pertanyaan asli atau mengacaknya. Efek pengaturan ini hanya terlihat di tab Pratinjau.",
         // [Auto-translated] "For text entry questions only."
-        maxTextLength: "仅适用于文本输入问题。",
+        maxTextLength: "Hanya untuk pertanyaan entri teks.",
         // [Auto-translated] "For question comments only."
-        maxCommentLength: "仅供问题评论。",
+        maxCommentLength: "Hanya untuk komentar pertanyaan.",
         // [Auto-translated] "Sets the number of displayed lines in text areas for question comments. If the input takes up more lines, the scroll bar appears."
-        commentAreaRows: "设置问题注释在文本区域中显示的行数。如果输入占用更多行，则会出现滚动条。",
+        commentAreaRows: "Mengatur jumlah baris yang ditampilkan di area teks untuk komentar pertanyaan. Jika input mengambil lebih banyak baris, bilah gulir akan muncul.",
         // [Auto-translated] "Select if you want question comments and Long Text questions to auto-grow in height based on the entered text length."
-        autoGrowComment: "选择是否希望问题注释和长文本问题根据输入的文本长度自动增加高度。",
+        autoGrowComment: "Pilih apakah Anda ingin komentar pertanyaan dan pertanyaan Teks Panjang bertambah tinggi secara otomatis berdasarkan panjang teks yang dimasukkan.",
         // [Auto-translated] "For question comments and Long Text questions only."
-        allowResizeComment: "仅适用于问题评论和长文本问题。",
+        allowResizeComment: "Hanya untuk komentar pertanyaan dan pertanyaan Teks Panjang.",
         // [Auto-translated] "Custom variables serve as intermediate or auxiliary variables used in form calculations. They take respondent inputs as source values. Each custom variable has a unique name and an expression it's based on."
-        calculatedValues: "自定义变量用作表单计算中使用的中间变量或辅助变量。他们将受访者的输入作为源值。每个自定义变量都有一个唯一的名称和它所基于的表达式。",
+        calculatedValues: "Variabel kustom berfungsi sebagai variabel perantara atau tambahan yang digunakan dalam perhitungan formulir. Mereka mengambil input responden sebagai nilai sumber. Setiap variabel kustom memiliki nama unik dan ekspresi yang menjadi dasarnya.",
         // [Auto-translated] "Select if you wish the calculated value of the expression to be saved along with survey results."
-        includeIntoResult: "选择是否希望将表达式的计算值与调查结果一起保存。",
+        includeIntoResult: "Pilih apakah Anda ingin nilai terhitung ekspresi disimpan bersama dengan hasil survei.",
         // "A trigger is an event or condition that is based on an expression. Once the expression is evaluated to \"true\", a trigger sets off an action. Such an action can optionally have a target question it affects."
-        triggers: "触发器是基于表达式的事件或条件。一旦表达式被计算为“true”，触发器就会触发一个操作。这样的操作可以选择性地影响它的目标问题。",
+        triggers: "Pemicu adalah peristiwa atau kondisi yang didasarkan pada ekspresi. Setelah ekspresi dievaluasi ke \"true\", pemicu memicu tindakan. Tindakan semacam itu secara opsional dapat memiliki pertanyaan target yang dipengaruhinya.",
         // [Auto-translated] "Choose whether or not to clear values for questions hidden by conditional logic and when to do it."
-        clearInvisibleValues: "选择是否清除条件逻辑隐藏的问题的值以及何时清除。",
+        clearInvisibleValues: "Pilih apakah akan menghapus nilai untuk pertanyaan yang disembunyikan oleh logika kondisional atau tidak dan kapan melakukannya.",
         // "Choose from: \"On lost focus\" - the value is updated when the input field loses focus; \"While typing\" - the value is updated in real-time, as users are typing."
-        textUpdateMode: "从中选择：“失焦时” - 当输入字段失去焦点时，该值会更新;“键入时” - 当用户键入时，该值会实时更新。",
+        textUpdateMode: "Pilih dari: \"On lost focus\" - nilai diperbarui ketika bidang input kehilangan fokus; \"Saat mengetik\" - nilainya diperbarui secara real-time, saat pengguna mengetik.",
         // [Auto-translated] "The left value serves as a column ID used in conditional rules, the right value is displayed to respondents."
-        columns: "左边的值用作条件规则中使用的列 ID，右边的值显示给受访者。",
+        columns: "Nilai kiri berfungsi sebagai ID kolom yang digunakan dalam aturan bersyarat, nilai kanan ditampilkan kepada responden.",
         // "The left value serves as a row ID used in conditional rules, the right value is displayed to respondents."
-        rows: "左边的值用作条件规则中使用的行 ID，右边的值显示给受访者。",
+        rows: "Nilai kiri berfungsi sebagai ID baris yang digunakan dalam aturan bersyarat, nilai kanan ditampilkan kepada responden.",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        columnMinWidth: "接受 CSS 值（px、%、in、pt 等）。",
+        columnMinWidth: "Menerima nilai CSS (px, %, in, pt, dll.).",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        rowTitleWidth: "接受 CSS 值（px、%、in、pt 等）。",
+        rowTitleWidth: "Menerima nilai CSS (px, %, in, pt, dll.).",
         // [Auto-translated] "Visible only if at least one column displays total values set with \"Aggregation method\" or \"Total value expression\"."
-        totalText: "仅当至少一列显示使用“聚合方法”或“总值表���式���设置的总计值时才可见。",
+        totalText: "Hanya terlihat jika setidaknya satu kolom menampilkan nilai total yang ditetapkan dengan \"Metode agregasi\" atau \"Ekspresi nilai total\".",
         // "Sets the location of an error message in relation to a cell with invalid input. The \"Inherit\" option applies the setting from the \"Error message alignment\" property."
-        cellErrorLocation: "设置与输入无效的单元格相关的错误消息的位置。“继承”选项应用“错误消息对齐”属性中的设置。",
+        cellErrorLocation: "Mengatur lokasi pesan kesalahan dalam kaitannya dengan sel dengan input yang tidak valid. Opsi \"Warisi\" menerapkan pengaturan dari properti \"Perataan pesan kesalahan\".",
         // "Sets the location of error messages for questions nested in detail sections. The \"Inherit\" option applies the setting from the \"Error message alignment\" property."
-        detailErrorLocation: "设置嵌套在详细信息部分中的问题的错误消息的位置。“Inherit” 选项应用“Error message alignment” 属性中的设置。",
+        detailErrorLocation: "Mengatur lokasi pesan kesalahan untuk pertanyaan yang bertumpuk di bagian detail. Opsi \"Wariskan\" menerapkan pengaturan dari properti \"Perataan pesan kesalahan\".",
         // "When the \"Prevent duplicate responses\" property is enabled, a respondent attempting to submit a duplicate entry will receive the following error message."
-        keyDuplicationError: "启用“防止重复响应”属性后，尝试提交重复条目的受访者将收到以下错误消息。",
+        keyDuplicationError: "Ketika properti \"mencegah duplikat respons\" diaktifkan, responden mencoba untuk mengirimkan entri duplikat akan menerima pesan galat berikut.",
         matrixdropdown: {
             // [Auto-translated] "When the \"Prevent duplicate responses\" property is enabled for a matrix column, a respondent attempting to submit a duplicate entry will receive the following error message."
-            keyDuplicationError: "当为矩阵列启用“防止重复响应”属性时，尝试提交重复条目的受访者将收到以下错误消息。"
+            keyDuplicationError: "Saat properti \"Cegah respons duplikat\" diaktifkan untuk kolom matriks, responden yang mencoba mengirimkan entri duplikat akan menerima pesan kesalahan berikut."
         },
         // [Auto-translated] "Allows you to calculate total values based on an expression. The expression can include basic calculations (`{q1_id} + {q2_id}`), Boolean expressions (`{age} > 60`) and functions ('iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc.)."
-        totalExpression: "允许您根据表达式计算总值。表达式可以包括基本计算 （'{q1_id} + {q2_id}'）、布尔表达式 （'{age} > 60'） 和函数 （'iif（）'、'today（）'、'age（）'、'min（）'、'max（）'、'avg（）' 等）。",
+        totalExpression: "Memungkinkan Anda menghitung nilai total berdasarkan ekspresi. Ekspresi dapat mencakup perhitungan dasar ('{q1_id} + {q2_id}'), ekspresi Boolean ('{age} > 60') dan fungsi ('iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', dll.).",
         // "Reference a column ID to require a user to provide a unique response for each question within the specified column."
-        keyName: "如果指定的列包含相同的值，则调查将引发“非唯一键值”错误。",
+        keyName: "Jika kolom yang ditentukan berisi nilai yang identik, survei akan memunculkan kesalahan \"Nilai kunci tidak unik\".",
         // "Type a subtitle."
-        description: "键入副标题。",
+        description: "Ketik subtitle.",
         // [Auto-translated] "Choose a language to begin creating your survey. To add a translation, switch to a new language and translate the original text here or in the Translations tab."
-        locale: "选择一种语言以开始创建调查。要添加翻译，请切换到新语言，然后在此处或“翻译”选项卡中翻译原始文本。",
+        locale: "Pilih bahasa untuk mulai membuat survei. Untuk menambahkan terjemahan, beralihlah ke bahasa baru dan terjemahkan teks asli di sini atau di tab Terjemahan.",
         // "Sets the location of a detail section in relation to a row. Choose from: \"None\" - no detail section is added; \"Under the row\" - a detail section is placed under each row of the matrix; \"Under the row, display one detail section only\" - a detail section is displayed under a single row only, the remaining sections are collapsed."
-        detailPanelMode: "设置详细信息部分相对于行的位置。从中选择：“无” - 不添加扩展;“Under the row” - 矩阵的每一行下都放置一个行扩展;“在行下，仅显示一行扩展” - 仅在单行下显示扩展，其余行展开将折叠。",
+        detailPanelMode: "Mengatur lokasi bagian detail dalam kaitannya dengan baris. Pilih dari: \"Tidak ada\" - tidak ada ekspansi yang ditambahkan; \"Di bawah baris\" - ekspansi baris ditempatkan di bawah setiap baris matriks; \"Di bawah baris, tampilkan satu baris ekspansi saja\" - ekspansi ditampilkan di bawah satu baris saja, ekspansi baris yang tersisa diciutkan.",
         // "Choose from: \"None\" - image maintains its original size; \"Contain\" - image is resized to fit while maintaining its aspect ratio; \"Cover\" - image fills the entire box while maintaining its aspect ratio; \"Fill\" - image is stretched to fill the box without maintaining its aspect ratio."
-        imageFit: "从以下选项中选择：“无” - 图像保持其原始大小;“包含” - 调整图像大小以适应其纵横比;“封面” - 图像填充整个框，同时保持其纵横比;“填充” - 拉伸图像以填充框，而不保持其纵横比。",
+        imageFit: "Pilih dari: \"Tidak ada\" - gambar mempertahankan ukuran aslinya; \"Berisi\" - gambar diubah ukurannya agar pas dengan tetap mempertahankan rasio aspeknya; \"Cover\" - gambar mengisi seluruh kotak sambil mempertahankan rasio aspeknya; \"Isi\" - gambar direntangkan untuk mengisi kotak tanpa mempertahankan rasio aspeknya.",
         // "The \"Inherit\" option applies a survey-level setting (\"Disabled\" by default)."
-        autoGrow: "在输入数据时逐渐增加输入字段的高度。覆盖“输入字段高度（以行为单位）”设置。",
+        autoGrow: "Secara bertahap meningkatkan ketinggian bidang input saat data dimasukkan. Mengganti setelan \"Tinggi bidang input (dalam baris)\".",
         // [Auto-translated] "The \"Inherit\" option applies a survey-level setting (\"Enabled\" by default)."
-        allowResize: "“继承”选项应用调查级别设置（默认为“启用”）。",
+        allowResize: "Opsi \"Warisi\" menerapkan pengaturan tingkat survei (\"Diaktifkan\" secara default).",
         // [Auto-translated] "A time interval in seconds after which the survey auto-advances to the \"Thank You\" page. When set to 0, counts the time spent on the survey."
-        timeLimit: "调查自动前进到“谢谢”页面的时间间隔（以秒为单位）。设置为 0 时，计算在调查上花费的时间。",
+        timeLimit: "Interval waktu dalam hitungan detik setelah survei otomatis maju ke halaman \"Terima kasih\". Jika diatur ke 0, menghitung waktu yang dihabiskan untuk survei.",
         // [Auto-translated] "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button. When set to 0, counts the time spent on the current page."
-        timeLimitPerPage: "调查自动前进到下一页的时间间隔（以秒为单位）。隐藏“上一个”导航按钮。设置为 0 时，计算在当前页面上花费的时间。",
+        timeLimitPerPage: "Interval waktu dalam hitungan detik setelah survei otomatis maju ke halaman berikutnya. Menyembunyikan tombol navigasi \"Sebelumnya\". Saat diatur ke 0, menghitung waktu yang dihabiskan di halaman saat ini.",
         // [Auto-translated] "Enable this option to trigger validation when a user focuses on an empty input field and then leaves it without making any changes."
-        validateVisitedEmptyFields: "启用此选项可在用户将焦点放在空输入字段上，然后离开该字段而不进行任何更改时触发验证。",
+        validateVisitedEmptyFields: "Aktifkan opsi ini untuk memicu validasi saat pengguna berfokus pada bidang input kosong dan kemudian meninggalkannya tanpa membuat perubahan apa pun.",
         page: {
             // "A page ID that is not visible to respondents."
-            name: "受访者不可见的页面 ID。",
+            name: "ID halaman yang tidak terlihat oleh responden.",
             // "Type a page subtitle."
-            description: "键入页面副标题。",
+            description: "Ketik subjudul halaman.",
             // "A caption displayed on a navigation button in the progress bar or table of contents (TOC). If you leave this field empty, the navigation button will use the page title or page name. To enable the progress bar or TOC, go to \"Survey\" → \"Navigation\"."
-            navigationTitle: "显示在进度条或目录 （TOC） 中的导航按钮上的说明。如果将此字段留空，则导航按钮将使用页面标题或页面名称。要启用进度条或 TOC，请转到“调查”→“导航”。",
+            navigationTitle: "Keterangan yang ditampilkan pada tombol navigasi di bilah kemajuan atau daftar isi (TOC). Jika Anda membiarkan bidang ini kosong, tombol navigasi akan menggunakan judul halaman atau nama halaman. Untuk mengaktifkan bilah kemajuan atau TOC, buka \"Survei\" → \"Navigasi\".",
             // "A time interval in seconds after which the survey auto-advances to the next page. Hides the \"Previous\" navigation button. When set to 0, counts the time spent on the current page."
-            timeLimit: "以秒为单位的时间间隔，在此时间间隔之后，调查将自动前进到下一页。",
+            timeLimit: "Interval waktu dalam hitungan detik setelah survei maju secara otomatis ke halaman berikutnya.",
             // "Use the magic wand icon to set a conditional rule that determines page visibility."
-            visibleIf: "使用魔杖图标设置确定页面可见性的条件规则。",
+            visibleIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang menentukan visibilitas halaman.",
             // [Auto-translated] "Use the magic wand icon to set a conditional rule that disables the read-only mode for the page."
-            enableIf: "使用魔杖图标设置禁用页面只读模式的条件规则。",
+            enableIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menonaktifkan mode baca-saja untuk halaman.",
             // "Use the magic wand icon to set a conditional rule that prevents survey submission unless at least one nested question has an answer."
-            requiredIf: "使用魔杖图标设置条件规则，除非至少有一个嵌套问题有答案，否则该规则将阻止调查提交。",
+            requiredIf: "Gunakan ikon tongkat ajaib untuk menetapkan aturan bersyarat yang mencegah pengiriman survei kecuali setidaknya satu pertanyaan bertingkat memiliki jawaban.",
             // "Applies to all questions within this page. When set to \"Hidden\", it also hides question descriptions. If you want to override this setting, define title alignment rules for individual questions or panels. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)."
-            questionTitleLocation: "适用于本页中的所有问题。如果要覆盖此设置，请为单个问题或面板定义标题对齐规则。“继承”选项将应用调查级别设置（默认为“顶部”）。",
+            questionTitleLocation: "Berlaku untuk semua pertanyaan dalam halaman ini. Jika Anda ingin mengganti setelan ini, tentukan aturan perataan judul untuk masing-masing pertanyaan atau panel. Opsi \"Warisi\" menerapkan setelan tingkat survei (\"Teratas\" secara default).",
             // [Auto-translated] "Sets consistent width for question titles when they are aligned to the left of their question boxes. Accepts CSS values (px, %, in, pt, etc.)."
-            questionTitleWidth: "当问题标题与问题框左侧对齐时，为问题标题设置一致的宽度。接受 CSS 值（px、%、in、pt 等）。",
+            questionTitleWidth: "Mengatur lebar yang konsisten untuk judul pertanyaan bila disejajarkan di sebelah kiri kotak pertanyaan. Menerima nilai CSS (px, %, in, pt, dll.).",
             // "Sets the location of an error message in relation to the question with invalid input. Choose between: \"Top\" - an error text is placed at the top of the question box; \"Bottom\" - an error text is placed at the bottom of the question box. The \"Inherit\" option applies the survey-level setting (\"Top\" by default)."
-            questionErrorLocation: "设置与输入无效的问题相关的错误消息的位置。选择：“顶部” - 错误文本放置在问题框的顶部;“底部” - 错误文本放置在问题框的底部。“继承”选项将应用调查级别设置（默认为“顶部”）。",
+            questionErrorLocation: "Mengatur lokasi pesan kesalahan sehubungan dengan pertanyaan dengan input yang tidak valid. Pilih antara: \"Atas\" - teks kesalahan ditempatkan di bagian atas kotak pertanyaan; \"Bawah\" - teks kesalahan ditempatkan di bagian bawah kotak pertanyaan. Opsi \"Warisi\" menerapkan setelan tingkat survei (\"Teratas\" secara default).",
             // "Keeps the original order of questions or randomizes them. The \"Inherit\" option applies the survey-level setting (\"Original\" by default). The effect of this setting is only visible in the Preview tab."
-            questionOrder: "保持问题的原始顺序或随机化问题。“继承”选项应用调查级别设置（默认为“原始”）。此设置的效果仅在“预览”选项卡中可见。",
+            questionOrder: "Menyimpan urutan pertanyaan asli atau mengacaknya. Opsi \"Warisi\" menerapkan setelan tingkat survei (\"Asli\" secara default). Efek pengaturan ini hanya terlihat di tab Pratinjau.",
             // "Sets the visibility of navigation buttons on the page. The \"Inherit\" option applies the survey-level setting, which defaults to \"Visible\"."
-            showNavigationButtons: "设置导航按钮在页面上的可见性。“继承”选项应用调查级别设置，默认为“可见”。",
+            showNavigationButtons: "Mengatur visibilitas tombol navigasi di halaman. Opsi \"Warisi\" menerapkan pengaturan tingkat survei, yang defaultnya adalah \"Terlihat\".",
             // [Auto-translated] "This table lets you configure each grid column on the page. It automatically sets the width percentage for each column based on the maximum number of elements in a row. To customize the grid layout, manually adjust these values and define the title width for all questions in each column."
-            gridLayoutColumns: "此表允许您配置页面上的每个网格列。它根据行中的最大元素数自动设置每列的宽度百分比。要自定义网格布局，请手动调整这些值并定义每列中所有问题的标题宽度。"
+            gridLayoutColumns: "Tabel ini memungkinkan Anda mengonfigurasi setiap kolom kisi pada halaman. Ini secara otomatis mengatur persentase lebar untuk setiap kolom berdasarkan jumlah maksimum elemen dalam satu baris. Untuk menyesuaikan tata letak kisi, sesuaikan nilai ini secara manual dan tentukan lebar judul untuk semua pertanyaan di setiap kolom."
         },
         // [Auto-translated] "Sets the location of a timer on a page."
-        timerLocation: "设置计时器在页面上的位置。",
+        timerLocation: "Mengatur lokasi pengatur waktu pada halaman.",
         // "Choose from: \"Locked\" - users cannot expand or collapse entries; \"Collapse all\" - all entries start in a collapsed state; \"Expand all\" - all entries start in an expanded state; \"First expanded\" - only the first entry is initially expanded. Applies if \"Entry display mode\" is set to \"List\" and the \"Entry title pattern\" property is specified."
-        panelsState: "从以下选项中选择：“锁定” - 用户无法展开或折叠面板;“全部折叠” - 所有面板都以折叠状态启动;“全部展开” - 所有面板都以展开状态启动;“首先展开” - 最初只有第一个面板被展开。",
+        panelsState: "Pilih dari: \"Terkunci\" - pengguna tidak dapat memperluas atau menciutkan panel; \"Runtuhkan semua\" - semua panel dimulai dalam keadaan diciutkan; \"Perluas semua\" - semua panel dimulai dalam keadaan diperluas; \"Pertama diperluas\" - hanya panel pertama yang awalnya diperluas.",
         // [Auto-translated] "Enter a shared property name within the array of objects that contains the image or video file URLs you want to display in the choice list."
-        imageLinkName: "在对象数组中输入共享属性名称，该数组包含要在选项列表中显示的图像或视频文件 URL。",
+        imageLinkName: "Masukkan nama properti bersama dalam array objek yang berisi URL file gambar atau video yang ingin Anda tampilkan di daftar pilihan.",
         // "The left value serves as an item ID used in conditional rules, the right value is displayed to respondents."
-        choices: "左边的值用作条件规则中使用的项目 ID，右边的值显示给受访者。",
+        choices: "Nilai kiri berfungsi sebagai ID item yang digunakan dalam aturan bersyarat, nilai yang tepat ditampilkan kepada responden.",
         // [Auto-translated] "Type a user-friendly title to display."
-        title: "键入要显示的用户友好标题。",
+        title: "Ketik judul yang mudah digunakan untuk ditampilkan.",
         // [Auto-translated] "Ensures that users won't complete the survey until files are uploaded."
-        waitForUpload: "确保用户在上传文件之前不会完成调查。",
+        waitForUpload: "Memastikan bahwa pengguna tidak akan menyelesaikan survei sampai file diunggah.",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        minWidth: "接受 CSS 值（px、%、in、pt 等）。",
+        minWidth: "Menerima nilai CSS (px, %, in, pt, dll.).",
         // [Auto-translated] "Accepts CSS values (px, %, in, pt, etc.)."
-        maxWidth: "接受 CSS 值（px、%、in、pt 等）。",
+        maxWidth: "Menerima nilai CSS (px, %, in, pt, dll.).",
         // "Accepts CSS values (px, %, in, pt, etc.)."
-        width: "接受 CSS 值（px、%、in、pt 等）。",
+        width: "Menerima nilai CSS (px, %, in, pt, dll.).",
         // [Auto-translated] "A join identifier is a custom key that you can assign to several questions to link them together and sync their values. These values will be merged into a single array or object and stored in survey results using the key as the property name."
-        valueName: "联接标识符是一个自定义键，您可以将其分配给多个问题以将它们链接在一起并同步其值。这些值将合并到单个数组或对象中，并使用键作为属性名称存储在测量结果中。",
+        valueName: "Pengidentifikasi gabungan adalah kunci kustom yang dapat Anda tetapkan ke beberapa pertanyaan untuk menautkannya bersama dan menyinkronkan nilainya. Nilai-nilai ini akan digabungkan menjadi satu array atau objek dan disimpan dalam hasil survei menggunakan kunci sebagai nama properti.",
         // [Auto-translated] "A value displayed in HTML questions and in the dynamic titles and descriptions of survey elements when the question value is empty."
-        defaultDisplayValue: "当问题值为空时，显示在 HTML 问题以及调查元素的动态标题和描述中的值。",
+        defaultDisplayValue: "Nilai yang ditampilkan dalam pertanyaan HTML dan dalam judul dinamis dan deskripsi elemen survei saat nilai pertanyaan kosong.",
         // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. When selected, this setting shows a display value instead of an ID value in HTML questions and dynamic titles and descriptions of survey elements."
-        useDisplayValuesInDynamicTexts: "在单选题和多选题类型中，每个选项都有一个 ID 和显示值。选中此设置后，将在 HTML 问题以及调查元素的动态标题和描述中显示显示值，而不是 ID 值。",
+        useDisplayValuesInDynamicTexts: "Dalam tipe pertanyaan pilihan tunggal dan ganda, setiap opsi pilihan memiliki ID dan nilai tampilan. Saat dipilih, setelan ini akan menampilkan nilai tampilan, bukan nilai ID dalam pertanyaan HTML serta judul dinamis dan deskripsi elemen survei.",
         // "Choose whether or not to clear question values hidden by conditional logic and when to do it. The \"Inherit\" option applies the survey-level setting (\"Upon survey completion\" by default)."
-        clearIfInvisible: "选择是否清除条件逻辑隐藏的问题值以及何时清除。“继承”选项应用调查级别设置（默认为“完成调查后”）。",
+        clearIfInvisible: "Pilih apakah akan menghapus nilai pertanyaan yang disembunyikan oleh logika kondisional atau tidak dan kapan melakukannya. Opsi \"Warisi\" menerapkan setelan tingkat survei (\"Setelah survei selesai\" secara default).",
         // "Choose from: \"All\" - copies all choice options from the selected question; \"Selected\" - dynamically copies only selected choice options; \"Unselected\" - dynamically copies only unselected choice options. The \"None\" and \"Other\" options are copied by default if enabled in the source question."
-        choicesFromQuestionMode: "从以下选项中选择：“全部” - 复制所选问题中的所有选项;“Selected” - 仅动态复制选定的选项选项;“未选择” - 仅动态复制未选择的选项。默认情况下，如果在源问题中启用了“无”和“其他”选项，则会复制该选项。",
+        choicesFromQuestionMode: "Pilih dari: \"Semua\" - menyalin semua opsi pilihan dari pertanyaan yang dipilih; \"Dipilih\" - secara dinamis menyalin hanya opsi pilihan yang dipilih; \"Tidak dipilih\" - secara dinamis hanya menyalin opsi pilihan yang tidak dipilih. Opsi \"Tidak Ada\" dan \"Lainnya\" disalin secara default jika diaktifkan dalam pertanyaan sumber.",
         // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the IDs."
-        choiceValuesFromQuestion: "在单选和多选问题类型中，每个选项都有一个 ID 和显示值。此设置指定哪个矩阵、列或面板问题应提供 ID。",
+        choiceValuesFromQuestion: "Dalam jenis pertanyaan pilihan tunggal dan pilihan ganda, setiap opsi pilihan memiliki ID dan nilai tampilan. Pengaturan ini menentukan kolom matriks atau pertanyaan panel mana yang harus memberikan ID.",
         // [Auto-translated] "In single- and multiple-selection question types, each choice option has an ID and display value. This setting specifies which matrix column or panel question should provide the display texts."
-        choiceTextsFromQuestion: "在单选和多选问题类型中，每个选项都有一个 ID 和显示值。此设置指定哪个矩阵列或面板问题应提供显示文本。",
+        choiceTextsFromQuestion: "Dalam jenis pertanyaan pilihan tunggal dan pilihan ganda, setiap opsi pilihan memiliki ID dan nilai tampilan. Pengaturan ini menentukan kolom matriks atau pertanyaan panel mana yang harus menyediakan teks tampilan.",
         // [Auto-translated] "Select to let respondents add their own choices if the desired option isn't available in the dropdown. Custom choices will only be stored temporarily for the duration of the current browser session."
-        allowCustomChoices: "如果下拉列表中没有所需的选项，则选择以允许受访者添加自己的选择。自定义选项将仅在当前浏览器会话期间临时存储。",
+        allowCustomChoices: "Pilih untuk mengizinkan responden menambahkan pilihan mereka sendiri jika opsi yang diinginkan tidak tersedia di menu drop-down. Pilihan khusus hanya akan disimpan sementara selama sesi browser saat ini.",
         // [Auto-translated] "When selected, users can include additional input in a separate comment box."
-        showOtherItem: "选中后，用户可以在单独的注释框中包含其他输入。",
+        showOtherItem: "Saat dipilih, pengguna dapat menyertakan input tambahan di kotak komentar terpisah.",
         // "Displays each special choice option (\"None\", \"Other\", \"Select All\") on a new line, even when using a multiple-column layout."
-        separateSpecialChoices: "在新行上显示每个特殊选项（“无”、“其他”、“全选”），即使使用多列布局也是如此。",
+        separateSpecialChoices: "Menampilkan setiap opsi pilihan khusus (\"Tidak Ada\", \"Lainnya\", \"Pilih Semua\") pada baris baru, bahkan saat menggunakan tata letak beberapa kolom.",
         // [Auto-translated] "Specify the location within the service dataset where the target array of objects is located. Leave empty if the URL already points to the array."
-        path: "指定服务数据集中目标对象数组所在的位置。如果 URL 已指向数组，则留空。",
+        path: "Tentukan lokasi dalam himpunan data layanan tempat array objek target berada. Biarkan kosong jika URL sudah menunjuk ke array.",
         choicesbyurl: {
             // "Enter a uniform property name within the array of objects whose value will be stored as a response in survey results."
             valueName: " "
         },
         // [Auto-translated] "Enter a uniform property name within the array of objects that contains the values you want to display in the choice list."
-        titleName: "在对象数组中输入一个统一的属性名称，该数组包含要在选项列表中显示的值。",
+        titleName: "Masukkan nama properti seragam dalam array objek yang berisi nilai yang ingin Anda tampilkan di daftar pilihan.",
         // [Auto-translated] "Select to allow the service to return an empty response or array."
-        allowEmptyResponse: "选择此选项可允许服务返回空响应或数组。",
+        allowEmptyResponse: "Pilih untuk mengizinkan layanan mengembalikan respons atau array kosong.",
         // [Auto-translated] "Use the magic wand icon to set a conditional rule that determines the visibility of all choice options."
-        choicesVisibleIf: "使用魔杖图标设置条件规则，以确定所有选项的可见性。",
+        choicesVisibleIf: "Gunakan ikon tongkat ajaib untuk mengatur aturan bersyarat yang menentukan visibilitas semua opsi pilihan.",
         // [Auto-translated] "The left value serves as an item ID used in conditional rules, the right value is displayed to respondents."
-        rateValues: "左边的值用作条件规则中使用的项目 ID，右边的值显示给受访者。",
+        rateValues: "Nilai kiri berfungsi sebagai ID item yang digunakan dalam aturan bersyarat, nilai yang tepat ditampilkan kepada responden.",
         rating: {
             // "\"Auto\" selects between the \"Buttons\" and \"Dropdown\" modes based on the available width. When the width is insufficient to display buttons, the question displays a dropdown."
-            displayMode: "“自动”根据可用宽度在“按钮”和“下拉”模式之间进行选择。当宽度不足以显示按钮时，问题将显示一个下拉列表。"
+            displayMode: "\"Otomatis\" memilih antara mode \"Tombol\" dan \"Tarik-turun\" berdasarkan lebar yang tersedia. Ketika lebar tidak cukup untuk menampilkan tombol, pertanyaan menampilkan dropdown."
         },
         // [Auto-translated] "Allows you to connect questions that produce results in different formats. When such questions are linked together using a join identifier, this shared property stores selected question values."
-        valuePropertyName: "允许您连接以不同格式生成结果的问题。当使用联接标识符将此类问题链接在一起时，此共享属性将存储选定的问题值。",
+        valuePropertyName: "Memungkinkan Anda menghubungkan pertanyaan yang menghasilkan hasil dalam berbagai format. Saat pertanyaan tersebut ditautkan bersama menggunakan ID gabungan, properti bersama ini akan menyimpan nilai pertanyaan yang dipilih.",
         // [Auto-translated] "Select if you want to update the drop-down menu contents to match the search query that a user is typing in the input field."
-        searchEnabled: "选择是否要更新下拉菜单内容以匹配用户在输入字段中键入的搜索查询。",
+        searchEnabled: "Pilih apakah Anda ingin memperbarui konten menu drop-down agar sesuai dengan kueri pencarian yang diketik pengguna di bidang input.",
         // [Auto-translated] "A value to save in survey results when respondents give a positive answer."
-        valueTrue: "当受访者给出肯定答案时保存在调查结果中的值。",
+        valueTrue: "Nilai yang harus disimpan dalam hasil survei ketika responden memberikan jawaban positif.",
         // [Auto-translated] "A value to save in survey results when respondents give a negative answer."
-        valueFalse: "当受访者给出否定答案时保存在调查结果中的值。",
+        valueFalse: "Nilai untuk disimpan dalam hasil survei ketika responden memberikan jawaban negatif.",
         // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
-        showPreview: "不建议禁用此选项，因为它会覆盖预览图像，并使用户难以了解文件是否已上传。",
+        showPreview: "Anda tidak disarankan untuk menonaktifkan opsi ini karena menggantikan gambar Pratinjau dan menyulitkan pengguna untuk memahami apakah file telah diunggah.",
         // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-        needConfirmRemoveFile: "触发提示，要求确认文件删除。",
+        needConfirmRemoveFile: "Memicu prompt yang meminta konfirmasi penghapusan file.",
         // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
-        selectToRankEnabled: "启用此选项可仅对选定的选项进行排名。用户将从选项列表中拖动所选项目，以在排名区域内对它们进行排序。",
+        selectToRankEnabled: "Aktifkan untuk memberi peringkat hanya pada pilihan yang dipilih. Pengguna akan menyeret item yang dipilih dari daftar pilihan untuk memesannya di dalam area peringkat.",
         // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
-        dataList: "输入将在输入期间向受访者建议的选项列表。",
+        dataList: "Masukkan daftar pilihan yang akan disarankan kepada responden saat masukan.",
         // [Auto-translated] "The setting only resizes the input fields and doesn't affect the width of the question box."
-        inputSize: "该设置仅调整输入字段的大小，不会影响问题框的宽度。",
+        inputSize: "Pengaturan hanya mengubah ukuran bidang input dan tidak memengaruhi lebar kotak pertanyaan.",
         // [Auto-translated] "Sets consistent width for all item labels. Accepts CSS values (px, %, in, pt, etc.)."
-        itemTitleWidth: "为所有项目标签设置一致的宽度。接受 CSS 值（px、%、in、pt 等）。",
+        itemTitleWidth: "Mengatur lebar yang konsisten untuk semua label item. Menerima nilai CSS (px, %, in, pt, dll.).",
         // "Select how to align input value within the field. The default setting \"Auto\" aligns the input value to the right if currency or numeric masking is applied and to the left if not."
-        inputTextAlignment: "选择如何在字段中对齐输入值。默认设置 “Auto” 如果应用了货币或数字掩码，则将输入值向右对齐，如果未应用，则向左对齐。",
+        inputTextAlignment: "Pilih cara menyelaraskan nilai input dalam bidang. Pengaturan default \"Otomatis\" menyelaraskan nilai input ke kanan jika penyembunyian mata uang atau numerik diterapkan dan ke kiri jika tidak.",
         // [Auto-translated] "Serves as a substitute when the image cannot be displayed on a user's device and for accessibility purposes."
-        altText: "当图像无法在用户设备上显示时，出于辅助功能的目的，可作为替代。",
+        altText: "Berfungsi sebagai pengganti ketika gambar tidak dapat ditampilkan pada perangkat pengguna dan untuk tujuan aksesibilitas.",
         // "Defines the color of the selected emoji when the Rating icon type is set to \"Smileys\". Choose between: \"Default\" - the selected emoji appears in default survey color; \"Scale\" - the selected emoji inherits color from the rating scale."
-        rateColorMode: "定义当评级图标类型设置为“笑脸”时所选表情符号的颜色。选择：“默认” - 所选表情符号以默认调查颜色显示;“比例” - 所选的表情符号继承了评分量表的颜色。",
+        rateColorMode: "Menentukan warna emoji yang dipilih saat jenis ikon Peringkat diatur ke \"Smiley\". Pilih antara: \"Default\" - emoji yang dipilih muncul dalam warna survei default; \"Skala\" - emoji yang dipilih mewarisi warna dari skala peringkat.",
         expression: {
             // "An expression ID that is not visible to respondents."
-            name: "受访者不可见的表达式 ID。",
+            name: "ID ekspresi yang tidak terlihat oleh responden.",
             // "Type an expression subtitle."
-            description: "键入表达式副标题。",
+            description: "Ketikkan subjudul ekspresi.",
             // "An expression can include basic calculations (`{q1_id} + {q2_id}`), conditions (`{age} > 60`), and functions ('iif()`, `today()`, `age()`, `min()`, `max()`, `avg()`, etc.)."
-            expression: "表达式可以包括基本计算 （'{q1_id} + {q2_id}'）、条件 （'{age} > 60'） 和函数 （'iif（）'、'today（）'、'age（）'、'min（）'、'max（）'、'avg（）' 等）。"
+            expression: "Ekspresi dapat mencakup perhitungan dasar ('{q1_id} + {q2_id}'), kondisi ('{age} > 60'), dan fungsi ('iif()', 'today()', 'age()', 'min()', 'max()', 'avg()', dll.)."
         },
         // "Select to store the \"Other\" option value as a separate property in survey results."
-        storeOthersAsComment: "选择此选项可将“其他”选项值作为单独的属性存储在调查结果中。",
+        storeOthersAsComment: "Pilih untuk menyimpan nilai opsi \"Lainnya\" sebagai properti terpisah dalam hasil survei.",
         // [Auto-translated] "Use {0} as a placeholder for the actual value."
-        format: "使用 {0} 作为实际值的占位符。",
+        format: "Gunakan {0} sebagai placeholder untuk nilai aktual.",
         // [Auto-translated] "Refer to the [accept](https://www.w3schools.com/tags/att_input_accept.asp) attribute description for more information."
-        acceptedTypes: "有关详细信息，请参阅 [accept]（https://www.w3schools.com/tags/att_input_accept.asp） 属性说明。",
+        acceptedTypes: "Lihat deskripsi atribut [accept](https://www.w3schools.com/tags/att_input_accept.asp) untuk informasi selengkapnya.",
         // [Auto-translated] "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line. Applies only to columns with \"Cell input type\" set to Radio Button Group or Checkboxes."
-        columnColCount: "在多列布局中排列选择选项。设置为 0 时，选项将显示在一行中。仅适用于将“单元格输入类型”设置为单选按钮组或复选框的列。",
+        columnColCount: "Mengatur opsi pilihan dalam tata letak multi-kolom. Saat diatur ke 0, opsi ditampilkan dalam satu baris. Hanya berlaku untuk kolom dengan \"Jenis input sel\" yang diatur ke Grup Tombol Radio atau Kotak Centang.",
         // [Auto-translated] "Select the data type that the user's browser can retrieve. This data is sourced either from past values entered by the user or from pre-configured values if any have been saved by the user for autocompletion."
-        autocomplete: "选择用户浏览器可以检索的数据类型。此数据来自用户输入的过去值或预配置值（如果用户已保存用于自动完成）。",
+        autocomplete: "Pilih jenis data yang dapat diambil oleh browser pengguna. Data ini bersumber baik dari nilai sebelumnya yang dimasukkan oleh pengguna atau dari nilai yang telah dikonfigurasi sebelumnya jika ada yang telah disimpan oleh pengguna untuk pelengkapan otomatis.",
         // "Applies when \"File source type\" is \"Local file\" or when camera is unavailable"
-        filePlaceholder: "当“源类型”为“本地文件”或相机不可用时适用",
+        filePlaceholder: "Berlaku ketika \"Jenis sumber\" adalah \"File lokal\" atau ketika kamera tidak tersedia",
         // "Applies when \"File source type\" is \"Camera\"."
-        photoPlaceholder: "当“源类型”为“相机”时适用。",
+        photoPlaceholder: "Berlaku ketika \"Jenis sumber\" adalah \"Kamera\".",
         // "Applies when \"File source type\" is \"Local file or camera\"."
-        fileOrPhotoPlaceholder: "当“源类型”为“本地文件或相机”时适用。",
+        fileOrPhotoPlaceholder: "Berlaku ketika \"Jenis sumber\" adalah \"File atau kamera lokal\".",
         // "Arranges choice options in a multi-column layout. When set to 0, the options are displayed in a single line."
-        colCount: "在多列布局中排列选项。当设置为 0 时，选项将显示在一行中。",
+        colCount: "Mengatur opsi pilihan dalam tata letak multi-kolom. Saat diatur ke 0, opsi ditampilkan dalam satu baris.",
         multipletext: {
             // [Auto-translated] "Arranges text boxes in a multi-column layout."
-            colCount: "以多列布局排列文本框。"
+            colCount: "Mengatur kotak teks dalam tata letak multi-kolom."
         },
         masksettings: {
             // "Select if you want to store the question value with an applied mask in survey results."
-            saveMaskedValue: "选择是否要在调查结果中存储带有应用掩码的问题值。"
+            saveMaskedValue: "Pilih apakah Anda ingin menyimpan nilai pertanyaan dengan masker yang diterapkan dalam hasil survei."
         },
         patternmask: {
             // "The pattern can contain string literals and the following placeholders: `9` - for a digit; `a` - for an upper- or lower-case letter; `#` - for a digit or an upper- or lower-case letter. Use backslash `\\` to escape a character."
-            pattern: "该模式可以包含字符串文字和以下占位符： '9' - 表示数字;“a” - 表示大写或小写字母;'#' - 表示数字或大写或小写字母。使用反斜杠“\\”转义字符。"
+            pattern: "Pola dapat berisi literal string dan placeholder berikut: '9' - untuk digit; 'a' - untuk huruf besar atau kecil; '#' - untuk digit atau huruf besar atau kecil. Gunakan garis miring terbalik '\\' untuk melarikan diri dari karakter."
         },
         datetimemask: {
             // "The pattern can contain separator characters and the following placeholders:<br>`m` - Month number.<br>`mm` - Month number, with leading zero for single-digit values.<br>`d` - Day of the month.<br>`dd` - Day of the month, with leading zero for single-digit values.<br>`yy` - The last two digits of the year.<br>`yyyy` - Four-digit year.<br>`H` - Hours in 24-hour format.<br>`HH` - Hours in 24-hour format, with leading zero for single-digit values.<br>`h` - Hours in 12-hour format.<br>`hh` - Hours in 12-hour format, with leading zero for single-digit values.<br>`MM` - Minutes.<br>`ss` - Seconds.<br>`TT` - 12-hour clock period in upper case (AM/PM).<br>`tt` - 12-hour clock period in lower case (am/pm)."
-            pattern: "模式可以包含分隔符和以下占位符：“<br>m”- 月份编号。<br>'mm' - 月份编号，前导零表示个位数值。<br>'d' - 月份中的某一天。<br>'dd' - 月份的某一天，个位数值的前导为零。<br>'yy' - 年份的最后两位数字。<br>'yyyy' - 四位数年份。<br>“H” - 24 小时制的小时数。<br>“HH” - 24 小时制的小时数，个位数值的前导为零。<br>'h' - 以 12 小时为制的小时数。<br>'hh' - 12 小时制的小时数，个位数值的前导为零。<br>'MM' - 分钟。<br>'ss' - 秒。<br>“TT” - 大写 （AM/PM） 的 12 小时制周期。<br>'tt' - 小写 （am/pm） 的 12 小时制周期。"
+            pattern: "Pola dapat berisi karakter pemisah dan placeholder berikut:<br>'m' - Nomor bulan.<br>'mm' - Angka bulan, dengan nol di depannya untuk nilai satu digit. <br>'d' - Hari dalam sebulan. <br>'dd' - Hari dalam sebulan, dengan nol di depan untuk nilai satu digit. <br>'yy' - Dua digit terakhir tahun ini. <br>'yyyy' - Tahun empat digit. <br>'H' - Jam dalam format 24 jam. <br>'HH' - Jam dalam format 24 jam, dengan nol di depannya untuk nilai satu digit. <br>'h' - Jam dalam format 12 jam. <br>'hh' - Jam dalam format 12 jam, dengan nol di depannya untuk nilai satu digit. <br>'MM' - Menit. <br>'ss' - Detik. <br>'TT' - Periode jam 12 jam dalam huruf besar (AM / PM). <br>'tt' - Periode jam 12 jam dalam huruf kecil (am/pm)."
         },
         numericmask: {
             // "A symbol used to separate the fractional part from the integer part of a displayed number."
-            decimalSeparator: "用于将显示数字的小数部分与整数部分分开的符号。",
+            decimalSeparator: "Simbol yang digunakan untuk memisahkan bagian pecahan dari bagian bilangan bulat dari angka yang ditampilkan.",
             // "A symbol used to separate the digits of a large number into groups of three."
-            thousandsSeparator: "用于将大数的数字分成三组的符号。",
+            thousandsSeparator: "Simbol yang digunakan untuk memisahkan digit angka besar menjadi kelompok tiga.",
             // "Limits how many digits to retain after the decimal point for a displayed number."
-            precision: "限制显示数字的小数点后要保留的位数。"
+            precision: "Membatasi jumlah digit yang akan dipertahankan setelah koma desimal untuk angka yang ditampilkan."
         },
         currencymask: {
             // "One or several symbols to be displayed before the value."
-            prefix: "要在值之前显示的一个或多个符号。",
+            prefix: "Satu atau beberapa simbol yang akan ditampilkan sebelum nilai.",
             // "One or several symbols to be displayed after the value."
-            suffix: "要在值后显示的一个或多个符号。"
+            suffix: "Satu atau beberapa simbol yang akan ditampilkan setelah nilai."
         },
         theme: {
             // "This setting applies only to questions outside of a panel."
-            isPanelless: "此设置仅适用于面板之外的问题。",
+            isPanelless: "Pengaturan ini hanya berlaku untuk pertanyaan di luar panel.",
             // "Sets a supplementary color that highlights key survey elements."
-            primaryColor: "设置一种补充颜色，用于突出显示关键调查元素。",
+            primaryColor: "Menetapkan warna tambahan yang menyoroti elemen survei utama.",
             // "Adjusts the transparency of panels and question boxes relative to the survey background."
-            panelBackgroundTransparency: "调整面板和问题框相对于调查背景的透明度。",
+            panelBackgroundTransparency: "Menyesuaikan transparansi panel dan kotak pertanyaan relatif terhadap latar belakang survei.",
             // "Adjusts the transparency of input elements relative to the survey background."
-            questionBackgroundTransparency: "调整输入元素相对于调查背景的透明度。",
+            questionBackgroundTransparency: "Menyesuaikan transparansi elemen input relatif terhadap latar belakang survei.",
             // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
-            cornerRadius: "设置所有矩形元素的圆角半径。如果要为输入元素或面板和问题框设置单独的角半径值，请启用高级模式。",
+            cornerRadius: "Mengatur jari-jari sudut untuk semua elemen persegi panjang. Aktifkan Mode Lanjutan jika Anda ingin mengatur nilai radius sudut individual untuk elemen input atau panel dan kotak pertanyaan.",
             // "Sets the main background color of the survey."
-            "--sjs-general-backcolor-dim": "设置调查的主要背景颜色。"
+            "--sjs-general-backcolor-dim": "Mengatur warna latar belakang utama survei."
         },
         header: {
             // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
-            inheritWidthFrom: "“与容器相同”选项会自动调整标题内容区域的宽度，以适应放置调查的 HTML 元素。",
+            inheritWidthFrom: "Opsi \"Sama seperti wadah\" secara otomatis menyesuaikan lebar area konten header agar sesuai dengan elemen HTML tempat survei ditempatkan.",
             // [Auto-translated] "The width of the header area that contains the survey title and description, measured in pixels."
-            textAreaWidth: "包含调查标题和描述的标题区域的宽度，以像素为单位。",
+            textAreaWidth: "Lebar area header yang berisi judul dan deskripsi survei, diukur dalam piksel.",
             // [Auto-translated] "When enabled, the top of the survey overlays the bottom of the header."
-            overlapEnabled: "启用后，调查的顶部将覆盖页眉的底部。",
+            overlapEnabled: "Saat diaktifkan, bagian atas survei melapisi bagian bawah header.",
             // [Auto-translated] "When set to 0, the height is calculated automatically to accommodate the header's content."
-            mobileHeight: "设置为 0 时，将自动计算高度以适应标题的内容。"
+            mobileHeight: "Saat diatur ke 0, tinggi dihitung secara otomatis untuk mengakomodasi konten header."
         },
         // "The \"Same as container\" option auto-adjusts the progress bar area width to fit into the HTML element the survey is placed in."
-        progressBarInheritWidthFrom: "“与容器相同”选项会自动调整进度条区域的宽度，以适应放置调查的 HTML 元素。",
+        progressBarInheritWidthFrom: "Opsi \"Sama seperti wadah\" secara otomatis menyesuaikan lebar area bilah kemajuan agar sesuai dengan elemen HTML tempat survei ditempatkan.",
         // [Auto-translated] "Used when the 'Survey layout' is set to 'Single input field per page'. In this layout, the matrix is split so that each input field appears on a separate page. Use the {rowIndex} placeholder to insert auto numbering, {rowTitle} or {rowName} to reference the row's title or ID, and {row.columnid} to include the value of a specific matrix column."
-        singleInputTitleTemplate: "当“调查布局”设置为“每页单个输入字段”时使用。在此布局中，矩阵被拆分，以便每个输入字段都显示在单独的页面上。使用 {rowIndex} 占位符插入自动编号，使用 {rowTitle} 或 {rowName} 引用行的标题或 ID，使用 {row.columnid} 包含特定矩阵列的值。"
+        singleInputTitleTemplate: "Digunakan saat 'Tata letak survei' diatur ke 'Bidang input tunggal per halaman'. Dalam tata letak ini, matriks dipisahkan sehingga setiap bidang input muncul di halaman terpisah. Gunakan placeholder {rowIndex} untuk menyisipkan penomoran otomatis, {rowTitle} atau {rowName} untuk mereferensikan judul atau ID baris, dan {row.columnid} untuk menyertakan nilai kolom matriks tertentu."
     },
     // Properties
     p: {
         title: {
             // "title"
-            name: "标题",
+            name: "judul",
             // "Leave it empty, if it is the same as 'Name'"
-            title: "如果与名字相同，请设置为空值"
+            title: "Biarkan kosong, jika sama dengan 'Nama'"
         },
         // [Auto-translated] "Allow multiple selection"
-        multiSelect: "允许多项选择",
+        multiSelect: "Perbolehkan beberapa pilihan",
         // [Auto-translated] "Show image and video captions"
-        showLabel: "显示图像和视频字幕",
+        showLabel: "Tampilkan keterangan gambar dan video",
         // [Auto-translated] "Swap the order of Yes and No"
-        swapOrder: "交换“是”和“否”的顺序",
+        swapOrder: "Tukar urutan Ya dan Tidak",
         // [Auto-translated] "Value"
-        value: "价值",
+        value: "Nilai",
         // [Auto-translated] "Tab alignment"
-        tabAlign: "制表符对齐方式",
+        tabAlign: "Perataan tab",
         // [Auto-translated] "File source type"
-        sourceType: "文件源类型",
+        sourceType: "Jenis sumber file",
         // [Auto-translated] "Fit to container"
-        fitToContainer: "适合容器",
+        fitToContainer: "Sesuai dengan kontainer",
         // [Auto-translated] "Set value expression"
-        setValueExpression: "设置值表达式",
+        setValueExpression: "Mengatur ekspresi nilai",
         // "Description"
-        description: "说明", // Auto-generated string
+        description: "deskripsi", // Auto-generated string
         // [Auto-translated] "Logo fit"
-        logoFit: "徽标合身",
+        logoFit: "Kecocokan logo",
         // [Auto-translated] "Pages"
-        pages: "页面", // Auto-generated string
+        pages: "Halaman", // Auto-generated string
         // [Auto-translated] "Questions"
-        questions: "问题", // Auto-generated string
+        questions: "Pertanyaan", // Auto-generated string
         // "Triggers"
-        triggers: "触发器",
+        triggers: "Trigger",
         // [Auto-translated] "Custom variables"
-        calculatedValues: "自定义变量",
+        calculatedValues: "Variabel kustom",
         // [Auto-translated] "Survey id"
-        surveyId: "调查编号", // Auto-generated string
+        surveyId: "ID survei", // Auto-generated string
         // [Auto-translated] "Survey post id"
-        surveyPostId: "调查帖子编号", // Auto-generated string
+        surveyPostId: "ID pos survei", // Auto-generated string
         // [Auto-translated] "Survey show data saving"
-        surveyShowDataSaving: "调查显示数据保存", // Auto-generated string
+        surveyShowDataSaving: "Survei menunjukkan penghematan data", // Auto-generated string
         // [Auto-translated] "Question description alignment"
-        questionDescriptionLocation: "问题描述对齐",
+        questionDescriptionLocation: "Perataan deskripsi pertanyaan",
         // [Auto-translated] "Progress bar type"
-        progressBarType: "进度条类型", // Auto-generated string
+        progressBarType: "Jenis bilah kemajuan", // Auto-generated string
         // [Auto-translated] "Show table of contents (TOC)"
-        showTOC: "显示目录 （TOC）",
+        showTOC: "Tampilkan daftar isi (TOC)",
         // [Auto-translated] "TOC alignment"
-        tocLocation: "目录对齐",
+        tocLocation: "Penyelarasan TOC",
         // [Auto-translated] "Question title pattern"
-        questionTitlePattern: "问题标题模式", // Auto-generated string
+        questionTitlePattern: "Pola judul pertanyaan", // Auto-generated string
         // [Auto-translated] "Survey width mode"
-        widthMode: "测量宽度模式",
+        widthMode: "Mode lebar survei",
         // [Auto-translated] "Show brand info"
-        showBrandInfo: "显示品牌信息", // Auto-generated string
+        showBrandInfo: "Tampilkan info merek", // Auto-generated string
         // [Auto-translated] "Use display values in dynamic texts"
-        useDisplayValuesInDynamicTexts: "在动态文本中使用显示值",
+        useDisplayValuesInDynamicTexts: "Menggunakan nilai tampilan dalam teks dinamis",
         // "Visible if"
-        visibleIf: "条件可见", // Auto-generated string
+        visibleIf: "terlihat jika", // Auto-generated string
         // [Auto-translated] "Default value expression"
-        defaultValueExpression: "默认值表达式",
+        defaultValueExpression: "Ekspresi nilai default",
         // "Required if"
-        requiredIf: "是否必选", // Auto-generated string
+        requiredIf: "wajib jika", // Auto-generated string
         // [Auto-translated] "Reset value if"
-        resetValueIf: "如果出现以下情况，则重置值",
+        resetValueIf: "Reset nilai jika",
         // [Auto-translated] "Set value if"
-        setValueIf: "设置值，如果",
+        setValueIf: "Tetapkan nilai jika",
         // "Validation rules"
-        validators: "有效性",
+        validators: "validator",
         // [Auto-translated] "Bindings"
-        bindings: "绑定", // Auto-generated string
+        bindings: "Binding", // Auto-generated string
         // [Auto-translated] "Render as"
-        renderAs: "渲染为", // Auto-generated string
+        renderAs: "Render sebagai", // Auto-generated string
         // [Auto-translated] "Attach original items"
-        attachData: "附加原始项目", // Auto-generated string
+        attachData: "Melampirkan item asli", // Auto-generated string
         // "Choices"
-        choices: "选项",
+        choices: "pilihan",
         // "Choices by url"
-        choicesByUrl: "Url选项", // Auto-generated string
+        choicesByUrl: "pilihan dari URL", // Auto-generated string
         // "Currency"
-        currency: "货币", // Auto-generated string
+        currency: "mata uang", // Auto-generated string
         // [Auto-translated] "Cell hint"
-        cellHint: "单元格提示", // Auto-generated string
+        cellHint: "Petunjuk sel", // Auto-generated string
         // [Auto-translated] "Total maximum fraction digits"
-        totalMaximumFractionDigits: "最大小数位数总数", // Auto-generated string
+        totalMaximumFractionDigits: "Total digit pecahan maksimum", // Auto-generated string
         // [Auto-translated] "Total minimum fraction digits"
-        totalMinimumFractionDigits: "最小小数位数总数", // Auto-generated string
+        totalMinimumFractionDigits: "Total digit pecahan minimum", // Auto-generated string
         // "Columns"
-        columns: "columns", // Auto-generated string
+        columns: "kolom", // Auto-generated string
         // [Auto-translated] "Detail elements"
-        detailElements: "细节元素", // Auto-generated string
+        detailElements: "Elemen detail", // Auto-generated string
         // [Auto-translated] "Allow adaptive actions"
-        allowAdaptiveActions: "允许自适应操作", // Auto-generated string
+        allowAdaptiveActions: "Izinkan tindakan adaptif", // Auto-generated string
         // "Default row value"
-        defaultRowValue: "默认行值", // Auto-generated string
+        defaultRowValue: "nilai baris default", // Auto-generated string
         // [Auto-translated] "Auto-expand new row details"
-        detailPanelShowOnAdding: "自动展开新行详细信息",
+        detailPanelShowOnAdding: "Perluas detail baris baru secara otomatis",
         // [Auto-translated] "Choices lazy load enabled"
-        choicesLazyLoadEnabled: "选项延迟加载已启用", // Auto-generated string
+        choicesLazyLoadEnabled: "Pilihan lazy load diaktifkan", // Auto-generated string
         // [Auto-translated] "Choices lazy load page size"
-        choicesLazyLoadPageSize: "选择延迟加载页面大小", // Auto-generated string
+        choicesLazyLoadPageSize: "Pilihan malas memuat ukuran halaman", // Auto-generated string
         // [Auto-translated] "Input field component"
-        inputFieldComponent: "输入字段组件", // Auto-generated string
+        inputFieldComponent: "Komponen bidang input", // Auto-generated string
         // [Auto-translated] "Item component"
-        itemComponent: "项目组件", // Auto-generated string
+        itemComponent: "Komponen item", // Auto-generated string
         // [Auto-translated] "Min"
-        min: "最小值", // Auto-generated string
+        min: "Min", // Auto-generated string
         // [Auto-translated] "Max"
-        max: "麦克斯", // Auto-generated string
+        max: "Maks", // Auto-generated string
         // [Auto-translated] "Min value expression"
-        minValueExpression: "最小值表达式", // Auto-generated string
+        minValueExpression: "Ekspresi nilai min", // Auto-generated string
         // [Auto-translated] "Max value expression"
-        maxValueExpression: "最大值表达式", // Auto-generated string
+        maxValueExpression: "Ekspresi nilai maksimum", // Auto-generated string
         // [Auto-translated] "Step"
-        step: "步", // Auto-generated string
+        step: "Langkah", // Auto-generated string
         // [Auto-translated] "Items for auto-suggest"
-        dataList: "自动建议的项目",
+        dataList: "Item untuk saran otomatis",
         // "Input field width (in characters)"
-        inputSize: "inputSize",
+        inputSize: "ukuranBarang",
         // [Auto-translated] "Item label width"
-        itemTitleWidth: "项目标签宽度",
+        itemTitleWidth: "Lebar label item",
         // [Auto-translated] "Input value alignment"
-        inputTextAlignment: "输入值对齐",
+        inputTextAlignment: "Penyelarasan nilai input",
         // [Auto-translated] "Elements"
-        elements: "元素", // Auto-generated string
+        elements: "Elemen", // Auto-generated string
         // [Auto-translated] "Content"
-        content: "内容", // Auto-generated string
+        content: "Puas", // Auto-generated string
         // [Auto-translated] "Navigation title"
-        navigationTitle: "导航标题", // Auto-generated string
+        navigationTitle: "Judul navigasi", // Auto-generated string
         // [Auto-translated] "Navigation description"
-        navigationDescription: "导航说明", // Auto-generated string
+        navigationDescription: "Deskripsi navigasi", // Auto-generated string
         // [Auto-translated] "Long tap"
-        longTap: "长按", // Auto-generated string
+        longTap: "Ketuk lama", // Auto-generated string
         // [Auto-translated] "Expand input field dynamically"
-        autoGrow: "动态扩展输入字段",
+        autoGrow: "Perluas bidang input secara dinamis",
         // [Auto-translated] "Enable resize handle"
-        allowResize: "启用调整大小句柄",
+        allowResize: "Aktifkan pegangan pengubahan ukuran",
         // [Auto-translated] "Accept carriage return"
-        acceptCarriageReturn: "接受回车", // Auto-generated string
+        acceptCarriageReturn: "Terima pengembalian kereta", // Auto-generated string
         // [Auto-translated] "Display mode"
-        displayMode: "显示模式",
+        displayMode: "Mode tampilan",
         // [Auto-translated] "Rate type"
-        rateType: "费率类型", // Auto-generated string
+        rateType: "Jenis tarif", // Auto-generated string
         // "Label"
-        label: "标签", // Auto-generated string
+        label: "label", // Auto-generated string
         // [Auto-translated] "Content mode"
-        contentMode: "内容模式",
+        contentMode: "Mode konten",
         // [Auto-translated] "Image and thumbnail fit"
-        imageFit: "图片和缩略图适合",
+        imageFit: "Gambar dan thumbnail cocok",
         // [Auto-translated] "Alt text"
-        altText: "可选文字",
+        altText: "Teks alternatif",
         // [Auto-translated] "Height"
-        height: "高度", // Auto-generated string
+        height: "Tinggi", // Auto-generated string
         // [Auto-translated] "Height on smartphones"
-        mobileHeight: "智能手机上的身高",
+        mobileHeight: "Tinggi di smartphone",
         // [Auto-translated] "Pen color"
-        penColor: "笔颜色", // Auto-generated string
+        penColor: "Warna pena", // Auto-generated string
         // [Auto-translated] "Background color"
-        backgroundColor: "背景色",
+        backgroundColor: "Warna latar belakang",
         // [Auto-translated] "Template elements"
-        templateElements: "模板元素", // Auto-generated string
+        templateElements: "Elemen template", // Auto-generated string
         // [Auto-translated] "Operator"
-        operator: "算子", // Auto-generated string
+        operator: "Operator", // Auto-generated string
         // [Auto-translated] "Is variable"
-        isVariable: "是可变的", // Auto-generated string
+        isVariable: "Adalah variabel", // Auto-generated string
         // [Auto-translated] "Run expression"
-        runExpression: "运行表达式", // Auto-generated string
+        runExpression: "Menjalankan ekspresi", // Auto-generated string
         // [Auto-translated] "Show caption"
-        showCaption: "显示标题", // Auto-generated string
+        showCaption: "Tampilkan caption", // Auto-generated string
         // [Auto-translated] "Icon name"
-        iconName: "图标名称", // Auto-generated string
+        iconName: "Nama ikon", // Auto-generated string
         // [Auto-translated] "Icon size"
-        iconSize: "图标大小", // Auto-generated string
+        iconSize: "Ukuran ikon", // Auto-generated string
         // [Auto-translated] "Precision"
-        precision: "精度", // Auto-generated string
+        precision: "Presisi", // Auto-generated string
         // [Auto-translated] "Matrix drag handle area"
-        matrixDragHandleArea: "矩阵拖动手柄区域", // Auto-generated string
+        matrixDragHandleArea: "Area gagang seret matriks", // Auto-generated string
         // [Auto-translated] "Background image"
-        backgroundImage: "背景图片",
+        backgroundImage: "Gambar latar belakang",
         // [Auto-translated] "Background image fit"
-        backgroundImageFit: "背景图像适合", // Auto-generated string
+        backgroundImageFit: "Kecocokan gambar latar belakang", // Auto-generated string
         // [Auto-translated] "Background image attachment"
-        backgroundImageAttachment: "背景图像附件", // Auto-generated string
+        backgroundImageAttachment: "Lampiran gambar latar belakang", // Auto-generated string
         // [Auto-translated] "Background opacity"
-        backgroundOpacity: "背景不透明度", // Auto-generated string
+        backgroundOpacity: "Opasitas latar belakang", // Auto-generated string
         // [Auto-translated] "Allow selective ranking"
-        selectToRankEnabled: "允许选择性排名",
+        selectToRankEnabled: "Izinkan peringkat selektif",
         // [Auto-translated] "Ranking area alignment"
-        selectToRankAreasLayout: "排名区域对齐",
+        selectToRankAreasLayout: "Perataan area peringkat",
         // [Auto-translated] "Text to show if all options are selected"
-        selectToRankEmptyRankedAreaText: "显示是否选择了所有选项的文本",
+        selectToRankEmptyRankedAreaText: "Teks untuk memperlihatkan jika semua opsi dipilih",
         // [Auto-translated] "Placeholder text for the ranking area"
-        selectToRankEmptyUnrankedAreaText: "排名区域的占位符文本",
+        selectToRankEmptyUnrankedAreaText: "Teks tempat penampung untuk area peringkat",
         // [Auto-translated] "Allow camera access"
-        allowCameraAccess: "允许摄像头访问", // Auto-generated string
+        allowCameraAccess: "Izinkan akses kamera", // Auto-generated string
         // [Auto-translated] "Rating icon color mode"
-        scaleColorMode: "评级图标颜色模式",
+        scaleColorMode: "Mode warna ikon peringkat",
         // [Auto-translated] "Smileys color scheme"
-        rateColorMode: "Smileys 配色方案",
+        rateColorMode: "Skema warna Smileys",
         // [Auto-translated] "Copy display value"
-        copyDisplayValue: "复制显示值", // Auto-generated string
+        copyDisplayValue: "Salin nilai tampilan", // Auto-generated string
         // [Auto-translated] "Column span"
-        effectiveColSpan: "柱跨度",
+        effectiveColSpan: "Rentang kolom",
         // [Auto-translated] "Progress bar area width"
-        progressBarInheritWidthFrom: "进度条区域宽度",
+        progressBarInheritWidthFrom: "Lebar area bilah kemajuan",
         // [Auto-translated] "Theme name"
-        themeName: "主题名称"
+        themeName: "Nama tema"
     },
     theme: {
         // "Advanced mode"
-        advancedMode: "高级模式",
+        advancedMode: "Mode lanjutan",
         // "Page"
-        pageTitle: "页面标题字体",
+        pageTitle: "Font judul halaman",
         // "Question box"
-        questionTitle: "问题标题字体",
+        questionTitle: "Font judul pertanyaan",
         // "Input element"
-        editorPanel: "输入元素",
+        editorPanel: "Elemen input",
         // [Auto-translated] "Lines"
-        lines: "线",
+        lines: "Baris",
         // [Auto-translated] "Default"
-        primaryDefaultColor: "违约",
+        primaryDefaultColor: "Default",
         // [Auto-translated] "Hover"
-        primaryDarkColor: "悬停",
+        primaryDarkColor: "Hover",
         // [Auto-translated] "Selected"
-        primaryLightColor: "选择",
+        primaryLightColor: "Dipilih",
         // [Auto-translated] "Background color"
-        backgroundDimColor: "背景色",
+        backgroundDimColor: "Warna latar belakang",
         // "Corner radius"
-        cornerRadius: "拐角半径",
+        cornerRadius: "Radius sudut",
         // [Auto-translated] "Default background"
-        backcolor: "默认背景",
+        backcolor: "Latar belakang default",
         // [Auto-translated] "Hover background"
-        hovercolor: "悬停背景",
+        hovercolor: "Arahkan kursor ke latar belakang",
         // [Auto-translated] "Border decoration"
-        borderDecoration: "边框装饰",
+        borderDecoration: "Dekorasi perbatasan",
         // [Auto-translated] "Font color"
-        fontColor: "字体颜色",
+        fontColor: "Warna font",
         // [Auto-translated] "Background color"
-        backgroundColor: "背景颜色",
+        backgroundColor: "Warna latar belakang",
         // [Auto-translated] "Default color"
-        primaryForecolor: "默认颜色",
+        primaryForecolor: "Warna default",
         // [Auto-translated] "Disabled color"
-        primaryForecolorLight: "禁用颜色",
+        primaryForecolorLight: "Warna dinonaktifkan",
         // [Auto-translated] "Font"
-        font: "字体",
+        font: "Font",
         // [Auto-translated] "Darker"
-        borderDefault: "暗",
+        borderDefault: "Gelap",
         // [Auto-translated] "Lighter"
-        borderLight: "打火机",
+        borderLight: "Ringan",
         // [Auto-translated] "Font family"
-        fontFamily: "字体家族",
+        fontFamily: "Keluarga font",
         // [Auto-translated] "Regular"
-        fontWeightRegular: "定期",
+        fontWeightRegular: "Biasa",
         // [Auto-translated] "Heavy"
-        fontWeightHeavy: "重",
+        fontWeightHeavy: "Berat",
         // [Auto-translated] "Semi-bold"
-        fontWeightSemiBold: "半粗体",
+        fontWeightSemiBold: "Semi-tebal",
         // [Auto-translated] "Bold"
-        fontWeightBold: "大胆",
+        fontWeightBold: "Berani",
         // [Auto-translated] "Color"
-        color: "颜色",
+        color: "Warna",
         // [Auto-translated] "Placeholder color"
-        placeholderColor: "占位符颜色",
+        placeholderColor: "Warna tempat penampung",
         // [Auto-translated] "Size"
-        size: "大小",
+        size: "Tingginya",
         // [Auto-translated] "Opacity"
-        opacity: "不透明度",
+        opacity: "Opacity",
         // [Auto-translated] "X"
         boxShadowX: "X",
         // [Auto-translated] "Y"
         boxShadowY: "Y",
         // [Auto-translated] "Add Shadow Effect"
-        boxShadowAddRule: "添加阴影效果",
+        boxShadowAddRule: "Tambahkan Efek Bayangan",
         // [Auto-translated] "Blur"
-        boxShadowBlur: "模糊",
+        boxShadowBlur: "Kabur",
         // [Auto-translated] "Spread"
-        boxShadowSpread: "传播",
+        boxShadowSpread: "Penyebaran",
         // [Auto-translated] "Drop"
-        boxShadowDrop: "落",
+        boxShadowDrop: "Menjatuhkan",
         // [Auto-translated] "Inner"
-        boxShadowInner: "内",
+        boxShadowInner: "Batin",
         names: {
             // [Auto-translated] "Default"
-            default: "违约",
+            default: "Default",
             // [Auto-translated] "Sharp"
-            sharp: "锋利",
+            sharp: "Tajam",
             // [Auto-translated] "Borderless"
-            borderless: "无国界",
+            borderless: "Tanpa batas",
             // [Auto-translated] "Flat"
-            flat: "平",
+            flat: "Rata",
             // [Auto-translated] "Plain"
-            plain: "平原",
+            plain: "Polos",
             // [Auto-translated] "Double Border"
-            doubleborder: "双边框",
+            doubleborder: "Batas Ganda",
             // [Auto-translated] "Layered"
-            layered: "分层的",
+            layered: "Berlapis",
             // [Auto-translated] "Solid"
-            solid: "固体",
+            solid: "Keras",
             // [Auto-translated] "3D"
             threedimensional: ".3D",
             // [Auto-translated] "Contrast"
-            contrast: "反差"
+            contrast: "Kontras"
         },
         colors: {
             // [Auto-translated] "Teal"
-            teal: "水鸭",
+            teal: "Teal",
             // [Auto-translated] "Blue"
-            blue: "蓝",
+            blue: "Biru",
             // [Auto-translated] "Purple"
-            purple: "紫色",
+            purple: "Ungu",
             // [Auto-translated] "Orchid"
-            orchid: "兰花",
+            orchid: "Anggrek",
             // [Auto-translated] "Tulip"
-            tulip: "郁金香",
+            tulip: "Tulip",
             // [Auto-translated] "Brown"
-            brown: "棕色",
+            brown: "Coklat",
             // [Auto-translated] "Green"
-            green: "绿",
+            green: "Hijau",
             // [Auto-translated] "Gray"
-            gray: "灰色"
+            gray: "Abu-abu"
         }
     },
     creatortheme: {
         // [Auto-translated] "Surface background"
-        "--sjs-special-background": "表面背景",
+        "--sjs-special-background": "Latar belakang permukaan",
         // [Auto-translated] "Primary"
-        "--sjs-primary-background-500": "主要",
+        "--sjs-primary-background-500": "Utama",
         // [Auto-translated] "Secondary"
-        "--sjs-secondary-background-500": "二 次",
+        "--sjs-secondary-background-500": "Sekunder",
         // [Auto-translated] "Surface"
-        surfaceScale: "表面",
+        surfaceScale: "Permukaan",
         // [Auto-translated] "UI elements"
-        userInterfaceBaseUnit: "UI 元素",
+        userInterfaceBaseUnit: "Elemen UI",
         // [Auto-translated] "Font"
-        fontScale: "字体",
+        fontScale: "Font",
         names: {
             // [Auto-translated] "Survey Creator 2020"
-            sc2020: "调查创建者 2020",
+            sc2020: "Pembuat Survei 2020",
             // [Auto-translated] "Light"
-            "default-light": "光",
+            "default-light": "Ringan",
             // [Auto-translated] "Dark"
-            "default-dark": "黑暗",
+            "default-dark": "Gelap",
             // [Auto-translated] "Contrast"
-            "default-contrast": "反差"
+            "default-contrast": "Kontras"
         }
     }
 };
-(0,survey_creator_core__WEBPACK_IMPORTED_MODULE_0__.setupLocale)({ localeCode: "zh-cn", strings: simplifiedChineseTranslation });
+(0,survey_creator_core__WEBPACK_IMPORTED_MODULE_0__.setupLocale)({ localeCode: "id", strings: indonesianStrings });
 
 })();
 
@@ -3632,4 +3632,4 @@ var simplifiedChineseTranslation = {
 /******/ })()
 ;
 });
-//# sourceMappingURL=simplified-chinese.js.map
+//# sourceMappingURL=indonesian.js.map
