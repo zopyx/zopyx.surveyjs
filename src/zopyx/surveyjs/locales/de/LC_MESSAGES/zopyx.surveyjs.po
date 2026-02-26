@@ -1893,7 +1893,7 @@ msgstr "Vorlage nicht verfügbar"
 
 #: zopyx/surveyjs/browser/psf.py:97
 msgid "Templates overview"
-msgstr "Vorlagenübersicht"
+msgstr "Vorlagen-Übersicht"
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:73
 msgid "The template JSON could not be loaded."
