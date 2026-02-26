@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := pfs-demo
@@ -44,3 +44,6 @@ test:
 		src/zopyx/surveyjs/schema/tests/test_converter.py \
 		src/zopyx/surveyjs/schema/tests/test_converters_formats.py
 	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py'
+
+sdist:
+	uv run python setup.py sdist
