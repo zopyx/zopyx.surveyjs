@@ -1,0 +1,37 @@
+name: Build source distribution
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  sdist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          uv-version: "latest"
+          enable-cache: true
+
+      - name: Install Python with uv
+        run: uv python install 3.12
+
+      - name: Create venv
+        run: uv venv --python 3.12
+
+      - name: Build source distribution
+        run: make sdist
+
+      - name: Upload sdist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+          if-no-files-found: error
