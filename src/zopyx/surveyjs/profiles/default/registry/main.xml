@@ -9,7 +9,6 @@
   <record name="plone.displayed_types" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="displayed_types">
     <value purge="false">
       <element>Survey</element>
-      <element>SurveyTemplate</element>
     </value>
 </record>
 
