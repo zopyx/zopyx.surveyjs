@@ -23,7 +23,7 @@
         <h2 i18n:translate="">Metadata</h2>
       </metal:survey-header-headline>
       <metal:survey-header-subtitle fill-slot="view-subtitle">
-        <p i18n:translate="">Update form and submission handling settings.</p>
+        <p class="page-subtitle" i18n:translate="">Update form and submission handling settings.</p>
       </metal:survey-header-subtitle>
     </metal:survey-header>
 
