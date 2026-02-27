@@ -150,7 +150,9 @@ class FormsSettingsView(BrowserView):
         api_key = data.get("ai_api_key", "")
         if api_key and api_key.strip():  # Only update if not empty
             set_value("ai_api_key", api_key.strip())
-        set_value("ollama_url", data.get("ollama_url", "").strip())
+        # URI fields must be None (not empty string) when unset
+        ollama_url = data.get("ollama_url", "").strip()
+        set_value("ollama_url", ollama_url if ollama_url else None)
         set_value("ai_prompt_before", data.get("ai_prompt_before", ""))
         set_value("ai_prompt_default", data.get("ai_prompt_default", ""))
         set_value("ai_prompt_after", data.get("ai_prompt_after", ""))
@@ -180,7 +182,9 @@ class FormsSettingsView(BrowserView):
         
         # Storage settings
         set_value("result_storage_backend", data.get("result_storage_backend", "zodb"))
-        set_value("database_uri", data.get("database_uri", "sqlite:///var/surveyjs-results.db").strip())
+        # URI fields must be None (not empty string) when unset
+        db_uri = data.get("database_uri", "").strip()
+        set_value("database_uri", db_uri if db_uri else None)
         
         # Security settings
         set_value("authenticity_token_enabled", bool(data.get("authenticity_token_enabled", True)))
