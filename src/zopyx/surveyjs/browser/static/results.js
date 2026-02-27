@@ -38,6 +38,10 @@ function handleResultsReady(event) {
     const authToken = config.authenticator || "";
     const gridMount = document.getElementById("results-grid");
     const pagerMount = document.getElementById("results-pager");
+    const pagerRowMount = document.getElementById("results-pager-row");
+    const emptyStateMount = document.getElementById("results-empty-state");
+    const toolbarMount = document.getElementById("results-toolbar");
+    const exportRowMount = document.getElementById("results-export-row");
 
     const modal = document.getElementById("json-modal");
     const closeButton = document.querySelector(".close-button");
@@ -785,8 +789,35 @@ function handleResultsReady(event) {
         }
     }
 
+    function toggleEmptyState(showEmpty) {
+        if (emptyStateMount) {
+            emptyStateMount.style.display = showEmpty ? 'block' : 'none';
+        }
+        if (gridMount) {
+            gridMount.style.display = showEmpty ? 'none' : 'block';
+        }
+        if (pagerRowMount) {
+            pagerRowMount.style.display = showEmpty ? 'none' : 'flex';
+        }
+        if (toolbarMount) {
+            toolbarMount.style.display = showEmpty ? 'none' : 'flex';
+        }
+        if (exportRowMount) {
+            exportRowMount.style.display = showEmpty ? 'none' : 'flex';
+        }
+    }
+
     function render() {
         if (!gridMount) return;
+
+        // Show empty state if no results
+        if (tableState.totalRows === 0) {
+            toggleEmptyState(true);
+            updateDeleteSelectedButton();
+            return;
+        }
+
+        toggleEmptyState(false);
 
         let html = '<table class="results-table">';
 
@@ -830,39 +861,32 @@ function handleResultsReady(event) {
 
         // Body
         html += '<tbody>';
-        if (tableState.data.length === 0) {
-            const colspan = columns.length;
-            html += `<tr><td colspan="${colspan}" class="no-data">${escapeHtml(t("No stored results yet. Once responses are saved, analytics will appear here."))}</td></tr>`;
-        } else {
-            tableState.data.forEach(row => {
-                const selectedClass = tableState.selectedIds.has(row.poll_id) ? " selected" : "";
-                html += `<tr class="${selectedClass}">`;
-                columns.forEach(col => {
-                    const alignAttr = col.align ? ` style="text-align: ${col.align};"` : '';
-                    if (col.key === "actions") {
-                        html += `<td${alignAttr} class="actions-cell"></td>`;
-                    } else if (col.render) {
-                        html += `<td${alignAttr}>${col.render(row)}</td>`;
-                    } else {
-                        html += `<td${alignAttr}>${escapeHtml(row[col.key] || '')}</td>`;
-                    }
-                });
-                html += '</tr>';
+        tableState.data.forEach(row => {
+            const selectedClass = tableState.selectedIds.has(row.poll_id) ? " selected" : "";
+            html += `<tr class="${selectedClass}">`;
+            columns.forEach(col => {
+                const alignAttr = col.align ? ` style="text-align: ${col.align};"` : '';
+                if (col.key === "actions") {
+                    html += `<td${alignAttr} class="actions-cell"></td>`;
+                } else if (col.render) {
+                    html += `<td${alignAttr}>${col.render(row)}</td>`;
+                } else {
+                    html += `<td${alignAttr}>${escapeHtml(row[col.key] || '')}</td>`;
+                }
             });
-        }
+            html += '</tr>';
+        });
         html += '</tbody></table>';
 
         gridMount.innerHTML = html;
 
         // Render action cells after table is in DOM
-        if (tableState.data.length > 0) {
-            const actionCells = gridMount.querySelectorAll(".actions-cell");
-            actionCells.forEach((cell, index) => {
-                if (tableState.data[index]) {
-                    cell.appendChild(renderActionCell(tableState.data[index]));
-                }
-            });
-        }
+        const actionCells = gridMount.querySelectorAll(".actions-cell");
+        actionCells.forEach((cell, index) => {
+            if (tableState.data[index]) {
+                cell.appendChild(renderActionCell(tableState.data[index]));
+            }
+        });
 
         attachTableEvents();
         renderPagination();

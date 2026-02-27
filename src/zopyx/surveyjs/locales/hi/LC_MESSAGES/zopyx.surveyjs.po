@@ -2010,3 +2010,11 @@ msgstr "भरने योग्य PDF फॉर्म सेटअप"
 msgid "Currently in fillable PDF forms setup"
 msgstr "वर्तमान में भरने योग्य PDF फॉर्म सेटअप में"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "अभी तक कोई परिणाम नहीं"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "इस सर्वेक्षण में अभी तक कोई जमा नहीं हुआ है। एक बार जब उत्तरदाता फॉर्म पूरा कर लेंगे, तो उनके परिणाम यहां दिखाई देंगे।"

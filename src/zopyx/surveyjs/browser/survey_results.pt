@@ -73,7 +73,7 @@
         </tal:block>
 
         <tal:block tal:condition="view/storing_enabled">
-            <div class="results-toolbar">
+            <div class="results-toolbar" id="results-toolbar">
                 <div class="results-toolbar-left">
                     <label class="results-search">
                         <span class="sr-only" i18n:translate="">Search</span>
@@ -97,7 +97,7 @@
                  tal:content="structure context/@@authenticator/authenticator"></div>
 
             <div class="results-grid-wrap">
-                <div class="results-pager-row">
+                <div class="results-pager-row" id="results-pager-row">
                     <div class="results-total">
                         <span i18n:translate="">Results</span>:
                         <span id="results-total-count">0</span>
@@ -105,9 +105,18 @@
                     <div id="results-pager" class="results-pager"></div>
                 </div>
                 <div id="results-grid"></div>
+                <div id="results-empty-state" class="results-empty-state" style="display:none;">
+                    <div class="results-empty-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 12h.01M15 12h.01M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="results-empty-title" i18n:translate="">No results yet</h3>
+                    <p class="results-empty-message" i18n:translate="">This survey hasn't received any submissions. Once respondents complete the form, their results will appear here.</p>
+                </div>
             </div>
 
-            <div class="results-export-row">
+            <div class="results-export-row" id="results-export-row">
                 <div class="results-export-left">
                     <div class="results-export-filters">
                         <div class="results-export-label" i18n:translate="">Export range</div>

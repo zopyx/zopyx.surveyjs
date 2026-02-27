@@ -1978,3 +1978,11 @@ msgstr "إعداد نماذج PDF القابلة للتعبئة"
 msgid "Currently in fillable PDF forms setup"
 msgstr "في إعداد نماذج PDF القابلة للتعبئة"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "لا توجد نتائج بعد"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "لم يستلم هذا الاستبيان أي ردود بعد. بمجرد أن يكمل المشاركون النموذج، ستظهر نتائجهم هنا."

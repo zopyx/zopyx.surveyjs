@@ -2051,3 +2051,11 @@ msgstr "Configurar formulários PDF preenchíveis"
 msgid "Currently in fillable PDF forms setup"
 msgstr "A configurar formulários PDF preenchíveis"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "Ainda sem resultados"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "Esta pesquisa ainda não recebeu respostas. Assim que os participantes preencherem o formulário, seus resultados aparecerão aqui."

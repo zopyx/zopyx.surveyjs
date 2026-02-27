@@ -2055,3 +2055,11 @@ msgstr "Configurazione moduli PDF compilabili"
 msgid "Currently in fillable PDF forms setup"
 msgstr "Configurazione moduli PDF compilabili"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "Nessun risultato ancora"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "Questo sondaggio non ha ancora ricevuto risposte. Una volta che i partecipanti completano il modulo, i loro risultati appariranno qui."

@@ -2010,3 +2010,11 @@ msgstr "Täytettävien PDF-lomakkeiden asetus"
 msgid "Currently in fillable PDF forms setup"
 msgstr "Täytettävien PDF-lomakkeiden asetuksessa"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "Ei vielä tuloksia"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "Tämä kysely ei ole vielä saanut vastauksia. Kun vastaajat täyttävät lomakkeen, heidän tuloksensa näkyvät täällä."

@@ -1933,3 +1933,11 @@ msgstr "入力可能PDFフォームの設定"
 msgid "Currently in fillable PDF forms setup"
 msgstr "入力可能PDFフォーム設定中"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "まだ結果がありません"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "この調査にはまだ回答がありません。回答者がフォームを完了すると、結果がここに表示されます。"

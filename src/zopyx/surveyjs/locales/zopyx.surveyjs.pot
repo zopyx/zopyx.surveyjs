@@ -1837,3 +1837,11 @@ msgstr ""
 #: zopyx/surveyjs/browser/survey_actions.pt
 msgid "Currently in fillable PDF forms setup"
 msgstr ""
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr ""
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr ""

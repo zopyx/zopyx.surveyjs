@@ -2072,3 +2072,11 @@ msgstr "Ausfüllbare PDF-Formulare einrichten"
 msgid "Currently in fillable PDF forms setup"
 msgstr "Einrichtung ausfüllbarer PDF-Formulare"
 
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "Noch keine Ergebnisse"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "Diese Umfrage hat noch keine Antworten erhalten. Sobald Teilnehmer das Formular ausfüllen, erscheinen ihre Ergebnisse hier."
