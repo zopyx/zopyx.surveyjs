@@ -207,12 +207,6 @@ class FormsSettingsView(BrowserView):
         """Handle form submission."""
         data, extraction_errors = self._extract_form_data()
         
-        # Log the submitted data for debugging
-        try:
-            logger.info("Forms settings submission data: %s", orjson.dumps(data).decode("utf-8"))
-        except Exception:
-            logger.info("Forms settings submission data: %r", data)
-        
         if extraction_errors:
             self._errors = extraction_errors
             self.request.response.setStatus(400)
