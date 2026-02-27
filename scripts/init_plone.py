@@ -27,6 +27,7 @@ import re
 from plone import api
 from plone.namedfile.file import NamedBlobImage
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
+from zopyx.surveyjs.content.survey import Counter
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getMultiAdapter, getUtility
 from zope.component.hooks import setSite
@@ -371,6 +372,7 @@ def init_prefilled_address_survey(site, container):
     annos = IAnnotations(survey)
     results = annos.setdefault(RESULTS_KEY, OOBTree())
     inserted = 0
+    seq_counter = Counter()
     for entry in sample_addresses:
         if not isinstance(entry, dict):
             continue
@@ -381,13 +383,16 @@ def init_prefilled_address_survey(site, container):
         result_payload = dict(entry)
         if "created" not in result_payload:
             result_payload["created"] = created.isoformat().replace("+00:00", "Z")
+        seq_no = seq_counter.increment()
         results[poll_id] = {
             "poll_id": poll_id,
             "created": created,
             "user": ADMIN,
+            "seq_no": seq_no,
             "result": result_payload,
         }
         inserted += 1
+    survey.seq_no = seq_counter
 
     if inserted:
         print(f"Prefilled address survey seeded with {inserted} results")
