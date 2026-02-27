@@ -1,0 +1,15 @@
+#!/home/ajung/src/zopyx.surveyjs/.venv/bin/python3
+
+import sys
+sys.path[0:0] = [
+  '/home/ajung/src/zopyx.surveyjs/eggs/zope.tal-5.0.1-py3.13.egg',
+  '/home/ajung/src/zopyx.surveyjs/eggs/zope.interface-7.2-py3.13-linux-x86_64.egg',
+  '/home/ajung/src/zopyx.surveyjs/eggs/zope.i18nmessageid-7.0-py3.13-linux-x86_64.egg',
+  '/home/ajung/src/zopyx.surveyjs/eggs/lxml-5.4.0-py3.13-linux-x86_64.egg',
+  '/home/ajung/src/zopyx.surveyjs/.venv/lib/python3.13/site-packages',
+  ]
+
+import i18ndude.script
+
+if __name__ == '__main__':
+    sys.exit(i18ndude.script.main())

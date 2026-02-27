@@ -1,28 +1,17 @@
 /**
  * Results view logic for @@results.
- * Configures Tabulator, export filters, fullscreen, and actions.
+ * Uses vanilla JavaScript table with server-side pagination, sorting, and filtering.
  */
+
 /**
  * Initialize results view once the DOM is ready.
  * @param {Event} event
  */
 function handleResultsReady(event) {
-    /**
-     * Default translation fallback.
-     * @param {string} msgid
-     * @param {Object} [mapping]
-     * @returns {string}
-     */
     const defaultTranslate = function (msgid, mapping) {
         if (!mapping) {
             return msgid;
         }
-        /**
-         * Replace interpolation tokens in translated strings.
-         * @param {string} match
-         * @param {string} key
-         * @returns {string}
-         */
         const replaceToken = function (match, key) {
             if (Object.prototype.hasOwnProperty.call(mapping, key)) {
                 return String(mapping[key]);
@@ -47,20 +36,8 @@ function handleResultsReady(event) {
     const hasMailAction = Boolean(config.hasMailAction);
     const hasPostAction = Boolean(config.hasPostAction);
     const authToken = config.authenticator || "";
-    const pageLocale = (config.locale || document.documentElement.lang || "en").toLowerCase();
-    const tabulatorLocale = pageLocale.startsWith("de") ? "de-de" : "en";
     const gridMount = document.getElementById("results-grid");
-
-    if (typeof Tabulator === "undefined") {
-        if (gridMount) {
-            const notice = document.createElement("div");
-            notice.className = "results-empty";
-            notice.textContent = t("Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/.");
-            gridMount.appendChild(notice);
-        }
-        console.error("Tabulator assets missing. Provide vendor/tabulator.min.js and vendor/tabulator.min.css.");
-        return;
-    }
+    const pagerMount = document.getElementById("results-pager");
 
     const modal = document.getElementById("json-modal");
     const closeButton = document.querySelector(".close-button");
@@ -94,26 +71,11 @@ function handleResultsReady(event) {
     const questionLabels = {};
     const questionDefinitions = {};
 
-    /**
-     * Parse the form JSON used for question labels.
-     * @param {Response} response
-     * @returns {Promise<Object>}
-     */
     const handleFormResponse = function (response) {
         return response.json();
     };
-    /**
-     * Populate question label and definition maps.
-     * @param {Object} data
-     */
     const handleFormData = function (data) {
-/**
- * @function
- */
         (data.pages || []).forEach(function attachPage(page) {
-/**
- * @function
- */
             (page.elements || []).forEach(function attachElement(element) {
                 if (element.name) {
                     questionLabels[element.name] = element.title || element.name;
@@ -122,10 +84,6 @@ function handleResultsReady(event) {
             });
         });
     };
-    /**
-     * Ignore failures when loading optional label metadata.
-     * @param {Error} error
-     */
     const handleFormDataError = function (error) {
         // Best-effort label mapping; fall back to keys on failure.
     };
@@ -135,20 +93,12 @@ function handleResultsReady(event) {
         .then(handleFormData)
         .catch(handleFormDataError);
 
-    /**
-     * Update the total results count display.
-     * @param {number} count
-     */
     function updateTotalCount(count) {
         if (totalCountEl) {
             totalCountEl.textContent = String(count || 0);
         }
     }
 
-    /**
-     * Toggle fullscreen mode for results.
-     * @param {boolean} enabled
-     */
     function setFullscreen(enabled) {
         document.body.classList.toggle(fullscreenClass, Boolean(enabled));
         if (!fullscreenToggle) {
@@ -158,10 +108,6 @@ function handleResultsReady(event) {
         fullscreenToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
     }
 
-    /**
-     * Determine whether the export date range is invalid.
-     * @returns {boolean}
-     */
     function hasInvalidExportRange() {
         if (!exportFrom || !exportTo) {
             return false;
@@ -172,9 +118,6 @@ function handleResultsReady(event) {
         return exportTo.value <= exportFrom.value;
     }
 
-    /**
-     * Show or hide the export range warning.
-     */
     function updateExportWarning() {
         if (!exportWarning) {
             return;
@@ -186,18 +129,12 @@ function handleResultsReady(event) {
         }
     }
 
-    /**
-     * Update export links with the selected date range.
-     */
     function updateExportLinks() {
         if (!exportLinks.length) {
             return;
         }
         const fromValue = exportFrom ? exportFrom.value : "";
         const toValue = exportTo ? exportTo.value : "";
-/**
- * @function
- */
         exportLinks.forEach(link => {
             const baseHref = link.getAttribute("data-base-href");
             if (!baseHref) {
@@ -214,22 +151,12 @@ function handleResultsReady(event) {
         });
     }
 
-    /**
-     * Escape text for HTML output.
-     * @param {string} text
-     * @returns {string}
-     */
     function escapeHtml(text) {
         const div = document.createElement("div");
         div.textContent = text;
         return div.innerHTML;
     }
 
-    /**
-     * Shorten long identifiers for display.
-     * @param {string} value
-     * @returns {string}
-     */
     function shortenId(value) {
         if (!value) {
             return "";
@@ -243,25 +170,6 @@ function handleResultsReady(event) {
         return `${escapeHtml(head)}...${escapeHtml(tail)}`;
     }
 
-    /**
-     * Format poll id column.
-     * @param {Object} cell
-     * @returns {string}
-     */
-    function idFormatter(cell) {
-        const value = cell.getValue();
-        if (!value) {
-            return "";
-        }
-        const full = escapeHtml(String(value));
-        const short = shortenId(value);
-        return `<span title="${full}">${short}</span>`;
-    }
-
-    /**
-     * Show an error banner in the results grid.
-     * @param {string} message
-     */
     function showGridError(message) {
         if (!gridMount) {
             return;
@@ -274,18 +182,12 @@ function handleResultsReady(event) {
     }
 
     if (exportFrom) {
-/**
- * @function
- */
         exportFrom.addEventListener("change", function () {
             updateExportWarning();
             updateExportLinks();
         });
     }
     if (exportTo) {
-/**
- * @function
- */
         exportTo.addEventListener("change", function () {
             updateExportWarning();
             updateExportLinks();
@@ -295,17 +197,11 @@ function handleResultsReady(event) {
     updateExportLinks();
 
     if (fullscreenToggle) {
-/**
- * @function
- */
         fullscreenToggle.addEventListener("click", function (event) {
             event.preventDefault();
             const isFullscreen = document.body.classList.contains(fullscreenClass);
             setFullscreen(!isFullscreen);
         });
-/**
- * @function
- */
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape" && document.body.classList.contains(fullscreenClass)) {
                 setFullscreen(false);
@@ -317,21 +213,12 @@ function handleResultsReady(event) {
         setFullscreen(true);
     }
 
-    /**
-     * Render matrix-style answers as an HTML table.
-     * @param {Object|Array} value
-     * @param {Object} element
-     * @returns {string}
-     */
     function renderMatrixTable(value, element) {
         if (!element) {
             return null;
         }
 
         if (element.type === "matrixdynamic" && Array.isArray(value)) {
-/**
- * @function
- */
             const columnDefs = (element.columns || []).map(col => ({
                 key: col.name || col.value || col.title || "",
                 label: col.title || col.name || col.value || "",
@@ -340,42 +227,24 @@ function handleResultsReady(event) {
             const allKeys = Array.from(
                 new Set(
                     columnDefs.length
-/**
- * @function
- */
                         ? columnDefs.map(col => col.key)
-/**
- * @function
- */
                         : value.flatMap(row => Object.keys(row || {})),
                 ),
             ).filter(Boolean);
 
             const headers = columnDefs.length
                 ? columnDefs
-/**
- * @function
- */
                 : allKeys.map(key => ({ key, label: key }));
 
             let html = "<table class='details-table matrix-table'>";
             html += "<thead><tr>";
-/**
- * @function
- */
             headers.forEach(col => {
                 html += `<th>${escapeHtml(col.label)}</th>`;
             });
             html += "</tr></thead><tbody>";
 
-/**
- * @function
- */
             value.forEach(row => {
                 html += "<tr>";
-/**
- * @function
- */
                 headers.forEach(col => {
                     const cell = row ? row[col.key] : "";
                     html += `<td>${escapeHtml(cell != null ? String(cell) : "")}</td>`;
@@ -394,27 +263,15 @@ function handleResultsReady(event) {
 
             const columnLookup = new Map(
                 columnDefs
-/**
- * @function
- */
                     .filter(col => col && (col.value || col.name))
-/**
- * @function
- */
                     .map(col => [col.value || col.name, col.text || col.title || col.name]),
             );
 
             let html = "<table class='details-table matrix-table'>";
             html += "<thead><tr><th>" + t("Row") + "</th><th>" + t("Answer") + "</th></tr></thead><tbody>";
 
-/**
- * @function
- */
             rows.forEach(([rowKey, answer]) => {
                 const rowLabel =
-/**
- * @function
- */
                     (rowDefs.find(r => r && (r.value === rowKey || r.name === rowKey)) || {})
                         .text ||
                     rowKey;
@@ -423,16 +280,10 @@ function handleResultsReady(event) {
                     answerText = columnLookup.get(answer) || answer;
                 } else if (Array.isArray(answer)) {
                     answerText = answer
-/**
- * @function
- */
                         .map(val => columnLookup.get(val) || String(val))
                         .join(", ");
                 } else if (answer && typeof answer === "object") {
                     answerText = Object.entries(answer)
-/**
- * @function
- */
                         .map(([k, v]) => `${k}: ${v}`)
                         .join(", ");
                 } else {
@@ -452,11 +303,6 @@ function handleResultsReady(event) {
         return null;
     }
 
-    /**
-     * Render the details modal HTML for a poll result.
-     * @param {Object} data
-     * @returns {string}
-     */
     function renderDetailsTable(data) {
         let html = "<table class='details-table'>";
         html += "<thead><tr><th>" + t("Key / Question") + "</th><th>" + t("Answer") + "</th></tr></thead>";
@@ -485,18 +331,12 @@ function handleResultsReady(event) {
                         html += t("Attached file: ${name}", { name: escapeHtml(item.name) });
                     }
                 } else {
-/**
- * @function
- */
                     html += value.map(v => escapeHtml(String(v))).join("<br>");
                 }
             } else if (typeof value === "string" && value.startsWith("data:image/")) {
                 html += `<div class="image-preview"><img src="${value}" alt="${escapeHtml(key)}" /></div>`;
             } else if (typeof value === "object" && value !== null) {
                 html += Object.entries(value)
-/**
- * @function
- */
                     .map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(String(v))}`)
                     .join("<br>");
             } else {
@@ -510,55 +350,32 @@ function handleResultsReady(event) {
         detailsContent.innerHTML = html;
     }
 
-    /**
-     * Open the JSON modal for a poll result.
-     * @param {string} pollId
-     */
     function openJsonModal(pollId) {
         fetch(`${config.viewJsonUrlBase}${encodeURIComponent(pollId)}`, { credentials: "same-origin" })
-/**
- * @function
- */
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
-/**
- * @function
- */
             .then(data => {
                 jsonContent.textContent = JSON.stringify(data, null, 2);
                 modal.style.display = "block";
             })
-/**
- * @function
- */
             .catch(error => {
                 console.error(t("Error fetching JSON:"), error);
                 alert(t("Failed to load JSON data. Please check the console for more information."));
             });
     }
 
-    /**
-     * Open the details modal for a poll result.
-     * @param {string} pollId
-     */
     function openDetailsModal(pollId) {
         fetch(`${config.viewJsonUrlBase}${encodeURIComponent(pollId)}`, { credentials: "same-origin" })
-/**
- * @function
- */
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
-/**
- * @function
- */
             .then(data => {
                 if (data.error) {
                     alert(t("Error: ${error}", { error: data.error }));
@@ -567,20 +384,12 @@ function handleResultsReady(event) {
                 renderDetailsTable(data);
                 detailsModal.style.display = "block";
             })
-/**
- * @function
- */
             .catch(error => {
                 console.error(t("Error fetching details:"), error);
                 alert(t("Failed to load details. Please check the console for more information."));
             });
     }
 
-    /**
-     * Delete one or more poll results.
-     * @param {Array<string>} pollIds
-     * @returns {Promise<void>}
-     */
     function deletePolls(pollIds) {
         const headers = {
             "Content-Type": "application/json"
@@ -594,16 +403,10 @@ function handleResultsReady(event) {
             credentials: "same-origin",
             headers,
             body: JSON.stringify({ poll_ids: pollIds })
-/**
- * @function
- */
         }).then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-/**
- * @function
- */
             return response.json().catch(() => ({}));
         });
     }
@@ -611,10 +414,6 @@ function handleResultsReady(event) {
     let pendingDeletePollId = null;
     let pendingDeleteSelectedIds = [];
 
-    /**
-     * Open the delete confirmation modal for a single poll.
-     * @param {string} pollId
-     */
     function openDeleteModal(pollId) {
         if (!deleteConfirmModal) {
             return;
@@ -626,10 +425,6 @@ function handleResultsReady(event) {
         }
     }
 
-    /**
-     * Open the delete confirmation modal for multiple polls.
-     * @param {Array<string>} selectedIds
-     */
     function openDeleteSelectedModal(selectedIds) {
         if (!deleteSelectedConfirmModal) {
             return;
@@ -646,11 +441,6 @@ function handleResultsReady(event) {
         }
     }
 
-    /**
-     * Build an SVG element from path markup.
-     * @param {string} pathMarkup
-     * @returns {string}
-     */
     function createSvgIcon(pathMarkup) {
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("viewBox", "0 0 24 24");
@@ -661,11 +451,6 @@ function handleResultsReady(event) {
         return svg;
     }
 
-    /**
-     * Build a button element for table actions.
-     * @param {Object} options
-     * @returns {HTMLElement}
-     */
     function createIconButton(options) {
         const label = options.label || "";
         const tag = options.tag || "button";
@@ -707,15 +492,117 @@ function handleResultsReady(event) {
         return el;
     }
 
+    // Table State
+    let tableState = {
+        data: [],
+        page: 1,
+        size: 25,
+        lastPage: 1,
+        totalRows: 0,
+        sortColumn: "created_ts",
+        sortDirection: "desc",
+        filterValues: {},
+        selectedIds: new Set(),
+        loading: false
+    };
+
     let currentQuery = "";
 
-    /**
-     * Render action buttons for a table row.
-     * @param {Object} cell
-     * @returns {HTMLElement}
-     */
-    function actionFormatter(cell) {
-        const data = cell.getRow().getData();
+    // Column width storage
+    const columnWidthsKey = 'surveyjs_results_column_widths';
+    let columnWidths = {};
+    try {
+        const saved = localStorage.getItem(columnWidthsKey);
+        if (saved) {
+            columnWidths = JSON.parse(saved);
+        }
+    } catch (e) {
+        // Ignore localStorage errors
+    }
+
+    function saveColumnWidths() {
+        try {
+            localStorage.setItem(columnWidthsKey, JSON.stringify(columnWidths));
+        } catch (e) {
+            // Ignore localStorage errors
+        }
+    }
+
+    // Column resizing state
+    let resizeState = {
+        resizing: false,
+        columnKey: null,
+        startX: 0,
+        startWidth: 0,
+        thElement: null
+    };
+
+    // Column Definitions
+    const columns = [
+        {
+            key: "select",
+            title: "",
+            sortable: false,
+            filterable: false,
+            width: "40px",
+            align: "center",
+            visible: isManager,
+            renderHeader: () => {
+                if (!isManager) return "";
+                const allSelected = tableState.data.length > 0 && tableState.data.every(row => tableState.selectedIds.has(row.poll_id));
+                return `<input type="checkbox" class="select-all-checkbox" ${allSelected ? "checked" : ""} title="${escapeHtml(t("Select all"))}">`;
+            },
+            render: (row) => {
+                if (!isManager) return "";
+                const checked = tableState.selectedIds.has(row.poll_id) ? "checked" : "";
+                return `<input type="checkbox" class="row-checkbox" data-poll-id="${escapeHtml(row.poll_id)}" ${checked}>`;
+            }
+        },
+        {
+            key: "created_ts",
+            title: t("Date"),
+            sortable: true,
+            filterable: true,
+            width: "170px",
+            render: (row) => row.created_display || ""
+        },
+        {
+            key: "user",
+            title: t("User"),
+            sortable: true,
+            filterable: true,
+            width: "160px"
+        },
+        {
+            key: "seq_no",
+            title: t("#"),
+            sortable: true,
+            filterable: true,
+            width: "70px",
+            align: "center"
+        },
+        {
+            key: "poll_id",
+            title: t("Poll ID"),
+            sortable: true,
+            filterable: true,
+            render: (row) => {
+                const full = escapeHtml(String(row.poll_id || ""));
+                const short = shortenId(row.poll_id);
+                return `<span title="${full}">${short}</span>`;
+            }
+        },
+        {
+            key: "actions",
+            title: t("Action"),
+            sortable: false,
+            filterable: false,
+            width: "322px",
+            render: (row) => ""  // Rendered via renderActionCell
+        }
+    ].filter(col => col.visible !== false);
+
+    function renderActionCell(row) {
         const wrapper = document.createElement("div");
         wrapper.className = "results-action-group";
         const leftGroup = document.createElement("div");
@@ -730,11 +617,8 @@ function handleResultsReady(event) {
             className: "btn-primary view-json",
             type: "button",
             svg: "<path d=\"M6 3h8l4 4v14H6z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M14 3v5h5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M8 13h2m-2 4h2m2-4h4m-4 4h4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>",
-/**
- * @function
- */
             onClick: function () {
-                openJsonModal(data.poll_id);
+                openJsonModal(row.poll_id);
             }
         });
         leftGroup.appendChild(jsonBtn);
@@ -744,11 +628,8 @@ function handleResultsReady(event) {
             className: "btn-success view-details",
             type: "button",
             svg: "<path d=\"M3 5h18v14H3z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><path d=\"M3 9h18M8 5v14M16 5v14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>",
-/**
- * @function
- */
             onClick: function () {
-                openDetailsModal(data.poll_id);
+                openDetailsModal(row.poll_id);
             }
         });
         leftGroup.appendChild(tableBtn);
@@ -757,7 +638,7 @@ function handleResultsReady(event) {
             tag: "a",
             label: t("Details"),
             className: "btn-secondary detail-link",
-            href: `${config.detailUrlBase}${encodeURIComponent(data.poll_id)}`,
+            href: `${config.detailUrlBase}${encodeURIComponent(row.poll_id)}`,
             svg: "<path d=\"M12 5c5 0 9 5 9 7s-4 7-9 7-9-5-9-7 4-7 9-7z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/><circle cx=\"12\" cy=\"12\" r=\"2.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/>"
         });
         leftGroup.appendChild(detailLink);
@@ -778,14 +659,11 @@ function handleResultsReady(event) {
         const pollInput = document.createElement("input");
         pollInput.type = "hidden";
         pollInput.name = "poll_id";
-        pollInput.value = data.poll_id;
+        pollInput.value = row.poll_id;
         form.appendChild(pollInput);
 
         const select = document.createElement("select");
         select.name = "format";
-/**
- * @function
- */
         formats.forEach(fmt => {
             const option = document.createElement("option");
             option.value = fmt.key;
@@ -833,11 +711,8 @@ function handleResultsReady(event) {
                 className: "btn-danger delete-result",
                 type: "button",
                 imgSrc: "++resource++zopyx.surveyjs/icon-trash.svg",
-/**
- * @function
- */
                 onClick: function () {
-                    openDeleteModal(data.poll_id);
+                    openDeleteModal(row.poll_id);
                 }
             });
             rightGroup.appendChild(deleteBtn);
@@ -849,218 +724,326 @@ function handleResultsReady(event) {
         return wrapper;
     }
 
-    const tabulatorLangs = {};
-    tabulatorLangs[tabulatorLocale] = {
-        "data": {
-            "loading": t("Loading..."),
-            "error": t("Error loading data")
-        },
-        "pagination": {
-            "first": t("First"),
-            "first_title": t("First Page"),
-            "last": t("Last"),
-            "last_title": t("Last Page"),
-            "prev": t("Prev"),
-            "prev_title": t("Prev Page"),
-            "next": t("Next"),
-            "next_title": t("Next Page"),
-            "all": t("All"),
-            "page_size": t("Page Size")
-        },
-        "headerFilters": {
-            "default": t("filter column...")
-        },
-        "groups": {
-            "item": t("item"),
-            "items": t("items")
+    function buildRequestParams() {
+        const params = new URLSearchParams();
+        params.set("page", tableState.page);
+        params.set("size", tableState.size);
+        if (currentQuery) {
+            params.set("q", currentQuery);
         }
-    };
 
-    const pagerMount = document.getElementById("results-pager");
+        // Add sorters
+        if (tableState.sortColumn) {
+            const sorter = {
+                field: tableState.sortColumn,
+                dir: tableState.sortDirection
+            };
+            params.set("sorters", JSON.stringify([sorter]));
+        }
 
-    const table = new Tabulator("#results-grid", {
-        ajaxURL: config.resultsUrl,
-        ajaxConfig: "GET",
-/**
- * @function
- */
-        ajaxRequestFunc: function (url, config, params) {
-            const requestUrl = new URL(url, window.location.href);
-/**
- * @function
- */
-            Object.entries(params || {}).forEach(([key, value]) => {
-                if (value === null || typeof value === "undefined") {
-                    return;
-                }
-                if (typeof value === "object") {
-                    requestUrl.searchParams.set(key, JSON.stringify(value));
-                } else {
-                    requestUrl.searchParams.set(key, value);
+        // Add filters
+        const filters = [];
+        Object.entries(tableState.filterValues).forEach(([field, value]) => {
+            if (value) {
+                filters.push({ field, value, type: "like" });
+            }
+        });
+        if (filters.length) {
+            params.set("filters", JSON.stringify(filters));
+        }
+
+        return params;
+    }
+
+    async function loadData() {
+        if (tableState.loading) return;
+        tableState.loading = true;
+
+        try {
+            const params = buildRequestParams();
+            const response = await fetch(`${config.resultsUrl}?${params.toString()}`, {
+                credentials: "same-origin"
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            tableState.data = data.data || [];
+            tableState.page = data.page || 1;
+            tableState.lastPage = data.last_page || 1;
+            tableState.totalRows = data.total_rows || 0;
+
+            updateTotalCount(tableState.totalRows);
+            render();
+        } catch (error) {
+            console.error(t("Error loading results:"), error);
+            showGridError(t("Failed to load results. Please check the console for details."));
+        } finally {
+            tableState.loading = false;
+        }
+    }
+
+    function render() {
+        if (!gridMount) return;
+
+        let html = '<table class="results-table">';
+
+        // Header
+        html += '<thead><tr>';
+        columns.forEach(col => {
+            const sortClass = tableState.sortColumn === col.key
+                ? ` sorted-${tableState.sortDirection}`
+                : '';
+            const savedWidth = columnWidths[col.key];
+            const widthStyle = savedWidth ? `width: ${savedWidth}px; min-width: ${savedWidth}px;` : '';
+            const alignStyle = col.align ? `text-align: ${col.align};` : '';
+            const styleAttr = (widthStyle || alignStyle) ? ` style="${widthStyle}${alignStyle}"` : '';
+            html += `<th data-column="${col.key}"${styleAttr}>`;
+            html += '<div class="th-content">';
+            if (col.sortable) {
+                html += `<button type="button" class="sort-btn${sortClass}" data-column="${col.key}">${escapeHtml(col.title)}</button>`;
+            } else if (col.renderHeader) {
+                html += col.renderHeader();
+            } else {
+                html += escapeHtml(col.title);
+            }
+            html += '</div>';
+            html += `<div class="resize-handle" data-column="${col.key}"></div>`;
+            html += '</th>';
+        });
+        html += '</tr>';
+
+        // Filter row
+        html += '<tr class="filter-row">';
+        columns.forEach(col => {
+            const alignAttr = col.align ? ` style="text-align: ${col.align};"` : '';
+            html += `<td${alignAttr}>`;
+            if (col.filterable) {
+                const filterValue = tableState.filterValues[col.key] || '';
+                html += `<input type="text" class="filter-input" data-column="${col.key}" placeholder="${escapeHtml(t('Filter...'))}" value="${escapeHtml(filterValue)}">`;
+            }
+            html += '</td>';
+        });
+        html += '</tr></thead>';
+
+        // Body
+        html += '<tbody>';
+        if (tableState.data.length === 0) {
+            const colspan = columns.length;
+            html += `<tr><td colspan="${colspan}" class="no-data">${escapeHtml(t("No stored results yet. Once responses are saved, analytics will appear here."))}</td></tr>`;
+        } else {
+            tableState.data.forEach(row => {
+                const selectedClass = tableState.selectedIds.has(row.poll_id) ? " selected" : "";
+                html += `<tr class="${selectedClass}">`;
+                columns.forEach(col => {
+                    const alignAttr = col.align ? ` style="text-align: ${col.align};"` : '';
+                    if (col.key === "actions") {
+                        html += `<td${alignAttr} class="actions-cell"></td>`;
+                    } else if (col.render) {
+                        html += `<td${alignAttr}>${col.render(row)}</td>`;
+                    } else {
+                        html += `<td${alignAttr}>${escapeHtml(row[col.key] || '')}</td>`;
+                    }
+                });
+                html += '</tr>';
+            });
+        }
+        html += '</tbody></table>';
+
+        gridMount.innerHTML = html;
+
+        // Render action cells after table is in DOM
+        if (tableState.data.length > 0) {
+            const actionCells = gridMount.querySelectorAll(".actions-cell");
+            actionCells.forEach((cell, index) => {
+                if (tableState.data[index]) {
+                    cell.appendChild(renderActionCell(tableState.data[index]));
                 }
             });
-            return fetch(requestUrl.toString(), { credentials: "same-origin" })
-/**
- * @function
- */
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                });
-        },
-        ajaxSorting: true,
-        ajaxFiltering: true,
-        pagination: true,
-        paginationMode: "remote",
-        paginationSize: 25,
-        paginationSizeSelector: [10, 25, 50, 100, 250],
-        paginationElement: pagerMount || undefined,
-        layout: "fitColumns",
-        height: "600px",
-        placeholder: t("No stored results yet. Once responses are saved, analytics will appear here."),
-        index: "poll_id",
-        selectable: isManager,
-        locale: tabulatorLocale,
-        langs: tabulatorLangs,
-        initialSort: [
-            { column: "created_ts", dir: "desc" }
-        ],
-        columns: [
-            {
-                formatter: "rowSelection",
-                titleFormatter: "rowSelection",
-                hozAlign: "center",
-                headerHozAlign: "center",
-                headerSort: false,
-                width: 40,
-                visible: isManager,
-                cssClass: "results-select-col"
-            },
-            {
-                title: t("Date"),
-                field: "created_ts",
-                sorter: "number",
-                headerFilter: "input",
-                width: 170,
-                minWidth: 150,
-/**
- * @function
- */
-                formatter: function (cell) {
-                    const data = cell.getRow().getData();
-                    return data.created_display || "";
-                }
-            },
-            {
-                title: t("User"),
-                field: "user",
-                headerFilter: "input",
-                width: 160,
-                minWidth: 140
-            },
-            {
-                title: t("#"),
-                field: "seq_no",
-                headerFilter: "input",
-                hozAlign: "center",
-                width: 70
-            },
-            {
-                title: t("Poll ID"),
-                field: "poll_id",
-                headerFilter: "input",
-                widthGrow: 1,
-                formatter: idFormatter
-            },
-            {
-                title: t("Action"),
-                field: "actions",
-                headerSort: false,
-                formatter: actionFormatter,
-                width: 322,
-                maxWidth: 345,
-                minWidth: 276
-            }
-        ],
-        paginationDataSent: {
-            page: "page",
-            size: "size"
-        },
-        paginationDataReceived: {
-            last_page: "last_page",
-            data: "data",
-            current_page: "page",
-            total_rows: "total_rows"
-        },
-/**
- * @function
- */
-        ajaxResponse: function (url, params, response) {
-            if (response && typeof response.total_rows !== "undefined") {
-                updateTotalCount(response.total_rows);
-            }
-            return response;
-        },
-/**
- * @function
- */
-        ajaxError: function () {
-            showGridError(t("Failed to load results. Please check the console for details."));
         }
-    });
 
-    if (isManager && deleteSelectedBtn) {
-/**
- * @function
- */
-        table.on("rowSelectionChanged", function (data) {
-            deleteSelectedBtn.disabled = data.length === 0;
+        attachTableEvents();
+        renderPagination();
+        updateDeleteSelectedButton();
+    }
+
+    function attachTableEvents() {
+        // Sort buttons
+        gridMount.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const column = e.currentTarget.dataset.column;
+                if (tableState.sortColumn === column) {
+                    tableState.sortDirection = tableState.sortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    tableState.sortColumn = column;
+                    tableState.sortDirection = 'asc';
+                }
+                loadData();
+            });
         });
 
-/**
- * @function
- */
-        deleteSelectedBtn.addEventListener("click", function () {
-            const selected = table.getSelectedData() || [];
-            if (!selected.length) {
-                return;
-            }
-/**
- * @function
- */
-            openDeleteSelectedModal(selected.map(row => row.poll_id));
+        // Filter inputs
+        let filterTimeout;
+        gridMount.querySelectorAll('.filter-input').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const column = e.currentTarget.dataset.column;
+                tableState.filterValues[column] = e.currentTarget.value;
+                clearTimeout(filterTimeout);
+                filterTimeout = setTimeout(() => {
+                    loadData();
+                }, 300);
+            });
+        });
+
+        // Row checkboxes
+        gridMount.querySelectorAll('.row-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const pollId = e.currentTarget.dataset.pollId;
+                if (e.currentTarget.checked) {
+                    tableState.selectedIds.add(pollId);
+                } else {
+                    tableState.selectedIds.delete(pollId);
+                }
+                render();
+            });
+        });
+
+        // Select all checkbox
+        const selectAll = gridMount.querySelector('.select-all-checkbox');
+        if (selectAll) {
+            selectAll.addEventListener('change', (e) => {
+                if (e.currentTarget.checked) {
+                    tableState.data.forEach(row => tableState.selectedIds.add(row.poll_id));
+                } else {
+                    tableState.data.forEach(row => tableState.selectedIds.delete(row.poll_id));
+                }
+                render();
+            });
+
+        // Column resize handles
+        gridMount.querySelectorAll(".resize-handle").forEach(handle => {
+            handle.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const columnKey = e.currentTarget.dataset.column;
+                const th = e.currentTarget.closest("th");
+                const rect = th.getBoundingClientRect();
+                resizeState = {
+                    resizing: true,
+                    columnKey: columnKey,
+                    startX: e.clientX,
+                    startWidth: rect.width,
+                    thElement: th
+                };
+                document.body.style.cursor = "col-resize";
+                th.classList.add("resizing");
+            });
+        });
+        }
+    }
+
+    function renderPagination() {
+        if (!pagerMount) return;
+
+        const startItem = tableState.totalRows === 0 ? 0 : (tableState.page - 1) * tableState.size + 1;
+        const endItem = Math.min(tableState.page * tableState.size, tableState.totalRows);
+
+        let html = '<div class="pagination-container">';
+
+        // Page size selector
+        html += '<div class="page-size">';
+        html += `<span>${escapeHtml(t('Page Size'))}:</span>`;
+        html += '<select class="page-size-select">';
+        [10, 25, 50, 100, 250].forEach(size => {
+            const selected = size === tableState.size ? ' selected' : '';
+            html += `<option value="${size}"${selected}>${size}</option>`;
+        });
+        html += '</select></div>';
+
+        // Page info
+        html += `<div class="page-info">${startItem}-${endItem} ${escapeHtml(t('of'))} ${tableState.totalRows}</div>`;
+
+        // Page buttons
+        html += '<div class="page-buttons">';
+
+        // First
+        const firstDisabled = tableState.page === 1 ? ' disabled' : '';
+        html += `<button type="button" class="page-btn" data-page="1"${firstDisabled}>${escapeHtml(t('First'))}</button>`;
+
+        // Prev
+        const prevDisabled = tableState.page === 1 ? ' disabled' : '';
+        html += `<button type="button" class="page-btn" data-page="${tableState.page - 1}"${prevDisabled}>${escapeHtml(t('Prev'))}</button>`;
+
+        // Page numbers
+        const maxButtons = 5;
+        let startPage = Math.max(1, tableState.page - Math.floor(maxButtons / 2));
+        let endPage = Math.min(tableState.lastPage, startPage + maxButtons - 1);
+        if (endPage - startPage < maxButtons - 1) {
+            startPage = Math.max(1, endPage - maxButtons + 1);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            const active = i === tableState.page ? ' active' : '';
+            html += `<button type="button" class="page-btn${active}" data-page="${i}">${i}</button>`;
+        }
+
+        // Next
+        const nextDisabled = tableState.page === tableState.lastPage ? ' disabled' : '';
+        html += `<button type="button" class="page-btn" data-page="${tableState.page + 1}"${nextDisabled}>${escapeHtml(t('Next'))}</button>`;
+
+        // Last
+        const lastDisabled = tableState.page === tableState.lastPage ? ' disabled' : '';
+        html += `<button type="button" class="page-btn" data-page="${tableState.lastPage}"${lastDisabled}>${escapeHtml(t('Last'))}</button>`;
+
+        html += '</div></div>';
+
+        pagerMount.innerHTML = html;
+
+        // Attach pagination event listeners
+        pagerMount.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (e.currentTarget.disabled) return;
+                const page = parseInt(e.currentTarget.dataset.page, 10);
+                if (page >= 1 && page <= tableState.lastPage) {
+                    tableState.page = page;
+                    loadData();
+                }
+            });
+        });
+
+        pagerMount.querySelector('.page-size-select')?.addEventListener('change', (e) => {
+            tableState.size = parseInt(e.currentTarget.value, 10);
+            tableState.page = 1;
+            loadData();
         });
     }
 
+    function updateDeleteSelectedButton() {
+        if (deleteSelectedBtn) {
+            deleteSelectedBtn.disabled = tableState.selectedIds.size === 0;
+        }
+    }
+
+    // Search functionality
     const searchInput = document.getElementById("results-search-input");
     const searchBtn = document.getElementById("results-search-btn");
     const resetBtn = document.getElementById("results-reset-btn");
     const refreshBtn = document.getElementById("results-refresh-btn");
 
-    /**
-     * Apply the search term to the table.
-     */
     function applySearch() {
         currentQuery = searchInput ? searchInput.value.trim() : "";
-        table.setData(config.resultsUrl, { q: currentQuery });
+        tableState.page = 1;
+        loadData();
     }
 
     if (searchBtn) {
-/**
- * @function
- */
-        searchBtn.addEventListener("click", function () {
-            applySearch();
-        });
+        searchBtn.addEventListener('click', applySearch);
     }
 
     if (searchInput) {
-/**
- * @function
- */
-        searchInput.addEventListener("keypress", function (event) {
+        searchInput.addEventListener('keypress', function (event) {
             if (event.key === "Enter") {
                 applySearch();
             }
@@ -1068,51 +1051,39 @@ function handleResultsReady(event) {
     }
 
     if (resetBtn) {
-/**
- * @function
- */
-        resetBtn.addEventListener("click", function () {
+        resetBtn.addEventListener('click', function () {
             if (searchInput) {
                 searchInput.value = "";
             }
-            table.clearFilter(true);
+            tableState.filterValues = {};
+            tableState.selectedIds.clear();
             currentQuery = "";
-            table.setData(config.resultsUrl, { q: currentQuery });
+            tableState.page = 1;
+            loadData();
         });
     }
 
     if (refreshBtn) {
-/**
- * @function
- */
-        refreshBtn.addEventListener("click", function () {
-            table.setData(config.resultsUrl, { q: currentQuery });
+        refreshBtn.addEventListener('click', function () {
+            loadData();
         });
     }
 
+    // Modal close handlers
     if (closeButton) {
-/**
- * @function
- */
-        closeButton.addEventListener("click", function () {
+        closeButton.addEventListener('click', function () {
             modal.style.display = "none";
         });
     }
 
     if (detailsCloseButton) {
-/**
- * @function
- */
-        detailsCloseButton.addEventListener("click", function () {
+        detailsCloseButton.addEventListener('click', function () {
             detailsModal.style.display = "none";
         });
     }
 
     if (deleteCloseButton) {
-/**
- * @function
- */
-        deleteCloseButton.addEventListener("click", function () {
+        deleteCloseButton.addEventListener('click', function () {
             if (deleteConfirmModal) {
                 deleteConfirmModal.style.display = "none";
             }
@@ -1121,10 +1092,7 @@ function handleResultsReady(event) {
     }
 
     if (deleteCancelBtn) {
-/**
- * @function
- */
-        deleteCancelBtn.addEventListener("click", function () {
+        deleteCancelBtn.addEventListener('click', function () {
             if (deleteConfirmModal) {
                 deleteConfirmModal.style.display = "none";
             }
@@ -1133,37 +1101,24 @@ function handleResultsReady(event) {
     }
 
     if (deleteConfirmBtn) {
-/**
- * @function
- */
-        deleteConfirmBtn.addEventListener("click", function () {
+        deleteConfirmBtn.addEventListener('click', function () {
             if (!pendingDeletePollId) {
                 return;
             }
             deleteConfirmBtn.disabled = true;
             deletePolls([pendingDeletePollId])
-/**
- * @function
- */
                 .then(() => {
                     if (deleteConfirmModal) {
                         deleteConfirmModal.style.display = "none";
                     }
                     pendingDeletePollId = null;
-                    if (table) {
-                        table.setData(config.resultsUrl, { q: currentQuery });
-                    }
+                    tableState.selectedIds.delete(pendingDeletePollId);
+                    loadData();
                 })
-/**
- * @function
- */
                 .catch(error => {
                     console.error(t("Error deleting result:"), error);
                     alert(t("Failed to delete the result. Please check the console for details."));
                 })
-/**
- * @function
- */
                 .finally(() => {
                     deleteConfirmBtn.disabled = false;
                 });
@@ -1171,10 +1126,7 @@ function handleResultsReady(event) {
     }
 
     if (deleteSelectedCloseButton) {
-/**
- * @function
- */
-        deleteSelectedCloseButton.addEventListener("click", function () {
+        deleteSelectedCloseButton.addEventListener('click', function () {
             if (deleteSelectedConfirmModal) {
                 deleteSelectedConfirmModal.style.display = "none";
             }
@@ -1183,10 +1135,7 @@ function handleResultsReady(event) {
     }
 
     if (deleteSelectedCancelBtn) {
-/**
- * @function
- */
-        deleteSelectedCancelBtn.addEventListener("click", function () {
+        deleteSelectedCancelBtn.addEventListener('click', function () {
             if (deleteSelectedConfirmModal) {
                 deleteSelectedConfirmModal.style.display = "none";
             }
@@ -1195,47 +1144,116 @@ function handleResultsReady(event) {
     }
 
     if (deleteSelectedConfirmBtn) {
-/**
- * @function
- */
-        deleteSelectedConfirmBtn.addEventListener("click", function () {
+        deleteSelectedConfirmBtn.addEventListener('click', function () {
             if (!pendingDeleteSelectedIds.length) {
                 return;
             }
             deleteSelectedConfirmBtn.disabled = true;
             deletePolls(pendingDeleteSelectedIds)
-/**
- * @function
- */
                 .then(() => {
                     if (deleteSelectedConfirmModal) {
                         deleteSelectedConfirmModal.style.display = "none";
                     }
+                    pendingDeleteSelectedIds.forEach(id => tableState.selectedIds.delete(id));
                     pendingDeleteSelectedIds = [];
-                    if (table) {
-                        table.setData(config.resultsUrl, { q: currentQuery });
-                    }
+                    loadData();
                 })
-/**
- * @function
- */
                 .catch(error => {
                     console.error(t("Error deleting selected results:"), error);
                     alert(t("Failed to delete selected results. Please check the console for details."));
                 })
-/**
- * @function
- */
                 .finally(() => {
                     deleteSelectedConfirmBtn.disabled = false;
                 });
         });
     }
 
-/**
- * @function
- */
-    window.addEventListener("click", function (event) {
+    if (deleteSelectedBtn && isManager) {
+        deleteSelectedBtn.addEventListener('click', function () {
+            if (tableState.selectedIds.size === 0) {
+                return;
+            }
+            openDeleteSelectedModal(Array.from(tableState.selectedIds));
+        });
+    }
+
+    // Clear results handlers
+    const clearResultsBtn = document.getElementById("results-clear-results-btn");
+    const clearConfirmModal = document.getElementById("clear-confirm-modal");
+    const clearCloseButton = document.querySelector(".clear-close-button");
+    const clearConfirmInput = document.getElementById("clear-confirm-input");
+    const clearConfirmBtn = document.getElementById("clear-confirm-btn");
+    const clearCancelBtn = document.getElementById("clear-cancel-btn");
+    const clearKeyword = clearConfirmInput
+        ? (clearConfirmInput.dataset.clearKeyword || "clear")
+        : "clear";
+
+    if (clearResultsBtn) {
+        clearResultsBtn.addEventListener('click', function () {
+            clearConfirmModal.style.display = "block";
+            clearConfirmInput.value = "";
+            clearConfirmInput.focus();
+            clearConfirmBtn.disabled = true;
+        });
+    }
+
+    if (clearConfirmInput) {
+        clearConfirmInput.addEventListener('input', function () {
+            clearConfirmBtn.disabled = this.value.toLowerCase() !== clearKeyword.toLowerCase();
+        });
+
+        clearConfirmInput.addEventListener('keypress', function (event) {
+            if (event.key === "Enter" && this.value.toLowerCase() === clearKeyword.toLowerCase()) {
+                clearConfirmBtn.click();
+            }
+        });
+    }
+
+    if (clearConfirmBtn) {
+        clearConfirmBtn.addEventListener('click', function () {
+            const headers = {};
+            if (authToken) {
+                headers["X-CSRF-TOKEN"] = authToken;
+            }
+
+            fetch("clear-results", {
+                method: "POST",
+                credentials: "same-origin",
+                headers
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(() => {
+                    clearConfirmModal.style.display = "none";
+                    alert(t("All results have been cleared successfully."));
+                    tableState.selectedIds.clear();
+                    loadData();
+                })
+                .catch(error => {
+                    console.error(t("Error clearing results:"), error);
+                    alert(t("Failed to clear results. Please check the console for more information."));
+                });
+        });
+    }
+
+    if (clearCloseButton) {
+        clearCloseButton.addEventListener('click', function () {
+            clearConfirmModal.style.display = "none";
+        });
+    }
+
+    if (clearCancelBtn) {
+        clearCancelBtn.addEventListener('click', function () {
+            clearConfirmModal.style.display = "none";
+        });
+    }
+
+    // Window click handlers for modals
+    window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
         }
@@ -1250,12 +1268,12 @@ function handleResultsReady(event) {
             deleteSelectedConfirmModal.style.display = "none";
             pendingDeleteSelectedIds = [];
         }
+        if (event.target === clearConfirmModal) {
+            clearConfirmModal.style.display = "none";
+        }
     });
 
-/**
- * @function
- */
-    document.addEventListener("keydown", function (event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === "Escape") {
             if (modal && modal.style.display === "block") {
                 modal.style.display = "none";
@@ -1271,126 +1289,41 @@ function handleResultsReady(event) {
                 deleteSelectedConfirmModal.style.display = "none";
                 pendingDeleteSelectedIds = [];
             }
-        }
-    });
-
-    const clearResultsBtn = document.getElementById("results-clear-results-btn");
-    const clearConfirmModal = document.getElementById("clear-confirm-modal");
-    const clearCloseButton = document.querySelector(".clear-close-button");
-    const clearConfirmInput = document.getElementById("clear-confirm-input");
-    const clearConfirmBtn = document.getElementById("clear-confirm-btn");
-    const clearCancelBtn = document.getElementById("clear-cancel-btn");
-    const clearKeyword = clearConfirmInput
-        ? (clearConfirmInput.dataset.clearKeyword || "clear")
-        : "clear";
-
-    if (clearResultsBtn) {
-/**
- * @function
- */
-        clearResultsBtn.addEventListener("click", function () {
-            clearConfirmModal.style.display = "block";
-            clearConfirmInput.value = "";
-            clearConfirmInput.focus();
-            clearConfirmBtn.disabled = true;
-        });
-    }
-
-    if (clearConfirmInput) {
-/**
- * @function
- */
-        clearConfirmInput.addEventListener("input", function () {
-            clearConfirmBtn.disabled = this.value.toLowerCase() !== clearKeyword.toLowerCase();
-        });
-
-/**
- * @function
- */
-        clearConfirmInput.addEventListener("keypress", function (event) {
-            if (event.key === "Enter" && this.value.toLowerCase() === clearKeyword.toLowerCase()) {
-                clearConfirmBtn.click();
+            if (clearConfirmModal && clearConfirmModal.style.display === "block") {
+                clearConfirmModal.style.display = "none";
             }
-        });
-    }
-
-    if (clearConfirmBtn) {
-/**
- * @function
- */
-        clearConfirmBtn.addEventListener("click", function () {
-            const headers = {};
-            if (authToken) {
-                headers["X-CSRF-TOKEN"] = authToken;
-            }
-
-            fetch("clear-results", {
-                method: "POST",
-                credentials: "same-origin",
-                headers
-            })
-/**
- * @function
- */
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-/**
- * @function
- */
-                .then(() => {
-                    clearConfirmModal.style.display = "none";
-                    alert(t("All results have been cleared successfully."));
-                    table.setData(config.resultsUrl, { q: currentQuery });
-                })
-/**
- * @function
- */
-                .catch(error => {
-                    console.error(t("Error clearing results:"), error);
-                    alert(t("Failed to clear results. Please check the console for more information."));
-                });
-        });
-    }
-
-    if (clearCloseButton) {
-/**
- * @function
- */
-        clearCloseButton.addEventListener("click", function () {
-            clearConfirmModal.style.display = "none";
-        });
-    }
-
-    if (clearCancelBtn) {
-/**
- * @function
- */
-        clearCancelBtn.addEventListener("click", function () {
-            clearConfirmModal.style.display = "none";
-        });
-    }
-
-/**
- * @function
- */
-    window.addEventListener("click", function (event) {
-        if (event.target === clearConfirmModal) {
-            clearConfirmModal.style.display = "none";
         }
     });
 
-/**
- * @function
- */
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && clearConfirmModal && clearConfirmModal.style.display === "block") {
-            clearConfirmModal.style.display = "none";
-        }
+
+    // Column resize document-level handlers
+    document.addEventListener("mousemove", (e) => {
+        if (!resizeState.resizing) return;
+        e.preventDefault();
+        const delta = e.clientX - resizeState.startX;
+        const newWidth = Math.max(50, resizeState.startWidth + delta);
+        resizeState.thElement.style.width = newWidth + "px";
+        resizeState.thElement.style.minWidth = newWidth + "px";
     });
+
+    document.addEventListener("mouseup", () => {
+        if (!resizeState.resizing) return;
+        const finalWidth = resizeState.thElement.getBoundingClientRect().width;
+        columnWidths[resizeState.columnKey] = finalWidth;
+        saveColumnWidths();
+        resizeState.thElement.classList.remove("resizing");
+        resizeState = {
+            resizing: false,
+            columnKey: null,
+            startX: 0,
+            startWidth: 0,
+            thElement: null
+        };
+        document.body.style.cursor = "";
+    });
+
+    // Initial load
+    loadData();
 }
 
 document.addEventListener("DOMContentLoaded", handleResultsReady);

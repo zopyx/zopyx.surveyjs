@@ -22,10 +22,7 @@
     <metal:surveyjs-viewer-css
         use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
-    <link rel="stylesheet"
-          type="text/css"
-          href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
-    />
+
     <link rel="stylesheet"
           type="text/css"
           href="++resource++zopyx.surveyjs/survey_overview.css"
@@ -66,8 +63,6 @@
                             create_url string:${context/absolute_url}/@@pfs;
                             config_json python: __import__('json').dumps({'mode': 'templates', 'templateAction': {'createUrl': create_url, 'authenticator': auth_token if can_add_survey else '', 'canCreate': bool(can_add_survey)}})"
                 tal:content="structure config_json"></script>
-        <script src="++resource++zopyx.surveyjs/vendor/tabulator.min.js"
-                type="text/javascript"></script>
         <script src="++resource++zopyx.surveyjs/survey_overview.js"
                 type="text/javascript"></script>
       </tal:hasentries>

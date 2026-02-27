@@ -21,10 +21,7 @@
         use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
     />
 
-    <link rel="stylesheet"
-          type="text/css"
-          href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
-    />
+
     <link rel="stylesheet"
           type="text/css"
           href="++resource++zopyx.surveyjs/results.css"
@@ -206,8 +203,6 @@
                         auth_token context/@@authenticator/token;
                         config_json python: __import__('json').dumps({'resultsUrl': context.absolute_url() + '/@@results-data', 'detailUrlBase': context.absolute_url() + '/@@result-detail?poll_id=', 'viewJsonUrlBase': 'view-result-json?poll_id=', 'downloadUrl': 'download-result', 'authenticator': auth_token if is_manager else '', 'isManager': bool(is_manager), 'hasMailAction': bool(has_mail), 'hasPostAction': bool(has_post), 'converterFormats': formats})"
             tal:content="structure config_json"></script>
-    <script src="++resource++zopyx.surveyjs/vendor/tabulator.min.js"
-            type="text/javascript"></script>
     <script src="++resource++zopyx.surveyjs/results.js"
             type="text/javascript"></script>
 

@@ -53,7 +53,279 @@
     setupTemplateModal();
     setupDeleteModal();
     setupFileInput();
+    setupResizableColumns();
     console.log('Form versions initialized');
+  }
+
+  // Column resizing functionality
+  var columnWidthsKey = 'surveyjs_formversions_column_widths';
+  var columnWidths = {};
+  try {
+    var saved = localStorage.getItem(columnWidthsKey);
+    if (saved) {
+      columnWidths = JSON.parse(saved);
+    }
+  } catch (e) {
+    // Ignore localStorage errors
+  }
+
+  function saveColumnWidths() {
+    try {
+      localStorage.setItem(columnWidthsKey, JSON.stringify(columnWidths));
+    } catch (e) {
+      // Ignore localStorage errors
+    }
+  }
+
+  var resizeState = {
+    resizing: false,
+    columnKey: null,
+    startX: 0,
+    startWidth: 0,
+    thElement: null
+  };
+
+  // Table state for sorting and filtering
+  var tableState = {
+    sortColumn: null,
+    sortDirection: 'asc',
+    filterValues: {}
+  };
+
+  // Store original row order for filtering
+  var originalRows = [];
+
+  /**
+   * @function
+   */
+  function setupResizableColumns() {
+    var table = document.querySelector('.form-versions-table');
+    if (!table) return;
+
+    // Store original rows
+    var tbody = table.querySelector('tbody');
+    if (tbody) {
+      originalRows = Array.from(tbody.querySelectorAll('tr'));
+    }
+
+    // Apply saved widths and setup sort/filter
+    var headers = table.querySelectorAll('thead th');
+    var columnNames = ['date', 'user', 'version', 'actions'];
+    
+    headers.forEach(function(th, index) {
+      var key = 'col-' + index;
+      var colName = columnNames[index] || 'col-' + index;
+      
+      if (columnWidths[key]) {
+        th.style.width = columnWidths[key] + 'px';
+        th.style.minWidth = columnWidths[key] + 'px';
+      }
+
+      // Wrap header content for sorting
+      if (index < 3) { // Don't make Actions column sortable
+        var content = th.innerHTML;
+        th.innerHTML = '<div class="th-content"><button type="button" class="sort-btn" data-column="' + colName + '">' + content + '</button></div>';
+      } else {
+        th.innerHTML = '<div class="th-content">' + th.innerHTML + '</div>';
+      }
+
+      // Add resize handle
+      var handle = document.createElement('div');
+      handle.className = 'resize-handle';
+      handle.setAttribute('data-column', key);
+      th.appendChild(handle);
+
+      handle.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rect = th.getBoundingClientRect();
+        resizeState = {
+          resizing: true,
+          columnKey: key,
+          startX: e.clientX,
+          startWidth: rect.width,
+          thElement: th
+        };
+        document.body.style.cursor = 'col-resize';
+        th.classList.add('resizing');
+      });
+    });
+
+    // Add filter row
+    addFilterRow(table, columnNames);
+
+    // Setup sort handlers
+    setupSortHandlers(table);
+
+    // Document-level mouse events for resize
+    document.addEventListener('mousemove', function(e) {
+      if (!resizeState.resizing) return;
+      e.preventDefault();
+      var delta = e.clientX - resizeState.startX;
+      var newWidth = Math.max(50, resizeState.startWidth + delta);
+      resizeState.thElement.style.width = newWidth + 'px';
+      resizeState.thElement.style.minWidth = newWidth + 'px';
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (!resizeState.resizing) return;
+      var finalWidth = resizeState.thElement.getBoundingClientRect().width;
+      columnWidths[resizeState.columnKey] = finalWidth;
+      saveColumnWidths();
+      resizeState.thElement.classList.remove('resizing');
+      resizeState = {
+        resizing: false,
+        columnKey: null,
+        startX: 0,
+        startWidth: 0,
+        thElement: null
+      };
+      document.body.style.cursor = '';
+    });
+  }
+
+  /**
+   * @function
+   */
+  function addFilterRow(table, columnNames) {
+    var thead = table.querySelector('thead');
+    if (!thead) return;
+
+    var filterRow = document.createElement('tr');
+    filterRow.className = 'filter-row';
+
+    columnNames.forEach(function(colName, index) {
+      var td = document.createElement('td');
+      if (index < 3) { // Don't add filter for Actions column
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'filter-input';
+        input.setAttribute('data-column', colName);
+        input.placeholder = t('Filter...');
+        input.addEventListener('input', function() {
+          tableState.filterValues[colName] = this.value.toLowerCase();
+          applyFiltersAndSort();
+        });
+        td.appendChild(input);
+      }
+      filterRow.appendChild(td);
+    });
+
+    thead.appendChild(filterRow);
+  }
+
+  /**
+   * @function
+   */
+  function setupSortHandlers(table) {
+    table.querySelectorAll('.sort-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var column = this.getAttribute('data-column');
+        
+        if (tableState.sortColumn === column) {
+          tableState.sortDirection = tableState.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          tableState.sortColumn = column;
+          tableState.sortDirection = 'asc';
+        }
+
+        // Update sort indicators
+        table.querySelectorAll('.sort-btn').forEach(function(b) {
+          b.classList.remove('sorted-asc', 'sorted-desc');
+        });
+        this.classList.add('sorted-' + tableState.sortDirection);
+
+        applyFiltersAndSort();
+      });
+    });
+  }
+
+  /**
+   * @function
+   */
+  function applyFiltersAndSort() {
+    var table = document.querySelector('.form-versions-table');
+    if (!table || !originalRows.length) return;
+
+    var tbody = table.querySelector('tbody');
+    
+    // Filter rows
+    var filteredRows = originalRows.filter(function(row) {
+      var cells = row.querySelectorAll('td');
+      
+      // Check date filter
+      if (tableState.filterValues.date) {
+        var dateText = cells[0] ? cells[0].textContent.toLowerCase() : '';
+        if (dateText.indexOf(tableState.filterValues.date) === -1) {
+          return false;
+        }
+      }
+      
+      // Check user filter
+      if (tableState.filterValues.user) {
+        var userText = cells[1] ? cells[1].textContent.toLowerCase() : '';
+        if (userText.indexOf(tableState.filterValues.user) === -1) {
+          return false;
+        }
+      }
+      
+      // Check version filter
+      if (tableState.filterValues.version) {
+        var versionText = cells[2] ? cells[2].textContent.toLowerCase() : '';
+        if (versionText.indexOf(tableState.filterValues.version) === -1) {
+          return false;
+        }
+      }
+      
+      return true;
+    });
+
+    // Sort rows
+    if (tableState.sortColumn) {
+      filteredRows.sort(function(a, b) {
+        var aCells = a.querySelectorAll('td');
+        var bCells = b.querySelectorAll('td');
+        var aVal, bVal;
+        
+        switch (tableState.sortColumn) {
+          case 'date':
+            aVal = aCells[0] ? aCells[0].textContent.trim() : '';
+            bVal = bCells[0] ? bCells[0].textContent.trim() : '';
+            break;
+          case 'user':
+            aVal = aCells[1] ? aCells[1].textContent.trim().toLowerCase() : '';
+            bVal = bCells[1] ? bCells[1].textContent.trim().toLowerCase() : '';
+            break;
+          case 'version':
+            aVal = aCells[2] ? aCells[2].textContent.trim().toLowerCase() : '';
+            bVal = bCells[2] ? bCells[2].textContent.trim().toLowerCase() : '';
+            break;
+          default:
+            return 0;
+        }
+        
+        if (aVal < bVal) return tableState.sortDirection === 'asc' ? -1 : 1;
+        if (aVal > bVal) return tableState.sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    // Rebuild tbody
+    tbody.innerHTML = '';
+    filteredRows.forEach(function(row) {
+      tbody.appendChild(row);
+    });
+
+    // Show "no results" message if empty
+    if (filteredRows.length === 0) {
+      var emptyRow = document.createElement('tr');
+      var emptyCell = document.createElement('td');
+      emptyCell.colSpan = 4;
+      emptyCell.className = 'no-data';
+      emptyCell.textContent = t('No versions match your filters.');
+      emptyRow.appendChild(emptyCell);
+      tbody.appendChild(emptyRow);
+    }
   }
 
   // ============================================================================

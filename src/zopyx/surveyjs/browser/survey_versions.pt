@@ -68,7 +68,7 @@
 
           <tal:has-versions condition="view/has_versions">
             <div style="overflow-x: auto;">
-              <table class="table table-striped table-hover">
+              <table class="form-versions-table">
                 <thead>
                   <tr>
                     <th style="width: 180px;" i18n:translate="">Date/Time</th>
@@ -93,91 +93,92 @@
                         </tal:locked>
                       </td>
                       <td>
-                        <div class="btn-group" role="group">
-                          <!-- View JSON Button -->
+                        <div class="btn-group-compact" role="group">
+                          <!-- Preview JSON -->
                           <button type="button"
-                                  class="btn btn-sm btn-json action-text view-json-btn"
+                                  class="btn-compact btn-json view-json-btn"
                                   tal:attributes="data-version-id version/id"
                                   title="View JSON"
                                   i18n:attributes="title">
-                            <span i18n:translate="">Preview JSON</span>
+                            <span class="btn-icon">{ }</span>
+                            <span class="btn-text" i18n:translate="">JSON</span>
                           </button>
 
-                          <!-- Preview Button -->
+                          <!-- Preview Form -->
                           <button type="button"
-                                  class="btn btn-sm btn-primary action-text preview-btn"
+                                  class="btn-compact btn-primary preview-btn"
                                   tal:attributes="data-version-id version/id"
-                                  title="Preview"
+                                  title="Preview form"
                                   i18n:attributes="title">
-                            <span i18n:translate="">Preview</span>
+                            <span class="btn-icon">👁</span>
+                            <span class="btn-text" i18n:translate="">View</span>
                           </button>
 
-                          <!-- Restore Button -->
+                          <!-- Restore -->
                           <button type="button"
-                                  class="btn btn-sm btn-restore action-text open-restore-dialog"
+                                  class="btn-compact btn-restore open-restore-dialog"
                                   tal:attributes="data-version-id version/id;
                                                   data-created python: version['created'].strftime('%Y-%m-%d %H:%M:%S');
                                                   data-user version/user"
-                                  title="Restore to previous version"
-                                  aria-label="Restore to previous version"
-                                  i18n:attributes="title aria-label">
-                            <span i18n:translate="">Restore</span>
+                                  title="Restore version"
+                                  i18n:attributes="title">
+                            <span class="btn-icon">↩</span>
+                            <span class="btn-text" i18n:translate="">Restore</span>
                           </button>
 
-                          <!-- Lock/Unlock Button -->
-                          <form method="post"
+                          <!-- Lock/Unlock -->
+                          <form method="post" class="btn-form"
                                 tal:attributes="action string:${context/absolute_url}/@@toggle-version-lock">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
                             <tal:block tal:define="lock_label python: 'Unlock' if version.get('locked') else 'Lock'">
                               <button type="submit"
-                                      class="btn btn-sm action-text"
-                                      tal:attributes="class python: 'btn btn-sm action-text ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
-                                                      title lock_label;
-                                                      aria-label lock_label"
-                                      i18n:attributes="aria-label">
-                                <span i18n:translate="" tal:content="lock_label">Lock</span>
+                                      class="btn-compact"
+                                      tal:attributes="class python: 'btn-compact ' + ('btn-unlock' if version.get('locked') else 'btn-lock');
+                                                      title lock_label"
+                                      i18n:attributes="title">
+                                <span class="btn-icon" tal:content="python: '🔓' if version.get('locked') else '🔒'">🔒</span>
+                                <span class="btn-text" tal:content="lock_label">Lock</span>
                               </button>
                             </tal:block>
                           </form>
 
-                          <!-- Download Button -->
-                          <form method="get"
+                          <!-- Download -->
+                          <form method="get" class="btn-form"
                                 tal:attributes="action string:${context/absolute_url}/@@download-version">
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
                             <button type="submit"
-                                    class="btn btn-sm btn-success action-text"
-                                    title="Download form definition as JSON"
-                                    aria-label="Download form definition as JSON"
-                                    i18n:attributes="title aria-label">
-                              <span i18n:translate="">Download</span>
+                                    class="btn-compact btn-success"
+                                    title="Download JSON"
+                                    i18n:attributes="title">
+                              <span class="btn-icon">⬇</span>
+                              <span class="btn-text" i18n:translate="">Save</span>
                             </button>
                           </form>
 
-                          <!-- Create Template Button -->
+                          <!-- Create Template -->
                           <button type="button"
-                                  class="btn btn-sm btn-template action-text open-template-dialog"
+                                  class="btn-compact btn-template open-template-dialog"
                                   tal:attributes="data-version-id version/id"
-                                  title="Create a SurveyTemplate from this version"
-                                  aria-label="Create a SurveyTemplate from this version"
-                                  i18n:attributes="title aria-label">
+                                  title="Create template"
+                                  i18n:attributes="title">
                             <span class="btn-icon">+</span>
-                            <span i18n:translate="">Template</span>
+                            <span class="btn-text" i18n:translate="">Template</span>
                           </button>
 
-                          <!-- Delete Button -->
-                          <form method="post"
+                          <!-- Delete -->
+                          <form method="post" class="btn-form"
                                 tal:condition="python: not version.get('locked')"
                                 tal:attributes="action string:${context/absolute_url}/@@delete-version">
                             <input type="hidden" name="_authenticator" tal:attributes="value context/@@authenticator/token" />
                             <input type="hidden" name="version_id" tal:attributes="value version/id" />
                             <button type="button"
-                                    class="btn btn-sm btn-danger action-text open-delete-dialog"
+                                    class="btn-compact btn-danger open-delete-dialog"
                                     tal:attributes="data-version-id version/id"
                                     title="Delete version"
-                                    aria-label="Delete version"
-                                    i18n:attributes="title aria-label">
-                              <span i18n:translate="">Delete</span>
+                                    i18n:attributes="title">
+                              <span class="btn-icon">×</span>
+                              <span class="btn-text" i18n:translate="">Delete</span>
                             </button>
                           </form>
                         </div>

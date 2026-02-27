@@ -64,29 +64,170 @@
         background: linear-gradient(145deg, #2563eb, #1d4ed8);
         border-color: #1d4ed8;
       }
-      .table {
+      /* TabStack Table Styles */
+      .form-versions-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        color: #0f172a;
+        background: #ffffff;
         margin-bottom: 0;
-        background-color: white;
       }
-      .table thead th {
-        background-color: #f8f9fa;
-        border-bottom: 2px solid #dee2e6;
-        color: #495057;
+
+      .form-versions-table thead {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 80%);
+      }
+
+      .form-versions-table thead th {
+        padding: 12px 16px;
+        text-align: left;
         font-weight: 600;
-        padding: 12px;
+        border-bottom: 1px solid #e2e8f0;
+        white-space: nowrap;
+        position: relative;
+        user-select: none;
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        color: #0f172a;
       }
-      .table tbody tr {
-        transition: background-color 0.2s;
+
+      .form-versions-table thead th .th-content {
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      .table tbody tr:hover {
-        background-color: #f1f3f5;
+
+      /* Resize handle */
+      .resize-handle {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        cursor: col-resize;
+        background: transparent;
+        transition: background-color 0.15s ease;
+        z-index: 1;
       }
-      .table tbody td {
-        padding: 12px;
+
+      .resize-handle:hover {
+        background-color: rgba(37, 99, 235, 0.3);
+      }
+
+      .form-versions-table thead th.resizing .resize-handle,
+      .resize-handle:active {
+        background-color: #2563eb;
+      }
+
+      .form-versions-table thead th.resizing {
+        background-color: rgba(37, 99, 235, 0.05);
+      }
+
+      .form-versions-table tbody tr {
+        border-bottom: 1px solid #eef1f6;
+        transition: background-color 0.15s ease;
+      }
+
+      .form-versions-table tbody tr:nth-child(even) {
+        background: #f8fafc;
+      }
+
+      .form-versions-table tbody tr:hover {
+        background: rgba(15, 23, 42, 0.06);
+      }
+
+      .form-versions-table tbody td {
+        padding: 12px 16px;
         vertical-align: middle;
+      }
+
+      /* First column (Date/Time) - prevent text breaking */
+      .form-versions-table thead th:first-child,
+      .form-versions-table tbody td:first-child {
+        white-space: nowrap;
+      }
+
+      /* Sort buttons */
+      .sort-btn {
+        background: transparent;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 600;
+        padding: 0 20px 0 0;
+        position: relative;
+        text-align: left;
+        white-space: nowrap;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+
+      .sort-btn::after {
+        content: "↕";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.3;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .sort-btn.sorted-asc::after {
+        content: "↑";
+        opacity: 1;
+        color: #2563eb;
+      }
+
+      .sort-btn.sorted-desc::after {
+        content: "↓";
+        opacity: 1;
+        color: #2563eb;
+      }
+
+      .sort-btn:hover {
+        color: #2563eb;
+      }
+
+      /* Filter row */
+      .filter-row {
+        background: #f8fafc;
+      }
+
+      .filter-row td {
+        padding: 8px 16px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .filter-input {
+        width: 100%;
+        padding: 6px 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        font-size: 12px;
+        background: #f8fafc;
+        color: #0f172a;
+        box-sizing: border-box;
+      }
+
+      .filter-input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      .filter-input::placeholder {
+        color: #64748b;
+      }
+
+      /* No data message */
+      .no-data {
+        text-align: center;
+        color: #6b7280;
+        padding: 32px 16px !important;
       }
       .version-id-badge {
         background: linear-gradient(135deg, #e2e8f0, #f1f5f9);
@@ -98,6 +239,128 @@
         color: #495057;
         display: inline-block;
       }
+      /* Compact button group */
+      .btn-group-compact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        align-items: center;
+      }
+
+      .btn-group-compact form {
+        margin: 0;
+        display: inline-flex;
+      }
+
+      /* Compact icon+text buttons */
+      .btn-compact {
+        height: 28px;
+        padding: 0 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        background: #f1f5f9;
+        color: #475569;
+        white-space: nowrap;
+      }
+
+      .btn-compact:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-compact .btn-icon {
+        font-size: 12px;
+        line-height: 1;
+        font-weight: 700;
+      }
+
+      .btn-compact .btn-text {
+        font-size: 11px;
+        letter-spacing: 0.2px;
+      }
+
+      /* Individual button colors */
+      .btn-compact.btn-json {
+        background: linear-gradient(135deg, #0f172a, #1f2937);
+        border-color: #0f172a;
+        color: #e2e8f0;
+      }
+      .btn-compact.btn-json:hover {
+        background: linear-gradient(135deg, #1f2937, #0f172a);
+      }
+
+      .btn-compact.btn-primary {
+        background: linear-gradient(145deg, #3b82f6, #2563eb);
+        border-color: #2563eb;
+        color: white;
+      }
+      .btn-compact.btn-primary:hover {
+        background: linear-gradient(145deg, #2563eb, #1d4ed8);
+      }
+
+      .btn-compact.btn-restore {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        border-color: #f59e0b;
+        color: #1f2937;
+      }
+      .btn-compact.btn-restore:hover {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+
+      .btn-compact.btn-lock {
+        background: linear-gradient(145deg, #fbbf24, #f59e0b);
+        border-color: #f59e0b;
+        color: #1f2937;
+      }
+      .btn-compact.btn-lock:hover {
+        background: linear-gradient(145deg, #f59e0b, #d97706);
+      }
+
+      .btn-compact.btn-unlock {
+        background: linear-gradient(145deg, #34d399, #10b981);
+        border-color: #10b981;
+        color: #0f172a;
+      }
+      .btn-compact.btn-unlock:hover {
+        background: linear-gradient(145deg, #10b981, #059669);
+      }
+
+      .btn-compact.btn-success {
+        background: linear-gradient(145deg, #22c55e, #16a34a);
+        border-color: #16a34a;
+        color: white;
+      }
+      .btn-compact.btn-success:hover {
+        background: linear-gradient(145deg, #16a34a, #15803d);
+      }
+
+      .btn-compact.btn-template {
+        background: linear-gradient(135deg, #0ea5e9, #2563eb);
+        border-color: #2563eb;
+        color: #e0f2fe;
+      }
+      .btn-compact.btn-template:hover {
+        background: linear-gradient(135deg, #0284c7, #1d4ed8);
+      }
+
+      .btn-compact.btn-danger {
+        background: linear-gradient(145deg, #ef4444, #dc2626);
+        border-color: #dc2626;
+        color: #fff;
+      }
+      .btn-compact.btn-danger:hover {
+        background: linear-gradient(145deg, #dc2626, #b91c1c);
+      }
+
+      /* Legacy button styles (kept for compatibility) */
       .btn-group {
         display: flex;
         gap: 6px;

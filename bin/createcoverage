@@ -1,0 +1,13 @@
+#!/home/ajung/src/zopyx.surveyjs/.venv/bin/python3
+
+import sys
+sys.path[0:0] = [
+  '/home/ajung/src/zopyx.surveyjs/eggs/createcoverage-1.5-py3.13-linux-x86_64.egg',
+  '/home/ajung/src/zopyx.surveyjs/eggs/coverage-7.8.2-py3.13.egg',
+  '/home/ajung/src/zopyx.surveyjs/.venv/lib/python3.13/site-packages',
+  ]
+
+import createcoverage.script
+
+if __name__ == '__main__':
+    sys.exit(createcoverage.script.main())

@@ -1,0 +1,7 @@
+#!/bin/bash
+export TZ=UTC
+/home/ajung/src/zopyx.surveyjs/bin/coverage run bin/test $*
+/home/ajung/src/zopyx.surveyjs/bin/coverage html
+/home/ajung/src/zopyx.surveyjs/bin/coverage report -m --fail-under=90
+# Fail (exit status 1) if coverage returns exit status 2 (this happens
+# when test coverage is below 100%.

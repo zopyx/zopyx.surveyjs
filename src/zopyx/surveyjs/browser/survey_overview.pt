@@ -22,10 +22,7 @@
     <metal:surveyjs-viewer-css
         use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
     />
-    <link rel="stylesheet"
-          type="text/css"
-          href="++resource++zopyx.surveyjs/vendor/tabulator.min.css"
-    />
+
     <link rel="stylesheet"
           type="text/css"
           href="++resource++zopyx.surveyjs/survey_overview.css"
@@ -59,8 +56,6 @@
                 id="survey-overview-data"
                 tal:define="entries_json python: __import__('json').dumps(entries)"
                 tal:content="structure entries_json"></script>
-        <script src="++resource++zopyx.surveyjs/vendor/tabulator.min.js"
-                type="text/javascript"></script>
         <script src="++resource++zopyx.surveyjs/survey_overview.js"
                 type="text/javascript"></script>
       </tal:hasentries>
