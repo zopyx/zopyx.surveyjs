@@ -36,6 +36,13 @@
   transform: none;
 }
 
+/* Disabled state for non-managers */
+.survey-action-button.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .survey-header {
   background: linear-gradient(135deg, #fbfdff 0%, #eef2f7 45%, #f5f7fb 100%);
   border: 1px solid rgba(148, 163, 184, 0.6);
@@ -50,14 +57,102 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
+/* Action Groups */
 .survey-actions-group {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Group 1: Main Actions - Primary styling */
+.survey-actions-group.group-main {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.survey-actions-group.group-main .survey-action-button {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  border-color: #bfdbfe;
+}
+
+.survey-actions-group.group-main .survey-action-button:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 100%);
+  border-color: #60a5fa;
+}
+
+.survey-actions-group.group-main .survey-action-button.is-active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+/* Group 2: Management - Neutral styling */
+.survey-actions-group.group-management {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.survey-actions-group.group-management .survey-action-button {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-color: #cbd5e1;
+}
+
+.survey-actions-group.group-management .survey-action-button:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+  border-color: #94a3b8;
+}
+
+.survey-actions-group.group-management .survey-action-button.is-active {
+  background: #475569;
+  border-color: #475569;
+  color: #ffffff;
+}
+
+/* Group 3: Advanced/Import - Accent styling */
+.survey-actions-group.group-advanced {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.survey-actions-group.group-advanced .survey-action-button {
+  background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+  border-color: #e9d5ff;
+}
+
+.survey-actions-group.group-advanced .survey-action-button:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f3e8ff 100%);
+  border-color: #c084fc;
+}
+
+.survey-actions-group.group-advanced .survey-action-button.is-active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #ffffff;
+}
+
+/* Beta badge styling */
+.beta-badge {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  text-transform: uppercase;
+}
+
+/* Manager lock badge */
+.manager-badge {
+  font-size: 0.85rem;
+  margin-left: 0.3rem;
 }
 
 .survey-header-main {
