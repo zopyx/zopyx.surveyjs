@@ -215,3 +215,6 @@ __marimo__/
 
 durations.svg
 .codespeak/ignored/src/zopyx/surveyjs/data_validation/validate-linux
+
+bin
+src/privacyforms.theme/
