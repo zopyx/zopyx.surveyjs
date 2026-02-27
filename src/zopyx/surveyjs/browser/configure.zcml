@@ -434,11 +434,11 @@
     attribute="store_pdf_form"
   />
 
-  <!-- Forms Settings Control Panel -->
+  <!-- Forms Settings Control Panel (SurveyJS-based) -->
   <browser:page
     name="forms-settings"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    class=".controlpanel.FormsSettingsControlPanel"
+    class=".controlpanel.FormsSettingsView"
     permission="cmf.ManagePortal"
   />
 

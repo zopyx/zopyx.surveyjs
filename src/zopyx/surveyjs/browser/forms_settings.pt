@@ -1,0 +1,89 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master">
+
+  <metal:styles fill-slot="style_slot">
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/survey_add.css"
+    />
+  </metal:styles>
+
+  <metal:content fill-slot="content-core"
+                 tal:define="errors view/errors">
+
+    <div class="survey-header">
+      <div class="survey-header-top">
+        <div class="survey-header-main">
+          <div class="survey-header-view">
+            <h2 i18n:translate="">Forms Settings</h2>
+            <p i18n:translate="">Configure AI model settings, features, logging, mail defaults, storage backend, and security options.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+    <metal:surveyjs-i18n-scripts
+        use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+    />
+    <metal:surveyjs-core
+        use-macro="context/@@survey-assets/macros/surveyjs-core"
+    />
+    <metal:surveyjs-ui
+        use-macro="context/@@survey-assets/macros/surveyjs-ui"
+    />
+    <metal:surveyjs-theme-index
+        use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+    />
+    <metal:surveyjs-viewer-css
+        use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+    />
+
+    <script type="application/json"
+            id="survey-add-initial-data"
+            tal:content="structure view/initial_data_json">
+    </script>
+
+    <div class="survey-add-errors" tal:condition="errors">
+      <strong i18n:translate="">Let's fix a few things:</strong>
+      <ul>
+        <li tal:repeat="error errors" tal:content="error">Error</li>
+      </ul>
+    </div>
+
+    <div class="survey-add-widget"
+         id="survey-add-widget"
+         tal:attributes="data-schema-url string:${context/portal_url}/++resource++zopyx.surveyjs/forms_settings.json;
+                         data-theme string:flat;
+                         data-survey-language python: (context.Language() or '')">
+      <div class="survey-add-loading" i18n:translate="">Loading form...</div>
+    </div>
+
+    <div class="survey-add-actions">
+      <button class="survey-add-submit"
+              type="button"
+              id="survey-add-submit"
+              i18n:translate="">Save Settings</button>
+      <a class="survey-add-cancel"
+         tal:attributes="href string:${context/portal_url}/@@overview"
+         i18n:translate="">Cancel</a>
+    </div>
+
+    <form class="survey-add-hidden-form"
+          id="survey-add-hidden-form"
+          method="post"
+          tal:attributes="action request/ACTUAL_URL">
+      <span tal:replace="structure context/@@authenticator/authenticator"></span>
+      <input type="hidden" name="payload" value="" />
+      <input type="hidden" name="form.submitted" value="1" />
+    </form>
+
+    <script src="++resource++zopyx.surveyjs/survey_add.js"></script>
+  </metal:content>
+</html>
