@@ -214,4 +214,4 @@ __marimo__/
 .streamlit/secrets.toml
 
 durations.svg
-.codespeak/ignored/
+.codespeak/ignored/src/zopyx/surveyjs/data_validation/validate-linux
