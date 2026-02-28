@@ -15,17 +15,6 @@
   <metal:content fill-slot="content-core"
                  tal:define="errors view/errors">
 
-    <div class="survey-header">
-      <div class="survey-header-top">
-        <div class="survey-header-main">
-          <div class="survey-header-view">
-            <h2 i18n:translate="">Forms Settings</h2>
-            <p i18n:translate="">Configure AI model settings, features, logging, mail defaults, storage backend, and security options.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
     />
