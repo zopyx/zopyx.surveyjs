@@ -2181,7 +2181,7 @@ else:
 # Call @@demo-content to create additional demo surveys
 try:
     demo_content_view = getMultiAdapter((site, site.REQUEST), name="demo-content")
-    demo_content_view.demo_content()
+    demo_content_view()
     print("Created additional demo surveys via @@demo-content")
 except Exception as exc:
     print(f"Failed to create demo surveys via @@demo-content: {exc}")

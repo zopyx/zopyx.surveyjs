@@ -43,8 +43,7 @@
     name="demo-content"
     for="plone.base.interfaces.IPloneSiteRoot"
     permission="cmf.ManagePortal"
-    class=".views.Views"
-    attribute="demo_content"
+    class=".demo_content.DemoContent"
   />
   <browser:page
     name="results"
