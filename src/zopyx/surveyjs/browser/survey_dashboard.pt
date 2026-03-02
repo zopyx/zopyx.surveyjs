@@ -39,6 +39,10 @@
       <metal:surveyjs-viewer-css
           use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
       />
+      <link href="++resource++zopyx.surveyjs/results.css"
+            rel="stylesheet"
+            type="text/css"
+      />
       <link href="++resource++zopyx.surveyjs/dashboard.css"
             rel="stylesheet"
             type="text/css"
@@ -55,6 +59,9 @@
         </metal:survey-header-subtitle>
       </metal:survey-header>
       <div id="surveyDashboardContainer"></div>
+      <tal:empty-state tal:define="empty_state_id string:survey-dashboard-empty; empty_state_hidden python:True">
+        <metal:results-empty-state use-macro="context/@@survey-actions/macros/results-empty-state" />
+      </tal:empty-state>
     </tal:feature>
 
     <tal:feature-disabled tal:condition="not: feature_ok">

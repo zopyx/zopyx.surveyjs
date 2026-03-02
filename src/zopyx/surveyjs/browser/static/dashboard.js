@@ -47,9 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const surveyData = Array.isArray(results) ? results : [];
       if (!surveyData.length) {
-        container.innerHTML = "<div class=\"dashboard-empty\">" +
-          t("No stored results yet. Once responses are saved, analytics will appear here.") +
-          "</div>";
+        const emptyEl = document.getElementById("survey-dashboard-empty");
+        if (emptyEl) emptyEl.style.display = "";
         return;
       }
 

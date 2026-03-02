@@ -201,6 +201,16 @@
   </tal:ai-provider-notice>
 </metal:ai_provider_notice>
 
+<metal:results_empty_state define-macro="results-empty-state">
+  <div class="results-empty-state"
+       tal:define="_hidden empty_state_hidden | nothing"
+       tal:attributes="id empty_state_id | nothing;
+                       style python: 'display:none' if _hidden else None">
+    <h3 class="results-empty-title" i18n:translate="">No results yet</h3>
+    <p class="results-empty-message" i18n:translate="">This survey hasn't received any submissions. Once respondents complete the form, their results will appear here.</p>
+  </div>
+</metal:results_empty_state>
+
 <metal:survey_status define-macro="survey-status">
   <tal:status tal:condition="view/can_manage_portal_content"
               tal:define="status view/survey_status_label;
