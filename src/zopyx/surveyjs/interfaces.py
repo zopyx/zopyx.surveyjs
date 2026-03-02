@@ -133,6 +133,7 @@ class IFormsSettings(IPloneLoggingSettings):
         value_type=schema.Choice(
             values=[
                 "ai-generator",
+                "chatbot",
                 "dashboard",
                 "pdf-generator",
                 "pdf-form-import",

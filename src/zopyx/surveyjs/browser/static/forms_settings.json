@@ -159,6 +159,22 @@
               }
             },
             {
+              "value": "chatbot",
+              "text": {
+                "default": "Chatbot",
+                "de": "Chatbot",
+                "en": "Chatbot",
+                "es": "Chatbot",
+                "fr": "Chatbot",
+                "it": "Chatbot",
+                "pt": "Chatbot",
+                "fi": "Chatbot",
+                "hi": "चैटबॉट",
+                "ar": "روبوت الدردشة",
+                "ja": "チャットボット"
+              }
+            },
+            {
               "value": "dashboard",
               "text": {
                 "default": "Dashboard",

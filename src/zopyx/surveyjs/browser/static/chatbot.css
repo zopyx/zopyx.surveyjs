@@ -1,0 +1,128 @@
+.chatbot-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.2rem;
+}
+
+.chatbot-sidebar {
+  border: 1px solid #d8dde6;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f7fafc 0%, #edf2f7 100%);
+  padding: 1rem;
+}
+
+.chatbot-sidebar h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+}
+
+.chatbot-prompt {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.55rem 0;
+  border: 1px solid #cfd6e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0b2f4f;
+  text-align: left;
+  padding: 0.6rem 0.7rem;
+  cursor: pointer;
+}
+
+.chatbot-prompt:hover {
+  border-color: #9fb3cc;
+  background: #f6fbff;
+}
+
+.chatbot-main {
+  border: 1px solid #d8dde6;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.chatbot-messages {
+  min-height: 260px;
+  max-height: 460px;
+  overflow-y: auto;
+  border: 1px solid #edf1f7;
+  border-radius: 8px;
+  background: #f9fbfd;
+  padding: 0.8rem;
+}
+
+.chatbot-message {
+  margin: 0 0 0.8rem 0;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  white-space: pre-wrap;
+}
+
+.chatbot-message.user {
+  background: #e2f0ff;
+  border: 1px solid #c1dcf6;
+}
+
+.chatbot-message.assistant {
+  background: #f2f8f3;
+  border: 1px solid #d1e5d4;
+}
+
+.chatbot-meta {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  color: #4f5f73;
+}
+
+.chatbot-sources,
+.chatbot-followups {
+  margin-top: 0.7rem;
+  font-size: 0.92rem;
+}
+
+.chatbot-chip {
+  display: inline-block;
+  margin: 0 0.35rem 0.35rem 0;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid #d4dbe7;
+  background: #f5f7fb;
+  cursor: pointer;
+}
+
+.chatbot-form {
+  margin-top: 0.85rem;
+}
+
+.chatbot-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+#chatbotInput {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #cfd6e1;
+  padding: 0.65rem;
+  resize: vertical;
+}
+
+.chatbot-controls {
+  margin-top: 0.65rem;
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.chatbot-stream-toggle {
+  margin-right: auto;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+@media (max-width: 900px) {
+  .chatbot-layout {
+    grid-template-columns: 1fr;
+  }
+}

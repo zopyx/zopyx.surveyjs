@@ -347,6 +347,57 @@
     template="survey_ai.pt"
   />
 
+  <!-- Chatbot -->
+  <browser:page
+    name="chatbot"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".chatbot.SurveyChatbot"
+    template="chatbot.pt"
+  />
+  <browser:page
+    name="chat-api"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".chatbot.SurveyChatbot"
+    attribute="chatbot_api"
+  />
+  <browser:page
+    name="chatbot-stats"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".chatbot.SurveyChatbot"
+    attribute="chatbot_api_stats"
+  />
+  <browser:page
+    name="chatbot-mgmt"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".chatbot.SurveyChatbot"
+    attribute="chatbot_mgmt"
+  />
+  <browser:page
+    name="chatbot-index-local"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".chatbot.SurveyChatbot"
+    attribute="chatbot_index_local"
+  />
+  <browser:page
+    name="chatbot-index-remote"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".chatbot.SurveyChatbot"
+    attribute="chatbot_index_remote"
+  />
+  <browser:page
+    name="chatbot-reset"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".chatbot.SurveyChatbot"
+    attribute="chatbot_reset"
+  />
+
   <!-- PDF Form Importer -->
   <browser:page
     name="pdf-importer"

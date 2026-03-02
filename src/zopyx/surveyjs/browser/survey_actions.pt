@@ -80,6 +80,15 @@
             <span i18n:translate="">AI Generator</span>
           </a>
         </tal:ai>
+        <tal:chatbot tal:condition="python: view.feature_enabled('chatbot')">
+          <a class="survey-action-button action-chatbot"
+             tal:attributes="class python: 'survey-action-button action-chatbot' + (' is-active' if current_url.endswith('/@@chatbot') else '');
+                             title python: 'Documentation chatbot' if not current_url.endswith('/@@chatbot') else 'Currently in chatbot';
+                             aria-label python: 'Documentation chatbot' if not current_url.endswith('/@@chatbot') else 'Currently in chatbot'"
+             href="${context/absolute_url}/@@chatbot">
+            <span i18n:translate="">Chatbot</span>
+          </a>
+        </tal:chatbot>
         <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
           <a class="survey-action-button action-pdf-importer"
              tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '');
