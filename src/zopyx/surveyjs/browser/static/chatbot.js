@@ -21,10 +21,79 @@ document.addEventListener("DOMContentLoaded", function () {
     return msgid;
   };
 
-  function addMessage(role, text, extra) {
+  function escapeHtml(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function renderRichText(text) {
+    const source = escapeHtml(text);
+    const lines = source.split("\n");
+    const out = [];
+    let inList = false;
+
+    function closeListIfOpen() {
+      if (inList) {
+        out.push("</ul>");
+        inList = false;
+      }
+    }
+
+    lines.forEach((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        closeListIfOpen();
+        out.push("<br/>");
+        return;
+      }
+      if (trimmed.startsWith("### ")) {
+        closeListIfOpen();
+        out.push("<h4>" + trimmed.slice(4) + "</h4>");
+        return;
+      }
+      if (trimmed.startsWith("## ")) {
+        closeListIfOpen();
+        out.push("<h3>" + trimmed.slice(3) + "</h3>");
+        return;
+      }
+      if (trimmed.startsWith("# ")) {
+        closeListIfOpen();
+        out.push("<h2>" + trimmed.slice(2) + "</h2>");
+        return;
+      }
+      if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+        if (!inList) {
+          out.push("<ul>");
+          inList = true;
+        }
+        out.push("<li>" + trimmed.slice(2) + "</li>");
+        return;
+      }
+      closeListIfOpen();
+      out.push("<p>" + trimmed + "</p>");
+    });
+    closeListIfOpen();
+
+    let html = out.join("");
+    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+    html = html.replace(
+      /(^|<br\/>|<p>)(Sources|Confidence|Follow-ups|Recommendation|Note):/g,
+      "$1<span class=\"chatbot-key-term\">$2:</span>"
+    );
+    return html;
+  }
+
+  function addMessage(role, text, extra, rich) {
     const div = document.createElement("div");
     div.className = "chatbot-message " + role;
-    div.textContent = text;
+    if (rich) {
+      div.innerHTML = renderRichText(text);
+    } else {
+      div.textContent = text;
+    }
 
     if (extra) {
       const meta = document.createElement("div");
@@ -148,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const payloadObj = JSON.parse(line.slice(6));
           if (payloadObj.chunk) {
             fullText += payloadObj.chunk;
-            assistantEl.textContent = fullText;
+            assistantEl.innerHTML = renderRichText(fullText);
           }
           if (payloadObj.done) {
             finalEvent = payloadObj;
@@ -198,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function ask(message) {
     addMessage("user", message);
-    const assistantEl = addMessage("assistant", t("Thinking..."));
+    const assistantEl = addMessage("assistant", t("Thinking..."), null, true);
     sendBtn.disabled = true;
 
     try {
@@ -207,14 +276,14 @@ document.addEventListener("DOMContentLoaded", function () {
         ? await sendStream(payload, assistantEl)
         : await sendNormal(payload);
 
-      assistantEl.textContent = result.response || t("No answer returned.");
+      assistantEl.innerHTML = renderRichText(result.response || t("No answer returned."));
       setSources(result.sources || [], result.confidence || "low");
       setFollowups(result.followups || []);
 
       history.push({ role: "user", content: message });
       history.push({ role: "assistant", content: result.response || "" });
     } catch (error) {
-      assistantEl.textContent = error.message || t("Chat request failed.");
+      assistantEl.innerHTML = renderRichText(error.message || t("Chat request failed."));
       setSources([], "low");
       setFollowups([]);
     } finally {

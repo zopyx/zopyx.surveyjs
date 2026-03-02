@@ -68,6 +68,63 @@
   border: 1px solid #d1e5d4;
 }
 
+.chatbot-message h2,
+.chatbot-message h3,
+.chatbot-message h4 {
+  margin: 0.15rem 0 0.4rem 0;
+  color: #0f4c81;
+  font-weight: 700;
+}
+
+.chatbot-message h2 {
+  font-size: 1.05rem;
+}
+
+.chatbot-message h3 {
+  font-size: 1rem;
+}
+
+.chatbot-message h4 {
+  font-size: 0.95rem;
+}
+
+.chatbot-message p {
+  margin: 0.3rem 0;
+}
+
+.chatbot-message ul {
+  margin: 0.25rem 0 0.35rem 1rem;
+  padding: 0;
+}
+
+.chatbot-message li {
+  margin: 0.18rem 0;
+}
+
+.chatbot-message strong {
+  font-weight: 700;
+  color: #143d68;
+}
+
+.chatbot-message code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  background: #eef3fb;
+  border: 1px solid #d8e3f2;
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+}
+
+.chatbot-key-term {
+  display: inline-block;
+  font-weight: 700;
+  color: #085f34;
+  background: #dff6e9;
+  border: 1px solid #bde8cf;
+  border-radius: 999px;
+  padding: 0.05rem 0.45rem;
+}
+
 .chatbot-meta {
   margin-top: 0.5rem;
   font-size: 0.88rem;
