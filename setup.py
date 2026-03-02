@@ -65,6 +65,7 @@ setup(
         "llm-ollama",
         "llm-anthropic",
         "llm-deepseek",
+        "llm-moonshot",
         "sqlmodel",
         "diskcache",
         "pypdf",
