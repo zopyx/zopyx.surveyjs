@@ -18,7 +18,11 @@
      - `text`: Years of service (numeric input)
      - `comment`: Improvement suggestions (multi-line text, optional)
 
-2. **Created demo result data**: 100 random survey responses with:
+2. **Created demo result data** (100 random responses) for both surveys:
+   - **Multilingual Demo Survey**: 100 responses with random language selection (EN, DE, FR, SQ, HR, PL, RU, SR, TR, VI) and language-specific comments
+   - **SurveyJS Demo Survey**: 100 responses with randomized answers for all question types
+   
+   Both surveys include:
    - Randomized answers for all question types
    - Random submission dates within the last 90 days
    - Varied comment text from a pool of realistic feedback
@@ -35,7 +39,10 @@ The `@@demo-content` view is now automatically called as part of the site initia
 
 ## Implementation Details
 
-- New method `_generate_surveyjs_demo_survey()`: Generates the SurveyJS JSON structure
-- New method `_generate_demo_results()`: Generates random results using the storage backend
-- Integration in `demo_content()`: Creates the new survey and populates it with demo data
-- Site setup integration: Calls the view automatically during Plone site initialization
+- **New method `_generate_surveyjs_demo_survey()`**: Generates the SurveyJS JSON structure with various question types
+- **Enhanced method `_generate_demo_results()`**: Generates random results using the storage backend with:
+  - Random language selection from configured locales
+  - Language-specific comments for multilingual surveys
+  - Language field added to results when multiple locales are configured
+- **Integration in `demo_content()`**: Creates both surveys and populates them with 100 demo results each
+- **Site setup integration**: Calls the view automatically during Plone site initialization

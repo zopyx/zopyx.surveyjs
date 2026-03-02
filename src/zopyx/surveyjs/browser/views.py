@@ -445,6 +445,10 @@ class Views(BrowserView):
                 user_id,
                 locked=False,
             )
+
+            # Generate 100 random demo results for multilingual survey
+            self._generate_demo_results(survey, form_json, count=100)
+
             created.append({"id": survey_id, "title": "Multilingual Demo Survey"})
         except Exception as exc:
             errors.append({"path": "generated", "error": str(exc)})
@@ -964,9 +968,141 @@ class Views(BrowserView):
             for element in page.get("elements", []):
                 questions.append(element)
 
+        # Get supported locales from form_json for multilingual surveys
+        locales = form_json.get("locales", [])
+        if not locales:
+            locales = [form_json.get("locale", "en")]
+
+        # Multilingual comments for different languages
+        multilingual_comments = {
+            "en": [
+                "Excellent service, very satisfied!",
+                "Good experience overall.",
+                "Could be better, had some issues.",
+                "Not happy with the service.",
+                "Average experience, nothing special.",
+                "Would recommend to friends.",
+                "Fast and efficient service.",
+                "Staff was very helpful.",
+                "Room for improvement.",
+                "No comments at this time.",
+            ],
+            "de": [
+                "Ausgezeichneter Service, sehr zufrieden!",
+                "Insgesamt gute Erfahrung.",
+                "Könnte besser sein, hatte einige Probleme.",
+                "Nicht zufrieden mit dem Service.",
+                "Durchschnittliche Erfahrung, nichts Besonderes.",
+                "Würde ich Freunden empfehlen.",
+                "Schneller und effizienter Service.",
+                "Personal war sehr hilfreich.",
+                "Verbesserungspotenzial vorhanden.",
+                "Keine Anmerkungen.",
+            ],
+            "fr": [
+                "Service excellent, très satisfait!",
+                "Bonne expérience globale.",
+                "Pourrait être mieux, quelques problèmes.",
+                "Pas satisfait du service.",
+                "Expérience moyenne, rien de spécial.",
+                "Je recommanderais à des amis.",
+                "Service rapide et efficace.",
+                "Le personnel était très serviable.",
+                "Marge d'amélioration.",
+                "Pas de commentaires.",
+            ],
+            "sq": [
+                "Shërbim i shkëlqyer, shumë i kënaqur!",
+                "Përvojë e mirë në përgjithësi.",
+                "Mund të ishte më mirë, kisha disa probleme.",
+                "Jo i kënaqur me shërbimin.",
+                "Përvojë mesatare, asgjë e veçantë.",
+                "Do ta rekomandoja miqve.",
+                "Shërbim i shpejtë dhe efikas.",
+                "Stafi ishte shumë i ndihmueshëm.",
+                "Hapsirë për përmirësim.",
+                "Asnjë koment në këtë moment.",
+            ],
+            "hr": [
+                "Izvrsna usluga, vrlo zadovoljan!",
+                "Dobro iskustvo u cjelini.",
+                "Moglo bi biti bolje, imao sam nekih problema.",
+                "Nisam zadovoljan uslugom.",
+                "Prosječno iskustvo, ništa posebno.",
+                "Preporučio bih prijateljima.",
+                "Brza i učinkovita usluga.",
+                "Osoblje je bilo vrlo uslužno.",
+                "Prostor za poboljšanje.",
+                "Nema komentara.",
+            ],
+            "pl": [
+                "Doskonała obsługa, bardzo zadowolony!",
+                "Dobre doświadczenie ogólnie.",
+                "Mogłoby być lepiej, miałem pewne problemy.",
+                "Niezadowolony z usługi.",
+                "Przeciętne doświadczenie, nic specjalnego.",
+                "Poleciłbym znajomym.",
+                "Szybka i wydajna obsługa.",
+                "Personel był bardzo pomocny.",
+                "Miejsce na poprawę.",
+                "Brak uwag.",
+            ],
+            "ru": [
+                "Отличный сервис, очень доволен!",
+                "Хороший опыт в целом.",
+                "Могло быть лучше, были проблемы.",
+                "Не доволен обслуживанием.",
+                "Средний опыт, ничего особенного.",
+                "Рекомендовал бы друзьям.",
+                "Быстрое и эффективное обслуживание.",
+                "Персонал был очень полезен.",
+                "Есть над чем работать.",
+                "Без комментариев.",
+            ],
+            "sr": [
+                "Odlična usluga, veoma zadovoljan!",
+                "Dobro iskustvo u celini.",
+                "Moglo bi bolje, imao sam nekih problema.",
+                "Nisam zadovoljan uslugom.",
+                "Prosečno iskustvo, ništa posebno.",
+                "Preporučio bih prijateljima.",
+                "Brza i efikasna usluga.",
+                "Osoblje je bilo veoma uslužno.",
+                "Prostor za unapređenje.",
+                "Nema komentara.",
+            ],
+            "tr": [
+                "Mükemmel hizmet, çok memnun!",
+                "Genel olarak iyi deneyim.",
+                "Daha iyi olabilirdi, bazı sorunlar vardı.",
+                "Hizmetten memnun değilim.",
+                "Ortalama deneyim, özel bir şey yok.",
+                "Arkadaşlarıma tavsiye ederim.",
+                "Hızlı ve verimli hizmet.",
+                "Personel çok yardımcıydı.",
+                "İyileştirme için yer var.",
+                "Yorum yok.",
+            ],
+            "vi": [
+                "Dịch vụ xuất sắc, rất hài lòng!",
+                "Trải nghiệm tốt nói chung.",
+                "Có thể tốt hơn, có một số vấn đề.",
+                "Không hài lòng với dịch vụ.",
+                "Trải nghiệm trung bình, không có gì đặc biệt.",
+                "Sẽ giới thiệu cho bạn bè.",
+                "Dịch vụ nhanh và hiệu quả.",
+                "Nhân viên rất hữu ích.",
+                "Còn chỗ để cải thiện.",
+                "Không có bình luận.",
+            ],
+        }
+
         # Generate random results
         for i in range(count):
             result = {}
+
+            # Pick a random language for this response
+            response_language = random.choice(locales) if locales else "en"
 
             for q in questions:
                 qtype = q.get("type")
@@ -1001,19 +1137,15 @@ class Views(BrowserView):
                         result[name] = f"Demo text entry {i}"
 
                 elif qtype == "comment":
-                    comments = [
-                        "Great workplace with excellent benefits!",
-                        "Could use more flexible working hours.",
-                        "The team is very supportive and collaborative.",
-                        "Would appreciate better training opportunities.",
-                        "Overall satisfied but commute is challenging.",
-                        "Love the company culture and values.",
-                        "More team building events would be nice.",
-                        "Technology stack could be more modern.",
-                        "Management is very approachable and fair.",
-                        "No specific suggestions at this time.",
-                    ]
+                    # Use language-specific comments if available, fallback to English
+                    comments = multilingual_comments.get(
+                        response_language, multilingual_comments["en"]
+                    )
                     result[name] = random.choice(comments) if random.random() > 0.3 else ""
+
+            # Add language field for multilingual surveys
+            if len(locales) > 1:
+                result["language"] = response_language
 
             # Create result entry with random date within last 90 days
             days_ago = random.randint(0, 90)
