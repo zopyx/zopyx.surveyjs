@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from pathlib import Path
+import uuid
 
 from plone.protect.interfaces import IDisableCSRFProtection
 from zope.annotation.interfaces import IAnnotations
@@ -139,7 +140,9 @@ class DemoContent(BrowserView):
             # Generate 100 random demo results for this survey
             self._generate_demo_results(survey, form_json, count=100)
 
-            created.append({"id": survey_id, "title": "SurveyJS Demo - Various Question Types"})
+            created.append(
+                {"id": survey_id, "title": "SurveyJS Demo - Various Question Types"}
+            )
         except Exception as exc:
             errors.append({"path": "surveyjs-demo", "error": str(exc)})
 
@@ -797,7 +800,9 @@ class DemoContent(BrowserView):
                     choices = [c["value"] for c in q.get("choices", [])]
                     max_choices = q.get("maxSelectedChoices", len(choices))
                     if choices:
-                        num_selections = random.randint(1, min(max_choices, len(choices)))
+                        num_selections = random.randint(
+                            1, min(max_choices, len(choices))
+                        )
                         result[name] = random.sample(choices, num_selections)
 
                 elif qtype == "rating":
@@ -821,7 +826,9 @@ class DemoContent(BrowserView):
                     comments = multilingual_comments.get(
                         response_language, multilingual_comments["en"]
                     )
-                    result[name] = random.choice(comments) if random.random() > 0.3 else ""
+                    result[name] = (
+                        random.choice(comments) if random.random() > 0.3 else ""
+                    )
 
             # Add language field for multilingual surveys
             if len(locales) > 1:
@@ -943,21 +950,25 @@ class DemoContent(BrowserView):
             results = annos.setdefault(RESULTS_KEY, OOBTree())
             seq_counter = Counter()
             for entry in sample_addresses:
-                seq_no = seq_counter.increment()
+                if not isinstance(entry, dict):
+                    continue
+                poll_id = str(uuid.uuid4())
                 created = self._parse_iso_datetime(entry.get("created"))
                 if not created:
                     created = datetime.now(timezone.utc)
-                modified = self._parse_iso_datetime(entry.get("modified"))
-                if not modified:
-                    modified = created
-                result_entry = {
-                    "seq_no": seq_no,
+                seq_no = seq_counter.increment()
+                result_payload = dict(entry)
+                if "created" not in result_payload:
+                    result_payload["created"] = created.isoformat().replace(
+                        "+00:00", "Z"
+                    )
+                results[poll_id] = {
+                    "poll_id": poll_id,
                     "created": created,
-                    "modified": modified,
-                    "result": entry.get("result", {}),
                     "user": entry.get("user", ""),
+                    "seq_no": seq_no,
+                    "result": result_payload,
                 }
-                results[seq_no] = result_entry
             survey.seq_no = seq_counter
 
         return survey, None
