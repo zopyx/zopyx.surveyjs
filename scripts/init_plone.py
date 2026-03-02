@@ -2178,4 +2178,12 @@ if not api.user.get(username="forms"):
 else:
     print("Demo user 'forms' already exists")
 
+# Call @@demo-content to create additional demo surveys
+try:
+    demo_content_view = getMultiAdapter((site, site.REQUEST), name="demo-content")
+    demo_content_view.demo_content()
+    print("Created additional demo surveys via @@demo-content")
+except Exception as exc:
+    print(f"Failed to create demo surveys via @@demo-content: {exc}")
+
 transaction.commit()

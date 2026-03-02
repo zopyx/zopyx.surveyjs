@@ -449,6 +449,47 @@ class Views(BrowserView):
         except Exception as exc:
             errors.append({"path": "generated", "error": str(exc)})
 
+        # Generate SurveyJS demo survey with various question types
+        try:
+            form_json = self._generate_surveyjs_demo_survey()
+            survey_id = "surveyjs-demo-survey"
+
+            survey = plone.api.content.create(
+                type="Survey",
+                container=demos,
+                id=survey_id,
+                title="SurveyJS Demo - Various Question Types",
+            )
+            try:
+                survey.language = "en"
+                survey.reindexObject(idxs=["Language"])
+            except Exception:
+                pass
+            try:
+                survey.exclude_from_nav = True
+                survey.reindexObject(idxs=["exclude_from_nav"])
+            except Exception:
+                pass
+            try:
+                survey.survey_languages = ["en"]
+            except Exception:
+                pass
+            self._ensure_private(survey)
+            annos = IAnnotations(survey)
+            forms_service.save_form_version(
+                annos,
+                form_json,
+                user_id,
+                locked=False,
+            )
+
+            # Generate 100 random demo results for this survey
+            self._generate_demo_results(survey, form_json, count=100)
+
+            created.append({"id": survey_id, "title": "SurveyJS Demo - Various Question Types"})
+        except Exception as exc:
+            errors.append({"path": "surveyjs-demo", "error": str(exc)})
+
         json_response(
             self.request.response,
             {
@@ -798,6 +839,195 @@ class Views(BrowserView):
         }
 
         return survey_json
+
+    def _generate_surveyjs_demo_survey(self):
+        """Generate a SurveyJS demo survey with various question types.
+
+        Demonstrates: radiogroup, checkbox, rating, text, comment, boolean
+        """
+        import random
+
+        survey_json = {
+            "title": "Employee Satisfaction Survey",
+            "description": "Help us understand your workplace experience by answering these questions.",
+            "locale": "en",
+            "showQuestionNumbers": "on",
+            "completeText": "Submit",
+            "pages": [
+                {
+                    "name": "page1",
+                    "title": "Work Environment",
+                    "elements": [
+                        {
+                            "type": "radiogroup",
+                            "name": "department",
+                            "title": "Which department do you work in?",
+                            "isRequired": True,
+                            "choices": [
+                                {"value": "engineering", "text": "Engineering"},
+                                {"value": "sales", "text": "Sales"},
+                                {"value": "marketing", "text": "Marketing"},
+                                {"value": "hr", "text": "Human Resources"},
+                                {"value": "finance", "text": "Finance"},
+                                {"value": "operations", "text": "Operations"},
+                            ],
+                            "colCount": 2,
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "benefits",
+                            "title": "Which benefits do you value most? (Select up to 3)",
+                            "isRequired": True,
+                            "choices": [
+                                {"value": "health", "text": "Health Insurance"},
+                                {"value": "remote", "text": "Remote Work Options"},
+                                {"value": "flexible", "text": "Flexible Hours"},
+                                {"value": "training", "text": "Professional Training"},
+                                {"value": "bonus", "text": "Performance Bonus"},
+                                {"value": "vacation", "text": "Extra Vacation Days"},
+                            ],
+                            "maxSelectedChoices": 3,
+                        },
+                    ],
+                },
+                {
+                    "name": "page2",
+                    "title": "Job Satisfaction",
+                    "elements": [
+                        {
+                            "type": "rating",
+                            "name": "satisfaction",
+                            "title": "How satisfied are you with your current role?",
+                            "isRequired": True,
+                            "rateMin": 1,
+                            "rateMax": 5,
+                            "minRateDescription": "Very Dissatisfied",
+                            "maxRateDescription": "Very Satisfied",
+                        },
+                        {
+                            "type": "rating",
+                            "name": "work_life_balance",
+                            "title": "Rate your work-life balance",
+                            "isRequired": True,
+                            "rateType": "stars",
+                            "rateCount": 5,
+                        },
+                        {
+                            "type": "boolean",
+                            "name": "recommend",
+                            "title": "Would you recommend this company to a friend?",
+                            "isRequired": True,
+                            "labelTrue": "Yes",
+                            "labelFalse": "No",
+                        },
+                    ],
+                },
+                {
+                    "name": "page3",
+                    "title": "Feedback",
+                    "elements": [
+                        {
+                            "type": "text",
+                            "name": "years_service",
+                            "title": "How many years have you been with the company?",
+                            "isRequired": True,
+                            "inputType": "number",
+                            "min": 0,
+                            "max": 50,
+                        },
+                        {
+                            "type": "comment",
+                            "name": "improvements",
+                            "title": "What improvements would you suggest for the workplace?",
+                            "isRequired": False,
+                            "rows": 4,
+                            "placeholder": "Share your ideas here...",
+                        },
+                    ],
+                },
+            ],
+        }
+
+        return survey_json
+
+    def _generate_demo_results(self, survey, form_json, count=100):
+        """Generate random demo results for a survey."""
+        import random
+        from datetime import datetime, timezone, timedelta
+
+        storage = get_result_storage(survey)
+
+        # Parse form structure to understand questions
+        pages = form_json.get("pages", [])
+        questions = []
+        for page in pages:
+            for element in page.get("elements", []):
+                questions.append(element)
+
+        # Generate random results
+        for i in range(count):
+            result = {}
+
+            for q in questions:
+                qtype = q.get("type")
+                name = q.get("name")
+
+                if qtype == "radiogroup":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        result[name] = random.choice(choices)
+
+                elif qtype == "checkbox":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    max_choices = q.get("maxSelectedChoices", len(choices))
+                    if choices:
+                        num_selections = random.randint(1, min(max_choices, len(choices)))
+                        result[name] = random.sample(choices, num_selections)
+
+                elif qtype == "rating":
+                    rate_min = q.get("rateMin", 1)
+                    rate_max = q.get("rateMax", q.get("rateCount", 5))
+                    result[name] = random.randint(rate_min, rate_max)
+
+                elif qtype == "boolean":
+                    result[name] = random.choice([True, False])
+
+                elif qtype == "text":
+                    if q.get("inputType") == "number":
+                        min_val = q.get("min", 0)
+                        max_val = q.get("max", 50)
+                        result[name] = random.randint(min_val, max_val)
+                    else:
+                        result[name] = f"Demo text entry {i}"
+
+                elif qtype == "comment":
+                    comments = [
+                        "Great workplace with excellent benefits!",
+                        "Could use more flexible working hours.",
+                        "The team is very supportive and collaborative.",
+                        "Would appreciate better training opportunities.",
+                        "Overall satisfied but commute is challenging.",
+                        "Love the company culture and values.",
+                        "More team building events would be nice.",
+                        "Technology stack could be more modern.",
+                        "Management is very approachable and fair.",
+                        "No specific suggestions at this time.",
+                    ]
+                    result[name] = random.choice(comments) if random.random() > 0.3 else ""
+
+            # Create result entry with random date within last 90 days
+            days_ago = random.randint(0, 90)
+            created = datetime.now(timezone.utc) - timedelta(days=days_ago)
+
+            data = {
+                "poll_id": str(uuid.uuid1()),
+                "created": created,
+                "user": "demo-user",
+                "form_version": "demo",
+                "result": result,
+            }
+
+            storage.store_result(survey, data)
 
     def _format_catalog_date(self, value):
         if callable(value):
