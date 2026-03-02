@@ -60,7 +60,7 @@ class PFSView(BrowserView):
     @property
     def administration_url(self) -> str:
         portal = plone.api.portal.get()
-        return f"{portal.absolute_url()}/@@form-settings"
+        return f"{portal.absolute_url()}/@@forms-settings"
 
     @property
     def cards(self) -> list[dict]:
