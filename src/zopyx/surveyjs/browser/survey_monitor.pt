@@ -110,7 +110,7 @@
             <span class="rate-label">Current Minute:</span>
             <span class="rate-value" id="rate-current"
                   tal:content="rate_info/current_minute_count|nothing">0</span>
-            <span class="rate-max">/ <tal:max tal:replace="rate_info/max_allowed|60">60</tal:max></span>
+            <span class="rate-max">/ <tal:max tal:replace="python:rate_info.get('max_allowed', 60)">60</tal:max></span>
           </div>
           <div class="rate-item">
             <span class="rate-label">5min Average:</span>
