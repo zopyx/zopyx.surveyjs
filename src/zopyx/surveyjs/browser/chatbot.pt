@@ -9,6 +9,10 @@
   <metal:survey-header-critical
       use-macro="context/@@survey-actions/macros/survey-header-critical"
   />
+  <link rel="stylesheet"
+        type="text/css"
+        href="++resource++zopyx.surveyjs/header_actions.css"
+  />
 </metal:block>
 
 <metal:block fill-slot="content-core"
