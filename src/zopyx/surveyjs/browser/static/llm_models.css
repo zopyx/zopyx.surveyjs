@@ -1,0 +1,169 @@
+/* LLM Models view - polished table layout */
+
+.llm-models-page {
+  max-width: 100%;
+  padding: 1rem;
+}
+
+.llm-models-page h1 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.llm-models-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-size: 0.875rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.llm-models-table thead {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.llm-models-table th {
+  border-bottom: 2px solid #cbd5e1;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  padding: 0.625rem 1rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.llm-models-table th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.llm-models-table th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.llm-models-table td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+.llm-models-table tbody tr {
+  background: #ffffff;
+  transition: background 0.15s ease;
+}
+
+.llm-models-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.llm-models-table tbody tr:hover {
+  background: #e0f2fe;
+}
+
+.llm-models-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.llm-models-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 8px;
+}
+
+.llm-models-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 8px 0;
+}
+
+.llm-col-id code {
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #0f172a;
+  font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+}
+
+.llm-col-class {
+  color: #64748b;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.llm-class {
+  background: #f1f5f9;
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+}
+
+.llm-col-caps {
+  white-space: nowrap;
+}
+
+.llm-cap {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  cursor: help;
+  display: inline-block;
+  font-size: 0.9rem;
+  line-height: 1;
+  margin-right: 0.25rem;
+  padding: 0.25rem;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.llm-cap:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.llm-cap-attachments {
+  color: #64748b;
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 0.6875rem;
+  margin-left: 0.5rem;
+}
+
+.llm-col-aliases {
+  max-width: 350px;
+}
+
+.llm-alias {
+  background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 1px solid #93c5fd;
+  border-radius: 4px;
+  color: #1e40af;
+  display: inline-block;
+  font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  margin: 0 0.25rem 0.25rem 0;
+  padding: 0.15rem 0.375rem;
+}
+
+pre.inline {
+  background: #f1f5f9;
+  border-radius: 4px;
+  display: inline;
+  font-size: 0.875rem;
+  margin: 0;
+  padding: 0.15rem 0.375rem;
+}
+
+.alert-warning {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  color: #92400e;
+  padding: 0.75rem 1rem;
+}
+
+.text-muted {
+  color: #64748b;
+  font-style: italic;
+}

@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+<metal:block fill-slot="style_slot">
+  <link rel="stylesheet"
+        type="text/css"
+        href="++resource++zopyx.surveyjs/llm_models.css"
+  />
+</metal:block>
+
+<metal:block fill-slot="content-core">
+  <div class="llm-models-page">
+    <h1 i18n:translate="">LLM Models</h1>
+
+    <tal:no-llm tal:condition="not: view/has_llm">
+      <div class="alert alert-warning">
+        <code>llm</code> library not installed. <pre class="inline">pip install llm</pre>
+      </div>
+    </tal:no-llm>
+
+    <tal:has-llm tal:condition="view/has_llm">
+      <tal:models tal:define="models view/get_models">
+        <tal:no-models tal:condition="not: models">
+          <p class="text-muted">No models registered.</p>
+        </tal:no-models>
+
+        <tal:has-models tal:condition="models">
+          <table class="llm-models-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Class</th>
+                <th>Capabilities</th>
+                <th>Aliases</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr tal:repeat="model models">
+                <td class="llm-col-id">
+                  <code tal:content="model/model_id">model-id</code>
+                </td>
+                <td class="llm-col-class">
+                  <span class="llm-class" tal:content="model/class_name">Class</span>
+                </td>
+                <td class="llm-col-caps">
+                  <span class="llm-cap" tal:condition="model/can_stream" title="Streaming">&#9889;</span>
+                  <span class="llm-cap" tal:condition="model/supports_schema" title="JSON Schema">&#128203;</span>
+                  <span class="llm-cap" tal:condition="model/supports_tools" title="Tools">&#128295;</span>
+                  <span class="llm-cap" tal:condition="model/is_async" title="Async">&#9851;</span>
+                  <span class="llm-cap-attachments" tal:condition="model/attachment_types"
+                        tal:content="python: ','.join(model['attachment_types'][:2]) + ('...' if len(model['attachment_types']) > 2 else '')">types</span>
+                </td>
+                <td class="llm-col-aliases">
+                  <span class="llm-alias" tal:repeat="alias model/aliases" tal:content="alias">alias</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </tal:has-models>
+      </tal:models>
+    </tal:has-llm>
+  </div>
+</metal:block>
+
+</html>

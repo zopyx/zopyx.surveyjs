@@ -398,6 +398,15 @@
     attribute="chatbot_reset"
   />
 
+  <!-- LLM Models List (Manager only, no navigation integration) -->
+  <browser:page
+    name="llm-models"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
+    class=".llm_models.LLMModelsView"
+    template="llm_models.pt"
+  />
+
   <!-- PDF Form Importer -->
   <browser:page
     name="pdf-importer"
