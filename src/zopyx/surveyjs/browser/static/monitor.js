@@ -35,6 +35,7 @@
 
   /**
    * Render an SVG area chart
+   * Shows full time window but only plots data between first and last events
    */
   function renderChart(data) {
     const svg = document.getElementById('submission-chart');
@@ -49,6 +50,22 @@
     const labels = data.labels;
     const values = data.values;
     const maxValue = Math.max(...values, 1);
+    
+    // Find first and last non-zero indices (event range)
+    let firstEventIdx = values.findIndex(v => v > 0);
+    let lastEventIdx = values.length - 1;
+    for (let i = values.length - 1; i >= 0; i--) {
+      if (values[i] > 0) {
+        lastEventIdx = i;
+        break;
+      }
+    }
+    
+    // If no events, show empty chart
+    if (firstEventIdx === -1) {
+      renderEmptyChart(chartArea);
+      return;
+    }
     
     // Chart dimensions
     const width = 800;
@@ -88,45 +105,47 @@
     }
     chartArea.appendChild(gridGroup);
 
-    // Create area path
-    let areaPath = `M ${xScale(0)} ${padding.top + chartHeight}`;
-    values.forEach((v, i) => {
-      areaPath += ` L ${xScale(i)} ${yScale(v)}`;
-    });
-    areaPath += ` L ${xScale(values.length - 1)} ${padding.top + chartHeight} Z`;
+    // Create area path - only between first and last event
+    let areaPath = `M ${xScale(firstEventIdx)} ${padding.top + chartHeight}`;
+    for (let i = firstEventIdx; i <= lastEventIdx; i++) {
+      areaPath += ` L ${xScale(i)} ${yScale(values[i])}`;
+    }
+    areaPath += ` L ${xScale(lastEventIdx)} ${padding.top + chartHeight} Z`;
 
     const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     area.setAttribute('d', areaPath);
     area.setAttribute('class', 'chart-area');
     chartArea.appendChild(area);
 
-    // Create line path
-    let linePath = '';
-    values.forEach((v, i) => {
-      const cmd = i === 0 ? 'M' : 'L';
-      linePath += ` ${cmd} ${xScale(i)} ${yScale(v)}`;
-    });
+    // Create line path - only between first and last event
+    let linePath = `M ${xScale(firstEventIdx)} ${yScale(values[firstEventIdx])}`;
+    for (let i = firstEventIdx + 1; i <= lastEventIdx; i++) {
+      linePath += ` L ${xScale(i)} ${yScale(values[i])}`;
+    }
 
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     line.setAttribute('d', linePath);
     line.setAttribute('class', 'chart-line');
     chartArea.appendChild(line);
 
-    // Add data points
-    values.forEach((v, i) => {
+    // Add data points - only between first and last event
+    for (let i = firstEventIdx; i <= lastEventIdx; i++) {
       const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       dot.setAttribute('cx', xScale(i));
-      dot.setAttribute('cy', yScale(v));
-      dot.setAttribute('r', 4);
+      dot.setAttribute('cy', yScale(values[i]));
+      dot.setAttribute('r', values[i] > 0 ? 4 : 2);
       dot.setAttribute('class', 'chart-dot');
-      dot.setAttribute('title', `${labels[i]}: ${v} submissions`);
+      dot.setAttribute('title', `${labels[i]}: ${values[i]} submissions`);
+      if (values[i] === 0) {
+        dot.setAttribute('opacity', '0.3');
+      }
       chartArea.appendChild(dot);
-    });
+    }
 
-    // X-axis labels (show subset if many)
+    // X-axis labels (show subset if many) - show full range
     const labelStep = Math.ceil(labels.length / 8);
     labels.forEach((label, i) => {
-      if (i % labelStep === 0 || i === labels.length - 1) {
+      if (i % labelStep === 0 || i === labels.length - 1 || i === 0) {
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('x', xScale(i));
         text.setAttribute('y', height - 10);

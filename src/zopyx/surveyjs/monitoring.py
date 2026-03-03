@@ -220,6 +220,27 @@ def _get_form_path(context) -> str:
         return "/"
 
 
+def _generate_full_time_series(minutes: int, now: datetime, time_series: Dict[str, int]) -> Dict[str, int]:
+    """Generate a complete time series with zeros for the entire window.
+    
+    Args:
+        minutes: Time window in minutes
+        now: Current datetime
+        time_series: Dict with actual submission counts by time
+        
+    Returns:
+        Complete time series with all time slots filled (zeros where no data)
+    """
+    full_series: Dict[str, int] = {}
+    
+    for i in range(minutes, -1, -1):
+        slot_time = now - timedelta(minutes=i)
+        time_key = slot_time.strftime("%H:%M")
+        full_series[time_key] = time_series.get(time_key, 0)
+    
+    return full_series
+
+
 def get_submission_stats(time_window: str = "1h") -> Dict:
     """Get submission statistics for the specified time window.
     
@@ -245,6 +266,10 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
         time_series: Dict[str, int] = defaultdict(int)
         all_users = set()
         
+        # Track first and last event times
+        first_event_time: Optional[datetime] = None
+        last_event_time: Optional[datetime] = None
+        
         # Iterate through cache looking for submission keys
         for key in cache.iterkeys():
             if not key.startswith(SUBMISSION_KEY_PREFIX):
@@ -269,6 +294,12 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
                 time_key = key_time.strftime("%H:%M")
                 time_series[time_key] += count
                 
+                # Track first/last events
+                if first_event_time is None or key_time < first_event_time:
+                    first_event_time = key_time
+                if last_event_time is None or key_time > last_event_time:
+                    last_event_time = key_time
+                
                 # Collect users
                 users = data.get("users", [])
                 all_users.update(users)
@@ -282,16 +313,18 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
         # Calculate rate (submissions per minute)
         rate = total_count / minutes if minutes > 0 else 0
         
-        # Sort time series by time
-        sorted_time_series = dict(sorted(time_series.items()))
+        # Generate complete time series for the full window
+        full_time_series = _generate_full_time_series(minutes, now, dict(time_series))
         
         return {
             "time_window": time_window,
             "total_count": total_count,
             "rate_per_minute": round(rate, 2),
             "unique_users": len(all_users),
-            "time_series": sorted_time_series,
+            "time_series": full_time_series,
             "forms": form_breakdown,
+            "first_event": first_event_time.isoformat() if first_event_time else None,
+            "last_event": last_event_time.isoformat() if last_event_time else None,
             "generated_at": now.isoformat(),
         }
         
