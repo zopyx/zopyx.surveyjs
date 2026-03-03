@@ -175,7 +175,7 @@
                   <div class="activity-bar">
                     <div class="activity-fill"
                          tal:define="max_count python:max([f.get('count', 0) for f in stats.get('forms', [])] or [1])"
-                         tal:attributes="style string:width: ${python:min(100, int(100 * form.get('count', 0) / max_count))}%;">
+                         tal:attributes="style python:'width: ' + str(min(100, int(100 * form.get('count', 0) / max_count))) + '%'">
                     </div>
                   </div>
                 </td>
