@@ -468,24 +468,115 @@
     color: #f3f4f6;
   }
 
+  .monitor-meta,
+  .monitor-time,
+  .cache-path {
+    color: #9ca3af;
+  }
+
+  .window-selector {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    border-color: #374151;
+  }
+
+  .window-selector label {
+    color: #d1d5db;
+  }
+
+  .window-selector select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f3f4f6;
+  }
+
   .stat-card,
   .rate-limit-panel,
   .chart-panel,
   .forms-panel {
     background: #1f2937;
     color: #f3f4f6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   .stat-value {
     color: #f9fafb;
   }
 
+  .stat-label {
+    color: #9ca3af;
+  }
+
+  .rate-limit-panel h3,
+  .chart-panel h3,
+  .forms-panel h3 {
+    color: #f3f4f6;
+  }
+
+  .rate-label,
+  .rate-max,
+  .rate-unit {
+    color: #9ca3af;
+  }
+
+  .rate-value {
+    color: #f9fafb;
+  }
+
+  .chart-container {
+    background: #111827;
+  }
+
+  .chart-grid {
+    stroke: #374151;
+  }
+
+  .legend-item {
+    color: #9ca3af;
+  }
+
   .forms-table th {
     background: #374151;
-    color: #9ca3af;
+    color: #d1d5db;
+    border-bottom-color: #4b5563;
+  }
+
+  .forms-table td {
+    border-bottom-color: #374151;
   }
 
   .forms-table tr:hover {
     background: #374151;
+  }
+
+  .form-uid {
+    color: #d1d5db;
+  }
+
+  .no-data {
+    color: #6b7280;
+  }
+
+  .activity-bar {
+    background: #374151;
+  }
+
+  .actions-panel {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .btn-secondary {
+    background: #374151;
+    color: #f3f4f6;
+    border-color: #4b5563;
+  }
+
+  .btn-secondary:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+
+  .refresh-info {
+    color: #9ca3af;
   }
 }
