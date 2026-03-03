@@ -159,7 +159,7 @@
         <table class="forms-table">
           <thead>
             <tr>
-              <th>Form UID</th>
+              <th>Form</th>
               <th class="numeric">Submissions</th>
               <th class="numeric">Unique Users</th>
               <th>Activity</th>
@@ -168,7 +168,10 @@
           <tbody>
             <tal:form repeat="form stats/forms|nothing">
               <tr>
-                <td class="form-uid" tal:content="form/form_uid">form-uid-123</td>
+                <td>
+                  <div class="form-title" tal:content="form/title">Form Title</div>
+                  <div class="form-path" tal:content="form/path">/path/to/form</div>
+                </td>
                 <td class="numeric" tal:content="form/count">42</td>
                 <td class="numeric" tal:content="form/unique_users">5</td>
                 <td>

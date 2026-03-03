@@ -348,14 +348,17 @@
   font-variant-numeric: tabular-nums;
 }
 
-.form-uid {
+.form-title {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.9375rem;
+  margin-bottom: 2px;
+}
+
+.form-path {
   font-family: monospace;
-  font-size: 0.875rem;
-  color: #4b5563;
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.75rem;
+  color: #6b7280;
 }
 
 .no-data {
@@ -548,8 +551,12 @@
     background: #374151;
   }
 
-  .form-uid {
-    color: #d1d5db;
+  .form-title {
+    color: #f3f4f6;
+  }
+
+  .form-path {
+    color: #9ca3af;
   }
 
   .no-data {

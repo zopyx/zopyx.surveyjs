@@ -102,6 +102,10 @@ def record_submission(context, event) -> None:
         now = datetime.now(timezone.utc)
         form_uid = _get_form_uid(context)
         
+        # Get form metadata
+        form_title = _get_form_title(context)
+        form_path = _get_form_path(context)
+        
         # Get submission data from event
         form_data = getattr(event, "form_data", {}) or {}
         poll_id = form_data.get("poll_id", "unknown")
@@ -113,9 +117,14 @@ def record_submission(context, event) -> None:
         
         # Record form-specific submission
         form_key = _make_form_key(form_uid, now)
-        _increment_counter(cache, form_key, now, poll_id, user, form_uid=form_uid)
+        _increment_counter(
+            cache, form_key, now, poll_id, user,
+            form_uid=form_uid,
+            form_title=form_title,
+            form_path=form_path
+        )
         
-        logger.debug("Recorded submission for monitoring: %s on %s", poll_id, form_uid)
+        logger.debug("Recorded submission for monitoring: %s on %s", poll_id, form_title)
         
     except Exception as exc:
         # Fail silently - monitoring should not break submissions
@@ -134,6 +143,8 @@ def _increment_counter(
     poll_id: str,
     user: str,
     form_uid: Optional[str] = None,
+    form_title: Optional[str] = None,
+    form_path: Optional[str] = None,
 ) -> None:
     """Increment a counter in the cache with submission details."""
     try:
@@ -159,6 +170,10 @@ def _increment_counter(
         
         if form_uid:
             data["form_uid"] = form_uid
+        if form_title:
+            data["form_title"] = form_title
+        if form_path:
+            data["form_path"] = form_path
         
         # Store with expiration (25 hours to cover all time windows)
         cache.set(key, data, expire=25 * 3600)
@@ -179,6 +194,30 @@ def _get_form_uid(context) -> str:
         return "/".join(context.getPhysicalPath())
     except Exception:
         return repr(context)
+
+
+def _get_form_title(context) -> str:
+    """Get the title of the survey form."""
+    title = getattr(context, "Title", None)
+    if callable(title):
+        try:
+            return title() or "Untitled"
+        except Exception:
+            pass
+    return getattr(context, "title", "Untitled") or "Untitled"
+
+
+def _get_form_path(context) -> str:
+    """Get the relative path of the survey form."""
+    try:
+        site = getSite()
+        site_path = "/".join(site.getPhysicalPath())
+        obj_path = "/".join(context.getPhysicalPath())
+        if obj_path.startswith(site_path):
+            return obj_path[len(site_path):] or "/"
+        return obj_path
+    except Exception:
+        return "/"
 
 
 def get_submission_stats(time_window: str = "1h") -> Dict:
@@ -268,7 +307,9 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
 
 def _get_form_breakdown(cache: Cache, cutoff: datetime) -> List[Dict]:
     """Get per-form submission breakdown."""
-    form_data: Dict[str, Dict] = defaultdict(lambda: {"count": 0, "users": set(), "poll_ids": []})
+    form_data: Dict[str, Dict] = defaultdict(
+        lambda: {"count": 0, "users": set(), "poll_ids": [], "title": None, "path": None}
+    )
     
     for key in cache.iterkeys():
         if not key.startswith(FORM_STATS_PREFIX):
@@ -298,6 +339,12 @@ def _get_form_breakdown(cache: Cache, cutoff: datetime) -> List[Dict]:
             form_data[form_uid]["users"].update(data.get("users", []))
             form_data[form_uid]["poll_ids"].extend(data.get("poll_ids", []))
             
+            # Store title and path (from first entry)
+            if not form_data[form_uid]["title"]:
+                form_data[form_uid]["title"] = data.get("form_title", "Untitled")
+            if not form_data[form_uid]["path"]:
+                form_data[form_uid]["path"] = data.get("form_path", "/")
+            
         except Exception:
             continue
     
@@ -306,6 +353,8 @@ def _get_form_breakdown(cache: Cache, cutoff: datetime) -> List[Dict]:
     for form_uid, data in sorted(form_data.items(), key=lambda x: x[1]["count"], reverse=True):
         result.append({
             "form_uid": form_uid,
+            "title": data["title"] or "Untitled",
+            "path": data["path"] or "/",
             "count": data["count"],
             "unique_users": len(data["users"]),
         })
