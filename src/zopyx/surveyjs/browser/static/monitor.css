@@ -465,125 +465,134 @@
   }
 }
 
-/* Dark mode support (if Plone has it) */
+/* Dark mode support - softer gray tones */
 @media (prefers-color-scheme: dark) {
+  .monitor-container {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
   .monitor-title {
-    color: #f3f4f6;
+    color: #1f2937;
   }
 
   .monitor-meta,
-  .monitor-time,
   .cache-path {
-    color: #9ca3af;
+    color: #64748b;
+  }
+
+  .monitor-time {
+    color: #334155;
   }
 
   .window-selector {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    border-color: #374151;
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    border-color: #94a3b8;
   }
 
   .window-selector label {
-    color: #d1d5db;
+    color: #475569;
   }
 
   .window-selector select {
-    background: #374151;
-    border-color: #4b5563;
-    color: #f3f4f6;
+    background: #ffffff;
+    border-color: #94a3b8;
+    color: #334155;
   }
 
   .stat-card,
   .rate-limit-panel,
   .chart-panel,
   .forms-panel {
-    background: #1f2937;
-    color: #f3f4f6;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    background: #ffffff;
+    color: #1f2937;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .stat-value {
-    color: #f9fafb;
+    color: #111827;
   }
 
   .stat-label {
-    color: #9ca3af;
+    color: #64748b;
   }
 
   .rate-limit-panel h3,
   .chart-panel h3,
   .forms-panel h3 {
-    color: #f3f4f6;
+    color: #1f2937;
   }
 
   .rate-label,
   .rate-max,
   .rate-unit {
-    color: #9ca3af;
+    color: #64748b;
   }
 
   .rate-value {
-    color: #f9fafb;
+    color: #111827;
   }
 
   .chart-container {
-    background: #111827;
+    background: #f8fafc;
   }
 
   .chart-grid {
-    stroke: #374151;
+    stroke: #e2e8f0;
   }
 
   .legend-item {
-    color: #9ca3af;
+    color: #64748b;
   }
 
   .forms-table th {
-    background: #374151;
-    color: #d1d5db;
-    border-bottom-color: #4b5563;
+    background: #f1f5f9;
+    color: #475569;
+    border-bottom-color: #e2e8f0;
   }
 
   .forms-table td {
-    border-bottom-color: #374151;
+    border-bottom-color: #e2e8f0;
   }
 
   .forms-table tr:hover {
-    background: #374151;
+    background: #f8fafc;
   }
 
   .form-title {
-    color: #f3f4f6;
+    color: #1f2937;
   }
 
   .form-path {
-    color: #9ca3af;
+    color: #64748b;
   }
 
   .no-data {
-    color: #6b7280;
+    color: #94a3b8;
   }
 
   .activity-bar {
-    background: #374151;
+    background: #e2e8f0;
   }
 
   .actions-panel {
-    background: #1f2937;
-    border-color: #374151;
+    background: #f1f5f9;
+    border-color: #e2e8f0;
   }
 
   .btn-secondary {
-    background: #374151;
-    color: #f3f4f6;
-    border-color: #4b5563;
+    background: #ffffff;
+    color: #475569;
+    border-color: #cbd5e1;
   }
 
   .btn-secondary:hover {
-    background: #4b5563;
-    border-color: #6b7280;
+    background: #f8fafc;
+    border-color: #94a3b8;
   }
 
   .refresh-info {
-    color: #9ca3af;
+    color: #64748b;
   }
 }
