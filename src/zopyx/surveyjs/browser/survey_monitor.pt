@@ -17,7 +17,7 @@
 <metal:main fill-slot="main">
   <tal:main-macro metal:define-macro="main">
     
-    <div class="monitor-container">
+    <div class="monitor-container" tal:define="stats view/get_stats">
       <!-- Header -->
       <div class="monitor-header">
         <h1 class="monitor-title">
@@ -59,7 +59,7 @@
       </div>
 
       <!-- Stats Overview Cards -->
-      <div class="stats-grid" tal:define="stats view/get_stats">
+      <div class="stats-grid">
         
         <!-- Total Submissions -->
         <div class="stat-card stat-primary">
