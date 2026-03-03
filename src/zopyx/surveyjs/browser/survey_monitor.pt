@@ -204,6 +204,7 @@
 
     <!-- Hidden data for JavaScript -->
     <script type="application/json" id="chart-data"
+            tal:define="json modules/python/json"
             tal:content="python:json.dumps(view.get_chart_data())">
       {"labels": [], "values": []}
     </script>
