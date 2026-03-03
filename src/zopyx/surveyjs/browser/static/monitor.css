@@ -348,6 +348,39 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Sortable table headers */
+.forms-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.forms-table th.sortable:hover {
+  background: #e5e7eb;
+}
+
+.sort-indicator {
+  display: inline-block;
+  margin-left: 4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  opacity: 0.3;
+}
+
+.forms-table th.sortable.sort-asc .sort-indicator {
+  border-bottom: 5px solid currentColor;
+  border-top: none;
+  opacity: 1;
+}
+
+.forms-table th.sortable.sort-desc .sort-indicator {
+  border-top: 5px solid currentColor;
+  border-bottom: none;
+  opacity: 1;
+}
+
 .form-title {
   font-weight: 600;
   color: #1f2937;
@@ -558,6 +591,10 @@
 
   .forms-table tr:hover {
     background: #f8fafc;
+  }
+
+  .forms-table th.sortable:hover {
+    background: #e2e8f0;
   }
 
   .form-title {

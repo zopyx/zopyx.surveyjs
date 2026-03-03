@@ -327,6 +327,70 @@
     }
   }
 
+  // Initialize sortable table
+  function initSortableTable() {
+    const table = document.getElementById('forms-table');
+    if (!table) return;
+
+    const headers = table.querySelectorAll('th.sortable');
+    let currentSort = { column: null, direction: 'asc' };
+
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const column = header.dataset.sort;
+        
+        // Toggle direction if same column
+        if (currentSort.column === column) {
+          currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+          currentSort.column = column;
+          currentSort.direction = 'desc'; // Default to desc for new column
+        }
+
+        // Update sort indicators
+        headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+        header.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+
+        // Sort the table
+        sortTable(table, column, currentSort.direction);
+      });
+    });
+  }
+
+  /**
+   * Sort the forms table by a column
+   */
+  function sortTable(table, column, direction) {
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    const rows = Array.from(tbody.querySelectorAll('tr:not(.no-data-row)'));
+    
+    rows.sort((a, b) => {
+      let aVal, bVal;
+
+      if (column === 'title') {
+        aVal = a.dataset.title || '';
+        bVal = b.dataset.title || '';
+        // String comparison for title
+        return direction === 'asc' 
+          ? aVal.localeCompare(bVal) 
+          : bVal.localeCompare(aVal);
+      } else {
+        // Numeric comparison for count/unique_users
+        aVal = parseInt(a.dataset[column] || 0, 10);
+        bVal = parseInt(b.dataset[column] || 0, 10);
+        return direction === 'asc' ? aVal - bVal : bVal - aVal;
+      }
+    });
+
+    // Re-append rows in sorted order
+    rows.forEach(row => tbody.appendChild(row));
+  }
+
+  // Initialize sortable table on DOM ready
+  document.addEventListener('DOMContentLoaded', initSortableTable);
+
   // Expose refresh function globally for manual refresh
   window.refreshMonitor = refreshData;
 

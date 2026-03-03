@@ -156,18 +156,24 @@
       <!-- Form Breakdown Table -->
       <div class="forms-panel">
         <h3>Form Activity</h3>
-        <table class="forms-table">
+        <table class="forms-table" id="forms-table">
           <thead>
             <tr>
-              <th>Form</th>
-              <th class="numeric">Submissions</th>
-              <th class="numeric">Unique Users</th>
+              <th class="sortable" data-sort="title">
+                Form <span class="sort-indicator"></span>
+              </th>
+              <th class="numeric sortable" data-sort="count">
+                Submissions <span class="sort-indicator"></span>
+              </th>
+              <th class="numeric sortable" data-sort="unique_users">
+                Unique Users <span class="sort-indicator"></span>
+              </th>
               <th>Activity</th>
             </tr>
           </thead>
           <tbody>
             <tal:form repeat="form stats/forms|nothing">
-              <tr>
+              <tr data-title="${form/title}" data-count="${form/count}" data-unique_users="${form/unique_users}">
                 <td>
                   <div class="form-title" tal:content="form/title">Form Title</div>
                   <div class="form-path" tal:content="form/path">/path/to/form</div>
