@@ -101,6 +101,10 @@ class SurveyMonitorView(BrowserView):
         
         return {"labels": labels, "values": values}
     
+    def get_chart_data_json(self):
+        """Get chart data as JSON string for template embedding."""
+        return json.dumps(self.get_chart_data())
+    
     def get_current_time(self):
         """Return current server time."""
         return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
