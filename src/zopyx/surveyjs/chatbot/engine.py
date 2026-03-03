@@ -30,10 +30,16 @@ class ChatContext:
             if isinstance(pages, list):
                 q_count = 0
                 for page in pages:
-                    elements = (page or {}).get("elements", []) if isinstance(page, dict) else []
+                    elements = (
+                        (page or {}).get("elements", [])
+                        if isinstance(page, dict)
+                        else []
+                    )
                     if isinstance(elements, list):
                         q_count += len(elements)
-                lines.append(f"Current form has {len(pages)} pages and about {q_count} elements")
+                lines.append(
+                    f"Current form has {len(pages)} pages and about {q_count} elements"
+                )
         if not lines:
             return "No additional context provided"
         return "\n".join(lines)
@@ -88,7 +94,9 @@ class ChatEngine:
             return "medium"
         return "low"
 
-    def _build_prompt(self, message: str, context: ChatContext, retrieved: list[dict]) -> str:
+    def _build_prompt(
+        self, message: str, context: ChatContext, retrieved: list[dict]
+    ) -> str:
         chunks = []
         for item in retrieved:
             source = item.get("metadata", {}).get("source", "unknown")
@@ -103,8 +111,14 @@ class ChatEngine:
                 continue
             history_lines.append(f"{role}: {content}")
 
-        docs_block = "\n\n".join(chunks) if chunks else "No relevant documentation chunks found."
-        history_block = "\n".join(history_lines) if history_lines else "No prior conversation history."
+        docs_block = (
+            "\n\n".join(chunks) if chunks else "No relevant documentation chunks found."
+        )
+        history_block = (
+            "\n".join(history_lines)
+            if history_lines
+            else "No prior conversation history."
+        )
 
         return (
             "You are the zopyx.surveyjs assistant.\n"

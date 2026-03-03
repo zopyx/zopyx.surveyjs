@@ -98,7 +98,9 @@ class SurveyChatbot(Views):
 
         return ChatContext(
             current_view=(payload.get("current_view") or "@@chatbot").strip(),
-            survey_title=(payload.get("survey_title") or self.context.Title() or "").strip(),
+            survey_title=(
+                payload.get("survey_title") or self.context.Title() or ""
+            ).strip(),
             survey_json=survey_json if isinstance(survey_json, dict) else None,
             user_role=(payload.get("user_role") or fallback_role).strip(),
             history=history,

@@ -81,16 +81,23 @@ class ChatbotEngineTests(unittest.TestCase):
                     },
                 },
             ],
-            sources=["README.md", "https://surveyjs.io/form-library/documentation/overview"],
+            sources=[
+                "README.md",
+                "https://surveyjs.io/form-library/documentation/overview",
+            ],
         )
         return store
 
     def test_chat_returns_sources_confidence_and_followups(self) -> None:
         store = self._store_with_docs()
         engine = ChatEngine(store, model_name="gpt-test", api_key=None, ollama_url=None)
-        context = ChatContext(current_view="@@chatbot", survey_title="T", user_role="Editor")
+        context = ChatContext(
+            current_view="@@chatbot", survey_title="T", user_role="Editor"
+        )
 
-        with patch.object(ChatEngine, "_generate_response", return_value="Use @@results."):
+        with patch.object(
+            ChatEngine, "_generate_response", return_value="Use @@results."
+        ):
             result = engine.chat("How do I view results?", context=context, top_k=4)
 
         self.assertIn("response", result)

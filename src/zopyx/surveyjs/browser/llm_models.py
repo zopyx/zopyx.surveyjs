@@ -47,6 +47,7 @@ class LLMModelsView(BrowserView):
         """Check if the llm library is available."""
         try:
             import llm  # noqa: F401
+
             return True
         except ImportError:
             return False

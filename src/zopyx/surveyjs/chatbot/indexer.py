@@ -25,8 +25,12 @@ DEFAULT_SURVEYJS_URLS = [
 
 
 def _strip_html(raw: str) -> str:
-    cleaned = re.sub(r"<script\b[^<]*(?:(?!</script>)<[^<]*)*</script>", " ", raw, flags=re.I)
-    cleaned = re.sub(r"<style\b[^<]*(?:(?!</style>)<[^<]*)*</style>", " ", cleaned, flags=re.I)
+    cleaned = re.sub(
+        r"<script\b[^<]*(?:(?!</script>)<[^<]*)*</script>", " ", raw, flags=re.I
+    )
+    cleaned = re.sub(
+        r"<style\b[^<]*(?:(?!</style>)<[^<]*)*</style>", " ", cleaned, flags=re.I
+    )
     cleaned = re.sub(r"<[^>]+>", " ", cleaned)
     cleaned = html.unescape(cleaned)
     cleaned = re.sub(r"\s+", " ", cleaned).strip()
@@ -144,7 +148,9 @@ class DocumentationIndexer:
             except ValueError:
                 source = str(path)
             title = path.stem
-            first_line = next((line.strip() for line in content.splitlines() if line.strip()), "")
+            first_line = next(
+                (line.strip() for line in content.splitlines() if line.strip()), ""
+            )
             if first_line.startswith("#"):
                 title = first_line.lstrip("# ").strip() or title
             texts.append({"source": source, "title": title, "content": content})

@@ -80,10 +80,18 @@ class ChatDocumentStore:
         payload = self.load()
         docs = payload.get("documents", [])
         local_count = len(
-            [d for d in docs if d.get("metadata", {}).get("source_type") == "project_docs"]
+            [
+                d
+                for d in docs
+                if d.get("metadata", {}).get("source_type") == "project_docs"
+            ]
         )
         remote_count = len(
-            [d for d in docs if d.get("metadata", {}).get("source_type") == "surveyjs_docs"]
+            [
+                d
+                for d in docs
+                if d.get("metadata", {}).get("source_type") == "surveyjs_docs"
+            ]
         )
         return {
             "document_count": len(docs),
