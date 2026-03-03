@@ -63,6 +63,11 @@ class PFSView(BrowserView):
         return f"{portal.absolute_url()}/@@forms-settings"
 
     @property
+    def monitor_url(self) -> str:
+        portal = plone.api.portal.get()
+        return f"{portal.absolute_url()}/@@survey-monitor"
+
+    @property
     def cards(self) -> list[dict]:
         cards: list[dict] = []
         if self.can_add_survey:
@@ -104,6 +109,18 @@ class PFSView(BrowserView):
                         "icon": "template",
                     }
                 )
+            cards.append(
+                {
+                    "title": _("Submission Monitor"),
+                    "description": _(
+                        "View real-time submission statistics, rate limits, and usage graphs."
+                    ),
+                    "action_label": _("Open monitor"),
+                    "url": self.monitor_url,
+                    "accent": "manager",
+                    "icon": "monitor",
+                }
+            )
             cards.append(
                 {
                     "title": _("Administration"),

@@ -1,0 +1,216 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+<head>
+  <metal:block fill-slot="style_slot">
+    <link rel="stylesheet" type="text/css" href="++resource++zopyx.surveyjs/monitor.css" />
+  </metal:block>
+  <metal:block fill-slot="javascript_head_slot">
+    <script src="++resource++zopyx.surveyjs/monitor.js"></script>
+  </metal:block>
+</head>
+<body>
+<metal:main fill-slot="main">
+  <tal:main-macro metal:define-macro="main">
+    
+    <div class="monitor-container">
+      <!-- Header -->
+      <div class="monitor-header">
+        <h1 class="monitor-title">
+          <span class="monitor-icon">📊</span>
+          Survey Submission Monitor
+        </h1>
+        <div class="monitor-meta">
+          <span class="monitor-time" tal:content="view/get_current_time">
+            2024-01-01 12:00:00 UTC
+          </span>
+          <span class="cache-path" tal:content="string:Cache: ${view/get_cache_path}">
+            Cache: /tmp/surveyjs-monitor
+          </span>
+        </div>
+      </div>
+
+      <!-- Time Window Selector -->
+      <div class="window-selector">
+        <form method="GET" action="@@survey-monitor">
+          <label for="window">Time Window:</label>
+          <select name="window" id="window" onchange="this.form.submit()">
+            <tal:window repeat="window view/available_windows">
+              <option tal:attributes="value window/value; selected window/selected"
+                      tal:content="window/label">
+                Last hour
+              </option>
+            </tal:window>
+          </select>
+          <noscript>
+            <button type="submit">Update</button>
+          </noscript>
+        </form>
+        <div class="auto-refresh">
+          <label>
+            <input type="checkbox" id="auto-refresh" checked />
+            Auto-refresh (30s)
+          </label>
+        </div>
+      </div>
+
+      <!-- Stats Overview Cards -->
+      <div class="stats-grid" tal:define="stats view/get_stats">
+        
+        <!-- Total Submissions -->
+        <div class="stat-card stat-primary">
+          <div class="stat-icon">📥</div>
+          <div class="stat-content">
+            <div class="stat-value" id="total-count"
+                 tal:content="stats/total_count|nothing">0</div>
+            <div class="stat-label">Total Submissions</div>
+          </div>
+        </div>
+
+        <!-- Rate per Minute -->
+        <div class="stat-card stat-secondary">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-content">
+            <div class="stat-value" id="rate-value"
+                 tal:content="stats/rate_per_minute|nothing">0</div>
+            <div class="stat-label">Per Minute</div>
+          </div>
+        </div>
+
+        <!-- Unique Users -->
+        <div class="stat-card stat-tertiary">
+          <div class="stat-icon">👤</div>
+          <div class="stat-content">
+            <div class="stat-value" id="unique-users"
+                 tal:content="stats/unique_users|nothing">0</div>
+            <div class="stat-label">Unique Users</div>
+          </div>
+        </div>
+
+        <!-- Active Forms -->
+        <div class="stat-card stat-quaternary">
+          <div class="stat-icon">📝</div>
+          <div class="stat-content">
+            <div class="stat-value" id="active-forms"
+                 tal:content="python:len(stats.get('forms', []))">0</div>
+            <div class="stat-label">Active Forms</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rate Limit Status -->
+      <div class="rate-limit-panel" tal:define="rate_info view/get_rate_limit_status">
+        <h3>Rate Limit Status</h3>
+        <div class="rate-limit-grid">
+          <div class="rate-item">
+            <span class="rate-label">Current Minute:</span>
+            <span class="rate-value" id="rate-current"
+                  tal:content="rate_info/current_minute_count|nothing">0</span>
+            <span class="rate-max">/ <tal:max tal:replace="rate_info/max_allowed|60">60</tal:max></span>
+          </div>
+          <div class="rate-item">
+            <span class="rate-label">5min Average:</span>
+            <span class="rate-value" id="rate-avg"
+                  tal:content="rate_info/5min_average|nothing">0</span>
+            <span class="rate-unit">/min</span>
+          </div>
+          <div class="rate-status" id="rate-status"
+               tal:attributes="class python:'rate-status ' + ('rate-ok' if rate_info.get('is_allowed') else 'rate-limited')">
+            <tal:status tal:condition="rate_info/is_allowed|nothing">
+              ✅ Within limits
+            </tal:status>
+            <tal:status tal:condition="not:rate_info/is_allowed|nothing">
+              ⚠️ Rate limited
+            </tal:status>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="chart-panel">
+        <h3>Submission Rate Over Time</h3>
+        <div class="chart-container">
+          <svg id="submission-chart" viewBox="0 0 800 200" preserveAspectRatio="none">
+            <!-- Chart will be rendered by JavaScript -->
+            <defs>
+              <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
+              </linearGradient>
+            </defs>
+            <g id="chart-area"></g>
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <span class="legend-item">
+            <span class="legend-color" style="background: #3b82f6;"></span>
+            Submissions per minute
+          </span>
+        </div>
+      </div>
+
+      <!-- Form Breakdown Table -->
+      <div class="forms-panel">
+        <h3>Form Activity</h3>
+        <table class="forms-table">
+          <thead>
+            <tr>
+              <th>Form UID</th>
+              <th class="numeric">Submissions</th>
+              <th class="numeric">Unique Users</th>
+              <th>Activity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tal:form repeat="form stats/forms|nothing">
+              <tr>
+                <td class="form-uid" tal:content="form/form_uid">form-uid-123</td>
+                <td class="numeric" tal:content="form/count">42</td>
+                <td class="numeric" tal:content="form/unique_users">5</td>
+                <td>
+                  <div class="activity-bar">
+                    <div class="activity-fill"
+                         tal:define="max_count python:max([f.get('count', 0) for f in stats.get('forms', [])] or [1])"
+                         tal:attributes="style string:width: ${python:min(100, int(100 * form.get('count', 0) / max_count))}%;">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tal:form>
+            <tr tal:condition="not:stats/forms">
+              <td colspan="4" class="no-data">No submissions in selected time window</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions-panel">
+        <form method="POST" action="@@survey-monitor" class="cleanup-form"
+              onsubmit="return confirm('Clean up old monitoring data?');">
+          <input type="hidden" name="action" value="cleanup" />
+          <button type="submit" class="btn btn-secondary">🧹 Cleanup Old Data</button>
+        </form>
+        <div class="refresh-info">
+          <span>Last updated: <span id="last-updated">now</span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Hidden data for JavaScript -->
+    <script type="application/json" id="chart-data"
+            tal:content="python:json.dumps(view.get_chart_data())">
+      {"labels": [], "values": []}
+    </script>
+    <script type="application/json" id="current-window"
+            tal:content="view/time_window">1h</script>
+
+  </tal:main-macro>
+</metal:main>
+</body>
+</html>

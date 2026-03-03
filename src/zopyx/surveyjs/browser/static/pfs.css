@@ -108,6 +108,13 @@
   background: linear-gradient(135deg, #2563eb, #3b82f6);
   box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
 }
+.pfs-card-icon.icon-monitor::after {
+  content: "\1F4CA";
+}
+.pfs-card-icon.icon-monitor {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+}
 .pfs-card-icon.icon-template::after {
   content: "\2726";
 }

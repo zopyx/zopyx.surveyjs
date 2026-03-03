@@ -38,6 +38,15 @@
             </div>
           </div>
         </div>
+        <div class="survey-header-actions">
+          <a href="${context/absolute_url}/@@survey-monitor"
+             class="survey-action-button action-monitor"
+             title="View submission monitoring dashboard"
+             i18n:attributes="title">
+            <span>📊</span>
+            <span i18n:translate="">Monitor</span>
+          </a>
+        </div>
       </div>
     </div>
 

@@ -493,6 +493,15 @@
     attribute="store_pdf_form"
   />
 
+  <!-- Survey Submission Monitor -->
+  <browser:page
+    name="survey-monitor"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".survey_monitor.SurveyMonitorView"
+    permission="cmf.ManagePortal"
+    template="survey_monitor.pt"
+  />
+
   <!-- Forms Settings Control Panel (SurveyJS-based) -->
   <browser:page
     name="forms-settings"

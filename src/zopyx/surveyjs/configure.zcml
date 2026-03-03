@@ -68,6 +68,11 @@
       />
 
   <subscriber
+      for="* zopyx.surveyjs.events.ISurveyJSFormSubmittedEvent"
+      handler=".monitoring.record_submission"
+      />
+
+  <subscriber
       for="plone.dexterity.interfaces.IDexterityContent
            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
       handler=".subscribers.log_metadata_changes"
