@@ -1279,6 +1279,22 @@
                 "ar": "Iframe",
                 "ja": "Iframe"
               }
+            },
+            {
+              "value": "direct",
+              "text": {
+                "default": "Direct DOM",
+                "de": "Direktes DOM",
+                "en": "Direct DOM",
+                "es": "DOM directo",
+                "fr": "DOM direct",
+                "it": "DOM diretto",
+                "pt": "DOM direto",
+                "fi": "Suora DOM",
+                "hi": "डायरेक्ट DOM",
+                "ar": "DOM المباشر",
+                "ja": "ダイレクトDOM"
+              }
             }
           ],
           "defaultValue": "none"
