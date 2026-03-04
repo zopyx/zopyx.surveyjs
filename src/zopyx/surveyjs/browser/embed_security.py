@@ -108,22 +108,26 @@ def build_embed_token(payload, secret):
     return f"{header_b64}.{payload_b64}.{signature_b64}"
 
 
-def validate_embed_token(token, expected_origin, secret):
+def validate_embed_token(token, expected_origin, secret=None):
     """Validate an embed token.
-    
+
     Args:
         token: The token string to validate
         expected_origin: The origin this token must be bound to
-        secret: HMAC signing secret
-        
+        secret: HMAC signing secret (auto-fetched from registry if None)
+
     Returns:
         dict: The decoded payload if valid
-        
+
     Raises:
         TokenInvalidError: If token format or signature is invalid
         TokenExpiredError: If token has expired
         EmbedSecurityError: If origin binding check fails
     """
+    if secret is None:
+        secret = _get_signing_key()
+        if not secret:
+            raise EmbedSecurityError("Embed signing key not configured")
     try:
         parts = token.split(".")
         if len(parts) != 3:
@@ -184,29 +188,51 @@ def validate_origin(origin, allowed_origins):
     Returns:
         tuple: (is_valid: bool, normalized_origin: str or None, error_message: str)
     """
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    logger.warning("[EMBED DEBUG] validate_origin called with: origin=%s, allowed_origins=%s", origin, allowed_origins)
+    
     if not origin:
+        logger.warning("[EMBED DEBUG] validate_origin: no origin provided")
         return False, None, "Origin header required"
     
     # Parse and normalize
     try:
         parsed = urlparse(origin)
-    except Exception:
+        logger.warning("[EMBED DEBUG] validate_origin: parsed=%s", parsed)
+    except Exception as e:
+        logger.warning("[EMBED DEBUG] validate_origin: parse error: %s", e)
         return False, None, "Invalid origin format"
     
-    # Require HTTPS
-    if parsed.scheme != "https":
-        return False, None, "HTTPS required for embedding"
+    # Require HTTPS (except for localhost development)
+    hostname = parsed.hostname or ""
+    is_localhost = hostname in ("localhost", "127.0.0.1", "::1")
+    logger.warning("[EMBED DEBUG] validate_origin: hostname=%s, is_localhost=%s", hostname, is_localhost)
+    
+    if parsed.scheme != "https" and not is_localhost:
+        logger.warning("[EMBED DEBUG] validate_origin: rejected - HTTPS required for non-localhost")
+        return False, None, "HTTPS required for embedding (except localhost)"
+    
+    # Allow http for localhost only
+    if parsed.scheme not in ("http", "https"):
+        logger.warning("[EMBED DEBUG] validate_origin: rejected - invalid scheme: %s", parsed.scheme)
+        return False, None, "Origin must use HTTP or HTTPS"
     
     # No path, query, or fragment allowed in origin
     if parsed.path not in ("", "/") or parsed.query or parsed.fragment:
+        logger.warning("[EMBED DEBUG] validate_origin: rejected - path/query/fragment not allowed")
         return False, None, "Origin must not contain path, query, or fragment"
     
     normalized = f"{parsed.scheme}://{parsed.netloc}"
+    logger.warning("[EMBED DEBUG] validate_origin: normalized=%s", normalized)
     
     # Check against allowlist
     if normalized not in allowed_origins:
+        logger.warning("[EMBED DEBUG] validate_origin: rejected - not in allowlist. normalized=%s, allowed=%s", normalized, allowed_origins)
         return False, None, "Origin not in allowlist"
     
+    logger.warning("[EMBED DEBUG] validate_origin: accepted - normalized=%s", normalized)
     return True, normalized, None
 
 
@@ -357,14 +383,39 @@ def handle_cors_preflight(request, response, allowed_origins):
     Returns:
         bool: True if this was a preflight request that was handled
     """
-    if request.get("REQUEST_METHOD") != "OPTIONS":
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    method = request.get("REQUEST_METHOD")
+    logger.warning("[EMBED DEBUG] handle_cors_preflight called, method=%s", method)
+    
+    if method != "OPTIONS":
+        logger.warning("[EMBED DEBUG] Not an OPTIONS request, skipping preflight")
         return False
     
     origin = request.get_header("Origin") or request.get("HTTP_ORIGIN")
-    is_valid, normalized, _ = validate_origin(origin, allowed_origins)
+    logger.warning("[EMBED DEBUG] Preflight origin: %s", origin)
+    
+    is_valid, normalized, error = validate_origin(origin, allowed_origins)
+    logger.warning("[EMBED DEBUG] Preflight validation: is_valid=%s, normalized=%s, error=%s", is_valid, normalized, error)
     
     if is_valid:
+        logger.warning("[EMBED DEBUG] Preflight: origin valid, setting full CORS headers")
         set_cors_headers(response, normalized)
+    elif origin:
+        logger.warning("[EMBED DEBUG] Preflight: origin invalid but present, setting partial CORS headers")
+        # Always set Allow-Origin and Allow-Credentials for preflight to avoid browser errors
+        # The actual request will still be rejected if origin is invalid
+        response.setHeader("Access-Control-Allow-Origin", origin)
+        response.setHeader("Access-Control-Allow-Credentials", "true")
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.setHeader(
+            "Access-Control-Allow-Headers",
+            "Content-Type, X-Embed-Token, X-Session-ID, X-Requested-With"
+        )
+    else:
+        logger.warning("[EMBED DEBUG] Preflight: no origin provided")
     
     response.setStatus(204)
+    logger.warning("[EMBED DEBUG] Preflight returning 204")
     return True

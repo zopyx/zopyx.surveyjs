@@ -120,34 +120,59 @@ class EmbedConfigView(BrowserView):
     
     def __call__(self):
         """Return form JSON with CORS headers for validated requests."""
+        # DEBUG: Log all request details
+        logger.warning("[EMBED DEBUG] @@embed-config called")
+        logger.warning("[EMBED DEBUG] Method: %s", self.request.get("REQUEST_METHOD"))
+        logger.warning("[EMBED DEBUG] Headers: Origin=%s", self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN"))
+        logger.warning("[EMBED DEBUG] Headers: X-Embed-Token=%s", self.request.get_header("X-Embed-Token")[:50] + "..." if self.request.get_header("X-Embed-Token") else None)
+        
         # Handle preflight
         allowed_origins = list(getattr(self.context, "embed_direct_origins", []) or [])
+        logger.warning("[EMBED DEBUG] Allowed origins: %s", allowed_origins)
+        
         if handle_cors_preflight(self.request, self.request.response, allowed_origins):
+            logger.warning("[EMBED DEBUG] Preflight handled, returning")
             return
         
         # Get and validate origin
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        logger.warning("[EMBED DEBUG] Validating origin: %s", origin)
         is_valid, normalized_origin, error_msg = validate_origin(origin, allowed_origins)
+        logger.warning("[EMBED DEBUG] Origin validation: is_valid=%s, normalized=%s, error=%s", is_valid, normalized_origin, error_msg)
+
+        # Always set CORS headers for any cross-origin request so the browser can
+        # read error responses. Use normalized_origin if available, else raw origin.
+        cors_origin = normalized_origin or origin
+        if cors_origin:
+            set_cors_headers(self.request.response, cors_origin)
+            logger.warning("[EMBED DEBUG] CORS headers set for origin: %s", cors_origin)
         
         if not is_valid:
+            logger.warning("[EMBED DEBUG] Origin invalid, returning 403: %s", error_msg)
             json_error(self.request.response, 403, "invalid_origin", message=error_msg)
             return
         
         # Validate token
         token = self.request.get_header("X-Embed-Token")
+        logger.warning("[EMBED DEBUG] Token present: %s", bool(token))
         if not token:
+            logger.warning("[EMBED DEBUG] No token, returning 403")
             json_error(self.request.response, 403, "token_required")
             return
         
         try:
             payload = validate_embed_token(token, normalized_origin, secret=None)
+            logger.warning("[EMBED DEBUG] Token validated successfully, payload: %s", payload)
         except TokenExpiredError:
+            logger.warning("[EMBED DEBUG] Token expired")
             json_error(self.request.response, 403, "token_expired")
             return
         except TokenInvalidError as e:
+            logger.warning("[EMBED DEBUG] Token invalid: %s", e)
             json_error(self.request.response, 403, "token_invalid", message=str(e))
             return
         except EmbedSecurityError as e:
+            logger.warning("[EMBED DEBUG] Token validation failed: %s", e)
             json_error(self.request.response, 403, "token_validation_failed", message=str(e))
             return
         
@@ -157,12 +182,13 @@ class EmbedConfigView(BrowserView):
         except Exception:
             survey_uid = self.context.getId()
         
+        logger.warning("[EMBED DEBUG] Survey UID from context: %s, from token: %s", survey_uid, payload.get("sub"))
         if payload.get("sub") != survey_uid:
+            logger.warning("[EMBED DEBUG] Survey mismatch!")
             json_error(self.request.response, 403, "survey_mismatch")
             return
         
-        # Set CORS headers
-        set_cors_headers(self.request.response, normalized_origin)
+        logger.warning("[EMBED DEBUG] All validations passed, returning config")
         
         # Get form data
         annos = IAnnotations(self.context)
@@ -209,14 +235,20 @@ class EmbedLoaderView(BrowserView):
         response.setHeader("Content-Type", "application/javascript; charset=utf-8")
         response.setHeader("X-Content-Type-Options", "nosniff")
         
-        # Set cache headers (versioned caching)
-        response.setHeader("Cache-Control", "public, max-age=3600")
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+        
+        # Add CORS headers to allow script loading from any origin
+        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        if origin:
+            response.setHeader("Access-Control-Allow-Origin", origin)
+            response.setHeader("Vary", "Origin")
         
         return self._get_embed_js()
     
     def _get_embed_js(self):
         """Generate the embed client JavaScript."""
-        surveyjs_base_url = f"{self.context.absolute_url()}/@@embed-surveyjs-bundle"
+        portal_url = plone.api.portal.get_tool("portal_url")()
+        surveyjs_resource_url = f"{portal_url}/++resource++zopyx.surveyjs/surveyjs"
         
         return f"""/**
  * Direct DOM Embedding Client for zopyx.surveyjs
@@ -350,12 +382,18 @@ class EmbedLoaderView(BrowserView):
     constructor() {{
       super();
       this.attachShadow({{ mode: 'open' }});
-      
-      // Inject styles
+
+      // Load SurveyJS CSS into shadow root (cross-origin <link> works without CORS)
+      const surveyLink = document.createElement('link');
+      surveyLink.rel = 'stylesheet';
+      surveyLink.href = '{surveyjs_resource_url}/survey-core.min.css';
+      this.shadowRoot.appendChild(surveyLink);
+
+      // Inject base styles
       const style = document.createElement('style');
       style.textContent = EMBED_CSS;
       this.shadowRoot.appendChild(style);
-      
+
       // Create container
       this.container = document.createElement('div');
       this.container.className = 'surveyjs-embed-container';
@@ -435,33 +473,37 @@ class EmbedLoaderView(BrowserView):
     }}
 
     loadSurveyJS() {{
-      return new Promise((resolve, reject) => {{
-        // Check if already loading
-        if (window.__surveyJSLoading) {{
-          const checkInterval = setInterval(() => {{
+      // If already loaded, resolve immediately
+      if (typeof Survey !== 'undefined') {{
+        return Promise.resolve();
+      }}
+
+      // If another instance is loading, wait for it
+      if (window.__surveyJSLoading) {{
+        return new Promise((resolve) => {{
+          const check = setInterval(() => {{
             if (typeof Survey !== 'undefined') {{
-              clearInterval(checkInterval);
+              clearInterval(check);
               resolve();
             }}
-          }}, 100);
-          return;
-        }}
+          }}, 50);
+        }});
+      }}
 
-        window.__surveyJSLoading = true;
+      window.__surveyJSLoading = true;
 
-        // Load from same origin to avoid SRI issues with CDNs
-        const script = document.createElement('script');
-        script.src = '{surveyjs_base_url}';
-        script.onload = () => {{
-          window.__surveyJSLoading = false;
-          resolve();
-        }};
-        script.onerror = () => {{
-          window.__surveyJSLoading = false;
-          reject(new Error('Failed to load SurveyJS'));
-        }};
-        document.head.appendChild(script);
+      const loadScript = (src) => new Promise((resolve, reject) => {{
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Failed to load: ' + src));
+        document.head.appendChild(s);
       }});
+
+      return loadScript('{surveyjs_resource_url}/survey.core.min.js')
+        .then(() => loadScript('{surveyjs_resource_url}/survey-js-ui.min.js'))
+        .then(() => {{ window.__surveyJSLoading = false; }})
+        .catch((err) => {{ window.__surveyJSLoading = false; throw err; }});
     }}
 
     showLoading(message = 'Loading survey...') {{
@@ -539,7 +581,6 @@ class EmbedSurveyJSBundleView(BrowserView):
   // Load SurveyJS Core
   var script = document.createElement('script');
   script.src = 'https://unpkg.com/survey-core@1.9.132/survey.core.min.js';
-  script.integrity = 'sha384-PLACEHOLDER';
   script.crossOrigin = 'anonymous';
   script.onload = function() {
     // Load theme
@@ -652,6 +693,7 @@ class DirectEmbedDemoView(BrowserView):
         survey_url = self.context.absolute_url()
         embed_loader_url = f"{survey_url}/@@embed-loader"
         expires_at = metadata.get("expires_at", "unknown")
+        ttl = getattr(self.context, "embed_direct_token_ttl", 300) or 300
         
         self.request.response.setHeader("Content-Type", "text/html; charset=utf-8")
         
@@ -823,9 +865,15 @@ class DirectEmbedDemoView(BrowserView):
                 <span class="info-value">{expires_at}</span>
                 <span class="info-label">Mode:</span>
                 <span class="info-value"><span class="badge badge-success">Direct DOM</span></span>
+                <span class="info-label">Token:</span>
+                <span class="info-value" style="word-break:break-all;font-size:0.75rem;">{token}</span>
             </div>
+            <button onclick="navigator.clipboard.writeText('{token}').then(()=>this.textContent='Copied!').catch(()=>alert('Copy failed'))"
+                    style="margin-top:10px;padding:6px 14px;background:#667eea;color:white;border:none;border-radius:4px;cursor:pointer;">
+                Copy Token
+            </button>
         </div>
-        
+
         <div class="info-panel">
             <h2>💻 Integration Code</h2>
             <p>Add this code to your website to embed this form:</p>
@@ -836,7 +884,7 @@ class DirectEmbedDemoView(BrowserView):
 <span class="comment">&lt;!-- 2. Add the embed element --&gt;</span>
 &lt;<span class="tag">surveyjs-embed</span>
   <span class="attr">survey-url</span>=<span class="string">"{survey_url}"</span>
-  <span class="attr">token</span>=<span class="string">"YOUR_TOKEN_HERE"</span>&gt;
+  <span class="attr">token</span>=<span class="string">"{token}"</span>&gt;
 &lt;/<span class="tag">surveyjs-embed</span>&gt;
             </div>
         </div>
