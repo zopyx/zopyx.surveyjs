@@ -119,6 +119,16 @@ class IFormsSettings(IPloneLoggingSettings):
         ),
     )
 
+    fieldset(
+        "embed_direct",
+        label="Direct DOM Embedding",
+        fields=(
+            "embed_direct_global_enabled",
+            "embed_direct_signing_key",
+            "embed_direct_max_origins",
+        ),
+    )
+
     surveyjs_license_key = schema.TextLine(
         title="SurveyJS License Key",
         description="License key for SurveyJS components (optional).",
@@ -318,4 +328,28 @@ class IFormsSettings(IPloneLoggingSettings):
         description="Filesystem path for diskcache storage.",
         required=False,
         default="var/token_cache.db",
+    )
+
+    # Direct DOM Embedding settings
+    embed_direct_global_enabled = schema.Bool(
+        title="Enable Direct DOM Embedding globally",
+        description="Master switch for the direct DOM embedding feature.",
+        required=False,
+        default=False,
+    )
+
+    embed_direct_signing_key = schema.Password(
+        title="Embed Token Signing Key",
+        description="HMAC key for signing embed tokens. Rotate regularly.",
+        required=False,
+        default="",
+    )
+
+    embed_direct_max_origins = schema.Int(
+        title="Maximum origins per survey",
+        description="Limit the number of allowed origins for security.",
+        required=False,
+        default=10,
+        min=1,
+        max=100,
     )

@@ -441,6 +441,42 @@
     permission="cmf.ManagePortal"
   />
 
+  <!-- Direct DOM Embedding Views -->
+  <browser:page
+    name="embed-token"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".embed_direct.EmbedDirectTokenView"
+  />
+
+  <browser:page
+    name="embed-config"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="zope2.View"
+    class=".embed_direct.EmbedConfigView"
+  />
+
+  <browser:page
+    name="embed-loader"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="zope2.View"
+    class=".embed_direct.EmbedLoaderView"
+  />
+
+  <browser:page
+    name="embed-surveyjs-bundle"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="zope2.View"
+    class=".embed_direct.EmbedSurveyJSBundleView"
+  />
+
+  <browser:page
+    name="embed-direct-demo"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".embed_direct.DirectEmbedDemoView"
+  />
+
 
   <browser:jbot
       directory="overrides"

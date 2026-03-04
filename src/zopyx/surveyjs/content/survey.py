@@ -48,8 +48,25 @@ survey_embedding_vocabulary = SimpleVocabulary(
     [
         SimpleTerm(value="none", title=_("None")),
         SimpleTerm(value="iframe", title=_("Iframe")),
+        SimpleTerm(value="direct", title=_("Direct DOM (experimental)")),
     ]
 )
+
+
+def validate_origin(value):
+    """Validate origin format: https://example.com"""
+    import re
+    from zope.schema import ValidationError
+
+    if not value:
+        return True
+    # Allow https origins only, no path, no trailing slash
+    pattern = r"^https://[a-zA-Z0-9][-a-zA-Z0-9.]*(:[0-9]+)?$"
+    if not re.match(pattern, value):
+        raise ValidationError(
+            _("Invalid origin format. Use https://example.com (no path, no trailing slash)")
+        )
+    return True
 
 survey_access_vocabulary = SimpleVocabulary(
     [
@@ -159,7 +176,11 @@ class ISurvey(model.Schema):
     fieldset(
         "embedding",
         label=_("Embedding"),
-        fields=("embedding_mode",),
+        fields=(
+            "embedding_mode",
+            "embed_direct_origins",
+            "embed_direct_token_ttl",
+        ),
     )
 
     form.widget("actions", CheckBoxFieldWidget)
@@ -226,11 +247,39 @@ class ISurvey(model.Schema):
     embedding_mode = schema.Choice(
         title=_("Embedding mode"),
         description=_(
-            "Controls whether this survey may be embedded. Use Iframe to allow embedding."
+            "Controls whether this survey may be embedded. "
+            "Iframe is the recommended secure option. "
+            "Direct DOM embedding allows seamless integration but "
+            "requires careful origin configuration."
         ),
         vocabulary=survey_embedding_vocabulary,
         required=True,
         default="none",
+    )
+
+    embed_direct_origins = schema.List(
+        title=_("Allowed origins for direct embedding"),
+        description=_(
+            "Origins allowed to embed this survey via direct DOM. "
+            "Format: https://example.com (no trailing slash). "
+            "Required when embedding mode is 'Direct DOM'."
+        ),
+        value_type=schema.TextLine(
+            title=_("Origin"),
+            constraint=validate_origin,
+        ),
+        required=False,
+        defaultFactory=list,
+        max_length=10,
+    )
+
+    embed_direct_token_ttl = schema.Int(
+        title=_("Embed token TTL (seconds)"),
+        description=_("Lifetime of embedding tokens in seconds (60-3600)."),
+        required=False,
+        default=300,
+        min=60,
+        max=3600,
     )
 
     email_sender = schema.TextLine(

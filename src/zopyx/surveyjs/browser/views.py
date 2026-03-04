@@ -897,7 +897,59 @@ class Views(BrowserView):
             )
             return
 
-        if not self._require_trusted_access():
+        # Check for direct DOM embed submission
+        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        embed_token = self.request.get_header("X-Embed-Token")
+        
+        if origin and embed_token:
+            # This is a direct embed submission - validate it
+            from .embed_security import (
+                validate_embed_token,
+                validate_origin,
+                set_cors_headers,
+            )
+            
+            allowed_origins = list(
+                getattr(self.context, "embed_direct_origins", []) or []
+            )
+            is_valid, normalized_origin, error_msg = validate_origin(
+                origin, allowed_origins
+            )
+            
+            if not is_valid:
+                logger.warning(
+                    "Embed submission failed: status=403 reason=invalid_origin"
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "invalid_origin",
+                    message=error_msg,
+                    extra={"isSuccess": False},
+                )
+                return
+            
+            try:
+                validate_embed_token(embed_token, normalized_origin, secret=None)
+            except Exception as e:
+                logger.warning(
+                    "Embed submission failed: status=403 reason=invalid_token"
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "invalid_token",
+                    message=str(e),
+                    extra={"isSuccess": False},
+                )
+                return
+            
+            # Set CORS headers for response
+            set_cors_headers(self.request.response, normalized_origin)
+            
+            # Skip trusted access check for embed submissions
+            # (token validation is sufficient)
+        elif not self._require_trusted_access():
             return
 
         if not self._require_auth_token(form_version_id or ""):
@@ -1280,6 +1332,16 @@ class Views(BrowserView):
     def embedding_allowed(self):
         """Check if embedding is allowed for this survey."""
         return getattr(self.context, "embedding_mode", "none") == "iframe"
+
+    @property
+    def direct_embedding_allowed(self):
+        """Check if direct DOM embedding is allowed for this survey."""
+        return getattr(self.context, "embedding_mode", "none") == "direct"
+
+    @property
+    def embed_direct_demo_url(self):
+        """URL for the direct embed demo page."""
+        return f"{self.context.absolute_url()}/@@embed-direct-demo"
 
     def import_pdf_form(self):
         """Import a SurveyJS form from an uploaded PDF and generate SurveyJS JSON.
