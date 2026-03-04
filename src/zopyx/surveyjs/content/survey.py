@@ -54,17 +54,18 @@ survey_embedding_vocabulary = SimpleVocabulary(
 
 
 def validate_origin(value):
-    """Validate origin format: https://example.com"""
+    """Validate origin format: https://example.com or http://localhost:8000"""
     import re
     from zope.schema import ValidationError
 
     if not value:
         return True
-    # Allow https origins only, no path, no trailing slash
-    pattern = r"^https://[a-zA-Z0-9][-a-zA-Z0-9.]*(:[0-9]+)?$"
+    # Allow https origins (production) and http origins (localhost development)
+    # Pattern matches: http://localhost:8000, https://example.com, https://example.com:8080
+    pattern = r"^(https?://)[a-zA-Z0-9][-a-zA-Z0-9.]*(:[0-9]+)?$"
     if not re.match(pattern, value):
         raise ValidationError(
-            _("Invalid origin format. Use https://example.com (no path, no trailing slash)")
+            _("Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)")
         )
     return True
 
@@ -261,7 +262,8 @@ class ISurvey(model.Schema):
         title=_("Allowed origins for direct embedding"),
         description=_(
             "Origins allowed to embed this survey via direct DOM. "
-            "Format: https://example.com (no trailing slash). "
+            "Format: https://example.com or http://localhost:8000 (no trailing slash). "
+            "HTTP is allowed for localhost development only. "
             "Required when embedding mode is 'Direct DOM'."
         ),
         value_type=schema.TextLine(

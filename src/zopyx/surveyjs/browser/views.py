@@ -799,6 +799,27 @@ class Views(BrowserView):
         json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
+        logger.warning("[EMBED DEBUG] save_poll called")
+        logger.warning("[EMBED DEBUG] Method: %s", self.request.get("REQUEST_METHOD"))
+        
+        # Handle CORS preflight for embed submissions
+        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        embed_token = self.request.get_header("X-Embed-Token")
+        
+        logger.warning("[EMBED DEBUG] save_poll - Origin: %s", origin)
+        logger.warning("[EMBED DEBUG] save_poll - Has embed_token: %s", bool(embed_token))
+        
+        if origin and embed_token:
+            logger.warning("[EMBED DEBUG] save_poll - Checking embed submission")
+            from .embed_security import handle_cors_preflight
+            allowed_origins = list(
+                getattr(self.context, "embed_direct_origins", []) or []
+            )
+            logger.warning("[EMBED DEBUG] save_poll - Allowed origins: %s", allowed_origins)
+            if handle_cors_preflight(self.request, self.request.response, allowed_origins):
+                logger.warning("[EMBED DEBUG] save_poll - Preflight handled, returning")
+                return
+        
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
             logger.warning("Survey save failed: status=400 reason=missing_poll_result")
@@ -901,7 +922,11 @@ class Views(BrowserView):
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
         embed_token = self.request.get_header("X-Embed-Token")
         
+        logger.warning("[EMBED DEBUG] save_poll - Checking for embed submission")
+        logger.warning("[EMBED DEBUG] save_poll - origin=%s, has_token=%s", origin, bool(embed_token))
+        
         if origin and embed_token:
+            logger.warning("[EMBED DEBUG] save_poll - This is an embed submission, validating...")
             # This is a direct embed submission - validate it
             from .embed_security import (
                 validate_embed_token,
@@ -912,13 +937,21 @@ class Views(BrowserView):
             allowed_origins = list(
                 getattr(self.context, "embed_direct_origins", []) or []
             )
+            logger.warning("[EMBED DEBUG] save_poll - allowed_origins: %s", allowed_origins)
+            
             is_valid, normalized_origin, error_msg = validate_origin(
                 origin, allowed_origins
             )
+            logger.warning("[EMBED DEBUG] save_poll - validate_origin: is_valid=%s, normalized=%s, error=%s", is_valid, normalized_origin, error_msg)
+            
+            # Set CORS headers for all responses (including errors)
+            if normalized_origin:
+                set_cors_headers(self.request.response, normalized_origin)
+                logger.warning("[EMBED DEBUG] save_poll - CORS headers set")
             
             if not is_valid:
                 logger.warning(
-                    "Embed submission failed: status=403 reason=invalid_origin"
+                    "[EMBED DEBUG] Embed submission failed: status=403 reason=invalid_origin - %s", error_msg
                 )
                 json_error(
                     self.request.response,
@@ -931,9 +964,10 @@ class Views(BrowserView):
             
             try:
                 validate_embed_token(embed_token, normalized_origin, secret=None)
+                logger.warning("[EMBED DEBUG] save_poll - Token validated successfully")
             except Exception as e:
                 logger.warning(
-                    "Embed submission failed: status=403 reason=invalid_token"
+                    "[EMBED DEBUG] Embed submission failed: status=403 reason=invalid_token - %s", e
                 )
                 json_error(
                     self.request.response,
@@ -944,9 +978,7 @@ class Views(BrowserView):
                 )
                 return
             
-            # Set CORS headers for response
-            set_cors_headers(self.request.response, normalized_origin)
-            
+            logger.warning("[EMBED DEBUG] save_poll - Embed validation passed")
             # Skip trusted access check for embed submissions
             # (token validation is sufficient)
         elif not self._require_trusted_access():
