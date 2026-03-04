@@ -34,16 +34,19 @@ class EmbedSecurityError(Exception):
 
 class TokenExpiredError(EmbedSecurityError):
     """Raised when a token has expired."""
+
     pass
 
 
 class TokenInvalidError(EmbedSecurityError):
     """Raised when a token is invalid or tampered."""
+
     pass
 
 
 class OriginNotAllowedError(EmbedSecurityError):
     """Raised when an origin is not in the allowlist."""
+
     pass
 
 
@@ -129,12 +132,17 @@ def validate_embed_token(token, expected_origin, secret=None):
     if token_origin != expected_origin:
         raise EmbedSecurityError(
             f"Origin mismatch: token for {token_origin}, expected {expected_origin}",
-            reason="origin_mismatch"
+            reason="origin_mismatch",
         )
 
     audit_logger.info(
         "embed.token.validated",
-        extra={"jti": payload.get("jti"), "survey_uid": payload.get("sub"), "origin": expected_origin, "status": "ok"}
+        extra={
+            "jti": payload.get("jti"),
+            "survey_uid": payload.get("sub"),
+            "origin": expected_origin,
+            "status": "ok",
+        },
     )
     return payload
 
@@ -175,8 +183,19 @@ def validate_origin(origin, allowed_origins):
 
     normalized = f"{parsed.scheme}://{parsed.netloc}"
 
+    # Normalize stored allowlist entries to scheme://netloc so that values
+    # stored with a trailing slash (https://example.com/) still match.
+    def _norm(o):
+        try:
+            p = urlparse(o)
+            return f"{p.scheme}://{p.netloc}"
+        except Exception:
+            return o
+
+    normalized_allowlist = {_norm(o) for o in allowed_origins}
+
     # Check against allowlist
-    if normalized not in allowed_origins:
+    if normalized not in normalized_allowlist:
         return False, None, "Origin not in allowlist"
 
     return True, normalized, None
@@ -226,13 +245,17 @@ def generate_embed_token(survey_uid, origin, ttl_seconds=300, secret=None):
     if cache is not None:
         try:
             cache_key = f"embed_token:{payload['jti']}"
-            cache.set(cache_key, {
-                "survey_uid": survey_uid,
-                "origin": origin,
-                "issued_at": issued_at,
-                "expires_at": expires_at,
-                "used": False,
-            }, expire=ttl_seconds + 60)  # Keep slightly longer than token lifetime
+            cache.set(
+                cache_key,
+                {
+                    "survey_uid": survey_uid,
+                    "origin": origin,
+                    "issued_at": issued_at,
+                    "expires_at": expires_at,
+                    "used": False,
+                },
+                expire=ttl_seconds + 60,
+            )  # Keep slightly longer than token lifetime
         finally:
             cache.close()
 
@@ -249,7 +272,7 @@ def generate_embed_token(survey_uid, origin, ttl_seconds=300, secret=None):
             "origin": origin,
             "jti": payload["jti"],
             "expires_at": metadata["expires_at"],
-        }
+        },
     )
 
     return token, metadata
@@ -298,8 +321,8 @@ def mark_token_used(jti):
     """
     cache = _get_embed_cache()
     if cache is None:
-        logger.warning("embed.cache.unavailable: cannot enforce one-time token use")
-        return True  # Fail-open when cache is unavailable
+        logger.error("embed.cache.unavailable: rejecting token use to prevent replay")
+        return False  # Fail-closed: deny rather than allow replay
 
     try:
         cache_key = f"embed_token_used:{jti}"
@@ -322,7 +345,7 @@ def set_cors_headers(response, origin):
     response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
     response.setHeader(
         "Access-Control-Allow-Headers",
-        "Content-Type, X-Embed-Token, X-Session-ID, X-Requested-With"
+        "Content-Type, X-Embed-Token, X-Session-ID, X-Requested-With",
     )
     response.setHeader("Vary", "Origin")
 

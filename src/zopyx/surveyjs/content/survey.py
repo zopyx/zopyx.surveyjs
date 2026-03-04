@@ -77,27 +77,45 @@ def validate_origin(value):
 
     if parsed.scheme not in ("http", "https"):
         raise ValidationError(
-            _("Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)")
+            _(
+                "Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)"
+            )
         )
 
     if parsed.scheme == "http" and not is_localhost:
         raise ValidationError(
-            _("HTTP origins are only allowed for localhost (localhost, 127.0.0.1, ::1). "
-              "Use https:// for production origins.")
+            _(
+                "HTTP origins are only allowed for localhost (localhost, 127.0.0.1, ::1). "
+                "Use https:// for production origins."
+            )
         )
 
     if parsed.path not in ("", "/") or parsed.query or parsed.fragment:
         raise ValidationError(
-            _("Origin must not contain a path, query string, or fragment. "
-              "Example: https://example.com")
+            _(
+                "Origin must not contain a path, query string, or fragment. "
+                "Trailing slash is not allowed. "
+                "Example: https://example.com"
+            )
+        )
+
+    if parsed.path == "/":
+        raise ValidationError(
+            _(
+                "Origin must not have a trailing slash. "
+                "Use https://example.com instead of https://example.com/"
+            )
         )
 
     if not parsed.netloc:
         raise ValidationError(
-            _("Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)")
+            _(
+                "Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)"
+            )
         )
 
     return True
+
 
 survey_access_vocabulary = SimpleVocabulary(
     [
@@ -436,8 +454,10 @@ class ISurvey(model.Schema):
         origins = getattr(data, "embed_direct_origins", None) or []
         if mode == "direct" and not origins:
             raise Invalid(
-                _("Direct DOM embedding requires at least one allowed origin. "
-                  "Add an origin in the 'Embedding' tab before saving.")
+                _(
+                    "Direct DOM embedding requires at least one allowed origin. "
+                    "Add an origin in the 'Embedding' tab before saving."
+                )
             )
 
 

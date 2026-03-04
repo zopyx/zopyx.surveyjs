@@ -443,6 +443,13 @@
 
   <!-- Direct DOM Embedding Views -->
   <browser:page
+    name="embed-surveyjs"
+    for="*"
+    permission="zope2.View"
+    class=".embed_direct.EmbedSurveyJSView"
+  />
+
+  <browser:page
     name="embed-token"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"

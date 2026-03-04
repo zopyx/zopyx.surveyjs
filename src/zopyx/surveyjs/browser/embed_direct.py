@@ -6,13 +6,14 @@ Provides endpoints for:
 - Embed loader script (@@embed-loader)
 """
 
+import base64
+import hashlib
 import html
 import json
 import logging
+import os
 import secrets
-from urllib.parse import urlparse
 
-import orjson
 import plone.api
 from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
@@ -26,7 +27,6 @@ from .embed_security import (
     set_cors_headers,
     handle_cors_preflight,
     is_embed_direct_globally_enabled,
-    get_embed_direct_max_origins,
     EmbedSecurityError,
     TokenExpiredError,
     TokenInvalidError,
@@ -37,91 +37,116 @@ logger = logging.getLogger(__name__)
 
 class EmbedDirectTokenView(BrowserView):
     """Generate embedding tokens for direct DOM embedding.
-    
+
     POST endpoint that generates a time-limited token bound to a specific origin.
     Only users with ModifyPortalContent permission can generate tokens.
     """
-    
+
     def __call__(self):
         """Handle POST request to generate embed token."""
         # Check permission
-        if not plone.api.user.has_permission(
-            "Modify portal content", obj=self.context
-        ):
+        if not plone.api.user.has_permission("Modify portal content", obj=self.context):
             json_error(self.request.response, 403, "permission_denied")
             return
-        
+
         # Check if direct embedding is enabled globally
         if not is_embed_direct_globally_enabled():
-            json_error(self.request.response, 403, "feature_disabled",
-                      message="Direct DOM embedding is not enabled globally")
+            json_error(
+                self.request.response,
+                403,
+                "feature_disabled",
+                message="Direct DOM embedding is not enabled globally",
+            )
             return
-        
+
         # Check survey embedding mode
         embed_mode = getattr(self.context, "embedding_mode", None)
         if embed_mode != "direct":
-            json_error(self.request.response, 400, "direct_embedding_not_enabled",
-                      message="This survey is not configured for Direct DOM embedding")
+            json_error(
+                self.request.response,
+                400,
+                "direct_embedding_not_enabled",
+                message="This survey is not configured for Direct DOM embedding",
+            )
             return
-        
+
         # Parse request body
         body = parse_json_body(self.request)
         if body is None:
             json_error(self.request.response, 400, "invalid_json")
             return
-        
+
         origin = body.get("origin", "").strip()
         ttl = body.get("ttl_seconds", 300)
-        
+
         # Validate origin against allowlist
         allowed_origins = list(getattr(self.context, "embed_direct_origins", []) or [])
-        is_valid, normalized_origin, error_msg = validate_origin(origin, allowed_origins)
-        
+        is_valid, normalized_origin, error_msg = validate_origin(
+            origin, allowed_origins
+        )
+
         if not is_valid:
-            json_error(self.request.response, 403, "origin_not_allowed", message=error_msg)
+            json_error(
+                self.request.response, 403, "origin_not_allowed", message=error_msg
+            )
             return
-        
+
         # Get survey UID
         try:
             survey_uid = self.context.UID()
         except Exception:
             survey_uid = self.context.getId()
-        
+
         # Generate token
         try:
             token, metadata = generate_embed_token(
-                survey_uid=survey_uid,
-                origin=normalized_origin,
-                ttl_seconds=ttl
+                survey_uid=survey_uid, origin=normalized_origin, ttl_seconds=ttl
             )
         except EmbedSecurityError as e:
             logger.error("Embed token generation failed: %s", e)
-            json_error(self.request.response, 500, "token_generation_failed", message=str(e))
+            json_error(
+                self.request.response, 500, "token_generation_failed", message=str(e)
+            )
             return
-        
+
         logger.info(
             "Embed token generated: survey=%s origin=%s expires=%s",
-            survey_uid, normalized_origin, metadata.get("expires_at")
+            survey_uid,
+            normalized_origin,
+            metadata.get("expires_at"),
         )
-        
-        json_response(self.request.response, {
-            "token": token,
-            "expires_at": metadata["expires_at"],
-            "origin": normalized_origin,
-            "survey_uid": survey_uid,
-            "embed_url": f"{self.context.absolute_url()}/@@embed-loader",
-        })
+
+        json_response(
+            self.request.response,
+            {
+                "token": token,
+                "expires_at": metadata["expires_at"],
+                "origin": normalized_origin,
+                "survey_uid": survey_uid,
+                "embed_url": f"{self.context.absolute_url()}/@@embed-loader",
+            },
+        )
 
 
 class EmbedConfigView(BrowserView):
     """Serve form configuration to embedded clients with CORS.
-    
+
     Returns the SurveyJS form JSON along with a session ID and CSRF token.
     Validates the embed token and origin headers.
     """
-    
+
     def __call__(self):
         """Return form JSON with CORS headers for validated requests."""
+        # Check if direct embedding is enabled globally
+        if not is_embed_direct_globally_enabled():
+            json_error(
+                self.request.response,
+                403,
+                "feature_disabled",
+                message="Direct DOM embedding is not enabled globally",
+            )
+            return
+
         # Handle preflight
         allowed_origins = list(getattr(self.context, "embed_direct_origins", []) or [])
 
@@ -130,7 +155,9 @@ class EmbedConfigView(BrowserView):
 
         # Get and validate origin
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
-        is_valid, normalized_origin, error_msg = validate_origin(origin, allowed_origins)
+        is_valid, normalized_origin, error_msg = validate_origin(
+            origin, allowed_origins
+        )
 
         # Only set CORS headers for valid (allowlisted) origins
         if is_valid and normalized_origin:
@@ -155,7 +182,9 @@ class EmbedConfigView(BrowserView):
             json_error(self.request.response, 403, "token_invalid", message=str(e))
             return
         except EmbedSecurityError as e:
-            json_error(self.request.response, 403, "token_validation_failed", message=str(e))
+            json_error(
+                self.request.response, 403, "token_validation_failed", message=str(e)
+            )
             return
 
         # Verify survey matches token
@@ -167,67 +196,127 @@ class EmbedConfigView(BrowserView):
         if payload.get("sub") != survey_uid:
             json_error(self.request.response, 403, "survey_mismatch")
             return
-        
+
         # Get form data
         annos = IAnnotations(self.context)
         form_versions = forms_service.sorted_form_versions(annos)
         form_data = form_versions[-1]["form_json"] if form_versions else {}
         form_version_id = form_versions[-1]["id"] if form_versions else ""
-        
+
         # Generate session ID
         session_id = secrets.token_urlsafe(16)
-        
+
         # Generate CSRF token
         csrf_token = plone.api.portal.get_tool("portal_url")()
         # Use Plone's authenticator
         try:
             from plone.protect.authenticator import createToken
+
             csrf_token = createToken()
         except Exception:
             csrf_token = secrets.token_urlsafe(32)
-        
+
         logger.info(
             "Embed config served: survey=%s origin=%s session=%s",
-            survey_uid, normalized_origin, session_id[:8]
+            survey_uid,
+            normalized_origin,
+            session_id[:8],
         )
-        
-        json_response(self.request.response, {
-            "form_json": form_data,
-            "form_version": form_version_id,
-            "csrf_token": csrf_token,
-            "submit_endpoint": f"{self.context.absolute_url()}/@@save-poll",
-            "session_id": session_id,
-        })
+
+        json_response(
+            self.request.response,
+            {
+                "form_json": form_data,
+                "form_version": form_version_id,
+                "csrf_token": csrf_token,
+                "submit_endpoint": f"{self.context.absolute_url()}/@@save-poll",
+                "session_id": session_id,
+            },
+        )
+
+
+class EmbedSurveyJSView(BrowserView):
+    """Serve SurveyJS library files with CORS headers for direct DOM embedding.
+
+    The ++resource++ traversal does not add CORS headers, so cross-origin
+    embedding pages cannot load the SurveyJS scripts directly.  This view
+    re-serves a strict whitelist of those files with Access-Control-Allow-Origin: *
+    (they are public, unversioned library assets with no credentials).
+    """
+
+    _ALLOWED = frozenset(["survey.core.min.js", "survey-js-ui.min.js"])
+
+    def __call__(self):
+        name = self.request.get("name", "")
+        if name not in self._ALLOWED:
+            self.request.response.setStatus(404)
+            return "Not found"
+
+        filepath = os.path.join(os.path.dirname(__file__), "static", "surveyjs", name)
+        try:
+            with open(filepath, "rb") as fh:
+                content = fh.read()
+        except OSError:
+            self.request.response.setStatus(404)
+            return "Not found"
+
+        response = self.request.response
+        response.setHeader("Content-Type", "application/javascript; charset=utf-8")
+        response.setHeader("Access-Control-Allow-Origin", "*")
+        response.setHeader("Cache-Control", "public, max-age=86400, immutable")
+        response.setHeader("X-Content-Type-Options", "nosniff")
+        return content
 
 
 class EmbedLoaderView(BrowserView):
     """Serve the embed loader JavaScript bundle.
-    
+
     Returns the JavaScript client code that creates the shadow DOM
     web component for embedding surveys.
     """
-    
+
     def __call__(self):
         """Return the JavaScript bundle for direct DOM embedding."""
         response = self.request.response
         response.setHeader("Content-Type", "application/javascript; charset=utf-8")
         response.setHeader("X-Content-Type-Options", "nosniff")
-        
+
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
-        
+
         # Add CORS headers to allow script loading from any origin
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
         if origin:
             response.setHeader("Access-Control-Allow-Origin", origin)
             response.setHeader("Vary", "Origin")
-        
+
         return self._get_embed_js()
-    
+
+    @staticmethod
+    def _sri_hash(filepath):
+        """Compute a base64-encoded SHA-384 SRI hash for a file."""
+        try:
+            with open(filepath, "rb") as fh:
+                digest = hashlib.sha384(fh.read()).digest()
+            return "sha384-" + base64.b64encode(digest).decode("ascii")
+        except Exception:
+            return None
+
     def _get_embed_js(self):
         """Generate the embed client JavaScript."""
         portal_url = plone.api.portal.get_tool("portal_url")()
-        surveyjs_resource_url = f"{portal_url}/++resource++zopyx.surveyjs/surveyjs"
-        
+        # Use @@embed-surveyjs instead of ++resource++ so CORS headers are present
+        # for cross-origin embedding pages loading these scripts.
+        surveyjs_resource_url = f"{portal_url}/@@embed-surveyjs?name"
+        surveyjs_css_url = f"{portal_url}/++resource++zopyx.surveyjs/surveyjs"
+
+        # Compute SRI hashes from the files on disk so the embedding page can
+        # verify script integrity before execution.
+        _static_dir = os.path.join(os.path.dirname(__file__), "static", "surveyjs")
+        _sri_core = (
+            self._sri_hash(os.path.join(_static_dir, "survey.core.min.js")) or ""
+        )
+        _sri_ui = self._sri_hash(os.path.join(_static_dir, "survey-js-ui.min.js")) or ""
+
         return f"""/**
  * Direct DOM Embedding Client for zopyx.surveyjs
  * Security-first implementation with Shadow DOM isolation
@@ -362,7 +451,7 @@ class EmbedLoaderView(BrowserView):
       // Load SurveyJS CSS into shadow root (cross-origin <link> works without CORS)
       const surveyLink = document.createElement('link');
       surveyLink.rel = 'stylesheet';
-      surveyLink.href = '{surveyjs_resource_url}/survey-core.min.css';
+      surveyLink.href = '{surveyjs_css_url}/survey-core.min.css';
       this.shadowRoot.appendChild(surveyLink);
 
       // Inject base styles
@@ -468,16 +557,20 @@ class EmbedLoaderView(BrowserView):
 
       window.__surveyJSLoading = true;
 
-      const loadScript = (src) => new Promise((resolve, reject) => {{
+      const loadScript = (src, integrity) => new Promise((resolve, reject) => {{
         const s = document.createElement('script');
         s.src = src;
+        if (integrity) {{
+          s.integrity = integrity;
+          s.crossOrigin = 'anonymous';
+        }}
         s.onload = resolve;
         s.onerror = () => reject(new Error('Failed to load: ' + src));
         document.head.appendChild(s);
       }});
 
-      return loadScript('{surveyjs_resource_url}/survey.core.min.js')
-        .then(() => loadScript('{surveyjs_resource_url}/survey-js-ui.min.js'))
+      return loadScript('{surveyjs_resource_url}=survey.core.min.js', '{_sri_core}')
+        .then(() => loadScript('{surveyjs_resource_url}=survey-js-ui.min.js', '{_sri_ui}'))
         .then(() => {{ window.__surveyJSLoading = false; }})
         .catch((err) => {{ window.__surveyJSLoading = false; throw err; }});
     }}
@@ -530,56 +623,56 @@ class EmbedLoaderView(BrowserView):
 """
 
 
-
 class DirectEmbedDemoView(BrowserView):
     """Demo view showing direct DOM embedding in action.
-    
+
     This is a standalone HTML page that demonstrates the direct embedding
     feature by embedding the current survey using the web component.
     """
-    
+
     def __call__(self):
         """Render the demo page."""
         # Check permissions
-        if not plone.api.user.has_permission(
-            "Modify portal content", obj=self.context
-        ):
+        if not plone.api.user.has_permission("Modify portal content", obj=self.context):
             self.request.response.setStatus(403)
             return "Access denied"
-        
+
+        # Check if direct embedding is enabled globally
+        if not is_embed_direct_globally_enabled():
+            return self._render_config_error(
+                "Feature disabled", "Direct DOM embedding is not enabled globally."
+            )
+
         # Check if direct embedding is configured
         if getattr(self.context, "embedding_mode", None) != "direct":
             return self._render_config_error(
                 "Direct embedding not enabled",
-                "This survey's embedding mode must be set to 'Direct DOM'."
+                "This survey's embedding mode must be set to 'Direct DOM'.",
             )
-        
+
         allowed_origins = list(getattr(self.context, "embed_direct_origins", []) or [])
         if not allowed_origins:
             return self._render_config_error(
                 "No origins configured",
-                "Please add at least one allowed origin in the survey settings."
+                "Please add at least one allowed origin in the survey settings.",
             )
-        
+
         # Generate a demo token for the first allowed origin
         try:
             survey_uid = self.context.UID()
         except Exception:
             survey_uid = self.context.getId()
-        
+
         demo_origin = allowed_origins[0]
         ttl = getattr(self.context, "embed_direct_token_ttl", 300) or 300
-        
+
         try:
             token, metadata = generate_embed_token(survey_uid, demo_origin, ttl)
         except EmbedSecurityError as e:
-            return self._render_config_error(
-                "Token generation failed",
-                str(e)
-            )
-        
+            return self._render_config_error("Token generation failed", str(e))
+
         return self._render_demo_page(token, demo_origin, metadata)
-    
+
     def _render_config_error(self, title, message):
         """Render an error page for configuration issues."""
         self.request.response.setHeader("Content-Type", "text/html; charset=utf-8")
@@ -627,7 +720,7 @@ class DirectEmbedDemoView(BrowserView):
     </div>
 </body>
 </html>"""
-    
+
     def _render_demo_page(self, token, origin, metadata):
         """Render the full demo page with embedded form."""
         survey_url = self.context.absolute_url()

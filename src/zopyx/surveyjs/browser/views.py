@@ -806,12 +806,15 @@ class Views(BrowserView):
 
         if origin:
             from .embed_security import handle_cors_preflight
+
             allowed_origins = list(
                 getattr(self.context, "embed_direct_origins", []) or []
             )
-            if handle_cors_preflight(self.request, self.request.response, allowed_origins):
+            if handle_cors_preflight(
+                self.request, self.request.response, allowed_origins
+            ):
                 return
-        
+
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
             logger.warning("Survey save failed: status=400 reason=missing_poll_result")
@@ -913,7 +916,7 @@ class Views(BrowserView):
         # Check for direct DOM embed submission
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
         embed_token = self.request.get_header("X-Embed-Token")
-        
+
         if origin and embed_token:
             # This is a direct embed submission - validate it
             from .embed_security import (
@@ -921,9 +924,20 @@ class Views(BrowserView):
                 validate_origin,
                 set_cors_headers,
                 mark_token_used,
-                TokenInvalidError as EmbedTokenInvalidError,
+                is_embed_direct_globally_enabled,
             )
+
+            if not is_embed_direct_globally_enabled():
+                json_error(
+                    self.request.response,
+                    403,
+                    "feature_disabled",
+                    message="Direct DOM embedding is not enabled globally",
+                    extra={"isSuccess": False},
+                )
+                return
             import logging as _logging
+
             _audit = _logging.getLogger("zopyx.surveyjs.embed.audit")
             remote_addr = self.request.get("REMOTE_ADDR", "")
 
@@ -942,7 +956,11 @@ class Views(BrowserView):
             if not is_valid:
                 _audit.info(
                     "embed.submission.rejected",
-                    extra={"reason": "invalid_origin", "origin": origin, "remote_addr": remote_addr}
+                    extra={
+                        "reason": "invalid_origin",
+                        "origin": origin,
+                        "remote_addr": remote_addr,
+                    },
                 )
                 json_error(
                     self.request.response,
@@ -954,11 +972,17 @@ class Views(BrowserView):
                 return
 
             try:
-                payload = validate_embed_token(embed_token, normalized_origin, secret=None)
+                payload = validate_embed_token(
+                    embed_token, normalized_origin, secret=None
+                )
             except Exception as e:
                 _audit.info(
                     "embed.submission.rejected",
-                    extra={"reason": "invalid_token", "origin": origin, "remote_addr": remote_addr}
+                    extra={
+                        "reason": "invalid_token",
+                        "origin": origin,
+                        "remote_addr": remote_addr,
+                    },
                 )
                 json_error(
                     self.request.response,
@@ -976,7 +1000,11 @@ class Views(BrowserView):
             if jti and not mark_token_used(jti):
                 _audit.info(
                     "embed.submission.rejected",
-                    extra={"reason": "token_replayed", "origin": normalized_origin, "remote_addr": remote_addr}
+                    extra={
+                        "reason": "token_replayed",
+                        "origin": normalized_origin,
+                        "remote_addr": remote_addr,
+                    },
                 )
                 json_error(
                     self.request.response,
@@ -989,7 +1017,11 @@ class Views(BrowserView):
 
             _audit.info(
                 "embed.submission.accepted",
-                extra={"jti": jti, "origin": normalized_origin, "remote_addr": remote_addr}
+                extra={
+                    "jti": jti,
+                    "origin": normalized_origin,
+                    "remote_addr": remote_addr,
+                },
             )
             # Embed validation passed — skip trusted access and auth token checks
             pass
