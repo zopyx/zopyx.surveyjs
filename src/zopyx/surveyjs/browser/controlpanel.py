@@ -112,6 +112,17 @@ class FormsSettingsView(BrowserView):
                 settings, "authenticity_token_cache_path", "var/token_cache.db"
             )
             or "var/token_cache.db",
+            # Direct DOM Embedding settings
+            "embed_direct_global_enabled": bool(
+                getattr(settings, "embed_direct_global_enabled", False)
+            ),
+            "embed_direct_signing_key": getattr(
+                settings, "embed_direct_signing_key", ""
+            )
+            or "",
+            "embed_direct_max_origins": int(
+                getattr(settings, "embed_direct_max_origins", 10) or 10
+            ),
         }
 
     def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
@@ -238,6 +249,22 @@ class FormsSettingsView(BrowserView):
             "authenticity_token_cache_path",
             data.get("authenticity_token_cache_path", "var/token_cache.db").strip(),
         )
+
+        # Direct DOM Embedding settings
+        set_value(
+            "embed_direct_global_enabled",
+            bool(data.get("embed_direct_global_enabled", False)),
+        )
+
+        embed_signing_key = data.get("embed_direct_signing_key", "")
+        if embed_signing_key and embed_signing_key.strip():  # Only update if not empty
+            set_value("embed_direct_signing_key", embed_signing_key.strip())
+
+        embed_max_origins = data.get("embed_direct_max_origins", 10)
+        try:
+            set_value("embed_direct_max_origins", int(embed_max_origins))
+        except (ValueError, TypeError):
+            set_value("embed_direct_max_origins", 10)
 
     def handle_submit(self):
         """Handle form submission."""

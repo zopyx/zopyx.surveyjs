@@ -3,7 +3,7 @@
 from plone.dexterity.content import Item
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
-from zope.interface import implementer
+from zope.interface import implementer, invariant, Invalid
 
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
@@ -48,8 +48,74 @@ survey_embedding_vocabulary = SimpleVocabulary(
     [
         SimpleTerm(value="none", title=_("None")),
         SimpleTerm(value="iframe", title=_("Iframe")),
+        SimpleTerm(value="direct", title=_("Direct DOM (experimental)")),
     ]
 )
+
+
+def validate_origin(value):
+    """Validate origin format: https://example.com or http://localhost:8000
+
+    Aligns with the runtime validator in embed_security.py:
+    - HTTPS is required for non-localhost origins
+    - HTTP is only allowed for localhost/127.0.0.1/::1
+    - No path, query, or fragment allowed
+    """
+    from urllib.parse import urlparse
+    from zope.schema import ValidationError
+
+    if not value:
+        return True
+
+    try:
+        parsed = urlparse(value)
+    except Exception:
+        raise ValidationError(_("Invalid origin format."))
+
+    hostname = parsed.hostname or ""
+    is_localhost = hostname in ("localhost", "127.0.0.1", "::1")
+
+    if parsed.scheme not in ("http", "https"):
+        raise ValidationError(
+            _(
+                "Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)"
+            )
+        )
+
+    if parsed.scheme == "http" and not is_localhost:
+        raise ValidationError(
+            _(
+                "HTTP origins are only allowed for localhost (localhost, 127.0.0.1, ::1). "
+                "Use https:// for production origins."
+            )
+        )
+
+    if parsed.path not in ("", "/") or parsed.query or parsed.fragment:
+        raise ValidationError(
+            _(
+                "Origin must not contain a path, query string, or fragment. "
+                "Trailing slash is not allowed. "
+                "Example: https://example.com"
+            )
+        )
+
+    if parsed.path == "/":
+        raise ValidationError(
+            _(
+                "Origin must not have a trailing slash. "
+                "Use https://example.com instead of https://example.com/"
+            )
+        )
+
+    if not parsed.netloc:
+        raise ValidationError(
+            _(
+                "Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)"
+            )
+        )
+
+    return True
+
 
 survey_access_vocabulary = SimpleVocabulary(
     [
@@ -159,7 +225,11 @@ class ISurvey(model.Schema):
     fieldset(
         "embedding",
         label=_("Embedding"),
-        fields=("embedding_mode",),
+        fields=(
+            "embedding_mode",
+            "embed_direct_origins",
+            "embed_direct_token_ttl",
+        ),
     )
 
     form.widget("actions", CheckBoxFieldWidget)
@@ -226,11 +296,40 @@ class ISurvey(model.Schema):
     embedding_mode = schema.Choice(
         title=_("Embedding mode"),
         description=_(
-            "Controls whether this survey may be embedded. Use Iframe to allow embedding."
+            "Controls whether this survey may be embedded. "
+            "Iframe is the recommended secure option. "
+            "Direct DOM embedding allows seamless integration but "
+            "requires careful origin configuration."
         ),
         vocabulary=survey_embedding_vocabulary,
         required=True,
         default="none",
+    )
+
+    embed_direct_origins = schema.List(
+        title=_("Allowed origins for direct embedding"),
+        description=_(
+            "Origins allowed to embed this survey via direct DOM. "
+            "Format: https://example.com or http://localhost:8000 (no trailing slash). "
+            "HTTP is allowed for localhost development only. "
+            "Required when embedding mode is 'Direct DOM'."
+        ),
+        value_type=schema.TextLine(
+            title=_("Origin"),
+            constraint=validate_origin,
+        ),
+        required=False,
+        defaultFactory=list,
+        max_length=10,
+    )
+
+    embed_direct_token_ttl = schema.Int(
+        title=_("Embed token TTL (seconds)"),
+        description=_("Lifetime of embedding tokens in seconds (60-3600)."),
+        required=False,
+        default=300,
+        min=60,
+        max=3600,
     )
 
     email_sender = schema.TextLine(
@@ -347,6 +446,19 @@ class ISurvey(model.Schema):
         ),
         required=False,
     )
+
+    @invariant
+    def direct_embedding_requires_origins(data):
+        """When embedding_mode is 'direct', at least one allowed origin is required."""
+        mode = getattr(data, "embedding_mode", None)
+        origins = getattr(data, "embed_direct_origins", None) or []
+        if mode == "direct" and not origins:
+            raise Invalid(
+                _(
+                    "Direct DOM embedding requires at least one allowed origin. "
+                    "Add an origin in the 'Embedding' tab before saving."
+                )
+            )
 
 
 @implementer(ISurvey)

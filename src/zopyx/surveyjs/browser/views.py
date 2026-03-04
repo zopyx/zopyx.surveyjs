@@ -799,6 +799,22 @@ class Views(BrowserView):
         json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
+        # Handle CORS preflight for embed submissions.
+        # OPTIONS requests carry no token — check method first, before token presence.
+        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        embed_token = self.request.get_header("X-Embed-Token")
+
+        if origin:
+            from .embed_security import handle_cors_preflight
+
+            allowed_origins = list(
+                getattr(self.context, "embed_direct_origins", []) or []
+            )
+            if handle_cors_preflight(
+                self.request, self.request.response, allowed_origins
+            ):
+                return
+
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
             logger.warning("Survey save failed: status=400 reason=missing_poll_result")
@@ -897,11 +913,123 @@ class Views(BrowserView):
             )
             return
 
-        if not self._require_trusted_access():
-            return
+        # Check for direct DOM embed submission
+        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        embed_token = self.request.get_header("X-Embed-Token")
 
-        if not self._require_auth_token(form_version_id or ""):
-            return
+        if origin and embed_token:
+            # This is a direct embed submission - validate it
+            from .embed_security import (
+                validate_embed_token,
+                validate_origin,
+                set_cors_headers,
+                mark_token_used,
+                is_embed_direct_globally_enabled,
+            )
+
+            if not is_embed_direct_globally_enabled():
+                json_error(
+                    self.request.response,
+                    403,
+                    "feature_disabled",
+                    message="Direct DOM embedding is not enabled globally",
+                    extra={"isSuccess": False},
+                )
+                return
+            import logging as _logging
+
+            _audit = _logging.getLogger("zopyx.surveyjs.embed.audit")
+            remote_addr = self.request.get("REMOTE_ADDR", "")
+
+            allowed_origins = list(
+                getattr(self.context, "embed_direct_origins", []) or []
+            )
+
+            is_valid, normalized_origin, error_msg = validate_origin(
+                origin, allowed_origins
+            )
+
+            # Only set CORS headers for allowlisted origins
+            if is_valid and normalized_origin:
+                set_cors_headers(self.request.response, normalized_origin)
+
+            if not is_valid:
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={
+                        "reason": "invalid_origin",
+                        "origin": origin,
+                        "remote_addr": remote_addr,
+                    },
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "invalid_origin",
+                    message=error_msg,
+                    extra={"isSuccess": False},
+                )
+                return
+
+            try:
+                payload = validate_embed_token(
+                    embed_token, normalized_origin, secret=None
+                )
+            except Exception as e:
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={
+                        "reason": "invalid_token",
+                        "origin": origin,
+                        "remote_addr": remote_addr,
+                    },
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "invalid_token",
+                    message=str(e),
+                    extra={"isSuccess": False},
+                )
+                return
+
+            # Enforce one-time use here (on submission), not on config fetch.
+            # This allows the same token to be used for @@embed-config and
+            # exactly one @@save-poll submission.
+            jti = payload.get("jti")
+            if jti and not mark_token_used(jti):
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={
+                        "reason": "token_replayed",
+                        "origin": normalized_origin,
+                        "remote_addr": remote_addr,
+                    },
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "token_already_used",
+                    message="Token already used",
+                    extra={"isSuccess": False},
+                )
+                return
+
+            _audit.info(
+                "embed.submission.accepted",
+                extra={
+                    "jti": jti,
+                    "origin": normalized_origin,
+                    "remote_addr": remote_addr,
+                },
+            )
+            # Embed validation passed — skip trusted access and auth token checks
+            pass
+        else:
+            if not self._require_trusted_access():
+                return
+            if not self._require_auth_token(form_version_id or ""):
+                return
 
         submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
         force_validation = getattr(self.context, "force_server_side_validation", False)
@@ -1280,6 +1408,16 @@ class Views(BrowserView):
     def embedding_allowed(self):
         """Check if embedding is allowed for this survey."""
         return getattr(self.context, "embedding_mode", "none") == "iframe"
+
+    @property
+    def direct_embedding_allowed(self):
+        """Check if direct DOM embedding is allowed for this survey."""
+        return getattr(self.context, "embedding_mode", "none") == "direct"
+
+    @property
+    def embed_direct_demo_url(self):
+        """URL for the direct embed demo page."""
+        return f"{self.context.absolute_url()}/@@embed-direct-demo"
 
     def import_pdf_form(self):
         """Import a SurveyJS form from an uploaded PDF and generate SurveyJS JSON.

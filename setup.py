@@ -68,6 +68,7 @@ setup(
         "llm-moonshot",
         "sqlmodel",
         "diskcache",
+        "PyJWT>=2.8.0",
         "pypdf",
         "langcodes[data]",
         "zopyx.plone.persistentlogger",

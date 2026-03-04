@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct DOM Embedding Demo - SurveyJS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .config-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .config-panel h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn:hover {
+            background: #5a6fd6;
+        }
+        .btn:active {
+            transform: translateY(1px);
+        }
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            margin-top: 20px;
+        }
+        .form-container h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #1565c0;
+            font-size: 1rem;
+        }
+        .info-box p {
+            margin: 5px 0 0 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-top: 15px;
+        }
+        .code-block .comment { color: #6a9955; }
+        .code-block .tag { color: #569cd6; }
+        .code-block .attr { color: #9cdcfe; }
+        .code-block .string { color: #ce9178; }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 10px;
+        }
+        .status-pending { background: #fff3e0; color: #ef6c00; }
+        .status-active { background: #e8f5e9; color: #2e7d32; }
+        .status-error { background: #ffebee; color: #c62828; }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Direct DOM Embedding Demo</h1>
+            <p>Test SurveyJS forms with Shadow DOM isolation</p>
+        </div>
+        
+        <div class="config-panel">
+            <h2>⚙️ Configuration</h2>
+            <div class="form-group">
+                <label for="surveyUrl">Survey URL</label>
+                <input type="url" id="surveyUrl" placeholder="https://your-plone-site.com/path/to/survey"
+                       value="http://localhost:8082/demo/de/demos/event-rsvp-de">
+            </div>
+            <div class="form-group">
+                <label for="embedToken">Embed Token</label>
+                <textarea id="embedToken" placeholder="Paste your embed token here..."></textarea>
+            </div>
+            <button class="btn" onclick="loadSurvey()">Load Survey</button>
+            <span id="statusBadge" class="status-badge status-pending">Not Loaded</span>
+        </div>
+
+        <div class="info-box">
+            <h3>📖 How to use this demo</h3>
+            <p>1. In your Plone site, go to a survey with Direct DOM embedding enabled</p>
+            <p>2. Click "Direct Embed Demo" to generate a token</p>
+            <p>3. Copy the Survey URL and Token from the demo page</p>
+            <p>4. Paste them here and click "Load Survey"</p>
+        </div>
+
+        <div class="form-container" id="formContainer" style="display: none;">
+            <h2>📝 Embedded Survey <span class="status-badge status-active">Live</span></h2>
+            <div id="surveyContainer"></div>
+        </div>
+
+        <div class="code-block" style="margin-top: 20px;">
+<span class="comment">&lt;!-- Integration code for your website --&gt;</span>
+&lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="string">"SURVEY_URL/@@embed-loader"</span>&gt;&lt;/<span class="tag">script</span>&gt;
+
+&lt;<span class="tag">surveyjs-embed</span>
+  <span class="attr">survey-url</span>=<span class="string">"SURVEY_URL"</span>
+  <span class="attr">token</span>=<span class="string">"YOUR_TOKEN"</span>&gt;
+&lt;/<span class="tag">surveyjs-embed</span>&gt;
+        </div>
+    </div>
+
+    <script>
+        // Store the embed script element to clean up on reload
+        let currentEmbedScript = null;
+
+        function loadSurvey() {
+            const surveyUrl = document.getElementById('surveyUrl').value.trim();
+            const embedToken = document.getElementById('embedToken').value.trim();
+            const statusBadge = document.getElementById('statusBadge');
+            const formContainer = document.getElementById('formContainer');
+            const surveyContainer = document.getElementById('surveyContainer');
+
+            if (!surveyUrl || !embedToken) {
+                alert('Please provide both Survey URL and Embed Token');
+                return;
+            }
+
+            // Clean up previous embed
+            surveyContainer.innerHTML = '';
+            if (currentEmbedScript) {
+                currentEmbedScript.remove();
+            }
+
+            // Remove existing custom element if defined
+            if (customElements.get('surveyjs-embed')) {
+                // Note: Custom elements cannot be undefined, but we can work around this
+                // by using a different tag name or reloading the page
+            }
+
+            statusBadge.textContent = 'Loading...';
+            statusBadge.className = 'status-badge status-pending';
+
+            // Load the embed script dynamically
+            const script = document.createElement('script');
+            script.src = `${surveyUrl}/@@embed-loader`;
+            script.onload = () => {
+                // Create the embed element
+                const embed = document.createElement('surveyjs-embed');
+                embed.setAttribute('survey-url', surveyUrl);
+                embed.setAttribute('token', embedToken);
+                
+                surveyContainer.appendChild(embed);
+                
+                formContainer.style.display = 'block';
+                statusBadge.textContent = 'Loaded';
+                statusBadge.className = 'status-badge status-active';
+                
+                // Scroll to form
+                formContainer.scrollIntoView({ behavior: 'smooth' });
+            };
+            script.onerror = () => {
+                statusBadge.textContent = 'Error';
+                statusBadge.className = 'status-badge status-error';
+                alert('Failed to load embed script. Please check the Survey URL.');
+            };
+            
+            document.head.appendChild(script);
+            currentEmbedScript = script;
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('surveyUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') loadSurvey();
+        });
+    </script>
+</body>
+</html>

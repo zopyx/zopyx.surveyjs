@@ -1333,6 +1333,178 @@
           "minWidth": "100%"
         }
       ]
+    },
+    {
+      "name": "page_embedding",
+      "title": {
+        "default": "Embedding",
+        "de": "Einbettung",
+        "en": "Embedding",
+        "es": "Incrustación",
+        "fr": "Intégration",
+        "it": "Incorporamento",
+        "pt": "Incorporação",
+        "fi": "Upotus",
+        "hi": "एम्बेडिंग",
+        "ar": "التضمين",
+        "ja": "埋め込み"
+      },
+      "navigationTitle": {
+        "default": "Embedding",
+        "de": "Einbettung",
+        "en": "Embedding",
+        "es": "Incrustación",
+        "fr": "Intégration",
+        "it": "Incorporamento",
+        "pt": "Incorporação",
+        "fi": "Upotus",
+        "hi": "एम्बेडिंग",
+        "ar": "التضمين",
+        "ja": "埋め込み"
+      },
+      "description": {
+        "default": "Configure direct DOM embedding settings for integrating surveys into external websites.",
+        "de": "Konfigurieren Sie Direct DOM Embedding-Einstellungen zur Integration von Umfragen in externe Websites.",
+        "en": "Configure direct DOM embedding settings for integrating surveys into external websites.",
+        "es": "Configure ajustes de Direct DOM Embedding para integrar encuestas en sitios web externos.",
+        "fr": "Configurez les paramètres Direct DOM Embedding pour intégrer des sondages dans des sites web externes.",
+        "it": "Configura le impostazioni Direct DOM Embedding per integrare i sondaggi in siti web esterni.",
+        "pt": "Configure configurações de Direct DOM Embedding para integrar pesquisas em sites externos.",
+        "fi": "Määritä Direct DOM Embedding -asetukset kyselyiden integroimiseksi ulkoisiin verkkosivustoihin.",
+        "hi": "बाहरी वेबसाइटों में सर्वे को एकीकृत करने के लिए Direct DOM Embedding सेटिंग्स कॉन्फ़िगर करें।",
+        "ar": "تكوين إعدادات Direct DOM Embedding لدمج الاستبيانات في مواقع الويب الخارجية.",
+        "ja": "外部ウェブサイトにアンケートを統合するためのDirect DOM Embedding設定を構成します。"
+      },
+      "elements": [
+        {
+          "type": "boolean",
+          "name": "embed_direct_global_enabled",
+          "title": {
+            "default": "Enable Direct DOM Embedding",
+            "de": "Direct DOM Embedding aktivieren",
+            "en": "Enable Direct DOM Embedding",
+            "es": "Habilitar Direct DOM Embedding",
+            "fr": "Activer Direct DOM Embedding",
+            "it": "Abilita Direct DOM Embedding",
+            "pt": "Habilitar Direct DOM Embedding",
+            "fi": "Ota Direct DOM Embedding käyttöön",
+            "hi": "Direct DOM Embedding सक्षम करें",
+            "ar": "تفعيل Direct DOM Embedding",
+            "ja": "Direct DOM Embeddingを有効化"
+          },
+          "description": {
+            "default": "Master switch for the direct DOM embedding feature. When enabled, surveys can be embedded directly into external websites using Shadow DOM isolation.",
+            "de": "Hauptschalter für die Direct DOM Embedding-Funktion. Wenn aktiviert, können Umfragen direkt in externe Websites mittels Shadow DOM-Isolation eingebettet werden.",
+            "en": "Master switch for the direct DOM embedding feature. When enabled, surveys can be embedded directly into external websites using Shadow DOM isolation.",
+            "es": "Interruptor maestro para la función Direct DOM Embedding. Cuando está habilitado, las encuestas pueden incrustarse directamente en sitios web externos usando aislamiento de Shadow DOM.",
+            "fr": "Interrupteur principal pour la fonctionnalité Direct DOM Embedding. Lorsqu'activé, les sondages peuvent être intégrés directement dans des sites web externes en utilisant l'isolation Shadow DOM.",
+            "it": "Interruttore principale per la funzionalità Direct DOM Embedding. Quando abilitato, i sondaggi possono essere incorporati direttamente in siti web esterni usando l'isolamento Shadow DOM.",
+            "pt": "Chave mestra para o recurso Direct DOM Embedding. Quando habilitado, pesquisas podem ser incorporadas diretamente em sites externos usando isolamento Shadow DOM.",
+            "fi": "Direct DOM Embedding -ominaisuuden pääkytkin. Käytettäessä kyselyt voidaan upottaa suoraan ulkoisiin verkkosivustoihin Shadow DOM -eristyksellä.",
+            "hi": "Direct DOM Embedding सुविधा के लिए मास्टर स्विच। सक्षम होने पर, सर्वे को Shadow DOM आइसोलेशन का उपयोग करके सीधे बाहरी वेबसाइटों में एम्बेड किया जा सकता है।",
+            "ar": "المفتاح الرئيسي لميزة Direct DOM Embedding. عند التفعيل، يمكن تضمين الاستبيانات مباشرة في مواقع الويب الخارجية باستخدام عزل Shadow DOM.",
+            "ja": "Direct DOM Embedding機能のマスタースイッチ。有効にすると、アンケートをShadow DOM分離を使用して外部ウェブサイトに直接埋め込むことができます。"
+          },
+          "labelTrue": {
+            "default": "Yes",
+            "de": "Ja",
+            "en": "Yes",
+            "es": "Sí",
+            "fr": "Oui",
+            "it": "Sì",
+            "pt": "Sim",
+            "fi": "Kyllä",
+            "hi": "हाँ",
+            "ar": "نعم",
+            "ja": "はい"
+          },
+          "labelFalse": {
+            "default": "No",
+            "de": "Nein",
+            "en": "No",
+            "es": "No",
+            "fr": "Non",
+            "it": "No",
+            "pt": "Não",
+            "fi": "Ei",
+            "hi": "नहीं",
+            "ar": "لا",
+            "ja": "いいえ"
+          },
+          "valueTrue": true,
+          "valueFalse": false,
+          "defaultValue": false
+        },
+        {
+          "type": "text",
+          "name": "embed_direct_signing_key",
+          "title": {
+            "default": "Embed token signing key",
+            "de": "Einbettungs-Token-Signierschlüssel",
+            "en": "Embed token signing key",
+            "es": "Clave de firma de token de incrustación",
+            "fr": "Clé de signature du jeton d'intégration",
+            "it": "Chiave di firma token di incorporamento",
+            "pt": "Chave de assinatura do token de incorporação",
+            "fi": "Upotustunnuksen allekirjoitusavain",
+            "hi": "एम्बेड टोकन साइनिंग कुंजी",
+            "ar": "مفتاح توقيع رمز التضمين",
+            "ja": "埋め込みトークン署名キー"
+          },
+          "description": {
+            "default": "HMAC key for signing embed tokens. Rotate regularly for security. Falls back to authenticity token secret if not set.",
+            "de": "HMAC-Schlüssel zum Signieren von Einbettungs-Token. Aus Sicherheitsgründen regelmäßig rotieren. Fallback auf Echtheits-Token-Geheimnis falls nicht gesetzt.",
+            "en": "HMAC key for signing embed tokens. Rotate regularly for security. Falls back to authenticity token secret if not set.",
+            "es": "Clave HMAC para firmar tokens de incrustación. Rotar regularmente por seguridad. Usa el secreto de token de autenticidad como respaldo si no está configurado.",
+            "fr": "Clé HMAC pour signer les jetons d'intégration. Faire tourner régulièrement pour la sécurité. Utilise le secret du jeton d'authenticité comme repli si non défini.",
+            "it": "Chiave HMAC per firmare i token di incorporamento. Ruotare regolarmente per sicurezza. Usa il secret del token di autenticità come fallback se non impostato.",
+            "pt": "Chave HMAC para assinar tokens de incorporação. Rotacione regularmente por segurança. Usa o segredo do token de autenticidade como fallback se não definido.",
+            "fi": "HMAC-avain upotustunnusten allekirjoittamiseen. Kierrä säännöllisesti turvallisuuden vuoksi. Käyttää aitoustunnuksen salaista varavaihtoehtona jos ei asetettu.",
+            "hi": "एम्बेड टोकन पर हस्ताक्षर करने के लिए HMAC कुंजी। सुरक्षा के लिए नियमित रूप से रोटेट करें। यदि सेट नहीं है तो प्रामाणिकता टोकन सीक्रेट पर वापस जाता है।",
+            "ar": "مفتاح HMAC لتوقيع رموز التضمين. قم بتدويره بانتظام لأغراض الأمان. يعود إلى سر رمز الأصالة إذا لم يتم تعيينه.",
+            "ja": "埋め込みトークンに署名するためのHMACキー。セキュリティのため定期的にローテーションしてください。設定されていない場合は信頼性トークンシークレットにフォールバックします。"
+          },
+          "inputType": "password",
+          "visibleIf": "{embed_direct_global_enabled} = true",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "embed_direct_max_origins",
+          "title": {
+            "default": "Maximum origins per survey",
+            "de": "Maximale Anzahl von Ursprüngen pro Umfrage",
+            "en": "Maximum origins per survey",
+            "es": "Máximo de orígenes por encuesta",
+            "fr": "Nombre maximum d'origines par sondage",
+            "it": "Numero massimo di origini per sondaggio",
+            "pt": "Máximo de origens por pesquisa",
+            "fi": "Maksimi alkuperät per kysely",
+            "hi": "प्रति सर्वे अधिकतम ओरिजिन",
+            "ar": "الحد الأقصى للمصادر لكل استبيان",
+            "ja": "アンケートあたりの最大オリジン数"
+          },
+          "description": {
+            "default": "Limit the number of allowed origins per survey for security (1-100).",
+            "de": "Begrenzt die Anzahl erlaubter Ursprünge pro Umfrage aus Sicherheitsgründen (1-100).",
+            "en": "Limit the number of allowed origins per survey for security (1-100).",
+            "es": "Limita el número de orígenes permitidos por encuesta por seguridad (1-100).",
+            "fr": "Limite le nombre d'origines autorisées par sondage pour la sécurité (1-100).",
+            "it": "Limita il numero di origini consentite per sondaggio per sicurezza (1-100).",
+            "pt": "Limita o número de origens permitidas por pesquisa por segurança (1-100).",
+            "fi": "Rajoittaa sallittujen alkuperien määrää per kysely turvallisuussyistä (1-100).",
+            "hi": "सुरक्षा के लिए प्रति सर्वे अनुमत ओरिजिन की संख्या सीमित करें (1-100)।",
+            "ar": "يحد عدد المصادر المسموح بها لكل استبيان لأغراض الأمان (1-100).",
+            "ja": "セキュリティのため、アンケートあたりの許可されたオリジンの数を制限します（1-100）。"
+          },
+          "inputType": "number",
+          "min": 1,
+          "max": 100,
+          "defaultValue": 10,
+          "visibleIf": "{embed_direct_global_enabled} = true",
+          "width": "150px"
+        }
+      ]
     }
   ]
 }
