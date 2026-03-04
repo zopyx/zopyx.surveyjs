@@ -464,13 +464,6 @@
   />
 
   <browser:page
-    name="embed-surveyjs-bundle"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="zope2.View"
-    class=".embed_direct.EmbedSurveyJSBundleView"
-  />
-
-  <browser:page
     name="embed-direct-demo"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"

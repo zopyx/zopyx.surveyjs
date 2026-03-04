@@ -799,9 +799,6 @@ class Views(BrowserView):
         json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
-        logger.warning("[EMBED DEBUG] save_poll called")
-        logger.warning("[EMBED DEBUG] Method: %s", self.request.get("REQUEST_METHOD"))
-        
         # Handle CORS preflight for embed submissions.
         # OPTIONS requests carry no token — check method first, before token presence.
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
@@ -917,36 +914,33 @@ class Views(BrowserView):
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
         embed_token = self.request.get_header("X-Embed-Token")
         
-        logger.warning("[EMBED DEBUG] save_poll - Checking for embed submission")
-        logger.warning("[EMBED DEBUG] save_poll - origin=%s, has_token=%s", origin, bool(embed_token))
-        
         if origin and embed_token:
-            logger.warning("[EMBED DEBUG] save_poll - This is an embed submission, validating...")
             # This is a direct embed submission - validate it
             from .embed_security import (
                 validate_embed_token,
                 validate_origin,
                 set_cors_headers,
             )
-            
+            import logging as _logging
+            _audit = _logging.getLogger("zopyx.surveyjs.embed.audit")
+            remote_addr = self.request.get("REMOTE_ADDR", "")
+
             allowed_origins = list(
                 getattr(self.context, "embed_direct_origins", []) or []
             )
-            logger.warning("[EMBED DEBUG] save_poll - allowed_origins: %s", allowed_origins)
-            
+
             is_valid, normalized_origin, error_msg = validate_origin(
                 origin, allowed_origins
             )
-            logger.warning("[EMBED DEBUG] save_poll - validate_origin: is_valid=%s, normalized=%s, error=%s", is_valid, normalized_origin, error_msg)
-            
-            # Set CORS headers for all responses (including errors)
-            if normalized_origin:
+
+            # Only set CORS headers for allowlisted origins
+            if is_valid and normalized_origin:
                 set_cors_headers(self.request.response, normalized_origin)
-                logger.warning("[EMBED DEBUG] save_poll - CORS headers set")
-            
+
             if not is_valid:
-                logger.warning(
-                    "[EMBED DEBUG] Embed submission failed: status=403 reason=invalid_origin - %s", error_msg
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={"reason": "invalid_origin", "origin": origin, "remote_addr": remote_addr}
                 )
                 json_error(
                     self.request.response,
@@ -956,13 +950,13 @@ class Views(BrowserView):
                     extra={"isSuccess": False},
                 )
                 return
-            
+
             try:
                 validate_embed_token(embed_token, normalized_origin, secret=None)
-                logger.warning("[EMBED DEBUG] save_poll - Token validated successfully")
             except Exception as e:
-                logger.warning(
-                    "[EMBED DEBUG] Embed submission failed: status=403 reason=invalid_token - %s", e
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={"reason": "invalid_token", "origin": origin, "remote_addr": remote_addr}
                 )
                 json_error(
                     self.request.response,
@@ -972,7 +966,11 @@ class Views(BrowserView):
                     extra={"isSuccess": False},
                 )
                 return
-            
+
+            _audit.info(
+                "embed.submission.accepted",
+                extra={"origin": normalized_origin, "remote_addr": remote_addr}
+            )
             # Embed validation passed — skip trusted access and auth token checks
             pass
         else:

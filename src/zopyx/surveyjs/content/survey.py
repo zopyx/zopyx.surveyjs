@@ -3,7 +3,7 @@
 from plone.dexterity.content import Item
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
-from zope.interface import implementer
+from zope.interface import implementer, invariant, Invalid
 
 # from plone.supermodel.directives import fieldset
 # from z3c.form.browser.radio import RadioFieldWidget
@@ -54,19 +54,49 @@ survey_embedding_vocabulary = SimpleVocabulary(
 
 
 def validate_origin(value):
-    """Validate origin format: https://example.com or http://localhost:8000"""
-    import re
+    """Validate origin format: https://example.com or http://localhost:8000
+
+    Aligns with the runtime validator in embed_security.py:
+    - HTTPS is required for non-localhost origins
+    - HTTP is only allowed for localhost/127.0.0.1/::1
+    - No path, query, or fragment allowed
+    """
+    from urllib.parse import urlparse
     from zope.schema import ValidationError
 
     if not value:
         return True
-    # Allow https origins (production) and http origins (localhost development)
-    # Pattern matches: http://localhost:8000, https://example.com, https://example.com:8080
-    pattern = r"^(https?://)[a-zA-Z0-9][-a-zA-Z0-9.]*(:[0-9]+)?$"
-    if not re.match(pattern, value):
+
+    try:
+        parsed = urlparse(value)
+    except Exception:
+        raise ValidationError(_("Invalid origin format."))
+
+    hostname = parsed.hostname or ""
+    is_localhost = hostname in ("localhost", "127.0.0.1", "::1")
+
+    if parsed.scheme not in ("http", "https"):
         raise ValidationError(
             _("Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)")
         )
+
+    if parsed.scheme == "http" and not is_localhost:
+        raise ValidationError(
+            _("HTTP origins are only allowed for localhost (localhost, 127.0.0.1, ::1). "
+              "Use https:// for production origins.")
+        )
+
+    if parsed.path not in ("", "/") or parsed.query or parsed.fragment:
+        raise ValidationError(
+            _("Origin must not contain a path, query string, or fragment. "
+              "Example: https://example.com")
+        )
+
+    if not parsed.netloc:
+        raise ValidationError(
+            _("Invalid origin format. Use https://example.com or http://localhost:8000 (no path, no trailing slash)")
+        )
+
     return True
 
 survey_access_vocabulary = SimpleVocabulary(
@@ -398,6 +428,17 @@ class ISurvey(model.Schema):
         ),
         required=False,
     )
+
+    @invariant
+    def direct_embedding_requires_origins(data):
+        """When embedding_mode is 'direct', at least one allowed origin is required."""
+        mode = getattr(data, "embedding_mode", None)
+        origins = getattr(data, "embed_direct_origins", None) or []
+        if mode == "direct" and not origins:
+            raise Invalid(
+                _("Direct DOM embedding requires at least one allowed origin. "
+                  "Add an origin in the 'Embedding' tab before saving.")
+            )
 
 
 @implementer(ISurvey)
