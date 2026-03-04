@@ -363,8 +363,6 @@ class EmbedLoaderView(BrowserView):
       const surveyLink = document.createElement('link');
       surveyLink.rel = 'stylesheet';
       surveyLink.href = '{surveyjs_resource_url}/survey-core.min.css';
-      surveyLink.integrity = 'sha384-z60iTQUawIVkRa121zwDBSbPI8DtLkG/O2+5OP3mx1rS2KIZi9M4YG65YdRZa5LH';
-      surveyLink.crossOrigin = 'anonymous';
       this.shadowRoot.appendChild(surveyLink);
 
       // Inject base styles
@@ -470,26 +468,16 @@ class EmbedLoaderView(BrowserView):
 
       window.__surveyJSLoading = true;
 
-      const loadScript = (src, integrity) => new Promise((resolve, reject) => {{
+      const loadScript = (src) => new Promise((resolve, reject) => {{
         const s = document.createElement('script');
         s.src = src;
-        if (integrity) {{
-          s.integrity = integrity;
-          s.crossOrigin = 'anonymous';
-        }}
         s.onload = resolve;
         s.onerror = () => reject(new Error('Failed to load: ' + src));
         document.head.appendChild(s);
       }});
 
-      return loadScript(
-          '{surveyjs_resource_url}/survey.core.min.js',
-          'sha384-vpr7AlxUzv5tVMHXs6UCkk/Ye2W3mtsElxOMXTPCPPODn/V84poxcaS22gX4ayMW'
-        )
-        .then(() => loadScript(
-          '{surveyjs_resource_url}/survey-js-ui.min.js',
-          'sha384-i2sZm9nIIiMSCBvoDyXfwjSMjzKMm9To+DAaIDXv4FIAZnl8v3x+CRB3FhlxVe/n'
-        ))
+      return loadScript('{surveyjs_resource_url}/survey.core.min.js')
+        .then(() => loadScript('{surveyjs_resource_url}/survey-js-ui.min.js'))
         .then(() => {{ window.__surveyJSLoading = false; }})
         .catch((err) => {{ window.__surveyJSLoading = false; throw err; }});
     }}
@@ -654,8 +642,10 @@ class DirectEmbedDemoView(BrowserView):
         safe_origin = html.escape(origin)
         safe_expires_at = html.escape(str(expires_at))
         safe_token = html.escape(token)
-        # JSON-encode token for safe JS string literal in onclick attribute
-        js_token = json.dumps(token)
+        # JSON-encode token and HTML-escape it so it's safe inside a double-quoted attribute.
+        # json.dumps produces "token..." with double quotes; html.escape turns them into &quot;
+        # which browsers unescape correctly before executing the JS.
+        js_token = html.escape(json.dumps(token))
 
         self.request.response.setHeader("Content-Type", "text/html; charset=utf-8")
 

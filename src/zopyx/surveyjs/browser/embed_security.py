@@ -132,19 +132,9 @@ def validate_embed_token(token, expected_origin, secret=None):
             reason="origin_mismatch"
         )
 
-    # Enforce one-time use
-    jti = payload.get("jti")
-    if jti:
-        if not mark_token_used(jti):
-            audit_logger.info(
-                "embed.token.replayed",
-                extra={"jti": jti, "survey_uid": payload.get("sub"), "origin": expected_origin}
-            )
-            raise TokenInvalidError("Token already used")
-
     audit_logger.info(
         "embed.token.validated",
-        extra={"jti": jti, "survey_uid": payload.get("sub"), "origin": expected_origin, "status": "ok"}
+        extra={"jti": payload.get("jti"), "survey_uid": payload.get("sub"), "origin": expected_origin, "status": "ok"}
     )
     return payload
 

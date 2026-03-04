@@ -920,6 +920,8 @@ class Views(BrowserView):
                 validate_embed_token,
                 validate_origin,
                 set_cors_headers,
+                mark_token_used,
+                TokenInvalidError as EmbedTokenInvalidError,
             )
             import logging as _logging
             _audit = _logging.getLogger("zopyx.surveyjs.embed.audit")
@@ -952,7 +954,7 @@ class Views(BrowserView):
                 return
 
             try:
-                validate_embed_token(embed_token, normalized_origin, secret=None)
+                payload = validate_embed_token(embed_token, normalized_origin, secret=None)
             except Exception as e:
                 _audit.info(
                     "embed.submission.rejected",
@@ -967,9 +969,27 @@ class Views(BrowserView):
                 )
                 return
 
+            # Enforce one-time use here (on submission), not on config fetch.
+            # This allows the same token to be used for @@embed-config and
+            # exactly one @@save-poll submission.
+            jti = payload.get("jti")
+            if jti and not mark_token_used(jti):
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={"reason": "token_replayed", "origin": normalized_origin, "remote_addr": remote_addr}
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "token_already_used",
+                    message="Token already used",
+                    extra={"isSuccess": False},
+                )
+                return
+
             _audit.info(
                 "embed.submission.accepted",
-                extra={"origin": normalized_origin, "remote_addr": remote_addr}
+                extra={"jti": jti, "origin": normalized_origin, "remote_addr": remote_addr}
             )
             # Embed validation passed — skip trusted access and auth token checks
             pass
