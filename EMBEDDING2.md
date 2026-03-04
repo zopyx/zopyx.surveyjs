@@ -1,1245 +1,629 @@
-# Direct DOM Embedding Concept for zopyx.surveyjs
+# Direct DOM Embedding — Implementation & Security Audit
 
-**Status:** Design Document  
-**Version:** 1.0  
-**Date:** 2026-03-04  
+**Status:** Partial Implementation / Security Review Required
+**Version:** 2.0
+**Date:** 2026-03-04
 **Classification:** Security-Critical Feature
-
----
-
-## Executive Summary
-
-This document describes a new **Direct DOM Embedding** mode for `zopyx.surveyjs` that enables seamless integration of forms directly into the DOM of external websites, as an alternative to the existing iframe-based approach. This mode trades the isolation benefits of iframes for deeper integration capabilities while implementing multiple layers of security controls to mitigate the associated risks.
-
-**Key Design Principles:**
-1. **Security First**: Defense in depth with multiple independent security layers
-2. **Opt-in Only**: Requires explicit enablement per survey with strict validation
-3. **Origin Control**: Cryptographic origin validation with allowlist enforcement
-4. **Isolation via Shadow DOM**: Style and DOM isolation even without iframes
-5. **Auditability**: Complete logging of all embedding activities
 
 ---
 
 ## Table of Contents
 
-1. [Threat Model](#threat-model)
-2. [Security Architecture](#security-architecture)
-3. [Technical Implementation](#technical-implementation)
-4. [API Specification](#api-specification)
-5. [Code Changes Required](#code-changes-required)
-6. [Implementation Plan](#implementation-plan)
-7. [Testing Strategy](#testing-strategy)
-8. [Deployment Considerations](#deployment-considerations)
+1. [Current Implementation State](#current-implementation-state)
+2. [Architecture (As Built)](#architecture-as-built)
+3. [API Reference](#api-reference)
+4. [Security Audit](#security-audit)
+5. [Threat Model (Revised)](#threat-model-revised)
+6. [Required Fixes Before Production](#required-fixes-before-production)
+7. [Deployment Checklist](#deployment-checklist)
 
 ---
 
-## Threat Model
+## Current Implementation State
 
-### Attack Vectors Addressed
+### What Is Implemented
 
-| Threat | Severity | Mitigation |
-|--------|----------|------------|
-| **Clickjacking** | Critical | Shadow DOM encapsulation + CSP frame-ancestors + X-Frame-Options |
-| **XSS via Malicious Host** | Critical | Strict origin validation, CORS, token-based authentication |
-| **Data Exfiltration** | High | CORS preflight validation, signed payloads, origin allowlist |
-| **CSRF** | High | CSRF tokens + origin validation + SameSite cookies |
-| **DOM Pollution** | Medium | Shadow DOM isolation, sanitized CSS injection |
-| **Replay Attacks** | Medium | Short-lived tokens, nonce validation, request signing |
-| **Host Site Compromise** | High | Isolated execution context, strict CSP, no eval() |
-
-### Trust Boundaries
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     UNTRUSTED ZONE                               │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
-│  │  Host Site   │    │  Attacker    │    │   Malicious  │      │
-│  │   (Client)   │    │   Scripts    │    │    Styles    │      │
-│  └──────┬───────┘    └──────────────┘    └──────────────┘      │
-│         │                                                        │
-│         │  1. Script injection with origin claim                  │
-│         ▼                                                        │
-│  ┌─────────────────────────────────────────────────────────────┐│
-│  │              TRUST BOUNDARY: Origin Validation               ││
-│  │         (CORS + Cryptographic Origin Verification)           ││
-│  └─────────────────────────────────────────────────────────────┘│
-│         │                                                        │
-│         ▼                                                        │
-│  ┌─────────────────────────────────────────────────────────────┐│
-│  │                    TRUSTED ZONE (Controlled)                 ││
-│  │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  ││
-│  │  │  Shadow DOM  │    │   Sandboxed  │    │   Form JS    │  ││
-│  │  │   Container  │◄───│   Execution  │◄───│   Runtime    │  ││
-│  │  │              │    │   Context    │    │              │  ││
-│  │  └──────────────┘    └──────────────┘    └──────────────┘  ││
-│  └─────────────────────────────────────────────────────────────┘│
-└─────────────────────────────────────────────────────────────────┘
-```
+| Component | File | Status |
+|-----------|------|--------|
+| Token generation (`@@embed-token`) | `browser/embed_direct.py` | ✅ Implemented |
+| Token validation (HMAC) | `browser/embed_security.py` | ✅ Implemented |
+| Origin allowlist validation | `browser/embed_security.py` | ✅ Implemented |
+| CORS handling for `@@embed-config` | `browser/embed_direct.py` | ✅ Implemented |
+| CORS preflight for `@@save-poll` | `browser/views.py` | ✅ Implemented |
+| Shadow DOM isolation | `browser/embed_direct.py` (generated JS) | ✅ Implemented |
+| `survey-core.min.css` in Shadow DOM | `browser/embed_direct.py` | ✅ Implemented |
+| Local SurveyJS loading (no CDN) | `browser/embed_direct.py` | ✅ Implemented |
+| `@@embed-direct-demo` with token display | `browser/embed_direct.py` | ✅ Implemented |
+| Global enable/disable flag | `browser/controlpanel.py` | ✅ Implemented |
+| Per-survey origin allowlist | `content/survey.py` | ✅ Implemented |
+| Diskcache token store | `browser/embed_security.py` | ✅ Implemented |
+| **One-time token use (replay protection)** | `browser/embed_security.py` | ❌ **NOT enforced** |
+| **MessageChannel secure communication** | — | ❌ Not implemented |
+| **Rate limiting** | — | ❌ Not implemented |
+| **Audit logging** | — | ❌ Not implemented (debug logs only) |
+| **SRI for SurveyJS bundle** | `browser/embed_direct.py` | ❌ Not implemented |
+| **CSP headers on embed endpoints** | — | ❌ Not implemented |
 
 ---
 
-## Security Architecture
+## Architecture (As Built)
 
-### Layer 1: Origin Authentication & CORS
+### Request Flow
 
-**Problem:** The host site claims to be `trusted-domain.com` but could be an attacker.
-
-**Solution:**
-1. **Pre-registered Origin Allowlist**: Survey administrators must explicitly register allowed origins
-2. **Cryptographic Origin Binding**: Each embedded form instance is bound to a specific origin via HMAC
-3. **CORS with Credentials**: Strict CORS policy that validates against the allowlist
-4. **Origin Header Verification**: Server-side validation of `Origin` header against registered values
-
-```python
-# Origin validation pseudocode
-def validate_origin(request, survey):
-    origin = request.get_header('Origin') or request.get_header('Referer')
-    allowed_origins = survey.embed_direct_origins  # List of registered origins
-    
-    if not origin:
-        return False, "Origin header required"
-    
-    parsed = urlparse(origin)
-    if parsed.scheme not in ('https',):
-        return False, "HTTPS required"
-    
-    origin_host = f"{parsed.scheme}://{parsed.netloc}"
-    if origin_host not in allowed_origins:
-        return False, "Origin not in allowlist"
-    
-    return True, origin_host
+```
+External page (http://localhost:8000/demo.html)
+    │
+    │  1. User calls @@embed-token (POST, requires Modify portal content)
+    │     → Plone validates origin against allowlist
+    │     → Returns signed JWT-style token (HMAC-SHA256)
+    │
+    │  2. Browser loads @@embed-loader script
+    │     → Returns dynamically generated JavaScript
+    │     → No-cache headers; CORS open to any origin
+    │
+    │  3. <surveyjs-embed> element connects
+    │     → Shadow DOM created
+    │     → survey-core.min.css loaded via <link> in shadow root
+    │     → survey.core.min.js + survey-js-ui.min.js loaded
+    │       from ++resource++zopyx.surveyjs/surveyjs/ (cross-origin <script>)
+    │
+    │  4. GET @@embed-config
+    │     → Origin validated against allowlist
+    │     → HMAC token validated (signature + expiry + origin binding)
+    │     → Survey UID in token compared to context UID
+    │     → Returns form JSON + session_id + csrf_token
+    │
+    │  5. POST @@save-poll
+    │     → OPTIONS preflight handled (CORS headers returned for any origin)
+    │     → Origin validated against allowlist
+    │     → HMAC token validated
+    │     → _require_trusted_access() SKIPPED
+    │     → _require_auth_token() SKIPPED
+    │     → Form data stored/mailed/posted per survey configuration
+    └──────────────────────────────────────────────────────────────
 ```
 
-### Layer 2: Token-Based Authentication
+### Token Structure
 
-**Problem:** Even with origin validation, we need to authenticate each embedding request.
+```
+header.payload.signature
 
-**Solution:**
-1. **Embedding Token**: Short-lived JWT-style tokens issued per embedding session
-2. **Token Binding**: Tokens are bound to the registered origin (cannot be reused on different origins)
-3. **One-Time Use**: Tokens are single-use for form initialization (replay protection)
-4. **Time-Bounded**: Tokens expire after a short window (e.g., 5 minutes)
-
-```python
-# Token structure
-token_payload = {
+header  = base64url({"alg":"HS256","typ":"JWT"})
+payload = base64url({
     "iss": "privacyforms.studio",
     "aud": "embed-client",
-    "sub": survey_uid,
-    "origin": "https://trusted-site.com",  # Bound to specific origin
-    "exp": datetime.utcnow() + timedelta(minutes=5),
-    "nonce": secrets.token_urlsafe(16),
-    "jti": uuid.uuid4().hex,  # Unique token ID
-}
+    "sub": "<survey_uid>",
+    "origin": "https://example.com",
+    "iat": <unix_timestamp>,
+    "exp": <unix_timestamp>,
+    "jti": "<random_16_bytes_urlsafe>",
+    "nonce": "<random_16_bytes_urlsafe>"
+})
+signature = base64url(HMAC-SHA256(header + "." + payload, signing_key))
 ```
 
-### Layer 3: Shadow DOM Isolation
+**Note:** This is a custom JWT-style implementation, not a standards-compliant JWT library.
 
-**Problem:** Host site CSS/JavaScript can interfere with the form.
+### Key Files
 
-**Solution:**
-1. **Open Shadow DOM**: Renders form inside shadow root for style isolation
-2. **CSS Reset Injection**: Injected CSS reset that cannot be overridden by host
-3. **Event Boundary**: Form events are encapsulated within shadow boundary
-4. **No External Dependencies**: Bundled, minified JavaScript with no external CDN deps
-
-```javascript
-// Shadow DOM encapsulation
-class SurveyJSEmbed extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    
-    // Inject isolated styles
-    const style = document.createElement('style');
-    style.textContent = SURVEY_CSS_BUNDLE;  // Bundled CSS, no external refs
-    this.shadowRoot.appendChild(style);
-    
-    // Create isolated container
-    this.container = document.createElement('div');
-    this.container.className = 'surveyjs-embed-container';
-    this.shadowRoot.appendChild(this.container);
-  }
-}
-customElements.define('surveyjs-embed', SurveyJSEmbed);
-```
-
-### Layer 4: Communication Security
-
-**Problem:** Need to communicate between host and form securely.
-
-**Solution:**
-1. **No Direct DOM Access**: Host cannot access form internals via DOM queries
-2. **MessageChannel API**: Dedicated, unguessable communication channel
-3. **Message Authentication**: All messages are signed with HMAC
-4. **Origin Verification**: Each message verified against the registered origin
-
-```javascript
-// Secure communication via MessageChannel
-const channel = new MessageChannel();
-
-// Port is transferred to the embedded form
-formElement.contentWindow.postMessage({
-  type: 'INIT_CHANNEL',
-  token: embedToken,
-  port: channel.port2
-}, origin, [channel.port2]);
-
-// All subsequent communication through the dedicated port
-channel.port1.onmessage = (event) => {
-  // Verify message signature
-  if (!verifyHMAC(event.data, sharedSecret)) {
-    return;
-  }
-  // Process message...
-};
-```
-
-### Layer 5: CSP and Security Headers
-
-**Headers for embed endpoint:**
-```http
-Content-Security-Policy: 
-  default-src 'none';
-  script-src 'self' 'nonce-{random}';
-  style-src 'self' 'unsafe-inline';  /* Required for dynamic theming */
-  connect-src 'self' {api_origin};
-  frame-ancestors {allowed_origin};  /* Specific origin, not wildcard */
-  base-uri 'none';
-  form-action 'none';
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY  /* Deny framing, we're in shadow DOM not iframe */
-Referrer-Policy: strict-origin-when-cross-origin
-```
+| File | Purpose |
+|------|---------|
+| `browser/embed_direct.py` | All embed views + dynamically generated JS |
+| `browser/embed_security.py` | Token generation/validation, CORS helpers, origin validation |
+| `browser/views.py` | `save_poll()` with embed submission handling |
+| `content/survey.py` | Schema fields: `embedding_mode`, `embed_direct_origins`, `embed_direct_token_ttl` |
+| `browser/controlpanel.py` | `embed_direct_global_enabled`, signing key, max origins |
+| `embedding/demo.html` | Standalone test page (not part of Plone) |
 
 ---
 
-## Technical Implementation
+## API Reference
 
-### Component Overview
+### `POST /{survey-path}/@@embed-token`
 
-```
-┌────────────────────────────────────────────────────────────────────┐
-│                         External Website                            │
-│  ┌──────────────────────────────────────────────────────────────┐  │
-│  │                     Host Page HTML                            │  │
-│  │  <script src="https://plone-site.com/embed-loader.js"></script>│  │
-│  │  <surveyjs-embed survey="uid" token="jwt"></surveyjs-embed>   │  │
-│  └──────────────────────────────────────────────────────────────┘  │
-│                              │                                      │
-│  ┌───────────────────────────▼────────────────────────────────────┐│
-│  │                 Shadow DOM (Isolated Context)                   ││
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐ ││
-│  │  │ Form Renderer│  │  Event Bus  │  │  Secure API Client      │ ││
-│  │  │  (SurveyJS) │  │  (Pub/Sub)  │  │  (Token + Sig)          │ ││
-│  │  └─────────────┘  └─────────────┘  └─────────────────────────┘ ││
-│  └────────────────────────────────────────────────────────────────┘│
-└────────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼ HTTPS + CORS
-┌────────────────────────────────────────────────────────────────────┐
-│                         Plone Backend                               │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌────────────┐ │
-│  │ Embed Token │  │  Origin     │  │   Form      │  │ Submission │ │
-│  │  Service    │  │ Validator   │  │   Service   │  │  Handler   │ │
-│  └─────────────┘  └─────────────┘  └─────────────┘  └────────────┘ │
-└────────────────────────────────────────────────────────────────────┘
-```
+**Permission:** `cmf.ModifyPortalContent`
 
-### New Content Schema Fields
-
-Add to `ISurvey` schema in `content/survey.py`:
-
-```python
-# New vocabulary for embedding modes
-survey_embedding_vocabulary = SimpleVocabulary([
-    SimpleTerm(value="none", title=_("None")),
-    SimpleTerm(value="iframe", title=_("Iframe")),
-    SimpleTerm(value="direct", title=_("Direct DOM (experimental)")),
-])
-
-# New fields in ISurvey interface
-class ISurvey(model.Schema):
-    # ... existing fields ...
-    
-    embedding_mode = schema.Choice(
-        title=_("Embedding mode"),
-        description=_(
-            "Controls whether this survey may be embedded. "
-            "Direct DOM embedding allows seamless integration but requires "
-            "careful security configuration."
-        ),
-        vocabulary=survey_embedding_vocabulary,
-        required=True,
-        default="none",
-    )
-    
-    # Direct DOM embedding specific fields
-    embed_direct_origins = schema.List(
-        title=_("Allowed origins for direct embedding"),
-        description=_(
-            "List of origins allowed to embed this survey via direct DOM. "
-            "Format: https://example.com (no trailing slash). "
-            "Required when embedding mode is 'Direct DOM'."
-        ),
-        value_type=schema.URI(
-            title=_("Origin"),
-            description=_("HTTPS origin")
-        ),
-        required=False,
-        defaultFactory=list,
-    )
-    
-    embed_direct_token_ttl = schema.Int(
-        title=_("Embed token TTL (seconds)"),
-        description=_("Lifetime of embedding tokens in seconds."),
-        required=False,
-        default=300,  # 5 minutes
-        min=60,
-        max=3600,
-    )
-    
-    embed_direct_require_sri = schema.Bool(
-        title=_("Require Subresource Integrity"),
-        description=_(
-            "When enabled, the embed script must include a valid "
-            "integrity attribute matching the expected hash."
-        ),
-        required=False,
-        default=True,
-    )
-```
-
-### New Registry Settings
-
-Add to `IFormsSettings` in `interfaces.py`:
-
-```python
-class IFormsSettings(IPloneLoggingSettings):
-    # ... existing fields ...
-    
-    fieldset(
-        "embed_direct",
-        label="Direct DOM Embedding",
-        fields=(
-            "embed_direct_global_enabled",
-            "embed_direct_signing_key",
-            "embed_direct_default_origins",
-            "embed_direct_max_origins",
-        ),
-    )
-    
-    embed_direct_global_enabled = schema.Bool(
-        title="Enable Direct DOM Embedding globally",
-        description="Master switch for the direct DOM embedding feature.",
-        required=False,
-        default=False,  # Opt-in at site level
-    )
-    
-    embed_direct_signing_key = schema.Password(
-        title="Embed Token Signing Key",
-        description="HMAC key for signing embed tokens. Rotate regularly.",
-        required=False,
-        default="",
-    )
-    
-    embed_direct_max_origins = schema.Int(
-        title="Maximum origins per survey",
-        description="Limit the number of allowed origins for security.",
-        required=False,
-        default=10,
-        min=1,
-        max=100,
-    )
-```
-
----
-
-## API Specification
-
-### 1. Token Generation Endpoint
-
-**URL:** `POST /{survey-path}/@@embed-token`
-
-**Permission:** `cmf.ModifyPortalContent` (only form owners can generate tokens)
-
-**Request:**
+**Request body:**
 ```json
-{
-  "origin": "https://example.com",
-  "ttl_seconds": 300
-}
+{"origin": "https://example.com", "ttl_seconds": 300}
 ```
 
 **Response:**
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIs...",
-  "expires_at": "2026-03-04T12:00:00Z",
+  "token": "<header.payload.signature>",
+  "expires_at": "2026-03-04T12:00:00+00:00",
   "origin": "https://example.com",
-  "survey_uid": "abc123",
-  "embed_url": "https://plone-site.com/embed-loader.js"
+  "survey_uid": "<uid>",
+  "embed_url": "https://plone.example.com/path/to/survey/@@embed-loader"
 }
 ```
 
-### 2. Form Configuration Endpoint
+**Validation chain:** global enabled → `embedding_mode == "direct"` → origin in allowlist → token generated and stored in diskcache.
 
-**URL:** `GET /{survey-path}/@@embed-config`
+---
 
-**Headers:**
-```http
+### `GET /{survey-path}/@@embed-config`
+
+**Permission:** `zope2.View`
+
+**Required headers:**
+```
 Origin: https://example.com
-X-Embed-Token: eyJhbGciOiJIUzI1NiIs...
+X-Embed-Token: <token>
 ```
 
-**Response (CORS-enabled):**
+**Response:**
 ```json
 {
-  "form_json": { /* SurveyJS form definition */ },
-  "form_version": "v1.2.3",
-  "csrf_token": "...",
-  "submit_endpoint": "https://plone-site.com/{survey-path}/@@save-poll",
-  "session_id": "uuid-for-this-session"
+  "form_json": {...},
+  "form_version": "<version_id>",
+  "csrf_token": "<plone_auth_token>",
+  "submit_endpoint": "https://plone.example.com/path/@@save-poll",
+  "session_id": "<random_16_bytes>"
 }
 ```
 
-### 3. Submission Endpoint (Enhanced)
+**Validation chain:** preflight → origin in allowlist → token signature + expiry + origin binding + survey UID match.
 
-The existing `@@save-poll` endpoint needs enhancement:
-
-**Additional Headers:**
-```http
-Origin: https://example.com
-X-Embed-Token: eyJhbGciOiJIUzI1NiIs...
-X-Session-ID: uuid-for-this-session
-```
-
-**Validation:**
-1. Verify `Origin` header matches token-bound origin
-2. Verify token signature and expiration
-3. Verify `session_id` is valid
-4. Apply existing `save_poll` validations
-
-### 4. Embed Loader Script
-
-**URL:** `GET /embed-loader.js`
-
-**Response:** Bundled JavaScript containing:
-- Shadow DOM Web Component definition
-- Secure API client
-- MessageChannel setup
-- SurveyJS runtime (bundled, no CDN)
-
-**Security:**
-- Served with `Content-Type: application/javascript; charset=utf-8`
-- Subresource Integrity hash available via separate endpoint
-- Minified and obfuscated
+**CORS headers set on ALL responses** (including 403 errors) using the raw `Origin` header value.
 
 ---
 
-## Code Changes Required
+### `GET /{survey-path}/@@embed-loader`
 
-### 1. Content Schema (`content/survey.py`)
+**Permission:** `zope2.View`
 
-```python
-# Add new fields to ISurvey interface
-# Lines to add after existing embedding_mode field:
+Returns dynamically generated JavaScript. Content includes hardcoded URLs to:
+- `{portal_url}/++resource++zopyx.surveyjs/surveyjs/survey.core.min.js`
+- `{portal_url}/++resource++zopyx.surveyjs/surveyjs/survey-js-ui.min.js`
+- `{portal_url}/++resource++zopyx.surveyjs/surveyjs/survey-core.min.css`
 
-from zope.schema import ValidationError
-import re
+**Headers:** `Cache-Control: no-cache, no-store, must-revalidate`
 
-class InvalidOriginError(ValidationError):
-    __doc__ = "Invalid origin format. Use https://example.com (no path, no trailing slash)"
+CORS: `Access-Control-Allow-Origin` set to any requesting `Origin`.
 
+---
 
-def validate_origin(value):
-    """Validate origin format: https://example.com"""
-    if not value:
-        return True
-    pattern = r'^https://[a-zA-Z0-9][-a-zA-Z0-9.]*(:[0-9]+)?$'
-    if not re.match(pattern, value):
-        raise InvalidOriginError()
-    return True
+### `POST /{survey-path}/@@save-poll`
 
+**Permission:** `zope2.View` (embed path bypasses Plone auth entirely)
 
-class ISurvey(model.Schema):
-    # ... existing fields ...
-    
-    # Updated embedding_mode vocabulary
-    embedding_mode = schema.Choice(
-        title=_("Embedding mode"),
-        description=_(
-            "Controls whether this survey may be embedded. "
-            "Iframe is the recommended secure option. "
-            "Direct DOM embedding allows seamless integration but "
-            "requires careful origin configuration."
-        ),
-        vocabulary=survey_embedding_vocabulary,  # Updated with 'direct' option
-        required=True,
-        default="none",
-    )
-    
-    # New fields for direct embedding
-    embed_direct_origins = schema.List(
-        title=_("Allowed origins for direct embedding"),
-        description=_(
-            "Origins allowed to embed this survey. Format: https://example.com "
-            "Required for Direct DOM mode. Max 10 origins."
-        ),
-        value_type=schema.TextLine(
-            title=_("Origin"),
-            constraint=validate_origin,
-        ),
-        required=False,
-        defaultFactory=list,
-        max_length=10,
-    )
-    
-    embed_direct_token_ttl = schema.Int(
-        title=_("Embed token TTL (seconds)"),
-        description=_("Lifetime of embedding tokens. 60-3600 seconds."),
-        required=False,
-        default=300,
-        min=60,
-        max=3600,
-    )
-    
-    @invariant
-    def validate_embed_direct_config(data):
-        """Validate that direct embedding config is complete when enabled."""
-        if data.embedding_mode == "direct":
-            if not data.embed_direct_origins:
-                raise InvalidValueError(
-                    "At least one allowed origin is required for Direct DOM embedding"
-                )
-            # Check global setting
-            # (will be checked in view code to avoid circular imports)
-```
+For embed submissions (identified by `Origin` + `X-Embed-Token` headers):
+- Runs origin validation and token validation
+- **Skips** `_require_trusted_access()`
+- **Skips** `_require_auth_token()`
+- Proceeds directly to form action execution (store/mail/post)
 
-### 2. New Views (`browser/views.py`)
+---
 
-Add new view classes:
+## Security Audit
+
+This section is a critical analysis of the current implementation. Issues are rated by severity.
+
+---
+
+### 🔴 CRITICAL
+
+#### C1 — Replay Attacks: One-Time Token Use Not Enforced
+
+`mark_token_used()` exists in `embed_security.py` and correctly implements single-use tracking via diskcache. **It is never called.**
 
 ```python
-class EmbedDirectTokenView(Views):
-    """Generate embedding tokens for direct DOM embedding."""
-    
-    def __call__(self):
-        """POST endpoint to generate embed tokens."""
-        # Check permission
-        if not self.can_manage_portal_content:
-            json_error(self.request.response, 403, "permission_denied")
-            return
-        
-        # Check if direct embedding is enabled globally
-        if not self._embed_direct_global_enabled():
-            json_error(self.request.response, 403, "feature_disabled")
-            return
-        
-        # Check survey embedding mode
-        if getattr(self.context, "embedding_mode", None) != "direct":
-            json_error(self.request.response, 400, "direct_embedding_not_enabled")
-            return
-        
-        # Parse request
-        try:
-            body = json.loads(self.request.get("BODY", "{}"))
-        except json.JSONDecodeError:
-            json_error(self.request.response, 400, "invalid_json")
-            return
-        
-        origin = body.get("origin", "").strip()
-        ttl = body.get("ttl_seconds", 300)
-        
-        # Validate origin against allowlist
-        allowed_origins = getattr(self.context, "embed_direct_origins", []) or []
-        if origin not in allowed_origins:
-            json_error(self.request.response, 403, "origin_not_allowed")
-            return
-        
-        # Generate token
-        token, metadata = self._generate_embed_token(origin, ttl)
-        
-        json_response(self.request.response, {
-            "token": token,
-            "expires_at": metadata["expires_at"],
-            "origin": origin,
-            "survey_uid": self._form_id(),
-            "embed_url": f"{self.context.absolute_url()}/@@embed-loader",
-        })
-    
-    def _embed_direct_global_enabled(self):
-        """Check if direct embedding is enabled globally."""
-        settings = self._get_forms_settings()
-        if not settings:
-            return False
-        return getattr(settings, "embed_direct_global_enabled", False)
-    
-    def _generate_embed_token(self, origin: str, ttl: int) -> tuple:
-        """Generate cryptographically secure embed token."""
-        settings = self._get_forms_settings()
-        secret = getattr(settings, "embed_direct_signing_key", "")
-        
-        # Fallback to authenticity token secret if embed secret not set
-        if not secret:
-            secret = getattr(settings, "authenticity_token_secret", "")
-        
-        issued_at = int(time.time())
-        expires_at = issued_at + min(max(ttl, 60), 3600)
-        
-        payload = {
-            "iss": "privacyforms.studio",
-            "aud": "embed-client",
-            "sub": self._form_id(),
-            "origin": origin,
-            "iat": issued_at,
-            "exp": expires_at,
-            "jti": uuid.uuid4().hex,
-            "nonce": secrets.token_urlsafe(16),
-        }
-        
-        # Sign token
-        token = build_embed_token(payload, secret)
-        
-        # Cache token metadata for validation
-        self._cache_embed_token(payload)
-        
-        metadata = {
-            "expires_at": datetime.fromtimestamp(expires_at, tz=timezone.utc).isoformat(),
-        }
-        
-        return token, metadata
+# embed_security.py — exists but unused:
+def mark_token_used(jti):
+    cache = _get_embed_cache()
+    ...
+    was_added = cache.add(cache_key, True, expire=3600)
+    return was_added
 
-
-class EmbedConfigView(Views):
-    """Serve form configuration to embedded clients with CORS."""
-    
-    def __call__(self):
-        """Return form JSON with CORS headers for validated requests."""
-        # Validate origin
-        origin = self.request.get_header("Origin")
-        is_valid, error_msg = self._validate_origin(origin)
-        if not is_valid:
-            json_error(self.request.response, 403, "invalid_origin", message=error_msg)
-            return
-        
-        # Validate token
-        token = self.request.get_header("X-Embed-Token")
-        if not self._validate_embed_token(token, origin):
-            json_error(self.request.response, 403, "invalid_token")
-            return
-        
-        # Set CORS headers
-        self.request.response.setHeader("Access-Control-Allow-Origin", origin)
-        self.request.response.setHeader("Access-Control-Allow-Credentials", "true")
-        self.request.response.setHeader("Vary", "Origin")
-        
-        # Get form data
-        annos = IAnnotations(self.context)
-        form_versions = forms_service.sorted_form_versions(annos)
-        form_data = form_versions[-1]["form_json"] if form_versions else {}
-        form_version_id = form_versions[-1]["id"] if form_versions else ""
-        
-        # Generate session ID
-        session_id = secrets.token_urlsafe(16)
-        self._store_session(session_id, origin)
-        
-        json_response(self.request.response, {
-            "form_json": form_data,
-            "form_version": form_version_id,
-            "csrf_token": self._generate_csrf_token(),
-            "submit_endpoint": f"{self.context.absolute_url()}/@@save-poll",
-            "session_id": session_id,
-        })
-    
-    def _validate_origin(self, origin: str) -> tuple:
-        """Validate origin against allowlist."""
-        if not origin:
-            return False, "Origin header required"
-        
-        # Parse and normalize
-        try:
-            parsed = urlparse(origin)
-        except Exception:
-            return False, "Invalid origin format"
-        
-        # Require HTTPS
-        if parsed.scheme != "https":
-            return False, "HTTPS required"
-        
-        # No path, query, or fragment allowed
-        if parsed.path not in ("", "/") or parsed.query or parsed.fragment:
-            return False, "Origin must not contain path or query"
-        
-        origin_host = f"{parsed.scheme}://{parsed.netloc}"
-        
-        # Check against allowlist
-        allowed = getattr(self.context, "embed_direct_origins", []) or []
-        if origin_host not in allowed:
-            return False, "Origin not in allowlist"
-        
-        return True, origin_host
-
-
-class EmbedLoaderView(Views):
-    """Serve the embed loader JavaScript bundle."""
-    
-    def __call__(self):
-        """Return the JavaScript bundle for direct DOM embedding."""
-        self.request.response.setHeader("Content-Type", "application/javascript; charset=utf-8")
-        self.request.response.setHeader("X-Content-Type-Options", "nosniff")
-        
-        # Return bundled JavaScript
-        # In production, this would be a pre-built bundle
-        return self._get_embed_js_bundle()
+# validate_embed_token() — no call to mark_token_used:
+def validate_embed_token(token, expected_origin, secret=None):
+    ...
+    return payload  # ← mark_token_used(payload["jti"]) never called
 ```
 
-### 3. Enhanced Save Poll (`browser/views.py`)
+**Impact:** A single embed token can be used to submit the same form an unlimited number of times during its TTL window. An attacker who intercepts or copies a token (e.g., from browser DevTools, network traffic, logs, or the demo page) can flood the survey with fake submissions. With the default 300-second TTL, thousands of submissions are possible per token.
 
-Modify existing `save_poll` method to handle embed submissions:
+**Fix:** Call `mark_token_used(payload["jti"])` inside `validate_embed_token()` or in `EmbedConfigView` after successful validation, and reject tokens where `mark_token_used()` returns False.
+
+---
+
+#### C2 — CORS Preflight Accepts Any Origin
+
+`handle_cors_preflight()` responds with CORS success headers for **any** origin, even origins not in the allowlist:
 
 ```python
-def save_poll(self):
-    """Enhanced to support direct DOM embed submissions."""
-    
-    # Check if this is an embed submission
-    origin = self.request.get_header("Origin")
-    embed_token = self.request.get_header("X-Embed-Token")
-    
-    if origin and embed_token:
-        # This is an embed submission - validate it
-        if not self._validate_embed_submission(origin, embed_token):
-            json_error(self.request.response, 403, "embed_validation_failed")
-            return
-        
-        # Set CORS headers for response
-        self.request.response.setHeader("Access-Control-Allow-Origin", origin)
-        self.request.response.setHeader("Access-Control-Allow-Credentials", "true")
-    else:
-        # Regular submission - check if embedding mode allows it
-        embed_mode = getattr(self.context, "embedding_mode", "none")
-        if embed_mode == "direct":
-            # Direct embed mode requires origin/token
-            json_error(self.request.response, 403, "embed_token_required")
-            return
-    
-    # ... continue with existing save_poll logic ...
-
-
-def _validate_embed_submission(self, origin: str, token: str) -> bool:
-    """Validate an embed submission."""
-    # Validate origin
-    is_valid, _ = self._validate_origin(origin)
-    if not is_valid:
-        return False
-    
-    # Validate token
-    if not self._validate_embed_token(token, origin):
-        return False
-    
-    return True
+# embed_security.py
+elif origin:
+    # "Always set Allow-Origin... for preflight to avoid browser errors"
+    response.setHeader("Access-Control-Allow-Origin", origin)
+    response.setHeader("Access-Control-Allow-Credentials", "true")
+    ...
+response.setStatus(204)
+return True
 ```
 
-### 4. JavaScript Embed Client
+**Impact:** Any website in the world can successfully complete a CORS preflight to `@@embed-config` and `@@save-poll`. The actual request will then be rejected with 403, but:
 
-New file: `browser/static/embed-client.js`
+1. The browser's CORS preflight cache stores the result — so browsers will proceed to make the actual request, incurring server-side processing for every reject.
+2. It leaks that the endpoint exists and what headers it accepts.
+3. The `Access-Control-Allow-Credentials: true` in the preflight from an unrecognized origin is strictly incorrect — it implies credentials may be sent from that origin.
+4. This completely undermines the purpose of the allowlist at the preflight stage.
+
+**Fix:** Return 204 with **no CORS headers** for unrecognized origins. Browsers will then block the actual request client-side without sending it.
+
+---
+
+#### C3 — Authentication Completely Bypassed for Embed Submissions
+
+For any request to `@@save-poll` that includes both an `Origin` header and a valid `X-Embed-Token`, Plone's entire authentication stack is bypassed:
+
+```python
+# views.py
+if origin and embed_token:
+    # validate origin + token...
+    pass  # ← falls through to form processing
+else:
+    if not self._require_trusted_access():  # ← SKIPPED for embeds
+        return
+    if not self._require_auth_token(form_version_id or ""):  # ← SKIPPED
+        return
+```
+
+This means the embed token is the **sole** authentication mechanism for form submissions. There is no session check, no Plone user authentication, no CSRF verification.
+
+**Consequence:** Any entity that obtains a valid embed token can:
+- Submit arbitrary form data to the survey
+- Trigger all configured survey actions (store, mail, POST to endpoint)
+- Do so without any Plone user account or session
+
+The 5-minute token TTL is the only protection, and because tokens are reusable (C1), the effective attack window is the full 5 minutes.
+
+**Partial mitigations present:** Origin binding, HMAC signature. These prevent forging tokens without the signing key.
+
+**Missing mitigations:** Rate limiting, one-time use, CAPTCHA, honeypot fields.
+
+---
+
+#### C4 — Sensitive Data in Production Logs at WARNING Level
+
+The entire implementation contains extensive debug logging at `WARNING` level that will appear in production log files:
+
+```python
+logger.warning("[EMBED DEBUG] Token validated successfully, payload: %s", payload)
+# payload contains: jti, nonce, origin, iat, exp, sub
+```
+
+```python
+logger.warning("[EMBED DEBUG] validate_origin called with: origin=%s, allowed_origins=%s", ...)
+logger.warning("[EMBED DEBUG] Preflight: origin valid, setting full CORS headers")
+```
+
+**Impact:**
+- Token `jti` values are logged, enabling correlation attacks if logs are leaked.
+- Token payloads expose origin, survey UID, and expiry to anyone with log access.
+- High-volume request logging at WARNING level will flood monitoring systems, masking real warnings.
+- Log aggregation services (Splunk, ELK, etc.) receiving these logs represent a secondary exfiltration vector.
+
+**Fix:** Remove all `[EMBED DEBUG]` log lines entirely before production deployment. Real audit events should use `logger.info()` with structured, minimal fields — not `logger.warning()` with full object dumps.
+
+---
+
+### 🟠 HIGH
+
+#### H1 — Signing Key Falls Back to General Auth Secret
+
+```python
+# embed_security.py
+def _get_signing_key(settings=None):
+    secret = getattr(settings, "embed_direct_signing_key", "") or ""
+    if secret:
+        return secret.strip()
+    # Fallback to authenticity token secret
+    secret = getattr(settings, "authenticity_token_secret", "") or ""
+    return secret.strip() or None
+```
+
+**Impact:** If `embed_direct_signing_key` is not configured (the default), embed tokens are signed with the same key used for general Plone session/auth tokens. A valid Plone authenticity token could potentially be crafted as a valid embed token or vice versa. More importantly, rotating the embed signing key after a compromise requires rotating the general auth secret, which invalidates all existing Plone sessions.
+
+**Fix:** Require `embed_direct_signing_key` to be explicitly set. Raise a clear error (not fall back silently) if it is absent.
+
+---
+
+#### H2 — No Rate Limiting on Any Embed Endpoint
+
+The design document specifies:
+- Token generation: 10/minute per user
+- Config requests: 100/minute per IP
+- Submissions: existing rate limits
+
+None of this is implemented. All three endpoints are unbounded:
+
+- `@@embed-token`: can be called as fast as the server allows (HMAC generation is cheap)
+- `@@embed-config`: no limit on token validation attempts
+- `@@save-poll`: no limit on form submissions from a valid token
+
+**Impact:** DoS via CPU exhaustion (HMAC verification on every request), storage exhaustion (spam submissions to mail/store actions), and noise in audit data.
+
+---
+
+#### H3 — Schema Validator Allows HTTP for Any Domain
+
+`survey.py:validate_origin()` uses this regex:
+
+```python
+pattern = r"^(https?://)[a-zA-Z0-9][-a-zA-Z0-9.]*(:[0-9]+)?$"
+```
+
+This allows `http://any-domain.com` to be saved as an allowed origin. The runtime validator in `embed_security.py` rejects non-localhost HTTP origins, but an admin can still store `http://production-site.com` in the database without error. The mismatch between what can be stored and what is accepted at runtime is confusing and could lead an administrator to believe they have configured a working embedding when they have not.
+
+**Fix:** Align the two validators. Either: reject HTTP for non-localhost in the schema validator, or display a warning in the edit form when HTTP non-localhost origins are entered.
+
+---
+
+#### H4 — XSS via `context.title` in Demo Page
+
+`DirectEmbedDemoView._render_demo_page()` interpolates `self.context.title` directly into HTML without escaping:
+
+```python
+<title>Direct DOM Embedding Demo - {self.context.title}</title>
+...
+<span class="info-value">{self.context.title}</span>
+...
+survey_url = self.context.absolute_url()
+# and survey_url interpolated into onclick attributes
+```
+
+A survey with a title containing `</title><script>alert(1)</script>` would execute JavaScript in the browser of any user visiting `@@embed-direct-demo`. This view requires `cmf.ModifyPortalContent`, which limits the attack surface, but stored XSS in admin interfaces is still a serious vulnerability.
+
+**Fix:** Use `html.escape(self.context.title)` and `html.escape(survey_url)` for all values interpolated into HTML strings.
+
+---
+
+#### H5 — `@@embed-loader` Served to Any Origin Without Restriction
+
+```python
+# embed_direct.py — EmbedLoaderView
+origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
+if origin:
+    response.setHeader("Access-Control-Allow-Origin", origin)
+```
+
+The loader JavaScript is served to any origin. This JavaScript contains:
+- The portal URL structure
+- Hardcoded paths to static resources
+- The full embed client logic
+
+Any website can load and execute this script. While not immediately exploitable (the token is still required), it:
+- Exposes implementation details to adversaries
+- Allows competitors/scrapers to inspect the embed mechanism
+- If combined with a CSRF or social engineering attack, could be used to probe the server
+
+---
+
+#### H6 — SurveyJS Loaded Cross-Origin Without Integrity Check
 
 ```javascript
-/**
- * Direct DOM Embedding Client for zopyx.surveyjs
- * Security-first implementation with Shadow DOM isolation
- */
-
-(function() {
-  'use strict';
-
-  // Bundled CSS (injected into Shadow DOM)
-  const EMBED_CSS = `
-    :host {
-      display: block;
-      width: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .surveyjs-embed-container {
-      width: 100%;
-      min-height: 400px;
-    }
-    /* Reset styles that can't be inherited */
-    .surveyjs-embed-container * {
-      box-sizing: border-box;
-    }
-    /* SurveyJS theme styles */
-    ${SURVEYJS_THEME_CSS}
-  `;
-
-  /**
-   * Secure API client for communicating with Plone backend
-   */
-  class SecureAPIClient {
-    constructor(baseUrl, token, origin) {
-      this.baseUrl = baseUrl;
-      this.token = token;
-      this.origin = origin;
-    }
-
-    /**
-     * Fetch form configuration from server
-     */
-    async getFormConfig() {
-      const response = await fetch(`${this.baseUrl}/@@embed-config`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'X-Embed-Token': this.token,
-          'Origin': this.origin,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to load form: ${response.status}`);
-      }
-
-      return response.json();
-    }
-
-    /**
-     * Submit form data to server
-     */
-    async submitForm(data, sessionId, csrfToken) {
-      const formData = new FormData();
-      formData.append('pollResult', JSON.stringify(data));
-      formData.append('_authenticator', csrfToken);
-
-      const response = await fetch(`${this.baseUrl}/@@save-poll`, {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-        headers: {
-          'X-Embed-Token': this.token,
-          'X-Session-ID': sessionId,
-          'Origin': this.origin,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Submission failed: ${response.status}`);
-      }
-
-      return response.json();
-    }
-  }
-
-  /**
-   * Web Component for embedding SurveyJS forms
-   */
-  class SurveyJSEmbed extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      
-      // Inject styles
-      const style = document.createElement('style');
-      style.textContent = EMBED_CSS;
-      this.shadowRoot.appendChild(style);
-      
-      // Create container
-      this.container = document.createElement('div');
-      this.container.className = 'surveyjs-embed-container';
-      this.shadowRoot.appendChild(this.container);
-      
-      // State
-      this.survey = null;
-      this.config = null;
-      this.api = null;
-    }
-
-    static get observedAttributes() {
-      return ['survey-url', 'token'];
-    }
-
-    async connectedCallback() {
-      const baseUrl = this.getAttribute('survey-url');
-      const token = this.getAttribute('token');
-      
-      if (!baseUrl || !token) {
-        this.showError('Missing required attributes: survey-url, token');
-        return;
-      }
-
-      try {
-        // Initialize API client
-        this.api = new SecureAPIClient(baseUrl, token, window.location.origin);
-        
-        // Load form configuration
-        this.config = await this.api.getFormConfig();
-        
-        // Initialize SurveyJS
-        await this.initializeSurvey(this.config.form_json);
-      } catch (error) {
-        console.error('Survey embed error:', error);
-        this.showError('Failed to load survey. Please try again.');
-      }
-    }
-
-    async initializeSurvey(formJson) {
-      // Ensure SurveyJS is loaded
-      if (typeof Survey === 'undefined') {
-        await this.loadSurveyJS();
-      }
-
-      // Create survey model
-      this.survey = new Survey.Model(formJson);
-      
-      // Apply theme
-      this.survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
-      
-      // Handle completion
-      this.survey.onComplete.add(async (sender) => {
-        try {
-          await this.api.submitForm(
-            sender.data,
-            this.config.session_id,
-            this.config.csrf_token
-          );
-          this.showSuccess('Thank you for your submission!');
-        } catch (error) {
-          console.error('Submission error:', error);
-          this.showError('Submission failed. Please try again.');
-        }
-      });
-
-      // Render
-      this.survey.render(this.container);
-    }
-
-    loadSurveyJS() {
-      return new Promise((resolve, reject) => {
-        // Check if already loading
-        if (window.__surveyJSLoading) {
-          const checkInterval = setInterval(() => {
-            if (typeof Survey !== 'undefined') {
-              clearInterval(checkInterval);
-              resolve();
-            }
-          }, 100);
-          return;
-        }
-
-        window.__surveyJSLoading = true;
-
-        // Load from same origin to avoid SRI issues with CDNs
-        const script = document.createElement('script');
-        script.src = `${this.getAttribute('survey-url')}/@@embed-surveyjs-bundle`;
-        script.onload = () => {
-          window.__surveyJSLoading = false;
-          resolve();
-        };
-        script.onerror = () => {
-          window.__surveyJSLoading = false;
-          reject(new Error('Failed to load SurveyJS'));
-        };
-        document.head.appendChild(script);
-      });
-    }
-
-    showError(message) {
-      this.container.innerHTML = `
-        <div class="surveyjs-error" style="color: #d32f2f; padding: 20px; text-align: center;">
-          <p>${this.escapeHtml(message)}</p>
-        </div>
-      `;
-    }
-
-    showSuccess(message) {
-      this.container.innerHTML = `
-        <div class="surveyjs-success" style="color: #388e3c; padding: 20px; text-align: center;">
-          <p>${this.escapeHtml(message)}</p>
-        </div>
-      `;
-    }
-
-    escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-  }
-
-  // Register custom element
-  customElements.define('surveyjs-embed', SurveyJSEmbed);
-})();
+// Generated by EmbedLoaderView
+loadScript('http://localhost:8082/demo/++resource++zopyx.surveyjs/surveyjs/survey.core.min.js')
 ```
 
-### 5. ZCML Configuration (`browser/configure.zcml`)
+The SurveyJS library is loaded as a `<script>` tag from a cross-origin Plone server without any SRI (`integrity=`) attribute. If the Plone server or its static file serving is compromised, malicious JavaScript can be served to all pages that embed surveys, with full access to the form data being entered by users.
 
-Add new view registrations:
-
-```xml
-<!-- Direct DOM Embedding Views -->
-<browser:page
-  name="embed-token"
-  for="zopyx.surveyjs.content.survey.ISurvey"
-  permission="cmf.ModifyPortalContent"
-  class=".views.EmbedDirectTokenView"
-/>
-
-<browser:page
-  name="embed-config"
-  for="zopyx.surveyjs.content.survey.ISurvey"
-  permission="zope2.View"
-  class=".views.EmbedConfigView"
-/>
-
-<browser:page
-  name="embed-loader"
-  for="zopyx.surveyjs.content.survey.ISurvey"
-  permission="zope2.View"
-  class=".views.EmbedLoaderView"
-/>
-
-<browser:page
-  name="embed-surveyjs-bundle"
-  for="*"
-  permission="zope2.View"
-  class=".views.EmbedSurveyJSBundleView"
-/>
-```
+**Fix:** Compute and embed the SRI hash of `survey.core.min.js` and `survey-js-ui.min.js` at build time and include `integrity=` attributes on the generated `<script>` tags.
 
 ---
 
-## Implementation Plan
+#### H7 — Token Stored and Displayed in Clear Text
 
-### Phase 1: Foundation (Week 1-2)
+The token is:
+1. Shown in full on the `@@embed-direct-demo` page in an HTML element
+2. Embedded in the onclick handler of a button: `navigator.clipboard.writeText('{token}')`
+3. Embedded in the integration code snippet shown on the page
+4. Stored in diskcache on the server filesystem in plaintext
 
-1. **Schema Changes**
-   - [ ] Add `embed_direct_*` fields to `ISurvey`
-   - [ ] Add registry settings to `IFormsSettings`
-   - [ ] Create migration for existing surveys (default to disabled)
-   - [ ] Update vocabulary for `embedding_mode`
-
-2. **Core Security Module**
-   - [ ] Create `browser/embed_security.py` with token functions
-   - [ ] Implement `validate_embed_token()` with HMAC verification
-   - [ ] Implement origin validation utilities
-   - [ ] Add diskcache integration for token storage
-
-3. **Tests**
-   - [ ] Unit tests for token generation/validation
-   - [ ] Origin validation tests
-   - [ ] Schema validation tests
-
-### Phase 2: Backend API (Week 3-4)
-
-1. **View Implementations**
-   - [ ] `EmbedDirectTokenView` (token generation)
-   - [ ] `EmbedConfigView` (CORS form serving)
-   - [ ] `EmbedLoaderView` (JS bundle serving)
-   - [ ] Enhance `save_poll` for embed submissions
-
-2. **CORS Middleware/Helpers**
-   - [ ] CORS preflight handler
-   - [ ] Origin header validation middleware
-   - [ ] Security headers for embed endpoints
-
-3. **Tests**
-   - [ ] Integration tests for token endpoint
-   - [ ] CORS validation tests
-   - [ ] End-to-end embed flow tests
-
-### Phase 3: Frontend Client (Week 5-6)
-
-1. **JavaScript Build Pipeline**
-   - [ ] Set up bundler (Rollup/Webpack) for embed client
-   - [ ] Bundle SurveyJS dependencies
-   - [ ] CSS injection system
-   - [ ] Minification and SRI hash generation
-
-2. **Web Component**
-   - [ ] Implement `surveyjs-embed` custom element
-   - [ ] Shadow DOM isolation
-   - [ ] Secure API client
-   - [ ] Error handling and loading states
-
-3. **Tests**
-   - [ ] Unit tests for API client
-   - [ ] Web component tests
-   - [ ] Browser compatibility tests
-
-### Phase 4: Integration & Documentation (Week 7-8)
-
-1. **Admin UI**
-   - [ ] Token generation UI in survey management
-   - [ ] Origin management interface
-   - [ ] Embed code generator with copy button
-
-2. **Documentation**
-   - [ ] Administrator guide for direct embedding
-   - [ ] Developer integration guide
-   - [ ] Security best practices
-   - [ ] Migration guide from iframe
-
-3. **Final Testing**
-   - [ ] Security audit
-   - [ ] Penetration testing
-   - [ ] Performance testing
-   - [ ] Accessibility audit
+Any user with access to `@@embed-direct-demo` (requires `cmf.ModifyPortalContent`) can see and copy the token. The token displayed on this page is the same token that grants write access to the form. Browser history, screenshot tools, screen recordings, and shoulder surfing all represent exposure vectors.
 
 ---
 
-## Testing Strategy
+### 🟡 MEDIUM
 
-### Security Testing
+#### M1 — Custom JWT Implementation Instead of Standard Library
+
+The token implementation (`build_embed_token`, `validate_embed_token`) is a hand-rolled JWT-style system:
 
 ```python
-# Example security test patterns
-
-class TestEmbedDirectSecurity(unittest.TestCase):
-    """Security-focused tests for direct DOM embedding."""
-    
-    def test_token_rejected_for_wrong_origin(self):
-        """Token generated for origin A should not work on origin B."""
-        token = generate_token(origin="https://site-a.com")
-        
-        with self.assertRaises(ValidationError):
-            validate_token(token, origin="https://site-b.com")
-    
-    def test_expired_token_rejected(self):
-        """Expired tokens must be rejected."""
-        token = generate_token(origin="https://site.com", ttl=-1)
-        
-        with self.assertRaises(ValidationError):
-            validate_token(token, origin="https://site.com")
-    
-    def test_origin_must_match_exactly(self):
-        """Subdomain mismatch should reject."""
-        token = generate_token(origin="https://www.site.com")
-        
-        with self.assertRaises(ValidationError):
-            validate_token(token, origin="https://site.com")
-    
-    def test_http_origin_rejected(self):
-        """Non-HTTPS origins must be rejected."""
-        with self.assertRaises(ValidationError):
-            generate_token(origin="http://insecure.com")
-    
-    def test_cors_headers_set_correctly(self):
-        """CORS headers must reflect allowed origin, not wildcard."""
-        response = self.get_embed_config(origin="https://allowed.com")
-        
-        self.assertEqual(
-            response.headers['Access-Control-Allow-Origin'],
-            'https://allowed.com'
-        )
-        self.assertNotEqual(
-            response.headers['Access-Control-Allow-Origin'],
-            '*'
-        )
+def build_embed_token(payload, secret):
+    header = {"alg": "HS256", "typ": "JWT"}
+    header_b64 = base64.urlsafe_b64encode(...).rstrip("=")
+    ...
+    signature = hmac.new(secret.encode(), message.encode(), hashlib.sha256).digest()
 ```
 
-### Integration Testing
+Issues with this approach:
+- The token claims to be `{"alg":"HS256","typ":"JWT"}` but is not a valid JWT (non-standard padding stripping).
+- No standard JWT library validation (audience, issuer, not-before).
+- `hmac.new()` is deprecated in Python 3 in favor of `hmac.HMAC()`.
+- The `aud` claim (`"embed-client"`) is never verified during validation.
+- The `iss` claim (`"privacyforms.studio"`) is never verified during validation.
 
-1. **End-to-End Flow:**
-   - Generate token → Load config → Render form → Submit → Verify stored
-   
-2. **Error Scenarios:**
-   - Invalid token, expired token, wrong origin, missing CORS headers
-   
-3. **Browser Compatibility:**
-   - Shadow DOM support (Chrome, Firefox, Safari, Edge)
-   - Custom Elements support
-   - Fetch API with credentials
+A third-party library such as `PyJWT` would handle all of this correctly and be audited by the security community.
 
 ---
 
-## Deployment Considerations
+#### M2 — Open Shadow DOM Allows Host Page JavaScript Access
 
-### Security Checklist
-
-Before enabling Direct DOM Embedding in production:
-
-- [ ] `embed_direct_signing_key` is set to a cryptographically random value (32+ bytes)
-- [ ] HTTPS is enforced site-wide
-- [ ] `embed_direct_global_enabled` is explicitly enabled (opt-in)
-- [ ] Token cache is stored on encrypted volume
-- [ ] Rate limiting is configured on embed endpoints
-- [ ] Security headers are verified via scan
-- [ ] CSP is tested and doesn't break functionality
-- [ ] Audit logging is enabled for all embed activities
-
-### Performance Considerations
-
-1. **Bundle Size:**
-   - SurveyJS bundle is ~500KB minified
-   - Consider lazy loading for multiple forms
-   - CDN caching vs. same-origin serving tradeoffs
-
-2. **Token Cache:**
-   - Use Redis for distributed deployments
-   - Set appropriate TTL (5 minutes default)
-   - Monitor cache hit rates
-
-3. **Rate Limiting:**
-   - Token generation: 10/minute per user
-   - Config requests: 100/minute per IP
-   - Submissions: existing rate limits apply
-
----
-
-## Recommendations
-
-### Immediate Actions
-
-1. **Do NOT enable Direct DOM Embedding by default** - Keep as opt-in only
-2. **Require HTTPS** - Never allow HTTP origins
-3. **Limit origins** - Maximum 10 origins per survey
-4. **Short token lifetime** - Default 5 minutes, max 1 hour
-5. **Audit everything** - Log all token generations and validation failures
-
-### Future Enhancements
-
-1. **Web Workers:** Run form JavaScript in a Web Worker for additional isolation
-2. **WASM Sandboxing:** Evaluate WASM-based JavaScript isolation
-3. **Content Security Policy Report-Only:** Monitor violations before enforcement
-4. **Automated Security Scanning:** Regular automated pen-testing of embed endpoints
-5. **Federated Identity:** Support for SSO/SAML in embedded contexts
-
----
-
-## Conclusion
-
-Direct DOM Embedding provides significant integration benefits over iframe-based approaches but introduces substantial security complexity. This design implements defense in depth with multiple independent security layers:
-
-1. **Origin Authentication** via cryptographic tokens
-2. **CORS Enforcement** with specific origins (no wildcards)
-3. **Shadow DOM Isolation** for style and DOM separation
-4. **Token-Based Authorization** with binding to specific origins
-5. **Secure Communication** via MessageChannel and HMAC-signed messages
-
-The feature must remain **opt-in only** with strict validation requirements. Administrators must explicitly enable the feature both globally and per-survey, and must register allowed origins explicitly.
-
----
-
-**Appendix: Security Header Examples**
-
-```nginx
-# Nginx configuration for embed endpoints
-location /@@embed- {
-    # CORS headers
-    add_header 'Access-Control-Allow-Origin' $http_origin always;
-    add_header 'Access-Control-Allow-Credentials' 'true' always;
-    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-    add_header 'Access-Control-Allow-Headers' 'X-Embed-Token,X-Session-ID,Content-Type' always;
-    
-    # Security headers
-    add_header 'X-Content-Type-Options' 'nosniff' always;
-    add_header 'X-Frame-Options' 'DENY' always;
-    add_header 'Content-Security-Policy' "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'" always;
-    add_header 'Referrer-Policy' 'strict-origin-when-cross-origin' always;
-    
-    # Handle preflight
-    if ($request_method = 'OPTIONS') {
-        return 204;
-    }
-}
+```javascript
+this.attachShadow({ mode: 'open' });
 ```
+
+Open mode Shadow DOM means `element.shadowRoot` is accessible from the host page's JavaScript. Any script running on the host page (including third-party analytics, advertising, or a compromised dependency) can:
+- Read all form field values as the user types
+- Modify form content before submission
+- Intercept the submission
+
+The original design document describes Shadow DOM as providing "Style and DOM isolation" — open Shadow DOM provides style isolation, but **not** DOM isolation from the same page's JavaScript.
+
+**Fix:** Consider `mode: 'closed'` for stronger isolation, accepting that browser developer tools will make this impractical to debug.
+
+---
+
+#### M3 — `embed_direct_signing_key` Readable by Plone Admins
+
+The signing key is stored in Plone's registry (ZODB) as a `schema.Password` field. Any user with `cmf.ManagePortal` can read it via `@@registry` or by direct ZODB inspection. In a multi-tenant or managed Plone hosting environment, this is a significant concern.
+
+---
+
+#### M4 — `diskcache` Path is Relative and Non-Configurable
+
+```python
+def _get_embed_cache():
+    return diskcache.Cache("var/embed_token_cache.db")
+```
+
+The path `var/embed_token_cache.db` resolves relative to the Plone process working directory, which may vary by deployment method. In multi-worker setups (multiple Waitress workers), each worker opens its own cache handle. `diskcache` handles concurrent access, but the path should be absolute and configurable via registry settings.
+
+---
+
+#### M5 — CSRF Token Fetched but Effectively Meaningless for Embeds
+
+`@@embed-config` returns a Plone CSRF token (`_authenticator`). The embed client submits it in the `@@save-poll` POST body. However, Plone's CSRF validation (`plone.protect`) validates tokens against the current session. Cross-origin embedded requests may not have a Plone session (depending on `SameSite` cookie policy). The actual effect is:
+
+- If a Plone session exists: CSRF token validates, but embed validation also passed (redundant)
+- If no Plone session: CSRF token validation would fail — **but `_require_auth_token()` is bypassed entirely for embeds**, so it doesn't matter
+
+The CSRF token round-trip adds complexity and latency with no actual security benefit for cross-origin embeds.
+
+---
+
+#### M6 — `@@embed-surveyjs-bundle` View Remains and Loads CDN
+
+`EmbedSurveyJSBundleView` is registered in ZCML and publicly accessible, but is no longer used by `@@embed-loader`. It still contains code that dynamically loads SurveyJS from `https://unpkg.com/survey-core@1.9.132/` without an SRI hash (the placeholder was removed but not replaced with the real hash). It represents dead code that is a potential attack surface and causes confusion.
+
+---
+
+#### M7 — Token Generation Requires `cmf.ModifyPortalContent` But Demo Page Also Generates Tokens
+
+`@@embed-token` correctly requires `cmf.ModifyPortalContent`. However, `@@embed-direct-demo` (which also requires `cmf.ModifyPortalContent`) internally generates tokens via `generate_embed_token()` without calling the token view. This bypasses any future rate limiting or additional validation that might be added to `@@embed-token`.
+
+---
+
+#### M8 — `Origin` Header Manually Set in Fetch Requests
+
+```javascript
+// embed_direct.py — generated JS
+const response = await fetch(`${this.baseUrl}/@@embed-config`, {
+    headers: {
+        'X-Embed-Token': this.token,
+        'Origin': this.origin,  // ← browser ignores this
+    },
+});
+```
+
+Setting `Origin` manually in a `fetch()` call has **no effect** — browsers always override this with the actual page origin and forbid JavaScript from setting it. This code is misleading: it creates the false impression that the origin is being explicitly declared by the client, when in reality the browser manages it. It should be removed to avoid confusing future maintainers.
+
+---
+
+### 🔵 LOW / INFORMATIONAL
+
+#### L1 — Token Not Bound to Session
+
+Tokens are bound to an origin but not to a browser session. Any visitor to the embedding page gets the same embed token (assuming the page operator embedded the token in the HTML). Token theft requires only viewing the page source.
+
+#### L2 — No Visibility Into Active Tokens
+
+There is no admin interface to list, inspect, or revoke active tokens. If a token is compromised, the only remediation is to wait for expiry or rotate the signing key (which invalidates all tokens, including legitimate ones).
+
+#### L3 — `survey-core.min.css` Loaded via Cross-Origin `<link>` Without CORS
+
+`<link rel="stylesheet">` elements load cross-origin CSS without CORS headers. While this is standard browser behavior, it means the CSS load is opaque — JavaScript cannot inspect the loaded styles via CSSOM. This is generally safe but worth documenting.
+
+#### L4 — Token Expiry Not Reflected in Demo Page
+
+The `@@embed-direct-demo` page shows `Token Expires: <timestamp>` but does not refresh or visually indicate when the token has expired. A user who keeps the demo page open past expiry will attempt to use an expired token without realizing it.
+
+#### L5 — No Invariant Enforcing `embed_direct_origins` for `embedding_mode=direct`
+
+The design document specifies an `@invariant` that requires at least one allowed origin when `embedding_mode == "direct"`. This invariant exists in the design document but is **absent** from the actual `ISurvey` schema in `content/survey.py`. A survey can be set to Direct DOM mode with an empty origins list, in which case all embed requests are silently rejected (origin not in empty allowlist).
+
+---
+
+## Threat Model (Revised)
+
+| Threat | Severity | Design Mitigation | Implementation Status |
+|--------|----------|-------------------|-----------------------|
+| Replay attacks | **Critical** | One-time tokens via JTI | ❌ Not enforced |
+| Unauthorized submission | Critical | Token + origin validation | ⚠️ Token reusable (C1) |
+| Cross-origin data access | Critical | Allowlist CORS | ⚠️ Preflight bypasses allowlist (C2) |
+| Form data exfiltration | High | Shadow DOM + token auth | ⚠️ Open Shadow DOM (M2) |
+| Token forgery | High | HMAC-SHA256 signing | ✅ Mitigated (if key is strong) |
+| Signing key exposure | High | Registry + access control | ⚠️ Readable by all admins (M3) |
+| XSS via host page | High | Shadow DOM | ⚠️ Open mode allows JS access (M2) |
+| Log-based token exfiltration | High | — | ❌ Tokens logged at WARNING (C4) |
+| DoS via spam submissions | High | Rate limiting | ❌ Not implemented (H2) |
+| Stored XSS in demo view | High | HTML escaping | ❌ Missing (H4) |
+| SurveyJS supply chain attack | High | SRI + local hosting | ⚠️ Local hosting done, no SRI (H6) |
+| HTTP origin in production | Medium | HTTPS enforcement | ⚠️ Schema allows HTTP for any host (H3) |
+
+---
+
+## Required Fixes Before Production
+
+The following must be resolved before this feature is enabled in any production environment.
+
+### P0 — Must Fix (Blocks Production)
+
+1. **Remove all `[EMBED DEBUG]` log statements** — these log tokens and internal state at WARNING level in production.
+
+2. **Enforce one-time token use** — call `mark_token_used()` in `validate_embed_token()` and reject tokens where it returns False.
+
+3. **Fix CORS preflight** — do not return CORS headers for origins not in the allowlist. Return 204 with no CORS headers (browser blocks the actual request client-side).
+
+4. **Fix XSS in demo page** — escape `self.context.title`, `survey_url`, `origin`, and `expires_at` with `html.escape()`.
+
+5. **Require `embed_direct_signing_key` to be set** — do not silently fall back to `authenticity_token_secret`. Raise `EmbedSecurityError` with a clear message.
+
+### P1 — Must Fix (Before Beta)
+
+6. **Implement rate limiting** on `@@embed-token`, `@@embed-config`, and embed path of `@@save-poll`.
+
+7. **Replace custom JWT with PyJWT** — use a standard, audited library. Verify `aud` and `iss` claims.
+
+8. **Remove `Origin` header from JS fetch calls** — it does nothing and misleads maintainers.
+
+9. **Add SRI hashes for SurveyJS static files** — compute at build time and embed in `loadSurveyJS()`.
+
+10. **Delete or disable `@@embed-surveyjs-bundle`** — it is unused dead code with CDN loading.
+
+11. **Add schema invariant** requiring at least one allowed origin when `embedding_mode == "direct"`.
+
+### P2 — Should Fix (Before GA)
+
+12. **Make diskcache path absolute and configurable** via registry settings.
+
+13. **Add token revocation UI** — list active tokens by JTI, allow forced revocation.
+
+14. **Add structured audit log** (separate from debug log) for: token generation, validation success/failure, submission accepted/rejected.
+
+15. **Align schema and runtime origin validators** — prevent HTTP non-localhost origins from being stored.
+
+16. **Consider `mode: 'closed'` Shadow DOM** — document the tradeoff explicitly.
+
+---
+
+## Deployment Checklist
+
+Before enabling Direct DOM Embedding:
+
+- [ ] All P0 and P1 fixes from above are applied
+- [ ] `embed_direct_global_enabled` is `False` by default; enabled explicitly per environment
+- [ ] `embed_direct_signing_key` is set to a cryptographically random 32+ byte value (NOT the same as `authenticity_token_secret`)
+- [ ] HTTPS is enforced at the reverse proxy for the Plone server
+- [ ] No HTTP origins are in any survey's `embed_direct_origins` list in production
+- [ ] Token TTL is reviewed per use case (shorter = better for security)
+- [ ] Plone log level is reviewed; WARNING-level logs do not contain sensitive data
+- [ ] `diskcache` path is on an encrypted volume and backed up appropriately
+- [ ] Rate limiting is configured at the reverse proxy level as a backstop
+- [ ] `@@embed-direct-demo` is disabled or access-restricted in production (it generates and displays tokens)
+- [ ] Security team has reviewed the open Shadow DOM decision for the deployment's threat model

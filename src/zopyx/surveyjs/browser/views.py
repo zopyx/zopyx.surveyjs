@@ -802,22 +802,17 @@ class Views(BrowserView):
         logger.warning("[EMBED DEBUG] save_poll called")
         logger.warning("[EMBED DEBUG] Method: %s", self.request.get("REQUEST_METHOD"))
         
-        # Handle CORS preflight for embed submissions
+        # Handle CORS preflight for embed submissions.
+        # OPTIONS requests carry no token — check method first, before token presence.
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
         embed_token = self.request.get_header("X-Embed-Token")
-        
-        logger.warning("[EMBED DEBUG] save_poll - Origin: %s", origin)
-        logger.warning("[EMBED DEBUG] save_poll - Has embed_token: %s", bool(embed_token))
-        
-        if origin and embed_token:
-            logger.warning("[EMBED DEBUG] save_poll - Checking embed submission")
+
+        if origin:
             from .embed_security import handle_cors_preflight
             allowed_origins = list(
                 getattr(self.context, "embed_direct_origins", []) or []
             )
-            logger.warning("[EMBED DEBUG] save_poll - Allowed origins: %s", allowed_origins)
             if handle_cors_preflight(self.request, self.request.response, allowed_origins):
-                logger.warning("[EMBED DEBUG] save_poll - Preflight handled, returning")
                 return
         
         raw_poll = self.request.form.get("pollResult")
@@ -978,14 +973,13 @@ class Views(BrowserView):
                 )
                 return
             
-            logger.warning("[EMBED DEBUG] save_poll - Embed validation passed")
-            # Skip trusted access check for embed submissions
-            # (token validation is sufficient)
-        elif not self._require_trusted_access():
-            return
-
-        if not self._require_auth_token(form_version_id or ""):
-            return
+            # Embed validation passed — skip trusted access and auth token checks
+            pass
+        else:
+            if not self._require_trusted_access():
+                return
+            if not self._require_auth_token(form_version_id or ""):
+                return
 
         submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
         force_validation = getattr(self.context, "force_server_side_validation", False)
