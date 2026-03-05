@@ -218,3 +218,11 @@ durations.svg
 
 bin
 src/privacyforms.theme/
+
+# Playwright
+playwright-tests/node_modules/
+playwright-tests/screenshots/output/
+playwright-tests/screenshots/.auth/
+playwright-tests/screenshots-report/
+playwright-test-failed.png
+*.png.snapshot
