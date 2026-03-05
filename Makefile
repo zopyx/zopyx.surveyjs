@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := pfs-demo
@@ -47,3 +47,24 @@ test:
 
 sdist:
 	uv run python setup.py sdist
+
+# Screenshot automation with Playwright
+screenshots-setup:
+	@echo "Installing Playwright dependencies..."
+	cd playwright-tests && npm install
+	cd playwright-tests && npx playwright install chromium
+
+screenshots:
+	cd playwright-tests && ./run-screenshots.sh
+
+screenshots-survey:
+	cd playwright-tests && ./run-screenshots.sh survey
+
+screenshots-psf:
+	cd playwright-tests && ./run-screenshots.sh psf
+
+screenshots-cp:
+	cd playwright-tests && ./run-screenshots.sh cp
+
+screenshots-headed:
+	cd playwright-tests && ./run-screenshots.sh headed
