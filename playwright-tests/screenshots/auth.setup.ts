@@ -10,7 +10,14 @@ fs.mkdirSync(path.dirname(authFile), { recursive: true });
 const adminUser = process.env.PLONE_ADMIN_USER || 'admin2';
 const adminPass = process.env.PLONE_ADMIN_PASS || '2admin';
 
-setup('authenticate as admin', async ({ page, baseURL }) => {
+setup('authenticate as admin', async ({ browser, baseURL }) => {
+  // Create context with specific origin to ensure cookies work correctly
+  const context = await browser.newContext({
+    baseURL: baseURL,
+  });
+  
+  const page = await context.newPage();
+  
   // Navigate to login form
   const loginUrl = `${baseURL}/login_form`;
   await page.goto(loginUrl);
@@ -44,24 +51,25 @@ setup('authenticate as admin', async ({ page, baseURL }) => {
   await page.waitForURL(/\/demo(\/en)?$/, { timeout: 10000 });
   await page.waitForLoadState('networkidle');
   
-  // Get cookies and modify domain to include port if needed
-  const cookies = await page.context().cookies();
+  // Get cookies and update domain to include port if needed
+  const cookies = await context.cookies();
   const modifiedCookies = cookies.map(cookie => {
-    // If cookie is for localhost without port, also add version with port
-    if (cookie.domain === 'localhost' && !cookie.domain.includes(':')) {
-      return {
-        ...cookie,
-        domain: 'localhost',
-      };
+    // For localhost cookies, we need to ensure they work with the port
+    if (cookie.domain === 'localhost') {
+      // Keep as localhost but ensure it works for all ports
+      return cookie;
     }
     return cookie;
   });
   
-  // Save storage state manually to ensure cookies are correct
-  const storageState = await page.context().storageState();
+  // Save storage state manually
+  const storageState = await context.storageState();
   storageState.cookies = modifiedCookies;
   
   fs.writeFileSync(authFile, JSON.stringify(storageState, null, 2));
   
   console.log(`Authentication state saved to ${authFile}`);
+  console.log(`Cookies saved: ${modifiedCookies.map(c => c.name).join(', ')}`);
+  
+  await context.close();
 });
