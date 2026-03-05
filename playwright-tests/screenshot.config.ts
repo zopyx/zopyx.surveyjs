@@ -26,11 +26,14 @@ export default defineConfig({
   testDir: './screenshots',
   outputDir: path.join(screenshotDir, 'test-results'),
   
-  // Screenshot tests should be fully sequential to avoid conflicts
-  fullyParallel: false,
-  workers: 2,
+  // Screenshot tests can run in parallel
+  fullyParallel: true,
+  workers: 3,
   
-  retries: 1,
+  // Stop after 3 failures (set to 0 to run all tests regardless)
+  bail: 3,
+  
+  retries: 0,
   
   reporter: [
     ['list'],
