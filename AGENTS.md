@@ -15,8 +15,27 @@ This repository is a Plone add-on that integrates SurveyJS. It is primarily a Py
    `uv pip install -r requirements.txt`
 3. Run buildout:
    `./bin/buildout`
-4. Start Plone:
+4. Start Plone in foreground:
    `./bin/instance fg`
+5. or Start Plone in background:
+   `./bin/instance start`
+6. or stop Plone running in background:
+   `./bin/instance stop`
+
+
+## Site root
+
+The site root is 
+
+http://localhost:8082/demo
+
+
+## Login 
+
+You can login through http://localhost:8082/demo/login
+
+Login in as user `forms` and password `formsarecool` which gives you the Plone `Editor`role.
+
 
 See `DEVELOP.rst` for details.
 
