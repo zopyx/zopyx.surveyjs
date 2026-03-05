@@ -1,22 +1,14 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="plone">
 
-  <configure zcml:condition="installed AccessControl.security">
-  <!-- -*- extra stuff goes here -*- -->
-
-    <permission
-        id="zopyx.surveyjs.AddSurvey"
-        title="zopyx.surveyjs: Add Survey"
-    />
-    <permission
-        id="zopyx.surveyjs.AddSurveyTemplate"
-        title="zopyx.surveyjs: Add Survey Template"
-    />
-
-
-
-  </configure>
+  <permission
+      id="zopyx.surveyjs.AddSurvey"
+      title="zopyx.surveyjs: Add Survey"
+  />
+  <permission
+      id="zopyx.surveyjs.AddSurveyTemplate"
+      title="zopyx.surveyjs: Add Survey Template"
+  />
 
 </configure>

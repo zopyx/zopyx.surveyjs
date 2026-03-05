@@ -286,7 +286,7 @@ class SurveyVersions(Views):
 
         parent = self.context.aq_parent
         if not plone.api.user.has_permission(
-            "zopyx.surveyjs.AddSurveyTemplate", obj=parent
+            "zopyx.surveyjs: Add Survey Template", obj=parent
         ):
             plone.api.portal.show_message(
                 _("You do not have permission to add templates here."), type="error"

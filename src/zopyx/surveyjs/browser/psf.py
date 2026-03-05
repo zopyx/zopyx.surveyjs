@@ -1,5 +1,6 @@
 import orjson
 import plone.api
+from AccessControl import getSecurityManager
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
@@ -31,15 +32,19 @@ class PFSView(BrowserView):
     def can_add_survey(self) -> bool:
         if self.is_anonymous:
             return False
-        return plone.api.user.has_permission(
-            "zopyx.surveyjs.AddSurvey", obj=self.context
+        return bool(
+            getSecurityManager().checkPermission(
+                "zopyx.surveyjs: Add Survey", self.context
+            )
         )
 
     @property
     def can_view_forms_overview(self) -> bool:
         if self.is_anonymous:
             return False
-        return plone.api.user.has_permission("cmf.ManagePortal", obj=self.context)
+        return bool(
+            getSecurityManager().checkPermission("Manage portal", self.context)
+        )
 
     @property
     def can_create_from_template(self) -> bool:

@@ -72,7 +72,7 @@ class SurveyAddView(BrowserView):
     @property
     def can_add(self) -> bool:
         return plone.api.user.has_permission(
-            "zopyx.surveyjs.AddSurvey", obj=self.context
+            "zopyx.surveyjs: Add Survey", obj=self.context
         )
 
     @property
