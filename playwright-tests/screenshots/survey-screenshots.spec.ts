@@ -26,6 +26,28 @@ test.describe('Survey Main Views', () => {
     await screenshots.capture('view-main', { fullPage: true });
   });
 
+  test('@@view-main - clean content only', async ({ page, baseURL }) => {
+    await page.goto(`${baseURL}${TEST_SURVEY_PATH}/@@view-main`);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(SCREENSHOT_TIMEOUT);
+
+    // Capture only content, hiding Plone toolbar and footer
+    await screenshots.captureContentOnly('view-main-clean');
+  });
+
+  test('@@viewer - survey only (no chrome)', async ({ page, baseURL }) => {
+    await page.goto(`${baseURL}${TEST_SURVEY_PATH}/@@viewer`);
+    await page.waitForLoadState('networkidle');
+
+    await screenshots.waitForSurveyJS();
+
+    // Capture just the survey container, hiding all UI chrome
+    await screenshots.capture('viewer-clean', {
+      element: '#surveyContainer',
+      hideElements: ['#edit-zone', '#portal-footer']
+    });
+  });
+
   test('@@viewer - public survey form', async ({ page, baseURL }) => {
     await page.goto(`${baseURL}${TEST_SURVEY_PATH}/@@viewer`);
     await page.waitForLoadState('networkidle');
@@ -45,6 +67,8 @@ test.describe('Survey Main Views', () => {
     await expect(page.locator('.svc-creator')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
     await page.waitForTimeout(SCREENSHOT_TIMEOUT); // Creator takes time to fully render
 
+    // Hide Plone UI for cleaner screenshot
+    await screenshots.hidePloneUI();
     await screenshots.capture('editor', { fullPage: true });
   });
 

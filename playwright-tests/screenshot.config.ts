@@ -45,7 +45,7 @@ export default defineConfig({
     deviceScaleFactor: 1,
     
     screenshot: 'on',
-    video: 'on',
+    video: 'off',
     
     // Disable animations for consistent captures
     animations: 'disabled',
@@ -69,6 +69,11 @@ export default defineConfig({
       name: 'screenshots-chromium',
       use: { 
         ...devices['Desktop Chrome'],
+        // Explicitly set viewport for landscape, min 1400px wide
+        viewport: { width: 1920, height: 1080 },
+        deviceScaleFactor: 1,
+        isMobile: false,
+        hasTouch: false,
         // Preserve baseURL from root config
         baseURL: ploneUrl,
         // Storage state from auth setup

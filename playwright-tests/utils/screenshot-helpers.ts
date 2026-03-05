@@ -22,6 +22,8 @@ export interface ScreenshotOptions {
   hideElements?: string[];
   /** Clip screenshot to specific region */
   clip?: { x: number; y: number; width: number; height: number };
+  /** Show Plone UI elements (default: false - UI is hidden) */
+  showPloneUI?: boolean;
 }
 
 export class ScreenshotHelper {
@@ -93,6 +95,7 @@ export class ScreenshotHelper {
 
   /**
    * Capture a screenshot with consistent naming and options
+   * By default, hides Plone UI elements (toolbar, footer, header, messages)
    */
   async capture(name: string, options: ScreenshotOptions = {}): Promise<string> {
     const filename = this.generateFilename(name, options.suffix);
@@ -107,7 +110,42 @@ export class ScreenshotHelper {
       await this.page.setViewportSize(options.viewport);
     }
 
-    // Hide elements if specified
+    // Hide Plone UI by default (unless showPloneUI is true)
+    if (!options.showPloneUI) {
+      // Use a single JavaScript evaluation to hide all UI elements at once
+      await this.page.evaluate(() => {
+        const selectors = [
+          // Toolbar & messages
+          '#edit-zone',
+          '.portalMessage',
+          '#global-statusmessage',
+          '.notifications',
+          '.pat-cookietrigger',
+          // Footer elements
+          '#portal-footer',
+          '#portal-footer-wrapper',
+          '.portal-footer',
+          'footer',
+          '#footer',
+          '.site-footer',
+          '.plone-footer',
+          // Header elements
+          '#portal-header',
+          '#portal-top',
+          '.navbar',
+          '.site-header',
+        ];
+        selectors.forEach(selector => {
+          document.querySelectorAll(selector).forEach((el: Element) => {
+            (el as HTMLElement).style.display = 'none';
+          });
+        });
+      }).catch(() => {
+        // Ignore errors
+      });
+    }
+
+    // Hide additional elements if specified
     const hiddenElements: string[] = [];
     if (options.hideElements) {
       for (const selector of options.hideElements) {
@@ -149,6 +187,20 @@ export class ScreenshotHelper {
         path: filepath,
         contentType: 'image/png',
       });
+
+      // Create/update "latest" symlink
+      const latestFilename = filename.replace(/-\d{4}-\d{2}-\d{2}\.png$/, '-latest.png');
+      const latestPath = path.join(this.outputDir, latestFilename);
+      try {
+        fs.unlinkSync(latestPath);
+      } catch {
+        // Ignore if doesn't exist
+      }
+      try {
+        fs.symlinkSync(filename, latestPath);
+      } catch (err) {
+        console.warn(`Failed to create symlink: ${latestPath}`, err);
+      }
 
       console.log(`Screenshot saved: ${filepath}`);
       return filepath;
@@ -232,8 +284,9 @@ export class ScreenshotHelper {
 
   /**
    * Hide Plone UI elements for cleaner screenshots
+   * @param options - Options for what to hide
    */
-  async hidePloneUI(): Promise<void> {
+  async hidePloneUI(options?: { hideFooter?: boolean }): Promise<void> {
     const selectorsToHide = [
       '#edit-zone',           // Toolbar
       '.portalMessage',       // Status messages
@@ -249,6 +302,99 @@ export class ScreenshotHelper {
         // Element not found, ignore
       });
     }
+
+    // Hide footer if requested (or by default)
+    if (options?.hideFooter !== false) {
+      await this.hideFooter();
+    }
+  }
+
+  /**
+   * Hide footer elements
+   */
+  async hideFooter(): Promise<void> {
+    const footerSelectors = [
+      '#portal-footer',           // Plone 5/6 footer
+      '#portal-footer-wrapper',   // Alternative footer wrapper
+      '.portal-footer',           // Generic footer class
+      'footer',                   // HTML5 footer element
+      '#footer',                  // Common footer ID
+      '.site-footer',             // Bootstrap/common footer class
+      '.plone-footer',            // Plone-specific footer
+    ];
+
+    for (const selector of footerSelectors) {
+      await this.page.locator(selector).evaluate((el: Element) => {
+        (el as HTMLElement).style.display = 'none';
+      }).catch(() => {
+        // Element not found, ignore
+      });
+    }
+  }
+
+  /**
+   * Capture content-only screenshot (hides Plone chrome)
+   * @param name - Screenshot name
+   * @param options - Additional screenshot options
+   */
+  async captureContentOnly(name: string, options: Omit<ScreenshotOptions, 'hideElements'> = {}): Promise<string> {
+    // Hide all Plone UI including footer
+    await this.hidePloneUI({ hideFooter: true });
+
+    // Also hide common header/nav elements
+    const headerSelectors = [
+      '#portal-header',           // Plone header
+      '#portal-top',              // Top area
+      '.navbar',                  // Bootstrap nav
+      '.site-header',             // Common header class
+    ];
+
+    for (const selector of headerSelectors) {
+      await this.page.locator(selector).evaluate((el: Element) => {
+        (el as HTMLElement).style.display = 'none';
+      }).catch(() => {
+        // Element not found, ignore
+      });
+    }
+
+    // Capture the screenshot
+    return this.capture(name, {
+      ...options,
+      fullPage: options.fullPage ?? true,
+    });
+  }
+
+  /**
+   * Capture just the main content area
+   * @param name - Screenshot name
+   * @param contentSelector - CSS selector for content area (default: #content or #content-core)
+   * @param options - Additional screenshot options
+   */
+  async captureContentArea(
+    name: string,
+    contentSelector: string = '#content, #content-core, main, article, [role="main"]',
+    options: ScreenshotOptions = {}
+  ): Promise<string> {
+    // Try to find the content element
+    const contentLocators = contentSelector.split(',').map(s => this.page.locator(s.trim()).first());
+    
+    for (const locator of contentLocators) {
+      const isVisible = await locator.isVisible().catch(() => false);
+      if (isVisible) {
+        // Hide UI chrome first
+        await this.hidePloneUI({ hideFooter: true });
+        
+        // Capture just the content element
+        return this.capture(name, {
+          ...options,
+          element: contentSelector,
+        });
+      }
+    }
+
+    // Fallback to full page if content element not found
+    console.warn(`Content element not found: ${contentSelector}, falling back to full page`);
+    return this.capture(name, options);
   }
 
   /**

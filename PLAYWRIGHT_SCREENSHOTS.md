@@ -378,6 +378,60 @@ test('my new screenshot', async ({ page }) => {
    'survey-editor-mobile.png'
    ```
 
+### Hiding Plone UI Elements
+
+The `ScreenshotHelper` provides methods to hide Plone chrome for cleaner screenshots:
+
+#### Hide Plone UI (toolbar, messages, footer)
+```typescript
+await screenshots.hidePloneUI();
+await screenshots.capture('clean-view', { fullPage: true });
+```
+
+#### Hide only footer
+```typescript
+await screenshots.hideFooter();
+await screenshots.capture('no-footer', { fullPage: true });
+```
+
+#### Capture content-only (automatically hides UI)
+```typescript
+// Hides toolbar, footer, header, and messages automatically
+await screenshots.captureContentOnly('my-screenshot');
+```
+
+#### Capture specific element only
+```typescript
+// Screenshot just the survey form, no surrounding page
+await screenshots.capture('survey-only', {
+  element: '#surveyContainer'
+});
+```
+
+#### Hide specific elements
+```typescript
+await screenshots.capture('custom', {
+  fullPage: true,
+  hideElements: [
+    '#edit-zone',      // Plone toolbar
+    '#portal-footer',  // Footer
+    '.banner',         // Custom banner
+  ]
+});
+```
+
+#### Clip to region
+```typescript
+await screenshots.capture('clipped', {
+  clip: {
+    x: 0,
+    y: 80,      // Skip top 80px (toolbar)
+    width: 1920,
+    height: 900 // Stop before footer
+  }
+});
+```
+
 ### Example: Adding a New Survey Screenshot
 
 ```typescript
