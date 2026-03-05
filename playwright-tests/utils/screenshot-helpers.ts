@@ -77,16 +77,10 @@ export class ScreenshotHelper {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
 
-    const project = this.testInfo.project.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-
     const parts = [
       this.category,
       cleanName,
       suffix,
-      project,
       timestamp,
     ].filter(Boolean);
 

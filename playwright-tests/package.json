@@ -11,7 +11,9 @@
     "screenshots:ui": "playwright test --config=screenshot.config.ts --ui",
     "screenshots:survey": "playwright test screenshots/survey-screenshots.spec.ts --config=screenshot.config.ts",
     "screenshots:psf": "playwright test screenshots/psf-screenshots.spec.ts --config=screenshot.config.ts",
-    "screenshots:cp": "playwright test screenshots/controlpanel-screenshots.spec.ts --config=screenshot.config.ts"
+    "screenshots:cp": "playwright test screenshots/controlpanel-screenshots.spec.ts --config=screenshot.config.ts",
+    "album": "tsx generate-album.ts",
+    "album:view": "cd screenshots/output && npx serve -p 3000"
   },
   "keywords": ["playwright", "screenshots", "plone", "surveyjs"],
   "author": "",
@@ -19,5 +21,9 @@
   "dependencies": {
     "@playwright/test": "^1.57.0",
     "@zerostep/playwright": "^0.1.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "serve": "^14.2.0"
   }
 }

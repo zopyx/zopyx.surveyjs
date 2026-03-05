@@ -7,6 +7,7 @@
 - [Configuration](#configuration)
 - [Authentication System](#authentication-system)
 - [Running Tests](#running-tests)
+- [Screenshot Album Gallery](#screenshot-album-gallery)
 - [Adding New Screenshot Tests](#adding-new-screenshot-tests)
 - [Screenshots Reference](#screenshots-reference)
 - [Troubleshooting](#troubleshooting)
@@ -308,6 +309,56 @@ HTML report is available at:
 ```
 playwright-tests/screenshots/output/report/index.html
 ```
+
+### Screenshot Album Gallery
+
+The screenshot album provides a beautiful, interactive gallery to browse all screenshots:
+
+**Features:**
+- 📸 Thumbnail grid organized by category
+- 🔍 Real-time search filtering
+- ✨ "Latest Only" filter to see current versions
+- 💻 Full-size lightbox with keyboard navigation (← → ESC)
+- ⬇️ Download individual screenshots
+- 📱 Responsive design
+
+**Generate the album:**
+```bash
+# Generate HTML album from screenshots
+make screenshots-album
+
+# Or directly:
+cd playwright-tests && npx tsx generate-album.ts
+```
+
+**View the album:**
+```bash
+# Serve with local HTTP server
+make screenshots-view
+
+# Or manually:
+cd playwright-tests/screenshots/output && npx serve -p 3000
+# Open http://localhost:3000
+```
+
+**Generated output:**
+```
+playwright-tests/screenshots/output/
+├── index.html              # Album gallery (auto-generated)
+├── survey-list-2024-...png
+├── survey-list-latest.png  # Symlink to latest
+├── metadata-basics-...png
+└── ...
+```
+
+**Screenshot Groups:**
+| Group | Description |
+|-------|-------------|
+| 📋 Survey Management | Survey list, add/edit forms |
+| 📝 Forms | Form views and interactions |
+| ⚡ Survey Actions | Viewer, editor, results, dashboard, metadata |
+| ✅ Validation | Form validation states |
+| 🎯 Demos | Demo surveys |
 
 ---
 

@@ -7,13 +7,13 @@ import { test, expect } from '@playwright/test';
 import { ScreenshotHelper, SCREENSHOT_TIMEOUT } from '../utils/screenshot-helpers';
 
 // Test survey path relative to baseURL
-const TEST_SURVEY_PATH = '/en/demos/event-registration';
+const TEST_SURVEY_PATH = '/en/demos/prefilled';
 
 test.describe('Survey Actions Panel', () => {
   let screenshots: ScreenshotHelper;
 
   test.beforeEach(({ page }, testInfo) => {
-    screenshots = new ScreenshotHelper(page, testInfo, 'survey-actions');
+    screenshots = new ScreenshotHelper(page, testInfo, 'survey');
   });
 
   test('@@viewer - View survey form', async ({ page, baseURL }) => {
@@ -53,7 +53,7 @@ test.describe('Survey Actions Panel', () => {
   test('@@dashboard - Dashboard view', async ({ page, baseURL }) => {
     await page.goto(`${baseURL}${TEST_SURVEY_PATH}/@@dashboard`);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(SCREENSHOT_TIMEOUT);
+    await page.waitForTimeout(5000); // 5 seconds for dashboard to fully render
     await screenshots.capture('action-dashboard');
   });
 

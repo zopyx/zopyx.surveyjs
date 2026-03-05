@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests screenshots-album screenshots-view
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := pfs-demo
@@ -93,3 +93,11 @@ plone-start-for-tests:
 
 plone-stop-for-tests:
 	cd playwright-tests && ./stop_plone_for_tests.sh
+
+# Generate HTML album from screenshots
+screenshots-album:
+	cd playwright-tests && npx tsx generate-album.ts
+
+# View screenshots album in browser
+screenshots-view:
+	cd playwright-tests/screenshots/output && npx serve -p 3000

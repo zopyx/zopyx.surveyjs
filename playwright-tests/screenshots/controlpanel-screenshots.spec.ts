@@ -21,7 +21,7 @@ test.describe('Forms Control Panel', () => {
     await expect(page.locator('.sd-container-modern, #surveyContainer, .forms-settings')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
     await page.waitForTimeout(SCREENSHOT_TIMEOUT);
 
-    await screenshots.capture('forms-settings', { fullPage: true });
+    await screenshots.capture('main', { fullPage: true });
   });
 
   test('@@forms-settings - AI settings section', async ({ page, baseURL }) => {
@@ -37,7 +37,7 @@ test.describe('Forms Control Panel', () => {
       await page.waitForTimeout(SCREENSHOT_TIMEOUT);
     }
 
-    await screenshots.capture('forms-settings-ai', { fullPage: true });
+    await screenshots.capture('ai', { fullPage: true });
   });
 
   test('@@forms-settings - Email settings section', async ({ page, baseURL }) => {
@@ -53,7 +53,7 @@ test.describe('Forms Control Panel', () => {
       await page.waitForTimeout(SCREENSHOT_TIMEOUT);
     }
 
-    await screenshots.capture('forms-settings-email', { fullPage: true });
+    await screenshots.capture('email', { fullPage: true });
   });
 
   test('@@forms-settings - Storage settings section', async ({ page, baseURL }) => {
@@ -69,7 +69,7 @@ test.describe('Forms Control Panel', () => {
       await page.waitForTimeout(SCREENSHOT_TIMEOUT);
     }
 
-    await screenshots.capture('forms-settings-storage', { fullPage: true });
+    await screenshots.capture('storage', { fullPage: true });
   });
 });
 
@@ -84,7 +84,7 @@ test.describe('Plone Control Panels', () => {
     await page.goto(`${baseURL}/@@overview-controlpanel`);
     await page.waitForLoadState('networkidle');
     await expect(page.locator('#content, .overview-controlpanel')).toBeVisible();
-    await screenshots.capture('site-setup-overview', { fullPage: true });
+    await screenshots.capture('overview', { fullPage: true });
   });
 
   test('Add-ons control panel', async ({ page, baseURL }) => {
@@ -94,6 +94,6 @@ test.describe('Plone Control Panels', () => {
     await expect(page.locator('#content, .addons-list')).toBeVisible();
     await page.waitForTimeout(SCREENSHOT_TIMEOUT);
 
-    await screenshots.capture('addons-controlpanel', { fullPage: true });
+    await screenshots.capture('addons', { fullPage: true });
   });
 });

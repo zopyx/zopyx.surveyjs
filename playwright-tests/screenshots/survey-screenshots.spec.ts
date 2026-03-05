@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
 import { ScreenshotHelper, SCREENSHOT_TIMEOUT } from '../utils/screenshot-helpers';
 
 // Test survey path relative to baseURL (e.g. http://localhost:8082/demo)
-const TEST_SURVEY_PATH = '/en/demos/event-registration';
+const TEST_SURVEY_PATH = '/en/demos/prefilled';
 
 test.describe('Survey Main Views', () => {
   let screenshots: ScreenshotHelper;
