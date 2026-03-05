@@ -18,6 +18,7 @@ import plone.api
 from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
 
+from ..permissions import ModifyPortalContent
 from .services import forms as forms_service
 from .services.http import json_error, json_response, parse_json_body
 from .embed_security import (
@@ -45,7 +46,7 @@ class EmbedDirectTokenView(BrowserView):
     def __call__(self):
         """Handle POST request to generate embed token."""
         # Check permission
-        if not plone.api.user.has_permission("Modify portal content", obj=self.context):
+        if not plone.api.user.has_permission(ModifyPortalContent, obj=self.context):
             json_error(self.request.response, 403, "permission_denied")
             return
 
@@ -633,7 +634,7 @@ class DirectEmbedDemoView(BrowserView):
     def __call__(self):
         """Render the demo page."""
         # Check permissions
-        if not plone.api.user.has_permission("Modify portal content", obj=self.context):
+        if not plone.api.user.has_permission(ModifyPortalContent, obj=self.context):
             self.request.response.setStatus(403)
             return "Access denied"
 

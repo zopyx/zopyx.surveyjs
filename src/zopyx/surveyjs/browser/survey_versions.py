@@ -6,6 +6,7 @@ from zope.schema import getFieldsInOrder
 
 from .. import _
 from ..audit import audit_form_version_change, audit_form_version_state_change
+from ..permissions import AddSurveyTemplate
 from ..constants import FORM_VERSIONS_KEY
 from .services import forms as forms_service
 from .services.http import json_response
@@ -285,9 +286,7 @@ class SurveyVersions(Views):
             )
 
         parent = self.context.aq_parent
-        if not plone.api.user.has_permission(
-            "zopyx.surveyjs: Add Survey Template", obj=parent
-        ):
+        if not plone.api.user.has_permission(AddSurveyTemplate, obj=parent):
             plone.api.portal.show_message(
                 _("You do not have permission to add templates here."), type="error"
             )

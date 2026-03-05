@@ -21,6 +21,7 @@ import plone.api
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
+from ..permissions import AddSurvey, ModifyPortalContent
 from ..constants import FORM_VERSIONS_KEY, PDF_FORM_KEY
 from ..audit import audit_form_version_change
 from ..storage import _get_storage_location, get_result_storage
@@ -200,9 +201,7 @@ class Views(BrowserView):
 
     @property
     def can_add_survey(self) -> bool:
-        return plone.api.user.has_permission(
-            "zopyx.surveyjs: Add Survey", obj=self.context
-        )
+        return plone.api.user.has_permission(AddSurvey, obj=self.context)
 
     @property
     def storage_info(self) -> str:
@@ -1337,7 +1336,7 @@ class Views(BrowserView):
     def can_manage_portal_content(self):
         """Return True for Managers or users with Modify portal content."""
         return self.is_manager or plone.api.user.has_permission(
-            "Modify portal content", obj=self.context
+            ModifyPortalContent, obj=self.context
         )
 
     @property

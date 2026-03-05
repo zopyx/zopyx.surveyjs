@@ -10,6 +10,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from .. import _
+from ..permissions import AddSurvey
 from ..utils import ensure_timezone_aware
 
 logger = logging.getLogger(__name__)
@@ -71,9 +72,7 @@ class SurveyAddView(BrowserView):
 
     @property
     def can_add(self) -> bool:
-        return plone.api.user.has_permission(
-            "zopyx.surveyjs: Add Survey", obj=self.context
-        )
+        return plone.api.user.has_permission(AddSurvey, obj=self.context)
 
     @property
     def form_values(self) -> dict[str, Any]:

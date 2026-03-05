@@ -8,6 +8,7 @@ from zope.schema import getFieldsInOrder
 
 from .. import _
 from ..content.survey import ISurvey
+from ..permissions import AddSurvey, ManagePortal
 from .services import forms as forms_service
 
 
@@ -32,19 +33,13 @@ class PFSView(BrowserView):
     def can_add_survey(self) -> bool:
         if self.is_anonymous:
             return False
-        return bool(
-            getSecurityManager().checkPermission(
-                "zopyx.surveyjs: Add Survey", self.context
-            )
-        )
+        return bool(getSecurityManager().checkPermission(AddSurvey, self.context))
 
     @property
     def can_view_forms_overview(self) -> bool:
         if self.is_anonymous:
             return False
-        return bool(
-            getSecurityManager().checkPermission("Manage portal", self.context)
-        )
+        return bool(getSecurityManager().checkPermission(ManagePortal, self.context))
 
     @property
     def can_create_from_template(self) -> bool:

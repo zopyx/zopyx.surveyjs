@@ -12,6 +12,7 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from ..interfaces import IFormsSettings
+from ..permissions import ManagePortal
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ class FormsSettingsView(BrowserView):
 
     @property
     def can_manage(self) -> bool:
-        return plone.api.user.has_permission("Manage portal", obj=self.context)
+        return plone.api.user.has_permission(ManagePortal, obj=self.context)
 
     @property
     def errors(self) -> list[str]:
