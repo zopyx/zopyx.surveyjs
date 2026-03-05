@@ -53,7 +53,7 @@ test.describe('Survey Actions Panel', () => {
   test('@@dashboard - Dashboard view', async ({ page, baseURL }) => {
     await page.goto(`${baseURL}${TEST_SURVEY_PATH}/@@dashboard`);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(5000); // 5 seconds for dashboard to fully render
+    await page.waitForTimeout(8000); // 8 seconds for dashboard charts to fully render
     await screenshots.capture('action-dashboard');
   });
 

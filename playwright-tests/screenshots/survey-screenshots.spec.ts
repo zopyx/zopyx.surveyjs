@@ -31,8 +31,8 @@ test.describe('Survey Main Views', () => {
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(SCREENSHOT_TIMEOUT);
 
-    // Capture only content, hiding Plone toolbar and footer
-    await screenshots.captureContentOnly('view-main-clean');
+    // Capture only content, hiding Plone toolbar and footer (no fullPage for CI stability)
+    await screenshots.capture('view-main-clean', { fullPage: false });
   });
 
   test('@@viewer - survey only (no chrome)', async ({ page, baseURL }) => {
@@ -67,9 +67,9 @@ test.describe('Survey Main Views', () => {
     await expect(page.locator('.svc-creator')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
     await page.waitForTimeout(SCREENSHOT_TIMEOUT); // Creator takes time to fully render
 
-    // Hide Plone UI for cleaner screenshot
+    // Hide Plone UI for cleaner screenshot (no fullPage for CI stability)
     await screenshots.hidePloneUI();
-    await screenshots.capture('editor', { fullPage: true });
+    await screenshots.capture('editor', { fullPage: false });
   });
 
   test('@@results - submissions list', async ({ page, baseURL }) => {

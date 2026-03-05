@@ -30,6 +30,9 @@ export default defineConfig({
   fullyParallel: true,
   workers: 3,
   
+  // Test timeout - 60 seconds for CI
+  timeout: 60000,
+  
   // Stop after 3 failures (set to 0 to run all tests regardless)
   bail: 3,
   
@@ -55,7 +58,7 @@ export default defineConfig({
     
     // Wait for network to be idle before taking screenshots
     actionTimeout: SCREENSHOT_TIMEOUT,
-    navigationTimeout: SCREENSHOT_TIMEOUT,
+    navigationTimeout: 30000, // 30s for navigation in CI
     
     trace: 'on-first-retry',
   },
