@@ -4,7 +4,7 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { ScreenshotHelper } from '../utils/screenshot-helpers';
+import { ScreenshotHelper, SCREENSHOT_TIMEOUT } from '../utils/screenshot-helpers';
 
 test.describe('Forms Control Panel', () => {
   let screenshots: ScreenshotHelper;
@@ -18,8 +18,8 @@ test.describe('Forms Control Panel', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for the SurveyJS form to render
-    await expect(page.locator('.sd-container-modern, #surveyContainer, .forms-settings')).toBeVisible({ timeout: 15000 });
-    await page.waitForTimeout(1000);
+    await expect(page.locator('.sd-container-modern, #surveyContainer, .forms-settings')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
+    await page.waitForTimeout(SCREENSHOT_TIMEOUT);
 
     await screenshots.capture('forms-settings', { fullPage: true });
   });
@@ -28,13 +28,13 @@ test.describe('Forms Control Panel', () => {
     await page.goto(`${baseURL}/@@forms-settings`);
     await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('.sd-container-modern')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('.sd-container-modern')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
 
     // Try to navigate to AI settings panel if tabs exist
     const aiTab = page.locator('text=AI, text=AI Settings, [data-panel="ai"]').first();
     if (await aiTab.isVisible().catch(() => false)) {
       await aiTab.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(SCREENSHOT_TIMEOUT);
     }
 
     await screenshots.capture('forms-settings-ai', { fullPage: true });
@@ -44,13 +44,13 @@ test.describe('Forms Control Panel', () => {
     await page.goto(`${baseURL}/@@forms-settings`);
     await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('.sd-container-modern')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('.sd-container-modern')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
 
     // Try to navigate to Email settings panel
     const emailTab = page.locator('text=Email, text=Mail, [data-panel="email"]').first();
     if (await emailTab.isVisible().catch(() => false)) {
       await emailTab.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(SCREENSHOT_TIMEOUT);
     }
 
     await screenshots.capture('forms-settings-email', { fullPage: true });
@@ -60,13 +60,13 @@ test.describe('Forms Control Panel', () => {
     await page.goto(`${baseURL}/@@forms-settings`);
     await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('.sd-container-modern')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('.sd-container-modern')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
 
     // Try to navigate to Storage settings panel
     const storageTab = page.locator('text=Storage, text=Database, [data-panel="storage"]').first();
     if (await storageTab.isVisible().catch(() => false)) {
       await storageTab.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(SCREENSHOT_TIMEOUT);
     }
 
     await screenshots.capture('forms-settings-storage', { fullPage: true });
@@ -92,7 +92,7 @@ test.describe('Plone Control Panels', () => {
     await page.waitForLoadState('networkidle');
 
     await expect(page.locator('#content, .addons-list')).toBeVisible();
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(SCREENSHOT_TIMEOUT);
 
     await screenshots.capture('addons-controlpanel', { fullPage: true });
   });

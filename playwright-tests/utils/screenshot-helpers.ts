@@ -4,6 +4,8 @@
  */
 
 import { Page, TestInfo } from '@playwright/test';
+
+export const SCREENSHOT_TIMEOUT = 2500;
 import path from 'path';
 import fs from 'fs';
 
@@ -72,14 +74,20 @@ export class ScreenshotHelper {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
-    
+
+    const project = this.testInfo.project.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
     const parts = [
       this.category,
       cleanName,
       suffix,
+      project,
       timestamp,
     ].filter(Boolean);
-    
+
     return `${parts.join('-')}.png`;
   }
 

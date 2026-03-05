@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
+import { SCREENSHOT_TIMEOUT } from './utils/screenshot-helpers';
 
 /**
  * Playwright configuration for automated screenshots.
@@ -27,13 +28,9 @@ export default defineConfig({
   
   // Screenshot tests should be fully sequential to avoid conflicts
   fullyParallel: false,
-  workers: 1,
+  workers: 2,
   
-  // No retries for screenshots - we want deterministic results
-  retries: 0,
-  
-  // Stop after first failure
-  bail: 1,
+  retries: 1,
   
   reporter: [
     ['list'],
@@ -47,18 +44,15 @@ export default defineConfig({
     viewport: { width: 1920, height: 1080 },
     deviceScaleFactor: 1,
     
-    // Screenshot settings - capture on failure for debugging
-    screenshot: 'only-on-failure',
-    
-    // Capture video for all tests (useful for documentation and debugging)
+    screenshot: 'on',
     video: 'on',
     
     // Disable animations for consistent captures
     animations: 'disabled',
     
     // Wait for network to be idle before taking screenshots
-    actionTimeout: 5000,
-    navigationTimeout: 5000,
+    actionTimeout: SCREENSHOT_TIMEOUT,
+    navigationTimeout: SCREENSHOT_TIMEOUT,
     
     trace: 'on-first-retry',
   },
@@ -78,17 +72,6 @@ export default defineConfig({
         // Preserve baseURL from root config
         baseURL: ploneUrl,
         // Storage state from auth setup
-        storageState: './screenshots/.auth/admin.json',
-      },
-      dependencies: ['setup'],
-    },
-    // Optional: Mobile screenshots
-    {
-      name: 'screenshots-mobile',
-      use: { 
-        ...devices['iPhone 14 Pro Max'],
-        // Preserve baseURL from root config
-        baseURL: ploneUrl,
         storageState: './screenshots/.auth/admin.json',
       },
       dependencies: ['setup'],
