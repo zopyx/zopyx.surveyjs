@@ -31,7 +31,7 @@ test.describe('Survey Main Views', () => {
     await page.waitForLoadState('networkidle');
     
     // Wait for SurveyJS to render
-    await expect(page.locator('#surveyContainer, .sd-container-modern')).toBeVisible();
+    await expect(page.locator('#surveyContainer')).toBeVisible();
     await page.waitForTimeout(1000); // Extra time for animations
     
     await screenshots.capture('viewer', { fullPage: true });
@@ -95,7 +95,7 @@ test.describe('Survey Anonymous Views', () => {
     await page.goto(`${TEST_SURVEY_PATH}/@@viewer`);
     await page.waitForLoadState('networkidle');
     
-    await expect(page.locator('#surveyContainer, .sd-container-modern')).toBeVisible();
+    await expect(page.locator('#surveyContainer')).toBeVisible();
     await page.waitForTimeout(1000);
     
     await screenshots.capture('viewer-anonymous', { fullPage: true });
