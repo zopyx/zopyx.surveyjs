@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2ff75a8-f8c6-4884-9baf-376f94d877fc" name="Changes" comment="refactored `_build_attachment` to support flexible MIME types and added `generate_survey_json_from_assets` for PDF-to-SurveyJS JSON generation">
-      <change afterPath="$PROJECT_DIR$/playwright-tests/zerostep.config.json" afterDir="false" />
-    </list>
+    <list default="true" id="f2ff75a8-f8c6-4884-9baf-376f94d877fc" name="Changes" comment="refactored `_build_attachment` to support flexible MIME types and added `generate_survey_json_from_assets` for PDF-to-SurveyJS JSON generation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="89715" />
+    <option name="cachedIndexableFilesCount" value="56035" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -85,6 +83,7 @@
       <workItem from="1769671590063" duration="30000" />
       <workItem from="1769671640316" duration="1421000" />
       <workItem from="1769762199862" duration="1856000" />
+      <workItem from="1772631149950" duration="179000" />
     </task>
     <task id="LOCAL-00001" summary="simplified repository root path resolution in test_pdf_form_extract">
       <option name="closed" value="true" />

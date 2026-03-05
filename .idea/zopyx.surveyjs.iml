@@ -7,7 +7,7 @@
   <component name="TemplatesService">
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/eggs/python_docx-1.2.0-py3.13.egg/docx/templates" />
+        <option value="$MODULE_DIR$/eggs/python_docx-1.2.0-py3.12.egg/docx/templates" />
       </list>
     </option>
   </component>
