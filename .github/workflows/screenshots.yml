@@ -1,0 +1,158 @@
+name: Playwright Screenshots
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      category:
+        description: 'Screenshot category to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - survey
+          - psf
+          - cp
+
+env:
+  PLONE_URL: http://localhost:8082/demo
+  PLONE_ADMIN_USER: admin2
+  PLONE_ADMIN_PASS: 2admin
+  SCREENSHOT_DIR: ./playwright-tests/screenshots/output
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # System dependencies for Plone
+      - name: Install system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libxml2-dev \
+            libxslt1-dev \
+            libjpeg-dev \
+            libffi-dev \
+            libcairo2 \
+            libpango-1.0-0 \
+            libpangoft2-1.0-0 \
+            libpangocairo-1.0-0 \
+            libharfbuzz0b \
+            libgdk-pixbuf-2.0-0
+
+      # System dependencies for Playwright
+      - name: Install Playwright dependencies
+        run: |
+          sudo apt-get install -y \
+            libnss3 \
+            libatk-bridge2.0-0 \
+            libdrm-dev \
+            libxkbcommon-dev \
+            libgbm-dev \
+            libasound-dev \
+            libatspi2.0-0 \
+            libxshmfence-dev
+
+      # Set up Python with uv
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          uv-version: "latest"
+          enable-cache: true
+          cache-dependency-glob: |
+            requirements.txt
+            buildout.cfg
+            base.cfg
+
+      - name: Install Python with uv
+        run: uv python install 3.12
+
+      - name: Create venv and install buildout tooling
+        run: |
+          uv venv --python 3.12
+          uv pip install -r requirements.txt
+
+      - name: Run buildout
+        run: .venv/bin/buildout
+
+      # Set up Node.js for Playwright
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'playwright-tests/package-lock.json'
+
+      - name: Install Playwright dependencies
+        working-directory: ./playwright-tests
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: ./playwright-tests
+        run: npx playwright install chromium
+
+      # Start Plone and run screenshots
+      - name: Initialize and start Plone
+        run: |
+          echo "Initializing demo Plone site..."
+          ./bin/instance run scripts/init_plone.py
+          echo "Starting Plone instance in background..."
+          ./bin/instance start
+          echo "Waiting for Plone to be ready..."
+          for i in {1..60}; do
+            if curl -s --max-time 5 http://localhost:8082/demo/en > /dev/null 2>&1; then
+              echo "Plone is ready!"
+              break
+            fi
+            echo -n "."
+            sleep 1
+          done
+          # Verify Plone is accessible
+          curl -I http://localhost:8082/demo/en
+
+      - name: Run Playwright screenshot tests
+        working-directory: ./playwright-tests
+        run: |
+          CATEGORY="${{ github.event.inputs.category || 'all' }}"
+          echo "Running screenshot category: $CATEGORY"
+          
+          if [ "$CATEGORY" = "all" ]; then
+            npm run screenshots
+          else
+            npm run screenshots:$CATEGORY
+          fi
+
+      # Upload artifacts on failure for debugging
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: |
+            playwright-tests/screenshots/output/test-results/
+            playwright-tests/screenshots/output/report/
+          retention-days: 7
+
+      # Upload screenshots as artifacts on success
+      - name: Upload screenshots
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-screenshots
+          path: |
+            playwright-tests/screenshots/output/*.png
+          retention-days: 30
+
+      # Stop Plone
+      - name: Stop Plone
+        if: always()
+        run: ./bin/instance stop || true
