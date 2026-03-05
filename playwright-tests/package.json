@@ -1,12 +1,19 @@
 {
   "name": "playwright-tests",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright tests and screenshot automation for zopyx.surveyjs",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "screenshots": "playwright test --config=screenshot.config.ts",
+    "screenshots:headed": "playwright test --config=screenshot.config.ts --headed",
+    "screenshots:debug": "playwright test --config=screenshot.config.ts --debug",
+    "screenshots:ui": "playwright test --config=screenshot.config.ts --ui",
+    "screenshots:survey": "playwright test screenshots/survey-screenshots.spec.ts --config=screenshot.config.ts",
+    "screenshots:psf": "playwright test screenshots/psf-screenshots.spec.ts --config=screenshot.config.ts",
+    "screenshots:cp": "playwright test screenshots/controlpanel-screenshots.spec.ts --config=screenshot.config.ts"
   },
-  "keywords": [],
+  "keywords": ["playwright", "screenshots", "plone", "surveyjs"],
   "author": "",
   "license": "ISC",
   "dependencies": {

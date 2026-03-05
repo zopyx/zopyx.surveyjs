@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Generated files
+screenshots/output/
+screenshots/.auth/
+test-results/
+playwright-report/
+*.png
+
+# Logs
+*.log
