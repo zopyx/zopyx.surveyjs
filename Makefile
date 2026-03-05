@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := pfs-demo
@@ -49,22 +49,47 @@ sdist:
 	uv run python setup.py sdist
 
 # Screenshot automation with Playwright
+# These targets automatically handle Plone startup/shutdown
+
 screenshots-setup:
 	@echo "Installing Playwright dependencies..."
 	cd playwright-tests && npm install
 	cd playwright-tests && npx playwright install chromium
 
 screenshots:
-	cd playwright-tests && ./run-screenshots.sh
+	cd playwright-tests && ./run-screenshots-with-plone.sh
 
 screenshots-survey:
-	cd playwright-tests && ./run-screenshots.sh survey
+	cd playwright-tests && ./run-screenshots-with-plone.sh survey
 
 screenshots-psf:
-	cd playwright-tests && ./run-screenshots.sh psf
+	cd playwright-tests && ./run-screenshots-with-plone.sh psf
 
 screenshots-cp:
-	cd playwright-tests && ./run-screenshots.sh cp
+	cd playwright-tests && ./run-screenshots-with-plone.sh cp
 
 screenshots-headed:
+	cd playwright-tests && ./run-screenshots-with-plone.sh headed
+
+# Raw screenshot targets (assumes Plone is already running)
+screenshots-raw:
+	cd playwright-tests && ./run-screenshots.sh
+
+screenshots-raw-survey:
+	cd playwright-tests && ./run-screenshots.sh survey
+
+screenshots-raw-psf:
+	cd playwright-tests && ./run-screenshots.sh psf
+
+screenshots-raw-cp:
+	cd playwright-tests && ./run-screenshots.sh cp
+
+screenshots-raw-headed:
 	cd playwright-tests && ./run-screenshots.sh headed
+
+# Start/stop Plone for tests (manual control)
+plone-start-for-tests:
+	cd playwright-tests && ./start_plone_for_tests.sh
+
+plone-stop-for-tests:
+	cd playwright-tests && ./stop_plone_for_tests.sh
