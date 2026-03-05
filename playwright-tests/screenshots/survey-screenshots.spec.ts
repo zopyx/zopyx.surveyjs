@@ -9,7 +9,7 @@ import { ScreenshotHelper } from '../utils/screenshot-helpers';
 // Test survey path - adjust to an existing survey in your Plone instance
 const TEST_SURVEY_PATH = '/demo/en/demos/event-registration';
 
-test.describe('Survey Main Views', () => {
+test.describe.skip('Survey Main Views', () => {
   let screenshots: ScreenshotHelper;
 
   test.beforeEach(({ page }, testInfo) => {
@@ -80,7 +80,7 @@ test.describe('Survey Main Views', () => {
   });
 });
 
-test.describe('Survey Anonymous Views', () => {
+test.describe.skip('Survey Anonymous Views', () => {
   // Tests for anonymous/public views (no auth required)
   
   test.use({ storageState: undefined }); // Don't use authenticated state

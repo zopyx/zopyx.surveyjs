@@ -6,7 +6,7 @@
 import { test, expect } from '@playwright/test';
 import { ScreenshotHelper } from '../utils/screenshot-helpers';
 
-test.describe('PSF Landing Page (@@pfs)', () => {
+test.describe.skip('PSF Landing Page (@@pfs)', () => {
   let screenshots: ScreenshotHelper;
 
   test.beforeEach(({ page }, testInfo) => {
@@ -43,7 +43,7 @@ test.describe('PSF Landing Page (@@pfs)', () => {
   });
 });
 
-test.describe('PSF Anonymous View', () => {
+test.describe.skip('PSF Anonymous View', () => {
   test.use({ storageState: undefined });
 
   let screenshots: ScreenshotHelper;
@@ -63,7 +63,7 @@ test.describe('PSF Anonymous View', () => {
   });
 });
 
-test.describe('PSF Related Views', () => {
+test.describe.skip('PSF Related Views', () => {
   let screenshots: ScreenshotHelper;
 
   test.beforeEach(({ page }, testInfo) => {

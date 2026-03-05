@@ -43,8 +43,8 @@ npx playwright test --config=screenshot.config.ts
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PLONE_URL` | `http://localhost:8082/demo` | Base URL of Plone instance |
-| `PLONE_ADMIN_USER` | `admin` | Admin username |
-| `PLONE_ADMIN_PASS` | `admin` | Admin password |
+| `PLONE_ADMIN_USER` | `admin2` | Admin username |
+| `PLONE_ADMIN_PASS` | `2admin` | Admin password |
 | `SCREENSHOT_DIR` | `./screenshots/output` | Output directory for screenshots |
 
 ## Screenshot Categories
@@ -179,8 +179,8 @@ For automated screenshot generation in CI:
     npx playwright test --config=screenshot.config.ts
   env:
     PLONE_URL: http://localhost:8080/Plone
-    PLONE_ADMIN_USER: admin
-    PLONE_ADMIN_PASS: secret
+    PLONE_ADMIN_USER: admin2
+    PLONE_ADMIN_PASS: 2admin
     
 - name: Upload Screenshots
   uses: actions/upload-artifact@v4
@@ -223,3 +223,36 @@ For automated screenshot generation in CI:
 | `make screenshots-raw-*` | Raw variants for survey/psf/cp/headed |
 | `make plone-start-for-tests` | Manually start Plone for tests |
 | `make plone-stop-for-tests` | Manually stop Plone for tests |
+
+## Debugging Test Failures
+
+### Automatic Error Artifacts
+
+When tests fail, Playwright automatically captures:
+- **Screenshots** - Full-page screenshots at the moment of failure
+- **Videos** - Screen recordings of the entire test (up to the failure point)
+- **Traces** - Detailed execution traces (on first retry)
+
+These are saved to: `$SCREENSHOT_DIR/test-results/`
+
+### Viewing Error Artifacts
+
+```bash
+# List captured artifacts
+ls -la playwright-tests/screenshots/output/test-results/
+
+# Open the HTML report (includes error screenshots)
+npx playwright show-report playwright-tests/screenshots/output/report
+
+# View trace files (interactive debugging)
+npx playwright show-trace playwright-tests/screenshots/output/test-results/<test-name>-trace.zip
+```
+
+### Common Failure Scenarios
+
+| Issue | Solution |
+|-------|----------|
+| Element not found | Check selectors match your Plone theme |
+| Timeout errors | Increase `actionTimeout` in config |
+| Blank screenshots | Wait for page load: `await page.waitForLoadState('networkidle')` |
+| Auth failures | Delete `screenshots/.auth/` to force re-authentication |

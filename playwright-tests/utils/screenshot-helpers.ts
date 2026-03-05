@@ -39,6 +39,28 @@ export class ScreenshotHelper {
     
     // Ensure output directory exists
     fs.mkdirSync(this.outputDir, { recursive: true });
+    
+    // Output video path if video recording is enabled
+    this.logVideoPath();
+  }
+  
+  /**
+   * Log the video file path for this test
+   */
+  private logVideoPath(): void {
+    const video = this.page.video();
+    if (video) {
+      // Generate expected video filename based on test info
+      const testName = this.testInfo.title.replace(/[^a-z0-9]+/gi, '-');
+      console.log(`[Video] Recording started for test: ${testName}`);
+      
+      // Video path is available after page closes, so we set up a listener
+      video.path().then((videoPath: string) => {
+        console.log(`[Video] Saved: ${videoPath}`);
+      }).catch(() => {
+        // Video path not yet available or error
+      });
+    }
   }
 
   /**

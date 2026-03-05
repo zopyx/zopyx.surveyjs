@@ -31,8 +31,8 @@ NC='\033[0m' # No Color
 
 # Default configuration
 PLONE_URL="${PLONE_URL:-http://localhost:8082/demo}"
-PLONE_ADMIN_USER="${PLONE_ADMIN_USER:-admin}"
-PLONE_ADMIN_PASS="${PLONE_ADMIN_PASS:-admin}"
+PLONE_ADMIN_USER="${PLONE_ADMIN_USER:-admin2}"
+PLONE_ADMIN_PASS="${PLONE_ADMIN_PASS:-2admin}"
 SCREENSHOT_DIR="${SCREENSHOT_DIR:-./screenshots/output}"
 
 export PLONE_URL
