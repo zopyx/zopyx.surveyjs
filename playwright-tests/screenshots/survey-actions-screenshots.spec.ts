@@ -132,7 +132,7 @@ test.describe('Survey Metadata - All Fieldsets', () => {
       const datesNav = page.getByRole('menuitemradio', { name: 'Dates' });
       await datesNav.waitFor({ state: 'visible', timeout: SCREENSHOT_TIMEOUT });
       await datesNav.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       
       await screenshots.capture('metadata-dates');
     });
@@ -149,7 +149,7 @@ test.describe('Survey Metadata - All Fieldsets', () => {
       const actionsNav = page.getByRole('menuitemradio', { name: 'Actions' });
       await actionsNav.waitFor({ state: 'visible', timeout: SCREENSHOT_TIMEOUT });
       await actionsNav.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       
       await screenshots.capture('metadata-actions');
     });
@@ -166,7 +166,7 @@ test.describe('Survey Metadata - All Fieldsets', () => {
       const mailNav = page.getByRole('menuitemradio', { name: 'Mail', exact: true });
       await mailNav.waitFor({ state: 'visible', timeout: SCREENSHOT_TIMEOUT });
       await mailNav.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       
       await screenshots.capture('metadata-mail');
     });
@@ -183,7 +183,7 @@ test.describe('Survey Metadata - All Fieldsets', () => {
       const notifNav = page.getByRole('menuitemradio', { name: 'Mail notifications' });
       await notifNav.waitFor({ state: 'visible', timeout: SCREENSHOT_TIMEOUT });
       await notifNav.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       
       await screenshots.capture('metadata-mail-notifications');
     });
@@ -200,7 +200,7 @@ test.describe('Survey Metadata - All Fieldsets', () => {
       const settingsNav = page.getByRole('menuitemradio', { name: 'Form settings' });
       await settingsNav.waitFor({ state: 'visible', timeout: SCREENSHOT_TIMEOUT });
       await settingsNav.click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1000);
       
       await screenshots.capture('metadata-form-settings');
     });

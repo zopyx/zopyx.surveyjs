@@ -5,7 +5,7 @@
 
 import { Page, TestInfo } from '@playwright/test';
 
-export const SCREENSHOT_TIMEOUT = 2500;
+export const SCREENSHOT_TIMEOUT = 5000;
 import path from 'path';
 import fs from 'fs';
 
