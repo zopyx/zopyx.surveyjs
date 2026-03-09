@@ -40,14 +40,16 @@
             <span i18n:translate="">Dashboard</span>
           </a>
         </tal:dashboard>
-        <a class="survey-action-button action-ai"
-           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
-                           title python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features';
-                           aria-label python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features'"
-           href="${context/absolute_url}/@@ai">
-          <span i18n:translate="">AI</span>
-          <span class="beta-badge" i18n:translate="">Beta</span>
-        </a>
+        <tal:ai tal:condition="python: view.feature_enabled('ai')">
+          <a class="survey-action-button action-ai"
+             tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
+                             title python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features';
+                             aria-label python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features'"
+             href="${context/absolute_url}/@@ai">
+            <span i18n:translate="">AI</span>
+            <span class="beta-badge" i18n:translate="">Beta</span>
+          </a>
+        </tal:ai>
       </div>
       
       <!-- Group 2: Management (Metadata, Versions) -->
