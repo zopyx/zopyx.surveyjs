@@ -367,6 +367,34 @@
     class=".ai2.AI2View"
     attribute="store_temp_as_version"
   />
+  <browser:page
+    name="ai2-copy-latest-to-temp"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    attribute="copy_latest_version_to_temp"
+  />
+  <browser:page
+    name="ai2-clear-temp-storage"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    attribute="clear_temp_storage"
+  />
+  <browser:page
+    name="ai2-chat-refine"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    attribute="chat_refine_temp_form"
+  />
+  <browser:page
+    name="ai2-restore-history-step"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    attribute="restore_temp_history_step"
+  />
 
   <!-- Chatbot -->
   <browser:page
