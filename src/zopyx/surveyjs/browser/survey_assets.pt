@@ -21,13 +21,6 @@
             tal:content="structure json"></script>
   </metal:surveyjs-var-auth-token>
 
-  <metal:surveyjs-var-auth-token-pdf define-macro="surveyjs-var-auth-token-pdf">
-    <script type="application/json"
-            id="surveyjs-auth-token-pdf"
-            tal:define="value context/@@survey-assets/auth_token_pdf; json python: __import__('json').dumps(value)"
-            tal:content="structure json"></script>
-  </metal:surveyjs-var-auth-token-pdf>
-
   <metal:surveyjs-vars-base define-macro="surveyjs-vars-base">
     <script type="application/json"
             id="surveyjs-i18n-locale"

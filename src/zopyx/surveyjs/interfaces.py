@@ -142,21 +142,15 @@ class IFormsSettings(IPloneLoggingSettings):
         description="Toggle which features are available in the UI.",
         value_type=schema.Choice(
             values=[
-                "ai-generator",
                 "chatbot",
                 "dashboard",
                 "pdf-generator",
-                "pdf-form-import",
-                "fillable-pdf...",
             ]
         ),
         required=False,
         default=[
-            "ai-generator",
             "dashboard",
             "pdf-generator",
-            "pdf-form-import",
-            "fillable-pdf...",
         ],
         missing_value=[],
     )

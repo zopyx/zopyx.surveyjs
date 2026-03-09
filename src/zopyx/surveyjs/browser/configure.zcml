@@ -338,14 +338,7 @@
     attribute="delete_results"
   />
 
-  <!-- AI Form Generator -->
-  <browser:page
-    name="ai"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".survey_ai.SurveyAI"
-    template="survey_ai.pt"
-  />
+  <!-- AI2 Form Generator -->
   <browser:page
     name="ai2"
     for="zopyx.surveyjs.content.survey.ISurvey"
@@ -454,92 +447,6 @@
     permission="cmf.ManagePortal"
     class=".llm_models.LLMModelsView"
     template="llm_models.pt"
-  />
-
-  <!-- PDF Form Importer -->
-  <browser:page
-    name="pdf-importer"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".views.Views"
-    template="pdf_importer.pt"
-  />
-
-  <!-- Fillable PDF Form Workflow -->
-  <browser:page
-    name="pdf-form-setup"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ManagePortal"
-    class=".views.Views"
-    template="pdf_form_setup.pt"
-  />
-  <browser:page
-    name="pdf-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="zope2.View"
-    class=".views.Views"
-    template="pdf_form.pt"
-  />
-  <browser:page
-    name="get-pdf-form-json"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="zope2.View"
-    class=".views.Views"
-    attribute="get_pdf_form_json"
-  />
-  <browser:page
-    name="upload-pdf-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ManagePortal"
-    class=".views.Views"
-    attribute="upload_pdf_form"
-  />
-  <browser:page
-    name="fill-pdf-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="zope2.View"
-    class=".views.Views"
-    attribute="fill_pdf_form"
-  />
-
-  <browser:page
-    name="generate-ai-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".survey_ai.SurveyAI"
-    attribute="generate_ai_form"
-  />
-
-  <browser:page
-    name="save-ai-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".survey_ai.SurveyAI"
-    attribute="save_ai_form"
-  />
-
-  <browser:page
-    name="refine-ai-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".survey_ai.SurveyAI"
-    attribute="refine_ai_form"
-  />
-
-  <browser:page
-    name="import-pdf-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".views.Views"
-    attribute="import_pdf_form"
-  />
-
-  <browser:page
-    name="store-pdf-form"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
-    class=".views.Views"
-    attribute="store_pdf_form"
   />
 
   <!-- Survey Submission Monitor -->

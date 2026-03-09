@@ -17,15 +17,6 @@
            href="${context/absolute_url}/@@viewer">
           <span i18n:translate="">View</span>
         </a>
-        <tal:pdfform tal:condition="view/pdf_form_available">
-          <a class="survey-action-button action-pdf-form"
-             tal:attributes="class python: 'survey-action-button action-pdf-form' + (' is-active' if current_url.endswith('/@@pdf-form') else '');
-                             title python: 'PDF form' if not current_url.endswith('/@@pdf-form') else 'Currently on PDF form';
-                             aria-label python: 'PDF form' if not current_url.endswith('/@@pdf-form') else 'Currently on PDF form'"
-             href="${context/absolute_url}/@@pdf-form">
-            <span i18n:translate="">PDF Form</span>
-          </a>
-        </tal:pdfform>
         <a class="survey-action-button action-editor"
            tal:attributes="class python: 'survey-action-button action-editor' + (' is-active' if current_url.endswith('/@@editor') else '');
                            title python: 'Open visual editor' if not current_url.endswith('/@@editor') else 'Currently in visual editor';
@@ -69,17 +60,8 @@
         </a>
       </div>
       
-      <!-- Group 3: Advanced / Import (AI Generator, Form from PDF, Fillable PDF Forms, Chatbot) -->
+      <!-- Group 3: Advanced (AI2, Chatbot) -->
       <div class="survey-actions-group group-advanced">
-        <tal:ai tal:condition="python: view.feature_enabled('ai-generator')">
-          <a class="survey-action-button action-ai"
-             tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
-                             title python: 'AI form generator' if not current_url.endswith('/@@ai') else 'Currently in AI generator';
-                             aria-label python: 'AI form generator' if not current_url.endswith('/@@ai') else 'Currently in AI generator'"
-             href="${context/absolute_url}/@@ai">
-            <span i18n:translate="">AI Generator</span>
-          </a>
-        </tal:ai>
         <a class="survey-action-button action-ai"
            tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai2') else '');
                            title python: 'AI2 beta features' if not current_url.endswith('/@@ai2') else 'Currently in AI2 beta features';
@@ -88,37 +70,6 @@
           <span i18n:translate="">AI2</span>
           <span class="beta-badge" i18n:translate="">Beta</span>
         </a>
-        <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
-          <a class="survey-action-button action-pdf-importer"
-             tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '');
-                             title python: 'Import form from PDF' if not current_url.endswith('/@@pdf-importer') else 'Currently importing from PDF';
-                             aria-label python: 'Import form from PDF' if not current_url.endswith('/@@pdf-importer') else 'Currently importing from PDF'"
-             href="${context/absolute_url}/@@pdf-importer">
-            <span i18n:translate="">Form from PDF</span>
-          </a>
-        </tal:pdfimporter>
-        <tal:manager tal:condition="view/is_manager">
-          <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
-            <a class="survey-action-button action-pdf-form-setup"
-               tal:attributes="class python: 'survey-action-button action-pdf-form-setup' + (' is-active' if current_url.endswith('/@@pdf-form-setup') else '');
-                               title python: 'Fillable PDF forms setup' if not current_url.endswith('/@@pdf-form-setup') else 'Currently in fillable PDF forms setup';
-                               aria-label python: 'Fillable PDF forms setup' if not current_url.endswith('/@@pdf-form-setup') else 'Currently in fillable PDF forms setup'"
-               href="${context/absolute_url}/@@pdf-form-setup">
-              <span i18n:translate="">Fillable PDF Forms</span>
-              <span class="beta-badge" i18n:translate="">Beta</span>
-            </a>
-          </tal:pdfformsetup>
-        </tal:manager>
-        <tal:notmanager tal:condition="not: view/is_manager">
-          <tal:pdfformsetup tal:condition="python: view.feature_enabled('fillable-pdf...')">
-            <span class="survey-action-button action-pdf-form-setup is-disabled"
-                  aria-disabled="true">
-              <span i18n:translate="">Fillable PDF Forms</span>
-              <span class="beta-badge" i18n:translate="">Beta</span>
-              <span class="manager-badge" i18n:attributes="title aria-label" aria-label="Manager only" title="Manager only">&#128274;</span>
-            </span>
-          </tal:pdfformsetup>
-        </tal:notmanager>
         <tal:chatbot tal:condition="python: view.feature_enabled('chatbot')">
           <a class="survey-action-button action-chatbot"
              tal:attributes="class python: 'survey-action-button action-chatbot' + (' is-active' if current_url.endswith('/@@chatbot') else '');

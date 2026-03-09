@@ -27,10 +27,6 @@ class SurveyMetadata(SurveyAddView):
         return self._survey_actions_view.can_manage_portal_content
 
     @property
-    def pdf_form_available(self):
-        return self._survey_actions_view.pdf_form_available
-
-    @property
     def is_manager(self):
         return self._survey_actions_view.is_manager
 

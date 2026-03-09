@@ -643,24 +643,6 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(req.response.getStatus(), 403)
         self.assertIn("Embedding is disabled", result)
 
-    def test_save_ai_form_validation_errors(self) -> None:
-        req = self._make_request(form={"form_json": ""})
-        Views(self.survey, req).save_ai_form()
-        self.assertEqual(req.response.getStatus(), 500)
-        self.assertIn("Save failed", req.response.getBody().decode("utf-8"))
-
-    def test_generate_ai_form_missing_prompt(self) -> None:
-        req = self._make_request(form={"prompt": ""})
-        Views(self.survey, req).generate_ai_form()
-        self.assertEqual(req.response.getStatus(), 400)
-        self.assertIn("No prompt", req.response.getBody().decode("utf-8"))
-
-    def test_refine_ai_form_missing_prompt(self) -> None:
-        req = self._make_request(form={"current_json": "{}", "refinement_prompt": ""})
-        Views(self.survey, req).refine_ai_form()
-        self.assertEqual(req.response.getStatus(), 400)
-        self.assertIn("No refinement prompt", req.response.getBody().decode("utf-8"))
-
     def test_feature_disabled_view_is_minimal(self) -> None:
         req = self._make_request()
         view = api.content.get_view("feature-disabled", self.survey, req)
@@ -672,11 +654,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
 
     def test_feature_guards_redirect_and_allow_access(self) -> None:
         view_specs = [
-            ("ai", "ai-generator", "AI Form Generator"),
             ("dashboard", "dashboard", "Survey data dashboard"),
             ("pdf-generator", "pdf-generator", "PDF generator"),
-            ("pdf-importer", "pdf-form-import", "PDF Form Import"),
-            ("pdf-form-setup", "fillable-pdf...", "Fillable PDF Form"),
         ]
 
         for view_name, feature_key, expected_text in view_specs:

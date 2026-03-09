@@ -89,7 +89,9 @@ class AI2View(Views):
 
     @property
     def temp_form_history(self):
-        history = IAnnotations(self.context).get(self.TEMP_FORM_HISTORY_ANNOTATION_KEY, [])
+        history = IAnnotations(self.context).get(
+            self.TEMP_FORM_HISTORY_ANNOTATION_KEY, []
+        )
         return history if isinstance(history, list) else []
 
     @property
@@ -226,7 +228,9 @@ class AI2View(Views):
                 walk_items(item.get("rows"))
                 walk_items(item.get("columns"))
                 walk_items(item.get("templates"))
-                for cell in item.get("cells", []) if isinstance(item.get("cells"), list) else []:
+                for cell in (
+                    item.get("cells", []) if isinstance(item.get("cells"), list) else []
+                ):
                     walk_items(cell)
 
         if isinstance(survey_json, dict):
@@ -402,7 +406,9 @@ class AI2View(Views):
         """Upload endpoint for AI2 document conversion to SurveyJS via AI."""
         uploaded_file = self.request.form.get("document_file")
         if not uploaded_file:
-            return self._redirect_ai2("No file uploaded. Please upload a file.", "error")
+            return self._redirect_ai2(
+                "No file uploaded. Please upload a file.", "error"
+            )
 
         filename = (getattr(uploaded_file, "filename", None) or "").strip()
         if not filename:
@@ -410,13 +416,20 @@ class AI2View(Views):
 
         extension = Path(filename).suffix.lower()
         content_type = (
-            getattr(uploaded_file, "contentType", None)
-            or getattr(uploaded_file, "content_type", None)
-            or ""
-        ).strip().lower()
+            (
+                getattr(uploaded_file, "contentType", None)
+                or getattr(uploaded_file, "content_type", None)
+                or ""
+            )
+            .strip()
+            .lower()
+        )
         base_content_type = content_type.split(";")[0].strip() if content_type else ""
 
-        if extension not in self.ALLOWED_UPLOAD_EXTENSIONS and base_content_type in self.MIME_TO_EXTENSION:
+        if (
+            extension not in self.ALLOWED_UPLOAD_EXTENSIONS
+            and base_content_type in self.MIME_TO_EXTENSION
+        ):
             extension = self.MIME_TO_EXTENSION[base_content_type]
 
         if extension not in self.ALLOWED_UPLOAD_EXTENSIONS:
@@ -534,9 +547,11 @@ Requirements:
         annos[self.TEMP_FORM_ANNOTATION_KEY] = generated_form
         annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = []
         if extension == ".pdf" and has_form is True and form_data is not None:
-            annos[self.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY] = self._build_pdf_to_survey_mapping(
-                form_data,
-                generated_form,
+            annos[self.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY] = (
+                self._build_pdf_to_survey_mapping(
+                    form_data,
+                    generated_form,
+                )
             )
         else:
             self._clear_pdf_field_mapping(annos)
@@ -569,7 +584,9 @@ Requirements:
                 request=self.request,
                 type="warning",
             )
-            return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai2")
+            return self.request.response.redirect(
+                f"{self.context.absolute_url()}/@@ai2"
+            )
 
         try:
             version_data = forms_service.save_form_version(
@@ -586,7 +603,9 @@ Requirements:
                 request=self.request,
                 type="error",
             )
-            return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai2")
+            return self.request.response.redirect(
+                f"{self.context.absolute_url()}/@@ai2"
+            )
 
         plone.api.portal.show_message(
             f"Stored as new version {version_data.get('id')}.",
@@ -632,7 +651,9 @@ Requirements:
         """Refine current temporary form JSON using AI + user prompt."""
         prompt = (self.request.form.get("chat_prompt") or "").strip()
         if not prompt:
-            return self._redirect_ai2("Please enter a prompt for AI refinement.", "warning")
+            return self._redirect_ai2(
+                "Please enter a prompt for AI refinement.", "warning"
+            )
 
         annos = IAnnotations(self.context)
         current_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
@@ -710,7 +731,9 @@ Requirements:
         entry = history[history_index]
         previous_form = entry.get("form_json")
         if not isinstance(previous_form, dict):
-            return self._redirect_ai2("Selected history step has no valid form JSON.", "error")
+            return self._redirect_ai2(
+                "Selected history step has no valid form JSON.", "error"
+            )
 
         annos[self.TEMP_FORM_ANNOTATION_KEY] = previous_form
         annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = history[:history_index]

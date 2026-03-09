@@ -143,22 +143,6 @@
           },
           "choices": [
             {
-              "value": "ai-generator",
-              "text": {
-                "default": "AI Generator",
-                "de": "KI-Generator",
-                "en": "AI Generator",
-                "es": "Generador de IA",
-                "fr": "Générateur IA",
-                "it": "Generatore AI",
-                "pt": "Gerador de IA",
-                "fi": "AI-generaattori",
-                "hi": "AI जनरेटर",
-                "ar": "مولد الذكاء الاصطناعي",
-                "ja": "AIジェネレーター"
-              }
-            },
-            {
               "value": "chatbot",
               "text": {
                 "default": "Chatbot",
@@ -204,38 +188,6 @@
                 "hi": "PDF जनरेटर",
                 "ar": "مولد PDF",
                 "ja": "PDFジェネレーター"
-              }
-            },
-            {
-              "value": "pdf-form-import",
-              "text": {
-                "default": "PDF Form Import",
-                "de": "PDF-Formularimport",
-                "en": "PDF Form Import",
-                "es": "Importación de formularios PDF",
-                "fr": "Importation de formulaires PDF",
-                "it": "Importazione modulo PDF",
-                "pt": "Importação de formulário PDF",
-                "fi": "PDF-lomakkeen tuonti",
-                "hi": "PDF फ़ॉर्म आयात",
-                "ar": "استيراد نموذج PDF",
-                "ja": "PDFフォームインポート"
-              }
-            },
-            {
-              "value": "fillable-pdf...",
-              "text": {
-                "default": "Fillable PDF Forms (Beta)",
-                "de": "Ausfüllbare PDF-Formulare (Beta)",
-                "en": "Fillable PDF Forms (Beta)",
-                "es": "Formularios PDF rellenables (Beta)",
-                "fr": "Formulaires PDF remplissables (Bêta)",
-                "it": "Moduli PDF compilabili (Beta)",
-                "pt": "Formulários PDF preenchíveis (Beta)",
-                "fi": "Täytettävät PDF-lomakkeet (Beta)",
-                "hi": "भरने योग्य PDF फॉर्म (बीटा)",
-                "ar": "نماذج PDF قابلة للملء (بيتا)",
-                "ja": "入力可能なPDFフォーム（ベータ）"
               }
             }
           ],
