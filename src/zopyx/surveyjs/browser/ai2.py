@@ -1,3 +1,31 @@
+"""AI-powered form generation and refinement browser view.
+
+This module provides the AI2View class, a Plone browser view that enables
+AI-powered conversion of documents (PDF, DOCX, ODT, HTML) into SurveyJS form
+definitions. It supports:
+
+- Document upload and AI conversion to SurveyJS JSON
+- Fillable PDF form field extraction and mapping
+- Interactive form refinement via AI chat
+- Version history management with undo capability
+- Integration with privacyforms_ai for model abstraction
+
+The view stores temporary form data in Zope annotations, allowing users to
+iteratively refine forms before persisting them as formal versions.
+
+Typical workflow:
+    1. User uploads a document via upload_document()
+    2. AI converts document to SurveyJS JSON
+    3. User refines via chat_refine_temp_form() (optional)
+    4. User persists via store_temp_as_version()
+
+Dependencies:
+    - privacyforms_ai: AI model abstraction layer
+    - privacyforms.pdf: PDF form field extraction
+    - plone.api: Plone API for portal messages and user info
+    - zope.annotation: Persistent object annotations
+"""
+
 from datetime import datetime, timezone
 import json
 import os
@@ -13,9 +41,25 @@ from .services import ai as ai_service
 from .services import forms as forms_service
 from .views import Views
 
+from privacyforms_ai import AI
+
 
 class AI2View(Views):
-    """Dedicated browser view for @@ai2 (beta AI features)."""
+    """Browser view for AI-powered form generation and refinement (@@ai2).
+
+    This view provides methods to convert uploaded documents into SurveyJS form
+    definitions using AI, with support for iterative refinement and version
+    management. Temporary form data is stored in Zope annotations.
+
+    Attributes:
+        TEMP_FORM_ANNOTATION_KEY: Annotation key for temporary form JSON storage.
+        TEMP_FORM_HISTORY_ANNOTATION_KEY: Annotation key for form edit history.
+        TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: Annotation key for PDF-to-survey
+            field mapping metadata.
+        ALLOWED_UPLOAD_EXTENSIONS: Set of supported file extensions for upload.
+        MIME_TYPES: Mapping of file extensions to MIME types.
+        MIME_TO_EXTENSION: Reverse mapping of MIME types to extensions.
+    """
 
     TEMP_FORM_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_form_json"
     TEMP_FORM_HISTORY_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_form_history"
@@ -36,7 +80,20 @@ class AI2View(Views):
     }
 
     def _to_jsonable(self, value):
-        """Best-effort conversion to JSON-serializable data."""
+        """Convert a value to JSON-serializable format.
+
+        Performs best-effort conversion of arbitrary Python objects to
+        JSON-serializable primitives (str, int, float, bool, None, dict, list).
+        Supports Pydantic models (model_dump/model_dump_json), dataclasses,
+        and objects with dict()/to_dict()/json()/to_json() methods.
+
+        Args:
+            value: Any Python object to convert.
+
+        Returns:
+            JSON-serializable representation of the input value. Falls back
+            to str(value) if no conversion method succeeds.
+        """
         if value is None or isinstance(value, (str, int, float, bool)):
             return value
         if isinstance(value, dict):
@@ -74,14 +131,30 @@ class AI2View(Views):
 
     @property
     def temp_form_data(self):
+        """Get the current temporary form JSON from annotations.
+
+        Returns:
+            dict or None: The temporary form JSON data, or None if not set.
+        """
         return IAnnotations(self.context).get(self.TEMP_FORM_ANNOTATION_KEY)
 
     @property
     def has_temp_form(self):
+        """Check if temporary form data exists.
+
+        Returns:
+            bool: True if temp_form_data is a dict, False otherwise.
+        """
         return isinstance(self.temp_form_data, dict)
 
     @property
     def temp_form_json_pretty(self):
+        """Get formatted JSON string of temporary form data.
+
+        Returns:
+            str: Pretty-printed JSON (2-space indent) or empty string
+                if no temp form data exists.
+        """
         data = self.temp_form_data
         if not data:
             return ""
@@ -89,6 +162,12 @@ class AI2View(Views):
 
     @property
     def temp_form_history(self):
+        """Get the edit history for temporary forms.
+
+        Returns:
+            list: List of history entries (dicts with 'prompt' and 'form_json'),
+                or empty list if no history exists.
+        """
         history = IAnnotations(self.context).get(
             self.TEMP_FORM_HISTORY_ANNOTATION_KEY, []
         )
@@ -96,10 +175,26 @@ class AI2View(Views):
 
     @property
     def has_temp_history(self):
+        """Check if temporary form history exists.
+
+        Returns:
+            bool: True if history has entries, False otherwise.
+        """
         return len(self.temp_form_history) > 0
 
     @property
     def temp_history_items(self):
+        """Get formatted history items for UI display.
+
+        Processes the raw history into a format suitable for template
+        rendering, with truncated prompts and step-back indexing.
+
+        Returns:
+            list: List of dicts with keys:
+                - history_index: Original index in history list
+                - step_back: Number of steps back from current (1-indexed)
+                - prompt: Truncated prompt text (max 160 chars)
+        """
         history = self.temp_form_history
         items = []
         for idx, entry in enumerate(reversed(history)):
@@ -117,6 +212,18 @@ class AI2View(Views):
         return items
 
     def _redirect_ai2(self, message, msg_type="info"):
+        """Show a portal message and redirect to the AI2 view.
+
+        Convenience method for handling form action completions with
+        user feedback.
+
+        Args:
+            message: The message text to display.
+            msg_type: Message type - 'info', 'warning', 'error', or 'success'.
+
+        Returns:
+            HTTPRedirectResponse: Redirect response to @@ai2 view.
+        """
         plone.api.portal.show_message(
             message,
             request=self.request,
@@ -125,7 +232,22 @@ class AI2View(Views):
         return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai2")
 
     def _extract_pdf_form_data(self, pdf_bytes: bytes):
-        """Return (has_form, form_data, error) for a PDF upload."""
+        """Extract fillable form field data from PDF bytes.
+
+        Uses privacyforms PDF extraction to detect and extract fillable
+        form fields from a PDF document. Writes bytes to a temporary file
+        for processing.
+
+        Args:
+            pdf_bytes: Raw PDF file content as bytes.
+
+        Returns:
+            tuple: (has_form, form_data, error) where:
+                - has_form: bool indicating if PDF has fillable fields,
+                    or None if extraction failed
+                - form_data: dict of extracted field data, or None if no form
+                - error: str error message, or None on success
+        """
         try:
             try:
                 from privacyforms.pdf import PDFFormExtractor
@@ -157,10 +279,35 @@ class AI2View(Views):
                     pass
 
     def _normalize_token(self, value):
+        """Normalize a string for case-insensitive matching.
+
+        Removes non-alphanumeric characters and converts to lowercase.
+        Used for matching PDF field names to survey element names.
+
+        Args:
+            value: The string to normalize.
+
+        Returns:
+            str: Normalized token string (lowercase, alphanumeric only).
+        """
         return "".join(ch.lower() for ch in (value or "") if ch.isalnum())
 
     def _collect_pdf_fields(self, data):
-        """Extract candidate fillable PDF fields from arbitrary JSON-like data."""
+        """Extract candidate fillable PDF fields from arbitrary JSON-like data.
+
+        Recursively traverses nested data structures to find field definitions,
+        looking for common field identifier keys.
+
+        Args:
+            data: JSON-like data (dict, list, or primitive) from PDF extraction.
+
+        Returns:
+            list: List of field dicts with keys:
+                - pdf_field_id: The field identifier/name
+                - pdf_field_label: Human-readable field label
+                - pdf_field_type: Field type/kind
+                - geometry: Dict of geometric info (bbox, position, etc.)
+        """
         fields = []
         if isinstance(data, list):
             for item in data:
@@ -204,7 +351,20 @@ class AI2View(Views):
         return fields
 
     def _collect_survey_elements(self, survey_json):
-        """Flatten SurveyJS elements for mapping lookup."""
+        """Flatten SurveyJS elements for mapping lookup.
+
+        Recursively walks through SurveyJS JSON structure (pages, elements,
+        rows, columns, etc.) to collect all form field definitions.
+
+        Args:
+            survey_json: SurveyJS form definition as dict.
+
+        Returns:
+            list: List of element dicts with keys:
+                - survey_name: Element name attribute
+                - survey_title: Element title/label
+                - survey_type: Element type (text, checkbox, etc.)
+        """
         elements = []
 
         def walk_items(items):
@@ -243,7 +403,27 @@ class AI2View(Views):
         return elements
 
     def _build_pdf_to_survey_mapping(self, pdf_form_data, survey_json):
-        """Create a best-effort internal map between PDF and SurveyJS fields."""
+        """Create a best-effort internal map between PDF and SurveyJS fields.
+
+        Attempts to correlate fillable PDF form fields with SurveyJS elements
+        using name/label matching with normalized tokens. Confidence levels:
+        - high: Direct match on ID->name or label->title
+        - medium: Cross match (label->name or ID->title)
+        - unmatched: No match found
+
+        Args:
+            pdf_form_data: Extracted PDF form field data (dict or list).
+            survey_json: SurveyJS form definition as dict.
+
+        Returns:
+            dict: Mapping metadata with keys:
+                - created: ISO timestamp of mapping creation
+                - source: Always "fillable-pdf"
+                - mapped_count: Number of successfully matched fields
+                - pdf_field_count: Total PDF fields found
+                - survey_field_count: Total survey elements found
+                - mappings: List of field mapping dicts
+        """
         pdf_fields = self._collect_pdf_fields(pdf_form_data)
         survey_fields = self._collect_survey_elements(survey_json)
 
@@ -307,23 +487,52 @@ class AI2View(Views):
         }
 
     def _clear_pdf_field_mapping(self, annos):
+        """Remove PDF field mapping from annotations.
+
+        Args:
+            annos: IAnnotations object for the context.
+        """
         annos.pop(self.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, None)
 
-    def _load_privacyforms_ai(self):
-        try:
-            from privacyforms.ai import AI  # type: ignore
+    def _prepare_ai_model(self, model_name, api_key, ollama_url):
+        """Prepare and return an AI model from privacyforms_ai.
 
-            return AI
-        except Exception:
-            pass
-        try:
-            from privacyforms_ai import AI  # type: ignore
+        Configures environment variables for Ollama, OpenAI, or Anthropic
+        based on the model name and provided credentials, then returns
+        a configured model instance.
 
-            return AI
-        except Exception as exc:
-            raise ImportError(
-                f"privacyforms.ai integration is not available: {exc}"
-            ) from exc
+        Args:
+            model_name: Name of the AI model (e.g., 'gpt-4', 'ollama/llama2').
+            api_key: API key for cloud providers (OpenAI, Anthropic).
+            ollama_url: URL for Ollama server (if using Ollama).
+
+        Returns:
+            A configured AI model instance from privacyforms_ai.
+
+        Raises:
+            RuntimeError: If privacyforms_ai is not available or no model
+                is configured.
+        """
+        if AI is None:
+            raise RuntimeError("privacyforms_ai package not found")
+
+        effective_model = model_name
+        if ollama_url:
+            os.environ["OLLAMA_HOST"] = ollama_url
+            if effective_model and not effective_model.startswith("ollama/"):
+                effective_model = f"ollama/{effective_model}"
+
+        if api_key and not ollama_url and effective_model:
+            key = (effective_model or "").lower()
+            if "gpt" in key or "openai" in key:
+                os.environ["OPENAI_API_KEY"] = api_key
+            elif "claude" in key or "anthropic" in key:
+                os.environ["ANTHROPIC_API_KEY"] = api_key
+
+        if not effective_model:
+            raise RuntimeError("No AI model configured.")
+
+        return AI.get_model(effective_model)
 
     def _call_ai_conversion(
         self,
@@ -334,56 +543,64 @@ class AI2View(Views):
         api_key: Optional[str],
         ollama_url: Optional[str],
     ):
-        """Call AI via privacyforms.ai helper methods only."""
-        AI = self._load_privacyforms_ai()
+        """Call AI to convert an uploaded document to SurveyJS JSON.
 
-        effective_model = model_name
-        if ollama_url:
-            os.environ["OLLAMA_HOST"] = ollama_url
-            if effective_model and not effective_model.startswith("ollama/"):
-                effective_model = f"ollama/{effective_model}"
+        Sends the document file along with a conversion prompt to the AI
+        model using privacyforms_ai's attachment prompting.
 
-        if api_key and not ollama_url and effective_model:
-            key = effective_model.lower()
-            if "gpt" in key or "openai" in key:
-                os.environ["OPENAI_API_KEY"] = api_key
-            elif "claude" in key or "anthropic" in key:
-                os.environ["ANTHROPIC_API_KEY"] = api_key
+        Args:
+            prompt: The conversion prompt text.
+            file_path: Path to the uploaded document file.
+            mime_type: MIME type of the document.
+            model_name: Name of the AI model to use.
+            api_key: API key for authentication.
+            ollama_url: Ollama server URL (optional).
 
-        if not effective_model:
-            raise RuntimeError("No AI model configured.")
-
-        model = AI.get_model(effective_model)
-        return AI.prompt_with_attachment(model, prompt, file_path, mime_type)
-
-    def _prepare_ai_model(self, model_name, api_key, ollama_url):
-        AI = self._load_privacyforms_ai()
-
-        effective_model = model_name
-        if ollama_url:
-            os.environ["OLLAMA_HOST"] = ollama_url
-            if effective_model and not effective_model.startswith("ollama/"):
-                effective_model = f"ollama/{effective_model}"
-
-        if api_key and not ollama_url and effective_model:
-            key = effective_model.lower()
-            if "gpt" in key or "openai" in key:
-                os.environ["OPENAI_API_KEY"] = api_key
-            elif "claude" in key or "anthropic" in key:
-                os.environ["ANTHROPIC_API_KEY"] = api_key
-
-        if not effective_model:
-            raise RuntimeError("No AI model configured.")
-
-        model = AI.get_model(effective_model)
-        return model
+        Returns:
+            The AI response payload (typically JSON text).
+        """
+        model = self._prepare_ai_model(model_name, api_key, ollama_url)
+        return AI.prompt_with_attachment(
+            model=model,
+            prompt=prompt,
+            file_path=file_path,
+            mime_type=mime_type,
+        )
 
     def _call_ai_text_refinement(self, prompt, model_name, api_key, ollama_url):
+        """Call AI for text-based form refinement.
+
+        Sends a text-only prompt for refining existing form JSON.
+
+        Args:
+            prompt: The refinement prompt (includes current JSON + instructions).
+            model_name: Name of the AI model to use.
+            api_key: API key for authentication.
+            ollama_url: Ollama server URL (optional).
+
+        Returns:
+            str: The AI response text containing refined JSON.
+        """
         model = self._prepare_ai_model(model_name, api_key, ollama_url)
         response = model.prompt(prompt)
         return response.text() if callable(response.text) else response.text
 
     def _parse_generated_json(self, response_payload):
+        """Parse AI response payload into a Python dict/list.
+
+        Handles various response formats (bytes, str, dict, list) and
+        attempts to extract JSON from text responses using extract_json_text.
+
+        Args:
+            response_payload: Raw AI response (bytes, str, dict, or list).
+
+        Returns:
+            dict or list: Parsed JSON data.
+
+        Raises:
+            ValueError: If the AI response is empty.
+            json.JSONDecodeError: If JSON parsing fails.
+        """
         if isinstance(response_payload, bytes):
             response_text = response_payload.decode("utf-8", errors="replace").strip()
         elif isinstance(response_payload, str):
@@ -403,7 +620,19 @@ class AI2View(Views):
             return json.loads(response_text)
 
     def upload_document(self):
-        """Upload endpoint for AI2 document conversion to SurveyJS via AI."""
+        """Handle document upload and AI conversion to SurveyJS form.
+
+        Browser view action that processes uploaded documents (PDF, DOCX,
+        ODT, HTML), optionally extracts fillable PDF form data, calls AI
+        for conversion, and stores the result in temporary annotations.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+
+        Raises (handled internally):
+            Various exceptions during upload/AI processing are caught and
+            converted to error messages.
+        """
         uploaded_file = self.request.form.get("document_file")
         if not uploaded_file:
             return self._redirect_ai2(
@@ -575,7 +804,15 @@ Requirements:
         )
 
     def store_temp_as_version(self):
-        """Persist temporary AI2 form JSON as a regular form version."""
+        """Persist temporary AI2 form as a regular form version.
+
+        Browser view action that converts the current temporary form
+        (from AI upload/refinement) into a persisted version using the
+        forms service. Clears temporary storage on success.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+        """
         annos = IAnnotations(self.context)
         temp_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
         if not isinstance(temp_form, dict):
@@ -615,7 +852,15 @@ Requirements:
         return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai2")
 
     def copy_latest_version_to_temp(self):
-        """Copy latest persisted form version into temporary AI2 storage."""
+        """Copy latest persisted form version to temporary AI2 storage.
+
+        Browser view action that loads the most recent persisted form
+        version and copies it into the temporary annotation storage,
+        allowing users to refine existing forms via AI.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+        """
         annos = IAnnotations(self.context)
         versions = forms_service.sorted_form_versions(annos)
         if not versions:
@@ -640,7 +885,14 @@ Requirements:
         )
 
     def clear_temp_storage(self):
-        """Clear temporary AI2 form storage annotation."""
+        """Clear all temporary AI2 form storage.
+
+        Browser view action that removes the temporary form JSON and
+        edit history from annotations.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+        """
         annos = IAnnotations(self.context)
         if self.TEMP_FORM_ANNOTATION_KEY in annos:
             del annos[self.TEMP_FORM_ANNOTATION_KEY]
@@ -648,7 +900,15 @@ Requirements:
         return self._redirect_ai2("Temporary AI2 storage cleared.", "info")
 
     def chat_refine_temp_form(self):
-        """Refine current temporary form JSON using AI + user prompt."""
+        """Refine temporary form via AI chat interaction.
+
+        Browser view action that takes a user prompt, sends the current
+        temporary form JSON plus the prompt to AI, and stores the refined
+        result. Maintains a history of up to 5 previous versions for undo.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+        """
         prompt = (self.request.form.get("chat_prompt") or "").strip()
         if not prompt:
             return self._redirect_ai2(
@@ -713,7 +973,15 @@ Requirements:
         return self._redirect_ai2("AI refinement applied to temporary form.", "info")
 
     def restore_temp_history_step(self):
-        """Restore a previous temporary form snapshot from history."""
+        """Restore temporary form from history (undo functionality).
+
+        Browser view action that restores the temporary form to a previous
+        state from the edit history, discarding all changes made after
+        the selected history point.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+        """
         raw_index = self.request.form.get("history_index", "").strip()
         try:
             history_index = int(raw_index)
