@@ -61,9 +61,9 @@ class AIView(Views):
         MIME_TO_EXTENSION: Reverse mapping of MIME types to extensions.
     """
 
-    TEMP_FORM_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_form_json"
-    TEMP_FORM_HISTORY_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_form_history"
-    TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_pdf_field_mapping"
+    TEMP_FORM_ANNOTATION_KEY = "zopyx.surveyjs.ai.temp_form_json"
+    TEMP_FORM_HISTORY_ANNOTATION_KEY = "zopyx.surveyjs.ai.temp_form_history"
+    TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY = "zopyx.surveyjs.ai.temp_pdf_field_mapping"
     ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".docx", ".odt", ".html", ".htm"}
     MIME_TYPES = {
         ".pdf": "application/pdf",
