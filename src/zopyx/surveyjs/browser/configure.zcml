@@ -338,54 +338,54 @@
     attribute="delete_results"
   />
 
-  <!-- AI2 Form Generator -->
+  <!-- AI Form Generator -->
   <browser:page
-    name="ai2"
+    name="ai"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
-    template="ai2.pt"
+    class=".ai.AIView"
+    template="ai.pt"
   />
   <browser:page
-    name="ai2-upload"
+    name="ai-upload"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
+    class=".ai.AIView"
     attribute="upload_document"
   />
   <browser:page
-    name="ai2-store-temp-version"
+    name="ai-store-temp-version"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
+    class=".ai.AIView"
     attribute="store_temp_as_version"
   />
   <browser:page
-    name="ai2-copy-latest-to-temp"
+    name="ai-copy-latest-to-temp"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
+    class=".ai.AIView"
     attribute="copy_latest_version_to_temp"
   />
   <browser:page
-    name="ai2-clear-temp-storage"
+    name="ai-clear-temp-storage"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
+    class=".ai.AIView"
     attribute="clear_temp_storage"
   />
   <browser:page
-    name="ai2-chat-refine"
+    name="ai-chat-refine"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
+    class=".ai.AIView"
     attribute="chat_refine_temp_form"
   />
   <browser:page
-    name="ai2-restore-history-step"
+    name="ai-restore-history-step"
     for="zopyx.surveyjs.content.survey.ISurvey"
     permission="cmf.ModifyPortalContent"
-    class=".ai2.AI2View"
+    class=".ai.AIView"
     attribute="restore_temp_history_step"
   />
 

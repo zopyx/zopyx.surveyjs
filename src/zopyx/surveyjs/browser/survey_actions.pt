@@ -60,14 +60,14 @@
         </a>
       </div>
       
-      <!-- Group 3: Advanced (AI2, Chatbot) -->
+      <!-- Group 3: Advanced (AI, Chatbot) -->
       <div class="survey-actions-group group-advanced">
         <a class="survey-action-button action-ai"
-           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai2') else '');
-                           title python: 'AI2 beta features' if not current_url.endswith('/@@ai2') else 'Currently in AI2 beta features';
-                           aria-label python: 'AI2 beta features' if not current_url.endswith('/@@ai2') else 'Currently in AI2 beta features'"
-           href="${context/absolute_url}/@@ai2">
-          <span i18n:translate="">AI2</span>
+           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
+                           title python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features';
+                           aria-label python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features'"
+           href="${context/absolute_url}/@@ai">
+          <span i18n:translate="">AI</span>
           <span class="beta-badge" i18n:translate="">Beta</span>
         </a>
         <tal:chatbot tal:condition="python: view.feature_enabled('chatbot')">

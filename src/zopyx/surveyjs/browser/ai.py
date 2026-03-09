@@ -1,6 +1,6 @@
 """AI-powered form generation and refinement browser view.
 
-This module provides the AI2View class, a Plone browser view that enables
+This module provides the AIView class, a Plone browser view that enables
 AI-powered conversion of documents (PDF, DOCX, ODT, HTML) into SurveyJS form
 definitions. It supports:
 
@@ -44,8 +44,8 @@ from .views import Views
 from privacyforms_ai import AI
 
 
-class AI2View(Views):
-    """Browser view for AI-powered form generation and refinement (@@ai2).
+class AIView(Views):
+    """Browser view for AI-powered form generation and refinement (@@ai).
 
     This view provides methods to convert uploaded documents into SurveyJS form
     definitions using AI, with support for iterative refinement and version
@@ -211,8 +211,8 @@ class AI2View(Views):
             )
         return items
 
-    def _redirect_ai2(self, message, msg_type="info"):
-        """Show a portal message and redirect to the AI2 view.
+    def _redirect_ai(self, message, msg_type="info"):
+        """Show a portal message and redirect to the AI view.
 
         Convenience method for handling form action completions with
         user feedback.
@@ -222,14 +222,14 @@ class AI2View(Views):
             msg_type: Message type - 'info', 'warning', 'error', or 'success'.
 
         Returns:
-            HTTPRedirectResponse: Redirect response to @@ai2 view.
+            HTTPRedirectResponse: Redirect response to @@ai view.
         """
         plone.api.portal.show_message(
             message,
             request=self.request,
             type=msg_type,
         )
-        return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai2")
+        return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai")
 
     def _extract_pdf_form_data(self, pdf_bytes: bytes):
         """Extract fillable form field data from PDF bytes.
@@ -627,7 +627,7 @@ class AI2View(Views):
         for conversion, and stores the result in temporary annotations.
 
         Returns:
-            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
 
         Raises (handled internally):
             Various exceptions during upload/AI processing are caught and
@@ -635,13 +635,13 @@ class AI2View(Views):
         """
         uploaded_file = self.request.form.get("document_file")
         if not uploaded_file:
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "No file uploaded. Please upload a file.", "error"
             )
 
         filename = (getattr(uploaded_file, "filename", None) or "").strip()
         if not filename:
-            return self._redirect_ai2("Uploaded file has no filename.", "error")
+            return self._redirect_ai("Uploaded file has no filename.", "error")
 
         extension = Path(filename).suffix.lower()
         content_type = (
@@ -662,7 +662,7 @@ class AI2View(Views):
             extension = self.MIME_TO_EXTENSION[base_content_type]
 
         if extension not in self.ALLOWED_UPLOAD_EXTENSIONS:
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 (
                     "Unsupported file type. Allowed file types: PDF, DOCX, ODT, HTML. "
                     f"(received extension={extension}, content-type={base_content_type or 'n/a'})"
@@ -675,7 +675,7 @@ class AI2View(Views):
             if isinstance(file_data, str):
                 file_data = file_data.encode("utf-8")
         except Exception as exc:
-            return self._redirect_ai2(f"Upload failed: {exc}", "error")
+            return self._redirect_ai(f"Upload failed: {exc}", "error")
 
         size_bytes = len(file_data or b"")
         has_form = None
@@ -689,8 +689,8 @@ class AI2View(Views):
 
         model_name, api_key, ollama_url = ai_service.load_ai_settings()
         if not model_name:
-            return self._redirect_ai2(
-                "AI model not configured. Configure an AI model in Forms settings before using AI2 upload.",
+            return self._redirect_ai(
+                "AI model not configured. Configure an AI model in Forms settings before using AI upload.",
                 "error",
             )
 
@@ -768,7 +768,7 @@ Requirements:
             ai_error = str(exc)
 
         if generated_form is None:
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 f"AI conversion failed: {ai_error or 'Unknown AI conversion error.'}",
                 "error",
             )
@@ -790,7 +790,7 @@ Requirements:
             encoding="utf-8",
         )
 
-        detail = f"AI2 upload succeeded for {filename} ({size_bytes} bytes)."
+        detail = f"AI upload succeeded for {filename} ({size_bytes} bytes)."
         if extension == ".pdf":
             if has_form is True:
                 detail += " Fillable PDF form detected."
@@ -798,31 +798,31 @@ Requirements:
                 detail += " No fillable PDF form detected."
             if has_form_error:
                 detail += f" Form extraction note: {has_form_error}"
-        return self._redirect_ai2(
+        return self._redirect_ai(
             detail,
             "info",
         )
 
     def store_temp_as_version(self):
-        """Persist temporary AI2 form as a regular form version.
+        """Persist temporary AI form as a regular form version.
 
         Browser view action that converts the current temporary form
         (from AI upload/refinement) into a persisted version using the
         forms service. Clears temporary storage on success.
 
         Returns:
-            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
         annos = IAnnotations(self.context)
         temp_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
         if not isinstance(temp_form, dict):
             plone.api.portal.show_message(
-                "No temporary AI2 form is available to store.",
+                "No temporary AI form is available to store.",
                 request=self.request,
                 type="warning",
             )
             return self.request.response.redirect(
-                f"{self.context.absolute_url()}/@@ai2"
+                f"{self.context.absolute_url()}/@@ai"
             )
 
         try:
@@ -841,7 +841,7 @@ Requirements:
                 type="error",
             )
             return self.request.response.redirect(
-                f"{self.context.absolute_url()}/@@ai2"
+                f"{self.context.absolute_url()}/@@ai"
             )
 
         plone.api.portal.show_message(
@@ -849,22 +849,22 @@ Requirements:
             request=self.request,
             type="info",
         )
-        return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai2")
+        return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai")
 
     def copy_latest_version_to_temp(self):
-        """Copy latest persisted form version to temporary AI2 storage.
+        """Copy latest persisted form version to temporary AI storage.
 
         Browser view action that loads the most recent persisted form
         version and copies it into the temporary annotation storage,
         allowing users to refine existing forms via AI.
 
         Returns:
-            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
         annos = IAnnotations(self.context)
         versions = forms_service.sorted_form_versions(annos)
         if not versions:
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "No persisted form versions found to copy.",
                 "warning",
             )
@@ -872,32 +872,32 @@ Requirements:
         latest = versions[-1]
         form_json = latest.get("form_json")
         if not isinstance(form_json, dict):
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "Latest version has no valid JSON object to copy.",
                 "error",
             )
 
         annos[self.TEMP_FORM_ANNOTATION_KEY] = form_json
         annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = []
-        return self._redirect_ai2(
-            f"Copied latest version {latest.get('id')} into temporary AI2 storage.",
+        return self._redirect_ai(
+            f"Copied latest version {latest.get('id')} into temporary AI storage.",
             "info",
         )
 
     def clear_temp_storage(self):
-        """Clear all temporary AI2 form storage.
+        """Clear all temporary AI form storage.
 
         Browser view action that removes the temporary form JSON and
         edit history from annotations.
 
         Returns:
-            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
         annos = IAnnotations(self.context)
         if self.TEMP_FORM_ANNOTATION_KEY in annos:
             del annos[self.TEMP_FORM_ANNOTATION_KEY]
         annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = []
-        return self._redirect_ai2("Temporary AI2 storage cleared.", "info")
+        return self._redirect_ai("Temporary AI storage cleared.", "info")
 
     def chat_refine_temp_form(self):
         """Refine temporary form via AI chat interaction.
@@ -907,25 +907,25 @@ Requirements:
         result. Maintains a history of up to 5 previous versions for undo.
 
         Returns:
-            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
         prompt = (self.request.form.get("chat_prompt") or "").strip()
         if not prompt:
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "Please enter a prompt for AI refinement.", "warning"
             )
 
         annos = IAnnotations(self.context)
         current_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
         if not isinstance(current_form, dict):
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "No temporary form available. Upload a document or copy latest version first.",
                 "warning",
             )
 
         model_name, api_key, ollama_url = ai_service.load_ai_settings()
         if not model_name:
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "AI model not configured. Configure an AI model in Forms settings.",
                 "error",
             )
@@ -950,7 +950,7 @@ Requirements:
             )
             refined_form = self._parse_generated_json(ai_result_text)
         except Exception as exc:
-            return self._redirect_ai2(f"AI refinement failed: {exc}", "error")
+            return self._redirect_ai(f"AI refinement failed: {exc}", "error")
 
         history = annos.get(self.TEMP_FORM_HISTORY_ANNOTATION_KEY, [])
         if not isinstance(history, list):
@@ -970,7 +970,7 @@ Requirements:
             json.dumps(refined_form, indent=2, ensure_ascii=False, default=str),
             encoding="utf-8",
         )
-        return self._redirect_ai2("AI refinement applied to temporary form.", "info")
+        return self._redirect_ai("AI refinement applied to temporary form.", "info")
 
     def restore_temp_history_step(self):
         """Restore temporary form from history (undo functionality).
@@ -980,32 +980,32 @@ Requirements:
         the selected history point.
 
         Returns:
-            HTTPRedirectResponse: Redirects to @@ai2 view with status message.
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
         raw_index = self.request.form.get("history_index", "").strip()
         try:
             history_index = int(raw_index)
         except Exception:
-            return self._redirect_ai2("Invalid history step.", "error")
+            return self._redirect_ai("Invalid history step.", "error")
 
         annos = IAnnotations(self.context)
         history = annos.get(self.TEMP_FORM_HISTORY_ANNOTATION_KEY, [])
         if not isinstance(history, list) or not history:
-            return self._redirect_ai2("No temporary history available.", "warning")
+            return self._redirect_ai("No temporary history available.", "warning")
 
         if history_index < 0 or history_index >= len(history):
-            return self._redirect_ai2("Selected history step is out of range.", "error")
+            return self._redirect_ai("Selected history step is out of range.", "error")
 
         entry = history[history_index]
         previous_form = entry.get("form_json")
         if not isinstance(previous_form, dict):
-            return self._redirect_ai2(
+            return self._redirect_ai(
                 "Selected history step has no valid form JSON.", "error"
             )
 
         annos[self.TEMP_FORM_ANNOTATION_KEY] = previous_form
         annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = history[:history_index]
-        return self._redirect_ai2(
+        return self._redirect_ai(
             f"Restored temporary form to {len(history) - history_index} step(s) back.",
             "info",
         )

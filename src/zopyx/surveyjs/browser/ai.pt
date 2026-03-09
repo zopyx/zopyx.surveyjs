@@ -35,28 +35,28 @@
       use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
   />
 
-  <div class="ai2-container">
-    <div class="ai2-header">
+  <div class="ai-container">
+    <div class="ai-header">
       <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
         <metal:survey-header-headline fill-slot="view-headline">
           <div class="page-headline" i18n:translate="">AI2 (Beta)</div>
         </metal:survey-header-headline>
       </metal:survey-header>
     </div>
-    <div class="ai2-stack">
+    <div class="ai-stack">
       <div class="panel">
         <div class="panel-body">
-          <div class="ai2-section-grid">
+          <div class="ai-section-grid">
             <div>
-              <span class="ai2-eyebrow" i18n:translate="">Document To Online Form</span>
-              <p class="ai2-intro" i18n:translate="">
+              <span class="ai-eyebrow" i18n:translate="">Document To Online Form</span>
+              <p class="ai-intro" i18n:translate="">
                 Upload a source document and generate a temporary SurveyJS form draft with AI.
               </p>
               <form method="post"
-                    id="ai2UploadForm"
+                    id="aiUploadForm"
                     enctype="multipart/form-data"
                     style="margin-top: 14px;"
-                    tal:attributes="action string:${context/absolute_url}/@@ai2-upload">
+                    tal:attributes="action string:${context/absolute_url}/@@ai-upload">
                 <span tal:replace="structure context/@@authenticator/authenticator"></span>
                 <div class="form-group">
                   <input type="file"
@@ -69,52 +69,52 @@
                   </p>
                 </div>
                 <button type="submit"
-                        class="btn ai2-action-btn ai2-btn-upload"
-                        id="ai2UploadBtn">
-                  <span id="ai2UploadBtnText" i18n:translate="">Upload and Convert</span>
-                  <span id="ai2UploadBtnSpinner" class="ai2-btn-spinner" style="display:none;">
-                    <span class="ai2-spinner"></span>
+                        class="btn ai-action-btn ai-btn-upload"
+                        id="aiUploadBtn">
+                  <span id="aiUploadBtnText" i18n:translate="">Upload and Convert</span>
+                  <span id="aiUploadBtnSpinner" class="ai-btn-spinner" style="display:none;">
+                    <span class="ai-spinner"></span>
                     <span i18n:translate="">Uploading...</span>
                   </span>
                 </button>
               </form>
             </div>
-            <div class="ai2-action-pane">
-              <div class="ai2-action-group">
+            <div class="ai-action-pane">
+              <div class="ai-action-group">
                 <form method="post"
-                      tal:attributes="action string:${context/absolute_url}/@@ai2-copy-latest-to-temp">
+                      tal:attributes="action string:${context/absolute_url}/@@ai-copy-latest-to-temp">
                   <span tal:replace="structure context/@@authenticator/authenticator"></span>
                   <button type="submit"
-                          class="btn ai2-action-btn ai2-btn-copy"
+                          class="btn ai-action-btn ai-btn-copy"
                           i18n:translate="">Latest version to workspace</button>
                 </form>
                 <tal:has-temp-clear tal:condition="view/has_temp_form">
                   <form method="post"
-                        tal:attributes="action string:${context/absolute_url}/@@ai2-clear-temp-storage">
+                        tal:attributes="action string:${context/absolute_url}/@@ai-clear-temp-storage">
                     <span tal:replace="structure context/@@authenticator/authenticator"></span>
                     <button type="submit"
-                            class="btn ai2-action-btn ai2-btn-clear"
+                            class="btn ai-action-btn ai-btn-clear"
                             i18n:translate="">Clear workspace</button>
                   </form>
                 </tal:has-temp-clear>
                 <tal:has-temp-actions tal:condition="view/has_temp_form">
                   <form method="post" action="#">
                     <button type="button"
-                            class="btn ai2-action-btn ai2-btn-preview"
-                            id="ai2OpenPreviewBtn"
+                            class="btn ai-action-btn ai-btn-preview"
+                            id="aiOpenPreviewBtn"
                             i18n:translate="">Preview form</button>
                   </form>
                   <form method="post"
-                        tal:attributes="action string:${context/absolute_url}/@@ai2-store-temp-version">
+                        tal:attributes="action string:${context/absolute_url}/@@ai-store-temp-version">
                     <span tal:replace="structure context/@@authenticator/authenticator"></span>
                     <button type="submit"
-                            class="btn ai2-action-btn ai2-btn-store"
+                            class="btn ai-action-btn ai-btn-store"
                             i18n:translate="">Store as new version</button>
                   </form>
                 </tal:has-temp-actions>
               </div>
-              <div class="ai2-status-box">
-                <p class="ai2-status-title" i18n:translate="">Current Temporary State</p>
+              <div class="ai-status-box">
+                <p class="ai-status-title" i18n:translate="">Current Temporary State</p>
                 <tal:temp-ok tal:condition="view/has_temp_form">
                   <p class="help-block" i18n:translate="">
                     Temporary form is available and can be previewed, refined, or stored as new version.
@@ -135,15 +135,15 @@
     <tal:has-temp-bottom tal:condition="view/has_temp_form">
       <div class="panel" style="margin-top: 16px;">
         <div class="panel-body">
-          <div class="ai2-chat-layout">
-            <div class="ai2-chat-box">
-              <span class="ai2-eyebrow" i18n:translate="">Improve Temporary Form</span>
-              <p class="ai2-intro" i18n:translate="">
+          <div class="ai-chat-layout">
+            <div class="ai-chat-box">
+              <span class="ai-eyebrow" i18n:translate="">Improve Temporary Form</span>
+              <p class="ai-intro" i18n:translate="">
                 Ask AI to change the current temporary form. Each prompt builds on the latest temporary version.
               </p>
               <form method="post"
-                    id="ai2ChatForm"
-                    tal:attributes="action string:${context/absolute_url}/@@ai2-chat-refine">
+                    id="aiChatForm"
+                    tal:attributes="action string:${context/absolute_url}/@@ai-chat-refine">
                 <span tal:replace="structure context/@@authenticator/authenticator"></span>
                 <div class="form-group">
                   <textarea name="chat_prompt"
@@ -154,31 +154,31 @@
                             placeholder="Example: Add a section for contact preferences and make email required."></textarea>
                 </div>
                 <button type="submit"
-                        id="ai2ChatSubmitBtn"
-                        class="btn ai2-action-btn ai2-btn-preview"
+                        id="aiChatSubmitBtn"
+                        class="btn ai-action-btn ai-btn-preview"
                         >
-                  <span id="ai2ChatSubmitText" i18n:translate="">Apply AI Change</span>
-                  <span id="ai2ChatSubmitSpinner" class="ai2-btn-spinner" style="display:none;">
-                    <span class="ai2-spinner"></span>
+                  <span id="aiChatSubmitText" i18n:translate="">Apply AI Change</span>
+                  <span id="aiChatSubmitSpinner" class="ai-btn-spinner" style="display:none;">
+                    <span class="ai-spinner"></span>
                     <span i18n:translate="">Applying...</span>
                   </span>
                 </button>
               </form>
             </div>
-            <div class="ai2-history-box">
+            <div class="ai-history-box">
               <h4 i18n:translate="">History (max 5)</h4>
               <tal:history tal:condition="view/has_temp_history">
-                <div class="ai2-history-list">
-                  <div class="ai2-history-item"
+                <div class="ai-history-list">
+                  <div class="ai-history-item"
                        tal:repeat="item view/temp_history_items">
-                    <div class="ai2-history-meta">
+                    <div class="ai-history-meta">
                       <span i18n:translate="">Step back:</span>
                       <span tal:content="item/step_back">1</span>
                     </div>
-                    <div class="ai2-history-prompt"
+                    <div class="ai-history-prompt"
                          tal:content="item/prompt">Prompt text</div>
                     <form method="post"
-                          tal:attributes="action string:${context/absolute_url}/@@ai2-restore-history-step">
+                          tal:attributes="action string:${context/absolute_url}/@@ai-restore-history-step">
                       <span tal:replace="structure context/@@authenticator/authenticator"></span>
                       <input type="hidden"
                              name="history_index"
@@ -200,17 +200,17 @@
         </div>
       </div>
 
-      <div id="ai2PreviewModal"
-           class="modal ai2-preview-modal"
+      <div id="aiPreviewModal"
+           class="modal ai-preview-modal"
            style="display:none;">
         <div class="modal-content">
-          <span id="ai2ClosePreviewBtn" class="close-button">&#215;</span>
+          <span id="aiClosePreviewBtn" class="close-button">&#215;</span>
           <h2 i18n:translate="">Temporary SurveyJS Preview</h2>
-          <div id="ai2SurveyPreviewContainer"></div>
+          <div id="aiSurveyPreviewContainer"></div>
         </div>
       </div>
       <script type="application/json"
-              id="ai2-temp-form-json"
+              id="ai-temp-form-json"
               tal:define="temp_json python: __import__('json').dumps(view.temp_form_data)"
               tal:content="structure temp_json"></script>
     </tal:has-temp-bottom>

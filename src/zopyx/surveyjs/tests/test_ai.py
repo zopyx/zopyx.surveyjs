@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from unittest.mock import patch
 
-from zopyx.surveyjs.browser.ai2 import AI2View
+from zopyx.surveyjs.browser.ai import AIView
 
 
 class DummyResponse:
@@ -43,9 +43,9 @@ def _fake_annotations(context):
     return context._annos
 
 
-class AI2ViewTests(unittest.TestCase):
+class AIViewTests(unittest.TestCase):
     def _make_view(self, *, form=None, annos=None):
-        view = AI2View.__new__(AI2View)
+        view = AIView.__new__(AIView)
         view.context = DummyContext(annos=annos)
         view.request = DummyRequest(form=form)
         return view
@@ -76,11 +76,11 @@ class AI2ViewTests(unittest.TestCase):
             any(m["survey_name"] == "first_name" for m in mapping["mappings"])
         )
 
-    @patch("zopyx.surveyjs.browser.ai2.Path.write_text")
-    @patch("zopyx.surveyjs.browser.ai2.plone.api.portal.show_message")
-    @patch("zopyx.surveyjs.browser.ai2.IAnnotations", side_effect=_fake_annotations)
+    @patch("zopyx.surveyjs.browser.ai.Path.write_text")
+    @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
-        "zopyx.surveyjs.browser.ai2.ai_service.load_ai_settings",
+        "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
         return_value=("gpt-4o", "secret", None),
     )
     def test_upload_fillable_pdf_stores_internal_mapping(
@@ -104,24 +104,24 @@ class AI2ViewTests(unittest.TestCase):
                 ):
                     result = view.upload_document()
 
-        self.assertIn("/@@ai2", result)
-        self.assertEqual(annos[AI2View.TEMP_FORM_ANNOTATION_KEY], generated)
-        self.assertIn(AI2View.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
-        mapping = annos[AI2View.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY]
+        self.assertIn("/@@ai", result)
+        self.assertEqual(annos[AIView.TEMP_FORM_ANNOTATION_KEY], generated)
+        self.assertIn(AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
+        mapping = annos[AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY]
         self.assertIsInstance(mapping, dict)
         self.assertIn("mappings", mapping)
 
-    @patch("zopyx.surveyjs.browser.ai2.Path.write_text")
-    @patch("zopyx.surveyjs.browser.ai2.plone.api.portal.show_message")
-    @patch("zopyx.surveyjs.browser.ai2.IAnnotations", side_effect=_fake_annotations)
+    @patch("zopyx.surveyjs.browser.ai.Path.write_text")
+    @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
-        "zopyx.surveyjs.browser.ai2.ai_service.load_ai_settings",
+        "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
         return_value=("gpt-4o", "secret", None),
     )
     def test_upload_non_fillable_pdf_clears_internal_mapping(
         self, _settings, _annos, _show_message, _write_text
     ) -> None:
-        annos = {AI2View.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: {"stale": True}}
+        annos = {AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: {"stale": True}}
         upload = DummyUpload("scan.pdf", b"%PDF-1.7 dummy", "application/pdf")
         view = self._make_view(form={"document_file": upload}, annos=annos)
         generated = {"pages": [{"elements": [{"type": "text", "name": "a"}]}]}
@@ -137,19 +137,19 @@ class AI2ViewTests(unittest.TestCase):
                 ):
                     view.upload_document()
 
-        self.assertNotIn(AI2View.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
+        self.assertNotIn(AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
 
-    @patch("zopyx.surveyjs.browser.ai2.Path.write_text")
-    @patch("zopyx.surveyjs.browser.ai2.plone.api.portal.show_message")
-    @patch("zopyx.surveyjs.browser.ai2.IAnnotations", side_effect=_fake_annotations)
+    @patch("zopyx.surveyjs.browser.ai.Path.write_text")
+    @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
-        "zopyx.surveyjs.browser.ai2.ai_service.load_ai_settings",
+        "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
         return_value=("gpt-4o", "secret", None),
     )
     def test_upload_non_pdf_clears_internal_mapping(
         self, _settings, _annos, _show_message, _write_text
     ) -> None:
-        annos = {AI2View.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: {"stale": True}}
+        annos = {AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: {"stale": True}}
         upload = DummyUpload(
             "document.docx",
             b"dummy",
@@ -162,4 +162,4 @@ class AI2ViewTests(unittest.TestCase):
             with patch.object(view, "_parse_generated_json", return_value=generated):
                 view.upload_document()
 
-        self.assertNotIn(AI2View.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
+        self.assertNotIn(AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)

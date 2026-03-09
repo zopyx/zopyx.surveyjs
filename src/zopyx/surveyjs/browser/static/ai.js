@@ -1,14 +1,14 @@
-/* ===== AI2 Page JavaScript ===== */
+/* ===== AI Page JavaScript ===== */
 
 (function() {
   'use strict';
 
   // ===== Upload Form Handler =====
   function initUploadForm() {
-    const form = document.getElementById('ai2UploadForm');
-    const button = document.getElementById('ai2UploadBtn');
-    const text = document.getElementById('ai2UploadBtnText');
-    const spinner = document.getElementById('ai2UploadBtnSpinner');
+    const form = document.getElementById('aiUploadForm');
+    const button = document.getElementById('aiUploadBtn');
+    const text = document.getElementById('aiUploadBtnText');
+    const spinner = document.getElementById('aiUploadBtnSpinner');
 
     if (!form || !button || !text || !spinner) {
       return;
@@ -23,10 +23,10 @@
 
   // ===== Chat Form Handler =====
   function initChatForm() {
-    const form = document.getElementById('ai2ChatForm');
-    const button = document.getElementById('ai2ChatSubmitBtn');
-    const text = document.getElementById('ai2ChatSubmitText');
-    const spinner = document.getElementById('ai2ChatSubmitSpinner');
+    const form = document.getElementById('aiChatForm');
+    const button = document.getElementById('aiChatSubmitBtn');
+    const text = document.getElementById('aiChatSubmitText');
+    const spinner = document.getElementById('aiChatSubmitSpinner');
 
     if (!form || !button || !text || !spinner) {
       return;
@@ -41,11 +41,11 @@
 
   // ===== Preview Modal Handler =====
   function initPreviewModal() {
-    const holder = document.getElementById('ai2-temp-form-json');
-    const target = document.getElementById('ai2SurveyPreviewContainer');
-    const modal = document.getElementById('ai2PreviewModal');
-    const openBtn = document.getElementById('ai2OpenPreviewBtn');
-    const closeBtn = document.getElementById('ai2ClosePreviewBtn');
+    const holder = document.getElementById('ai-temp-form-json');
+    const target = document.getElementById('aiSurveyPreviewContainer');
+    const modal = document.getElementById('aiPreviewModal');
+    const openBtn = document.getElementById('aiOpenPreviewBtn');
+    const closeBtn = document.getElementById('aiClosePreviewBtn');
 
     if (!holder || !target || !modal || !openBtn || !closeBtn || typeof Survey === 'undefined') {
       return;
