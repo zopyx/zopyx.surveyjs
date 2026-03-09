@@ -1,0 +1,230 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+<metal:block fill-slot="style_slot">
+  <metal:survey-header-critical
+      use-macro="context/@@survey-actions/macros/survey-header-critical"
+  />
+  <style type="text/css">
+    .ai2-container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .ai2-preview-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .ai2-preview-actions .help-block {
+      margin: 0;
+    }
+    .ai2-preview-modal .modal-content {
+      width: 80vw;
+      max-width: 1200px;
+      max-height: 80vh;
+      overflow: auto;
+      border-radius: 10px;
+      border: 1px solid #d8dee9;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+      padding: 16px 18px;
+    }
+    .ai2-preview-modal h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+    }
+    .ai2-preview-modal .close-button {
+      font-size: 1.3rem;
+      line-height: 1;
+      opacity: 0.8;
+    }
+    .ai2-preview-modal .close-button:hover {
+      opacity: 1;
+    }
+    #ai2SurveyPreviewContainer {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+    }
+    #ai2OpenPreviewBtn {
+      white-space: nowrap;
+    }
+    .ai2-preview-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(15, 23, 42, 0.35);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+  </style>
+</metal:block>
+
+<metal:block fill-slot="content-core"
+             tal:define="portal_state context/@@plone_portal_state">
+
+  <metal:surveyjs-vars-base
+      use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+  />
+  <metal:surveyjs-i18n-scripts
+      use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts"
+  />
+  <metal:surveyjs-core
+      use-macro="context/@@survey-assets/macros/surveyjs-core"
+  />
+  <metal:surveyjs-ui
+      use-macro="context/@@survey-assets/macros/surveyjs-ui"
+  />
+  <metal:surveyjs-theme-index
+      use-macro="context/@@survey-assets/macros/surveyjs-theme-index"
+  />
+  <metal:surveyjs-viewer-css
+      use-macro="context/@@survey-assets/macros/surveyjs-viewer-css"
+  />
+
+  <div class="ai2-container">
+    <div class="ai2-header">
+      <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+        <metal:survey-header-headline fill-slot="view-headline">
+          <div class="page-headline" i18n:translate="">AI2 (Beta)</div>
+        </metal:survey-header-headline>
+      </metal:survey-header>
+    </div>
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title" i18n:translate="">Upload Document</h3>
+      </div>
+      <div class="panel-body">
+        <form method="post"
+              enctype="multipart/form-data"
+              tal:attributes="action string:${context/absolute_url}/@@ai2-upload">
+          <span tal:replace="structure context/@@authenticator/authenticator"></span>
+          <div class="form-group">
+            <input type="file"
+                   class="form-control"
+                   name="document_file"
+                   accept=".pdf,.docx,.odt,.html,.htm,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/html"
+                   required="required" />
+            <p class="help-block" i18n:translate="">
+              Accepted formats: PDF, DOCX, ODT, HTML.
+            </p>
+          </div>
+          <button type="submit" class="btn btn-primary" i18n:translate="">Upload</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top: 16px;">
+      <div class="panel-heading">
+        <h3 class="panel-title" i18n:translate="">Temporary AI2 Form Preview</h3>
+      </div>
+      <div class="panel-body">
+        <tal:has-temp tal:condition="view/has_temp_form">
+          <div class="ai2-preview-actions">
+            <p class="help-block" i18n:translate="">
+              This is the currently stored temporary SurveyJS JSON from AI2.
+            </p>
+            <button type="button"
+                    class="btn btn-info"
+                    id="ai2OpenPreviewBtn"
+                    i18n:translate="">Open SurveyJS Preview</button>
+          </div>
+          <div id="ai2PreviewModal"
+               class="modal ai2-preview-modal"
+               style="display:none;">
+            <div class="modal-content">
+              <span id="ai2ClosePreviewBtn" class="close-button">&times;</span>
+              <h2 i18n:translate="">Temporary SurveyJS Preview</h2>
+              <div id="ai2SurveyPreviewContainer"></div>
+            </div>
+          </div>
+          <script type="application/json"
+                  id="ai2-temp-form-json"
+                  tal:define="temp_json python: __import__('json').dumps(view.temp_form_data)"
+                  tal:content="structure temp_json"></script>
+          <script type="text/javascript">
+            (function () {
+              const holder = document.getElementById("ai2-temp-form-json");
+              const target = document.getElementById("ai2SurveyPreviewContainer");
+              const modal = document.getElementById("ai2PreviewModal");
+              const openBtn = document.getElementById("ai2OpenPreviewBtn");
+              const closeBtn = document.getElementById("ai2ClosePreviewBtn");
+              if (!holder || !target || !modal || !openBtn || !closeBtn || typeof Survey === "undefined") {
+                return;
+              }
+              let surveyInstance = null;
+              let previewRendered = false;
+              const renderPreview = function () {
+                try {
+                  if (previewRendered) {
+                    return;
+                  }
+                  const formJson = JSON.parse(holder.textContent || "{}");
+                  target.innerHTML = "";
+                  surveyInstance = new Survey.Model(formJson);
+                  surveyInstance.mode = "display";
+                  surveyInstance.render(target);
+                  previewRendered = true;
+                } catch (err) {
+                  target.innerHTML = "<div class='alert alert-danger'>SurveyJS preview failed.</div>";
+                }
+              };
+
+              const openModal = function () {
+                modal.style.display = "flex";
+                document.body.style.overflow = "hidden";
+                renderPreview();
+              };
+
+              const closeModal = function () {
+                modal.style.display = "none";
+                document.body.style.overflow = "";
+              };
+
+              openBtn.addEventListener("click", function () {
+                openModal();
+              });
+
+              closeBtn.addEventListener("click", function () {
+                closeModal();
+              });
+
+              modal.addEventListener("click", function (ev) {
+                if (ev.target === modal) {
+                  closeModal();
+                }
+              });
+
+              document.addEventListener("keydown", function (ev) {
+                if (ev.key === "Escape" && modal.style.display === "flex") {
+                  closeModal();
+                }
+              });
+            })();
+          </script>
+          <form method="post"
+                tal:attributes="action string:${context/absolute_url}/@@ai2-store-temp-version">
+            <span tal:replace="structure context/@@authenticator/authenticator"></span>
+            <button type="submit" class="btn btn-success" i18n:translate="">Store as New Version</button>
+          </form>
+        </tal:has-temp>
+        <tal:no-temp tal:condition="not: view/has_temp_form">
+          <p class="help-block" i18n:translate="">
+            No temporary AI2 form stored yet. Upload a document to generate one.
+          </p>
+        </tal:no-temp>
+      </div>
+    </div>
+  </div>
+
+</metal:block>
+</html>

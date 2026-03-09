@@ -80,6 +80,14 @@
             <span i18n:translate="">AI Generator</span>
           </a>
         </tal:ai>
+        <a class="survey-action-button action-ai"
+           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai2') else '');
+                           title python: 'AI2 beta features' if not current_url.endswith('/@@ai2') else 'Currently in AI2 beta features';
+                           aria-label python: 'AI2 beta features' if not current_url.endswith('/@@ai2') else 'Currently in AI2 beta features'"
+           href="${context/absolute_url}/@@ai2">
+          <span i18n:translate="">AI2</span>
+          <span class="beta-badge" i18n:translate="">Beta</span>
+        </a>
         <tal:pdfimporter tal:condition="python: view.feature_enabled('pdf-form-import')">
           <a class="survey-action-button action-pdf-importer"
              tal:attributes="class python: 'survey-action-button action-pdf-importer' + (' is-active' if current_url.endswith('/@@pdf-importer') else '');
@@ -161,6 +169,10 @@
 </metal:survey_header>
 
 <metal:survey_header_critical define-macro="survey-header-critical">
+  <link rel="stylesheet"
+        type="text/css"
+        href="++resource++zopyx.surveyjs/header_actions.css"
+  />
   <link rel="stylesheet"
         type="text/css"
         href="++resource++zopyx.surveyjs/survey_actions.css"

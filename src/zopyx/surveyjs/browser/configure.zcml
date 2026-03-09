@@ -346,6 +346,27 @@
     class=".survey_ai.SurveyAI"
     template="survey_ai.pt"
   />
+  <browser:page
+    name="ai2"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    template="ai2.pt"
+  />
+  <browser:page
+    name="ai2-upload"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    attribute="upload_document"
+  />
+  <browser:page
+    name="ai2-store-temp-version"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai2.AI2View"
+    attribute="store_temp_as_version"
+  />
 
   <!-- Chatbot -->
   <browser:page
