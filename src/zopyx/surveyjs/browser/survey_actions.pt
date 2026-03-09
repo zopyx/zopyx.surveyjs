@@ -43,11 +43,10 @@
         <tal:ai tal:condition="python: view.feature_enabled('ai')">
           <a class="survey-action-button action-ai"
              tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
-                             title python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features';
-                             aria-label python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features'"
+                             title python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features';
+                             aria-label python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features'"
              href="${context/absolute_url}/@@ai">
             <span i18n:translate="">AI</span>
-            <span class="beta-badge" i18n:translate="">Beta</span>
           </a>
         </tal:ai>
       </div>
