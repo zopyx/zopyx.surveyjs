@@ -226,3 +226,8 @@ playwright-tests/screenshots/.auth/
 playwright-tests/screenshots-report/
 playwright-test-failed.png
 *.png.snapshot
+
+
+src/privacyforms.ai
+src/privacyforms.pdf
+
