@@ -10,7 +10,7 @@
       use-macro="context/@@survey-actions/macros/survey-header-critical"
   />
   <link rel="stylesheet" type="text/css"
-        href="++resource++zopyx.surveyjs/ai2.css" />
+        href="++resource++zopyx.surveyjs/ai.css" />
 </metal:block>
 
 <metal:block fill-slot="content-core"
@@ -215,7 +215,7 @@
               tal:content="structure temp_json"></script>
     </tal:has-temp-bottom>
 
-  <script src="++resource++zopyx.surveyjs/ai2.js"></script>
+  <script src="++resource++zopyx.surveyjs/ai.js"></script>
   </div>
 
 </metal:block>
