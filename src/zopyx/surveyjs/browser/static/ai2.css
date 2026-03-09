@@ -22,8 +22,7 @@
 
 /* ===== Layout ===== */
 .ai2-container {
-  max-width: 1160px;
-  margin: 0 auto;
+  width: 100%;
 }
 .ai2-header {
   margin-bottom: var(--ai2-spacing);
