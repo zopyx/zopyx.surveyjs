@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,7 @@ class AI2View(Views):
 
     TEMP_FORM_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_form_json"
     TEMP_FORM_HISTORY_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_form_history"
+    TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY = "zopyx.surveyjs.ai2.temp_pdf_field_mapping"
     ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".docx", ".odt", ".html", ".htm"}
     MIME_TYPES = {
         ".pdf": "application/pdf",
@@ -151,6 +153,157 @@ class AI2View(Views):
                     Path(temp_path).unlink(missing_ok=True)
                 except Exception:
                     pass
+
+    def _normalize_token(self, value):
+        return "".join(ch.lower() for ch in (value or "") if ch.isalnum())
+
+    def _collect_pdf_fields(self, data):
+        """Extract candidate fillable PDF fields from arbitrary JSON-like data."""
+        fields = []
+        if isinstance(data, list):
+            for item in data:
+                fields.extend(self._collect_pdf_fields(item))
+            return fields
+
+        if not isinstance(data, dict):
+            return fields
+
+        id_keys = (
+            "name",
+            "id",
+            "field_name",
+            "fieldName",
+            "full_name",
+            "qualified_name",
+            "technical_name",
+            "key",
+        )
+        label_keys = ("label", "caption", "title", "display_name", "displayName")
+        type_keys = ("type", "field_type", "fieldType", "kind", "widget_type")
+        geo_keys = ("bbox", "rect", "geometry", "position", "x", "y", "width", "height")
+
+        field_id = next((data.get(k) for k in id_keys if data.get(k)), None)
+        field_label = next((data.get(k) for k in label_keys if data.get(k)), None)
+        field_type = next((data.get(k) for k in type_keys if data.get(k)), None)
+
+        if field_id or field_label:
+            geometry = {k: data.get(k) for k in geo_keys if k in data}
+            fields.append(
+                {
+                    "pdf_field_id": str(field_id or ""),
+                    "pdf_field_label": str(field_label or ""),
+                    "pdf_field_type": str(field_type or ""),
+                    "geometry": self._to_jsonable(geometry),
+                }
+            )
+
+        for value in data.values():
+            fields.extend(self._collect_pdf_fields(value))
+        return fields
+
+    def _collect_survey_elements(self, survey_json):
+        """Flatten SurveyJS elements for mapping lookup."""
+        elements = []
+
+        def walk_items(items):
+            if not isinstance(items, list):
+                return
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                name = str(item.get("name") or "")
+                title = item.get("title")
+                title_text = str(title) if isinstance(title, str) else ""
+                if name or title_text:
+                    elements.append(
+                        {
+                            "survey_name": name,
+                            "survey_title": title_text,
+                            "survey_type": str(item.get("type") or ""),
+                        }
+                    )
+                walk_items(item.get("elements"))
+                walk_items(item.get("rows"))
+                walk_items(item.get("columns"))
+                walk_items(item.get("templates"))
+                for cell in item.get("cells", []) if isinstance(item.get("cells"), list) else []:
+                    walk_items(cell)
+
+        if isinstance(survey_json, dict):
+            pages = survey_json.get("pages")
+            if isinstance(pages, list):
+                for page in pages:
+                    if isinstance(page, dict):
+                        walk_items(page.get("elements"))
+            walk_items(survey_json.get("elements"))
+        return elements
+
+    def _build_pdf_to_survey_mapping(self, pdf_form_data, survey_json):
+        """Create a best-effort internal map between PDF and SurveyJS fields."""
+        pdf_fields = self._collect_pdf_fields(pdf_form_data)
+        survey_fields = self._collect_survey_elements(survey_json)
+
+        by_name = {}
+        by_title = {}
+        for field in survey_fields:
+            name_key = self._normalize_token(field.get("survey_name"))
+            title_key = self._normalize_token(field.get("survey_title"))
+            if name_key and name_key not in by_name:
+                by_name[name_key] = field
+            if title_key and title_key not in by_title:
+                by_title[title_key] = field
+
+        mapped = []
+        for pdf_field in pdf_fields:
+            token_id = self._normalize_token(pdf_field.get("pdf_field_id"))
+            token_label = self._normalize_token(pdf_field.get("pdf_field_label"))
+
+            chosen = None
+            matched_by = None
+            confidence = "low"
+
+            if token_id and token_id in by_name:
+                chosen = by_name[token_id]
+                matched_by = "pdf_id->survey_name"
+                confidence = "high"
+            elif token_label and token_label in by_title:
+                chosen = by_title[token_label]
+                matched_by = "pdf_label->survey_title"
+                confidence = "high"
+            elif token_label and token_label in by_name:
+                chosen = by_name[token_label]
+                matched_by = "pdf_label->survey_name"
+                confidence = "medium"
+            elif token_id and token_id in by_title:
+                chosen = by_title[token_id]
+                matched_by = "pdf_id->survey_title"
+                confidence = "medium"
+
+            mapped.append(
+                {
+                    "pdf_field_id": pdf_field.get("pdf_field_id"),
+                    "pdf_field_label": pdf_field.get("pdf_field_label"),
+                    "pdf_field_type": pdf_field.get("pdf_field_type"),
+                    "pdf_geometry": pdf_field.get("geometry"),
+                    "survey_name": chosen.get("survey_name") if chosen else None,
+                    "survey_title": chosen.get("survey_title") if chosen else None,
+                    "survey_type": chosen.get("survey_type") if chosen else None,
+                    "matched_by": matched_by,
+                    "confidence": confidence if chosen else "unmatched",
+                }
+            )
+
+        return {
+            "created": datetime.now(timezone.utc).isoformat(),
+            "source": "fillable-pdf",
+            "mapped_count": len([m for m in mapped if m.get("survey_name")]),
+            "pdf_field_count": len(pdf_fields),
+            "survey_field_count": len(survey_fields),
+            "mappings": mapped,
+        }
+
+    def _clear_pdf_field_mapping(self, annos):
+        annos.pop(self.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, None)
 
     def _load_privacyforms_ai(self):
         try:
@@ -288,6 +441,9 @@ class AI2View(Views):
         has_form_error = None
         if extension == ".pdf":
             has_form, form_data, has_form_error = self._extract_pdf_form_data(file_data)
+        annos = IAnnotations(self.context)
+        if extension != ".pdf" or has_form is not True:
+            self._clear_pdf_field_mapping(annos)
 
         model_name, api_key, ollama_url = ai_service.load_ai_settings()
         if not model_name:
@@ -345,7 +501,6 @@ Requirements:
                 "\n\nHere is optional extracted form metadata JSON from the source PDF:\n"
                 + json.dumps(form_data, ensure_ascii=False, default=str)
             )
-        print(prompt)
 
         generated_form = None
         ai_error = None
@@ -376,15 +531,20 @@ Requirements:
                 "error",
             )
 
-        annos = IAnnotations(self.context)
         annos[self.TEMP_FORM_ANNOTATION_KEY] = generated_form
         annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = []
+        if extension == ".pdf" and has_form is True and form_data is not None:
+            annos[self.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY] = self._build_pdf_to_survey_mapping(
+                form_data,
+                generated_form,
+            )
+        else:
+            self._clear_pdf_field_mapping(annos)
 
         Path("form.json").write_text(
             json.dumps(generated_form, indent=2, ensure_ascii=False, default=str),
             encoding="utf-8",
         )
-        print(json.dumps(generated_form, indent=2, ensure_ascii=False, default=str))
 
         detail = f"AI2 upload succeeded for {filename} ({size_bytes} bytes)."
         if extension == ".pdf":
@@ -499,7 +659,6 @@ Requirements:
             "User request:\n"
             f"{prompt}\n"
         )
-        print(chat_prompt)
 
         try:
             ai_result_text = self._call_ai_text_refinement(
@@ -530,7 +689,6 @@ Requirements:
             json.dumps(refined_form, indent=2, ensure_ascii=False, default=str),
             encoding="utf-8",
         )
-        print(json.dumps(refined_form, indent=2, ensure_ascii=False, default=str))
         return self._redirect_ai2("AI refinement applied to temporary form.", "info")
 
     def restore_temp_history_step(self):
