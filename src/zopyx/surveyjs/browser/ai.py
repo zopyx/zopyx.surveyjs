@@ -79,6 +79,12 @@ class AIView(Views):
         "text/html": ".html",
     }
 
+    @property
+    def ai_model_name(self) -> str:
+        """Return the configured AI model name for display."""
+        model_name, _api_key, _ollama_url = ai_service.load_ai_settings()
+        return model_name or "Not configured"
+
     def _to_jsonable(self, value):
         """Convert a value to JSON-serializable format.
 
@@ -635,9 +641,7 @@ class AIView(Views):
         """
         uploaded_file = self.request.form.get("document_file")
         if not uploaded_file:
-            return self._redirect_ai(
-                "No file uploaded. Please upload a file.", "error"
-            )
+            return self._redirect_ai("No file uploaded. Please upload a file.", "error")
 
         filename = (getattr(uploaded_file, "filename", None) or "").strip()
         if not filename:
@@ -730,6 +734,8 @@ Requirements:
   - required flags/options
   - geometry/bounding box/position (x, y, width, height)
   - page number and ordering hints
+- CRITICAL: You MUST convert ALL fields from the PDF metadata into SurveyJS elements. Do not skip, omit, or ignore any fields. Every single field listed in the metadata must have a corresponding element in the output JSON.
+- CRITICAL: When mapping PDF form fields to SurveyJS elements, you MUST preserve the exact field name from the PDF metadata as the `name` property. Do NOT modify the case, add/remove whitespace, or change the name in any way. The name must match exactly for data mapping purposes.
 - Use these metadata attributes to map source fields to SurveyJS elements as accurately as possible.
 - Use geometry/page/order hints to maintain relative placement and section flow.
 
@@ -821,9 +827,7 @@ Requirements:
                 request=self.request,
                 type="warning",
             )
-            return self.request.response.redirect(
-                f"{self.context.absolute_url()}/@@ai"
-            )
+            return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai")
 
         try:
             version_data = forms_service.save_form_version(
@@ -840,9 +844,7 @@ Requirements:
                 request=self.request,
                 type="error",
             )
-            return self.request.response.redirect(
-                f"{self.context.absolute_url()}/@@ai"
-            )
+            return self.request.response.redirect(f"{self.context.absolute_url()}/@@ai")
 
         plone.api.portal.show_message(
             f"Stored as new version {version_data.get('id')}.",

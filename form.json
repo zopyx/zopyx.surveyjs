@@ -1,0 +1,480 @@
+{
+  "title": "Standard Application for Employment",
+  "description": "",
+  "pages": [
+    {
+      "name": "Page 1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "Home phone number",
+          "title": "Home phone number",
+          "inputType": "tel"
+        },
+        {
+          "type": "text",
+          "name": "Business phone number",
+          "title": "Business phone number",
+          "inputType": "tel"
+        },
+        {
+          "type": "text",
+          "name": "Cell phone number",
+          "title": "Cell phone number",
+          "inputType": "tel"
+        },
+        {
+          "type": "boolean",
+          "name": "Diploma or GED",
+          "title": "Diploma or GED",
+          "defaultValue": false
+        },
+        {
+          "type": "boolean",
+          "name": "Swing",
+          "title": "Swing",
+          "defaultValue": false
+        },
+        {
+          "type": "boolean",
+          "name": "Full time",
+          "title": "Full time",
+          "defaultValue": true
+        },
+        {
+          "type": "boolean",
+          "name": "Days",
+          "title": "Days",
+          "defaultValue": true
+        },
+        {
+          "type": "boolean",
+          "name": "Graveyard",
+          "title": "Graveyard",
+          "defaultValue": false
+        },
+        {
+          "type": "radiogroup",
+          "name": "Status",
+          "title": "Status",
+          "choices": [
+            "Regular",
+            "Temporary"
+          ],
+          "defaultValue": "Regular"
+        },
+        {
+          "type": "boolean",
+          "name": "Part time",
+          "title": "Part time",
+          "defaultValue": false
+        },
+        {
+          "type": "boolean",
+          "name": "Evenings",
+          "title": "Evenings",
+          "defaultValue": true
+        },
+        {
+          "type": "boolean",
+          "name": "Weekends",
+          "title": "Weekends",
+          "defaultValue": true
+        },
+        {
+          "type": "boolean",
+          "name": "Authorized to work",
+          "title": "Authorized to work",
+          "defaultValue": true
+        },
+        {
+          "type": "text",
+          "name": "Felony conviction",
+          "title": "Felony conviction",
+          "defaultValue": ""
+        },
+        {
+          "type": "boolean",
+          "name": "Convicted of a felony",
+          "title": "Convicted of a felony",
+          "defaultValue": false
+        },
+        {
+          "type": "boolean",
+          "name": "Viewed job description",
+          "title": "Viewed job description",
+          "defaultValue": true
+        },
+        {
+          "type": "boolean",
+          "name": "Perform the job without accomodation",
+          "title": "Perform the job without accomodation",
+          "defaultValue": true
+        },
+        {
+          "type": "text",
+          "name": "School name 1",
+          "title": "School name 1",
+          "defaultValue": "Springfield High School"
+        },
+        {
+          "type": "text",
+          "name": "Degree 1",
+          "title": "Degree 1",
+          "defaultValue": "High School Diploma"
+        },
+        {
+          "type": "text",
+          "name": "School 1 address",
+          "title": "School 1 address",
+          "defaultValue": "Springfield, IL"
+        },
+        {
+          "type": "text",
+          "name": "School name 2",
+          "title": "School name 2",
+          "defaultValue": "University of Illinois"
+        },
+        {
+          "type": "text",
+          "name": "Degree 2",
+          "title": "Degree 2",
+          "defaultValue": "B.S. in Computer Science"
+        },
+        {
+          "type": "text",
+          "name": "School 2 address",
+          "title": "School 2 address",
+          "defaultValue": "Urbana-Champaign, IL"
+        },
+        {
+          "type": "text",
+          "name": "School name 3",
+          "title": "School name 3",
+          "defaultValue": "Codecademy Full Stack Bootcamp"
+        },
+        {
+          "type": "text",
+          "name": "Degree 3",
+          "title": "Degree 3",
+          "defaultValue": "Certificate"
+        },
+        {
+          "type": "text",
+          "name": "School 3 address",
+          "title": "School 3 address",
+          "defaultValue": "Online"
+        },
+        {
+          "type": "comment",
+          "name": "Special skills",
+          "title": "Special skills",
+          "defaultValue": "- Proficient in JavaScript, React, Python\n- Team leadership in university projects\n- Volunteer web development for non-profit organizations\n- Fluent in Spanish"
+        },
+        {
+          "type": "text",
+          "name": "Employer",
+          "title": "Employer",
+          "defaultValue": "ABC Technologies"
+        },
+        {
+          "type": "text",
+          "name": "Position",
+          "title": "Position",
+          "defaultValue": "Software Engineer"
+        },
+        {
+          "type": "text",
+          "name": "Candidate Name",
+          "title": "Candidate Name",
+          "defaultValue": "Doe, Jane Marie"
+        },
+        {
+          "type": "text",
+          "name": "Street address",
+          "title": "Street address",
+          "defaultValue": "1234 Elm Street"
+        },
+        {
+          "type": "text",
+          "name": "City",
+          "title": "City",
+          "defaultValue": "Springfield"
+        },
+        {
+          "type": "text",
+          "name": "State",
+          "title": "State",
+          "defaultValue": "IL"
+        },
+        {
+          "type": "text",
+          "name": "Zip",
+          "title": "Zip",
+          "defaultValue": "62704"
+        },
+        {
+          "type": "text",
+          "name": "Start date",
+          "title": "Start date",
+          "defaultValue": "2025-06-01",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Salary desired",
+          "title": "Salary desired",
+          "defaultValue": "$70,000/year",
+          "inputType": "date"
+        }
+      ]
+    },
+    {
+      "name": "Page 2",
+      "elements": [
+        {
+          "type": "text",
+          "name": "Referent 1 name",
+          "title": "Referent 1 name",
+          "defaultValue": "John Smith"
+        },
+        {
+          "type": "text",
+          "name": "Referent 1 relationship",
+          "title": "Referent 1 relationship",
+          "defaultValue": "101 Main St, Springfield, IL"
+        },
+        {
+          "type": "text",
+          "name": "Referent 1 address",
+          "title": "Referent 1 address",
+          "defaultValue": "(217) 555-3456"
+        },
+        {
+          "type": "text",
+          "name": "Referent 1 phone",
+          "title": "Referent 1 phone",
+          "defaultValue": "Former Supervisor"
+        },
+        {
+          "type": "text",
+          "name": "Referent 2 name",
+          "title": "Referent 2 name",
+          "defaultValue": "Sarah Johnson"
+        },
+        {
+          "type": "text",
+          "name": "Referent 2 relationship",
+          "title": "Referent 2 relationship",
+          "defaultValue": "202 Oak Ave, Springfield, IL"
+        },
+        {
+          "type": "text",
+          "name": "Referent 2 address",
+          "title": "Referent 2 address",
+          "defaultValue": "(217) 555-7890"
+        },
+        {
+          "type": "text",
+          "name": "Referent 2 phone",
+          "title": "Referent 2 phone",
+          "defaultValue": "College Professor"
+        },
+        {
+          "type": "text",
+          "name": "Referent 3 name",
+          "title": "Referent 3 name",
+          "defaultValue": "Michael Lee"
+        },
+        {
+          "type": "text",
+          "name": "Referent 3 relationship",
+          "title": "Referent 3 relationship",
+          "defaultValue": "303 Pine Rd, Springfield, IL"
+        },
+        {
+          "type": "text",
+          "name": "Referent 3 address",
+          "title": "Referent 3 address",
+          "defaultValue": "(217) 555-6789"
+        },
+        {
+          "type": "text",
+          "name": "Referent 3 phone",
+          "title": "Referent 3 phone",
+          "defaultValue": "Project Team Lead"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 title",
+          "title": "Job 1 title",
+          "defaultValue": "Junior Developer"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 company name",
+          "title": "Job 1 company name",
+          "defaultValue": "WebWorks Inc."
+        },
+        {
+          "type": "text",
+          "name": "Job 1 start date",
+          "title": "Job 1 start date",
+          "defaultValue": "2023-06-01",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 end date",
+          "title": "Job 1 end date",
+          "defaultValue": "",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 duties",
+          "title": "Job 1 duties",
+          "defaultValue": "Frontend development, client site maintenance"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 supervisor's name",
+          "title": "Job 1 supervisor's name",
+          "defaultValue": "Emily Rogers"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 phone",
+          "title": "Job 1 phone",
+          "defaultValue": "(217) 555-2468"
+        },
+        {
+          "type": "text",
+          "name": "Job 1 city",
+          "title": "Job 1 city",
+          "defaultValue": "Springfield, IL"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 title",
+          "title": "Job 2 title",
+          "defaultValue": "IT Intern"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 company name",
+          "title": "Job 2 company name",
+          "defaultValue": "City IT Department"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 start date",
+          "title": "Job 2 start date",
+          "defaultValue": "2022-01-10",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 end date",
+          "title": "Job 2 end date",
+          "defaultValue": "2023-05-30",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 duties",
+          "title": "Job 2 duties",
+          "defaultValue": "Tech support, website updates"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 supervisor's name",
+          "title": "Job 2 supervisor's name",
+          "defaultValue": "Marcus Allen"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 phone",
+          "title": "Job 2 phone",
+          "defaultValue": "(217) 555-3344"
+        },
+        {
+          "type": "text",
+          "name": "Job 2 city",
+          "title": "Job 2 city",
+          "defaultValue": "Springfield, IL"
+        },
+        {
+          "type": "text",
+          "name": "Job 3 title",
+          "title": "Job 3 title",
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "Job 3 company name",
+          "title": "Job 3 company name",
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "Job 3 start date",
+          "title": "Job 3 start date",
+          "defaultValue": "",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Job 3 end date",
+          "title": "Job 3 end date",
+          "defaultValue": "",
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "Job 3 duties",
+          "title": "Job 3 duties",
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "Job 3 supervisor's name",
+          "title": "Job 3 supervisor's name",
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "Job 3 phone",
+          "title": "Job 3 phone",
+          "defaultValue": ""
+        },
+        {
+          "type": "text",
+          "name": "Job 3 city",
+          "title": "Job 3 city",
+          "defaultValue": ""
+        },
+        {
+          "type": "boolean",
+          "name": "May we contact present employer",
+          "title": "May we contact present employer",
+          "defaultValue": true
+        },
+        {
+          "type": "text",
+          "name": "Date",
+          "title": "Date",
+          "defaultValue": "2025-05-21",
+          "inputType": "date"
+        },
+        {
+          "type": "signaturepad",
+          "name": "Signature",
+          "title": "Signature"
+        }
+      ]
+    }
+  ],
+  "$schema": "https://surveyjs.io/survey-schema.json",
+  "showQuestionNumbers": "on"
+}

@@ -2,5 +2,6 @@
 <project version="4">
   <component name="RuffConfigService">
     <option name="globalRuffExecutablePath" value="$PROJECT_DIR$/../../../linuxbrew/.linuxbrew/bin/ruff" />
+    <option name="nativeRuffSupportNotificationDismissed" value="true" />
   </component>
 </project>

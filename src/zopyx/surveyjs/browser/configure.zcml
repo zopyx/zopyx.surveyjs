@@ -478,6 +478,13 @@
     class=".fillable_pdf.FillablePDFView"
     attribute="delete_pdf"
   />
+  <browser:page
+    name="fillable-pdf-fill"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".fillable_pdf.FillablePDFView"
+    attribute="fill_pdf"
+  />
 
   <!-- Survey Submission Monitor -->
   <browser:page

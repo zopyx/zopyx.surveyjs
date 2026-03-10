@@ -269,7 +269,12 @@
       }
       .page-group .table th:nth-child(6),
       .page-group .table td:nth-child(6) {
-        width: 15%;
+        width: 12%;
+      }
+      .page-group .table th:nth-child(7),
+      .page-group .table td:nth-child(7) {
+        width: 8%;
+        text-align: center;
       }
 
       /* ===== Field Styling ===== */
@@ -348,6 +353,90 @@
         font-weight: 500;
       }
 
+      /* ===== Exists in Form Column ===== */
+      .exists-cell {
+        text-align: center;
+      }
+      
+      .exists-yes {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: #d4edda;
+        color: #155724;
+        border-radius: 50%;
+      }
+      
+      .exists-no {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: #f8d7da;
+        color: #721c24;
+        border-radius: 50%;
+      }
+
+      /* ===== JSON Properties Table ===== */
+      .json-properties-table {
+        margin-top: 1rem;
+      }
+      
+      .json-properties-table .table {
+        margin: 0;
+        border: none;
+        table-layout: fixed;
+        width: 100%;
+      }
+      
+      .json-properties-table .table thead th {
+        background: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 0.875rem 1rem;
+        border-bottom: 2px solid #dee2e6;
+        border-top: none;
+      }
+      
+      .json-properties-table .table tbody td {
+        padding: 0.875rem 1rem;
+        vertical-align: middle;
+        border-color: #e9ecef;
+      }
+      
+      .json-properties-table .table tbody tr:hover {
+        background-color: #f8f9fa;
+      }
+      
+      .json-properties-table .table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Fixed column widths for JSON properties table */
+      .json-properties-table .table th:nth-child(1),
+      .json-properties-table .table td:nth-child(1) {
+        width: 8%;
+        text-align: center;
+      }
+      .json-properties-table .table th:nth-child(2),
+      .json-properties-table .table td:nth-child(2) {
+        width: 40%;
+      }
+      .json-properties-table .table th:nth-child(3),
+      .json-properties-table .table td:nth-child(3) {
+        width: 26%;
+      }
+      .json-properties-table .table th:nth-child(4),
+      .json-properties-table .table td:nth-child(4) {
+        width: 26%;
+      }
+
       /* ===== Alert Styling ===== */
       .alert {
         border-radius: 6px;
@@ -364,6 +453,154 @@
         background: #fff3cd;
         border: 1px solid #ffeaa7;
         color: #856404;
+      }
+
+      /* ===== PDF Fill Form ===== */
+      .pdf-fill-form {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+      }
+      
+      .pdf-fill-fields {
+        margin-bottom: 1.5rem;
+      }
+      
+      .fill-page-group {
+        margin-bottom: 1.5rem;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      }
+      
+      .fill-page-header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+        padding: 0.75rem 1.25rem;
+      }
+      
+      .fill-page-header h5 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      
+      .fill-fields-grid {
+        padding: 1rem 1.25rem;
+      }
+      
+      .fill-field-row {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 1rem;
+        align-items: start;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+      
+      .fill-field-row:last-child {
+        border-bottom: none;
+      }
+      
+      .fill-field-label {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+        font-weight: 500;
+      }
+      
+      .fill-field-label code {
+        font-size: 0.875rem;
+        background: #f1f3f5;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+      }
+      
+      .field-type-badge {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        background: #e3f2fd;
+        color: #1565c0;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: lowercase;
+      }
+      
+      .field-required-badge {
+        color: #c62828;
+        font-weight: 700;
+      }
+      
+      .fill-field-input {
+        min-width: 0;
+      }
+      
+      .fill-field-input .form-control {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 0.9375rem;
+      }
+      
+      .fill-field-input .form-control:focus {
+        border-color: #1a1a2e;
+        box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.1);
+        outline: none;
+      }
+      
+      .fill-field-input .form-control[readonly] {
+        background: #e9ecef;
+        cursor: not-allowed;
+      }
+      
+      .fill-field-input .form-check {
+        padding: 0.5rem 0;
+      }
+      
+      .fill-field-input .form-check-input {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: 0.5rem;
+      }
+      
+      .fill-field-options {
+        grid-column: 2;
+        margin-top: 0.25rem;
+      }
+      
+      .signature-placeholder {
+        padding: 0.5rem 0;
+        color: #6c757d;
+        font-style: italic;
+      }
+      
+      .pdf-fill-actions {
+        text-align: center;
+        padding-top: 1rem;
+        border-top: 2px solid #dee2e6;
+      }
+      
+      .pdf-fill-actions .btn-lg {
+        padding: 0.875rem 2rem;
+        font-size: 1.0625rem;
+        font-weight: 600;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .fill-field-row {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+        
+        .fill-field-options {
+          grid-column: 1;
+        }
       }
     </style>
   </metal:styles>
@@ -463,6 +700,106 @@
         </tal:with-template>
       </div>
 
+      <!-- PDF Fill Form Section -->
+      <div class="fillable-pdf-section" tal:condition="view/has_fillable_pdf">
+        <h3 i18n:translate="">Fill PDF Form</h3>
+        <p i18n:translate="">
+          Enter values for the PDF fields below and submit to generate a filled PDF.
+        </p>
+        
+        <tal:fields tal:define="fields view/pdf_fields_with_input_types">
+          <tal:no-fields tal:condition="not:fields">
+            <div class="alert alert-warning">
+              <p i18n:translate="">
+                No form fields available to fill.
+              </p>
+            </div>
+          </tal:no-fields>
+          
+          <tal:with-fields tal:condition="fields">
+            <form class="pdf-fill-form"
+                  method="post"
+                  tal:attributes="action string:${context/absolute_url}/@@fillable-pdf-fill">
+              <span tal:replace="structure context/@@authenticator/authenticator"></span>
+              
+              <div class="pdf-fill-fields">
+                <tal:page-groups tal:define="pages python: sorted(set(f['page_num'] for f in fields));
+                                            grouped_fields python: {p: [f for f in fields if f['page_num'] == p] for p in pages}">
+                  <div class="fill-page-group" tal:repeat="page_num pages">
+                    <div class="fill-page-header">
+                      <h5>Page <span tal:replace="page_num">1</span></h5>
+                    </div>
+                    
+                    <div class="fill-fields-grid">
+                      <tal:field tal:repeat="field python: grouped_fields[page_num]">
+                        <div class="fill-field-row">
+                          <label class="fill-field-label" tal:attributes="for field/name">
+                            <code tal:content="field/name">field_name</code>
+                            <span class="field-type-badge" tal:content="field/type">textfield</span>
+                            <span class="field-required-badge" tal:condition="field/required">*</span>
+                          </label>
+                          
+                          <div class="fill-field-input">
+                            <!-- Text input (default) -->
+                            <input tal:condition="python: field['input_type'] == 'text'"
+                                   type="text"
+                                   class="form-control"
+                                   tal:attributes="name field/name;
+                                                   id field/name;
+                                                   value field/value;
+                                                   readonly field/readonly">
+                            
+                            <!-- Checkbox input -->
+                            <div tal:condition="python: field['input_type'] == 'checkbox'"
+                                 class="form-check">
+                              <input type="checkbox"
+                                     class="form-check-input"
+                                     tal:attributes="name field/name;
+                                                     id field/name;
+                                                     checked python: field['value'] == True">
+                              <label class="form-check-label" tal:attributes="for field/name">Yes</label>
+                            </div>
+                            
+                            <!-- Select dropdown -->
+                            <select tal:condition="python: field['input_type'] == 'select'"
+                                    class="form-control"
+                                    tal:attributes="name field/name;
+                                                    id field/name">
+                              <option value="">-- Select --</option>
+                              <option tal:repeat="opt field/options"
+                                      tal:content="opt"
+                                      tal:attributes="value opt;
+                                                      selected python: opt == field['value']">Option</option>
+                            </select>
+                            
+                            <!-- Signature placeholder -->
+                            <div tal:condition="python: field['input_type'] == 'signature'"
+                                 class="signature-placeholder">
+                              <span class="text-muted">Signature field (filled via UI)</span>
+                            </div>
+                          </div>
+                          
+                          <div class="fill-field-options" tal:condition="field/options">
+                            <small class="text-muted">Options: <span tal:content="python: ', '.join(field['options'][:3]) + ('...' if len(field['options']) > 3 else '')"></span></small>
+                          </div>
+                        </div>
+                      </tal:field>
+                    </div>
+                  </div>
+                </tal:page-groups>
+              </div>
+              
+              <div class="pdf-fill-actions">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download Filled PDF
+                </button>
+              </div>
+            </form>
+          </tal:with-fields>
+        </tal:fields>
+      </div>
+
       <div class="fillable-pdf-section" tal:condition="view/has_fillable_pdf">
         <h3 i18n:translate="">Form Fields</h3>
         <p i18n:translate="">
@@ -497,6 +834,7 @@
                         <th i18n:translate="">Options</th>
                         <th i18n:translate="">Default Value</th>
                         <th i18n:translate="">Properties</th>
+                        <th i18n:translate="">In Form</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -525,6 +863,14 @@
                                 tal:condition="field/required"
                                 i18n:translate="">Required</span>
                         </td>
+                        <td class="exists-cell">
+                          <span tal:condition="field/exists_in_json_form" class="exists-yes" title="Field exists in JSON form">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          </span>
+                          <span tal:condition="not:field/exists_in_json_form" class="exists-no" title="Field not found in JSON form">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                          </span>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -533,6 +879,53 @@
             </tal:page-groups>
           </tal:with-fields>
         </tal:fields>
+      </div>
+
+      <div class="fillable-pdf-section" tal:condition="view/has_fillable_pdf">
+        <h3 i18n:translate="">JSON Form Properties</h3>
+        <p i18n:translate="">
+          Fields defined in the current JSON form (from AI generation or editor).
+        </p>
+        
+        <tal:json-fields tal:define="json_fields view/json_form_properties">
+          <tal:no-json tal:condition="not:json_fields">
+            <div class="alert alert-info">
+              <p i18n:translate="">
+                No JSON form data available. Generate or edit a form to see properties.
+              </p>
+            </div>
+          </tal:no-json>
+          
+          <tal:with-json tal:condition="json_fields">
+            <div class="table-responsive json-properties-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th i18n:translate="">#</th>
+                    <th i18n:translate="">Field Name</th>
+                    <th i18n:translate="">Type</th>
+                    <th i18n:translate="">Input Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr tal:repeat="field json_fields">
+                    <td tal:content="repeat/field/number">1</td>
+                    <td>
+                      <code tal:content="field/name">field_name</code>
+                    </td>
+                    <td>
+                      <span class="field-type" tal:content="field/type">text</span>
+                    </td>
+                    <td>
+                      <span tal:condition="python: field['inputType'] != '—'" tal:content="field/inputType">text</span>
+                      <span tal:condition="python: field['inputType'] == '—'" class="field-value-empty">—</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </tal:with-json>
+        </tal:json-fields>
       </div>
 
     </div>

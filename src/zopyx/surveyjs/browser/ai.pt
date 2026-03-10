@@ -45,6 +45,10 @@
           <div class="page-subtitle" i18n:translate="">
             Upload documents and convert them to SurveyJS forms using AI
           </div>
+          <div class="ai-model-badge" tal:condition="view/ai_model_name">
+            <span class="ai-model-label">Model:</span>
+            <span class="ai-model-name" tal:content="view/ai_model_name">gpt-4</span>
+          </div>
         </metal:survey-header-subtitle>
       </metal:survey-header>
     </div>
