@@ -145,6 +145,7 @@ class IFormsSettings(IPloneLoggingSettings):
                 "chatbot",
                 "dashboard",
                 "pdf-generator",
+                "fillable-pdf",
             ]
         ),
         required=False,

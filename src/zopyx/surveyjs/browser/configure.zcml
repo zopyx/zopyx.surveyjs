@@ -449,6 +449,36 @@
     template="llm_models.pt"
   />
 
+  <!-- Fillable PDF -->
+  <browser:page
+    name="fillable-pdf"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".fillable_pdf.FillablePDFView"
+    template="fillable_pdf.pt"
+  />
+  <browser:page
+    name="fillable-pdf-upload"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".fillable_pdf.FillablePDFView"
+    attribute="upload_pdf"
+  />
+  <browser:page
+    name="fillable-pdf-download"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".fillable_pdf.FillablePDFView"
+    attribute="download_pdf"
+  />
+  <browser:page
+    name="fillable-pdf-delete"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".fillable_pdf.FillablePDFView"
+    attribute="delete_pdf"
+  />
+
   <!-- Survey Submission Monitor -->
   <browser:page
     name="survey-monitor"

@@ -60,8 +60,17 @@
         </a>
       </div>
       
-      <!-- Group 3: Advanced (AI, Chatbot) -->
+      <!-- Group 3: Advanced (AI, Chatbot, Fillable PDF) -->
       <div class="survey-actions-group group-advanced">
+        <tal:fillable-pdf tal:condition="python: view.feature_enabled('fillable-pdf')">
+          <a class="survey-action-button action-fillable-pdf"
+             tal:attributes="class python: 'survey-action-button action-fillable-pdf' + (' is-active' if current_url.endswith('/@@fillable-pdf') else '');
+                             title python: 'Fillable PDF' if not current_url.endswith('/@@fillable-pdf') else 'Currently on fillable PDF';
+                             aria-label python: 'Fillable PDF' if not current_url.endswith('/@@fillable-pdf') else 'Currently on fillable PDF'"
+             href="${context/absolute_url}/@@fillable-pdf">
+            <span i18n:translate="">Fillable PDF</span>
+          </a>
+        </tal:fillable-pdf>
         <a class="survey-action-button action-ai"
            tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
                            title python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features';

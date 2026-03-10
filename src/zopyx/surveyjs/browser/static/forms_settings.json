@@ -189,6 +189,22 @@
                 "ar": "مولد PDF",
                 "ja": "PDFジェネレーター"
               }
+            },
+            {
+              "value": "fillable-pdf",
+              "text": {
+                "default": "Fillable PDF",
+                "de": "Ausfüllbares PDF",
+                "en": "Fillable PDF",
+                "es": "PDF rellenable",
+                "fr": "PDF remplissable",
+                "it": "PDF compilabile",
+                "pt": "PDF preenchível",
+                "fi": "Täytettävä PDF",
+                "hi": "भरने योग्य PDF",
+                "ar": "PDF قابل للتعبئة",
+                "ja": "入力可能PDF"
+              }
             }
           ],
           "colCount": 2,

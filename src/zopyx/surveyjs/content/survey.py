@@ -223,6 +223,11 @@ class ISurvey(model.Schema):
         fields=("pdf_form",),
     )
     fieldset(
+        "fillable_pdf",
+        label=_("Fillable PDF"),
+        fields=("fillable_pdf",),
+    )
+    fieldset(
         "embedding",
         label=_("Embedding"),
         fields=(
@@ -443,6 +448,15 @@ class ISurvey(model.Schema):
         description=_(
             "Optional fillable PDF form. Uploading a PDF enables the PDF-based "
             "form workflow for this Survey."
+        ),
+        required=False,
+    )
+
+    fillable_pdf = namedfile.NamedBlobFile(
+        title=_("Fillable PDF Template"),
+        description=_(
+            "Upload a fillable PDF template for automated PDF generation from "
+            "survey submissions."
         ),
         required=False,
     )
