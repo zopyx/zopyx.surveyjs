@@ -8,7 +8,7 @@
        tal:define="current_url request/ACTUAL_URL">
     <div class="survey-actions-row">
       
-      <!-- Group 1: Main Actions (View, Editor, Results, Dashboard) -->
+      <!-- Group 1: Main Actions (View, Editor, Results, Dashboard, AI) -->
       <div class="survey-actions-group group-main">
         <a class="survey-action-button action-view"
            tal:attributes="class python: 'survey-action-button action-view' + (' is-active' if current_url.endswith('/@@viewer') or current_url == context.absolute_url() else '');
@@ -40,6 +40,15 @@
             <span i18n:translate="">Dashboard</span>
           </a>
         </tal:dashboard>
+        <tal:ai tal:condition="python: view.feature_enabled('ai')">
+          <a class="survey-action-button action-ai"
+             tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
+                             title python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features';
+                             aria-label python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features'"
+             href="${context/absolute_url}/@@ai">
+            <span i18n:translate="">AI</span>
+          </a>
+        </tal:ai>
       </div>
       
       <!-- Group 2: Management (Metadata, Versions) -->

@@ -142,6 +142,7 @@ class IFormsSettings(IPloneLoggingSettings):
         description="Toggle which features are available in the UI.",
         value_type=schema.Choice(
             values=[
+                "ai",
                 "chatbot",
                 "dashboard",
                 "pdf-generator",
@@ -150,6 +151,7 @@ class IFormsSettings(IPloneLoggingSettings):
         ),
         required=False,
         default=[
+            "ai",
             "dashboard",
             "pdf-generator",
         ],

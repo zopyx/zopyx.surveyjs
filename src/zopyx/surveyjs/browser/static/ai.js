@@ -62,8 +62,11 @@
         const formJson = JSON.parse(holder.textContent || '{}');
         target.innerHTML = '';
         surveyInstance = new Survey.Model(formJson);
-        surveyInstance.mode = 'display';
         surveyInstance.render(target);
+        // Prevent form submission in preview mode
+        surveyInstance.onComplete.add(function() {
+          alert('Preview mode - form not submitted');
+        });
         previewRendered = true;
       } catch (err) {
         target.innerHTML = "<div class='alert alert-danger'>SurveyJS preview failed.</div>";
