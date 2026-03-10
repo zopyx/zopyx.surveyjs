@@ -1,0 +1,541 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/@@main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+<head>
+  <metal:styles fill-slot="style_slot">
+    <link rel="stylesheet"
+          type="text/css"
+          href="++resource++zopyx.surveyjs/survey_actions.css" />
+    <style>
+      /* ===== Layout & Sections ===== */
+      .fillable-pdf-section {
+        background: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      }
+      
+      .fillable-pdf-section h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin: 0 0 1.25rem 0;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #e8e8f0;
+      }
+
+      /* ===== Template Info Card ===== */
+      .pdf-template-info {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 8px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      
+      .pdf-template-info .table {
+        background: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 0;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      }
+      
+      .pdf-template-info .table th {
+        background: #f1f3f5;
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        padding: 0.875rem 1rem;
+        width: 120px;
+      }
+      
+      .pdf-template-info .table td {
+        padding: 0.875rem 1rem;
+        border: none;
+        font-weight: 500;
+        vertical-align: middle;
+      }
+      
+      /* Filename row with actions */
+      .filename-cell {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      
+      .filename-text {
+        font-family: 'SF Mono', Monaco, Inconsolata, monospace;
+        color: #343a40;
+      }
+      
+      .file-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .file-actions .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        text-decoration: none;
+      }
+      
+      .file-actions .btn-icon:hover {
+        transform: translateY(-1px);
+      }
+      
+      .file-actions .btn-download {
+        background: #e3f2fd;
+        color: #1565c0;
+      }
+      
+      .file-actions .btn-download:hover {
+        background: #bbdefb;
+      }
+      
+      .file-actions .btn-delete {
+        background: #ffebee;
+        color: #c62828;
+      }
+      
+      .file-actions .btn-delete:hover {
+        background: #ffcdd2;
+      }
+      
+      /* Stats row */
+      .stats-cell {
+        display: flex;
+        gap: 2rem;
+        color: #6c757d;
+        font-size: 0.9375rem;
+      }
+      
+      .stats-cell span {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+      }
+      
+      .stats-cell strong {
+        color: #343a40;
+      }
+
+      /* ===== Upload Form ===== */
+      .pdf-upload-form {
+        background: #f8f9fa;
+        border: 2px dashed #ced4da;
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.2s ease;
+      }
+      
+      .pdf-upload-form:hover {
+        border-color: #6c757d;
+        background: #f1f3f5;
+      }
+      
+      .pdf-upload-form .form-group {
+        margin-bottom: 1.25rem;
+      }
+      
+      .pdf-upload-form label {
+        font-weight: 600;
+        color: #343a40;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      
+      .pdf-upload-form input[type="file"] {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0.5rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        background: #fff;
+      }
+      
+      .pdf-upload-form .form-text {
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+      }
+
+      /* ===== Page Groups ===== */
+      .page-group {
+        margin-bottom: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      }
+      
+      .page-group-header {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        color: #fff;
+        padding: 0.875rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .page-group-header h4 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .page-group-header .text-muted {
+        color: rgba(255,255,255,0.7) !important;
+        font-weight: 400;
+      }
+      
+      .page-group .table {
+        margin: 0;
+        border: none;
+      }
+      
+      .page-group .table thead th {
+        background: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 0.875rem 1rem;
+        border-bottom: 2px solid #dee2e6;
+        border-top: none;
+      }
+      
+      .page-group .table tbody td {
+        padding: 0.875rem 1rem;
+        vertical-align: middle;
+        border-color: #e9ecef;
+      }
+      
+      .page-group .table tbody tr:hover {
+        background-color: #f8f9fa;
+      }
+      
+      .page-group .table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Fixed column widths */
+      .page-group .table {
+        table-layout: fixed;
+        width: 100%;
+      }
+      .page-group .table th:nth-child(1),
+      .page-group .table td:nth-child(1) {
+        width: 5%;
+        text-align: center;
+      }
+      .page-group .table th:nth-child(2),
+      .page-group .table td:nth-child(2) {
+        width: 25%;
+      }
+      .page-group .table th:nth-child(3),
+      .page-group .table td:nth-child(3) {
+        width: 10%;
+      }
+      .page-group .table th:nth-child(4),
+      .page-group .table td:nth-child(4) {
+        width: 20%;
+      }
+      .page-group .table th:nth-child(5),
+      .page-group .table td:nth-child(5) {
+        width: 25%;
+      }
+      .page-group .table th:nth-child(6),
+      .page-group .table td:nth-child(6) {
+        width: 15%;
+      }
+
+      /* ===== Field Styling ===== */
+      .field-type {
+        display: inline-block;
+        padding: 0.25rem 0.625rem;
+        background: #e3f2fd;
+        color: #1565c0;
+        border-radius: 4px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        text-transform: lowercase;
+      }
+      
+      .field-type::first-letter {
+        text-transform: uppercase;
+      }
+      
+      code {
+        background: #f1f3f5;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        color: #495057;
+        font-family: 'SF Mono', Monaco, Inconsolata, monospace;
+      }
+      
+      .field-options-list {
+        color: #6c757d;
+        font-size: 0.875rem;
+        line-height: 1.4;
+      }
+      
+      .field-value-empty {
+        color: #adb5bd;
+        font-style: italic;
+      }
+
+      /* ===== Property Flags ===== */
+      .field-flag {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-radius: 4px;
+        margin-right: 0.25rem;
+      }
+      
+      .field-flag.readonly {
+        background: #e9ecef;
+        color: #6c757d;
+      }
+      
+      .field-flag.required {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeaa7;
+      }
+
+      /* ===== Value Badges ===== */
+      .badge-success {
+        background: #d4edda !important;
+        color: #155724 !important;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+      }
+      
+      .badge-secondary {
+        background: #e2e3e5 !important;
+        color: #383d41 !important;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+      }
+
+      /* ===== Alert Styling ===== */
+      .alert {
+        border-radius: 6px;
+        padding: 1rem 1.25rem;
+      }
+      
+      .alert-info {
+        background: #e3f2fd;
+        border: 1px solid #bbdefb;
+        color: #0d47a1;
+      }
+      
+      .alert-warning {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        color: #856404;
+      }
+    </style>
+  </metal:styles>
+</head>
+<body>
+  <metal:main fill-slot="main">
+    <metal:survey-header-critical
+        use-macro="context/@@survey-actions/macros/survey-header-critical" />
+
+    <tal:survey-nav tal:define="current_url request/ACTUAL_URL">
+      <metal:survey-header
+          use-macro="context/@@survey-actions/macros/survey-header" />
+    </tal:survey-nav>
+
+    <div class="container-fluid survey-container" id="content-core">
+      
+      <div class="fillable-pdf-section">
+        <h3 i18n:translate="">Fillable PDF Template</h3>
+        
+        <tal:no-template tal:condition="not:view/has_fillable_pdf">
+          <div class="alert alert-info">
+            <p i18n:translate="">
+              No PDF template has been uploaded yet. Upload a fillable PDF form
+              to enable automated PDF generation from survey submissions.
+            </p>
+          </div>
+          
+          <form class="pdf-upload-form"
+                enctype="multipart/form-data"
+                method="post"
+                tal:attributes="action string:${context/absolute_url}/@@fillable-pdf-upload">
+            <span tal:replace="structure context/@@authenticator/authenticator"></span>
+            <div class="form-group">
+              <label for="pdf-file" i18n:translate="">PDF Template</label>
+              <input type="file"
+                     id="pdf-file"
+                     name="pdf_file"
+                     accept=".pdf,application/pdf"
+                     class="form-control"
+                     required="required" />
+              <small class="form-text text-muted" i18n:translate="">
+                Upload a fillable PDF form (.pdf file only)
+              </small>
+            </div>
+            <button type="submit" class="btn btn-primary" i18n:translate="">
+              Upload PDF Template
+            </button>
+          </form>
+        </tal:no-template>
+        
+        <tal:with-template tal:condition="view/has_fillable_pdf">
+          <div class="pdf-template-info">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th i18n:translate="">File</th>
+                  <td>
+                    <div class="filename-cell">
+                      <span class="filename-text" tal:content="view/pdf_filename">template.pdf</span>
+                      <div class="file-actions">
+                        <a class="btn-icon btn-download"
+                           tal:attributes="href string:${context/absolute_url}/@@fillable-pdf-download"
+                           title="Download template">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </a>
+                        <form method="post"
+                              class="d-inline"
+                              tal:attributes="action string:${context/absolute_url}/@@fillable-pdf-delete"
+                              onsubmit="return confirm('Are you sure you want to delete the PDF template?');">
+                          <span tal:replace="structure context/@@authenticator/authenticator"></span>
+                          <button type="submit" class="btn-icon btn-delete" title="Delete template">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th i18n:translate="">Info</th>
+                  <td>
+                    <div class="stats-cell">
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.25rem;"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+                        <strong tal:content="python: view.pdf_size // 1024 if view.pdf_size else 0">0</strong> KB
+                      </span>
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.25rem;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                        <strong tal:content="python: len(view.pdf_fields)">0</strong> fields
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </tal:with-template>
+      </div>
+
+      <div class="fillable-pdf-section" tal:condition="view/has_fillable_pdf">
+        <h3 i18n:translate="">Form Fields</h3>
+        <p i18n:translate="">
+          The following fields were extracted from the uploaded PDF template.
+        </p>
+        
+        <tal:fields tal:define="fields view/pdf_fields">
+          <tal:no-fields tal:condition="not:fields">
+            <div class="alert alert-warning">
+              <p i18n:translate="">
+                No form fields could be extracted from this PDF. It may not be a fillable form.
+              </p>
+            </div>
+          </tal:no-fields>
+          
+          <tal:with-fields tal:condition="fields">
+            <tal:page-groups tal:define="pages python: sorted(set(f['page_num'] for f in fields));
+                                        grouped_fields python: {p: [f for f in fields if f['page_num'] == p] for p in pages}">
+              <div class="page-group" tal:repeat="page_num pages">
+                <div class="page-group-header">
+                  <h4>Page <span tal:replace="page_num">1</span> 
+                      <small class="text-muted">(<span tal:replace="python: len(grouped_fields[page_num])"/> fields)</small>
+                  </h4>
+                </div>
+                <div class="table-responsive pdf-fields-table">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th i18n:translate="">#</th>
+                        <th i18n:translate="">Field Name</th>
+                        <th i18n:translate="">Type</th>
+                        <th i18n:translate="">Options</th>
+                        <th i18n:translate="">Default Value</th>
+                        <th i18n:translate="">Properties</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr tal:repeat="field python: grouped_fields[page_num]">
+                        <td tal:content="field/id">1</td>
+                        <td>
+                          <code tal:content="field/name">field_name</code>
+                        </td>
+                        <td>
+                          <span class="field-type" tal:content="field/type">textfield</span>
+                        </td>
+                        <td>
+                          <span tal:condition="field/options" class="field-options-list" tal:content="python: ', '.join(field['options'][:5]) + ('...' if len(field['options']) > 5 else '')">opt1, opt2</span>
+                        </td>
+                        <td>
+                          <span tal:condition="python: field['value'] == True" class="badge badge-success">✓ Yes</span>
+                          <span tal:condition="python: field['value'] == False" class="badge badge-secondary">✗ No</span>
+                          <span tal:condition="python: field['value'] and field['value'] not in (True, False)" tal:content="field/value">value</span>
+                          <span tal:condition="python: not field['value'] and field['value'] != False" class="field-value-empty">(empty)</span>
+                        </td>
+                        <td>
+                          <span class="field-flag readonly" 
+                                tal:condition="field/readonly"
+                                i18n:translate="">Read-only</span>
+                          <span class="field-flag required" 
+                                tal:condition="field/required"
+                                i18n:translate="">Required</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </tal:page-groups>
+          </tal:with-fields>
+        </tal:fields>
+      </div>
+
+    </div>
+  </metal:main>
+</body>
+</html>
