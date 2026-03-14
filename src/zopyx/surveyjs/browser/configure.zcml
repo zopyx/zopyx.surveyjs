@@ -481,7 +481,7 @@
   <browser:page
     name="fillable-pdf-fill"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ModifyPortalContent"
+    permission="zope2.View"
     class=".fillable_pdf.FillablePDFView"
     attribute="fill_pdf"
   />

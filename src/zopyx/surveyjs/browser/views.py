@@ -182,6 +182,12 @@ class RootRedirect(BrowserView):
 
 class Views(BrowserView):
     @property
+    def has_fillable_pdf(self) -> bool:
+        """Return True if a fillable PDF template has been uploaded."""
+        pdf = getattr(self.context, "fillable_pdf", None)
+        return pdf is not None and getattr(pdf, "data", None)
+
+    @property
     def survey_language_labels(self) -> dict[str, str]:
         from ..content.survey import survey_languages_vocabulary
 

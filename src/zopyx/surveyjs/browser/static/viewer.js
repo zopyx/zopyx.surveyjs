@@ -363,6 +363,9 @@ function handleViewerReady(event) {
         });
       }
 
+      // Check if fillable PDF is available
+      const hasFillablePdf = Boolean(viewerConfig.hasFillablePdf);
+      
       // Set up the onComplete handler to save results
       /**
        * Persist survey results when the form completes.
@@ -405,6 +408,72 @@ function handleViewerReady(event) {
           });
       };
       survey.onComplete.add(handleSurveyComplete);
+
+      // Add Fill PDF button if a fillable PDF is available
+      if (hasFillablePdf) {
+        // Add custom "Fill PDF" navigation button
+        survey.addNavigationItem({
+          id: "fill-pdf-btn",
+          title: t("Fill PDF"),
+          action: function() {
+            // Get current survey data
+            const surveyData = survey.data || {};
+            
+            // Create a form to submit to the fillable_pdf endpoint
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = ACTUAL_URL + "/@@fillable-pdf-fill";
+            form.target = "_blank";
+            
+            // Add CSRF token
+            const csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "_authenticator";
+            csrfInput.value = CSRF_TOKEN;
+            form.appendChild(csrfInput);
+            
+            // Add auth token if available
+            if (typeof AUTH_TOKEN !== "undefined" && AUTH_TOKEN) {
+              const authInput = document.createElement("input");
+              authInput.type = "hidden";
+              authInput.name = "auth_token";
+              authInput.value = AUTH_TOKEN;
+              form.appendChild(authInput);
+            }
+            
+            // Add access token if available
+            if (accessToken) {
+              const accessInput = document.createElement("input");
+              accessInput.type = "hidden";
+              accessInput.name = "access_token";
+              accessInput.value = accessToken;
+              form.appendChild(accessInput);
+            }
+            
+            // Add survey data as hidden fields matching PDF field names
+            Object.keys(surveyData).forEach(function(key) {
+              const value = surveyData[key];
+              if (value !== null && value !== undefined) {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = key;
+                // Handle arrays/objects by converting to string
+                if (typeof value === "object") {
+                  input.value = JSON.stringify(value);
+                } else {
+                  input.value = String(value);
+                }
+                form.appendChild(input);
+              }
+            });
+            
+            // Append form to body, submit, then remove
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+          }
+        });
+      }
 
       // Render the survey
       if (surveyContainer) {
