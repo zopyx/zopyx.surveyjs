@@ -8,8 +8,8 @@
        tal:define="current_url request/ACTUAL_URL">
     <div class="survey-actions-row">
       
-      <!-- Group 1: Main Actions (View, Editor, Results, Dashboard, AI) -->
-      <div class="survey-actions-group group-main">
+      <!-- All Actions in One Group -->
+      <div class="survey-actions-group">
         <a class="survey-action-button action-view"
            tal:attributes="class python: 'survey-action-button action-view' + (' is-active' if current_url.endswith('/@@viewer') or current_url == context.absolute_url() else '');
                            title python: 'View survey form' if not (current_url.endswith('/@@viewer') or current_url == context.absolute_url()) else 'Currently viewing survey form';
@@ -40,19 +40,6 @@
             <span i18n:translate="">Dashboard</span>
           </a>
         </tal:dashboard>
-        <tal:ai tal:condition="python: view.feature_enabled('ai')">
-          <a class="survey-action-button action-ai"
-             tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
-                             title python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features';
-                             aria-label python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features'"
-             href="${context/absolute_url}/@@ai">
-            <span i18n:translate="">AI</span>
-          </a>
-        </tal:ai>
-      </div>
-      
-      <!-- Group 2: Management (Metadata, Versions) -->
-      <div class="survey-actions-group group-management">
         <a class="survey-action-button action-settings"
            tal:attributes="class python: 'survey-action-button action-settings' + (' is-active' if current_url.endswith('/@@survey-metadata') else '');
                            title python: 'Edit metadata' if not current_url.endswith('/@@survey-metadata') else 'Currently editing metadata';
@@ -67,10 +54,6 @@
            href="${context/absolute_url}/@@form-versions">
           <span i18n:translate="">Versions</span>
         </a>
-      </div>
-      
-      <!-- Group 3: Advanced (AI, Chatbot, Fillable PDF) -->
-      <div class="survey-actions-group group-advanced">
         <tal:fillable-pdf tal:condition="python: view.feature_enabled('fillable-pdf')">
           <a class="survey-action-button action-fillable-pdf"
              tal:attributes="class python: 'survey-action-button action-fillable-pdf' + (' is-active' if current_url.endswith('/@@fillable-pdf') else '');
@@ -80,14 +63,6 @@
             <span i18n:translate="">Fillable PDF</span>
           </a>
         </tal:fillable-pdf>
-        <a class="survey-action-button action-ai"
-           tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
-                           title python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features';
-                           aria-label python: 'AI beta features' if not current_url.endswith('/@@ai') else 'Currently in AI beta features'"
-           href="${context/absolute_url}/@@ai">
-          <span i18n:translate="">AI</span>
-          <span class="beta-badge" i18n:translate="">Beta</span>
-        </a>
         <tal:chatbot tal:condition="python: view.feature_enabled('chatbot')">
           <a class="survey-action-button action-chatbot"
              tal:attributes="class python: 'survey-action-button action-chatbot' + (' is-active' if current_url.endswith('/@@chatbot') else '');
@@ -98,6 +73,15 @@
             <span class="beta-badge" i18n:translate="">Beta</span>
           </a>
         </tal:chatbot>
+        <tal:ai tal:condition="python: view.feature_enabled('ai')">
+          <a class="survey-action-button action-ai"
+             tal:attributes="class python: 'survey-action-button action-ai' + (' is-active' if current_url.endswith('/@@ai') else '');
+                             title python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features';
+                             aria-label python: 'AI features' if not current_url.endswith('/@@ai') else 'Currently in AI features'"
+             href="${context/absolute_url}/@@ai">
+            <span i18n:translate="">AI</span>
+          </a>
+        </tal:ai>
       </div>
       
     </div>
