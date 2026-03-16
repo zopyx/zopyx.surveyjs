@@ -131,7 +131,7 @@
                 </tal:temp-ok>
                 <tal:temp-empty tal:condition="not: view/has_temp_form">
                   <p class="help-block" i18n:translate="">
-                    No temporary form yet. Upload a document or copy the latest version.
+                    No temporary form yet. Upload a document, start one with chat, or copy the latest version.
                   </p>
                 </tal:temp-empty>
               </div>
@@ -141,74 +141,100 @@
       </div>
     </div>
 
-    <tal:has-temp-bottom tal:condition="view/has_temp_form">
-      <div class="panel" style="margin-top: 16px;">
-        <div class="panel-body">
-          <div class="ai-chat-layout">
-            <div class="ai-chat-box">
-              <span class="ai-eyebrow" i18n:translate="">Improve Temporary Form</span>
+    <div class="panel" style="margin-top: 16px;">
+      <div class="panel-body">
+        <div class="ai-chat-layout">
+          <div class="ai-chat-box">
+            <span class="ai-eyebrow" i18n:translate="">Improve Temporary Form</span>
+            <tal:chat-ready tal:condition="view/has_temp_form">
               <p class="ai-intro" i18n:translate="">
                 Ask AI to change the current temporary form. Each prompt builds on the latest temporary version.
               </p>
-              <form method="post"
-                    id="aiChatForm"
-                    tal:attributes="action string:${context/absolute_url}/@@ai-chat-refine">
-                <span tal:replace="structure context/@@authenticator/authenticator"></span>
-                <div class="form-group">
+            </tal:chat-ready>
+            <tal:chat-empty tal:condition="not: view/has_temp_form">
+              <p class="ai-intro" i18n:translate="">
+                Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form.
+              </p>
+            </tal:chat-empty>
+            <form method="post"
+                  id="aiChatForm"
+                  tal:attributes="action string:${context/absolute_url}/@@ai-chat-refine">
+              <span tal:replace="structure context/@@authenticator/authenticator"></span>
+              <div class="form-group">
+                <tal:chat-ready tal:condition="view/has_temp_form">
                   <textarea name="chat_prompt"
                             class="form-control"
                             rows="4"
                             required="required"
                             i18n:attributes="placeholder"
                             placeholder="Example: Add a section for contact preferences and make email required."></textarea>
-                </div>
-                <button type="submit"
-                        id="aiChatSubmitBtn"
-                        class="btn ai-action-btn ai-btn-preview"
-                        >
+                </tal:chat-ready>
+                <tal:chat-empty tal:condition="not: view/has_temp_form">
+                  <textarea name="chat_prompt"
+                            class="form-control"
+                            rows="4"
+                            required="required"
+                            i18n:attributes="placeholder"
+                            placeholder="Example: Create an event registration form with contact details, session choices, and consent."></textarea>
+                </tal:chat-empty>
+              </div>
+              <button type="submit"
+                      id="aiChatSubmitBtn"
+                      class="btn ai-action-btn ai-btn-preview">
+                <tal:chat-submit-ready tal:condition="view/has_temp_form">
                   <span id="aiChatSubmitText" i18n:translate="">Apply AI Change</span>
-                  <span id="aiChatSubmitSpinner" class="ai-btn-spinner" style="display:none;">
-                    <span class="ai-spinner"></span>
+                </tal:chat-submit-ready>
+                <tal:chat-submit-empty tal:condition="not: view/has_temp_form">
+                  <span id="aiChatSubmitText" i18n:translate="">Generate AI Draft</span>
+                </tal:chat-submit-empty>
+                <span id="aiChatSubmitSpinner" class="ai-btn-spinner" style="display:none;">
+                  <span class="ai-spinner"></span>
+                  <tal:chat-spinner-ready tal:condition="view/has_temp_form">
                     <span i18n:translate="">Applying...</span>
-                  </span>
-                </button>
-              </form>
-            </div>
-            <div class="ai-history-box">
-              <h4 i18n:translate="">History (max 5)</h4>
-              <tal:history tal:condition="view/has_temp_history">
-                <div class="ai-history-list">
-                  <div class="ai-history-item"
-                       tal:repeat="item view/temp_history_items">
-                    <div class="ai-history-meta">
-                      <span i18n:translate="">Step back:</span>
-                      <span tal:content="item/step_back">1</span>
-                    </div>
-                    <div class="ai-history-prompt"
-                         tal:content="item/prompt">Prompt text</div>
-                    <form method="post"
-                          tal:attributes="action string:${context/absolute_url}/@@ai-restore-history-step">
-                      <span tal:replace="structure context/@@authenticator/authenticator"></span>
-                      <input type="hidden"
-                             name="history_index"
-                             tal:attributes="value item/history_index" />
-                      <button type="submit"
-                              class="btn btn-default btn-xs"
-                              i18n:translate="">Restore</button>
-                    </form>
+                  </tal:chat-spinner-ready>
+                  <tal:chat-spinner-empty tal:condition="not: view/has_temp_form">
+                    <span i18n:translate="">Generating...</span>
+                  </tal:chat-spinner-empty>
+                </span>
+              </button>
+            </form>
+          </div>
+          <div class="ai-history-box">
+            <h4 i18n:translate="">History (max 5)</h4>
+            <tal:history tal:condition="view/has_temp_history">
+              <div class="ai-history-list">
+                <div class="ai-history-item"
+                     tal:repeat="item view/temp_history_items">
+                  <div class="ai-history-meta">
+                    <span i18n:translate="">Step back:</span>
+                    <span tal:content="item/step_back">1</span>
                   </div>
+                  <div class="ai-history-prompt"
+                       tal:content="item/prompt">Prompt text</div>
+                  <form method="post"
+                        tal:attributes="action string:${context/absolute_url}/@@ai-restore-history-step">
+                    <span tal:replace="structure context/@@authenticator/authenticator"></span>
+                    <input type="hidden"
+                           name="history_index"
+                           tal:attributes="value item/history_index" />
+                    <button type="submit"
+                            class="btn btn-default btn-xs"
+                            i18n:translate="">Restore</button>
+                  </form>
                 </div>
-              </tal:history>
-              <tal:nohistory tal:condition="not: view/has_temp_history">
-                <p class="help-block" i18n:translate="">
-                  No chat refinement history yet.
-                </p>
-              </tal:nohistory>
-            </div>
+              </div>
+            </tal:history>
+            <tal:nohistory tal:condition="not: view/has_temp_history">
+              <p class="help-block" i18n:translate="">
+                No chat refinement history yet.
+              </p>
+            </tal:nohistory>
           </div>
         </div>
       </div>
+    </div>
 
+    <tal:has-temp-bottom tal:condition="view/has_temp_form">
       <div id="aiPreviewModal"
            class="modal ai-preview-modal"
            style="display:none;">

@@ -625,6 +625,22 @@ class AIView(Views):
         except (NoJSONFound, json.JSONDecodeError):
             return json.loads(response_text)
 
+    def _build_generation_prompt(self, user_prompt: str) -> str:
+        """Build a text-only AI prompt for creating a new SurveyJS form."""
+        return (
+            "You are a SurveyJS expert creating a new SurveyJS JSON form.\n"
+            "Return ONLY a valid SurveyJS JSON object.\n\n"
+            "Requirements:\n"
+            "- Follow current SurveyJS v2+ JSON schema conventions.\n"
+            "- Use clear structure with title, description when useful, pages, and elements.\n"
+            "- Choose suitable field types and readable field names.\n"
+            "- Add validation where the prompt makes requirements obvious.\n"
+            "- Keep the form practical and ready to edit in SurveyJS Creator.\n"
+            "- Do not include markdown, explanations, code fences, comments, or trailing commas.\n\n"
+            "User request:\n"
+            f"{user_prompt}\n"
+        )
+
     def upload_document(self):
         """Handle document upload and AI conversion to SurveyJS form.
 
@@ -903,11 +919,14 @@ Requirements:
         return self._redirect_ai("Temporary AI storage cleared.", "info")
 
     def chat_refine_temp_form(self):
-        """Refine temporary form via AI chat interaction.
+        """Create or refine the temporary form via AI chat interaction.
 
-        Browser view action that takes a user prompt, sends the current
-        temporary form JSON plus the prompt to AI, and stores the refined
-        result. Maintains a history of up to 5 previous versions for undo.
+        Browser view action that takes a user prompt and either:
+        - creates a new temporary form when the workspace is empty, or
+        - refines the current temporary form JSON when a draft exists.
+
+        Maintains a history of up to 5 previous versions for undo once a
+        temporary form already exists.
 
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
@@ -920,11 +939,6 @@ Requirements:
 
         annos = IAnnotations(self.context)
         current_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
-        if not isinstance(current_form, dict):
-            return self._redirect_ai(
-                "No temporary form available. Upload a document or copy latest version first.",
-                "warning",
-            )
 
         model_name, api_key, ollama_url = ai_service.load_ai_settings()
         if not model_name:
@@ -933,47 +947,62 @@ Requirements:
                 "error",
             )
 
-        chat_prompt = (
-            "You are a SurveyJS expert improving an existing SurveyJS JSON form.\n"
-            "You receive the current form JSON and a user request.\n"
-            "Apply the user request while preserving valid latest SurveyJS v2+ schema.\n"
-            "Return ONLY the full updated SurveyJS JSON object.\n\n"
-            "Current form JSON:\n"
-            f"{json.dumps(current_form, ensure_ascii=False, default=str)}\n\n"
-            "User request:\n"
-            f"{prompt}\n"
-        )
-
         try:
-            ai_result_text = self._call_ai_text_refinement(
-                chat_prompt,
-                model_name=model_name,
-                api_key=api_key,
-                ollama_url=ollama_url,
-            )
-            refined_form = self._parse_generated_json(ai_result_text)
+            if isinstance(current_form, dict):
+                chat_prompt = (
+                    "You are a SurveyJS expert improving an existing SurveyJS JSON form.\n"
+                    "You receive the current form JSON and a user request.\n"
+                    "Apply the user request while preserving valid latest SurveyJS v2+ schema.\n"
+                    "Return ONLY the full updated SurveyJS JSON object.\n\n"
+                    "Current form JSON:\n"
+                    f"{json.dumps(current_form, ensure_ascii=False, default=str)}\n\n"
+                    "User request:\n"
+                    f"{prompt}\n"
+                )
+                ai_result_text = self._call_ai_text_refinement(
+                    chat_prompt,
+                    model_name=model_name,
+                    api_key=api_key,
+                    ollama_url=ollama_url,
+                )
+                next_form = self._parse_generated_json(ai_result_text)
+            else:
+                ai_result_text = self._call_ai_text_refinement(
+                    self._build_generation_prompt(prompt),
+                    model_name=model_name,
+                    api_key=api_key,
+                    ollama_url=ollama_url,
+                )
+                next_form = self._parse_generated_json(ai_result_text)
         except Exception as exc:
-            return self._redirect_ai(f"AI refinement failed: {exc}", "error")
+            action = "AI refinement" if isinstance(current_form, dict) else "AI draft creation"
+            return self._redirect_ai(f"{action} failed: {exc}", "error")
 
-        history = annos.get(self.TEMP_FORM_HISTORY_ANNOTATION_KEY, [])
-        if not isinstance(history, list):
-            history = []
-        history.append(
-            {
-                "prompt": prompt,
-                "form_json": current_form,
-            }
-        )
-        if len(history) > 5:
-            history = history[-5:]
+        if isinstance(current_form, dict):
+            history = annos.get(self.TEMP_FORM_HISTORY_ANNOTATION_KEY, [])
+            if not isinstance(history, list):
+                history = []
+            history.append(
+                {
+                    "prompt": prompt,
+                    "form_json": current_form,
+                }
+            )
+            if len(history) > 5:
+                history = history[-5:]
+            annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = history
+        else:
+            annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = []
 
-        annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = history
-        annos[self.TEMP_FORM_ANNOTATION_KEY] = refined_form
+        annos[self.TEMP_FORM_ANNOTATION_KEY] = next_form
+        self._clear_pdf_field_mapping(annos)
         Path("form.json").write_text(
-            json.dumps(refined_form, indent=2, ensure_ascii=False, default=str),
+            json.dumps(next_form, indent=2, ensure_ascii=False, default=str),
             encoding="utf-8",
         )
-        return self._redirect_ai("AI refinement applied to temporary form.", "info")
+        if isinstance(current_form, dict):
+            return self._redirect_ai("AI refinement applied to temporary form.", "info")
+        return self._redirect_ai("AI draft created in temporary form.", "info")
 
     def restore_temp_history_step(self):
         """Restore temporary form from history (undo functionality).

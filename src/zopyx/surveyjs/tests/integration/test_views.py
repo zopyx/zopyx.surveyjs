@@ -19,6 +19,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import TestRequest
 from zope.security.interfaces import Unauthorized
 
+from zopyx.surveyjs.browser.ai import AIView
 from zopyx.surveyjs.browser import views
 from zopyx.surveyjs.browser.views import EmbedViewer, Views
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
@@ -422,6 +423,36 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ["Member"])
         with self.assertRaises(Unauthorized):
             self.survey.restrictedTraverse("@@pdf-generator")()
+
+    def test_ai_view_renders_empty_chat_panel_without_temp_form(self) -> None:
+        view = self.survey.restrictedTraverse("@@ai")
+        html = view()
+        self.assertIn("Improve Temporary Form", html)
+        self.assertIn('id="aiChatForm"', html)
+        self.assertIn(
+            "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form.",
+            html,
+        )
+        self.assertIn("Generate AI Draft", html)
+        self.assertNotIn('id="aiPreviewModal"', html)
+
+    def test_ai_view_enables_chat_panel_when_temp_form_exists(self) -> None:
+        annos = IAnnotations(self.survey)
+        annos[AIView.TEMP_FORM_ANNOTATION_KEY] = {"pages": []}
+
+        view = self.survey.restrictedTraverse("@@ai")
+        html = view()
+        self.assertIn("Improve Temporary Form", html)
+        self.assertIn(
+            "Example: Add a section for contact preferences and make email required.",
+            html,
+        )
+        self.assertNotIn(
+            "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form.",
+            html,
+        )
+        self.assertIn("Apply AI Change", html)
+        self.assertIn('id="aiPreviewModal"', html)
 
     def test_download_polls_csv_exports_results(self) -> None:
         storage = get_result_storage(self.survey)

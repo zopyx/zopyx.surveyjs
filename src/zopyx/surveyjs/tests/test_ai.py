@@ -163,3 +163,70 @@ class AIViewTests(unittest.TestCase):
                 view.upload_document()
 
         self.assertNotIn(AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
+
+    @patch("zopyx.surveyjs.browser.ai.Path.write_text")
+    @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
+    @patch(
+        "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
+        return_value=("gpt-4o", "secret", None),
+    )
+    def test_chat_refine_creates_temp_form_when_workspace_is_empty(
+        self, _settings, _annos, _show_message, _write_text
+    ) -> None:
+        annos = {}
+        view = self._make_view(
+            form={"chat_prompt": "Create an event registration form."},
+            annos=annos,
+        )
+        generated = {
+            "pages": [{"elements": [{"type": "text", "name": "full_name"}]}]
+        }
+
+        with patch.object(
+            view, "_call_ai_text_refinement", return_value='{"pages": []}'
+        ):
+            with patch.object(view, "_parse_generated_json", return_value=generated):
+                result = view.chat_refine_temp_form()
+
+        self.assertIn("/@@ai", result)
+        self.assertEqual(annos[AIView.TEMP_FORM_ANNOTATION_KEY], generated)
+        self.assertEqual(annos[AIView.TEMP_FORM_HISTORY_ANNOTATION_KEY], [])
+        self.assertNotIn(AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, annos)
+
+    @patch("zopyx.surveyjs.browser.ai.Path.write_text")
+    @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
+    @patch(
+        "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
+        return_value=("gpt-4o", "secret", None),
+    )
+    def test_chat_refine_appends_history_when_workspace_has_form(
+        self, _settings, _annos, _show_message, _write_text
+    ) -> None:
+        annos = {
+            AIView.TEMP_FORM_ANNOTATION_KEY: {
+                "pages": [{"elements": [{"type": "text", "name": "old_field"}]}]
+            }
+        }
+        view = self._make_view(
+            form={"chat_prompt": "Rename the field."},
+            annos=annos,
+        )
+        refined = {
+            "pages": [{"elements": [{"type": "text", "name": "new_field"}]}]
+        }
+
+        with patch.object(
+            view, "_call_ai_text_refinement", return_value='{"pages": []}'
+        ):
+            with patch.object(view, "_parse_generated_json", return_value=refined):
+                result = view.chat_refine_temp_form()
+
+        self.assertIn("/@@ai", result)
+        self.assertEqual(annos[AIView.TEMP_FORM_ANNOTATION_KEY], refined)
+        self.assertEqual(len(annos[AIView.TEMP_FORM_HISTORY_ANNOTATION_KEY]), 1)
+        self.assertEqual(
+            annos[AIView.TEMP_FORM_HISTORY_ANNOTATION_KEY][0]["prompt"],
+            "Rename the field.",
+        )
