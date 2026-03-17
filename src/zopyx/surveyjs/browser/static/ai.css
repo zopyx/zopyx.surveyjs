@@ -196,6 +196,7 @@
   border-radius: var(--ai-radius-xs);
   padding: var(--ai-spacing-xs);
   background: #f8fbff;
+  position: relative;
 }
 .ai-history-meta {
   font-size: 0.8rem;
@@ -208,6 +209,22 @@
   color: var(--ai-color-text-secondary);
   margin-bottom: var(--ai-spacing-xs);
   line-height: 1.3;
+}
+.ai-history-revert {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ai-history-revert .ai-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
 }
 
 /* ===== Buttons ===== */
