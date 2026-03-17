@@ -388,6 +388,13 @@
     class=".ai.AIView"
     attribute="restore_temp_history_step"
   />
+  <browser:page
+    name="ai-delete-history-step"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ModifyPortalContent"
+    class=".ai.AIView"
+    attribute="delete_temp_history_step"
+  />
 
   <!-- Chatbot -->
   <browser:page

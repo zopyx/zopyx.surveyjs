@@ -1041,3 +1041,35 @@ Requirements:
             f"Restored temporary form to {len(history) - history_index} step(s) back.",
             "info",
         )
+
+    def delete_temp_history_step(self):
+        """Delete a specific history step and all subsequent history entries.
+
+        Browser view action that removes a history entry at the specified index
+        and all entries that came after it (higher indices). This effectively
+        removes that timeline branch from history.
+
+        Returns:
+            HTTPRedirectResponse: Redirects to @@ai view with status message.
+        """
+        raw_index = self.request.form.get("history_index", "").strip()
+        try:
+            history_index = int(raw_index)
+        except Exception:
+            return self._redirect_ai("Invalid history step.", "error")
+
+        annos = IAnnotations(self.context)
+        history = annos.get(self.TEMP_FORM_HISTORY_ANNOTATION_KEY, [])
+        if not isinstance(history, list) or not history:
+            return self._redirect_ai("No temporary history available.", "warning")
+
+        if history_index < 0 or history_index >= len(history):
+            return self._redirect_ai("Selected history step is out of range.", "error")
+
+        # Delete this entry and all subsequent entries (slice up to history_index)
+        annos[self.TEMP_FORM_HISTORY_ANNOTATION_KEY] = history[:history_index]
+        deleted_count = len(history) - history_index
+        return self._redirect_ai(
+            f"Deleted {deleted_count} history item(s).",
+            "info",
+        )

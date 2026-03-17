@@ -166,6 +166,11 @@
   letter-spacing: 0.04em;
 }
 
+/* ===== Chat Form ===== */
+#aiChatSubmitBtn {
+  margin-top: 12px;
+}
+
 /* ===== Chat & History ===== */
 .ai-history-box {
   border: 1px solid var(--ai-color-border-light);
@@ -210,10 +215,18 @@
   margin-bottom: var(--ai-spacing-xs);
   line-height: 1.3;
 }
-.ai-history-revert {
+.ai-history-actions {
   position: absolute;
   top: 8px;
   right: 8px;
+  display: flex;
+  gap: 6px;
+}
+.ai-history-actions form {
+  margin: 0;
+}
+.ai-history-revert,
+.ai-history-delete {
   padding: 4px;
   width: 28px;
   height: 28px;
@@ -221,7 +234,8 @@
   align-items: center;
   justify-content: center;
 }
-.ai-history-revert .ai-icon {
+.ai-history-revert .ai-icon,
+.ai-history-delete .ai-icon {
   width: 16px;
   height: 16px;
   flex: 0 0 16px;
