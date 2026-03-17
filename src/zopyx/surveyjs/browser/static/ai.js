@@ -42,7 +42,7 @@
   // ===== Preview Modal Handler =====
   function initPreviewModal() {
     const holder = document.getElementById('ai-temp-form-json');
-    const target = document.getElementById('aiSurveyPreviewContainer');
+    let target = document.getElementById('aiSurveyPreviewContainer');
     const modal = document.getElementById('aiPreviewModal');
     const openBtn = document.getElementById('aiOpenPreviewBtn');
     const closeBtn = document.getElementById('aiClosePreviewBtn');
@@ -52,22 +52,25 @@
     }
 
     let surveyInstance = null;
-    let previewRendered = false;
 
     function renderPreview() {
       try {
-        if (previewRendered) {
-          return;
+        if (surveyInstance && typeof surveyInstance.dispose === 'function') {
+          surveyInstance.dispose();
+        }
+        surveyInstance = null;
+        if (target && target.parentNode) {
+          const freshTarget = target.cloneNode(false);
+          target.parentNode.replaceChild(freshTarget, target);
+          target = freshTarget;
         }
         const formJson = JSON.parse(holder.textContent || '{}');
-        target.innerHTML = '';
         surveyInstance = new Survey.Model(formJson);
         surveyInstance.render(target);
         // Prevent form submission in preview mode
         surveyInstance.onComplete.add(function() {
           alert('Preview mode - form not submitted');
         });
-        previewRendered = true;
       } catch (err) {
         target.innerHTML = "<div class='alert alert-danger'>SurveyJS preview failed.</div>";
       }
@@ -76,12 +79,17 @@
     function openModal() {
       modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
-      renderPreview();
+      window.requestAnimationFrame(renderPreview);
     }
 
     function closeModal() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
+      if (surveyInstance && typeof surveyInstance.dispose === 'function') {
+        surveyInstance.dispose();
+      }
+      surveyInstance = null;
+      target.innerHTML = '';
     }
 
     openBtn.addEventListener('click', openModal);
