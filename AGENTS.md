@@ -53,6 +53,12 @@ See `DEVELOP.rst` for details.
 - Keep buildout configs consistent; update `requirements.txt` only when needed.
 - If touching security- or validation-related code, add or update tests.
 
+## Git Operations
+- Before committing, all tests must pass. Run `make test` (or a narrower, documented subset if explicitly agreed) and ensure it completes successfully.
+- Use Conventional Commits for all commit messages (for example: `fix: reset AI preview on reopen`, `feat: add survey export`, `chore: update docs`).
+- Be explicit and verbose in commit messages when it helps future debugging. Prefer a longer, descriptive subject over a short, ambiguous one.
+- Do not commit if tests are failing or were not run, unless the user explicitly approves and the commit message states this clearly.
+
 ## Notes for Agents
 - This is a buildout-based Plone add-on; do not assume pip-only workflows.
 - When unsure about config or build steps, consult `DEVELOP.rst` and `README.md`.
