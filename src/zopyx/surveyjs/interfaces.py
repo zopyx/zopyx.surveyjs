@@ -147,6 +147,7 @@ class IFormsSettings(IPloneLoggingSettings):
                 "dashboard",
                 "pdf-generator",
                 "fillable-pdf",
+                "token-store",
             ]
         ),
         required=False,

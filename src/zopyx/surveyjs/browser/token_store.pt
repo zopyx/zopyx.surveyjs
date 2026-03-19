@@ -1,0 +1,350 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+<metal:block fill-slot="style_slot">
+  <metal:survey-header-critical
+      use-macro="context/@@survey-actions/macros/survey-header-critical"
+  />
+  <link rel="stylesheet"
+        type="text/css"
+        href="++resource++zopyx.surveyjs/results.css"
+  />
+  <style>
+    .token-upload-form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .token-file-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #475569;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .token-file-label input[type="file"] {
+        border: 1px solid #d7dbe4;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background: #ffffff;
+        font-size: 14px;
+        min-width: 280px;
+    }
+    .token-file-label input[type="file"]:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .tokens-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .tokens-table th {
+        background-color: #f8fafc;
+        border-bottom: 1px solid #e4e9f2;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        color: #0f172a;
+        font-size: 13px;
+    }
+    .tokens-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e4e9f2;
+    }
+    .tokens-table tr:hover {
+        background-color: #f8fafc;
+    }
+    .tokens-table th:last-child,
+    .tokens-table td:last-child {
+        text-align: right;
+        width: 100px;
+    }
+    .token-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+    .token-badge-available {
+        background: #dcfce7;
+        color: #166534;
+    }
+    .token-badge-used {
+        background: #f1f5f9;
+        color: #475569;
+    }
+    .token-badge-revoked {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+    .token-value {
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace;
+        font-size: 13px;
+        color: #0f172a;
+        word-break: break-all;
+    }
+    .token-date {
+        color: #64748b;
+        font-size: 13px;
+    }
+    .token-delete-btn {
+        background: transparent;
+        border: 1px solid #dc2626;
+        color: #dc2626;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .token-delete-btn:hover {
+        background: #dc2626;
+        color: #ffffff;
+    }
+    #delete-token-modal .modal-content {
+        max-width: 480px;
+    }
+    #delete-token-modal h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        color: #dc2626;
+        font-size: 1.4em;
+    }
+    #delete-token-modal p {
+        margin-bottom: 20px;
+        color: #475569;
+        line-height: 1.5;
+    }
+    #delete-token-modal .token-preview {
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace;
+        background: #f1f5f9;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        word-break: break-all;
+        margin: 8px 0;
+    }
+  </style>
+</metal:block>
+
+<metal:block fill-slot="content-core">
+
+    <metal:surveyjs-vars-base
+        use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
+    />
+
+    <input type="hidden" id="csrf-token" tal:attributes="value context/@@authenticator/token" />
+
+    <div id="tokenStoreContainer" class="results-shell">
+        <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
+            <metal:survey-header-headline fill-slot="view-headline">
+                <div class="page-headline" i18n:translate="">Token Store</div>
+            </metal:survey-header-headline>
+            <metal:survey-header-subtitle fill-slot="view-subtitle">
+                <div class="page-subtitle">
+                    <strong i18n:translate="">Total tokens:</strong>
+                    <span tal:content="view/token_count">0</span>
+                </div>
+            </metal:survey-header-subtitle>
+        </metal:survey-header>
+
+        <!-- Upload Section -->
+        <div class="results-toolbar" id="token-upload-toolbar">
+            <div class="results-toolbar-left">
+                <form method="post" enctype="multipart/form-data" class="token-upload-form">
+                    <input type="hidden" name="action" value="upload" />
+                    <label class="token-file-label">
+                        <span i18n:translate="">CSV file with tokens column:</span>
+                        <input type="file"
+                               name="csv_file"
+                               id="csv_file"
+                               accept=".csv,text/csv"
+                               required="required" />
+                    </label>
+                    <button type="submit" class="btn btn-primary" i18n:translate="">
+                        Upload
+                    </button>
+                </form>
+            </div>
+            <div class="results-toolbar-right">
+                <button type="button"
+                        class="btn btn-danger"
+                        tal:condition="view/token_count"
+                        onclick="showClearAllModal()"
+                        i18n:translate="">
+                    Clear all tokens
+                </button>
+            </div>
+        </div>
+
+        <!-- Tokens Table -->
+        <div class="results-grid-wrap">
+            <div class="results-pager-row" id="tokens-pager-row">
+                <div class="results-total">
+                    <span i18n:translate="">Tokens</span>:
+                    <span tal:content="view/token_count">0</span>
+                </div>
+            </div>
+
+            <tal:has-tokens condition="view/token_count">
+                <div style="overflow-x: auto;">
+                    <table class="tokens-table">
+                        <thead>
+                            <tr>
+                                <th i18n:translate="">Token</th>
+                                <th style="width: 120px; text-align: center;" i18n:translate="">Status</th>
+                                <th style="width: 200px;" i18n:translate="">Used Date</th>
+                                <th i18n:translate="">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tal:repeat repeat="item python: view.tokens.items()">
+                                <tr tal:define="token_value python: item[0];
+                                                 info python: item[1];
+                                                 used python: info.get('used', False);
+                                                 revoked python: info.get('revoked', False);
+                                                 used_date python: info.get('used_date')">
+                                    <td>
+                                        <span class="token-value" tal:content="token_value">token-value</span>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <tal:status define="status_text python: 'Revoked' if revoked else ('Used' if used else 'Available')">
+                                            <span tal:attributes="class python: 'token-badge token-badge-' + ('revoked' if revoked else ('used' if used else 'available'))"
+                                                  tal:content="status_text"
+                                                  i18n:translate="">Available</span>
+                                        </tal:status>
+                                    </td>
+                                    <td class="token-date" tal:content="python: used_date or '—'">—</td>
+                                    <td>
+                                        <button type="button"
+                                                class="token-delete-btn"
+                                                tal:attributes="data-token token_value"
+                                                onclick="confirmDeleteToken(this)">
+                                            <span i18n:translate="">Delete</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tal:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </tal:has-tokens>
+
+            <tal:no-tokens condition="not: view/token_count">
+                <div class="results-empty-state" id="tokens-empty-state">
+                    <h3 class="results-empty-title" i18n:translate="">No Tokens Available</h3>
+                    <p class="results-empty-message" i18n:translate="">
+                        No tokens have been uploaded yet. Use the upload form above to add tokens from a CSV file.
+                    </p>
+                </div>
+            </tal:no-tokens>
+        </div>
+    </div>
+
+    <!-- Delete Token Modal -->
+    <div id="delete-token-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeDeleteModal()">&times;</span>
+            <h2 i18n:translate="">Delete Token</h2>
+            <p>
+                <span i18n:translate="">This will permanently delete the token:</span>
+                <div class="token-preview" id="delete-token-value"></div>
+                <span i18n:translate="">This action cannot be undone.</span>
+            </p>
+            <form method="post" id="delete-token-form">
+                <input type="hidden" name="action" value="delete" />
+                <input type="hidden" name="token" id="delete-token-input" value="" />
+                <input type="hidden" name="_authenticator" id="delete-token-authenticator" value="" />
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-danger" i18n:translate="">Delete</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()" i18n:translate="">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Clear All Tokens Modal -->
+    <div id="clear-all-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeClearAllModal()">&times;</span>
+            <h2 style="color: #dc2626; margin-top: 0;" i18n:translate="">Clear All Tokens</h2>
+            <div class="warning-message">
+                <p><strong i18n:translate="">Warning:</strong> <span i18n:translate="">This action will permanently delete all tokens. This cannot be undone.</span></p>
+                <p i18n:translate="">To confirm, please type <strong>clear</strong> in the field below:</p>
+            </div>
+            <form method="post" id="clear-all-form">
+                <input type="hidden" name="action" value="clear_all" />
+                <input type="hidden" name="_authenticator" id="clear-all-authenticator" value="" />
+                <input type="text"
+                       name="confirm_text"
+                       id="clear-confirm-input"
+                       placeholder="Type 'clear' to confirm"
+                       i18n:attributes="placeholder"
+                       style="width: 100%; padding: 10px; border: 1px solid #d7dbe4; border-radius: 8px; margin: 12px 0; font-size: 14px;" />
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-danger" id="clear-all-confirm-btn" disabled i18n:translate="">Clear All Tokens</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeClearAllModal()" i18n:translate="">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function confirmDeleteToken(button) {
+            const token = button.getAttribute('data-token');
+            document.getElementById('delete-token-value').textContent = token;
+            document.getElementById('delete-token-input').value = token;
+            // Get CSRF token from the hidden input
+            const authToken = document.getElementById('csrf-token')?.value || '';
+            document.getElementById('delete-token-authenticator').value = authToken;
+            document.getElementById('delete-token-modal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-token-modal').style.display = 'none';
+        }
+
+        function showClearAllModal() {
+            const authToken = document.getElementById('csrf-token')?.value || '';
+            document.getElementById('clear-all-authenticator').value = authToken;
+            document.getElementById('clear-all-modal').style.display = 'block';
+        }
+
+        function closeClearAllModal() {
+            document.getElementById('clear-all-modal').style.display = 'none';
+            document.getElementById('clear-confirm-input').value = '';
+            document.getElementById('clear-all-confirm-btn').disabled = true;
+        }
+
+        // Enable/disable clear button based on confirmation text
+        document.getElementById('clear-confirm-input')?.addEventListener('input', function() {
+            const confirmBtn = document.getElementById('clear-all-confirm-btn');
+            confirmBtn.disabled = this.value !== 'clear';
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const deleteModal = document.getElementById('delete-token-modal');
+            const clearModal = document.getElementById('clear-all-modal');
+            if (event.target === deleteModal) {
+                closeDeleteModal();
+            }
+            if (event.target === clearModal) {
+                closeClearAllModal();
+            }
+        }
+    </script>
+
+</metal:block>
+</html>

@@ -82,6 +82,15 @@
             <span i18n:translate="">AI</span>
           </a>
         </tal:ai>
+        <tal:token-store tal:condition="python: view.feature_enabled('token-store')">
+          <a class="survey-action-button action-token-store"
+             tal:attributes="class python: 'survey-action-button action-token-store' + (' is-active' if current_url.endswith('/@@token-store') else '');
+                             title python: 'Manage access tokens' if not current_url.endswith('/@@token-store') else 'Currently managing tokens';
+                             aria-label python: 'Manage access tokens' if not current_url.endswith('/@@token-store') else 'Currently managing tokens'"
+             href="${context/absolute_url}/@@token-store">
+            <span i18n:translate="">Tokens</span>
+          </a>
+        </tal:token-store>
       </div>
       
     </div>

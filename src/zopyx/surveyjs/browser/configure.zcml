@@ -546,6 +546,14 @@
     class=".embed_direct.DirectEmbedDemoView"
   />
 
+  <!-- Token Store for Manager-only token management -->
+  <browser:page
+    name="token-store"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".token_store.TokenStore"
+    template="token_store.pt"
+  />
 
   <browser:jbot
       directory="overrides"
