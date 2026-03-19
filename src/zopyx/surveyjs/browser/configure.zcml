@@ -546,11 +546,11 @@
     class=".embed_direct.DirectEmbedDemoView"
   />
 
-  <!-- Token Store for Manager-only token management -->
+  <!-- Token Store for survey token management -->
   <browser:page
     name="token-store"
     for="zopyx.surveyjs.content.survey.ISurvey"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     class=".token_store.TokenStore"
     template="token_store.pt"
   />

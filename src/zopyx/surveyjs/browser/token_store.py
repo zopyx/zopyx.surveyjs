@@ -13,7 +13,7 @@ from persistent.dict import PersistentDict
 
 from .. import _
 from ..constants import TOKENS_KEY
-from ..permissions import ManagePortal
+from ..permissions import ModifyPortalContent
 from .services.http import json_response
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ class TokenStore(Views):
     index = ViewPageTemplateFile("token_store.pt")
 
     def __call__(self):
-        if not self.can_manage_portal:
+        if not self.can_modify_content:
             self.request.response.setStatus(403)
             return _("You are not allowed to access this view.")
 
@@ -90,8 +90,8 @@ class TokenStore(Views):
         return self.index()
 
     @property
-    def can_manage_portal(self) -> bool:
-        return plone.api.user.has_permission(ManagePortal, obj=self.context)
+    def can_modify_content(self) -> bool:
+        return plone.api.user.has_permission(ModifyPortalContent, obj=self.context)
 
     def _get_tokens_annotation(self) -> PersistentMapping:
         """Get or initialize the tokens annotation as a persistent mapping."""
