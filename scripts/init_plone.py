@@ -915,6 +915,7 @@ WELCOME_DEMOS = {
         ("Food Ordering Service Feedback", "en/demos/food-feedback-demo"),
         ("Order form", "en/demos/order-form"),
         ("Prefilled Address Book", "en/demos/prefilled"),
+        ("All Field Types Demo", "en/demos/all-field-types"),
     ],
     "de": [
         ("Veranstaltungsanmeldung", "de/demos/event-registration-de"),
@@ -1282,6 +1283,22 @@ create_demo_survey(
 )
 
 init_prefilled_address_survey(site, demos_by_language["en"])
+
+# All Field Types demo (comprehensive field type showcase)
+all_fields_intro = load_intro_text("all_field_types")
+all_fields_form = load_form_definition("all_field_types")
+set_form_show_toc(all_fields_form, True)
+
+create_demo_survey(
+    site,
+    survey_id="all-field-types",
+    title="All Field Types Demo",
+    description="Comprehensive demonstration of all SurveyJS field types with example data and defaults for testing.",
+    form_json=all_fields_form,
+    intro_html=all_fields_intro,
+    actions={"store"},
+    container=demos_by_language["en"],
+)
 
 # German demos
 event_form_de = load_form_definition("event_registration_de")

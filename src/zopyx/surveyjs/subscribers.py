@@ -51,7 +51,7 @@ from .storage import _get_storage_location, get_result_storage
 from .utils import ensure_timezone_aware, resolve_mail_settings
 from .audit import audit_metadata_update, audit_controlpanel_change
 from .content.survey import Counter
-from .converters.cli import SurveyConverter
+from .converters2.compat import SurveyConverter
 from .interfaces import IFormsSettings
 
 logger = logging.getLogger(__name__)
@@ -216,25 +216,24 @@ def _write_export(
     """Render one export format and return the output path if successful."""
     output_path = None
     if format_key == "text":
-        from .converters import write_text
+        from .converters2.compat import write_text
 
         output_path = write_text(items, output_dir / f"{poll_id}.txt", creator, created)
     elif format_key == "md":
-        from .converters import write_markdown
+        from .converters2.compat import write_markdown
 
         output_path = write_markdown(
             items, poll_id, output_dir / f"{poll_id}.md", creator, created
         )
     elif format_key == "html":
-        from .converters import build_markdown, write_html
+        from .converters2.compat import build_markdown, write_html
 
         markdown_body = build_markdown(items, poll_id, creator, created)
         output_path = write_html(
             markdown_body, attachments, output_dir / f"{poll_id}.html"
         )
     elif format_key == "pdf":
-        from .converters import build_markdown, write_pdf
-        from .converters.html import build_html
+        from .converters2.compat import build_html, build_markdown, write_pdf
 
         markdown_body = build_markdown(items, poll_id, creator, created)
         html_body = build_html(markdown_body, attachments)
@@ -242,27 +241,27 @@ def _write_export(
             html_body, output_dir / f"{poll_id}.pdf", creator, created
         )
     elif format_key == "csv":
-        from .converters import write_csv, build_table_rows
+        from .converters2.compat import write_csv, build_table_rows
 
         rows = build_table_rows(items)
         output_path = write_csv(rows, output_dir / f"{poll_id}.csv")
     elif format_key == "xlsx":
-        from .converters import write_xlsx, build_table_rows
+        from .converters2.compat import write_xlsx, build_table_rows
 
         rows = build_table_rows(items)
         output_path = write_xlsx(rows, output_dir / f"{poll_id}.xlsx")
     elif format_key == "docx":
-        from .converters import write_docx
+        from .converters2.compat import write_docx
 
         output_path = write_docx(
             items, output_dir / f"{poll_id}.docx", poll_id, creator, created
         )
     elif format_key == "xml":
-        from .converters import write_xml
+        from .converters2.compat import write_xml
 
         output_path = write_xml(items, poll_id, output_dir / f"{poll_id}.xml")
     elif format_key == "json":
-        from .converters import write_json
+        from .converters2.compat import write_json
 
         output_path = write_json(
             items, poll_id, output_dir / f"{poll_id}.json", creator, created

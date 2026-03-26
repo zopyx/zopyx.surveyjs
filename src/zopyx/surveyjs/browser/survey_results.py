@@ -76,9 +76,8 @@ class SurveyResults(Views):
         if isinstance(created, datetime):
             created_value = ensure_timezone_aware(created).isoformat()
 
-        from ..converters import build_markdown
-        from ..converters.cli import SurveyConverter
-        from ..converters.html import build_html
+        from ..converters2.compat import build_markdown, build_html
+        from ..converters2.compat import SurveyConverter
 
         with TemporaryDirectory() as tmpdir:
             tmpdir_path = Path(tmpdir)
@@ -139,7 +138,7 @@ class SurveyResults(Views):
         if isinstance(created, datetime):
             created = ensure_timezone_aware(created).isoformat()
 
-        from ..converters.cli import SurveyConverter
+        from ..converters2.compat import SurveyConverter
 
         with TemporaryDirectory() as tmpdir:
             tmpdir_path = Path(tmpdir)
@@ -246,7 +245,7 @@ class SurveyResults(Views):
             },
         )
 
-        from ..converters.cli import SurveyConverter
+        from ..converters2.compat import SurveyConverter
 
         with TemporaryDirectory() as tmpdir:
             tmpdir_path = Path(tmpdir)
