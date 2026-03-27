@@ -383,21 +383,32 @@ class AuthService:
             )
             return False
         cache = self._token_cache(settings)
-        if cache is not None:
-            try:
-                received_key = self._received_cache_key(token)
-                added = self._cache_add(cache, received_key, "RECEIVED")
-                if not added:
-                    if logger:
-                        logger.info(
-                            "Survey auth token replay detected: token=%s", token
-                        )
-                    json_error(
-                        self.request.response,
-                        403,
-                        "auth_token_replay",
+        if cache is None:
+            # FAIL CLOSED: reject request when replay protection is unavailable
+            if logger:
+                logger.error(
+                    "Survey auth token cache unavailable - rejecting request"
+                )
+            json_error(
+                self.request.response,
+                503,
+                "auth_service_unavailable",
+            )
+            return False
+        try:
+            received_key = self._received_cache_key(token)
+            added = self._cache_add(cache, received_key, "RECEIVED")
+            if not added:
+                if logger:
+                    logger.info(
+                        "Survey auth token replay detected: token=%s", token
                     )
-                    return False
-            finally:
-                cache.close()
+                json_error(
+                    self.request.response,
+                    403,
+                    "auth_token_replay",
+                )
+                return False
+        finally:
+            cache.close()
         return True

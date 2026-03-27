@@ -231,21 +231,21 @@
   <!-- Download endpoints with Content-Disposition attachment -->
   <browser:page
     name="download-form-json"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="download_form_json"
   />
   <browser:page
     name="download-polls-json"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="download_polls_json"
   />
   <browser:page
     name="download-polls-csv"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="download_polls_csv"
