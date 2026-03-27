@@ -292,6 +292,22 @@
                 "ar": "رمز موثوق",
                 "ja": "信頼済みトークン"
               }
+            },
+            {
+              "value": "trusted-tokens",
+              "text": {
+                "default": "Trusted tokens (single-use)",
+                "de": "Vertrauenswürdige Tokens (Einmalnutzung)",
+                "en": "Trusted tokens (single-use)",
+                "es": "Tokens de confianza (un solo uso)",
+                "fr": "Jetons de confiance (usage unique)",
+                "it": "Token affidabili (uso singolo)",
+                "pt": "Tokens confiáveis (uso único)",
+                "fi": "Luotetut tunnukset (kertakäyttö)",
+                "hi": "विश्वसनीय टोकन (एकल-उपयोग)",
+                "ar": "رموز موثوقة (للاستخدام مرة واحدة)",
+                "ja": "信頼済みトークン（ワンタイム）"
+              }
             }
           ],
           "defaultValue": "public"
