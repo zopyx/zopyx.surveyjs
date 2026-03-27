@@ -1,3 +1,4 @@
 RESULTS_KEY = "zopyx.surveyjs.results"
 FORM_VERSIONS_KEY = "zopyx.surveyjs.form_versions"
 PDF_FORM_KEY = "zopyx.surveyjs.pdf_form"
+TOKEN_STORE_KEY = "zopyx.surveyjs.token-store"

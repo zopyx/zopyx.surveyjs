@@ -1,0 +1,208 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="zopyx.surveyjs">
+
+  <metal:block fill-slot="content-core"
+               tal:define="stats view/get_stats">
+
+    <div class="token-view">
+      
+      <!-- Header with stats -->
+      <div class="tv-header">
+        <h1>Access Tokens</h1>
+        <div class="tv-stats">
+          <span class="stat" title="Total tokens">
+            <span class="stat-num" tal:content="stats/total">0</span>
+            <span class="stat-label">total</span>
+          </span>
+          <span class="stat stat-ok" title="Unused tokens">
+            <span class="stat-num" tal:content="stats/unused">0</span>
+            <span class="stat-label">unused</span>
+          </span>
+          <span class="stat stat-used" title="Used tokens">
+            <span class="stat-num" tal:content="stats/used">0</span>
+            <span class="stat-label">used</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Main section: Generate + Actions -->
+      <div class="tv-main">
+        
+        <!-- Generate -->
+        <div class="tv-generate">
+          <h3>Generate Tokens</h3>
+          <form method="post" class="tv-form">
+            <input type="hidden" name="_authenticator" 
+                   tal:attributes="value context/@@authenticator/token" />
+            <input type="number" name="num_tokens" min="1" max="10000" value="10" required="required" />
+            <button type="submit" name="generate_tokens" class="tv-btn tv-btn-primary">Generate</button>
+          </form>
+        </div>
+
+        <!-- Actions (right side) -->
+        <div class="tv-actions" tal:condition="python: stats['total'] > 0">
+          <form method="post" class="tv-action">
+            <input type="hidden" name="_authenticator" 
+                   tal:attributes="value context/@@authenticator/token" />
+            <button type="submit" name="download_csv" class="tv-btn tv-btn-green">Download CSV</button>
+          </form>
+          <form method="post" class="tv-action" onsubmit="return confirm('Clear all tokens?');">
+            <input type="hidden" name="_authenticator" 
+                   tal:attributes="value context/@@authenticator/token" />
+            <button type="submit" name="clear_tokens" class="tv-btn tv-btn-red">Clear All</button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Empty -->
+      <p class="tv-empty" tal:condition="python: stats['total'] == 0">
+        No tokens generated.
+      </p>
+
+      <!-- Help -->
+      <div class="tv-help">
+        <p><strong>How it works:</strong> Generate tokens to create unique access URLs. 
+        Each token can only be used once. Download the CSV to distribute URLs to participants.</p>
+      </div>
+
+    </div>
+
+    <style>
+      .token-view {
+        max-width: 700px;
+      }
+      
+      /* Header */
+      .tv-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #eee;
+      }
+      .tv-header h1 {
+        font-size: 20px;
+        margin: 0;
+      }
+      .tv-stats {
+        display: flex;
+        gap: 20px;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-num {
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: #888;
+        text-transform: uppercase;
+      }
+      .stat-ok .stat-num { color: #27ae60; }
+      .stat-used .stat-num { color: #e67e22; }
+      
+      /* Main section with Generate and Actions */
+      .tv-main {
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        background: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        padding: 20px;
+        margin-bottom: 15px;
+      }
+      
+      /* Generate */
+      .tv-generate {
+        flex: 1;
+      }
+      .tv-generate h3 {
+        font-size: 14px;
+        margin: 0 0 12px 0;
+        color: #555;
+      }
+      .tv-form {
+        display: flex;
+        gap: 10px;
+      }
+      .tv-form input {
+        width: 100px;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+      }
+      
+      /* Buttons */
+      .tv-btn {
+        padding: 8px 20px;
+        border: none;
+        font-size: 13px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .tv-btn-primary {
+        background: #3498db;
+        color: white;
+      }
+      .tv-btn-green {
+        background: #27ae60;
+        color: white;
+      }
+      .tv-btn-red {
+        background: #e74c3c;
+        color: white;
+      }
+      .tv-btn:hover {
+        opacity: 0.85;
+      }
+      
+      /* Actions */
+      .tv-actions {
+        display: flex;
+        gap: 10px;
+        padding-left: 15px;
+        border-left: 1px solid #ddd;
+      }
+      .tv-action {
+        margin: 0;
+      }
+      
+      /* Empty */
+      .tv-empty {
+        color: #999;
+        padding: 30px;
+        text-align: center;
+        background: #fafafa;
+        margin-bottom: 15px;
+      }
+      
+      /* Help */
+      .tv-help {
+        background: #fffbeb;
+        border-left: 3px solid #f59e0b;
+        padding: 12px 15px;
+      }
+      .tv-help p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #666;
+        margin: 0;
+      }
+      .tv-help strong {
+        color: #333;
+      }
+    </style>
+
+  </metal:block>
+
+</html>

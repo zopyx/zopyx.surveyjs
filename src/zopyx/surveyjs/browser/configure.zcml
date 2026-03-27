@@ -510,6 +510,15 @@
     permission="cmf.ManagePortal"
   />
 
+  <!-- Token Store Management -->
+  <browser:page
+    name="token-store"
+    for="zopyx.surveyjs.content.survey.ISurvey"
+    permission="cmf.ManagePortal"
+    class=".token_store.TokenStoreView"
+    template="token_store.pt"
+  />
+
   <!-- Direct DOM Embedding Views -->
   <browser:page
     name="embed-surveyjs"

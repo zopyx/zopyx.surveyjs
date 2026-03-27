@@ -16,6 +16,51 @@ class IZopyxSurveyjsLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
+class ITokenStore(Interface):
+    """Adapter interface for managing survey access tokens.
+    
+    This adapter provides token-based access control for surveys.
+    Tokens are UUID4 strings that can be generated, validated, and invalidated.
+    """
+
+    def generate_tokens(number: int) -> list:
+        """Generate a specified number of new tokens.
+        
+        :param number: Number of tokens to generate
+        :return: List of generated token strings (UUID4)
+        """
+
+    def has_token(token: str) -> bool:
+        """Check if a token exists and is valid.
+        
+        :param token: Token string to check
+        :return: True if token exists and is valid, False otherwise
+        """
+
+    def invalidate(token: str) -> bool:
+        """Invalidate a token (mark as used).
+        
+        :param token: Token string to invalidate
+        :return: True if token was found and invalidated, False otherwise
+        """
+
+    def get_token_info(token: str) -> dict:
+        """Get information about a specific token.
+        
+        :param token: Token string to look up
+        :return: Token info dict with keys: token, created, used (or None if not found)
+        """
+
+    def list_tokens() -> list:
+        """List all tokens and their information.
+        
+        :return: List of token info dicts
+        """
+
+    def clear() -> None:
+        """Clear all tokens from the store."""
+
+
 class IPloneLoggingSettings(Interface):
     """Global logging settings stored in the Plone registry."""
 
