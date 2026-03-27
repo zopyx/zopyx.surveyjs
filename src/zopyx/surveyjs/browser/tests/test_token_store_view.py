@@ -110,7 +110,7 @@ class TokenStoreViewTest(unittest.TestCase):
             token, url = parts
             self.assertNotIn(token, [tokens[0], tokens[1]])
             self.assertTrue(url.startswith(self.survey.absolute_url()))
-            self.assertIn("?auth_token=", url)
+            self.assertIn("?tt=", url)
             self.assertIn(token, url)
 
 

@@ -64,9 +64,9 @@ function handleViewerReady(event) {
     typeof viewerConfig.surveyLanguageLabels === "object"
   ) ? viewerConfig.surveyLanguageLabels : {};
   const urlParams = new URLSearchParams(window.location.search);
-  // Support both auth_token (token store) and access_token (cached tokens)
-  const accessToken = urlParams.get("auth_token") || urlParams.get("access_token");
-  const tokenParam = urlParams.has("auth_token") ? "auth_token" : "access_token";
+  // Support both tt (trusted token, token store) and access_token (cached tokens)
+  const accessToken = urlParams.get("tt") || urlParams.get("access_token");
+  const tokenParam = urlParams.has("tt") ? "tt" : "access_token";
   const url = accessToken
     ? ACTUAL_URL + "/get-form-json?" + tokenParam + "=" + encodeURIComponent(accessToken)
     : ACTUAL_URL + "/get-form-json";

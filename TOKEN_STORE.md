@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Token Store provides token-based access control for surveys. Each survey can have multiple unique access tokens (24-character alphanumeric) that grant one-time access to participants.
+The Token Store provides token-based access control for surveys. Each survey can have multiple unique access tokens (32-character URL-safe) that grant one-time access to participants.
 
 ## Architecture
 
@@ -58,7 +58,7 @@ Participant                    SurveyJS Viewer                    Auth Service
 ```python
 class ITokenStore(Interface):
     def generate_tokens(number: int) -> list:
-        """Generate N new 24-character alphanumeric tokens."""
+        """Generate N new 32-character URL-safe tokens."""
         
     def has_token(token: str) -> bool:
         """Check if token exists and is unused."""
@@ -159,7 +159,7 @@ def _generate_token(self) -> str:
 ### Single-Use Token Flow
 
 1. **Generation:** Manager generates tokens via `@@token-store`
-2. **Distribution:** CSV download contains URLs with `?auth_token=TOKEN`
+2. **Distribution:** CSV download contains URLs with `?tt=TOKEN`
 3. **First Access:** User opens URL → token validated → token invalidated
 4. **Subsequent Access:** Same URL → token invalid → access denied
 
@@ -244,8 +244,8 @@ token_store.clear()
 **CSV Format:**
 ```csv
 token,url
-aB3xK9mP2vL5-nQ8w_R4tY7jU1zXcD4e,http://.../survey?auth_token=aB3xK9mP2vL5-nQ8w_R4tY7jU1zXcD4e
-xYz9AbC-dE3fG4hI5jK6lM7nP0qRsTuV,http://.../survey?auth_token=xYz9AbC-dE3fG4hI5jK6lM7nP0qRsTuV
+aB3xK9mP2vL5-nQ8w_R4tY7jU1zXcD4e,http://.../survey?tt=aB3xK9mP2vL5-nQ8w_R4tY7jU1zXcD4e
+xYz9AbC-dE3fG4hI5jK6lM7nP0qRsTuV,http://.../survey?tt=xYz9AbC-dE3fG4hI5jK6lM7nP0qRsTuV
 ```
 
 ## Security

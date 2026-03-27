@@ -218,12 +218,12 @@ class AuthService:
     def _get_token_from_request(self):
         """Get token from request parameters.
         
-        Checks for 'auth_token' (used by token store) or 'access_token' (used by cached tokens).
+        Checks for 'tt' (trusted token, used by token store) or 'access_token' (used by cached tokens).
         """
-        # Check for auth_token first (token store uses this)
+        # Check for tt first (token store uses this)
         token = (
-            self.request.form.get("auth_token")
-            or self.request.get("auth_token")
+            self.request.form.get("tt")
+            or self.request.get("tt")
             or ""
         )
         if token:

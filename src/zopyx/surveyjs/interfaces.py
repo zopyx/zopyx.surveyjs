@@ -20,14 +20,15 @@ class ITokenStore(Interface):
     """Adapter interface for managing survey access tokens.
     
     This adapter provides token-based access control for surveys.
-    Tokens are UUID4 strings that can be generated, validated, and invalidated.
+    Tokens are 32-character URL-safe strings that can be generated, validated,
+    and invalidated.
     """
 
     def generate_tokens(number: int) -> list:
         """Generate a specified number of new tokens.
         
         :param number: Number of tokens to generate
-        :return: List of generated token strings (UUID4)
+        :return: List of generated token strings (32-char URL-safe)
         """
 
     def has_token(token: str) -> bool:

@@ -89,8 +89,9 @@ class TokenStore:
         storage = self._get_storage()
         if token not in storage:
             return False
-        
-        storage[token]["used"] = datetime.now(timezone.utc).isoformat()
+        info = dict(storage[token])
+        info["used"] = datetime.now(timezone.utc).isoformat()
+        storage[token] = info
         return True
 
     def get_token_info(self, token: str) -> dict:

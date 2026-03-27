@@ -14,7 +14,7 @@
 
   <metal:block fill-slot="content-core"
                tal:define="portal_state context/@@plone_portal_state;
-                           missing_token python: view.trusted_access_enabled and not (request.get('access_token') or request.get('auth_token')) and not view.can_manage_portal_content;
+                           missing_token python: view.trusted_access_enabled and not (request.get('access_token') or request.get('tt')) and not view.can_manage_portal_content;
                            can_modify python: context.portal_membership.checkPermission('Modify portal content', context)">
     <metal:surveyjs-var-actual-url
         use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
@@ -162,7 +162,7 @@
       <div id="surveyViewerContainer"
            class="survey-viewer-container"
            tal:attributes="class python: 'survey-viewer-container survey-container-hidden' if missing_token else 'survey-viewer-container'; hidden python: 'hidden' if missing_token else None"
-           data-token-present="${python: 'true' if (request.get('access_token') or request.get('auth_token')) else 'false'}">
+           data-token-present="${python: 'true' if (request.get('access_token') or request.get('tt')) else 'false'}">
         <div class="survey-viewer-toolbar">
           <select id="surveyLanguageSelector"
                   class="survey-language-selector"

@@ -105,7 +105,7 @@ class TokenStoreView(BrowserView):
         # Write data rows
         for token_info in tokens:
             token = token_info["token"]
-            url = f"{base_url}?auth_token={token}"
+            url = f"{base_url}?tt={token}"
             writer.writerow([token, url])
 
         # Prepare response
