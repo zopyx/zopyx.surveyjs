@@ -55,9 +55,24 @@ See `DEVELOP.rst` for details.
 
 ## Git Operations
 - **NEVER commit automatically.** Always ask the user for explicit confirmation before committing.
-- Before committing, all tests must pass. Run `make test` (or a narrower, documented subset if explicitly agreed) and ensure it completes successfully.
-- Use Conventional Commits for all commit messages (for example: `fix: reset AI preview on reopen`, `feat: add survey export`, `chore: update docs`).
-- Be explicit and verbose in commit messages when it helps future debugging. Prefer a longer, descriptive subject over a short, ambiguous one.
+- **Run tests yourself:** Before asking to commit, run `make test` (or `bin/test -s zopyx.surveyjs`) yourself.
+- **If tests pass:** Ask the user for permission to commit and push.
+- **If tests fail:** Fix the issues first, then ask for permission to commit.
+- Use Conventional Commits for all commit messages with **extensive/detailed descriptions**.
+- Example format:
+  ```
+  feat: add token store adapter for survey access control
+  
+  - Implement ITokenStore interface with generate_tokens(), has_token(), invalidate()
+  - Use BTrees.OOBTree for efficient ZODB storage
+  - Add browser view @@token-store for token management
+  - Generate 32-character URL-safe tokens using secrets.token_urlsafe()
+  - Add CSV download of unused tokens
+  - Include comprehensive test coverage
+  
+  All 67 tests pass.
+  ```
+- Be explicit and verbose in commit messages. Prefer extensive descriptions over short, ambiguous ones.
 - Do not commit if tests are failing or were not run, unless the user explicitly approves and the commit message states this clearly.
 
 ## Notes for Agents
