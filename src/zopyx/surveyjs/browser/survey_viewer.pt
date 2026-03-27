@@ -161,7 +161,8 @@
       </div>
       <div id="surveyViewerContainer"
            class="survey-viewer-container"
-           tal:attributes="class python: 'survey-viewer-container survey-container-hidden' if missing_token else 'survey-viewer-container'; hidden python: 'hidden' if missing_token else None">
+           tal:attributes="class python: 'survey-viewer-container survey-container-hidden' if missing_token else 'survey-viewer-container'; hidden python: 'hidden' if missing_token else None"
+           data-token-present="${python: 'true' if (request.get('access_token') or request.get('auth_token')) else 'false'}">
         <div class="survey-viewer-toolbar">
           <select id="surveyLanguageSelector"
                   class="survey-language-selector"

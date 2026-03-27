@@ -272,6 +272,13 @@ function handleViewerReady(event) {
     );
     return;
   }
+  
+  // Hide container initially if token is present - will be shown on successful load
+  if (trustedAccessEnabled && accessToken && surveyContainer) {
+    surveyContainer.classList.add("survey-container-hidden");
+    surveyContainer.setAttribute("hidden", "hidden");
+    surveyContainer.style.display = "none";
+  }
 
   // Load the survey JSON configuration
   fetch(url, {
