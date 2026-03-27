@@ -595,17 +595,12 @@ class SQLTokenStore:
 # ============================================================================
 
 def _get_token_backend_name() -> str:
-    """Return the configured token storage backend name."""
-    try:
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(IFormsSettings, check=False)
-        backend = getattr(settings, "token_storage_backend", None) or "zodb"
-        result = backend.strip().lower()
-        logger.debug("Token storage backend from registry: %s", result)
-        return result
-    except Exception as e:
-        logger.warning("Failed to get token storage backend from registry: %s", e)
-        return "zodb"
+    """Return the configured token storage backend name.
+    
+    Reuses the same setting as result_storage_backend for consistency.
+    """
+    # Reuse the result storage backend setting - tokens use same storage
+    return _get_backend_name()
 
 
 def _get_survey_path(survey) -> str:

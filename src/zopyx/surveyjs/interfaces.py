@@ -145,10 +145,9 @@ class IFormsSettings(IPloneLoggingSettings):
 
     fieldset(
         "storage",
-        label="Result Storage",
+        label="Storage",
         fields=(
             "result_storage_backend",
-            "token_storage_backend",
             "database_uri",
         ),
     )
@@ -309,27 +308,14 @@ class IFormsSettings(IPloneLoggingSettings):
     )
 
     result_storage_backend = schema.Choice(
-        title="Result storage backend",
-        description="Storage backend for survey results.",
+        title="Storage backend",
+        description="Storage backend for survey results and access tokens.",
         required=False,
         default="zodb",
         vocabulary=SimpleVocabulary.fromItems(
             [
                 ("zodb", "zodb", "Plone (ZODB)"),
                 ("rdbms", "rdbms", "Relational database"),
-            ]
-        ),
-    )
-
-    token_storage_backend = schema.Choice(
-        title="Token storage backend",
-        description="Storage backend for survey access tokens (trusted-tokens mode).",
-        required=False,
-        default="zodb",
-        vocabulary=SimpleVocabulary.fromItems(
-            [
-                ("zodb", "zodb", "Plone (ZODB) - default"),
-                ("rdbms", "rdbms", "Relational database (shared across instances)"),
             ]
         ),
     )
