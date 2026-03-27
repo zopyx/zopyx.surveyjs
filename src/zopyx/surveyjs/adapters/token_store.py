@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Token store adapter implementation for surveys."""
 
+import logging
 import secrets
 from BTrees.OOBTree import OOBTree
 from datetime import datetime, timezone
@@ -12,10 +13,12 @@ from zopyx.surveyjs.interfaces import ITokenStore
 # Token generation: URL-safe base64, 32 characters
 # token_urlsafe(24) produces 32 chars (base64 uses 4/3 ratio)
 
+logger = logging.getLogger(__name__)
+
 
 @implementer(ITokenStore)
 class TokenStore:
-    """Token store adapter for survey objects.
+    """Token store adapter for survey objects (ZODB backend).
     
     Tokens are stored as annotations on the survey object with the key
     'zopyx.surveyjs.token-store'. Each token is stored as a dict with:
@@ -24,6 +27,13 @@ class TokenStore:
     - used: ISO format datetime when token was used (None if unused)
     """
 
+    def _get_survey_path(self) -> str:
+        """Get physical path of survey for logging."""
+        try:
+            return "/".join(self.survey.getPhysicalPath())
+        except Exception:
+            return str(self.survey)
+
     def __init__(self, survey):
         """Initialize the token store adapter.
         
@@ -31,6 +41,8 @@ class TokenStore:
         """
         self.survey = survey
         self._annotations = IAnnotations(survey)
+        self._backend = "ZODB"
+        logger.debug("[TokenStore:%s] Initialized for survey %s", self._backend, self._get_survey_path())
 
     def _get_storage(self) -> OOBTree:
         """Get or create the token storage OOBTree.
@@ -67,6 +79,8 @@ class TokenStore:
             }
             generated.append(token)
         
+        logger.info("[TokenStore:%s] Generated %d tokens for survey %s", 
+                    self._backend, number, self._get_survey_path())
         return generated
 
     def has_token(self, token: str) -> bool:
@@ -77,8 +91,11 @@ class TokenStore:
         """
         storage = self._get_storage()
         if token not in storage:
+            logger.debug("[TokenStore:%s] Token not found: %s...", self._backend, token[:8])
             return False
-        return storage[token].get("used") is None
+        is_valid = storage[token].get("used") is None
+        logger.debug("[TokenStore:%s] Token check: %s... valid=%s", self._backend, token[:8], is_valid)
+        return is_valid
 
     def invalidate(self, token: str) -> bool:
         """Invalidate a token (mark as used).
@@ -88,10 +105,13 @@ class TokenStore:
         """
         storage = self._get_storage()
         if token not in storage:
+            logger.warning("[TokenStore:%s] Invalidate failed - token not found: %s...", 
+                          self._backend, token[:8])
             return False
         info = dict(storage[token])
         info["used"] = datetime.now(timezone.utc).isoformat()
         storage[token] = info
+        logger.info("[TokenStore:%s] Token invalidated: %s...", self._backend, token[:8])
         return True
 
     def get_token_info(self, token: str) -> dict:
@@ -103,7 +123,11 @@ class TokenStore:
         storage = self._get_storage()
         info = storage.get(token)
         if info is None:
+            logger.debug("[TokenStore:%s] get_token_info - token not found: %s...", 
+                        self._backend, token[:8])
             return None
+        logger.debug("[TokenStore:%s] get_token_info - token found: %s...", 
+                    self._backend, token[:8])
         return dict(info)
 
     def list_tokens(self) -> list:
@@ -112,9 +136,30 @@ class TokenStore:
         :return: List of token info dicts
         """
         storage = self._get_storage()
-        return [dict(info) for info in storage.values()]
+        tokens = [dict(info) for info in storage.values()]
+        logger.debug("[TokenStore:%s] list_tokens - found %d tokens", self._backend, len(tokens))
+        return tokens
+
+    def get_stats(self) -> dict:
+        """Get token statistics.
+        
+        :return: Dict with total, used, and unused token counts
+        """
+        tokens = self.list_tokens()
+        total = len(tokens)
+        used = sum(1 for t in tokens if t.get("used") is not None)
+        unused = total - used
+        stats = {
+            "total": total,
+            "used": used,
+            "unused": unused,
+        }
+        logger.debug("[TokenStore:%s] get_stats: %s", self._backend, stats)
+        return stats
 
     def clear(self) -> None:
         """Clear all tokens from the store."""
         storage = self._get_storage()
+        count = len(storage)
         storage.clear()
+        logger.info("[TokenStore:%s] Cleared %d tokens", self._backend, count)

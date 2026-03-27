@@ -3,9 +3,9 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="zopyx.surveyjs">
 
-  <!-- Token store adapter -->
+  <!-- Token store adapter - backend selection via registry -->
   <adapter
-      factory=".token_store.TokenStore"
+      factory="..storage.get_token_storage"
       provides="zopyx.surveyjs.interfaces.ITokenStore"
       for="zopyx.surveyjs.content.survey.ISurvey"
       />
