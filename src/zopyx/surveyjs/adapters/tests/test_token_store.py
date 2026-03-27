@@ -68,9 +68,11 @@ class TokenStoreAdapterTest(unittest.TestCase):
         self.assertEqual(len(tokens), 3)
         for token in tokens:
             self.assertIsInstance(token, str)
-            # Should be a valid UUID4 format
-            self.assertEqual(len(token), 36)  # UUID4 string length
-            self.assertEqual(token.count("-"), 4)  # UUID4 has 4 dashes
+            # Should be a 32-character URL-safe token (token_urlsafe(24))
+            self.assertEqual(len(token), 32)
+            # URL-safe base64 characters: A-Z, a-z, 0-9, -, _
+            valid_chars = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_")
+            self.assertTrue(set(token).issubset(valid_chars))
 
     def test_generate_tokens_unique(self):
         """Test that generated tokens are unique."""

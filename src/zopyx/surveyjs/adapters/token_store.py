@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 """Token store adapter implementation for surveys."""
 
+import secrets
 from BTrees.OOBTree import OOBTree
 from datetime import datetime, timezone
-from uuid import uuid4
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer
 from zopyx.surveyjs.constants import TOKEN_STORE_KEY
 from zopyx.surveyjs.interfaces import ITokenStore
+
+# Token generation: URL-safe base64, 32 characters
+# token_urlsafe(24) produces 32 chars (base64 uses 4/3 ratio)
 
 
 @implementer(ITokenStore)
@@ -16,7 +19,7 @@ class TokenStore:
     
     Tokens are stored as annotations on the survey object with the key
     'zopyx.surveyjs.token-store'. Each token is stored as a dict with:
-    - token: The UUID4 token string
+    - token: The 32-character URL-safe token string
     - created: ISO format datetime when token was created
     - used: ISO format datetime when token was used (None if unused)
     """
@@ -38,18 +41,25 @@ class TokenStore:
             self._annotations[TOKEN_STORE_KEY] = OOBTree()
         return self._annotations[TOKEN_STORE_KEY]
 
+    def _generate_token(self) -> str:
+        """Generate a single random token.
+        
+        :return: A 32-character URL-safe token
+        """
+        return secrets.token_urlsafe(24)
+
     def generate_tokens(self, number: int) -> list:
         """Generate a specified number of new tokens.
         
         :param number: Number of tokens to generate
-        :return: List of generated token strings (UUID4)
+        :return: List of generated token strings (32-char URL-safe)
         """
         storage = self._get_storage()
         generated = []
         now = datetime.now(timezone.utc).isoformat()
         
         for _ in range(number):
-            token = str(uuid4())
+            token = self._generate_token()
             storage[token] = {
                 "token": token,
                 "created": now,
