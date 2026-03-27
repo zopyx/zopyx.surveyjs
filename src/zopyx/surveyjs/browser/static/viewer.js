@@ -291,16 +291,30 @@ function handleViewerReady(event) {
      */
     .then(function handleFormResponse(response) {
       if (!response.ok) {
-        return response.json().then(
+        const headerError = response.headers && response.headers.get
+          ? response.headers.get("X-Survey-Error")
+          : null;
+        return response.text().then(
           /**
            * Attach payload details to the load error.
-           * @param {Object} payload
+           * @param {string} text
            * @returns {never}
            */
-          function handleErrorPayload(payload) {
+          function handleErrorPayload(text) {
+          let payload = null;
+          if (text) {
+            try {
+              payload = JSON.parse(text);
+            } catch (parseError) {
+              payload = null;
+            }
+          }
+          if (!payload && headerError) {
+            payload = { error: headerError };
+          }
           const error = new Error("Failed to load form");
           error.status = response.status;
-          error.payload = payload;
+          error.payload = payload || undefined;
           throw error;
         }).catch(
           /**
@@ -308,7 +322,12 @@ function handleViewerReady(event) {
            * @returns {never}
            */
           function handleErrorPayloadFailure() {
-          throw new Error("Failed to load form");
+          const error = new Error("Failed to load form");
+          error.status = response.status;
+          if (headerError) {
+            error.payload = { error: headerError };
+          }
+          throw error;
         });
       }
       return response.json();

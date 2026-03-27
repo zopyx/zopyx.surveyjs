@@ -21,6 +21,11 @@ def json_response(
 
 def json_error(response, status, error, message=None, extra=None):
     """Write a standardized JSON error response."""
+    # Expose the error key for clients that cannot parse the JSON body.
+    try:
+        response.setHeader("X-Survey-Error", error)
+    except Exception:
+        pass
     payload = {"error": error}
     if message:
         payload["message"] = message

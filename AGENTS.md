@@ -54,6 +54,7 @@ See `DEVELOP.rst` for details.
 - If touching security- or validation-related code, add or update tests.
 
 ## Git Operations
+- **NEVER commit automatically.** Always ask the user for explicit confirmation before committing.
 - Before committing, all tests must pass. Run `make test` (or a narrower, documented subset if explicitly agreed) and ensure it completes successfully.
 - Use Conventional Commits for all commit messages (for example: `fix: reset AI preview on reopen`, `feat: add survey export`, `chore: update docs`).
 - Be explicit and verbose in commit messages when it helps future debugging. Prefer a longer, descriptive subject over a short, ambiguous one.
