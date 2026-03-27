@@ -1,0 +1,648 @@
+{
+  "title": "All Field Types Demo",
+  "description": "Comprehensive demonstration of all SurveyJS field types with example data and defaults for testing.",
+  "locale": "en",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Thank you!</h3><p>You have completed the comprehensive field types demo.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "title": "Introduction",
+      "elements": [
+        {
+          "type": "html",
+          "name": "introText",
+          "html": "<p>Welcome to the comprehensive SurveyJS field types demo. This form showcases all available question types with example data and default values for testing purposes.</p>"
+        }
+      ]
+    },
+    {
+      "name": "textInputs",
+      "title": "Text Input Types",
+      "elements": [
+        {
+          "type": "text",
+          "name": "singleLineText",
+          "title": "Single line text",
+          "description": "Basic single line text input",
+          "placeHolder": "Enter text here",
+          "defaultValue": "Sample text value"
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "Email",
+          "description": "Email input with validation",
+          "inputType": "email",
+          "placeHolder": "your@email.com",
+          "defaultValue": "demo@example.com"
+        },
+        {
+          "type": "text",
+          "name": "password",
+          "title": "Password",
+          "description": "Password input (masked)",
+          "inputType": "password",
+          "placeHolder": "Enter password"
+        },
+        {
+          "type": "text",
+          "name": "url",
+          "title": "URL",
+          "description": "URL input with validation",
+          "inputType": "url",
+          "placeHolder": "https://example.com",
+          "defaultValue": "https://surveyjs.io"
+        },
+        {
+          "type": "text",
+          "name": "tel",
+          "title": "Telephone",
+          "description": "Telephone number input",
+          "inputType": "tel",
+          "placeHolder": "+1 (555) 123-4567",
+          "defaultValue": "+1 (555) 987-6543"
+        },
+        {
+          "type": "text",
+          "name": "number",
+          "title": "Number",
+          "description": "Numeric input",
+          "inputType": "number",
+          "min": 0,
+          "max": 100,
+          "defaultValue": 42
+        },
+        {
+          "type": "text",
+          "name": "date",
+          "title": "Date",
+          "description": "Date picker input",
+          "inputType": "date",
+          "defaultValue": "2024-01-15"
+        },
+        {
+          "type": "text",
+          "name": "datetimeLocal",
+          "title": "Date and Time",
+          "description": "Date and time picker",
+          "inputType": "datetime-local",
+          "defaultValue": "2024-01-15T10:30"
+        },
+        {
+          "type": "text",
+          "name": "time",
+          "title": "Time",
+          "description": "Time picker input",
+          "inputType": "time",
+          "defaultValue": "14:30"
+        },
+        {
+          "type": "text",
+          "name": "color",
+          "title": "Color",
+          "description": "Color picker input",
+          "inputType": "color",
+          "defaultValue": "#3b82f6"
+        }
+      ]
+    },
+    {
+      "name": "multiline",
+      "title": "Multiline and Rich Text",
+      "elements": [
+        {
+          "type": "comment",
+          "name": "comment",
+          "title": "Comment / Multiline Text",
+          "description": "Multi-line text area",
+          "placeHolder": "Enter your comments here...",
+          "rows": 4,
+          "defaultValue": "This is a sample comment that spans multiple lines.\nIt demonstrates the comment field type."
+        },
+        {
+          "type": "comment",
+          "name": "resizableComment",
+          "title": "Resizable Comment",
+          "description": "Comment with resizable option",
+          "autoGrow": true,
+          "allowResize": true,
+          "rows": 3,
+          "defaultValue": "This comment area can be resized by the user."
+        }
+      ]
+    },
+    {
+      "name": "choices",
+      "title": "Choice Questions",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "radioGroup",
+          "title": "Radio Group",
+          "description": "Single choice (radio buttons)",
+          "choices": [
+            { "value": "option1", "text": "Option 1" },
+            { "value": "option2", "text": "Option 2" },
+            { "value": "option3", "text": "Option 3" }
+          ],
+          "defaultValue": "option1"
+        },
+        {
+          "type": "radiogroup",
+          "name": "radioGroupOther",
+          "title": "Radio Group with 'Other'",
+          "description": "Single choice with other option",
+          "showOtherItem": true,
+          "otherText": "Other (please specify)",
+          "choices": [
+            { "value": "yes", "text": "Yes" },
+            { "value": "no", "text": "No" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "checkbox",
+          "title": "Checkbox",
+          "description": "Multiple choice (checkboxes)",
+          "choices": [
+            { "value": "feature1", "text": "Feature A" },
+            { "value": "feature2", "text": "Feature B" },
+            { "value": "feature3", "text": "Feature C" },
+            { "value": "feature4", "text": "Feature D" }
+          ],
+          "defaultValue": ["feature1", "feature3"]
+        },
+        {
+          "type": "checkbox",
+          "name": "checkboxOther",
+          "title": "Checkbox with 'Other' and 'None'",
+          "description": "Multiple choice with additional options",
+          "showOtherItem": true,
+          "showNoneItem": true,
+          "showSelectAllItem": true,
+          "noneText": "None of the above",
+          "selectAllText": "Select all",
+          "choices": [
+            { "value": "red", "text": "Red" },
+            { "value": "green", "text": "Green" },
+            { "value": "blue", "text": "Blue" }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "dropdown",
+          "title": "Dropdown",
+          "description": "Single choice dropdown",
+          "choices": [
+            { "value": "low", "text": "Low Priority" },
+            { "value": "medium", "text": "Medium Priority" },
+            { "value": "high", "text": "High Priority" },
+            { "value": "urgent", "text": "Urgent" }
+          ],
+          "defaultValue": "medium"
+        },
+        {
+          "type": "dropdown",
+          "name": "dropdownWithOther",
+          "title": "Dropdown with 'Other'",
+          "description": "Single choice dropdown with other option",
+          "showOtherItem": true,
+          "choices": [
+            { "value": "cat", "text": "Cat" },
+            { "value": "dog", "text": "Dog" },
+            { "value": "bird", "text": "Bird" }
+          ]
+        },
+        {
+          "type": "tagbox",
+          "name": "tagbox",
+          "title": "Tag Box",
+          "description": "Multi-select dropdown with tags",
+          "choices": [
+            { "value": "html", "text": "HTML" },
+            { "value": "css", "text": "CSS" },
+            { "value": "js", "text": "JavaScript" },
+            { "value": "python", "text": "Python" },
+            { "value": "java", "text": "Java" },
+            { "value": "csharp", "text": "C#" }
+          ],
+          "defaultValue": ["html", "css", "js"]
+        }
+      ]
+    },
+    {
+      "name": "ratings",
+      "title": "Ratings and Boolean",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "basicRating",
+          "title": "Basic Rating",
+          "description": "Simple numeric rating",
+          "rateMin": 1,
+          "rateMax": 5,
+          "rateStep": 1,
+          "defaultValue": 4
+        },
+        {
+          "type": "rating",
+          "name": "labeledRating",
+          "title": "Rating with Labels",
+          "description": "Rating with min/max labels",
+          "rateMin": 0,
+          "rateMax": 10,
+          "minRateDescription": "Very poor",
+          "maxRateDescription": "Excellent",
+          "defaultValue": 7
+        },
+        {
+          "type": "rating",
+          "name": "customValuesRating",
+          "title": "Rating with Custom Values",
+          "description": "Rating with custom value labels",
+          "rateValues": [
+            { "value": 1, "text": "Strongly Disagree" },
+            { "value": 2, "text": "Disagree" },
+            { "value": 3, "text": "Neutral" },
+            { "value": 4, "text": "Agree" },
+            { "value": 5, "text": "Strongly Agree" }
+          ],
+          "defaultValue": 3
+        },
+        {
+          "type": "boolean",
+          "name": "simpleBoolean",
+          "title": "Simple Boolean",
+          "description": "Yes/No toggle",
+          "defaultValue": true
+        },
+        {
+          "type": "boolean",
+          "name": "labeledBoolean",
+          "title": "Boolean with Custom Labels",
+          "description": "Boolean with custom true/false labels",
+          "labelTrue": "Accept",
+          "labelFalse": "Decline",
+          "defaultValue": true
+        }
+      ]
+    },
+    {
+      "name": "matrixes",
+      "title": "Matrix Questions",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "singleChoiceMatrix",
+          "title": "Single Choice Matrix",
+          "description": "Matrix with single choice per row",
+          "columns": [
+            { "value": "poor", "text": "Poor" },
+            { "value": "fair", "text": "Fair" },
+            { "value": "good", "text": "Good" },
+            { "value": "excellent", "text": "Excellent" }
+          ],
+          "rows": [
+            { "value": "usability", "text": "Usability" },
+            { "value": "performance", "text": "Performance" },
+            { "value": "reliability", "text": "Reliability" },
+            { "value": "support", "text": "Customer Support" }
+          ],
+          "defaultValue": {
+            "usability": "good",
+            "performance": "excellent",
+            "reliability": "good",
+            "support": "fair"
+          }
+        },
+        {
+          "type": "matrixdropdown",
+          "name": "matrixDropdown",
+          "title": "Matrix with Dropdowns",
+          "description": "Matrix with dropdown cells",
+          "columns": [
+            {
+              "name": "importance",
+              "title": "Importance",
+              "cellType": "dropdown",
+              "choices": [
+                { "value": "low", "text": "Low" },
+                { "value": "medium", "text": "Medium" },
+                { "value": "high", "text": "High" }
+              ]
+            },
+            {
+              "name": "satisfaction",
+              "title": "Satisfaction",
+              "cellType": "rating",
+              "rateMin": 1,
+              "rateMax": 5
+            },
+            {
+              "name": "comments",
+              "title": "Comments",
+              "cellType": "text"
+            }
+          ],
+          "rows": [
+            { "value": "features", "text": "Product Features" },
+            { "value": "pricing", "text": "Pricing" },
+            { "value": "documentation", "text": "Documentation" }
+          ],
+          "defaultValue": {
+            "features": { "importance": "high", "satisfaction": 4, "comments": "Great features" },
+            "pricing": { "importance": "medium", "satisfaction": 3, "comments": "Fair pricing" },
+            "documentation": { "importance": "high", "satisfaction": 5, "comments": "Very helpful" }
+          }
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "dynamicMatrix",
+          "title": "Dynamic Matrix",
+          "description": "Add/remove rows dynamically",
+          "rowCount": 2,
+          "minRowCount": 1,
+          "maxRowCount": 5,
+          "addRowText": "Add Item",
+          "removeRowText": "Remove Item",
+          "columns": [
+            {
+              "name": "product",
+              "title": "Product",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "quantity",
+              "title": "Quantity",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 1,
+              "defaultValue": 1
+            },
+            {
+              "name": "price",
+              "title": "Price",
+              "cellType": "text",
+              "inputType": "number"
+            },
+            {
+              "name": "category",
+              "title": "Category",
+              "cellType": "dropdown",
+              "choices": [
+                "Electronics",
+                "Clothing",
+                "Food",
+                "Books",
+                "Other"
+              ]
+            }
+          ],
+          "defaultValue": [
+            { "product": "Laptop", "quantity": 2, "price": 999.99, "category": "Electronics" },
+            { "product": "Mouse", "quantity": 1, "price": 29.99, "category": "Electronics" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "panels",
+      "title": "Dynamic Panels",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "dynamicPanel",
+          "title": "Dynamic Panel - Contact Persons",
+          "description": "Add multiple contact persons",
+          "panelCount": 1,
+          "minPanelCount": 1,
+          "maxPanelCount": 5,
+          "templateTitle": "Contact #{panelIndex}",
+          "templateDescription": "Enter contact details",
+          "panelAddText": "Add Contact",
+          "panelRemoveText": "Remove Contact",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "name",
+              "title": "Full Name",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "email",
+              "title": "Email",
+              "inputType": "email"
+            },
+            {
+              "type": "text",
+              "name": "phone",
+              "title": "Phone Number",
+              "inputType": "tel"
+            },
+            {
+              "type": "dropdown",
+              "name": "role",
+              "title": "Role",
+              "choices": [
+                "Manager",
+                "Developer",
+                "Designer",
+                "Tester",
+                "Support"
+              ]
+            }
+          ],
+          "defaultValue": [
+            { "name": "John Doe", "email": "john@example.com", "phone": "+1-555-0101", "role": "Manager" }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "staticPanel",
+          "title": "Static Panel - Address",
+          "description": "Grouped fields in a panel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "street",
+              "title": "Street Address",
+              "defaultValue": "123 Main Street"
+            },
+            {
+              "type": "text",
+              "name": "city",
+              "title": "City",
+              "defaultValue": "New York"
+            },
+            {
+              "type": "text",
+              "name": "zipCode",
+              "title": "ZIP Code",
+              "inputType": "number",
+              "defaultValue": "10001"
+            },
+            {
+              "type": "dropdown",
+              "name": "country",
+              "title": "Country",
+              "choices": ["United States", "Canada", "United Kingdom", "Germany", "France"],
+              "defaultValue": "United States"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "files",
+      "title": "File Uploads and Signatures",
+      "elements": [
+        {
+          "type": "file",
+          "name": "singleFile",
+          "title": "Single File Upload",
+          "description": "Upload a single file",
+          "maxSize": 1048576,
+          "allowMultiple": false,
+          "acceptedTypes": ".pdf,.doc,.docx,.txt",
+          "sourceType": "file"
+        },
+        {
+          "type": "file",
+          "name": "multipleFiles",
+          "title": "Multiple Files Upload",
+          "description": "Upload multiple files",
+          "maxSize": 2097152,
+          "allowMultiple": true,
+          "acceptedTypes": ".jpg,.jpeg,.png,.gif,.pdf",
+          "sourceType": "file"
+        },
+        {
+          "type": "file",
+          "name": "imageUpload",
+          "title": "Image Upload with Preview",
+          "description": "Upload images with preview",
+          "maxSize": 524288,
+          "allowMultiple": true,
+          "acceptedTypes": "image/*",
+          "sourceType": "file",
+          "imageHeight": 150,
+          "imageWidth": 150
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "Signature",
+          "description": "Sign using mouse or touch",
+          "penColor": "#000000",
+          "backgroundColor": "#ffffff",
+          "height": 200
+        }
+      ]
+    },
+    {
+      "name": "special",
+      "title": "Special Question Types",
+      "elements": [
+        {
+          "type": "expression",
+          "name": "calculatedExpression",
+          "title": "Calculated Expression",
+          "description": "Auto-calculated value based on number field",
+          "expression": "{number} * 2",
+          "displayStyle": "decimal"
+        },
+        {
+          "type": "html",
+          "name": "htmlContent",
+          "title": "HTML Content",
+          "html": "<div style='padding: 15px; background: #f0f9ff; border-left: 4px solid #0ea5e9; border-radius: 4px;'><h4 style='margin-top: 0;'>Information Block</h4><p>This is an HTML content block that can display <strong>formatted text</strong>, <em>lists</em>, and other HTML elements.</p><ul><li>Point 1</li><li>Point 2</li><li>Point 3</li></ul></div>"
+        },
+        {
+          "type": "image",
+          "name": "imageDisplay",
+          "title": "Image Display",
+          "description": "Display an image within the form",
+          "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg",
+          "imageWidth": "300px",
+          "imageHeight": "200px",
+          "imageFit": "cover"
+        },
+        {
+          "type": "imagepicker",
+          "name": "imagePicker",
+          "title": "Image Picker",
+          "description": "Select by clicking an image",
+          "choices": [
+            {
+              "value": "lion",
+              "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg",
+              "text": "Lion"
+            },
+            {
+              "value": "giraffe",
+              "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg",
+              "text": "Giraffe"
+            },
+            {
+              "value": "panda",
+              "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg",
+              "text": "Panda"
+            }
+          ],
+          "showLabel": true,
+          "multiSelect": false
+        },
+        {
+          "type": "imagepicker",
+          "name": "imagePickerMulti",
+          "title": "Multi-Select Image Picker",
+          "description": "Select multiple images",
+          "choices": [
+            {
+              "value": "dog",
+              "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/dog.jpg",
+              "text": "Dog"
+            },
+            {
+              "value": "cat",
+              "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/cat.jpg",
+              "text": "Cat"
+            },
+            {
+              "value": "rabbit",
+              "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/rabbit.jpg",
+              "text": "Rabbit"
+            }
+          ],
+          "showLabel": true,
+          "multiSelect": true
+        }
+      ]
+    },
+    {
+      "name": "ranking",
+      "title": "Ranking and Sorting",
+      "elements": [
+        {
+          "type": "ranking",
+          "name": "ranking",
+          "title": "Rank Your Priorities",
+          "description": "Drag items to rank them in order of importance",
+          "choices": [
+            { "value": "price", "text": "Price" },
+            { "value": "quality", "text": "Quality" },
+            { "value": "support", "text": "Customer Support" },
+            { "value": "features", "text": "Features" },
+            { "value": "reliability", "text": "Reliability" }
+          ],
+          "defaultValue": ["quality", "reliability", "features", "support", "price"]
+        }
+      ]
+    }
+  ]
+}

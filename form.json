@@ -1,0 +1,615 @@
+{
+  "title": "KJA/SPZ 調査",
+  "description": "",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "html": "<h3>ご協力いただけますか？</h3><p>親愛なる同僚の皆さま、</p><p>小児科の患者さんとその社会的・小児科的課題をよりよく管理するために、皆さまのお力を必要としています。したがって、次の点についてご意見を伺いたいと思います。</p><ul><li>皆さまとの協力を改善すること</li><li>コミュニケーションを改善すること</li><li>KJA/SPZ に対する皆さまのご要望</li></ul><p>質の向上を保証するため、皆さまのご意見を大切にします。ご回答は匿名であることを、もちろんお約束します。</p>"
+        }
+      ]
+    },
+    {
+      "name": "page_q1_4",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel_Q1",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "Q1_Fachrichtung",
+              "title": "1. ご専門は何ですか？",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "Kinder_und_Jugendmedizin",
+                  "text": "小児科・思春期医学"
+                },
+                {
+                  "value": "Kinder_und_Jugendpsychiatrie",
+                  "text": "小児精神科・思春期精神医学"
+                },
+                {
+                  "value": "Neurologie",
+                  "text": "神経内科"
+                },
+                {
+                  "value": "Innere_Medizin",
+                  "text": "内科"
+                },
+                {
+                  "value": "Allgemeinmedizin_Hausarzt",
+                  "text": "一般内科 / 診療所"
+                },
+                {
+                  "value": "Sonstiges",
+                  "text": "その他"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "Q1_Sonstiges",
+              "title": "その他 :",
+              "placeHolder": "",
+              "visibleIf": "{Q1_Fachrichtung} contains 'Sonstiges'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q2",
+          "elements": [
+            {
+              "type": "dropdown",
+              "name": "Q2_Bezirk",
+              "title": "2. In welchem Bezirk arbeiten Sie?",
+              "choices": [
+                {
+                  "value": "Charlottenburg_Wilmersdorf",
+                  "text": "Charlottenburg-Wilmersdorf"
+                },
+                {
+                  "value": "Friedrichshain_Mitte",
+                  "text": "Friedrichshain/Mitte"
+                },
+                {
+                  "value": "Hellersdorf",
+                  "text": "Hellersdorf"
+                },
+                {
+                  "value": "Koepenick",
+                  "text": "Köpenick"
+                },
+                {
+                  "value": "Kreuzberg",
+                  "text": "Kreuzberg"
+                },
+                {
+                  "value": "Lichtenberg_Hohenshoenhausen",
+                  "text": "Lichtenberg/Hohenschönhausen"
+                },
+                {
+                  "value": "Marzahn",
+                  "text": "Marzahn"
+                },
+                {
+                  "": "",
+                  "text": ""
+                },
+                {
+                  "value": "Prenzlauer_Berg",
+                  "text": "Prenzlauer Berg"
+                },
+                {
+                  "value": "Neukolln",
+                  "text": "Neukölln"
+                },
+                {
+                  "value": "Reinickendorf_Wedding",
+                  "text": "Reinickendorf/Wedding"
+                },
+                {
+                  "value": "Schoneberg_Tiergarten",
+                  "text": "Schöneberg/Tiergarten"
+                },
+                {
+                  "value": "Spandau",
+                  "text": "Spandau"
+                },
+                {
+                  "value": "Steglitz_Zehlendorf",
+                  "text": "Steglitz-Zehlendorf"
+                },
+                {
+                  "value": "Tempelhof",
+                  "text": "Tempelhof"
+                },
+                {
+                  "value": "Treptow",
+                  "text": "Treptow"
+                },
+                {
+                  "value": "Weissensee",
+                  "text": "Weißensee"
+                }
+              ],
+              "isRequired": false
+            }
+          ]
+        },
+        {
+          "name": "panel_Q3",
+          "type": "panel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "Q3_Postleitzahl",
+              "title": "3. 郵便番号の5桁を入力してください。",
+              "placeHolder": "5桁の郵便番号",
+              "minLength": 5,
+              "maxLength": 5,
+              "inputType": "text",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q4",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "Q4_Woher_KJA_SPZ",
+              "title": "4. 当団の KJA/SPZ をどのように知りましたか？",
+              "choices": [
+                {
+                  "value": "Persoenlicher_Kontakt",
+                  "text": "KJA/SPZ への個人的な連絡"
+                },
+                {
+                  "value": "Fortbildungen",
+                  "text": "KJA/SPZ に関する研修"
+                },
+                {
+                  "value": "Durch_Kollegen",
+                  "text": "同僚から"
+                },
+                {
+                  "value": "Aus_Fachpresse",
+                  "text": "専門誌から"
+                },
+                {
+                  "value": "Aus_anderen_Medien",
+                  "text": "他のメディアから"
+                },
+                {
+                  "value": "Sonstiges",
+                  "text": "その他"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "Q4_Sonstiges",
+              "title": "その他 :",
+              "visibleIf": "{Q4_Woher_KJA_SPZ} contains 'Sonstiges'"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_q5_8",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel_Q5",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "Q5_Informiert",
+              "title": "5. 当KJA/SPZ の取り組みについて十分に情報を得ていますか？",
+              "choices": [
+                {
+                  "value": "Oui",
+                  "text": "はい"
+                },
+                {
+                  "value": "Nein",
+                  "text": "いいえ"
+                },
+                {
+                  "value": "Interessiert_nicht",
+                  "text": "これは興味がありません"
+                },
+                {
+                  "value": "Sonstiges",
+                  "text": "その他"
+                }
+              ],
+              "hasOther": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q6",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "Q6_Fortbildungsangebot",
+              "title": "6. 当団の KJA/SPZ の研修案内をすでに受講したことがありますか？",
+              "choices": [
+                {
+                  "value": "Ja",
+                  "text": "はい"
+                },
+                {
+                  "value": "Nein",
+                  "text": "いいえ"
+                },
+                {
+                  "value": "Wusste_bisher_nichts_davon",
+                  "text": "これまでその情報を耳にしたことがありませんでした"
+                },
+                {
+                  "value": "Wurde_bisher_nicht_angeboten",
+                  "text": "まだ提案されていません"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q7",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "Q7_Unterstutzung",
+              "title": "7. KJA/SPZ は私の仕事の支援になっていますか？",
+              "choices": [
+                {
+                  "value": "Sehr_wichtig",
+                  "text": "非常に重要"
+                },
+                {
+                  "value": "Wichtig",
+                  "text": "重要"
+                },
+                {
+                  "value": "Hilfreich",
+                  "text": "有用"
+                },
+                {
+                  "value": "Entbehrlich_weil",
+                  "text": "役に立たない、理由は"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q8",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "Q8_Kinder_pro_Jahr",
+              "title": "8. 年間でおおよそ何人の子どもをKJA/SPZに紹介していますか？",
+              "choices": [
+                {
+                  "value": "5_10",
+                  "text": "5–10人"
+                },
+                {
+                  "value": "11_20",
+                  "text": "11–20人"
+                },
+                {
+                  "value": "21_50",
+                  "text": "21–50人"
+                },
+                {
+                  "value": "Mehr_als_50",
+                  "text": "50人以上"
+                },
+                {
+                  "value": "Ich_ueberweise_selten",
+                  "text": "ほとんど紹介しません"
+                },
+                {
+                  "value": "Trifft_auf_mich_nicht_zu",
+                  "text": "これは私には該当しません"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_q9_14",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel_Q9",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "Q9_Warum_nicht_ueberweisen",
+              "title": "9. ほとんどまたは全く紹介しない場合、その理由を教えてください。",
+              "choices": [
+                {
+                  "value": "Keine_Viele",
+                  "text": "SPZ の診断を受けた子どもが多くないため"
+                },
+                {
+                  "value": "Weil_ist_zu_weited",
+                  "text": "KJA/SPZ が遠すぎるため"
+                },
+                {
+                  "value": "Aufgrund_der_Erfahrungen",
+                  "text": "これまでの経験のため"
+                },
+                {
+                  "value": "Ueberweise_an_andere_Einrichtungen",
+                  "text": "他の施設へ紹介しているため"
+                },
+                {
+                  "value": "Sonstiges",
+                  "text": "その他"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q10",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "Q10_KJA_SPZ_Zusammenarbeiten",
+              "title": "10. どの KJA/SPZ と協力していますか？",
+              "choices": [
+                {
+                  "value": "Charlottenburg_Wilmersdorf",
+                  "text": "Charlottenburg-Wilmersdorf"
+                },
+                {
+                  "value": "Friedrichshain_Mitte",
+                  "text": "Friedrichshain/Mitte"
+                },
+                {
+                  "value": "Hellersdorf",
+                  "text": "Hellersdorf"
+                },
+                {
+                  "value": "Koepenick",
+                  "text": "Köpenick"
+                },
+                {
+                  "value": "Kreuzberg",
+                  "text": "Kreuzberg"
+                },
+                {
+                  "value": "Lichtenberg_Hohenshoenhausen",
+                  "text": "Lichtenberg/Hohenschönhausen"
+                },
+                {
+                  "value": "Marzahn",
+                  "text": "Marzahn"
+                },
+                {
+                  "value": "Prenzlauer_Berg",
+                  "text": "Prenzlauer Berg"
+                },
+                {
+                  "value": "Neukolln",
+                  "text": "Neukölln"
+                },
+                {
+                  "value": "Reinickendorf_Wedding",
+                  "text": "Reinickendorf/Wedding"
+                },
+                {
+                  "value": "Schoneberg_Tiergarten",
+                  "text": "Schöneberg/Tiergarten"
+                },
+                {
+                  "value": "Spandau",
+                  "text": "Spandau"
+                },
+                {
+                  "value": "Steglitz_Zehlendorf",
+                  "text": "Steglitz-Zehlendorf"
+                },
+                {
+                  "value": "Tempelhof",
+                  "text": "Tempelhof"
+                },
+                {
+                  "value": "Treptow",
+                  "text": "Treptow"
+                },
+                {
+                  "value": "Weissensee",
+                  "text": "Weißensee"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q11",
+          "elements": [
+            {
+              "type": "matrix",
+              "name": "Q11_Erfahrung",
+              "title": "11. この1年間のKJA/SPZとの経験を評価してください：",
+              "columns": [
+                {
+                  "value": "1",
+                  "text": "1"
+                },
+                {
+                  "value": "2",
+                  "text": "2"
+                },
+                {
+                  "value": "3",
+                  "text": "3"
+                },
+                {
+                  "value": "4",
+                  "text": "4"
+                },
+                {
+                  "value": "5",
+                  "text": "5"
+                }
+              ],
+              "rows": [
+                {
+                  "value": "Wartezeiten",
+                  "text": "待機時間"
+                },
+                {
+                  "value": "Arztbriefe_Information",
+                  "text": "医師の手紙: 情報"
+                },
+                {
+                  "value": "Arztbriefe_Zeitnahe",
+                  "text": "医師の手紙: 迅速性"
+                },
+                {
+                  "value": "Telefonische_Erreichbarkeit",
+                  "text": "電話での連絡可能性"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q12",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "Q12_Dringlichkeit",
+              "title": "12. 緊急の理由でKJA/SPZに子どもを個別に登録したい場合、問題なく手続きできますか？",
+              "choices": [
+                {
+                  "value": "Ja",
+                  "text": "はい"
+                },
+                {
+                  "value": "Nein",
+                  "text": "いいえ"
+                },
+                {
+                  "value": "War_nicht_noetig",
+                  "text": "必要ありませんでした"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q13",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "Q13_Krankheitsbild",
+              "title": "13. KJA/SPZ に紹介する患者さんの主な疾患・障害は何ですか？",
+              "choices": [
+                {
+                  "value": "Entwicklungsstörungen",
+                  "text": "発達障害"
+                },
+                {
+                  "value": "Sprachentwicklungsstörungen",
+                  "text": "言語発達障害"
+                },
+                {
+                  "value": "Motorische_Störungen",
+                  "text": "運動障害"
+                },
+                {
+                  "value": "Epilepsien",
+                  "text": "てんかん"
+                },
+                {
+                  "value": "Emotionale_Störungen",
+                  "text": "情緒障害"
+                },
+                {
+                  "value": "ADHS",
+                  "text": "ADHD（注意欠如・多動症）"
+                },
+                {
+                  "value": "Störung_des_Sozialverhaltens",
+                  "text": "社会的行動障害"
+                },
+                {
+                  "value": "Genetik_Syndrome_Autismus",
+                  "text": "遺伝子/症候群/自閉症"
+                },
+                {
+                  "value": "Behinderungen",
+                  "text": "障害"
+                },
+                {
+                  "value": "Regulationsstörungen",
+                  "text": "調節障害"
+                },
+                {
+                  "value": "Psychosomatische_Störungen",
+                  "text": "心身症"
+                },
+                {
+                  "value": "Futter_und_Gedeihstörung",
+                  "text": "摂食障害と発育不良"
+                },
+                {
+                  "value": "Sonstiges",
+                  "text": "その他"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_Q14",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "Q14_Veraenderungen",
+              "title": "14. KJA/SPZ に関して、修正すべき要素は何だと思いますか？",
+              "placeHolder": "最大3000文字",
+              "rows": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "page_end",
+      "elements": [
+        {
+          "type": "html",
+          "html": "<h2>ご参加いただきありがとうございます！</h2><p>ご協力ありがとうございます。ご回答は記録されました。ブラウザのウィンドウを閉じてください。</p>"
+        }
+      ]
+    }
+  ],
+  "showQuestionNumbers": "off"
+}

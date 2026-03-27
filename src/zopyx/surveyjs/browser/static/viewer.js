@@ -63,9 +63,12 @@ function handleViewerReady(event) {
     viewerConfig && viewerConfig.surveyLanguageLabels &&
     typeof viewerConfig.surveyLanguageLabels === "object"
   ) ? viewerConfig.surveyLanguageLabels : {};
-  const accessToken = new URLSearchParams(window.location.search).get("access_token");
+  const urlParams = new URLSearchParams(window.location.search);
+  // Support both auth_token (token store) and access_token (cached tokens)
+  const accessToken = urlParams.get("auth_token") || urlParams.get("access_token");
+  const tokenParam = urlParams.has("auth_token") ? "auth_token" : "access_token";
   const url = accessToken
-    ? ACTUAL_URL + "/get-form-json?access_token=" + encodeURIComponent(accessToken)
+    ? ACTUAL_URL + "/get-form-json?" + tokenParam + "=" + encodeURIComponent(accessToken)
     : ACTUAL_URL + "/get-form-json";
   const surveyContainer = document.getElementById("surveyContainer");
   const statusBar = document.querySelector(".survey-status-bar");
@@ -89,6 +92,8 @@ function handleViewerReady(event) {
     trusted_access_token_revoked: t("This trusted access link has been revoked."),
     trusted_access_form_mismatch: t("This trusted access link does not match this form."),
     trusted_access_cache_unavailable: t("Trusted access service is temporarily unavailable. Please try again later."),
+    trusted_tokens_token_invalid: t("This access token is invalid or has already been used."),
+    trusted_tokens_store_unavailable: t("Token store service is temporarily unavailable. Please try again later."),
   };
 
   /**
@@ -381,7 +386,8 @@ function handleViewerReady(event) {
           formData.append("auth_token", AUTH_TOKEN);
         }
         if (accessToken) {
-          formData.append("access_token", accessToken);
+          // Use the same token parameter name that was in the URL
+          formData.append(tokenParam, accessToken);
         }
 
         fetch(ACTUAL_URL + "/save-poll", {
