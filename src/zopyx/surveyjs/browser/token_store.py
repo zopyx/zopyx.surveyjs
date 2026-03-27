@@ -7,16 +7,17 @@ from zope.component import getAdapter
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from plone import api
-from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from ..interfaces import ITokenStore
+from .views import Views
 
 
 @implementer(IPublishTraverse)
-class TokenStoreView(BrowserView):
+class TokenStoreView(Views):
     """Browser view for managing survey tokens."""
 
+    # Define template at class level - standard Five pattern
     template = ViewPageTemplateFile("token_store.pt")
 
     def __init__(self, context, request):
@@ -52,9 +53,13 @@ class TokenStoreView(BrowserView):
                 )
             return self.request.response.redirect(self.request.URL)
 
-        # Handle CSV download
-        if "download_csv" in form:
-            return self.download_csv()
+        # Handle CSV download (valid/only unused tokens)
+        if "download_valid_tokens" in form:
+            return self.download_valid_tokens()
+
+        # Handle CSV download (all tokens with timestamps)
+        if "download_all_tokens" in form:
+            return self.download_all_tokens()
 
         # Handle clear tokens
         if "clear_tokens" in form:
@@ -87,8 +92,8 @@ class TokenStoreView(BrowserView):
         """Get the base survey URL."""
         return self.context.absolute_url()
 
-    def download_csv(self):
-        """Generate and download CSV with unused tokens and URLs."""
+    def download_valid_tokens(self):
+        """Generate and download CSV with unused (valid) tokens and URLs."""
         tokens = [
             t for t in self.token_store.list_tokens()
             if t.get("used") is None
@@ -112,7 +117,40 @@ class TokenStoreView(BrowserView):
         csv_content = output.getvalue()
         output.close()
 
-        filename = f"{self.context.getId()}_tokens.csv"
+        filename = f"{self.context.getId()}_valid_tokens.csv"
+        
+        self.request.response.setHeader("Content-Type", "text/csv; charset=utf-8")
+        self.request.response.setHeader(
+            "Content-Disposition", f'attachment; filename="{filename}"'
+        )
+        return csv_content
+
+    def download_all_tokens(self):
+        """Generate and download CSV with all tokens and full metadata."""
+        tokens = self.token_store.list_tokens()
+        base_url = self.context.absolute_url()
+
+        # Create CSV in memory
+        output = io.StringIO()
+        writer = csv.writer(output)
+        
+        # Write header with all metadata fields
+        writer.writerow(["token", "url", "created", "used", "status"])
+        
+        # Write data rows
+        for token_info in tokens:
+            token = token_info["token"]
+            url = f"{base_url}?tt={token}"
+            created = token_info.get("created", "")
+            used = token_info.get("used") or ""
+            status = "used" if token_info.get("used") else "unused"
+            writer.writerow([token, url, created, used, status])
+
+        # Prepare response
+        csv_content = output.getvalue()
+        output.close()
+
+        filename = f"{self.context.getId()}_all_tokens.csv"
         
         self.request.response.setHeader("Content-Type", "text/csv; charset=utf-8")
         self.request.response.setHeader(

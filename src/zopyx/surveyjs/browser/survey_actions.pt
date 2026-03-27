@@ -47,6 +47,15 @@
            href="${context/absolute_url}/@@survey-metadata">
           <span i18n:translate="">Metadata</span>
         </a>
+        <tal:tokens tal:condition="python: view.is_manager and getattr(context, 'access_mode', '') == 'trusted-tokens'">
+          <a class="survey-action-button action-tokens"
+             tal:attributes="class python: 'survey-action-button action-tokens' + (' is-active' if current_url.endswith('/@@token-store') else '');
+                             title python: 'Manage access tokens' if not current_url.endswith('/@@token-store') else 'Currently managing tokens';
+                             aria-label python: 'Manage access tokens' if not current_url.endswith('/@@token-store') else 'Currently managing tokens'"
+             href="${context/absolute_url}/@@token-store">
+            <span i18n:translate="">Tokens</span>
+          </a>
+        </tal:tokens>
         <a class="survey-action-button action-versions"
            tal:attributes="class python: 'survey-action-button action-versions' + (' is-active' if current_url.endswith('/@@form-versions') else '');
                            title python: 'Manage versions' if not current_url.endswith('/@@form-versions') else 'Currently managing versions';

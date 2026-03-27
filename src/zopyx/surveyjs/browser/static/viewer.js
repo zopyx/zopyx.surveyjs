@@ -98,26 +98,78 @@ function handleViewerReady(event) {
 
   /**
    * Show the trusted-access error state and hide the survey container.
-   * @param {string} message
+   * @param {string} errorKey - The error key to determine which error state to show
    */
-  const showAccessError = function (message) {
+  const showAccessError = function (errorKey) {
+    // Hide the survey container
     if (surveyContainer) {
       surveyContainer.classList.add("survey-container-hidden");
       surveyContainer.setAttribute("hidden", "hidden");
       surveyContainer.style.display = "none";
     }
+    
+    // Hide the toolbar (fullscreen toggle and language selector)
+    const viewerContainer = document.getElementById("surveyViewerContainer");
+    if (viewerContainer) {
+      viewerContainer.classList.add("survey-container-hidden");
+      viewerContainer.setAttribute("hidden", "hidden");
+      viewerContainer.style.display = "none";
+    }
+    
+    // Also hide fullscreen toggle and language selector individually
+    if (fullscreenToggle) {
+      fullscreenToggle.style.display = "none";
+    }
+    if (languageSelector) {
+      languageSelector.style.display = "none";
+    }
+    
     if (statusBar) {
       statusBar.hidden = true;
     }
-    if (errorContainer) {
-      const messageEl = errorContainer.querySelector("#surveyAccessErrorMessage");
-      if (messageEl) {
-        messageEl.textContent = message;
-      } else {
-        errorContainer.textContent = message;
-      }
-      errorContainer.hidden = false;
+    if (!errorContainer) {
+      return;
     }
+
+    // Hide all error states first
+    const allErrorStates = errorContainer.querySelectorAll('.survey-error-state');
+    allErrorStates.forEach(function(el) {
+      el.classList.add('hidden');
+    });
+
+    // Map error keys to error state IDs
+    const errorStateMap = {
+      'trusted_access_token_missing': 'error-missing-token',
+      'trusted_access_token_invalid': 'error-invalid-token',
+      'trusted_access_token_revoked': 'error-revoked-token',
+      'trusted_access_form_mismatch': 'error-invalid-token',
+      'trusted_access_cache_unavailable': 'error-service-unavailable',
+      'trusted_tokens_token_invalid': 'error-invalid-token',
+      'trusted_tokens_store_unavailable': 'error-service-unavailable',
+      'auth_token_expired': 'error-invalid-token',
+      'missing_auth_token': 'error-missing-token',
+      'invalid_auth_token': 'error-invalid-token'
+    };
+
+    const stateId = errorStateMap[errorKey] || 'error-generic';
+    const errorState = errorContainer.querySelector('#' + stateId);
+    
+    if (errorState) {
+      errorState.classList.remove('hidden');
+    } else {
+      // Fallback to generic error
+      const genericError = errorContainer.querySelector('#error-generic');
+      if (genericError) {
+        genericError.classList.remove('hidden');
+        // Update the generic message if provided
+        const messageEl = genericError.querySelector('.survey-error-message');
+        if (messageEl && trustedAccessMessages[errorKey]) {
+          messageEl.textContent = trustedAccessMessages[errorKey];
+        }
+      }
+    }
+    
+    errorContainer.hidden = false;
   };
 
   /**
@@ -267,9 +319,7 @@ function handleViewerReady(event) {
   }
 
   if (trustedAccessEnabled && !accessToken && !canManage) {
-    showAccessError(
-      trustedAccessMessages.trusted_access_token_missing
-    );
+    showAccessError('trusted_access_token_missing');
     return;
   }
   
@@ -525,11 +575,11 @@ function handleViewerReady(event) {
       const errorKey = error && error.payload && error.payload.error;
       console.log("Form load error:", error, "errorKey:", errorKey, "trustedAccessEnabled:", trustedAccessEnabled);
       if (trustedAccessEnabled && errorKey && trustedAccessMessages[errorKey]) {
-        showAccessError(trustedAccessMessages[errorKey]);
+        showAccessError(errorKey);
         return;
       }
       if (trustedAccessEnabled && errorKey === "trusted_access_token_missing") {
-        showAccessError(trustedAccessMessages.trusted_access_token_missing);
+        showAccessError('trusted_access_token_missing');
         return;
       }
       console.error(t("Error loading survey:"), error);

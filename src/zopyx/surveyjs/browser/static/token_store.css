@@ -1,0 +1,211 @@
+/* Token Store Styles */
+
+.token-view {
+  max-width: 800px;
+}
+
+/* Stats Row - Clean display at top, right-aligned */
+.tv-stats-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  margin-bottom: 20px;
+  padding: 15px 0;
+}
+
+.tv-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.tv-stat-number {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: #374151;
+}
+
+.tv-stat-number.total {
+  color: #2563eb;
+}
+
+.tv-stat-number.unused {
+  color: #16a34a;
+}
+
+.tv-stat-number.used {
+  color: #ea580c;
+}
+
+.tv-stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Main Action Box */
+.tv-action-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.tv-action-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Generate Section */
+.tv-generate h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.tv-form {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.tv-form input[type="number"] {
+  width: 100px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  text-align: right;
+}
+
+.tv-form input[type="number"]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Buttons */
+.tv-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.tv-btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.tv-btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.tv-btn-green {
+  background: #16a34a;
+  color: white;
+}
+
+.tv-btn-green:hover {
+  background: #15803d;
+}
+
+.tv-btn-secondary {
+  background: #6b7280;
+  color: white;
+}
+
+.tv-btn-secondary:hover {
+  background: #4b5563;
+}
+
+.tv-btn-red {
+  background: #dc2626;
+  color: white;
+}
+
+.tv-btn-red:hover {
+  background: #b91c1c;
+}
+
+/* Actions Section */
+.tv-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.tv-actions-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #374151;
+  margin: 0 0 4px 0;
+}
+
+.tv-action {
+  margin: 0;
+}
+
+.tv-action .tv-btn {
+  width: 100%;
+}
+
+/* Empty State */
+.tv-empty {
+  color: #6b7280;
+  padding: 40px;
+  text-align: center;
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Help */
+.tv-help {
+  background: #fffbeb;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.tv-help p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #92400e;
+  margin: 0;
+}
+
+.tv-help strong {
+  color: #78350f;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .tv-action-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .tv-actions {
+    min-width: auto;
+  }
+}

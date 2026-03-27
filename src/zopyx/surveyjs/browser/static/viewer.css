@@ -177,6 +177,173 @@ article > header {
     margin-top: 0.35rem;
 }
 
+/* ============================================================================
+   NEW EXPRESSIVE ERROR STATES
+   ============================================================================ */
+
+.survey-error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.survey-error-state.hidden {
+    display: none !important;
+}
+
+/* Error Visual / Icon Area */
+.survey-error-visual {
+    margin-bottom: 1.5rem;
+}
+
+.survey-error-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.survey-error-icon svg {
+    width: 48px;
+    height: 48px;
+    fill: currentColor;
+}
+
+/* Icon variations by error type */
+.survey-error-icon-lock {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    color: #1e40af;
+}
+
+.survey-error-icon-expired {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #b45309;
+}
+
+.survey-error-icon-blocked {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #b91c1c;
+}
+
+.survey-error-icon-warning {
+    background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+    color: #c2410c;
+}
+
+.survey-error-icon-error {
+    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    color: #7c3aed;
+}
+
+/* Error Content Area */
+.survey-error-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.survey-error-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.survey-error-message {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Help Section */
+.survey-error-help {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+.survey-error-help h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.survey-error-steps {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.survey-error-steps li {
+    margin-bottom: 0.5rem;
+}
+
+.survey-error-steps li:last-child {
+    margin-bottom: 0;
+}
+
+/* Error state specific container backgrounds */
+.survey-error-state-missing .survey-error-help {
+    border-left: 4px solid #3b82f6;
+}
+
+.survey-error-state-invalid .survey-error-help {
+    border-left: 4px solid #f59e0b;
+}
+
+.survey-error-state-revoked .survey-error-help {
+    border-left: 4px solid #ef4444;
+}
+
+.survey-error-state-unavailable .survey-error-help {
+    border-left: 4px solid #f97316;
+}
+
+.survey-error-state-generic .survey-error-help {
+    border-left: 4px solid #8b5cf6;
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+    .survey-error-state {
+        padding: 3rem 2rem;
+    }
+    
+    .survey-error-icon {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .survey-error-icon svg {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .survey-error-title {
+        font-size: 1.75rem;
+    }
+    
+    .survey-error-message {
+        font-size: 1.15rem;
+    }
+}
+
 .beta-badge {
     align-items: center;
     background: #f59e0b;

@@ -131,39 +131,139 @@
     </tal:trusted>
 
     <tal:trusted-access-state>
+      <!-- Error States for Token Issues -->
       <div id="surveyAccessError"
            class="survey-access-error"
            tal:attributes="hidden python: None if missing_token else 'hidden'">
-        <div class="survey-access-error-card">
-          <div class="survey-access-error-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
-              <path d="M12 2a7 7 0 0 1 7 7v3h1.2a1.8 1.8 0 0 1 1.8 1.8v6.4A1.8 1.8 0 0 1 20.2 22H3.8A1.8 1.8 0 0 1 2 20.2v-6.4A1.8 1.8 0 0 1 3.8 12H5V9a7 7 0 0 1 7-7Zm0 2a5 5 0 0 0-5 5v3h10V9a5 5 0 0 0-5-5Zm0 10.2a1.8 1.8 0 0 1 1.1 3.2l-.1 2a1 1 0 0 1-2 0l-.1-2A1.8 1.8 0 0 1 12 14.2Z"></path>
-            </svg>
-          </div>
-          <div class="survey-access-error-body">
-            <p class="survey-access-error-title" i18n:translate="">Trusted access required</p>
-            <p class="survey-access-error-message" id="surveyAccessErrorMessage" i18n:translate="">
-              This form requires a trusted access link. Please use the link provided by the form owner.
-            </p>
-            <div class="survey-access-error-meta">
-              <p class="survey-access-error-meta-title"
-                 tal:content="context/Title">Survey title</p>
-              <p class="survey-access-error-meta-description"
-                 tal:condition="context/Description"
-                 tal:content="context/Description">Survey description</p>
+        
+        <!-- Missing Token -->
+        <div id="error-missing-token" class="survey-error-state survey-error-state-missing hidden">
+          <div class="survey-error-visual">
+            <div class="survey-error-icon survey-error-icon-lock">
+              <svg viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
+                <path d="M12 2a7 7 0 0 1 7 7v3h1.2a1.8 1.8 0 0 1 1.8 1.8v6.4A1.8 1.8 0 0 1 20.2 22H3.8A1.8 1.8 0 0 1 2 20.2v-6.4A1.8 1.8 0 0 1 3.8 12H5V9a7 7 0 0 1 7-7Zm0 2a5 5 0 0 0-5 5v3h10V9a5 5 0 0 0-5-5Z"/>
+              </svg>
             </div>
-            <ul class="survey-access-error-steps">
-              <li i18n:translate="">Ask the form owner for a trusted access link.</li>
-              <li i18n:translate="">Open the link in this browser to continue.</li>
-            </ul>
+          </div>
+          <div class="survey-error-content">
+            <h1 class="survey-error-title" i18n:translate="">Access Required</h1>
+            <p class="survey-error-message" i18n:translate="">
+              This form requires a secure access link to view.
+            </p>
+            <div class="survey-error-help">
+              <h2 i18n:translate="">What you can do:</h2>
+              <ul class="survey-error-steps">
+                <li i18n:translate="">Check that you received the correct link from the sender</li>
+                <li i18n:translate="">Make sure the complete link was copied (it may have been truncated)</li>
+                <li i18n:translate="">Contact the person who invited you to complete this form</li>
+              </ul>
+            </div>
           </div>
         </div>
+
+        <!-- Invalid/Expired Token -->
+        <div id="error-invalid-token" class="survey-error-state survey-error-state-invalid hidden">
+          <div class="survey-error-visual">
+            <div class="survey-error-icon survey-error-icon-expired">
+              <svg viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="survey-error-content">
+            <h1 class="survey-error-title" i18n:translate="">Link Expired or Invalid</h1>
+            <p class="survey-error-message" i18n:translate="">
+              This access link is no longer valid. It may have expired or already been used.
+            </p>
+            <div class="survey-error-help">
+              <h2 i18n:translate="">What you can do:</h2>
+              <ul class="survey-error-steps">
+                <li i18n:translate="">Request a new access link from the form owner</li>
+                <li i18n:translate="">Each link can only be used once and expires after a set time</li>
+                <li i18n:translate="">Check your email for a more recent invitation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revoked Token -->
+        <div id="error-revoked-token" class="survey-error-state survey-error-state-revoked hidden">
+          <div class="survey-error-visual">
+            <div class="survey-error-icon survey-error-icon-blocked">
+              <svg viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" transform="rotate(45 12 12) translate(0 -2)"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8 0-1.85.63-3.55 1.69-4.9L16.9 18.31C15.55 19.37 13.85 20 12 20zm6.31-3.1L7.1 5.69C8.45 4.63 10.15 4 12 4c4.42 0 8 3.58 8 8 0 1.85-.63 3.55-1.69 4.9z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="survey-error-content">
+            <h1 class="survey-error-title" i18n:translate="">Access Revoked</h1>
+            <p class="survey-error-message" i18n:translate="">
+              This access link has been revoked and can no longer be used.
+            </p>
+            <div class="survey-error-help">
+              <h2 i18n:translate="">What you can do:</h2>
+              <ul class="survey-error-steps">
+                <li i18n:translate="">Contact the form owner if you believe this is an error</li>
+                <li i18n:translate="">Request a new access link to continue</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Unavailable -->
+        <div id="error-service-unavailable" class="survey-error-state survey-error-state-unavailable hidden">
+          <div class="survey-error-visual">
+            <div class="survey-error-icon survey-error-icon-warning">
+              <svg viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
+                <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="survey-error-content">
+            <h1 class="survey-error-title" i18n:translate="">Service Temporarily Unavailable</h1>
+            <p class="survey-error-message" i18n:translate="">
+              We're experiencing technical difficulties. Please try again in a few minutes.
+            </p>
+            <div class="survey-error-help">
+              <h2 i18n:translate="">What you can do:</h2>
+              <ul class="survey-error-steps">
+                <li i18n:translate="">Wait a few minutes and refresh this page</li>
+                <li i18n:translate="">If the problem persists, contact the form owner</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generic Error (fallback) -->
+        <div id="error-generic" class="survey-error-state survey-error-state-generic hidden">
+          <div class="survey-error-visual">
+            <div class="survey-error-icon survey-error-icon-error">
+              <svg viewBox="0 0 24 24" role="presentation" focusable="false" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="survey-error-content">
+            <h1 class="survey-error-title" i18n:translate="">Access Denied</h1>
+            <p class="survey-error-message" id="surveyAccessErrorMessage" i18n:translate="">
+              Unable to access this form. The link may be invalid or expired.
+            </p>
+            <div class="survey-error-help">
+              <h2 i18n:translate="">What you can do:</h2>
+              <ul class="survey-error-steps">
+                <li i18n:translate="">Check that you're using the correct link</li>
+                <li i18n:translate="">Contact the form owner for assistance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div id="surveyViewerContainer"
            class="survey-viewer-container"
            tal:attributes="class python: 'survey-viewer-container survey-container-hidden' if missing_token else 'survey-viewer-container'; hidden python: 'hidden' if missing_token else None"
            data-token-present="${python: 'true' if (request.get('access_token') or request.get('tt')) else 'false'}">
-        <div class="survey-viewer-toolbar">
+        <div class="survey-viewer-toolbar" tal:condition="not: missing_token">
           <select id="surveyLanguageSelector"
                   class="survey-language-selector"
                   aria-label="Select language">

@@ -52,7 +52,8 @@ class TokenStoreViewTest(unittest.TestCase):
         self.assertIn("TokenStoreView", str(self.view.__class__.__mro__))
         # Check the view has the expected attributes
         self.assertTrue(hasattr(self.view, 'get_stats'))
-        self.assertTrue(hasattr(self.view, 'download_csv'))
+        self.assertTrue(hasattr(self.view, 'download_valid_tokens'))
+        self.assertTrue(hasattr(self.view, 'download_all_tokens'))
 
     def test_get_stats_empty(self):
         """Test stats with no tokens."""
@@ -85,8 +86,8 @@ class TokenStoreViewTest(unittest.TestCase):
         url = self.view.get_survey_url()
         self.assertEqual(url, self.survey.absolute_url())
 
-    def test_download_csv_only_unused(self):
-        """Test CSV download only includes unused tokens."""
+    def test_download_valid_tokens_only_unused(self):
+        """Test CSV download only includes unused (valid) tokens."""
         # Generate tokens
         tokens = self.token_store.generate_tokens(5)
         
@@ -95,7 +96,7 @@ class TokenStoreViewTest(unittest.TestCase):
         self.token_store.invalidate(tokens[1])
         
         # Get CSV content
-        csv_content = self.view.download_csv()
+        csv_content = self.view.download_valid_tokens()
         
         # Check CSV structure (handle Windows line endings)
         lines = csv_content.strip().replace("\r\n", "\n").split("\n")
@@ -112,6 +113,40 @@ class TokenStoreViewTest(unittest.TestCase):
             self.assertTrue(url.startswith(self.survey.absolute_url()))
             self.assertIn("?tt=", url)
             self.assertIn(token, url)
+
+    def test_download_all_tokens(self):
+        """Test CSV download includes all tokens with metadata."""
+        # Generate tokens
+        tokens = self.token_store.generate_tokens(5)
+        
+        # Use 2 tokens
+        self.token_store.invalidate(tokens[0])
+        self.token_store.invalidate(tokens[1])
+        
+        # Get CSV content
+        csv_content = self.view.download_all_tokens()
+        
+        # Check CSV structure (handle Windows line endings)
+        lines = csv_content.strip().replace("\r\n", "\n").split("\n")
+        # Header + all 5 tokens
+        self.assertEqual(len(lines), 6)
+        self.assertEqual(lines[0], "token,url,created,used,status")
+        
+        # Verify all tokens are in CSV
+        token_values_in_csv = []
+        for line in lines[1:]:
+            parts = line.split(",")
+            self.assertEqual(len(parts), 5)
+            token, url, created, used, status = parts
+            token_values_in_csv.append(token)
+            self.assertTrue(url.startswith(self.survey.absolute_url()))
+            self.assertIn("?tt=", url)
+            self.assertIn(token, url)
+            self.assertIn(status, ["used", "unused"])
+        
+        # All tokens should be present
+        for token in tokens:
+            self.assertIn(token, token_values_in_csv)
 
 
 if __name__ == "__main__":
