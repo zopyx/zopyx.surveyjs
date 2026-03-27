@@ -621,7 +621,9 @@ class Views(BrowserView):
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
         embed_token = self.request.get_header("X-Embed-Token")
 
+        needs_trusted_token = True
         if origin and embed_token:
+            needs_trusted_token = False
             # This is a direct embed submission - validate it
             from .embed_security import (
                 validate_embed_token,
@@ -770,6 +772,9 @@ class Views(BrowserView):
                 False,
                 submission_hash,
             )
+
+        if needs_trusted_token and not self._consume_trusted_access_token():
+            return
 
         data = dict(
             poll_id=str(uuid.uuid1()),
@@ -956,6 +961,11 @@ class Views(BrowserView):
         if self.can_manage_portal_content:
             return True
         return self._auth().require_trusted_access(logger=logger)
+
+    def _consume_trusted_access_token(self) -> bool:
+        if self.can_manage_portal_content:
+            return True
+        return self._auth().consume_trusted_access_token(logger=logger)
 
     def _build_auth_token(self, form_version_id):
         token = self._auth().build_auth_token(form_version_id or "")

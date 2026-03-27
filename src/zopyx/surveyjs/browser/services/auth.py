@@ -261,10 +261,9 @@ class AuthService:
             )
             return False
         
-        # Mark token as used (invalidate it)
-        token_store.invalidate(token)
+        # Do not invalidate here; consume on successful submission.
         if logger:
-            logger.info("Survey trusted-tokens access: token_used token=%s", token)
+            logger.info("Survey trusted-tokens access: token_valid token=%s", token)
         return True
 
     def require_trusted_access(self, logger=None):
@@ -292,6 +291,54 @@ class AuthService:
         else:
             # Original 'trusted' mode with cached tokens
             return self._require_trusted_access_cached(token, logger=logger)
+
+    def trusted_access_token_from_request(self):
+        """Return the trusted access token from the request, if any."""
+        return self._get_token_from_request()
+
+    def consume_trusted_access_token(self, logger=None):
+        """Invalidate a trusted token after successful submission."""
+        mode = getattr(self.context, "access_mode", "") or "public"
+        mode = str(mode).strip().lower()
+        if mode != "trusted-tokens":
+            return True
+
+        token = self._get_token_from_request()
+        if not token:
+            if logger:
+                logger.info("Survey trusted-tokens consume denied: reason=missing_token")
+            json_error(
+                self.request.response,
+                403,
+                "trusted_access_token_missing",
+            )
+            return False
+
+        try:
+            token_store = getAdapter(self.context, ITokenStore)
+        except Exception:
+            if logger:
+                logger.info("Survey trusted-tokens consume denied: reason=token_store_unavailable")
+            json_error(
+                self.request.response,
+                503,
+                "trusted_tokens_store_unavailable",
+            )
+            return False
+
+        if not token_store.invalidate(token):
+            if logger:
+                logger.info("Survey trusted-tokens consume denied: reason=invalid_or_used_token")
+            json_error(
+                self.request.response,
+                403,
+                "trusted_tokens_token_invalid",
+            )
+            return False
+
+        if logger:
+            logger.info("Survey trusted-tokens access: token_consumed token=%s", token)
+        return True
 
     def require_auth_token(self, form_version_id, logger=None):
         """Validate the submitted authenticity token and block replay."""
