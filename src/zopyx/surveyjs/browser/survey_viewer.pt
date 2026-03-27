@@ -14,7 +14,7 @@
 
   <metal:block fill-slot="content-core"
                tal:define="portal_state context/@@plone_portal_state;
-                           missing_token python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content;
+                           missing_token python: view.trusted_access_enabled and not (request.get('access_token') or request.get('auth_token')) and not view.can_manage_portal_content;
                            can_modify python: context.portal_membership.checkPermission('Modify portal content', context)">
     <metal:surveyjs-var-actual-url
         use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url"
@@ -27,7 +27,7 @@
     />
     <script type="application/json"
             id="survey-viewer-config"
-            tal:define="config_json python: __import__('json').dumps({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content), 'surveyLanguages': list(getattr(context, 'survey_languages', []) or []), 'surveyLanguageLabels': view.survey_language_labels, 'hasFillablePdf': bool(view.has_fillable_pdf)})"
+            tal:define="config_json python: __import__('json').dumps({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content), 'surveyLanguages': list(getattr(context, 'survey_languages', []) or []), 'surveyLanguageLabels': view.survey_language_labels, 'hasFillablePdf': bool(view.has_fillable_pdf), 'tokenParam': 'auth_token' if getattr(context, 'access_mode', '') == 'trusted-tokens' else 'access_token'})"
             tal:content="structure config_json"></script>
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"

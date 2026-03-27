@@ -215,6 +215,28 @@ class AuthService:
             return False
         return True
 
+    def _get_token_from_request(self):
+        """Get token from request parameters.
+        
+        Checks for 'auth_token' (used by token store) or 'access_token' (used by cached tokens).
+        """
+        # Check for auth_token first (token store uses this)
+        token = (
+            self.request.form.get("auth_token")
+            or self.request.get("auth_token")
+            or ""
+        )
+        if token:
+            return str(token).strip()
+        
+        # Fallback to access_token (cached trusted tokens use this)
+        token = (
+            self.request.form.get("access_token")
+            or self.request.get("access_token")
+            or ""
+        )
+        return str(token).strip()
+
     def _require_trusted_access_tokens(self, token, logger=None):
         """Validate token using ITokenStore (for 'trusted-tokens' mode)."""
         try:
@@ -250,12 +272,7 @@ class AuthService:
         if not self.trusted_access_enabled():
             return True
         
-        token = (
-            self.request.form.get("access_token")
-            or self.request.get("access_token")
-            or ""
-        )
-        token = str(token).strip()
+        token = self._get_token_from_request()
         if not token:
             if logger:
                 logger.info("Survey trusted access denied: reason=missing_token")

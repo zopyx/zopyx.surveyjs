@@ -21,7 +21,7 @@
   />
   <script type="application/json"
           id="survey-viewer-config"
-          tal:define="config_json python: __import__('json').dumps({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content), 'surveyLanguages': list(getattr(context, 'survey_languages', []) or []), 'surveyLanguageLabels': view.survey_language_labels})"
+          tal:define="config_json python: __import__('json').dumps({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content), 'surveyLanguages': list(getattr(context, 'survey_languages', []) or []), 'surveyLanguageLabels': view.survey_language_labels, 'tokenParam': 'auth_token' if getattr(context, 'access_mode', '') == 'trusted-tokens' else 'access_token'})"
           tal:content="structure config_json"></script>
   <metal:surveyjs-vars-base
       use-macro="context/@@survey-assets/macros/surveyjs-vars-base"
@@ -51,7 +51,7 @@
 </head>
 <body>
   <tal:trusted-access-state
-      tal:define="missing_token python: view.trusted_access_enabled and not request.get('access_token') and not view.can_manage_portal_content">
+      tal:define="missing_token python: view.trusted_access_enabled and not (request.get('access_token') or request.get('auth_token')) and not view.can_manage_portal_content">
     <div id="surveyAccessError"
          class="survey-access-error"
          tal:attributes="hidden python: None if missing_token else 'hidden'">
