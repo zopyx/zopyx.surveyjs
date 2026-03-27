@@ -92,7 +92,7 @@ function handleViewerReady(event) {
     trusted_access_token_revoked: t("This trusted access link has been revoked."),
     trusted_access_form_mismatch: t("This trusted access link does not match this form."),
     trusted_access_cache_unavailable: t("Trusted access service is temporarily unavailable. Please try again later."),
-    trusted_tokens_token_invalid: t("This access token is invalid or has already been used."),
+    trusted_tokens_token_invalid: t("This access token is invalid, expired, or has already been used. Each token can only be used once."),
     trusted_tokens_store_unavailable: t("Token store service is temporarily unavailable. Please try again later."),
   };
 
@@ -504,6 +504,7 @@ function handleViewerReady(event) {
      */
     .catch(function handleFormLoadError(error) {
       const errorKey = error && error.payload && error.payload.error;
+      console.log("Form load error:", error, "errorKey:", errorKey, "trustedAccessEnabled:", trustedAccessEnabled);
       if (trustedAccessEnabled && errorKey && trustedAccessMessages[errorKey]) {
         showAccessError(trustedAccessMessages[errorKey]);
         return;
