@@ -7,7 +7,9 @@ import diskcache
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
-from ...interfaces import IFormsSettings
+from zope.component import getAdapter
+
+from ...interfaces import IFormsSettings, ITokenStore
 from ...security import AuthTokenError, build_auth_token, validate_auth_token
 from .http import json_error
 
@@ -36,7 +38,8 @@ class AuthService:
     def trusted_access_enabled(self):
         """Return whether trusted access mode is enabled for the context."""
         mode = getattr(self.context, "access_mode", "") or "public"
-        return str(mode).strip().lower() == "trusted"
+        mode = str(mode).strip().lower()
+        return mode in ("trusted", "trusted-tokens")
 
     def _trusted_access_cache_key(self, token):
         """Build the cache key used for trusted access tokens."""
@@ -166,25 +169,8 @@ class AuthService:
             cache.close()
         return token, metadata
 
-    def require_trusted_access(self, logger=None):
-        """Validate trusted access token requirements for the current request."""
-        if not self.trusted_access_enabled():
-            return True
-        token = (
-            self.request.form.get("access_token")
-            or self.request.get("access_token")
-            or ""
-        )
-        token = str(token).strip()
-        if not token:
-            if logger:
-                logger.info("Survey trusted access denied: reason=missing_token")
-            json_error(
-                self.request.response,
-                403,
-                "trusted_access_token_missing",
-            )
-            return False
+    def _require_trusted_access_cached(self, token, logger=None):
+        """Validate cached trusted access token (for 'trusted' mode)."""
         settings = self._auth_settings()
         cache = self._token_cache(settings)
         if not cache:
@@ -228,6 +214,67 @@ class AuthService:
             )
             return False
         return True
+
+    def _require_trusted_access_tokens(self, token, logger=None):
+        """Validate token using ITokenStore (for 'trusted-tokens' mode)."""
+        try:
+            token_store = getAdapter(self.context, ITokenStore)
+        except Exception:
+            if logger:
+                logger.info("Survey trusted-tokens access denied: reason=token_store_unavailable")
+            json_error(
+                self.request.response,
+                503,
+                "trusted_tokens_store_unavailable",
+            )
+            return False
+        
+        if not token_store.has_token(token):
+            if logger:
+                logger.info("Survey trusted-tokens access denied: reason=invalid_or_used_token")
+            json_error(
+                self.request.response,
+                403,
+                "trusted_tokens_token_invalid",
+            )
+            return False
+        
+        # Mark token as used (invalidate it)
+        token_store.invalidate(token)
+        if logger:
+            logger.info("Survey trusted-tokens access: token_used token=%s", token)
+        return True
+
+    def require_trusted_access(self, logger=None):
+        """Validate trusted access token requirements for the current request."""
+        if not self.trusted_access_enabled():
+            return True
+        
+        token = (
+            self.request.form.get("access_token")
+            or self.request.get("access_token")
+            or ""
+        )
+        token = str(token).strip()
+        if not token:
+            if logger:
+                logger.info("Survey trusted access denied: reason=missing_token")
+            json_error(
+                self.request.response,
+                403,
+                "trusted_access_token_missing",
+            )
+            return False
+        
+        # Determine which mode is active
+        mode = getattr(self.context, "access_mode", "") or "public"
+        mode = str(mode).strip().lower()
+        
+        if mode == "trusted-tokens":
+            return self._require_trusted_access_tokens(token, logger=logger)
+        else:
+            # Original 'trusted' mode with cached tokens
+            return self._require_trusted_access_cached(token, logger=logger)
 
     def require_auth_token(self, form_version_id, logger=None):
         """Validate the submitted authenticity token and block replay."""

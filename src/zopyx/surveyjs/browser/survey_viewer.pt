@@ -63,46 +63,71 @@
       </metal:survey-header-subtitle>
     </metal:survey-header>
 
-    <tal:trusted tal:condition="python: view.can_manage_portal_content and view.trusted_access_enabled">
-      <div class="survey-trusted-access"
-           id="surveyTrustedAccess"
-           data-token-endpoint="${context/absolute_url}/@@trusted-access-token">
-        <details class="survey-trusted-access-details">
-          <summary class="survey-trusted-access-summary">
-            <strong i18n:translate="">Trusted access link</strong>
-            <span class="survey-trusted-access-hint" i18n:translate="">
-              Share this link to open the form.
-            </span>
-          </summary>
-          <div class="survey-trusted-access-body">
-            <div class="survey-trusted-access-row">
-              <span class="survey-trusted-access-label" i18n:translate="">URL</span>
-              <a class="survey-trusted-access-value"
-                 id="surveyTrustedAccessUrl"
-                 href="#"
-                 rel="noopener"
-                 target="_blank">-</a>
-              <button class="survey-trusted-access-copy"
-                      id="surveyTrustedAccessCopy"
-                      type="button"
-                      i18n:translate="">Copy link</button>
-              <span class="survey-trusted-access-message"
-                    id="surveyTrustedAccessMessage"
-                    aria-live="polite"></span>
+    <tal:trusted tal:condition="python: view.can_manage_portal_content and view.trusted_access_enabled"
+                 tal:define="access_mode python: getattr(context, 'access_mode', 'public')">
+      
+      <!-- Single-use token store mode -->
+      <tal:tokens tal:condition="python: access_mode == 'trusted-tokens'">
+        <div class="survey-trusted-access survey-trusted-tokens">
+          <details class="survey-trusted-access-details">
+            <summary class="survey-trusted-access-summary">
+              <strong i18n:translate="">Token-based access</strong>
+              <span class="survey-trusted-access-hint" i18n:translate="">
+                Manage access tokens for this survey.
+              </span>
+            </summary>
+            <div class="survey-trusted-access-body">
+              <p i18n:translate="">
+                Use the <a href="${context/absolute_url}/@@token-store">Token Management</a> page to generate and distribute single-use access tokens.
+              </p>
             </div>
-            <div class="survey-trusted-access-row">
-              <span class="survey-trusted-access-label" i18n:translate="">Token</span>
-              <span class="survey-trusted-access-value"
-                    id="surveyTrustedAccessToken">-</span>
+          </details>
+        </div>
+      </tal:tokens>
+      
+      <!-- Cached trusted token mode -->
+      <tal:cached tal:condition="python: access_mode == 'trusted'">
+        <div class="survey-trusted-access"
+             id="surveyTrustedAccess"
+             data-token-endpoint="${context/absolute_url}/@@trusted-access-token">
+          <details class="survey-trusted-access-details">
+            <summary class="survey-trusted-access-summary">
+              <strong i18n:translate="">Trusted access link</strong>
+              <span class="survey-trusted-access-hint" i18n:translate="">
+                Share this link to open the form.
+              </span>
+            </summary>
+            <div class="survey-trusted-access-body">
+              <div class="survey-trusted-access-row">
+                <span class="survey-trusted-access-label" i18n:translate="">URL</span>
+                <a class="survey-trusted-access-value"
+                   id="surveyTrustedAccessUrl"
+                   href="#"
+                   rel="noopener"
+                   target="_blank">-</a>
+                <button class="survey-trusted-access-copy"
+                        id="surveyTrustedAccessCopy"
+                        type="button"
+                        i18n:translate="">Copy link</button>
+                <span class="survey-trusted-access-message"
+                      id="surveyTrustedAccessMessage"
+                      aria-live="polite"></span>
+              </div>
+              <div class="survey-trusted-access-row">
+                <span class="survey-trusted-access-label" i18n:translate="">Token</span>
+                <span class="survey-trusted-access-value"
+                      id="surveyTrustedAccessToken">-</span>
+              </div>
+              <div class="survey-trusted-access-row">
+                <span class="survey-trusted-access-label" i18n:translate="">Expires</span>
+                <span class="survey-trusted-access-value"
+                      id="surveyTrustedAccessExpires">-</span>
+              </div>
             </div>
-            <div class="survey-trusted-access-row">
-              <span class="survey-trusted-access-label" i18n:translate="">Expires</span>
-              <span class="survey-trusted-access-value"
-                    id="surveyTrustedAccessExpires">-</span>
-            </div>
-          </div>
-        </details>
-      </div>
+          </details>
+        </div>
+      </tal:cached>
+      
     </tal:trusted>
 
     <tal:trusted-access-state>
