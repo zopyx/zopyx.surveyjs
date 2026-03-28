@@ -35,7 +35,8 @@ class TokenStore:
         """Get physical path of survey for logging."""
         try:
             return "/".join(self.survey.getPhysicalPath())
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to get survey path: %s", e)
             return str(self.survey)
 
     def _get_user_context(self) -> dict:
@@ -47,7 +48,8 @@ class TokenStore:
             from plone import api
             user = api.user.get_current()
             user_id = user.getId() if user else "anonymous"
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to get user context: %s", e)
             user_id = "unknown"
         
         # Try to get client IP from request
@@ -56,8 +58,8 @@ class TokenStore:
             request = getattr(self.survey, 'REQUEST', None)
             if request:
                 client_ip = request.getClientIP() or "unknown"
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to get client IP: %s", e)
         
         return {"user_id": user_id, "client_ip": client_ip}
 

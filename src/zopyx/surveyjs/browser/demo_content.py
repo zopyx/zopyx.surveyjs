@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from pathlib import Path
+import logging
 import uuid
 
 from plone.protect.interfaces import IDisableCSRFProtection
@@ -14,6 +15,8 @@ from ..content.survey import Counter
 from ..storage import get_result_storage
 from .services import forms as forms_service
 from .services.http import json_response
+
+logger = logging.getLogger(__name__)
 
 
 class DemoContent(BrowserView):
@@ -36,13 +39,13 @@ class DemoContent(BrowserView):
         try:
             demos.language = "de"
             demos.reindexObject(idxs=["Language"])
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to set demo folder language: %s", e)
         try:
             demos.exclude_from_nav = True
             demos.reindexObject(idxs=["exclude_from_nav"])
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to exclude demo folder from nav: %s", e)
         self._ensure_private(demos)
 
         created = []
@@ -64,13 +67,13 @@ class DemoContent(BrowserView):
             try:
                 survey.language = "en"
                 survey.reindexObject(idxs=["Language"])
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to set survey language: %s", e)
             try:
                 survey.exclude_from_nav = True
                 survey.reindexObject(idxs=["exclude_from_nav"])
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to exclude survey from nav: %s", e)
             try:
                 locales = (
                     form_json.get("locales") if isinstance(form_json, dict) else None
@@ -85,8 +88,8 @@ class DemoContent(BrowserView):
                     for code in locales
                     if str(code).strip()
                 ]
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to set survey languages: %s", e)
             self._ensure_private(survey)
             annos = IAnnotations(survey)
             forms_service.save_form_version(
@@ -117,17 +120,17 @@ class DemoContent(BrowserView):
             try:
                 survey.language = "en"
                 survey.reindexObject(idxs=["Language"])
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to set survey language: %s", e)
             try:
                 survey.exclude_from_nav = True
                 survey.reindexObject(idxs=["exclude_from_nav"])
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to exclude survey from nav: %s", e)
             try:
                 survey.survey_languages = ["en"]
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("Failed to set survey languages: %s", e)
             self._ensure_private(survey)
             annos = IAnnotations(survey)
             forms_service.save_form_version(
@@ -170,13 +173,15 @@ class DemoContent(BrowserView):
         """Ensure the object is in private state."""
         try:
             state = plone.api.content.get_state(obj)
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to get workflow state: %s", e)
             return False
         if state == "private":
             return True
         try:
             transitions = plone.api.content.get_transitions(obj)
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to get workflow transitions: %s", e)
             transitions = []
         transition_ids = {item.get("id") for item in transitions if item.get("id")}
         for candidate in ("retract", "hide", "make-private"):
@@ -184,7 +189,8 @@ class DemoContent(BrowserView):
                 try:
                     plone.api.content.transition(obj=obj, transition=candidate)
                     return True
-                except Exception:
+                except Exception as e:
+                    logger.debug("Workflow transition %s failed: %s", candidate, e)
                     continue
         return False
 
@@ -872,7 +878,8 @@ class DemoContent(BrowserView):
             import orjson
 
             return orjson.loads(prefilled_path.read_bytes())
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to load prefilled form JSON: %s", e)
             return None
 
     def _load_sample_addresses(self):
@@ -888,7 +895,8 @@ class DemoContent(BrowserView):
 
             data = orjson.loads(sample_path.read_bytes())
             return data if isinstance(data, list) else []
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to load sample addresses: %s", e)
             return []
 
     def _parse_iso_datetime(self, value):
@@ -901,7 +909,8 @@ class DemoContent(BrowserView):
                     value = value[:-1] + "+00:00"
                 return datetime.fromisoformat(value)
             return value
-        except Exception:
+        except Exception as e:
+            logger.debug("Failed to parse ISO datetime: %s", e)
             return None
 
     def _create_prefilled_survey(self, container, user_id):
@@ -919,21 +928,21 @@ class DemoContent(BrowserView):
         try:
             survey.language = "en"
             survey.reindexObject(idxs=["Language"])
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to set survey language: %s", e)
         try:
             survey.exclude_from_nav = True
             survey.reindexObject(idxs=["exclude_from_nav"])
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to exclude survey from nav: %s", e)
         try:
             survey.survey_languages = ["en"]
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to set survey languages: %s", e)
         try:
             survey.actions = {"store"}
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug("Failed to set survey actions: %s", e)
         self._ensure_private(survey)
 
         annos = IAnnotations(survey)

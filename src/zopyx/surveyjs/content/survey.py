@@ -121,7 +121,9 @@ survey_access_vocabulary = SimpleVocabulary(
     [
         SimpleTerm(value="public", title=_("Public")),
         SimpleTerm(value="trusted", title=_("Trusted access token")),
-        SimpleTerm(value="trusted-tokens", title=_("Trusted access tokens (single-use)")),
+        SimpleTerm(
+            value="trusted-tokens", title=_("Trusted access tokens (single-use)")
+        ),
     ]
 )
 

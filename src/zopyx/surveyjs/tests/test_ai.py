@@ -179,9 +179,7 @@ class AIViewTests(unittest.TestCase):
             form={"chat_prompt": "Create an event registration form."},
             annos=annos,
         )
-        generated = {
-            "pages": [{"elements": [{"type": "text", "name": "full_name"}]}]
-        }
+        generated = {"pages": [{"elements": [{"type": "text", "name": "full_name"}]}]}
 
         with patch.object(
             view, "_call_ai_text_refinement", return_value='{"pages": []}'
@@ -213,9 +211,7 @@ class AIViewTests(unittest.TestCase):
             form={"chat_prompt": "Rename the field."},
             annos=annos,
         )
-        refined = {
-            "pages": [{"elements": [{"type": "text", "name": "new_field"}]}]
-        }
+        refined = {"pages": [{"elements": [{"type": "text", "name": "new_field"}]}]}
 
         with patch.object(
             view, "_call_ai_text_refinement", return_value='{"pages": []}'

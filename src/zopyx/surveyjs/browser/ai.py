@@ -112,8 +112,8 @@ class AIView(Views):
             if callable(method):
                 try:
                     return self._to_jsonable(method())
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.debug("JSON serialization method %s failed: %s", method_name, e)
 
         for method_name in ("model_dump_json", "json", "to_json"):
             method = getattr(value, method_name, None)
@@ -124,14 +124,14 @@ class AIView(Views):
                         raw = raw.decode("utf-8", errors="replace")
                     if isinstance(raw, str):
                         return self._to_jsonable(json.loads(raw))
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.debug("JSON serialization method %s failed: %s", method_name, e)
 
         if hasattr(value, "__dict__"):
             try:
                 return self._to_jsonable(vars(value))
-            except Exception:
-                pass
+            except Exception as e:
+                logger.debug("JSON serialization vars() failed: %s", e)
 
         return str(value)
 
@@ -281,8 +281,8 @@ class AIView(Views):
             if temp_path:
                 try:
                     Path(temp_path).unlink(missing_ok=True)
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.debug("Failed to unlink temp file %s: %s", temp_path, e)
 
     def _normalize_token(self, value):
         """Normalize a string for case-insensitive matching.
@@ -975,7 +975,11 @@ Requirements:
                 )
                 next_form = self._parse_generated_json(ai_result_text)
         except Exception as exc:
-            action = "AI refinement" if isinstance(current_form, dict) else "AI draft creation"
+            action = (
+                "AI refinement"
+                if isinstance(current_form, dict)
+                else "AI draft creation"
+            )
             return self._redirect_ai(f"{action} failed: {exc}", "error")
 
         if isinstance(current_form, dict):
@@ -1017,7 +1021,8 @@ Requirements:
         raw_index = self.request.form.get("history_index", "").strip()
         try:
             history_index = int(raw_index)
-        except Exception:
+        except Exception as e:
+            logger.debug("Invalid history index %r: %s", raw_index, e)
             return self._redirect_ai("Invalid history step.", "error")
 
         annos = IAnnotations(self.context)
@@ -1055,7 +1060,8 @@ Requirements:
         raw_index = self.request.form.get("history_index", "").strip()
         try:
             history_index = int(raw_index)
-        except Exception:
+        except Exception as e:
+            logger.debug("Invalid history index %r: %s", raw_index, e)
             return self._redirect_ai("Invalid history step.", "error")
 
         annos = IAnnotations(self.context)
