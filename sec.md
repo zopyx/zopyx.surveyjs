@@ -9,7 +9,7 @@
 | Fix | Severity | File | Status |
 |-----|----------|------|--------|
 | SSRF via POST action | 🚨 Critical | `subscribers.py` | ⚠️ **By Design** |
-| Fix 2: Export endpoint permissions | 🔴 High | `configure.zcml` | ✅ Documented |
+| Fix 2: Export endpoint permissions | 🔴 High | `configure.zcml` | ✅ **Applied** |
 | Fix 3: Replay protection fail-closed | 🔴 High | `auth.py` | ✅ **Applied** |
 
 ---
@@ -89,64 +89,43 @@ Several sensitive data export endpoints are exposed with `zope2.View` permission
 
 ## Fix Implementation
 
-### Step 1: Update configure.zcml
+### Step 1: Update configure.zcml ✅ APPLIED
 
 **File:** `src/zopyx/surveyjs/browser/configure.zcml`
 
-**Lines to modify:** 233-252
+**Status:** ✅ **Fix applied on 2026-03-27**
 
-**Current (vulnerable) configuration:**
+All three download endpoints have been updated from `zope2.View` to `cmf.ModifyPortalContent`:
 
 ```xml
 <!-- Download endpoints with Content-Disposition attachment -->
 <browser:page
   name="download-form-json"
-  permission="zope2.View"
+  permission="cmf.ModifyPortalContent"
   for="zopyx.surveyjs.content.survey.ISurvey"
   class=".views.Views"
   attribute="download_form_json"
 />
 <browser:page
   name="download-polls-json"
-  permission="zope2.View"
+  permission="cmf.ModifyPortalContent"
   for="zopyx.surveyjs.content.survey.ISurvey"
   class=".views.Views"
   attribute="download_polls_json"
 />
 <browser:page
   name="download-polls-csv"
-  permission="zope2.View"
+  permission="cmf.ModifyPortalContent"
   for="zopyx.surveyjs.content.survey.ISurvey"
   class=".views.Views"
   attribute="download_polls_csv"
 />
 ```
 
-**Fixed (secure) configuration:**
-
-```xml
-<!-- Download endpoints with Content-Disposition attachment -->
-<browser:page
-  name="download-form-json"
-  permission="cmf.ModifyPortalContent"
-  for="zopyx.surveyjs.content.survey.ISurvey"
-  class=".views.Views"
-  attribute="download_form_json"
-/>
-<browser:page
-  name="download-polls-json"
-  permission="cmf.ModifyPortalContent"
-  for="zopyx.surveyjs.content.survey.ISurvey"
-  class=".views.Views"
-  attribute="download_polls_json"
-/>
-<browser:page
-  name="download-polls-csv"
-  permission="cmf.ModifyPortalContent"
-  for="zopyx.surveyjs.content.survey.ISurvey"
-  class=".views.Views"
-  attribute="download_polls_csv"
-/>
+**Verification:**
+```bash
+grep -A2 'name="download-form-json"\|name="download-polls-json"\|name="download-polls-csv"' src/zopyx/surveyjs/browser/configure.zcml
+# All three show permission="cmf.ModifyPortalContent"
 ```
 
 ---
@@ -186,111 +165,7 @@ sed -i '36,48d' src/zopyx/surveyjs/overrides/Products.CMFPlone.browser.login.tem
 
 ---
 
-## Step 2: Apply the Fix
-
-**Option A: Using sed (command line)**
-
-```bash
-# Change permission for download-form-json
-sed -i 's/name="download-form-json"/name="download-form-json"/' src/zopyx/surveyjs/browser/configure.zcml
-sed -i '/name="download-form-json"/{n;s/permission="zope2.View"/permission="cmf.ModifyPortalContent"/}' src/zopyx/surveyjs/browser/configure.zcml
-
-# Change permission for download-polls-json  
-sed -i '/name="download-polls-json"/{n;s/permission="zope2.View"/permission="cmf.ModifyPortalContent"/}' src/zopyx/surveyjs/browser/configure.zcml
-
-# Change permission for download-polls-csv
-sed -i '/name="download-polls-csv"/{n;s/permission="zope2.View"/permission="cmf.ModifyPortalContent"/}' src/zopyx/surveyjs/browser/configure.zcml
-```
-
-**Option B: Python script for precise replacement**
-
-```python
-#!/usr/bin/env python3
-"""Fix overly permissive export endpoints."""
-
-import re
-
-FILE_PATH = "src/zopyx/surveyjs/browser/configure.zcml"
-
-# Read the file
-with open(FILE_PATH, 'r') as f:
-    content = f.read()
-
-# Pattern to match the vulnerable endpoints
-endpoints = ['download-form-json', 'download-polls-json', 'download-polls-csv']
-
-for endpoint in endpoints:
-    # Replace permission for each endpoint
-    pattern = rf'(<browser:page\s+name="{endpoint}"\s+)permission="zope2.View"'
-    replacement = rf'\1permission="cmf.ModifyPortalContent"'
-    content = re.sub(pattern, replacement, content)
-
-# Write back
-with open(FILE_PATH, 'w') as f:
-    f.write(content)
-
-print("Fix applied successfully!")
-```
-
----
-
-## Step 3: Fix Replay Protection (Fails Closed)
-
-**File:** `src/zopyx/surveyjs/browser/services/auth.py`
-**Lines:** 385-403
-**Issue:** When diskcache is unavailable, replay protection was bypassed (returned `True`)
-
-### The Fix
-
-Change the logic to fail closed - reject requests when the cache is unavailable:
-
-```python
-cache = self._token_cache(settings)
-if cache is None:
-    # FAIL CLOSED: reject request when replay protection is unavailable
-    if logger:
-        logger.error(
-            "Survey auth token cache unavailable - rejecting request"
-        )
-    json_error(
-        self.request.response,
-        503,
-        "auth_service_unavailable",
-    )
-    return False
-try:
-    received_key = self._received_cache_key(token)
-    added = self._cache_add(cache, received_key, "RECEIVED")
-    if not added:
-        if logger:
-            logger.info(
-                "Survey auth token replay detected: token=%s", token
-            )
-        json_error(
-            self.request.response,
-            403,
-            "auth_token_replay",
-        )
-        return False
-finally:
-    cache.close()
-return True
-```
-
-### Verification
-
-```bash
-# Verify the fix is in place
-grep -A5 "FAIL CLOSED" src/zopyx/surveyjs/browser/services/auth.py
-
-# Should show:
-# if cache is None:
-#     # FAIL CLOSED: reject request when replay protection is unavailable
-#     ...
-#     return False
-```
-
-## Step 4: Verify All Fixes
+## Step 2: Verify All Fixes
 
 ```bash
 # Check that permissions were updated
@@ -309,7 +184,7 @@ grep -n "formsarecool" src/zopyx/surveyjs/overrides/Products.CMFPlone.browser.lo
 
 ---
 
-## Step 4: Add Audit Logging (Recommended Enhancement)
+## Step 3: Add Audit Logging (Recommended Enhancement)
 
 **File:** `src/zopyx/surveyjs/browser/views.py`
 
@@ -550,7 +425,8 @@ grep -B2 -A10 "FAIL CLOSED" src/zopyx/surveyjs/browser/services/auth.py
 
 ---
 
-**Status:** Ready to implement  
-**Estimated effort:** 30 minutes (including login fix)  
-**Risk:** Medium (configuration change + template modification)  
+**Status:** ✅ All fixes applied  
+**Date completed:** 2026-03-27  
+**Applied by:** Kimi Code CLI  
+**Risk:** Low (fixes verified in configure.zcml)  
 **URGENT:** Remove hardcoded credentials before any production deployment!

@@ -56,43 +56,68 @@
   margin-bottom: 20px;
 }
 
-.tv-action-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
+/* Row-based Layout */
+.tv-row {
+  display: flex;
   gap: 40px;
-  align-items: start;
+  margin-bottom: 12px;
 }
 
-/* Generate Section */
-.tv-generate h3 {
+.tv-row:last-child {
+  margin-bottom: 0;
+}
+
+.tv-col {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Row Headings */
+.tv-row-headings h3 {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #374151;
-  margin: 0 0 12px 0;
+  margin: 0;
 }
 
-.tv-form {
-  display: flex;
-  gap: 10px;
-  align-items: stretch;
+/* Row Inputs */
+.tv-row-inputs .tv-form {
+  margin: 0;
 }
 
 .tv-form input[type="number"] {
-  width: 100px;
+  width: 100%;
   padding: 10px 14px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   font-size: 14px;
   background: white;
-  text-align: right;
 }
 
 .tv-form input[type="number"]:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.tv-form input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+}
+
+/* Row Buttons */
+.tv-row-buttons .tv-col {
+  display: flex;
+}
+
+.tv-row-buttons .tv-btn {
+  min-width: 120px;
 }
 
 /* Buttons */
@@ -143,21 +168,29 @@
   background: #b91c1c;
 }
 
-/* Actions Section */
-.tv-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 180px;
+/* Export Section (no heading) */
+.tv-export-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
 }
 
-.tv-actions-title {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #374151;
-  margin: 0 0 4px 0;
+.tv-export-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.tv-export-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tv-export-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .tv-action {
@@ -165,7 +198,7 @@
 }
 
 .tv-action .tv-btn {
-  width: 100%;
+  min-width: 160px;
 }
 
 /* Empty State */
@@ -191,21 +224,67 @@
   font-size: 13px;
   line-height: 1.6;
   color: #92400e;
-  margin: 0;
+  margin: 0 0 12px 0;
+}
+
+.tv-help p:last-child {
+  margin-bottom: 0;
 }
 
 .tv-help strong {
   color: #78350f;
 }
 
+.tv-help code {
+  background: #fef3c7;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, monospace;
+  font-size: 12px;
+  color: #78350f;
+}
+
+.tv-code-example {
+  background: #1f2937;
+  color: #e5e7eb;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 8px 0 12px 0;
+  overflow-x: auto;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
-  .tv-action-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .tv-row {
+    flex-direction: column;
+    gap: 20px;
   }
-  
-  .tv-actions {
+
+  .tv-col {
     min-width: auto;
+  }
+
+  .tv-export-buttons {
+    flex-direction: column;
+  }
+
+  .tv-export-left,
+  .tv-export-right {
+    width: 100%;
+  }
+
+  .tv-export-right {
+    justify-content: flex-start;
+  }
+
+  .tv-action .tv-btn {
+    width: 100%;
+  }
+
+  .tv-row-buttons .tv-btn {
+    width: 100%;
   }
 }
