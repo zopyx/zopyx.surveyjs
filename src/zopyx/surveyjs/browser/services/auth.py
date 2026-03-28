@@ -217,18 +217,14 @@ class AuthService:
 
     def _get_token_from_request(self):
         """Get token from request parameters.
-        
+
         Checks for 'tt' (trusted token, used by token store) or 'access_token' (used by cached tokens).
         """
         # Check for tt first (token store uses this)
-        token = (
-            self.request.form.get("tt")
-            or self.request.get("tt")
-            or ""
-        )
+        token = self.request.form.get("tt") or self.request.get("tt") or ""
         if token:
             return str(token).strip()
-        
+
         # Fallback to access_token (cached trusted tokens use this)
         token = (
             self.request.form.get("access_token")
@@ -243,24 +239,28 @@ class AuthService:
             token_store = getAdapter(self.context, ITokenStore)
         except Exception:
             if logger:
-                logger.info("Survey trusted-tokens access denied: reason=token_store_unavailable")
+                logger.info(
+                    "Survey trusted-tokens access denied: reason=token_store_unavailable"
+                )
             json_error(
                 self.request.response,
                 503,
                 "trusted_tokens_store_unavailable",
             )
             return False
-        
+
         if not token_store.has_token(token):
             if logger:
-                logger.info("Survey trusted-tokens access denied: reason=invalid_or_used_token")
+                logger.info(
+                    "Survey trusted-tokens access denied: reason=invalid_or_used_token"
+                )
             json_error(
                 self.request.response,
                 403,
                 "trusted_tokens_token_invalid",
             )
             return False
-        
+
         # Do not invalidate here; consume on successful submission.
         if logger:
             logger.info("Survey trusted-tokens access: token_valid token=%s", token)
@@ -270,7 +270,7 @@ class AuthService:
         """Validate trusted access token requirements for the current request."""
         if not self.trusted_access_enabled():
             return True
-        
+
         token = self._get_token_from_request()
         if not token:
             if logger:
@@ -281,11 +281,11 @@ class AuthService:
                 "trusted_access_token_missing",
             )
             return False
-        
+
         # Determine which mode is active
         mode = getattr(self.context, "access_mode", "") or "public"
         mode = str(mode).strip().lower()
-        
+
         if mode == "trusted-tokens":
             return self._require_trusted_access_tokens(token, logger=logger)
         else:
@@ -306,7 +306,9 @@ class AuthService:
         token = self._get_token_from_request()
         if not token:
             if logger:
-                logger.info("Survey trusted-tokens consume denied: reason=missing_token")
+                logger.info(
+                    "Survey trusted-tokens consume denied: reason=missing_token"
+                )
             json_error(
                 self.request.response,
                 403,
@@ -318,7 +320,9 @@ class AuthService:
             token_store = getAdapter(self.context, ITokenStore)
         except Exception:
             if logger:
-                logger.info("Survey trusted-tokens consume denied: reason=token_store_unavailable")
+                logger.info(
+                    "Survey trusted-tokens consume denied: reason=token_store_unavailable"
+                )
             json_error(
                 self.request.response,
                 503,
@@ -326,9 +330,12 @@ class AuthService:
             )
             return False
 
-        if not token_store.invalidate(token):
+        # Invalidate with reason for audit trail
+        if not token_store.invalidate(token, reason="user_submission"):
             if logger:
-                logger.info("Survey trusted-tokens consume denied: reason=invalid_or_used_token")
+                logger.info(
+                    "Survey trusted-tokens consume denied: reason=invalid_or_used_token"
+                )
             json_error(
                 self.request.response,
                 403,
@@ -386,9 +393,7 @@ class AuthService:
         if cache is None:
             # FAIL CLOSED: reject request when replay protection is unavailable
             if logger:
-                logger.error(
-                    "Survey auth token cache unavailable - rejecting request"
-                )
+                logger.error("Survey auth token cache unavailable - rejecting request")
             json_error(
                 self.request.response,
                 503,
@@ -400,9 +405,7 @@ class AuthService:
             added = self._cache_add(cache, received_key, "RECEIVED")
             if not added:
                 if logger:
-                    logger.info(
-                        "Survey auth token replay detected: token=%s", token
-                    )
+                    logger.info("Survey auth token replay detected: token=%s", token)
                 json_error(
                     self.request.response,
                     403,

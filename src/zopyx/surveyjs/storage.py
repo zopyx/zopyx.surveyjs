@@ -241,7 +241,7 @@ class SurveyResult(SQLModel, table=True):
     """SQLModel table storing normalized metadata and the original JSON entry."""
 
     __tablename__ = "survey_results"
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     poll_id: str = Field(primary_key=True)
     site_id: str = Field(index=True)
@@ -396,50 +396,53 @@ class SQLiteResultStorage(SQLResultStorage):
 # SQL TOKEN STORAGE
 # ============================================================================
 
-from sqlalchemy import func, delete
-from sqlalchemy.orm import declared_attr
+from sqlalchemy import delete
 from zope.interface import implementer
 from .interfaces import ITokenStore
-from .constants import TOKEN_STORE_KEY
 import secrets
 
 
 class SurveyToken(SQLModel, table=True):
     """SQL table for survey access tokens with full audit trail."""
-    
+
     __tablename__ = "survey_tokens"
-    __table_args__ = {'extend_existing': True}
-    
+    __table_args__ = {"extend_existing": True}
+
     # Primary key: the token itself
     token: str = Field(primary_key=True, max_length=32)
-    
+
     # Scoping fields (composite index)
     site_id: str = Field(index=True, max_length=64)
     survey_id: str = Field(index=True, max_length=256)
-    
+
     # Token state
     created: datetime = Field(index=True)
     used: Optional[datetime] = Field(default=None, index=True)
-    
+
     # Optional: track usage context
     used_by: Optional[str] = Field(default=None, max_length=64)  # username
     used_from: Optional[str] = Field(default=None, max_length=45)  # IP address
-    
+
     # Optional: token metadata
-    batch_id: Optional[str] = Field(default=None, index=True, max_length=8)  # generation batch
+    batch_id: Optional[str] = Field(
+        default=None, index=True, max_length=8
+    )  # generation batch
 
 
 @implementer(ITokenStore)
 class SQLTokenStore:
     """SQL-backed token store adapter.
-    
+
     Mirrors the ZODB TokenStore interface while providing
     SQL persistence and query capabilities.
     """
     
+    # Audit logger for token operations
+    audit_logger = logging.getLogger(f"{__name__}.audit")
+
     def __init__(self, survey, database_uri: Optional[str] = None):
         """Initialize the SQL token store adapter.
-        
+
         :param survey: The survey object being adapted
         :param database_uri: Optional database URI override
         """
@@ -449,13 +452,40 @@ class SQLTokenStore:
         self._database_uri = database_uri or _get_database_uri()
         self._engine = _get_engine(self._database_uri)
         self._backend = "SQL"
-        logger.debug("[SQLTokenStore:%s] Initialized for survey %s, DB: %s", 
-                    self._backend, self._survey_id, self._database_uri[:50])
-    
+        logger.debug(
+            "[SQLTokenStore:%s] Initialized for survey %s, DB: %s",
+            self._backend,
+            self._survey_id,
+            self._database_uri[:50],
+        )
+
+    def _get_user_context(self) -> dict:
+        """Get current user context for audit logging.
+        
+        :return: Dict with user_id and client_ip
+        """
+        try:
+            from plone import api
+            user = api.user.get_current()
+            user_id = user.getId() if user else "anonymous"
+        except Exception:
+            user_id = "unknown"
+        
+        # Try to get client IP from request
+        client_ip = "unknown"
+        try:
+            request = getattr(self.survey, 'REQUEST', None)
+            if request:
+                client_ip = request.getClientIP() or "unknown"
+        except Exception:
+            pass
+        
+        return {"user_id": user_id, "client_ip": client_ip}
+
     def _session(self) -> Session:
         """Create SQLModel session."""
         return Session(self._engine)
-    
+
     def _row_to_dict(self, row: SurveyToken) -> dict:
         """Convert database row to token info dict."""
         return {
@@ -463,73 +493,120 @@ class SQLTokenStore:
             "created": row.created.isoformat() if row.created else None,
             "used": row.used.isoformat() if row.used else None,
         }
-    
+
     def generate_tokens(self, number: int) -> list:
         """Generate a specified number of new tokens.
-        
+
         :param number: Number of tokens to generate
         :return: List of generated token strings (32-char URL-safe)
         """
         batch_id = secrets.token_hex(4)  # 8 chars
         now = datetime.now(timezone.utc)
         generated = []
-        
+        user_context = self._get_user_context()
+
         with self._session() as session:
             for _ in range(number):
                 token = secrets.token_urlsafe(24)
-                session.add(SurveyToken(
-                    token=token,
-                    site_id=self._site_id,
-                    survey_id=self._survey_id,
-                    created=now,
-                    batch_id=batch_id,
-                ))
+                session.add(
+                    SurveyToken(
+                        token=token,
+                        site_id=self._site_id,
+                        survey_id=self._survey_id,
+                        created=now,
+                        batch_id=batch_id,
+                    )
+                )
                 generated.append(token)
             session.commit()
-        logger.info("[SQLTokenStore:%s] Generated %d tokens (batch: %s) for survey %s", 
-                    self._backend, number, batch_id, self._survey_id)
+        logger.info(
+            "[SQLTokenStore:%s] Generated %d tokens (batch: %s) for survey %s",
+            self._backend,
+            number,
+            batch_id,
+            self._survey_id,
+        )
+        self.audit_logger.info(
+            "TOKEN_GENERATED: survey=%s user=%s ip=%s count=%d batch=%s",
+            self._survey_id,
+            user_context["user_id"],
+            user_context["client_ip"],
+            number,
+            batch_id,
+        )
         return generated
-    
+
     def has_token(self, token: str) -> bool:
         """Check if a token exists and is valid (not used).
-        
+
         :param token: Token string to check
         :return: True if token exists and is unused, False otherwise
         """
         with self._session() as session:
             row = session.get(SurveyToken, token)
             if row is None:
-                logger.debug("[SQLTokenStore:%s] Token not found: %s...", self._backend, token[:8])
+                logger.debug(
+                    "[SQLTokenStore:%s] Token not found: %s...",
+                    self._backend,
+                    token[:8],
+                )
                 return False
             if row.site_id != self._site_id or row.survey_id != self._survey_id:
-                logger.debug("[SQLTokenStore:%s] Token scope mismatch: %s...", self._backend, token[:8])
+                logger.debug(
+                    "[SQLTokenStore:%s] Token scope mismatch: %s...",
+                    self._backend,
+                    token[:8],
+                )
                 return False
             is_valid = row.used is None
-            logger.debug("[SQLTokenStore:%s] Token check: %s... valid=%s", 
-                        self._backend, token[:8], is_valid)
+            logger.debug(
+                "[SQLTokenStore:%s] Token check: %s... valid=%s",
+                self._backend,
+                token[:8],
+                is_valid,
+            )
             return is_valid
-    
-    def invalidate(self, token: str) -> bool:
+
+    def invalidate(self, token: str, reason: str = None) -> bool:
         """Invalidate a token (mark as used).
-        
+
         :param token: Token string to invalidate
+        :param reason: Optional reason for invalidation (e.g., 'user_submission', 'admin_revoked')
         :return: True if token was found and invalidated, False otherwise
         """
         with self._session() as session:
             row = session.get(SurveyToken, token)
             if not row or row.survey_id != self._survey_id:
-                logger.warning("[SQLTokenStore:%s] Invalidate failed - token not found: %s...", 
-                              self._backend, token[:8])
+                logger.warning(
+                    "[SQLTokenStore:%s] Invalidate failed - token not found: %s...",
+                    self._backend,
+                    token[:8],
+                )
                 return False
-            
+
+            user_context = self._get_user_context()
             row.used = datetime.now(timezone.utc)
+            row.used_by = user_context["user_id"]
+            row.used_from = user_context["client_ip"]
+            # Note: batch_id is already set, could add revocation_reason field if needed
             session.commit()
-            logger.info("[SQLTokenStore:%s] Token invalidated: %s...", self._backend, token[:8])
+            
+            logger.info(
+                "[SQLTokenStore:%s] Token invalidated: %s...", self._backend, token[:8]
+            )
+            self.audit_logger.info(
+                "TOKEN_INVALIDATED: survey=%s token=%s... user=%s ip=%s reason=%s",
+                self._survey_id,
+                token[:8],
+                user_context["user_id"],
+                user_context["client_ip"],
+                reason or "user_submission",
+            )
             return True
-    
+
     def get_token_info(self, token: str) -> Optional[dict]:
         """Get information about a specific token.
-        
+
         :param token: Token string to look up
         :return: Token info dict with keys: token, created, used (or None if not found)
         """
@@ -538,10 +615,10 @@ class SQLTokenStore:
             if not row or row.survey_id != self._survey_id:
                 return None
             return self._row_to_dict(row)
-    
+
     def list_tokens(self) -> list:
         """List all tokens and their information.
-        
+
         :return: List of token info dicts
         """
         with self._session() as session:
@@ -551,15 +628,16 @@ class SQLTokenStore:
             )
             rows = session.exec(stmt).all()
             return [self._row_to_dict(row) for row in rows]
-    
+
     def get_stats(self) -> dict:
         """Get token statistics.
-        
+
         :return: Dict with total, used, and unused token counts
         """
         with self._session() as session:
             # Single query for all stats using SQL aggregation
             from sqlalchemy import text
+
             stmt = text("""
                 SELECT 
                     COUNT(*) as total,
@@ -569,18 +647,27 @@ class SQLTokenStore:
                 WHERE site_id = :site_id AND survey_id = :survey_id
             """)
             result = session.exec(
-                stmt,
-                params={"site_id": self._site_id, "survey_id": self._survey_id}
+                stmt, params={"site_id": self._site_id, "survey_id": self._survey_id}
             ).first()
-            
+
             return {
                 "total": result.total,
                 "used": result.used,
                 "unused": result.unused,
             }
-    
+
     def clear(self) -> None:
         """Clear all tokens from the store."""
+        user_context = self._get_user_context()
+        
+        # Get count before deletion for audit log
+        with self._session() as session:
+            stmt = select(SurveyToken).where(
+                SurveyToken.site_id == self._site_id,
+                SurveyToken.survey_id == self._survey_id,
+            )
+            count = len(session.exec(stmt).all())
+        
         with self._session() as session:
             stmt = delete(SurveyToken).where(
                 SurveyToken.site_id == self._site_id,
@@ -588,15 +675,74 @@ class SQLTokenStore:
             )
             session.exec(stmt)
             session.commit()
+        
+        logger.info("[SQLTokenStore:%s] Cleared %d tokens", self._backend, count)
+        self.audit_logger.info(
+            "TOKENS_CLEARED: survey=%s user=%s ip=%s count=%d",
+            self._survey_id,
+            user_context["user_id"],
+            user_context["client_ip"],
+            count,
+        )
+
+    def import_tokens(self, tokens: list) -> dict:
+        """Import a list of tokens into the store.
+
+        :param tokens: List of token strings to import
+        :return: Dict with 'imported' count and 'skipped' list (duplicates/invalid)
+        """
+        imported = 0
+        skipped = []
+        now = datetime.now(timezone.utc)
+        user_context = self._get_user_context()
+
+        with self._session() as session:
+            for token in tokens:
+                # Check if token already exists
+                existing = session.get(SurveyToken, token)
+                if existing:
+                    skipped.append({"token": token, "reason": "duplicate"})
+                    continue
+
+                # Create new token record
+                session.add(
+                    SurveyToken(
+                        token=token,
+                        site_id=self._site_id,
+                        survey_id=self._survey_id,
+                        created=now,
+                    )
+                )
+                imported += 1
+
+            session.commit()
+
+        logger.info(
+            "[SQLTokenStore:%s] Imported %d tokens, skipped %d for survey %s",
+            self._backend,
+            imported,
+            len(skipped),
+            self._survey_id,
+        )
+        self.audit_logger.info(
+            "TOKENS_IMPORTED: survey=%s user=%s ip=%s imported=%d skipped=%d",
+            self._survey_id,
+            user_context["user_id"],
+            user_context["client_ip"],
+            imported,
+            len(skipped),
+        )
+        return {"imported": imported, "skipped": skipped}
 
 
 # ============================================================================
 # TOKEN STORAGE FACTORY
 # ============================================================================
 
+
 def _get_token_backend_name() -> str:
     """Return the configured token storage backend name.
-    
+
     Reuses the same setting as result_storage_backend for consistency.
     """
     # Reuse the result storage backend setting - tokens use same storage
@@ -613,19 +759,22 @@ def _get_survey_path(survey) -> str:
 
 def get_token_storage(survey) -> ITokenStore:
     """Return the configured token storage backend instance.
-    
+
     :param survey: The survey object
     :return: ITokenStore implementation
     """
     backend = _get_token_backend_name()
     survey_path = _get_survey_path(survey)
-    
-    logger.info("get_token_storage called for survey %s, backend=%s", survey_path, backend)
-    
+
+    logger.info(
+        "get_token_storage called for survey %s, backend=%s", survey_path, backend
+    )
+
     if backend == "rdbms":
         logger.info("Using SQLTokenStore for survey %s", survey_path)
         return SQLTokenStore(survey)
-    
+
     # Import here to avoid circular imports
     from .adapters.token_store import TokenStore
+
     return TokenStore(survey)
