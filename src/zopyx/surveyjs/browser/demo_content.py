@@ -159,6 +159,49 @@ class DemoContent(BrowserView):
         except Exception as exc:
             errors.append({"path": "prefilled", "error": str(exc)})
 
+        # Generate All Field Types demo survey (one pager)
+        try:
+            form_json = self._generate_all_field_types_survey()
+            survey_id = "all-field-types-demo"
+
+            survey = plone.api.content.create(
+                type="Survey",
+                container=demos,
+                id=survey_id,
+                title="All Field Types Demo",
+            )
+            try:
+                survey.language = "en"
+                survey.reindexObject(idxs=["Language"])
+            except Exception as e:
+                logger.debug("Failed to set survey language: %s", e)
+            try:
+                survey.exclude_from_nav = True
+                survey.reindexObject(idxs=["exclude_from_nav"])
+            except Exception as e:
+                logger.debug("Failed to exclude survey from nav: %s", e)
+            try:
+                survey.survey_languages = ["en"]
+            except Exception as e:
+                logger.debug("Failed to set survey languages: %s", e)
+            self._ensure_private(survey)
+            annos = IAnnotations(survey)
+            forms_service.save_form_version(
+                annos,
+                form_json,
+                user_id,
+                locked=False,
+            )
+
+            # Generate 50 demo results for this survey
+            self._generate_demo_results_all_field_types(survey, form_json, count=50)
+
+            created.append(
+                {"id": survey_id, "title": "All Field Types Demo"}
+            )
+        except Exception as exc:
+            errors.append({"path": "all-field-types-demo", "error": str(exc)})
+
         json_response(
             self.request.response,
             {
@@ -912,6 +955,417 @@ class DemoContent(BrowserView):
         except Exception as e:
             logger.debug("Failed to parse ISO datetime: %s", e)
             return None
+
+    def _generate_all_field_types_survey(self):
+        """Generate a comprehensive one-page survey demonstrating all SurveyJS field types.
+
+        Includes: text inputs, multiline, choices, ratings, matrix, panels, files, special types, ranking.
+        """
+        survey_json = {
+            "title": "All Field Types Demo",
+            "description": "Comprehensive demonstration of all SurveyJS field types on a single page.",
+            "locale": "en",
+            "showQuestionNumbers": "on",
+            "showProgressBar": "off",
+            "completeText": "Submit",
+            "pages": [
+                {
+                    "name": "allFieldsPage",
+                    "title": "All Field Types",
+                    "elements": [
+                        # Text Input Types
+                        {
+                            "type": "text",
+                            "name": "singleLineText",
+                            "title": "Single Line Text",
+                            "description": "Basic text input",
+                            "defaultValue": "Sample text",
+                        },
+                        {
+                            "type": "text",
+                            "name": "emailField",
+                            "title": "Email",
+                            "description": "Email with validation",
+                            "inputType": "email",
+                            "defaultValue": "demo@example.com",
+                        },
+                        {
+                            "type": "text",
+                            "name": "numberField",
+                            "title": "Number",
+                            "description": "Numeric input (0-100)",
+                            "inputType": "number",
+                            "min": 0,
+                            "max": 100,
+                            "defaultValue": 42,
+                        },
+                        {
+                            "type": "text",
+                            "name": "dateField",
+                            "title": "Date",
+                            "description": "Date picker",
+                            "inputType": "date",
+                            "defaultValue": "2024-01-15",
+                        },
+                        # Multiline
+                        {
+                            "type": "comment",
+                            "name": "commentField",
+                            "title": "Comment / Multiline Text",
+                            "description": "Multi-line text area",
+                            "rows": 3,
+                            "defaultValue": "This is a sample comment.",
+                        },
+                        # Choice Questions
+                        {
+                            "type": "radiogroup",
+                            "name": "radioGroup",
+                            "title": "Radio Group",
+                            "description": "Single choice",
+                            "choices": [
+                                {"value": "option1", "text": "Option 1"},
+                                {"value": "option2", "text": "Option 2"},
+                                {"value": "option3", "text": "Option 3"},
+                            ],
+                            "defaultValue": "option1",
+                        },
+                        {
+                            "type": "checkbox",
+                            "name": "checkboxField",
+                            "title": "Checkbox",
+                            "description": "Multiple choice",
+                            "choices": [
+                                {"value": "a", "text": "Choice A"},
+                                {"value": "b", "text": "Choice B"},
+                                {"value": "c", "text": "Choice C"},
+                            ],
+                            "defaultValue": ["a", "c"],
+                        },
+                        {
+                            "type": "dropdown",
+                            "name": "dropdownField",
+                            "title": "Dropdown",
+                            "description": "Single choice dropdown",
+                            "choices": [
+                                {"value": "low", "text": "Low"},
+                                {"value": "medium", "text": "Medium"},
+                                {"value": "high", "text": "High"},
+                            ],
+                            "defaultValue": "medium",
+                        },
+                        {
+                            "type": "tagbox",
+                            "name": "tagboxField",
+                            "title": "Tag Box",
+                            "description": "Multi-select dropdown",
+                            "choices": [
+                                {"value": "html", "text": "HTML"},
+                                {"value": "css", "text": "CSS"},
+                                {"value": "js", "text": "JavaScript"},
+                                {"value": "python", "text": "Python"},
+                            ],
+                            "defaultValue": ["html", "css"],
+                        },
+                        # Ratings and Boolean
+                        {
+                            "type": "rating",
+                            "name": "ratingField",
+                            "title": "Rating",
+                            "description": "Rate from 1 to 5",
+                            "rateMin": 1,
+                            "rateMax": 5,
+                            "defaultValue": 4,
+                        },
+                        {
+                            "type": "boolean",
+                            "name": "booleanField",
+                            "title": "Boolean",
+                            "description": "Yes/No toggle",
+                            "defaultValue": True,
+                        },
+                        # Matrix Questions
+                        {
+                            "type": "matrix",
+                            "name": "matrixField",
+                            "title": "Single Choice Matrix",
+                            "columns": [
+                                {"value": "poor", "text": "Poor"},
+                                {"value": "fair", "text": "Fair"},
+                                {"value": "good", "text": "Good"},
+                            ],
+                            "rows": [
+                                {"value": "quality", "text": "Quality"},
+                                {"value": "price", "text": "Price"},
+                            ],
+                            "defaultValue": {"quality": "good", "price": "fair"},
+                        },
+                        {
+                            "type": "matrixdropdown",
+                            "name": "matrixDropdownField",
+                            "title": "Matrix with Dropdowns",
+                            "columns": [
+                                {
+                                    "name": "rating",
+                                    "title": "Rating",
+                                    "cellType": "dropdown",
+                                    "choices": [
+                                        {"value": "1", "text": "1 star"},
+                                        {"value": "2", "text": "2 stars"},
+                                        {"value": "3", "text": "3 stars"},
+                                        {"value": "4", "text": "4 stars"},
+                                        {"value": "5", "text": "5 stars"},
+                                    ],
+                                },
+                                {
+                                    "name": "comment",
+                                    "title": "Comment",
+                                    "cellType": "text",
+                                },
+                            ],
+                            "rows": [
+                                {"value": "service", "text": "Service"},
+                                {"value": "product", "text": "Product"},
+                            ],
+                            "defaultValue": {
+                                "service": {"rating": "4", "comment": "Great service"},
+                                "product": {"rating": "5", "comment": "Excellent product"},
+                            },
+                        },
+                        # Dynamic Panel
+                        {
+                            "type": "paneldynamic",
+                            "name": "dynamicPanelField",
+                            "title": "Dynamic Panel",
+                            "description": "Add/remove panels dynamically",
+                            "panelCount": 1,
+                            "minPanelCount": 1,
+                            "maxPanelCount": 3,
+                            "templateTitle": "Item #{panelIndex}",
+                            "templateElements": [
+                                {
+                                    "type": "text",
+                                    "name": "itemName",
+                                    "title": "Item Name",
+                                },
+                                {
+                                    "type": "text",
+                                    "name": "itemValue",
+                                    "title": "Value",
+                                    "inputType": "number",
+                                },
+                            ],
+                            "defaultValue": [
+                                {"itemName": "First Item", "itemValue": 100},
+                            ],
+                        },
+                        # File Upload
+                        {
+                            "type": "file",
+                            "name": "fileUploadField",
+                            "title": "File Upload",
+                            "description": "Upload a file (PDF, DOC, TXT)",
+                            "maxSize": 1048576,
+                            "allowMultiple": False,
+                            "acceptedTypes": ".pdf,.doc,.docx,.txt",
+                            "sourceType": "file",
+                        },
+                        # Signature
+                        {
+                            "type": "signaturepad",
+                            "name": "signatureField",
+                            "title": "Signature",
+                            "description": "Sign using mouse or touch",
+                            "height": 150,
+                        },
+                        # HTML Content
+                        {
+                            "type": "html",
+                            "name": "htmlContentField",
+                            "title": "HTML Content Block",
+                            "html": "<div style='padding: 10px; background: #f0f9ff; border-left: 4px solid #0ea5e9;'><strong>Info:</strong> This is an HTML content block.</div>",
+                        },
+                        # Image Picker
+                        {
+                            "type": "imagepicker",
+                            "name": "imagePickerField",
+                            "title": "Image Picker",
+                            "description": "Select an image",
+                            "choices": [
+                                {
+                                    "value": "lion",
+                                    "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg",
+                                    "text": "Lion",
+                                },
+                                {
+                                    "value": "giraffe",
+                                    "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg",
+                                    "text": "Giraffe",
+                                },
+                                {
+                                    "value": "panda",
+                                    "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg",
+                                    "text": "Panda",
+                                },
+                            ],
+                            "showLabel": True,
+                            "multiSelect": False,
+                        },
+                        # Ranking
+                        {
+                            "type": "ranking",
+                            "name": "rankingField",
+                            "title": "Ranking",
+                            "description": "Drag to rank items",
+                            "choices": [
+                                {"value": "price", "text": "Price"},
+                                {"value": "quality", "text": "Quality"},
+                                {"value": "service", "text": "Service"},
+                            ],
+                            "defaultValue": ["quality", "service", "price"],
+                        },
+                    ],
+                }
+            ],
+        }
+
+        return survey_json
+
+    def _generate_demo_results_all_field_types(self, survey, form_json, count=50):
+        """Generate random demo results for the all-field-types survey."""
+        import random
+        from datetime import timedelta
+
+        storage = get_result_storage(survey)
+
+        # Parse form structure to understand questions
+        pages = form_json.get("pages", [])
+        questions = []
+        for page in pages:
+            for element in page.get("elements", []):
+                questions.append(element)
+
+        # Sample comments for variety
+        comments = [
+            "Great experience!",
+            "Could be improved.",
+            "Very satisfied.",
+            "Needs more options.",
+            "Excellent design.",
+            "No comments.",
+        ]
+
+        for i in range(count):
+            result = {}
+
+            for q in questions:
+                qtype = q.get("type")
+                name = q.get("name")
+
+                if qtype == "text":
+                    input_type = q.get("inputType", "text")
+                    if input_type == "email":
+                        result[name] = f"user{i}@example.com"
+                    elif input_type == "number":
+                        min_val = q.get("min", 0)
+                        max_val = q.get("max", 100)
+                        result[name] = random.randint(min_val, max_val)
+                    elif input_type == "date":
+                        result[name] = f"2024-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
+                    else:
+                        result[name] = f"Sample text {i}"
+
+                elif qtype == "comment":
+                    result[name] = random.choice(comments)
+
+                elif qtype == "radiogroup":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        result[name] = random.choice(choices)
+
+                elif qtype == "checkbox":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        num_selections = random.randint(1, len(choices))
+                        result[name] = random.sample(choices, num_selections)
+
+                elif qtype == "dropdown":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        result[name] = random.choice(choices)
+
+                elif qtype == "tagbox":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        num_selections = random.randint(1, len(choices))
+                        result[name] = random.sample(choices, num_selections)
+
+                elif qtype == "rating":
+                    rate_min = q.get("rateMin", 1)
+                    rate_max = q.get("rateMax", 5)
+                    result[name] = random.randint(rate_min, rate_max)
+
+                elif qtype == "boolean":
+                    result[name] = random.choice([True, False])
+
+                elif qtype == "matrix":
+                    columns = [c["value"] for c in q.get("columns", [])]
+                    rows = [r["value"] for r in q.get("rows", [])]
+                    result[name] = {row: random.choice(columns) for row in rows}
+
+                elif qtype == "matrixdropdown":
+                    columns = q.get("columns", [])
+                    rows = [r["value"] for r in q.get("rows", [])]
+                    row_data = {}
+                    for row in rows:
+                        col_data = {}
+                        for col in columns:
+                            col_name = col.get("name")
+                            cell_type = col.get("cellType", "text")
+                            if cell_type == "dropdown":
+                                cell_choices = [c["value"] for c in col.get("choices", [])]
+                                col_data[col_name] = random.choice(cell_choices) if cell_choices else ""
+                            else:
+                                col_data[col_name] = f"Comment {i}"
+                        row_data[row] = col_data
+                    result[name] = row_data
+
+                elif qtype == "paneldynamic":
+                    panel_count = random.randint(1, 2)
+                    panels = []
+                    for p in range(panel_count):
+                        panels.append({
+                            "itemName": f"Item {p + 1}",
+                            "itemValue": random.randint(10, 1000),
+                        })
+                    result[name] = panels
+
+                elif qtype == "imagepicker":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        result[name] = random.choice(choices)
+
+                elif qtype == "ranking":
+                    choices = [c["value"] for c in q.get("choices", [])]
+                    if choices:
+                        shuffled = choices.copy()
+                        random.shuffle(shuffled)
+                        result[name] = shuffled
+
+                # Skip: file, signaturepad, html (these don't store values)
+
+            # Create result entry with random date within last 90 days
+            days_ago = random.randint(0, 90)
+            created = datetime.now(timezone.utc) - timedelta(days=days_ago)
+
+            data = {
+                "poll_id": str(uuid.uuid1()),
+                "created": created,
+                "user": "demo-user",
+                "form_version": "demo",
+                "result": result,
+            }
+
+            storage.store_result(survey, data)
 
     def _create_prefilled_survey(self, container, user_id):
         """Create a prefilled address survey with demo results."""
