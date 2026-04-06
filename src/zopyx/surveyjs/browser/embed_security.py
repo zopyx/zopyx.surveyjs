@@ -19,6 +19,7 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from ..interfaces import IFormsSettings
+from .services.http import safe_json_error
 
 logger = logging.getLogger(__name__)
 audit_logger = logging.getLogger("zopyx.surveyjs.embed.audit")
@@ -124,14 +125,14 @@ def validate_embed_token(token, expected_origin, secret=None):
         )
     except ExpiredSignatureError:
         raise TokenExpiredError("Token has expired")
-    except InvalidTokenError as e:
-        raise TokenInvalidError(f"Invalid token: {e}")
+    except InvalidTokenError:
+        raise TokenInvalidError("Invalid token format or signature")
 
     # Check origin binding (custom claim, not verified by PyJWT)
     token_origin = payload.get("origin")
     if token_origin != expected_origin:
         raise EmbedSecurityError(
-            f"Origin mismatch: token for {token_origin}, expected {expected_origin}",
+            "Origin verification failed",
             reason="origin_mismatch",
         )
 

@@ -35,7 +35,7 @@ from .services import auth as auth_service
 from .services import export as export_service
 from .services import forms as forms_service
 from .services import results as results_service
-from .services.http import json_error, json_response
+from .services.http import json_error, json_response, safe_json_error
 
 logger = logging.getLogger(__name__)
 
@@ -690,12 +690,13 @@ class Views(BrowserView):
                         "remote_addr": remote_addr,
                     },
                 )
-                json_error(
+                safe_json_error(
                     self.request.response,
                     403,
                     "invalid_token",
-                    message=str(e),
-                    extra={"isSuccess": False},
+                    public_message="Invalid or expired token. Please refresh the page.",
+                    exc=e,
+                    logger=logger,
                 )
                 return
 
