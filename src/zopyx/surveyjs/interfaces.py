@@ -404,3 +404,22 @@ class IFormsSettings(IPloneLoggingSettings):
         min=1,
         max=100,
     )
+
+    # SSRF Protection - POST Action Allowlist
+    form.widget("post_endpoint_allowlist", TextAreaFieldWidget, rows=5, cols=80)
+    post_endpoint_allowlist = schema.List(
+        title="POST Endpoint Allowlist",
+        description=(
+            "Allowed URLs for the POST action feature. "
+            "Use wildcards (*) for pattern matching, e.g., 'https://api.example.com/*'. "
+            "Enter one pattern per line. "
+            "Leave empty to disable POST action entirely (most secure). "
+            "Use '*' (single asterisk) alone to allow all URLs (NOT RECOMMENDED - security risk)."
+        ),
+        value_type=schema.TextLine(
+            title="URL Pattern",
+            description="URL pattern with optional wildcards",
+        ),
+        required=False,
+        defaultFactory=list,
+    )

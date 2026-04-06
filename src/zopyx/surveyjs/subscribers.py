@@ -23,6 +23,8 @@ Operational notes:
   answers or full content object dumps in the persistent logger.
 """
 
+import fnmatch
+import ipaddress
 import logging
 import os
 import uuid
@@ -31,6 +33,7 @@ from pathlib import Path
 from string import Formatter
 from tempfile import TemporaryDirectory
 from typing import List
+from urllib.parse import urlparse
 
 import orjson
 from BTrees.OOBTree import OOBTree
@@ -518,6 +521,105 @@ def send_submission_notification(context, event):
         logger.exception("Failed to send notification mail for poll %s", poll_id)
 
 
+def _validate_post_url(url: str, allowlist=None, context=None) -> tuple[bool, str | None]:
+    """Validate a POST endpoint URL against the allowlist.
+
+    Returns a tuple (is_valid, error_message). If is_valid is True,
+    error_message will be None.
+
+    Security checks (in order):
+    1. URL must have valid scheme (http/https)
+    2. Blocked hosts (localhost, metadata services) are always rejected
+    3. URL must match at least one pattern in the allowlist
+    
+    Args:
+        url: The URL to validate
+        allowlist: Optional explicit allowlist (for testing). If None, reads from registry.
+        context: The survey context (for logging and registry lookup)
+    """
+    # Validate URL is not empty
+    if not url:
+        return False, "URL is required"
+    
+    # Parse URL first to check structure and dangerous hosts
+    try:
+        parsed = urlparse(url)
+        hostname = parsed.hostname
+        scheme = parsed.scheme
+        
+        # Validate scheme
+        if scheme not in ('http', 'https'):
+            return False, f"URL scheme '{scheme}' is not allowed. Only http/https are permitted."
+        
+        if not hostname:
+            return False, f"POST endpoint URL '{url}' has no valid hostname"
+        
+        hostname_lower = hostname.lower()
+        
+        # Block localhost variants (ALWAYS - even before allowlist check)
+        localhost_names = {"localhost", "127.0.0.1", "::1", "0.0.0.0", "[::1]"}
+        if hostname_lower in localhost_names:
+            return False, f"POST endpoint URL '{url}' uses blocked localhost address"
+        
+        # Block cloud metadata services (ALWAYS - even before allowlist check)
+        if hostname == "169.254.169.254":
+            return False, f"POST endpoint URL '{url}' uses blocked AWS metadata service address"
+        if hostname_lower == "metadata.google.internal":
+            return False, f"POST endpoint URL '{url}' uses blocked GCP metadata service address"
+        if hostname == "100.100.100.200":
+            return False, f"POST endpoint URL '{url}' uses blocked Alibaba metadata service address"
+        
+        # Block private/link-local IP addresses
+        try:
+            ip = ipaddress.ip_address(hostname)
+            if ip.is_loopback:
+                return False, f"POST endpoint URL '{url}' uses blocked loopback address"
+            if ip.is_link_local:
+                return False, f"POST endpoint URL '{url}' uses blocked link-local address"
+            if ip.is_private:
+                return False, f"POST endpoint URL '{url}' uses blocked private address"
+            if ip.is_reserved:
+                return False, f"POST endpoint URL '{url}' uses blocked reserved address"
+            if ip.is_multicast:
+                return False, f"POST endpoint URL '{url}' uses blocked multicast address"
+        except ValueError:
+            # Not an IP address, that's fine - continue with hostname checks
+            pass
+        
+    except Exception as exc:
+        return False, f"Failed to parse POST endpoint URL '{url}': {exc}"
+    
+    # Get allowlist from registry if not provided (normal operation)
+    if allowlist is None:
+        if context is not None:
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(IFormsSettings, check=False)
+            allowlist = getattr(settings, "post_endpoint_allowlist", []) or []
+        else:
+            allowlist = []
+    
+    # If allowlist is empty, POST is disabled
+    if not allowlist:
+        return False, "POST action disabled - no URLs in allowlist"
+    
+    # If allowlist contains only "*", allow all (with warning)
+    if allowlist == ["*"]:
+        if context is not None:
+            logger.warning(
+                "POST endpoint allowlist is set to allow all URLs (*). "
+                "This is a security risk and should be restricted for %s",
+                getattr(context, "absolute_url", lambda: repr(context))(),
+            )
+        return True, ""
+    
+    # Check URL against allowlist patterns
+    for pattern in allowlist:
+        if fnmatch.fnmatch(url, pattern):
+            return True, ""  # URL matches pattern and passed all security checks
+    
+    return False, f"POST endpoint URL '{url}' not in allowlist"
+
+
 def post_submission_payload(context, event):
     """POST the accepted submission plus latest form schema to an external endpoint.
 
@@ -533,6 +635,16 @@ def post_submission_payload(context, event):
         logger.info(
             "POST action enabled but no endpoint configured for %s",
             getattr(context, "absolute_url", lambda: repr(context))(),
+        )
+        return
+
+    # Validate the endpoint URL against allowlist
+    is_valid, error_message = _validate_post_url(endpoint_url, context=context)
+    if not is_valid:
+        logger.error(
+            "SSRF protection blocked POST for %s: %s",
+            getattr(context, "absolute_url", lambda: repr(context))(),
+            error_message,
         )
         return
 
