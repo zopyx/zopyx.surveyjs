@@ -423,3 +423,83 @@ class IFormsSettings(IPloneLoggingSettings):
         required=False,
         defaultFactory=list,
     )
+
+    # Rate Limiting Settings
+    fieldset(
+        "rate_limiting",
+        label="Rate Limiting",
+        fields=(
+            "rate_limiting_enabled",
+            "rate_limit_submissions_per_ip",
+            "rate_limit_submissions_window",
+            "rate_limit_ai_uploads_per_ip",
+            "rate_limit_ai_uploads_window",
+            "rate_limit_token_gen_per_ip",
+            "rate_limit_token_gen_window",
+            "rate_limit_burst_factor",
+        ),
+    )
+
+    rate_limiting_enabled = schema.Bool(
+        title="Enable Rate Limiting",
+        description="Enable rate limiting on form submissions and sensitive endpoints.",
+        default=True,
+        required=False,
+    )
+
+    rate_limit_submissions_per_ip = schema.Int(
+        title="Submissions per IP",
+        description="Maximum form submissions allowed per IP per time window.",
+        default=30,
+        min=1,
+        required=False,
+    )
+
+    rate_limit_submissions_window = schema.Int(
+        title="Submission Rate Window (seconds)",
+        description="Time window for submission rate limiting.",
+        default=60,
+        min=10,
+        required=False,
+    )
+
+    rate_limit_ai_uploads_per_ip = schema.Int(
+        title="AI Uploads per IP",
+        description="Maximum AI document uploads per IP per window.",
+        default=10,
+        min=1,
+        required=False,
+    )
+
+    rate_limit_ai_uploads_window = schema.Int(
+        title="AI Upload Rate Window (seconds)",
+        description="Time window for AI upload rate limiting.",
+        default=3600,
+        min=60,
+        required=False,
+    )
+
+    rate_limit_token_gen_per_ip = schema.Int(
+        title="Token Generation per IP",
+        description="Maximum embed token generations per IP per window.",
+        default=20,
+        min=1,
+        required=False,
+    )
+
+    rate_limit_token_gen_window = schema.Int(
+        title="Token Generation Window (seconds)",
+        description="Time window for token generation rate limiting.",
+        default=3600,
+        min=60,
+        required=False,
+    )
+
+    rate_limit_burst_factor = schema.Float(
+        title="Burst Factor",
+        description="Multiplier for burst allowance (e.g., 2.0 allows double the rate briefly).",
+        default=2.0,
+        min=1.0,
+        max=5.0,
+        required=False,
+    )

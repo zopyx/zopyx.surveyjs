@@ -45,6 +45,36 @@ class EmbedDirectTokenView(BrowserView):
 
     def __call__(self):
         """Handle POST request to generate embed token."""
+        # Rate limiting check for token generation
+        from .services.rate_limit import RateLimitService, RateLimitExceeded
+        rate_limiter = RateLimitService(self.context, self.request)
+        try:
+            settings = rate_limiter._load_settings()
+            limit = getattr(settings, "rate_limit_token_gen_per_ip", 20)
+            window = getattr(settings, "rate_limit_token_gen_window", 3600)
+            rate_limiter.check_rate_limit(
+                endpoint="embed_token_gen",
+                limit=limit,
+                window=window,
+                key_type="ip"
+            )
+        except RateLimitExceeded as e:
+            logger.warning(
+                "Embed token generation rate limited: ip=%s retry_after=%d",
+                rate_limiter._get_client_ip(),
+                e.retry_after
+            )
+            response = json_error(
+                self.request.response,
+                429,
+                "rate_limit_exceeded",
+                message="Token generation limit reached. Please try again later."
+            )
+            response.headers["Retry-After"] = str(e.retry_after)
+            return
+        finally:
+            rate_limiter.close()
+
         # Check permission
         if not plone.api.user.has_permission(ModifyPortalContent, obj=self.context):
             json_error(self.request.response, 403, "permission_denied")

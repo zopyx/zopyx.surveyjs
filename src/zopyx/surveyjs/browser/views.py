@@ -519,6 +519,37 @@ class Views(BrowserView):
             ):
                 return
 
+        # Rate limiting check for form submissions
+        from .services.rate_limit import RateLimitService, RateLimitExceeded
+        rate_limiter = RateLimitService(self.context, self.request)
+        try:
+            settings = rate_limiter._load_settings()
+            limit = getattr(settings, "rate_limit_submissions_per_ip", 30)
+            window = getattr(settings, "rate_limit_submissions_window", 60)
+            rate_limiter.check_rate_limit(
+                endpoint="save_poll",
+                limit=limit,
+                window=window,
+                key_type="ip"
+            )
+        except RateLimitExceeded as e:
+            logger.warning(
+                "Survey save rate limited: ip=%s retry_after=%d",
+                rate_limiter._get_client_ip(),
+                e.retry_after
+            )
+            response = json_error(
+                self.request.response,
+                429,
+                "rate_limit_exceeded",
+                message="Too many submissions. Please slow down.",
+                extra={"isSuccess": False, "retryAfter": e.retry_after}
+            )
+            response.headers["Retry-After"] = str(e.retry_after)
+            return
+        finally:
+            rate_limiter.close()
+
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
             logger.warning("Survey save failed: status=400 reason=missing_poll_result")

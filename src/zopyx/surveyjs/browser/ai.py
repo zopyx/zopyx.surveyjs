@@ -663,6 +663,27 @@ class AIView(Views):
             Various exceptions during upload/AI processing are caught and
             converted to error messages.
         """
+        # Rate limiting check for AI uploads
+        from .services.rate_limit import RateLimitService, RateLimitExceeded
+        rate_limiter = RateLimitService(self.context, self.request)
+        try:
+            settings = rate_limiter._load_settings()
+            limit = getattr(settings, "rate_limit_ai_uploads_per_ip", 10)
+            window = getattr(settings, "rate_limit_ai_uploads_window", 3600)
+            rate_limiter.check_rate_limit(
+                endpoint="ai_upload",
+                limit=limit,
+                window=window,
+                key_type="ip"
+            )
+        except RateLimitExceeded:
+            return self._redirect_ai(
+                "Upload limit reached. Please try again later.",
+                "error"
+            )
+        finally:
+            rate_limiter.close()
+
         uploaded_file = self.request.form.get("document_file")
         if not uploaded_file:
             return self._redirect_ai("No file uploaded. Please upload a file.", "error")
