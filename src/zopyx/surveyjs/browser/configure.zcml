@@ -201,14 +201,14 @@
   />
   <browser:page 
     name="get-polls-json"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="get_polls_json"
   />
   <browser:page 
     name="get-polls-json2"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="get_polls_json2"
