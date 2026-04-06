@@ -70,6 +70,7 @@ setup(
         "diskcache",
         "PyJWT>=2.8.0",
         "pypdf",
+        "puremagic>=1.30",
         "langcodes[data]",
         "zopyx.plone.persistentlogger",
     ],

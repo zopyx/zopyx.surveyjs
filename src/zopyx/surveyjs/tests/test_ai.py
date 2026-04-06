@@ -31,12 +31,82 @@ class DummyContext:
 
 class DummyUpload:
     def __init__(self, filename: str, payload: bytes, content_type: str) -> None:
+        self.name = filename  # Used by file_validation
         self.filename = filename
         self._payload = payload
         self.contentType = content_type
+        self._position = 0
 
-    def read(self):
-        return self._payload
+    def read(self, size=None):
+        if size is None:
+            data = self._payload[self._position:]
+            self._position = len(self._payload)
+            return data
+        # For chunked reading
+        data = self._payload[self._position:self._position + size]
+        self._position += len(data)
+        return data
+    
+    def seek(self, position):
+        self._position = position
+
+
+def _make_minimal_docx() -> bytes:
+    """Create a minimal valid DOCX file for testing."""
+    import zipfile
+    import io
+    
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
+        # Required files for DOCX
+        zf.writestr('[Content_Types].xml', 
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+            '<Default Extension="xml" ContentType="application/xml"/>'
+            '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+            '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'
+            '</Types>')
+        zf.writestr('word/document.xml', 
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            '<w:body><w:p><w:r><w:t>Test</w:t></w:r></w:p></w:body>'
+            '</w:document>')
+        zf.writestr('_rels/.rels',
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>'
+            '</Relationships>')
+    
+    buffer.seek(0)
+    return buffer.read()
+
+
+def _make_minimal_pdf() -> bytes:
+    """Create a minimal valid PDF file for testing."""
+    return b"%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n2 0 obj\n<<\n/Type /Pages\n/Kids []\n/Count 0\n>>\nendobj\nxref\n0 3\n0000000000 65535 f\n0000000009 00000 n\n0000000058 00000 n\ntrailer\n<<\n/Size 3\n/Root 1 0 R\n>>\nstartxref\n116\n%%EOF"
+
+
+def _make_minimal_odt() -> bytes:
+    """Create a minimal valid ODT file for testing."""
+    import zipfile
+    import io
+    
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
+        zf.writestr('mimetype', 'application/vnd.oasis.opendocument.text')
+        zf.writestr('content.xml', 
+            '<?xml version="1.0" encoding="UTF-8"?>'
+            '<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0">'
+            '<office:body><office:text><text:p xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0">Test</text:p></office:text></office:body>'
+            '</office:document-content>')
+    
+    buffer.seek(0)
+    return buffer.read()
+
+
+def _make_minimal_html() -> bytes:
+    """Create a minimal valid HTML file for testing."""
+    return b'<!DOCTYPE html><html><head><title>Test</title></head><body><p>Test</p></body></html>'
 
 
 def _fake_annotations(context):
@@ -87,7 +157,7 @@ class AIViewTests(unittest.TestCase):
         self, _settings, _annos, _show_message, _write_text
     ) -> None:
         annos = {}
-        upload = DummyUpload("form.pdf", b"%PDF-1.7 dummy", "application/pdf")
+        upload = DummyUpload("form.pdf", _make_minimal_pdf(), "application/pdf")
         view = self._make_view(form={"document_file": upload}, annos=annos)
         generated = {"pages": [{"elements": [{"type": "text", "name": "first_name"}]}]}
 
@@ -122,7 +192,7 @@ class AIViewTests(unittest.TestCase):
         self, _settings, _annos, _show_message, _write_text
     ) -> None:
         annos = {AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: {"stale": True}}
-        upload = DummyUpload("scan.pdf", b"%PDF-1.7 dummy", "application/pdf")
+        upload = DummyUpload("scan.pdf", _make_minimal_pdf(), "application/pdf")
         view = self._make_view(form={"document_file": upload}, annos=annos)
         generated = {"pages": [{"elements": [{"type": "text", "name": "a"}]}]}
 
@@ -152,7 +222,7 @@ class AIViewTests(unittest.TestCase):
         annos = {AIView.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY: {"stale": True}}
         upload = DummyUpload(
             "document.docx",
-            b"dummy",
+            _make_minimal_docx(),
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         )
         view = self._make_view(form={"document_file": upload}, annos=annos)

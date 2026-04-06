@@ -41,6 +41,14 @@ from .services import ai as ai_service
 from .services import forms as forms_service
 from .views import Views
 
+from ..file_validation import (
+    validate_upload,
+    FileValidationError,
+    FileTooLargeError,
+    InvalidFileTypeError,
+    MalformedFileError,
+)
+
 from privacyforms_ai import AI
 
 
@@ -659,43 +667,28 @@ class AIView(Views):
         if not uploaded_file:
             return self._redirect_ai("No file uploaded. Please upload a file.", "error")
 
-        filename = (getattr(uploaded_file, "filename", None) or "").strip()
-        if not filename:
-            return self._redirect_ai("Uploaded file has no filename.", "error")
-
-        extension = Path(filename).suffix.lower()
-        content_type = (
-            (
-                getattr(uploaded_file, "contentType", None)
-                or getattr(uploaded_file, "content_type", None)
-                or ""
-            )
-            .strip()
-            .lower()
-        )
-        base_content_type = content_type.split(";")[0].strip() if content_type else ""
-
-        if (
-            extension not in self.ALLOWED_UPLOAD_EXTENSIONS
-            and base_content_type in self.MIME_TO_EXTENSION
-        ):
-            extension = self.MIME_TO_EXTENSION[base_content_type]
-
-        if extension not in self.ALLOWED_UPLOAD_EXTENSIONS:
+        try:
+            file_data, filename, extension = validate_upload(uploaded_file)
+        except FileTooLargeError:
             return self._redirect_ai(
-                (
-                    "Unsupported file type. Allowed file types: PDF, DOCX, ODT, HTML. "
-                    f"(received extension={extension}, content-type={base_content_type or 'n/a'})"
-                ),
+                "File too large. Maximum size is 50MB.",
                 "error",
             )
-
-        try:
-            file_data = uploaded_file.read()
-            if isinstance(file_data, str):
-                file_data = file_data.encode("utf-8")
-        except Exception as exc:
-            return self._redirect_ai(f"Upload failed: {exc}", "error")
+        except InvalidFileTypeError as exc:
+            return self._redirect_ai(
+                str(exc),
+                "error",
+            )
+        except MalformedFileError:
+            return self._redirect_ai(
+                "The uploaded file appears to be corrupted.",
+                "error",
+            )
+        except FileValidationError as exc:
+            return self._redirect_ai(
+                f"File validation error: {exc}",
+                "error",
+            )
 
         size_bytes = len(file_data or b"")
         has_form = None
