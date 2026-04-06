@@ -37,3 +37,8 @@ Result detail view
 
 The result detail view (``@@result-detail``) renders a human-readable view of a
 submission using the form schema to map labels to values.
+
+Tabular Export Model
+====================
+
+The lossless CSV/XLSX export model is documented in :doc:`tabular-export-format`.

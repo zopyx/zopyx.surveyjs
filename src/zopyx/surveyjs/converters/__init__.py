@@ -18,6 +18,17 @@ from .xlsx_export import write_xlsx
 from .xml_export import build_xml, write_xml
 from .docx_export import write_docx
 from .json_export import build_json, write_json
+from .tabular_export import (
+    CanonicalResponse,
+    ExportSheet,
+    TabularExportBundle,
+    build_canonical_response,
+    build_tabular_export,
+    load_json_document,
+    write_canonical_json,
+    write_csv_bundle,
+    write_excel_bundle,
+)
 from .cli import SurveyConverter, load_dotenv, parse_args, parse_formats, slugify
 
 __all__ = [
@@ -48,5 +59,14 @@ __all__ = [
     "write_docx",
     "build_json",
     "write_json",
+    "CanonicalResponse",
+    "ExportSheet",
+    "TabularExportBundle",
+    "build_canonical_response",
+    "build_tabular_export",
+    "load_json_document",
+    "write_canonical_json",
+    "write_csv_bundle",
+    "write_excel_bundle",
     "cli",
 ]
