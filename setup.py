@@ -65,7 +65,7 @@ setup(
         "llm-ollama",
         "llm-anthropic",
         "llm-deepseek",
-        "llm-moonshot",
+        "zopyx.llm-moonshot",
         "sqlmodel",
         "diskcache",
         "PyJWT>=2.8.0",

@@ -211,11 +211,12 @@ class IFormsSettings(IPloneLoggingSettings):
         missing_value=[],
     )
 
-    ai_model = schema.TextLine(
+    ai_model = schema.Choice(
         title="AI Model",
-        description="The LLM model to use for form generation (e.g., 'gpt-5.2', 'claude-sonnet-4.5' or 'ministral-3:3b' when using Ollama)",
+        description="The LLM model to use for form generation.",
         required=False,
         default="",
+        vocabulary="zopyx.surveyjs.AIModels",
     )
 
     ai_api_key = schema.Password(

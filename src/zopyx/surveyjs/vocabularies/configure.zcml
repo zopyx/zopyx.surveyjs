@@ -9,5 +9,10 @@
         name="zopyx.surveyjs.SurveyStatus"
     />
 
+    <utility
+        component=".ai_models.AIModelsVocabularyFactory"
+        name="zopyx.surveyjs.AIModels"
+    />
+
 
 </configure>

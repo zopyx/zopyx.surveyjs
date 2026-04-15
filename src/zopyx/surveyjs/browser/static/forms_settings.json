@@ -272,7 +272,7 @@
       },
       "elements": [
         {
-          "type": "text",
+          "type": "dropdown",
           "name": "ai_model",
           "title": {
             "default": "AI Model",
@@ -288,19 +288,19 @@
             "ja": "AIモデル"
           },
           "description": {
-            "default": "The LLM model to use for form generation (e.g., 'gpt-5.2', 'claude-sonnet-4.5' or 'ministral-3:3b' when using Ollama).",
-            "de": "Das LLM-Modell für die Formulargenerierung (z.B. 'gpt-5.2', 'claude-sonnet-4.5' oder 'ministral-3:3b' bei Ollama).",
-            "en": "The LLM model to use for form generation (e.g., 'gpt-5.2', 'claude-sonnet-4.5' or 'ministral-3:3b' when using Ollama).",
-            "es": "El modelo LLM para generación de formularios (ej., 'gpt-5.2', 'claude-sonnet-4.5' o 'ministral-3:3b' con Ollama).",
-            "fr": "Le modèle LLM pour la génération de formulaires (ex. 'gpt-5.2', 'claude-sonnet-4.5' ou 'ministral-3:3b' avec Ollama).",
-            "it": "Il modello LLM per la generazione di moduli (es. 'gpt-5.2', 'claude-sonnet-4.5' o 'ministral-3:3b' con Ollama).",
-            "pt": "O modelo LLM para geração de formulários (ex. 'gpt-5.2', 'claude-sonnet-4.5' ou 'ministral-3:3b' com Ollama).",
-            "fi": "LLM-malli lomakkeen luontia varten (esim. 'gpt-5.2', 'claude-sonnet-4.5' tai 'ministral-3:3b' Ollaman kanssa).",
-            "hi": "फ़ॉर्म जनरेशन के लिए LLM मॉडल (उदा., 'gpt-5.2', 'claude-sonnet-4.5' या Ollama के साथ 'ministral-3:3b')।",
-            "ar": "نموذج LLM لإنشاء النماذج (مثل 'gpt-5.2' أو 'claude-sonnet-4.5' أو 'ministral-3:3b' مع Ollama).",
-            "ja": "フォーム生成に使用するLLMモデル（例：'gpt-5.2'、'claude-sonnet-4.5'、Ollama使用時は'ministral-3:3b'）。"
+            "default": "The LLM model to use for form generation.",
+            "de": "Das LLM-Modell für die Formulargenerierung.",
+            "en": "The LLM model to use for form generation.",
+            "es": "El modelo LLM para generación de formularios.",
+            "fr": "Le modèle LLM pour la génération de formulaires.",
+            "it": "Il modello LLM per la generazione di moduli.",
+            "pt": "O modelo LLM para geração de formulários.",
+            "fi": "LLM-malli lomakkeen luontia varten.",
+            "hi": "फ़ॉर्म जनरेशन के लिए LLM मॉडल।",
+            "ar": "نموذج LLM لإنشاء النماذج.",
+            "ja": "フォーム生成に使用するLLMモデル。"
           },
-          "placeholder": "gpt-5.2",
+          "choices": [],
           "minWidth": "100%"
         },
         {

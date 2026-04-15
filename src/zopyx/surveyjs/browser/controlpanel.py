@@ -10,6 +10,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 from ..interfaces import IFormsSettings
 from ..permissions import ManagePortal
@@ -54,6 +55,23 @@ class FormsSettingsView(BrowserView):
     def initial_data_json(self) -> str:
         return orjson.dumps(self.form_values).decode("utf-8")
 
+    def _get_ai_model_choices(self) -> list[dict[str, str]]:
+        """Load available AI model choices from the vocabulary."""
+        try:
+            factory = getUtility(IVocabularyFactory, "zopyx.surveyjs.AIModels")
+            vocabulary = factory(self.context)
+        except Exception:
+            logger.exception("Failed to load AI models vocabulary")
+            return []
+        choices = [
+            {"value": term.value, "text": term.title}
+            for term in vocabulary
+            if term.value
+        ]
+        if not choices:
+            logger.warning("AI models vocabulary returned no choices")
+        return choices
+
     def _load_registry_values(self) -> dict[str, Any]:
         """Load current values from registry."""
         registry = getUtility(IRegistry)
@@ -65,7 +83,7 @@ class FormsSettingsView(BrowserView):
         email_formats = getattr(settings, "email_formats", None) or set()
         features_enabled = getattr(settings, "features_enabled", None) or []
 
-        return {
+        values = {
             "surveyjs_license_key": getattr(settings, "surveyjs_license_key", "") or "",
             "features_enabled": list(features_enabled),
             "ai_model": getattr(settings, "ai_model", "") or "",
@@ -125,6 +143,10 @@ class FormsSettingsView(BrowserView):
                 getattr(settings, "embed_direct_max_origins", 10) or 10
             ),
         }
+        ai_model_choices = self._get_ai_model_choices()
+        if ai_model_choices:
+            values["__ai_model_choices"] = ai_model_choices
+        return values
 
     def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
         """Extract form data from request."""

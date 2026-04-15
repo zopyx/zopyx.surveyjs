@@ -221,6 +221,15 @@
     });
   }
 
+  function getDynamicAIModelChoices() {
+    if (!initialData || !Array.isArray(initialData.__ai_model_choices)) {
+      return [];
+    }
+    return initialData.__ai_model_choices.filter(function (item) {
+      return item && item.value && item.text;
+    });
+  }
+
 /**
  * @function
  */
@@ -229,16 +238,17 @@
       return;
     }
     const languageChoices = getDynamicSurveyLanguageChoices();
-    if (!languageChoices.length) {
-      return;
-    }
+    const aiModelChoices = getDynamicAIModelChoices();
     schema.pages.forEach(function (page) {
       if (!page || !Array.isArray(page.elements)) {
         return;
       }
       page.elements.forEach(function (element) {
-        if (element && element.name === "survey_languages") {
+        if (element && element.name === "survey_languages" && languageChoices.length) {
           element.choices = languageChoices;
+        }
+        if (element && element.name === "ai_model" && aiModelChoices.length) {
+          element.choices = aiModelChoices;
         }
       });
     });
@@ -293,6 +303,7 @@
     if (initialData && Object.keys(initialData).length > 0) {
       const surveyData = Object.assign({}, initialData);
       delete surveyData.__survey_languages_choices;
+      delete surveyData.__ai_model_choices;
       survey.data = surveyData;
     }
 /**
