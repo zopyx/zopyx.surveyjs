@@ -72,6 +72,8 @@ setup(
         "pypdf",
         "langcodes[data]",
         "zopyx.plone.persistentlogger",
+        "cssselect",
+        "cssselect2",
     ],
     extras_require={
         "test": [
