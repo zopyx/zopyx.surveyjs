@@ -47,63 +47,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # System dependencies for Plone and Playwright
-      - name: Install system libraries
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libxml2-dev \
-            libxslt1-dev \
-            libjpeg-dev \
-            libffi-dev \
-            libcairo2 \
-            libpango-1.0-0 \
-            libpangoft2-1.0-0 \
-            libpangocairo-1.0-0 \
-            libharfbuzz0b \
-            libgdk-pixbuf-2.0-0 \
-            libnss3 \
-            libatk-bridge2.0-0 \
-            libdrm-dev \
-            libxkbcommon-dev \
-            libgbm-dev \
-            libasound-dev \
-            libatspi2.0-0 \
-            libxshmfence-dev
-
-      # Set up Python with uv
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          uv-version: "latest"
-          enable-cache: true
-          cache-dependency-glob: |
-            requirements.txt
-            buildout.cfg
-            base.cfg
-
-      - name: Install Python with uv
-        run: uv python install 3.13
-
-      - name: Create venv and install buildout tooling
-        run: |
-          uv venv --python 3.13
-          uv pip install -r requirements.txt
-
-      - name: Cache buildout artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            eggs
-            parts
-            develop-eggs
-            var/cache
-          key: buildout-${{ runner.os }}-${{ hashFiles('buildout.cfg', 'base.cfg', 'requirements.txt') }}
-          restore-keys: |
-            buildout-${{ runner.os }}-
-
-      - name: Run buildout
-        run: .venv/bin/buildout
+      - name: Setup Plone Buildout
+        uses: ./.github/actions/setup-plone-buildout
 
       # Set up Node.js for Playwright
       - name: Set up Node.js

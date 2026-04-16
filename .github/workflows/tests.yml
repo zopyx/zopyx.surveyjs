@@ -31,54 +31,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install system libraries
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libxml2-dev \
-            libxslt1-dev \
-            libjpeg-dev \
-            libffi-dev \
-            libcairo2 \
-            libpango-1.0-0 \
-            libpangoft2-1.0-0 \
-            libpangocairo-1.0-0 \
-            libharfbuzz0b \
-            libgdk-pixbuf-2.0-0
-
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          uv-version: "latest"
-          enable-cache: true
-          cache-dependency-glob: |
-            requirements.txt
-            buildout.cfg
-            base.cfg
-            test_plone60.cfg
-
-      - name: Install Python with uv
-        run: uv python install 3.13
-
-      - name: Create venv and install buildout tooling
-        run: |
-          uv venv --python 3.13
-          uv pip install -r requirements.txt
-
-      - name: Cache buildout artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            eggs
-            parts
-            develop-eggs
-            var/cache
-          key: buildout-${{ runner.os }}-${{ hashFiles('buildout.cfg', 'base.cfg', 'test_plone60.cfg', 'requirements.txt') }}
-          restore-keys: |
-            buildout-${{ runner.os }}-
-
-      - name: Run buildout
-        run: .venv/bin/buildout
+      - name: Setup Plone Buildout
+        uses: ./.github/actions/setup-plone-buildout
 
       - name: Run unit tests
         run: make test
