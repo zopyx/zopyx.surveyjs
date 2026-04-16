@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
 """Installer for the zopyx.surveyjs package."""
 
+import sys
+
 from setuptools import find_packages
 from setuptools import setup
+
+if sys.version_info < (3, 12) or sys.version_info >= (3, 14):
+    raise RuntimeError(
+        "zopyx.surveyjs requires Python 3.12 or 3.13. "
+        "Python 3.14 is currently unsupported due to a Rust dependency "
+        "that does not yet provide wheels for Python 3.14."
+    )
 
 
 long_description = "\n\n".join(
@@ -26,8 +35,8 @@ setup(
         "Framework :: Plone :: Addon",
         "Framework :: Plone :: 5.2",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
@@ -47,7 +56,7 @@ setup(
     package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.8",
+    python_requires=">=3.12,<3.14",
     install_requires=[
         "setuptools",
         # -*- Extra requirements: -*-

@@ -17,6 +17,8 @@ SurveyJS licensing: the Creator is not free for commercial usage. Refer to the S
 
 This package is intended for Buildout-based Plone projects.
 
+> **Python version requirement:** Python 3.12 or 3.13 is required. Python 3.14 is currently unsupported due to a Rust dependency that does not yet provide wheels for Python 3.14.
+
 1. Add `zopyx.surveyjs` to your buildout eggs and run buildout.
 
    ```ini
