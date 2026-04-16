@@ -23,10 +23,10 @@ jobs:
           uv-version: "latest"
 
       - name: Install Python with uv
-        run: uv python install 3.12
+        run: uv python install 3.13
 
       - name: Create venv
-        run: uv venv --python 3.12
+        run: uv venv --python 3.13
 
       - name: Install sdist build tooling
         run: uv pip install --python .venv/bin/python setuptools
