@@ -658,7 +658,7 @@ create_demo_survey(
 
 WELCOME_STYLE = """
 <style>
-  .welcome-shell { max-width: 1100px; margin: 0 auto; padding: 8px 6px 24px; }
+  .welcome-shell { max-width: 100%; margin: 0 auto; padding: 8px 6px 24px; }
   .welcome-hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; align-items: stretch; margin: 12px 0 22px; }
   .welcome-card { border-radius: 18px; padding: 22px 24px; background: linear-gradient(150deg, rgba(255,255,255,0.96), rgba(240,246,255,0.9)); border: 1px solid #e5eef8; box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08); }
   .welcome-card h2, .welcome-card h3 { margin-top: 0; }
