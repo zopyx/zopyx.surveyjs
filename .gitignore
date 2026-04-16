@@ -232,3 +232,4 @@ src/privacyforms.ai
 src/privacyforms.pdf
 .vscode
 src/zopyx/surveyjs/data_validation/validate-mac
+ .vscode/settings.json
