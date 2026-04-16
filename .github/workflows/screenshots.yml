@@ -74,11 +74,11 @@ jobs:
             base.cfg
 
       - name: Install Python with uv
-        run: uv python install 3.12
+        run: uv python install 3.13
 
       - name: Create venv and install buildout tooling
         run: |
-          uv venv --python 3.12
+          uv venv --python 3.13
           uv pip install -r requirements.txt
 
       - name: Run buildout
