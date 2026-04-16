@@ -704,6 +704,10 @@ WELCOME_STYLE = """
   .powered-by a { color: #0f4c81; text-decoration: none; }
   .powered-by a:hover,
   .powered-by a:focus { color: #0b3356; text-decoration: underline; }
+
+  .welcome-video { margin: 28px 0 0; }
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12); }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 </style>
 """
 
@@ -1165,6 +1169,19 @@ def build_welcome_html(language):
   </div>
 </section>
 """
+    video_section = f"""
+<section class="welcome-video"{dir_attr}>
+  <div class="video-container">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/UHNV1DqdLf4"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+"""
     build_footer = f"""
 <hr style="margin:24px 0 8px;border:none;border-top:1px solid #e5e7eb;" />
 <p style="margin:0;color:#6b7280;font-size:11px;">Build: {BUILD_TIMESTAMP}</p>
@@ -1186,6 +1203,7 @@ def build_welcome_html(language):
       {powered_by_section}
     </div>
   </section>
+  {video_section}
   {build_footer}
 </div>
 """
