@@ -3,8 +3,18 @@ name: Playwright Screenshots
 on:
   push:
     branches: [master]
+    paths:
+      - 'src/**'
+      - 'scripts/**'
+      - 'playwright-tests/**'
+      - '.github/workflows/screenshots.yml'
   pull_request:
     branches: [master]
+    paths:
+      - 'src/**'
+      - 'scripts/**'
+      - 'playwright-tests/**'
+      - '.github/workflows/screenshots.yml'
   workflow_dispatch:
     inputs:
       category:
@@ -17,6 +27,10 @@ on:
           - survey
           - psf
           - cp
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   PLONE_URL: http://localhost:8082/demo
@@ -33,7 +47,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # System dependencies for Plone
+      # System dependencies for Plone and Playwright
       - name: Install system libraries
         run: |
           sudo apt-get update
@@ -47,12 +61,7 @@ jobs:
             libpangoft2-1.0-0 \
             libpangocairo-1.0-0 \
             libharfbuzz0b \
-            libgdk-pixbuf-2.0-0
-
-      # System dependencies for Playwright
-      - name: Install Playwright dependencies
-        run: |
-          sudo apt-get install -y \
+            libgdk-pixbuf-2.0-0 \
             libnss3 \
             libatk-bridge2.0-0 \
             libdrm-dev \
@@ -81,6 +90,18 @@ jobs:
           uv venv --python 3.13
           uv pip install -r requirements.txt
 
+      - name: Cache buildout artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            eggs
+            parts
+            develop-eggs
+            var/cache
+          key: buildout-${{ runner.os }}-${{ hashFiles('buildout.cfg', 'base.cfg', 'requirements.txt') }}
+          restore-keys: |
+            buildout-${{ runner.os }}-
+
       - name: Run buildout
         run: .venv/bin/buildout
 
@@ -95,6 +116,14 @@ jobs:
       - name: Install Playwright dependencies
         working-directory: ./playwright-tests
         run: npm ci
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('playwright-tests/package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
 
       - name: Install Playwright browsers
         working-directory: ./playwright-tests
@@ -111,13 +140,13 @@ jobs:
           for i in {1..60}; do
             if curl -s --max-time 5 http://localhost:8082/demo/en > /dev/null 2>&1; then
               echo "Plone is ready!"
-              break
+              exit 0
             fi
             echo -n "."
             sleep 1
           done
-          # Verify Plone is accessible
-          curl -I http://localhost:8082/demo/en
+          echo "Plone failed to start within 60s"
+          exit 1
 
       - name: Run Playwright screenshot tests
         working-directory: ./playwright-tests

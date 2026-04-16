@@ -4,13 +4,32 @@ on:
   push:
     branches: [master]
     tags: ["*"]
+    paths-ignore:
+      - 'docs/**'
+      - 'playwright-tests/**'
+      - 'app/**'
+      - '.github/workflows/screenshots.yml'
+      - '.github/workflows/docker-image.yml'
+      - '.github/workflows/restarting.yml'
   pull_request:
     branches: [master]
+    paths-ignore:
+      - 'docs/**'
+      - 'playwright-tests/**'
+      - 'app/**'
+      - '.github/workflows/screenshots.yml'
+      - '.github/workflows/docker-image.yml'
+      - '.github/workflows/restarting.yml'
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   sdist:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
 
