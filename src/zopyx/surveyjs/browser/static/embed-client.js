@@ -234,12 +234,12 @@
 
         // Load from CDN with fallback
         const script = document.createElement('script');
-        script.src = 'https://unpkg.com/survey-core@1.9.132/survey.core.min.js';
+        script.src = 'https://unpkg.com/survey-core@3.0.0-beta.6/survey.core.min.js';
         script.crossOrigin = 'anonymous';
         script.onload = () => {
           // Load theme
           const themeScript = document.createElement('script');
-          themeScript.src = 'https://unpkg.com/survey-core@1.9.132/themes/index.min.js';
+          themeScript.src = 'https://unpkg.com/survey-core@3.0.0-beta.6/themes/index.min.js';
           themeScript.crossOrigin = 'anonymous';
           themeScript.onload = () => {
             window.__surveyJSLoading = false;
