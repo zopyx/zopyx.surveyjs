@@ -6,13 +6,6 @@ import sys
 from setuptools import find_packages
 from setuptools import setup
 
-if sys.version_info < (3, 12) or sys.version_info >= (3, 14):
-    raise RuntimeError(
-        "zopyx.surveyjs requires Python 3.12 or 3.13. "
-        "Python 3.14 is currently unsupported due to a Rust dependency "
-        "that does not yet provide wheels for Python 3.14."
-    )
-
 
 long_description = "\n\n".join(
     [
@@ -56,7 +49,7 @@ setup(
     package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.12,<3.14",
+    python_requires=">=3.12",
     install_requires=[
         "setuptools",
         # -*- Extra requirements: -*-
