@@ -2,7 +2,11 @@ from plone import api
 from plone.api.exc import InvalidParameterError
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
+import logging
+import platform
 import uuid
+
+logger = logging.getLogger(__name__)
 
 
 @implementer(INonInstallable)
@@ -32,9 +36,29 @@ def _ensure_authenticity_token_secret():
         pass
 
 
+def _prebuild_deno_binary():
+    """Pre-build the Deno-based validate binary so it is ready at first use."""
+    try:
+        from .data_validation.deno_build import deno_build_targets
+    except ImportError:
+        logger.warning("Cannot import deno_build_targets, skipping pre-build.")
+        return
+    system = platform.system().lower()
+    if system not in ("darwin", "linux"):
+        logger.warning("Unsupported platform for Deno pre-build: %s", system)
+        return
+    logger.info("Pre-building Deno validate binary for %s ...", system)
+    try:
+        paths = deno_build_targets([system])
+        logger.info("Deno validate binary built: %s", paths)
+    except Exception as exc:
+        logger.warning("Deno validate binary pre-build failed: %s", exc)
+
+
 def post_install(context):
     """Post install script"""
     _ensure_authenticity_token_secret()
+    _prebuild_deno_binary()
 
 
 def uninstall(context):
