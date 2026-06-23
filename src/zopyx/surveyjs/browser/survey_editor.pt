@@ -88,6 +88,8 @@
       </metal:survey-header-subtitle>
     </metal:survey-header>
 
+    <metal:license-notice use-macro="context/@@survey-actions/macros/license-key-notice" />
+
     <div id="editorUnsavedBanner" class="editor-unsaved-banner" hidden="hidden">
       <span class="editor-unsaved-dot" aria-hidden="true"></span>
       <strong i18n:translate="">Unsaved changes</strong>

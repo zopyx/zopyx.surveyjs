@@ -58,6 +58,9 @@
           </div>
         </metal:survey-header-subtitle>
       </metal:survey-header>
+
+      <metal:license-notice use-macro="context/@@survey-actions/macros/license-key-notice" />
+
       <div id="surveyDashboardContainer"></div>
       <tal:empty-state tal:define="empty_state_id string:survey-dashboard-empty; empty_state_hidden python:True">
         <metal:results-empty-state use-macro="context/@@survey-actions/macros/results-empty-state" />
