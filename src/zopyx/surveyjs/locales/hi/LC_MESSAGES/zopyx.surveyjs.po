@@ -2018,3 +2018,55 @@ msgstr "अभी तक कोई परिणाम नहीं"
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
 msgstr "इस सर्वेक्षण में अभी तक कोई जमा नहीं हुआ है। एक बार जब उत्तरदाता फॉर्म पूरा कर लेंगे, तो उनके परिणाम यहां दिखाई देंगे।"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS License Key"
+msgstr "SurveyJS लाइसेंस कुंजी"
+
+#: browser/survey_actions.pt
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "Creator और Dashboard घटकों को उत्पादन उपयोग के लिए SurveyJS लाइसेंस की आवश्यकता होती है।"
+
+#: browser/survey_actions.pt
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "SurveyJS लाइसेंस आपके संगठन के भीतर व्यक्तिगत डेवलपर्स को कवर करता है — यह आपके फॉर्म भरने वाले प्रति अंतिम उपयोगकर्ता के लिए <strong>नहीं</strong> है।"
+
+#: browser/survey_actions.pt
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "Privacy Form Studio का उपयोग करके, आप स्वीकार करते हैं"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing Terms"
+msgstr "SurveyJS लाइसेंसिंग शर्तें"
+
+#: browser/survey_actions.pt
+msgid "For pricing and licensing options, please visit"
+msgstr "मूल्य निर्धारण और लाइसेंसिंग विकल्पों के लिए, कृपया देखें"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Pricing"
+msgstr "SurveyJS मूल्य निर्धारण"
+
+#: browser/survey_actions.pt
+msgid "and"
+msgstr "और"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing"
+msgstr "SurveyJS लाइसेंसिंग"
+
+#: browser/survey_actions.pt
+msgid "You can add your license key in the"
+msgstr "आप अपनी लाइसेंस कुंजी यहां जोड़ सकते हैं"
+
+#: browser/survey_actions.pt
+msgid "Forms Settings"
+msgstr "फॉर्म सेटिंग्स"
+
+#: browser/survey_actions.pt
+msgid "Have questions?"
+msgstr "प्रश्न हैं?"
+
+#: browser/survey_actions.pt
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "इस ऐड-ऑन का अनुरक्षक सहायता करने में प्रसन्न है — संपर्क करें"

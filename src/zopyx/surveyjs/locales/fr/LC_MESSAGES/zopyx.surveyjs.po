@@ -2082,3 +2082,55 @@ msgstr "Pas encore de résultats"
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
 msgstr "Cette enquête n'a pas encore reçu de réponses. Une fois que les participants auront rempli le formulaire, leurs résultats apparaîtront ici."
+
+#: browser/survey_actions.pt
+msgid "SurveyJS License Key"
+msgstr "Clé de licence SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "Les composants Creator et Dashboard nécessitent une licence SurveyJS pour une utilisation en production."
+
+#: browser/survey_actions.pt
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "Une licence SurveyJS couvre les développeurs individuels au sein de votre organisation — elle n'est <strong>pas</strong> par utilisateur final qui remplit vos formulaires."
+
+#: browser/survey_actions.pt
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "En utilisant Privacy Form Studio, vous reconnaissez et acceptez les"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing Terms"
+msgstr "Conditions de licence SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "For pricing and licensing options, please visit"
+msgstr "Pour les options de tarification et de licence, veuillez consulter"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Pricing"
+msgstr "Tarifs SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "and"
+msgstr "et"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing"
+msgstr "Licences SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "You can add your license key in the"
+msgstr "Vous pouvez ajouter votre clé de licence dans les"
+
+#: browser/survey_actions.pt
+msgid "Forms Settings"
+msgstr "Paramètres des formulaires"
+
+#: browser/survey_actions.pt
+msgid "Have questions?"
+msgstr "Des questions ?"
+
+#: browser/survey_actions.pt
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "Le mainteneur de ce module complémentaire est heureux de vous aider — contactez-nous à"

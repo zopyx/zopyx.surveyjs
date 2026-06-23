@@ -2078,3 +2078,56 @@ msgstr "Aún no hay resultados"
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
 msgstr "Esta encuesta aún no ha recibido respuestas. Una vez que los participantes completen el formulario, sus resultados aparecerán aquí."
+
+
+#: browser/survey_actions.pt
+msgid "SurveyJS License Key"
+msgstr "Clave de licencia de SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "Los componentes Creator y Dashboard requieren una licencia de SurveyJS para uso en producción."
+
+#: browser/survey_actions.pt
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "Una licencia de SurveyJS cubre a desarrolladores individuales dentro de su organización — <strong>no</strong> es por usuario final que completa sus formularios."
+
+#: browser/survey_actions.pt
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "Al usar Privacy Form Studio, usted reconoce y acepta los"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing Terms"
+msgstr "Términos de licencia de SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "For pricing and licensing options, please visit"
+msgstr "Para opciones de precios y licencias, visite"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Pricing"
+msgstr "Precios de SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "and"
+msgstr "y"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing"
+msgstr "Licencias de SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "You can add your license key in the"
+msgstr "Puede agregar su clave de licencia en la"
+
+#: browser/survey_actions.pt
+msgid "Forms Settings"
+msgstr "Configuración de formularios"
+
+#: browser/survey_actions.pt
+msgid "Have questions?"
+msgstr "¿Tiene preguntas?"
+
+#: browser/survey_actions.pt
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "El mantenedor de este complemento estará encantado de ayudarle — contacte en"
