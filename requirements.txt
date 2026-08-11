@@ -1,4 +1,4 @@
-packaging==25.0
+packaging==26.3
 pip==26.1.2
 setuptools==81.0.0
 wheel==0.47.0
