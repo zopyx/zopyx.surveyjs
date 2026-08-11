@@ -1,6 +1,0 @@
-# Legacy Plone 5.2 constraints. The remote constraint URL is commented out
-# because dependabot cannot resolve remote -c URLs (treats them as local
-# paths); the active buildout chain (test_plone60.cfg) does not use this file.
-# -c https://dist.plone.org/release/5.2-latest/requirements.txt
-# setuptools==40.2.0
-# zc.buildout==2.13.2
