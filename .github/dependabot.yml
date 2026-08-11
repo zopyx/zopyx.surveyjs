@@ -5,8 +5,11 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
-      # Plone 5.2 constraint chain is legacy; dependabot cannot resolve
-      # the remote constraint URL it references.
+      # zc.buildout, setuptools and pip versions are dictated by the
+      # Plone 6.1-latest buildout chain (dist.plone.org versions.cfg);
+      # bumping them independently breaks buildout (VersionConflict).
+      - dependency-name: "zc.buildout"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "setuptools"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "pip"
