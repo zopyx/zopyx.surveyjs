@@ -20,6 +20,12 @@ ADMIN_PASS="${ADMIN_PASS:-adminpw}"
 PORT="${PORT:-8080}"
 BASE_URL="http://127.0.0.1:${PORT}"
 
+# zopyx.surveyjs checkout root - resolved from THIS script's location so it
+# works regardless of the current working directory (the script may live in
+# <repo>/uv-plone62/ or be copied elsewhere). Override with PACKAGE_DIR.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PACKAGE_DIR="${PACKAGE_DIR:-$(cd "${SCRIPT_DIR}/.." && pwd)}"
+
 PYTHON_VERSION="3.13"
 PLONE_VERSION="6.2.1"   # pip meta-package version (or use Plone==6.2 for latest 6.2.x)
 DISTRIBUTION="classic"  # Plone 6.2 distributions: classic | volto
@@ -35,7 +41,13 @@ echo "==> Installing Plone ${PLONE_VERSION} via uv (no buildout)"
 uv pip install --python .venv/bin/python "Plone==${PLONE_VERSION}"
 
 echo "==> Installing zopyx.surveyjs (editable) and its privacyforms siblings"
-uv pip install --python .venv/bin/python -e ../src
+echo "    (package dir: ${PACKAGE_DIR})"
+if [[ ! -f "${PACKAGE_DIR}/setup.py" && ! -f "${PACKAGE_DIR}/pyproject.toml" ]]; then
+    echo "ERROR: ${PACKAGE_DIR} is not the zopyx.surveyjs checkout" >&2
+    echo "       (no setup.py/pyproject.toml). Set PACKAGE_DIR to the repo root." >&2
+    exit 1
+fi
+uv pip install --python .venv/bin/python -e "${PACKAGE_DIR}"
 uv pip install --python .venv/bin/python \
     "privacyforms.theme @ git+https://github.com/zopyx/privacyforms.theme.git" \
     "privacyforms.ai @ git+https://github.com/zopyx/privacyforms.ai.git" \
