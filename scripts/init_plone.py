@@ -513,19 +513,21 @@ if SITE_ID in app.objectIds():
 addPloneSite(
     app,
     SITE_ID,
-    distribution="classic",
+    distribution_name="classic",
     extension_ids=["plone.app.contenttypes:default"],
 )
 site = makerequest(app[SITE_ID])
 setSite(site)
 api.addon.install("zopyx.surveyjs")
 api.addon.install("zopyx.plone.persistentlogger")
-api.addon.install("privacyforms.theme")
 
-# Apply privacyforms.theme
-print("Enabling privacyforms.theme...")
+# Apply the Plone Classic theme (Barceloneta). The classic distribution
+# already registers and enables it on Plone >= 6.1; re-applying it via the
+# theming control panel additionally covers older Plone versions (< 6.1)
+# which have no distribution support.
+print("Enabling Plone Classic theme (barceloneta)...")
 site.REQUEST.form["form.button.Enable"] = "DONE"
-site.REQUEST.form["themeName"] = "privacyforms.theme"
+site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
