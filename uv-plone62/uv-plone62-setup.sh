@@ -60,18 +60,32 @@ echo "==> Starting Plone (background)"
 .venv/bin/runwsgi instance/etc/zope.ini > instance/var/runwsgi.log 2>&1 &
 RUNWSGI_PID=$!
 
-echo "==> Waiting for Plone to become ready"
-for i in $(seq 1 120); do
-    if curl -s --max-time 5 "${BASE_URL}/" > /dev/null 2>&1; then
-        echo "    ready after ${i}s"
+echo "==> Waiting for Plone to become ready (first boot can take 2-5 min)"
+READY=0
+for i in $(seq 1 180); do
+    if curl -s --max-time 2 -o /dev/null "${BASE_URL}/" 2>/dev/null; then
+        echo "    ready after ~${i}s"
+        READY=1
         break
     fi
     if ! kill -0 "${RUNWSGI_PID}" 2>/dev/null; then
         echo "ERROR: runwsgi exited early; see ${WORKDIR}/instance/var/runwsgi.log"
         exit 1
     fi
+    if (( i % 15 == 0 )); then
+        echo "    ... still waiting (${i}s) - check ${WORKDIR}/instance/var/runwsgi.log"
+        if lsof -i ":${PORT}" > /dev/null 2>&1; then
+            echo "WARNING: something else already listens on :${PORT}:"
+            lsof -i ":${PORT}" | tail -n +2 | head -3
+        fi
+    fi
     sleep 1
 done
+if [[ "${READY}" != "1" ]]; then
+    echo "ERROR: Plone did not become ready within 180s" >&2
+    echo "       see ${WORKDIR}/instance/var/runwsgi.log" >&2
+    exit 1
+fi
 
 echo "==> Creating Plone site '${SITE_ID}' (distribution: ${DISTRIBUTION})"
 curl -s -u "${ADMIN_USER}:${ADMIN_PASS}" \
