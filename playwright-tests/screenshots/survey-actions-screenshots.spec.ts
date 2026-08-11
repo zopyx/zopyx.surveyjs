@@ -52,7 +52,9 @@ test.describe('Survey Actions Panel', () => {
 
   test('@@dashboard - Dashboard view', async ({ page, baseURL }) => {
     await page.goto(`${baseURL}${TEST_SURVEY_PATH}/@@dashboard`);
-    await page.waitForLoadState('networkidle');
+    // Dashboard charts keep polling, so networkidle never fires; wait for
+    // content to render instead, then give the charts time to draw.
+    await expect(page.locator('#content-core')).toBeVisible({ timeout: SCREENSHOT_TIMEOUT });
     await page.waitForTimeout(8000); // 8 seconds for dashboard charts to fully render
     await screenshots.capture('action-dashboard');
   });
