@@ -31,7 +31,7 @@ runs:
     - name: Set up uv
       uses: astral-sh/setup-uv@v3
       with:
-        uv-version: "latest"
+        version: "latest"
         enable-cache: true
         cache-dependency-glob: |
           requirements.txt

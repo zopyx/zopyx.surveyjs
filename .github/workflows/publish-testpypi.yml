@@ -23,7 +23,7 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v3
         with:
-          uv-version: "latest"
+          version: "latest"
 
       - name: Install Python with uv
         run: uv python install 3.13
