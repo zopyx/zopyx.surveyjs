@@ -13,7 +13,7 @@
 
   <property name="allow_discussion">False</property>
   <property name="factory">SurveyTemplate</property>
-  <property name="icon_expr">string:${portal_url}/++resource++zopyx.surveyjs/survey-template-icon.svg</property>
+    <property name="icon_expr">string:patch-question-fill</property>
   <property name="link_target"></property>
 
   <property name="global_allow">True</property>

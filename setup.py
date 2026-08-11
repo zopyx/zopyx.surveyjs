@@ -6,13 +6,6 @@ import sys
 from setuptools import find_packages
 from setuptools import setup
 
-if sys.version_info < (3, 12) or sys.version_info >= (3, 14):
-    raise RuntimeError(
-        "zopyx.surveyjs requires Python 3.12 or 3.13. "
-        "Python 3.14 is currently unsupported due to a Rust dependency "
-        "that does not yet provide wheels for Python 3.14."
-    )
-
 
 long_description = "\n\n".join(
     [
@@ -39,7 +32,7 @@ setup(
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
         "Operating System :: OS Independent",
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
     ],
     keywords="Python Plone CMS",
     author="Andreas Jung",
@@ -51,13 +44,13 @@ setup(
         "Tracker": "https://github.com/collective/zopyx.surveyjs/issues",
         # 'Documentation': 'https://zopyx.surveyjs.readthedocs.io/en/latest/',
     },
-    license="GPL version 2",
+    license="GPL version 2 or later",
     packages=find_packages("src", exclude=["ez_setup"]),
     namespace_packages=["zopyx"],
     package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.12,<3.14",
+    python_requires=">=3.12",
     install_requires=[
         "setuptools",
         # -*- Extra requirements: -*-

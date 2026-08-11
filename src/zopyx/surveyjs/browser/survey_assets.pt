@@ -107,6 +107,24 @@
     <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/survey-creator-js.min.js"></script>
   </metal:surveyjs-creator>
 
+  <metal:surveyjs-creator-i18n define-macro="surveyjs-creator-i18n">
+    <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/survey-creator-core.i18n.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-creator-i18n>
+
+  <metal:surveyjs-ui-presets define-macro="surveyjs-ui-presets">
+    <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/ui-presets/index.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-ui-presets>
+
+  <metal:surveyjs-ui-preset-editor define-macro="surveyjs-ui-preset-editor">
+    <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/ui-preset-editor.min.js"
+            type="text/javascript"
+    ></script>
+  </metal:surveyjs-ui-preset-editor>
+
   <metal:surveyjs-pdf define-macro="surveyjs-pdf">
     <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/jspdf.umd.min.js"
             type="text/javascript"

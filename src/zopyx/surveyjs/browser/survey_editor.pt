@@ -43,6 +43,15 @@
     <metal:surveyjs-creator
         use-macro="context/@@survey-assets/macros/surveyjs-creator"
     />
+    <metal:surveyjs-creator-i18n
+        use-macro="context/@@survey-assets/macros/surveyjs-creator-i18n"
+    />
+    <metal:surveyjs-ui-presets
+        use-macro="context/@@survey-assets/macros/surveyjs-ui-presets"
+    />
+    <metal:surveyjs-ui-preset-editor
+        use-macro="context/@@survey-assets/macros/surveyjs-ui-preset-editor"
+    />
     <metal:surveyjs-theme-contrast
         use-macro="context/@@survey-assets/macros/surveyjs-theme-contrast"
     />
@@ -78,6 +87,8 @@
         </div>
       </metal:survey-header-subtitle>
     </metal:survey-header>
+
+    <metal:license-notice use-macro="context/@@survey-actions/macros/license-key-notice" />
 
     <div id="editorUnsavedBanner" class="editor-unsaved-banner" hidden="hidden">
       <span class="editor-unsaved-dot" aria-hidden="true"></span>

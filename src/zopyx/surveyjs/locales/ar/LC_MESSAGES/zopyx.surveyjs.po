@@ -1986,3 +1986,56 @@ msgstr "لا توجد نتائج بعد"
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
 msgstr "لم يستلم هذا الاستبيان أي ردود بعد. بمجرد أن يكمل المشاركون النموذج، ستظهر نتائجهم هنا."
+
+
+#: browser/survey_actions.pt
+msgid "SurveyJS License Key"
+msgstr "مفتاح ترخيص SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "تتطلب مكونات Creator وDashboard ترخيص SurveyJS للاستخدام في الإنتاج."
+
+#: browser/survey_actions.pt
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "يغطي ترخيص SurveyJS المطورين الفرديين داخل مؤسستك — وهو <strong>ليس</strong> لكل مستخدم نهائي يملأ نماذجك."
+
+#: browser/survey_actions.pt
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "باستخدام Privacy Form Studio، فإنك تقر وتقبل"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing Terms"
+msgstr "شروط ترخيص SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "For pricing and licensing options, please visit"
+msgstr "للاطلاع على خيارات التسعير والترخيص، يرجى زيارة"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Pricing"
+msgstr "أسعار SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "and"
+msgstr "و"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing"
+msgstr "ترخيص SurveyJS"
+
+#: browser/survey_actions.pt
+msgid "You can add your license key in the"
+msgstr "يمكنك إضافة مفتاح الترخيص الخاص بك في"
+
+#: browser/survey_actions.pt
+msgid "Forms Settings"
+msgstr "إعدادات النماذج"
+
+#: browser/survey_actions.pt
+msgid "Have questions?"
+msgstr "هل لديك أسئلة؟"
+
+#: browser/survey_actions.pt
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "يسر مشرف هذه الإضافة مساعدتك — تواصل معنا على"

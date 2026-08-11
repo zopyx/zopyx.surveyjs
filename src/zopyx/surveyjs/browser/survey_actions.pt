@@ -141,6 +141,47 @@
   />
 </metal:survey_header_critical>
 
+<metal:license_key_notice define-macro="license-key-notice"
+                           tal:define="portal_state context/@@plone_portal_state">
+  <div class="alert alert-info license-notice" tal:condition="not: view/surveyjs_license_key">
+    <h3 i18n:translate="">SurveyJS License Key</h3>
+    <p>
+      <strong i18n:translate="">
+        The Creator and Dashboard components require a SurveyJS license for production use.
+      </strong>
+    </p>
+    <ul>
+      <li i18n:translate="">
+        A SurveyJS license covers individual developers within your organization —
+        it is <strong>not</strong> per end user who fills out your forms.
+      </li>
+      <li>
+        <span i18n:translate="">By using Privacy Form Studio, you acknowledge and accept the</span>
+        <a href="https://surveyjs.io/licensing" target="_blank" rel="noopener"
+           i18n:translate="">SurveyJS Licensing Terms</a>.
+      </li>
+    </ul>
+    <p>
+      <span i18n:translate="">For pricing and licensing options, please visit</span>
+      <a href="https://surveyjs.io/pricing#surveyjs-products" target="_blank" rel="noopener"
+         i18n:translate="">SurveyJS Pricing</a>
+      <span i18n:translate="">and</span>
+      <a href="https://surveyjs.io/licensing" target="_blank" rel="noopener"
+         i18n:translate="">SurveyJS Licensing</a>.
+    </p>
+    <p>
+      <span i18n:translate="">You can add your license key in the</span>
+      <a tal:attributes="href string:${portal_state/portal_url}/@@forms-settings"
+         i18n:translate="">Forms Settings</a>.
+    </p>
+    <p class="license-notice-footer">
+      <span i18n:translate="">Have questions?</span>
+      <span i18n:translate="">The maintainer of this add-on is happy to help — reach out at</span>
+      <a href="mailto:info@zopyx.com">info@zopyx.com</a>.
+    </p>
+  </div>
+</metal:license_key_notice>
+
 <metal:feature_disabled define-macro="feature-disabled">
   <div class="survey-feature-disabled">
     <p i18n:translate="">Feature disabled, access forbidden.</p>

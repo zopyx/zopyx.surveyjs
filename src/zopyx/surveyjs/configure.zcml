@@ -33,18 +33,9 @@
       name="uninstall"
       title="Privacy Forms Studio (uninstall)"
       directory="profiles/uninstall"
-      description="Uninstalls the Privacy Forms studio add-on."
+      description="Uninstalls the Privacy Forms Studio add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       post_handler=".setuphandlers.uninstall"
-      />
-
-  <genericsetup:upgradeStep
-      profile="zopyx.surveyjs:default"
-      source="1000"
-      destination="1001"
-      title="Add content type icons for Form/Survey and Form/Survey Template"
-      description="Sets icon_expr on Survey and SurveyTemplate FTIs."
-      handler=".setuphandlers.upgrade_1000_to_1001"
       />
 
   <utility

@@ -2080,3 +2080,56 @@ msgstr "Noch keine Ergebnisse"
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
 msgstr "Diese Umfrage hat noch keine Antworten erhalten. Sobald Teilnehmer das Formular ausfüllen, erscheinen ihre Ergebnisse hier."
+
+
+#: browser/survey_actions.pt
+msgid "SurveyJS License Key"
+msgstr "SurveyJS-Lizenzschlüssel"
+
+#: browser/survey_actions.pt
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "Die Creator- und Dashboard-Komponenten benötigen für den produktiven Einsatz eine SurveyJS-Lizenz."
+
+#: browser/survey_actions.pt
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "Eine SurveyJS-Lizenz gilt für die Entwickler Ihrer Organisation — nicht <strong>pro Endnutzer</strong>, der Ihre Formulare ausfüllt."
+
+#: browser/survey_actions.pt
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "Durch die Nutzung von Privacy Form Studio erkennen Sie die"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing Terms"
+msgstr "SurveyJS-Lizenzbedingungen"
+
+#: browser/survey_actions.pt
+msgid "For pricing and licensing options, please visit"
+msgstr "Preise und Lizenzoptionen finden Sie unter"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Pricing"
+msgstr "SurveyJS-Preise"
+
+#: browser/survey_actions.pt
+msgid "and"
+msgstr "und"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing"
+msgstr "SurveyJS-Lizenzierung"
+
+#: browser/survey_actions.pt
+msgid "You can add your license key in the"
+msgstr "Sie können Ihren Lizenzschlüssel in den"
+
+#: browser/survey_actions.pt
+msgid "Forms Settings"
+msgstr "Formulareinstellungen"
+
+#: browser/survey_actions.pt
+msgid "Have questions?"
+msgstr "Fragen?"
+
+#: browser/survey_actions.pt
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "Der Maintainer dieses Add-ons hilft gerne weiter — erreichen Sie uns unter"

@@ -1,9 +1,10 @@
 #!/bin/bash
 # Script to download SurveyJS Creator i18n files locally
+# In v3, a combined survey-creator-core.i18n.min.js is also available.
 # Usage: ./download_creator_i18n.sh [language-name]
 # Example: ./download_creator_i18n.sh german
 
-CREATOR_VERSION="latest"
+CREATOR_VERSION="3.0.0-beta.6"
 BASE_URL="https://unpkg.com/survey-creator-core@${CREATOR_VERSION}/i18n"
 
 if [ -z "$1" ]; then
@@ -30,4 +31,4 @@ done
 
 echo ""
 echo "Available languages on unpkg:"
-curl -sL "https://unpkg.com/browse/survey-creator-core@latest/i18n/" | grep -oP '(?<=files/i18n/)[^.]*(?=\.js)' | sort -u | grep -v "\.min$"
+curl -sL "https://unpkg.com/browse/survey-creator-core@${CREATOR_VERSION}/i18n/" | grep -oP '(?<=files/i18n/)[^.]*(?=\.js)' | sort -u | grep -v "\.min$"

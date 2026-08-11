@@ -1941,3 +1941,55 @@ msgstr "まだ結果がありません"
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
 msgstr "この調査にはまだ回答がありません。回答者がフォームを完了すると、結果がここに表示されます。"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS License Key"
+msgstr "SurveyJSライセンスキー"
+
+#: browser/survey_actions.pt
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "CreatorおよびDashboardコンポーネントを本番環境で使用するには、SurveyJSライセンスが必要です。"
+
+#: browser/survey_actions.pt
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "SurveyJSライセンスは組織内の個々の開発者を対象としています — フォームに入力するエンドユーザーごとでは<strong>ありません</strong>。"
+
+#: browser/survey_actions.pt
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "Privacy Form Studioを使用することにより、お客様は以下の事項を認識し同意するものとします："
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing Terms"
+msgstr "SurveyJSライセンス条項"
+
+#: browser/survey_actions.pt
+msgid "For pricing and licensing options, please visit"
+msgstr "価格とライセンスオプションについては、以下をご覧ください："
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Pricing"
+msgstr "SurveyJS価格"
+
+#: browser/survey_actions.pt
+msgid "and"
+msgstr "および"
+
+#: browser/survey_actions.pt
+msgid "SurveyJS Licensing"
+msgstr "SurveyJSライセンス"
+
+#: browser/survey_actions.pt
+msgid "You can add your license key in the"
+msgstr "ライセンスキーは以下で追加できます："
+
+#: browser/survey_actions.pt
+msgid "Forms Settings"
+msgstr "フォーム設定"
+
+#: browser/survey_actions.pt
+msgid "Have questions?"
+msgstr "ご質問がありますか？"
+
+#: browser/survey_actions.pt
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "このアドオンのメンテナが喜んでお手伝いします — お問い合わせ先："
