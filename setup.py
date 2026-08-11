@@ -28,6 +28,7 @@ setup(
     version="1.0a1",
     description="SurveyJS integration with Plone",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     # Get more from https://pypi.org/classifiers/
     classifiers=[
         "Environment :: Web Environment",
