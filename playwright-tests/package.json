@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.62.1",
     "@zerostep/playwright": "^0.1.5"
   },
   "devDependencies": {
