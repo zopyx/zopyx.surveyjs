@@ -69,3 +69,29 @@ class DenoBuildTests(unittest.TestCase):
             self.assertCountEqual(results, expected)
             build_mock.assert_any_call(("darwin", "/tmp/deno", False))
             build_mock.assert_any_call(("linux", "/tmp/deno", False))
+
+    def test_deno_build_targets_single_target_skips_multiprocessing(self) -> None:
+        # Regression test: pre-building a single target (as done during
+        # add-on install) must NOT use multiprocessing spawn -- the spawned
+        # child re-executes the __main__ module, which breaks under
+        # `bin/instance run` (buildout interpreter wrapper) with a SyntaxError
+        # and an endless worker respawn loop that hangs the Docker build.
+        def fake_build_target(args: tuple[str, str, bool]) -> str:
+            system, _, _ = args
+            return os.path.join(deno_build.PROJECT_DIR, deno_build._binary_name(system))
+
+        with (
+            mock.patch("deno_build._is_stale", return_value=True),
+            mock.patch("deno_build._download_deno", return_value="/tmp/deno"),
+            mock.patch("deno_build.multiprocessing.get_context") as ctx_mock,
+            mock.patch(
+                "deno_build._build_target", side_effect=fake_build_target
+            ) as build_mock,
+        ):
+            results = deno_build.deno_build_targets(["linux"])
+
+            self.assertEqual(
+                results, [os.path.join(deno_build.PROJECT_DIR, "validate-linux")]
+            )
+            build_mock.assert_called_once_with(("linux", "/tmp/deno", False))
+            ctx_mock.assert_not_called()

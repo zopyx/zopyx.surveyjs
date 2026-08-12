@@ -140,13 +140,23 @@ def deno_build_targets(targets: list[str], force: bool = False) -> list[str]:
 
     with tempfile.TemporaryDirectory(prefix="deno-build-") as temp_dir:
         deno_path = _download_deno(temp_dir)
-        ctx = multiprocessing.get_context("spawn")
-        pool_size = min(len(build_targets), os.cpu_count() or 1)
-        with ctx.Pool(processes=pool_size) as pool:
-            built_paths = pool.map(
-                _build_target, [(system, deno_path, force) for system in build_targets]
-            )
-        results.extend(built_paths)
+        if len(build_targets) == 1:
+            # Build single targets directly: multiprocessing spawn re-executes
+            # the __main__ module, which breaks under `bin/instance run` (the
+            # buildout interpreter wrapper) -- the spawned child chokes on the
+            # wrapper's argv handling with a SyntaxError and the Pool respawns
+            # crashed workers forever, hanging the build.
+            for system in build_targets:
+                results.append(_build_target((system, deno_path, force)))
+        else:
+            ctx = multiprocessing.get_context("spawn")
+            pool_size = min(len(build_targets), os.cpu_count() or 1)
+            with ctx.Pool(processes=pool_size) as pool:
+                built_paths = pool.map(
+                    _build_target,
+                    [(system, deno_path, force) for system in build_targets],
+                )
+            results.extend(built_paths)
     return results
 
 
