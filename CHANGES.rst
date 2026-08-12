@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+1.0a5 (unreleased)
+------------------
+
+- Version bump to 1.0a5 to trigger a fresh CI run of all workflows.
+
+
 1.0a4 (unreleased)
 ------------------
 
