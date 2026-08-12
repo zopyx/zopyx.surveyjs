@@ -5,7 +5,8 @@
 # Verified end-to-end against:
 #   - Plone 6.2.1 (pip distribution)
 #   - Python 3.13
-#   - zopyx.surveyjs 1.0a4 + privacyforms.theme/ai/pdf from git
+#   - zopyx.surveyjs 1.0a4 + privacyforms.theme from git;
+#     privacyforms.ai/pdf from PyPI
 #
 # Usage:
 #   ./uv-plone62-setup.sh [WORKDIR]
@@ -49,9 +50,10 @@ if [[ ! -f "${PACKAGE_DIR}/setup.py" && ! -f "${PACKAGE_DIR}/pyproject.toml" ]];
 fi
 uv pip install --python .venv/bin/python -e "${PACKAGE_DIR}"
 uv pip install --python .venv/bin/python \
-    "privacyforms.theme @ git+https://github.com/zopyx/privacyforms.theme.git" \
-    "privacyforms.ai @ git+https://github.com/zopyx/privacyforms.ai.git" \
-    "privacyforms.pdf @ git+https://github.com/zopyx/privacyforms.pdf.git"
+    "privacyforms.theme @ git+https://github.com/zopyx/privacyforms.theme.git"
+uv pip install --python .venv/bin/python \
+    "privacyforms.ai" \
+    "privacyforms.pdf"
 
 echo "==> Creating Zope WSGI instance"
 .venv/bin/mkwsgiinstance -d instance -u "${ADMIN_USER}:${ADMIN_PASS}"
