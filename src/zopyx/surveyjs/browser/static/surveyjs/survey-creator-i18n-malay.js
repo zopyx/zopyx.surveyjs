@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var msStrings = {
     // survey templates
     survey: {
-      // [Auto-translated] "Edit"
-      edit: "Suntingan",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Tonton dan belajar cara mencipta tinjauan",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Sila letakkan soalan di sini daripada Kotak Alat",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Cipta peraturan untuk menyesuaikan aliran tinjauan.",
-      // "Copy"
-      copy: "Salin",
       // "Duplicate"
-      duplicate: "Pendua",
-      // "Add to toolbox"
-      addToToolbox: "Tambahkan kepada kotak alat",
-      // "Delete Panel"
-      deletePanel: "Padamkan Panel",
-      // "Delete Question"
-      deleteQuestion: "Padamkan Soalan",
-      // "Convert to"
-      convertTo: "Tukar kepada",
-      // "Drag element"
-      drag: "Seret unsur"
+      duplicate: "Pendua"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Lalai ({0})",
-      // "Survey"
-      survey: "Tinjauan",
       // "Settings"
       settings: "Tetapan Tinjauan",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Kaji selidik",
       // [Auto-translated] "Page"
       pageTypeName: "Laman",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Panel",
-      // [Auto-translated] "Question"
-      questionTypeName: "Soalan",
-      // [Auto-translated] "Column"
-      columnTypeName: "Lajur",
-      // "Add New Page"
-      addNewPage: "Tambahkan Halaman Baharu",
-      // "Scroll to the Right"
-      moveRight: "Tatal ke Kanan",
-      // "Scroll to the Left"
-      moveLeft: "Tatal ke Kiri",
-      // "Delete Page"
-      deletePage: "Padamkan Halaman",
-      // "Edit Page"
-      editPage: "Edit Halaman",
-      // [Auto-translated] "Edit"
-      edit: "Suntingan",
       // "page"
       newPageName: "halaman",
       // "question"
       newQuestionName: "soalan",
       // [Auto-translated] "panel"
       newPanelName: "Panel",
-      // "text"
-      newTextItemName: "teks",
-      // [Auto-translated] "Default"
-      defaultV2Theme: "Lalai",
-      // [Auto-translated] "Modern"
-      modernTheme: "Moden",
-      // [Auto-translated] "Default (legacy)"
-      defaultTheme: "Lalai (warisan)",
       // "Preview Survey Again"
       testSurveyAgain: "Uji Tinjauan Semula",
-      // "Survey width: "
-      testSurveyWidth: "Lebar tinjauan: ",
       // "You had to navigate to"
       navigateToMsg: "Anda perlu navigasi ke:",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Buat Asal",
       // "Redo"
       redo: "Buat Semula",
-      // "Undo last change"
-      undoTooltip: "Buat asal perubahan terakhir",
-      // "Redo the change"
-      redoTooltip: "Buat semula perubahan",
       // [Auto-translated] "Expand"
       expandTooltip: "Mengembangkan",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Tunjuk lebih banyak",
       // [Auto-translated] "Show less"
       showLessChoices: "Tunjukkan kurang",
-      // "Copy"
-      copy: "Salin",
-      // "Cut"
-      cut: "Potong",
-      // "Paste"
-      paste: "Tampal",
-      // "Copy selection to clipboard"
-      copyTooltip: "Salin pilihan kepada papan klip",
-      // "Cut selection to clipboard"
-      cutTooltip: "Potong pilihan kepada papan klip",
-      // "Paste from clipboard"
-      pasteTooltip: "Tampal daripada papan klip",
-      // "Options"
-      options: "Pilihan",
-      // "Generate Valid JSON"
-      generateValidJSON: "Jana JSON yang Sah",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Fungsi tidak diketahui: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Ralat sintaks.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Ralat semantik.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Jana JSON yang Boleh Dibaca",
       // "Toolbox"
       toolbox: "Kotak Alat",
-      // "Properties"
-      "property-grid": "Ciri",
       // [Auto-translated] "Search"
       toolboxSearch: "Carian",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Mula mengkonfigurasi borang anda",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Klik mana-mana ikon kategori untuk meneroka tetapan tinjauan. Seting tambahan akan tersedia sebaik sahaja anda menambah elemen tinjauan pada permukaan reka bentuk.",
-      // "Please correct JSON."
-      correctJSON: "Pilih JSON yang betul.",
       // "Survey Results "
       surveyResults: "Keputusan Tinjauan: ",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Menyimpan",
       // "Saved"
       saved: "Disimpan",
-      // "Error"
-      propertyEditorError: "Ralat:",
       // "Error! Editor content is not saved."
       saveError: "Ralat! Kandungan editor tidak disimpan.",
       // [Auto-translated] "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Adakah anda benar-benar mahu menetapkan semula tema? Semua penyesuaian anda akan hilang.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Ya, tetapkan semula tema",
-      // "Bold"
-      bold: "Tebal",
-      // "Italic"
-      italic: "Condong",
-      // "Underline"
-      underline: "Garis bawah",
       // "Add Question"
       addNewQuestion: "Tambahkan soalan",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Apabila ekspresi mengembalikan nilai benar, maka ekspresi tersuai akan dilaksanakan. Anda boleh menetapkan keputusan ekspresi ini kepada soalan yang dipilih secara pilihan",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: "Apabila ekspresi logik mengembalikan nilai benar, maka teks lalai untuk 'Halaman terima kasih' berubah kepada teks yang diberikan.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Apabila ekspresi: '{0}' mengembalikan nilai benar:",
-        // {0} - the expression
         // [Auto-translated] "New rule"
         itemEmptyExpressionText: "Peraturan baru",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Ungkapan yang hasilnya akan diberikan kepada soalan sasaran.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Masukkan nilai...",
         // "survey becomes completed"
         trigger_completeText: "Tinjauan dilengkapkan",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Syarat",
         // "Action(s)"
         actions: "Tindakan",
-        // "Define condition(s)"
-        expressionEditorTitle: "Takrifkan syarat",
         // "Define action(s)"
         actionsEditorTitle: "Takrifkan tindakan",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Pilih tindakan untuk ditambahkan...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Ekspresi logik kosong atau tidak sah. Sila betulkannya.",
-        // "Please add at least one action."
-        noActionError: "Sila tambahkan sekurang-kurangnya satu tindakan.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Sila baiki masalah dalam tindakan anda.",
         // [Auto-translated] "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Nilai paparan lalai untuk teks dinamik",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Penjajaran label",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "Lebar medan input (dalam aksara)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Penjajaran mesej ralat sel",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Kurang upaya",
       // [Auto-translated] "Inherit"
       inherit: "Mewarisi",
-      // "Apply"
-      apply: "Guna",
-      // [Auto-translated] "OK"
-      ok: "OK",
-      // "Save"
-      save: "Simpan",
       // [Auto-translated] "Clear"
       clear: "Jelas",
-      // "Save"
-      saveTooltip: "Simpan",
-      // "Cancel"
-      cancel: "Batal",
       // [Auto-translated] "Set"
       set: "Set",
-      // "Reset"
-      reset: "Tetap Semula",
       // [Auto-translated] "Change"
       change: "Menukar",
-      // "Refresh"
-      refresh: "Segar semula",
       // [Auto-translated] "Close"
       close: "Tutup",
       // "Delete"
       delete: "Padam",
-      // "Add"
-      add: "Tambahkan",
       // "Add New"
       addNew: "Tambah Baharu",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Klik untuk mengalih keluar item...",
       // [Auto-translated] "Drag the item"
       dragItem: "Seret item",
-      // "Other"
-      addOther: "Lain-lain",
-      // "Select All"
-      addSelectAll: "Pilih Semua",
-      // "None"
-      addNone: "Tiada",
-      // "Remove All"
-      removeAll: "Alih Keluar Semua",
       // [Auto-translated] "Edit"
       edit: "Suntingan",
-      // "Return without saving"
-      back: "Kembali tanpa menyimpan",
-      // "Return without saving"
-      backTooltip: "Kembali tanpa menyimpan",
-      // "Save and return"
-      saveAndBack: "Simpan dan kembali",
-      // "Save and return"
-      saveAndBackTooltip: "Simpan dan kembali",
       // [Auto-translated] "Done"
       doneEditing: "Dilakukan",
-      // "Edit Choices"
-      editChoices: "Edit Pilihan",
-      // "Show Choices"
-      showChoices: "Tunjukkan Pilihan",
-      // "Move"
-      move: "Alih",
-      // [Auto-translated] "<empty>"
-      empty: "<empty>",
       // [Auto-translated] "Value is empty"
       emptyValue: "Nilai kosong",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Sila masukkan sekurang-kurangnya {0} item",
       // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Masukkan senarai pilihan pilihan dan ID mereka dalam format berikut:\n\nid|pilihan\n\nID pilihan pilihan tidak boleh dilihat oleh responden dan boleh digunakan dalam peraturan bersyarat.",
-      // "Form Entry"
-      formEntry: "Entri Borang",
-      // "Test the service"
-      testService: "Uji perkhidmatan",
-      // "Please select the element"
-      itemSelectorEmpty: "Sila pilih elemen",
       // "Please select the action"
       conditionActionEmpty: "Sila pilih tindakan",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Pilih halaman...",
       // "Select a panel..."
       conditionSelectPanel: "Pilih panel...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Sila masukkan/pilih nilai",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Tekan ctrl+space untuk mendapatkan petunjuk lengkapan ekspresi",
-      // "Current row"
-      aceEditorRowTitle: "Baris semasa",
-      // "Current panel"
-      aceEditorPanelTitle: "Panel semasa",
-      // "For more details please check the documentation"
-      showMore: "Untuk butiran lanjut, sila semak dokumentasi",
-      // "Available questions"
-      assistantTitle: "Soalan tersedia:",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Terdapat sekurang-kurangnya satu lajur atau baris",
       // [Auto-translated] "Review before submit"
       showPreviewBeforeComplete: "Semak sebelum menyerahkan",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Tambah URL baru",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Tambah halaman baru",
-      // "Expression is empty"
-      expressionIsEmpty: "Ekspresi kosong",
       // "Value"
       value: "Nilai",
       // "Text"
       text: "Teks",
-      // "Row ID"
-      rowid: "ID Baris",
       // "Image or video file URL"
       imageLink: "Pautan Imej",
-      // "Edit column: {0}"
-      columnEdit: "Edit lajur: {0}",
-      // [Auto-translated] "Edit item: {0}"
-      itemEdit: "Edit item: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Dapatkan URL fail daripada sifat berikut",
       // "Accept empty response"
       allowEmptyResponse: "Benarkan respons kosong",
-      // "Title"
-      titlePlaceholder: "Tajuk input di sini",
       // "Survey Title"
       surveyTitlePlaceholder: "Tajuk tinjauan input di sini",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Nilai lalai",
       // "Default texts"
       cellsDefaultRow: "Teks sel lalai",
-      // "Edit survey settings"
-      surveyEditorTitle: "Edit tetapan tinjauan",
-      // [Auto-translated] "Edit: {0}"
-      qEditorTitle: "Suntingan: {0}",
       // "Maximum character limit"
       maxLength: "Panjang maksimum",
-      // "Build"
-      buildExpression: "Bina",
-      // [Auto-translated] "Edit"
-      editExpression: "Suntingan",
       // [Auto-translated] "and"
       and: "Dan",
       // [Auto-translated] "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Tambah pada hasil tinjauan",
       // "Make the title and description visible"
       showTitle: "Tunjukkan/sembunyikan tajuk",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Kembangkan/runtuhkan tajuk",
       // "Select a survey language"
       locale: "Bahasa lalai",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Sambungan fail tambahan",
       // [Auto-translated] "Wait for upload to complete"
       waitForUpload: "Tunggu muat naik selesai",
-      // [Auto-translated] "Confirm file deletion"
-      needConfirmRemoveFile: "Sahkan penghapusan fail",
       // [Auto-translated] "Row details alignment"
       detailPanelMode: "Penjajaran butiran baris",
       // [Auto-translated] "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Ketinggian imej",
         // [Auto-translated] "Image width"
-        imageWidth: "Lebar imej"
+        imageWidth: "Lebar imej",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Sahkan pemadaman fail"
       },
       // [Auto-translated] "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Sembunyikan soalan jika ia tidak mempunyai pilihan",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Gunakan nilai daripada lajur matriks atau soalan panel berikut sebagai teks pilihan",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Paparkan tajuk halaman dalam bar kemajuan",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Paparkan teks navigasi dalam bar kemajuan",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Penjajaran teks navigasi",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Paparkan nombor halaman dalam bar kemajuan",
       // [Auto-translated] "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Tunjukkan label sebagai nilai yang melampau",
       // [Auto-translated] "Row order"
       rowOrder: "Tertib baris",
-      // [Auto-translated] "Column layout"
-      columnsLayout: "Tataletak lajur",
       // [Auto-translated] "Nested column count"
       columnColCount: "Kiraan lajur tersarang",
       // [Auto-translated] "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Kedudukan logo",
-      // "Add logo..."
-      addLogo: "Tambahkan logo...",
-      // "Change logo..."
-      changeLogo: "Ubah logo...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Alih keluar logo",
-        // "Left"
-        left: "Kiri",
-        // "Right"
-        right: "Kanan",
-        // "On the top"
-        top: "Di atas",
-        // "In the bottom"
-        bottom: "Di bawah"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Mod pratonton",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Penjajaran mesej ralat butiran baris",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Tataletak Panel"
-        },
         // "General"
         general: "Umum",
-        // "Options"
-        fileOptions: "Pilihan",
         // "HTML Editor"
         html: "Editor HTML",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Tetapan Gelangsar",
         // "Choices from a Web Service"
         choicesByUrl: "Pilihan daripada Web",
-        // "Default Choices"
-        matrixChoices: "Pilihan Lalai",
-        // "Text Inputs"
-        multipleTextItems: "Input Teks",
         // "Numbering"
         numbering: "Nombor",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Tunjukkan pada Dilengkapkan",
         // "Logo in the Survey Header"
         logo: "Logo dalam Tajuk Tinjauan",
-        // "Slider"
-        slider: "Penggelongsor",
         // [Auto-translated] "Expression"
         expression: "Ungkapan",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Lain-lain"
       },
-      // "Edit property '{0}'"
-      editProperty: "Edit ciri '{0}'",
       // "Items"
       items: "[ Item: {0} ]",
       // [Auto-translated] "Make choices visible if"
       choicesVisibleIf: "Jadikan pilihan kelihatan jika",
       // [Auto-translated] "Make choices selectable if"
       choicesEnableIf: "Buat pilihan boleh dipilih jika",
-      // [Auto-translated] "Make columns visible if"
-      columnsEnableIf: "Jadikan lajur kelihatan jika",
-      // [Auto-translated] "Make rows visible if"
-      rowsEnableIf: "Jadikan baris kelihatan jika",
       // [Auto-translated] "Increase the inner indent"
       innerIndent: "Tingkatkan lekukan dalam",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Gunakan jawapan daripada entri terakhir sebagai lalai",
-      // "Please enter a value."
-      enterNewValue: "Sila masukkan nilai.",
-      // "There are no questions in the survey."
-      noquestions: "Tiada soalan lain dalam tinjauan.",
-      // "Please create a trigger"
-      createtrigger: "Sila cipta pencetus",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Tekan butang enter untuk mengedit",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Tekan butang enter untuk mengedit item, tekan butang padam untuk memadamkan item, tekan butang alt dan anak panah ke atas atau ke bawah untuk menggerakkan item",
-      // "On "
-      triggerOn: "Hidup ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Jadikan halaman boleh dilihat:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Buat elemen boleh dilihat:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Lengkapkan tinjauan jika berjaya.",
-      // "The trigger is not set"
-      triggerNotSet: "Pencetus tidak ditetapkan",
-      // "Run if"
-      triggerRunIf: "Jalankan jika",
-      // "Change value of: "
-      triggerSetToName: "Ubah nilai: ",
-      // "Copy value from: "
-      triggerFromName: "Salin nilai daripada: ",
-      // "Run this Expression"
-      triggerRunExpression: "Jalankan Ekspresi ini:",
-      // "to: "
-      triggerSetValue: "kepada: ",
-      // "Go to the question"
-      triggerGotoName: "Pergi kepada soalan:",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Jangan letakkan pemboleh ubah dalam keputusan tinjauan.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Sila masukkan ekspresi yang sah",
       // [Auto-translated] "Type expression here..."
       emptyExpressionPlaceHolder: "Taip ungkapan di sini...",
-      // "No file chosen"
-      noFile: "Tiada fail dipilih",
       // [Auto-translated] "Clear hidden question values"
       clearIfInvisible: "Jelas nilai soalan tersembunyi",
       // [Auto-translated] "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Fon penerangan",
         // [Auto-translated] "Font"
-        editorFont: "Fon",
+        inputContent: "Fon",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Kelegapan",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Keluarga fon tinjauan",
+        "--sjs2-typography-font-family-text": "Keluarga fon tinjauan",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Warna latar belakang",
+        "--sjs2-color-utility-surface-survey": "Warna latar belakang",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Warna latar belakang aksen",
+        "--sjs2-color-project-brand-600": "Warna latar belakang aksen",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Warna latar depan aksen",
+        "--sjs2-color-fg-brand-on-primary": "Warna latar depan aksen",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Warna mesej ralat",
+        "--sjs2-color-bg-alert-primary": "Warna mesej ralat",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Kesan bayang",
+        "--sjs2-border-effect-surface-default": "Kesan bayang-bayang",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Kesan bayang",
+        "--sjs2-border-effect-component-formbox-default": "Kesan bayang-bayang",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Warna"
+        "--sjs2-color-component-input-default-line": "Warna"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Fail atau Kamera tempatan",
       // "Inherit"
       inherit: "warisi",
-      // "Visible"
-      show: "tunjukkan",
-      // "Hidden"
-      hide: "sembunyikan",
       // "Inherit"
       default: "lalai",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "tertib menaik",
       // "Descending"
       desc: "menurun",
-      // "Indeterminate"
-      indeterminate: "tidak tentu",
       // [Auto-translated] "Selected"
       selected: "Dipilih",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Carousel",
       // [Auto-translated] "Tabs"
       tab: "Tab",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "Perkembangan atas",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Perkembangan bawah",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Perkembangan atas bawah",
       // "Horizontal"
       horizontal: "mendatar",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "bawah",
       // "Top and bottom"
       topBottom: "atas dan bawah",
-      // "Both"
-      both: "kedua-duanya",
       // "Left"
       left: "baki",
       // [Auto-translated] "Right"
@@ -2125,10 +1870,6 @@
       week: "Minggu",
       // "Hidden"
       hidden: "tersembunyi",
-      // "Editable"
-      edit: "edit",
-      // "Read-only"
-      display: "paparan",
       // [Auto-translated] "Contain"
       contain: "Mengandungi",
       // [Auto-translated] "Cover"
@@ -2153,8 +1894,8 @@
         // [Auto-translated] "Never"
         none: "Tidak pernah"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Butang Radio",
+      // [Auto-translated] "Radio buttons"
+      radio: "Butang radio",
       inputType: {
         // [Auto-translated] "Color"
         color: "Warna",
@@ -2357,8 +2098,6 @@
       onNextPage: "Pada halaman berikutnya",
       // "After an answer is changed"
       onValueChanged: "Pada nilai berubah",
-      // [Auto-translated] "Before an answer is changed"
-      onValueChanging: "Sebelum jawapan diubah",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Struktur asal",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Tunjukkan medan input tunggal setiap halaman"
       },
-      // "No preview"
-      noPreview: "tiada pratonton",
-      // "Show all questions"
-      showAllQuestions: "tunjukkan pratonton dengan semua soalan",
-      // "Show answered questions only"
-      showAnsweredQuestions: "tunjukkan pratonton dengan soalan dijawab",
       // [Auto-translated] "Show all questions"
       allQuestions: "Tunjukkan semua soalan",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // [Auto-translated] "Buttons"
         buttons: "Butang",
         // [Auto-translated] "Dropdown"
-        dropdown: "Dropdown"
+        dropdown: "Dropdown",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Togol bersegmen",
+        // [Auto-translated] "Radio buttons"
+        radio: "Butang radio",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Kotak semak",
+        // [Auto-translated] "Switch"
+        switch: "Tukar",
+        // [Auto-translated] "Custom"
+        custom: "Tersuai"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Mengeset semula pada setiap halaman",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Tetapkan semula pada setiap panel",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Set semula pada setiap panel",
         // [Auto-translated] "Recursive numbering"
         recursive: "Penomboran rekursif",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Teruskan merentasi tinjauan",
         // [Auto-translated] "No numbering"
         off: "Tiada penomboran"
       },
@@ -2648,49 +2387,6 @@
       and: "Dan",
       // [Auto-translated] "or"
       or: "Atau"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Guna versi Angular",
-      // "Use jQuery version"
-      jquery: "Guna versi jQuery",
-      // "Use Knockout version"
-      knockout: "Guna versi Knockout",
-      // "Use React version"
-      react: "Guna versi React",
-      // "Use Vue version"
-      vue: "Guna versi Vue",
-      // "For bootstrap framework"
-      bootstrap: "Untuk kerangka kerja butstrap",
-      // "Modern theme"
-      modern: "Tema moden",
-      // "Default theme"
-      default: "Tema lalai",
-      // "Orange theme"
-      orange: "Tema oren",
-      // "Darkblue theme"
-      darkblue: "Tema biru gelap",
-      // "Darkrose theme"
-      darkrose: "Tema mawar gelap",
-      // "Stone theme"
-      stone: "Tema batu",
-      // "Winter theme"
-      winter: "Tema musim sejuk",
-      // "Winter-Stone theme"
-      winterstone: "Tema batu-musim sejuk",
-      // "Show survey on a page"
-      showOnPage: "Tunjukkan tinjauan pada halaman",
-      // "Show survey in a window"
-      showInWindow: "Tunjukkan tinjauan pada tetingkap",
-      // "Load Survey JSON from server"
-      loadFromServer: "Muatkan Tinjauan JSON daripada pelayan",
-      // "Scripts and styles"
-      titleScript: "Skrip dan gaya",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Menentukan lebar paparan imej yang dimuat naik dalam pratonton dan lebar sebenar imej yang diambil dengan kamera. Dalam mod muat naik fail tunggal, lebar paparan dihadkan oleh kawasan pratonton; Dalam mod muat naik berbilang fail, ia dihadkan oleh kawasan lakaran kecil.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Memaparkan pratonton lakaran kecil untuk fail yang dimuat naik apabila boleh. Nyahpilih jika anda mahu menunjukkan ikon fail."
+        allowImagesPreview: "Memaparkan pratonton lakaran kecil untuk fail yang dimuat naik apabila boleh. Nyahpilih jika anda mahu menunjukkan ikon fail.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Mencetuskan gesaan yang meminta untuk mengesahkan pemadaman fail."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Nilai" berfungsi sebagai ID item yang digunakan dalam peraturan bersyarat; "Teks" dipaparkan kepada responden.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Pilih antara "Imej" dan "Video" untuk menetapkan mod kandungan pemilih media. Jika "Imej" dipilih, pastikan semua pilihan yang disediakan adalah fail imej dalam format berikut: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Begitu juga, jika "Video" dipilih, pastikan semua pilihan adalah pautan langsung ke fail video dalam format berikut: MP4, MOV, WMV, FLV, AVI, MKV. Sila ambil perhatian bahawa pautan YouTube tidak disokong untuk pilihan video.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Tetapan ini hanya mengubah saiz medan input dan tidak menjejaskan lebar kotak soalan. Untuk mengehadkan panjang input yang diterima, pergi ke "Pengesahan" → "Had aksara maksimum".'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Nilai untuk menyimpan hasil tinjauan apabila responden memberikan jawapan negatif.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Anda tidak disyorkan untuk menyahdayakan pilihan ini kerana ia mengatasi imej Pratonton dan menyukarkan pengguna untuk memahami sama ada fail telah dimuat naik.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Mencetuskan gesaan yang meminta untuk mengesahkan penghapusan fail.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Membolehkan untuk menilai pilihan yang dipilih sahaja. Pengguna akan menyeret item terpilih dari senarai pilihan untuk memesannya dalam kawasan kedudukan.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Melaraskan ketelusan elemen input berbanding dengan latar belakang tinjauan.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Menetapkan jejari sudut untuk semua elemen segi empat tepat. Dayakan Mod Lanjutan jika anda ingin menetapkan nilai jejari sudut individu untuk elemen input atau panel dan kotak soalan.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Menetapkan warna latar belakang utama tinjauan."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Menetapkan warna latar belakang utama tinjauan."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Hover",
       // [Auto-translated] "Selected"
       primaryLightColor: "Dipilih",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Warna latar belakang",
       // "Corner radius"
       cornerRadius: "Jejari penjuru",
       // [Auto-translated] "Default background"
       backcolor: "Latar belakang lalai",
       // [Auto-translated] "Hover background"
       hovercolor: "Latarbelakang penuding",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Hiasan sempadan",
       // [Auto-translated] "Font color"
       fontColor: "Warna fon",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Warna lalai",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Warna dinyahdayakan",
-      // [Auto-translated] "Font"
-      font: "Fon",
       // [Auto-translated] "Darker"
       borderDefault: "Gelap",
       // [Auto-translated] "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Warna ruang letak",
       // [Auto-translated] "Size"
       size: "Saiz",
+      // [Auto-translated] "Line height"
+      lineHeight: "Ketinggian garisan",
       // [Auto-translated] "Opacity"
       opacity: "Kelegapan",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Lalai",
-        // [Auto-translated] "Sharp"
-        sharp: "Tajam",
+        // [Auto-translated] "Contrast"
+        contrast: "Sebaliknya",
         // [Auto-translated] "Borderless"
         borderless: "Tanpa sempadan",
         // [Auto-translated] "Flat"
         flat: "Rata",
         // [Auto-translated] "Plain"
         plain: "Biasa",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Sempadan Berkembar",
-        // [Auto-translated] "Layered"
-        layered: "Berlapis",
-        // [Auto-translated] "Solid"
-        solid: "Pepejal",
+        // [Auto-translated] "Soft"
+        soft: "Lembut",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Sebaliknya"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monokrom"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Latar belakang permukaan",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Utama",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Menengah",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Permukaansurface",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "Elemen UI",
       // [Auto-translated] "Font"
       fontScale: "Fon",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Pencipta Tinjauan 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Cahaya",
-        // [Auto-translated] "Dark"
-        "default-dark": "Gelap",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Sebaliknya"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Pratetap digunakan"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Perkara 1" }, { value: "item2", text: "Perkara 2" }, { value: "item3", text: "Perkara 3" }],
+      columns: [{ value: "column1", text: "Lajur 1" }, { value: "column2", text: "Lajur 2" }, { value: "column3", text: "Lajur 3" }],
+      rows: [{ value: "row1", text: "Baris 1" }, { value: "row2", text: "Baris 2" }],
+      matrixColumns: [{ name: "column1", title: "Lajur 1" }, { name: "column2", title: "Lajur 2" }, { name: "column3", title: "Lajur 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "ms", strings: msStrings });

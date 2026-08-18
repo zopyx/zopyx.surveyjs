@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var nlStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Bewerk",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Bekijk en leer hoe u enquêtes maakt",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Stel hier een vraag vanuit de Toolbox.",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Maak een regel om de stroom van de enquête aan te passen.",
-      // "Copy"
-      copy: "Kopiëren",
       // [Auto-translated] "Duplicate"
-      duplicate: "Duplicaat",
-      // "Add to toolbox"
-      addToToolbox: "Toevoegen aan toolbox",
-      // "Delete Panel"
-      deletePanel: "Paneel verwijderen",
-      // "Delete Question"
-      deleteQuestion: "Vraag verwijderen",
-      // "Convert to"
-      convertTo: "Omzetten naar",
-      // "Drag element"
-      drag: "Sleep element"
+      duplicate: "Duplicaat"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Standaard ({0})",
-      // "Survey"
-      survey: "Enquête",
       // "Settings"
       settings: "Enquête-instellingen",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Enquête",
       // [Auto-translated] "Page"
       pageTypeName: "Bladzijde",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Paneel",
-      // [Auto-translated] "Question"
-      questionTypeName: "Vraag",
-      // [Auto-translated] "Column"
-      columnTypeName: "Kolom",
-      // "Add New Page"
-      addNewPage: "Pagina toevoegen",
-      // "Scroll to the Right"
-      moveRight: "Scroll naar rechts",
-      // "Scroll to the Left"
-      moveLeft: "Scroll naar links",
-      // "Delete Page"
-      deletePage: "Pagina verwijderen",
-      // "Edit Page"
-      editPage: "Pagina aanpassen",
-      // "Edit"
-      edit: "Bewerk",
       // "page"
       newPageName: "Pagina",
       // "question"
       newQuestionName: "Vraag",
       // "panel"
       newPanelName: "Paneel",
-      // "text"
-      newTextItemName: "Tekst",
-      // [Auto-translated] "Default"
-      defaultV2Theme: "Verstek",
-      // [Auto-translated] "Modern"
-      modernTheme: "Modern",
-      // [Auto-translated] "Default (legacy)"
-      defaultTheme: "Standaard (verouderd)",
       // "Preview Survey Again"
       testSurveyAgain: "Test de enquête opnieuw",
-      // "Survey width: "
-      testSurveyWidth: "Onderzoeksbreedte: ",
       // "You had to navigate to"
       navigateToMsg: "Je moest navigeren naar:",
       // "Save Survey"
@@ -209,14 +157,10 @@
       undo: "Ongedaan maken",
       // "Redo"
       redo: "Opnieuw uitvoeren",
-      // "Undo last change"
-      undoTooltip: "Maak de laatste wijziging ongedaan",
-      // "Redo the change"
-      redoTooltip: "Voer de wijziging opnieuw uit",
-      // [Auto-translated] "Expand"
-      expandTooltip: "Uitbreiden",
+      // "Expand"
+      expandTooltip: "Uitklappen",
       // [Auto-translated] "Collapse"
-      collapseTooltip: "Instorting",
+      collapseTooltip: "Inklappen",
       // "Expand All"
       expandAllTooltip: "Alles uitvouwen",
       // "Collapse All"
@@ -233,22 +177,6 @@
       showMoreChoices: "Toon meer",
       // [Auto-translated] "Show less"
       showLessChoices: "Toon minder",
-      // "Copy"
-      copy: "Kopiëren",
-      // "Cut"
-      cut: "Besnoeiing",
-      // "Paste"
-      paste: "Plakken",
-      // "Copy selection to clipboard"
-      copyTooltip: "Kopieer selectie naar klembord",
-      // "Cut selection to clipboard"
-      cutTooltip: "Knip de selectie naar het klembord",
-      // "Paste from clipboard"
-      pasteTooltip: "Plakken vanaf klembord",
-      // "Options"
-      options: "Opties",
-      // "Generate Valid JSON"
-      generateValidJSON: "Genereer geldige JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Onbekende functie: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Syntaxisfout.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Semantische fout.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Genereer leesbare JSON",
       // "Toolbox"
       toolbox: "Gereedschap",
-      // "Properties"
-      "property-grid": "Eigenschappen",
       // [Auto-translated] "Search"
       toolboxSearch: "Zoeken",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Begin met het configureren van uw formulier",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Klik op een categoriepictogram om de enquête-instellingen te verkennen. Aanvullende instellingen worden beschikbaar zodra u een enquête-element aan het ontwerpoppervlak toevoegt.",
-      // "Please correct JSON."
-      correctJSON: "Corrigeer JSON.",
       // "Survey Results "
       surveyResults: "Enquêteresultaat: ",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Besparing",
       // "Saved"
       saved: "Opgeslagen",
-      // "Error"
-      propertyEditorError: "Fout:",
       // "Error! Editor content is not saved."
       saveError: "Fout! De inhoud van de editor wordt niet opgeslagen.",
       // [Auto-translated] "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Wil je het thema echt resetten? Al uw aanpassingen gaan verloren.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Ja, reset het thema",
-      // "Bold"
-      bold: "Vetgedrukt",
-      // "Italic"
-      italic: "Cursief",
-      // "Underline"
-      underline: "Onderstrepen",
       // "Add Question"
       addNewQuestion: "Vraag toevoegen",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Wanneer de logische expressie true retourneert, wordt de aangepaste expressie uitgevoerd. U kunt dit expressieresultaat optioneel instellen voor de geselecteerde vraag",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: "Als de logische uitdrukking true retourneert, wordt de standaardtekst voor de 'Bedankpagina' gewijzigd in de opgegeven tekst.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Wanneer expressie: '{0}' true retourneert:",
-        // {0} - the expression
         // [Auto-translated] "New rule"
         itemEmptyExpressionText: "Nieuwe regel",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Een expressie waarvan het resultaat wordt toegewezen aan de doelvraag.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Voer een waarde in...",
         // "survey becomes completed"
         trigger_completeText: "Enquête wordt voltooid",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Voorwaard(en)",
         // "Action(s)"
         actions: "Actie(s)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Definieer conditie(s)",
         // "Define action(s)"
         actionsEditorTitle: "Definieer actie(s)",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Selecteer een actie om toe te voegen...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "De logische uitdrukking is leeg of ongeldig. Verbeter dit alstublieft.",
-        // "Please add at least one action."
-        noActionError: "Voeg ten minste één actie toe.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Los problemen in uw actie(s) op.",
         // [Auto-translated] "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Standaardweergavewaarde voor dynamische teksten",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Etiket uitlijnen",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "Breedte invoerveld (in tekens)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Uitlijning van celfoutmeldingen",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Invalide",
       // [Auto-translated] "Inherit"
       inherit: "Erven",
-      // "Apply"
-      apply: "Van toepassing zijn",
-      // [Auto-translated] "OK"
-      ok: "Oké",
-      // "Save"
-      save: "Opslaan",
       // [Auto-translated] "Clear"
       clear: "Verwijder alles",
-      // "Save"
-      saveTooltip: "Opslaan",
-      // "Cancel"
-      cancel: "Annuleren",
       // [Auto-translated] "Set"
       set: "Set",
-      // "Reset"
-      reset: "Resetten",
       // [Auto-translated] "Change"
       change: "Veranderen",
-      // "Refresh"
-      refresh: "Opslaan",
       // [Auto-translated] "Close"
       close: "Sluiten",
       // "Delete"
       delete: "Verwijderen",
-      // "Add"
-      add: "Toevoegen",
       // "Add New"
       addNew: "Nieuwe toevoegen",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Klik om het item te verwijderen...",
       // [Auto-translated] "Drag the item"
       dragItem: "Sleep het item",
-      // "Other"
-      addOther: "Andere",
-      // "Select All"
-      addSelectAll: "Selecteer alles",
-      // "None"
-      addNone: "Geen",
-      // "Remove All"
-      removeAll: "Verwijder alles",
       // "Edit"
       edit: "Bewerk",
-      // "Return without saving"
-      back: "Keer terug zonder op te slaan",
-      // "Return without saving"
-      backTooltip: "Keer terug zonder op te slaan",
-      // "Save and return"
-      saveAndBack: "Bewaar en keer terug",
-      // "Save and return"
-      saveAndBackTooltip: "Bewaar en keer terug",
       // [Auto-translated] "Done"
       doneEditing: "Klaar",
-      // "Edit Choices"
-      editChoices: "Keuzes bewerken",
-      // "Show Choices"
-      showChoices: "Toon keuzes",
-      // "Move"
-      move: "Bewegen",
-      // "<empty>"
-      empty: "<leeg>",
       // [Auto-translated] "Value is empty"
       emptyValue: "Waarde is leeg",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Voer ten minste {0} objecten in",
       // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Voer de lijst met keuzeopties en hun ID's in de volgende indeling in:\n\nid|optie\n\nEen keuzeoptie-id is niet zichtbaar voor respondenten en kan worden gebruikt in voorwaardelijke regels.",
-      // "Form Entry"
-      formEntry: "Formulierinvoer",
-      // "Test the service"
-      testService: "Test de service",
-      // "Please select the element"
-      itemSelectorEmpty: "Selecteer het element",
       // "Please select the action"
       conditionActionEmpty: "Selecteer de actie",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Selecteer pagina...",
       // "Select a panel..."
       conditionSelectPanel: "Selecteer paneel...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Voer/selecteer de waarde",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Druk op Ctrl+spatiebalk om een hint voor het voltooien van een uitdrukking te krijgen",
-      // "Current row"
-      aceEditorRowTitle: "Huidige rij",
-      // "Current panel"
-      aceEditorPanelTitle: "Huidig paneel",
-      // "For more details please check the documentation"
-      showMore: "Raadpleeg de documentatie voor meer details",
-      // "Available questions"
-      assistantTitle: "Beschikbare vragen:",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Er moet minimaal één kolom of rij zijn",
       // "Review before submit"
       showPreviewBeforeComplete: "Voorbeeldweergave voor afronden",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Nieuwe URL toevoegen",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Nieuwe pagina toevoegen",
-      // "Expression is empty"
-      expressionIsEmpty: "Expressie is leeg",
       // "Value"
       value: "Waarde",
       // "Text"
       text: "Tekst",
-      // "Row ID"
-      rowid: "Rij-ID",
       // "Image or video file URL"
       imageLink: "Afbeeldingslink",
-      // "Edit column: {0}"
-      columnEdit: "Kolom bewerken: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Bewerk item: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Bestands-URL's ophalen van de volgende eigenschap",
       // "Accept empty response"
       allowEmptyResponse: "Leeg respons toestaan",
-      // "Title"
-      titlePlaceholder: "Voer hier de titel in",
       // "Survey Title"
       surveyTitlePlaceholder: "Voer de enquêtetitel hier in",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Standaardwaarde",
       // "Default texts"
       cellsDefaultRow: "Standaard celteksten",
-      // "Edit survey settings"
-      surveyEditorTitle: "Bewerk enquête-instellingen",
-      // "Edit: {0}"
-      qEditorTitle: "Bewerken: {0}",
       // "Maximum character limit"
       maxLength: "Maximale lengte",
-      // "Build"
-      buildExpression: "Bouwen",
-      // "Edit"
-      editExpression: "Bewerk",
       // [Auto-translated] "and"
       and: "en",
       // [Auto-translated] "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Toevoegen aan de enquêteresultaten",
       // "Make the title and description visible"
       showTitle: "Titel weergeven/verbergen",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Titel uitvouwen/samenvouwen",
       // "Select a survey language"
       locale: "Standaardtaal",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Extra bestandsextensies",
       // [Auto-translated] "Wait for upload to complete"
       waitForUpload: "Wacht tot het uploaden is voltooid",
-      // [Auto-translated] "Confirm file deletion"
-      needConfirmRemoveFile: "Bevestig het verwijderen van bestanden",
       // [Auto-translated] "Row details alignment"
       detailPanelMode: "Uitlijning van rijdetails",
       // [Auto-translated] "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Hoogte afbeelding",
         // [Auto-translated] "Image width"
-        imageWidth: "Breedte afbeelding"
+        imageWidth: "Breedte afbeelding",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Bevestig bestandsverwijdering"
       },
       // [Auto-translated] "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Verberg de vraag als er geen keuzes in zitten",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Gebruik waarden uit de volgende matrixkolom of paneelvraag als keuzeteksten",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Paginatitels weergeven in de voortgangsbalk",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Toon navigatietekst in de voortgangsbalk",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Navigatietekstuitlijning",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Paginanummers weergeven in de voortgangsbalk",
       // [Auto-translated] "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "De labels weergeven als extreme waarden",
       // [Auto-translated] "Row order"
       rowOrder: "Rijvolgorde",
-      // [Auto-translated] "Column layout"
-      columnsLayout: "Kolomindeling",
       // [Auto-translated] "Nested column count"
       columnColCount: "Aantal geneste kolommen",
       // [Auto-translated] "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Positie logo",
-      // "Add logo..."
-      addLogo: "Logo toevoegen...",
-      // "Change logo..."
-      changeLogo: "Logo wijzigen...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Logo verwijderen",
-        // "Left"
-        left: "Links",
-        // "Right"
-        right: "Rechtsaf",
-        // "On the top"
-        top: "Bovenop",
-        // "In the bottom"
-        bottom: "Onder aan"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Preview-modus",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Uitlijning van foutberichten in rijen",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Paneel Lay-out"
-        },
         // "General"
         general: "Algemeen",
-        // "Options"
-        fileOptions: "Opties",
         // "HTML Editor"
         html: "Html-editor",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Instellingen voor schuifregelaars",
         // "Choices from a Web Service"
         choicesByUrl: "Keuzes van internet",
-        // "Default Choices"
-        matrixChoices: "Standaardkeuzes",
-        // "Text Inputs"
-        multipleTextItems: "Tekstinvoer",
         // "Numbering"
         numbering: "Nummering",
         // [Auto-translated] "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Weergeven bij afronden",
         // "Logo in the Survey Header"
         logo: "Logo in enquêtetitel",
-        // "Slider"
-        slider: "Schuifregelaar",
         // [Auto-translated] "Expression"
         expression: "Uitdrukking",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Anderen"
       },
-      // "Edit property '{0}'"
-      editProperty: "Eigenschap '{0}' bewerken",
       // [Auto-translated] "Items"
       items: "Items",
       // [Auto-translated] "Make choices visible if"
       choicesVisibleIf: "Maak keuzes zichtbaar als",
       // [Auto-translated] "Make choices selectable if"
       choicesEnableIf: "Maak keuzes selecteerbaar als",
-      // [Auto-translated] "Make columns visible if"
-      columnsEnableIf: "Maak kolommen zichtbaar als",
-      // [Auto-translated] "Make rows visible if"
-      rowsEnableIf: "Maak rijen zichtbaar als",
       // [Auto-translated] "Increase the inner indent"
       innerIndent: "Vergroot de binnenste inkeping",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Gebruik antwoorden van de laatste invoer als standaard",
-      // "Please enter a value."
-      enterNewValue: "Voer de waarde in.",
-      // "There are no questions in the survey."
-      noquestions: "Er is geen enkele vraag in de enquête.",
-      // "Please create a trigger"
-      createtrigger: "Maak een trigger",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Druk op de enter-knop om te bewerken",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Druk op de enter-knop om het item te bewerken, druk op de delete-knop om het item te verwijderen, druk op alt plus pijl omhoog of pijl omlaag om item te verplaatsen",
-      // "On "
-      triggerOn: "Aan ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Maak pagina's zichtbaar:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Maak elementen zichtbaar:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Vul de enquête in als dit lukt.",
-      // "The trigger is not set"
-      triggerNotSet: "De trigger is niet ingesteld",
-      // "Run if"
-      triggerRunIf: "Voer als",
-      // "Change value of: "
-      triggerSetToName: "Verander waarde van: ",
-      // "Copy value from: "
-      triggerFromName: "Waarde kopiëren van: ",
-      // "Run this Expression"
-      triggerRunExpression: "Voer deze expressie uit:",
-      // "to: "
-      triggerSetValue: "naar: ",
-      // "Go to the question"
-      triggerGotoName: "Ga naar de vraag:",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Zet de variabele niet in het onderzoeksresultaat.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Voer een geldige uitdrukking in",
       // [Auto-translated] "Type expression here..."
       emptyExpressionPlaceHolder: "Typ hier expressie...",
-      // "No file chosen"
-      noFile: "Geen bestand gekozen",
       // [Auto-translated] "Clear hidden question values"
       clearIfInvisible: "Waarden voor verborgen vragen wissen",
       // [Auto-translated] "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Beschrijving lettertype",
         // [Auto-translated] "Font"
-        editorFont: "Lettertype",
+        inputContent: "Lettertype",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Dekking",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Familie van enquêtelettertypen",
+        "--sjs2-typography-font-family-text": "Surveylettertypefamilie",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Achtergrondkleur",
+        "--sjs2-color-utility-surface-survey": "Achtergrondkleur",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Accent achtergrondkleuren",
+        "--sjs2-color-project-brand-600": "Accentkleuren op de achtergrond",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Accent voorgrondkleuren",
+        "--sjs2-color-fg-brand-on-primary": "Accentkleuren voorgrond",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Foutmelding kleuren",
+        "--sjs2-color-bg-alert-primary": "Kleuren van foutmeldingen",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Schaduweffecten",
+        "--sjs2-border-effect-surface-default": "Schaduweffecten",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Schaduweffecten",
+        "--sjs2-border-effect-component-formbox-default": "Schaduweffecten",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Kleuren"
+        "--sjs2-color-component-input-default-line": "Kleuren"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Lokaal bestand of camera",
       // "Inherit"
       inherit: "Erven",
-      // "Visible"
-      show: "Tonen",
-      // "Hidden"
-      hide: "Zich verstoppen",
       // "Inherit"
       default: "Standaard",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "Oplopend",
       // "Descending"
       desc: "Aflopend",
-      // "Indeterminate"
-      indeterminate: "Onbepaald",
       // [Auto-translated] "Selected"
       selected: "Uitverkoren",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Carrousel",
       // [Auto-translated] "Tabs"
       tab: "Tabs",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "Voortgang top",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Voortgang bodem",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Voortgang top bodem",
       // "Horizontal"
       horizontal: "Horizontaal",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "Beneden",
       // "Top and bottom"
       topBottom: "Top en beneden",
-      // "Both"
-      both: "Beide",
       // "Left"
       left: "Links",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "week",
       // "Hidden"
       hidden: "Verborgen",
-      // "Editable"
-      edit: "Bewerk",
-      // "Read-only"
-      display: "Scherm",
       // [Auto-translated] "Contain"
       contain: "Bevatten",
       // [Auto-translated] "Cover"
@@ -2153,8 +1894,8 @@
         // [Auto-translated] "Never"
         none: "Nooit"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Keuzerondjes",
+      // [Auto-translated] "Radio buttons"
+      radio: "Radioknoppen",
       inputType: {
         // [Auto-translated] "Color"
         color: "Kleur",
@@ -2357,8 +2098,6 @@
       onNextPage: "Bij pagina-overgang",
       // "After an answer is changed"
       onValueChanged: "Bij waardeverandering",
-      // [Auto-translated] "Before an answer is changed"
-      onValueChanging: "Voordat een antwoord wordt gewijzigd",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Oorspronkelijke structuur",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Toon enkel invoerveld per pagina"
       },
-      // "No preview"
-      noPreview: "Geen preview",
-      // "Show all questions"
-      showAllQuestions: "Toon voorbeeld met alle vragen",
-      // "Show answered questions only"
-      showAnsweredQuestions: "Toon voorbeeld met beantwoorde vragen",
       // [Auto-translated] "Show all questions"
       allQuestions: "Toon alle vragen",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // [Auto-translated] "Buttons"
         buttons: "Knopen",
         // [Auto-translated] "Dropdown"
-        dropdown: "Vervolgkeuzemenu"
+        dropdown: "Vervolgkeuzemenu",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Gesegmenteerde schakelaar",
+        // [Auto-translated] "Radio buttons"
+        radio: "Radioknoppen",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Selectievakje",
+        // [Auto-translated] "Switch"
+        switch: "Switch",
+        // [Auto-translated] "Custom"
+        custom: "Gewoonte"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Reset op elke pagina",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Reset op elk paneel",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Reset op elk paneel",
         // [Auto-translated] "Recursive numbering"
         recursive: "Recursieve nummering",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Doorgaan in de enquête",
         // [Auto-translated] "No numbering"
         off: "Geen nummering"
       },
@@ -2648,49 +2387,6 @@
       and: "en",
       // [Auto-translated] "or"
       or: "of"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Gebruik de Angular-versie",
-      // "Use jQuery version"
-      jquery: "Gebruik de jQuery-versie",
-      // "Use Knockout version"
-      knockout: "Gebruik de Knockout-versie",
-      // "Use React version"
-      react: "Gebruik de React-versie",
-      // "Use Vue version"
-      vue: "Gebruik de Vue-versie",
-      // "For bootstrap framework"
-      bootstrap: "Voor bootstrap-framework",
-      // "Modern theme"
-      modern: "Modern thema",
-      // "Default theme"
-      default: "Standaard thema",
-      // "Orange theme"
-      orange: "Oranje thema",
-      // "Darkblue theme"
-      darkblue: "Donkerblauw thema",
-      // "Darkrose theme"
-      darkrose: "Donkereroos thema",
-      // "Stone theme"
-      stone: "Stenen thema",
-      // "Winter theme"
-      winter: "Winter thema",
-      // "Winter-Stone theme"
-      winterstone: "Wintersteen thema",
-      // "Show survey on a page"
-      showOnPage: "Toon enquête op een pagina",
-      // "Show survey in a window"
-      showInWindow: "Toon enquête in een venster",
-      // "Load Survey JSON from server"
-      loadFromServer: "Laad Survey JSON vanaf de server",
-      // "Scripts and styles"
-      titleScript: "Scripts en stijlen",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Hiermee geeft u de weergavebreedte op van geüploade afbeeldingen in het voorbeeld en de werkelijke breedte van de foto's die met de camera zijn gemaakt. In de uploadmodus voor één bestand wordt de weergavebreedte beperkt door het voorbeeldgebied; In de modus voor het uploaden van meerdere bestanden wordt dit beperkt door het miniatuurgebied.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Geeft indien mogelijk miniatuurvoorbeelden weer voor geüploade bestanden. Schakel de selectie uit als u in plaats daarvan bestandspictogrammen wilt weergeven."
+        allowImagesPreview: "Geeft indien mogelijk miniatuurvoorbeelden weer voor geüploade bestanden. Schakel de selectie uit als u in plaats daarvan bestandspictogrammen wilt weergeven.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Er wordt een prompt geactiveerd waarin wordt gevraagd om het verwijderen van het bestand te bevestigen."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Waarde" dient als een item-ID die wordt gebruikt in voorwaardelijke regels; "Tekst" wordt weergegeven aan respondenten.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Kies tussen "Afbeelding" en "Video" om de inhoudsmodus van de mediakiezer in te stellen. Als "Afbeelding" is geselecteerd, zorg er dan voor dat alle beschikbare opties afbeeldingsbestanden zijn in de volgende formaten: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Evenzo, als "Video" is geselecteerd, zorg er dan voor dat alle opties directe links zijn naar videobestanden in de volgende formaten: MP4, MOV, WMV, FLV, AVI, MKV. Houd er rekening mee dat YouTube-links niet worden ondersteund voor video-opties.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Met deze instelling wordt alleen het formaat van het invoerveld gewijzigd en wordt de breedte van het vraagvak niet beïnvloed. Om de geaccepteerde invoerlengte te beperken, gaat u naar "Validatie" → "Maximale tekenlimiet".'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Een waarde die moet worden opgeslagen in enquêteresultaten wanneer respondenten een negatief antwoord geven.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Het wordt niet aanbevolen om deze optie uit te schakelen, omdat deze de voorbeeldafbeelding overschrijft en het voor een gebruiker moeilijk maakt om te begrijpen of de bestanden zijn geüpload.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Hiermee wordt een prompt geactiveerd waarin wordt gevraagd om het verwijderen van het bestand te bevestigen.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Schakel in om alleen geselecteerde keuzes te rangschikken. Gebruikers slepen geselecteerde items uit de keuzelijst om ze binnen het rangschikkingsgebied te rangschikken.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Hiermee past u de transparantie van invoerelementen aan ten opzichte van de achtergrond van de enquête.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Hiermee stelt u de hoekradius in voor alle rechthoekige elementen. Schakel de geavanceerde modus in als u afzonderlijke hoekradiuswaarden wilt instellen voor invoerelementen of deelvensters en vraagvakken.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Hiermee stelt u de hoofdachtergrondkleur van de enquête in."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Bepaalt de hoofdkleur van de enquête."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Zweven",
       // [Auto-translated] "Selected"
       primaryLightColor: "Uitverkoren",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Achtergrondkleur",
       // "Corner radius"
       cornerRadius: "De straal van de hoek",
       // [Auto-translated] "Default background"
       backcolor: "Standaard achtergrond",
       // [Auto-translated] "Hover background"
       hovercolor: "Achtergrond aanwijzen",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Randdecoratie",
       // [Auto-translated] "Font color"
       fontColor: "Tekstkleur",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Standaardkleur",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Uitgeschakelde kleur",
-      // [Auto-translated] "Font"
-      font: "Lettertype",
       // [Auto-translated] "Darker"
       borderDefault: "Donkerder",
       // [Auto-translated] "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Tijdelijke aanduiding voor kleur",
       // [Auto-translated] "Size"
       size: "Grootte",
+      // [Auto-translated] "Line height"
+      lineHeight: "Lijnhoogte",
       // [Auto-translated] "Opacity"
       opacity: "Dekking",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Verstek",
-        // [Auto-translated] "Sharp"
-        sharp: "Scherp",
+        // [Auto-translated] "Contrast"
+        contrast: "Tegenstelling",
         // [Auto-translated] "Borderless"
         borderless: "Grenzeloos",
         // [Auto-translated] "Flat"
         flat: "Plat",
         // [Auto-translated] "Plain"
         plain: "Vlakte",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Dubbele rand",
-        // [Auto-translated] "Layered"
-        layered: "Gelaagd",
-        // [Auto-translated] "Solid"
-        solid: "Degelijk",
+        // [Auto-translated] "Soft"
+        soft: "Zacht",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Tegenstelling"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monochroom"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Oppervlakte achtergrond",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Primair",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Secundair",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Oppervlak",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "UI-elementen",
       // [Auto-translated] "Font"
       fontScale: "Lettertype",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Enquête maken 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Licht",
-        // [Auto-translated] "Dark"
-        "default-dark": "Donker",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Tegenstelling"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Preset toegepast"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Item 1" }, { value: "item2", text: "Item 2" }, { value: "item3", text: "Item 3" }],
+      columns: [{ value: "column1", text: "Kolom 1" }, { value: "column2", text: "Kolom 2" }, { value: "column3", text: "Kolom 3" }],
+      rows: [{ value: "row1", text: "Rij 1" }, { value: "row2", text: "Rij 2" }],
+      matrixColumns: [{ name: "column1", title: "Kolom 1" }, { name: "column2", title: "Kolom 2" }, { name: "column3", title: "Kolom 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "nl", strings: nlStrings });

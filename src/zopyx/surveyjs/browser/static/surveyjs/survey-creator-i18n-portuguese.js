@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var portugueseTranslation = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Editar",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Veja e aprenda a criar questionários",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Por favor arraste uma pergunta aqui.",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Crie uma regra para configurar o fluxo do questionário.",
-      // "Copy"
-      copy: "Copiar",
       // "Duplicate"
-      duplicate: "Duplicar",
-      // "Add to toolbox"
-      addToToolbox: "Adicionar às ferramentas",
-      // "Delete Panel"
-      deletePanel: "Remover Painel",
-      // "Delete Question"
-      deleteQuestion: "Remover Pergunta",
-      // "Convert to"
-      convertTo: "Converter para",
-      // "Drag element"
-      drag: "Arrastar elemento"
+      duplicate: "Duplicar"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Pré-definido ({0})",
-      // "Survey"
-      survey: "Pesquisa",
       // "Settings"
       settings: "Configurações da Pesquisa",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Questionário",
       // "Page"
       pageTypeName: "Página",
-      // "Panel"
-      panelTypeName: "Painel",
-      // "Question"
-      questionTypeName: "Questão",
-      // "Column"
-      columnTypeName: "Coluna",
-      // "Add New Page"
-      addNewPage: "Adicionar Nova Página",
-      // "Scroll to the Right"
-      moveRight: "Mover para direita",
-      // "Scroll to the Left"
-      moveLeft: "Mover para esquerda",
-      // "Delete Page"
-      deletePage: "Remover Página",
-      // "Edit Page"
-      editPage: "Editar Página",
-      // "Edit"
-      edit: "Editar",
       // "page"
       newPageName: "página",
       // "question"
       newQuestionName: "pergunta",
       // "panel"
       newPanelName: "painel",
-      // "text"
-      newTextItemName: "texto",
-      // "Default"
-      defaultV2Theme: "Pré-definifido",
-      // "Modern"
-      modernTheme: "Moderno",
-      // "Default (legacy)"
-      defaultTheme: "Pré-definido (antigo)",
       // "Preview Survey Again"
       testSurveyAgain: "Testar questionário novamente",
-      // "Survey width: "
-      testSurveyWidth: "Tamanho do questionário: ",
       // "You had to navigate to"
       navigateToMsg: "Tem que navegar para",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Desfazer",
       // "Redo"
       redo: "Refazer",
-      // "Undo last change"
-      undoTooltip: "Desfazer última alteração",
-      // "Redo the change"
-      redoTooltip: "Refazer a alteração",
       // [Auto-translated] "Expand"
       expandTooltip: "Expandir",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Mostrar mais",
       // "Show less"
       showLessChoices: "Mostrar menos",
-      // "Copy"
-      copy: "Copiar",
-      // "Cut"
-      cut: "Cortar",
-      // "Paste"
-      paste: "Colar",
-      // "Copy selection to clipboard"
-      copyTooltip: "Copiar seleção para a área de transferência",
-      // "Cut selection to clipboard"
-      cutTooltip: "Cortar seleção para a área de transferência",
-      // "Paste from clipboard"
-      pasteTooltip: "Colar da área de transferência",
-      // "Options"
-      options: "Opções",
-      // "Generate Valid JSON"
-      generateValidJSON: "Gerar JSON válido",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Função desconhecida: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Erro de sintaxe.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Erro semântico.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Gerar JSON legível",
       // "Toolbox"
       toolbox: "Ferramentas",
-      // "Properties"
-      "property-grid": "Propriedades",
       // [Auto-translated] "Search"
       toolboxSearch: "Procurar",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Comece a configurar seu formulário",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Clique em qualquer ícone de categoria para explorar as configurações do questionário. Configurações adicionais ficarão disponíveis quando você adicionar um elemento de levantamento topográfico à superfície de design.",
-      // "Please correct JSON."
-      correctJSON: "Por favor corrija o JSON.",
       // "Survey Results "
       surveyResults: "Resultado da pesquisa: ",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "A gravar",
       // "Saved"
       saved: "Gravado",
-      // "Error"
-      propertyEditorError: "Erro",
       // "Error! Editor content is not saved."
       saveError: "Erro! Conteúdo do editor não foi salvo.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Você realmente quer redefinir o tema? Todas as suas personalizações serão perdidas.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Sim, redefinir o tema",
-      // "Bold"
-      bold: "Negrito",
-      // "Italic"
-      italic: "Itálico",
-      // "Underline"
-      underline: "Sublinhado",
       // "Add Question"
       addNewQuestion: "Adicionar Questão",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Quando a expressão lógica volta a ser ativaa, a expressão personalizada é executada. Opcionalmente, pode definir o resultado desta expressão para a pergunta seleccionada",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: "Se a expressão lógica estiver ativa, então o texto padrão para a 'Página de agradecimento' é alterado para a dada.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Quando a expressão: '{0}' volta a ficar ativa",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "Nova regra",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Uma expressão cujo resultado será atribuído à pergunta de destino.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Insira um valor...",
         // "survey becomes completed"
         trigger_completeText: "o questionário fica completo",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Condição(ões)",
         // "Action(s)"
         actions: "Ação(ões)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Definir condição(ões)",
         // "Define action(s)"
         actionsEditorTitle: "Definir ação(ões)",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Selecionar Ação...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "A expressão lógica está vazia ou é inválida. Por favor corrija.",
-        // "Please add at least one action."
-        noActionError: "Por favor, adicione pelo menos uma ação.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Por favor, corrija os problemas nas sua(s) ação(ões).",
         // [Auto-translated] "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Valor de exibição padrão para textos dinâmicos",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Alinhamento de rótulos",
-      // "Input field width (in characters)"
-      size: "Tamanho de entrada (em caracteres)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Alinhamento da mensagem de erro da célula",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Desactivado",
       // [Auto-translated] "Inherit"
       inherit: "Herdar",
-      // "Apply"
-      apply: "Aplicar",
-      // [Auto-translated] "OK"
-      ok: "OK",
-      // "Save"
-      save: "Guardar",
       // "Clear"
       clear: "Limpar",
-      // "Save"
-      saveTooltip: "Guardar",
-      // "Cancel"
-      cancel: "Cancelar",
       // "Set"
       set: "Definir",
-      // "Reset"
-      reset: "Limpar",
       // "Change"
       change: "Modificar",
-      // "Refresh"
-      refresh: "Recarregar",
       // "Close"
       close: "Fechar",
       // "Delete"
       delete: "Apagar",
-      // "Add"
-      add: "Adicionar",
       // "Add New"
       addNew: "Adicionar Novo",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Clique para remover o item...",
       // "Drag the item"
       dragItem: "Arraste o item",
-      // "Other"
-      addOther: "Outro",
-      // "Select All"
-      addSelectAll: "Selecionar Todos",
-      // "None"
-      addNone: "Nenhum",
-      // "Remove All"
-      removeAll: "Remover Todos",
       // "Edit"
       edit: "Editar",
-      // "Return without saving"
-      back: "Retornar sem guardar",
-      // "Return without saving"
-      backTooltip: "Sair sem guardar",
-      // "Save and return"
-      saveAndBack: "Sair e retornar",
-      // "Save and return"
-      saveAndBackTooltip: "Guardar e retornar",
       // "Done"
       doneEditing: "Terminar",
-      // "Edit Choices"
-      editChoices: "Editar Opções",
-      // "Show Choices"
-      showChoices: "Mostrar Opções",
-      // "Move"
-      move: "Mover",
-      // "<empty>"
-      empty: "<vazio>",
       // "Value is empty"
       emptyValue: "Valor vazio",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Por favor, insira pelo menos {0} itens",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Pode definir dados no seguinte formato:\nvalor1|texto\nvalor2",
-      // "Form Entry"
-      formEntry: "Entrada com formulário",
-      // "Test the service"
-      testService: "Testar o serviço",
-      // "Please select the element"
-      itemSelectorEmpty: "Selecione o elemento",
       // "Please select the action"
       conditionActionEmpty: "Selecione a ação",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Selecione a página...",
       // "Select a panel..."
       conditionSelectPanel: "Selecione o painel...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Por favor, entre/selecione o valor",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Pressione ctrl+space para autocompletar",
-      // "Current row"
-      aceEditorRowTitle: "Linha atual",
-      // "Current panel"
-      aceEditorPanelTitle: "Painel atual",
-      // "For more details please check the documentation"
-      showMore: "Para mais detalhes, por favor visite a documentação",
-      // "Available questions"
-      assistantTitle: "Perguntas disponíveis:",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Deve haver ao menos uma coluna ou linha",
       // "Review before submit"
       showPreviewBeforeComplete: "Visualize as respostas antes de submeter o questionário",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Adicionar novo URL",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Adicionar nova página",
-      // "Expression is empty"
-      expressionIsEmpty: "Expressão está vazia",
       // "Value"
       value: "Valor",
       // "Text"
       text: "Texto",
-      // "Row ID"
-      rowid: "ID da Linha",
       // "Image or video file URL"
       imageLink: "Link da Imagem",
-      // "Edit column: {0}"
-      columnEdit: "Editar coluna: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Editar item: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Obtenha URLs de imagem do seguinte campo JSON",
       // "Accept empty response"
       allowEmptyResponse: "Permitir resposta vazia",
-      // "Title"
-      titlePlaceholder: "Título",
       // "Survey Title"
       surveyTitlePlaceholder: "Título do Questionário",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Valor pré-definido",
       // "Default texts"
       cellsDefaultRow: "Texto pré-definido das células",
-      // "Edit survey settings"
-      surveyEditorTitle: "Editar configurações da pesquisa",
-      // "Edit: {0}"
-      qEditorTitle: "Editar pergunta: {0}",
       // "Maximum character limit"
       maxLength: "Tamanho máximo",
-      // "Build"
-      buildExpression: "Construir",
-      // "Edit"
-      editExpression: "Editar",
       // "and"
       and: "e",
       // "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Incluir nos resultados da pesquisa",
       // "Make the title and description visible"
       showTitle: "Mostrar/ocultar título",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Expandir/contrair título",
       // "Select a survey language"
       locale: "Idioma pré-definido",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Extensões adicionais de arquivo",
       // "Wait for upload to complete"
       waitForUpload: "Aguarde a conclusão do upload",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "Confirme a eliminação do ficheiro",
       // "Row details alignment"
       detailPanelMode: "Localização do painel de detalhes",
       // "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Altura da imagem",
         // [Auto-translated] "Image width"
-        imageWidth: "Largura da imagem"
+        imageWidth: "Largura da imagem",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Confirmar exclusão de arquivo"
       },
       // "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Oculte a pergunta se ela não contiver opções",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Use valores da seguinte coluna de matriz ou pergunta de painel como textos de escolha",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Exibir títulos de página na barra de progresso",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Exibir o texto da navegação na barra de progresso",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Alinhamento do texto de navegação",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Exibir números de página na barra de progresso",
       // "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Exibir descrições de taxa como valores extremos",
       // "Row order"
       rowOrder: "Ordem das linhas",
-      // "Column layout"
-      columnsLayout: "Disposição da coluna",
       // "Nested column count"
       columnColCount: "Contagem de colunas aninhadas",
       // "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Posição do logo",
-      // "Add logo..."
-      addLogo: "Adicionar logo...",
-      // "Change logo..."
-      changeLogo: "Alterae logo...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Remover logo",
-        // "Left"
-        left: "Esquerda",
-        // "Right"
-        right: "Direita",
-        // "On the top"
-        top: "No cabeçalho",
-        // "In the bottom"
-        bottom: "No rodapé"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Modo de visualização",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Detalhes da linha Alinhamento da mensagem de erro",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Layout do painel"
-        },
         // "General"
         general: "Geral",
-        // "Options"
-        fileOptions: "Opções",
         // "HTML Editor"
         html: "Editor Html",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Configurações do controle deslizante",
         // "Choices from a Web Service"
         choicesByUrl: "Opções com origem na Web",
-        // "Default Choices"
-        matrixChoices: "Opções padrão",
-        // "Text Inputs"
-        multipleTextItems: "Entradas de texto",
         // "Numbering"
         numbering: "Numeração",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Questionário Completo",
         // "Logo in the Survey Header"
         logo: "Logo no Título de Questionário",
-        // [Auto-translated] "Slider"
-        slider: "Slider",
         // "Expression"
         expression: "Expressão",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Outros"
       },
-      // "Edit property '{0}'"
-      editProperty: "Editar propriedade '{0}'",
       // "Items"
       items: "Itens",
       // "Make choices visible if"
       choicesVisibleIf: "Escolhas estão visiveis se",
       // "Make choices selectable if"
       choicesEnableIf: "Escolhas são selecionáveis se",
-      // "Make columns visible if"
-      columnsEnableIf: "Colunas estão visiveis se",
-      // "Make rows visible if"
-      rowsEnableIf: "Linhas estão visiveis se",
       // "Increase the inner indent"
       innerIndent: "Adicionar recuos internos",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Usar respostas da última entrada como padrão",
-      // "Please enter a value."
-      enterNewValue: "Por favor, informe o valor.",
-      // "There are no questions in the survey."
-      noquestions: "Não há nenhuma pergunta na pesquisa.",
-      // "Please create a trigger"
-      createtrigger: "Por favor, crie uma condição",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Pressione o botão enter para editar",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Pressione o botão enter para editar o item, pressione o botão delete para excluir o item, pressione alt mais a seta para cima ou a seta para baixo para mover o item",
-      // "On "
-      triggerOn: "Ligado ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Tornar páginas visíveis:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Tornar perguntas visíves:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Completar a pesquisa se obtiver êxito.",
-      // "The trigger is not set"
-      triggerNotSet: "A condição não está definida",
-      // "Run if"
-      triggerRunIf: "Executar se",
-      // "Change value of: "
-      triggerSetToName: "Mudar o valor de: ",
-      // "Copy value from: "
-      triggerFromName: "Copiar valor de: ",
-      // "Run this Expression"
-      triggerRunExpression: "Rodar essa expressão:",
-      // "to: "
-      triggerSetValue: "para: ",
-      // "Go to the question"
-      triggerGotoName: "Ir para a questão",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Não colocar a variável no resultado da pesquisa.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Introdução uma expressão valida",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "Escreva a expressão aqui...",
-      // "No file chosen"
-      noFile: "Nenhum ficheiro selecionado",
       // "Clear hidden question values"
       clearIfInvisible: "Limpe o valor se a questão for escondida",
       // "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Fonte da descrição",
         // [Auto-translated] "Font"
-        editorFont: "Fonte",
+        inputContent: "Fonte",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Opacidade",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Família de fontes de levantamento topográfico",
+        "--sjs2-typography-font-family-text": "Família de fontes de levantamento",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Cor de fundo",
+        "--sjs2-color-utility-surface-survey": "Cor de fundo",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Cores de fundo de destaque",
+        "--sjs2-color-project-brand-600": "Cores de fundo de destaque",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Cores de destaque em primeiro plano",
+        "--sjs2-color-fg-brand-on-primary": "Cores de destaque em primeiro plano",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Cores da mensagem de erro",
+        "--sjs2-color-bg-alert-primary": "Cores da mensagem de erro",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Efeitos de sombra",
+        "--sjs2-border-effect-surface-default": "Efeitos de sombra",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Efeitos de sombra",
+        "--sjs2-border-effect-component-formbox-default": "Efeitos de sombra",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Cores"
+        "--sjs2-color-component-input-default-line": "Cores"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Arquivo local ou câmera",
       // "Inherit"
       inherit: "herdar",
-      // "Visible"
-      show: "mostrar",
-      // "Hidden"
-      hide: "ocultar",
       // "Inherit"
       default: "padrão",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "ascendente",
       // "Descending"
       desc: "descendente",
-      // "Indeterminate"
-      indeterminate: "indeterminado",
       // [Auto-translated] "Selected"
       selected: "Selecionado",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Carrossel",
       // [Auto-translated] "Tabs"
       tab: "Guias",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "progresso superior",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "progresso inferior",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "progresso superior inferior",
       // "Horizontal"
       horizontal: "horizontal",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "inferior",
       // "Top and bottom"
       topBottom: "superior and bottom",
-      // "Both"
-      both: "Ambos",
       // "Left"
       left: "esquerda",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "semana",
       // "Hidden"
       hidden: "oculto",
-      // "Editable"
-      edit: "editar",
-      // "Read-only"
-      display: "mostrar",
       // [Auto-translated] "Contain"
       contain: "Conter",
       // [Auto-translated] "Cover"
@@ -2153,8 +1894,8 @@
         // [Auto-translated] "Never"
         none: "Nunca"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Botões",
+      // [Auto-translated] "Radio buttons"
+      radio: "Botões de rádio",
       inputType: {
         // [Auto-translated] "Color"
         color: "Cor",
@@ -2357,8 +2098,6 @@
       onNextPage: "na página seguinte",
       // "After an answer is changed"
       onValueChanged: "ao mudar valor",
-      // "Before an answer is changed"
-      onValueChanging: "Antes de uma resposta ser alterada",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Estrutura original",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Mostrar campo de entrada único por página"
       },
-      // "No preview"
-      noPreview: "Sem pré-visualização",
-      // "Show all questions"
-      showAllQuestions: "Mostrar todas as questões",
-      // "Show answered questions only"
-      showAnsweredQuestions: "Mostrar apenas perguntas respondidas",
       // [Auto-translated] "Show all questions"
       allQuestions: "Mostrar todas as perguntas",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // "Buttons"
         buttons: "Botões",
         // "Dropdown"
-        dropdown: "Suspenso"
+        dropdown: "Suspenso",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Alavanca segmentada",
+        // [Auto-translated] "Radio buttons"
+        radio: "Botões de rádio",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Caixa de seleção",
+        // [Auto-translated] "Switch"
+        switch: "Troca",
+        // [Auto-translated] "Custom"
+        custom: "Costume"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Redefinir em cada página",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Redefinir em cada painel",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Redefinir em cada painel",
         // [Auto-translated] "Recursive numbering"
         recursive: "Numeração recursiva",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Continue na pesquisa",
         // [Auto-translated] "No numbering"
         off: "Sem numeração"
       },
@@ -2648,49 +2387,6 @@
       and: "e",
       // "or"
       or: "ou"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Usar versão Angular",
-      // "Use jQuery version"
-      jquery: "Usar versão jQuery",
-      // "Use Knockout version"
-      knockout: "Usar versão Knockout",
-      // "Use React version"
-      react: "Usar versão React",
-      // "Use Vue version"
-      vue: "Usar versão Vue",
-      // "For bootstrap framework"
-      bootstrap: "Para framework bootstrap",
-      // "Modern theme"
-      modern: "Tema moderno",
-      // "Default theme"
-      default: "Tema pré-definido",
-      // "Orange theme"
-      orange: "Tema laranja",
-      // "Darkblue theme"
-      darkblue: "Tema azul escuro",
-      // "Darkrose theme"
-      darkrose: "Tema rosa escuro",
-      // "Stone theme"
-      stone: "Tema pedra",
-      // "Winter theme"
-      winter: "Tema inverno",
-      // "Winter-Stone theme"
-      winterstone: "Tema inverno-pedra",
-      // "Show survey on a page"
-      showOnPage: "Mostrar pesquisa em uma página",
-      // "Show survey in a window"
-      showInWindow: "Mostrar pesquisa em uma janela",
-      // "Load Survey JSON from server"
-      loadFromServer: "Carregar JSON da pesquisa de um servidor",
-      // "Scripts and styles"
-      titleScript: "Scripts e estilos",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Especifica a largura de exibição das imagens carregadas na visualização e a largura real das imagens tiradas com a câmera. No modo de upload de arquivo único, a largura da tela é limitada pela área de visualização; No modo de upload de vários arquivos, ele é limitado pela área de miniaturas.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Exibe visualizações em miniatura para arquivos carregados quando possível. Desmarque se quiser mostrar ícones de arquivo."
+        allowImagesPreview: "Exibe visualizações em miniatura para arquivos carregados quando possível. Desmarque se quiser mostrar ícones de arquivo.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Dispara um prompt pedindo para confirmar a exclusão do arquivo."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Valor" serve como uma ID de item usada em regras condicionais; "Texto" é exibido para os entrevistados.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Escolha entre "Imagem" e "Vídeo" para definir o modo de conteúdo do seletor de mídia. Se "Imagem" estiver selecionado, certifique-se de que todas as opções fornecidas são arquivos de imagem nos seguintes formatos: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Da mesma forma, se "Vídeo" estiver selecionado, certifique-se de que todas as opções sejam links diretos para arquivos de vídeo nos seguintes formatos: MP4, MOV, WMV, FLV, AVI, MKV. Observe que os links do YouTube não são compatíveis com as opções de vídeo.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Essa configuração apenas redimensiona o campo de entrada e não afeta a largura da caixa de pergunta. Para limitar o comprimento de entrada aceito, vá para "Validação" → "Limite máximo de caracteres".'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Um valor a guardar nos resultados do inquérito quando os inquiridos dão uma resposta negativa.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Não é recomendável desabilitar essa opção, pois ela substitui a imagem de visualização e torna difícil para o usuário entender se os arquivos foram carregados.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Aciona um prompt pedindo para confirmar a exclusão do arquivo.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Habilite para classificar apenas as opções selecionadas. Os usuários arrastarão os itens selecionados da lista de opções para ordená-los dentro da área de classificação.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Ajusta a transparência dos elementos de entrada em relação ao plano de fundo do questionário.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Define o raio do canto para todos os elementos retangulares. Ative o Modo Avançado se quiser definir valores de raio de canto individuais para elementos de entrada ou painéis e caixas de perguntas.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Define a cor de fundo principal da pesquisa."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Define a cor principal de fundo da pesquisa."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Pairar",
       // [Auto-translated] "Selected"
       primaryLightColor: "Selecionado",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Cor de fundo",
       // "Corner radius"
       cornerRadius: "Raio de canto",
       // [Auto-translated] "Default background"
       backcolor: "Plano de fundo padrão",
       // [Auto-translated] "Hover background"
       hovercolor: "Plano de fundo do mouse",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Decoração de borda",
       // [Auto-translated] "Font color"
       fontColor: "Cor da fonte",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Cor padrão",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Cor desativada",
-      // [Auto-translated] "Font"
-      font: "Fonte",
       // [Auto-translated] "Darker"
       borderDefault: "Escuro",
       // [Auto-translated] "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Cor do espaço reservado",
       // [Auto-translated] "Size"
       size: "Tamanho",
+      // [Auto-translated] "Line height"
+      lineHeight: "Altura da linha",
       // [Auto-translated] "Opacity"
       opacity: "Opacidade",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Inadimplência",
-        // [Auto-translated] "Sharp"
-        sharp: "Afiado",
+        // [Auto-translated] "Contrast"
+        contrast: "Contraste",
         // [Auto-translated] "Borderless"
         borderless: "Sem fronteiras",
         // [Auto-translated] "Flat"
         flat: "Plano",
         // [Auto-translated] "Plain"
         plain: "Planície",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Borda Dupla",
-        // [Auto-translated] "Layered"
-        layered: "Camadas",
-        // [Auto-translated] "Solid"
-        solid: "Sólido",
+        // [Auto-translated] "Soft"
+        soft: "Suave",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Contraste"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monocromático"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Fundo da superfície",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Primário",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Secundário",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Superfície",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "Elementos da interface do usuário",
       // [Auto-translated] "Font"
       fontScale: "Fonte",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Criador de pesquisas 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Luz",
-        // [Auto-translated] "Dark"
-        "default-dark": "Escuro",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Contraste"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Pré-definição aplicada"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Item 1" }, { value: "item2", text: "Item 2" }, { value: "item3", text: "Item 3" }],
+      columns: [{ value: "column1", text: "Coluna 1" }, { value: "column2", text: "Coluna 2" }, { value: "column3", text: "Coluna 3" }],
+      rows: [{ value: "row1", text: "Linha 1" }, { value: "row2", text: "Linha 2" }],
+      matrixColumns: [{ name: "column1", title: "Coluna 1" }, { name: "column2", title: "Coluna 2" }, { name: "column3", title: "Coluna 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "pt", strings: portugueseTranslation });

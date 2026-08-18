@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var ruStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Редактировать",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Научиться создавать опросы",
-      // "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "Https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Пожалуйста, перетяните необходимый элемент из панели слева",
-      // [Auto-translated] "Create a rule to customize the flow of the survey."
-      addLogicItem: "Создайте правило для настройки потока опроса.",
-      // "Copy"
-      copy: "Копировать",
       // [Auto-translated] "Duplicate"
-      duplicate: "Дублировать",
-      // "Add to toolbox"
-      addToToolbox: "Добавить к инструментам",
-      // "Delete Panel"
-      deletePanel: "Удалить панель",
-      // "Delete Question"
-      deleteQuestion: "Удалить вопрос",
-      // "Convert to"
-      convertTo: "Преобразовать в",
-      // "Drag element"
-      drag: "Перетянуть элемент"
+      duplicate: "Дублировать"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "По умолчанию ({0})",
-      // "Survey"
-      survey: "Опросник",
       // "Settings"
       settings: "Настройки опросника",
       // [Auto-translated] "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Обзор",
       // [Auto-translated] "Page"
       pageTypeName: "Страница",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Панель",
-      // [Auto-translated] "Question"
-      questionTypeName: "Вопрос",
-      // [Auto-translated] "Column"
-      columnTypeName: "Столбец",
-      // "Add New Page"
-      addNewPage: "Добавить новую страницу",
-      // "Scroll to the Right"
-      moveRight: "Прокрутить вправо",
-      // "Scroll to the Left"
-      moveLeft: "Прокрутить влево",
-      // "Delete Page"
-      deletePage: "Удалить страницу",
-      // "Edit Page"
-      editPage: "Редактировать страницу",
-      // "Edit"
-      edit: "Редактировать",
       // "page"
       newPageName: "страница",
       // "question"
       newQuestionName: "вопрос",
       // "panel"
       newPanelName: "панель",
-      // "text"
-      newTextItemName: "текст",
-      // [Auto-translated] "Default"
-      defaultV2Theme: "По умолчанию",
-      // [Auto-translated] "Modern"
-      modernTheme: "Современный",
-      // [Auto-translated] "Default (legacy)"
-      defaultTheme: "По умолчанию (устаревшая)",
       // "Preview Survey Again"
       testSurveyAgain: "Тестировать еще раз",
-      // "Survey width: "
-      testSurveyWidth: "Ширина опросника",
       // [Auto-translated] "You had to navigate to"
       navigateToMsg: "Вы должны были перейти к",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Отменить",
       // "Redo"
       redo: "Повтор",
-      // [Auto-translated] "Undo last change"
-      undoTooltip: "Отменить последнее изменение",
-      // [Auto-translated] "Redo the change"
-      redoTooltip: "Повторите изменение",
       // [Auto-translated] "Expand"
       expandTooltip: "Расширять",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Развернуть",
       // [Auto-translated] "Show less"
       showLessChoices: "Показать меньше",
-      // [Auto-translated] "Copy"
-      copy: "Копировать",
-      // [Auto-translated] "Cut"
-      cut: "Резать",
-      // [Auto-translated] "Paste"
-      paste: "Паста",
-      // [Auto-translated] "Copy selection to clipboard"
-      copyTooltip: "Копирование выделенного фрагмента в буфер обмена",
-      // [Auto-translated] "Cut selection to clipboard"
-      cutTooltip: "Вырезать выделение в буфер обмена",
-      // [Auto-translated] "Paste from clipboard"
-      pasteTooltip: "Вставка из буфера обмена",
-      // "Options"
-      options: "Параметры",
-      // "Generate Valid JSON"
-      generateValidJSON: "Сформировать валидный JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: "Неизвестная функция: «{0}».",
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Ошибка в синтаксисе.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Семантическая ошибка.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Сформировать читаемый JSON",
       // "Toolbox"
       toolbox: "Панель инструментов",
-      // "Properties"
-      "property-grid": "Свойства",
       // [Auto-translated] "Search"
       toolboxSearch: "Искать",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Начните настройку формы",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Нажмите на любой значок категории, чтобы ознакомиться с настройками опроса. Дополнительные настройки станут доступны после добавления элемента опроса в область конструктора.",
-      // "Please correct JSON."
-      correctJSON: "Пожалуйста, исправьте JSON.",
       // "Survey Results "
       surveyResults: "Результаты обследования",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Сохранение",
       // "Saved"
       saved: "Сохраненный",
-      // [Auto-translated] "Error"
-      propertyEditorError: "Ошибка",
       // "Error! Editor content is not saved."
       saveError: "Ошибка! Содержание редактора не сохранено.",
       // [Auto-translated] "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Вы действительно хотите сбросить тему? Все ваши настройки будут потеряны.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Да, сбросьте тему",
-      // "Bold"
-      bold: "Жирный",
-      // "Italic"
-      italic: "Курсив",
-      // "Underline"
-      underline: "Подчеркивание",
       // "Add Question"
       addNewQuestion: "Добавить вопрос",
       // [Auto-translated] "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Когда логическое выражение возвращает 'true',тогда выполняется пользовательское выражение. Вы можете при желании установить этот результат выражения в выбранный вопрос.",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: "Если логическое выражение возвращает 'true', то текст по умолчанию для 'Страницы благодарности' изменяется на заданный.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Когда выражение: '{0}' возвращает 'true'",
-        // {0} - the expression
         // [Auto-translated] "New rule"
         itemEmptyExpressionText: "Новое правило",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Выражение, результат которого будет присвоен целевому вопросу.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Введите значение...",
         // "survey becomes completed"
         trigger_completeText: "Опрос становится завершенным",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Состояние(я)",
         // [Auto-translated] "Action(s)"
         actions: "Действие(я)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Настройка логики выражения",
         // [Auto-translated] "Define action(s)"
         actionsEditorTitle: "Определение действий",
         // [Auto-translated] "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Выберите действие...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Логическое выражение пустое или недействительное. Пожалуйста, исправьте его.",
-        // [Auto-translated] "Please add at least one action."
-        noActionError: "Пожалуйста, добавьте хотя бы одно действие.",
         // [Auto-translated] "Please fix issues in your action(s)."
         actionInvalid: "Пожалуйста, исправьте проблемы в ваших действиях.",
         // [Auto-translated] "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Отображаемое значение по умолчанию для динамических текстов",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Выравнивание меток",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "Ширина поля ввода (в символах)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Выравнивание сообщений об ошибках ячеек",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Нетрудоспособный",
       // [Auto-translated] "Inherit"
       inherit: "Наследовать",
-      // "Apply"
-      apply: "Применить",
-      // [Auto-translated] "OK"
-      ok: "Ладно",
-      // "Save"
-      save: "Сохранить",
       // [Auto-translated] "Clear"
       clear: "Ясный",
-      // [Auto-translated] "Save"
-      saveTooltip: "Спасать",
-      // "Cancel"
-      cancel: "Отменить",
       // [Auto-translated] "Set"
       set: "Набор",
-      // "Reset"
-      reset: "Сброс",
       // [Auto-translated] "Change"
       change: "Менять",
-      // [Auto-translated] "Refresh"
-      refresh: "Освежать",
       // "Close"
       close: "Закрыть",
       // "Delete"
       delete: "Удалить",
-      // "Add"
-      add: "Добавить",
       // "Add New"
       addNew: "Добавить новый",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Нажмите, чтобы удалить элемент...",
       // [Auto-translated] "Drag the item"
       dragItem: "Перетащите элемент",
-      // "Other"
-      addOther: "Другое",
-      // "Select All"
-      addSelectAll: "Выбрать все пункты",
-      // "None"
-      addNone: "Ничего",
-      // "Remove All"
-      removeAll: "Удалить все",
       // "Edit"
       edit: "Редактировать",
-      // "Return without saving"
-      back: "Вернуться без сохранения",
-      // [Auto-translated] "Return without saving"
-      backTooltip: "Возврат без экономии",
-      // "Save and return"
-      saveAndBack: "Сохранить и вернуться",
-      // [Auto-translated] "Save and return"
-      saveAndBackTooltip: "Сохранить и вернуть",
       // [Auto-translated] "Done"
       doneEditing: "Договорились",
-      // "Edit Choices"
-      editChoices: "Редактировать выбор",
-      // [Auto-translated] "Show Choices"
-      showChoices: "Показать варианты",
-      // "Move"
-      move: "Переместить",
-      // "<empty>"
-      empty: "<пусто>",
       // [Auto-translated] "Value is empty"
       emptyValue: "Значение пусто",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Пожалуйста, введите не менее {0} пунктов",
       // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Введите список вариантов выбора и их идентификаторы в следующем формате:\n\nid|option\n\nИдентификатор варианта выбора не виден респондентам и может использоваться в условных правилах.",
-      // "Form Entry"
-      formEntry: "Форма входа",
-      // "Test the service"
-      testService: "Тест услуги",
-      // "Please select the element"
-      itemSelectorEmpty: "Пожалуйста, выберите элемент",
       // [Auto-translated] "Please select the action"
       conditionActionEmpty: "Пожалуйста, выберите действие",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Выбрать страницу ...",
       // "Select a panel..."
       conditionSelectPanel: "Выберите панель ...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Пожалуйста, введите/выберите значение",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Нажмите Ctrl+Пробел, чтобы получить подсказки",
-      // "Current row"
-      aceEditorRowTitle: "Текущая строка",
-      // "Current panel"
-      aceEditorPanelTitle: "Текущая панель",
-      // "For more details please check the documentation"
-      showMore: "Для получения более подробной информации, пожалуйста, перейдите к документации",
-      // "Available questions"
-      assistantTitle: "Доступные вопросы",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Должен быть хотя бы один столбец или строка",
       // [Auto-translated] "Review before submit"
       showPreviewBeforeComplete: "Проверка перед отправкой",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Добавить новый URL-адрес",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Добавить новую страницу",
-      // "Expression is empty"
-      expressionIsEmpty: "Выражение - пустое",
       // "Value"
       value: "Значение",
       // "Text"
       text: "Текст",
-      // "Row ID"
-      rowid: "ID строки",
       // "Image or video file URL"
       imageLink: "Ссылка на изображение",
-      // "Edit column: {0}"
-      columnEdit: "Изменить столбец: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Редактировать элемент: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Получение URL-адресов файлов из следующего свойства",
       // [Auto-translated] "Accept empty response"
       allowEmptyResponse: "Принять пустой ответ",
-      // "Title"
-      titlePlaceholder: "Введите заголовок",
       // "Survey Title"
       surveyTitlePlaceholder: "Введите заголовок опроса",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Ответ по умолчанию",
       // "Default texts"
       cellsDefaultRow: "Текст ячеек по умолчанию",
-      // "Edit survey settings"
-      surveyEditorTitle: "Настройки опросника",
-      // "Edit: {0}"
-      qEditorTitle: "Изменить: {0}",
       // "Maximum character limit"
       maxLength: "Максимальная длина",
-      // "Build"
-      buildExpression: "Собрать",
-      // "Edit"
-      editExpression: "Редактировать",
       // [Auto-translated] "and"
       and: "и",
       // [Auto-translated] "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Добавить к результатам опроса",
       // "Make the title and description visible"
       showTitle: "Показать/скрыть заголовок",
-      // [Auto-translated] "Expand/collapse title"
-      expandCollapseTitle: "Развернуть/свернуть заголовок",
       // "Select a survey language"
       locale: "Язык по умолчанию",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Дополнительные расширения файлов",
       // [Auto-translated] "Wait for upload to complete"
       waitForUpload: "Дождитесь завершения загрузки",
-      // [Auto-translated] "Confirm file deletion"
-      needConfirmRemoveFile: "Подтвердите удаление файла",
       // [Auto-translated] "Row details alignment"
       detailPanelMode: "Выравнивание сведений о строке",
       // [Auto-translated] "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Высота изображения",
         // [Auto-translated] "Image width"
-        imageWidth: "Ширина изображения"
+        imageWidth: "Ширина изображения",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Подтвердить удаление файла"
       },
       // [Auto-translated] "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Скройте вопрос, если у него нет вариантов",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Используйте значения из следующего столбца матрицы или панельного вопроса в качестве текстов для выбора",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Отображение заголовков страниц в индикаторе выполнения",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Отобразите навигационный текст в шкале прогресса",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Выравнивание навигационного текста",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Отображение номеров страниц в индикаторе выполнения",
       // [Auto-translated] "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Отображение надписей в виде крайних значений",
       // [Auto-translated] "Row order"
       rowOrder: "Порядок строк",
-      // [Auto-translated] "Column layout"
-      columnsLayout: "Расположение столбцов",
       // [Auto-translated] "Nested column count"
       columnColCount: "Количество вложенных столбцов",
       // [Auto-translated] "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Местоположение логотипа",
-      // "Add logo..."
-      addLogo: "Добавить логотип...",
-      // "Change logo..."
-      changeLogo: "Изменить логотип...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Разместить логотип",
-        // "Left"
-        left: "Слева",
-        // "Right"
-        right: "Справа",
-        // "On the top"
-        top: "Сверху",
-        // "In the bottom"
-        bottom: "Снизу"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Режим предварительного просмотра",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Выравнивание сообщений об ошибках в строках",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Компоновка панелей"
-        },
         // "General"
         general: "Общие",
-        // "Options"
-        fileOptions: "Параметры",
         // [Auto-translated] "HTML Editor"
         html: "HTML-редактор",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Настройки слайдера",
         // "Choices from a Web Service"
         choicesByUrl: "Выбор из Интернета",
-        // "Default Choices"
-        matrixChoices: "Выбор по умолчанию",
-        // "Text Inputs"
-        multipleTextItems: "Ввод нескольких текстовых полей",
         // [Auto-translated] "Numbering"
         numbering: "Нумерация",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Показать по завершению",
         // "Logo in the Survey Header"
         logo: "Логотип в заголовке опросника",
-        // [Auto-translated] "Slider"
-        slider: "Ползун",
         // [Auto-translated] "Expression"
         expression: "Выражение",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Другие"
       },
-      // "Edit property '{0}'"
-      editProperty: "Редактировать свойство '{0}'",
       // "Items"
       items: "[Элементы: {0}]",
       // [Auto-translated] "Make choices visible if"
       choicesVisibleIf: "Сделайте варианты видимыми, если",
       // [Auto-translated] "Make choices selectable if"
       choicesEnableIf: "Сделайте выбор выбираемым, если",
-      // [Auto-translated] "Make columns visible if"
-      columnsEnableIf: "Сделать столбцы видимыми, если",
-      // [Auto-translated] "Make rows visible if"
-      rowsEnableIf: "Сделайте строки видимыми, если",
       // [Auto-translated] "Increase the inner indent"
       innerIndent: "Увеличьте внутренний отступ",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Используйте ответы из последней записи по умолчанию",
-      // "Please enter a value."
-      enterNewValue: "Пожалуйста, введите значение.",
-      // "There are no questions in the survey."
-      noquestions: "В опроснике нет ни одного вопроса",
-      // "Please create a trigger"
-      createtrigger: "Пожалуйста, создайте триггер",
-      // [Auto-translated] "Press enter button to edit"
-      titleKeyboardAdornerTip: "Нажмите кнопку ввода, чтобы отредактировать",
-      // [Auto-translated] "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Нажмите кнопку ввода, чтобы отредактировать элемент, нажмите кнопку удаления, чтобы удалить элемент, нажмите alt со стрелкой вверх или со стрелкой вниз, чтобы переместить элемент",
-      // "On "
-      triggerOn: "О",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Сделать страницы видимыми",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Сделать элементы видимыми",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Завершить опрос, если все получися.",
-      // "The trigger is not set"
-      triggerNotSet: "Тригер не установлен",
-      // "Run if"
-      triggerRunIf: "Начать, если",
-      // "Change value of: "
-      triggerSetToName: "Изменить значение",
-      // "Copy value from: "
-      triggerFromName: "Скопировать значение из",
-      // "Run this Expression"
-      triggerRunExpression: "Выполнить это выражение",
-      // "to: "
-      triggerSetValue: "в",
-      // "Go to the question"
-      triggerGotoName: "Перейти к вопросу",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Не помещать переменную в результат опросника.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Пожалуйста, введите корректное выражение",
       // [Auto-translated] "Type expression here..."
       emptyExpressionPlaceHolder: "Введите выражение здесь...",
-      // [Auto-translated] "No file chosen"
-      noFile: "Файл не выбран",
       // [Auto-translated] "Clear hidden question values"
       clearIfInvisible: "Очистка скрытых значений вопросов",
       // [Auto-translated] "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Описание шрифта",
         // [Auto-translated] "Font"
-        editorFont: "Шрифт",
+        inputContent: "Шрифт",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Непрозрачность",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Семейство шрифтов Survey",
+        "--sjs2-typography-font-family-text": "Семейство обзорных шрифтов",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Цвет фона",
+        "--sjs2-color-utility-surface-survey": "Цвет фона",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Акцентные цвета фона",
+        "--sjs2-color-project-brand-600": "Акцентные цвета фона",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Акцентные цвета переднего плана",
+        "--sjs2-color-fg-brand-on-primary": "Акцентные цвета переднего плана",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Цвета сообщений об ошибках",
+        "--sjs2-color-bg-alert-primary": "Цвета сообщений об ошибках",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Эффекты теней",
+        "--sjs2-border-effect-surface-default": "Эффекты теней",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Эффекты теней",
+        "--sjs2-border-effect-component-formbox-default": "Эффекты теней",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Знамя"
+        "--sjs2-color-component-input-default-line": "Цвета"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Локальный файл или камера",
       // "Inherit"
       inherit: "Наследовать",
-      // "Visible"
-      show: "Показать",
-      // "Hidden"
-      hide: "Скрыть",
       // "Inherit"
       default: "По умолчанию",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "По возрастанию",
       // "Descending"
       desc: "По убыванию",
-      // "Indeterminate"
-      indeterminate: "Неопределенный",
       // [Auto-translated] "Selected"
       selected: "Выбранный",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Карусель",
       // [Auto-translated] "Tabs"
       tab: "Вкладки",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "progressTop",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "progressBottom",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "progressTopBottom",
       // "Horizontal"
       horizontal: "Горизонтально",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "Снизу",
       // "Top and bottom"
       topBottom: "Сверху и снизу",
-      // [Auto-translated] "Both"
-      both: "Оба",
       // "Left"
       left: "Слева",
       // [Auto-translated] "Right"
@@ -2125,10 +1870,6 @@
       week: "неделя",
       // "Hidden"
       hidden: "Скрыт",
-      // "Editable"
-      edit: "Редактирование",
-      // "Read-only"
-      display: "Просмотр",
       // [Auto-translated] "Contain"
       contain: "Содержать",
       // [Auto-translated] "Cover"
@@ -2153,8 +1894,8 @@
         // [Auto-translated] "Never"
         none: "Никогда"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Переключатели",
+      // [Auto-translated] "Radio buttons"
+      radio: "Кнопки радио",
       inputType: {
         // [Auto-translated] "Color"
         color: "Цвет",
@@ -2357,8 +2098,6 @@
       onNextPage: "При переходе на следующую страницу",
       // "After an answer is changed"
       onValueChanged: "При изменении значения",
-      // [Auto-translated] "Before an answer is changed"
-      onValueChanging: "Прежде чем ответ будет изменен",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Оригинальная структура",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Показывать одно поле ввода на странице"
       },
-      // [Auto-translated] "No preview"
-      noPreview: "Без предварительного просмотра",
-      // [Auto-translated] "Show all questions"
-      showAllQuestions: "Показать все вопросы",
-      // [Auto-translated] "Show answered questions only"
-      showAnsweredQuestions: "Показывать только ответы на вопросы",
       // [Auto-translated] "Show all questions"
       allQuestions: "Показать все вопросы",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // [Auto-translated] "Buttons"
         buttons: "Кнопки",
         // [Auto-translated] "Dropdown"
-        dropdown: "Выпадающий список"
+        dropdown: "Выпадающий список",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Сегментированный переключатель",
+        // [Auto-translated] "Radio buttons"
+        radio: "Кнопки радио",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Чекбокс",
+        // [Auto-translated] "Switch"
+        switch: "Переключатель",
+        // [Auto-translated] "Custom"
+        custom: "Обычай"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Сброс на каждой странице",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Сброс на каждой панели",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Сброс на каждой панели",
         // [Auto-translated] "Recursive numbering"
         recursive: "Рекурсивная нумерация",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Продолжить опрос",
         // [Auto-translated] "No numbering"
         off: "Без нумерации"
       },
@@ -2648,49 +2387,6 @@
       and: "и",
       // [Auto-translated] "or"
       or: "или"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Используйте версию Angular",
-      // "Use jQuery version"
-      jquery: "Используйте версию jQuery",
-      // "Use Knockout version"
-      knockout: "Используйте версию Knockout",
-      // "Use React version"
-      react: "Используйте версию React",
-      // "Use Vue version"
-      vue: "Используйте версию Vue",
-      // "For bootstrap framework"
-      bootstrap: "Для библиотеки bootstrap",
-      // [Auto-translated] "Modern theme"
-      modern: "Современная тема",
-      // [Auto-translated] "Default theme"
-      default: "Тема по умолчанию",
-      // [Auto-translated] "Orange theme"
-      orange: "Оранжевая тема",
-      // [Auto-translated] "Darkblue theme"
-      darkblue: "Темно-синяя тема",
-      // "Darkrose theme"
-      darkrose: 'Тема "Темная роза"',
-      // [Auto-translated] "Stone theme"
-      stone: "Тема «Камень»",
-      // [Auto-translated] "Winter theme"
-      winter: "Зимняя тематика",
-      // "Winter-Stone theme"
-      winterstone: 'Тема "Зимний камень"',
-      // "Show survey on a page"
-      showOnPage: "Показывать опросник на странице",
-      // "Show survey in a window"
-      showInWindow: "Показывать опросник в модальном окне",
-      // "Load Survey JSON from server"
-      loadFromServer: "Загрузить Json опросника с сервера",
-      // "Scripts and styles"
-      titleScript: "Скрипты и стили",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Указывает ширину отображения загруженных изображений в окне предварительного просмотра и фактическую ширину изображений, сделанных камерой. В режиме загрузки одного файла ширина отображения ограничена областью предварительного просмотра; В режиме загрузки нескольких файлов он ограничен областью эскизов.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Отображает предварительный просмотр миниатюр для загруженных файлов, когда это возможно. Снимите флажок, если вместо этого вы хотите отображать значки файлов."
+        allowImagesPreview: "Отображает предварительный просмотр миниатюр для загруженных файлов, когда это возможно. Снимите флажок, если вместо этого вы хотите отображать значки файлов.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Появляется запрос подтвердить удаление файла."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Значение" - это идентификатор элемента, используемый в условных правилах; Респондентам отображается «Текст».',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: "Выберите между «Изображением» и «Видео», чтобы установить режим содержимого селектора мультимедиа. Если выбран параметр «Изображение», убедитесь, что все предоставленные параметры представляют собой файлы изображений в следующих форматах: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Точно так же, если выбран «Видео», убедитесь, что все параметры являются прямыми ссылками на видеофайлы в следующих форматах: MP4, MOV, WMV, FLV, AVI, MKV. Обратите внимание, что ссылки на YouTube не поддерживаются для параметров видео."
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: "Этот параметр только изменяет размер поля ввода и не влияет на ширину поля вопроса. Чтобы ограничить допустимую длину ввода, перейдите в раздел «Проверка» → «Максимальное ограничение символов»."
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Значение, сохраняемое в результатах опроса, когда респонденты дают отрицательный ответ.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Не рекомендуется отключать эту опцию, так как она переопределяет изображение предварительного просмотра и затрудняет понимание пользователем того, были ли файлы загружены.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Запускает запрос на подтверждение удаления файла.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Включите этот параметр, чтобы ранжировать только выбранные варианты. Пользователи будут перетаскивать выбранные элементы из списка вариантов, чтобы упорядочить их в области ранжирования.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Настройка прозрачности входных элементов относительно фона опроса.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Задает радиус угла для всех прямоугольных элементов. Включите расширенный режим, если вы хотите задать индивидуальные значения углового радиуса для элементов ввода или панелей и полей вопросов.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Задает основной цвет фона опроса."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Задаёт основной цвет фона опроса."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Парить",
       // [Auto-translated] "Selected"
       primaryLightColor: "Выбранный",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Цвет фона",
       // "Corner radius"
       cornerRadius: "Радиус закругления угла",
       // [Auto-translated] "Default background"
       backcolor: "Фон по умолчанию",
       // [Auto-translated] "Hover background"
       hovercolor: "Фон при наведении курсора",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Оформление бордюра",
       // [Auto-translated] "Font color"
       fontColor: "Цвет шрифта",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Цвет по умолчанию",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Отключенный цвет",
-      // [Auto-translated] "Font"
-      font: "Шрифт",
       // [Auto-translated] "Darker"
       borderDefault: "Темнее",
       // [Auto-translated] "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Цвет заполнителя",
       // [Auto-translated] "Size"
       size: "Размер",
+      // [Auto-translated] "Line height"
+      lineHeight: "Высота линии",
       // [Auto-translated] "Opacity"
       opacity: "Непрозрачность",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "По умолчанию",
-        // [Auto-translated] "Sharp"
-        sharp: "Чёткая",
+        // [Auto-translated] "Contrast"
+        contrast: "Контрастная",
         // [Auto-translated] "Borderless"
         borderless: "Без границ",
         // [Auto-translated] "Flat"
         flat: "Плоская",
         // [Auto-translated] "Plain"
         plain: "Простая",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Удвоенные границы",
-        // [Auto-translated] "Layered"
-        layered: "Многослойная",
-        // [Auto-translated] "Solid"
-        solid: "Монолитная",
+        // [Auto-translated] "Soft"
+        soft: "Мягкий",
         // [Auto-translated] "3D"
         threedimensional: "Трёхмерная",
-        // [Auto-translated] "Contrast"
-        contrast: "Контрастная"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Монохром"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Фон поверхности",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Первичный",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Вторичный",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Поверхность",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "Элементы пользовательского интерфейса",
       // [Auto-translated] "Font"
       fontScale: "Шрифт",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Создатель опросов 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Свет",
-        // [Auto-translated] "Dark"
-        "default-dark": "Темный",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Контраст"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Применённый пресет"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Пункт 1" }, { value: "item2", text: "Пункт 2" }, { value: "item3", text: "Пункт 3" }],
+      columns: [{ value: "column1", text: "Колонка 1" }, { value: "column2", text: "Колонка 2" }, { value: "column3", text: "Колонка 3" }],
+      rows: [{ value: "row1", text: "Строка 1" }, { value: "row2", text: "Строка 2" }],
+      matrixColumns: [{ name: "column1", title: "Колонка 1" }, { name: "column2", title: "Колонка 2" }, { name: "column3", title: "Колонка 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "ru", strings: ruStrings });

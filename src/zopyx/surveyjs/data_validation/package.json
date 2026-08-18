@@ -7,6 +7,6 @@
     "validate:bun": "bun validate.mjs"
   },
   "dependencies": {
-    "survey-core": "^3.0.0-beta.6"
+    "survey-core": "^3.0.0"
   }
 }

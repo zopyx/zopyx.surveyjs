@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "surveyjs-validation-demo",
+      "dependencies": {
+        "survey-core": "^3.0.0",
+      },
+    },
+  },
+  "packages": {
+    "survey-core": ["survey-core@3.0.0", "", {}, "sha512-K4sY0hQWykvLZ98ejfqG5ReSX4UZVlcbDS8x/TsKQcEH4jo1kkwqJRlrDEyKDzTcbqtV/rUT5wDZmW+plYwxeQ=="],
+  }
+}

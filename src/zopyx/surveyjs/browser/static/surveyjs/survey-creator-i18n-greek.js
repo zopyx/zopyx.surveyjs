@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var grStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Επεξεργασία",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Παρακολουθήστε και μάθετε πώς να δημιουργείτε ερωτηματολόγια",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Σύρετε εδώ μια ερώτηση από την εργαλειοθήκη.",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Δημιουργήστε έναν κανόνα για να προσαρμόσετε τη ροή του ερωτηματολογίου.",
-      // "Copy"
-      copy: "Αντιγραφή",
       // "Duplicate"
-      duplicate: "Διπλασιασμός",
-      // "Add to toolbox"
-      addToToolbox: "Προσθήκη στην εργαλειοθήκη",
-      // "Delete Panel"
-      deletePanel: "Διαγραφή Πίνακα",
-      // "Delete Question"
-      deleteQuestion: "Διαγραφή Ερώτησης",
-      // "Convert to"
-      convertTo: "Μετατροπή σε",
-      // "Drag element"
-      drag: "Σύρετε το στοιχείο"
+      duplicate: "Διπλασιασμός"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Προεπιλογή ({0})",
-      // "Survey"
-      survey: "Έρευνα",
       // "Settings"
       settings: "Ρυθμίσεις",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Έρευνα",
       // "Page"
       pageTypeName: "Σελίδα",
-      // "Panel"
-      panelTypeName: "Πίνακας",
-      // "Question"
-      questionTypeName: "Ερώτηση",
-      // "Column"
-      columnTypeName: "Στήλη",
-      // "Add New Page"
-      addNewPage: "Προσθήκη Νέας Σελίδας",
-      // "Scroll to the Right"
-      moveRight: "Κύλιση δεξιά",
-      // "Scroll to the Left"
-      moveLeft: "Κύλιση αριστερά",
-      // "Delete Page"
-      deletePage: "Διαγραφή Σελίδας",
-      // "Edit Page"
-      editPage: "Επεξεργασία Σελίδας",
-      // "Edit"
-      edit: "Επεξεργασία",
       // "page"
       newPageName: "σελίδα",
       // "question"
       newQuestionName: "ερώτηση",
       // "panel"
       newPanelName: "πίνακας",
-      // "text"
-      newTextItemName: "κείμενο",
-      // "Default"
-      defaultV2Theme: "Προεπιλογή",
-      // "Modern"
-      modernTheme: "Σύγχρονο",
-      // "Default (legacy)"
-      defaultTheme: "Προεπιλογή (παλαιό)",
       // "Preview Survey Again"
       testSurveyAgain: "Ξαναπροεπισκόπηση Έρευνας",
-      // "Survey width: "
-      testSurveyWidth: "Πλάτος έρευνας: ",
       // "You had to navigate to"
       navigateToMsg: "Έπρεπε να μεταβείτε στο",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Αναίρεση",
       // "Redo"
       redo: "Επανάληψη",
-      // "Undo last change"
-      undoTooltip: "Αναίρεση τελευταίας αλλαγής",
-      // "Redo the change"
-      redoTooltip: "Επανάληψη αλλαγής",
       // "Expand"
       expandTooltip: "Ανάπτυξη",
       // "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Περισσότερες επιλογές",
       // "Show less"
       showLessChoices: "Λιγότερες επιλογές",
-      // "Copy"
-      copy: "Αντιγραφή",
-      // "Cut"
-      cut: "Αποκοπή",
-      // "Paste"
-      paste: "Επικόλληση",
-      // "Copy selection to clipboard"
-      copyTooltip: "Αντιγραφή στην πρόχειρη μνήμη",
-      // "Cut selection to clipboard"
-      cutTooltip: "Αποκοπή στην πρόχειρη μνήμη",
-      // "Paste from clipboard"
-      pasteTooltip: "Επικόλληση από πρόχειρη μνήμη",
-      // "Options"
-      options: "Επιλογές",
-      // "Generate Valid JSON"
-      generateValidJSON: "Δημιουργία Έγκυρου JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Άγνωστη λειτουργία: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Συντακτικό σφάλμα.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Σημασιολογικό σφάλμα.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Δημιουργία Αναγνώσιμου JSON",
       // "Toolbox"
       toolbox: "Εργαλειοθήκη",
-      // [Auto-translated] "Properties"
-      "property-grid": "Καταλύματα",
       // [Auto-translated] "Search"
       toolboxSearch: "Αναζήτηση",
       // "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Ξεκινήστε να ρυθμίζετε τη φόρμα σας",
       // "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Κάντε κλικ σε ένα εικονίδιο κατηγορίας για να εξερευνήσετε τις ρυθμίσεις της έρευνας. Περισσότερες ρυθμίσεις θα είναι διαθέσιμες αφού προσθέσετε ένα στοιχείο έρευνας.",
-      // "Please correct JSON."
-      correctJSON: "Παρακαλώ διορθώστε το JSON.",
       // "Survey Results "
       surveyResults: "Αποτελέσματα Έρευνας",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Αποθήκευση",
       // "Saved"
       saved: "Αποθηκεύτηκε",
-      // "Error"
-      propertyEditorError: "Σφάλμα",
       // "Error! Editor content is not saved."
       saveError: "Σφάλμα! Το περιεχόμενο δεν αποθηκεύτηκε.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Θέλετε σίγουρα να επαναφέρετε το θέμα; Όλες οι προσαρμογές θα χαθούν.",
       // "Yes, reset the theme"
       themeResetConfirmationOk: "Ναι, επαναφορά θέματος",
-      // "Bold"
-      bold: "Έντονα",
-      // "Italic"
-      italic: "Πλάγια",
-      // "Underline"
-      underline: "Υπογράμμιση",
       // "Add Question"
       addNewQuestion: "Προσθήκη Ερώτησης",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Όταν η λογική έκφραση είναι αληθής, εκτελείται μια άλλη έκφραση και προαιρετικά η τιμή της μπορεί να αποδοθεί σε μια ερώτηση.",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: 'Εάν η λογική έκφραση είναι αληθής, η σελίδα "Ευχαριστούμε" εμφανίζει το καθορισμένο περιεχόμενο.',
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Όταν η έκφραση: '{0}' είναι αληθής",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "Νέος κανόνας",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Μια έκφραση της οποίας το αποτέλεσμα θα αποδοθεί στην επιλεγμένη ερώτηση.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Εισαγάγετε μια τιμή...",
         // "survey becomes completed"
         trigger_completeText: "το ερωτηματολόγιο ολοκληρώνεται",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Συνθήκη(ες)",
         // "Action(s)"
         actions: "Ενέργεια(ες)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Ορισμός συνθηκών",
         // "Define action(s)"
         actionsEditorTitle: "Ορισμός ενεργειών",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Επιλέξτε ενέργεια...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Η έκφραση είναι κενή ή μη έγκυρη. Παρακαλώ διορθώστε την.",
-        // "Please add at least one action."
-        noActionError: "Παρακαλώ προσθέστε τουλάχιστον μία ενέργεια.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Παρακαλώ διορθώστε τα προβλήματα στις ενέργειες.",
         // "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Προεπιλεγμένη τιμή για δυναμικά κείμενα",
       // "Label alignment"
       rateDescriptionLocation: "Στοίχιση ετικέτας",
-      // "Input field width (in characters)"
-      size: "Πλάτος πεδίου εισόδου (σε χαρακτήρες)",
       // "Cell error message alignment"
       cellErrorLocation: "Στοίχιση μηνύματος σφάλματος κελιού",
       // "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Ανενεργό",
       // "Inherit"
       inherit: "Κληρονομιά",
-      // "Apply"
-      apply: "Εφαρμογή",
-      // [Auto-translated] "OK"
-      ok: "OK",
-      // "Save"
-      save: "Αποθήκευση",
       // "Clear"
       clear: "Καθαρισμός",
-      // "Save"
-      saveTooltip: "Αποθήκευση",
-      // "Cancel"
-      cancel: "Ακύρωση",
       // "Set"
       set: "Ορισμός",
-      // "Reset"
-      reset: "Επαναφορά",
       // "Change"
       change: "Αλλαγή",
-      // "Refresh"
-      refresh: "Ανανέωση",
       // "Close"
       close: "Κλείσιμο",
       // "Delete"
       delete: "Διαγραφή",
-      // "Add"
-      add: "Προσθήκη",
       // "Add New"
       addNew: "Νέα προσθήκη",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Κλικ για διαγραφή του στοιχείου...",
       // "Drag the item"
       dragItem: "Σύρετε το στοιχείο",
-      // "Other"
-      addOther: "Άλλο",
-      // "Select All"
-      addSelectAll: "Επιλογή όλων",
-      // "None"
-      addNone: "Κανένα",
-      // "Remove All"
-      removeAll: "Αφαίρεση όλων",
       // "Edit"
       edit: "Επεξεργασία",
-      // "Return without saving"
-      back: "Επιστροφή χωρίς αποθήκευση",
-      // "Return without saving"
-      backTooltip: "Επιστροφή χωρίς αποθήκευση",
-      // "Save and return"
-      saveAndBack: "Αποθήκευση και επιστροφή",
-      // "Save and return"
-      saveAndBackTooltip: "Αποθήκευση και επιστροφή",
       // "Done"
       doneEditing: "Ολοκληρώθηκε",
-      // "Edit Choices"
-      editChoices: "Επεξεργασία Επιλογών",
-      // "Show Choices"
-      showChoices: "Εμφάνιση Επιλογών",
-      // "Move"
-      move: "Μετακίνηση",
-      // "<empty>"
-      empty: "<κενό>",
       // "Value is empty"
       emptyValue: "Η τιμή είναι κενή",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Παρακαλώ εισάγετε τουλάχιστον {0} στοιχεία",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Εισάγετε τη λίστα επιλογών και τα ID τους με τη μορφή:\n\nid|επιλογή\n\nΤο ID της επιλογής δεν εμφανίζεται στους συμμετέχοντες και μπορεί να χρησιμοποιηθεί σε κανόνες.",
-      // "Form Entry"
-      formEntry: "Συμπλήρωση φόρμας",
-      // "Test the service"
-      testService: "Δοκιμή υπηρεσίας",
-      // "Please select the element"
-      itemSelectorEmpty: "Επιλέξτε ένα στοιχείο",
       // "Please select the action"
       conditionActionEmpty: "Επιλέξτε ενέργεια",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Επιλέξτε σελίδα...",
       // "Select a panel..."
       conditionSelectPanel: "Επιλέξτε πίνακα...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Παρακαλώ εισάγετε/επιλέξτε τιμή",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Πατήστε ctrl+space για προτάσεις σύνταξης",
-      // "Current row"
-      aceEditorRowTitle: "Τρέχουσα γραμμή",
-      // "Current panel"
-      aceEditorPanelTitle: "Τρέχων πίνακας",
-      // "For more details please check the documentation"
-      showMore: "Για περισσότερες πληροφορίες δείτε την τεκμηρίωση",
-      // "Available questions"
-      assistantTitle: "Διαθέσιμες ερωτήσεις",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Πρέπει να υπάρχει τουλάχιστον μία στήλη ή γραμμή",
       // "Review before submit"
       showPreviewBeforeComplete: "Προεπισκόπηση πριν την υποβολή",
       // "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Προσθήκη νέου URL",
       // "Add new page"
       "addNew@pages": "Προσθήκη νέας σελίδας",
-      // "Expression is empty"
-      expressionIsEmpty: "Η έκφραση είναι κενή",
       // "Value"
       value: "Τιμή",
       // "Text"
       text: "Κείμενο",
-      // "Row ID"
-      rowid: "ID γραμμής",
       // "Image or video file URL"
       imageLink: "URL εικόνας ή βίντεο",
-      // "Edit column: {0}"
-      columnEdit: "Επεξεργασία στήλης: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Επεξεργασία στοιχείου: {0}",
       // [Auto-translated] "URL"
       url: "Διεύθυνση URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Ιδιότητα από την οποία λαμβάνονται οι σύνδεσμοι αρχείων",
       // "Accept empty response"
       allowEmptyResponse: "Αποδοχή κενής απάντησης",
-      // "Title"
-      titlePlaceholder: "Τίτλος",
       // "Survey Title"
       surveyTitlePlaceholder: "Τίτλος Ερωτηματολογίου",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Προεπιλεγμένη Απάντηση",
       // "Default texts"
       cellsDefaultRow: "Προεπιλεγμένα κείμενα",
-      // "Edit survey settings"
-      surveyEditorTitle: "Επεξεργασία ρυθμίσεων έρευνας",
-      // "Edit: {0}"
-      qEditorTitle: "Επεξεργασία: {0}",
       // "Maximum character limit"
       maxLength: "Μέγιστο όριο χαρακτήρων",
-      // "Build"
-      buildExpression: "Δημιουργία",
-      // "Edit"
-      editExpression: "Επεξεργασία",
       // "and"
       and: "και",
       // "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Προσθήκη στα αποτελέσματα έρευνας",
       // "Make the title and description visible"
       showTitle: "Εμφάνιση τίτλου και περιγραφής",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Επέκταση/Σύμπτυξη τίτλου",
       // "Select a survey language"
       locale: "Επιλέξτε γλώσσα έρευνας",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Πρόσθετες επεκτάσεις αρχείων",
       // "Wait for upload to complete"
       waitForUpload: "Περιμένετε για να ολοκληρωθεί η αποστολή",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "Επιβεβαίωση διαγραφής αρχείου",
       // "Row details alignment"
       detailPanelMode: "Στοίχιση επέκτασης σειράς",
       // "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Ύψος εικόνας",
         // [Auto-translated] "Image width"
-        imageWidth: "Πλάτος εικόνας"
+        imageWidth: "Πλάτος εικόνας",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Επιβεβαιώστε τη διαγραφή του αρχείου"
       },
       // "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Απόκρυψη ερώτησης αν δεν υπάρχουν επιλογές",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Χρήση τιμών από την εξής στήλη πίνακα ή ερώτηση πάνελ ως κείμενα επιλογών",
       // "Display page titles in the progress bar"
       progressBarShowPageTitles: "Εμφάνιση τίτλων σελίδων στη γραμμή προόδου",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Εμφάνιση κειμένου περιήγησης στη γραμμή προόδου",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Στοίχιση κειμένου πλοήγησης",
       // "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Εμφάνιση αριθμών σελίδων στη γραμμή προόδου",
       // "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Εμφάνιση ετικετών ως ακραίων τιμών",
       // "Row order"
       rowOrder: "Σειρά σειράς",
-      // "Column layout"
-      columnsLayout: "Διάταξη στηλών",
       // "Nested column count"
       columnColCount: "Αριθμός εισχωρημένων στηλών",
       // "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Στοίχιση λογότυπου",
-      // "Add logo..."
-      addLogo: "Προσθήκη λογότυπου...",
-      // "Change logo..."
-      changeLogo: "Αλλαγή λογότυπου...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Αφαίρεση λογότυπου",
-        // "Left"
-        left: "Αριστερά",
-        // "Right"
-        right: "Δεξιά",
-        // "On the top"
-        top: "Επάνω",
-        // "In the bottom"
-        bottom: "Κάτω"
-      },
       // "Preview mode"
       previewMode: "Λειτουργία προεπισκόπησης",
       // "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Στοίχιση μηνύματος σφάλματος επέκτασης σειράς",
       // Creator tabs
       tabs: {
-        panel: {
-          // "Panel Layout"
-          layout: "Διάταξη Πάνελ"
-        },
         // "General"
         general: "Γενικά",
-        // "Options"
-        fileOptions: "Επιλογές",
         // "HTML Editor"
         html: "Επεξεργαστής HTML",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Ρυθμίσεις ρυθμιστικού",
         // "Choices from a Web Service"
         choicesByUrl: "Επιλογές από Web Service",
-        // "Default Choices"
-        matrixChoices: "Προεπιλεγμένες Επιλογές",
-        // "Text Inputs"
-        multipleTextItems: "Κείμενα Εισαγωγής",
         // "Numbering"
         numbering: "Αρίθμηση",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: 'Σελίδα "Ευχαριστούμε"',
         // "Logo in the Survey Header"
         logo: "Λογότυπο στην Κεφαλίδα Έρευνας",
-        // "Slider"
-        slider: "Ολισθητής",
         // "Expression"
         expression: "Έκφραση",
         // "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Άλλα"
       },
-      // "Edit property '{0}'"
-      editProperty: "Επεξεργασία ιδιότητας '{0}'",
       // "Items"
       items: "Στοιχεία",
       // "Make choices visible if"
       choicesVisibleIf: "Κάντε τις επιλογές ορατές αν",
       // "Make choices selectable if"
       choicesEnableIf: "Κάντε τις επιλογές επιλέξιμες αν",
-      // "Make columns visible if"
-      columnsEnableIf: "Κάντε τις στήλες ορατές αν",
-      // "Make rows visible if"
-      rowsEnableIf: "Κάντε τις σειρές ορατές αν",
       // "Increase the inner indent"
       innerIndent: "Αύξηση του εσωτερικού εσοχής",
       // "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Χρησιμοποιήστε τις απαντήσεις από την τελευταία καταχώρηση ως προεπιλογή",
-      // "Please enter a value."
-      enterNewValue: "Παρακαλώ εισάγετε μια τιμή.",
-      // "There are no questions in the survey."
-      noquestions: "Δεν υπάρχουν ερωτήσεις στην έρευνα.",
-      // "Please create a trigger"
-      createtrigger: "Παρακαλώ δημιουργήστε έναν ενεργοποιητή",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Πατήστε το κουμπί Enter για να επεξεργαστείτε",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Πατήστε το κουμπί Enter για να επεξεργαστείτε το στοιχείο, πατήστε το κουμπί Delete για να διαγράψετε το στοιχείο, πατήστε Alt και το βέλος επάνω ή κάτω για να μετακινήσετε το στοιχείο",
-      // "On "
-      triggerOn: "Στις ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Κάντε τις σελίδες ορατές",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Κάντε τα στοιχεία ορατά",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Ολοκληρώστε την έρευνα αν είναι επιτυχής.",
-      // "The trigger is not set"
-      triggerNotSet: "Ο ενεργοποιητής δεν είναι ρυθμισμένος",
-      // "Run if"
-      triggerRunIf: "Τρέξτε αν",
-      // "Change value of: "
-      triggerSetToName: "Αλλάξτε την τιμή του: ",
-      // "Copy value from: "
-      triggerFromName: "Αντιγράψτε την τιμή από: ",
-      // "Run this Expression"
-      triggerRunExpression: "Τρέξτε αυτήν την Έκφραση",
-      // "to: "
-      triggerSetValue: "σε: ",
-      // "Go to the question"
-      triggerGotoName: "Μεταβείτε στην ερώτηση",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Μην τοποθετείτε τη μεταβλητή στα αποτελέσματα της έρευνας.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Παρακαλώ εισάγετε μια έγκυρη έκφραση",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "Πληκτρολογήστε την έκφραση εδώ...",
-      // "No file chosen"
-      noFile: "Δεν έχει επιλεγεί αρχείο",
       // "Clear hidden question values"
       clearIfInvisible: "Καθαρισμός κρυφών τιμών ερώτησης",
       // "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // "Description font"
         questionDescription: "Γραμματοσειρά περιγραφής ερώτησης",
         // "Font"
-        editorFont: "Γραμματοσειρά επεξεργαστή",
+        inputContent: "Γραμματοσειρά επεξεργαστή",
         // "Opacity"
         backgroundOpacity: "Διαφάνεια",
         // Auto-generated string
-        // "Survey font family"
-        "--sjs-font-family": "Γραμματοσειρά έρευνας",
-        // "Background color"
-        "--sjs-general-backcolor-dim": "Χρώμα φόντου",
-        // "Accent background colors"
-        "--sjs-primary-backcolor": "Χρώματα φόντου αντίθεσης",
-        // "Accent foreground colors"
-        "--sjs-primary-forecolor": "Χρώματα προεξοχής αντίθεσης",
-        // "Error message colors"
-        "--sjs-special-red": "Χρώματα μηνυμάτων σφάλματος",
-        // "Shadow effects"
-        "--sjs-shadow-small": "Εφέ σκιάς",
-        // "Shadow effects"
-        "--sjs-shadow-inner": "Εφέ σκιάς",
-        // "Colors"
-        "--sjs-border-default": "Χρώματα"
+        // [Auto-translated] "Survey font family"
+        "--sjs2-typography-font-family-text": "Οικογένεια γραμματοσειρών έρευνας",
+        // [Auto-translated] "Background color"
+        "--sjs2-color-utility-surface-survey": "Χρώμα φόντου",
+        // [Auto-translated] "Accent background colors"
+        "--sjs2-color-project-brand-600": "Χρώματα φόντου έμφασης",
+        // [Auto-translated] "Accent foreground colors"
+        "--sjs2-color-fg-brand-on-primary": "Έμφαση στα χρώματα προσκηνίου",
+        // [Auto-translated] "Error message colors"
+        "--sjs2-color-bg-alert-primary": "Χρώματα μηνύματος σφάλματος",
+        // [Auto-translated] "Shadow effects"
+        "--sjs2-border-effect-surface-default": "Εφέ σκιάς",
+        // [Auto-translated] "Shadow effects"
+        "--sjs2-border-effect-component-formbox-default": "Εφέ σκιάς",
+        // [Auto-translated] "Colors"
+        "--sjs2-color-component-input-default-line": "Χρωματιστά"
       },
       "header@header": {
         // "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Τοπικό αρχείο ή Κάμερα",
       // "Inherit"
       inherit: "Κληρονομήθηκε",
-      // "Visible"
-      show: "Ορατό",
-      // "Hidden"
-      hide: "Κρυφό",
       // "Inherit"
       default: "Κληρονομήθηκε",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "Αύξουσα",
       // "Descending"
       desc: "Φθίνουσα",
-      // "Indeterminate"
-      indeterminate: "Ακαθόριστο",
       // "Selected"
       selected: "Επιλεγμένο",
       // "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Καρουζέλ",
       // "Tabs"
       tab: "Καρτέλες",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "Πλοηγός πάνελ + Γραμμή προόδου στην κορυφή",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Πλοηγός πάνελ + Γραμμή προόδου στο κάτω μέρος",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Πλοηγός πάνελ + Γραμμή προόδου στην κορυφή και στο κάτω μέρος",
       // "Horizontal"
       horizontal: "Οριζόντιο",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "Κάτω",
       // "Top and bottom"
       topBottom: "Πάνω και κάτω",
-      // "Both"
-      both: "Και τα δύο",
       // "Left"
       left: "Αριστερά",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "εβδομάδα",
       // "Hidden"
       hidden: "Κρυφό",
-      // "Editable"
-      edit: "Επεξεργάσιμο",
-      // "Read-only"
-      display: "Μόνο ανάγνωση",
       // "Contain"
       contain: "Περιέχει",
       // "Cover"
@@ -2153,8 +1894,8 @@
         // "Never"
         none: "Ποτέ"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Κουμπιά",
+      // [Auto-translated] "Radio buttons"
+      radio: "Κουμπιά επιλογής",
       inputType: {
         // "Color"
         color: "Χρώμα",
@@ -2357,8 +2098,6 @@
       onNextPage: "Όταν αλλάξετε στην επόμενη σελίδα",
       // "After an answer is changed"
       onValueChanged: "Μετά την αλλαγή μιας απάντησης",
-      // "Before an answer is changed"
-      onValueChanging: "Πριν την αλλαγή μιας απάντησης",
       questionsOnPageMode: {
         // "Original structure"
         standard: "Αρχική δομή",
@@ -2369,12 +2108,6 @@
         // "Show single input field per page"
         inputPerPage: "Εμφάνιση μίας πεδίου εισαγωγής ανά σελίδα"
       },
-      // "No preview"
-      noPreview: "Χωρίς προεπισκόπηση",
-      // "Show all questions"
-      showAllQuestions: "Εμφάνιση όλων των ερωτήσεων",
-      // "Show answered questions only"
-      showAnsweredQuestions: "Εμφάνιση μόνο των απαντημένων ερωτήσεων",
       // "Show all questions"
       allQuestions: "Εμφάνιση όλων των ερωτήσεων",
       // "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // "Buttons"
         buttons: "Κουμπιά",
         // "Dropdown"
-        dropdown: "Αναπτυσσόμενο μενού"
+        dropdown: "Αναπτυσσόμενο μενού",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Τμηματοποιημένη εναλλαγή",
+        // [Auto-translated] "Radio buttons"
+        radio: "Κουμπιά επιλογής",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Πλαίσιο ελέγχου",
+        // [Auto-translated] "Switch"
+        switch: "Διακόπτης",
+        // [Auto-translated] "Custom"
+        custom: "Εθιμο"
       },
       rateColorMode: {
         // "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Επαναφορά σε κάθε σελίδα",
         // "Reset on each panel"
         onpanel: "Επαναφορά σε κάθε πάνελ",
-        // "Reset on each panel"
-        onPanel: "Επαναφορά σε κάθε πάνελ",
         // "Recursive numbering"
         recursive: "Αρίθμηση αναδρομική",
-        // "Continue across the survey"
-        onSurvey: "Συνεχίζεται σε όλη την έρευνα",
         // "No numbering"
         off: "Χωρίς αρίθμηση"
       },
@@ -2648,49 +2387,6 @@
       and: "και",
       // "or"
       or: "ή"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Χρησιμοποιήστε την έκδοση Angular",
-      // "Use jQuery version"
-      jquery: "Χρησιμοποιήστε την έκδοση jQuery",
-      // "Use Knockout version"
-      knockout: "Χρησιμοποιήστε την έκδοση Knockout",
-      // "Use React version"
-      react: "Χρησιμοποιήστε την έκδοση React",
-      // "Use Vue version"
-      vue: "Χρησιμοποιήστε την έκδοση Vue",
-      // "For bootstrap framework"
-      bootstrap: "Για το πλαίσιο Bootstrap",
-      // "Modern theme"
-      modern: "Μοντέρνο θέμα",
-      // "Default theme"
-      default: "Προεπιλεγμένο θέμα",
-      // "Orange theme"
-      orange: "Θέμα πορτοκαλί",
-      // "Darkblue theme"
-      darkblue: "Θέμα σκοτεινότερου μπλε",
-      // "Darkrose theme"
-      darkrose: "Θέμα σκούρο ροζ",
-      // "Stone theme"
-      stone: "Θέμα πέτρας",
-      // "Winter theme"
-      winter: "Θέμα χειμώνα",
-      // "Winter-Stone theme"
-      winterstone: "Θέμα Χειμώνας-Πέτρα",
-      // "Show survey on a page"
-      showOnPage: "Εμφάνιση έρευνας σε σελίδα",
-      // "Show survey in a window"
-      showInWindow: "Εμφάνιση έρευνας σε παράθυρο",
-      // "Load Survey JSON from server"
-      loadFromServer: "Φόρτωση JSON Έρευνας από τον διακομιστή",
-      // "Scripts and styles"
-      titleScript: "Σενάρια και στυλ",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Καθορίζει το πλάτος εμφάνισης των μεταφορτωμένων εικόνων στην προεπισκόπηση και το πραγματικό πλάτος των εικόνων που λαμβάνονται με την κάμερα. Στη λειτουργία μεταφόρτωσης ενός αρχείου, το πλάτος της οθόνης περιορίζεται από την περιοχή προεπισκόπησης. Στη λειτουργία μεταφόρτωσης πολλαπλών αρχείων, περιορίζεται από την περιοχή μικρογραφιών.",
         // "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Εμφανίζει προεπισκοπήσεις μικρογραφιών για ανεβασμένα αρχεία όταν είναι δυνατόν. Αποεπιλέξτε αν θέλετε να εμφανίζονται τα εικονίδια αρχείων αντ' αυτού."
+        allowImagesPreview: "Εμφανίζει προεπισκοπήσεις μικρογραφιών για ανεβασμένα αρχεία όταν είναι δυνατόν. Αποεπιλέξτε αν θέλετε να εμφανίζονται τα εικονίδια αρχείων αντ' αυτού.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Ενεργοποιεί ένα μήνυμα που ζητά να επιβεβαιώσετε τη διαγραφή του αρχείου."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Τιμή" χρησιμεύει ως ID στοιχείου που χρησιμοποιείται σε κανόνες συνθήκης. "Κείμενο" εμφανίζεται στους συμμετέχοντες.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Επιλέξτε μεταξύ "Εικόνα" και "Βίντεο" για να ορίσετε τη λειτουργία περιεχομένου του επιλέκτη μέσου. Αν επιλέξετε "Εικόνα", βεβαιωθείτε ότι όλες οι επιλογές που παρέχετε είναι αρχεία εικόνας στους εξής τύπους: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Αν επιλέξετε "Βίντεο", βεβαιωθείτε ότι όλες οι επιλογές είναι άμεσες συνδέσεις σε αρχεία βίντεο στους εξής τύπους: MP4, MOV, WMV, FLV, AVI, MKV. Σημειώστε ότι οι σύνδεσμοι του YouTube δεν υποστηρίζονται για τις επιλογές βίντεο.'
-      },
-      text: {
-        // "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Αυτή η ρύθμιση αναδιαμορφώνει μόνο το πεδίο εισαγωγής και δεν επηρεάζει το πλάτος του κουτιού ερώτησης. Για να περιορίσετε το μέγιστο μήκος εισόδου, μεταβείτε στις "Επικυρώσεις" → "Μέγιστο όριο χαρακτήρων".'
       },
       comment: {
         // "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Μια τιμή που αποθηκεύεται στα αποτελέσματα της έρευνας όταν οι συμμετέχοντες δίνουν αρνητική απάντηση.",
       // "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Δεν συνιστάται να απενεργοποιήσετε αυτήν την επιλογή, καθώς παρακάμπτει την εικόνα προεπισκόπησης και καθιστά δύσκολο για έναν χρήστη να καταλάβει αν τα αρχεία έχουν ανέβει.",
-      // "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Προκαλεί ένα μήνυμα που ζητά επιβεβαίωση για τη διαγραφή του αρχείου.",
       // "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Ενεργοποιήστε για να κατατάξετε μόνο τις επιλεγμένες επιλογές. Οι χρήστες θα σύρουν τα επιλεγμένα στοιχεία από τη λίστα επιλογών για να τα κατατάξουν στην περιοχή κατάταξης.",
       // "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Ρυθμίζει τη διαφάνεια των στοιχείων εισαγωγής σε σχέση με το φόντο της έρευνας.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Ορίζει την ακτίνα των γωνιών για όλα τα ορθογώνια στοιχεία. Ενεργοποιήστε τη Λειτουργία για Προχωρημένους αν θέλετε να ορίσετε μεμονωμένες τιμές ακτίνας για τα στοιχεία εισαγωγής ή τα πάνελ και τα κουτιά ερωτήσεων.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Ορίζει το κύριο χρώμα φόντου της έρευνας."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Ορίζει το κύριο χρώμα φόντου της έρευνας."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Επιλογή hover",
       // "Selected"
       primaryLightColor: "Επιλεγμένο",
-      // "Background color"
-      backgroundDimColor: "Χρώμα φόντου",
       // "Corner radius"
       cornerRadius: "Ακτίνα γωνίας",
       // "Default background"
       backcolor: "Προεπιλεγμένο φόντο",
       // "Hover background"
       hovercolor: "Φόντο hover",
-      // "Border decoration"
-      borderDecoration: "Διακόσμηση ορίου",
       // "Font color"
       fontColor: "Χρώμα γραμματοσειράς",
       // "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Προεπιλεγμένο χρώμα",
       // "Disabled color"
       primaryForecolorLight: "Χρώμα ανενεργό",
-      // "Font"
-      font: "Γραμματοσειρά",
       // "Darker"
       borderDefault: "Σκοτεινότερο",
       // "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Χρώμα κειμένου πλακίδας",
       // "Size"
       size: "Μέγεθος",
+      // [Auto-translated] "Line height"
+      lineHeight: "Ύψος γραμμής",
       // "Opacity"
       opacity: "Διαφάνεια",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // "Default"
         default: "Προεπιλογή",
-        // "Sharp"
-        sharp: "Αιχμηρό",
+        // "Contrast"
+        contrast: "Αντίθεση",
         // "Borderless"
         borderless: "Χωρίς όρια",
         // "Flat"
         flat: "Επίπεδο",
         // "Plain"
         plain: "Απλό",
-        // "Double Border"
-        doubleborder: "Διπλό όριο",
-        // "Layered"
-        layered: "Με στρώματα",
-        // "Solid"
-        solid: "Στερεό",
+        // [Auto-translated] "Soft"
+        soft: "Μαλακός",
         // [Auto-translated] "3D"
         threedimensional: "3Δ",
-        // "Contrast"
-        contrast: "Αντίθεση"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Μονόχρωμος"
       },
       colors: {
         // "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // "Surface background"
-      "--sjs-special-background": "Φόντο επιφάνειας",
       // "Primary"
       "--sjs-primary-background-500": "Πρωτεύον",
       // "Secondary"
       "--sjs-secondary-background-500": "Δευτερεύον",
-      // "Surface"
-      surfaceScale: "Επιφάνεια",
       // "UI elements"
       userInterfaceBaseUnit: "Στοιχεία UI",
       // "Font"
       fontScale: "Γραμματοσειρά",
-      names: {
-        // "Survey Creator 2020"
-        sc2020: "Δημιουργός Έρευνας 2020",
-        // "Light"
-        "default-light": "Φωτεινό",
-        // "Dark"
-        "default-dark": "Σκοτεινό",
-        // "Contrast"
-        "default-contrast": "Αντίθεση"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Εφαρμόστηκε προεπιλογή"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Στοιχείο 1" }, { value: "item2", text: "Στοιχείο 2" }, { value: "item3", text: "Στοιχείο 3" }],
+      columns: [{ value: "column1", text: "Στήλη 1" }, { value: "column2", text: "Στήλη 2" }, { value: "column3", text: "Στήλη 3" }],
+      rows: [{ value: "row1", text: "Γραμμή 1" }, { value: "row2", text: "Γραμμή 2" }],
+      matrixColumns: [{ name: "column1", title: "Στήλη 1" }, { name: "column2", title: "Στήλη 2" }, { name: "column3", title: "Στήλη 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "el", strings: grStrings });

@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var danishStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Rediger",
-      // [Auto-translated] "Watch and learn how to create surveys"
-      externalHelpLink: "Se og lær, hvordan du opretter undersøgelser",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Træk et spørgsmål hertil fra paletten til venstre.",
-      // [Auto-translated] "Create a rule to customize the flow of the survey."
-      addLogicItem: "Opret en regel for at tilpasse undersøgelsens flow.",
-      // "Copy"
-      copy: "Kopier",
       // [Auto-translated] "Duplicate"
-      duplicate: "Multiplicere",
-      // "Add to toolbox"
-      addToToolbox: "Tilføj til paletten",
-      // "Delete Panel"
-      deletePanel: "Slet panel",
-      // "Delete Question"
-      deleteQuestion: "Slet spørgsmål",
-      // "Convert to"
-      convertTo: "Konverter til",
-      // "Drag element"
-      drag: "Træk element"
+      duplicate: "Multiplicere"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Standard ({0})",
-      // "Survey"
-      survey: "Undersøgelse",
       // "Settings"
       settings: "Indstillinger for undersøgelse",
       // [Auto-translated] "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Spørgeundersøgelse",
       // [Auto-translated] "Page"
       pageTypeName: "Side",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Panelet",
-      // [Auto-translated] "Question"
-      questionTypeName: "Spørgsmål",
-      // [Auto-translated] "Column"
-      columnTypeName: "Kolonne",
-      // "Add New Page"
-      addNewPage: "Tilføj ny side",
-      // "Scroll to the Right"
-      moveRight: "Gå til højre",
-      // "Scroll to the Left"
-      moveLeft: "Gå til venstre",
-      // "Delete Page"
-      deletePage: "Slet side",
-      // "Edit Page"
-      editPage: "Rediger side",
-      // "Edit"
-      edit: "Rediger",
       // "page"
       newPageName: "side",
       // "question"
       newQuestionName: "spørgsmål",
       // [Auto-translated] "panel"
       newPanelName: "Panel",
-      // [Auto-translated] "text"
-      newTextItemName: "Tekst",
-      // [Auto-translated] "Default"
-      defaultV2Theme: "Standard",
-      // [Auto-translated] "Modern"
-      modernTheme: "Moderne",
-      // [Auto-translated] "Default (legacy)"
-      defaultTheme: "Standard (ældre)",
       // "Preview Survey Again"
       testSurveyAgain: "Afprøv undersøgelse igen",
-      // "Survey width: "
-      testSurveyWidth: "Bredde af undersøgelse: ",
       // [Auto-translated] "You had to navigate to"
       navigateToMsg: "Du var nødt til at navigere til",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Fortryd",
       // "Redo"
       redo: "Annuller fortryd",
-      // [Auto-translated] "Undo last change"
-      undoTooltip: "Fortryd seneste ændring",
-      // [Auto-translated] "Redo the change"
-      redoTooltip: "Fortryd ændringen",
       // [Auto-translated] "Expand"
       expandTooltip: "Ekspandere",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Vis mere",
       // [Auto-translated] "Show less"
       showLessChoices: "Vis mindre",
-      // [Auto-translated] "Copy"
-      copy: "Eksemplar",
-      // [Auto-translated] "Cut"
-      cut: "Skære",
-      // [Auto-translated] "Paste"
-      paste: "Indsætte",
-      // [Auto-translated] "Copy selection to clipboard"
-      copyTooltip: "Kopiere markering til Udklipsholder",
-      // [Auto-translated] "Cut selection to clipboard"
-      cutTooltip: "Klip markering til udklipsholder",
-      // [Auto-translated] "Paste from clipboard"
-      pasteTooltip: "Indsæt fra udklipsholder",
-      // "Options"
-      options: "Indstillinger",
-      // "Generate Valid JSON"
-      generateValidJSON: "Generer gylding JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Ukendt funktion: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Syntaksfejl.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Semantisk fejl.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Generer læsbar JSON",
       // "Toolbox"
       toolbox: "Værktøjskasse",
-      // [Auto-translated] "Properties"
-      "property-grid": "Egenskaber",
       // [Auto-translated] "Search"
       toolboxSearch: "Søge",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Begynd at konfigurere formularen",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Klik på et kategoriikon for at udforske undersøgelsesindstillinger. Yderligere indstillinger bliver tilgængelige, når du føjer et undersøgelseselement til designoverfladen.",
-      // "Please correct JSON."
-      correctJSON: "Ret venligst JSON.",
       // "Survey Results "
       surveyResults: "Undersøgelsesresultat: ",
       // [Auto-translated] "As Table"
@@ -305,8 +227,6 @@
       saving: "Gemmer",
       // "Saved"
       saved: "Gemt",
-      // [Auto-translated] "Error"
-      propertyEditorError: "Fejl",
       // "Error! Editor content is not saved."
       saveError: "Fejl! Undersøgelsen er ikke blevet gemt.",
       // [Auto-translated] "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Vil du virkelig nulstille temaet? Alle dine tilpasninger går tabt.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Ja, nulstil temaet",
-      // [Auto-translated] "Bold"
-      bold: "Modig",
-      // [Auto-translated] "Italic"
-      italic: "Kursiv",
-      // [Auto-translated] "Underline"
-      underline: "Understrege",
       // [Auto-translated] "Add Question"
       addNewQuestion: "Tilføj spørgsmål",
       // [Auto-translated] "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Når det logiske udtryk evalueres til sand, evaluerer undersøgelsen et andet udtryk. Resultatet af sidstnævnte udtryk kan eventuelt tildeles som en værdi til det valgte spørgsmål",
         // [Auto-translated] "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: 'Hvis det logiske udtryk evalueres til sand, viser siden "Tak" det angivne indhold.',
-        // [Auto-translated] "When expression: '{0}' returns true"
-        itemExpressionText: "Når udtrykket: '{0}' returnerer sandt",
-        // {0} - the expression
         // [Auto-translated] "New rule"
         itemEmptyExpressionText: "Ny regel",
         // [Auto-translated] "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Et udtryk, hvis resultat tildeles målspørgsmålet.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Indtast en værdi...",
         // [Auto-translated] "survey becomes completed"
         trigger_completeText: "Undersøgelsen bliver afsluttet",
         // [Auto-translated] "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Tilstand(e)",
         // [Auto-translated] "Action(s)"
         actions: "Foranstaltning(er)",
-        // [Auto-translated] "Define condition(s)"
-        expressionEditorTitle: "Definer betingelse(r)",
         // [Auto-translated] "Define action(s)"
         actionsEditorTitle: "Definer handling(er)",
         // [Auto-translated] "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Vælg handling...",
         // [Auto-translated] "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Det logiske udtryk er tomt eller ugyldigt. Vær venlig at rette det.",
-        // [Auto-translated] "Please add at least one action."
-        noActionError: "Tilføj mindst én handling.",
         // [Auto-translated] "Please fix issues in your action(s)."
         actionInvalid: "Løs venligst problemer i din(e) handling(er).",
         // [Auto-translated] "Logical rules are incomplete"
@@ -911,8 +820,6 @@
       defaultDisplayValue: "Standardvisningsværdi for dynamiske tekster",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Justering af etiketter",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "Bredde på inputfelt (i tegn)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Justering af cellefejlmeddelelse",
       // [Auto-translated] "Enabled"
@@ -921,32 +828,16 @@
       disabled: "Handicappet",
       // [Auto-translated] "Inherit"
       inherit: "Arve",
-      // "Apply"
-      apply: "Anvend",
-      // [Auto-translated] "OK"
-      ok: "OK",
-      // [Auto-translated] "Save"
-      save: "Spare",
       // [Auto-translated] "Clear"
       clear: "Tydelig",
-      // [Auto-translated] "Save"
-      saveTooltip: "Spare",
-      // "Cancel"
-      cancel: "Annuller",
       // [Auto-translated] "Set"
       set: "Sæt",
-      // "Reset"
-      reset: "Nulstil",
       // [Auto-translated] "Change"
       change: "Forandre",
-      // [Auto-translated] "Refresh"
-      refresh: "Opdatere",
       // "Close"
       close: "Luk",
       // "Delete"
       delete: "Slet",
-      // [Auto-translated] "Add"
-      add: "Tilføje",
       // "Add New"
       addNew: "Tilføj ny",
       // "Click to add an item..."
@@ -955,34 +846,10 @@
       removeItem: "Klik for at fjerne elementet...",
       // [Auto-translated] "Drag the item"
       dragItem: "Træk elementet",
-      // [Auto-translated] "Other"
-      addOther: "Anden",
-      // [Auto-translated] "Select All"
-      addSelectAll: "Vælg alle",
-      // [Auto-translated] "None"
-      addNone: "Ingen",
-      // "Remove All"
-      removeAll: "Fjern alle",
       // "Edit"
       edit: "Rediger",
-      // [Auto-translated] "Return without saving"
-      back: "Returner uden at gemme",
-      // [Auto-translated] "Return without saving"
-      backTooltip: "Returner uden at gemme",
-      // [Auto-translated] "Save and return"
-      saveAndBack: "Gem og returner",
-      // [Auto-translated] "Save and return"
-      saveAndBackTooltip: "Gem og returner",
       // [Auto-translated] "Done"
       doneEditing: "Gjort",
-      // "Edit Choices"
-      editChoices: "Rediger valgmuligheder",
-      // [Auto-translated] "Show Choices"
-      showChoices: "Vis valgmuligheder",
-      // "Move"
-      move: "Flyt",
-      // "<empty>"
-      empty: "<tom>",
       // [Auto-translated] "Value is empty"
       emptyValue: "Værdien er tom",
       // "Manual Entry"
@@ -995,12 +862,6 @@
       fastEntryChoicesMinCountError: "Indtast mindst {0} punkter",
       // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Angiv listen over valgmuligheder og deres id'er i følgende format:\n\nid|mulighed\n\nEt id for valgmulighed er ikke synligt for svarpersoner og kan bruges i betingede regler.",
-      // [Auto-translated] "Form Entry"
-      formEntry: "Formularindtastning",
-      // [Auto-translated] "Test the service"
-      testService: "Test tjenesten",
-      // [Auto-translated] "Please select the element"
-      itemSelectorEmpty: "Vælg elementet",
       // [Auto-translated] "Please select the action"
       conditionActionEmpty: "Vælg handlingen",
       // "Select a question..."
@@ -1009,20 +870,8 @@
       conditionSelectPage: "Vælg en side...",
       // [Auto-translated] "Select a panel..."
       conditionSelectPanel: "Vælg et panel...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Indtast/vælg værdi",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Tast ctrl+space for hjælp til at afslutte udtrykket",
-      // "Current row"
-      aceEditorRowTitle: "Aktuel række",
-      // "Current panel"
-      aceEditorPanelTitle: "Aktuelt panel",
-      // "For more details please check the documentation"
-      showMore: "Se dokumentationen for flere informationer",
-      // "Available questions"
-      assistantTitle: "Tilgængelige spørgsmål:",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Der skal være mindst én kolonne eller række",
       // [Auto-translated] "Review before submit"
       showPreviewBeforeComplete: "Gennemgå før indsendelse",
       // [Auto-translated] "Enabled by a condition"
@@ -1073,20 +922,12 @@
       "addNew@navigateToUrlOnCondition": "Tilføj ny webadresse",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Tilføj ny side",
-      // [Auto-translated] "Expression is empty"
-      expressionIsEmpty: "Udtrykket er tomt",
       // "Value"
       value: "Værdi",
       // "Text"
       text: "Tekst",
-      // "Row ID"
-      rowid: "Række ID",
       // "Image or video file URL"
       imageLink: "Billedlink",
-      // "Edit column: {0}"
-      columnEdit: "Rediger kolonne: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Redigér: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1103,8 +944,6 @@
       imageLinkName: "Hent fil-URL-adresser fra følgende ejendom",
       // [Auto-translated] "Accept empty response"
       allowEmptyResponse: "Accepter tomt svar",
-      // [Auto-translated] "Title"
-      titlePlaceholder: "Titel",
       // [Auto-translated] "Survey Title"
       surveyTitlePlaceholder: "Undersøgelsens titel",
       // [Auto-translated] "Page {num}"
@@ -1215,16 +1054,8 @@
       defaultValue: "Standardværdi",
       // "Default texts"
       cellsDefaultRow: "Standard celletekst",
-      // "Edit survey settings"
-      surveyEditorTitle: "Rediger undersøgelsesindstillinger",
-      // "Edit: {0}"
-      qEditorTitle: "Redigér: {0}",
       // "Maximum character limit"
       maxLength: "Maximal længde",
-      // [Auto-translated] "Build"
-      buildExpression: "Bygge",
-      // [Auto-translated] "Edit"
-      editExpression: "Redigere",
       // [Auto-translated] "and"
       and: "og",
       // [Auto-translated] "or"
@@ -1251,8 +1082,6 @@
       includeIntoResult: "Føj til undersøgelsesresultaterne",
       // "Make the title and description visible"
       showTitle: "Vis/skjul titel",
-      // [Auto-translated] "Expand/collapse title"
-      expandCollapseTitle: "Udvid/skjul titel",
       // "Select a survey language"
       locale: "Standardsprog",
       // [Auto-translated] "Select device type"
@@ -1465,8 +1294,6 @@
       acceptedTypes: "Yderligere filendelser",
       // [Auto-translated] "Wait for upload to complete"
       waitForUpload: "Vent på, at overførslen er fuldført",
-      // [Auto-translated] "Confirm file deletion"
-      needConfirmRemoveFile: "Bekræft sletning af fil",
       // [Auto-translated] "Row details alignment"
       detailPanelMode: "Justering af rækkedetaljer",
       // [Auto-translated] "Minimum row count"
@@ -1599,7 +1426,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Billedets højde",
         // [Auto-translated] "Image width"
-        imageWidth: "Billedets bredde"
+        imageWidth: "Billedets bredde",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Bekræft filsletning"
       },
       // [Auto-translated] "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Skjul spørgsmålet, hvis det ikke har nogen valgmuligheder",
@@ -1657,6 +1486,10 @@
       choiceTextsFromQuestion: "Brug værdier fra følgende matrixkolonne eller panelspørgsmål som valgtekster",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Vise sidetitler på statuslinjen",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Vis navigationstekst i fremdriftslinjen",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Navigationstekstjustering",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Vise sidetal på statuslinjen",
       // [Auto-translated] "Add a comment box"
@@ -1667,8 +1500,6 @@
       displayRateDescriptionsAsExtremeItems: "Vise etiketterne som ekstreme værdier",
       // [Auto-translated] "Row order"
       rowOrder: "Rækkefølge af rækker",
-      // [Auto-translated] "Column layout"
-      columnsLayout: "Kolonnelayout",
       // [Auto-translated] "Nested column count"
       columnColCount: "Antal indlejrede kolonner",
       // [Auto-translated] "Correct Answer"
@@ -1699,22 +1530,6 @@
       },
       // [Auto-translated] "Logo alignment"
       logoPosition: "Justering af logo",
-      // [Auto-translated] "Add logo..."
-      addLogo: "Tilføj logo...",
-      // [Auto-translated] "Change logo..."
-      changeLogo: "Skift logo...",
-      logoPositions: {
-        // [Auto-translated] "Remove logo"
-        none: "Fjern logo",
-        // [Auto-translated] "Left"
-        left: "Venstre",
-        // [Auto-translated] "Right"
-        right: "Højre",
-        // [Auto-translated] "On the top"
-        top: "På toppen",
-        // [Auto-translated] "In the bottom"
-        bottom: "I bunden"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Forhåndsvisning tilstand",
       // [Auto-translated] "Enable grid layout"
@@ -1727,14 +1542,8 @@
       detailErrorLocation: "Justering af fejlmeddelelser for rækkedetaljer",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Panellayout"
-        },
         // "General"
         general: "Generelt",
-        // "Options"
-        fileOptions: "Indstillinger",
         // "HTML Editor"
         html: "Html-editor",
         // "Columns"
@@ -1757,10 +1566,6 @@
         sliderSettings: "Indstillinger for skyder",
         // "Choices from a Web Service"
         choicesByUrl: "Valgmuligheder fra Web",
-        // "Default Choices"
-        matrixChoices: "Standard valgmuligheder",
-        // "Text Inputs"
-        multipleTextItems: "Tekst inputmuligheder",
         // [Auto-translated] "Numbering"
         numbering: "Nummerering",
         // "Validators"
@@ -1803,8 +1608,6 @@
         showOnCompleted: '"Tak"-side',
         // [Auto-translated] "Logo in the Survey Header"
         logo: "Logo i undersøgelsesoverskriften",
-        // [Auto-translated] "Slider"
-        slider: "Skyderen",
         // [Auto-translated] "Expression"
         expression: "Udtryk",
         // [Auto-translated] "Question Settings"
@@ -1824,62 +1627,18 @@
         // [Auto-translated] "Others"
         others: "Andre"
       },
-      // "Edit property '{0}'"
-      editProperty: "Rediger egenskab '{0}'",
       // "Items"
       items: "[ Element: {0} ]",
       // [Auto-translated] "Make choices visible if"
       choicesVisibleIf: "Gør valgene synlige, hvis",
       // [Auto-translated] "Make choices selectable if"
       choicesEnableIf: "Gør valgmuligheder valgbare, hvis",
-      // [Auto-translated] "Make columns visible if"
-      columnsEnableIf: "Gør kolonner synlige, hvis",
-      // [Auto-translated] "Make rows visible if"
-      rowsEnableIf: "Gør rækker synlige, hvis",
       // [Auto-translated] "Increase the inner indent"
       innerIndent: "Forøg den indre indrykning",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Brug svar fra sidste post som standard",
-      // "Please enter a value."
-      enterNewValue: "Indtast værdien.",
-      // "There are no questions in the survey."
-      noquestions: "Der er ingen spørgsmål i undersøgelsen.",
-      // "Please create a trigger"
-      createtrigger: "Opret en trigger",
-      // [Auto-translated] "Press enter button to edit"
-      titleKeyboardAdornerTip: "Tryk på enter-knappen for at redigere",
-      // [Auto-translated] "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Tryk på enter-knappen for at redigere elementet, tryk på slet-knappen for at slette elementet, tryk på alt plus pil op eller pil ned for at flytte elementet",
-      // "On "
-      triggerOn: "På ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Gør sider synlige:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Gør spørgsmål synlige:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Aflslut spørgeskema ved at fortsætte.",
-      // "The trigger is not set"
-      triggerNotSet: "Triggerer er ikke sat",
-      // "Run if"
-      triggerRunIf: "Afvikl hvis",
-      // "Change value of: "
-      triggerSetToName: "Ændr værdien af: ",
-      // "Copy value from: "
-      triggerFromName: "Kopier værdi fra: ",
-      // "Run this Expression"
-      triggerRunExpression: "Afvikl dette udtryk:",
-      // "to: "
-      triggerSetValue: "til: ",
-      // [Auto-translated] "Go to the question"
-      triggerGotoName: "Gå til spørgsmålet",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Gem ikke variablen i undersøgelsesresultatet.",
-      // [Auto-translated] "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Indtast et gyldigt udtryk",
       // [Auto-translated] "Type expression here..."
       emptyExpressionPlaceHolder: "Skriv udtryk her...",
-      // [Auto-translated] "No file chosen"
-      noFile: "Ingen fil valgt",
       // [Auto-translated] "Clear hidden question values"
       clearIfInvisible: "Ryd skjulte spørgsmålsværdier",
       // [Auto-translated] "Store values in the following property"
@@ -1958,26 +1717,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Beskrivelse skrifttype",
         // [Auto-translated] "Font"
-        editorFont: "Skrifttype",
+        inputContent: "Skrifttype",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Opacitet",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Skrifttypefamilie til undersøgelser",
+        "--sjs2-typography-font-family-text": "Opmålingsskrifttypefamilie",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Baggrundsfarve",
+        "--sjs2-color-utility-surface-survey": "Baggrundsfarve",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Baggrundsfarver med accent",
+        "--sjs2-color-project-brand-600": "Accentbaggrundsfarver",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Accentfarver i forgrunden",
+        "--sjs2-color-fg-brand-on-primary": "Accentfarver i forgrunden",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Farver på fejlmeddelelser",
+        "--sjs2-color-bg-alert-primary": "Fejlmeddelelsers farver",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Skyggeeffekter",
+        "--sjs2-border-effect-surface-default": "Skyggeeffekter",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Skyggeeffekter",
+        "--sjs2-border-effect-component-formbox-default": "Skyggeeffekter",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Farver"
+        "--sjs2-color-component-input-default-line": "Farver"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2026,10 +1785,6 @@
       "file-camera": "Lokal fil eller kamera",
       // "Inherit"
       inherit: "inherit",
-      // "Visible"
-      show: "show",
-      // "Hidden"
-      hide: "hide",
       // "Inherit"
       default: "default",
       // "Initial"
@@ -2046,8 +1801,6 @@
       asc: "ascending",
       // "Descending"
       desc: "descending",
-      // "Indeterminate"
-      indeterminate: "indeterminate",
       // [Auto-translated] "Selected"
       selected: "Valgte",
       // [Auto-translated] "Unselected"
@@ -2068,12 +1821,6 @@
       carousel: "Karrusel",
       // [Auto-translated] "Tabs"
       tab: "Faner",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "progressTop",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "progressBottom",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "progressTopBottom",
       // "Horizontal"
       horizontal: "horizontal",
       // "Vertical"
@@ -2084,8 +1831,6 @@
       bottom: "bottom",
       // "Top and bottom"
       topBottom: "top and bottom",
-      // [Auto-translated] "Both"
-      both: "Begge",
       // "Left"
       left: "left",
       // [Auto-translated] "Right"
@@ -2126,10 +1871,6 @@
       week: "uge",
       // "Hidden"
       hidden: "hidden",
-      // "Editable"
-      edit: "edit",
-      // "Read-only"
-      display: "display",
       // [Auto-translated] "Contain"
       contain: "Indeholde",
       // [Auto-translated] "Cover"
@@ -2154,8 +1895,8 @@
         // [Auto-translated] "Never"
         none: "Aldrig"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Alternativknapper",
+      // [Auto-translated] "Radio buttons"
+      radio: "Radioknapper",
       inputType: {
         // [Auto-translated] "Color"
         color: "Farve",
@@ -2358,8 +2099,6 @@
       onNextPage: "onNextPage",
       // "After an answer is changed"
       onValueChanged: "onValueChanged",
-      // [Auto-translated] "Before an answer is changed"
-      onValueChanging: "Før et svar ændres",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Oprindelig struktur",
@@ -2370,12 +2109,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Vis et enkelt indtastningsfelt pr. side"
       },
-      // [Auto-translated] "No preview"
-      noPreview: "Ingen forhåndsvisning",
-      // [Auto-translated] "Show all questions"
-      showAllQuestions: "Vis alle spørgsmål",
-      // [Auto-translated] "Show answered questions only"
-      showAnsweredQuestions: "Vis kun besvarede spørgsmål",
       // [Auto-translated] "Show all questions"
       allQuestions: "Vis alle spørgsmål",
       // [Auto-translated] "Show answered questions only"
@@ -2440,7 +2173,17 @@
         // [Auto-translated] "Buttons"
         buttons: "Knapper",
         // [Auto-translated] "Dropdown"
-        dropdown: "Rullemenu"
+        dropdown: "Rullemenu",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Segmenteret toggle",
+        // [Auto-translated] "Radio buttons"
+        radio: "Radioknapper",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Afkrydsningsboks",
+        // [Auto-translated] "Switch"
+        switch: "Switch",
+        // [Auto-translated] "Custom"
+        custom: "Skik"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2481,12 +2224,8 @@
         onPage: "Nulstil på hver side",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Nulstil på hvert panel",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Nulstil på hvert panel",
         // [Auto-translated] "Recursive numbering"
         recursive: "Rekursiv nummerering",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Fortsæt på tværs af undersøgelsen",
         // [Auto-translated] "No numbering"
         off: "Ingen nummerering"
       },
@@ -2649,49 +2388,6 @@
       and: "og",
       // [Auto-translated] "or"
       or: "eller"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Benyt Angular version",
-      // "Use jQuery version"
-      jquery: "Benyt jQuery version",
-      // "Use Knockout version"
-      knockout: "Benyt Knockout version",
-      // "Use React version"
-      react: "Benyt React version",
-      // "Use Vue version"
-      vue: "Benyt Vue version",
-      // [Auto-translated] "For bootstrap framework"
-      bootstrap: "For bootstrap-rammeværket",
-      // [Auto-translated] "Modern theme"
-      modern: "Moderne tema",
-      // [Auto-translated] "Default theme"
-      default: "Standardtema",
-      // [Auto-translated] "Orange theme"
-      orange: "Orange tema",
-      // [Auto-translated] "Darkblue theme"
-      darkblue: "Mørkeblåt tema",
-      // [Auto-translated] "Darkrose theme"
-      darkrose: "Temaet Darkrose",
-      // [Auto-translated] "Stone theme"
-      stone: "Temaet Sten",
-      // [Auto-translated] "Winter theme"
-      winter: "Vinter tema",
-      // [Auto-translated] "Winter-Stone theme"
-      winterstone: "Temaet Vintersten",
-      // "Show survey on a page"
-      showOnPage: "Vis undersøgelsen på en side",
-      // "Show survey in a window"
-      showInWindow: "Vis undersøgelsen i et vindue",
-      // "Load Survey JSON from server"
-      loadFromServer: "Hent undersøgelsen som JSON fra serveren",
-      // "Scripts and styles"
-      titleScript: "Scripts og styles",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2925,7 +2621,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Angiver visningsbredden for uploadede billeder i forhåndsvisningen og den faktiske bredde af billeder, der er taget med kameraet. I enkeltfiloverførselstilstand er visningsbredden begrænset af forhåndsvisningsområdet; I multifiloverførselstilstand er den begrænset af miniatureområdet.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Viser miniaturebilleder for uploadede filer, når det er muligt. Fjern markeringen, hvis du vil vise filikoner i stedet."
+        allowImagesPreview: "Viser miniaturebilleder for uploadede filer, når det er muligt. Fjern markeringen, hvis du vil vise filikoner i stedet.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Det udløser en prompt, der beder om at bekræfte filsletningen."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2940,10 +2638,6 @@
         choices: '"Værdi" fungerer som et vare-id, der bruges i betingede regler. "Tekst" vises for respondenterne.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Vælg mellem "Billede" og "Video" for at indstille medievælgerens indholdstilstand. Hvis "Billede" er valgt, skal du sikre dig, at alle angivne indstillinger er billedfiler i følgende formater: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Tilsvarende, hvis "Video" er valgt, skal du sikre dig, at alle indstillinger er direkte links til videofiler i følgende formater: MP4, MOV, WMV, FLV, AVI, MKV. Bemærk, at YouTube-links ikke understøttes for videoindstillinger.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Denne indstilling ændrer kun størrelsen på indtastningsfeltet og påvirker ikke bredden af spørgsmålsfeltet. For at begrænse den accepterede inputlængde skal du gå til "Validering" → "Maksimal tegngrænse".'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3200,8 +2894,6 @@
       valueFalse: "En værdi, der skal gemmes i undersøgelsesresultater, når respondenterne giver et negativt svar.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Det anbefales ikke, at du deaktiverer denne indstilling, da den tilsidesætter eksempelbilledet og gør det svært for en bruger at forstå, om filerne er blevet uploadet.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Udløser en prompt, der beder om at bekræfte filsletningen.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Aktivér for kun at rangere valgte valg. Brugere trækker valgte elementer fra valglisten for at sortere dem inden for rangeringsområdet.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3285,8 +2977,8 @@
         questionBackgroundTransparency: "Justerer gennemsigtigheden af inputelementer i forhold til undersøgelsesbaggrunden.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Indstiller hjørneradius for alle rektangulære elementer. Aktiver Avanceret tilstand, hvis du vil indstille individuelle hjørneradiusværdier for inputelementer eller paneler og spørgsmålsfelter.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Indstiller undersøgelsens primære baggrundsfarve."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Sætter hovedbaggrundsfarven for undersøgelsen."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3585,16 +3277,12 @@
       primaryDarkColor: "Hover",
       // [Auto-translated] "Selected"
       primaryLightColor: "Valgte",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Baggrundsfarve",
       // "Corner radius"
       cornerRadius: "Hjørne radius",
       // [Auto-translated] "Default background"
       backcolor: "Standard baggrund",
       // [Auto-translated] "Hover background"
       hovercolor: "Hold markøren over baggrunden",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Kant dekoration",
       // [Auto-translated] "Font color"
       fontColor: "Skriftfarve",
       // [Auto-translated] "Background color"
@@ -3603,8 +3291,6 @@
       primaryForecolor: "Standardfarve",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Deaktiveret farve",
-      // [Auto-translated] "Font"
-      font: "Skrifttype",
       // [Auto-translated] "Darker"
       borderDefault: "Mørkere",
       // [Auto-translated] "Lighter"
@@ -3625,6 +3311,8 @@
       placeholderColor: "Pladsholderfarve",
       // [Auto-translated] "Size"
       size: "Størrelse",
+      // [Auto-translated] "Line height"
+      lineHeight: "Linjehøjde",
       // [Auto-translated] "Opacity"
       opacity: "Opacitet",
       // [Auto-translated] "X"
@@ -3644,24 +3332,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Standard",
-        // [Auto-translated] "Sharp"
-        sharp: "Skarp",
+        // [Auto-translated] "Contrast"
+        contrast: "Kontrast",
         // [Auto-translated] "Borderless"
         borderless: "Kant",
         // [Auto-translated] "Flat"
         flat: "Flad",
         // [Auto-translated] "Plain"
         plain: "Slette",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Dobbelt kant",
-        // [Auto-translated] "Layered"
-        layered: "Lagdelte",
-        // [Auto-translated] "Solid"
-        solid: "Fast",
+        // [Auto-translated] "Soft"
+        soft: "Blød",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Kontrast"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monokrom"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3683,28 +3367,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Overflade baggrund",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Primær",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Sekundær",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Overflade",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "Elementer i brugergrænsefladen",
       // [Auto-translated] "Font"
       fontScale: "Skrifttype",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Skaberen af spørgeundersøgelsen 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Lys",
-        // [Auto-translated] "Dark"
-        "default-dark": "Mørk",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Kontrast"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3717,6 +3388,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Forudindstilling anvendt"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Vare 1" }, { value: "item2", text: "Vare 2" }, { value: "item3", text: "Vare 3" }],
+      columns: [{ value: "column1", text: "Kolonne 1" }, { value: "column2", text: "Kolonne 2" }, { value: "column3", text: "Kolonne 3" }],
+      rows: [{ value: "row1", text: "Række 1" }, { value: "row2", text: "Række 2" }],
+      matrixColumns: [{ name: "column1", title: "Kolonne 1" }, { name: "column2", title: "Kolonne 2" }, { name: "column3", title: "Kolonne 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "da", strings: danishStrings });

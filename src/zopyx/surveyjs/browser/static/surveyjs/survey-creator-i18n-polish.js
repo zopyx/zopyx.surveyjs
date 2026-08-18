@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var polishStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Edytuj",
-      // [Auto-translated] "Watch and learn how to create surveys"
-      externalHelpLink: "Obejrzyj i dowiedz się, jak tworzyć ankiety",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Przeciągnij pytanie.",
-      // [Auto-translated] "Create a rule to customize the flow of the survey."
-      addLogicItem: "Utwórz regułę, aby dostosować przepływ ankiety.",
-      // "Copy"
-      copy: "Kopiuj",
       // [Auto-translated] "Duplicate"
-      duplicate: "Duplikat",
-      // "Add to toolbox"
-      addToToolbox: "Dodaj do palety",
-      // "Delete Panel"
-      deletePanel: "Usuń panel",
-      // "Delete Question"
-      deleteQuestion: "Usuń pytanie",
-      // "Convert to"
-      convertTo: "Konwertuj na",
-      // [Auto-translated] "Drag element"
-      drag: "Przeciągnij element"
+      duplicate: "Duplikat"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // [Auto-translated] "Default ({0})"
       defaultLocale: "Domyślne ({0})",
-      // "Survey"
-      survey: "Ankieta",
       // [Auto-translated] "Settings"
       settings: "Ustawienia",
       // [Auto-translated] "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Sondaż",
       // [Auto-translated] "Page"
       pageTypeName: "Strona",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Panel",
-      // [Auto-translated] "Question"
-      questionTypeName: "Pytanie",
-      // [Auto-translated] "Column"
-      columnTypeName: "Kolumna",
-      // "Add New Page"
-      addNewPage: "Dodaj nową sekcję",
-      // [Auto-translated] "Scroll to the Right"
-      moveRight: "Przewiń w prawo",
-      // [Auto-translated] "Scroll to the Left"
-      moveLeft: "Przewiń w lewo",
-      // "Delete Page"
-      deletePage: "Usuń sekcję",
-      // "Edit Page"
-      editPage: "Edytuj sekcję",
-      // [Auto-translated] "Edit"
-      edit: "Redagować",
       // "page"
       newPageName: "sekcja",
       // "question"
       newQuestionName: "pytanie",
       // [Auto-translated] "panel"
       newPanelName: "panel",
-      // [Auto-translated] "text"
-      newTextItemName: "Tekst",
-      // [Auto-translated] "Default"
-      defaultV2Theme: "Domyślny",
-      // [Auto-translated] "Modern"
-      modernTheme: "Nowoczesny",
-      // [Auto-translated] "Default (legacy)"
-      defaultTheme: "Domyślne (starsze)",
       // "Preview Survey Again"
       testSurveyAgain: "Testuj ponownie",
-      // "Survey width: "
-      testSurveyWidth: "Szerokość ankiety: ",
       // [Auto-translated] "You had to navigate to"
       navigateToMsg: "Trzeba było nawigować do",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Cofnij",
       // "Redo"
       redo: "Ponów",
-      // [Auto-translated] "Undo last change"
-      undoTooltip: "Cofanie ostatniej zmiany",
-      // [Auto-translated] "Redo the change"
-      redoTooltip: "Ponowne wprowadzanie zmian",
       // [Auto-translated] "Expand"
       expandTooltip: "Rozszerzać",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Pokaż więcej",
       // [Auto-translated] "Show less"
       showLessChoices: "Pokaż mniej",
-      // [Auto-translated] "Copy"
-      copy: "Kopiować",
-      // [Auto-translated] "Cut"
-      cut: "Ciąć",
-      // [Auto-translated] "Paste"
-      paste: "Wklejać",
-      // [Auto-translated] "Copy selection to clipboard"
-      copyTooltip: "Kopiuj zaznaczenie do schowka",
-      // [Auto-translated] "Cut selection to clipboard"
-      cutTooltip: "Wytnij zaznaczenie do schowka",
-      // [Auto-translated] "Paste from clipboard"
-      pasteTooltip: "Wklejanie ze schowka",
-      // "Options"
-      options: "Opcje",
-      // [Auto-translated] "Generate Valid JSON"
-      generateValidJSON: "Wygeneruj prawidłowy JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Nieznana funkcja: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Błąd składniowy.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Błąd semantyczny.",
-      // [Auto-translated] "Generate Readable JSON"
-      generateReadableJSON: "Generuj czytelny JSON",
       // "Toolbox"
       toolbox: "Paleta",
-      // [Auto-translated] "Properties"
-      "property-grid": "Właściwości",
       // [Auto-translated] "Search"
       toolboxSearch: "Szukać",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Rozpocznij konfigurowanie formularza",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Kliknij dowolną ikonę kategorii, aby zapoznać się z ustawieniami ankiety. Dodatkowe ustawienia staną się dostępne po dodaniu elementu ankiety do powierzchni projektowej.",
-      // [Auto-translated] "Please correct JSON."
-      correctJSON: "Proszę poprawić JSON.",
       // "Survey Results "
       surveyResults: "Wynik ankiety: ",
       // [Auto-translated] "As Table"
@@ -305,8 +227,6 @@
       saving: "Trwa zapis",
       // "Saved"
       saved: "Zapisano",
-      // [Auto-translated] "Error"
-      propertyEditorError: "Błąd",
       // [Auto-translated] "Error! Editor content is not saved."
       saveError: "Błąd! Zawartość edytora nie jest zapisywana.",
       // [Auto-translated] "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Czy naprawdę chcesz zresetować motyw? Wszystkie Twoje dostosowania zostaną utracone.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Tak, zresetuj motyw",
-      // [Auto-translated] "Bold"
-      bold: "Śmiały",
-      // [Auto-translated] "Italic"
-      italic: "Kursywa",
-      // [Auto-translated] "Underline"
-      underline: "Podkreślać",
       // [Auto-translated] "Add Question"
       addNewQuestion: "Dodaj pytanie",
       // [Auto-translated] "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Gdy wyrażenie logiczne ma wartość true, ankieta oblicza wartość innego wyrażenia. Opcjonalnie wynik tego ostatniego wyrażenia może zostać przypisany jako wartość do wybranego pytania",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: 'Jeśli wyrażenie logiczne zwróci wartość true, domyślny tekst strony "Dziękuję" zostanie zmieniony na podany.',
-        // "When expression: '{0}' returns true"
-        itemExpressionText: 'Gdy wyrażenie "{0}" zwraca wartość true',
-        // {0} - the expression
         // [Auto-translated] "New rule"
         itemEmptyExpressionText: "Nowa reguła",
         // [Auto-translated] "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Wyrażenie, którego wynik zostanie przypisany do pytania docelowego.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Wprowadź wartość...",
         // [Auto-translated] "survey becomes completed"
         trigger_completeText: "Ankieta zostaje zakończona",
         // [Auto-translated] "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Warunek (warunki)",
         // [Auto-translated] "Action(s)"
         actions: "Działania(e)",
-        // [Auto-translated] "Define condition(s)"
-        expressionEditorTitle: "Zdefiniuj warunki",
         // [Auto-translated] "Define action(s)"
         actionsEditorTitle: "Definiowanie akcji",
         // [Auto-translated] "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Wybierz akcję...",
         // [Auto-translated] "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Wyrażenie logiczne jest puste lub nieprawidłowe. Proszę to poprawić.",
-        // [Auto-translated] "Please add at least one action."
-        noActionError: "Dodaj co najmniej jedną akcję.",
         // [Auto-translated] "Please fix issues in your action(s)."
         actionInvalid: "Rozwiąż problemy z działaniami.",
         // [Auto-translated] "Logical rules are incomplete"
@@ -911,8 +820,6 @@
       defaultDisplayValue: "Domyślna wartość wyświetlana dla tekstów dynamicznych",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Wyrównanie etykiety",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "Szerokość pola wejściowego (w znakach)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Wyrównanie komunikatu o błędzie komórki",
       // [Auto-translated] "Enabled"
@@ -921,32 +828,16 @@
       disabled: "Niepełnosprawny",
       // [Auto-translated] "Inherit"
       inherit: "Odziedziczyć",
-      // "Apply"
-      apply: "Zastosuj",
-      // [Auto-translated] "OK"
-      ok: "OK",
-      // [Auto-translated] "Save"
-      save: "Zapisać",
       // [Auto-translated] "Clear"
       clear: "Jasny",
-      // [Auto-translated] "Save"
-      saveTooltip: "Zapisać",
-      // "Cancel"
-      cancel: "Anuluj",
       // [Auto-translated] "Set"
       set: "Zbiór",
-      // "Reset"
-      reset: "Resetuj",
       // [Auto-translated] "Change"
       change: "Zmieniać",
-      // [Auto-translated] "Refresh"
-      refresh: "Odświeżyć",
       // "Close"
       close: "Zamknij",
       // "Delete"
       delete: "Usuń",
-      // [Auto-translated] "Add"
-      add: "Dodawać",
       // "Add New"
       addNew: "Dodaj nową",
       // [Auto-translated] "Click to add an item..."
@@ -955,34 +846,10 @@
       removeItem: "Kliknij, aby usunąć element...",
       // [Auto-translated] "Drag the item"
       dragItem: "Przeciągnij element",
-      // [Auto-translated] "Other"
-      addOther: "Inny",
-      // [Auto-translated] "Select All"
-      addSelectAll: "Zaznacz wszystko",
-      // [Auto-translated] "None"
-      addNone: "Żaden",
-      // "Remove All"
-      removeAll: "Usuń wszystkie",
       // "Edit"
       edit: "Edytuj",
-      // [Auto-translated] "Return without saving"
-      back: "Zwrot bez zapisywania",
-      // [Auto-translated] "Return without saving"
-      backTooltip: "Zwrot bez zapisywania",
-      // [Auto-translated] "Save and return"
-      saveAndBack: "Zapisz i zwróć",
-      // [Auto-translated] "Save and return"
-      saveAndBackTooltip: "Zapisz i zwróć",
       // [Auto-translated] "Done"
       doneEditing: "Gotowy",
-      // [Auto-translated] "Edit Choices"
-      editChoices: "Edytuj opcje",
-      // [Auto-translated] "Show Choices"
-      showChoices: "Pokaż wybór",
-      // [Auto-translated] "Move"
-      move: "Ruszać",
-      // "<empty>"
-      empty: "<pusty>",
       // [Auto-translated] "Value is empty"
       emptyValue: "Wartość jest pusta",
       // "Manual Entry"
@@ -995,12 +862,6 @@
       fastEntryChoicesMinCountError: "Podaj co najmniej {0} przedmiotów",
       // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Wprowadź listę opcji wyboru i ich identyfikatory w następującym formacie:\n\nid|opcja\n\nIdentyfikator opcji wyboru nie jest widoczny dla respondentów i może być używany w regułach warunkowych.",
-      // "Form Entry"
-      formEntry: "Formularz",
-      // "Test the service"
-      testService: "Testuj usługę",
-      // [Auto-translated] "Please select the element"
-      itemSelectorEmpty: "Proszę wybrać element",
       // [Auto-translated] "Please select the action"
       conditionActionEmpty: "Wybierz akcję",
       // [Auto-translated] "Select a question..."
@@ -1009,20 +870,8 @@
       conditionSelectPage: "Wybierz stronę...",
       // [Auto-translated] "Select a panel..."
       conditionSelectPanel: "Wybierz panel...",
-      // [Auto-translated] "Please enter/select the value"
-      conditionValueQuestionTitle: "Wpisz/wybierz wartość",
       // [Auto-translated] "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Naciśnij ctrl+space, aby uzyskać wskazówkę o ukończeniu wyrażeń",
-      // [Auto-translated] "Current row"
-      aceEditorRowTitle: "Obecny rząd",
-      // [Auto-translated] "Current panel"
-      aceEditorPanelTitle: "Obecny panel",
-      // [Auto-translated] "For more details please check the documentation"
-      showMore: "Więcej szczegółów można znaleźć w dokumentacji",
-      // "Available questions"
-      assistantTitle: "Available questions:",
-      // [Auto-translated] "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Powinna istnieć co najmniej jedna kolumna lub wiersz",
       // [Auto-translated] "Review before submit"
       showPreviewBeforeComplete: "Przejrzyj przed przesłaniem",
       // [Auto-translated] "Enabled by a condition"
@@ -1073,20 +922,12 @@
       "addNew@navigateToUrlOnCondition": "Dodaj nowy adres URL",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Dodaj nową stronę",
-      // [Auto-translated] "Expression is empty"
-      expressionIsEmpty: "Wyrażenie jest puste",
       // "Value"
       value: "Wartość",
       // "Text"
       text: "Etykieta",
-      // [Auto-translated] "Row ID"
-      rowid: "Identyfikator wiersza",
       // [Auto-translated] "Image or video file URL"
       imageLink: "Adres URL obrazu lub pliku wideo",
-      // [Auto-translated] "Edit column: {0}"
-      columnEdit: "Edytuj: {0}",
-      // [Auto-translated] "Edit item: {0}"
-      itemEdit: "Edycja: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1103,8 +944,6 @@
       imageLinkName: "Pobierz adresy URL plików z następującej właściwości",
       // [Auto-translated] "Accept empty response"
       allowEmptyResponse: "Zaakceptuj pustą odpowiedź",
-      // [Auto-translated] "Title"
-      titlePlaceholder: "Tytuł",
       // [Auto-translated] "Survey Title"
       surveyTitlePlaceholder: "Tytuł ankiety",
       // [Auto-translated] "Page {num}"
@@ -1215,16 +1054,8 @@
       defaultValue: "Default value",
       // [Auto-translated] "Default texts"
       cellsDefaultRow: "Teksty domyślne",
-      // "Edit survey settings"
-      surveyEditorTitle: "Edytuj ankietę",
-      // "Edit: {0}"
-      qEditorTitle: "Edytuj: {0}",
       // [Auto-translated] "Maximum character limit"
       maxLength: "Maksymalny limit znaków",
-      // [Auto-translated] "Build"
-      buildExpression: "Budować",
-      // [Auto-translated] "Edit"
-      editExpression: "Redagować",
       // [Auto-translated] "and"
       and: "i",
       // [Auto-translated] "or"
@@ -1251,8 +1082,6 @@
       includeIntoResult: "Dodaj do wyników ankiety",
       // "Make the title and description visible"
       showTitle: "Pokaż/ukryj tytuł",
-      // [Auto-translated] "Expand/collapse title"
-      expandCollapseTitle: "Rozwiń/zwiń tytuł",
       // "Select a survey language"
       locale: "Domyślny język",
       // [Auto-translated] "Select device type"
@@ -1465,8 +1294,6 @@
       acceptedTypes: "Dodatkowe rozszerzenia plików",
       // [Auto-translated] "Wait for upload to complete"
       waitForUpload: "Poczekaj na zakończenie przesyłania",
-      // [Auto-translated] "Confirm file deletion"
-      needConfirmRemoveFile: "Potwierdź usunięcie pliku",
       // [Auto-translated] "Row details alignment"
       detailPanelMode: "Wyrównanie szczegółów wiersza",
       // [Auto-translated] "Minimum row count"
@@ -1599,7 +1426,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Wysokość obrazu",
         // [Auto-translated] "Image width"
-        imageWidth: "Szerokość obrazu"
+        imageWidth: "Szerokość obrazu",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Potwierdź usunięcie pliku"
       },
       // [Auto-translated] "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Ukryj pytanie, jeśli nie ma opcji",
@@ -1657,6 +1486,10 @@
       choiceTextsFromQuestion: "Użyj wartości z poniższego pytania macierzowego, kolumnowego lub panelowego jako tekstów wyboru",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Wyświetlanie tytułów stron na pasku postępu",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Wyświetlaj tekst nawigacji na pasku postępu",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Wyrównanie tekstu nawigacyjnego",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Wyświetlanie numerów stron na pasku postępu",
       // [Auto-translated] "Add a comment box"
@@ -1667,8 +1500,6 @@
       displayRateDescriptionsAsExtremeItems: "Pokazywanie etykiet jako wartości skrajnych",
       // [Auto-translated] "Row order"
       rowOrder: "Kolejność wierszy",
-      // [Auto-translated] "Column layout"
-      columnsLayout: "Układ kolumn",
       // [Auto-translated] "Nested column count"
       columnColCount: "Liczba kolumn zagnieżdżonych",
       // [Auto-translated] "Correct Answer"
@@ -1699,22 +1530,6 @@
       },
       // [Auto-translated] "Logo alignment"
       logoPosition: "Wyrównanie logo",
-      // [Auto-translated] "Add logo..."
-      addLogo: "Dodaj logo...",
-      // [Auto-translated] "Change logo..."
-      changeLogo: "Zmień logo...",
-      logoPositions: {
-        // [Auto-translated] "Remove logo"
-        none: "Usuń logo",
-        // [Auto-translated] "Left"
-        left: "Lewy",
-        // [Auto-translated] "Right"
-        right: "Prawy",
-        // [Auto-translated] "On the top"
-        top: "Na górze",
-        // [Auto-translated] "In the bottom"
-        bottom: "Na dole"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Tryb podglądu",
       // [Auto-translated] "Enable grid layout"
@@ -1727,14 +1542,8 @@
       detailErrorLocation: "Wyrównanie komunikatu o błędzie szczegółów wiersza",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Układ panelu"
-        },
         // "General"
         general: "Ogólne",
-        // [Auto-translated] "Options"
-        fileOptions: "Opcje",
         // "HTML Editor"
         html: "Html Editor",
         // "Columns"
@@ -1757,10 +1566,6 @@
         sliderSettings: "Ustawienia suwaka",
         // "Choices from a Web Service"
         choicesByUrl: "Odpowiedzi z webserwisu",
-        // [Auto-translated] "Default Choices"
-        matrixChoices: "Domyślne wybory",
-        // [Auto-translated] "Text Inputs"
-        multipleTextItems: "Wprowadzanie tekstu",
         // [Auto-translated] "Numbering"
         numbering: "Numerowanie",
         // [Auto-translated] "Validators"
@@ -1803,8 +1608,6 @@
         showOnCompleted: "Strona z podziękowaniami",
         // [Auto-translated] "Logo in the Survey Header"
         logo: "Logo w nagłówku ankiety",
-        // [Auto-translated] "Slider"
-        slider: "Suwak",
         // [Auto-translated] "Expression"
         expression: "Wyrażenie",
         // [Auto-translated] "Question Settings"
@@ -1824,62 +1627,18 @@
         // [Auto-translated] "Others"
         others: "Inni"
       },
-      // [Auto-translated] "Edit property '{0}'"
-      editProperty: "Edytuj własność '{0}'",
       // [Auto-translated] "Items"
       items: "Przedmioty",
       // [Auto-translated] "Make choices visible if"
       choicesVisibleIf: "Uwidocznij wybory, jeśli",
       // [Auto-translated] "Make choices selectable if"
       choicesEnableIf: "Dokonaj wyboru opcji, jeśli",
-      // [Auto-translated] "Make columns visible if"
-      columnsEnableIf: "Uwidocznij kolumny, jeśli",
-      // [Auto-translated] "Make rows visible if"
-      rowsEnableIf: "Uwidocznij wiersze, jeśli",
       // [Auto-translated] "Increase the inner indent"
       innerIndent: "Zwiększ wcięcie wewnętrzne",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Domyślnie używaj odpowiedzi z ostatniego wpisu",
-      // "Please enter a value."
-      enterNewValue: "Please, enter the value.",
-      // "There are no questions in the survey."
-      noquestions: "There is no any question in the survey.",
-      // [Auto-translated] "Please create a trigger"
-      createtrigger: "Proszę, stwórz wyzwalacz",
-      // [Auto-translated] "Press enter button to edit"
-      titleKeyboardAdornerTip: "Naciśnij przycisk Enter, aby edytować",
-      // [Auto-translated] "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Naciśnij przycisk Enter, aby edytować element, naciśnij przycisk Delete, aby usunąć element, naciśnij Alt plus strzałka w górę lub strzałka w dół, aby przenieść element",
-      // [Auto-translated] "On "
-      triggerOn: "On ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Make pages visible:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Make elements visible:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Complete the survey if succeed.",
-      // [Auto-translated] "The trigger is not set"
-      triggerNotSet: "Wyzwalacz nie jest ustawiony",
-      // [Auto-translated] "Run if"
-      triggerRunIf: "Uciekaj, jeśli",
-      // [Auto-translated] "Change value of: "
-      triggerSetToName: "Zmiana wartości: ",
-      // [Auto-translated] "Copy value from: "
-      triggerFromName: "Skopiuj wartość z: ",
-      // [Auto-translated] "Run this Expression"
-      triggerRunExpression: "Uruchom to wyrażenie",
-      // [Auto-translated] "to: "
-      triggerSetValue: "do: ",
-      // [Auto-translated] "Go to the question"
-      triggerGotoName: "Przejdź do pytania",
-      // [Auto-translated] "Do not put the variable into the survey result."
-      triggerIsVariable: "Nie wpisuj tej zmiennej do wyniku badania.",
-      // [Auto-translated] "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Wpisz poprawne wyrażenie",
       // [Auto-translated] "Type expression here..."
       emptyExpressionPlaceHolder: "Wpisz wyrażenie tutaj...",
-      // [Auto-translated] "No file chosen"
-      noFile: "Nie wybrano pliku",
       // [Auto-translated] "Clear hidden question values"
       clearIfInvisible: "Wyczyść ukryte wartości pytań",
       // [Auto-translated] "Store values in the following property"
@@ -1958,26 +1717,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Czcionka opisu",
         // [Auto-translated] "Font"
-        editorFont: "Czcionka",
+        inputContent: "Czcionka",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Nieprzezroczystość",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Rodzina czcionek ankietowych",
+        "--sjs2-typography-font-family-text": "Rodzina czcionek ankietowych",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Kolor tła",
+        "--sjs2-color-utility-surface-survey": "Kolor tła",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Akcentujące kolory tła",
+        "--sjs2-color-project-brand-600": "Kolory tła akcentowego",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Akcentujące kolory pierwszego planu",
+        "--sjs2-color-fg-brand-on-primary": "Kolory akcentowe na pierwszym planie",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Kolory komunikatów o błędach",
+        "--sjs2-color-bg-alert-primary": "Kolory komunikatów o błędzie",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Efekty cienia",
+        "--sjs2-border-effect-surface-default": "Efekty cienia",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Efekty cienia",
+        "--sjs2-border-effect-component-formbox-default": "Efekty cienia",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Kolory"
+        "--sjs2-color-component-input-default-line": "Kolory"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2026,10 +1785,6 @@
       "file-camera": "Plik lokalny lub kamera",
       // [Auto-translated] "Inherit"
       inherit: "Odziedziczyć",
-      // [Auto-translated] "Visible"
-      show: "Widoczny",
-      // [Auto-translated] "Hidden"
-      hide: "Ukryty",
       // [Auto-translated] "Inherit"
       default: "Odziedziczyć",
       // [Auto-translated] "Initial"
@@ -2046,8 +1801,6 @@
       asc: "Rosnąco",
       // [Auto-translated] "Descending"
       desc: "Malejąco",
-      // [Auto-translated] "Indeterminate"
-      indeterminate: "Nieokreślony",
       // [Auto-translated] "Selected"
       selected: "Wybrany",
       // [Auto-translated] "Unselected"
@@ -2068,12 +1821,6 @@
       carousel: "Karuzela",
       // [Auto-translated] "Tabs"
       tab: "Karty",
-      // [Auto-translated] "Panel navigator + Progress bar at the top"
-      progressTop: "Nawigator paneli + pasek postępu u góry",
-      // [Auto-translated] "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Nawigator panelu + pasek postępu u dołu",
-      // [Auto-translated] "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Nawigator panelu + pasek postępu u góry i u dołu",
       // [Auto-translated] "Horizontal"
       horizontal: "Poziomy",
       // [Auto-translated] "Vertical"
@@ -2084,8 +1831,6 @@
       bottom: "Dno",
       // [Auto-translated] "Top and bottom"
       topBottom: "Góra i dół",
-      // [Auto-translated] "Both"
-      both: "Obie",
       // [Auto-translated] "Left"
       left: "Lewy",
       // [Auto-translated] "Right"
@@ -2126,10 +1871,6 @@
       week: "tydzień",
       // [Auto-translated] "Hidden"
       hidden: "Ukryty",
-      // [Auto-translated] "Editable"
-      edit: "Edytowalny",
-      // [Auto-translated] "Read-only"
-      display: "Tylko do odczytu",
       // [Auto-translated] "Contain"
       contain: "Zawierać",
       // [Auto-translated] "Cover"
@@ -2154,8 +1895,8 @@
         // [Auto-translated] "Never"
         none: "Nigdy"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Przycisków",
+      // [Auto-translated] "Radio buttons"
+      radio: "Przyciski radiowe",
       inputType: {
         // [Auto-translated] "Color"
         color: "Kolor",
@@ -2358,8 +2099,6 @@
       onNextPage: "Podczas przełączania do następnej strony",
       // [Auto-translated] "After an answer is changed"
       onValueChanged: "Po zmianie odpowiedzi",
-      // [Auto-translated] "Before an answer is changed"
-      onValueChanging: "Zanim odpowiedź zostanie zmieniona",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Oryginalna struktura",
@@ -2370,12 +2109,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Pokaż pojedyncze pole wejściowe na stronę"
       },
-      // [Auto-translated] "No preview"
-      noPreview: "Brak podglądu",
-      // [Auto-translated] "Show all questions"
-      showAllQuestions: "Pokaż wszystkie pytania",
-      // [Auto-translated] "Show answered questions only"
-      showAnsweredQuestions: "Pokaż tylko odpowiedzi na pytania",
       // [Auto-translated] "Show all questions"
       allQuestions: "Pokaż wszystkie pytania",
       // [Auto-translated] "Show answered questions only"
@@ -2440,7 +2173,17 @@
         // [Auto-translated] "Buttons"
         buttons: "Przyciski",
         // [Auto-translated] "Dropdown"
-        dropdown: "Lista rozwijana"
+        dropdown: "Lista rozwijana",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Przełącznik segmentowany",
+        // [Auto-translated] "Radio buttons"
+        radio: "Przyciski radiowe",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Pole do odhaczenia",
+        // [Auto-translated] "Switch"
+        switch: "Zmiana",
+        // [Auto-translated] "Custom"
+        custom: "Zwyczaj"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2481,12 +2224,8 @@
         onPage: "Resetuj na każdej stronie",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Resetuj na każdym panelu",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Resetuj na każdym panelu",
         // [Auto-translated] "Recursive numbering"
         recursive: "Numeracja rekurencyjna",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Kontynuuj badanie",
         // [Auto-translated] "No numbering"
         off: "Brak numeracji"
       },
@@ -2649,49 +2388,6 @@
       and: "i",
       // [Auto-translated] "or"
       or: "lub"
-    },
-    // Embed window
-    ew: {
-      // [Auto-translated] "Use Angular version"
-      angular: "Użyj wersji Angular",
-      // [Auto-translated] "Use jQuery version"
-      jquery: "Użyj wersji jQuery",
-      // [Auto-translated] "Use Knockout version"
-      knockout: "Użyj wersji Knockout",
-      // [Auto-translated] "Use React version"
-      react: "Użyj wersji React",
-      // [Auto-translated] "Use Vue version"
-      vue: "Użyj wersji Vue",
-      // [Auto-translated] "For bootstrap framework"
-      bootstrap: "Dla frameworka bootstrap",
-      // [Auto-translated] "Modern theme"
-      modern: "Nowoczesny motyw",
-      // [Auto-translated] "Default theme"
-      default: "Motyw domyślny",
-      // [Auto-translated] "Orange theme"
-      orange: "Kompozycja pomarańczowa",
-      // [Auto-translated] "Darkblue theme"
-      darkblue: "Kompozycja Ciemnoniebieski",
-      // [Auto-translated] "Darkrose theme"
-      darkrose: "Kompozycja Darkrose",
-      // [Auto-translated] "Stone theme"
-      stone: "Kompozycja Kamień",
-      // [Auto-translated] "Winter theme"
-      winter: "Kompozycja zimowa",
-      // [Auto-translated] "Winter-Stone theme"
-      winterstone: "Kompozycja Kamień zimowy",
-      // [Auto-translated] "Show survey on a page"
-      showOnPage: "Pokaż ankietę na stronie",
-      // [Auto-translated] "Show survey in a window"
-      showInWindow: "Pokaż przegląd w oknie",
-      // [Auto-translated] "Load Survey JSON from server"
-      loadFromServer: "Załaduj Survey JSON z serwera",
-      // [Auto-translated] "Scripts and styles"
-      titleScript: "Scenariusze i style",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2925,7 +2621,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Określa szerokość wyświetlania przesyłanych obrazów w podglądzie oraz rzeczywistą szerokość zdjęć wykonanych aparatem. W trybie przesyłania pojedynczego pliku szerokość wyświetlania jest ograniczona przez obszar podglądu; W trybie przesyłania wielu plików jest on ograniczony przez obszar miniatur.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Wyświetla podgląd miniatur przesłanych plików, jeśli to możliwe. Usuń zaznaczenie, jeśli zamiast tego chcesz wyświetlać ikony plików."
+        allowImagesPreview: "Wyświetla podgląd miniatur przesłanych plików, jeśli to możliwe. Usuń zaznaczenie, jeśli zamiast tego chcesz wyświetlać ikony plików.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Uruchamia się komunikat o potwierdzeniu usunięcia pliku."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2940,10 +2638,6 @@
         choices: '"Wartość" służy jako identyfikator elementu używany w regułach warunkowych; Respondentom wyświetlany jest "Tekst".',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Wybierz pomiędzy "Obraz" i "Wideo", aby ustawić tryb zawartości selektora multimediów. W przypadku wybrania opcji "Obraz" upewnij się, że wszystkie dostępne opcje są plikami graficznymi w następujących formatach: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Podobnie, jeśli wybrana jest opcja "Wideo", upewnij się, że wszystkie opcje są bezpośrednimi linkami do plików wideo w następujących formatach: MP4, MOV, WMV, FLV, AVI, MKV. Należy pamiętać, że linki do YouTube nie są obsługiwane w przypadku opcji wideo.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'To ustawienie zmienia tylko rozmiar pola wejściowego i nie ma wpływu na szerokość pola pytania. Aby ograniczyć akceptowaną długość danych wejściowych, przejdź do "Walidacja" → "Maksymalny limit znaków".'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3200,8 +2894,6 @@
       valueFalse: "Wartość, która ma zostać zapisana w wynikach ankiety, gdy respondenci udzielą odpowiedzi negatywnej.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Nie zaleca się wyłączania tej opcji, ponieważ zastępuje ona obraz podglądu i utrudnia użytkownikowi zrozumienie, czy pliki zostały przekazane.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Uruchamia monit z prośbą o potwierdzenie usunięcia pliku.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Włącz, aby uszeregować tylko wybrane wybory. Użytkownicy będą przeciągać wybrane elementy z listy wyboru, aby uporządkować je w obszarze rankingu.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3285,8 +2977,8 @@
         questionBackgroundTransparency: "Dostosowuje przezroczystość elementów wejściowych względem tła ankiety.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Ustawia promień narożnika dla wszystkich elementów prostokątnych. Włącz tryb zaawansowany, jeśli chcesz ustawić indywidualne wartości promienia narożnika dla elementów wejściowych lub paneli i pól pytań.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Ustawia główny kolor tła ankiety."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Ustala główny kolor tła ankiety."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3585,16 +3277,12 @@
       primaryDarkColor: "Hover",
       // [Auto-translated] "Selected"
       primaryLightColor: "Wybrany",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Kolor tła",
       // "Corner radius"
       cornerRadius: "Promień naroża",
       // [Auto-translated] "Default background"
       backcolor: "Domyślne tło",
       // [Auto-translated] "Hover background"
       hovercolor: "Najedź kursorem na tło",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Dekoracja obramowania",
       // [Auto-translated] "Font color"
       fontColor: "Kolor czcionki",
       // [Auto-translated] "Background color"
@@ -3603,8 +3291,6 @@
       primaryForecolor: "Kolor domyślny",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Kolor wyłączony",
-      // [Auto-translated] "Font"
-      font: "Czcionka",
       // [Auto-translated] "Darker"
       borderDefault: "Ciemniejsze",
       // [Auto-translated] "Lighter"
@@ -3625,6 +3311,8 @@
       placeholderColor: "Kolor symbolu zastępczego",
       // [Auto-translated] "Size"
       size: "Rozmiar",
+      // [Auto-translated] "Line height"
+      lineHeight: "Wysokość linii",
       // [Auto-translated] "Opacity"
       opacity: "Nieprzezroczystość",
       // [Auto-translated] "X"
@@ -3644,24 +3332,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Domyślny",
-        // [Auto-translated] "Sharp"
-        sharp: "Ostry",
+        // [Auto-translated] "Contrast"
+        contrast: "Kontrast",
         // [Auto-translated] "Borderless"
         borderless: "Bez obramowania",
         // [Auto-translated] "Flat"
         flat: "Płaski",
         // [Auto-translated] "Plain"
         plain: "Równina",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Podwójna ramka",
-        // [Auto-translated] "Layered"
-        layered: "Warstwowe",
-        // [Auto-translated] "Solid"
-        solid: "Bryła",
+        // [Auto-translated] "Soft"
+        soft: "Miękkie",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Kontrast"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monochrom"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3683,28 +3367,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Tło powierzchni",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Podstawowy",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Wtórny",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Powierzchnia",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "Elementy interfejsu użytkownika",
       // [Auto-translated] "Font"
       fontScale: "Czcionka",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Kreator ankiet 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Światło",
-        // [Auto-translated] "Dark"
-        "default-dark": "Ciemny",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Kontrast"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3717,6 +3388,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Zastosowano preset"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Przedmiot 1" }, { value: "item2", text: "Przedmiot 2" }, { value: "item3", text: "Przedmiot 3" }],
+      columns: [{ value: "column1", text: "Kolumna 1" }, { value: "column2", text: "Kolumna 2" }, { value: "column3", text: "Kolumna 3" }],
+      rows: [{ value: "row1", text: "Wiersz 1" }, { value: "row2", text: "Wiersz 2" }],
+      matrixColumns: [{ name: "column1", title: "Kolumna 1" }, { name: "column2", title: "Kolumna 2" }, { name: "column3", title: "Kolumna 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "pl", strings: polishStrings });

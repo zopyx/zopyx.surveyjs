@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var czStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Upravit",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Podívejte se a naučte se vytvářet průzkumy",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Sem napište otázku ze sady nástrojů.",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Vytvořte pravidlo pro přizpůsobení průběhu průzkumu.",
-      // "Copy"
-      copy: "Kopírovat",
       // "Duplicate"
-      duplicate: "Duplikovat",
-      // "Add to toolbox"
-      addToToolbox: "Přidat do sady nástrojů",
-      // "Delete Panel"
-      deletePanel: "Odstranit panel",
-      // "Delete Question"
-      deleteQuestion: "Odstranit otázku",
-      // "Convert to"
-      convertTo: "Převést na",
-      // "Drag element"
-      drag: "Přetáhnout prvek"
+      duplicate: "Duplikovat"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Výchozí ({0})",
-      // "Survey"
-      survey: "Průzkum",
       // "Settings"
       settings: "Nastavení průzkumu",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Průzkum",
       // "Page"
       pageTypeName: "Stránka",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Panel",
-      // "Question"
-      questionTypeName: "Otázka",
-      // "Column"
-      columnTypeName: "Sloupec",
-      // "Add New Page"
-      addNewPage: "Přidat novou stránku",
-      // "Scroll to the Right"
-      moveRight: "Přejděte doprava",
-      // "Scroll to the Left"
-      moveLeft: "Přejděte doleva",
-      // "Delete Page"
-      deletePage: "Smazat stránku",
-      // "Edit Page"
-      editPage: "Upravit stránku",
-      // "Edit"
-      edit: "Upravit",
       // "page"
       newPageName: "stránka",
       // "question"
       newQuestionName: "otázka",
       // [Auto-translated] "panel"
       newPanelName: "Panel",
-      // [Auto-translated] "text"
-      newTextItemName: "Text",
-      // "Default"
-      defaultV2Theme: "Výchozí",
-      // "Modern"
-      modernTheme: "Moderní",
-      // "Default (legacy)"
-      defaultTheme: "Výchozí (původní)",
       // "Preview Survey Again"
       testSurveyAgain: "Znovu otestovat průzkum",
-      // "Survey width: "
-      testSurveyWidth: "Šířka průzkumu: ",
       // "You had to navigate to"
       navigateToMsg: "Museli jste přejít na:",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Zrušit",
       // "Redo"
       redo: "Opětovně vrátit",
-      // "Undo last change"
-      undoTooltip: "Vrátit poslední změnu",
-      // "Redo the change"
-      redoTooltip: "Znovu provést změnu",
       // [Auto-translated] "Expand"
       expandTooltip: "Expandovat",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Zobrazit více",
       // "Show less"
       showLessChoices: "Zobrazit méně",
-      // "Copy"
-      copy: "Kopírovat",
-      // "Cut"
-      cut: "Vyjmout",
-      // "Paste"
-      paste: "Vložit",
-      // "Copy selection to clipboard"
-      copyTooltip: "Zkopírovat výběr do schránky",
-      // "Cut selection to clipboard"
-      cutTooltip: "Vyjmout výběr do schránky",
-      // "Paste from clipboard"
-      pasteTooltip: "Vložit ze schránky",
-      // "Options"
-      options: "Možnosti",
-      // "Generate Valid JSON"
-      generateValidJSON: "Generovat platný JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Neznámá funkce: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Chyba syntaxe.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Sémantická chyba.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Generovat čitelný JSON",
       // "Toolbox"
       toolbox: "Sada nástrojů",
-      // "Properties"
-      "property-grid": "Vlastnosti",
       // [Auto-translated] "Search"
       toolboxSearch: "Hledání",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Začněte konfigurovat formulář",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Kliknutím na libovolnou ikonu kategorie můžete prozkoumat nastavení průzkumu. Další nastavení budou k dispozici, jakmile přidáte element survey na návrhovou plochu.",
-      // "Please correct JSON."
-      correctJSON: "Opravte JSON.",
       // "Survey Results "
       surveyResults: "Výsledek průzkumu: ",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Ukládání",
       // "Saved"
       saved: "Uloženo",
-      // "Error"
-      propertyEditorError: "Chyba:",
       // "Error! Editor content is not saved."
       saveError: "Chyba! Obsah editoru není uložen.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Opravdu chcete resetovat motiv? Všechna vaše přizpůsobení budou ztracena.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Ano, resetovat motiv",
-      // "Bold"
-      bold: "Tučně",
-      // "Italic"
-      italic: "Kurzíva",
-      // "Underline"
-      underline: "Podtržení",
       // "Add Question"
       addNewQuestion: "Přidat otázku",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Pokud logický výraz vrátí hodnotu true, provede se vlastní výraz. Výsledek tohoto výrazu můžete volitelně nastavit do vybrané otázky.",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: "Pokud logický výraz vrátí hodnotu true, změní se výchozí text stránky s poděkováním na zadaný text.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Pokud výraz „{0}“ vrátí hodnotu true:",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "Nové pravidlo",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Výraz, jehož výsledek bude přiřazen k cílové otázce.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Zadejte hodnotu...",
         // "survey becomes completed"
         trigger_completeText: "Průzkum se stává dokončeným",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Podmínky",
         // "Action(s)"
         actions: "Akce",
-        // "Define condition(s)"
-        expressionEditorTitle: "Definovat podmínky",
         // "Define action(s)"
         actionsEditorTitle: "Definovat akce",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Vyberte akci, kterou chcete přidat...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Logický výraz je prázdný nebo neplatný. Opravte jej.",
-        // "Please add at least one action."
-        noActionError: "Přidejte alespoň jednu akci.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Opravte prosím problémy v akcích.",
         // "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Výchozí zobrazovaná hodnota pro dynamické texty",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Zarovnání štítků",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "Šířka vstupního pole (ve znacích)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Zarovnání chybové zprávy buňky",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Invalidní",
       // [Auto-translated] "Inherit"
       inherit: "Zdědit",
-      // "Apply"
-      apply: "Použít",
-      // [Auto-translated] "OK"
-      ok: "Dobře",
-      // "Save"
-      save: "Uložit",
       // "Clear"
       clear: "Vymazat",
-      // "Save"
-      saveTooltip: "Uložit",
-      // "Cancel"
-      cancel: "Zrušit",
       // "Set"
       set: "Nastavit",
-      // "Reset"
-      reset: "Resetovat",
       // "Change"
       change: "Změnit",
-      // "Refresh"
-      refresh: "Obnovit",
       // "Close"
       close: "Zavřít",
       // "Delete"
       delete: "Smazat",
-      // "Add"
-      add: "Přidat",
       // "Add New"
       addNew: "Přidat novou",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Kliknutím odstraníte položku...",
       // "Drag the item"
       dragItem: "Přetáhněte položku",
-      // "Other"
-      addOther: "Ostatní",
-      // "Select All"
-      addSelectAll: "Vybrat vše",
-      // "None"
-      addNone: "Žádné",
-      // "Remove All"
-      removeAll: "Odstranit vše",
       // "Edit"
       edit: "Upravit",
-      // "Return without saving"
-      back: "Návrat bez uložení",
-      // "Return without saving"
-      backTooltip: "Návrat bez uložení",
-      // "Save and return"
-      saveAndBack: "Uložit a vrátit",
-      // "Save and return"
-      saveAndBackTooltip: "Uložit a vrátit",
       // "Done"
       doneEditing: "Hotovo",
-      // "Edit Choices"
-      editChoices: "Upravit volby",
-      // "Show Choices"
-      showChoices: "Zobrazit volby",
-      // "Move"
-      move: "Přesunout",
-      // "<empty>"
-      empty: "<prázdné>",
       // "Value is empty"
       emptyValue: "Hodnota je prázdná",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Zadejte alespoň {0} položek",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Data můžete nastavit v následujícím formátu:\nhodnota1|text\nhodnota2",
-      // "Form Entry"
-      formEntry: "Vstupní formulář",
-      // "Test the service"
-      testService: "Testování služby",
-      // "Please select the element"
-      itemSelectorEmpty: "Vyberte prvek",
       // "Please select the action"
       conditionActionEmpty: "Vyberte akci",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Vyberte stránku...",
       // "Select a panel..."
       conditionSelectPanel: "Vyberte panel...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Zadejte/vyberte hodnotu",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Stisknutím kláves ctrl+mezerník získáte nápovědu k dokončení výrazu",
-      // "Current row"
-      aceEditorRowTitle: "Aktuální řádek",
-      // "Current panel"
-      aceEditorPanelTitle: "Aktuální panel",
-      // "For more details please check the documentation"
-      showMore: "Další podrobnosti naleznete v dokumentaci",
-      // "Available questions"
-      assistantTitle: "Dostupné otázky:",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Měl by existovat alespoň jeden sloupec nebo řádek.",
       // "Review before submit"
       showPreviewBeforeComplete: "Zobrazit náhled odpovědí před odesláním průzkumu",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Přidat novou adresu URL",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Přidat novou stránku",
-      // "Expression is empty"
-      expressionIsEmpty: "Výraz je prázdný",
       // "Value"
       value: "Hodnota",
       // [Auto-translated] "Text"
       text: "Text",
-      // "Row ID"
-      rowid: "ID řady",
       // "Image or video file URL"
       imageLink: "Odkaz na obrázek",
-      // "Edit column: {0}"
-      columnEdit: "Upravit sloupec: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Upravit položku: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Získat URL obrázku z následujícího JSON pole",
       // "Accept empty response"
       allowEmptyResponse: "Povolit prázdnou odpověď",
-      // "Title"
-      titlePlaceholder: "Sem zadejte název",
       // "Survey Title"
       surveyTitlePlaceholder: "Sem zadejte název průzkumu",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Výchozí hodnota",
       // "Default texts"
       cellsDefaultRow: "Výchozí texty buněk",
-      // "Edit survey settings"
-      surveyEditorTitle: "Upravit nastavení průzkumu",
-      // "Edit: {0}"
-      qEditorTitle: "Upravit: {0}",
       // "Maximum character limit"
       maxLength: "Maximální délka",
-      // "Build"
-      buildExpression: "Vytvořit",
-      // "Edit"
-      editExpression: "Upravit",
       // "and"
       and: "a zároveň",
       // "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Zahrnout do výsledků průzkumu",
       // "Make the title and description visible"
       showTitle: "Zobrazit/skrýt název",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Rozbalit/sbalit název",
       // "Select a survey language"
       locale: "Výchozí jazyk",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Další přípony souboru",
       // "Wait for upload to complete"
       waitForUpload: "Počkejte na dokončení nahrávání",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "Potvrdit smazání souboru",
       // "Row details alignment"
       detailPanelMode: "Umístění detailního panelu",
       // "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Výška obrazu",
         // [Auto-translated] "Image width"
-        imageWidth: "Šířka obrazu"
+        imageWidth: "Šířka obrazu",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Potvrdit smazání souboru"
       },
       // "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Skrýt otázku, pokud neobsahuje žádné volby",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Jako texty voleb použijte hodnoty z následujícího sloupce matice nebo otázky panelu",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Zobrazení názvů stránek v pruhu průběhu",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Zobrazit navigační text v průběhu",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Zarovnání navigačního textu",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Zobrazení čísel stránek v pruhu průběhu",
       // "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Zobrazit popisy kurzů jako extrémní hodnoty",
       // "Row order"
       rowOrder: "Pořadí řádků",
-      // "Column layout"
-      columnsLayout: "Rozložení sloupce",
       // "Nested column count"
       columnColCount: "Počet vnořených sloupců",
       // "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Pozice loga",
-      // "Add logo..."
-      addLogo: "Přidat logo...",
-      // "Change logo..."
-      changeLogo: "Změnit logo...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Odstranit logo",
-        // "Left"
-        left: "Vlevo",
-        // "Right"
-        right: "Vpravo",
-        // "On the top"
-        top: "Nahoře",
-        // "In the bottom"
-        bottom: "Dole"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Režim náhledu",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Zarovnání chybové zprávy podrobností řádku",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Rozvržení panelu"
-        },
         // "General"
         general: "Obecné",
-        // "Options"
-        fileOptions: "Možnosti",
         // "HTML Editor"
         html: "Editor HTML",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Nastavení posuvníku",
         // "Choices from a Web Service"
         choicesByUrl: "Volby z webu",
-        // "Default Choices"
-        matrixChoices: "Výchozí volby",
-        // "Text Inputs"
-        multipleTextItems: "Textové vstupy",
         // "Numbering"
         numbering: "Číslování",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Zobrazit na stránce Dokončeno",
         // "Logo in the Survey Header"
         logo: "Logo v názvu průzkumu",
-        // "Slider"
-        slider: "Posuvník",
         // "Expression"
         expression: "Výraz",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Ostatní"
       },
-      // "Edit property '{0}'"
-      editProperty: "Upravit vlastnost „{0}“",
       // "Items"
       items: "[ Položky: {0} ]",
       // "Make choices visible if"
       choicesVisibleIf: "Volby jsou viditelné, pokud",
       // "Make choices selectable if"
       choicesEnableIf: "Volby jsou volitelné, pokud",
-      // "Make columns visible if"
-      columnsEnableIf: "Sloupce jsou viditelné, pokud",
-      // "Make rows visible if"
-      rowsEnableIf: "Řádky jsou viditelné, pokud",
       // "Increase the inner indent"
       innerIndent: "Přidat vnitřní odsazení",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Použít odpovědi z posledního záznamu jako výchozí",
-      // "Please enter a value."
-      enterNewValue: "Zadejte hodnotu.",
-      // "There are no questions in the survey."
-      noquestions: "V průzkumu není žádná otázka.",
-      // "Please create a trigger"
-      createtrigger: "Vytvořte spouštěč",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Zadejte tlačítko k úpravě",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Stisknutím klávesy enter upravíte položku, stisknutím klávesy delete položku odstraníte, stisknutím klávesy alt plus šipky nahoru nebo šipky dolů položku přesunete.",
-      // "On "
-      triggerOn: "Zapnout ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Zobrazit stránky:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Zobrazit prvky:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Vyplňte průzkum, pokud se vám to podaří.",
-      // "The trigger is not set"
-      triggerNotSet: "Spouštěč není nastaven",
-      // "Run if"
-      triggerRunIf: "Spustit, pokud",
-      // "Change value of: "
-      triggerSetToName: "Změnit hodnotu: ",
-      // "Copy value from: "
-      triggerFromName: "Zkopírovat hodnotu z: ",
-      // "Run this Expression"
-      triggerRunExpression: "Spustit tento výraz:",
-      // "to: "
-      triggerSetValue: "do: ",
-      // "Go to the question"
-      triggerGotoName: "Přejít na otázku:",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Nevkládejte proměnnou do výsledku průzkumu.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Zadejte platný výraz",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "Zde napište výraz...",
-      // "No file chosen"
-      noFile: "Nebyl vybrán žádný soubor",
       // "Clear hidden question values"
       clearIfInvisible: "Vymazat hodnotu, pokud se otázka skryje",
       // "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Popisné písmo",
         // [Auto-translated] "Font"
-        editorFont: "Písmo",
+        inputContent: "Písmo",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Neprůhlednost",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Rodina písma Survey",
+        "--sjs2-typography-font-family-text": "Rodina fontů podle průzkumu",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Barva pozadí",
+        "--sjs2-color-utility-surface-survey": "Barva pozadí",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Zvýraznění barev pozadí",
+        "--sjs2-color-project-brand-600": "Akcentní barvy pozadí",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Zvýraznění barev popředí",
+        "--sjs2-color-fg-brand-on-primary": "Akcentní barvy popředí",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Barvy chybové zprávy",
+        "--sjs2-color-bg-alert-primary": "Barvy chybových zpráv",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Stínové efekty",
+        "--sjs2-border-effect-surface-default": "Stínové efekty",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Stínové efekty",
+        "--sjs2-border-effect-component-formbox-default": "Stínové efekty",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Barvy"
+        "--sjs2-color-component-input-default-line": "Barvy"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Místní soubor nebo fotoaparát",
       // "Inherit"
       inherit: "zdědit",
-      // "Visible"
-      show: "zobrazit",
-      // "Hidden"
-      hide: "skrýt",
       // "Inherit"
       default: "výchozí",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "vzestupný",
       // "Descending"
       desc: "sestupný",
-      // "Indeterminate"
-      indeterminate: "neurčitý",
       // [Auto-translated] "Selected"
       selected: "Vybraný",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Kolotoč",
       // "Tabs"
       tab: "Záložky",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "progressTop",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "progressBottom",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "progressTopBottom",
       // "Horizontal"
       horizontal: "horizontální",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "dole",
       // "Top and bottom"
       topBottom: "nahoře a dole",
-      // "Both"
-      both: "obě",
       // "Left"
       left: "vlevo",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "týden",
       // "Hidden"
       hidden: "skrytý",
-      // "Editable"
-      edit: "upravit",
-      // "Read-only"
-      display: "zobrazit",
       // [Auto-translated] "Contain"
       contain: "Obsahovat",
       // [Auto-translated] "Cover"
@@ -2153,8 +1894,8 @@
         // [Auto-translated] "Never"
         none: "Nikdy"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Přepínače",
+      // [Auto-translated] "Radio buttons"
+      radio: "Tlačítka rádia",
       inputType: {
         // "Color"
         color: "Barva",
@@ -2357,8 +2098,6 @@
       onNextPage: "onNextPage",
       // "After an answer is changed"
       onValueChanged: "onValueChanged",
-      // "Before an answer is changed"
-      onValueChanging: "onValueChanging",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Původní struktura",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Zobrazit jedno vstupní pole na stránku"
       },
-      // "No preview"
-      noPreview: "bez náhledu",
-      // "Show all questions"
-      showAllQuestions: "zobrazit náhled se všemi otázkami",
-      // "Show answered questions only"
-      showAnsweredQuestions: "zobrazit náhled se zodpovězenými otázkami",
       // [Auto-translated] "Show all questions"
       allQuestions: "Zobrazit všechny otázky",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // "Buttons"
         buttons: "Tlačítka",
         // "Dropdown"
-        dropdown: "Rozbalovací nabídka"
+        dropdown: "Rozbalovací nabídka",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Segmentovaný přepínač",
+        // [Auto-translated] "Radio buttons"
+        radio: "Tlačítka rádia",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Zaškrtávací políčko",
+        // [Auto-translated] "Switch"
+        switch: "Přepnutí",
+        // [Auto-translated] "Custom"
+        custom: "Zvyk"
       },
       rateColorMode: {
         // "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Resetovat na každé stránce",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Resetovat na každém panelu",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Resetovat na každém panelu",
         // [Auto-translated] "Recursive numbering"
         recursive: "Rekurzivní číslování",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Pokračovat v průzkumu",
         // [Auto-translated] "No numbering"
         off: "Žádné číslování"
       },
@@ -2648,49 +2387,6 @@
       and: "a zároveň",
       // "or"
       or: "nebo"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Použít verzi Angular",
-      // "Use jQuery version"
-      jquery: "Použít verzi jQuery",
-      // "Use Knockout version"
-      knockout: "Použít verzi Knockout",
-      // "Use React version"
-      react: "Použít verzi React",
-      // "Use Vue version"
-      vue: "Použít verzi Vue",
-      // "For bootstrap framework"
-      bootstrap: "Pro framework bootstrap",
-      // "Modern theme"
-      modern: "Moderní motiv",
-      // "Default theme"
-      default: "Výchozí motiv",
-      // "Orange theme"
-      orange: "Oranžový motiv",
-      // "Darkblue theme"
-      darkblue: "Tmavěmodrý motiv",
-      // "Darkrose theme"
-      darkrose: "Tmavěrůžový motiv",
-      // "Stone theme"
-      stone: "Kamenný motiv",
-      // "Winter theme"
-      winter: "Zimní motiv",
-      // "Winter-Stone theme"
-      winterstone: "Téma zima-kámen",
-      // "Show survey on a page"
-      showOnPage: "Zobrazit průzkum na stránce",
-      // "Show survey in a window"
-      showInWindow: "Zobrazit průzkum v okně",
-      // "Load Survey JSON from server"
-      loadFromServer: "Načíst průzkum JSON ze serveru",
-      // "Scripts and styles"
-      titleScript: "Skripty a styly",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Určuje šířku zobrazení odeslaných obrazů v náhledu a skutečnou šířku obrazů pořízených fotoaparátem. V režimu odesílání jednoho souboru je šířka zobrazení omezena oblastí náhledu; V režimu odesílání více souborů je omezena oblastí miniatur.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Pokud je to možné, zobrazuje náhledy miniatur pro nahrané soubory. Zrušte výběr, pokud chcete místo toho zobrazit ikony souborů."
+        allowImagesPreview: "Pokud je to možné, zobrazuje náhledy miniatur pro nahrané soubory. Zrušte výběr, pokud chcete místo toho zobrazit ikony souborů.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Spustí se výzva k potvrzení smazání souboru."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Hodnota" slouží jako ID položky používané v podmíněných pravidlech; Respondentům se zobrazuje "Text".',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Vyberte si mezi "Obrazem" a "Video" a nastavte režim obsahu voliče médií. Pokud je vybrána možnost "Obrázek", ujistěte se, že všechny nabízené možnosti jsou obrazové soubory v následujících formátech: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Podobně, pokud je vybráno "Video", ujistěte se, že všechny možnosti jsou přímými odkazy na video soubory v následujících formátech: MP4, MOV, WMV, FLV, AVI, MKV. Upozorňujeme, že odkazy na YouTube nejsou podporovány u možností videa.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Toto nastavení pouze mění velikost vstupního pole a nemá vliv na šířku pole pro otázky. Chcete-li omezit přijatelnou délku vstupu, přejděte na "Ověření" → "Maximální limit znaků".'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Hodnota, která se má uložit do výsledků průzkumu, když respondenti odpoví záporně.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Nedoporučujeme tuto volbu vypínat, protože přepíše obraz náhledu a uživateli ztíží pochopení, zda byly soubory odeslány.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Spustí výzvu s žádostí o potvrzení odstranění souboru.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Povolením seřadíte pouze vybrané volby. Uživatelé přetáhnou vybrané položky ze seznamu voleb a seřadí je v oblasti hodnocení.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Upraví průhlednost vstupních prvků vzhledem k pozadí průzkumu.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Nastaví poloměr rohů pro všechny obdélníkové prvky. Rozšířený režim povolte, pokud chcete nastavit jednotlivé hodnoty poloměru rohů pro vstupní prvky nebo panely a pole s otázkami.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Nastaví hlavní barvu pozadí průzkumu."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Nastavuje hlavní barvu pozadí průzkumu."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Vznášejte se",
       // "Selected"
       primaryLightColor: "Vybraný",
-      // "Background color"
-      backgroundDimColor: "Barva pozadí",
       // "Corner radius"
       cornerRadius: "Poloměr rohu",
       // "Default background"
       backcolor: "Výchozí pozadí",
       // "Hover background"
       hovercolor: "Pozadí při přejetí myší",
-      // "Border decoration"
-      borderDecoration: "Dekorace hran",
       // [Auto-translated] "Font color"
       fontColor: "Barva písma",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Výchozí barva",
       // "Disabled color"
       primaryForecolorLight: "Barva vypnutého pole",
-      // [Auto-translated] "Font"
-      font: "Písmo",
       // "Darker"
       borderDefault: "Hlavní",
       // "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Barva zástupného symbolu",
       // [Auto-translated] "Size"
       size: "Velikost",
+      // [Auto-translated] "Line height"
+      lineHeight: "Výška trati",
       // [Auto-translated] "Opacity"
       opacity: "Neprůhlednost",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Výchozí",
-        // [Auto-translated] "Sharp"
-        sharp: "Ostrý",
+        // [Auto-translated] "Contrast"
+        contrast: "Kontrast",
         // [Auto-translated] "Borderless"
         borderless: "Bez okrajů",
         // [Auto-translated] "Flat"
         flat: "Byt",
         // [Auto-translated] "Plain"
         plain: "Planina",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Dvojitý okraj",
-        // [Auto-translated] "Layered"
-        layered: "Vrstvený",
-        // [Auto-translated] "Solid"
-        solid: "Solidní",
+        // [Auto-translated] "Soft"
+        soft: "Měkké",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Kontrast"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Černobílý"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Pozadí Surface",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Primární",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Sekundární",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Povrch",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "Prvky uživatelského rozhraní",
       // [Auto-translated] "Font"
       fontScale: "Písmo",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Tvůrce průzkumu 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Světlo",
-        // [Auto-translated] "Dark"
-        "default-dark": "Temný",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Kontrast"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Použito přednastavení"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Položka 1" }, { value: "item2", text: "Položka 2" }, { value: "item3", text: "Položka 3" }],
+      columns: [{ value: "column1", text: "Sloupec 1" }, { value: "column2", text: "Sloupec 2" }, { value: "column3", text: "Sloupec 3" }],
+      rows: [{ value: "row1", text: "Řádek 1" }, { value: "row2", text: "Řádek 2" }],
+      matrixColumns: [{ name: "column1", title: "Sloupec 1" }, { name: "column2", title: "Sloupec 2" }, { name: "column3", title: "Sloupec 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "cs", strings: czStrings });

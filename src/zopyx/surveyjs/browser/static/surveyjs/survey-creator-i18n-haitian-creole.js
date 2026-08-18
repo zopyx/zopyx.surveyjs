@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var htStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Modifye",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Gade epi aprann kijan pou kreye sondaj",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Tanpri lage yon kesyon isit la nan Toolbox la.",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Kreye yon règ pou personnaliser flux sondaj la.",
-      // "Copy"
-      copy: "Kopi",
       // "Duplicate"
-      duplicate: "Diplike",
-      // "Add to toolbox"
-      addToToolbox: "Ajoute nan bwat zouti",
-      // "Delete Panel"
-      deletePanel: "Efase Panel",
-      // "Delete Question"
-      deleteQuestion: "Efase Kesyon",
-      // "Convert to"
-      convertTo: "Konvèti an",
-      // "Drag element"
-      drag: "Trennen eleman"
+      duplicate: "Diplike"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // [Auto-translated] "Default ({0})"
       defaultLocale: "Default ({0})",
-      // "Survey"
-      survey: "Sondaj",
       // "Settings"
       settings: "Anviwònman",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Sondaj",
       // "Page"
       pageTypeName: "Paj",
-      // "Panel"
-      panelTypeName: "Panèl",
-      // "Question"
-      questionTypeName: "Kesyon",
-      // "Column"
-      columnTypeName: "Kolòn",
-      // "Add New Page"
-      addNewPage: "Ajoute nouvo paj",
-      // "Scroll to the Right"
-      moveRight: "Scroll sou bò dwat la",
-      // "Scroll to the Left"
-      moveLeft: "Scroll sou Goch la",
-      // "Delete Page"
-      deletePage: "Efase paj",
-      // "Edit Page"
-      editPage: "Modifye paj",
-      // "Edit"
-      edit: "Modifye",
       // "page"
       newPageName: "paj",
       // "question"
       newQuestionName: "kesyon",
       // "panel"
       newPanelName: "panèl",
-      // "text"
-      newTextItemName: "tèks",
-      // [Auto-translated] "Default"
-      defaultV2Theme: "Default",
-      // "Modern"
-      modernTheme: "Modèn",
-      // "Default (legacy)"
-      defaultTheme: "Default (eritaj)",
       // "Preview Survey Again"
       testSurveyAgain: "Preview Sondaj Ankò",
-      // "Survey width: "
-      testSurveyWidth: "Lajè sondaj:",
       // "You had to navigate to"
       navigateToMsg: "Ou te oblije navige nan",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Defèt",
       // "Redo"
       redo: "Refè",
-      // "Undo last change"
-      undoTooltip: "Defèt dènye chanjman",
-      // "Redo the change"
-      redoTooltip: "Refè chanjman an",
       // "Expand"
       expandTooltip: "Elaji",
       // "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Montre plis",
       // "Show less"
       showLessChoices: "Montre mwens",
-      // "Copy"
-      copy: "Kopi",
-      // "Cut"
-      cut: "Koupe",
-      // "Paste"
-      paste: "Kole",
-      // "Copy selection to clipboard"
-      copyTooltip: "Kopi seleksyon an nan clipboard",
-      // "Cut selection to clipboard"
-      cutTooltip: "Koupe seleksyon an nan clipboard",
-      // "Paste from clipboard"
-      pasteTooltip: "Kole soti nan clipboard",
-      // "Options"
-      options: "Opsyon",
-      // "Generate Valid JSON"
-      generateValidJSON: "Jenere JSON valab",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Fonksyon enkoni: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Erè sentaks",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Erè semantik",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Jenere JSON lizib",
       // "Toolbox"
       toolbox: "Bwat zouti",
-      // "Properties"
-      "property-grid": "Pwopriyete",
       // [Auto-translated] "Search"
       toolboxSearch: "Fouye",
       // "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Kòmanse konfigirasyon fòm ou a",
       // "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Klike sou nenpòt ikòn kategori pou eksplore anviwònman sondaj la. Anviwònman adisyonèl yo ap disponib yon fwa ou ajoute yon eleman sondaj sou sifas konsepsyon an.",
-      // "Please correct JSON."
-      correctJSON: "Tanpri korije JSON.",
       // "Survey Results "
       surveyResults: "Rezilta Sondaj",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Ekonomize",
       // "Saved"
       saved: "Sove",
-      // "Error"
-      propertyEditorError: "Erè",
       // "Error! Editor content is not saved."
       saveError: "Erè! Kontni editè a pa sove.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Ou reyèlman vle Reyajiste tèm nan? Tout personnalisation ou yo pral pèdi.",
       // "Yes, reset the theme"
       themeResetConfirmationOk: "Wi, reset tèm nan",
-      // "Bold"
-      bold: "Fonse",
-      // "Italic"
-      italic: "Italik",
-      // "Underline"
-      underline: "Soulinye",
       // "Add Question"
       addNewQuestion: "Ajoute Kesyon",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Lè ekspresyon lojik la evalye a vre, sondaj la evalye yon lòt ekspresyon. Opsyonèlman, rezilta dènye ekspresyon an ka bay kòm yon valè nan kesyon yo chwazi a",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: 'Si ekspresyon lojik la evalye vre, paj "Mèsi" montre kontni espesifye a.',
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Lè ekspresyon: '{0}' retounen vre",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "Nouvo règ",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Yon ekspresyon ki gen rezilta yo pral asiyen nan kesyon sib la.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Antre yon valè...",
         // "survey becomes completed"
         trigger_completeText: "sondaj la fini",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Kondisyon (yo)",
         // "Action(s)"
         actions: "Aksyon (yo)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Defini kondisyon (yo)",
         // "Define action(s)"
         actionsEditorTitle: "Defini aksyon (yo)",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Chwazi aksyon...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Ekspresyon lojik la vid oswa envalid. Tanpri korije li.",
-        // "Please add at least one action."
-        noActionError: "Tanpri ajoute omwen yon aksyon.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Tanpri ranje pwoblèm nan aksyon ou (yo).",
         // "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Valè ekspozisyon defo pou tèks dinamik",
       // "Label alignment"
       rateDescriptionLocation: "Aliyman etikèt",
-      // "Input field width (in characters)"
-      size: "Antre lajè jaden (an karaktè)",
       // "Cell error message alignment"
       cellErrorLocation: "Aliyman mesaj erè selilè",
       // "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Andikape",
       // "Inherit"
       inherit: "Eritye",
-      // "Apply"
-      apply: "Aplike",
-      // [Auto-translated] "OK"
-      ok: "OKE",
-      // "Save"
-      save: "Sove",
       // "Clear"
       clear: "Klè",
-      // "Save"
-      saveTooltip: "Sove",
-      // "Cancel"
-      cancel: "Anile",
       // "Set"
       set: "Mete",
-      // "Reset"
-      reset: "Reyajiste",
       // "Change"
       change: "Chanje",
-      // "Refresh"
-      refresh: "Rafrechi",
       // "Close"
       close: "Fèmen",
       // "Delete"
       delete: "Efase",
-      // "Add"
-      add: "Ajoute",
       // "Add New"
       addNew: "Ajoute Nouvo",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Klike pou retire atik la...",
       // "Drag the item"
       dragItem: "Trennen atik la",
-      // "Other"
-      addOther: "Lòt",
-      // "Select All"
-      addSelectAll: "Chwazi Tout",
-      // "None"
-      addNone: "Okenn",
-      // "Remove All"
-      removeAll: "Retire tout",
       // "Edit"
       edit: "Modifye",
-      // "Return without saving"
-      back: "Retounen san sove",
-      // "Return without saving"
-      backTooltip: "Retounen san sove",
-      // "Save and return"
-      saveAndBack: "Sove epi retounen",
-      // "Save and return"
-      saveAndBackTooltip: "Sove epi retounen",
       // "Done"
       doneEditing: "Fè",
-      // "Edit Choices"
-      editChoices: "Edit chwa",
-      // "Show Choices"
-      showChoices: "Montre chwa",
-      // "Move"
-      move: "Deplase",
-      // "<empty>"
-      empty: "<vid>",
       // "Value is empty"
       emptyValue: "Valè a vid",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Tanpri antre omwen {0} atik yo",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Antre lis opsyon chwa yo ak idantite yo nan fòma sa a:",
-      // "Form Entry"
-      formEntry: "Fòm Antre",
-      // "Test the service"
-      testService: "Teste sèvis la",
-      // "Please select the element"
-      itemSelectorEmpty: "Tanpri chwazi eleman an",
       // "Please select the action"
       conditionActionEmpty: "Tanpri chwazi aksyon an",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Chwazi yon paj...",
       // "Select a panel..."
       conditionSelectPanel: "Chwazi yon panèl...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Tanpri antre/chwazi valè a",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Peze ctrl + espas pou jwenn sijesyon pou fini ekspresyon",
-      // "Current row"
-      aceEditorRowTitle: "Ranje aktyèl la",
-      // "Current panel"
-      aceEditorPanelTitle: "Kouran panèl",
-      // "For more details please check the documentation"
-      showMore: "Pou plis detay tanpri tcheke dokiman an",
-      // "Available questions"
-      assistantTitle: "Kesyon ki disponib",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Ta dwe gen omwen yon kolòn oswa yon ranje",
       // "Review before submit"
       showPreviewBeforeComplete: "Revize anvan soumèt",
       // "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Ajoute nouvo URL",
       // "Add new page"
       "addNew@pages": "Ajoute nouvo paj",
-      // "Expression is empty"
-      expressionIsEmpty: "Ekspresyon se vid",
       // "Value"
       value: "Valè",
       // "Text"
       text: "Tèks",
-      // "Row ID"
-      rowid: "Ranje ID",
       // "Image or video file URL"
       imageLink: "URL dosye imaj oswa videyo",
-      // "Edit column: {0}"
-      columnEdit: "Modifye kolòn: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Modifye atik: {0}",
       // [Auto-translated] "URL"
       url: "adrès entènèt",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Jwenn adrès URL dosye ki soti nan pwopriyete sa a",
       // "Accept empty response"
       allowEmptyResponse: "Aksepte repons vid",
-      // "Title"
-      titlePlaceholder: "Tit",
       // "Survey Title"
       surveyTitlePlaceholder: "Tit Sondaj",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Repons Default",
       // "Default texts"
       cellsDefaultRow: "Tèks default",
-      // "Edit survey settings"
-      surveyEditorTitle: "Edite anviwònman sondaj yo",
-      // "Edit: {0}"
-      qEditorTitle: "Modifye: {0}",
       // "Maximum character limit"
       maxLength: "Limit maksimòm karaktè",
-      // "Build"
-      buildExpression: "Bati",
-      // "Edit"
-      editExpression: "Modifye",
       // "and"
       and: "epi",
       // "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Ajoute nan rezilta sondaj yo",
       // "Make the title and description visible"
       showTitle: "Fè tit la ak deskripsyon vizib",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Elaji/effondreman tit",
       // "Select a survey language"
       locale: "Chwazi yon lang pou sondaj",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Aksepte kalite dosye",
       // "Wait for upload to complete"
       waitForUpload: "Rete tann pou telechaje yo fini",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "Konfime efase fichye a",
       // "Row details alignment"
       detailPanelMode: "Aliyman ekspansyon ranje",
       // "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Wotè imaj",
         // [Auto-translated] "Image width"
-        imageWidth: "Lajè imaj"
+        imageWidth: "Lajè imaj",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Konfime efase dosye"
       },
       // "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Kache kesyon an si li pa gen chwa",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Sèvi ak valè nan kolòn matris sa a oswa kesyon panèl la kòm tèks chwa",
       // "Display page titles in the progress bar"
       progressBarShowPageTitles: "Montre tit paj nan ba pwogrè a",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Montre tèks navigasyon nan ba pwogrè a",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Navigasyon nan aliyman tèks",
       // "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Montre nimewo paj nan ba pwogrè a",
       // "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Montre etikèt yo kòm valè ekstrèm",
       // "Row order"
       rowOrder: "Lòd ranje",
-      // "Column layout"
-      columnsLayout: "Layout kolòn",
       // "Nested column count"
       columnColCount: "Konte kolòn nich",
       // "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Logo aliyman",
-      // "Add logo..."
-      addLogo: "Ajoute logo...",
-      // "Change logo..."
-      changeLogo: "Chanje logo...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Retire logo",
-        // "Left"
-        left: "Goch",
-        // "Right"
-        right: "Dwa",
-        // "On the top"
-        top: "Sou tèt la",
-        // "In the bottom"
-        bottom: "Nan pati anba a"
-      },
       // "Preview mode"
       previewMode: "Aperçu mòd",
       // "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Ranje ekspansyon mesaj erè aliyman",
       // Creator tabs
       tabs: {
-        panel: {
-          // "Panel Layout"
-          layout: "Layout panèl"
-        },
         // "General"
         general: "Jeneral",
-        // "Options"
-        fileOptions: "Opsyon",
         // "HTML Editor"
         html: "Editè HTML",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Anviwònman koulis",
         // "Choices from a Web Service"
         choicesByUrl: "Chwa nan yon sèvis entènèt",
-        // "Default Choices"
-        matrixChoices: "Chwa Default",
-        // "Text Inputs"
-        multipleTextItems: "Antre tèks",
         // "Numbering"
         numbering: "Nimerasyon",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: 'Paj "Mèsi".',
         // "Logo in the Survey Header"
         logo: "Logo nan Header Sondaj la",
-        // "Slider"
-        slider: "Kurseur",
         // "Expression"
         expression: "Ekspresyon",
         // "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Lòt moun"
       },
-      // "Edit property '{0}'"
-      editProperty: "Edit pwopriyete '{0}'",
       // "Items"
       items: "Atik",
       // "Make choices visible if"
       choicesVisibleIf: "Fè chwa vizib si",
       // "Make choices selectable if"
       choicesEnableIf: "Fè chwa sélectionnable si",
-      // "Make columns visible if"
-      columnsEnableIf: "Fè kolòn vizib si",
-      // "Make rows visible if"
-      rowsEnableIf: "Fè ranje vizib si",
       // "Increase the inner indent"
       innerIndent: "Ogmante endentasyon anndan an",
       // "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Sèvi ak repons ki soti nan dènye antre a kòm default",
-      // "Please enter a value."
-      enterNewValue: "Tanpri antre yon valè.",
-      // "There are no questions in the survey."
-      noquestions: "Pa gen okenn kesyon nan sondaj la.",
-      // "Please create a trigger"
-      createtrigger: "Tanpri kreye yon deklanche",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Peze bouton antre pou edite",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Peze bouton antre pou modifye atik, peze bouton efase pou efase atik, peze alt plis flèch anlè oswa flèch desann pou deplase atik la.",
-      // "On "
-      triggerOn: "Sou",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Fè paj vizib",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Fè eleman vizib",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Ranpli sondaj la si w reyisi.",
-      // "The trigger is not set"
-      triggerNotSet: "Deklanche a pa mete",
-      // "Run if"
-      triggerRunIf: "Kouri si",
-      // "Change value of: "
-      triggerSetToName: "Chanje valè:",
-      // "Copy value from: "
-      triggerFromName: "Kopi valè soti nan:",
-      // "Run this Expression"
-      triggerRunExpression: "Kouri ekspresyon sa a",
-      // "to: "
-      triggerSetValue: "pou:",
-      // "Go to the question"
-      triggerGotoName: "Ale nan kesyon an",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Pa mete varyab la nan rezilta sondaj la.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Tanpri antre yon ekspresyon ki valab",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "Tape ekspresyon isit la...",
-      // "No file chosen"
-      noFile: "Pa gen fichye chwazi",
       // "Clear hidden question values"
       clearIfInvisible: "Klè valè kesyon kache yo",
       // "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // "Description font"
         questionDescription: "Deskripsyon font",
         // [Auto-translated] "Font"
-        editorFont: "Font",
+        inputContent: "Font",
         // "Opacity"
         backgroundOpacity: "Opakite",
         // Auto-generated string
-        // "Survey font family"
-        "--sjs-font-family": "Fanmi font sondaj",
-        // "Background color"
-        "--sjs-general-backcolor-dim": "Koulè background",
-        // "Accent background colors"
-        "--sjs-primary-backcolor": "Aksan koulè background",
-        // "Accent foreground colors"
-        "--sjs-primary-forecolor": "Aksan koulè premye plan",
-        // "Error message colors"
-        "--sjs-special-red": "Koulè mesaj erè",
-        // "Shadow effects"
-        "--sjs-shadow-small": "Efè lonbraj",
-        // "Shadow effects"
-        "--sjs-shadow-inner": "Efè lonbraj",
-        // "Colors"
-        "--sjs-border-default": "Koulè"
+        // [Auto-translated] "Survey font family"
+        "--sjs2-typography-font-family-text": "Sondaj font fanmi",
+        // [Auto-translated] "Background color"
+        "--sjs2-color-utility-surface-survey": "Koulè background",
+        // [Auto-translated] "Accent background colors"
+        "--sjs2-color-project-brand-600": "Koulè background aksan",
+        // [Auto-translated] "Accent foreground colors"
+        "--sjs2-color-fg-brand-on-primary": "Koulè premye plan aksan",
+        // [Auto-translated] "Error message colors"
+        "--sjs2-color-bg-alert-primary": "Erè mesaj koulè",
+        // [Auto-translated] "Shadow effects"
+        "--sjs2-border-effect-surface-default": "Efè lonbraj",
+        // [Auto-translated] "Shadow effects"
+        "--sjs2-border-effect-component-formbox-default": "Efè lonbraj",
+        // [Auto-translated] "Colors"
+        "--sjs2-color-component-input-default-line": "Koulè"
       },
       "header@header": {
         // "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Dosye lokal oswa Kamera",
       // "Inherit"
       inherit: "Eritye",
-      // "Visible"
-      show: "Vizib",
-      // "Hidden"
-      hide: "Kache",
       // "Inherit"
       default: "Eritye",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "Asandan",
       // "Descending"
       desc: "Desandan",
-      // "Indeterminate"
-      indeterminate: "Endetèmine",
       // "Selected"
       selected: "Chwazi",
       // "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Carousel",
       // [Auto-translated] "Tabs"
       tab: "Onglè yo",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "Panel navigatè + ba pwogrè nan tèt la",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Panel navigatè + Pwogrè ba nan pati anba a",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Navigatè Panel + Ba Pwogrè nan tèt ak anba",
       // "Horizontal"
       horizontal: "Orizontal",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "Anba",
       // "Top and bottom"
       topBottom: "Anlè ak anba",
-      // "Both"
-      both: "Tou de",
       // "Left"
       left: "Goch",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "semèn",
       // "Hidden"
       hidden: "Kache",
-      // "Editable"
-      edit: "Editabl",
-      // "Read-only"
-      display: "Lekti sèlman",
       // "Contain"
       contain: "Genyen",
       // "Cover"
@@ -2153,7 +1894,7 @@
         // "Never"
         none: "Pa janm"
       },
-      // [Auto-translated] "Radio Buttons"
+      // [Auto-translated] "Radio buttons"
       radio: "Bouton radyo",
       inputType: {
         // "Color"
@@ -2357,8 +2098,6 @@
       onNextPage: "Lè w ap chanje nan pwochen paj la",
       // "After an answer is changed"
       onValueChanged: "Apre yon repons chanje",
-      // "Before an answer is changed"
-      onValueChanging: "Anvan yon repons chanje",
       questionsOnPageMode: {
         // "Original structure"
         standard: "Estrikti orijinal la",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Montre jaden sèl pou chak paj"
       },
-      // "No preview"
-      noPreview: "Pa gen preview",
-      // "Show all questions"
-      showAllQuestions: "Montre tout kesyon yo",
-      // "Show answered questions only"
-      showAnsweredQuestions: "Montre kesyon repons yo sèlman",
       // "Show all questions"
       allQuestions: "Montre tout kesyon yo",
       // "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // "Buttons"
         buttons: "Bouton",
         // "Dropdown"
-        dropdown: "depoze"
+        dropdown: "depoze",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Segmented baskile",
+        // [Auto-translated] "Radio buttons"
+        radio: "Bouton radyo",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Kaz chèk",
+        // [Auto-translated] "Switch"
+        switch: "Chanje",
+        // [Auto-translated] "Custom"
+        custom: "Koutim"
       },
       rateColorMode: {
         // "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Reyajiste sou chak paj",
         // "Reset on each panel"
         onpanel: "Reyajiste sou chak panèl",
-        // "Reset on each panel"
-        onPanel: "Reyajiste sou chak panèl",
         // "Recursive numbering"
         recursive: "Nimero rekursif",
-        // "Continue across the survey"
-        onSurvey: "Kontinye atravè sondaj la",
         // "No numbering"
         off: "Pa gen nimero"
       },
@@ -2648,49 +2387,6 @@
       and: "epi",
       // "or"
       or: "oswa"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Sèvi ak vèsyon angilè",
-      // "Use jQuery version"
-      jquery: "Sèvi ak vèsyon jQuery",
-      // "Use Knockout version"
-      knockout: "Sèvi ak vèsyon knockout",
-      // "Use React version"
-      react: "Sèvi ak vèsyon React",
-      // "Use Vue version"
-      vue: "Sèvi ak vèsyon Vue",
-      // "For bootstrap framework"
-      bootstrap: "Pou fondasyon bootstrap",
-      // "Modern theme"
-      modern: "Tèm modèn",
-      // "Default theme"
-      default: "Default tèm",
-      // "Orange theme"
-      orange: "Tèm zoranj",
-      // "Darkblue theme"
-      darkblue: "Tèm ble fonse",
-      // "Darkrose theme"
-      darkrose: "Tèm Darkrose",
-      // "Stone theme"
-      stone: "Tèm wòch",
-      // "Winter theme"
-      winter: "Tèm sezon fredi",
-      // "Winter-Stone theme"
-      winterstone: "Winter-Stone tèm",
-      // "Show survey on a page"
-      showOnPage: "Montre sondaj sou yon paj",
-      // "Show survey in a window"
-      showInWindow: "Montre sondaj nan yon fenèt",
-      // "Load Survey JSON from server"
-      loadFromServer: "Chaje Sondaj JSON soti nan sèvè",
-      // "Scripts and styles"
-      titleScript: "Scripts ak estil",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Espesifye lajè a nan imaj Uploaded nan preview la ak lajè aktyèl la nan imaj pran ak kamera a. Nan yon sèl mòd dosye Upload, lajè a ekspozisyon limite pa zòn nan preview; nan mòd miltip Upload, li limite pa zòn nan thumbnail.",
         // "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Montre aperçu miniatures pou fichye telechaje lè sa posib. Dezeleksyone si ou vle montre ikon dosye pito."
+        allowImagesPreview: "Montre aperçu miniatures pou fichye telechaje lè sa posib. Dezeleksyone si ou vle montre ikon dosye pito.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Deklanche yon èd lè mande pou konfime suplera dosye a."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Valè" sèvi kòm yon ID atik yo itilize nan règ kondisyonèl; "Tèks" parèt pou moun ki repond yo.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Chwazi ant "Imaj" ak "Videyo" pou mete mòd kontni seleksyon medya a. Si yo chwazi "Imaj", asire w ke tout opsyon yo bay yo se fichye imaj nan fòma sa yo: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Menm jan an tou, si yo chwazi "Videyo", asire w ke tout opsyon yo se lyen dirèk nan dosye videyo nan fòma sa yo: MP4, MOV, WMV, FLV, AVI, MKV. Tanpri sonje ke lyen YouTube yo pa sipòte pou opsyon videyo.'
-      },
-      text: {
-        // "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Anviwònman sa a sèlman redimansyone jaden an opinyon epi li pa afekte lajè bwat kesyon an. Pou limite longè antre aksepte, ale nan "Validation" → "Limit maksimòm karaktè".'
       },
       comment: {
         // "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Yon valè pou sove nan rezilta sondaj yo lè moun ki repond bay yon repons negatif.",
       // "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Li pa rekòmande pou ou enfim opsyon sa a paske li depase imaj Preview la epi li fè li difisil pou yon itilizatè konprann si wi ou non dosye yo te Uploaded.",
-      // "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Deklanche yon èd memwa ki mande konfime sipresyon fichye a.",
       // "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Pèmèt yo klase sèlman chwa chwazi yo. Itilizatè yo pral trennen atik yo chwazi nan lis chwa a pou kòmande yo nan zòn klasman an.",
       // "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Ajiste transparans eleman opinyon yo parapò ak background sondaj la.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Mete reyon kwen an pou tout eleman rektangilè. Pèmèt Mòd Avanse a si ou vle mete valè reyon kwen endividyèl pou eleman opinyon oswa panno ak bwat kesyon.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Mete koulè background prensipal sondaj la."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Mete koulè background prensipal sondaj la"
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Hover",
       // "Selected"
       primaryLightColor: "Chwazi",
-      // "Background color"
-      backgroundDimColor: "Koulè background",
       // "Corner radius"
       cornerRadius: "Reyon kwen",
       // [Auto-translated] "Default background"
       backcolor: "Default background",
       // [Auto-translated] "Hover background"
       hovercolor: "Hover background",
-      // "Border decoration"
-      borderDecoration: "Dekorasyon fwontyè",
       // "Font color"
       fontColor: "Koulè font",
       // "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Koulè default",
       // "Disabled color"
       primaryForecolorLight: "Koulè andikape",
-      // [Auto-translated] "Font"
-      font: "Font",
       // "Darker"
       borderDefault: "Pi fonse",
       // "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Koulè placeholder",
       // "Size"
       size: "Gwosè",
+      // [Auto-translated] "Line height"
+      lineHeight: "Wotè liy",
       // "Opacity"
       opacity: "Opakite",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // "Default"
         default: "Defo",
-        // "Sharp"
-        sharp: "Byen file",
+        // "Contrast"
+        contrast: "Kontras",
         // "Borderless"
         borderless: "San fwontyè",
         // "Flat"
         flat: "Plat",
         // "Plain"
         plain: "Plenn",
-        // "Double Border"
-        doubleborder: "Double fwontyè",
-        // "Layered"
-        layered: "Kouch",
-        // [Auto-translated] "Solid"
-        solid: "Solid",
+        // [Auto-translated] "Soft"
+        soft: "Mou",
         // [Auto-translated] "3D"
         threedimensional: "3D",
-        // "Contrast"
-        contrast: "Kontras"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monochrome"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // "Surface background"
-      "--sjs-special-background": "Fond sifas",
       // "Primary"
       "--sjs-primary-background-500": "Prensipal",
       // "Secondary"
       "--sjs-secondary-background-500": "Segondè",
-      // "Surface"
-      surfaceScale: "Sifas",
       // "UI elements"
       userInterfaceBaseUnit: "Eleman UI",
       // [Auto-translated] "Font"
       fontScale: "Font",
-      names: {
-        // "Survey Creator 2020"
-        sc2020: "Sondaj Kreyatè 2020",
-        // "Light"
-        "default-light": "Limyè",
-        // "Dark"
-        "default-dark": "Fè nwa",
-        // "Contrast"
-        "default-contrast": "Kontras"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Prereglaj aplike"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Atik1" }, { value: "item2", text: "Atik2" }, { value: "item3", text: "Atik3" }],
+      columns: [{ value: "column1", text: "Kolòn 1" }, { value: "column2", text: "Kolòn 2" }, { value: "column3", text: "Kolòn 3" }],
+      rows: [{ value: "row1", text: "Ranje 1" }, { value: "row2", text: "Ranje 2" }],
+      matrixColumns: [{ name: "column1", title: "Kolòn 1" }, { name: "column2", title: "Kolòn 2" }, { name: "column3", title: "Kolòn 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "ht", strings: htStrings });

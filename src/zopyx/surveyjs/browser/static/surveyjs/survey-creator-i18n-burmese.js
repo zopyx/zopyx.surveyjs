@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var mmStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "တည်းဖြတ်ပါ",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "စစ်တမ်းများကိုဘယ်လိုဖန်တီးရမည်ကိုကြည့်ရှုပါ",
-      // "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "ကျေးဇူးပြု၍ Toolbox မှမေးခွန်းတစ်ခုကိုဤနေရာတွင်ချပါ။",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "စစ်တမ်း၏လည်ပတ်မှုကိုစိတ်ကြိုက်ပြုလုပ်ရန်စည်းမျဉ်းတစ်ခုဖန်တီးပါ။",
-      // "Copy"
-      copy: "ကူးယူပါ",
       // "Duplicate"
-      duplicate: "မိတ္တူပြုလုပ်ပါ",
-      // "Add to toolbox"
-      addToToolbox: "Toolbox သို့ထည့်ပါ",
-      // "Delete Panel"
-      deletePanel: "Panel ကိုဖျက်ပါ",
-      // "Delete Question"
-      deleteQuestion: "မေးခွန်းကိုဖျက်ပါ",
-      // "Convert to"
-      convertTo: "သို့ပြောင်းပါ",
-      // "Drag element"
-      drag: "အရာဝတ္ထုကိုဆွဲပါ"
+      duplicate: "မိတ္တူပြုလုပ်ပါ"
     },
     // Creator tabs
     tabs: {
@@ -121,8 +99,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "ပုံမှန် ({0})",
-      // "Survey"
-      survey: "စစ်တမ်း",
       // "Settings"
       settings: "ဆက်တင်များ",
       // "Open settings"
@@ -153,42 +129,14 @@
       surveyTypeName: "စစ်တမ်း",
       // "Page"
       pageTypeName: "စာမျက်နှာ",
-      // "Panel"
-      panelTypeName: "Panel",
-      // "Question"
-      questionTypeName: "မေးခွန်း",
-      // "Column"
-      columnTypeName: "ကော်လံ",
-      // "Add New Page"
-      addNewPage: "စာမျက်နှာအသစ်ထည့်ရန်",
-      // "Scroll to the Right"
-      moveRight: "ညာဘက်သို့ရွေ့ရန်",
-      // "Scroll to the Left"
-      moveLeft: "ဘယ်ဘက်သို့ရွေ့ရန်",
-      // "Delete Page"
-      deletePage: "စာမျက်နှာဖျက်ရန်",
-      // "Edit Page"
-      editPage: "စာမျက်နှာတည်းဖြတ်ရန်",
-      // "Edit"
-      edit: "တည်းဖြတ်ရန်",
       // "page"
       newPageName: "စာမျက်နှာ",
       // "question"
       newQuestionName: "မေးခွန်း",
       // "panel"
       newPanelName: "Panel",
-      // "text"
-      newTextItemName: "စာသား",
-      // "Default"
-      defaultV2Theme: "ပုံမှန်",
-      // "Modern"
-      modernTheme: "ခေတ်မီ",
-      // "Default (legacy)"
-      defaultTheme: "ပုံမှန် (ရှေးဟောင်း)",
       // "Preview Survey Again"
       testSurveyAgain: "စစ်တမ်းပြန်လည်ကြည့်ရှုရန်",
-      // "Survey width: "
-      testSurveyWidth: "စစ်တမ်းအကျယ်: ",
       // "You had to navigate to"
       navigateToMsg: "သင်သည်သွားရမည့်နေရာ",
       // "Save Survey"
@@ -207,10 +155,6 @@
       undo: "မလုပ်မှားခဲ့သည်",
       // "Redo"
       redo: "ပြန်လုပ်ရန်",
-      // "Undo last change"
-      undoTooltip: "နောက်ဆုံးပြောင်းလဲမှုကိုဖျက်ပယ်ပါ",
-      // "Redo the change"
-      redoTooltip: "ပြောင်းလဲမှုကိုပြန်လုပ်ပါ",
       // collapseTooltip: "Collapse",
       expandAllTooltip: "အားလုံးဖွင့်ပါ",
       // "Collapse All"
@@ -225,28 +169,8 @@
       showMoreChoices: "ပိုမိုပြရန်",
       // "Show less"
       showLessChoices: "ပိုမိုပိတ်ရန်",
-      // "Copy"
-      copy: "ကူးရန်",
-      // "Cut"
-      cut: "ဖြတ်ပါ",
-      // "Paste"
-      paste: "ကပ်ပါ",
-      // "Copy selection to clipboard"
-      copyTooltip: "Clipboard သို့ရွေးချယ်မှုကိုကူးပါ",
-      // "Cut selection to clipboard"
-      cutTooltip: "Clipboard သို့ရွေးချယ်မှုကိုဖြတ်ပါ",
-      // "Paste from clipboard"
-      pasteTooltip: "Clipboard မှကပ်ပါ",
-      // "Options"
-      options: "ရွေးချယ်မှုများ",
-      // "Generate Valid JSON"
-      generateValidJSON: "မှန်ကန်သော JSON ဖန်တီးပါ",
-      // "Generate Readable JSON"
-      generateReadableJSON: "ဖတ်ရန်လွယ်ကူသော JSON ဖန်တီးပါ",
       // "Toolbox"
       toolbox: "Toolbox",
-      // "Properties"
-      "property-grid": "Properties",
       // toolboxSearch: "Search",
       toolboxFilteredTextPlaceholder: "ရှာဖွေရန်ရိုက်ပါ...",
       // "No results found"
@@ -259,8 +183,6 @@
       propertyGridPlaceholderTitle: "သင့်ပုံစံကိုပြင်ဆင်စတင်ပါ",
       // "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "စစ်တမ်းဆက်တင်များကိုစူးစမ်းရန်အမျိုးအစားအိုင်ကွန်ကိုနှိပ်ပါ။ ဒီဇိုင်းမျက်နှာပြင်တွင်စစ်တမ်းအချက်အလက်တစ်ခုကိုထည့်ပြီးနောက်ထပ်ဆက်တင်များရနိုင်ပါမည်။",
-      // "Please correct JSON."
-      correctJSON: "JSON ကိုပြင်ပါ။",
       // "Survey Results "
       surveyResults: "စစ်တမ်းရလဒ်များ ",
       // "As Table"
@@ -281,8 +203,6 @@
       saving: "သိမ်းဆည်းနေသည်",
       // "Saved"
       saved: "သိမ်းဆည်းပြီး",
-      // "Error"
-      propertyEditorError: "အမှား",
       // "Error! Editor content is not saved."
       saveError: "အမှား! တည်းဖြတ်မှုမရှိသိမ်းဆည်းပါ။",
       // "Language Settings"
@@ -339,12 +259,6 @@
       themeResetConfirmation: "အကြောင်းအရာကိုပြန်သတ်မှတ်လိုပါသလား? သင်၏စိတ်ကြိုက်ပြုပြင်မှုအားလုံးကိုဆုံးရှုံးပါမည်။",
       // "Yes, reset the theme"
       themeResetConfirmationOk: "ဟုတ်ကဲ့၊ အကြောင်းအရာကိုပြန်သတ်မှတ်ပါ",
-      // "Bold"
-      bold: "အထူ",
-      // "Italic"
-      italic: "စောင်း",
-      // "Underline"
-      underline: "အောက်ကြောင်းချ",
       // "Add Question"
       addNewQuestion: "မေးခွန်းထည့်ရန်",
       // "Select page..."
@@ -493,9 +407,6 @@
         trigger_runExpressionDescription: "နိယာမဖော်ပြချက်မှ true အဖြစ်အကဲဖြတ်သောအခါ အခြားဖော်ပြချက်တစ်ခုကိုအကဲဖြတ်ပါ။ ၎င်း၏ရလဒ်ကိုမေးခွန်းတစ်ခုသို့ထည့်ရန်ရွေးချယ်နိုင်သည်။",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: 'နိယာမဖော်ပြချက်မှ true အဖြစ်အကဲဖြတ်သောအခါ "ကျေးဇူးတင်" စာမျက်နှာတွင် သတ်မှတ်ထားသောအကြောင်းအရာကိုပြပါ။',
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "ဖော်ပြချက်: '{0}' မှ true ပြန်လာသည့်အခါ",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "သစ်သောစည်းမျဉ်း",
         // "make page {0} visible"
@@ -569,8 +480,6 @@
         conditions: "အခြေအနေ(များ)",
         // "Action(s)"
         actions: "လုပ်ဆောင်ချက်(များ)",
-        // "Define condition(s)"
-        expressionEditorTitle: "အခြေအနေ(များ) သတ်မှတ်ပါ",
         // "Define action(s)"
         actionsEditorTitle: "လုပ်ဆောင်ချက်(များ) သတ်မှတ်ပါ",
         // "Delete Action"
@@ -581,8 +490,6 @@
         selectedActionCaption: "လုပ်ဆောင်ချက်ရွေးပါ...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "နိယာမဖော်ပြချက်သည်လွတ်လပ်နေသည် သို့မဟုတ်မမှန်ကန်ပါ။ ဦးစွာပြုပြင်ပါ။",
-        // "Please add at least one action."
-        noActionError: "လုပ်ဆောင်ချက်အနည်းဆုံးတစ်ခုထည့်ပါ။",
         // "Please fix issues in your action(s)."
         actionInvalid: "လုပ်ဆောင်ချက်(များ) တွင်ပြဿနာကိုပြင်ပါ။",
         // "Logical rules are incomplete"
@@ -849,32 +756,16 @@
       disabled: "ပိတ်ထားသည်",
       // "Inherit"
       inherit: "အမွေဆက်ခံသည်",
-      // "Apply"
-      apply: "လက်ခံပါ",
-      // "OK"
-      ok: "အိုကေ",
-      // "Save"
-      save: "သိမ်းဆည်းပါ",
       // "Clear"
       clear: "ရှင်းလင်းပါ",
-      // "Save"
-      saveTooltip: "သိမ်းဆည်းပါ",
-      // "Cancel"
-      cancel: "မလုပ်တော့ပါ",
       // "Set"
       set: "သတ်မှတ်ပါ",
-      // "Reset"
-      reset: "ပြန်လည်သတ်မှတ်ပါ",
       // "Change"
       change: "ပြောင်းလဲပါ",
-      // "Refresh"
-      refresh: "နောက်ဆုံးသတ်မှတ်မှု",
       // "Close"
       close: "ပိတ်ပါ",
       // "Delete"
       delete: "ဖျက်ပါ",
-      // "Add"
-      add: "ထည့်ပါ",
       // "Add New"
       addNew: "အသစ်ထည့်ပါ",
       // "Click to add an item..."
@@ -883,34 +774,10 @@
       removeItem: "အရာကိုဖျက်ရန်နှိပ်ပါ...",
       // "Drag the item"
       dragItem: "အရာကိုဆွဲပါ",
-      // "Other"
-      addOther: "အခြား",
-      // "Select All"
-      addSelectAll: "အားလုံးရွေးပါ",
-      // "None"
-      addNone: "မရှိပါ",
-      // "Remove All"
-      removeAll: "အားလုံးဖျက်ပါ",
       // "Edit"
       edit: "တည်းဖြတ်ပါ",
-      // "Return without saving"
-      back: "သိမ်းဆည်းမှုမရှိဘဲပြန်သွားပါ",
-      // "Return without saving"
-      backTooltip: "သိမ်းဆည်းမှုမရှိဘဲပြန်သွားပါ",
-      // "Save and return"
-      saveAndBack: "သိမ်းဆည်းပြီးပြန်သွားပါ",
-      // "Save and return"
-      saveAndBackTooltip: "သိမ်းဆည်းပြီးပြန်သွားပါ",
       // "Done"
       doneEditing: "ပြီးသွားသည်",
-      // "Edit Choices"
-      editChoices: "ရွေးချယ်မှုများကိုတည်းဖြတ်ပါ",
-      // "Show Choices"
-      showChoices: "ရွေးချယ်မှုများကိုပြပါ",
-      // "Move"
-      move: "ရွှေ့ပါ",
-      // "<empty>"
-      empty: "<ဗလာ>",
       // "Value is empty"
       emptyValue: "တန်ဖိုးသည်ဗလာဖြစ်သည်",
       // "Manual Entry"
@@ -923,12 +790,6 @@
       fastEntryChoicesMinCountError: "{0} အရာအနည်းဆုံးရိုက်ထည့်ပါ",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "ရွေးချယ်မှုများနှင့်၎င်းတို့၏ ID များကိုအောက်ပါပုံစံဖြင့်ရိုက်ထည့်ပါ:\n\nid|option\n\nရွေးချယ်မှု ID သည်ဖြေဆိုသူများကိုမမြင်နိုင်ပါ၊ စည်းမျဉ်းများတွင်အသုံးပြုနိုင်သည်။",
-      // "Form Entry"
-      formEntry: "ပုံစံရိုက်ထည့်ခြင်း",
-      // "Test the service"
-      testService: "ဝန်ဆောင်မှုကိုစမ်းသပ်ပါ",
-      // "Please select the element"
-      itemSelectorEmpty: "အရာကိုရွေးချယ်ပါ",
       // "Please select the action"
       conditionActionEmpty: "လုပ်ဆောင်ချက်ကိုရွေးချယ်ပါ",
       // "Select a question..."
@@ -937,20 +798,8 @@
       conditionSelectPage: "စာမျက်နှာကိုရွေးပါ...",
       // "Select a panel..."
       conditionSelectPanel: "ပန်းနယ်ကိုရွေးပါ...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "တန်ဖိုးကိုရိုက်ထည့်/ရွေးချယ်ပါ",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "ဖော်ပြချက်အတွက်အကြံပြုချက်ရရန် ctrl+space နှိပ်ပါ",
-      // "Current row"
-      aceEditorRowTitle: "လက်ရှိအတန်း",
-      // "Current panel"
-      aceEditorPanelTitle: "လက်ရှိပန်းနယ်",
-      // "For more details please check the documentation"
-      showMore: "အသေးစိတ်အချက်အလက်များအတွက်စာရွက်ကိုကြည့်ပါ",
-      // "Available questions"
-      assistantTitle: "ရရှိနိုင်သောမေးခွန်းများ",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "အနည်းဆုံးကော်လံတစ်ခု သို့မဟုတ်အတန်းတစ်ခုရှိရမည်",
       // "Review before submit"
       showPreviewBeforeComplete: "ဖြေဆိုမှုမပေးမီကြည့်ရှုပါ",
       // "Enabled by a condition"
@@ -999,20 +848,12 @@
       "addNew@navigateToUrlOnCondition": "URL အသစ်ထည့်ပါ",
       // "Add new page"
       "addNew@pages": "စာမျက်နှာအသစ်ထည့်ပါ",
-      // "Expression is empty"
-      expressionIsEmpty: "ဖော်ပြချက်သည်ဗလာဖြစ်သည်",
       // "Value"
       value: "တန်ဖိုး",
       // "Text"
       text: "စာသား",
-      // "Row ID"
-      rowid: "အတန်း ID",
       // "Image or video file URL"
       imageLink: "ပုံ သို့မဟုတ် ဗီဒီယိုဖိုင် URL",
-      // "Edit column: {0}"
-      columnEdit: "ကော်လံကိုတည်းဖြတ်ပါ: {0}",
-      // "Edit item: {0}"
-      itemEdit: "အရာကိုတည်းဖြတ်ပါ: {0}",
       // "URL"
       url: "URL",
       // "Path to data"
@@ -1029,8 +870,6 @@
       imageLinkName: "ဖိုင် URL များကိုအောက်ပါပိုင်ဆိုင်မှုမှရယူပါ",
       // "Accept empty response"
       allowEmptyResponse: "ဗလာဖြေဆိုမှုကိုလက်ခံပါ",
-      // "Title"
-      titlePlaceholder: "ခေါင်းစဉ်",
       // "Survey Title"
       surveyTitlePlaceholder: "စစ်တမ်းခေါင်းစဉ်",
       // "Page {num}"
@@ -1131,16 +970,8 @@
       defaultValue: "ပုံမှန်ဖြေဆိုမှု",
       // "Default texts"
       cellsDefaultRow: "ပုံမှန်စာသားများ",
-      // "Edit survey settings"
-      surveyEditorTitle: "စစ်တမ်းဆက်တင်များကိုတည်းဖြတ်ပါ",
-      // "Edit: {0}"
-      qEditorTitle: "တည်းဖြတ်ပါ: {0}",
       // "Maximum character limit"
       maxLength: "အက္ခရာအများဆုံးကန့်သတ်ချက်",
-      // "Build"
-      buildExpression: "ဖန်တီးပါ",
-      // "Edit"
-      editExpression: "တည်းဖြတ်ပါ",
       // "and"
       and: "နှင့်",
       // "or"
@@ -1167,8 +998,6 @@
       includeIntoResult: "စစ်တမ်းရလဒ်တွင်ထည့်ပါ",
       // "Make the title and description visible"
       showTitle: "ခေါင်းစဉ်နှင့်ဖော်ပြချက်ကိုမြင်သာစေပါ",
-      // "Expand/collapse title"
-      expandCollapseTitle: "ခေါင်းစဉ်ကိုချဲ့/ကျယ်အောင်ပြုလုပ်ပါ",
       // "Select a survey language"
       locale: "စစ်တမ်းဘာသာစကားရွေးပါ",
       // "Select device type"
@@ -1371,8 +1200,6 @@
       acceptedTypes: "လက်ခံနိုင်သောဖိုင်အမျိုးအစားများ",
       // "Wait for upload to complete"
       waitForUpload: "တင်ပို့မှုပြီးစီးရန်စောင့်ပါ",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "ဖိုင်ဖျက်မှုကိုအတည်ပြုပါ",
       // "Row details alignment"
       detailPanelMode: "အတန်းချဲ့မှုတည်နေရာ",
       // "Minimum row count"
@@ -1469,8 +1296,6 @@
       displayRateDescriptionsAsExtremeItems: "တန်းလုံးများကိုအဆုံးဆုံးတန်ဖိုးအဖြစ်ပြပါ",
       // "Row order"
       rowOrder: "အတန်းအစီအစဉ်",
-      // "Column layout"
-      columnsLayout: "ကော်လံအစီအစဉ်",
       // "Nested column count"
       columnColCount: "nested ကော်လံအရေအတွက်",
       // "Correct Answer"
@@ -1501,32 +1326,10 @@
       },
       // "Logo alignment"
       logoPosition: "လိုဂိုတည်နေရာ",
-      // "Add logo..."
-      addLogo: "လိုဂိုထည့်ပါ...",
-      // "Change logo..."
-      changeLogo: "လိုဂိုပြောင်းပါ...",
-      logoPositions: {
-        // "Remove logo"
-        none: "လိုဂိုဖျက်ပါ",
-        // "Left"
-        left: "ဘယ်",
-        // "Right"
-        right: "ညာ",
-        // "On the top"
-        top: "အပေါ်တွင်",
-        // "In the bottom"
-        bottom: "အောက်တွင်"
-      },
       // Creator tabs
       tabs: {
-        panel: {
-          // "Panel Layout"
-          layout: "ပန်းနယ်ပုံစံ"
-        },
         // "General"
         general: "အထွေထွေ",
-        // "Options"
-        fileOptions: "ရွေးချယ်မှုများ",
         // "HTML Editor"
         html: "HTML တည်းဖြတ်ကိရိယာ",
         // "Columns"
@@ -1547,10 +1350,6 @@
         rateValues: "အဆင့်သတ်မှတ်တန်ဖိုးများ",
         // sliderSettings: "Slider Settings",
         choicesByUrl: "ဝဘ်ဝန်ဆောင်မှုမှရွေးချယ်မှုများ",
-        // "Default Choices"
-        matrixChoices: "ပုံမှန်ရွေးချယ်မှုများ",
-        // "Text Inputs"
-        multipleTextItems: "စာအဝင်များ",
         // "Numbering"
         numbering: "နံပါတ်ပေးခြင်း",
         // "Validators"
@@ -1593,8 +1392,6 @@
         showOnCompleted: '"ကျေးဇူးတင်" စာမျက်နှာ',
         // "Logo in the Survey Header"
         logo: "စစ်တမ်းခေါင်းစဉ်တွင်လိုဂို",
-        // "Slider"
-        slider: "ဆလိုက်ဒါ",
         // "Expression"
         expression: "ဖော်ပြချက်",
         // "Question Settings"
@@ -1614,62 +1411,18 @@
         // "Others"
         others: "အခြား"
       },
-      // "Edit property '{0}'"
-      editProperty: "ပိုင်ဆိုင်မှု '{0}' ကိုတည်းဖြတ်ပါ",
       // "Items"
       items: "အရာများ",
       // "Make choices visible if"
       choicesVisibleIf: "ရွေးချယ်မှုများကိုမြင်သာစေပါ",
       // "Make choices selectable if"
       choicesEnableIf: "ရွေးချယ်မှုများကိုရွေးနိုင်စေပါ",
-      // "Make columns visible if"
-      columnsEnableIf: "ကော်လံများကိုမြင်သာစေပါ",
-      // "Make rows visible if"
-      rowsEnableIf: "အတန်းများကိုမြင်သာစေပါ",
       // "Increase the inner indent"
       innerIndent: "အတွင်းအကွာအဝေးတိုးရန်",
       // "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "နောက်ဆုံးအတန်းမှဖြေဆိုမှုများကိုပုံမှန်အဖြေနှုန်းထားပါ",
-      // "Please enter a value."
-      enterNewValue: "တန်ဖိုးအသစ်ရိုက်ထည့်ပါ။",
-      // "There are no questions in the survey."
-      noquestions: "စစ်တမ်းတွင်မေးခွန်းမရှိပါ။",
-      // "Please create a trigger"
-      createtrigger: "လှုံ့ဆော်မှုတစ်ခုဖန်တီးပါ",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "တည်းဖြတ်ရန် enter ခလုတ်ကိုနှိပ်ပါ",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "အရာတစ်ခုကိုတည်းဖြတ်ရန် enter ကိုနှိပ်ပါ၊ ဖျက်ရန် delete ကိုနှိပ်ပါ၊ အထက်သို့/အောက်သို့ရွှေ့ရန် alt+arrow ကိုနှိပ်ပါ",
-      // "On "
-      triggerOn: "On",
-      // "Make pages visible"
-      triggerMakePagesVisible: "စာမျက်နှာများကိုမြင်သာစေပါ",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "အရာများကိုမြင်သာစေပါ",
-      // "Complete the survey if successful."
-      triggerCompleteText: "စစ်တမ်းကိုအောင်မြင်ပါကပြီးစီးပါ။",
-      // "The trigger is not set"
-      triggerNotSet: "လှုံ့ဆော်မှုကိုသတ်မှတ်မထားပါ",
-      // "Run if"
-      triggerRunIf: "အကယ်၍",
-      // "Change value of: "
-      triggerSetToName: "တန်ဖိုးပြောင်းရန်: ",
-      // "Copy value from: "
-      triggerFromName: "တန်ဖိုးကိုကူးယူရန်: ",
-      // "Run this Expression"
-      triggerRunExpression: "ဤဖော်ပြချက်ကို run ပြုလုပ်ပါ",
-      // "to: "
-      triggerSetValue: "သို့: ",
-      // "Go to the question"
-      triggerGotoName: "မေးခွန်းသို့သွားပါ",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "variable ကိုစစ်တမ်းရလဒ်တွင်မထည့်ပါနှင့်။",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "တရားဝင်သောဖော်ပြချက်ကိုရိုက်ထည့်ပါ",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "ဖော်ပြချက်ကိုဒီမှာရိုက်ထည့်ပါ...",
-      // "No file chosen"
-      noFile: "ရွေးချယ်ထားသောဖိုင်မရှိပါ",
       // "Clear hidden question values"
       clearIfInvisible: "မြင်သာမဖြစ်သောမေးခွန်းတန်ဖိုးများကိုရှင်းလင်းပါ",
       // "Store values in the following property"
@@ -1747,26 +1500,10 @@
         // "Description font"
         questionDescription: "မေးခွန်းဖော်ပြချက် font",
         // "Font"
-        editorFont: "Font",
+        inputContent: "Font",
         // "Opacity"
-        backgroundOpacity: "Transparency",
+        backgroundOpacity: "Transparency"
         // Auto-generated string
-        // "Survey font family"
-        "--sjs-font-family": "စစ်တမ်း font မျိုးစုံ",
-        // "Background color"
-        "--sjs-general-backcolor-dim": "နောက်ခံအရောင်",
-        // "Accent background colors"
-        "--sjs-primary-backcolor": "အထင်ကြီးသောနောက်ခံအရောင်များ",
-        // "Accent foreground colors"
-        "--sjs-primary-forecolor": "အထင်ကြီးသောနောက်ဆုံးအရောင်များ",
-        // "Error message colors"
-        "--sjs-special-red": "အမှားစာတန်းအရောင်များ",
-        // "Shadow effects"
-        "--sjs-shadow-small": "အရိပ်သက်ရောက်မှုများ",
-        // "Shadow effects"
-        "--sjs-shadow-inner": "အရိပ်သက်ရောက်မှုများ",
-        // "Colors"
-        "--sjs-border-default": "အရောင်များ"
       },
       "header@header": {
         // "View"
@@ -1815,10 +1552,6 @@
       "file-camera": "ဒေသဖိုင် သို့မဟုတ် ကင်မရာ",
       // "Inherit"
       inherit: "အမွေဆက်ခံပါ",
-      // "Visible"
-      show: "မြင်သာသော",
-      // "Hidden"
-      hide: "ဖျောက်ထားသော",
       // "Inherit"
       default: "အမွေခံပါ",
       // "Initial"
@@ -1835,8 +1568,6 @@
       asc: "အဆင့်စဉ်သည့်",
       // "Descending"
       desc: "အဆင့်လျော့သည့်",
-      // "Indeterminate"
-      indeterminate: "မသတ်မှတ်ရသေးသော",
       // "Selected"
       selected: "ရွေးချယ်ထားသော",
       // "Unselected"
@@ -1857,12 +1588,6 @@
       carousel: "ကာရုဆဲလ်",
       // "Tabs"
       tab: "Tabs",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "ပန်းနယ်နာဗီဂေတာ + တိုးတက်မှုဘားအပေါ်တွင်",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "ပန်းနယ်နာဗီဂေတာ + တိုးတက်မှုဘားအောက်တွင်",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "ပန်းနယ်နာဗီဂေတာ + တိုးတက်မှုဘားအပေါ်နှင့်အောက်တွင်",
       // "Horizontal"
       horizontal: "အလျားလိုက်",
       // "Vertical"
@@ -1873,8 +1598,6 @@
       bottom: "အောက်",
       // "Top and bottom"
       topBottom: "အပေါ်နှင့်အောက်",
-      // "Both"
-      both: "နှစ်ခုလုံး",
       // "Left"
       left: "ဘယ်",
       // "Right"
@@ -1915,10 +1638,6 @@
       week: "အပတ်",
       // "Hidden"
       hidden: "ဖျောက်ထားသည်",
-      // "Editable"
-      edit: "တည်းဖြတ်နိုင်သော",
-      // "Read-only"
-      display: "ဖတ်ရုံသာ",
       // "Contain"
       contain: "ပါဝင်ပါ",
       // "Cover"
@@ -2111,8 +1830,6 @@
       onNextPage: "နောက်စာမျက်နှာသို့ပြောင်းသောအခါ",
       // "After an answer is changed"
       onValueChanged: "ဖြေဆိုမှုပြောင်းလဲပြီးနောက်",
-      // "Before an answer is changed"
-      onValueChanging: "ဖြေဆိုမှုပြောင်းမီ",
       questionsOnPageMode: {
         // "Original structure"
         standard: "မူလပုံစံ",
@@ -2121,12 +1838,6 @@
         // "Show single question per page"
         questionPerPage: "စာမျက်နှာတစ်ခုလျှင်မေးခွန်းတစ်ခုပြပါ"
       },
-      // "No preview"
-      noPreview: "ကြိုတင်ကြည့်ရှုမှုမရှိပါ",
-      // "Show all questions"
-      showAllQuestions: "မေးခွန်းအားလုံးကိုပြပါ",
-      // "Show answered questions only"
-      showAnsweredQuestions: "ဖြေဆိုထားသောမေးခွန်းများကိုသာပြပါ",
       // answeredQuestions: "Show answered questions only",
       pages: "ပြီးစီးသောစာမျက်နှာများ",
       // "Answered questions"
@@ -2225,10 +1936,6 @@
         onPage: "စာမျက်နှာတစ်ခုစီ reset လုပ်ပါ",
         // "Reset on each panel"
         onpanel: "ပန်းနယ်တစ်ခုစီ reset လုပ်ပါ",
-        // "Reset on each panel"
-        onPanel: "ပန်းနယ်တစ်ခုစီ reset လုပ်ပါ",
-        // recursive: "Recursive numbering",
-        onSurvey: "စစ်တမ်းတစ်ခုလုံးဆက်လက်လုပ်ဆောင်ပါ",
         // "No numbering"
         off: "နံပါတ်မပေးပါ"
       },
@@ -2375,49 +2082,6 @@
       and: "နှင့်",
       // "or"
       or: "သို့မဟုတ်"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Angular ဗားရှင်းကိုအသုံးပြုပါ",
-      // "Use jQuery version"
-      jquery: "jQuery ဗားရှင်းကိုအသုံးပြုပါ",
-      // "Use Knockout version"
-      knockout: "Knockout ဗားရှင်းကိုအသုံးပြုပါ",
-      // "Use React version"
-      react: "React ဗားရှင်းကိုအသုံးပြုပါ",
-      // "Use Vue version"
-      vue: "Vue ဗားရှင်းကိုအသုံးပြုပါ",
-      // "For bootstrap framework"
-      bootstrap: "Bootstrap ဖရိမ်းဝေါ့ကိုအတွက်",
-      // "Modern theme"
-      modern: "ခေတ်မီအထူးအင်္ဂါရပ်",
-      // "Default theme"
-      default: "ပုံမှန်အထူးအင်္ဂါရပ်",
-      // "Orange theme"
-      orange: "လိမ္မော်ရောင်အထူးအင်္ဂါရပ်",
-      // "Darkblue theme"
-      darkblue: "Darkblue အထူးအင်္ဂါရပ်",
-      // "Darkrose theme"
-      darkrose: "Darkrose အထူးအင်္ဂါရပ်",
-      // "Stone theme"
-      stone: "Stone အထူးအင်္ဂါရပ်",
-      // "Winter theme"
-      winter: "Winter အထူးအင်္ဂါရပ်",
-      // "Winter-Stone theme"
-      winterstone: "Winter-Stone အထူးအင်္ဂါရပ်",
-      // "Show survey on a page"
-      showOnPage: "စစ်တမ်းကိုစာမျက်နှာပေါ်တွင်ပြပါ",
-      // "Show survey in a window"
-      showInWindow: "စစ်တမ်းကိုဝင်းဒိုးတွင်ပြပါ",
-      // "Load Survey JSON from server"
-      loadFromServer: "Server မှစစ်တမ်း JSON ကိုသွင်းပါ",
-      // "Scripts and styles"
-      titleScript: "Script များနှင့်ပုံစံများ",
-      // "HTML"
-      titleHtml: "HTML",
-      // "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2626,10 +2290,6 @@
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: "Media selector အတွက် Content mode ကိုရွေးချယ်ပါ။"
       },
-      text: {
-        // "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: "Input field ၏ အရွယ်အစားကိုသာ ချိန်ညှိသည်"
-      },
       comment: {
         // "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
         rows: "Input field အတွင်း ဖော်ပြထားသည့် Line အရေအတွက်ကို သတ်မှတ်ပါ"
@@ -2801,8 +2461,6 @@
       valueFalse: "တုံ့ပြန်သူများ Negative ဖြေဆိုမှုအတွက် Results တွင် သိမ်းဆည်းရန်တန်ဖိုးကို ထည့်သွင်းပါ။",
       // "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Preview Image ကို Override လုပ်ပြီး Files မတင်ရသေးမူကို ခွဲခြားရန်မလွယ်ကူစေပါ။",
-      // "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "ဖိုင်ဖျက်ပစ်မှုကို အတည်ပြုရန် Prompt ကို ဖော်ပြပါ။",
       // "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "ရွေးချယ်ထားသောရွေးချယ်မှုများကိုသာ Rank ပြုလုပ်ရန် Enable လုပ်ပါ။",
       // "Enter a list of choices that will be suggested to the respondent during input."
@@ -3166,16 +2824,12 @@
       primaryDarkColor: "Hover",
       // "Selected"
       primaryLightColor: "ရွေးချယ်ထားသော",
-      // "Background color"
-      backgroundDimColor: "နောက်ခံအရောင်",
       // "Corner radius"
       cornerRadius: "ထောင့်အချိုး",
       // "Default background"
       backcolor: "ပုံမှန်နောက်ခံ",
       // "Hover background"
       hovercolor: "Hover နောက်ခံ",
-      // "Border decoration"
-      borderDecoration: "စက်ဝိုင်းအလှဆင်မှု",
       // "Font color"
       fontColor: "ဖောင့်အရောင်",
       // "Background color"
@@ -3184,8 +2838,6 @@
       primaryForecolor: "ပုံမှန်အရောင်",
       // "Disabled color"
       primaryForecolorLight: "ပိတ်ထားသောအရောင်",
-      // "Font"
-      font: "ဖောင့်",
       // "Darker"
       borderDefault: "မှောင်သော",
       // "Lighter"
@@ -3225,24 +2877,16 @@
       names: {
         // "Default"
         default: "ပုံမှန်",
-        // "Sharp"
-        sharp: "ထက်သော",
+        // "Contrast"
+        contrast: "Contrast",
         // "Borderless"
         borderless: "Borderless",
         // "Flat"
         flat: "Flat",
         // "Plain"
         plain: "ရိုးရိုး",
-        // "Double Border"
-        doubleborder: "Double Border",
-        // "Layered"
-        layered: "Layered",
-        // "Solid"
-        solid: "Solid",
         // "3D"
-        threedimensional: "3D",
-        // "Contrast"
-        contrast: "Contrast"
+        threedimensional: "3D"
       },
       colors: {
         // "Teal"
@@ -3264,28 +2908,22 @@
       }
     },
     creatortheme: {
-      // "Surface background"
-      "--sjs-special-background": "မျက်နှာပြင်နောက်ခံ",
       // "Primary"
       "--sjs-primary-background-500": "Primary",
       // "Secondary"
       "--sjs-secondary-background-500": "Secondary",
-      // "Surface"
-      surfaceScale: "မျက်နှာပြင်",
       // "UI elements"
       userInterfaceBaseUnit: "UI အချက်အလက်များ",
       // "Font"
       fontScale: "ဖောင့်",
-      names: {
-        // "Survey Creator 2020"
-        sc2020: "Survey Creator 2020",
-        // "Light"
-        "default-light": "အလင်း",
-        // "Dark"
-        "default-dark": "မှောင်",
-        // "Contrast"
-        "default-contrast": "Contrast"
-      }
+      names: {}
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "အရာ 1" }, { value: "item2", text: "အရာ 2" }, { value: "item3", text: "အရာ 3" }],
+      columns: [{ value: "column1", text: "ကော်လံ 1" }, { value: "column2", text: "ကော်လံ 2" }, { value: "column3", text: "ကော်လံ 3" }],
+      rows: [{ value: "row1", text: "တန်း 1" }, { value: "row2", text: "တန်း 2" }],
+      matrixColumns: [{ name: "column1", title: "ကော်လံ 1" }, { name: "column2", title: "ကော်လံ 2" }, { name: "column3", title: "ကော်လံ 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "mm", strings: mmStrings });

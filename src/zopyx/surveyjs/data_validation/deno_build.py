@@ -91,7 +91,7 @@ def _build_target(args: tuple[str, str, bool]) -> str:
         shutil.copy2(JS_ENTRYPOINT, temp_js)
         import_map_path = os.path.join(temp_dir, "import_map.json")
         with open(import_map_path, "w", encoding="utf-8") as handle:
-            handle.write('{"imports":{"survey-core":"npm:survey-core"}}')
+            handle.write('{"imports":{"survey-core":"npm:survey-core@^3.0.0"}}')
         temp_output = os.path.join(temp_dir, target_name)
         env = os.environ.copy()
         env["DENO_DIR"] = os.path.join(temp_dir, "deno-dir")

@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var persianStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "ویرایش",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "نگاه کنید و ساختن نظرسنجی را آموزش ببینید",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "لطفا از جعبه ابزار سوالی در اینجا قرار دهید",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "برای شخصی سازی نظرسنجی خود، قانونی را ایجاد کنید",
-      // "Copy"
-      copy: "کپی",
       // "Duplicate"
-      duplicate: "کپی کردن",
-      // "Add to toolbox"
-      addToToolbox: "افزودن به جعبه ابزار",
-      // "Delete Panel"
-      deletePanel: "حذف پنل",
-      // "Delete Question"
-      deleteQuestion: "حذف سوال",
-      // "Convert to"
-      convertTo: "تبدیل به",
-      // "Drag element"
-      drag: "المان را بکشید"
+      duplicate: "کپی کردن"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "پیش فرض ({0})",
-      // "Survey"
-      survey: "نظرسنجی",
       // "Settings"
       settings: "تنظیمات نظرسنجی",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "نظرسنجی",
       // "Page"
       pageTypeName: "صفحه",
-      // "Panel"
-      panelTypeName: "پنل",
-      // "Question"
-      questionTypeName: "سوال",
-      // "Column"
-      columnTypeName: "ستون",
-      // "Add New Page"
-      addNewPage: "درج صفحه جدید",
-      // "Scroll to the Right"
-      moveRight: "اسکرول به راست",
-      // "Scroll to the Left"
-      moveLeft: "اسکرول به چپ",
-      // "Delete Page"
-      deletePage: "حذف صفحه",
-      // "Edit Page"
-      editPage: "ویرایش صفحه",
-      // "Edit"
-      edit: "ویرایش",
       // "page"
       newPageName: "صفحه",
       // "question"
       newQuestionName: "سوال",
       // "panel"
       newPanelName: "پنل",
-      // "text"
-      newTextItemName: "متن",
-      // "Default"
-      defaultV2Theme: "پیش فرض",
-      // "Modern"
-      modernTheme: "مدرن",
-      // "Default (legacy)"
-      defaultTheme: "پیش فرض (legacy)",
       // "Preview Survey Again"
       testSurveyAgain: "آزمایش دوباره نظرسنجی",
-      // "Survey width: "
-      testSurveyWidth: "عرض نظرسنجی: ",
       // "You had to navigate to"
       navigateToMsg: "شما باید به موارد زیر بروید:",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "بازگردانی",
       // "Redo"
       redo: "بازانجام",
-      // "Undo last change"
-      undoTooltip: "بازگرداندن آخرین تغییر",
-      // "Redo the change"
-      redoTooltip: "انجام دادن تغییر",
       // [Auto-translated] "Expand"
       expandTooltip: "باز کردن",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "نمایش بیشتر",
       // "Show less"
       showLessChoices: "نمایش کمتر",
-      // "Copy"
-      copy: "کپی",
-      // "Cut"
-      cut: "برداشتن",
-      // "Paste"
-      paste: "چسباندن",
-      // "Copy selection to clipboard"
-      copyTooltip: "کپی متن انتخاب شده در کلیپ بورد",
-      // "Cut selection to clipboard"
-      cutTooltip: "متن انتخابی را از کلیپ بورد برش دهید",
-      // "Paste from clipboard"
-      pasteTooltip: "الصاق از کلیپ بورد",
-      // "Options"
-      options: "انتخاب ها",
-      // "Generate Valid JSON"
-      generateValidJSON: "تولید کد معتبر JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: "عملکرد ناشناخته: «{0}».",
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "خطای نحوی.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "خطای معنایی.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "تولید کد خوانا JSON",
       // "Toolbox"
       toolbox: "جعبه ابزار",
-      // "Properties"
-      "property-grid": "ویژگی ها",
       // [Auto-translated] "Search"
       toolboxSearch: "جستجو",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "شروع به پیکربندی فرم خود کنید",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "برای کاوش در تنظیمات نظرسنجی، روی هر نماد دسته کلیک کنید. پس از افزودن یک عنصر نظرسنجی به سطح طراحی، تنظیمات اضافی در دسترس خواهند بود.",
-      // "Please correct JSON."
-      correctJSON: "لطفا JSON را تصحیح کنید.",
       // "Survey Results "
       surveyResults: "نتایج نظرسنجی: ",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "در حال ذخیره",
       // "Saved"
       saved: "ذخیره شد",
-      // "Error"
-      propertyEditorError: "ارور:",
       // "Error! Editor content is not saved."
       saveError: "خطا! محتوای ویرایشگر ذخیره نشده است.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "ایا واقعا می خواهید موضوع را دوباره تنظیم کنید؟ تمام سفارشی سازی های شما از دست خواهد رفت.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "بله، موضوع را تنظیم مجدد کنید",
-      // "Bold"
-      bold: "پررنگ",
-      // "Italic"
-      italic: "مورب",
-      // "Underline"
-      underline: "پایین خط",
       // "Add Question"
       addNewQuestion: "اضافه کردن سوال",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "اگر عبارت منطقی مقدار صحیح برگرداند، آنگاه عبارت سفارشی اجرا می شود. شما ممکن است به طور اختیاری این نتیجه را به سوال انتخاب شده تبدیل کنید.",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: " اگر عبارت منطقی مقدار صحیح برگرداند متن صفحه 'تشکر' به متن داده شده تغییر می یابد.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "زمانی که عبارت {0} مقدار صحیح بر می گرداند",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "قانون جدید",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "عبارتی که نتیجه آن به سوال هدف اختصاص داده می شود.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "یک مقدار وارد کنید...",
         // "survey becomes completed"
         trigger_completeText: "بررسی نظرسنجی تمام شد",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "شرط(ها)",
         // "Action(s)"
         actions: "عملکرد(ها)",
-        // "Define condition(s)"
-        expressionEditorTitle: "عبارت منطقی را تنظیم کنید",
         // "Define action(s)"
         actionsEditorTitle: "تعریف کردن عملکرد(ها)",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "یک عملکرد را برای اضافه کردن، انتخاب کنید",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "عبارت منطقی خالی یا نادرست است. لطفا آن را تضحیح کنید",
-        // "Please add at least one action."
-        noActionError: "لطفا حداقل یک عملکرد را اضافه نمایید",
         // "Please fix issues in your action(s)."
         actionInvalid: "لطفا مشکلات مربوط به عملکرد(های) خود را برطرف نمایید.",
         // [Auto-translated] "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "مقدار نمایش پیش فرض برای متون پویا",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "تراز برچسب",
-      // [Auto-translated] "Input field width (in characters)"
-      size: "عرض فیلد ورودی (به نویسه)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "همراستاسازی پیام خطای سلولی",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "غیر فعال",
       // [Auto-translated] "Inherit"
       inherit: "به ارث ببرید",
-      // "Apply"
-      apply: "اعمال",
-      // "OK"
-      ok: "تایید",
-      // "Save"
-      save: "ذخیره",
       // [Auto-translated] "Clear"
       clear: "روشن",
-      // "Save"
-      saveTooltip: "ذخیره",
-      // "Cancel"
-      cancel: "لغو",
       // [Auto-translated] "Set"
       set: "مجموعه",
-      // "Reset"
-      reset: "بازنشانی",
       // [Auto-translated] "Change"
       change: "تغییر",
-      // "Refresh"
-      refresh: "تازه سازی",
       // "Close"
       close: "بستن",
       // "Delete"
       delete: "حذف",
-      // "Add"
-      add: "اضافه کردن",
       // "Add New"
       addNew: "افزودن",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "فشار دهید تا مورد حذف شود...",
       // [Auto-translated] "Drag the item"
       dragItem: "مورد را بکشید",
-      // "Other"
-      addOther: "سایر",
-      // "Select All"
-      addSelectAll: "انتخاب همه",
-      // "None"
-      addNone: "هیچکدام",
-      // "Remove All"
-      removeAll: "حذف همه",
       // "Edit"
       edit: "ویرایش",
-      // "Return without saving"
-      back: "بازگشت بدون ذخیره",
-      // "Return without saving"
-      backTooltip: "بازگشت بدون ذخیره",
-      // "Save and return"
-      saveAndBack: "ذخیره و بازگشت",
-      // "Save and return"
-      saveAndBackTooltip: "ذخیره و بازگشت",
       // [Auto-translated] "Done"
       doneEditing: "انجام",
-      // "Edit Choices"
-      editChoices: "ویرایش انتخاب ها",
-      // "Show Choices"
-      showChoices: "نمایش انتخاب ها",
-      // "Move"
-      move: "جابجایی",
-      // "<empty>"
-      empty: "<خالی>",
       // "Value is empty"
       emptyValue: "مقدار خالی است",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "لطفا حداقل {0} مورد را وارد کنید",
       // [Auto-translated] "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "لیست گزینه های انتخابی و شناسه آنها را در قالب زیر وارد کنید:\n\nid|گزینه\n\nشناسه گزینه انتخاب برای پاسخ دهندگان قابل مشاهده نیست و می تواند در قوانین شرطی استفاده شود.",
-      // "Form Entry"
-      formEntry: "تکمیل فرم",
-      // "Test the service"
-      testService: "بررسی سرویس",
-      // "Please select the element"
-      itemSelectorEmpty: "لطفا یک المان را انتخاب کنید ",
       // "Please select the action"
       conditionActionEmpty: "لطفا عملکرد را انتخاب کنید",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "انتخاب صفحه...",
       // "Select a panel..."
       conditionSelectPanel: "انتخاب پنل...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "لطفا مقدار را انتخاب / وارد کنید",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "برای مشاهده نکات تکمیلی ctrl+space را بفشارید",
-      // "Current row"
-      aceEditorRowTitle: "سطر فعلی",
-      // "Current panel"
-      aceEditorPanelTitle: "پنل فعلی",
-      // "For more details please check the documentation"
-      showMore: "برای اطلاعات بیشتر لطفا سند راهنما را مطالعه کنید",
-      // "Available questions"
-      assistantTitle: "سوالات موجود:",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "حداقل باید یک سطر یا ستون وجود داشته باشد.",
       // [Auto-translated] "Review before submit"
       showPreviewBeforeComplete: "قبل از ارسال مرور کنید",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "افزودن نشانی وب جدید",
       // [Auto-translated] "Add new page"
       "addNew@pages": "افزودن صفحه جدید",
-      // "Expression is empty"
-      expressionIsEmpty: "عبارت خالی است",
       // "Value"
       value: "مقدار",
       // "Text"
       text: "متن",
-      // "Row ID"
-      rowid: "شناسه ی سطر",
       // "Image or video file URL"
       imageLink: "لینک تصویر",
-      // "Edit column: {0}"
-      columnEdit: "ویرایش ستون: {0}",
-      // "Edit item: {0}"
-      itemEdit: "ویرایش آیتم: {0}",
       // "URL"
       url: "آدرس وب سایت(url)",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "URL های فایل را از ویژگی زیر دریافت کنید",
       // [Auto-translated] "Accept empty response"
       allowEmptyResponse: "پاسخ خالی را بپذیرید",
-      // "Title"
-      titlePlaceholder: "عنوان را اینجا وارد کنید",
       // "Survey Title"
       surveyTitlePlaceholder: "عنوان نظرسنجی را اینجا وارد کنید",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "مقدار پیش فرض",
       // "Default texts"
       cellsDefaultRow: "متن پیش فرض سلول ها",
-      // "Edit survey settings"
-      surveyEditorTitle: "ویرایش نظرسنجی",
-      // "Edit: {0}"
-      qEditorTitle: "ویرایش سوال: {0}",
       // "Maximum character limit"
       maxLength: "ماکزیمم طول",
-      // "Build"
-      buildExpression: "ساختن",
-      // "Edit"
-      editExpression: "ویرایش",
       // [Auto-translated] "and"
       and: "و",
       // [Auto-translated] "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "به نتایج نظرسنجی اضافه کنید",
       // "Make the title and description visible"
       showTitle: "نمایش/پنهان کردن عنوان",
-      // "Expand/collapse title"
-      expandCollapseTitle: "نمایش/پنهان کردن عنوان",
       // "Select a survey language"
       locale: "زبان پیش فرض",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "پسوندهای فایل اضافی",
       // [Auto-translated] "Wait for upload to complete"
       waitForUpload: "منتظر بمانید تا آپلود کامل شود",
-      // [Auto-translated] "Confirm file deletion"
-      needConfirmRemoveFile: "تایید حذف پرونده",
       // [Auto-translated] "Row details alignment"
       detailPanelMode: "تراز جزئیات ردیف",
       // [Auto-translated] "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "ارتفاع تصویر",
         // [Auto-translated] "Image width"
-        imageWidth: "عرض تصویر"
+        imageWidth: "عرض تصویر",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "حذف فایل را تأیید کنید"
       },
       // [Auto-translated] "Hide the question if it has no choices"
       hideIfChoicesEmpty: "اگر گزینه ای ندارد سوال را پنهان کنید",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "از مقادیر ستون ماتریس یا سوال پانل زیر به عنوان متن انتخابی استفاده کنید",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "نمایش عناوین صفحه در نوار پیشرفت",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "نمایش متن ناوبری در نوار پیشرفت",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "تراز متن ناوبری",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "نمایش شماره صفحات در نوار پیشرفت",
       // [Auto-translated] "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "نمایش برچسب ها به عنوان مقادیر شدید",
       // [Auto-translated] "Row order"
       rowOrder: "سفارش ردیف",
-      // [Auto-translated] "Column layout"
-      columnsLayout: "طرحبندی ستون",
       // [Auto-translated] "Nested column count"
       columnColCount: "تعداد ستون های تو در تو",
       // [Auto-translated] "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "محل قرارگیری لوگو",
-      // "Add logo..."
-      addLogo: "اضافه کردن لوگو...",
-      // "Change logo..."
-      changeLogo: "تغییر لوگو...",
-      logoPositions: {
-        // "Remove logo"
-        none: "حذف لوگو",
-        // "Left"
-        left: "چپ",
-        // "Right"
-        right: "راست",
-        // "On the top"
-        top: "بخش بالا",
-        // "In the bottom"
-        bottom: "بخش پایین"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "حالت پیش نمایش",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "جزئیات ردیف تراز پیام خطا",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "چیدمان پنل"
-        },
         // "General"
         general: "عمومی",
-        // "Options"
-        fileOptions: "انتخاب ها",
         // "HTML Editor"
         html: "ویرایشگر HTML",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "تنظیمات نوار لغزنده",
         // "Choices from a Web Service"
         choicesByUrl: "انتخاب ها از وب",
-        // "Default Choices"
-        matrixChoices: "انتخاب های پیشفرض",
-        // "Text Inputs"
-        multipleTextItems: "فیلدهای متنی",
         // "Numbering"
         numbering: "شماره گذاری",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "نمایش بدهید تکمیل شده",
         // "Logo in the Survey Header"
         logo: "لوگو در عنوان نظرسنجی",
-        // "Slider"
-        slider: "اسلایدر",
         // [Auto-translated] "Expression"
         expression: "بیان",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "باقی موارد"
       },
-      // "Edit property '{0}'"
-      editProperty: "ویرایش خصوصیت '{0}'",
       // "Items"
       items: "[ آیتم ها: {0} ]",
       // [Auto-translated] "Make choices visible if"
       choicesVisibleIf: "انتخاب ها را قابل مشاهده کنید اگر",
       // [Auto-translated] "Make choices selectable if"
       choicesEnableIf: "انتخاب ها را قابل انتخاب کنید اگر",
-      // [Auto-translated] "Make columns visible if"
-      columnsEnableIf: "ستون ها را قابل مشاهده کنید اگر",
-      // [Auto-translated] "Make rows visible if"
-      rowsEnableIf: "ردیف ها را قابل مشاهده کنید اگر",
       // [Auto-translated] "Increase the inner indent"
       innerIndent: "تورفتگی داخلی را افزایش دهید",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "از پاسخ های آخرین ورودی به عنوان پیش فرض استفاده کنید",
-      // "Please enter a value."
-      enterNewValue: "لطفا یک مقدار وارد کنید",
-      // "There are no questions in the survey."
-      noquestions: "سوالی در پرسشنامه درج نشده",
-      // "Please create a trigger"
-      createtrigger: "اجرا کننده ای بسازید",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "برای ویرایش دکمه ی enter را فشار دهید.",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "برای ویرایش دکمه ی enter را فشار دهید, برای حذف دکمه ی delete را فشار دهید, برای حرکت دادن یک آیتم، دکمه ی  alt + arrow down /  alt + arrow up فشار دهید",
-      // "On "
-      triggerOn: "در ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "صفحات را قابل نمایش کن:",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "سوالات را قابل نمایش کن:",
-      // "Complete the survey if successful."
-      triggerCompleteText: "پرسشنامه را تکمیل کن اگر موفق بود.",
-      // "The trigger is not set"
-      triggerNotSet: "اجرا کننده تنظیم نشده.",
-      // "Run if"
-      triggerRunIf: "اجرا در صورت",
-      // "Change value of: "
-      triggerSetToName: "تعییر مقدار از: ",
-      // "Copy value from: "
-      triggerFromName: "کپی مقدار از: ",
-      // "Run this Expression"
-      triggerRunExpression: "اجرای این عبارت",
-      // "to: "
-      triggerSetValue: "به: ",
-      // "Go to the question"
-      triggerGotoName: "به سوال بروید:",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "عدم درج متغییر در نتایج پرسشنامه",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "لطفا عبارت معتبری وارد نمایید",
       // [Auto-translated] "Type expression here..."
       emptyExpressionPlaceHolder: "عبارت را در اینجا تایپ کنید...",
-      // "No file chosen"
-      noFile: "هیچ فایلی انتخاب نشده است",
       // [Auto-translated] "Clear hidden question values"
       clearIfInvisible: "مقادیر سوال پنهان را پاک کنید",
       // [Auto-translated] "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "توضیحات فونت",
         // [Auto-translated] "Font"
-        editorFont: "فونت",
+        inputContent: "فونت",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "کدورت",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "خانواده فونت نظرسنجی",
+        "--sjs2-typography-font-family-text": "خانواده فونت نقشه برداری",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "رنگ پسزمینه",
+        "--sjs2-color-utility-surface-survey": "رنگ پس زمینه",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "رنگ های پس زمینه برجسته",
+        "--sjs2-color-project-brand-600": "رنگ های پس زمینه تأکیدی",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "رنگ های پیش زمینه لهجه",
+        "--sjs2-color-fg-brand-on-primary": "رنگ های پیش زمینه تأکیدی",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "رنگ های پیام خطا",
+        "--sjs2-color-bg-alert-primary": "رنگ های پیام خطا",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "جلوه های سایه",
+        "--sjs2-border-effect-surface-default": "افکت های سایه",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "جلوه های سایه",
+        "--sjs2-border-effect-component-formbox-default": "افکت های سایه",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "رنگ"
+        "--sjs2-color-component-input-default-line": "رنگ ها"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "فایل محلی یا دوربین",
       // "Inherit"
       inherit: "ارث بری",
-      // "Visible"
-      show: "آشکار",
-      // "Hidden"
-      hide: "پنهان",
       // "Inherit"
       default: "پیش فرض",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "صعودی",
       // "Descending"
       desc: "نزولی",
-      // "Indeterminate"
-      indeterminate: "نامشخص",
       // [Auto-translated] "Selected"
       selected: "انتخاب",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "چرخ فلک",
       // [Auto-translated] "Tabs"
       tab: "زبانه",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "نوار پیشرفت  بالا",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "نوار پیشرفت پایین",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "نوار پیشرفت در بالا و پایین",
       // "Horizontal"
       horizontal: "افقی",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "پایین",
       // "Top and bottom"
       topBottom: "بالا و پایین",
-      // "Both"
-      both: "هر دو",
       // "Left"
       left: "چپ",
       // [Auto-translated] "Right"
@@ -2125,10 +1870,6 @@
       week: "هفته",
       // "Hidden"
       hidden: "مخفی",
-      // "Editable"
-      edit: "ویرایش",
-      // "Read-only"
-      display: "نمایش",
       // [Auto-translated] "Contain"
       contain: "حاوی",
       // [Auto-translated] "Cover"
@@ -2153,7 +1894,7 @@
         // [Auto-translated] "Never"
         none: "هرگز"
       },
-      // [Auto-translated] "Radio Buttons"
+      // [Auto-translated] "Radio buttons"
       radio: "دکمه های رادیویی",
       inputType: {
         // [Auto-translated] "Color"
@@ -2357,8 +2098,6 @@
       onNextPage: "به محض صفحه بعدی",
       // "After an answer is changed"
       onValueChanged: "به محض تغییر مقدار",
-      // [Auto-translated] "Before an answer is changed"
-      onValueChanging: "قبل از اینکه پاسخ تغییر کند",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "ساختار اصلی",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "نمایش یک فیلد ورودی در هر صفحه"
       },
-      // "No preview"
-      noPreview: "پیش نمایش ندارد",
-      // "Show all questions"
-      showAllQuestions: "فعال سازی پیش نمایش با تمام سوالات",
-      // "Show answered questions only"
-      showAnsweredQuestions: "فعال سازی پیش نمایش به سوالات پاسخ داده شده",
       // [Auto-translated] "Show all questions"
       allQuestions: "نمایش همه سوالات",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // [Auto-translated] "Buttons"
         buttons: "دکمه",
         // [Auto-translated] "Dropdown"
-        dropdown: "کشویی"
+        dropdown: "کشویی",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "تغییر وضعیت بخش بندی شده",
+        // [Auto-translated] "Radio buttons"
+        radio: "دکمه های رادیویی",
+        // [Auto-translated] "Checkbox"
+        checkbox: "چک باکس",
+        // [Auto-translated] "Switch"
+        switch: "تعویض",
+        // [Auto-translated] "Custom"
+        custom: "عرف"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2480,12 +2223,8 @@
         onPage: "بازنشانی در هر صفحه",
         // [Auto-translated] "Reset on each panel"
         onpanel: "تنظیم مجدد در هر پنل",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "بازنشانی در هر پنل",
         // [Auto-translated] "Recursive numbering"
         recursive: "شماره گذاری بازگشتی",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "ادامه در سراسر نظرسنجی",
         // [Auto-translated] "No numbering"
         off: "بدون شماره"
       },
@@ -2648,49 +2387,6 @@
       and: "و",
       // [Auto-translated] "or"
       or: "یا"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "استفاده از نسخه Angular",
-      // "Use jQuery version"
-      jquery: "استفاده از نسخه jQuery",
-      // "Use Knockout version"
-      knockout: "استفاده از نسخه ناک اوت",
-      // "Use React version"
-      react: "استفاده از نسخه React",
-      // "Use Vue version"
-      vue: "استفاده از نسخه Vue",
-      // "For bootstrap framework"
-      bootstrap: "برای فریم ورک بوتسترپ",
-      // "Modern theme"
-      modern: "تم مدرن",
-      // "Default theme"
-      default: "تم پیش فرض",
-      // "Orange theme"
-      orange: "تم نارنجی",
-      // "Darkblue theme"
-      darkblue: "تم آبی تیره",
-      // "Darkrose theme"
-      darkrose: "تم صورتی",
-      // "Stone theme"
-      stone: "تم سنگی",
-      // "Winter theme"
-      winter: "تم زمستانی",
-      // "Winter-Stone theme"
-      winterstone: "تم زمستانی و سنگی",
-      // "Show survey on a page"
-      showOnPage: "نمایش نظرسنجی در یک صفحه",
-      // "Show survey in a window"
-      showInWindow: "نمایش نظرسنجی در یک پنجره",
-      // "Load Survey JSON from server"
-      loadFromServer: "بارگزاری JSON از سرور",
-      // "Scripts and styles"
-      titleScript: "اسکریپت و شیوه نمایش",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // "JavaScript"
-      titleJavaScript: "جاوااسکریپت"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "عرض نمایش تصاویر آپلود شده در پیش نمایش و عرض واقعی تصاویر گرفته شده با دوربین را مشخص می کند. در حالت آپلود تک فایل، عرض نمایشگر توسط ناحیه پیش نمایش محدود می شود. در حالت آپلود چند فایل، توسط ناحیه تصویر کوچک محدود می شود.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "در صورت امکان، پیش نمایش تصاویر کوچک را برای فایل های آپلود شده نمایش می دهد. اگر می خواهید به جای آن نمادهای فایل را نشان دهید، انتخاب را لغو کنید."
+        allowImagesPreview: "در صورت امکان، پیش نمایش تصاویر کوچک را برای فایل های آپلود شده نمایش می دهد. اگر می خواهید به جای آن نمادهای فایل را نشان دهید، انتخاب را لغو کنید.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "یک پیام برای تأیید حذف فایل فعال می شود."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"مقدار" به عنوان شناسه مورد استفاده در قوانین شرطی عمل می کند. "متن" برای پاسخ دهندگان نمایش داده می شود.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'بین "تصویر" و "ویدئو" را انتخاب کنید تا حالت محتوا را انتخاب کنید. اگر "تصویر" انتخاب شده است، اطمینان حاصل کنید که تمام گزینه های ارائه شده فایل های تصویری در فرمت های زیر هستند: JPEG، GIF، PNG، APNG، SVG، BMP، ICO. به طور مشابه، اگر "ویدئو" انتخاب شده است، اطمینان حاصل کنید که تمام گزینه ها لینک مستقیم به فایل های ویدئویی در فرمت های زیر هستند: MP4، MOV، WMV، FLV، AVI، MKV. لطفا توجه داشته باشید که پیوندهای YouTube برای گزینه های ویدیویی پشتیبانی نمی شوند.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: "این تنظیم فقط اندازه فیلد ورودی را تغییر می دهد و بر عرض کادر سوال تأثیر نمی گذارد. برای محدود کردن طول ورودی پذیرفته شده، به «اعتبارسنجی» → «حداکثر محدودیت کاراکتر» بروید."
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "ارزش برای صرفه جویی در نتایج نظرسنجی زمانی که پاسخ دهندگان پاسخ منفی می دهند.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "توصیه نمی شود که این گزینه را غیرفعال کنید زیرا تصویر پیش نمایش را لغو می کند و درک اینکه آیا فایل ها آپلود شده اند یا خیر را برای کاربر دشوار می کند.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "یک اعلان برای تایید حذف پرونده ایجاد می کند.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "فقط گزینه های انتخاب شده را رتبه بندی کنید. کاربران موارد انتخاب شده را از لیست انتخاب می کنند تا انها را در منطقه رتبه بندی سفارش دهند.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "شفافیت عناصر ورودی را نسبت به پیشینه نظرسنجی تنظیم می کند.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "شعاع گوشه را برای همه عناصر مستطیلی تنظیم می کند. اگر می خواهید مقادیر شعاع گوشه جداگانه را برای عناصر ورودی یا پانل ها و جعبه های سؤال تنظیم کنید، حالت پیشرفته را فعال کنید.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "رنگ پس زمینه اصلی نظرسنجی را تنظیم می کند."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "رنگ پس زمینه اصلی نظرسنجی را تنظیم می کند."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "شناور",
       // [Auto-translated] "Selected"
       primaryLightColor: "انتخاب",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "رنگ پسزمینه",
       // "Corner radius"
       cornerRadius: "شعاع گوشه",
       // [Auto-translated] "Default background"
       backcolor: "پسزمینۀ پیشفرض",
       // [Auto-translated] "Hover background"
       hovercolor: "پسزمینه شناور",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "دکوراسیون مرزی",
       // [Auto-translated] "Font color"
       fontColor: "رنگ قلم",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "رنگ پیشفرض",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "رنگ غیرفعال",
-      // [Auto-translated] "Font"
-      font: "فونت",
       // [Auto-translated] "Darker"
       borderDefault: "تیره تر",
       // [Auto-translated] "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "رنگ نگهدارنده",
       // [Auto-translated] "Size"
       size: "اندازه",
+      // [Auto-translated] "Line height"
+      lineHeight: "ارتفاع خط",
       // [Auto-translated] "Opacity"
       opacity: "کدورت",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "پیش فرض",
-        // [Auto-translated] "Sharp"
-        sharp: "تیز",
+        // [Auto-translated] "Contrast"
+        contrast: "کنتراست",
         // [Auto-translated] "Borderless"
         borderless: "مرز",
         // [Auto-translated] "Flat"
         flat: "تخت",
         // [Auto-translated] "Plain"
         plain: "ساده",
-        // [Auto-translated] "Double Border"
-        doubleborder: "دو لبه",
-        // [Auto-translated] "Layered"
-        layered: "لایه",
-        // [Auto-translated] "Solid"
-        solid: "جامد",
+        // [Auto-translated] "Soft"
+        soft: "نرم",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "کنتراست"
+        // [Auto-translated] "Monochrome"
+        monochrome: "سیاه و سفید"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "زمینه سطح",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "اولیه",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "ثانویه",
-      // [Auto-translated] "Surface"
-      surfaceScale: "سطح",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "عناصر رابط کاربری",
       // [Auto-translated] "Font"
       fontScale: "فونت",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "خالق نظرسنجی 2020",
-        // [Auto-translated] "Light"
-        "default-light": "نور",
-        // [Auto-translated] "Dark"
-        "default-dark": "تاریک",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "کنتراست"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "پریست اعمال شده"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "مورد 1" }, { value: "item2", text: "مورد 2" }, { value: "item3", text: "مورد 3" }],
+      columns: [{ value: "column1", text: "ستون 1" }, { value: "column2", text: "ستون 2" }, { value: "column3", text: "ستون 3" }],
+      rows: [{ value: "row1", text: "سطر 1" }, { value: "row2", text: "سطر 2" }],
+      matrixColumns: [{ name: "column1", title: "ستون 1" }, { name: "column2", title: "ستون 2" }, { name: "column3", title: "ستون 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "fa", strings: persianStrings });

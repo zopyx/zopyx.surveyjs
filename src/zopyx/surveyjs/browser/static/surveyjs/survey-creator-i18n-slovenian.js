@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var slStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Uredi",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Glej in se nauči, kako ustvariti ankete.",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Prosim, postavite vprašanje tukaj iz Orodjarne.",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Ustvarite pravilo za prilagoditev toka ankete.",
-      // "Copy"
-      copy: "Kopiraj",
       // "Duplicate"
-      duplicate: "Dvojnik",
-      // "Add to toolbox"
-      addToToolbox: "Dodaj v orodje",
-      // "Delete Panel"
-      deletePanel: "Izbriši ploščo",
-      // "Delete Question"
-      deleteQuestion: "Izbriši vprašanje",
-      // "Convert to"
-      convertTo: "Pretvori v",
-      // "Drag element"
-      drag: "Povlecite element"
+      duplicate: "Dvojnik"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Privzeto ({0})",
-      // "Survey"
-      survey: "Anketa",
       // "Settings"
       settings: "Nastavitve",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Anketa",
       // "Page"
       pageTypeName: "Stran",
-      // [Auto-translated] "Panel"
-      panelTypeName: "Panel",
-      // "Question"
-      questionTypeName: "vprašanje",
-      // "Column"
-      columnTypeName: "Stolpec",
-      // "Add New Page"
-      addNewPage: "Dodaj novo stran",
-      // "Scroll to the Right"
-      moveRight: "Pomaknite se v desno",
-      // "Scroll to the Left"
-      moveLeft: "Pomaknite se v levo",
-      // "Delete Page"
-      deletePage: "Izbriši stran",
-      // "Edit Page"
-      editPage: "Uredi stran",
-      // "Edit"
-      edit: "Uredi",
       // "page"
       newPageName: "stran",
       // "question"
       newQuestionName: "vprašanje",
       // [Auto-translated] "panel"
       newPanelName: "Panel",
-      // "text"
-      newTextItemName: "tekst",
-      // "Default"
-      defaultV2Theme: "Privzeto",
-      // "Modern"
-      modernTheme: "Moderno",
-      // "Default (legacy)"
-      defaultTheme: "Privzeto (podedovano)",
       // "Preview Survey Again"
       testSurveyAgain: "Spet predogled ankete",
-      // "Survey width: "
-      testSurveyWidth: "Širina ankete: ",
       // "You had to navigate to"
       navigateToMsg: "Morali ste navigirati do",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Razveljavi",
       // "Redo"
       redo: "Ponovi",
-      // "Undo last change"
-      undoTooltip: "Razveljavi zadnjo spremembo",
-      // "Redo the change"
-      redoTooltip: "Ponovite spremembo",
       // "Expand"
       expandTooltip: "Razširi",
       // "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Pokaži več",
       // "Show less"
       showLessChoices: "Pokaži manj",
-      // "Copy"
-      copy: "Kopiraj",
-      // "Cut"
-      cut: "Izreži",
-      // "Paste"
-      paste: "Prilepi",
-      // "Copy selection to clipboard"
-      copyTooltip: "Kopiraj izbiro v odložišče",
-      // "Cut selection to clipboard"
-      cutTooltip: "Izreži izbiro v odložišče",
-      // "Paste from clipboard"
-      pasteTooltip: "Prilepi iz odložišča",
-      // "Options"
-      options: "Možnosti",
-      // "Generate Valid JSON"
-      generateValidJSON: "Ustvari veljaven JSON",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Neznana funkcija: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Sintaktična napaka.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Semantična napaka.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Ustvari berljiv JSON",
       // "Toolbox"
       toolbox: "Orodjarna",
-      // "Properties"
-      "property-grid": "Lastnosti",
       // [Auto-translated] "Search"
       toolboxSearch: "Iskanje",
       // "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Začnite s konfiguracijo obrazca",
       // "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Kliknite katero koli ikono kategorije za raziskovanje nastavitev ankete. Dodatne nastavitve bodo na voljo, ko dodate element ankete na oblikovno površino.",
-      // "Please correct JSON."
-      correctJSON: "Prosimo, popravite JSON.",
       // "Survey Results "
       surveyResults: "Rezultati ankete",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Shranjevanje",
       // "Saved"
       saved: "Shranjeno",
-      // "Error"
-      propertyEditorError: "Napaka",
       // "Error! Editor content is not saved."
       saveError: "Napaka! Vsebina urejevalnika ni shranjena.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Ali res želite ponastaviti temo? Vse vaše prilagoditve bodo izgubljene.",
       // "Yes, reset the theme"
       themeResetConfirmationOk: "Da, ponastavi temo",
-      // "Bold"
-      bold: "Krepko",
-      // "Italic"
-      italic: "Ležeče",
-      // "Underline"
-      underline: "Podčrtano",
       // "Add Question"
       addNewQuestion: "Dodaj vprašanje",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Ko logični izraz vrne true, anketa izvede drug izraz. Po želji se rezultat lahko dodeli izbranemu vprašanju.",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: 'Če logični izraz vrne true, stran "Hvala" prikaže določeno vsebino.',
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Ko izraz: '{0}' vrne true",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "Novo pravilo",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Izraz, katerega rezultat bo dodeljen ciljnemu vprašanju.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Vnesi vrednost...",
         // "survey becomes completed"
         trigger_completeText: "anketa je zaključena",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Pogoj(i)",
         // "Action(s)"
         actions: "Dejanje(a)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Določite pogoj(e)",
         // "Define action(s)"
         actionsEditorTitle: "Določite dejanje(a)",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Izberite dejanje...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Logični izraz je prazen ali neveljaven. Prosimo, popravite ga.",
-        // "Please add at least one action."
-        noActionError: "Prosimo, dodajte vsaj eno dejanje.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Prosimo, popravite težave v dejanjih.",
         // "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Privzeta prikazana vrednost za dinamična besedila",
       // "Label alignment"
       rateDescriptionLocation: "Poravnava oznake",
-      // "Input field width (in characters)"
-      size: "Širina vnosa (v znakih)",
       // "Cell error message alignment"
       cellErrorLocation: "Poravnava sporočila o napaki celice",
       // "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Onemogočeno",
       // "Inherit"
       inherit: "Dedovanje",
-      // "Apply"
-      apply: "Uporabi",
-      // "OK"
-      ok: "V redu",
-      // "Save"
-      save: "Shrani",
       // "Clear"
       clear: "Počisti",
-      // "Save"
-      saveTooltip: "Shrani",
-      // "Cancel"
-      cancel: "Prekliči",
       // "Set"
       set: "Nastavi",
-      // "Reset"
-      reset: "Ponastavi",
       // "Change"
       change: "Spremeni",
-      // "Refresh"
-      refresh: "Osveži",
       // "Close"
       close: "Zapri",
       // "Delete"
       delete: "Izbriši",
-      // "Add"
-      add: "Dodaj",
       // "Add New"
       addNew: "Dodaj novo",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Kliknite za odstranitev elementa...",
       // "Drag the item"
       dragItem: "Povlecite element",
-      // "Other"
-      addOther: "Drugo",
-      // "Select All"
-      addSelectAll: "Izberi vse",
-      // "None"
-      addNone: "Noben",
-      // "Remove All"
-      removeAll: "Odstrani vse",
       // "Edit"
       edit: "Uredi",
-      // "Return without saving"
-      back: "Vrni se brez shranjevanja",
-      // "Return without saving"
-      backTooltip: "Vrni se brez shranjevanja",
-      // "Save and return"
-      saveAndBack: "Shrani in vrni se",
-      // "Save and return"
-      saveAndBackTooltip: "Shrani in vrni se",
       // "Done"
       doneEditing: "Končano",
-      // "Edit Choices"
-      editChoices: "Uredi možnosti",
-      // "Show Choices"
-      showChoices: "Pokaži možnosti",
-      // "Move"
-      move: "Premakni",
-      // "<empty>"
-      empty: "<prazno>",
       // "Value is empty"
       emptyValue: "Vrednost je prazna",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Vnesite vsaj {0} možnosti",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Vnesite seznam možnosti in njihovih ID-jev v naslednjem formatu:\n\nid|možnost\n\nID možnosti ni viden anketirancem in se lahko uporablja v pogojnih pravilih.",
-      // "Form Entry"
-      formEntry: "Vnos obrazca",
-      // "Test the service"
-      testService: "Preizkusite storitev",
-      // "Please select the element"
-      itemSelectorEmpty: "Prosimo, izberite element",
       // "Please select the action"
       conditionActionEmpty: "Prosimo, izberite dejanje",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Izberite stran...",
       // "Select a panel..."
       conditionSelectPanel: "Izberite panel...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Vnesite/izberite vrednost",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "Pritisnite ctrl+space za hint za dokončanje izraza",
-      // "Current row"
-      aceEditorRowTitle: "Trenutna vrstica",
-      // "Current panel"
-      aceEditorPanelTitle: "Trenutni panel",
-      // "For more details please check the documentation"
-      showMore: "Za več podrobnosti preverite dokumentacijo",
-      // "Available questions"
-      assistantTitle: "Na voljo vprašanja",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Morate imeti vsaj eno stolpec ali vrstico",
       // "Review before submit"
       showPreviewBeforeComplete: "Pregled pred oddajo",
       // "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Dodaj novo URL",
       // "Add new page"
       "addNew@pages": "Dodaj novo stran",
-      // "Expression is empty"
-      expressionIsEmpty: "Izraz je prazen",
       // "Value"
       value: "Vrednost",
       // "Text"
       text: "Besedilo",
-      // "Row ID"
-      rowid: "ID vrstice",
       // "Image or video file URL"
       imageLink: "Povezava do slike ali videa",
-      // "Edit column: {0}"
-      columnEdit: "Uredi stolpec: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Uredi element: {0}",
       // [Auto-translated] "URL"
       url: "URL",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Pridobite URL-je datotek iz naslednje lastnosti",
       // "Accept empty response"
       allowEmptyResponse: "Sprejmi prazne odgovore",
-      // "Title"
-      titlePlaceholder: "Naslov",
       // "Survey Title"
       surveyTitlePlaceholder: "Naslov ankete",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Privzeti odgovor",
       // "Default texts"
       cellsDefaultRow: "Privzeta besedila",
-      // "Edit survey settings"
-      surveyEditorTitle: "Uredi nastavitve ankete",
-      // "Edit: {0}"
-      qEditorTitle: "Uredi: {0}",
       // "Maximum character limit"
       maxLength: "Maksimalna dolžina znakov",
-      // "Build"
-      buildExpression: "Ustvari",
-      // "Edit"
-      editExpression: "Uredi",
       // "and"
       and: "in",
       // "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Dodaj v rezultate ankete",
       // "Make the title and description visible"
       showTitle: "Pokaži naslov in opis",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Pokaži/skrivaj naslov",
       // "Select a survey language"
       locale: "Izberite jezik ankete",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Dovoljeni tipi datotek",
       // "Wait for upload to complete"
       waitForUpload: "Počakaj, da se nalaganje zaključi",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "Potrdi brisanje datoteke",
       // "Row details alignment"
       detailPanelMode: "Poravnava širjenja vrstice",
       // "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Višina slike",
         // [Auto-translated] "Image width"
-        imageWidth: "Širina slike"
+        imageWidth: "Širina slike",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Potrdite izbris datoteke"
       },
       // "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Skrij vprašanje, če nima možnosti",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Uporabi vrednosti iz naslednje matrične vrstice ali panela kot besedila možnosti",
       // "Display page titles in the progress bar"
       progressBarShowPageTitles: "Prikaz naslovov strani v napredku",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Prikaži navigacijsko besedilo v vrstici napredka",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Poravnava navigacijskega besedila",
       // "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Prikaz številk strani v napredku",
       // "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Prikaz oznak kot ekstremnih vrednosti",
       // "Row order"
       rowOrder: "Vrsta vrstic",
-      // "Column layout"
-      columnsLayout: "Postavitev stolpcev",
       // "Nested column count"
       columnColCount: "Število gnezdenih stolpcev",
       // "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Poravnava logotipa",
-      // "Add logo..."
-      addLogo: "Dodaj logotip...",
-      // "Change logo..."
-      changeLogo: "Spremeni logotip...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Odstrani logotip",
-        // "Left"
-        left: "Levo",
-        // "Right"
-        right: "Desno",
-        // "On the top"
-        top: "Na vrhu",
-        // "In the bottom"
-        bottom: "Na dnu"
-      },
       // "Preview mode"
       previewMode: "Način predogleda",
       // "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Poravnava sporočila o napaki pri razširitvi vrstice",
       // Creator tabs
       tabs: {
-        panel: {
-          // "Panel Layout"
-          layout: "Postavitev panela"
-        },
         // "General"
         general: "Splošno",
-        // "Options"
-        fileOptions: "Možnosti",
         // "HTML Editor"
         html: "HTML Urejevalnik",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Nastavitve drsnika",
         // "Choices from a Web Service"
         choicesByUrl: "Možnosti iz spletne storitve",
-        // "Default Choices"
-        matrixChoices: "Privzete možnosti",
-        // "Text Inputs"
-        multipleTextItems: "Vnos besedila",
         // "Numbering"
         numbering: "Številčenje",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Stran 'Hvala' (Po zaključku)",
         // "Logo in the Survey Header"
         logo: "Logo v glavi ankete",
-        // "Slider"
-        slider: "Drsnik",
         // "Expression"
         expression: "Izraz",
         // "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Drugi"
       },
-      // "Edit property '{0}'"
-      editProperty: "Uredi lastnost '{0}'",
       // "Items"
       items: "Postavke",
       // "Make choices visible if"
       choicesVisibleIf: "Pokaži možnosti, če",
       // "Make choices selectable if"
       choicesEnableIf: "Omogoči možnosti, če",
-      // "Make columns visible if"
-      columnsEnableIf: "Pokaži stolpce, če",
-      // "Make rows visible if"
-      rowsEnableIf: "Pokaži vrstice, če",
       // "Increase the inner indent"
       innerIndent: "Povečaj notranji zamik",
       // "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Uporabi odgovore iz zadnjega vnosa kot privzete",
-      // "Please enter a value."
-      enterNewValue: "Prosimo, vnesite novo vrednost.",
-      // "There are no questions in the survey."
-      noquestions: "V anketi ni vprašanj.",
-      // "Please create a trigger"
-      createtrigger: "Prosimo, ustvarite sprožilec",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Pritisnite tipko enter za urejanje",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Pritisnite tipko enter za urejanje postavke, pritisnite tipko delete za izbris postavke, pritisnite alt skupaj z zgornjo ali spodnjo puščico za premik postavke",
-      // "On "
-      triggerOn: "Na",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Pokaži strani",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Pokaži elemente",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Dokončaj anketo, če je uspešno.",
-      // "The trigger is not set"
-      triggerNotSet: "Sprožilec ni nastavljen",
-      // "Run if"
-      triggerRunIf: "Zaženi, če",
-      // "Change value of: "
-      triggerSetToName: "Spremeni vrednost za: ",
-      // "Copy value from: "
-      triggerFromName: "Kopiraj vrednost iz: ",
-      // "Run this Expression"
-      triggerRunExpression: "Zaženi ta izraz",
-      // "to: "
-      triggerSetValue: "na: ",
-      // "Go to the question"
-      triggerGotoName: "Pojdi na vprašanje",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Ne vključuj spremenljivke v rezultate ankete.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Prosimo, vnesite veljaven izraz",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "Vnesite izraz tukaj...",
-      // "No file chosen"
-      noFile: "Datoteka ni izbrana",
       // "Clear hidden question values"
       clearIfInvisible: "Počisti skrite vrednosti vprašanj",
       // "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // "Description font"
         questionDescription: "Pisava opisa vprašanja",
         // "Font"
-        editorFont: "Pisava",
+        inputContent: "Pisava",
         // "Opacity"
         backgroundOpacity: "Prosojnost",
         // Auto-generated string
-        // "Survey font family"
-        "--sjs-font-family": "Pisava ankete",
-        // "Background color"
-        "--sjs-general-backcolor-dim": "Barva ozadja",
-        // "Accent background colors"
-        "--sjs-primary-backcolor": "Poudarne barve ozadja",
-        // "Accent foreground colors"
-        "--sjs-primary-forecolor": "Poudarne barve besedila",
-        // "Error message colors"
-        "--sjs-special-red": "Barve sporočil o napakah",
-        // "Shadow effects"
-        "--sjs-shadow-small": "Efekti senc",
-        // "Shadow effects"
-        "--sjs-shadow-inner": "Efekti notranjih senc",
-        // "Colors"
-        "--sjs-border-default": "Barve"
+        // [Auto-translated] "Survey font family"
+        "--sjs2-typography-font-family-text": "Družina pisav za pregled",
+        // [Auto-translated] "Background color"
+        "--sjs2-color-utility-surface-survey": "Barva ozadja",
+        // [Auto-translated] "Accent background colors"
+        "--sjs2-color-project-brand-600": "Poudarjene barve ozadja",
+        // [Auto-translated] "Accent foreground colors"
+        "--sjs2-color-fg-brand-on-primary": "Poudarjene barve v ospredju",
+        // [Auto-translated] "Error message colors"
+        "--sjs2-color-bg-alert-primary": "Barve sporočil o napakah",
+        // [Auto-translated] "Shadow effects"
+        "--sjs2-border-effect-surface-default": "Senčni učinki",
+        // [Auto-translated] "Shadow effects"
+        "--sjs2-border-effect-component-formbox-default": "Senčni učinki",
+        // [Auto-translated] "Colors"
+        "--sjs2-color-component-input-default-line": "Barve"
       },
       "header@header": {
         // "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Lokalna datoteka ali Kamera",
       // "Inherit"
       inherit: "Dedovanje",
-      // "Visible"
-      show: "Vidno",
-      // "Hidden"
-      hide: "Skrito",
       // "Inherit"
       default: "Privzeto",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "Naraščajoče",
       // "Descending"
       desc: "Padajoče",
-      // "Indeterminate"
-      indeterminate: "Nedoločeno",
       // "Selected"
       selected: "Izbrano",
       // "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Krožni pregled",
       // "Tabs"
       tab: "Zavihek",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "Navigacija panela + napredna vrstica na vrhu",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Navigacija panela + napredna vrstica na dnu",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Navigacija panela + napredna vrstica na vrhu in dnu",
       // "Horizontal"
       horizontal: "Horizontalno",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "Spodaj",
       // "Top and bottom"
       topBottom: "Zgoraj in spodaj",
-      // "Both"
-      both: "Oboje",
       // "Left"
       left: "Levo",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "teden",
       // "Hidden"
       hidden: "Skrito",
-      // "Editable"
-      edit: "Za urejanje",
-      // "Read-only"
-      display: "Samo za branje",
       // "Contain"
       contain: "Vsebuje",
       // "Cover"
@@ -2153,8 +1894,8 @@
         // "Never"
         none: "Nikoli"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Izbirni gumbi",
+      // [Auto-translated] "Radio buttons"
+      radio: "Radijski gumbi",
       inputType: {
         // "Color"
         color: "Barva",
@@ -2357,8 +2098,6 @@
       onNextPage: "Při přechodu na další stránku",
       // "After an answer is changed"
       onValueChanged: "Po změně odpovědi",
-      // "Before an answer is changed"
-      onValueChanging: "Před změnou odpovědi",
       questionsOnPageMode: {
         // "Original structure"
         standard: "Původní struktura",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Prikaz enega vnosnega polja na stran"
       },
-      // "No preview"
-      noPreview: "Žádný náhled",
-      // "Show all questions"
-      showAllQuestions: "Zobrazit všechny otázky",
-      // "Show answered questions only"
-      showAnsweredQuestions: "Zobrazit pouze zodpovězené otázky",
       // "Show all questions"
       allQuestions: "Zobrazit všechny otázky",
       // "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // "Buttons"
         buttons: "Tlačítka",
         // "Dropdown"
-        dropdown: "Rozbalovací nabídka"
+        dropdown: "Rozbalovací nabídka",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Segmentirani stikalo",
+        // [Auto-translated] "Radio buttons"
+        radio: "Radijski gumbi",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Potrditveno polje",
+        // [Auto-translated] "Switch"
+        switch: "Preklop",
+        // [Auto-translated] "Custom"
+        custom: "Običaj"
       },
       rateColorMode: {
         // "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Resetuj na svakoj stranici",
         // "Reset on each panel"
         onpanel: "Resetuj na svakom panelu",
-        // "Reset on each panel"
-        onPanel: "Resetuj na svakom panelu",
         // [Auto-translated] "Recursive numbering"
         recursive: "Rekurzivno številčenje",
-        // "Continue across the survey"
-        onSurvey: "Nastavi kroz anketu",
         // "No numbering"
         off: "Bez numerisanja"
       },
@@ -2648,49 +2387,6 @@
       and: "in",
       // "or"
       or: "ali"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Uporabi različico Angular",
-      // "Use jQuery version"
-      jquery: "Uporabi različico jQuery",
-      // "Use Knockout version"
-      knockout: "Uporabi različico Knockout",
-      // "Use React version"
-      react: "Uporabi različico React",
-      // "Use Vue version"
-      vue: "Uporabi različico Vue",
-      // "For bootstrap framework"
-      bootstrap: "Za okvir Bootstrap",
-      // "Modern theme"
-      modern: "Sodobna tema",
-      // "Default theme"
-      default: "Privzeta tema",
-      // "Orange theme"
-      orange: "Oranžna tema",
-      // "Darkblue theme"
-      darkblue: "Temno modra tema",
-      // "Darkrose theme"
-      darkrose: "Temno roza tema",
-      // "Stone theme"
-      stone: "Kamnita tema",
-      // "Winter theme"
-      winter: "Zimska tema",
-      // "Winter-Stone theme"
-      winterstone: "Zimsko-kamnita tema",
-      // "Show survey on a page"
-      showOnPage: "Prikaži anketo na strani",
-      // "Show survey in a window"
-      showInWindow: "Prikaži anketo v oknu",
-      // "Load Survey JSON from server"
-      loadFromServer: "Naloži Survey JSON s strežnika",
-      // "Scripts and styles"
-      titleScript: "Skripte in slogi",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Določa širino prikaza prenesenih slik v predogledu in dejansko širino slik, posnetih s fotoaparatom. V načinu nalaganja ene datoteke je širina prikaza omejena z območjem predogleda; V načinu nalaganja več datotek je omejen z območjem sličic.",
         // "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Prikaže sličice naloženih datotek, kadar je to mogoče. Odznačite, če želite namesto tega prikazati ikone datotek."
+        allowImagesPreview: "Prikaže sličice naloženih datotek, kadar je to mogoče. Odznačite, če želite namesto tega prikazati ikone datotek.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Sproži poziv, ki zahteva potrditev izbrisa datoteke."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Vrednost" služi kot ID elementa, ki se uporablja v pogojnih pravilih; "Besedilo" je prikazano anketirancem.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Izberite med "Slika" in "Video", da nastavite način vsebine izbirnika medijev. Če je izbrana možnost "Slika", poskrbite, da so vse ponujene možnosti slikovne datoteke v naslednjih formatih: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Podobno, če je izbrana možnost "Video", zagotovite, da so vse možnosti neposredne povezave do video datotek v naslednjih formatih: MP4, MOV, WMV, FLV, AVI, MKV. Upoštevajte, da povezave do YouTuba niso podprte za video možnosti.'
-      },
-      text: {
-        // "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Ta nastavitev spremeni samo velikost vnosnega polja in ne vpliva na širino polja z vprašanjem. Če želite omejiti dolžino vnesenega besedila, pojdite na "Validacija" → "Največje dovoljeno število znakov".'
       },
       comment: {
         // "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Vrednost, ki se shrani v rezultate ankete, ko anketiranec poda negativen odgovor",
       // "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Ni priporočljivo, da onemogočite to možnost, saj preglasi predogled slike in uporabniku oteži razumevanje, ali so bile datoteke naložene",
-      // "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Sproži poziv za potrditev brisanja datoteke",
       // "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Omogoči razvrščanje samo izbranih možnosti. Uporabniki bodo povlekli izbrane elemente s seznama možnosti in jih razvrstili v območju za razvrščanje",
       // "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Prilagodi prosojnost vhodnih elementov glede na ozadje ankete.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Nastavi radij kota za vse pravokotne elemente. Omogočite napreden način, če želite nastaviti posamezne vrednosti radija kota za vhodne elemente ali panele in polja vprašanj.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Nastavi glavno ozadje ankete."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Določi glavno barvo ozadja ankete."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Ob prehodu",
       // "Selected"
       primaryLightColor: "Izbrano",
-      // "Background color"
-      backgroundDimColor: "Barva ozadja",
       // "Corner radius"
       cornerRadius: "Radij kota",
       // "Default background"
       backcolor: "Privzeto ozadje",
       // "Hover background"
       hovercolor: "Ozadje ob prehodu",
-      // "Border decoration"
-      borderDecoration: "Dekoracija robov",
       // "Font color"
       fontColor: "Barva pisave",
       // "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Privzeta barva",
       // "Disabled color"
       primaryForecolorLight: "Onemogočena barva",
-      // "Font"
-      font: "Pisava",
       // "Darker"
       borderDefault: "Temnejši rob",
       // "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Barva oznake",
       // "Size"
       size: "Velikost",
+      // [Auto-translated] "Line height"
+      lineHeight: "Višina proga",
       // "Opacity"
       opacity: "Prosojnost",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // "Default"
         default: "Privzeto",
-        // "Sharp"
-        sharp: "Ostrina",
+        // "Contrast"
+        contrast: "Kontrast",
         // "Borderless"
         borderless: "Brez roba",
         // "Flat"
         flat: "Raven",
         // "Plain"
         plain: "Preprost",
-        // "Double Border"
-        doubleborder: "Dvojni rob",
-        // "Layered"
-        layered: "Slojevit",
-        // "Solid"
-        solid: "Trd",
+        // [Auto-translated] "Soft"
+        soft: "Mehko",
         // [Auto-translated] "3D"
         threedimensional: "3D",
-        // "Contrast"
-        contrast: "Kontrast"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Monokromatski"
       },
       colors: {
         // "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // "Surface background"
-      "--sjs-special-background": "Ozadje površine",
       // "Primary"
       "--sjs-primary-background-500": "Primarno",
       // "Secondary"
       "--sjs-secondary-background-500": "Sekundarno",
-      // "Surface"
-      surfaceScale: "Površina",
       // "UI elements"
       userInterfaceBaseUnit: "Enote uporabniškega vmesnika",
       // "Font"
       fontScale: "Pisava",
-      names: {
-        // "Survey Creator 2020"
-        sc2020: "Ustvarjalec anket 2020",
-        // "Light"
-        "default-light": "Svetla",
-        // "Dark"
-        "default-dark": "Temna",
-        // "Contrast"
-        "default-contrast": "Kontrast"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Uporabljena prednastavitev"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Element 1" }, { value: "item2", text: "Element 2" }, { value: "item3", text: "Element 3" }],
+      columns: [{ value: "column1", text: "Stolpec 1" }, { value: "column2", text: "Stolpec 2" }, { value: "column3", text: "Stolpec 3" }],
+      rows: [{ value: "row1", text: "Vrstica 1" }, { value: "row2", text: "Vrstica 2" }],
+      matrixColumns: [{ name: "column1", title: "Stolpec 1" }, { name: "column2", title: "Stolpec 2" }, { name: "column3", title: "Stolpec 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "sl", strings: slStrings });

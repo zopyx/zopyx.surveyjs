@@ -42,6 +42,7 @@ class PDFFormExtractor:
         pdfcpu_path = self.check_pdfcpu()
         temp_handle = tempfile.NamedTemporaryFile(suffix=".json", delete=False)
         temp_handle.close()
+        os.unlink(temp_handle.name)
 
         try:
             subprocess.run(
@@ -53,7 +54,8 @@ class PDFFormExtractor:
             with open(temp_handle.name, "r", encoding="utf-8") as handle:
                 return handle.read()
         finally:
-            os.unlink(temp_handle.name)
+            if os.path.exists(temp_handle.name):
+                os.unlink(temp_handle.name)
 
 
 def main() -> None:

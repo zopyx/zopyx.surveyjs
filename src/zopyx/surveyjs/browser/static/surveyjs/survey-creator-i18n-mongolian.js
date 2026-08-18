@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0-beta.6
+ * SurveyJS Creator v3.0.0
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -14,30 +14,8 @@
   var mnStrings = {
     // survey templates
     survey: {
-      // "Edit"
-      edit: "Засах",
-      // "Watch and learn how to create surveys"
-      externalHelpLink: "Санал асуулга үүсгэх заавартай танилцах",
-      // [Auto-translated] "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber"
-      externalHelpLinkUrl: "https://www.youtube.com/channel/UCH2ru9okIcooNZfpIbyq4qQ?view_as=subscriber",
-      // "Please drop a question here from the Toolbox."
-      dropQuestion: "Хэрэглүүрээс асуулт нэмнэ үү",
-      // "Create a rule to customize the flow of the survey."
-      addLogicItem: "Санал асуулгын урсгалыг өөрчлөх дүрэм үүсгэнэ үү.",
-      // "Copy"
-      copy: "Хуулах",
       // "Duplicate"
-      duplicate: "Хуулбарлах",
-      // "Add to toolbox"
-      addToToolbox: "Хэрэглүүрт нэмэх",
-      // "Delete Panel"
-      deletePanel: "Панел устгах",
-      // "Delete Question"
-      deleteQuestion: "Асуулт устгах",
-      // "Convert to"
-      convertTo: "Хувиргах",
-      // "Drag element"
-      drag: "Чирэх"
+      duplicate: "Хуулбарлах"
     },
     // Creator tabs
     tabs: {
@@ -123,8 +101,6 @@
     ed: {
       // "Default ({0})"
       defaultLocale: "Үндсэн ({0})",
-      // "Survey"
-      survey: "Санал асуулга",
       // "Settings"
       settings: "Тохиргоо",
       // "Open settings"
@@ -155,42 +131,14 @@
       surveyTypeName: "Санал асуулга",
       // "Page"
       pageTypeName: "Хуудас",
-      // "Panel"
-      panelTypeName: "Панел",
-      // "Question"
-      questionTypeName: "Асуулт",
-      // "Column"
-      columnTypeName: "Багана",
-      // "Add New Page"
-      addNewPage: "Шинэ хуудас нэмэх",
-      // "Scroll to the Right"
-      moveRight: "Баруун тийш гүйлгэх",
-      // "Scroll to the Left"
-      moveLeft: "Зүүн тийш гүйлгэх",
-      // "Delete Page"
-      deletePage: "Хуудас устгах",
-      // "Edit Page"
-      editPage: "Хуудас засварлах",
-      // "Edit"
-      edit: "Засах",
       // "page"
       newPageName: "Хуудас",
       // "question"
       newQuestionName: "Асуулт",
       // "panel"
       newPanelName: "Панелийн нэр",
-      // "text"
-      newTextItemName: "Текст",
-      // "Default"
-      defaultV2Theme: "Үндсэн",
-      // "Modern"
-      modernTheme: "Орчийн үеийн",
-      // "Default (legacy)"
-      defaultTheme: "Үндсэн (legacy)",
       // "Preview Survey Again"
       testSurveyAgain: "Санал асуулгыг дахин урьдчилан харах",
-      // "Survey width: "
-      testSurveyWidth: "Санал асуулгын өргөн: ",
       // [Auto-translated] "You had to navigate to"
       navigateToMsg: "Чи чиглүүлэх ёстой байсан",
       // "Save Survey"
@@ -209,10 +157,6 @@
       undo: "Буцаах",
       // "Redo"
       redo: "Дахих",
-      // "Undo last change"
-      undoTooltip: "Сүүлийн өөрчлөлтийг буцаах",
-      // "Redo the change"
-      redoTooltip: "Сүүлин өөрчлөлтийг дахих ",
       // [Auto-translated] "Expand"
       expandTooltip: "Өргөтгөх",
       // [Auto-translated] "Collapse"
@@ -233,22 +177,6 @@
       showMoreChoices: "Дэлгэрэнгүй харуулах",
       // "Show less"
       showLessChoices: "Бага мэдээлэл харуулах",
-      // "Copy"
-      copy: "Хуулах",
-      // "Cut"
-      cut: "Таслах",
-      // "Paste"
-      paste: "Буулгах",
-      // "Copy selection to clipboard"
-      copyTooltip: "Самбараас сонгогдсон хэсгийг хуулах",
-      // "Cut selection to clipboard"
-      cutTooltip: "Самбараас сонгогдсон хэсгийг таслах",
-      // "Paste from clipboard"
-      pasteTooltip: "Самбараас буулгах",
-      // "Options"
-      options: "Тохиргоо",
-      // "Generate Valid JSON"
-      generateValidJSON: "Бодит JSON үүсгэх",
       // [Auto-translated] "Unknown function: \"{0}\"."
       expressionUnknownFunction: 'Тодорхойгүй үүрэг: "{0}".',
       // [Auto-translated] "Unknown functions: \"{0}\"."
@@ -261,12 +189,8 @@
       expressionSyntaxError: "Синтаксын алдаа.",
       // [Auto-translated] "Semantic error."
       expressionSemanticsError: "Семантик алдаа.",
-      // "Generate Readable JSON"
-      generateReadableJSON: "Ойлгомжтой JSON үүсгэх",
       // "Toolbox"
       toolbox: "Хэрэглүүр",
-      // "Properties"
-      "property-grid": "Өмнөх",
       // [Auto-translated] "Search"
       toolboxSearch: "Хайх",
       // [Auto-translated] "Type to search..."
@@ -283,8 +207,6 @@
       propertyGridPlaceholderTitle: "Формоо тохируулж эхлэх",
       // [Auto-translated] "Click any category icon to explore survey settings. Additional settings will become available once you add a survey element to the design surface."
       propertyGridPlaceholderDescription: "Судалгааны тохиргоог судлахын тулд ямар ч категорийн зургыг дарна уу. Дизайны гадаргуу дээр судалгааны элемент нэмсний дараа нэмэлт тохиргоо хийх боломжтой болно.",
-      // "Please correct JSON."
-      correctJSON: "JSON засна уу.",
       // "Survey Results "
       surveyResults: "Санал асуулгын хариу",
       // "As Table"
@@ -305,8 +227,6 @@
       saving: "Хадгалж байна",
       // "Saved"
       saved: "Хадгалсан",
-      // "Error"
-      propertyEditorError: "Алдаа",
       // "Error! Editor content is not saved."
       saveError: "Алдаа! Зассан агуулга хадгалагдаагүй байна.",
       // "Language Settings"
@@ -365,12 +285,6 @@
       themeResetConfirmation: "Та сэдвийг дахин хөндөхийг үнэхээр хүсэж байна уу? Таны бүх тохируулга үгүй болно.",
       // [Auto-translated] "Yes, reset the theme"
       themeResetConfirmationOk: "Тийм ээ, сэдвийг дахин тохируулах",
-      // "Bold"
-      bold: "Тод",
-      // "Italic"
-      italic: "Налуу",
-      // "Underline"
-      underline: "Доогуур зураас",
       // "Add Question"
       addNewQuestion: "Асуулт нэмэх",
       // "Select page..."
@@ -519,9 +433,6 @@
         trigger_runExpressionDescription: "Логик илэрхийлэл биелэгдсэн тохиолдолд хэрэглэгчийн илэрхийллийг ажиллуулна. Та энэ илэрхийллийн үр дүнг  сонгосон асуултын хариулт болгоно.",
         // "If the logical expression evaluates to true, the \"Thank You\" page displays the specified content."
         completedHtmlOnConditionDescription: "Хэрэв логик илэрхийлэл биелэгдсэн тохиолдолд үндсэн 'Баярлалаа' хуудас зааж өгсөн хуудсаар солигдоно.",
-        // "When expression: '{0}' returns true"
-        itemExpressionText: "Илэрхийлэл: '{0}' биелсэн бол",
-        // {0} - the expression
         // "New rule"
         itemEmptyExpressionText: "Шинэ дүрэм",
         // "make page {0} visible"
@@ -565,6 +476,8 @@
         // {0} column name and {1} setValueExpression
         // [Auto-translated] "An expression whose result will be assigned to the target question."
         setValueExpressionPlaceholder: "Үр дүн нь бай асуултанд оногдох илэрхийлэлт.",
+        // [Auto-translated] "Enter a value..."
+        calculatedValuePlaceholder: "Утга оруул...",
         // "survey becomes completed"
         trigger_completeText: "Санал асуулга амжилттай бөглөсөн.",
         // "set into question: {0} value {1}"
@@ -595,8 +508,6 @@
         conditions: "Нөхцөл(үүд)",
         // "Action(s)"
         actions: "Үйлдэл(үүд)",
-        // "Define condition(s)"
-        expressionEditorTitle: "Нөхцөл(үүд) тодорхойлох",
         // "Define action(s)"
         actionsEditorTitle: "Үйлдэл(үүд) тодорхойлох",
         // "Delete Action"
@@ -607,8 +518,6 @@
         selectedActionCaption: "Үйлдэл сонгох...",
         // "The logic expression is empty or invalid. Please correct it."
         expressionInvalid: "Логик илэрхийлэл хоосон эсвэл алдаатай байна. Засна уу.",
-        // "Please add at least one action."
-        noActionError: "Ядаж нэг үйлдэл оруулна уу.",
         // "Please fix issues in your action(s)."
         actionInvalid: "Үйлдэл(үүд)-ийнхээ асуудлыг шийднэ үү.",
         // "Logical rules are incomplete"
@@ -910,8 +819,6 @@
       defaultDisplayValue: "Динамик текстүүдийн стандарт үзүүлэлтийн үнэ",
       // [Auto-translated] "Label alignment"
       rateDescriptionLocation: "Шошгоны зохицл",
-      // "Input field width (in characters)"
-      size: "Оролтын хэмжээ (тэмдэгтээр)",
       // [Auto-translated] "Cell error message alignment"
       cellErrorLocation: "Эсийн алдааны мессежийн зохицуулалт",
       // [Auto-translated] "Enabled"
@@ -920,32 +827,16 @@
       disabled: "Хөгжлийн бэрхшээлтэй",
       // [Auto-translated] "Inherit"
       inherit: "Өв залгамжл",
-      // "Apply"
-      apply: "Хэрэгжүүл",
-      // [Auto-translated] "OK"
-      ok: "ЗА",
-      // "Save"
-      save: "Хадгалах",
       // "Clear"
       clear: "Цэвэрлэх",
-      // "Save"
-      saveTooltip: "Хадгалах",
-      // "Cancel"
-      cancel: "Болих",
       // "Set"
       set: "Тааруулах",
-      // "Reset"
-      reset: "Шинээр тохируулах",
       // "Change"
       change: "Солих",
-      // "Refresh"
-      refresh: "Шинэчлэх",
       // "Close"
       close: "Хаах",
       // "Delete"
       delete: "Устгах",
-      // "Add"
-      add: "Нэмэх",
       // "Add New"
       addNew: "Нэмэх",
       // "Click to add an item..."
@@ -954,34 +845,10 @@
       removeItem: "Хэсэг устгах бол дарах...",
       // "Drag the item"
       dragItem: "Хэсгийг чирэх",
-      // "Other"
-      addOther: "Бусад",
-      // "Select All"
-      addSelectAll: "Бүгдийг сонгох",
-      // "None"
-      addNone: "Аль нь ч биш",
-      // "Remove All"
-      removeAll: "Бүгдийг устгах",
       // "Edit"
       edit: "Засах",
-      // "Return without saving"
-      back: "Хадгалахгүйгээр буцах",
-      // "Return without saving"
-      backTooltip: "Хадгалахгүйгээр буцах",
-      // "Save and return"
-      saveAndBack: "Хадгалаад буцах",
-      // "Save and return"
-      saveAndBackTooltip: "Хадгалаад буцах",
       // "Done"
       doneEditing: "Болсон",
-      // "Edit Choices"
-      editChoices: "Сонголтуудыг засах",
-      // "Show Choices"
-      showChoices: "Сонголтуудыг харуулах",
-      // "Move"
-      move: "Шилжүүлэх",
-      // "<empty>"
-      empty: "<хоосон>",
       // "Value is empty"
       emptyValue: "Утга хоосон байна",
       // "Manual Entry"
@@ -994,12 +861,6 @@
       fastEntryChoicesMinCountError: "Наад зах нь {0} зүйлс оруулна уу",
       // "Enter the list of choice options and their IDs in the following format:\n\nid|option\n\nA choice option ID is not visible to respondents and can be used in conditional rules."
       fastEntryPlaceholder: "Та дараах форматын дагуу өгөгдлийг оруулж болно:\nvalue1|text\nvalue2",
-      // "Form Entry"
-      formEntry: "Маягт оруулах",
-      // "Test the service"
-      testService: "Үйлчилгээг турших",
-      // "Please select the element"
-      itemSelectorEmpty: "Элемент сонгоно уу",
       // "Please select the action"
       conditionActionEmpty: "Үйлдэл сонгоно уу",
       // "Select a question..."
@@ -1008,20 +869,8 @@
       conditionSelectPage: "Хуудас сонгох...",
       // "Select a panel..."
       conditionSelectPanel: "Панел сонгох...",
-      // "Please enter/select the value"
-      conditionValueQuestionTitle: "Утга оруулах/сонгох",
       // "Press ctrl+space to get expression completion hint"
       aceEditorHelp: "ctrl+space дарж илэрхийлэл биелэгдэх сануулга харах.",
-      // "Current row"
-      aceEditorRowTitle: "Тухайн мөр",
-      // "Current panel"
-      aceEditorPanelTitle: "Тухайн панел",
-      // "For more details please check the documentation"
-      showMore: "Дэлгэрэнгүй мэдээллийг баримт бичгээс авна уу.",
-      // "Available questions"
-      assistantTitle: "Боломжтой асуултууд",
-      // "There is should be at least one column or row"
-      cellsEmptyRowsColumns: "Багадаа нэг багана эсвэл мөр байх ёстой",
       // "Review before submit"
       showPreviewBeforeComplete: "Санал асуулга явуулхаас өмнө хариултуудыг урьдчилж харах",
       // [Auto-translated] "Enabled by a condition"
@@ -1072,20 +921,12 @@
       "addNew@navigateToUrlOnCondition": "Шинэ URL нэмэх",
       // [Auto-translated] "Add new page"
       "addNew@pages": "Шинэ хуудас нэмж",
-      // "Expression is empty"
-      expressionIsEmpty: "Томъёо хоосон байна",
       // "Value"
       value: "Утга",
       // "Text"
       text: "Текст",
-      // "Row ID"
-      rowid: "Мөрний ID",
       // "Image or video file URL"
       imageLink: "Зураг эсвэл видео линк",
-      // "Edit column: {0}"
-      columnEdit: "Багана засах: {0}",
-      // "Edit item: {0}"
-      itemEdit: "Зүйл засах: {0}",
       // "URL"
       url: "Үйлчилгээний линк",
       // "Path to data"
@@ -1102,8 +943,6 @@
       imageLinkName: "Зургийн линкийг дараагийн JSON талбараас",
       // "Accept empty response"
       allowEmptyResponse: "Хоосон хариулт зөвшөөрөх",
-      // "Title"
-      titlePlaceholder: "Гарчиг",
       // "Survey Title"
       surveyTitlePlaceholder: "Санал асуулгын гарчиг",
       // "Page {num}"
@@ -1214,16 +1053,8 @@
       defaultValue: "Үндсэн хариулт",
       // "Default texts"
       cellsDefaultRow: "Үндсэн текст",
-      // "Edit survey settings"
-      surveyEditorTitle: "Санал асуулгын тохиргоог засах",
-      // "Edit: {0}"
-      qEditorTitle: "Засах: {0}",
       // "Maximum character limit"
       maxLength: "Дээд урт (тэмдэгтээр)",
-      // "Build"
-      buildExpression: "Тооцоол",
-      // "Edit"
-      editExpression: "Засах",
       // "and"
       and: "бас",
       // "or"
@@ -1250,8 +1081,6 @@
       includeIntoResult: "Санал асуулгын үр дүнд оруулах",
       // "Make the title and description visible"
       showTitle: "Гарчиг харуулах",
-      // "Expand/collapse title"
-      expandCollapseTitle: "Гарчиг өргөсгөх/багасгах",
       // "Select a survey language"
       locale: "Санал асуулгын хэл",
       // "Select device type"
@@ -1464,8 +1293,6 @@
       acceptedTypes: "Нэмэлт файлын өргөтгөлүүд",
       // "Wait for upload to complete"
       waitForUpload: "Файл байршуулж дуустал хүлээх",
-      // "Confirm file deletion"
-      needConfirmRemoveFile: "Файл устгахыг батлах",
       // "Row details alignment"
       detailPanelMode: "Нарийвчилсан панелийн байршил",
       // "Minimum row count"
@@ -1598,7 +1425,9 @@
         // [Auto-translated] "Image height"
         imageHeight: "Зургийн өндөр",
         // [Auto-translated] "Image width"
-        imageWidth: "Зургийн өргөн"
+        imageWidth: "Зургийн өргөн",
+        // [Auto-translated] "Confirm file deletion"
+        confirmDelete: "Файл устгахыг баталгаажуулна"
       },
       // "Hide the question if it has no choices"
       hideIfChoicesEmpty: "Сонголтгүй бол асуултыг нуух",
@@ -1656,6 +1485,10 @@
       choiceTextsFromQuestion: "Дараах матрицын багана эсвэл панелийн асуултын үнэт зүйлсийг сонголтын текст болгон ашигла",
       // [Auto-translated] "Display page titles in the progress bar"
       progressBarShowPageTitles: "Явцын самбар дээр хуудасны гарчгийг харуул",
+      // [Auto-translated] "Display navigation text in the progress bar"
+      progressBarShowNavigationText: "Навигацийн текстийг явцын самбар дээр харуулна уу",
+      // [Auto-translated] "Navigation text alignment"
+      progressBarNavigationTextLocation: "Навигацийн текстийн тэнцвэржүүлэлт",
       // [Auto-translated] "Display page numbers in the progress bar"
       progressBarShowPageNumbers: "Явцын самбар дээр хуудасны дугаарыг харуул",
       // "Add a comment box"
@@ -1666,8 +1499,6 @@
       displayRateDescriptionsAsExtremeItems: "Display rate descriptions as extreme values",
       // "Row order"
       rowOrder: "Мөрний дараалал",
-      // "Column layout"
-      columnsLayout: "Баганы зохион байгуулалт",
       // "Nested column count"
       columnColCount: "Шаталсан баганын тоо",
       // "Correct Answer"
@@ -1698,22 +1529,6 @@
       },
       // "Logo alignment"
       logoPosition: "Логоны байршил",
-      // "Add logo..."
-      addLogo: "Лого нэмэх...",
-      // "Change logo..."
-      changeLogo: "Лого солих...",
-      logoPositions: {
-        // "Remove logo"
-        none: "Лого устгах",
-        // "Left"
-        left: "Зүүн",
-        // "Right"
-        right: "Баруун",
-        // "On the top"
-        top: "Дээр",
-        // "In the bottom"
-        bottom: "Доор"
-      },
       // [Auto-translated] "Preview mode"
       previewMode: "Урьдчилан харах хэлбэр",
       // [Auto-translated] "Enable grid layout"
@@ -1726,14 +1541,8 @@
       detailErrorLocation: "Мөрийн нарийн ширийн зүйлс error message alignment",
       // Creator tabs
       tabs: {
-        panel: {
-          // [Auto-translated] "Panel Layout"
-          layout: "Panel Layout"
-        },
         // "General"
         general: "Ерөнхий",
-        // "Options"
-        fileOptions: "Сонголт",
         // "HTML Editor"
         html: "HTML засварлагч",
         // "Columns"
@@ -1756,10 +1565,6 @@
         sliderSettings: "Слайдерын тохиргоо",
         // "Choices from a Web Service"
         choicesByUrl: "RESTful сервисийн сонголтууд",
-        // "Default Choices"
-        matrixChoices: "Үндсэн сонголтууд",
-        // "Text Inputs"
-        multipleTextItems: "Текст оролт",
         // "Numbering"
         numbering: "Дугаарлалт",
         // "Validators"
@@ -1802,8 +1607,6 @@
         showOnCompleted: "Санал асуулга амжилттай бөглөгдлөө.",
         // "Logo in the Survey Header"
         logo: "Санал асуулгын гарчиг дахь лого",
-        // "Slider"
-        slider: "Гулсуулагч",
         // "Expression"
         expression: "илэрхийлэл",
         // [Auto-translated] "Question Settings"
@@ -1823,62 +1626,18 @@
         // "Others"
         others: "Бусад"
       },
-      // "Edit property '{0}'"
-      editProperty: "Шинж чанарыг засварлах '{0}'",
       // "Items"
       items: "Элементүүд",
       // "Make choices visible if"
       choicesVisibleIf: "Сонголтууд харагдана хэрэв",
       // "Make choices selectable if"
       choicesEnableIf: "Сонголтууд сонгогдоно хэрэв",
-      // "Make columns visible if"
-      columnsEnableIf: "Баганууд харагдана хэрэв",
-      // "Make rows visible if"
-      rowsEnableIf: "Мөрнүүд харагдана хэрэв",
       // "Increase the inner indent"
       innerIndent: "Дотоод догол мөр нэмэх",
       // [Auto-translated] "Use answers from the last entry as default"
       copyDefaultValueFromLastEntry: "Сүүлийн тайлбарын хариултуудыг стандарт болгон ашигла",
-      // "Please enter a value."
-      enterNewValue: "Утга оруулна уу.",
-      // "There are no questions in the survey."
-      noquestions: "Санал асуулгад асуулт оруулна уу.",
-      // "Please create a trigger"
-      createtrigger: "Схем устгана уу.",
-      // "Press enter button to edit"
-      titleKeyboardAdornerTip: "Засахын тулд Enter товчийг дарна уу",
-      // "Press enter button to edit item, press delete button to delete item, press alt plus arrow up or arrow down to move item"
-      keyboardAdornerTip: "Засахын тулд Enter товчийг дарна уу, Устгахын тулд Delete товчийг дарна уу, Хөдөлгөхийн тулд alt + дээш сум эсвэл доош сум дарна уу",
-      // [Auto-translated] "On "
-      triggerOn: "Дээр ",
-      // "Make pages visible"
-      triggerMakePagesVisible: "Хуудсуудыг харуулах",
-      // "Make elements visible"
-      triggerMakeQuestionsVisible: "Элементүүдийг харуулах",
-      // "Complete the survey if successful."
-      triggerCompleteText: "Complete the survey if succeed.",
-      // "The trigger is not set"
-      triggerNotSet: "Схем тохируулагдаагүй байна",
-      // "Run if"
-      triggerRunIf: "Ажилуулах хэрэв",
-      // "Change value of: "
-      triggerSetToName: "Утга өөрчлөх: ",
-      // "Copy value from: "
-      triggerFromName: "Утга хуулах: ",
-      // "Run this Expression"
-      triggerRunExpression: "илэрхийлэлг ажиллуулах",
-      // "to: "
-      triggerSetValue: "хүртэл: ",
-      // "Go to the question"
-      triggerGotoName: "Асуулт руу үсрэх",
-      // "Do not put the variable into the survey result."
-      triggerIsVariable: "Хувьсагч санал асуулгын үр дүнд оруулахгүй байх.",
-      // "Please enter a valid expression"
-      triggerRunExpressionEmpty: "Бодит илэрхийлэл оруулна уу.",
       // "Type expression here..."
       emptyExpressionPlaceHolder: "илэрхийлэлг энд бичнэ үү...",
-      // "No file chosen"
-      noFile: "Файл сонгоогүй байна.",
       // "Clear hidden question values"
       clearIfInvisible: "Асуулт нуувал утгыг цэвэрлэх.",
       // "Store values in the following property"
@@ -1957,26 +1716,26 @@
         // [Auto-translated] "Description font"
         questionDescription: "Тайлбар фонт",
         // [Auto-translated] "Font"
-        editorFont: "Фонт",
+        inputContent: "Фонт",
         // [Auto-translated] "Opacity"
         backgroundOpacity: "Бүдүүлэг байдал",
         // Auto-generated string
         // [Auto-translated] "Survey font family"
-        "--sjs-font-family": "Судалгааны фонтын гэр бүл",
+        "--sjs2-typography-font-family-text": "Судалгааны фонтын гэр бүл",
         // [Auto-translated] "Background color"
-        "--sjs-general-backcolor-dim": "Ар талын өнгө",
+        "--sjs2-color-utility-surface-survey": "Арын өнгө",
         // [Auto-translated] "Accent background colors"
-        "--sjs-primary-backcolor": "Фон өнгөнүүдийг акцентлах",
+        "--sjs2-color-project-brand-600": "Акцент арын өнгө",
         // [Auto-translated] "Accent foreground colors"
-        "--sjs-primary-forecolor": "Урд талын өнгүүдийг тодруулах",
+        "--sjs2-color-fg-brand-on-primary": "Акцент урд өнгүүд",
         // [Auto-translated] "Error message colors"
-        "--sjs-special-red": "Алдаа мэйсийн өнгө",
+        "--sjs2-color-bg-alert-primary": "Алдааны мессежийн өнгө",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-small": "Сүүдрийн нөлөө",
+        "--sjs2-border-effect-surface-default": "Сүүдрийн эффектүүд",
         // [Auto-translated] "Shadow effects"
-        "--sjs-shadow-inner": "Сүүдрийн нөлөө",
+        "--sjs2-border-effect-component-formbox-default": "Сүүдрийн эффектүүд",
         // [Auto-translated] "Colors"
-        "--sjs-border-default": "Өнгө"
+        "--sjs2-color-component-input-default-line": "Өнгө"
       },
       "header@header": {
         // [Auto-translated] "View"
@@ -2025,10 +1784,6 @@
       "file-camera": "Орон нутгийн файл эсвэл Камер",
       // "Inherit"
       inherit: "Удамших",
-      // "Visible"
-      show: "Харагдана",
-      // "Hidden"
-      hide: "Нуусан",
       // "Inherit"
       default: "Үндсэн",
       // "Initial"
@@ -2045,8 +1800,6 @@
       asc: "Өгсөж байгаа",
       // "Descending"
       desc: "Буурч байгаа",
-      // "Indeterminate"
-      indeterminate: "Тодорхойгүй",
       // [Auto-translated] "Selected"
       selected: "Сонгосон",
       // [Auto-translated] "Unselected"
@@ -2067,12 +1820,6 @@
       carousel: "Карусел",
       // [Auto-translated] "Tabs"
       tab: "Табууд",
-      // "Panel navigator + Progress bar at the top"
-      progressTop: "Панел чиглүүлэгч + Явцын мөр дээд хэсэгт байрлах",
-      // "Panel navigator + Progress bar at the bottom"
-      progressBottom: "Панел чиглүүлэгч + Явцын мөр доод хэсэгт байрлах",
-      // "Panel navigator + Progress bar at the top and bottom"
-      progressTopBottom: "Панел чиглүүлэгч + Явцын мөр дээд ба доод хэсэгт байрлах",
       // "Horizontal"
       horizontal: "Хэвтээ",
       // "Vertical"
@@ -2083,8 +1830,6 @@
       bottom: "Доод",
       // "Top and bottom"
       topBottom: "Дээд ба доод",
-      // "Both"
-      both: "Аль аль нь",
       // "Left"
       left: "Зүүн",
       // "Right"
@@ -2125,10 +1870,6 @@
       week: "долоо хоног",
       // "Hidden"
       hidden: "Нуусан",
-      // "Editable"
-      edit: "Засаж болдог",
-      // "Read-only"
-      display: "Зөвхөн унших",
       // [Auto-translated] "Contain"
       contain: "Агуулах",
       // [Auto-translated] "Cover"
@@ -2153,8 +1894,8 @@
         // [Auto-translated] "Never"
         none: "Хэзээ ч"
       },
-      // [Auto-translated] "Radio Buttons"
-      radio: "Радио товчлуур",
+      // [Auto-translated] "Radio buttons"
+      radio: "Радио товчлуурууд",
       inputType: {
         // [Auto-translated] "Color"
         color: "Өнгө",
@@ -2357,8 +2098,6 @@
       onNextPage: "Дараагийн хуудас руу шилжих үед",
       // "After an answer is changed"
       onValueChanged: "Асуулт солигдсоны дараа",
-      // "Before an answer is changed"
-      onValueChanging: "Асуулт солигдхоос өмнө",
       questionsOnPageMode: {
         // [Auto-translated] "Original structure"
         standard: "Оригинал бүтэц",
@@ -2369,12 +2108,6 @@
         // [Auto-translated] "Show single input field per page"
         inputPerPage: "Хуудас бүрт нэг оролт талбарыг үзүүлэх"
       },
-      // "No preview"
-      noPreview: "Урьдчилан харах боломжгүй",
-      // "Show all questions"
-      showAllQuestions: "Бүх асуултыг харуулах.",
-      // "Show answered questions only"
-      showAnsweredQuestions: "Зөвхөн хариулсан асуултуудыг харуулах.",
       // [Auto-translated] "Show all questions"
       allQuestions: "Бүх асуултыг үзүүл",
       // [Auto-translated] "Show answered questions only"
@@ -2439,7 +2172,17 @@
         // "Buttons"
         buttons: "Товчнууд",
         // "Dropdown"
-        dropdown: "Доош задрах"
+        dropdown: "Доош задрах",
+        // [Auto-translated] "Segmented toggle"
+        segmented: "Сегментчилсэн унтраалга",
+        // [Auto-translated] "Radio buttons"
+        radio: "Радио товчлуурууд",
+        // [Auto-translated] "Checkbox"
+        checkbox: "Шалгах хуудас",
+        // [Auto-translated] "Switch"
+        switch: "Шилж",
+        // [Auto-translated] "Custom"
+        custom: "Custom"
       },
       rateColorMode: {
         // [Auto-translated] "Default"
@@ -2480,12 +2223,8 @@
         onPage: "Хуудас бүр дээр дахин тохируулах",
         // [Auto-translated] "Reset on each panel"
         onpanel: "Тавиур бүр дээр дахин тавих",
-        // [Auto-translated] "Reset on each panel"
-        onPanel: "Тавиур бүр дээр дахин тавих",
         // [Auto-translated] "Recursive numbering"
         recursive: "Рекурсив дугаарлалт",
-        // [Auto-translated] "Continue across the survey"
-        onSurvey: "Судалгааг үргэлжлүүлэн хийх",
         // [Auto-translated] "No numbering"
         off: "Дугаарлахгүй"
       },
@@ -2648,49 +2387,6 @@
       and: "ба",
       // "or"
       or: "эсвэл"
-    },
-    // Embed window
-    ew: {
-      // "Use Angular version"
-      angular: "Angular хувилбар ашиглах",
-      // "Use jQuery version"
-      jquery: "jQuery хувилбар ашиглах",
-      // "Use Knockout version"
-      knockout: "Knockout хувилбар ашиглах",
-      // "Use React version"
-      react: "React хувилбар ашиглах",
-      // "Use Vue version"
-      vue: "Vue хувилбар ашиглах",
-      // "For bootstrap framework"
-      bootstrap: "bootstrap бүтцэд",
-      // "Modern theme"
-      modern: "Орчин үеийн",
-      // "Default theme"
-      default: "Үндсэн",
-      // "Orange theme"
-      orange: "Улбар шар",
-      // "Darkblue theme"
-      darkblue: "Хар хөх",
-      // "Darkrose theme"
-      darkrose: "Хүрэн",
-      // "Stone theme"
-      stone: "Чулуун",
-      // "Winter theme"
-      winter: "Өвлийн",
-      // "Winter-Stone theme"
-      winterstone: "Өвлийн-чулуун",
-      // "Show survey on a page"
-      showOnPage: "Санал асуулгыг хуудас дээр харуулах",
-      // "Show survey in a window"
-      showInWindow: "Санал асуулгыг цонхонд харуулах",
-      // "Load Survey JSON from server"
-      loadFromServer: "JSON серверээс санал асуулгыг ачааллуулах",
-      // "Scripts and styles"
-      titleScript: "Скрипт ба хэв маяг",
-      // [Auto-translated] "HTML"
-      titleHtml: "HTML",
-      // [Auto-translated] "JavaScript"
-      titleJavaScript: "JavaScript"
     },
     // Preview (Survey)
     ts: {
@@ -2924,7 +2620,9 @@
         // "Specifies the display width of uploaded images in the preview and the actual width of images taken with the camera. In single file upload mode, the display width is limited by the preview area; in multiple file upload mode, it is limited by the thumbnail area."
         imageWidth: "Урьдчилан харах хэсэгт оруулсан зургуудын дэлгэцийн өргөнийг болон камераар авсан зургуудын бодит өргөнийг тодорхойлно. Нэг файл upload mode-д дэлгэцийн өргөнийг урьдчилан харах талбайгаар хязгаарладаг. Multiple file upload mode-д thumbnail хэсгээр хязгаарлагддаг.",
         // [Auto-translated] "Displays thumbnail previews for uploaded files when possible. Unselect if you want to show file icons instead."
-        allowImagesPreview: "Боломжтой бол татаж авсан файлуудад зориулсан эрхий хурууны урьдчилсан үзүүлэлтийг үзүүлнэ. Оронд нь файлын зургуудыг үзүүлэхийг хүсвэл сонгогдоогүй."
+        allowImagesPreview: "Боломжтой бол татаж авсан файлуудад зориулсан эрхий хурууны урьдчилсан үзүүлэлтийг үзүүлнэ. Оронд нь файлын зургуудыг үзүүлэхийг хүсвэл сонгогдоогүй.",
+        // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
+        confirmDelete: "Файл устгахыг баталгаажуулах хүсэлт үүсдэг."
       },
       image: {
         // "The \"Auto\" option automatically determines the suitable mode for display - Image, Video, or YouTube - based on the source URL provided."
@@ -2939,10 +2637,6 @@
         choices: '"Value" нь нөхцөлийн дүрэмд хэрэглэгддэг item ID юм; "Текст" нь хариулагчдад харагдана.',
         // "Choose between \"Image\" and \"Video\" to set the content mode of the media selector. If \"Image\" is selected, ensure that all options provided are image files in the following formats: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Similarly, if \"Video\" is selected, ensure that all options are direct links to video files in the following formats: MP4, MOV, WMV, FLV, AVI, MKV. Please note that YouTube links are not supported for video options."
         contentMode: 'Хэвлэл мэдээллийн хэрэгслийн сонгогчийн агуулгын хэв маягийг тогтоохын тулд "Image" болон "Video" хоёрын аль нэгийг сонго. Хэрэв "Зураг" гэж сонгосон бол өгөгдсөн бүх хувилбарууд нь дараах форматаар зургийн файлууд болохыг анхаарна уу: JPEG, GIF, PNG, APNG, SVG, BMP, ICO. Үүнтэй адилаар "Video" нь сонгогдвол бүх сонголт нь дараах форматаар видео файлуудын шууд холбоосууд болох MP4, MOV, WMV, FLV, AVI, MKV гэсэн форматаар байгаа эсэхийг баталгаажуулаарай. YouTube-ийн холбоосууд видео хувилбараар дэмжигдээгүйг анхаарна уу.'
-      },
-      text: {
-        // [Auto-translated] "This setting only resizes the input field and doesn't affect the width of the question box. To limit the accepted input length, go to \"Validation\" → \"Maximum character limit\"."
-        size: 'Энэ тохиргоо нь зөвхөн оролт талбарын хэмжээг өөрчилдөг бөгөөд асуултын хайрцгийн өргөнд нөлөөлөхгүй. Хүлээн зөвшөөрөгдсөн оролтын уртыг хязгаарлахын тулд "Validation" → "Maximum character limit" руу орно.'
       },
       comment: {
         // [Auto-translated] "Sets the number of displayed lines in the input field. If the input takes up more lines, the scroll bar will appear."
@@ -3199,8 +2893,6 @@
       valueFalse: "Судалгаанд оролцогчдын сөрөг хариулт өгөхөд судалгааны үр дүнг хадгалах үнэ цэнэ.",
       // [Auto-translated] "It's not recommended that you disable this option as it overrides the Preview image and makes it hard for a user to understand whether the files have been uploaded."
       showPreview: "Энэ сонголтыг унтраахыг зөвлөхгүй. Учир нь энэ нь Preview зургийг давамгайлж, файлуудыг оруулсан эсэхийг ойлгоход хэрэглэгчдэд хэцүү болгодог.",
-      // [Auto-translated] "Triggers a prompt asking to confirm the file deletion."
-      needConfirmRemoveFile: "Файлын устгалыг батлахыг хүссэн өдөөлтийг өдөөж байна.",
       // [Auto-translated] "Enable to rank only selected choices. Users will drag selected items from the choice list to order them within the ranking area."
       selectToRankEnabled: "Зөвхөн сонгосон сонголтуудыг зэрэгцүүлэх боломжийг олгоно. Хэрэглэгчид сонгосон зүйлсийг сонгосон жагсаалтаас чирч, зэрэглэлийн бүс дотор тушаана.",
       // [Auto-translated] "Enter a list of choices that will be suggested to the respondent during input."
@@ -3284,8 +2976,8 @@
         questionBackgroundTransparency: "Судалгааны нөхцөлтэй харьцуулахад оруулах элементүүдийн ил тод байдлыг тохируулна.",
         // "Sets the corner radius for all rectangular elements. Enable the Advanced Mode if you want to set individual corner radius values for input elements or panels and question boxes."
         cornerRadius: "Бүх тэгш өнцөгт элементүүдэд булангийн радиусыг тогтооно. Оролтын элементүүд эсвэл панел, асуултын хайрцгуудад зориулсан хувь хүний булангийн радиус үнэт зүйлсийг тогтоохыг хүсвэл Advanced Mode-г боломжтой болго.",
-        // "Sets the main background color of the survey."
-        "--sjs-general-backcolor-dim": "Судалгааны үндсэн нөхцөл байдлын өнгийг тогтооно."
+        // [Auto-translated] "Sets the main background color of the survey."
+        "--sjs2-color-utility-surface-survey": "Судалгааны үндсэн арын өнгийг тогтоодог."
       },
       header: {
         // "The \"Same as container\" option auto-adjusts the header content area width to fit into the HTML element the survey is placed in."
@@ -3584,16 +3276,12 @@
       primaryDarkColor: "Ховер",
       // [Auto-translated] "Selected"
       primaryLightColor: "Сонгосон",
-      // [Auto-translated] "Background color"
-      backgroundDimColor: "Ар талын өнгө",
       // "Corner radius"
       cornerRadius: "Булангийн радиус",
       // [Auto-translated] "Default background"
       backcolor: "Дефолт нөхцөл байдал",
       // [Auto-translated] "Hover background"
       hovercolor: "Hover-ийн гарал үүсэл",
-      // [Auto-translated] "Border decoration"
-      borderDecoration: "Хилийн чимэг",
       // [Auto-translated] "Font color"
       fontColor: "Фонтын өнгө",
       // [Auto-translated] "Background color"
@@ -3602,8 +3290,6 @@
       primaryForecolor: "Дефолт өнгө",
       // [Auto-translated] "Disabled color"
       primaryForecolorLight: "Хөгжлийн бэрхшээлтэй хүний өнгө",
-      // [Auto-translated] "Font"
-      font: "Фонт",
       // [Auto-translated] "Darker"
       borderDefault: "Илүү харанхуй",
       // [Auto-translated] "Lighter"
@@ -3624,6 +3310,8 @@
       placeholderColor: "Газар эзэмшигчийн өнгө",
       // [Auto-translated] "Size"
       size: "Хэмжээ",
+      // [Auto-translated] "Line height"
+      lineHeight: "Шугамын өндөр",
       // [Auto-translated] "Opacity"
       opacity: "Бүдүүлэг байдал",
       // [Auto-translated] "X"
@@ -3643,24 +3331,20 @@
       names: {
         // [Auto-translated] "Default"
         default: "Дефолт",
-        // [Auto-translated] "Sharp"
-        sharp: "Хурц",
+        // [Auto-translated] "Contrast"
+        contrast: "Эсрэг тэсрэг",
         // [Auto-translated] "Borderless"
         borderless: "Хил хязгааргүй",
         // [Auto-translated] "Flat"
         flat: "Хавтгай",
         // [Auto-translated] "Plain"
         plain: "Энгийн",
-        // [Auto-translated] "Double Border"
-        doubleborder: "Хоёр хил",
-        // [Auto-translated] "Layered"
-        layered: "Давхарласан",
-        // [Auto-translated] "Solid"
-        solid: "Бат бөх",
+        // [Auto-translated] "Soft"
+        soft: "Зөөлөн",
         // [Auto-translated] "3D"
         threedimensional: ".3D",
-        // [Auto-translated] "Contrast"
-        contrast: "Эсрэг тэсрэг"
+        // [Auto-translated] "Monochrome"
+        monochrome: "Хар цагаан"
       },
       colors: {
         // [Auto-translated] "Teal"
@@ -3682,28 +3366,15 @@
       }
     },
     creatortheme: {
-      // [Auto-translated] "Surface background"
-      "--sjs-special-background": "Гадаргуугийн фон",
       // [Auto-translated] "Primary"
       "--sjs-primary-background-500": "Хүүхдийн хэсэг",
       // [Auto-translated] "Secondary"
       "--sjs-secondary-background-500": "Хоёрдугаар зэргийн",
-      // [Auto-translated] "Surface"
-      surfaceScale: "Гадаргуу",
       // [Auto-translated] "UI elements"
       userInterfaceBaseUnit: "UI элементүүд",
       // [Auto-translated] "Font"
       fontScale: "Фонт",
-      names: {
-        // [Auto-translated] "Survey Creator 2020"
-        sc2020: "Судалгаа зохион байгуулагч 2020",
-        // [Auto-translated] "Light"
-        "default-light": "Гэрэл",
-        // [Auto-translated] "Dark"
-        "default-dark": "Харанхуй",
-        // [Auto-translated] "Contrast"
-        "default-contrast": "Эсрэг тэсрэг байдал"
-      }
+      names: {}
     },
     preset: {
       names: {
@@ -3716,6 +3387,13 @@
       },
       // [Auto-translated] "Preset applied"
       presetApplied: "Урьдчилсан тохируулга хэрэглээ"
+    },
+    // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
+    defaultJson: {
+      choices: [{ value: "item1", text: "Хэсэг 1" }, { value: "item2", text: "Хэсэг 2" }, { value: "item3", text: "Хэсэг 3" }],
+      columns: [{ value: "column1", text: "Column 1" }, { value: "column2", text: "Column 2" }, { value: "column3", text: "Column 3" }],
+      rows: [{ value: "row1", text: "Row 1" }, { value: "row2", text: "Row 2" }],
+      matrixColumns: [{ name: "column1", title: "Column 1" }, { name: "column2", title: "Column 2" }, { name: "column3", title: "Column 3" }]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "mn", strings: mnStrings });
