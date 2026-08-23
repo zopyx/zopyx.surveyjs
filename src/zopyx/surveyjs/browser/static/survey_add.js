@@ -168,18 +168,29 @@
     }
     const languageChoices = getDynamicSurveyLanguageChoices();
     const aiModelChoices = getDynamicAIModelChoices();
-    schema.pages.forEach(function (page) {
-      if (!page || !Array.isArray(page.elements)) {
+    function applyToElements(elements) {
+      if (!Array.isArray(elements)) {
         return;
       }
-      page.elements.forEach(function (element) {
-        if (element && element.name === "survey_languages" && languageChoices.length) {
+      elements.forEach(function (element) {
+        if (!element) {
+          return;
+        }
+        if (element.name === "survey_languages" && languageChoices.length) {
           element.choices = languageChoices;
         }
-        if (element && element.name === "ai_model" && aiModelChoices.length) {
+        if (element.name === "ai_model" && aiModelChoices.length) {
           element.choices = aiModelChoices;
         }
+        // Panels group fields (e.g. the AI provider groups in
+        // forms-settings); their inner elements need the same treatment.
+        if (element.type === "panel" && Array.isArray(element.elements)) {
+          applyToElements(element.elements);
+        }
       });
+    }
+    schema.pages.forEach(function (page) {
+      applyToElements(page.elements);
     });
   }
 

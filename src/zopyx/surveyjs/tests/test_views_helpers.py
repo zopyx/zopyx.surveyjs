@@ -74,7 +74,12 @@ class ViewsHelperTests(unittest.TestCase):
         view = Views.__new__(Views)
         with patch(
             "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
-            return_value=("model-name", "key", "http://localhost:11434"),
+            return_value={
+                "provider": "ollama",
+                "model_name": "llama3.2",
+                "api_key": None,
+                "api_url": "http://localhost:11434",
+            },
         ):
             self.assertEqual(view.get_ai_model(), "local")
 
@@ -82,7 +87,25 @@ class ViewsHelperTests(unittest.TestCase):
         view = Views.__new__(Views)
         with patch(
             "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
-            return_value=("model-name", None, None),
+            return_value={
+                "provider": "installed",
+                "model_name": "model-name",
+                "api_key": None,
+                "api_url": None,
+            },
+        ):
+            self.assertEqual(view.get_ai_model(), "remote")
+
+    def test_get_ai_model_returns_remote_for_custom_provider(self) -> None:
+        view = Views.__new__(Views)
+        with patch(
+            "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
+            return_value={
+                "provider": "custom",
+                "model_name": "deepseek-chat",
+                "api_key": "secret",
+                "api_url": "https://api.deepseek.com",
+            },
         ):
             self.assertEqual(view.get_ai_model(), "remote")
 
@@ -90,6 +113,11 @@ class ViewsHelperTests(unittest.TestCase):
         view = Views.__new__(Views)
         with patch(
             "zopyx.surveyjs.browser.views.ai_service.load_ai_settings",
-            return_value=(None, None, None),
+            return_value={
+                "provider": "installed",
+                "model_name": None,
+                "api_key": None,
+                "api_url": None,
+            },
         ):
             self.assertEqual(view.get_ai_model(), "no_ai")

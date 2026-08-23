@@ -14,8 +14,16 @@ from zope.schema.interfaces import IVocabularyFactory
 
 from ..interfaces import IFormsSettings
 from ..permissions import ManagePortal
+from .services.ai import PROVIDERS
+from .services.ai import PROVIDER_FIELDS
 
 logger = logging.getLogger(__name__)
+
+# Fields stored as None (not empty string) when unset; "" is invalid for
+# URI fields and for the ai_model Choice against a populated vocabulary.
+_EMPTY_IS_NONE_FIELDS = ("ai_model", "ollama_url", "custom_api_url")
+# API key fields: keep-masked on save (empty submission keeps stored value)
+_API_KEY_FIELDS = ("ai_api_key", "custom_api_key")
 
 
 class FormsSettingsView(BrowserView):
@@ -86,9 +94,14 @@ class FormsSettingsView(BrowserView):
         values = {
             "surveyjs_license_key": getattr(settings, "surveyjs_license_key", "") or "",
             "features_enabled": list(features_enabled),
+            "ai_provider": self._effective_ai_provider(settings),
             "ai_model": getattr(settings, "ai_model", "") or "",
             "ai_api_key": getattr(settings, "ai_api_key", "") or "",
             "ollama_url": getattr(settings, "ollama_url", "") or "",
+            "ollama_model": getattr(settings, "ollama_model", "") or "",
+            "custom_llm_name": getattr(settings, "custom_llm_name", "") or "",
+            "custom_api_url": getattr(settings, "custom_api_url", "") or "",
+            "custom_api_key": getattr(settings, "custom_api_key", "") or "",
             "ai_prompt_before": getattr(settings, "ai_prompt_before", "") or "",
             "ai_prompt_default": getattr(settings, "ai_prompt_default", "") or "",
             "ai_prompt_after": getattr(settings, "ai_prompt_after", "") or "",
@@ -148,6 +161,22 @@ class FormsSettingsView(BrowserView):
             values["__ai_model_choices"] = ai_model_choices
         return values
 
+    def _effective_ai_provider(self, settings) -> str:
+        """Return the AI provider mode for the settings form.
+
+        Uses the stored ``ai_provider`` when valid; otherwise derives it
+        from legacy populated fields (ollama URL wins over a configured
+        model, matching the previous resolver precedence).
+        """
+        provider = getattr(settings, "ai_provider", None)
+        if provider in PROVIDERS:
+            return provider
+        if getattr(settings, "ollama_url", None):
+            return "ollama"
+        if getattr(settings, "custom_api_url", None):
+            return "custom"
+        return "installed"
+
     def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
         """Extract form data from request."""
         errors: list[str] = []
@@ -185,6 +214,23 @@ class FormsSettingsView(BrowserView):
                     "Database URI is required when using relational database storage."
                 )
 
+        # Validate AI provider group completeness (mutually exclusive modes)
+        provider = data.get("ai_provider", "installed")
+        if provider == "custom":
+            missing = [
+                field
+                for field in ("custom_llm_name", "custom_api_url", "custom_api_key")
+                if not (data.get(field, "") or "").strip()
+            ]
+            if missing:
+                errors.append(
+                    "Custom LLM configuration requires LLM Name, LLM API URL "
+                    "and API key."
+                )
+        elif provider == "ollama":
+            if not (data.get("ollama_url", "") or "").strip():
+                errors.append("Ollama configuration requires an Ollama URL.")
+
         return errors
 
     def _save_to_registry(self, data: dict[str, Any]) -> None:
@@ -194,8 +240,20 @@ class FormsSettingsView(BrowserView):
 
         # Helper to set registry values
         def set_value(name: str, value: Any) -> None:
-            if hasattr(settings, name):
+            if not hasattr(settings, name):
+                return
+            try:
                 setattr(settings, name, value)
+            except AttributeError:
+                # Record not registered yet (e.g. install upgraded without
+                # re-importing the registry profile step): create it from the
+                # schema field so saving the settings never fails.
+                from plone.registry.interfaces import IPersistentField
+                from plone.registry.record import Record
+
+                field = IPersistentField(IFormsSettings[name])
+                record = Record(field, value)
+                registry.records[f"{IFormsSettings.__identifier__}.{name}"] = record
 
         # General settings
         set_value("surveyjs_license_key", data.get("surveyjs_license_key", "").strip())
@@ -204,13 +262,31 @@ class FormsSettingsView(BrowserView):
         set_value("features_enabled", list(features) if features else [])
 
         # AI settings
-        set_value("ai_model", data.get("ai_model", "").strip())
-        api_key = data.get("ai_api_key", "")
-        if api_key and api_key.strip():  # Only update if not empty
-            set_value("ai_api_key", api_key.strip())
-        # URI fields must be None (not empty string) when unset
-        ollama_url = data.get("ollama_url", "").strip()
-        set_value("ollama_url", ollama_url if ollama_url else None)
+        provider = data.get("ai_provider", "installed")
+        if provider not in PROVIDERS:
+            provider = "installed"
+        set_value("ai_provider", provider)
+
+        # The three provider groups are mutually exclusive: fields of
+        # non-active groups are always cleared, so a saved configuration
+        # can never mix providers. API keys of the active group are
+        # keep-masked (empty submission keeps the stored value).
+        for group, fields in PROVIDER_FIELDS.items():
+            active = group == provider
+            for field in fields:
+                raw = data.get(field, "")
+                value = raw.strip() if isinstance(raw, str) else raw
+                if not active:
+                    set_value(field, None if field in _EMPTY_IS_NONE_FIELDS else "")
+                    continue
+                if field in _API_KEY_FIELDS:
+                    if value:
+                        set_value(field, value)
+                    continue
+                if field in _EMPTY_IS_NONE_FIELDS:
+                    set_value(field, value if value else None)
+                else:
+                    set_value(field, value if value else "")
         set_value("ai_prompt_before", data.get("ai_prompt_before", ""))
         set_value("ai_prompt_default", data.get("ai_prompt_default", ""))
         set_value("ai_prompt_after", data.get("ai_prompt_after", ""))

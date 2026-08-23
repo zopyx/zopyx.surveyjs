@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass, field
 
 from .retriever import Retriever
@@ -49,40 +48,10 @@ class ChatEngine:
     def __init__(
         self,
         store: ChatDocumentStore,
-        model_name: str | None,
-        api_key: str | None,
-        ollama_url: str | None,
+        settings: dict,
     ):
         self.store = store
-        self.model_name = model_name
-        self.api_key = api_key
-        self.ollama_url = ollama_url
-
-    def _resolve_model_name(self, llm):
-        model_name = self.model_name
-        if self.ollama_url:
-            os.environ["OLLAMA_HOST"] = self.ollama_url
-            if model_name and not model_name.startswith("ollama/"):
-                model_name = f"ollama/{model_name}"
-            elif not model_name:
-                model_name = "ollama/llama3.2"
-        if not model_name:
-            default = llm.get_default_model()
-            if not default:
-                raise ValueError(
-                    "No AI model configured. Configure AI Model in Site Setup > Forms."
-                )
-            model_name = default
-        return model_name
-
-    def _configure_api_key(self, model_name: str) -> None:
-        if not self.api_key or self.ollama_url:
-            return
-        lowered = model_name.lower()
-        if "gpt" in lowered or "openai" in lowered:
-            os.environ["OPENAI_API_KEY"] = self.api_key
-        elif "claude" in lowered or "anthropic" in lowered:
-            os.environ["ANTHROPIC_API_KEY"] = self.api_key
+        self.settings = settings
 
     def _confidence(self, retrieved: list[dict]) -> str:
         if not retrieved:
@@ -137,13 +106,12 @@ class ChatEngine:
 
     def _generate_response(self, prompt: str) -> str:
         try:
-            import llm
+            from zopyx.surveyjs.browser.services.ai import build_llm_model
         except ImportError:
-            raise ImportError("The 'llm' module is not installed.")
-
-        model_name = self._resolve_model_name(llm)
-        self._configure_api_key(model_name)
-        model = llm.get_model(model_name)
+            raise ImportError(
+                "The 'zopyx.surveyjs' service helpers are not available."
+            )
+        model = build_llm_model(self.settings)
         response = model.prompt(prompt)
         text = response.text() if callable(response.text) else response.text
         return text or ""

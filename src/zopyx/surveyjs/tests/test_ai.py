@@ -81,7 +81,12 @@ class AIViewTests(unittest.TestCase):
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
-        return_value=("gpt-4o", "secret", None),
+        return_value={
+            "provider": "installed",
+            "model_name": "gpt-4o",
+            "api_key": "secret",
+            "api_url": None,
+        },
     )
     def test_upload_fillable_pdf_stores_internal_mapping(
         self, _settings, _annos, _show_message, _write_text
@@ -116,7 +121,12 @@ class AIViewTests(unittest.TestCase):
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
-        return_value=("gpt-4o", "secret", None),
+        return_value={
+            "provider": "installed",
+            "model_name": "gpt-4o",
+            "api_key": "secret",
+            "api_url": None,
+        },
     )
     def test_upload_non_fillable_pdf_clears_internal_mapping(
         self, _settings, _annos, _show_message, _write_text
@@ -144,7 +154,12 @@ class AIViewTests(unittest.TestCase):
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
-        return_value=("gpt-4o", "secret", None),
+        return_value={
+            "provider": "installed",
+            "model_name": "gpt-4o",
+            "api_key": "secret",
+            "api_url": None,
+        },
     )
     def test_upload_non_pdf_clears_internal_mapping(
         self, _settings, _annos, _show_message, _write_text
@@ -169,7 +184,12 @@ class AIViewTests(unittest.TestCase):
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
-        return_value=("gpt-4o", "secret", None),
+        return_value={
+            "provider": "installed",
+            "model_name": "gpt-4o",
+            "api_key": "secret",
+            "api_url": None,
+        },
     )
     def test_chat_refine_creates_temp_form_when_workspace_is_empty(
         self, _settings, _annos, _show_message, _write_text
@@ -197,7 +217,12 @@ class AIViewTests(unittest.TestCase):
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
-        return_value=("gpt-4o", "secret", None),
+        return_value={
+            "provider": "installed",
+            "model_name": "gpt-4o",
+            "api_key": "secret",
+            "api_url": None,
+        },
     )
     def test_chat_refine_appends_history_when_workspace_has_form(
         self, _settings, _annos, _show_message, _write_text

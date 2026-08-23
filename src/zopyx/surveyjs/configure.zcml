@@ -38,6 +38,17 @@
       post_handler=".setuphandlers.uninstall"
       />
 
+  <genericsetup:upgradeSteps
+      source="1001"
+      destination="1002"
+      profile="zopyx.surveyjs:default">
+    <genericsetup:upgradeStep
+        title="Register AI provider settings records"
+        description="Re-imports the registry step to create the records for the new IFormsSettings AI provider fields (ai_provider, ollama_model, custom LLM fields)."
+        handler=".upgrades.to_1002"
+        />
+  </genericsetup:upgradeSteps>
+
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="zopyx.surveyjs-hiddenprofiles"

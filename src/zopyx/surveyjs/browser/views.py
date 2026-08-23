@@ -328,10 +328,11 @@ class Views(BrowserView):
 
     def get_ai_model(self) -> str:
         """Return the AI backend type based on configured settings."""
-        model_name, _api_key, ollama_url = ai_service.load_ai_settings()
-        if ollama_url:
+        settings = ai_service.load_ai_settings()
+        provider = settings.get("provider")
+        if provider == "ollama" and settings.get("api_url"):
             return "local"
-        if model_name:
+        if provider in ("installed", "custom") and settings.get("model_name"):
             return "remote"
         return "no_ai"
 

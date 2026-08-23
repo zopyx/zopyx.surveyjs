@@ -90,7 +90,15 @@ class ChatbotEngineTests(unittest.TestCase):
 
     def test_chat_returns_sources_confidence_and_followups(self) -> None:
         store = self._store_with_docs()
-        engine = ChatEngine(store, model_name="gpt-test", api_key=None, ollama_url=None)
+        engine = ChatEngine(
+            store,
+            settings={
+                "provider": "installed",
+                "model_name": "gpt-test",
+                "api_key": None,
+                "api_url": None,
+            },
+        )
         context = ChatContext(
             current_view="@@chatbot", survey_title="T", user_role="Editor"
         )
@@ -107,7 +115,15 @@ class ChatbotEngineTests(unittest.TestCase):
 
     def test_stream_chat_emits_done_event(self) -> None:
         store = self._store_with_docs()
-        engine = ChatEngine(store, model_name="gpt-test", api_key=None, ollama_url=None)
+        engine = ChatEngine(
+            store,
+            settings={
+                "provider": "installed",
+                "model_name": "gpt-test",
+                "api_key": None,
+                "api_url": None,
+            },
+        )
         context = ChatContext()
 
         with patch.object(ChatEngine, "_generate_response", return_value="A" * 330):

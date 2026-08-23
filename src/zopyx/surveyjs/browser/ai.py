@@ -28,10 +28,8 @@ Dependencies:
 
 from datetime import datetime, timezone
 import json
-import os
 from pathlib import Path
 import tempfile
-from typing import Optional
 
 import plone.api
 from zopyx.surveyjs.json_extract import NoJSONFound, extract_json_text
@@ -82,8 +80,8 @@ class AIView(Views):
     @property
     def ai_model_name(self) -> str:
         """Return the configured AI model name for display."""
-        model_name, _api_key, _ollama_url = ai_service.load_ai_settings()
-        return model_name or "Not configured"
+        settings = ai_service.load_ai_settings()
+        return settings.get("model_name") or "Not configured"
 
     def _to_jsonable(self, value):
         """Convert a value to JSON-serializable format.
@@ -500,54 +498,31 @@ class AIView(Views):
         """
         annos.pop(self.TEMP_PDF_FIELD_MAPPING_ANNOTATION_KEY, None)
 
-    def _prepare_ai_model(self, model_name, api_key, ollama_url):
+    def _prepare_ai_model(self, settings):
         """Prepare and return an AI model from privacyforms_ai.
 
-        Configures environment variables for Ollama, OpenAI, or Anthropic
-        based on the model name and provided credentials, then returns
-        a configured model instance.
+        Delegates to the shared resolver in ``services.ai`` which handles
+        all three mutually exclusive provider modes (installed, ollama,
+        custom) and configures the required environment variables.
 
         Args:
-            model_name: Name of the AI model (e.g., 'gpt-4', 'ollama/llama2').
-            api_key: API key for cloud providers (OpenAI, Anthropic).
-            ollama_url: URL for Ollama server (if using Ollama).
+            settings: dict as returned by ``ai_service.load_ai_settings()``.
 
         Returns:
             A configured AI model instance from privacyforms_ai.
 
         Raises:
-            RuntimeError: If privacyforms_ai is not available or no model
-                is configured.
+            RuntimeError: If privacyforms_ai is not available or the
+                provider configuration is incomplete.
         """
-        if AI is None:
-            raise RuntimeError("privacyforms_ai package not found")
-
-        effective_model = model_name
-        if ollama_url:
-            os.environ["OLLAMA_HOST"] = ollama_url
-            if effective_model and not effective_model.startswith("ollama/"):
-                effective_model = f"ollama/{effective_model}"
-
-        if api_key and not ollama_url and effective_model:
-            key = (effective_model or "").lower()
-            if "gpt" in key or "openai" in key:
-                os.environ["OPENAI_API_KEY"] = api_key
-            elif "claude" in key or "anthropic" in key:
-                os.environ["ANTHROPIC_API_KEY"] = api_key
-
-        if not effective_model:
-            raise RuntimeError("No AI model configured.")
-
-        return AI.get_model(effective_model)
+        return ai_service.build_llm_model(settings)
 
     def _call_ai_conversion(
         self,
         prompt: str,
         file_path: str,
         mime_type: str,
-        model_name: Optional[str],
-        api_key: Optional[str],
-        ollama_url: Optional[str],
+        settings,
     ):
         """Call AI to convert an uploaded document to SurveyJS JSON.
 
@@ -558,14 +533,12 @@ class AIView(Views):
             prompt: The conversion prompt text.
             file_path: Path to the uploaded document file.
             mime_type: MIME type of the document.
-            model_name: Name of the AI model to use.
-            api_key: API key for authentication.
-            ollama_url: Ollama server URL (optional).
+            settings: dict as returned by ``ai_service.load_ai_settings()``.
 
         Returns:
             The AI response payload (typically JSON text).
         """
-        model = self._prepare_ai_model(model_name, api_key, ollama_url)
+        model = self._prepare_ai_model(settings)
         return AI.prompt_with_attachment(
             model=model,
             prompt=prompt,
@@ -573,21 +546,19 @@ class AIView(Views):
             mime_type=mime_type,
         )
 
-    def _call_ai_text_refinement(self, prompt, model_name, api_key, ollama_url):
+    def _call_ai_text_refinement(self, prompt, settings):
         """Call AI for text-based form refinement.
 
         Sends a text-only prompt for refining existing form JSON.
 
         Args:
             prompt: The refinement prompt (includes current JSON + instructions).
-            model_name: Name of the AI model to use.
-            api_key: API key for authentication.
-            ollama_url: Ollama server URL (optional).
+            settings: dict as returned by ``ai_service.load_ai_settings()``.
 
         Returns:
             str: The AI response text containing refined JSON.
         """
-        model = self._prepare_ai_model(model_name, api_key, ollama_url)
+        model = self._prepare_ai_model(settings)
         response = model.prompt(prompt)
         return response.text() if callable(response.text) else response.text
 
@@ -707,8 +678,8 @@ class AIView(Views):
         if extension != ".pdf" or has_form is not True:
             self._clear_pdf_field_mapping(annos)
 
-        model_name, api_key, ollama_url = ai_service.load_ai_settings()
-        if not model_name:
+        settings = ai_service.load_ai_settings()
+        if not ai_service.is_configured(settings):
             return self._redirect_ai(
                 "AI model not configured. Configure an AI model in Forms settings before using AI upload.",
                 "error",
@@ -780,9 +751,7 @@ Requirements:
                     mime_type=self.MIME_TYPES.get(
                         extension, "application/octet-stream"
                     ),
-                    model_name=model_name,
-                    api_key=api_key,
-                    ollama_url=ollama_url,
+                    settings=settings,
                 )
                 generated_form = self._parse_generated_json(ai_result)
             finally:
@@ -940,8 +909,8 @@ Requirements:
         annos = IAnnotations(self.context)
         current_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
 
-        model_name, api_key, ollama_url = ai_service.load_ai_settings()
-        if not model_name:
+        settings = ai_service.load_ai_settings()
+        if not ai_service.is_configured(settings):
             return self._redirect_ai(
                 "AI model not configured. Configure an AI model in Forms settings.",
                 "error",
@@ -961,17 +930,13 @@ Requirements:
                 )
                 ai_result_text = self._call_ai_text_refinement(
                     chat_prompt,
-                    model_name=model_name,
-                    api_key=api_key,
-                    ollama_url=ollama_url,
+                    settings=settings,
                 )
                 next_form = self._parse_generated_json(ai_result_text)
             else:
                 ai_result_text = self._call_ai_text_refinement(
                     self._build_generation_prompt(prompt),
-                    model_name=model_name,
-                    api_key=api_key,
-                    ollama_url=ollama_url,
+                    settings=settings,
                 )
                 next_form = self._parse_generated_json(ai_result_text)
         except Exception as exc:

@@ -72,7 +72,7 @@ def generate_survey_json_from_pdf_llm(pdf_bytes):
                 raise ValueError("PNG conversion failed: no output created")
             image_path = candidates[0]
 
-        model_name, api_key, ollama_url = load_ai_settings()
+        settings = load_ai_settings()
 
         prompt = (
             "Convert this PDF to SurveyJS JSON. Keep the layout, "
@@ -83,9 +83,13 @@ def generate_survey_json_from_pdf_llm(pdf_bytes):
         survey_json_str = generate_survey_json_from_image(
             str(image_path),
             prompt,
-            model_name=model_name,
-            api_key=api_key,
-            ollama_url=ollama_url,
+            model_name=settings.get("model_name"),
+            api_key=settings.get("api_key"),
+            ollama_url=(
+                settings.get("api_url")
+                if settings.get("provider") == "ollama"
+                else None
+            ),
         )
 
     cleaned_json_str = strip_markdown_json(survey_json_str)

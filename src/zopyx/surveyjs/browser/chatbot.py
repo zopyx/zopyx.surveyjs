@@ -29,12 +29,9 @@ class SurveyChatbot(Views):
         return DocumentationIndexer(self._store())
 
     def _engine(self) -> ChatEngine:
-        model_name, api_key, ollama_url = ai_service.load_ai_settings()
         return ChatEngine(
             store=self._store(),
-            model_name=model_name,
-            api_key=api_key,
-            ollama_url=ollama_url,
+            settings=ai_service.load_ai_settings(),
         )
 
     def _ensure_local_index(self) -> None:

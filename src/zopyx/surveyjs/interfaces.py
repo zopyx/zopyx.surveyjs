@@ -118,9 +118,14 @@ class IFormsSettings(IPloneLoggingSettings):
         "ai",
         label="AI",
         fields=(
+            "ai_provider",
             "ai_model",
             "ai_api_key",
             "ollama_url",
+            "ollama_model",
+            "custom_llm_name",
+            "custom_api_url",
+            "custom_api_key",
             "ai_prompt_before",
             "ai_prompt_default",
             "ai_prompt_after",
@@ -211,6 +216,17 @@ class IFormsSettings(IPloneLoggingSettings):
         missing_value=[],
     )
 
+    ai_provider = schema.Choice(
+        title="AI Provider",
+        description=(
+            "Select how the LLM for form generation is provided. "
+            "The three options are mutually exclusive."
+        ),
+        required=False,
+        default="installed",
+        values=["installed", "ollama", "custom"],
+    )
+
     ai_model = schema.Choice(
         title="AI Model",
         description="The LLM model to use for form generation.",
@@ -230,6 +246,44 @@ class IFormsSettings(IPloneLoggingSettings):
         title="Ollama URL",
         description="Optional Ollama server URL for AI-powered form generation (e.g., 'http://localhost:11434'). If set, the AI generator will use Ollama instead of the default LLM provider.",
         required=False,
+    )
+
+    ollama_model = schema.TextLine(
+        title="Ollama Model",
+        description=(
+            "Model name on the Ollama server (e.g., 'llama3.2'). "
+            "If empty, 'llama3.2' is used."
+        ),
+        required=False,
+        default="",
+    )
+
+    custom_llm_name = schema.TextLine(
+        title="LLM Name",
+        description=(
+            "Model name as expected by the custom API endpoint "
+            "(e.g., 'deepseek-chat')."
+        ),
+        required=False,
+        default="",
+    )
+
+    custom_api_url = schema.URI(
+        title="LLM API URL",
+        description=(
+            "Base URL of the OpenAI-compatible API endpoint "
+            "(e.g., 'https://api.deepseek.com')."
+        ),
+        required=False,
+    )
+
+    custom_api_key = schema.Password(
+        title="API Key",
+        description=(
+            "API key for the custom API endpoint. This will be stored securely."
+        ),
+        required=False,
+        default="",
     )
 
     ai_prompt_before = schema.Text(

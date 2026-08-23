@@ -72,6 +72,10 @@
       .survey-add-widget .sd-progress-toc {
         height: auto !important;
       }
+      .sd-container-modern__title {
+        padding-left: 0 !important;
+        color: red;
+      }
       .survey-add-loading {
         color: #7c3aed;
         font-weight: 600;
@@ -132,6 +136,15 @@
       }
       .sd-description {
         font-size: 0.8em !important;
+      }
+      /* AI provider groups in forms-settings: bordered boxes around the
+         fields of each provider mode (showBorder: true renders the
+         sd-panel--border class). */
+      .survey-add-widget .sd-panel--border {
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #f8fafc;
+        padding: 1rem 1.25rem;
       }
       .survey-add-widget .sd-btn--action.sd-navigation__complete-btn,
       .survey-add-widget .sv-btn--action.sv-navigation__complete-btn,

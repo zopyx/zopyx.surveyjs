@@ -272,101 +272,337 @@
       },
       "elements": [
         {
-          "type": "dropdown",
-          "name": "ai_model",
+          "type": "radiogroup",
+          "name": "ai_provider",
           "title": {
-            "default": "AI Model",
-            "de": "KI-Modell",
-            "en": "AI Model",
-            "es": "Modelo de IA",
-            "fr": "Modèle IA",
-            "it": "Modello AI",
-            "pt": "Modelo de IA",
-            "fi": "AI-malli",
-            "hi": "AI मॉडल",
-            "ar": "نموذج الذكاء الاصطناعي",
-            "ja": "AIモデル"
+            "default": "AI Provider",
+            "de": "KI-Anbieter",
+            "en": "AI Provider",
+            "es": "Proveedor de IA",
+            "fr": "Fournisseur IA",
+            "it": "Fornitore AI",
+            "pt": "Provedor de IA",
+            "fi": "AI-palveluntarjoaja",
+            "hi": "AI प्रदाता",
+            "ar": "مزود الذكاء الاصطناعي",
+            "ja": "AIプロバイダー"
           },
           "description": {
-            "default": "The LLM model to use for form generation.",
-            "de": "Das LLM-Modell für die Formulargenerierung.",
-            "en": "The LLM model to use for form generation.",
-            "es": "El modelo LLM para generación de formularios.",
-            "fr": "Le modèle LLM pour la génération de formulaires.",
-            "it": "Il modello LLM per la generazione di moduli.",
-            "pt": "O modelo LLM para geração de formulários.",
-            "fi": "LLM-malli lomakkeen luontia varten.",
-            "hi": "फ़ॉर्म जनरेशन के लिए LLM मॉडल।",
-            "ar": "نموذج LLM لإنشاء النماذج.",
-            "ja": "フォーム生成に使用するLLMモデル。"
+            "default": "Select how the LLM for form generation is provided. The three options are mutually exclusive.",
+            "de": "Wählen Sie, wie das LLM für die Formulargenerierung bereitgestellt wird. Die drei Optionen schließen sich gegenseitig aus.",
+            "en": "Select how the LLM for form generation is provided. The three options are mutually exclusive.",
+            "es": "Seleccione cómo se proporciona el LLM para la generación de formularios. Las tres opciones son mutuamente excluyentes.",
+            "fr": "Sélectionnez comment le LLM est fourni pour la génération de formulaires. Les trois options sont mutuellement exclusives.",
+            "it": "Selezionare come viene fornito il LLM per la generazione di moduli. Le tre opzioni si escludono a vicenda.",
+            "pt": "Selecione como o LLM é fornecido para a geração de formulários. As três opções são mutuamente exclusivas.",
+            "fi": "Valitse, miten LLM toimitetaan lomakkeen luontia varten. Kolme vaihtoehtoa ovat toisiaan poissulkevia.",
+            "hi": "चुनें कि फ़ॉर्म जनरेशन के लिए LLM कैसे प्रदान किया जाता है। तीनों विकल्प परस्पर अनन्य हैं।",
+            "ar": "حدد كيفية توفير LLM لإنشاء النماذج. الخيارات الثلاثة متعارضة.",
+            "ja": "フォーム生成用のLLMの提供方法を選択します。3つのオプションは相互に排他的です。"
           },
-          "choices": [],
-          "minWidth": "100%"
+          "choices": [
+            {
+              "value": "installed",
+              "text": {
+                "default": "Installed LLM model",
+                "de": "Installiertes LLM-Modell",
+                "en": "Installed LLM model",
+                "es": "Modelo de IA instalado",
+                "fr": "Modèle IA installé",
+                "it": "Modello AI installato",
+                "pt": "Modelo de IA instalado",
+                "fi": "Asennettu LLM-malli",
+                "hi": "स्थापित LLM मॉडल",
+                "ar": "نموذج LLM مثبت",
+                "ja": "インストール済みLLMモデル"
+              }
+            },
+            {
+              "value": "ollama",
+              "text": {
+                "default": "Ollama server (URL)",
+                "de": "Ollama-Server (URL)",
+                "en": "Ollama server (URL)",
+                "es": "Servidor Ollama (URL)",
+                "fr": "Serveur Ollama (URL)",
+                "it": "Server Ollama (URL)",
+                "pt": "Servidor Ollama (URL)",
+                "fi": "Ollama-palvelin (URL)",
+                "hi": "Ollama सर्वर (URL)",
+                "ar": "خادم Ollama (URL)",
+                "ja": "Ollamaサーバー（URL）"
+              }
+            },
+            {
+              "value": "custom",
+              "text": {
+                "default": "Custom OpenAI-compatible API",
+                "de": "Eigene OpenAI-kompatible API",
+                "en": "Custom OpenAI-compatible API",
+                "es": "API personalizada compatible con OpenAI",
+                "fr": "API personnalisée compatible OpenAI",
+                "it": "API personalizzata compatibile con OpenAI",
+                "pt": "API personalizada compatível com OpenAI",
+                "fi": "Mukautettu OpenAI-yhteensopiva API",
+                "hi": "कस्टम OpenAI-संगत API",
+                "ar": "واجهة برمجة تطبيقات مخصصة متوافقة مع OpenAI",
+                "ja": "カスタムOpenAI互換API"
+              }
+            }
+          ],
+          "colCount": 1,
+          "minWidth": "100%",
+          "defaultValue": "installed"
         },
         {
-          "type": "text",
-          "name": "ai_api_key",
-          "title": {
-            "default": "API Key",
-            "de": "API-Schlüssel",
-            "en": "API Key",
-            "es": "Clave API",
-            "fr": "Clé API",
-            "it": "Chiave API",
-            "pt": "Chave API",
-            "fi": "API-avain",
-            "hi": "API कुंजी",
-            "ar": "مفتاح API",
-            "ja": "APIキー"
-          },
-          "description": {
-            "default": "API key for the AI model provider. This will be stored securely.",
-            "de": "API-Schlüssel für den KI-Modellanbieter. Wird sicher gespeichert.",
-            "en": "API key for the AI model provider. This will be stored securely.",
-            "es": "Clave API para el proveedor de modelo de IA. Se almacenará de forma segura.",
-            "fr": "Clé API pour le fournisseur de modèle IA. Sera stockée de manière sécurisée.",
-            "it": "Chiave API per il provider del modello AI. Sarà memorizzata in modo sicuro.",
-            "pt": "Chave API para o provedor de modelo de IA. Será armazenada de forma segura.",
-            "fi": "API-avain AI-mallin tarjoajalle. Tallennetaan turvallisesti.",
-            "hi": "AI मॉडल प्रदाता के लिए API कुंजी। यह सुरक्षित रूप से संग्रहीत की जाएगी।",
-            "ar": "مفتاح API لمزود نموذج الذكاء الاصطناعي. سيتم تخزينه بشكل آمن.",
-            "ja": "AIモデルプロバイダーのAPIキー。安全に保存されます。"
-          },
-          "inputType": "password",
-          "minWidth": "100%"
+          "type": "panel",
+          "name": "panel_installed",
+          "showBorder": true,
+          "visibleIf": "{ai_provider} = 'installed'",
+          "elements": [
+            {
+              "type": "dropdown",
+              "name": "ai_model",
+              "title": {
+                "default": "AI Model",
+                "de": "KI-Modell",
+                "en": "AI Model",
+                "es": "Modelo de IA",
+                "fr": "Modèle IA",
+                "it": "Modello AI",
+                "pt": "Modelo de IA",
+                "fi": "AI-malli",
+                "hi": "AI मॉडल",
+                "ar": "نموذج الذكاء الاصطناعي",
+                "ja": "AIモデル"
+              },
+              "description": {
+                "default": "The LLM model to use for form generation.",
+                "de": "Das LLM-Modell für die Formulargenerierung.",
+                "en": "The LLM model to use for form generation.",
+                "es": "El modelo LLM para generación de formularios.",
+                "fr": "Le modèle LLM pour la génération de formulaires.",
+                "it": "Il modello LLM per la generazione di moduli.",
+                "pt": "O modelo LLM para geração de formulários.",
+                "fi": "LLM-malli lomakkeen luontia varten.",
+                "hi": "फ़ॉर्म जनरेशन के लिए LLM मॉडल।",
+                "ar": "نموذج LLM لإنشاء النماذج.",
+                "ja": "フォーム生成に使用するLLMモデル。"
+              },
+              "choices": [],
+              "minWidth": "100%"
+            },
+            {
+              "type": "text",
+              "name": "ai_api_key",
+              "title": {
+                "default": "API Key",
+                "de": "API-Schlüssel",
+                "en": "API Key",
+                "es": "Clave API",
+                "fr": "Clé API",
+                "it": "Chiave API",
+                "pt": "Chave API",
+                "fi": "API-avain",
+                "hi": "API कुंजी",
+                "ar": "مفتاح API",
+                "ja": "APIキー"
+              },
+              "description": {
+                "default": "API key for the AI model provider. This will be stored securely.",
+                "de": "API-Schlüssel für den KI-Modellanbieter. Wird sicher gespeichert.",
+                "en": "API key for the AI model provider. This will be stored securely.",
+                "es": "Clave API para el proveedor de modelo de IA. Se almacenará de forma segura.",
+                "fr": "Clé API pour le fournisseur de modèle IA. Sera stockée de manière sécurisée.",
+                "it": "Chiave API per il provider del modello AI. Sarà memorizzata in modo sicuro.",
+                "pt": "Chave API para o provedor de modelo de IA. Será armazenada de forma segura.",
+                "fi": "API-avain AI-mallin tarjoajalle. Tallennetaan turvallisesti.",
+                "hi": "AI मॉडल प्रदाता के लिए API कुंजी। यह सुरक्षित रूप से संग्रहीत की जाएगी।",
+                "ar": "مفتاح API لمزود نموذج الذكاء الاصطناعي. سيتم تخزينه بشكل آمن.",
+                "ja": "AIモデルプロバイダーのAPIキー。安全に保存されます。"
+              },
+              "inputType": "password",
+              "minWidth": "100%"
+            }
+          ]
         },
         {
-          "type": "text",
-          "name": "ollama_url",
-          "title": {
-            "default": "Ollama URL",
-            "de": "Ollama-URL",
-            "en": "Ollama URL",
-            "es": "URL de Ollama",
-            "fr": "URL Ollama",
-            "it": "URL Ollama",
-            "pt": "URL do Ollama",
-            "fi": "Ollama-URL",
-            "hi": "Ollama URL",
-            "ar": "عنوان Ollama",
-            "ja": "Ollama URL"
-          },
-          "description": {
-            "default": "Optional Ollama server URL for AI-powered form generation (e.g., 'http://localhost:11434').",
-            "de": "Optionale Ollama-Server-URL für KI-gestützte Formulargenerierung (z.B. 'http://localhost:11434').",
-            "en": "Optional Ollama server URL for AI-powered form generation (e.g., 'http://localhost:11434').",
-            "es": "URL opcional del servidor Ollama para generación de formularios con IA (ej., 'http://localhost:11434').",
-            "fr": "URL optionnelle du serveur Ollama pour la génération de formulaires IA (ex. 'http://localhost:11434').",
-            "it": "URL opzionale del server Ollama per la generazione di moduli AI (es. 'http://localhost:11434').",
-            "pt": "URL opcional do servidor Ollama para geração de formulários com IA (ex. 'http://localhost:11434').",
-            "fi": "Valinnainen Ollama-palvelimen URL AI-lomakkeen luontia varten (esim. 'http://localhost:11434').",
-            "hi": "AI-संचालित फ़ॉर्म जनरेशन के लिए वैकल्पिक Ollama सर्वर URL (उदा., 'http://localhost:11434')।",
-            "ar": "عنوان URL اختياري لخادم Ollama لإنشاء النماذج بالذكاء الاصطناعي (مثل 'http://localhost:11434').",
-            "ja": "AIによるフォーム生成用のオプションのOllamaサーバーURL（例：'http://localhost:11434'）。"
-          },
-          "inputType": "url",
-          "placeholder": "http://localhost:11434",
-          "minWidth": "100%"
+          "type": "panel",
+          "name": "panel_ollama",
+          "showBorder": true,
+          "visibleIf": "{ai_provider} = 'ollama'",
+          "elements": [
+            {
+              "type": "text",
+              "name": "ollama_url",
+              "title": {
+                "default": "Ollama URL",
+                "de": "Ollama-URL",
+                "en": "Ollama URL",
+                "es": "URL de Ollama",
+                "fr": "URL Ollama",
+                "it": "URL Ollama",
+                "pt": "URL do Ollama",
+                "fi": "Ollama-URL",
+                "hi": "Ollama URL",
+                "ar": "عنوان Ollama",
+                "ja": "Ollama URL"
+              },
+              "description": {
+                "default": "Optional Ollama server URL for AI-powered form generation (e.g., 'http://localhost:11434').",
+                "de": "Optionale Ollama-Server-URL für KI-gestützte Formulargenerierung (z.B. 'http://localhost:11434').",
+                "en": "Optional Ollama server URL for AI-powered form generation (e.g., 'http://localhost:11434').",
+                "es": "URL opcional del servidor Ollama para generación de formularios con IA (ej., 'http://localhost:11434').",
+                "fr": "URL optionnelle du serveur Ollama pour la génération de formulaires IA (ex. 'http://localhost:11434').",
+                "it": "URL opzionale del server Ollama per la generazione di moduli AI (es. 'http://localhost:11434').",
+                "pt": "URL opcional do servidor Ollama para geração de formulários com IA (ex. 'http://localhost:11434').",
+                "fi": "Valinnainen Ollama-palvelimen URL AI-lomakkeen luontia varten (esim. 'http://localhost:11434').",
+                "hi": "AI-संचालित फ़ॉर्म जनरेशन के लिए वैकल्पिक Ollama सर्वर URL (उदा., 'http://localhost:11434')।",
+                "ar": "عنوان URL اختياري لخادم Ollama لإنشاء النماذج بالذكاء الاصطناعي (مثل 'http://localhost:11434').",
+                "ja": "AIによるフォーム生成用のオプションのOllamaサーバーURL（例：'http://localhost:11434'）。"
+              },
+              "inputType": "url",
+              "placeholder": "http://localhost:11434",
+              "minWidth": "100%"
+            },
+            {
+              "type": "text",
+              "name": "ollama_model",
+              "title": {
+                "default": "Ollama Model",
+                "de": "Ollama-Modell",
+                "en": "Ollama Model",
+                "es": "Modelo de Ollama",
+                "fr": "Modèle Ollama",
+                "it": "Modello Ollama",
+                "pt": "Modelo Ollama",
+                "fi": "Ollama-malli",
+                "hi": "Ollama मॉडल",
+                "ar": "نموذج Ollama",
+                "ja": "Ollamaモデル"
+              },
+              "description": {
+                "default": "Model name on the Ollama server (e.g., 'llama3.2'). If empty, 'llama3.2' is used.",
+                "de": "Modellname auf dem Ollama-Server (z.B. 'llama3.2'). Wenn leer, wird 'llama3.2' verwendet.",
+                "en": "Model name on the Ollama server (e.g., 'llama3.2'). If empty, 'llama3.2' is used.",
+                "es": "Nombre del modelo en el servidor Ollama (ej., 'llama3.2'). Si está vacío, se usa 'llama3.2'.",
+                "fr": "Nom du modèle sur le serveur Ollama (ex. 'llama3.2'). Si vide, 'llama3.2' est utilisé.",
+                "it": "Nome del modello sul server Ollama (es. 'llama3.2'). Se vuoto, viene usato 'llama3.2'.",
+                "pt": "Nome do modelo no servidor Ollama (ex. 'llama3.2'). Se vazio, 'llama3.2' é usado.",
+                "fi": "Mallin nimi Ollama-palvelimella (esim. 'llama3.2'). Jos tyhjä, käytetään 'llama3.2'.",
+                "hi": "Ollama सर्वर पर मॉडल का नाम (उदा., 'llama3.2')। खाली होने पर 'llama3.2' उपयोग होता है।",
+                "ar": "اسم النموذج على خادم Ollama (مثل 'llama3.2'). إذا كان فارغًا، يتم استخدام 'llama3.2'.",
+                "ja": "Ollamaサーバー上のモデル名（例：'llama3.2'）。空の場合は'ollama/llama3.2'が使用されます。"
+              },
+              "placeholder": "llama3.2",
+              "minWidth": "100%"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel_custom",
+          "showBorder": true,
+          "visibleIf": "{ai_provider} = 'custom'",
+          "elements": [
+            {
+              "type": "text",
+              "name": "custom_llm_name",
+              "title": {
+                "default": "LLM Name",
+                "de": "LLM-Name",
+                "en": "LLM Name",
+                "es": "Nombre del LLM",
+                "fr": "Nom du LLM",
+                "it": "Nome LLM",
+                "pt": "Nome do LLM",
+                "fi": "LLM-nimi",
+                "hi": "LLM नाम",
+                "ar": "اسم LLM",
+                "ja": "LLM名"
+              },
+              "description": {
+                "default": "Model name as expected by the custom API endpoint (e.g., 'deepseek-chat').",
+                "de": "Modellname, wie ihn der benutzerdefinierte API-Endpunkt erwartet (z.B. 'deepseek-chat').",
+                "en": "Model name as expected by the custom API endpoint (e.g., 'deepseek-chat').",
+                "es": "Nombre del modelo según lo espera el endpoint de API personalizado (ej., 'deepseek-chat').",
+                "fr": "Nom du modèle attendu par le point de terminaison d'API personnalisé (ex. 'deepseek-chat').",
+                "it": "Nome del modello come previsto dall'endpoint API personalizzato (es. 'deepseek-chat').",
+                "pt": "Nome do modelo conforme esperado pelo endpoint de API personalizado (ex. 'deepseek-chat').",
+                "fi": "Mallin nimi, kuten mukautettu API-päätepiste odottaa (esim. 'deepseek-chat').",
+                "hi": "मॉडल का नाम जैसा कि कस्टम API एंडपॉइंट अपेक्षा करता है (उदा., 'deepseek-chat')।",
+                "ar": "اسم النموذج كما يتوقعه طرف API المخصص (مثل 'deepseek-chat').",
+                "ja": "カスタムAPIエンドポイントが期待するモデル名（例：'deepseek-chat'）。"
+              },
+              "placeholder": "deepseek-chat",
+              "minWidth": "100%"
+            },
+            {
+              "type": "text",
+              "name": "custom_api_url",
+              "title": {
+                "default": "LLM API URL",
+                "de": "LLM-API-URL",
+                "en": "LLM API URL",
+                "es": "URL de la API del LLM",
+                "fr": "URL de l'API LLM",
+                "it": "URL API LLM",
+                "pt": "URL da API do LLM",
+                "fi": "LLM-API-URL",
+                "hi": "LLM API URL",
+                "ar": "عنوان API الخاص بـ LLM",
+                "ja": "LLM API URL"
+              },
+              "description": {
+                "default": "Base URL of the OpenAI-compatible API endpoint (e.g., 'https://api.deepseek.com').",
+                "de": "Basis-URL des OpenAI-kompatiblen API-Endpunkts (z.B. 'https://api.deepseek.com').",
+                "en": "Base URL of the OpenAI-compatible API endpoint (e.g., 'https://api.deepseek.com').",
+                "es": "URL base del endpoint de API compatible con OpenAI (ej., 'https://api.deepseek.com').",
+                "fr": "URL de base du point de terminaison d'API compatible OpenAI (ex. 'https://api.deepseek.com').",
+                "it": "URL di base dell'endpoint API compatibile con OpenAI (es. 'https://api.deepseek.com').",
+                "pt": "URL base do endpoint de API compatível com OpenAI (ex. 'https://api.deepseek.com').",
+                "fi": "OpenAI-yhteensopivan API-päätepisteen perus-URL (esim. 'https://api.deepseek.com').",
+                "hi": "OpenAI-संगत API एंडपॉइंट का आधार URL (उदा., 'https://api.deepseek.com')।",
+                "ar": "عنوان URL الأساسي لطرف API المتوافق مع OpenAI (مثل 'https://api.deepseek.com').",
+                "ja": "OpenAI互換APIエンドポイントのベースURL（例：'https://api.deepseek.com'）。"
+              },
+              "inputType": "url",
+              "placeholder": "https://api.deepseek.com",
+              "minWidth": "100%"
+            },
+            {
+              "type": "text",
+              "name": "custom_api_key",
+              "title": {
+                "default": "API Key",
+                "de": "API-Schlüssel",
+                "en": "API Key",
+                "es": "Clave API",
+                "fr": "Clé API",
+                "it": "Chiave API",
+                "pt": "Chave API",
+                "fi": "API-avain",
+                "hi": "API कुंजी",
+                "ar": "مفتاح API",
+                "ja": "APIキー"
+              },
+              "description": {
+                "default": "API key for the custom API endpoint. This will be stored securely.",
+                "de": "API-Schlüssel für den benutzerdefinierten API-Endpunkt. Wird sicher gespeichert.",
+                "en": "API key for the custom API endpoint. This will be stored securely.",
+                "es": "Clave API para el endpoint de API personalizado. Se almacenará de forma segura.",
+                "fr": "Clé API pour le point de terminaison d'API personnalisé. Sera stockée de manière sécurisée.",
+                "it": "Chiave API per l'endpoint API personalizzato. Sarà memorizzata in modo sicuro.",
+                "pt": "Chave API para o endpoint de API personalizado. Será armazenada de forma segura.",
+                "fi": "API-avain mukautetulle API-päätepisteelle. Tallennetaan turvallisesti.",
+                "hi": "कस्टम API एंडपॉइंट के लिए API कुंजी। यह सुरक्षित रूप से संग्रहीत की जाएगी।",
+                "ar": "مفتاح API لطرف API المخصص. سيتم تخزينه بشكل آمن.",
+                "ja": "カスタムAPIエンドポイントのAPIキー。安全に保存されます。"
+              },
+              "inputType": "password",
+              "minWidth": "100%"
+            }
+          ]
         },
         {
           "type": "comment",
