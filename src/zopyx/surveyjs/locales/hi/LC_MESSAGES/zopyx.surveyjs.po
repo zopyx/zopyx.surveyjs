@@ -2070,3 +2070,153 @@ msgstr "प्रश्न हैं?"
 #: browser/survey_actions.pt
 msgid "The maintainer of this add-on is happy to help — reach out at"
 msgstr "इस ऐड-ऑन का अनुरक्षक सहायता करने में प्रसन्न है — संपर्क करें"
+
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "AI"
+
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "AI सहायक"
+
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "स्वीकृत प्रारूप: PDF, DOCX, ODT, HTML."
+
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "AI परिवर्तन लागू करें"
+
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "लागू हो रहा है..."
+
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the "
+"latest temporary version."
+msgstr "AI से वर्तमान अस्थायी फ़ॉर्म को बदलने के लिए कहें। प्रत्येक प्रॉम्प्ट नवीनतम "
+"अस्थायी संस्करण पर आधारित है।"
+
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "Workspace साफ़ करें"
+
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "वर्तमान अस्थायी स्थिति"
+
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "दस्तावेज़ से ऑनलाइन फ़ॉर्म"
+
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "AI ड्राफ्ट बनाएँ"
+
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "इतिहास (अधिकतम 5)"
+
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "अस्थायी फ़ॉर्म में सुधार करें"
+
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "Workspace में नवीनतम संस्करण"
+
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "मॉडल:"
+
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "अभी तक कोई चैट परिशोधन इतिहास नहीं है।"
+
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
+"latest version."
+msgstr "अभी तक कोई अस्थायी फ़ॉर्म नहीं है। एक दस्तावेज़ अपलोड करें, चैट के माध्यम से "
+"एक प्रारंभ करें, या नवीनतम संस्करण की प्रतिलिपि बनाएँ।"
+
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "फ़ॉर्म का पूर्वावलोकन"
+
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
+"workspace form."
+msgstr "एक प्रॉम्प्ट के साथ अस्थायी SurveyJS ड्राफ्ट शुरू करें। पहला प्रॉम्प्ट "
+"workspace फ़ॉर्म बनाता है।"
+
+#: ../browser/ai.pt:199
+msgid "Step back:"
+msgstr "पीछे जाएँ:"
+
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "नए संस्करण के रूप में सहेजें"
+
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "अस्थायी SurveyJS पूर्वावलोकन"
+
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new "
+"version."
+msgstr "अस्थायी फ़ॉर्म उपलब्ध है और इसका पूर्वावलोकन, परिशोधन या नए संस्करण के रूप "
+"में भंडारण किया जा सकता है।"
+
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "एक स्रोत दस्तावेज़ अपलोड करें और AI के साथ अस्थायी SurveyJS फ़ॉर्म ड्राफ्ट "
+"जनरेट करें।"
+
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "अपलोड और कनवर्ट करें"
+
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "AI का उपयोग करके दस्तावेज़ अपलोड करें और उन्हें SurveyJS फ़ॉर्म में बदलें"
+
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "अपलोड हो रहा है..."
+
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "उदाहरण: संपर्क विवरण, सत्र विकल्पों और सहमति के साथ एक कार्यक्रम पंजीकरण "
+"फ़ॉर्म बनाएँ।"
+
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "उदाहरण: संपर्क प्राथमिकताओं के लिए एक अनुभाग जोड़ें और ईमेल अनिवार्य बनाएँ।"
+
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "यह इतिहास प्रविष्टि हटाएँ"
+
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "यह इतिहास प्रविष्टि हटाएँ"
+
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "इस संस्करण पर वापस जाएँ"
+
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "इस संस्करण पर वापस जाएँ"
+
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "टेम्प्लेट चुनें"
+
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "टेम्प्लेट चुनें"
+
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "टेम्प्लेट सूची टॉगल करें"

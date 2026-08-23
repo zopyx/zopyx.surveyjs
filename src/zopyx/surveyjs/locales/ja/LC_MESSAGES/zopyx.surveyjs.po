@@ -1993,3 +1993,147 @@ msgstr "ご質問がありますか？"
 #: browser/survey_actions.pt
 msgid "The maintainer of this add-on is happy to help — reach out at"
 msgstr "このアドオンのメンテナが喜んでお手伝いします — お問い合わせ先："
+
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "AI"
+
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "AIアシスタント"
+
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "受け入れ可能な形式：PDF、DOCX、ODT、HTML。"
+
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "AIの変更を適用"
+
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "適用中..."
+
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the "
+"latest temporary version."
+msgstr "AIに現在の一時フォームの変更を依頼してください。各プロンプトは最新の一時バージョンに基づきます。"
+
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "ワークスペースをクリア"
+
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "現在の一時状態"
+
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "ドキュメントをオンラインフォームへ"
+
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "AIドラフトを生成"
+
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "履歴（最大5件）"
+
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "一時フォームを改善"
+
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "最新バージョンをワークスペースへ"
+
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "モデル:"
+
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "チャットの改善履歴はまだありません。"
+
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
+"latest version."
+msgstr "一時フォームはまだありません。ドキュメントをアップロードするか、チャットで作成するか、最新バージョンをコピーしてください。"
+
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "フォームをプレビュー"
+
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
+"workspace form."
+msgstr "プロンプトで一時的なSurveyJSドラフトを開始します。最初のプロンプトでワークスペースフォームが作成されます。"
+
+#: ../browser/ai.pt:199
+msgid "Step back:"
+msgstr "戻る:"
+
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "新しいバージョンとして保存"
+
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "一時的なSurveyJSプレビュー"
+
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new "
+"version."
+msgstr "一時フォームが利用可能で、プレビュー、改善、または新しいバージョンとして保存できます。"
+
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "ソースドキュメントをアップロードし、AIを使用して一時的なSurveyJSフォームドラフトを生成します。"
+
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "アップロードして変換"
+
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "ドキュメントをアップロードし、AIを使用してSurveyJSフォームに変換します"
+
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "アップロード中..."
+
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "例：連絡先詳細、セッション選択、同意を含むイベント登録フォームを作成します。"
+
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "例：連絡先の設定用セクションを追加し、メールを必須にします。"
+
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "この履歴エントリを削除"
+
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "この履歴エントリを削除"
+
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "このバージョンに戻す"
+
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "このバージョンに戻す"
+
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "テンプレートを選択"
+
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "テンプレートを選択"
+
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "テンプレートリストの切り替え"

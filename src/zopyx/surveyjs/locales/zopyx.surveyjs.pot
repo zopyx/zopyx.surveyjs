@@ -1844,4 +1844,182 @@ msgstr ""
 
 #: browser/survey_results.pt
 msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+
+#. Default: "AI"
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr ""
+
+#. Default: "AI Assistant"
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr ""
+
+#. Default: "Accepted formats: PDF, DOCX, ODT, HTML."
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr ""
+
+#. Default: "Apply AI Change"
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr ""
+
+#. Default: "Applying..."
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr ""
+
+#. Default: "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the "
+"latest temporary version."
+msgstr ""
+
+#. Default: "Clear workspace"
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr ""
+
+#. Default: "Current Temporary State"
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr ""
+
+#. Default: "Document To Online Form"
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr ""
+
+#. Default: "Generate AI Draft"
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr ""
+
+#. Default: "History (max 5)"
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr ""
+
+#. Default: "Improve Temporary Form"
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr ""
+
+#. Default: "Latest version to workspace"
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr ""
+
+#. Default: "Model:"
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr ""
+
+#. Default: "No chat refinement history yet."
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr ""
+
+#. Default: "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
+"latest version."
+msgstr ""
+
+#. Default: "Preview form"
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr ""
+
+#. Default: "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
+"workspace form."
+msgstr ""
+
+#. Default: "Step back:"
+#: ../browser/ai.pt:199
+msgid "Step back:"
+msgstr ""
+
+#. Default: "Store as new version"
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr ""
+
+#. Default: "Temporary SurveyJS Preview"
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr ""
+
+#. Default: "Temporary form is available and can be previewed, refined, or stored as new version."
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new "
+"version."
+msgstr ""
+
+#. Default: "Upload a source document and generate a temporary SurveyJS form draft with AI."
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr ""
+
+#. Default: "Upload and Convert"
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr ""
+
+#. Default: "Upload documents and convert them to SurveyJS forms using AI"
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr ""
+
+#. Default: "Uploading..."
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr ""
+
+#. Default: "Example: Create an event registration form with contact details, session choices, and consent."
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr ""
+
+#. Default: "Example: Add a section for contact preferences and make email required."
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr ""
+
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr ""
+
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr ""
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr ""
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr ""
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr ""
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr ""
+
+#. Default: "Toggle template list"
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
 msgstr ""

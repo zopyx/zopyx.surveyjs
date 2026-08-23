@@ -2071,3 +2071,152 @@ msgstr "Onko kysyttävää?"
 #: browser/survey_actions.pt
 msgid "The maintainer of this add-on is happy to help — reach out at"
 msgstr "Tämän lisäosan ylläpitäjä auttaa mielellään — ota yhteyttä:"
+
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "Tekoäly"
+
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "Tekoälyavustaja"
+
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "Hyväksytyt muodot: PDF, DOCX, ODT, HTML."
+
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "Käytä tekoälymuutos"
+
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "Käytetään..."
+
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the "
+"latest temporary version."
+msgstr "Pyydä tekoälyä muuttamaan nykyistä väliaikaista lomaketta. Jokainen kehote "
+"perustuu uusimpaan väliaikaiseen versioon."
+
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "Tyhjennä työtila"
+
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "Nykyinen väliaikainen tila"
+
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "Asiakirja verkkolomakkeeksi"
+
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "Luo tekoälyluonnos"
+
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "Historia (enintään 5)"
+
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "Paranna väliaikaista lomaketta"
+
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "Viimeisin versio työtilaan"
+
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "Malli:"
+
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "Ei vielä chat-hienosyntihistoriaa."
+
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
+"latest version."
+msgstr "Ei vielä väliaikaista lomaketta. Lataa asiakirja, aloita yksi chatissa tai "
+"kopioi uusin versio."
+
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "Esikatsele lomaketta"
+
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
+"workspace form."
+msgstr "Aloita väliaikainen SurveyJS-luonnos kehotteella. Ensimmäinen kehote luo "
+"työtilan lomakkeen."
+
+#: ../browser/ai.pt:199
+msgid "Step back:"
+msgstr "Askel taaksepäin:"
+
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "Tallenna uutena versiona"
+
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "Väliaikainen SurveyJS-esikatselu"
+
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new "
+"version."
+msgstr "Väliaikainen lomake on saatavilla ja se voidaan esikatsella, hienosäätää tai "
+"tallentaa uutena versiona."
+
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "Lataa lähdedokumentti ja luo tekoälyllä väliaikainen SurveyJS-lomakeluonnos."
+
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "Lataa ja muunna"
+
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "Lataa asiakirjat ja muunna ne tekoälyllä SurveyJS-lomakkeiksi"
+
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "Ladataan..."
+
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "Esimerkki: luo tapahtumailmoittautumislomake yhteystiedoilla, "
+"istuntovalinnoilla ja suostumuksella."
+
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "Esimerkki: lisää osio yhteystiedoille ja tee sähköpostista pakollinen."
+
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "Poista tämä historiatietue"
+
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "Poista tämä historiatietue"
+
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "Palauta tähän versioon"
+
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "Palauta tähän versioon"
+
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "Valitse mallipohja"
+
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "Valitse mallipohja"
+
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "Vaihda mallipohjaluetteloa"

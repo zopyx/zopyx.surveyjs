@@ -46,7 +46,7 @@
             Upload documents and convert them to SurveyJS forms using AI
           </div>
           <div class="ai-model-badge" tal:condition="view/ai_model_name">
-            <span class="ai-model-label">Model:</span>
+            <span class="ai-model-label" i18n:translate="">Model:</span>
             <span class="ai-model-name" tal:content="view/ai_model_name">gpt-4</span>
           </div>
         </metal:survey-header-subtitle>
@@ -166,7 +166,7 @@
                             class="form-control"
                             rows="4"
                             required="required"
-                            i18n:attributes="placeholder"
+                            i18n:attributes="placeholder chat_prompt_placeholder_ready"
                             placeholder="Example: Add a section for contact preferences and make email required."></textarea>
                 </tal:chat-ready>
                 <tal:chat-empty tal:condition="not: view/has_temp_form">
@@ -174,7 +174,7 @@
                             class="form-control"
                             rows="4"
                             required="required"
-                            i18n:attributes="placeholder"
+                            i18n:attributes="placeholder chat_prompt_placeholder_empty"
                             placeholder="Example: Create an event registration form with contact details, session choices, and consent."></textarea>
                 </tal:chat-empty>
               </div>
@@ -223,7 +223,7 @@
                               class="btn btn-default btn-xs ai-history-revert"
                               title="Revert to this version"
                               aria-label="Revert to this version"
-                              i18n:attributes="title aria-label">
+                              i18n:attributes="title history_revert_title; aria-label history_revert_aria_label">
                         <svg class="ai-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                           <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M3 3v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -242,7 +242,7 @@
                                 class="btn btn-default btn-xs ai-history-delete"
                                 title="Delete this history entry"
                                 aria-label="Delete this history entry"
-                                i18n:attributes="title aria-label">
+                                i18n:attributes="title history_delete_title; aria-label history_delete_aria_label">
                           <svg class="ai-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

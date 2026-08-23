@@ -2131,3 +2131,154 @@ msgstr "¿Tiene preguntas?"
 #: browser/survey_actions.pt
 msgid "The maintainer of this add-on is happy to help — reach out at"
 msgstr "El mantenedor de este complemento estará encantado de ayudarle — contacte en"
+
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "IA"
+
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "Asistente de IA"
+
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "Formatos aceptados: PDF, DOCX, ODT, HTML."
+
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "Aplicar cambio de IA"
+
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "Aplicando..."
+
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the "
+"latest temporary version."
+msgstr "Pide a la IA que cambie el formulario temporal actual. Cada indicación parte "
+"de la última versión temporal."
+
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "Borrar espacio de trabajo"
+
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "Estado temporal actual"
+
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "Documento a formulario en línea"
+
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "Generar borrador con IA"
+
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "Historial (máx. 5)"
+
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "Mejorar formulario temporal"
+
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "Última versión al espacio de trabajo"
+
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "Modelo:"
+
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "Aún no hay historial de refinamiento del chat."
+
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
+"latest version."
+msgstr "Aún no hay formulario temporal. Sube un documento, comienza uno por chat o "
+"copia la última versión."
+
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "Vista previa del formulario"
+
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
+"workspace form."
+msgstr "Inicia un borrador temporal de SurveyJS con una indicación. La primera "
+"indicación crea el formulario del espacio de trabajo."
+
+#: ../browser/ai.pt:199
+msgid "Step back:"
+msgstr "Paso atrás:"
+
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "Guardar como nueva versión"
+
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "Vista previa temporal de SurveyJS"
+
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new "
+"version."
+msgstr "El formulario temporal está disponible y se puede previsualizar, refinar o "
+"guardar como nueva versión."
+
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "Sube un documento fuente y genera un borrador de formulario SurveyJS "
+"temporal con IA."
+
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "Subir y convertir"
+
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "Sube documentos y conviértelos a formularios SurveyJS con IA"
+
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "Subiendo..."
+
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "Ejemplo: crea un formulario de registro para eventos con datos de contacto, "
+"opciones de sesiones y consentimiento."
+
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "Ejemplo: añade una sección para preferencias de contacto y haz que el correo "
+"sea obligatorio."
+
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "Eliminar esta entrada del historial"
+
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "Eliminar esta entrada del historial"
+
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "Revertir a esta versión"
+
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "Revertir a esta versión"
+
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "Seleccionar una plantilla"
+
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "Seleccionar una plantilla"
+
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "Mostrar/ocultar lista de plantillas"
