@@ -44,8 +44,10 @@ setup('authenticate as admin', async ({ browser, baseURL }) => {
     }
   }, { user: adminUser, pass: adminPass });
   
-  // Submit login form
-  await page.click('button[type="submit"]');
+  // Submit login form. Use the exact login button id: the header search
+  // gadget form (with its own submit button) comes first in the DOM, so a
+  // generic 'button[type="submit"]' click hits Search instead of logging in.
+  await page.click('#buttons-login');
   
   // Wait for navigation - successful redirect goes to /demo or /demo/en
   await page.waitForURL(/\/demo(\/en)?$/, { timeout: 10000 });
