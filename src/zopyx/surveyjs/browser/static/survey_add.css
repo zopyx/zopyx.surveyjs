@@ -63,6 +63,15 @@
       .survey-add-widget .sv-page {
         min-height: 0 !important;
       }
+      /* SurveyJS v2 resolves the TOC's height:100% against the temporarily
+         large page-transition height and keeps that stale value afterwards,
+         stretching the whole form and leaving a huge gap between the
+         Prev/Next footer and "Save Settings". Let the TOC size itself to its
+         content so the form always follows the active page's height. */
+      .survey-add-widget .sv_progress-toc,
+      .survey-add-widget .sd-progress-toc {
+        height: auto !important;
+      }
       .survey-add-loading {
         color: #7c3aed;
         font-weight: 600;

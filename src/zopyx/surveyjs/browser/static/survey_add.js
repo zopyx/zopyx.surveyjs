@@ -26,98 +26,27 @@
 /**
  * @function
  */
-  function getVisibleHeight(el) {
-    if (!el) {
-      return 0;
-    }
-    const style = window.getComputedStyle(el);
-    if (style.display === "none" || style.visibility === "hidden") {
-      return 0;
-    }
-    return el.getBoundingClientRect().height;
-  }
-
-/**
- * @function
- */
-  function syncContainerHeight(animate) {
+  function syncContainerHeight() {
     if (heightResetTimer) {
       window.clearTimeout(heightResetTimer);
       heightResetTimer = null;
     }
 
-    const root =
-      container.querySelector(".sd-root-modern") ||
-      container.querySelector(".sv-root-modern") ||
-      container.firstElementChild;
-    if (!root) {
-      return;
-    }
-
-    const startHeight = container.getBoundingClientRect().height;
-
-    const activePage =
-      root.querySelector(".sd-page.sd-page--active") ||
-      root.querySelector(".sv-page.sv-page--active") ||
-      root.querySelector(".sd-page:not(.sd-page--invisible)") ||
-      root.querySelector(".sv-page:not([style*='display: none'])");
-
-    const navButtons =
-      root.querySelector(".sd-action-bar") ||
-      root.querySelector(".sv-action-bar") ||
-      root.querySelector(".sd-footer") ||
-      root.querySelector(".sv-footer");
-
-    const pageTitle = activePage ? activePage.querySelector(".sd-title, .sv-title") : null;
-    const pageDescription = activePage ? activePage.querySelector(".sd-page__description, .sv-page__description") : null;
-
-    let targetHeight = 0;
-
-    if (activePage) {
-      targetHeight += getVisibleHeight(activePage);
-    }
-
-    if (navButtons) {
-      const buttonsHeight = getVisibleHeight(navButtons);
-      targetHeight += buttonsHeight;
-    }
-
-    targetHeight = Math.ceil(targetHeight) + 180;
-
-    if (!targetHeight || !Number.isFinite(targetHeight)) {
-      return;
-    }
-
-    if (!animate) {
-      container.style.height = targetHeight + "px";
-      container.style.minHeight = "0";
-      return;
-    }
-
-    if (Math.abs(startHeight - targetHeight) < 2) {
-      container.style.height = targetHeight + "px";
-      return;
-    }
-
-    container.style.height = startHeight + "px";
+    // Natural flow: no fixed/min-height reservation. A reserved pixel height
+    // either clips the footer (Prev/Next) when the rendered content grows
+    // (validation errors, visibleIf toggles, resize), or leaves a gap above
+    // "Save Settings" when the content shrinks (page switch back to a shorter
+    // page, hidden conditional fields). Letting the container follow its
+    // content eliminates both failure modes.
+    container.style.transition = "";
+    container.style.height = "auto";
     container.style.minHeight = "0";
-    container.offsetHeight;
-    container.style.transition = "height 160ms ease";
-    container.style.height = targetHeight + "px";
-
-/**
- * @function
- */
-    heightResetTimer = window.setTimeout(function () {
-      container.style.transition = "";
-      heightResetTimer = null;
-    }, 220);
   }
 
 /**
  * @function
  */
-  function scheduleContainerHeightSync(animate) {
+  function scheduleContainerHeightSync() {
     if (pendingHeightSyncFrame) {
       window.cancelAnimationFrame(pendingHeightSyncFrame);
       pendingHeightSyncFrame = null;
@@ -129,13 +58,13 @@
     pendingHeightSyncFrame = window.requestAnimationFrame(function () {
       pendingHeightSyncFrame = null;
       window.requestAnimationFrame(function () {
-        syncContainerHeight(animate);
+        syncContainerHeight();
       });
     });
     // SurveyJS may apply visibility/layout changes asynchronously; re-measure once more.
     pendingHeightSyncTimer = window.setTimeout(function () {
       pendingHeightSyncTimer = null;
-      syncContainerHeight(animate);
+      syncContainerHeight();
     }, 260);
   }
 
@@ -323,7 +252,7 @@
  */
       survey.onValueChanged.add(function () {
         updateSubmitState(false);
-        scheduleContainerHeightSync(true);
+        scheduleContainerHeightSync();
       });
     }
 /**
@@ -335,6 +264,9 @@
  */
       survey.onValidated.add(function () {
         updateSubmitState(false);
+        // Validation errors grow the page (error boxes under questions);
+        // re-sync so the footer (Prev/Next) stays visible.
+        scheduleContainerHeightSync();
       });
     }
 /**
@@ -372,14 +304,14 @@
  * @function
  */
     survey.onAfterRenderPage.add(function () {
-      scheduleContainerHeightSync(true);
+      scheduleContainerHeightSync();
     });
 /**
  * @function
  */
     survey.onCurrentPageChanged.add(function () {
       updateSubmitState(false);
-      scheduleContainerHeightSync(true);
+      scheduleContainerHeightSync();
     });
     survey.render(container);
   }
@@ -433,4 +365,17 @@
       currentSurvey.completeLastPage();
     });
   }
+
+  // Window resizes / zoom change the rendered height (wrapping of 100%-width
+  // fields, fonts); re-sync so the footer (Prev/Next) never gets clipped.
+  let resizeSyncTimer = null;
+  window.addEventListener("resize", function () {
+    if (resizeSyncTimer) {
+      window.clearTimeout(resizeSyncTimer);
+    }
+    resizeSyncTimer = window.setTimeout(function () {
+      resizeSyncTimer = null;
+      scheduleContainerHeightSync();
+    }, 150);
+  });
 })();
