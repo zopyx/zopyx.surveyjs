@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Restart remote container
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: public.zopyx.com 
           username: privacyforms
