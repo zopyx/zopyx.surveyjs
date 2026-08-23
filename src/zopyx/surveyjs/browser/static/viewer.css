@@ -1,6 +1,11 @@
 #surveyContainer {
 }
 
+/* SurveyJS v2 "modern" container: flush title against the left edge */
+.sd-container-modern__title {
+    padding-left: 0 !important;
+}
+
 .survey-viewer-container {
     display: flex;
     flex-direction: column;
