@@ -22,6 +22,7 @@
   let pendingHeightSyncTimer = null;
   let isSubmitting = false;
   const datasetLocale = container.dataset.surveyLanguage;
+  const aiTestUrl = container.dataset.aiTestUrl;
 
 /**
  * @function
@@ -219,6 +220,76 @@
 /**
  * @function
  */
+  function runAITest(button) {
+    if (!currentSurvey || !aiTestUrl) {
+      return;
+    }
+    const provider = button.dataset.provider;
+    const resultEl = container.querySelector(
+      '.ai-test-result[data-provider="' + provider + '"]'
+    );
+    const data = currentSurvey.data || {};
+    let payload = null;
+    if (provider === "installed") {
+      payload = {
+        provider: "installed",
+        model_name: data.ai_model || "",
+        api_key: data.ai_api_key || "",
+      };
+    } else if (provider === "ollama") {
+      payload = {
+        provider: "ollama",
+        api_url: data.ollama_url || "",
+        model_name: data.ollama_model || "",
+      };
+    } else if (provider === "custom") {
+      payload = {
+        provider: "custom",
+        model_name: data.custom_llm_name || "",
+        api_url: data.custom_api_url || "",
+        api_key: data.custom_api_key || "",
+      };
+    }
+    if (!payload) {
+      return;
+    }
+    button.disabled = true;
+    if (resultEl) {
+      resultEl.textContent = t("Testing connection...");
+      resultEl.className = "ai-test-result ai-test-result--pending";
+    }
+    fetch(aiTestUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then(function (response) {
+        return response.json().catch(function () {
+          return { ok: false, message: t("Invalid server response.") };
+        });
+      })
+      .then(function (result) {
+        if (resultEl) {
+          resultEl.textContent = result.message || (result.ok ? "OK" : t("Test failed."));
+          resultEl.className =
+            "ai-test-result " +
+            (result.ok ? "ai-test-result--ok" : "ai-test-result--fail");
+        }
+      })
+      .catch(function () {
+        if (resultEl) {
+          resultEl.textContent = t("Test failed: network error.");
+          resultEl.className = "ai-test-result ai-test-result--fail";
+        }
+      })
+      .finally(function () {
+        button.disabled = false;
+      });
+  }
+
+/**
+ * @function
+ */
   function renderSurvey(schema) {
     const surveyLocale = getSurveyLocale();
     applyDynamicSchemaChoices(schema);
@@ -389,4 +460,16 @@
       scheduleContainerHeightSync();
     }, 150);
   });
+
+  // AI provider test buttons (forms-settings): delegated click handling.
+  if (aiTestUrl) {
+    container.addEventListener("click", function (event) {
+      const button = event.target.closest
+        ? event.target.closest(".ai-test-button")
+        : null;
+      if (button) {
+        runAITest(button);
+      }
+    });
+  }
 })();

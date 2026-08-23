@@ -146,6 +146,38 @@
         background: #f8fafc;
         padding: 1rem 1.25rem;
       }
+      /* AI connection test buttons inside the provider panels */
+      .survey-add-widget .ai-test-button {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #334155;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.45rem 1rem;
+        cursor: pointer;
+      }
+      .survey-add-widget .ai-test-button:hover {
+        background: #f1f5f9;
+      }
+      .survey-add-widget .ai-test-button:disabled {
+        cursor: wait;
+        opacity: 0.6;
+      }
+      .survey-add-widget .ai-test-result {
+        margin-left: 0.75rem;
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+      .survey-add-widget .ai-test-result--pending {
+        color: #64748b;
+      }
+      .survey-add-widget .ai-test-result--ok {
+        color: #16a34a;
+      }
+      .survey-add-widget .ai-test-result--fail {
+        color: #dc2626;
+      }
       .survey-add-widget .sd-btn--action.sd-navigation__complete-btn,
       .survey-add-widget .sv-btn--action.sv-navigation__complete-btn,
       .survey-add-widget input[value="Continue"],

@@ -423,6 +423,11 @@
               },
               "inputType": "password",
               "minWidth": "100%"
+            },
+            {
+              "type": "html",
+              "name": "ai_test_installed",
+              "html": "<button type=\"button\" class=\"ai-test-button\" data-provider=\"installed\">Test AI</button><span class=\"ai-test-result\" data-provider=\"installed\"></span>"
             }
           ]
         },
@@ -496,6 +501,11 @@
               },
               "placeholder": "llama3.2",
               "minWidth": "100%"
+            },
+            {
+              "type": "html",
+              "name": "ai_test_ollama",
+              "html": "<button type=\"button\" class=\"ai-test-button\" data-provider=\"ollama\">Test AI</button><span class=\"ai-test-result\" data-provider=\"ollama\"></span>"
             }
           ]
         },
@@ -601,6 +611,11 @@
               },
               "inputType": "password",
               "minWidth": "100%"
+            },
+            {
+              "type": "html",
+              "name": "ai_test_custom",
+              "html": "<button type=\"button\" class=\"ai-test-button\" data-provider=\"custom\">Test AI</button><span class=\"ai-test-result\" data-provider=\"custom\"></span>"
             }
           ]
         },

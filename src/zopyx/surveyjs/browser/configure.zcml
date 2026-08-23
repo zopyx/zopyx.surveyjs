@@ -510,6 +510,14 @@
     permission="cmf.ManagePortal"
   />
 
+  <!-- AI Provider Connection Test (JSON endpoint used by the AI panels) -->
+  <browser:page
+    name="ai-test"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".controlpanel.AITestView"
+    permission="cmf.ManagePortal"
+  />
+
   <!-- Token Store Management -->
   <browser:page
     name="token-store"

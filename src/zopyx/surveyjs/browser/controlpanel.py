@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """Control panel for Forms settings using SurveyJS."""
 
+import concurrent.futures
 import logging
 from typing import Any
+from urllib.request import Request, urlopen
 
 import orjson
 import plone.api
@@ -16,6 +18,11 @@ from ..interfaces import IFormsSettings
 from ..permissions import ManagePortal
 from .services.ai import PROVIDERS
 from .services.ai import PROVIDER_FIELDS
+from .services.ai import build_llm_model
+from .services.ai import is_configured
+from .services.http import json_error
+from .services.http import json_response
+from .services.http import parse_json_body
 
 logger = logging.getLogger(__name__)
 
@@ -400,6 +407,150 @@ class FormsSettingsView(BrowserView):
 
         # Redirect back to the control panel
         return self.request.response.redirect(self.request.ACTUAL_URL)
+
+
+class AITestView(BrowserView):
+    """JSON endpoint that pings the currently configured AI provider.
+
+    The forms-settings AI panels post the *current form values* (possibly
+    unsaved) of one provider mode to ``@@ai-test``. The view validates the
+    configuration, runs a provider-appropriate API action and returns
+    ``{"ok": bool, "message": str}``.
+
+    - installed: resolves the model via privacyforms_ai and sends a trivial
+      prompt.
+    - custom: resolves the model against the OpenAI-compatible endpoint and
+      sends a trivial prompt.
+    - ollama: queries the server's ``/api/tags`` endpoint (reachability and
+      model list); a named model is checked for presence.
+    """
+
+    TEST_TIMEOUT = 25
+
+    def __call__(self):
+        payload = parse_json_body(self.request)
+        if not isinstance(payload, dict):
+            return json_error(
+                self.request.response,
+                400,
+                "invalid-payload",
+                "We could not read the submitted test data.",
+            )
+        result = self.run_test(payload)
+        return json_response(self.request.response, result)
+
+    def run_test(self, payload: dict) -> dict:
+        """Run the provider test in a worker thread bounded by a timeout.
+
+        On timeout the worker keeps running in the background; the client
+        gets a clean timeout message instead of a hanging request.
+        """
+        pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        try:
+            future = pool.submit(self._test_provider, payload)
+            try:
+                return future.result(timeout=self.TEST_TIMEOUT)
+            except concurrent.futures.TimeoutError:
+                return {
+                    "ok": False,
+                    "message": "Test timed out after %d seconds." % self.TEST_TIMEOUT,
+                }
+            except Exception as exc:
+                return {"ok": False, "message": "Test failed: %s" % exc}
+        finally:
+            pool.shutdown(wait=False)
+
+    def _fill_masked_api_key(self, payload: dict) -> None:
+        """Fall back to the stored registry key like the save keep-mask."""
+        if payload.get("api_key"):
+            return
+        provider = payload.get("provider")
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        field = "ai_api_key" if provider == "installed" else "custom_api_key"
+        stored = getattr(settings, field, "") or ""
+        if stored:
+            payload["api_key"] = stored
+
+    def _test_provider(self, payload: dict) -> dict:
+        provider = payload.get("provider")
+        if provider == "ollama":
+            return self._test_ollama(payload)
+        if provider in ("installed", "custom"):
+            self._fill_masked_api_key(payload)
+            settings = {
+                "provider": provider,
+                "model_name": (payload.get("model_name") or "").strip() or None,
+                "api_key": (payload.get("api_key") or "").strip() or None,
+                "api_url": (payload.get("api_url") or "").strip() or None,
+            }
+            if not is_configured(settings):
+                if provider == "installed":
+                    message = "AI model is required."
+                else:
+                    message = (
+                        "Custom LLM configuration requires LLM Name, "
+                        "LLM API URL and API key."
+                    )
+                return {"ok": False, "message": message}
+            try:
+                text = self._test_model(settings)
+            except Exception as exc:
+                return {
+                    "ok": False,
+                    "message": "Model '%s' failed: %s" % (settings["model_name"], exc),
+                }
+            snippet = (text or "").strip()[:120]
+            return {
+                "ok": True,
+                "message": "Model '%s' responded: %s"
+                % (settings["model_name"], snippet or "(empty response)"),
+            }
+        return {"ok": False, "message": "Unknown provider: %s" % provider}
+
+    def _test_model(self, settings: dict) -> str:
+        """Resolve the model and send a trivial prompt via privacyforms_ai."""
+        model = build_llm_model(settings)
+        from privacyforms_ai import AI
+
+        response = AI.send_prompt(model, "Reply with exactly: OK")
+        return AI.extract_response_text(response)
+
+    def _test_ollama(self, payload: dict) -> dict:
+        api_url = (payload.get("api_url") or "").strip()
+        if not api_url:
+            return {"ok": False, "message": "Ollama URL is required."}
+        try:
+            request = Request(api_url.rstrip("/") + "/api/tags", method="GET")
+            with urlopen(request, timeout=10) as response:
+                data = orjson.loads(response.read())
+        except Exception as exc:
+            return {
+                "ok": False,
+                "message": "Ollama server not reachable: %s" % exc,
+            }
+
+        models = sorted(
+            {
+                str(model.get("name"))
+                for model in data.get("models", [])
+                if isinstance(model, dict) and model.get("name")
+            }
+        )
+        message = "Ollama server reachable at %s." % api_url
+        if models:
+            shown = ", ".join(models[:8])
+            if len(models) > 8:
+                shown += ", ..."
+            message += " %d model(s) available: %s." % (len(models), shown)
+        else:
+            message += " No models found on the server."
+        model_name = (payload.get("model_name") or "").strip()
+        if model_name and not any(
+            m == model_name or m.startswith(model_name + ":") for m in models
+        ):
+            message += " Warning: model '%s' was not found on the server." % model_name
+        return {"ok": True, "message": message}
 
 
 # Keep old class for backward compatibility during transition
