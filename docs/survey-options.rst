@@ -7,8 +7,16 @@ survey's edit form. They control how this single survey handles submissions,
 mails, validation, access, embedding and PDF output. Site-wide defaults live
 in the :doc:`global-options`.
 
+.. image:: _static/screenshots/survey-edit-basics.png
+   :align: center
+   :alt: Survey edit form (Basics tab)
+
 Actions
 -------
+
+.. image:: _static/screenshots/survey-edit-actions.png
+   :align: center
+   :alt: Survey edit form (Actions fieldset)
 
 .. list-table::
    :header-rows: 1
@@ -59,6 +67,10 @@ Actions
 
 Mail
 ----
+
+.. image:: _static/screenshots/survey-edit-mail.png
+   :align: center
+   :alt: Survey edit form (Mail fieldset)
 
 .. list-table::
    :header-rows: 1
@@ -117,6 +129,10 @@ sent when the ``mail-notification`` action is selected. Unlike the ``mail``
 action, no result attachments are included — this is meant for lightweight
 "something was submitted" notifications.
 
+.. image:: _static/screenshots/survey-edit-mail-notifications.png
+   :align: center
+   :alt: Survey edit form (Mail notifications fieldset)
+
 .. list-table::
    :header-rows: 1
 
@@ -140,6 +156,10 @@ action, no result attachments are included — this is meant for lightweight
 
 Form Settings
 -------------
+
+.. image:: _static/screenshots/survey-edit-form-settings.png
+   :align: center
+   :alt: Survey edit form (Form Settings fieldset)
 
 .. list-table::
    :header-rows: 1

@@ -10,7 +10,7 @@ the :doc:`survey-options`.
 
 The control panel is organized into the tabs below.
 
-.. image:: _static/screenshots/controlpanel-main.png
+.. image:: _static/screenshots/controlpanel-general.png
    :align: center
    :alt: Forms control panel (General tab)
 
@@ -39,6 +39,10 @@ General
 
 AI
 --
+
+.. image:: _static/screenshots/controlpanel-ai.png
+   :align: center
+   :alt: Forms control panel (AI tab)
 
 These settings select the LLM used for AI-assisted form generation and how it
 is reached. The three provider modes are **mutually exclusive** — configure
@@ -106,6 +110,10 @@ exactly one of them:
 Logging
 -------
 
+.. image:: _static/screenshots/controlpanel-logging.png
+   :align: center
+   :alt: Forms control panel (Logging tab)
+
 .. list-table::
    :header-rows: 1
 
@@ -126,6 +134,10 @@ Mail
 
 Global defaults for outgoing result-export e-mails. Per-survey Mail settings
 override these values; surveys without their own Mail settings inherit them.
+
+.. image:: _static/screenshots/controlpanel-mail.png
+   :align: center
+   :alt: Forms control panel (Mail tab)
 
 .. list-table::
    :header-rows: 1
@@ -153,6 +165,10 @@ override these values; surveys without their own Mail settings inherit them.
 
 Storage
 -------
+
+.. image:: _static/screenshots/controlpanel-storage.png
+   :align: center
+   :alt: Forms control panel (Storage tab)
 
 .. list-table::
    :header-rows: 1
@@ -191,6 +207,10 @@ backup.
 
 Security
 --------
+
+.. image:: _static/screenshots/controlpanel-security.png
+   :align: center
+   :alt: Forms control panel (Security tab)
 
 .. list-table::
    :header-rows: 1
@@ -231,6 +251,10 @@ without an iframe, by injecting the survey directly into the embedding page.
 It requires **all** of the following: the global master switch below, a
 signing key, and per-survey allowed origins (see the Embedding tab on the
 survey).
+
+.. image:: _static/screenshots/controlpanel-embedding.png
+   :align: center
+   :alt: Forms control panel (Embedding tab)
 
 .. list-table::
    :header-rows: 1

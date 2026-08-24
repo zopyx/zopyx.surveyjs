@@ -65,6 +65,134 @@ Everyday tasks
 * **Start from a template** — reuse a prepared form structure
   (see :doc:`templates`).
 
+The interface at a glance
+=========================
+
+The whole UI is organized around two levels: the **forms overview** for
+managing surveys, and the **survey screens** that hang off each survey
+(editing, results, AI, versions, …). This section walks through every view
+and its sections; each screen links to the detailed documentation.
+
+Forms overview (``@@pfs``)
+--------------------------
+
+The entry point for building and managing forms: lists all surveys and
+templates, with quick access to add new surveys and open existing ones.
+
+.. image:: _static/screenshots/psf-survey-overview.png
+   :align: center
+   :alt: Forms overview
+
+Survey landing page (``@@view-main``)
+-------------------------------------
+
+Every survey has a landing page with navigation to the survey tools
+(viewer, editor, results, settings, …) — the hub for working with a single
+survey.
+
+.. image:: _static/screenshots/survey-view-main.png
+   :align: center
+   :alt: Survey landing page
+
+Public viewer (``@@viewer``)
+----------------------------
+
+The public face of the survey: renders the form for visitors, handles the
+submission and applies the survey's access mode and token protection. The
+same view is used for anonymous visitors and logged-in submitters.
+
+.. image:: _static/screenshots/survey-viewer.png
+   :align: center
+   :alt: Public survey viewer
+
+.. image:: _static/screenshots/survey-viewer-anonymous.png
+   :align: center
+   :alt: Public survey viewer as seen by an anonymous visitor
+
+Editor (``@@editor``)
+---------------------
+
+The SurveyJS Creator visual editor: drag question types onto the page,
+configure validation and logic, preview — every save creates a new form
+version (see :doc:`survey-options` for the settings).
+
+.. image:: _static/screenshots/survey-editor.png
+   :align: center
+   :alt: SurveyJS Creator editor
+
+Survey settings (``@@survey-metadata`` / edit form)
+---------------------------------------------------
+
+The survey's edit form with its fieldsets (Basics, Dates, Actions, Mail,
+Mail notifications, Form Settings, Embedding, PDF fields) — everything that
+configures how the survey behaves (see :doc:`survey-options` for the full
+reference).
+
+.. image:: _static/screenshots/survey-metadata.png
+   :align: center
+   :alt: Survey settings screen
+
+AI generator (``@@ai``)
+-----------------------
+
+Generate a form from a natural-language prompt, convert an uploaded
+document, and refine the draft in a chat loop before saving it as a form
+version (see :doc:`ai`).
+
+.. image:: _static/screenshots/survey-ai-generator.png
+   :align: center
+   :alt: AI generator
+
+Chatbot (``@@chatbot``)
+-----------------------
+
+Ask questions about SurveyJS and the current survey; answers are grounded
+in the local documentation index (see :doc:`chatbot`).
+
+.. image:: _static/screenshots/survey-action-chatbot.png
+   :align: center
+   :alt: Chatbot
+
+Dashboard (``@@dashboard``)
+---------------------------
+
+At-a-glance statistics for the survey's submissions (see :doc:`exports`).
+
+.. image:: _static/screenshots/survey-action-dashboard.png
+   :align: center
+   :alt: Survey dashboard
+
+Results (``@@results``)
+-----------------------
+
+Search, inspect, export, mail and POST the stored submissions — the
+workhorse of the results workflow (see :doc:`exports`).
+
+.. image:: _static/screenshots/survey-results.png
+   :align: center
+   :alt: Results listing
+
+Form versions (``@@form-versions``)
+-----------------------------------
+
+Every save creates a new form version. This screen lists them and lets you
+preview, restore, lock, download or upload versions (see :doc:`endpoints`
+for the underlying operations).
+
+.. image:: _static/screenshots/survey-form-versions.png
+   :align: center
+   :alt: Form versions
+
+Fillable PDF (``@@fillable-pdf``)
+---------------------------------
+
+Upload a fillable PDF template for the survey and manage PDF-based
+workflows (see :doc:`survey-options` for the PDF fields).
+
+.. image:: _static/screenshots/survey-fillable-pdf.png
+   :align: center
+   :alt: Fillable PDF screen
+
 Reference
 =========
 
