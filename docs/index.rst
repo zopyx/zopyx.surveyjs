@@ -35,4 +35,5 @@ the system, and end users who build and run surveys in the UI.
    templates
    security
    development
+   load-testing
    changelog
