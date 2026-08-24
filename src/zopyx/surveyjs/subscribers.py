@@ -85,7 +85,7 @@ def log_survey_submission(context, event):
     trail; persistent audit logging for editor actions uses ``IPersistentLogger``.
     """
     context_info = getattr(context, "absolute_url", lambda: repr(context))()
-    print(f"SurveyJSFormSubmitted: context={context_info} data={event.form_data}")
+    logger.info("Survey submission: context=%s data=%s", context_info, event.form_data)
 
 
 def _normalize_field_name(name: str | None) -> str | None:
