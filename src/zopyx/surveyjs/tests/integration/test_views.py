@@ -18,6 +18,7 @@ from zope.component import getUtility
 from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import TestRequest
 from zope.security.interfaces import Unauthorized
+from plone.protect.authenticator import createToken
 
 from zopyx.surveyjs.browser.ai import AIView
 from zopyx.surveyjs.browser import views
@@ -135,7 +136,13 @@ class SurveyViewIntegrationTests(unittest.TestCase):
 
     def test_save_and_get_form_json_roundtrip(self) -> None:
         payload = {"pages": [{"elements": [{"type": "text", "name": "q1"}]}]}
-        req = self._make_request(form={"surveyText": orjson.dumps(payload)})
+        req = self._make_request(
+            form={
+                "surveyText": orjson.dumps(payload),
+                "_authenticator": createToken(),
+            }
+        )
+        req["REQUEST_METHOD"] = "POST"
         view = Views(self.survey, req)
         view.save_form_json()
         annos = IAnnotations(self.survey)
@@ -146,6 +153,14 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         view_get.get_form_json()
         data = orjson.loads(req_get.response.getBody())
         self.assertEqual(data["pages"][0]["elements"][0]["name"], "q1")
+
+    def test_save_form_json_requires_csrf_token(self) -> None:
+        payload = {"pages": [{"elements": [{"type": "text", "name": "q1"}]}]}
+        req = self._make_request(form={"surveyText": orjson.dumps(payload)})
+        req["REQUEST_METHOD"] = "POST"
+
+        with self.assertRaises(Unauthorized):
+            Views(self.survey, req).save_form_json()
 
     def test_save_poll_stores_when_enabled(self) -> None:
         self._add_version()

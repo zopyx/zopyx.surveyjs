@@ -187,7 +187,7 @@
   />
   <browser:page 
     name="save-form-json"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="save_form_json"

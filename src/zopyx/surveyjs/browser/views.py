@@ -17,6 +17,7 @@ from zope.schema.interfaces import ICollection, IChoice, IVocabularyFactory
 from zope.component import getUtility
 from zope.i18n import translate
 import plone.api
+from plone.protect import CheckAuthenticator
 
 from .. import _
 from ..events import SurveyJSFormSubmitted
@@ -479,6 +480,15 @@ class Views(BrowserView):
         json_response(self.request.response, form_data)
 
     def save_form_json(self):
+        if not plone.api.user.has_permission(ModifyPortalContent, obj=self.context):
+            json_error(self.request.response, 403, "permission_denied")
+            return
+
+        if self.request.get("REQUEST_METHOD", "GET").upper() != "POST":
+            json_error(self.request.response, 405, "method_not_allowed")
+            return
+
+        CheckAuthenticator(self.request)
         json_form = orjson.loads(self.request.form["surveyText"])
 
         annos = IAnnotations(self.context)
