@@ -3,12 +3,17 @@
 SurveyJS integration for Plone: create, publish, validate, store, export, and
 embed surveys and forms.
 
-## Documentation
+## Online resources
 
-The complete documentation is maintained in [`docs/`](docs/index.rst).
+- **Documentation** — installation, configuration, usage, endpoints, security,
+  and development reference: [`docs/`](docs/index.rst)
+- **Online demo** — try Privacy Forms Studio in a running Plone instance:
+  [demo.privacyforms.studio](https://demo.privacyforms.studio)
+- **Website** — product information and services:
+  [www.privacyforms.studio](https://www.privacyforms.studio)
 
-- [Online demo](https://demo.privacyforms.studio)
-- [Privacy Forms Studio](https://www.privacyforms.studio)
+### Documentation topics
+
 - [Installation](docs/installation.rst)
 - [Quick start](docs/quick-start.rst)
 - [Configuration](docs/configuration.rst)
