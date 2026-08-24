@@ -1,10 +1,10 @@
-Survey Settings (``@@survey-metadata``)
-=======================================
+Survey Settings
+===============
 
-The survey's edit form with its fieldsets (Basics, Dates, Actions, Mail,
-Mail notifications, Form Settings, Embedding, PDF fields) — everything that
-configures how the survey behaves (see :doc:`survey-options` for the full
-reference).
+The survey's edit form (``@@survey-metadata``) with its fieldsets (Basics,
+Dates, Actions, Mail, Mail notifications, Form Settings, Embedding, PDF
+fields) — everything that configures how the survey behaves (see
+:doc:`survey-options` for the full reference).
 
 .. image:: _static/screenshots/survey-metadata.png
    :align: center
