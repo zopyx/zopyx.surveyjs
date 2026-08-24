@@ -24,6 +24,7 @@ extend, and operate the SurveyJS integration in Plone.
    exports
    actions
    views
+   endpoints
    ai
    security
    development

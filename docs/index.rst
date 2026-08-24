@@ -25,6 +25,7 @@ the system, and end users who build and run surveys in the UI.
    configuration
    actions
    views
+   endpoints
    exports
    validation
    data-validation-cli

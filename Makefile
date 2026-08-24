@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests screenshots-album screenshots-view
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests screenshots-album screenshots-view docs
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := pfs-demo
@@ -47,6 +47,10 @@ test:
 
 sdist:
 	uv run python setup.py sdist
+
+# Build the Sphinx documentation (see docs/Makefile)
+docs:
+	$(MAKE) -C docs html
 
 # Screenshot automation with Playwright
 # These targets automatically handle Plone startup/shutdown

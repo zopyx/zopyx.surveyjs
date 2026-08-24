@@ -26,7 +26,7 @@
 extensions = ["myst_parser"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ["_templates"]
+# templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -103,12 +103,17 @@ todo_include_todos = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "pydata_sphinx_theme"
+html_theme = "shibuya"
 
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-# html_theme_options = {}
+# Theme options (https://shibuya.leouieda.com/configuration.html)
+html_theme_options = {
+    # Docs site only: hide the AI sidebar links (ChatGPT/Claude/Perplexity).
+    "show_ai_links": False,
+    # Follow the visitor's OS light/dark preference with a manual toggle.
+    "color_mode": "auto",
+    # Content width is controlled by the CSS variable --container-6xl
+    # (default 72rem); override it via html_css_files if needed.
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
@@ -132,7 +137,7 @@ html_theme = "pydata_sphinx_theme"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+# html_static_path = ["_static"]
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied

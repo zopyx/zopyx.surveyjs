@@ -1,18 +1,18 @@
-SPHINXBUILD ?= uv run  sphinx-build
+# Build the docs in an ephemeral uv environment: no persistent .venv is
+# created, and the repo-root workspace (buildout venv) is never touched.
+SPHINXBUILD ?= sphinx-build
 SOURCEDIR = .
 BUILDDIR = _build
 
-.PHONY: html pdf clean
+.PHONY: html pdf docs clean
 
 html:
-	uv venv  --clear
-	uv pip install -r requirements.txt
-	LANG=C.UTF-8 LC_ALL=C.UTF-8 $(SPHINXBUILD) -b html $(SOURCEDIR) html
+	LANG=C.UTF-8 LC_ALL=C.UTF-8 uv run --no-project --with-requirements requirements.txt $(SPHINXBUILD) -b html $(SOURCEDIR) html
 
 pdf:
-	uv venv 
-	uv pip install -r requirements.txt
-	LANG=C.UTF-8 LC_ALL=C.UTF-8 $(SPHINXBUILD) -b latexpdf $(SOURCEDIR) $(BUILDDIR)/latex
+	LANG=C.UTF-8 LC_ALL=C.UTF-8 uv run --no-project --with-requirements requirements.txt $(SPHINXBUILD) -b latexpdf $(SOURCEDIR) $(BUILDDIR)/latex
+
+docs: html
 
 clean:
-	rm -rf $(BUILDDIR)
+	rm -rf $(BUILDDIR) html
