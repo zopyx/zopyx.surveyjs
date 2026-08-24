@@ -73,6 +73,9 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
+    # Vercel installs the Python dependencies here; its .rst/.md package
+    # files must not be picked up as doc sources (breaks `-W` builds).
+    ".vercel_python_packages",
     # Archived notes and superseded drafts are not part of the published docs.
     "old",
 ]
