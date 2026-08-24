@@ -104,6 +104,7 @@ class SurveyChatbot(Views):
         )
 
     def chatbot_api(self):
+        self._check_post_authenticator()
         if not self._chatbot_enabled():
             return json_error(
                 self.request.response,
@@ -197,6 +198,7 @@ class SurveyChatbot(Views):
         return json_response(self.request.response, data, status=200)
 
     def chatbot_index_local(self):
+        self._check_post_authenticator()
         if not self._chatbot_enabled():
             return json_error(
                 self.request.response,
@@ -210,6 +212,7 @@ class SurveyChatbot(Views):
         return json_response(self.request.response, result, status=200)
 
     def chatbot_index_remote(self):
+        self._check_post_authenticator()
         if not self._chatbot_enabled():
             return json_error(
                 self.request.response,
@@ -229,6 +232,7 @@ class SurveyChatbot(Views):
         return json_response(self.request.response, result, status=200)
 
     def chatbot_reset(self):
+        self._check_post_authenticator()
         if not self._chatbot_enabled():
             return json_error(
                 self.request.response,

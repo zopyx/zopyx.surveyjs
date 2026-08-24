@@ -519,6 +519,7 @@ class FillablePDFView(Views):
 
     def upload_pdf(self):
         """Handle PDF template upload."""
+        self._check_post_authenticator()
         request = self.request
 
         pdf_file = request.form.get("pdf_file")
@@ -607,6 +608,7 @@ class FillablePDFView(Views):
 
     def delete_pdf(self):
         """Delete the uploaded PDF template."""
+        self._check_post_authenticator()
         try:
             if hasattr(self.context, "fillable_pdf"):
                 delattr(self.context, "fillable_pdf")
@@ -664,6 +666,7 @@ class FillablePDFView(Views):
 
     def fill_pdf(self):
         """Fill the PDF template with form data and return as download."""
+        self._check_post_authenticator()
         request = self.request
 
         # Check if PyMuPDF is available

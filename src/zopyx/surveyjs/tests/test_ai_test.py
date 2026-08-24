@@ -384,6 +384,9 @@ class AITestEndpointFunctionalTest(unittest.TestCase):
             "Authorization",
             f"Basic {TEST_USER_NAME}:{TEST_USER_PASSWORD}",
         )
+        browser.open(self.portal.absolute_url() + "/@@authenticator/token")
+        csrf_token = browser.contents
+        browser.addHeader("X-CSRF-TOKEN", csrf_token)
         with patch(
             "zopyx.surveyjs.browser.controlpanel.AITestView._test_provider",
             return_value={"ok": True, "message": "mocked ok"},

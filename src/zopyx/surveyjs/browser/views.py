@@ -184,6 +184,17 @@ class RootRedirect(BrowserView):
 
 
 class Views(BrowserView):
+    def _check_post_authenticator(self):
+        """Validate Plone's CSRF token for mutating POST requests."""
+        request_get = getattr(self.request, "get", None)
+        method = (
+            request_get("REQUEST_METHOD", "GET")
+            if callable(request_get)
+            else getattr(self.request, "REQUEST_METHOD", "GET")
+        )
+        if str(method).upper() == "POST":
+            CheckAuthenticator(self.request)
+
     @staticmethod
     def html_safe_json(value):
         return html_safe_json(value)
@@ -520,6 +531,7 @@ class Views(BrowserView):
         json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
+        self._check_post_authenticator()
         # Measure total server-side processing time of this submission
         # (payload parsing, validation, storage) for the monitor dashboard.
         _processing_start = time.monotonic()
@@ -830,6 +842,7 @@ class Views(BrowserView):
         )
 
     def clear_results(self):
+        self._check_post_authenticator()
         storage = get_result_storage(self.context)
         storage.clear_results(self.context)
 
@@ -1009,6 +1022,7 @@ class Views(BrowserView):
         return self._build_auth_token(form_version_id)
 
     def trusted_access_token(self):
+        self._check_post_authenticator()
         annos = IAnnotations(self.context)
         form_version_id = self._latest_form_version_id(annos)
         token, metadata = self._auth().issue_trusted_access_token(form_version_id or "")

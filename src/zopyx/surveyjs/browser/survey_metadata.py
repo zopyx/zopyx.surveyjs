@@ -4,6 +4,7 @@ from typing import Any
 
 import orjson
 import plone.api
+from plone.protect import CheckAuthenticator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from .. import _
@@ -57,6 +58,7 @@ class SurveyMetadata(SurveyAddView):
         self._normalize_dublincore_dates(self.context)
 
         if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            CheckAuthenticator(self.request)
             return self.handle_submit()
         return self.index()
 

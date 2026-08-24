@@ -5,6 +5,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
 from zope.schema import getFieldsInOrder
+from plone.protect import CheckAuthenticator
 
 from .. import _
 from ..content.survey import ISurvey
@@ -19,6 +20,7 @@ class PFSView(BrowserView):
 
     def __call__(self):
         if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            CheckAuthenticator(self.request)
             if (
                 self.request.form.get("pfs_action") or ""
             ).strip() == "create_from_template":

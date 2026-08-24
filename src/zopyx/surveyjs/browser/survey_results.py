@@ -182,6 +182,7 @@ class SurveyResults(Views):
 
     def mail_result(self):
         """Send a single poll result export by email."""
+        self._check_post_authenticator()
         poll_id = self.request.form.get("poll_id")
         format_key = (self.request.form.get("format") or "").lower()
         format_info = self._get_converter_format(format_key)
@@ -308,6 +309,7 @@ class SurveyResults(Views):
 
     def post_result(self):
         """POST a single poll result to the configured endpoint."""
+        self._check_post_authenticator()
         poll_id = self.request.form.get("poll_id")
         endpoint_url = getattr(self.context, "post_endpoint_url", None)
         actions = getattr(self.context, "actions", set()) or set()
@@ -394,6 +396,7 @@ class SurveyResults(Views):
 
     def delete_results(self):
         """Delete one or multiple poll results (Managers only)."""
+        self._check_post_authenticator()
         if not self._require_manager():
             return
         storage = get_result_storage(self.context)

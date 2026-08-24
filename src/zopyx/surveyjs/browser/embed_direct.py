@@ -15,6 +15,7 @@ import os
 import secrets
 
 import plone.api
+from plone.protect import CheckAuthenticator
 from Products.Five import BrowserView
 from zope.annotation.interfaces import IAnnotations
 
@@ -45,6 +46,8 @@ class EmbedDirectTokenView(BrowserView):
 
     def __call__(self):
         """Handle POST request to generate embed token."""
+        if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            CheckAuthenticator(self.request)
         # Check permission
         if not plone.api.user.has_permission(ModifyPortalContent, obj=self.context):
             json_error(self.request.response, 403, "permission_denied")

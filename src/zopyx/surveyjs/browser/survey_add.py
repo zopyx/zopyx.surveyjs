@@ -8,6 +8,7 @@ import orjson
 import plone.api
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.protect import CheckAuthenticator
 
 from .. import _
 from ..permissions import AddSurvey
@@ -67,6 +68,7 @@ class SurveyAddView(BrowserView):
             return _("You are not allowed to add surveys here.")
 
         if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            CheckAuthenticator(self.request)
             return self.handle_submit()
         return self.index()
 

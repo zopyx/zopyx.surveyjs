@@ -59,6 +59,7 @@ class SurveyVersions(Views):
 
     def restore_version(self):
         """Restore an old version by creating a new version with old content."""
+        self._check_post_authenticator()
         version_id = self.request.form.get("version_id")
 
         if not version_id:
@@ -108,6 +109,7 @@ class SurveyVersions(Views):
 
     def toggle_version_lock(self):
         """Toggle lock state for a form version."""
+        self._check_post_authenticator()
         version_id = self.request.form.get("version_id")
         if not version_id:
             plone.api.portal.show_message(_("No version ID provided"), type="error")
@@ -150,6 +152,7 @@ class SurveyVersions(Views):
 
     def delete_version(self):
         """Delete a form version unless locked."""
+        self._check_post_authenticator()
         version_id = self.request.form.get("version_id")
         if not version_id:
             plone.api.portal.show_message(_("No version ID provided"), type="error")
@@ -190,6 +193,7 @@ class SurveyVersions(Views):
 
     def upload_version(self):
         """Upload a JSON file and save as new version."""
+        self._check_post_authenticator()
         uploaded_file = self.request.form.get("json_file")
 
         if not uploaded_file:
@@ -266,6 +270,7 @@ class SurveyVersions(Views):
 
     def create_template_from_version(self):
         """Create a SurveyTemplate from a selected form version."""
+        self._check_post_authenticator()
         version_id = (self.request.form.get("version_id") or "").strip()
         title = (self.request.form.get("template_title") or "").strip()
         if not version_id or not title:

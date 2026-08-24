@@ -626,6 +626,7 @@ class AIView(Views):
             Various exceptions during upload/AI processing are caught and
             converted to error messages.
         """
+        self._check_post_authenticator()
         uploaded_file = self.request.form.get("document_file")
         if not uploaded_file:
             return self._redirect_ai("No file uploaded. Please upload a file.", "error")
@@ -805,6 +806,7 @@ Requirements:
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
+        self._check_post_authenticator()
         annos = IAnnotations(self.context)
         temp_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
         if not isinstance(temp_form, dict):
@@ -849,6 +851,7 @@ Requirements:
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
+        self._check_post_authenticator()
         annos = IAnnotations(self.context)
         versions = forms_service.sorted_form_versions(annos)
         if not versions:
@@ -881,6 +884,7 @@ Requirements:
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
+        self._check_post_authenticator()
         annos = IAnnotations(self.context)
         if self.TEMP_FORM_ANNOTATION_KEY in annos:
             del annos[self.TEMP_FORM_ANNOTATION_KEY]
@@ -900,6 +904,7 @@ Requirements:
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
+        self._check_post_authenticator()
         prompt = (self.request.form.get("chat_prompt") or "").strip()
         if not prompt:
             return self._redirect_ai(
@@ -983,6 +988,7 @@ Requirements:
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
+        self._check_post_authenticator()
         raw_index = self.request.form.get("history_index", "").strip()
         try:
             history_index = int(raw_index)
@@ -1022,6 +1028,7 @@ Requirements:
         Returns:
             HTTPRedirectResponse: Redirects to @@ai view with status message.
         """
+        self._check_post_authenticator()
         raw_index = self.request.form.get("history_index", "").strip()
         try:
             history_index = int(raw_index)

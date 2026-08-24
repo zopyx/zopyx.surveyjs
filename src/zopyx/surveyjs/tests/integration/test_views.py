@@ -174,6 +174,16 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         body = orjson.loads(req.response.getBody())
         self.assertTrue(body["isSuccess"])
 
+    def test_save_poll_requires_csrf_token_on_post(self) -> None:
+        self._add_version()
+        req = self._make_request(
+            form={"pollResult": orjson.dumps({"q1": "yes"})}
+        )
+        req["REQUEST_METHOD"] = "POST"
+
+        with self.assertRaises(Unauthorized):
+            Views(self.survey, req).save_poll()
+
     def test_save_poll_uses_sql_backend(self) -> None:
         self._add_version()
         self.survey.actions = {"store"}

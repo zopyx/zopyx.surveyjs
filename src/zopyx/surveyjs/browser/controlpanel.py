@@ -11,6 +11,7 @@ import plone.api
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.registry.interfaces import IRegistry
+from plone.protect import CheckAuthenticator
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
@@ -54,6 +55,7 @@ class FormsSettingsView(BrowserView):
             return "You are not allowed to access this control panel."
 
         if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            CheckAuthenticator(self.request)
             return self.handle_submit()
         return self.index()
 
@@ -433,6 +435,8 @@ class AITestView(BrowserView):
     TEST_TIMEOUT = 25
 
     def __call__(self):
+        if self.request.get("REQUEST_METHOD", "GET").upper() == "POST":
+            CheckAuthenticator(self.request)
         payload = parse_json_body(self.request)
         if not isinstance(payload, dict):
             return json_error(
