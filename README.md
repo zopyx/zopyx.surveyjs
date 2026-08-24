@@ -6,7 +6,7 @@ embed surveys and forms.
 ## Online resources
 
 - **Documentation** — installation, configuration, usage, endpoints, security,
-  and development reference: [`docs/`](docs/index.rst)
+  and development reference: [docs.privacyforms.studio](https://docs.privacyforms.studio)
 - **Online demo** — try Privacy Forms Studio in a running Plone instance:
   [demo.privacyforms.studio](https://demo.privacyforms.studio)
 - **Website** — product information and services:
