@@ -10,10 +10,15 @@ Plone instance itself is still assembled by Buildout.
 Prerequisites
 =============
 
-* Python 3.13 (downloaded and managed automatically by ``uv``)
-* ``uv`` (see https://docs.astral.sh/uv/)
-* A Buildout-based Plone project (Plone 5.2 or 6.0; the repository ships
-  ``test_plone52.cfg`` and ``test_plone60.cfg`` buildout configurations)
+* **Plone 6.2** (should work with 6.1) — the repository's test
+  configuration (``test_plone60.cfg``) extends the Plone 6.2.x buildout
+  test config; a legacy ``test_plone52.cfg`` (Plone 5.2) is kept for
+  reference only.
+* **Python 3.13 or 3.14** — downloaded and managed automatically by
+  ``uv`` (the CI and the development venv use 3.13).
+* **Latest ``uv``** (see https://docs.astral.sh/uv/; the CI pins it via the
+  ``astral-sh/setup-uv`` action with ``version: latest``)
+* A Buildout-based Plone project
 * Only for the optional validator build: ``bun`` or ``deno`` on the PATH
   (the add-on can also fetch Deno itself, see below)
 
@@ -176,6 +181,36 @@ AI Generator
   The AI Generator uses the Python ``llm`` package plus the
   ``privacyforms_ai`` helper and supports installed, Ollama and custom
   OpenAI-compatible providers. See :doc:`ai` and :doc:`global-options`.
+
+Source code
+===========
+
+The project consists of three repositories under the ``zopyx`` GitHub
+organisation. The Plone add-on depends on the two Python packages for its
+AI and PDF features:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Repository
+     - Purpose
+   * - `zopyx/zopyx.surveyjs <https://github.com/zopyx/zopyx.surveyjs>`_
+     - This add-on: the Plone 6 + SurveyJS integration (forms, results,
+       AI generator, chatbot, PDF generator, embedding).
+   * - `zopyx/privacyforms.ai <https://github.com/zopyx/privacyforms.ai>`_
+     - Python helpers and CLI on top of the ``llm`` library; provides the
+       model resolution (installed / Ollama / custom OpenAI-compatible
+       endpoints) used by the AI generator. PyPI package:
+       ``privacyforms.ai``.
+   * - `zopyx/privacyforms.pdf <https://github.com/zopyx/privacyforms.pdf>`_
+     - Python library for parsing and filling PDF forms (pypdf-based);
+       powers the fillable-PDF import and PDF filling features. PyPI
+       package: ``privacyforms.pdf``.
+
+In this repository's buildout the two packages are installed as develop
+eggs from the sibling checkouts under ``src/`` (``src/privacyforms.ai``,
+``src/privacyforms.pdf``). Issues and contributions are handled in the
+respective repository.
 
 Development workflow
 ====================
