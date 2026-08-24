@@ -45,6 +45,9 @@ class ITokenStore(Interface):
         :return: True if token was found and invalidated, False otherwise
         """
 
+    def consume_token(token: str, reason: str = None) -> bool:
+        """Atomically validate and invalidate an unused token."""
+
     def get_token_info(token: str) -> dict:
         """Get information about a specific token.
 

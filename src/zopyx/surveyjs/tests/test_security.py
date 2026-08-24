@@ -8,6 +8,7 @@ from zopyx.surveyjs.security import (
     build_auth_token,
     validate_auth_token,
 )
+from zopyx.surveyjs.utils import html_safe_json
 
 
 class AuthTokenTests(unittest.TestCase):
@@ -106,3 +107,8 @@ class AuthTokenTests(unittest.TestCase):
                 now=self.now,
             )
         self.assertEqual(ctx.exception.reason, "auth_token_claims_mismatch")
+
+    def test_html_safe_json_escapes_script_terminator(self) -> None:
+        encoded = html_safe_json({"value": "</script><script>alert(1)</script>"})
+        self.assertNotIn("</script>", encoded)
+        self.assertIn("\\u003c/script\\u003e", encoded)

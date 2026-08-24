@@ -15,6 +15,7 @@ from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
 from ..interfaces import IFormsSettings
+from ..utils import html_safe_json
 from ..permissions import ManagePortal
 from .services.ai import PROVIDERS
 from .services.ai import PROVIDER_FIELDS
@@ -37,6 +38,10 @@ class FormsSettingsView(BrowserView):
     """Forms Settings control panel using SurveyJS."""
 
     index = ViewPageTemplateFile("forms_settings.pt")
+
+    @staticmethod
+    def html_safe_json(value):
+        return html_safe_json(value)
 
     def __init__(self, context, request):
         super().__init__(context, request)
@@ -68,7 +73,7 @@ class FormsSettingsView(BrowserView):
 
     @property
     def initial_data_json(self) -> str:
-        return orjson.dumps(self.form_values).decode("utf-8")
+        return html_safe_json(self.form_values)
 
     def _get_ai_model_choices(self) -> list[dict[str, str]]:
         """Load available AI model choices from the vocabulary."""

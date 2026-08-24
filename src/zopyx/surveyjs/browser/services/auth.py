@@ -262,8 +262,6 @@ class AuthService:
             return False
 
         # Do not invalidate here; consume on successful submission.
-        if logger:
-            logger.info("Survey trusted-tokens access: token_valid token=%s", token)
         return True
 
     def require_trusted_access(self, logger=None):
@@ -331,7 +329,7 @@ class AuthService:
             return False
 
         # Invalidate with reason for audit trail
-        if not token_store.invalidate(token, reason="user_submission"):
+        if not token_store.consume_token(token, reason="user_submission"):
             if logger:
                 logger.info(
                     "Survey trusted-tokens consume denied: reason=invalid_or_used_token"
@@ -344,7 +342,7 @@ class AuthService:
             return False
 
         if logger:
-            logger.info("Survey trusted-tokens access: token_consumed token=%s", token)
+            logger.info("Survey trusted-tokens access: token_consumed")
         return True
 
     def require_auth_token(self, form_version_id, logger=None):
@@ -361,12 +359,10 @@ class AuthService:
             )
             return False
         token = self.request.form.get("auth_token") or ""
-        if logger:
-            logger.info("Survey auth token received: token=%s", token)
         issuer = self._auth_token_issuer(settings)
         audience = self._auth_token_audience(settings)
         try:
-            payload = validate_auth_token(
+            validate_auth_token(
                 token=token,
                 form_id=self._form_id(),
                 form_version=form_version_id or "",
@@ -374,8 +370,6 @@ class AuthService:
                 audience=audience,
                 secret=secret,
             )
-            if logger:
-                logger.info("Survey auth token validated: payload=%s", payload)
         except AuthTokenError as exc:
             if logger:
                 logger.info(
@@ -405,7 +399,7 @@ class AuthService:
             added = self._cache_add(cache, received_key, "RECEIVED")
             if not added:
                 if logger:
-                    logger.info("Survey auth token replay detected: token=%s", token)
+                    logger.info("Survey auth token replay detected")
                 json_error(
                     self.request.response,
                     403,

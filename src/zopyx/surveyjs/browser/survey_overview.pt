@@ -63,7 +63,7 @@
         </div>
         <script type="application/json"
                 id="survey-overview-data"
-                tal:define="entries_json python: __import__('json').dumps(entries)"
+                tal:define="entries_json python: view.html_safe_json(entries)"
                 tal:content="structure entries_json"></script>
         <script src="++resource++zopyx.surveyjs/survey_overview.js"
                 type="text/javascript"></script>

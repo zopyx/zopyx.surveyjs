@@ -1,4 +1,5 @@
 from datetime import timezone
+import json
 import logging
 from typing import Any
 
@@ -15,6 +16,16 @@ def ensure_timezone_aware(dt):
     if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
         return dt.replace(tzinfo=timezone.utc)
     return dt
+
+
+def html_safe_json(value: Any) -> str:
+    """Serialize data safely for embedding inside an HTML script element."""
+    return (
+        json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace("&", "\\u0026")
+    )
 
 
 def resolve_mail_settings(context, field_names: list[str]) -> dict[str, Any]:

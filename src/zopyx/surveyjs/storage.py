@@ -17,7 +17,7 @@ from typing import Dict, Iterable, List, Optional
 import orjson
 from BTrees.OOBTree import OOBTree
 from sqlmodel import Field, SQLModel, Session, create_engine, select
-from sqlalchemy import Column, Text
+from sqlalchemy import Column, Text, update
 from sqlalchemy.engine import make_url
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
@@ -605,6 +605,30 @@ class SQLTokenStore:
                 reason or "user_submission",
             )
             return True
+
+    def consume_token(self, token: str, reason: str = None) -> bool:
+        """Atomically validate and invalidate an unused token."""
+        user_context = self._get_user_context()
+        with self._session() as session:
+            statement = (
+                update(SurveyToken)
+                .where(
+                    SurveyToken.token == token,
+                    SurveyToken.site_id == self._site_id,
+                    SurveyToken.survey_id == self._survey_id,
+                    SurveyToken.used.is_(None),
+                )
+                .values(
+                    used=datetime.now(timezone.utc),
+                    used_by=user_context["user_id"],
+                    used_from=user_context["client_ip"],
+                )
+            )
+            result = session.exec(statement)
+            consumed = result.rowcount == 1
+            if consumed:
+                session.commit()
+            return consumed
 
     def get_token_info(self, token: str) -> Optional[dict]:
         """Get information about a specific token.

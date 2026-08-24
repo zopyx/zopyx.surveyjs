@@ -279,7 +279,7 @@
       </div>
       <script type="application/json"
               id="ai-temp-form-json"
-              tal:define="temp_json python: __import__('json').dumps(view.temp_form_data)"
+              tal:define="temp_json python: view.html_safe_json(view.temp_form_data)"
               tal:content="structure temp_json"></script>
     </tal:has-temp-bottom>
 

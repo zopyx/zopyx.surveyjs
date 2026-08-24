@@ -11,7 +11,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from .. import _
 from ..permissions import AddSurvey
-from ..utils import ensure_timezone_aware
+from ..utils import ensure_timezone_aware, html_safe_json
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +84,7 @@ class SurveyAddView(BrowserView):
     def initial_data_json(self) -> str:
         payload = deepcopy(self.form_values)
         payload["__survey_languages_choices"] = self._survey_languages_choices()
-        return orjson.dumps(payload).decode("utf-8")
+        return html_safe_json(payload)
 
     @property
     def errors(self) -> list[str]:

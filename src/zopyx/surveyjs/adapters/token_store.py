@@ -187,6 +187,22 @@ class TokenStore:
         )
         return True
 
+    def consume_token(self, token: str, reason: str = None) -> bool:
+        """Atomically validate and invalidate an unused token."""
+        storage = self._get_storage()
+        info = storage.get(token)
+        if info is None or info.get("used") is not None:
+            return False
+        user_context = self._get_user_context()
+        consumed = dict(info)
+        consumed["used"] = datetime.now(timezone.utc).isoformat()
+        consumed["used_by"] = user_context["user_id"]
+        consumed["used_from"] = user_context["client_ip"]
+        if reason:
+            consumed["revocation_reason"] = reason
+        storage[token] = consumed
+        return True
+
     def get_token_info(self, token: str) -> dict:
         """Get information about a specific token.
 

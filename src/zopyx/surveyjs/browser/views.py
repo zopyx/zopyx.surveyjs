@@ -27,6 +27,7 @@ from ..audit import audit_form_version_change
 from ..monitoring import record_submission_duration
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
+from ..utils import html_safe_json
 from ..data_validation.validate_data import validate_data as run_data_validation
 
 import orjson
@@ -183,6 +184,10 @@ class RootRedirect(BrowserView):
 
 
 class Views(BrowserView):
+    @staticmethod
+    def html_safe_json(value):
+        return html_safe_json(value)
+
     @property
     def has_fillable_pdf(self) -> bool:
         """Return True if a fillable PDF template has been uploaded."""
@@ -995,7 +1000,7 @@ class Views(BrowserView):
     def _build_auth_token(self, form_version_id):
         token = self._auth().build_auth_token(form_version_id or "")
         if token:
-            logger.info("Survey auth token generated: token=%s", token)
+            logger.info("Survey auth token generated")
         return token
 
     def auth_token(self):

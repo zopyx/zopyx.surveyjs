@@ -105,9 +105,16 @@ class TokenStoreAdapterTest(unittest.TestCase):
         self.assertFalse(self.token_store.has_token(tokens[0]))
 
     def test_invalidate_nonexistent_token(self):
-        """Test invalidating a non-existent token returns False."""
+        """Test that invalidating a non-existent token returns False."""
         result = self.token_store.invalidate("non-existent-token")
         self.assertFalse(result)
+
+    def test_consume_token_is_single_use(self):
+        """Atomic consumption succeeds once and rejects subsequent use."""
+        token = self.token_store.generate_tokens(1)[0]
+        self.assertTrue(self.token_store.consume_token(token, reason="user_submission"))
+        self.assertFalse(self.token_store.consume_token(token, reason="user_submission"))
+        self.assertFalse(self.token_store.has_token(token))
 
     def test_invalidate_sets_used_timestamp(self):
         """Test that invalidating sets the used timestamp."""

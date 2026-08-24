@@ -27,7 +27,7 @@
     />
     <script type="application/json"
             id="survey-viewer-config"
-            tal:define="config_json python: __import__('json').dumps({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content), 'surveyLanguages': list(getattr(context, 'survey_languages', []) or []), 'surveyLanguageLabels': view.survey_language_labels, 'hasFillablePdf': bool(view.has_fillable_pdf), 'tokenParam': 'auth_token' if getattr(context, 'access_mode', '') == 'trusted-tokens' else 'access_token'})"
+            tal:define="config_json python: view.html_safe_json({'trustedAccessEnabled': bool(view.trusted_access_enabled), 'canManage': bool(view.can_manage_portal_content), 'surveyLanguages': list(getattr(context, 'survey_languages', []) or []), 'surveyLanguageLabels': view.survey_language_labels, 'hasFillablePdf': bool(view.has_fillable_pdf), 'tokenParam': 'auth_token' if getattr(context, 'access_mode', '') == 'trusted-tokens' else 'access_token'})"
             tal:content="structure config_json"></script>
     <metal:surveyjs-vars-base
         use-macro="context/@@survey-assets/macros/surveyjs-vars-base"

@@ -13,6 +13,7 @@ from ..monitoring import (
     cleanup_old_data,
     get_submission_stats,
 )
+from ..utils import html_safe_json
 
 
 class ISurveyMonitorView(Interface):
@@ -149,7 +150,7 @@ class SurveyMonitorView(BrowserView):
 
     def get_chart_data_json(self):
         """Get chart data as JSON string for template embedding."""
-        return json.dumps(self.get_chart_data())
+        return html_safe_json(self.get_chart_data())
 
     def get_current_time(self):
         """Return current server time."""

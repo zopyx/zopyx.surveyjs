@@ -698,22 +698,6 @@ class FillablePDFView(Views):
             form_data = request.form
 
             # Log the submitted form data
-            import json
-
-            logger.info(
-                "Download Filled PDF - submitted data for %s: %s",
-                self.context.absolute_url(),
-                json.dumps(dict(form_data), default=str),
-            )
-
-            # Write submitted data to filled.json
-            filled_json_path = Path("filled.json")
-            with open(filled_json_path, "w", encoding="utf-8") as f:
-                json.dump(dict(form_data), f, indent=2, default=str)
-            logger.info(
-                "Download Filled PDF - data written to %s", filled_json_path.absolute()
-            )
-
             # Track filled fields
             filled_count = 0
 
