@@ -9,6 +9,10 @@ validation error. It is a retrieval-augmented chat: the configured LLM
 from a local documentation index, so replies are grounded in the actual
 documentation rather than free-form model output.
 
+.. image:: _static/screenshots/survey-action-chatbot.png
+   :align: center
+   :alt: Chatbot screen
+
 How it works
 ============
 

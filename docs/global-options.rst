@@ -10,6 +10,10 @@ the :doc:`survey-options`.
 
 The control panel is organized into the tabs below.
 
+.. image:: _static/screenshots/controlpanel-main.png
+   :align: center
+   :alt: Forms control panel (General tab)
+
 General
 -------
 

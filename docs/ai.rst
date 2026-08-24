@@ -93,6 +93,11 @@ Typical workflow
 ================
 
 1. Open ``@@ai`` on the survey.
+
+   .. image:: _static/screenshots/survey-ai-generator.png
+      :align: center
+      :alt: AI generator screen
+
 2. **Start**: either copy the latest form version into the workspace
    (``@@ai-copy-latest-to-temp`` — the recommended base for refinements),
    upload a document (``@@ai-upload``), or just type a prompt.

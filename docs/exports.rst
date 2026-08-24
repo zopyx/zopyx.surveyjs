@@ -51,6 +51,10 @@ The Results view (``@@results``)
 Tabulator-driven grid fed by the ``@@results-data`` endpoint (remote
 pagination, sorting and filtering).
 
+.. image:: _static/screenshots/survey-results.png
+   :align: center
+   :alt: Results view
+
 Toolbar
 
 * **Search** — free-text search across user, UUID, poll id and creation
@@ -236,6 +240,10 @@ the survey's submissions (rendered with ``dashboard.js``/``dashboard.css``).
 It complements the results grid with an at-a-glance view of the collected
 data. The feature can be hidden site-wide via the "Features enabled"
 setting (``dashboard``).
+
+.. image:: _static/screenshots/survey-action-dashboard.png
+   :align: center
+   :alt: Survey dashboard
 
 PDF generator
 =============
