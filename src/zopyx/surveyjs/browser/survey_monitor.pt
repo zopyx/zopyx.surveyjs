@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="++resource++zopyx.surveyjs/monitor.css" />
   </metal:block>
   <metal:block fill-slot="javascript_head_slot">
+    <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/plotly.min.js"
+            type="text/javascript"></script>
     <script src="++resource++zopyx.surveyjs/monitor.js"></script>
   </metal:block>
 </head>
@@ -132,24 +134,41 @@
 
       <!-- Chart Section -->
       <div class="chart-panel">
-        <h3>Submission Rate Over Time</h3>
-        <div class="chart-container">
-          <svg id="submission-chart" viewBox="0 0 800 200" preserveAspectRatio="none">
-            <!-- Chart will be rendered by JavaScript -->
-            <defs>
-              <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
-                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
-              </linearGradient>
-            </defs>
-            <g id="chart-area"></g>
-          </svg>
+        <div class="chart-panel-header">
+          <h3>Submission Rate Over Time</h3>
+          <div class="chart-controls">
+            <button type="button" class="btn btn-secondary chart-btn" id="chart-zoom-in"
+                    title="Zoom into the current time range">Zoom in</button>
+            <button type="button" class="btn btn-secondary chart-btn" id="chart-zoom-out"
+                    title="Zoom out of the current time range">Zoom out</button>
+            <button type="button" class="btn btn-secondary chart-btn" id="chart-reset"
+                    title="Reset to the full time window">Reset</button>
+          </div>
         </div>
-        <div class="chart-legend">
-          <span class="legend-item">
-            <span class="legend-color" style="background: #3b82f6;"></span>
-            Submissions per minute
-          </span>
+        <div class="chart-container">
+          <!-- Rendered by Plotly (monitor.js); stacked per-form areas +
+               cumulative total line -->
+          <div id="submission-chart"></div>
+        </div>
+      </div>
+
+      <!-- Latency Chart Section -->
+      <div class="chart-panel">
+        <div class="chart-panel-header">
+          <h3>Processing Time</h3>
+          <div class="chart-controls">
+            <button type="button" class="btn btn-secondary chart-btn" id="latency-zoom-in"
+                    title="Zoom into the current time range">Zoom in</button>
+            <button type="button" class="btn btn-secondary chart-btn" id="latency-zoom-out"
+                    title="Zoom out of the current time range">Zoom out</button>
+            <button type="button" class="btn btn-secondary chart-btn" id="latency-reset"
+                    title="Reset to the full time window">Reset</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <!-- Rendered by Plotly (monitor.js); average + max server-side
+               processing time per minute -->
+          <div id="latency-chart"></div>
         </div>
       </div>
 
@@ -168,18 +187,23 @@
               <th class="numeric sortable" data-sort="unique_users">
                 Unique Users <span class="sort-indicator"></span>
               </th>
+              <th class="numeric sortable" data-sort="avg_duration">
+                Avg Processing <span class="sort-indicator"></span>
+              </th>
               <th>Activity</th>
             </tr>
           </thead>
           <tbody>
             <tal:form repeat="form stats/forms|nothing">
-              <tr data-title="${form/title}" data-count="${form/count}" data-unique_users="${form/unique_users}">
+              <tr data-title="${form/title}" data-count="${form/count}" data-unique_users="${form/unique_users}" data-avg_duration="${form/avg_duration|nothing}">
                 <td>
                   <div class="form-title" tal:content="form/title">Form Title</div>
                   <div class="form-path" tal:content="form/path">/path/to/form</div>
                 </td>
                 <td class="numeric" tal:content="form/count">42</td>
                 <td class="numeric" tal:content="form/unique_users">5</td>
+                <td class="numeric"
+                    tal:content="python:('%.0f ms' % (form.get('avg_duration') * 1000)) if form.get('avg_duration') else '—'">118 ms</td>
                 <td>
                   <div class="activity-bar">
                     <div class="activity-fill"
@@ -191,7 +215,7 @@
               </tr>
             </tal:form>
             <tr tal:condition="not:stats/forms">
-              <td colspan="4" class="no-data">No submissions in selected time window</td>
+              <td colspan="5" class="no-data">No submissions in selected time window</td>
             </tr>
           </tbody>
         </table>

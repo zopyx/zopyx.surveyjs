@@ -26,6 +26,8 @@ logger = logging.getLogger(__name__)
 # Cache key prefixes
 SUBMISSION_KEY_PREFIX = "sub:"
 FORM_STATS_PREFIX = "form:"
+DURATION_KEY_PREFIX = "duration:"
+FORM_DURATION_PREFIX = "form-duration:"
 GLOBAL_STATS_KEY = "global:stats"
 
 # Time windows in minutes
@@ -187,6 +189,79 @@ def _increment_counter(
         logger.debug("Failed to increment counter: %s", exc)
 
 
+def record_submission_duration(context, seconds: float) -> None:
+    """Record the server-side processing time of an accepted submission.
+
+    Called from the save-poll view right after the submission event fired.
+    Stores per-minute latency buckets (count/sum/min/max) both globally and
+    per form, so average and worst-case processing time can be charted.
+    """
+    cache = _get_cache()
+    if cache is None:
+        return
+
+    try:
+        now = datetime.now(timezone.utc)
+        minute_key = now.strftime("%Y%m%d%H%M")
+
+        _record_duration_bucket(
+            cache, f"{DURATION_KEY_PREFIX}{minute_key}", seconds
+        )
+        _record_duration_bucket(
+            cache,
+            f"{FORM_DURATION_PREFIX}{_get_form_uid(context)}:{minute_key}",
+            seconds,
+            form_uid=_get_form_uid(context),
+            form_title=_get_form_title(context),
+            form_path=_get_form_path(context),
+        )
+    except Exception as exc:
+        logger.debug("Failed to record submission duration: %s", exc)
+    finally:
+        try:
+            cache.close()
+        except Exception:
+            pass
+
+
+def _record_duration_bucket(
+    cache: Cache,
+    key: str,
+    seconds: float,
+    form_uid: Optional[str] = None,
+    form_title: Optional[str] = None,
+    form_path: Optional[str] = None,
+) -> None:
+    """Increment a per-minute latency bucket with the given duration."""
+    try:
+        data = cache.get(key, {})
+        if not isinstance(data, dict):
+            data = {}
+
+        count = data.get("count", 0) + 1
+        total = data.get("sum", 0.0) + seconds
+        data.update(
+            {
+                "count": count,
+                "sum": total,
+                "avg": total / count,
+                "min": min(data.get("min", seconds), seconds),
+                "max": max(data.get("max", seconds), seconds),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+        )
+        if form_uid:
+            data["form_uid"] = form_uid
+        if form_title:
+            data["form_title"] = form_title
+        if form_path:
+            data["form_path"] = form_path
+
+        cache.set(key, data, expire=25 * 3600)
+    except Exception as exc:
+        logger.debug("Failed to record duration bucket: %s", exc)
+
+
 def _get_form_uid(context) -> str:
     """Get a unique identifier for the survey form."""
     uid = getattr(context, "UID", None)
@@ -244,6 +319,93 @@ def _generate_full_time_series(
         slot_time = now - timedelta(minutes=i)
         time_key = slot_time.strftime("%H:%M")
         full_series[time_key] = time_series.get(time_key, 0)
+
+    return full_series
+
+
+def _get_form_time_series(
+    cache: Cache,
+    cutoff: datetime,
+    minutes: int,
+    now: datetime,
+) -> List[Dict]:
+    """Build per-form per-minute series aligned to the full time window.
+
+    Returns a list of dicts (one per form that submitted in the window,
+    sorted by total count descending)::
+
+        {
+            "form_uid": str,
+            "title": str,
+            "path": str,
+            "count": int,               # total in window
+            "series": {time_key: count} # full window, zero-filled
+        }
+    """
+    raw: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    totals: Dict[str, int] = defaultdict(int)
+    titles: Dict[str, str] = {}
+    paths: Dict[str, str] = {}
+
+    for key in cache.iterkeys():
+        if not key.startswith(FORM_STATS_PREFIX):
+            continue
+        try:
+            data = cache.get(key)
+            if not data or not isinstance(data, dict):
+                continue
+            form_uid = data.get("form_uid")
+            if not form_uid:
+                continue
+            ts_part = key[len(FORM_STATS_PREFIX) :]
+            if ":" not in ts_part:
+                continue
+            _, ts_str = ts_part.rsplit(":", 1)
+            key_time = datetime.strptime(ts_str, "%Y%m%d%H%M").replace(
+                tzinfo=timezone.utc
+            )
+            if key_time < cutoff:
+                continue
+            time_key = key_time.strftime("%H:%M")
+            count = data.get("count", 0)
+            raw[form_uid][time_key] += count
+            totals[form_uid] += count
+            if form_uid not in titles:
+                titles[form_uid] = data.get("form_title", "Untitled")
+            if form_uid not in paths:
+                paths[form_uid] = data.get("form_path", "/")
+        except Exception:
+            continue
+
+    result = []
+    for form_uid, series in raw.items():
+        result.append(
+            {
+                "form_uid": form_uid,
+                "title": titles.get(form_uid, "Untitled"),
+                "path": paths.get(form_uid, "/"),
+                "count": totals.get(form_uid, 0),
+                "series": _generate_full_time_series(minutes, now, dict(series)),
+            }
+        )
+    result.sort(key=lambda f: f["count"], reverse=True)
+    return result
+
+
+def _generate_full_duration_series(
+    minutes: int, now: datetime, duration_series: Dict[str, Dict]
+) -> Dict[str, Optional[Dict]]:
+    """Align per-minute latency data to the full window.
+
+    Minutes without recorded submissions map to ``None`` (chart gap),
+    minutes with data carry ``{"avg": float, "max": float, "count": int}``.
+    """
+    full_series: Dict[str, Optional[Dict]] = {}
+
+    for i in range(minutes, -1, -1):
+        slot_time = now - timedelta(minutes=i)
+        time_key = slot_time.strftime("%H:%M")
+        full_series[time_key] = duration_series.get(time_key)
 
     return full_series
 
@@ -317,6 +479,33 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
 
         # Get form-specific stats
         form_breakdown = _get_form_breakdown(cache, cutoff)
+        form_time_series = _get_form_time_series(cache, cutoff, minutes, now)
+
+        # Processing-time series (global, per minute)
+        duration_raw: Dict[str, Dict[str, float]] = {}
+        for key in cache.iterkeys():
+            if not key.startswith(DURATION_KEY_PREFIX):
+                continue
+            try:
+                data = cache.get(key)
+                if not data or not isinstance(data, dict):
+                    continue
+                ts_str = key[len(DURATION_KEY_PREFIX) :]
+                key_time = datetime.strptime(ts_str, "%Y%m%d%H%M").replace(
+                    tzinfo=timezone.utc
+                )
+                if key_time < cutoff:
+                    continue
+                duration_raw[key_time.strftime("%H:%M")] = {
+                    "avg": data.get("avg", 0.0),
+                    "max": data.get("max", 0.0),
+                    "count": data.get("count", 0),
+                }
+            except Exception:
+                continue
+        duration_series = _generate_full_duration_series(
+            minutes, now, duration_raw
+        )
 
         # Calculate rate (submissions per minute)
         rate = total_count / minutes if minutes > 0 else 0
@@ -331,6 +520,8 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
             "unique_users": len(all_users),
             "time_series": full_time_series,
             "forms": form_breakdown,
+            "form_time_series": form_time_series,
+            "duration_series": duration_series,
             "first_event": first_event_time.isoformat() if first_event_time else None,
             "last_event": last_event_time.isoformat() if last_event_time else None,
             "generated_at": now.isoformat(),
@@ -397,11 +588,45 @@ def _get_form_breakdown(cache: Cache, cutoff: datetime) -> List[Dict]:
         except Exception:
             continue
 
+    # Per-form processing-time buckets (same keys as submission buckets)
+    for key in cache.iterkeys():
+        if not key.startswith(FORM_DURATION_PREFIX):
+            continue
+        try:
+            data = cache.get(key)
+            if not data or not isinstance(data, dict):
+                continue
+            form_uid = data.get("form_uid")
+            if not form_uid or form_uid not in form_data:
+                continue
+            ts_part = key[len(FORM_DURATION_PREFIX) :]
+            if ":" not in ts_part:
+                continue
+            _, ts_str = ts_part.rsplit(":", 1)
+            key_time = datetime.strptime(ts_str, "%Y%m%d%H%M").replace(
+                tzinfo=timezone.utc
+            )
+            if key_time < cutoff:
+                continue
+            entry = form_data[form_uid]
+            entry["duration_count"] = entry.get("duration_count", 0) + data.get(
+                "count", 0
+            )
+            entry["duration_sum"] = entry.get("duration_sum", 0.0) + data.get(
+                "sum", 0.0
+            )
+            entry["duration_max"] = max(
+                entry.get("duration_max", 0.0), data.get("max", 0.0)
+            )
+        except Exception:
+            continue
+
     # Convert to list and resolve titles where possible
     result = []
     for form_uid, data in sorted(
         form_data.items(), key=lambda x: x[1]["count"], reverse=True
     ):
+        duration_count = data.get("duration_count", 0)
         result.append(
             {
                 "form_uid": form_uid,
@@ -409,6 +634,12 @@ def _get_form_breakdown(cache: Cache, cutoff: datetime) -> List[Dict]:
                 "path": data["path"] or "/",
                 "count": data["count"],
                 "unique_users": len(data["users"]),
+                "avg_duration": (
+                    data.get("duration_sum", 0.0) / duration_count
+                    if duration_count
+                    else None
+                ),
+                "max_duration": data.get("duration_max", 0.0) or None,
             }
         )
 

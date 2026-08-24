@@ -14,6 +14,7 @@
   // Initialize on DOM ready
   document.addEventListener('DOMContentLoaded', function() {
     initChart();
+    initChartControls();
     initAutoRefresh();
     updateLastUpdated();
   });
@@ -28,152 +29,197 @@
     try {
       const data = JSON.parse(chartDataElement.textContent);
       renderChart(data);
+      renderLatencyChart(data);
     } catch (e) {
       console.error('Failed to parse chart data:', e);
     }
   }
 
   /**
-   * Render an SVG area chart
-   * Shows full time window but only plots data between first and last events
+   * Render the submission chart with Plotly.
+   * Stacked per-form areas (submissions/min) + cumulative total line on a
+   * secondary y-axis. The global per-minute series equals the stack sum.
    */
+  const PALETTE = [
+    '#3b82f6', '#10b981', '#f59e0b', '#ef4444',
+    '#8b5cf6', '#ec4899', '#14b8a6', '#f97316',
+    '#6366f1', '#84cc16',
+  ];
+
   function renderChart(data) {
-    const svg = document.getElementById('submission-chart');
-    const chartArea = svg.querySelector('#chart-area');
-    
-    if (!chartArea || !data.labels || !data.values || data.values.length === 0) {
-      // Render empty state
-      renderEmptyChart(chartArea);
+    const el = document.getElementById('submission-chart');
+    if (!el) return;
+
+    const hasData = data.labels &&
+      data.labels.length > 0 &&
+      (data.values || []).some(v => v > 0);
+    if (!hasData) {
+      el.innerHTML = '<div class="chart-empty">No data available for selected time window</div>';
       return;
     }
 
-    const labels = data.labels;
-    const values = data.values;
-    const maxValue = Math.max(...values, 1);
-    
-    // Find first and last non-zero indices (event range)
-    let firstEventIdx = values.findIndex(v => v > 0);
-    let lastEventIdx = values.length - 1;
-    for (let i = values.length - 1; i >= 0; i--) {
-      if (values[i] > 0) {
-        lastEventIdx = i;
-        break;
-      }
-    }
-    
-    // If no events, show empty chart
-    if (firstEventIdx === -1) {
-      renderEmptyChart(chartArea);
-      return;
-    }
-    
-    // Chart dimensions
-    const width = 800;
-    const height = 200;
-    const padding = { top: 20, right: 20, bottom: 40, left: 50 };
-    const chartWidth = width - padding.left - padding.right;
-    const chartHeight = height - padding.top - padding.bottom;
-
-    // Clear existing
-    chartArea.innerHTML = '';
-
-    // Create scales
-    const xScale = (i) => padding.left + (i / (values.length - 1 || 1)) * chartWidth;
-    const yScale = (v) => padding.top + chartHeight - (v / maxValue) * chartHeight;
-
-    // Add grid lines
-    const gridGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    for (let i = 0; i <= 5; i++) {
-      const y = padding.top + (chartHeight * i) / 5;
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', padding.left);
-      line.setAttribute('y1', y);
-      line.setAttribute('x2', width - padding.right);
-      line.setAttribute('y2', y);
-      line.setAttribute('class', 'chart-grid');
-      gridGroup.appendChild(line);
-
-      // Y-axis labels
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('x', padding.left - 10);
-      text.setAttribute('y', y + 4);
-      text.setAttribute('text-anchor', 'end');
-      text.setAttribute('font-size', '11');
-      text.setAttribute('fill', '#9ca3af');
-      text.textContent = Math.round(maxValue * (5 - i) / 5);
-      gridGroup.appendChild(text);
-    }
-    chartArea.appendChild(gridGroup);
-
-    // Create area path - only between first and last event
-    let areaPath = `M ${xScale(firstEventIdx)} ${padding.top + chartHeight}`;
-    for (let i = firstEventIdx; i <= lastEventIdx; i++) {
-      areaPath += ` L ${xScale(i)} ${yScale(values[i])}`;
-    }
-    areaPath += ` L ${xScale(lastEventIdx)} ${padding.top + chartHeight} Z`;
-
-    const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    area.setAttribute('d', areaPath);
-    area.setAttribute('class', 'chart-area');
-    chartArea.appendChild(area);
-
-    // Create line path - only between first and last event
-    let linePath = `M ${xScale(firstEventIdx)} ${yScale(values[firstEventIdx])}`;
-    for (let i = firstEventIdx + 1; i <= lastEventIdx; i++) {
-      linePath += ` L ${xScale(i)} ${yScale(values[i])}`;
-    }
-
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    line.setAttribute('d', linePath);
-    line.setAttribute('class', 'chart-line');
-    chartArea.appendChild(line);
-
-    // Add data points - only between first and last event
-    for (let i = firstEventIdx; i <= lastEventIdx; i++) {
-      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('cx', xScale(i));
-      dot.setAttribute('cy', yScale(values[i]));
-      dot.setAttribute('r', values[i] > 0 ? 4 : 2);
-      dot.setAttribute('class', 'chart-dot');
-      dot.setAttribute('title', `${labels[i]}: ${values[i]} submissions`);
-      if (values[i] === 0) {
-        dot.setAttribute('opacity', '0.3');
-      }
-      chartArea.appendChild(dot);
-    }
-
-    // X-axis labels (show subset if many) - show full range
-    const labelStep = Math.ceil(labels.length / 8);
-    labels.forEach((label, i) => {
-      if (i % labelStep === 0 || i === labels.length - 1 || i === 0) {
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', xScale(i));
-        text.setAttribute('y', height - 10);
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('font-size', '11');
-        text.setAttribute('fill', '#9ca3af');
-        text.setAttribute('transform', `rotate(-45, ${xScale(i)}, ${height - 10})`);
-        text.textContent = label;
-        chartArea.appendChild(text);
-      }
+    const traces = [];
+    (data.forms || []).forEach((form, i) => {
+      traces.push({
+        x: data.labels,
+        y: form.values,
+        name: form.title,
+        type: 'scatter',
+        mode: 'lines',
+        stackgroup: 'one',
+        line: { width: 0.5 },
+        fillcolor: PALETTE[i % PALETTE.length],
+        hovertemplate: '%{y} <b>' + form.title + '</b><extra></extra>',
+      });
     });
+
+    traces.push({
+      x: data.labels,
+      y: data.cumulative,
+      name: 'Cumulative',
+      type: 'scatter',
+      mode: 'lines',
+      yaxis: 'y2',
+      line: { color: '#111827', width: 2.5 },
+      hovertemplate: '%{y} total <extra>Cumulative</extra>',
+    });
+
+    const layout = {
+      height: 400,
+      margin: { t: 10, r: 65, b: 45, l: 45 },
+      hovermode: 'x unified',
+      legend: { orientation: 'h', y: -0.3, x: 0 },
+      xaxis: { showgrid: false, tickangle: -45 },
+      yaxis: { title: 'Submissions / min', rangemode: 'nonnegative', gridcolor: '#f3f4f6' },
+      yaxis2: {
+        title: 'Total',
+        overlaying: 'y',
+        side: 'right',
+        showgrid: false,
+        rangemode: 'nonnegative',
+      },
+    };
+
+    // Preserve the user's zoom across auto-refresh redraws
+    const prevRange = getXRange(el);
+    Plotly.newPlot(el, traces, layout, {
+      displayModeBar: false,
+      responsive: true,
+      scrollZoom: true,
+    });
+    if (prevRange) {
+      Plotly.relayout(el, { 'xaxis.range': prevRange });
+    }
   }
 
   /**
-   * Render empty chart state
+   * Render the processing-time chart with Plotly.
+   * Average (solid) and max (dotted) server-side processing time per minute
+   * in milliseconds; gaps where no submission was recorded.
    */
-  function renderEmptyChart(chartArea) {
-    if (!chartArea) return;
-    chartArea.innerHTML = '';
+  function renderLatencyChart(data) {
+    const el = document.getElementById('latency-chart');
+    if (!el) return;
 
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    text.setAttribute('x', '400');
-    text.setAttribute('y', '100');
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('font-size', '14');
-    text.setAttribute('fill', '#9ca3af');
-    text.textContent = 'No data available for selected time window';
-    chartArea.appendChild(text);
+    const duration = data.duration || {};
+    const avg = duration.avg || [];
+    const maxVals = duration.max || [];
+    const hasData = avg.some(v => v !== null && v !== undefined);
+    if (!hasData) {
+      el.innerHTML = '<div class="chart-empty">No data available for selected time window</div>';
+      return;
+    }
+
+    const labels = data.labels || [];
+    const prevRange = getXRange(el);
+    Plotly.newPlot(el, [
+      {
+        x: labels,
+        y: avg,
+        name: 'Average',
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: '#3b82f6', width: 2 },
+        hovertemplate: '%{y} ms <extra>Average</extra>',
+      },
+      {
+        x: labels,
+        y: maxVals,
+        name: 'Max',
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: '#f59e0b', width: 1.5, dash: 'dot' },
+        hovertemplate: '%{y} ms <extra>Max</extra>',
+      },
+    ], {
+      height: 400,
+      margin: { t: 10, r: 65, b: 45, l: 45 },
+      hovermode: 'x unified',
+      legend: { orientation: 'h', y: -0.3, x: 0 },
+      xaxis: { showgrid: false, tickangle: -45 },
+      yaxis: { title: 'ms', rangemode: 'nonnegative', gridcolor: '#f3f4f6' },
+    }, {
+      displayModeBar: false,
+      responsive: true,
+      scrollZoom: true,
+    });
+    if (prevRange) {
+      Plotly.relayout(el, { 'xaxis.range': prevRange });
+    }
+  }
+
+  /**
+   * Current x-axis range of the chart, or null when fully autoranged.
+   * Works for the categorical (HH:MM) axis: ranges are numeric indices.
+   */
+  function getXRange(el) {
+    if (!el || !el.data || !el.data.length) return null;
+    const layout = el.layout || {};
+    if (layout.xaxis && Array.isArray(layout.xaxis.range)) return layout.xaxis.range;
+    const full = (el._fullLayout && el._fullLayout.xaxis) || {};
+    if (Array.isArray(full._range)) return full._range;
+    if (Array.isArray(full.range)) return full.range;
+    return null;
+  }
+
+  /** Zoom the chart by `factor` (< 1 zooms in, > 1 zooms out), keeping the
+   *  center of the current view fixed. Clamped to the full data span. */
+  function zoomChart(factor, chartId) {
+    const el = document.getElementById(chartId);
+    if (!el || !el.data || !el.data.length) return;
+    const x = (el.data[0] && el.data[0].x) || [];
+    const fullSpan = Math.max((x.length || 1) - 1, 1);
+    // Autoranged chart has no stored range yet — start from the full span
+    const range = getXRange(el) || [0, fullSpan];
+    const center = (range[0] + range[1]) / 2;
+    let halfSpan = ((range[1] - range[0]) / 2) * factor;
+    halfSpan = Math.min(Math.max(halfSpan, 1), fullSpan);
+    Plotly.relayout(el, { 'xaxis.range': [center - halfSpan, center + halfSpan] });
+  }
+
+  /** Reset the chart to the full time window. */
+  function resetChart(chartId) {
+    const el = document.getElementById(chartId);
+    if (!el) return;
+    Plotly.relayout(el, {
+      'xaxis.autorange': true,
+      'yaxis.autorange': true,
+      'yaxis2.autorange': true,
+    });
+  }
+
+  /** Wire up the zoom control buttons for both charts. */
+  function initChartControls() {
+    const bind = (btnId, fn) => {
+      const btn = document.getElementById(btnId);
+      if (btn) btn.addEventListener('click', fn);
+    };
+    bind('chart-zoom-in', () => zoomChart(0.5, 'submission-chart'));
+    bind('chart-zoom-out', () => zoomChart(2, 'submission-chart'));
+    bind('chart-reset', () => resetChart('submission-chart'));
+    bind('latency-zoom-in', () => zoomChart(0.5, 'latency-chart'));
+    bind('latency-zoom-out', () => zoomChart(2, 'latency-chart'));
+    bind('latency-reset', () => resetChart('latency-chart'));
   }
 
   /**
@@ -281,11 +327,33 @@
 
     // Update chart
     if (data.time_series) {
-      const chartData = {
-        labels: Object.keys(data.time_series),
-        values: Object.values(data.time_series)
-      };
-      renderChart(chartData);
+      const labels = Object.keys(data.time_series);
+      const values = Object.values(data.time_series);
+      let running = 0;
+      const cumulative = values.map(v => (running += v));
+      const forms = (data.form_time_series || []).map(form => ({
+        title: form.title || 'Untitled',
+        values: labels.map(label => (form.series || {})[label] || 0),
+      }));
+      renderChart({ labels, values, cumulative, forms });
+    }
+
+    // Update latency chart
+    if (data.duration_series) {
+      const labels = Object.keys(data.time_series);
+      const avg = [];
+      const maxVals = [];
+      labels.forEach(label => {
+        const entry = data.duration_series[label];
+        if (entry) {
+          avg.push(Math.round((entry.avg || 0) * 1000));
+          maxVals.push(Math.round((entry.max || 0) * 1000));
+        } else {
+          avg.push(null);
+          maxVals.push(null);
+        }
+      });
+      renderLatencyChart({ labels, duration: { avg, max: maxVals } });
     }
 
     // Update forms table (simplified - just refresh on next page load)
@@ -373,9 +441,14 @@
         aVal = a.dataset.title || '';
         bVal = b.dataset.title || '';
         // String comparison for title
-        return direction === 'asc' 
-          ? aVal.localeCompare(bVal) 
+        return direction === 'asc'
+          ? aVal.localeCompare(bVal)
           : bVal.localeCompare(aVal);
+      } else if (column === 'avg_duration') {
+        // Seconds stored in the data attribute -> compare as ms
+        aVal = (parseFloat(a.dataset.avg_duration || '0') || 0) * 1000;
+        bVal = (parseFloat(b.dataset.avg_duration || '0') || 0) * 1000;
+        return direction === 'asc' ? aVal - bVal : bVal - aVal;
       } else {
         // Numeric comparison for count/unique_users
         aVal = parseInt(a.dataset[column] || 0, 10);

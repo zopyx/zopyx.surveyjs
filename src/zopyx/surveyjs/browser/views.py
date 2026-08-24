@@ -23,6 +23,7 @@ from ..events import SurveyJSFormSubmitted
 from ..permissions import AddSurvey, ModifyPortalContent
 from ..constants import FORM_VERSIONS_KEY
 from ..audit import audit_form_version_change
+from ..monitoring import record_submission_duration
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..data_validation.validate_data import validate_data as run_data_validation
@@ -504,6 +505,10 @@ class Views(BrowserView):
         json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
+        # Measure total server-side processing time of this submission
+        # (payload parsing, validation, storage) for the monitor dashboard.
+        _processing_start = time.monotonic()
+
         # Handle CORS preflight for embed submissions.
         # OPTIONS requests carry no token — check method first, before token presence.
         origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
@@ -786,6 +791,15 @@ class Views(BrowserView):
         )
 
         notify(SurveyJSFormSubmitted(self.context, data))
+
+        # Record processing time for monitoring (monitoring never breaks
+        # the submission path)
+        try:
+            record_submission_duration(
+                self.context, time.monotonic() - _processing_start
+            )
+        except Exception:
+            logger.debug("Failed to record submission duration", exc_info=True)
 
         result = dict(isSuccess=True)
         if "store" not in actions:

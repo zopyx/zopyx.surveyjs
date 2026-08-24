@@ -89,17 +89,63 @@ class SurveyMonitorView(BrowserView):
         return info
 
     def get_chart_data(self):
-        """Get time series data formatted for charts."""
+        """Get chart payload: labels, per-minute totals, cumulative total
+        and per-form series aligned to the same labels."""
         stats = get_submission_stats(self.time_window)
         time_series = stats.get("time_series", {})
 
         if not time_series:
-            return {"labels": [], "values": []}
+            return {
+                "labels": [],
+                "values": [],
+                "cumulative": [],
+                "forms": [],
+                "duration": {"avg": [], "max": []},
+            }
 
         labels = list(time_series.keys())
         values = list(time_series.values())
 
-        return {"labels": labels, "values": values}
+        cumulative = []
+        running = 0
+        for v in values:
+            running += v
+            cumulative.append(running)
+
+        forms = []
+        for form in stats.get("form_time_series", []):
+            series = form.get("series", {})
+            forms.append(
+                {
+                    "title": form.get("title", "Untitled"),
+                    "path": form.get("path", "/"),
+                    "count": form.get("count", 0),
+                    "values": [series.get(label, 0) for label in labels],
+                }
+            )
+
+        return {
+            "labels": labels,
+            "values": values,
+            "cumulative": cumulative,
+            "forms": forms,
+            "duration": self._get_duration_series(stats, labels),
+        }
+
+    def _get_duration_series(self, stats, labels):
+        """Per-minute processing time (avg/max in ms); None = no submissions."""
+        duration_series = stats.get("duration_series", {})
+        avg = []
+        max_values = []
+        for label in labels:
+            entry = duration_series.get(label)
+            if entry:
+                avg.append(round(entry.get("avg", 0.0) * 1000))
+                max_values.append(round(entry.get("max", 0.0) * 1000))
+            else:
+                avg.append(None)
+                max_values.append(None)
+        return {"avg": avg, "max": max_values}
 
     def get_chart_data_json(self):
         """Get chart data as JSON string for template embedding."""

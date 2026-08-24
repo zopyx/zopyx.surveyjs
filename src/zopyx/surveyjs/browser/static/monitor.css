@@ -236,70 +236,51 @@
 }
 
 .chart-panel h3 {
-  margin: 0 0 16px 0;
+  margin: 0;
   font-size: 1.125rem;
   color: #374151;
   font-weight: 600;
 }
 
+.chart-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.chart-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.chart-btn {
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
 .chart-container {
   width: 100%;
-  height: 200px;
+  height: 420px;
   background: #f8fafc;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.chart-container svg {
+.chart-container #submission-chart {
   width: 100%;
   height: 100%;
 }
 
-.chart-line {
-  fill: none;
-  stroke: #3b82f6;
-  stroke-width: 2;
-}
-
-.chart-area {
-  fill: url(#chartGradient);
-}
-
-.chart-dot {
-  fill: #3b82f6;
-  stroke: white;
-  stroke-width: 2;
-}
-
-.chart-axis {
-  stroke: #e5e7eb;
-  stroke-width: 1;
-}
-
-.chart-grid {
-  stroke: #f3f4f6;
-  stroke-width: 1;
-  stroke-dasharray: 4, 4;
-}
-
-.chart-legend {
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-}
-
-.legend-item {
+.chart-empty {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-.legend-color {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
+  justify-content: center;
+  height: 100%;
+  color: #9ca3af;
+  font-style: italic;
 }
 
 /* Forms Panel */
