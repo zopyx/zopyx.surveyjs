@@ -2,9 +2,25 @@
 Data Validation (CLI)
 =====================
 
-The ``data-validation`` folder contains a CLI tool that validates SurveyJS
-submissions using SurveyJS' own ``survey-core`` validator. The tool is used by
-the server when ``Force Server Side Validation`` is enabled.
+The ``data_validation`` package (``src/zopyx/surveyjs/data_validation/``)
+contains a CLI validator that checks SurveyJS submissions with SurveyJS's
+own ``survey-core`` validation engine. It is invoked by the server when the
+per-survey **Force Server Side Validation** setting is enabled (see
+:doc:`validation`), and can also be run manually or used as the basis for
+custom integration scripts.
+
+Source layout
+=============
+
+* ``validate.mjs`` — the validator itself (ESM script, imports
+  ``survey-core``).
+* ``package.json`` / ``bun.lock`` — the ``survey-core@^3.0.0`` dependency
+  (``npm validate`` / ``bun validate.mjs`` run the script directly).
+* ``validate_data.py`` — the Python wrapper used by the add-on; locates or
+  builds the platform binary and runs it with the given JSON files.
+* ``deno_build.py`` — self-contained build script (downloads Deno itself).
+* ``Makefile`` — build targets for bun/deno binaries and Docker
+  cross-compilation.
 
 CLI usage
 =========
@@ -16,30 +32,84 @@ CLI usage
      --form-json ./data-valid.json \
      --result-json ./output.json
 
-Required options:
+Options:
 
-- ``--schema-json``: SurveyJS form JSON
-- ``--form-json``: Submission JSON
+* ``--schema-json`` (required) — the SurveyJS form JSON.
+* ``--form-json`` (required) — the submission JSON.
+* ``--result-json`` (optional, default ``output.json``) — where the result
+  is written.
+* ``--help`` / ``-h`` — usage help.
 
-Optional:
-
-- ``--result-json``: Output file (defaults to ``output.json``)
+Relative input paths are resolved against the current working directory,
+the executable directory and the module directory (in that order); the
+result path is always resolved against the current working directory.
 
 Output
 ======
 
-The output JSON contains a ``valid`` boolean and a list of per-question errors.
-The process exits with status ``0`` on success and ``1`` on validation failure.
+The result file contains a ``valid`` boolean and a list of per-question
+errors::
+
+    {
+      "valid": false,
+      "errors": [
+        {
+          "name": "q1",
+          "title": "Question 1",
+          "messages": ["The value is required."]
+        }
+      ]
+    }
+
+The process exits with status ``0`` when the submission is valid and ``1``
+when validation fails. Errors (missing files, unknown arguments) are
+printed to stderr with exit status ``1``; stdout stays clean so consumers
+can rely on the exit code and the result file.
+
+Python wrapper
+==============
+
+The add-on does not call the binary directly. ``validate_data.py``:
+
+1. resolves the platform binary (``validate-linux`` / ``validate-mac``
+   next to the module) and **builds it automatically** when missing or
+   older than five days — it downloads the current Deno release from
+   GitHub and compiles ``validate.mjs`` with an import map
+   (``npm:survey-core@^3.0.0``);
+2. runs the binary with ``--schema-json``, ``--form-json`` and
+   ``--result-json``;
+3. returns the exit code to the caller.
 
 Building binaries
 =================
 
-Deno binaries are built with:
+Bun build (recommended, smaller binaries — the default of the Makefile):
 
 .. code-block:: sh
 
-   make deno-mac
-   make deno-linux
+   cd src/zopyx/surveyjs/data_validation
+   bun install
+   bun build --compile --target=bun-linux-x64 \
+       --outfile dist/survey-validate-linux validate.mjs
+   # macOS: --target=bun-darwin-x64 --outfile dist/survey-validate-macos
+   # or simply: make all
 
-Binaries are placed in ``data-validation/dist``. See ``data-validation/README.md``
-for full build instructions.
+Deno build:
+
+.. code-block:: sh
+
+   cd src/zopyx/surveyjs/data_validation
+   deno install
+   deno compile --allow-read --allow-write --no-check --node-modules-dir=auto \
+       --target=x86_64-unknown-linux-gnu \
+       --output dist/survey-validate-linux-deno validate.mjs
+   # or simply: make deno
+
+Cross-compilation (e.g. a macOS binary from a Linux host) works via the
+Docker targets: ``make docker-linux``, ``make docker-mac-extract``.
+
+Binaries land in ``dist/`` for packaging/distribution. At runtime the
+wrapper expects the binary **next to the module** (``validate-linux`` /
+``validate-mac``) — copy it there or let the auto-build create it. Full
+deployment notes: :doc:`installation` → "External survey validation
+(deno / bun)".

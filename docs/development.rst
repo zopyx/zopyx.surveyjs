@@ -6,9 +6,9 @@ Developer notes
 ===============
 
 - ``DEVELOP.rst`` contains developer workflow notes for buildout setups.
-- ``FORM_DATA_VALIDATION.md`` and ``FORM_DATA_VALIDATION_IMPLEMENTATION.md``
-  document validation goals and implementation details.
-- ``data-validation/README.md`` documents the validator CLI and build targets.
+- The validator CLI and build targets are documented in
+  ``docs/data-validation-cli.rst`` and ``docs/installation.rst``.
+- Validation behaviour in the submission pipeline: ``docs/validation.rst``.
 - Demo site setup and localization notes are maintained in this file.
 
 Adding a new demo language (``scripts/init_plone.py``)
@@ -19,14 +19,14 @@ the assets under ``scripts/forms``. The process is mostly copy-and-translate,
 but the IDs and links must stay aligned.
 
 1. Update language registry and trees
-------------------------------------
+-------------------------------------
 
 - ``configure_site_languages()``: add the language code to
   ``plone.available_languages`` and adjust the log message.
 - ``language_trees``: add ``"<lang>": {"root": "...", "demos": "..."}``.
 
 2. Extend welcome-page dictionaries
-----------------------------------
+-----------------------------------
 
 Add the language key to each dictionary (keys must match the language code):
 
@@ -89,6 +89,8 @@ Validate:
 Testing
 =======
 
-- Python tests are executed with ``pytest``.
-- The data-validation CLI includes its own pytest suite under
-  ``data-validation/tests``.
+- The Plone tests run through the buildout test runner:
+  ``bin/test -s zopyx.surveyjs`` (or ``make test``, which also runs the
+  converter unit tests under coverage).
+- The data-validation package has its own pytest suite under
+  ``src/zopyx/surveyjs/data_validation/tests``.

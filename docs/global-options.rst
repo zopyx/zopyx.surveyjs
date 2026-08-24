@@ -170,6 +170,21 @@ Storage
        ``postgresql+psycopg2://user:pass@host/db``. Ignored when the
        ``zodb`` backend is selected.
 
+Migrating results between backends
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Existing ZODB results can be migrated to the relational backend with the
+helper in ``storage_migration.py`` (run from a Zope/Plone console script)::
+
+    from zopyx.surveyjs.storage_migration import migrate_zodb_results_to_rdbms
+    count = migrate_zodb_results_to_rdbms(context, database_uri="postgresql+psycopg2://user:pass@host/db")
+
+The function copies the stored submissions (with ``site_id``, ``poll_id``
+and sequence numbers) into the configured database and returns the number
+of migrated rows. Switch the backend in the control panel afterwards; the
+two backends are independent, so the ZODB data remains in place as a
+backup.
+
 Security
 --------
 

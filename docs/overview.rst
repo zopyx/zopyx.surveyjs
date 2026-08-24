@@ -14,9 +14,13 @@ Key capabilities
 - Public survey rendering with SurveyJS.
 - Configurable actions per Survey (store, mail, notification, POST).
 - Multi-format exports: text, Markdown, HTML, PDF, CSV, XLSX, XML, DOCX, JSON.
-- Optional server-side validation (Python and external SurveyJS binary).
-- Embedding support via an opt-in embed view and JavaScript API.
-- AI Generator for drafting and refining SurveyJS JSON.
+- Optional server-side validation via an external SurveyJS validator binary
+  (per survey, default on).
+- Embedding support: iframe embedding and Direct DOM embedding with origin
+  allowlists and signed tokens.
+- AI Generator for drafting, refining and document-based form creation.
+- Chatbot for survey-related questions, backed by the configured LLM.
+- Survey templates for starting new surveys from a prepared form.
 
 Core concepts
 =============

@@ -20,3 +20,4 @@ This track is for people who build and run surveys day to day using the UI.
    exports
    validation
    ai
+   templates

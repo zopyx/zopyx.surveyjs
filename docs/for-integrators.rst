@@ -26,6 +26,8 @@ extend, and operate the SurveyJS integration in Plone.
    views
    endpoints
    ai
+   chatbot
+   templates
    security
    development
    changelog

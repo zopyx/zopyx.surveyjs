@@ -30,8 +30,9 @@ This package is intended for Buildout-based Plone projects.
 2. Restart Plone and install the add-on in the Add-ons control panel.
 
 3. Optional: server-side SurveyJS validation (external binary)
-   - Build the Deno binary in `data-validation/` and place it in `data-validation/dist`.
-   - See `data-validation/README.md` for details.
+   - The validator binary is built automatically at runtime; manual build
+     steps (bun/deno) are in `docs/installation.rst` → "External survey
+     validation (deno / bun)".
 
 ## Usage
 
@@ -84,8 +85,7 @@ Actions are evaluated for every submission and can be combined.
 
 | Field | Type | Default | Description |
 | --- | --- | --- | --- |
-| Enable validation (experimental) | Bool | `false` | Server-side validation via the Python validator. May reject complex forms; use with care. |
-| Force Server Side Validation | Bool | `false` | Run the external SurveyJS validator binary on every save/submit. Requires a Deno-built binary in `data-validation/dist`. |
+| Force Server Side Validation | Bool | `true` | Run the external SurveyJS validator binary on every save/submit (recommended). |
 | Max size payload (MB) | Int | `1` | Maximum accepted submission payload size in megabytes (minimum 1 MB). |
 
 ### Global Settings (Site Setup > Forms)
@@ -142,11 +142,11 @@ The Survey type exposes UI views and service endpoints. View names are appended 
 | `@@get-form-json` | `zope2.View` | Returns the current form JSON. |
 | `@@save-form-json` | `zope2.View` | Saves the form JSON from the editor. |
 | `@@save-poll` | `zope2.View` | Submits a response; enforces payload limits and runs validations/actions. |
-| `@@get-polls-json` | `zope2.View` | Returns stored submissions with metadata. |
-| `@@get-polls-json2` | `zope2.View` | Returns only the stored result payloads. |
-| `@@download-form-json` | `zope2.View` | Downloads the current form JSON as an attachment. |
-| `@@download-polls-json` | `zope2.View` | Downloads all stored submissions as JSON. |
-| `@@download-polls-csv` | `zope2.View` | Downloads all stored submissions as CSV. |
+| `@@get-polls-json` | `cmf.ModifyPortalContent` | Returns stored submissions with metadata. |
+| `@@get-polls-json2` | `cmf.ModifyPortalContent` | Returns only the stored result payloads. |
+| `@@download-form-json` | `cmf.ModifyPortalContent` | Downloads the current form JSON as an attachment. |
+| `@@download-polls-json` | `cmf.ModifyPortalContent` | Downloads all stored submissions as JSON. |
+| `@@download-polls-csv` | `cmf.ModifyPortalContent` | Downloads all stored submissions as CSV. |
 | `@@download-result` | `cmf.ModifyPortalContent` | Downloads a single submission in a selected export format. |
 | `@@mail-result` | `cmf.ModifyPortalContent` | Sends export email for a single submission. |
 | `@@post-result` | `cmf.ModifyPortalContent` | POSTs a single submission to the configured endpoint. |
@@ -159,19 +159,19 @@ The Survey type exposes UI views and service endpoints. View names are appended 
 | `@@delete-version` | `cmf.ModifyPortalContent` | Deletes a form version. |
 | `@@upload-version` | `cmf.ModifyPortalContent` | Uploads a form version JSON file. |
 | `@@view-version-json` | `cmf.ModifyPortalContent` | Returns JSON for a form version. |
-| `@@generate-ai-form` | `cmf.ModifyPortalContent` | Generates a form JSON via AI (server endpoint). |
-| `@@save-ai-form` | `cmf.ModifyPortalContent` | Saves the AI-generated form JSON. |
-| `@@refine-ai-form` | `cmf.ModifyPortalContent` | Refines an existing form via AI (server endpoint). |
-| `@@import-pdf-form` | `cmf.ManagePortal` | Imports a form from a PDF (server endpoint). |
+| `@@ai-chat-refine` | `cmf.ModifyPortalContent` | Creates or refines the AI form draft from a prompt. |
+| `@@ai-store-temp-version` | `cmf.ModifyPortalContent` | Promotes the AI form draft to a form version. |
+| `@@ai-upload` | `cmf.ModifyPortalContent` | Converts an uploaded document (PDF/DOCX/ODT/HTML) into a form draft. |
+| `@@ai-test` | `cmf.ManagePortal` | Tests the AI provider connection (site root). |
 
 ## External SurveyJS Validation (Optional)
 
-When `Force Server Side Validation` is enabled, the submission handler invokes the compiled Deno validator from `data-validation/dist`:
-
-- macOS: `data-validation/dist/survey-validate-macos-deno`
-- Linux: `data-validation/dist/survey-validate-linux-deno`
-
-See `data-validation/README.md` for build and usage details.
+When `Force Server Side Validation` is enabled (per-survey, default on), the
+submission handler invokes the compiled validator binary next to the module
+(`src/zopyx/surveyjs/data_validation/validate-linux` on Linux), which is
+built automatically when missing or older than five days. Manual builds
+(bun/deno), cross-compilation and deployment notes: `docs/installation.rst`
+→ "External survey validation (deno / bun)".
 
 ## Author
 

@@ -234,7 +234,25 @@ Dashboard
 ``@@dashboard`` (``cmf.ModifyPortalContent``) is a statistics screen for
 the survey's submissions (rendered with ``dashboard.js``/``dashboard.css``).
 It complements the results grid with an at-a-glance view of the collected
-data.
+data. The feature can be hidden site-wide via the "Features enabled"
+setting (``dashboard``).
+
+PDF generator
+=============
+
+``@@pdf-generator`` (``cmf.ManagePortal``) is a SurveyJS-based screen for
+generating PDF artifacts from a survey (feature-gated by the
+``pdf-generator`` flag in "Features enabled"). It builds on the SurveyJS
+PDF export capabilities and the fillable-PDF tooling; see
+:doc:`global-options` for the feature switches and :doc:`survey-options`
+for the PDF-related survey fields (PDF Form / Fillable PDF).
+
+Monitoring
+==========
+
+For a site-wide view across all surveys, ``@@survey-monitor`` (site root,
+``cmf.ManagePortal``) provides a monitoring dashboard with real-time
+statistics and graphs of survey submission rates.
 
 Operational notes
 =================
