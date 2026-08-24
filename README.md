@@ -7,6 +7,8 @@ embed surveys and forms.
 
 The complete documentation is maintained in [`docs/`](docs/index.rst).
 
+- [Online demo](https://demo.privacyforms.studio)
+- [Privacy Forms Studio](https://www.privacyforms.studio)
 - [Installation](docs/installation.rst)
 - [Quick start](docs/quick-start.rst)
 - [Configuration](docs/configuration.rst)
