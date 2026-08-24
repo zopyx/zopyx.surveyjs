@@ -1,12 +1,12 @@
 # AGENTS.md
 
-This repository is a Plone add-on that integrates SurveyJS. It is primarily a Python/Plone buildout project, with supporting JS/Deno tooling for data validation.
+This repository is a Plone add-on that integrates SurveyJS. It is primarily a Python/Plone buildout project, with supporting bun/deno tooling for data validation.
 
 ## Quick Orientation
 - Python/Plone package lives under `src/`.
 - Buildout configs: `buildout.cfg`, `dev.cfg`, `test_plone52.cfg`, `test_plone60.cfg`.
-- Deno validator in `data-validation/` (see its README).
-- Docs: `README.md`, `DEVELOP.rst`, `docs/`, `EMBEDDING.md`.
+- Validation binary (bun/deno) in `src/zopyx/surveyjs/data_validation/` (auto-built at runtime; see `docs/installation.rst`).
+- Docs: `README.md`, `DEVELOP.rst`, `docs/`.
 
 ## Setup (Buildout, uv)
 1. Create a virtualenv in the repo root:
@@ -43,9 +43,18 @@ See `DEVELOP.rst` for details.
 - Run tests via Makefile (uses `uv` + coverage):
   `make test`
 
-## Deno Validator
-- Build steps and usage are in `data-validation/README.md`.
-- The built Deno binary should be placed in `data-validation/dist` (per `README.md`).
+## Validation Binary (bun/deno)
+- Sources and build tooling live in `src/zopyx/surveyjs/data_validation/`
+  (`validate.mjs`, `Makefile`, `package.json`, `deno_build.py`). There is no
+  `data-validation/` directory at the repo root.
+- At runtime the wrapper `validate_data.py` expects the platform binary
+  (`validate-linux` / `validate-mac`) **next to the module** and builds it
+  automatically (it downloads Deno itself) when missing or older than 5 days.
+- Manual builds (bun or deno compile) write to `dist/` via the package
+  Makefile (`make all`, `make deno`) for packaging/distribution; copy the
+  binary next to the module to activate server-side validation.
+- Full build instructions: `docs/installation.rst` → "External survey
+  validation (deno / bun)".
 
 ## Working Guidelines
 - Prefer small, focused changes with clear diffs.
