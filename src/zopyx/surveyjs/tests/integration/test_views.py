@@ -230,6 +230,49 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(body["error"], "unknown_field")
         self.assertEqual(body["field"], "q2")
 
+    def test_save_poll_rejects_script_markup_before_event(self) -> None:
+        self._add_version()
+        self.survey.actions = {"store"}
+        req = self._make_request(
+            form={"pollResult": orjson.dumps({"q1": "<script>alert(1)</script>"})}
+        )
+        with patch("zopyx.surveyjs.browser.views.notify") as notify_mock:
+            Views(self.survey, req).save_poll()
+
+        self.assertEqual(req.response.getStatus(), 400)
+        body = orjson.loads(req.response.getBody())
+        self.assertEqual(body["error"], "html_markup")
+        notify_mock.assert_not_called()
+        self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 0)
+
+    def test_save_poll_rejects_unsafe_file_before_event(self) -> None:
+        self._add_version(
+            payload={
+                "pages": [
+                    {"elements": [{"type": "file", "name": "upload"}]}
+                ]
+            }
+        )
+        self.survey.actions = {"store"}
+        payload = {
+            "upload": [
+                {
+                    "name": "photo.png",
+                    "type": "image/png",
+                    "content": 'data:image/png;base64,AAAA" onerror="alert(1)',
+                }
+            ]
+        }
+        req = self._make_request(form={"pollResult": orjson.dumps(payload)})
+        with patch("zopyx.surveyjs.browser.views.notify") as notify_mock:
+            Views(self.survey, req).save_poll()
+
+        self.assertEqual(req.response.getStatus(), 400)
+        body = orjson.loads(req.response.getBody())
+        self.assertIn(body["error"], {"invalid_data_url", "invalid_base64"})
+        notify_mock.assert_not_called()
+        self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 0)
+
     def test_save_poll_rejects_missing_required(self) -> None:
         self._add_version(
             payload={

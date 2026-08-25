@@ -28,6 +28,10 @@ from ..monitoring import record_submission_duration
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..utils import html_safe_json
+from ..data_validation.data_validation import (
+    SubmissionValidationError,
+    validate_and_normalize_submission,
+)
 from ..data_validation.validate_data import validate_data as run_data_validation
 
 import orjson
@@ -769,6 +773,25 @@ class Views(BrowserView):
                 return
             if not self._require_auth_token(form_version_id or ""):
                 return
+
+        try:
+            poll_result = validate_and_normalize_submission(form_json, poll_result)
+        except SubmissionValidationError as exc:
+            logger.info(
+                "Survey save rejected by submission security validation: code=%s field=%s",
+                exc.code,
+                exc.field or "",
+            )
+            extra: dict[str, object] = {"isSuccess": False}
+            if exc.field:
+                extra["field"] = exc.field
+            json_error(
+                self.request.response,
+                400,
+                exc.code,
+                extra=extra,
+            )
+            return
 
         submission_hash = hashlib.sha256(raw_bytes).hexdigest()[:12]
         force_validation = getattr(self.context, "force_server_side_validation", False)
