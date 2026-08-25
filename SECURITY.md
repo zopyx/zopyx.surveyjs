@@ -101,7 +101,7 @@ external POSTs or persistence. Single-use embed/trusted tokens are consumed
 only after validation succeeds, so malformed input does not burn a valid
 token.
 
-See `docs/submission-validation.rst` for the contract and
+See `docs/validation.rst` for the complete validation contract and
 `SUBMISSION_VALIDATION_REQUIREMENTS.md` for the requirement mapping.
 
 ### Server-side schema validation (optional)

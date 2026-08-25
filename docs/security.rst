@@ -11,8 +11,7 @@ the others.
 Implementation status
 =====================
 
-The submission-validation hardening on branch
-``feature/submission-data-validation`` is complete for **new** SurveyJS
+The submission-validation hardening is complete for **new** SurveyJS
 submission data. ``@@save-poll`` validates and normalizes the payload before
 ``notify()``, persistence, subscriber processing, mail delivery or configured
 external POST actions.
@@ -270,8 +269,8 @@ Payload and validation hardening
 * Single-use embed/trusted tokens are consumed only after validation succeeds.
 
 The complete validation contract is documented in
-``docs/submission-validation.rst``; the requirement-by-requirement evidence is
-in ``SUBMISSION_VALIDATION_REQUIREMENTS.md``.
+:doc:`validation`; the requirement-by-requirement evidence is in
+``SUBMISSION_VALIDATION_REQUIREMENTS.md``.
 
 Known residual scope
 --------------------

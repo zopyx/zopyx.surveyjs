@@ -171,8 +171,8 @@ way operations can alert on uniformly (embed path uses the audit logger; the mai
 
 - **A7.** Legacy template tests are no longer discovered, so their private compatibility shim is
   no longer part of the active test surface.
-- **A8.** Completed in `docs/submission-validation.rst`: error-code registry, JSON contract,
-  limits, filename normalization, and unconditional MIME policy are documented.
+- **A8.** Completed in `docs/validation.rst`: error-code registry, JSON contract, limits,
+  filename normalization, and unconditional MIME policy are documented.
 - *Verify:* validator and documentation are covered by the passing focused test suite.
 
 ### Completeness: 8 → 9.5

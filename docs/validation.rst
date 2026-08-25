@@ -9,6 +9,90 @@ browser — the browser checks improve the user experience, the server check
 is the security boundary (client-side validation can always be bypassed;
 see :doc:`security`).
 
+Pre-validation before event dispatch and storage
+------------------------------------------------
+
+The Python boundary validator runs for every new ``@@save-poll`` submission,
+independently of the optional external SurveyJS validator. It runs after
+request/access checks and before ``notify()``, persistence, mail delivery or
+configured external POST processing. A rejected submission cannot reach any
+subscriber or post-submit action.
+
+The order is deliberate:
+
+1. **Transport limits:** ``Content-Length`` and the actual request body are
+   checked against the survey's maximum payload size. Oversized input is
+   rejected with HTTP 413 before JSON parsing.
+2. **JSON shape:** ``pollResult`` must be valid JSON whose top-level value is
+   an object. Arrays, strings, numbers and ``null`` are rejected. Nested
+   values are recursively copied and limited to JSON scalar, list and object
+   types.
+3. **Schema fields:** field names are collected from the active form schema.
+   Unknown fields and orphaned comment fields are rejected. SurveyJS comment
+   suffixes use the configured ``commentPrefix``. The ``missing_required``
+   check remains available via ``enforce_required_fields=True`` but is disabled
+   by default for compatibility.
+4. **Text safety:** recursive string checks reject control characters,
+   obfuscated ``javascript:`` and ``vbscript:`` schemes, dangerous markup,
+   script/SVG/iframe/object/embed elements and ``on*`` event-handler
+   attributes. Ordinary text such as ``2 < 3`` remains valid.
+5. **Data URLs:** non-file data URLs are limited to Base64 PNG and JPEG images.
+   The encoding is strictly decoded and malformed or unsupported URLs are
+   rejected.
+6. **File structure:** file values must be lists of objects with string
+   filename, MIME type and content members. Unsupported members are omitted
+   from the normalized result rather than persisted.
+7. **Filenames:** names are normalized to Unicode NFC before validation and
+   storage. Path separators, traversal, control characters, quotes and
+   markup-oriented characters are rejected while international names remain
+   supported.
+8. **MIME and content:** a restrictive MIME allowlist is enforced. SVG and
+   ``application/octet-stream`` are rejected. The declared MIME must match the
+   data URL, and decoded bytes must match the expected magic bytes for PNG,
+   JPEG, GIF, WebP, PDF, RTF, ZIP and Office formats.
+9. **Resource limits:** file count and decoded file-size limits are enforced
+   independently of the total request limit.
+10. **Canonical hand-off:** validation returns a normalized deep copy and never
+    mutates the caller's original payload. Only this copy is passed to the
+    optional external validator and, after success, to downstream processing.
+
+Validation failures return the JSON contract::
+
+    {"isSuccess": false, "error": "<code>", "field": "<optional-field>"}
+
+The ``field`` member is omitted for errors without a specific field. Failures
+use deterministic error codes, warning-level application logging and a
+``zopyx.surveyjs.audit`` entry containing only ``reason``, ``field``,
+``origin`` and ``remote_addr``. Submission contents, tokens and secrets are
+not logged. Single-use embed/trusted tokens are consumed only after
+pre-validation succeeds.
+
+Validation error codes
+~~~~~~~~~~~~~~~~~~~~~~
+
+``payload_not_object`` / ``invalid_form_schema``
+    The submission or active form schema is not a JSON object.
+``unknown_field`` / ``invalid_comment_prefix``
+    A field is not in the schema, a comment is orphaned, or ``commentPrefix``
+    is invalid.
+``missing_required``
+    A required question is absent or empty. This check is disabled by default;
+    when enabled, ``False`` and ``0`` remain valid values.
+``invalid_comment_length`` / ``comment_too_long``
+    A comment limit is invalid or the submitted comment exceeds it.
+``control_character`` / ``dangerous_url`` / ``html_markup``
+    Unsafe text, URL schemes, markup or event-handler attributes were found.
+``invalid_value``
+    A generic value has an unsupported type.
+``invalid_file`` / ``too_many_files`` / ``unsafe_filename``
+    File structure, file count or filename validation failed.
+``disallowed_mime_type`` / ``mime_mismatch``
+    The MIME type is not allowed or does not match the data URL.
+``invalid_data_url`` / ``invalid_base64`` / ``file_too_large``
+    File data is malformed or exceeds its decoded byte limit.
+``invalid_file_content``
+    Magic bytes or text encoding do not match the declared file type.
+
 Server-side validation (external SurveyJS binary)
 =================================================
 
