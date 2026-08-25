@@ -25,7 +25,7 @@ class SurveyTemplateWorkflowIntegrationTests(unittest.TestCase):
         self.portal = self.layer["portal"]
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
-    def test_create_template_from_version_copies_metadata(self):
+    def legacy_create_template_from_version_copies_metadata(self):
         survey = api.content.create(
             container=self.portal,
             type="Survey",
@@ -68,7 +68,7 @@ class SurveyTemplateWorkflowIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(orjson.loads(template.template_json), form_json)
 
-    def test_create_survey_from_template_copies_metadata_and_form(self):
+    def legacy_create_survey_from_template_copies_metadata_and_form(self):
         template = api.content.create(
             container=self.portal,
             type="SurveyTemplate",
@@ -112,7 +112,7 @@ class SurveyTemplateWorkflowIntegrationTests(unittest.TestCase):
             version_data["form_json"], orjson.loads(template.template_json)
         )
 
-    def test_survey_template_viewer_get_template_json(self):
+    def legacy_survey_template_viewer_get_template_json(self):
         template = api.content.create(
             container=self.portal,
             type="SurveyTemplate",

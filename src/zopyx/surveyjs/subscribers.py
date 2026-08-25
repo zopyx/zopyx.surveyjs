@@ -415,7 +415,11 @@ def send_submission_email(context, event):
                 cc=email_cc,
                 bcc=email_bcc,
             )
-            logger.info("Submission mail sent for poll %s to %s", poll_id, email_to)
+            logger.info(
+                "Submission mail sent for poll %s to %d recipient(s)",
+                poll_id,
+                1 + len(email_cc or []) + len(email_bcc or []),
+            )
     except Exception:
         logger.exception("Failed to send submission mail for poll %s", poll_id)
 
@@ -489,7 +493,7 @@ def send_submission_notification(context, event):
         bcc_recipients = SurveyConverter._normalize_recipients(
             mail_settings.get("email_bcc") or []
         )
-        all_recipients = recipients + cc_recipients + bcc_recipients
+        all_recipients = list(dict.fromkeys(recipients + cc_recipients + bcc_recipients))
         if not all_recipients:
             logger.info(
                 "Mail notification enabled but no valid recipients for %s",
@@ -513,7 +517,11 @@ def send_submission_notification(context, event):
             subject=subject,
             charset="utf-8",
         )
-        logger.info("Notification mail sent for poll %s to %s", poll_id, all_recipients)
+        logger.info(
+            "Notification mail sent for poll %s to %d recipient(s)",
+            poll_id,
+            len(all_recipients),
+        )
     except Exception:
         logger.exception("Failed to send notification mail for poll %s", poll_id)
 
@@ -561,15 +569,12 @@ def post_submission_payload(context, event):
         response = httpx.post(endpoint_url, json=payload, timeout=10.0)
         response.raise_for_status()
         logger.info(
-            "Submission POSTed for poll %s to %s with status %s",
+            "Submission POSTed for poll %s with status %s",
             poll_id,
-            endpoint_url,
             response.status_code,
         )
     except Exception:
-        logger.exception(
-            "Failed to POST submission for poll %s to %s", poll_id, endpoint_url
-        )
+        logger.exception("Failed to POST submission for poll %s", poll_id)
 
 
 def store_submission_result(context, event):

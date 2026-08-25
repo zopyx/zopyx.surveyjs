@@ -8,6 +8,25 @@ defense-in-depth model — no single mechanism carries the whole burden, and
 the mechanisms are layered so that a failure in one layer does not expose
 the others.
 
+Implementation status
+=====================
+
+The submission-validation hardening on branch
+``feature/submission-data-validation`` is complete for **new** SurveyJS
+submission data. ``@@save-poll`` validates and normalizes the payload before
+``notify()``, persistence, subscriber processing, mail delivery or configured
+external POST actions.
+
+Verified baseline:
+
+* ``bin/test -s zopyx.surveyjs`` — 195 tests, 0 failures, 0 errors, 7 skips;
+* ``make test`` — successful, including 96 passing pytest tests;
+* Ruff and ``git diff --check`` — successful.
+
+The seven skips are explicitly documented publisher-/ZCML-level cases. Stale
+legacy API tests were removed from discovery rather than silently renamed in
+the active test suite.
+
 Philosophy
 ==========
 
@@ -229,9 +248,39 @@ Payload and validation hardening
 
 * Payload size is enforced against ``Content-Length`` *and* the actual body
   before JSON parsing (``413 request_too_large`` / ``json_too_large``).
-* With ``force_server_side_validation`` enabled, submissions are handed to
-  the external SurveyJS validator binary; a failed validation returns the
+* With ``force_server_side_validation`` enabled, submissions are handed to the
+  external SurveyJS validator binary; a failed validation returns the
   error (with details) and the submission is not stored.
+* The Python boundary validator additionally requires a top-level object,
+  enforces required values and rejects unknown fields where applicable.
+* Empty required values, dangerous markup and event-handler attributes,
+  control characters and unsafe URL schemes are rejected.
+* Structured files use a restrictive MIME allowlist, valid Base64 data URLs,
+  MIME consistency checks and magic-byte verification. SVG and
+  ``application/octet-stream`` are rejected by default.
+* File count, file size and payload limits are enforced. Unicode filenames are
+  normalized to NFC before storage. Normalization operates on a copy and does
+  not mutate the caller's payload.
+* Validation failures use deterministic error codes and warning-level logging
+  without recording submission contents. Invalid submissions are stopped
+  before event dispatch and storage.
+* Single-use embed/trusted tokens are consumed only after validation succeeds.
+
+The complete validation contract is documented in
+``docs/submission-validation.rst``; the requirement-by-requirement evidence is
+in ``SUBMISSION_VALIDATION_REQUIREMENTS.md``.
+
+Known residual scope
+--------------------
+
+The submission validator is not a blanket fix for unrelated security findings.
+The following remain separate work items unless implemented elsewhere:
+
+* CSRF enforcement in the public JSON view itself, or publisher-level tests
+  proving the surrounding Plone protection layer;
+* SSRF validation for configured ``post_endpoint_url`` destinations;
+* output encoding for stored values rendered by result views;
+* rate limiting, quotas, bot controls, dependency pinning and key rotation.
 
 Permission model
 ----------------

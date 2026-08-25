@@ -45,6 +45,7 @@ from .services import results as results_service
 from .services.http import json_error, json_response
 
 logger = logging.getLogger(__name__)
+submission_audit = logging.getLogger("zopyx.surveyjs.audit")
 
 CONVERTER_FORMATS = [
     ("text", "Text (.txt)", "txt", "text/plain"),
@@ -191,11 +192,13 @@ class Views(BrowserView):
     def _check_post_authenticator(self):
         """Validate Plone's CSRF token for mutating POST requests."""
         request_get = getattr(self.request, "get", None)
-        method = (
-            request_get("REQUEST_METHOD", "GET")
-            if callable(request_get)
-            else getattr(self.request, "REQUEST_METHOD", "GET")
-        )
+        method = getattr(self.request, "method", None)
+        if not method:
+            method = (
+                request_get("REQUEST_METHOD", "GET")
+                if callable(request_get)
+                else getattr(self.request, "REQUEST_METHOD", "GET")
+            )
         if str(method).upper() == "POST":
             CheckAuthenticator(self.request)
 
@@ -542,8 +545,9 @@ class Views(BrowserView):
 
         # Handle CORS preflight for embed submissions.
         # OPTIONS requests carry no token — check method first, before token presence.
-        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
-        embed_token = self.request.get_header("X-Embed-Token")
+        get_header = getattr(self.request, "get_header", None) or self.request.getHeader
+        origin = get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        embed_token = get_header("X-Embed-Token")
 
         if origin:
             from .embed_security import handle_cors_preflight
@@ -655,10 +659,16 @@ class Views(BrowserView):
             return
 
         # Check for direct DOM embed submission
-        origin = self.request.get_header("Origin") or self.request.get("HTTP_ORIGIN")
-        embed_token = self.request.get_header("X-Embed-Token")
+        get_header = getattr(self.request, "get_header", None) or self.request.getHeader
+        origin = get_header("Origin") or self.request.get("HTTP_ORIGIN")
+        embed_token = get_header("X-Embed-Token")
 
         needs_trusted_token = True
+        jti = None
+        embed_mark_token_used = None
+        embed_audit = None
+        embed_origin = None
+        embed_remote_addr = ""
         if origin and embed_token:
             needs_trusted_token = False
             # This is a direct embed submission - validate it
@@ -682,7 +692,10 @@ class Views(BrowserView):
             import logging as _logging
 
             _audit = _logging.getLogger("zopyx.surveyjs.embed.audit")
+            embed_audit = _audit
+            embed_mark_token_used = mark_token_used
             remote_addr = self.request.get("REMOTE_ADDR", "")
+            embed_remote_addr = remote_addr
 
             allowed_origins = list(
                 getattr(self.context, "embed_direct_origins", []) or []
@@ -695,6 +708,7 @@ class Views(BrowserView):
             # Only set CORS headers for allowlisted origins
             if is_valid and normalized_origin:
                 set_cors_headers(self.request.response, normalized_origin)
+            embed_origin = normalized_origin
 
             if not is_valid:
                 _audit.info(
@@ -736,36 +750,9 @@ class Views(BrowserView):
                 )
                 return
 
-            # Enforce one-time use here (on submission), not on config fetch.
-            # This allows the same token to be used for @@embed-config and
-            # exactly one @@save-poll submission.
+            # Keep the verified jti and consume it only after submission
+            # validation has passed, matching trusted-token semantics.
             jti = payload.get("jti")
-            if jti and not mark_token_used(jti):
-                _audit.info(
-                    "embed.submission.rejected",
-                    extra={
-                        "reason": "token_replayed",
-                        "origin": normalized_origin,
-                        "remote_addr": remote_addr,
-                    },
-                )
-                json_error(
-                    self.request.response,
-                    403,
-                    "token_already_used",
-                    message="Token already used",
-                    extra={"isSuccess": False},
-                )
-                return
-
-            _audit.info(
-                "embed.submission.accepted",
-                extra={
-                    "jti": jti,
-                    "origin": normalized_origin,
-                    "remote_addr": remote_addr,
-                },
-            )
             # Embed validation passed — skip trusted access and auth token checks
             pass
         else:
@@ -775,12 +762,25 @@ class Views(BrowserView):
                 return
 
         try:
-            poll_result = validate_and_normalize_submission(form_json, poll_result)
+            poll_result = validate_and_normalize_submission(
+                form_json,
+                poll_result,
+                max_file_bytes=max(1, max_payload_bytes * 3 // 4),
+            )
         except SubmissionValidationError as exc:
-            logger.info(
-                "Survey save rejected by submission security validation: code=%s field=%s",
+            logger.warning(
+                "Survey save failed: status=400 reason=%s field=%s",
                 exc.code,
                 exc.field or "",
+            )
+            submission_audit.warning(
+                "submission.rejected",
+                extra={
+                    "reason": exc.code,
+                    "field": exc.field or "",
+                    "origin": origin or "",
+                    "remote_addr": self.request.get("REMOTE_ADDR", ""),
+                },
             )
             extra: dict[str, object] = {"isSuccess": False}
             if exc.field:
@@ -827,6 +827,40 @@ class Views(BrowserView):
                 "Survey external validation skipped: enabled=%s submission=%s",
                 False,
                 submission_hash,
+            )
+
+        if (
+            not needs_trusted_token
+            and jti
+            and embed_mark_token_used is not None
+            and not embed_mark_token_used(jti)
+        ):
+            assert embed_audit is not None
+            embed_audit.info(
+                "embed.submission.rejected",
+                extra={
+                    "reason": "token_replayed",
+                    "origin": embed_origin,
+                    "remote_addr": embed_remote_addr,
+                },
+            )
+            json_error(
+                self.request.response,
+                403,
+                "token_already_used",
+                message="Token already used",
+                extra={"isSuccess": False},
+            )
+            return
+        if not needs_trusted_token:
+            assert embed_audit is not None
+            embed_audit.info(
+                "embed.submission.accepted",
+                extra={
+                    "jti": jti,
+                    "origin": embed_origin,
+                    "remote_addr": embed_remote_addr,
+                },
             )
 
         if needs_trusted_token and not self._consume_trusted_access_token():
@@ -903,7 +937,11 @@ class Views(BrowserView):
         self.request.response.setHeader(
             "Content-Disposition", f'attachment; filename="{filename}"'
         )
-        self.request.response.write(json_content)
+        set_result = getattr(self.request.response, "setResult", None)
+        if callable(set_result):
+            set_result(json_content)
+        else:
+            self.request.response.write(json_content)
 
     def download_polls_csv(self):
         """Download all poll results as CSV."""
@@ -960,7 +998,11 @@ class Views(BrowserView):
         self.request.response.setHeader(
             "Content-Disposition", f'attachment; filename="{filename}"'
         )
-        self.request.response.write(csv_bytes)
+        set_result = getattr(self.request.response, "setResult", None)
+        if callable(set_result):
+            set_result(csv_bytes)
+        else:
+            self.request.response.write(csv_bytes)
 
     def download_polls_json(self):
         """Download poll results JSON as attachment"""
@@ -976,7 +1018,11 @@ class Views(BrowserView):
         self.request.response.setHeader(
             "Content-Disposition", f'attachment; filename="{filename}"'
         )
-        self.request.response.write(json_content)
+        set_result = getattr(self.request.response, "setResult", None)
+        if callable(set_result):
+            set_result(json_content)
+        else:
+            self.request.response.write(json_content)
 
     @property
     def converter_formats(self):

@@ -14,9 +14,14 @@ def json_response(
     response.setStatus(status)
     response.setHeader("content-type", content_type)
     if dumps_options is None:
-        response.write(orjson.dumps(payload))
+        body = orjson.dumps(payload)
     else:
-        response.write(orjson.dumps(payload, option=dumps_options))
+        body = orjson.dumps(payload, option=dumps_options)
+    set_result = getattr(response, "setResult", None)
+    if callable(set_result):
+        set_result(body)
+    else:
+        response.write(body)
 
 
 def json_error(response, status, error, message=None, extra=None):
