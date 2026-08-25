@@ -21,8 +21,9 @@ from zope.security.interfaces import Unauthorized
 from plone.protect.authenticator import createToken
 
 from zopyx.surveyjs.browser.ai import AIView
-from zopyx.surveyjs.browser import views
 from zopyx.surveyjs.browser.views import EmbedViewer, Views
+from zopyx.surveyjs.browser.survey_results import SurveyResults
+from zopyx.surveyjs.browser.survey_versions import SurveyVersions
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
 from zopyx.surveyjs.security import build_auth_token
 from zopyx.surveyjs.utils import ensure_timezone_aware
@@ -615,18 +616,21 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(len(payload), 2)
         self.assertEqual(payload[0]["poll_id"], "poll-2")
 
-    def legacy_download_result_json(self) -> None:
+    def test_download_result_json(self) -> None:
         self._add_version()
         entry = self._add_result()
         req = self._make_request(form={"poll_id": entry["poll_id"], "format": "json"})
-        with patch("plone.api.portal.show_message"):
-            response = Views(self.survey, req).download_result()
-        body = orjson.loads(req.response.consumeBody())
-        self.assertEqual(body[0]["poll_id"], entry["poll_id"])
+        with (
+            patch.object(type(req.response), "write") as write,
+            patch("plone.api.portal.show_message"),
+        ):
+            response = SurveyResults(self.survey, req).download_result()
+        body = b"".join(call.args[0] for call in write.call_args_list)
+        self.assertIn(entry["poll_id"].encode(), body)
         self.assertIn("application/json", req.response.getHeader("Content-Type"))
         self.assertIsNotNone(response)
 
-    def legacy_mail_result_sends_email(self) -> None:
+    def test_mail_result_sends_email(self) -> None:
         self._add_version()
         entry = self._add_result("mail-poll")
         self.survey.email_to = "primary@example.com"
@@ -638,9 +642,10 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         req = self._make_request(form={"poll_id": entry["poll_id"], "format": "text"})
         with (
             patch("plone.api.portal.show_message"),
-            patch.object(views.SurveyConverter, "send_email") as send_email,
+            patch.object(type(req.response), "redirect"),
+            patch("zopyx.surveyjs.converters.cli.SurveyConverter.send_email") as send_email,
         ):
-            Views(self.survey, req).mail_result()
+            SurveyResults(self.survey, req).mail_result()
 
         send_email.assert_called_once()
         args, kwargs = send_email.call_args
@@ -648,12 +653,15 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(kwargs["cc"], ["cc@example.com"])
         self.assertEqual(kwargs["bcc"], ["bcc@example.com"])
 
-    def legacy_download_and_restore_version(self) -> None:
+    def test_download_and_restore_version(self) -> None:
         version_id = self._add_version()
 
         req_download = self._make_request(form={"version_id": version_id})
-        with patch("plone.api.portal.show_message"):
-            Views(self.survey, req_download).download_version()
+        with (
+            patch.object(type(req_download.response), "write"),
+            patch("plone.api.portal.show_message"),
+        ):
+            SurveyVersions(self.survey, req_download).download_version()
         self.assertIn(
             "application/json", req_download.response.getHeader("Content-Type")
         )
@@ -662,36 +670,42 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         )
 
         req_restore = self._make_request(form={"version_id": version_id})
-        with patch("plone.api.portal.show_message"):
-            Views(self.survey, req_restore).restore_version()
+        with (
+            patch.object(type(req_restore.response), "redirect"),
+            patch("plone.api.portal.show_message"),
+        ):
+            SurveyVersions(self.survey, req_restore).restore_version()
 
         annos = IAnnotations(self.survey)
         self.assertGreaterEqual(len(annos[FORM_VERSIONS_KEY]), 2)
 
-    def legacy_upload_version_and_view_json(self) -> None:
+    def test_upload_version_and_view_json(self) -> None:
         upload_json = {"pages": [{"elements": [{"type": "text", "name": "new"}]}]}
         upload_file = io.BytesIO(orjson.dumps(upload_json))
         upload_file.filename = "form.json"  # mimic ZPublisher file
         req_upload = self._make_request(form={"json_file": upload_file})
-        with patch("plone.api.portal.show_message"):
-            Views(self.survey, req_upload).upload_version()
+        with (
+            patch.object(type(req_upload.response), "redirect"),
+            patch("plone.api.portal.show_message"),
+        ):
+            SurveyVersions(self.survey, req_upload).upload_version()
 
         annos = IAnnotations(self.survey)
         self.assertEqual(len(annos[FORM_VERSIONS_KEY]), 1)
         version_id = next(iter(annos[FORM_VERSIONS_KEY].keys()))
 
         req_view = self._make_request(form={"version_id": version_id})
-        Views(self.survey, req_view).view_version_json()
+        SurveyVersions(self.survey, req_view).view_version_json()
         payload = orjson.loads(req_view.response.consumeBody())
         self.assertEqual(payload["pages"][0]["elements"][0]["name"], "new")
 
-    def legacy_view_version_json_missing_returns_error(self) -> None:
+    def test_view_version_json_missing_returns_error(self) -> None:
         req = self._make_request(form={"version_id": "missing"})
-        Views(self.survey, req).view_version_json()
+        SurveyVersions(self.survey, req).view_version_json()
         payload = orjson.loads(req.response.consumeBody())
         self.assertEqual(payload["error"], "Version not found")
 
-    def legacy_get_paginated_results_filters(self) -> None:
+    def test_get_paginated_results_filters(self) -> None:
         annos = IAnnotations(self.survey)
         annos[RESULTS_KEY]["p1"] = {
             "poll_id": "p1",
@@ -706,13 +720,13 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             "result": {"uuid": "beta"},
         }
         req = self._make_request(form={"q": "beta"})
-        paginated = Views(self.survey, req).get_paginated_results()
+        paginated = SurveyResults(self.survey, req).get_paginated_results()
         self.assertEqual(paginated["total"], 1)
         self.assertEqual(paginated["items"][0]["poll_id"], "p2")
 
-    def legacy_view_result_json_missing_and_existing(self) -> None:
+    def test_view_result_json_missing_and_existing(self) -> None:
         req_missing = self._make_request(form={"poll_id": "missing"})
-        Views(self.survey, req_missing).view_result_json()
+        SurveyResults(self.survey, req_missing).view_result_json()
         self.assertEqual(
             orjson.loads(req_missing.response.consumeBody())["error"],
             "Poll result not found",
@@ -720,27 +734,29 @@ class SurveyViewIntegrationTests(unittest.TestCase):
 
         self._add_result("available")
         req = self._make_request(form={"poll_id": "available"})
-        Views(self.survey, req).view_result_json()
+        SurveyResults(self.survey, req).view_result_json()
         payload = orjson.loads(req.response.consumeBody())
         self.assertEqual(payload["q1"], "answer-1")
 
-    def legacy_delete_results_requires_manager(self) -> None:
+    def test_delete_results_requires_manager(self) -> None:
         annos = IAnnotations(self.survey)
         annos[RESULTS_KEY]["delete-me"] = {"poll_id": "delete-me"}
         setRoles(self.portal, TEST_USER_ID, ["Member"])
 
         req = self._make_request(body=b'{"poll_ids": ["delete-me"]}')
-        Views(self.survey, req).delete_results()
+        with patch.object(type(req.response), "write") as write:
+            SurveyResults(self.survey, req).delete_results()
         self.assertEqual(req.response.getStatus(), 403)
-        self.assertIn("not allowed", req.response.consumeBody().decode("utf-8"))
+        body = b"".join(call.args[0] for call in write.call_args_list)
+        self.assertIn(b"not allowed", body)
 
-    def legacy_delete_results_removes_entries(self) -> None:
+    def test_delete_results_removes_entries(self) -> None:
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         annos = IAnnotations(self.survey)
         annos[RESULTS_KEY]["one"] = {"poll_id": "one"}
         annos[RESULTS_KEY]["two"] = {"poll_id": "two"}
         req = self._make_request(body=b'{"poll_ids": ["one", "missing"]}')
-        Views(self.survey, req).delete_results()
+        SurveyResults(self.survey, req).delete_results()
         payload = orjson.loads(req.response.consumeBody())
         self.assertEqual(payload["deleted"], ["one"])
         self.assertEqual(payload["missing"], ["missing"])

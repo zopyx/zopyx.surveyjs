@@ -1,4 +1,4 @@
-.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests screenshots-album screenshots-view docs
+.PHONY: build run run-detached stop logs podman-build podman-run podman-run-detached podman-stop podman-logs test coverage-browser sdist screenshots screenshots-setup screenshots-survey screenshots-psf screenshots-cp screenshots-headed screenshots-raw screenshots-raw-survey screenshots-raw-psf screenshots-raw-cp screenshots-raw-headed plone-start-for-tests plone-stop-for-tests screenshots-album screenshots-view docs
 
 IMAGE_NAME := privacyforms/demo
 CONTAINER_NAME := pfs-demo
@@ -45,6 +45,11 @@ test:
 		src/zopyx/surveyjs/schema/tests/test_converter.py \
 		src/zopyx/surveyjs/schema/tests/test_converters_formats.py
 	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/converters/*.py'
+
+coverage-browser:
+	PYTHONWARNINGS=ignore bin/zopepy -m coverage erase
+	PYTHONWARNINGS=ignore bin/zopepy -m coverage run bin/test -s zopyx.surveyjs
+	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/browser/**/*.py'
 
 sdist:
 	uv run python setup.py sdist
