@@ -73,3 +73,17 @@ class SurveyTemplateIntegrationTest(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         fti = queryUtility(IDexterityFTI, name="SurveyTemplate")
         self.assertTrue(fti.global_allow, "{0} is not globally addable!".format(fti.id))
+
+    def test_ct_survey_template_viewer_renders(self):
+        template = api.content.create(
+            container=self.portal,
+            type="SurveyTemplate",
+            id="viewer-template",
+            title="Viewer Template",
+            template_json='{"title": "Demo", "pages": []}',
+        )
+
+        html = template.restrictedTraverse("@@viewer")()
+
+        self.assertIn("surveyViewerContainer", html)
+        self.assertIn("surveyjs-actual-url", html)

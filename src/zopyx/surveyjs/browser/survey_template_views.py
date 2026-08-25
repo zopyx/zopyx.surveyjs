@@ -3,11 +3,16 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import json
 
 from .. import _
+from ..utils import html_safe_json
 from .services.http import json_error, json_response
 
 
 class SurveyTemplateViewer(BrowserView):
     index = ViewPageTemplateFile("survey_template_viewer.pt")
+
+    @staticmethod
+    def html_safe_json(value):
+        return html_safe_json(value)
 
     def __call__(self):
         return self.index()
