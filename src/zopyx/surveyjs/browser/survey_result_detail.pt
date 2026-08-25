@@ -31,13 +31,13 @@
 
     <metal:survey-header use-macro="context/@@survey-actions/macros/survey-header">
       <metal:survey-header-headline fill-slot="view-headline">
-        <div class="page-headline" i18n:translate="">Submission Details</div>
+        <div class="page-headline" i18n:translate="">Submission details</div>
       </metal:survey-header-headline>
     </metal:survey-header>
 
     <tal:block define="detail view/result_detail">
         <tal:block tal:condition="python: detail.get('error')">
-            <div class="storage-warning">
+            <div class="storage-warning result-detail-state">
                 <strong i18n:translate="">Unable to load submission.</strong>
                 <span tal:content="python: detail.get('error')">Error</span>
             </div>
@@ -48,29 +48,51 @@
         </tal:block>
 
         <tal:block tal:condition="python: not detail.get('error')">
-            <div id="results-table">
-                <p><strong i18n:translate="">Poll ID:</strong> <span tal:content="detail/poll_id">Poll</span></p>
-                <p tal:condition="python: detail.get('seq_no')">
-                    <strong i18n:translate="">Sequence:</strong> <span tal:content="python: detail.get('seq_no')">#</span>
-                </p>
-                <p><strong i18n:translate="">Created:</strong> <span tal:content="detail/created">Date</span></p>
-                <p><strong i18n:translate="">User:</strong> <span tal:content="detail/creator">User</span></p>
+            <article class="result-detail-inspector" aria-labelledby="result-detail-title">
+                <header class="result-detail-header">
+                    <div>
+                        <p class="result-detail-eyebrow" i18n:translate="">Stored submission</p>
+                        <h1 id="result-detail-title" class="result-detail-title">
+                            <span tal:content="detail/poll_id">Poll</span>
+                        </h1>
+                    </div>
+                    <a class="btn btn-secondary result-detail-back"
+                       href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
+                </header>
 
-                <div class="survey-detail-output"
-                     tal:content="structure detail/html"></div>
+                <dl class="result-detail-meta">
+                    <div>
+                        <dt i18n:translate="">Created</dt>
+                        <dd tal:content="detail/created">Date</dd>
+                    </div>
+                    <div>
+                        <dt i18n:translate="">Submitted by</dt>
+                        <dd tal:content="detail/creator">User</dd>
+                    </div>
+                    <div tal:condition="python: detail.get('seq_no')">
+                        <dt i18n:translate="">Sequence</dt>
+                        <dd tal:content="python: detail.get('seq_no')">#</dd>
+                    </div>
+                </dl>
 
-                <ul id="downloadActions" class="download-actions">
-                    <li tal:repeat="fmt detail/formats">
-                        <a class="btn btn-primary"
+                <section class="result-detail-answers" aria-labelledby="result-detail-answers-title">
+                    <div class="result-detail-section-heading">
+                        <h2 id="result-detail-answers-title" i18n:translate="">Answers</h2>
+                    </div>
+                    <div class="survey-detail-output"
+                         tal:content="structure detail/html"></div>
+                </section>
+
+                <footer class="result-detail-actions">
+                    <span class="result-detail-actions-label" i18n:translate="">Export submission</span>
+                    <div class="download-actions" id="downloadActions">
+                        <a tal:repeat="fmt detail/formats"
+                           class="btn btn-primary"
                            tal:attributes="href python: context.absolute_url() + '/download-result?poll_id=' + detail['poll_id'] + '&format=' + fmt['key']"
                            tal:content="fmt/label">Format</a>
-                    </li>
-                    <li class="download-actions__back">
-                        <a class="btn btn-secondary"
-                           href="${context/absolute_url}/@@results" i18n:translate="">Back to results</a>
-                    </li>
-                </ul>
-            </div>
+                    </div>
+                </footer>
+            </article>
         </tal:block>
     </tal:block>
 
