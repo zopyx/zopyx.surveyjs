@@ -22,6 +22,7 @@ the system, and end users who build and run surveys in the UI.
    philosophy
    installation
    usage
+   storage
    configuration
    actions
    views
