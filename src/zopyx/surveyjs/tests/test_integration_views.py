@@ -511,6 +511,11 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         analytics_asset = html.index("surveyjs/survey.analytics.min.js")
         self.assertLess(chart_asset, analytics_asset)
 
+    def test_survey_metadata_view_renders_for_manager(self) -> None:
+        view = self.survey.restrictedTraverse("@@survey-metadata")
+        html = view()
+        self.assertIn("Metadata", html)
+
     @unittest.skip("legacy dashboard permission test uses removed view API")
     def test_dashboard_view_forbidden_for_non_manager(self) -> None:
         setRoles(self.portal, TEST_USER_ID, ["Member"])

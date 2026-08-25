@@ -57,6 +57,10 @@ class SurveyAddView(BrowserView):
 
     index = ViewPageTemplateFile("survey_add.pt")
 
+    @staticmethod
+    def html_safe_json(value):
+        return html_safe_json(value)
+
     def __init__(self, context, request):
         super().__init__(context, request)
         self._errors: list[str] = []
