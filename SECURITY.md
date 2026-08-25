@@ -51,7 +51,8 @@ Recommended:
 In addition to optional SurveyJS schema validation, the Python submission
 boundary applies these checks to new submission data:
 
-- top-level JSON object shape, required values and schema-dependent fields;
+- top-level JSON object shape and schema-dependent fields; required-field
+  rejection remains available but is disabled by default for compatibility;
 - dangerous markup, event-handler attributes, control characters and unsafe
   URL schemes;
 - structured file names, Unicode NFC normalization, MIME allowlist

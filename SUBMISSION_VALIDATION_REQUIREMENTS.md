@@ -23,7 +23,7 @@ Severity legend: **C** = critical (correctness/CI), **H** = high (functional/sec
 |---|---|---|---|
 | REQ-01 | Integration tests discovered | ✅ Done | `tests/integration/` flattened to `tests/test_integration_*.py`; `--list-tests` shows 51 integration tests |
 | REQ-02 | `data_validation` unit tests in `make test` | ✅ Done | Makefile pytest call includes `test_data_validation.py`; 35 tests + 48 subtests pass |
-| REQ-03 | `missing_required` implemented | ✅ Done | `data_validation.py`; empty-value semantics correct (`False`/`0` valid, `""`/`[]`/`None` missing) |
+| REQ-03 | `missing_required` available but disabled by default | ⚠️ Disabled | The check remains implemented behind `enforce_required_fields=True`; production submission validation leaves it off |
 | REQ-04 | `-Comment` keys accepted | ✅ Done | `commentPrefix` read from schema, orphan comments rejected, `maxCommentLength` enforced (residual: REQ-21) |
 | REQ-05 | Markup policy aligned | ✅ Done | Denylist extended to `svg/iframe/object/embed` + `on*=` handlers; deterministic `html_markup` code |
 | REQ-06 | `octet-stream` removed from allowlist | ✅ Done | Removed unconditionally; the dead `allow_octet_stream` escape hatch was removed |
@@ -227,8 +227,9 @@ The following changes have been implemented in the working tree (branch
 
 ### Submission validation
 
-`data_validation.py` now implements: required-field validation (`missing_required`); SurveyJS
-comment suffixes via `commentPrefix`; `maxCommentLength` enforcement; script/event-handler and
+`data_validation.py` now contains an optional required-field check
+(`missing_required`, disabled by default); SurveyJS comment suffixes via `commentPrefix`;
+`maxCommentLength` enforcement; script/event-handler and
 dangerous-tag markup rejection; whitespace/control-char URL-scheme checks; `data:` URL blocking
 in non-file fields except PNG/JPEG (signaturepad); Unicode-aware path-safe filenames; default
 rejection of `application/octet-stream`; magic-byte checks for images, PDF, ZIP, Office/OLE and

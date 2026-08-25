@@ -302,7 +302,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         notify_mock.assert_not_called()
         self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 0)
 
-    def test_save_poll_rejects_missing_required(self) -> None:
+    def test_save_poll_allows_missing_required_when_disabled(self) -> None:
         self._add_version(
             payload={
                 "pages": [
@@ -310,12 +310,12 @@ class SurveyViewIntegrationTests(unittest.TestCase):
                 ]
             }
         )
+        self.survey.force_server_side_validation = False
         req = self._make_request(form={"pollResult": orjson.dumps({})})
         Views(self.survey, req).save_poll()
-        self.assertEqual(req.response.getStatus(), 400)
+        self.assertEqual(req.response.getStatus(), 200)
         body = orjson.loads(req.response.consumeBody())
-        self.assertEqual(body["error"], "missing_required")
-        self.assertEqual(body["field"], "q1")
+        self.assertTrue(body["isSuccess"])
 
     def test_save_poll_rejects_payload_over_max_size(self) -> None:
         self.survey.max_payload_size_mb = 1

@@ -289,10 +289,15 @@ class SubmissionValidationTests(unittest.TestCase):
         result = validate_and_normalize_submission(form, payload)
         self.assertIn("upload", result)
 
-    def test_rejects_missing_required_text_field(self) -> None:
+    def test_missing_required_check_is_disabled_by_default(self) -> None:
+        form = {"pages": [{"elements": [{"type": "text", "name": "q1", "isRequired": True}]}]}
+        result = validate_and_normalize_submission(form, {})
+        self.assertEqual(result, {})
+
+    def test_rejects_missing_required_text_field_when_enabled(self) -> None:
         form = {"pages": [{"elements": [{"type": "text", "name": "q1", "isRequired": True}]}]}
         with self.assertRaises(SubmissionValidationError) as context:
-            validate_and_normalize_submission(form, {})
+            validate_and_normalize_submission(form, {}, enforce_required_fields=True)
         self.assertEqual(context.exception.code, "missing_required")
         self.assertEqual(context.exception.field, "q1")
 
@@ -306,7 +311,11 @@ class SubmissionValidationTests(unittest.TestCase):
         for value in ("", [], None):
             with self.subTest(value=value):
                 with self.assertRaises(SubmissionValidationError):
-                    validate_and_normalize_submission(form, {"q1": value, "q2": False})
+                    validate_and_normalize_submission(
+                        form,
+                        {"q1": value, "q2": False},
+                        enforce_required_fields=True,
+                    )
         result = validate_and_normalize_submission(form, {"q1": "answer", "q2": False})
         self.assertFalse(result["q2"])
 

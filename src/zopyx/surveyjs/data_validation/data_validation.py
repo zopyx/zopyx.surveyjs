@@ -86,6 +86,7 @@ def validate_and_normalize_submission(
     *,
     max_file_bytes: int = DEFAULT_MAX_FILE_BYTES,
     max_files: int = DEFAULT_MAX_FILES,
+    enforce_required_fields: bool = False,
 ) -> dict[str, Any]:
     """Validate and normalize a submission or raise an explicit error.
 
@@ -120,11 +121,12 @@ def validate_and_normalize_submission(
     if unknown_fields:
         raise SubmissionValidationError("unknown_field", unknown_fields[0])
 
-    for required_field in required_fields:
-        if required_field not in poll_result or _is_empty_required_value(
-            poll_result[required_field]
-        ):
-            raise SubmissionValidationError("missing_required", required_field)
+    if enforce_required_fields:
+        for required_field in required_fields:
+            if required_field not in poll_result or _is_empty_required_value(
+                poll_result[required_field]
+            ):
+                raise SubmissionValidationError("missing_required", required_field)
 
     file_count = 0
     normalized: dict[str, Any] = {}

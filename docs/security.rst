@@ -251,10 +251,13 @@ Payload and validation hardening
 * With ``force_server_side_validation`` enabled, submissions are handed to the
   external SurveyJS validator binary; a failed validation returns the
   error (with details) and the submission is not stored.
-* The Python boundary validator additionally requires a top-level object,
-  enforces required values and rejects unknown fields where applicable.
-* Empty required values, dangerous markup and event-handler attributes,
-  control characters and unsafe URL schemes are rejected.
+* The Python boundary validator additionally requires a top-level object and
+  rejects unknown fields where applicable. The ``missing_required`` check is
+  retained behind ``enforce_required_fields=True`` but is disabled by default
+  for compatibility.
+* When enabled, the ``missing_required`` check rejects empty required values;
+  it is disabled by default. Dangerous markup and event-handler attributes,
+  control characters and unsafe URL schemes remain enforced.
 * Structured files use a restrictive MIME allowlist, valid Base64 data URLs,
   MIME consistency checks and magic-byte verification. SVG and
   ``application/octet-stream`` are rejected by default.
