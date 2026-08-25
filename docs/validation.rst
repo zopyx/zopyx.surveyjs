@@ -68,7 +68,7 @@ not logged. Single-use embed/trusted tokens are consumed only after
 pre-validation succeeds.
 
 Validation error codes
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 ``payload_not_object`` / ``invalid_form_schema``
     The submission or active form schema is not a JSON object.
