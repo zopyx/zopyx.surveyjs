@@ -4,10 +4,9 @@ This document describes the security model and built-in measures to reduce abuse
 
 ## Current implementation status
 
-The submission-validation hardening is implemented on branch
-`feature/submission-data-validation`. New `@@save-poll` data is validated and
-normalized before `notify()`, persistence, mail actions, or configured external
-POST actions.
+New `@@save-poll` data is validated and normalized before `notify()`,
+persistence, mail actions, or configured external POST actions. This is the
+pre-validation boundary for new submissions.
 
 Verified baseline:
 
@@ -48,23 +47,59 @@ Recommended:
 
 ### Submission validation and normalization
 
-In addition to optional SurveyJS schema validation, the Python submission
-boundary applies these checks to new submission data:
+The pre-validation pipeline runs after request/access checks and before any
+event or side effect. Its order is deliberate:
 
-- top-level JSON object shape and schema-dependent fields; required-field
-  rejection remains available but is disabled by default for compatibility;
-- dangerous markup, event-handler attributes, control characters and unsafe
-  URL schemes;
-- structured file names, Unicode NFC normalization, MIME allowlist
-  membership, valid Base64 data URLs, MIME consistency and magic bytes;
-- SVG and `application/octet-stream` rejection by default;
-- file count, file size and total payload limits.
+1. **Transport limits.** The request `Content-Length` and the actual request
+   body are checked against the survey's maximum payload size. Oversized input
+   is rejected with HTTP 413 before JSON parsing. This prevents large bodies
+   from reaching parsing, validation or downstream actions.
+2. **JSON and top-level shape.** The `pollResult` value must be valid JSON and
+   its top-level value must be an object. Arrays, strings, numbers and `null`
+   are rejected; nested values are copied recursively and restricted to JSON
+   scalar, list and object types.
+3. **Schema field boundary.** Field names are collected from the active form
+   schema. Unknown top-level fields and orphaned comment fields are rejected.
+   SurveyJS comment suffixes remain supported through the configured
+   `commentPrefix`. The optional `missing_required` check remains implemented
+   but is disabled by default for compatibility; callers can explicitly enable
+   it with `enforce_required_fields=True`.
+4. **Text safety.** Strings are checked recursively for control characters,
+   dangerous `javascript:` and `vbscript:` URL schemes, whitespace/control
+   character obfuscation, and dangerous markup. Script, SVG, iframe, object
+   and embed elements plus `on*=` event-handler attributes are rejected.
+   Safe ordinary text containing comparison characters such as `<` is retained.
+5. **Data-URL safety.** Text-field data URLs are restricted to Base64 PNG or
+   JPEG images. The Base64 encoding is syntactically decoded with strict
+   validation; unsupported MIME types and malformed data URLs are rejected.
+6. **File structure.** File values must use the expected list/object shape and
+   string-valued filename, MIME type and content members. Unknown file members
+   are ignored in the normalized result rather than persisted.
+7. **Filename safety.** Filenames are normalized to Unicode NFC before length
+   and character checks. Path separators, traversal patterns, control
+   characters, quotes and markup-oriented characters are rejected, while
+   legitimate international filenames remain supported.
+8. **MIME and content validation.** A restrictive MIME allowlist is enforced.
+   SVG and `application/octet-stream` are rejected by default. The declared
+   MIME type must match the data URL MIME type, and decoded content must match
+   the expected magic bytes for PNG, JPEG, GIF, WebP, PDF, RTF, ZIP and Office
+   formats. MIME declarations alone are never trusted.
+9. **Resource limits.** File count, decoded file size and overall payload
+   limits are enforced independently. This prevents an attacker from evading
+   the request limit through many individually small files.
+10. **Canonical hand-off.** A normalized deep copy is returned. The original
+    caller-owned payload is not mutated. Only this normalized copy is passed to
+    optional external SurveyJS validation and, if successful, to notification,
+    storage and post-submit actions.
 
-Only the normalized copy is passed onward; the original payload is not mutated.
-Validation failures use deterministic JSON error codes and warning logging
-without recording submission contents or secrets. Rejected submissions do not
-reach subscribers or storage. Single-use embed/trusted tokens are consumed
-only after validation succeeds.
+Every failed step raises a deterministic validation error with a stable error
+code and optional field name. The request returns a client-safe JSON error,
+logs a warning and stops immediately. Submission contents, tokens, secrets and
+credentials are not written to the validation log. Because validation occurs
+before `notify()`, rejected data cannot trigger subscribers, mail delivery,
+external POSTs or persistence. Single-use embed/trusted tokens are consumed
+only after validation succeeds, so malformed input does not burn a valid
+token.
 
 See `docs/submission-validation.rst` for the contract and
 `SUBMISSION_VALIDATION_REQUIREMENTS.md` for the requirement mapping.
