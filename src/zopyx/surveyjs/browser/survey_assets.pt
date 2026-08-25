@@ -93,6 +93,9 @@
     <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/plotly.min.js"
             type="text/javascript"
     ></script>
+    <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/chart.umd.min.js"
+            type="text/javascript"
+    ></script>
     <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/survey.analytics.min.js"
             type="text/javascript"
     ></script>

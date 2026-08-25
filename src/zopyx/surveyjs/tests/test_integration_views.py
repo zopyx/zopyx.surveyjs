@@ -507,6 +507,9 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         view = self.survey.restrictedTraverse("@@dashboard")
         html = view()
         self.assertIn("Survey data dashboard", html)
+        chart_asset = html.index("surveyjs/chart.umd.min.js")
+        analytics_asset = html.index("surveyjs/survey.analytics.min.js")
+        self.assertLess(chart_asset, analytics_asset)
 
     @unittest.skip("legacy dashboard permission test uses removed view API")
     def test_dashboard_view_forbidden_for_non_manager(self) -> None:

@@ -3,9 +3,11 @@
 # See: https://unpkg.com/survey-core@3.0.0/
 
 SURVEY_VERSION="3.0.0"
+CHART_VERSION="4.5.1"
 
 wget -O jspdf.umd.min.js https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js
 wget -O plotly.min.js https://unpkg.com/plotly.js-dist-min/plotly.min.js
+wget -O chart.umd.min.js https://unpkg.com/chart.js@${CHART_VERSION}/dist/chart.umd.min.js
 wget -O survey.analytics.min.css https://unpkg.com/survey-analytics@${SURVEY_VERSION}/survey.analytics.min.css
 wget -O survey.analytics.min.js https://unpkg.com/survey-analytics@${SURVEY_VERSION}/survey.analytics.min.js
 wget -O survey-core.min.css https://unpkg.com/survey-core@${SURVEY_VERSION}/survey-core.min.css
