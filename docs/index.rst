@@ -14,13 +14,13 @@ Project links
    :class: project-links
    :widths: 25 25 25 25
 
-   * - **`Try the demo <https://demo.privacyforms.studio>`_**
+   * - `Try the demo <https://demo.privacyforms.studio>`_
        Explore Privacy Forms Studio in a running instance.
-     - **`Read the docs <https://docs.privacyforms.studio>`_**
+     - `Read the docs <https://docs.privacyforms.studio>`_
        Browse the complete integration and user documentation.
-     - **`View on GitHub <https://github.com/zopyx/zopyx.surveyjs>`_**
+     - `View on GitHub <https://github.com/zopyx/zopyx.surveyjs>`_
        Inspect the source code, report issues, and contribute.
-     - **`Visit the website <https://www.privacyforms.studio>`_**
+     - `Visit the website <https://www.privacyforms.studio>`_
        Learn more about Privacy Forms Studio and its services.
 
 .. toctree::
