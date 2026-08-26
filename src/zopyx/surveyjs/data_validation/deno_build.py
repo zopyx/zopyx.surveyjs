@@ -1,4 +1,7 @@
 import argparse
+import hashlib
+import hmac
+import json
 import multiprocessing
 import os
 import platform
@@ -13,23 +16,24 @@ import zipfile
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 JS_ENTRYPOINT = os.path.join(PROJECT_DIR, "validate.mjs")
+RELEASE_MANIFEST = os.path.join(PROJECT_DIR, "deno_releases.json")
 MAX_AGE_SECONDS = 5 * 24 * 60 * 60
+DOWNLOAD_TIMEOUT_SECONDS = 60
+MAX_DOWNLOAD_BYTES = 100 * 1024 * 1024
 
 
-def _deno_download_url() -> str:
-    system = platform.system().lower()
-    machine = platform.machine().lower()
-    if system == "darwin":
-        if machine in ("arm64", "aarch64"):
-            return "https://github.com/denoland/deno/releases/latest/download/deno-aarch64-apple-darwin.zip"
-        return "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-apple-darwin.zip"
-    if system == "linux":
-        if machine in ("arm64", "aarch64"):
-            return "https://github.com/denoland/deno/releases/latest/download/deno-aarch64-unknown-linux-gnu.zip"
-        return "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-unknown-linux-gnu.zip"
-    raise RuntimeError(
-        f"Unsupported platform: {platform.system()} ({platform.machine()})"
-    )
+def _release_manifest() -> dict:
+    with open(RELEASE_MANIFEST, encoding="utf-8") as handle:
+        manifest = json.load(handle)
+    version = manifest.get("version")
+    artifacts = manifest.get("artifacts")
+    if not isinstance(version, str) or not artifacts:
+        raise RuntimeError("Invalid Deno release manifest.")
+    for key, artifact in artifacts.items():
+        digest = artifact.get("sha256", "")
+        if len(digest) != 64 or any(char not in "0123456789abcdef" for char in digest):
+            raise RuntimeError(f"Invalid SHA256 digest for Deno artifact {key}.")
+    return manifest
 
 
 def _binary_name(system: str) -> str:
@@ -49,6 +53,25 @@ def _normalize_machine(machine: str) -> str:
     raise RuntimeError(f"Unsupported architecture: {machine}")
 
 
+def _artifact(system: str, machine: str) -> dict:
+    key = f"{system}-{_normalize_machine(machine)}"
+    try:
+        return _release_manifest()["artifacts"][key]
+    except KeyError as exc:
+        raise RuntimeError(f"Unsupported Deno artifact: {key}") from exc
+
+
+def _deno_download_url(system: str | None = None, machine: str | None = None) -> str:
+    system = (system or platform.system()).lower()
+    machine = machine or platform.machine()
+    artifact = _artifact(system, machine)
+    version = _release_manifest()["version"]
+    return (
+        f"https://github.com/denoland/deno/releases/download/v{version}/"
+        f"{artifact['asset']}"
+    )
+
+
 def _compile_target(system: str, machine: str) -> str:
     machine = _normalize_machine(machine)
     if system == "darwin":
@@ -61,21 +84,63 @@ def _compile_target(system: str, machine: str) -> str:
 def _is_stale(path: str) -> bool:
     if not os.path.exists(path):
         return True
+    if os.path.getmtime(JS_ENTRYPOINT) > os.path.getmtime(path):
+        return True
     age_seconds = time.time() - os.path.getmtime(path)
     return age_seconds > MAX_AGE_SECONDS
 
 
+def _verify_deno_version(deno_path: str, expected_version: str | None = None) -> None:
+    expected_version = expected_version or _release_manifest()["version"]
+    completed = subprocess.run(
+        [deno_path, "--version"],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=DOWNLOAD_TIMEOUT_SECONDS,
+    )
+    version_line = (completed.stdout + "\n" + completed.stderr).splitlines()
+    actual_version = next(
+        (line.split()[1] for line in version_line if line.startswith("deno ")), None
+    )
+    if actual_version != expected_version:
+        raise RuntimeError(
+            f"Deno version mismatch: expected {expected_version}, got {actual_version or 'unknown'}."
+        )
+
+
 def _download_deno(dest_dir: str) -> str:
-    url = _deno_download_url()
+    manifest = _release_manifest()
+    system = platform.system().lower()
+    machine = platform.machine()
+    artifact = _artifact(system, machine)
+    url = _deno_download_url(system, machine)
     zip_path = os.path.join(dest_dir, "deno.zip")
-    with urllib.request.urlopen(url) as response, open(zip_path, "wb") as handle:
-        handle.write(response.read())
+    digest = hashlib.sha256()
+    total = 0
+    with urllib.request.urlopen(url, timeout=DOWNLOAD_TIMEOUT_SECONDS) as response, open(
+        zip_path, "wb"
+    ) as handle:
+        while chunk := response.read(1024 * 1024):
+            total += len(chunk)
+            if total > MAX_DOWNLOAD_BYTES:
+                raise RuntimeError("Deno download exceeds the maximum allowed size.")
+            digest.update(chunk)
+            handle.write(chunk)
+    if not hmac.compare_digest(digest.hexdigest(), artifact["sha256"]):
+        raise RuntimeError(
+            f"Deno SHA256 mismatch for {artifact['asset']} (release {manifest['version']})."
+        )
     with zipfile.ZipFile(zip_path) as zip_file:
-        zip_file.extractall(dest_dir)
+        names = zip_file.namelist()
+        if names != ["deno"]:
+            raise RuntimeError("Unexpected contents in the Deno archive.")
+        zip_file.extract("deno", dest_dir)
     deno_path = os.path.join(dest_dir, "deno")
     if not os.path.exists(deno_path):
         raise RuntimeError("Deno binary not found after extraction.")
     os.chmod(deno_path, os.stat(deno_path).st_mode | stat.S_IEXEC)
+    _verify_deno_version(deno_path, manifest["version"])
     return deno_path
 
 
@@ -113,7 +178,9 @@ def _build_target(args: tuple[str, str, bool]) -> str:
             env=env,
             check=True,
         )
-        shutil.copy2(temp_output, target_path)
+        temporary_target = f"{target_path}.tmp"
+        shutil.copy2(temp_output, temporary_target)
+        os.replace(temporary_target, target_path)
     return target_path
 
 

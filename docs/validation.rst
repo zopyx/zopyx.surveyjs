@@ -136,8 +136,9 @@ Binary location and building
   ``package.json``, ``deno_build.py``).
 * At runtime the wrapper expects the platform binary **next to the module**
   (``validate-linux`` / ``validate-mac``) and builds it automatically when
-  missing or older than five days (it downloads Deno itself into a
-  temporary directory — no manual step required).
+  missing or older than five days. The Deno release is pinned in
+  ``deno_releases.json`` and its archive digest and executable version are
+  verified before compilation.
 * Manual builds with bun or deno, cross-compilation via Docker, and
   packaging notes: see :doc:`installation` → "External survey validation
   (deno / bun)".

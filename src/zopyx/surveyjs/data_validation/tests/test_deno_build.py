@@ -31,6 +31,33 @@ class DummyContext:
 
 
 class DenoBuildTests(unittest.TestCase):
+    def test_deno_url_is_versioned_and_selects_architecture(self) -> None:
+        with mock.patch.object(deno_build.platform, "system", return_value="Darwin"):
+            url = deno_build._deno_download_url("darwin", "arm64")
+
+        self.assertIn("/releases/download/v2.9.5/", url)
+        self.assertTrue(url.endswith("deno-aarch64-apple-darwin.zip"))
+
+    def test_all_supported_artifacts_have_sha256_digests(self) -> None:
+        manifest = deno_build._release_manifest()
+        self.assertEqual(
+            set(manifest["artifacts"]),
+            {
+                "darwin-x86_64",
+                "darwin-aarch64",
+                "linux-x86_64",
+                "linux-aarch64",
+            },
+        )
+        for artifact in manifest["artifacts"].values():
+            self.assertRegex(artifact["sha256"], r"^[0-9a-f]{64}$")
+
+    def test_deno_version_mismatch_is_rejected(self) -> None:
+        completed = mock.Mock(stdout="deno 2.9.4\nv8 13\ntypescript 5\n", stderr="")
+        with mock.patch("deno_build.subprocess.run", return_value=completed):
+            with self.assertRaisesRegex(RuntimeError, "expected 2.9.5, got 2.9.4"):
+                deno_build._verify_deno_version("/tmp/deno")
+
     def test_normalize_machine(self) -> None:
         self.assertEqual(deno_build._normalize_machine("amd64"), "x86_64")
         self.assertEqual(deno_build._normalize_machine("x86_64"), "x86_64")

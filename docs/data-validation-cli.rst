@@ -18,7 +18,8 @@ Source layout
   (``npm validate`` / ``bun validate.mjs`` run the script directly).
 * ``validate_data.py`` — the Python wrapper used by the add-on; locates or
   builds the platform binary and runs it with the given JSON files.
-* ``deno_build.py`` — self-contained build script (downloads Deno itself).
+* ``deno_build.py`` — self-contained build script using the pinned Deno
+  release and SHA256-verified downloads.
 * ``Makefile`` — build targets for bun/deno binaries and Docker
   cross-compilation.
 
