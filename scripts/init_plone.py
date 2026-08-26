@@ -94,7 +94,12 @@ def load_env_file():
 def configure_ai_model_from_env():
     """Set the AI model and API key registry values from environment if provided."""
     ai_model = os.environ.get("AI_MODEL", "").strip()
-    ai_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    # AI_API_KEY is the CI/Docker-build name (BuildKit secret); OPENAI_API_KEY
+    # remains as fallback for local .env setups.
+    ai_key = (
+        os.environ.get("AI_API_KEY", "").strip()
+        or os.environ.get("OPENAI_API_KEY", "").strip()
+    )
 
     if not ai_model and not ai_key:
         return

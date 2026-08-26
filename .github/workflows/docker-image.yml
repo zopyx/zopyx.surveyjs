@@ -80,6 +80,13 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=min
+          # AI settings for init_plone.py (runs at build time). Injected as
+          # BuildKit secrets into the RUN --mount=type=secret (env=...), so
+          # they are visible only during that build step and never baked
+          # into image layers or the image config.
+          secrets: |
+            "ai_model=${{ secrets.AI_MODEL }}"
+            "ai_api_key=${{ secrets.AI_API_KEY }}"
 
       - name: Deploy to remote server
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'

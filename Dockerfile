@@ -47,7 +47,9 @@ RUN uv venv .venv --python 3.13 --clear
 RUN ls .venv/bin
 RUN uv pip install -r requirements.txt
 RUN ./.venv/bin/buildout
-RUN ./bin/instance run /app/scripts/init_plone.py \
+RUN --mount=type=secret,id=ai_model,env=AI_MODEL \
+    --mount=type=secret,id=ai_api_key,env=AI_API_KEY \
+    ./bin/instance run /app/scripts/init_plone.py \
     && rm -f /app/surveyjs.licensekey
 
 CMD ["./bin/instance", "fg"]
