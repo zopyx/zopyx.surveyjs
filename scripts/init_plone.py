@@ -19,7 +19,9 @@ from plone.api.exc import InvalidParameterError
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
 from Products.CMFPlone.factory import addPloneSite
 from datetime import datetime, timezone
+import base64
 import os
+import subprocess
 from Testing.makerequest import makerequest
 from pathlib import Path
 import orjson
@@ -113,25 +115,87 @@ def configure_ai_model_from_env():
         print("AI registry records not found; skipping AI environment configuration")
 
 
-def configure_surveyjs_license_from_file():
-    """Set the SurveyJS license key from ../surveyjs.licensekey if present."""
+SURVEYJS_OP_REFERENCE = "op://Private/SurveyJS License Key/Licence"
+SURVEYJS_LICENSE_KEY_PATTERN = re.compile(
+    r"^[0-9a-fA-F-]{36};1=\d{4}-\d{2}-\d{2}$"
+)
+
+
+def _normalize_surveyjs_license_key(value):
+    """Return the raw SurveyJS license key, decoding base64 if needed."""
+    value = value.strip()
+    if SURVEYJS_LICENSE_KEY_PATTERN.match(value):
+        return value
+    try:
+        decoded = base64.b64decode(value + "=" * (-len(value) % 4)).decode("utf-8")
+    except (ValueError, UnicodeDecodeError):
+        return value
+    if SURVEYJS_LICENSE_KEY_PATTERN.match(decoded):
+        return decoded
+    return value
+
+
+def _read_surveyjs_license_from_1password():
+    """Read the SurveyJS license key via the op CLI as a fallback source.
+
+    Returns the raw key (base64-encoded as stored) or None. Never prints the key.
+    """
+    try:
+        result = subprocess.run(
+            ["op", "read", SURVEYJS_OP_REFERENCE],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+    except FileNotFoundError:
+        print("op CLI not found; skipping SurveyJS license key from 1Password")
+        return None
+    except subprocess.TimeoutExpired:
+        print("op read timed out; skipping SurveyJS license key from 1Password")
+        return None
+    if result.returncode != 0:
+        print(
+            "op read failed (no 1Password session/app running?); "
+            "skipping SurveyJS license key from 1Password"
+        )
+        return None
+    return result.stdout.strip()
+
+
+def configure_surveyjs_license():
+    """Set the SurveyJS license key from surveyjs.licensekey or 1Password.
+
+    Precedence: local key file (../surveyjs.licensekey or cwd), then
+    1Password via the op CLI ("op read") as a fallback.
+    """
     license_path = ROOT_PATH.parent / "surveyjs.licensekey"
     if not license_path.exists():
         license_path = Path("surveyjs.licensekey")
-        if not license_path.exists():
+
+    if license_path.exists():
+        license_key = license_path.read_text().strip()
+        if not license_key:
+            print("SurveyJS license key file is empty; skipping configuration")
+            return
+        source = "file"
+    else:
+        license_key = _read_surveyjs_license_from_1password()
+        source = "1Password"
+        if not license_key:
+            print(
+                "No SurveyJS license key file found and 1Password lookup "
+                "returned no key; skipping configuration"
+            )
             return
 
-    license_key = license_path.read_text().strip()
-    if not license_key:
-        print("SurveyJS license key file is empty; skipping configuration")
-        return
+    license_key = _normalize_surveyjs_license_key(license_key)
 
     try:
         api.portal.set_registry_record(
             "zopyx.surveyjs.interfaces.IFormsSettings.surveyjs_license_key",
             license_key,
         )
-        print("Configured SurveyJS license key from file")
+        print(f"Configured SurveyJS license key from {source}")
     except InvalidParameterError:
         print("SurveyJS license key registry record not found; skipping configuration")
 
@@ -531,7 +595,7 @@ site.REQUEST.form["themeName"] = "barceloneta"
 view = MyThemingControlpanel(site, site.REQUEST)
 view.update()
 configure_ai_model_from_env()
-configure_surveyjs_license_from_file()
+configure_surveyjs_license()
 configure_authenticity_token_secret()
 configure_mail_from_env()
 configure_site_languages()
