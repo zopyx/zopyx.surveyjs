@@ -103,7 +103,10 @@ The validator lives in ``src/zopyx/surveyjs/data_validation/``:
 * ``validate.mjs`` — the validation script (ESM, imports ``survey-core``).
 * ``package.json`` / ``bun.lock`` — the ``survey-core@^3.0.0`` dependency
   (``npm validate`` / ``bun validate.mjs`` run the script directly).
-* ``deno_build.py`` — self-contained build script (downloads Deno itself).
+* ``deno_build.py`` — self-contained build script (downloads the pinned Deno
+  release and verifies its SHA256 digest and reported version).
+  The pinned Deno version and SHA256 digests for the supported macOS/Linux
+  x86_64 and arm64 artifacts are maintained in ``deno_build.py``.
 * ``validate_data.py`` — the Python wrapper that locates and invokes the
   binary at submission time.
 * ``validate-linux`` / ``validate-mac`` — the runtime binaries the wrapper
@@ -112,8 +115,9 @@ The validator lives in ``src/zopyx/surveyjs/data_validation/``:
 Runtime auto-build (no manual step)
 
 If the binary is missing or older than five days, the wrapper builds it
-automatically: ``deno_build.py`` downloads the current Deno release from
-GitHub, compiles ``validate.mjs`` with an import map
+automatically: ``deno_build.py`` downloads the pinned Deno release from
+GitHub, verifies the archive SHA256 digest, verifies ``deno --version``, and
+then compiles ``validate.mjs`` with an import map
 (``npm:survey-core@^3.0.0``) and writes ``validate-linux`` (or
 ``validate-mac``) next to the module. No Deno installation is required on
 the Plone host for this path — the script fetches it into a temporary
@@ -164,8 +168,10 @@ The ``dist/`` directory is for packaging/distribution. At runtime the
 wrapper looks for the binary **next to the module**
 (``data_validation/validate-linux`` on Linux); copy the freshly built
 binary there (or let the auto-build path create it) so server-side
-validation is active. The binary is replaced automatically when it is older
-than five days or when ``validate.mjs`` changes.
+validation is active. The binary is replaced automatically when it is older than five days. The
+downloaded Deno executable is never used unless both its archive digest and
+reported version match the pins in ``deno_build.py``. Windows is not currently
+supported by the runtime wrapper.
 
 Optional components
 ===================

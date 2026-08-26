@@ -36,3 +36,6 @@ jobs:
 
       - name: Run unit tests
         run: make test
+
+      - name: Verify pinned Deno build metadata
+        run: bin/zopepy -m pytest src/zopyx/surveyjs/data_validation/tests/test_deno_build.py -v

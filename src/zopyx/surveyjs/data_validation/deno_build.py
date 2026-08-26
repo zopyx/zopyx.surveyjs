@@ -123,8 +123,29 @@ def _compile_target(system: str, machine: str) -> str:
 def _is_stale(path: str) -> bool:
     if not os.path.exists(path):
         return True
+    if os.path.getmtime(JS_ENTRYPOINT) > os.path.getmtime(path):
+        return True
     age_seconds = time.time() - os.path.getmtime(path)
     return age_seconds > MAX_AGE_SECONDS
+
+
+def _verify_deno_version(deno_path: str) -> None:
+    completed = subprocess.run(
+        [deno_path, "--version"],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=DENO_DOWNLOAD_TIMEOUT_SECONDS,
+    )
+    version_line = (completed.stdout + "\n" + completed.stderr).splitlines()
+    actual_version = next(
+        (line.split()[1] for line in version_line if line.startswith("deno ")), None
+    )
+    if actual_version != DENO_VERSION:
+        raise RuntimeError(
+            f"Deno version mismatch: expected {DENO_VERSION}, "
+            f"got {actual_version or 'unknown'}."
+        )
 
 
 def _download_deno(dest_dir: str) -> str:
@@ -158,6 +179,7 @@ def _download_deno(dest_dir: str) -> str:
     if not os.path.exists(deno_path):
         raise RuntimeError("Deno binary not found after extraction.")
     os.chmod(deno_path, os.stat(deno_path).st_mode | stat.S_IEXEC)
+    _verify_deno_version(deno_path)
     return deno_path
 
 
