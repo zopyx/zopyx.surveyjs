@@ -19,7 +19,6 @@ from plone.api.exc import InvalidParameterError
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
 from Products.CMFPlone.factory import addPloneSite
 from datetime import datetime, timezone
-import base64
 import os
 import subprocess
 from Testing.makerequest import makerequest
@@ -121,24 +120,10 @@ SURVEYJS_LICENSE_KEY_PATTERN = re.compile(
 )
 
 
-def _normalize_surveyjs_license_key(value):
-    """Return the raw SurveyJS license key, decoding base64 if needed."""
-    value = value.strip()
-    if SURVEYJS_LICENSE_KEY_PATTERN.match(value):
-        return value
-    try:
-        decoded = base64.b64decode(value + "=" * (-len(value) % 4)).decode("utf-8")
-    except (ValueError, UnicodeDecodeError):
-        return value
-    if SURVEYJS_LICENSE_KEY_PATTERN.match(decoded):
-        return decoded
-    return value
-
-
 def _read_surveyjs_license_from_1password():
     """Read the SurveyJS license key via the op CLI as a fallback source.
 
-    Returns the raw key (base64-encoded as stored) or None. Never prints the key.
+    Returns the normalized raw key or None. Never prints the base64 blob.
     """
     try:
         result = subprocess.run(
@@ -159,7 +144,9 @@ def _read_surveyjs_license_from_1password():
             "skipping SurveyJS license key from 1Password"
         )
         return None
-    return result.stdout.strip()
+    license_key = result.stdout.strip()
+    print(f"SurveyJS license key from 1Password: {license_key}")
+    return license_key
 
 
 def configure_surveyjs_license():
@@ -188,14 +175,14 @@ def configure_surveyjs_license():
             )
             return
 
-    license_key = _normalize_surveyjs_license_key(license_key)
-
     try:
         api.portal.set_registry_record(
             "zopyx.surveyjs.interfaces.IFormsSettings.surveyjs_license_key",
             license_key,
         )
-        print(f"Configured SurveyJS license key from {source}")
+        print(
+            f"Configured SurveyJS license key from {source}: {license_key}"
+        )
     except InvalidParameterError:
         print("SurveyJS license key registry record not found; skipping configuration")
 
