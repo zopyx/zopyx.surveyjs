@@ -142,6 +142,7 @@ celerybeat.pid
 .env
 .env.local
 .envrc
+surveyjs.licensekey
 .venv
 env/
 venv/

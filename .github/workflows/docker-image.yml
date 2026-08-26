@@ -37,9 +37,15 @@ jobs:
           ls -la .env
 
       - name: Add SurveyJS license key to checkout
+        # Key source: GitHub secret SURVEYJS_KEY (deliberate, see plan 2026-08).
+        # 1Password is not usable in CI: the key lives in the personal
+        # "Private" vault and 1Password service accounts cannot be granted
+        # access to personal vaults. The op-CLI fallback in init_plone.py is
+        # for local development only. Note: surveyjs.licensekey must NOT be
+        # added to .dockerignore - the Dockerfile COPYs it into the image for
+        # init_plone.py (removed again in the same RUN).
         shell: bash
         run: |
-          echo "SURVEYJS_KEY=${{ secrets.SURVEYJS_KEY }}" >> "$GITHUB_ENV"
           printf '%s' "${{ secrets.SURVEYJS_KEY }}" > surveyjs.licensekey
           chmod 600 surveyjs.licensekey
 

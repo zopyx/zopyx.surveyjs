@@ -74,6 +74,15 @@ jobs:
         working-directory: ./playwright-tests
         run: npx playwright install chromium
 
+      # Write the SurveyJS license key for init_plone.py (same mechanism as
+      # docker-image.yml; without it the demo is built unlicensed and the
+      # screenshots show the SurveyJS "Unlicensed" watermark).
+      - name: Add SurveyJS license key to checkout
+        shell: bash
+        run: |
+          printf '%s' "${{ secrets.SURVEYJS_KEY }}" > surveyjs.licensekey
+          chmod 600 surveyjs.licensekey
+
       # Start Plone and run screenshots
       - name: Initialize and start Plone
         run: |
