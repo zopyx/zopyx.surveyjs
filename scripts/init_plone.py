@@ -725,7 +725,6 @@ WELCOME_STYLE = """
     --pfs-soft-bg: #f5f9fd;
     --pfs-radius: 14px;
     --pfs-shadow: 0 8px 20px rgba(15, 23, 42, 0.07);
-    max-width: 1200px;
     margin: 0 auto;
     padding: 4px 8px 24px;
   }
@@ -744,7 +743,7 @@ WELCOME_STYLE = """
   .welcome-side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 
   .pfs-login-box { padding: 16px 18px; border: 1px solid var(--pfs-border); border-radius: var(--pfs-radius); background: var(--pfs-soft-bg); box-shadow: var(--pfs-shadow); }
-  .pfs-login-row { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+  .pfs-login-row { margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .pfs-login-link { color: var(--pfs-primary); font-weight: 700; text-decoration: none; }
   .pfs-login-link:hover,
   .pfs-login-link:focus { color: var(--pfs-primary-dark); text-decoration: underline; }
