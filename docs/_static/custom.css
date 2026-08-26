@@ -1,0 +1,90 @@
+/* Landing-page project links */
+table.project-links {
+    border-collapse: separate;
+    border-spacing: 0.75rem;
+    margin: 0 -0.75rem 1.5rem;
+    width: calc(100% + 1.5rem);
+}
+
+table.project-links td {
+    background: #f8fafc;
+    border: 1px solid #dbe4f0;
+    border-radius: 0.85rem;
+    box-shadow: 0 0.35rem 1rem rgb(15 23 42 / 8%);
+    padding: 1.25rem 1.15rem;
+    transition: border-color 160ms ease, box-shadow 160ms ease,
+        transform 160ms ease;
+    vertical-align: top;
+}
+
+table.project-links td:hover {
+    border-color: #7c9cff;
+    box-shadow: 0 0.65rem 1.35rem rgb(15 23 42 / 14%);
+    transform: translateY(-2px);
+}
+
+table.project-links td p {
+    color: #526176;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+table.project-links td a {
+    color: #3157c8;
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.45rem;
+    text-decoration: none;
+}
+
+table.project-links td a::after {
+    content: " ↗";
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+table.project-links td a:hover {
+    text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+    table.project-links td {
+        background: #172033;
+        border-color: #33435f;
+        box-shadow: 0 0.35rem 1rem rgb(0 0 0 / 22%);
+    }
+
+    table.project-links td:hover {
+        border-color: #91aaff;
+        box-shadow: 0 0.65rem 1.35rem rgb(0 0 0 / 32%);
+    }
+
+    table.project-links td p {
+        color: #b8c3d8;
+    }
+
+    table.project-links td a {
+        color: #a9bbff;
+    }
+}
+
+@media (max-width: 760px) {
+    table.project-links,
+    table.project-links tbody,
+    table.project-links tr,
+    table.project-links td {
+        display: block;
+        width: auto;
+    }
+
+    table.project-links {
+        margin: 0 0 1.5rem;
+    }
+
+    table.project-links td + td {
+        margin-top: 0.75rem;
+    }
+}
