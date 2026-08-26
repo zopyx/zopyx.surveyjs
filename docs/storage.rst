@@ -32,6 +32,18 @@ workers writing the same survey therefore increase conflicts and retries. For
 that reason, ZODB is suitable for polls and forms with **low utilization**, but
 is not the preferred backend for high-rate or heavily concurrent forms.
 
+ZEO setup
+~~~~~~~~~
+
+ZEO allows multiple Plone processes to share a ZODB, but it does not make the
+ZODB write path a good fit for heavily concurrent result storage. In a ZEO
+deployment, multiple workers may need to write submissions at the same time,
+and updates to shared survey or result objects can consequently cause
+conflicts and retries. For forms or pools with high submission volume, an
+RDBMS backend—preferably PostgreSQL or MySQL—is recommended instead. SQLite is
+also not recommended for high-volume writes because it has a single-writer
+constraint; use it only for local or low-volume deployments.
+
 RDBMS via SQLAlchemy/SQLModel
 -----------------------------
 
