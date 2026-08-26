@@ -17,6 +17,7 @@ extend, and operate the SurveyJS integration in Plone.
    :caption: Setup And Operations
 
    installation
+   deployment-secrets
    configuration
    embedding
    validation

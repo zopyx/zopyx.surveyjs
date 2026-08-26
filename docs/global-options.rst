@@ -27,7 +27,9 @@ General
        a key the components run in evaluation/open-source mode, which shows
        the SurveyJS watermark and may limit certain features. Enter the key
        exactly as provided by SurveyJS — whitespace or line breaks invalidate
-       it. Leave empty to stay in evaluation mode.
+       it. Leave empty to stay in evaluation mode. How the key is provided
+       to the site at build time (key file, 1Password, GitHub secret) is
+       documented in :doc:`deployment-secrets`.
    * - Features enabled
      - Toggles which features are available in the UI site-wide. Options:
        ``ai`` (AI-assisted form generation), ``chatbot`` (the form chatbot),

@@ -21,6 +21,7 @@ the system, and end users who build and run surveys in the UI.
    overview
    philosophy
    installation
+   deployment-secrets
    usage
    storage
    configuration

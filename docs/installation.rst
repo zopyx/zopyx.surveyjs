@@ -177,6 +177,11 @@ Relational result storage
   ``site_id`` to support multi-site deployments. Configure it under
   Site Setup > Forms → Storage.
 
+SurveyJS license and AI parameters
+  The SurveyJS license key and the AI model/API key are injected while the
+  site is built — from a key file or 1Password (local development) or from
+  GitHub secrets (CI/CD Docker build). See :doc:`deployment-secrets`.
+
 AI Generator
   The AI Generator uses the Python ``llm`` package plus the
   ``privacyforms_ai`` helper and supports installed, Ollama and custom
