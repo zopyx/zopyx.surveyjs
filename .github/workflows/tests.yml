@@ -38,4 +38,68 @@ jobs:
         run: make test
 
       - name: Verify pinned Deno build metadata
-        run: bin/zopepy -m pytest src/zopyx/surveyjs/data_validation/tests/test_deno_build.py -v
+        run: bin/zopepy -m pytest src/zopyx/surveyjs/data_validation/tests/test_deno_build.py src/zopyx/surveyjs/data_validation/tests/test_validate_data.py -v
+
+  validator-binary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Build the pinned validator binary
+        run: python3 src/zopyx/surveyjs/data_validation/deno_build.py --targets linux
+
+      - name: Verify provenance digest of the built binary
+        working-directory: src/zopyx/surveyjs/data_validation
+        run: |
+          set -euo pipefail
+          test "$(sha256sum validate-linux | cut -d' ' -f1)" = "$(cat validate-linux.sha256)"
+
+      - name: Exercise the real binary against fixtures
+        working-directory: src/zopyx/surveyjs/data_validation
+        run: |
+          set -euo pipefail
+          ./validate-linux --schema-json survey.json --form-json data-valid.json --result-json /tmp/out-valid.json
+          python3 -c 'import json; assert json.load(open("/tmp/out-valid.json"))["valid"] is True'
+          set +e
+          ./validate-linux --schema-json survey.json --form-json data-invalid.json --result-json /tmp/out-invalid.json
+          rc=$?
+          set -e
+          test "$rc" -eq 1
+          python3 - <<'EOF'
+          import json
+          data = json.load(open("/tmp/out-invalid.json"))
+          assert data["valid"] is False
+          assert data["errors"], "no errors reported"
+          assert all(msg for err in data["errors"] for msg in err["messages"]), "empty validator message"
+          codes = {code for err in data["errors"] for code in err["codes"]}
+          assert "required" in codes, f"expected required code, got {codes}"
+          EOF
+
+      - name: Exercise the Python wrapper end-to-end
+        run: |
+          set -euo pipefail
+          python3 - <<'EOF'
+          import json, sys
+          sys.path.insert(0, "src/zopyx/surveyjs/data_validation")
+          from validate_data import validate_data
+          rc = validate_data(
+              schema_json="src/zopyx/surveyjs/data_validation/survey.json",
+              form_json="src/zopyx/surveyjs/data_validation/data-invalid.json",
+              result_json="/tmp/wrapper-out.json",
+          )
+          assert rc == 1, rc
+          assert json.load(open("/tmp/wrapper-out.json"))["valid"] is False
+          rc = validate_data(
+              schema_json="src/zopyx/surveyjs/data_validation/survey.json",
+              form_json="src/zopyx/surveyjs/data_validation/data-valid.json",
+              result_json="/tmp/wrapper-out2.json",
+          )
+          assert rc == 0, rc
+          print("wrapper e2e ok")
+          EOF

@@ -41,6 +41,8 @@ test:
 	PYTHONWARNINGS=ignore bin/test -s zopyx.surveyjs
 	PYTHONWARNINGS=ignore bin/zopepy -m coverage run -m pytest \
 		src/zopyx/surveyjs/data_validation/tests/test_data_validation.py \
+		src/zopyx/surveyjs/data_validation/tests/test_deno_build.py \
+		src/zopyx/surveyjs/data_validation/tests/test_validate_data.py \
 		src/zopyx/surveyjs/converters/tests/test_converters.py \
 		src/zopyx/surveyjs/schema/tests/test_converter.py \
 		src/zopyx/surveyjs/schema/tests/test_converters_formats.py
