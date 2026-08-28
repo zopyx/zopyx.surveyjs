@@ -237,4 +237,10 @@ src/privacyforms.ai
 src/privacyforms.pdf
 .vscode
 src/zopyx/surveyjs/data_validation/validate-mac
+src/zopyx/surveyjs/data_validation/validate-mac.sha256
+src/zopyx/surveyjs/data_validation/validate-mac.meta.json
+src/zopyx/surveyjs/data_validation/validate-mac.verified
+src/zopyx/surveyjs/data_validation/.validate-build.lock
+src/zopyx/surveyjs/data_validation/validate-linux.meta.json
+src/zopyx/surveyjs/data_validation/validate-linux.verified
  .vscode/settings.json
