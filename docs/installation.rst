@@ -168,7 +168,17 @@ The ``dist/`` directory is for packaging/distribution. At runtime the
 wrapper looks for the binary **next to the module**
 (``data_validation/validate-linux`` on Linux); copy the freshly built
 binary there (or let the auto-build path create it) so server-side
-validation is active. The binary is replaced automatically when it is older than five days. The
+validation is active. Rebuilds are deterministic: the build records a
+manifest (``validate-linux.meta.json``) with the ``validate.mjs`` source
+hash and the pinned toolchain, and the binary is rebuilt only when those
+inputs change — never on a calendar schedule — so the Plone host needs
+no build-time network access during submission handling. Before each
+run the wrapper verifies the binary's SHA-256 against its provenance
+digest (``validate-linux.sha256``), cached once per day; a corrupted or
+tampered binary is refused (fail-closed). The validator child runs with
+core dumps disabled; memory runaway is contained by subprocess isolation
+(a validator OOM kills only the child) and the 30-second validation
+timeout. The
 downloaded Deno executable is never used unless both its archive digest and
 reported version match the pins in ``deno_build.py``. Windows is not currently
 supported by the runtime wrapper.

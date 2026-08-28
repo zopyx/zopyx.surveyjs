@@ -8,6 +8,7 @@ import csv
 import io
 import hashlib
 import logging
+import subprocess
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from sqlalchemy.engine import make_url
@@ -134,6 +135,12 @@ def _run_external_validation(form_json, poll_result, submission_hash: str):
                 submission_hash,
             )
             return dict(ok=False, status=500, reason="external_validator_missing")
+        except subprocess.TimeoutExpired:
+            logger.warning(
+                "Survey external validation timed out: submission=%s",
+                submission_hash,
+            )
+            return dict(ok=False, status=500, reason="external_validator_timeout")
         except Exception:
             logger.exception(
                 "Survey external validation error: submission=%s",

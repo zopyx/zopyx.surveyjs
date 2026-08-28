@@ -49,7 +49,10 @@ See `DEVELOP.rst` for details.
   `data-validation/` directory at the repo root.
 - At runtime the wrapper `validate_data.py` expects the platform binary
   (`validate-linux` / `validate-mac`) **next to the module** and builds it
-  automatically (it downloads Deno itself) when missing or older than 5 days.
+  automatically (it downloads Deno itself) when missing. A binary that is
+  present is used as-is, even when stale: staleness-triggered rebuilds only
+  happen on add-on install/upgrade and on explicit `deno_build.py` runs, so
+  the Plone host never needs build-time network access at submission time.
 - Manual builds (bun or deno compile) write to `dist/` via the package
   Makefile (`make all`, `make deno`) for packaging/distribution; copy the
   binary next to the module to activate server-side validation.

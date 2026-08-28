@@ -112,8 +112,12 @@ Validation pipeline
    validator binary is invoked with the two JSON files.
 3. The binary loads the schema into a SurveyJS model, applies the payload
    via ``survey.data``, runs ``survey.validate()`` and collects the
-   per-question error messages. The result is written as JSON:
-   ``{"valid": true|false, "errors": [{"name", "title", "messages": [...]}]}``.
+   per-question error details. The result is written as JSON:
+   ``{"valid": true|false, "errors": [{"name", "title", "codes": [...],
+   "messages": [...]}]}``. Each error carries a stable machine-readable
+   ``codes`` entry (e.g. ``required``, ``email``, ``numeric``) plus a
+   human-readable ``messages`` entry — survey-core's empty default texts
+   (notably for required questions) are mapped to readable strings.
 4. The Python wrapper maps the outcome:
 
    * ``valid: true`` — the submission proceeds (stored, mailed, POSTed).
@@ -121,7 +125,8 @@ Validation pipeline
      (``external_validation_failed``) and the per-question error details are
      returned in the response body; nothing is stored.
    * binary missing → **HTTP 500** ``external_validator_missing``; the
-     binary crashed or produced no result → **HTTP 500**
+     validator timed out (30 s) → **HTTP 500** ``external_validator_timeout``;
+     the binary crashed or produced no result → **HTTP 500**
      ``external_validator_error``.
 
 When the setting is off, submissions are accepted based on the client-side

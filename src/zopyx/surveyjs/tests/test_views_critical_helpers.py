@@ -66,6 +66,19 @@ class ViewsCoverageTests(unittest.TestCase):
             result = _run_external_validation({"pages": []}, {"a": 1}, "hash")
         self.assertEqual(result["reason"], "external_validator_error")
 
+    def test_external_validation_timeout_maps_to_distinct_reason(self):
+        from subprocess import TimeoutExpired
+
+        with patch.object(
+            views_module,
+            "run_data_validation",
+            side_effect=TimeoutExpired(cmd="validate-mac", timeout=1),
+        ):
+            result = _run_external_validation({"pages": []}, {"a": 1}, "hash")
+        self.assertEqual(result["reason"], "external_validator_timeout")
+        self.assertEqual(result["status"], 500)
+        self.assertFalse(result["ok"])
+
     def test_save_poll_rejects_missing_invalid_and_oversized_payloads(self):
         view = self.make_view()
         with patch.object(view, "_check_post_authenticator"), patch.object(
