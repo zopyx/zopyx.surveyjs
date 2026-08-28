@@ -114,6 +114,26 @@ function parseArgs(argv) {
   return options;
 }
 
+// survey-core error objects expose getErrorType() (e.g. "required",
+// "email", "numeric"); validator results expose a `name` instead.
+function errorTypeOf(error) {
+  if (typeof error.getErrorType === "function") {
+    return error.getErrorType();
+  }
+  return error.name || "unknown";
+}
+
+// survey-core reports some errors (notably "required") with an empty
+// message text; map those to a readable default so downstream consumers
+// never surface blank strings.
+function defaultErrorMessage(error) {
+  const type = errorTypeOf(error);
+  if (type === "required" || type === "requireoneanswer") {
+    return "This question is required.";
+  }
+  return "Invalid value.";
+}
+
 // Extract per-question error text after SurveyJS validation.
 function collectErrors(survey) {
   const errors = [];
@@ -123,7 +143,11 @@ function collectErrors(survey) {
       errors.push({
         name: question.name,
         title: question.title,
-        messages: question.errors.map((error) => error.text),
+        codes: question.errors.map(errorTypeOf),
+        messages: question.errors.map((error) => {
+          const text = (error.text || "").trim();
+          return text || defaultErrorMessage(error);
+        }),
       });
     }
   }
