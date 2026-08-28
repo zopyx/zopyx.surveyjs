@@ -3,6 +3,7 @@ import contextlib
 import fcntl
 import hashlib
 import hmac
+import json
 import multiprocessing
 import os
 import platform
@@ -17,7 +18,13 @@ import zipfile
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 JS_ENTRYPOINT = os.path.join(PROJECT_DIR, "validate.mjs")
-MAX_AGE_SECONDS = 5 * 24 * 60 * 60
+
+# The validator binary is rebuilt only when its inputs change (the
+# validate.mjs source or the pinned toolchain), never on a calendar
+# schedule: survey-core is exact-pinned, so an age-based rebuild would
+# reproduce a byte-identical binary while re-downloading Deno and burning
+# build time. A build manifest next to the binary records the inputs it
+# was produced from; a missing or mismatched manifest marks it stale.
 
 # Pinned Deno toolchain. The download URL targets an immutable release tag
 # and every artifact must match the SHA-256 recorded here before it is
@@ -40,6 +47,11 @@ DENO_SHA256 = {
     ),
 }
 DENO_DOWNLOAD_TIMEOUT_SECONDS = 120
+DENO_DOWNLOAD_ATTEMPTS = 3
+DENO_DOWNLOAD_RETRY_DELAY_SECONDS = 5
+# Upper bound for `deno compile` (downloads npm deps + bundles survey-core).
+# A hung compile must not stall site setup or the runtime build path forever.
+DENO_COMPILE_TIMEOUT_SECONDS = 15 * 60
 
 # The validator reads caller-supplied JSON inputs and writes one result file,
 # so read/write must stay broad; everything else is explicitly denied. These
@@ -121,12 +133,26 @@ def _compile_target(system: str, machine: str) -> str:
 
 
 def _is_stale(path: str) -> bool:
+    """True when the binary is missing or was built from different inputs.
+
+    Deterministic rebuild policy: rebuild only when validate.mjs or the
+    pinned toolchain changed since the binary was produced. The manifest
+    is written atomically after the binary+digest pair, so an interrupted
+    install leaves a missing manifest and fails closed (stale).
+    """
     if not os.path.exists(path):
         return True
-    if os.path.getmtime(JS_ENTRYPOINT) > os.path.getmtime(path):
+    try:
+        with open(_manifest_path(path), encoding="utf-8") as handle:
+            manifest = json.load(handle)
+    except (OSError, ValueError):
         return True
-    age_seconds = time.time() - os.path.getmtime(path)
-    return age_seconds > MAX_AGE_SECONDS
+    current_pins = {
+        "deno_version": DENO_VERSION,
+        "survey_core_pin": SURVEY_CORE_PIN,
+        "js_sha256": _sha256_file(JS_ENTRYPOINT),
+    }
+    return any(manifest.get(key) != value for key, value in current_pins.items())
 
 
 def _verify_deno_version(deno_path: str) -> None:
@@ -155,10 +181,28 @@ def _download_deno(dest_dir: str) -> str:
         url,
         headers={"User-Agent": f"zopyx.surveyjs-deno-build/{DENO_VERSION}"},
     )
-    with urllib.request.urlopen(
-        request, timeout=DENO_DOWNLOAD_TIMEOUT_SECONDS
-    ) as response, open(zip_path, "wb") as handle:
-        shutil.copyfileobj(response, handle)
+    # The 120 s timeout is per socket read, not total; slow links can take
+    # several minutes for the ~40 MB archive. Retry transient failures so a
+    # single stalled read does not abort an install-time build.
+    last_error: Exception | None = None
+    for attempt in range(1, DENO_DOWNLOAD_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(
+                request, timeout=DENO_DOWNLOAD_TIMEOUT_SECONDS
+            ) as response, open(zip_path, "wb") as handle:
+                shutil.copyfileobj(response, handle)
+            break
+        except OSError as exc:  # network errors, timeouts
+            last_error = exc
+            if os.path.exists(zip_path):
+                os.unlink(zip_path)
+            if attempt < DENO_DOWNLOAD_ATTEMPTS:
+                time.sleep(DENO_DOWNLOAD_RETRY_DELAY_SECONDS * attempt)
+    else:
+        raise RuntimeError(
+            f"Deno download failed after {DENO_DOWNLOAD_ATTEMPTS} attempts: "
+            f"{url} ({last_error})"
+        )
 
     expected = DENO_SHA256.get(_compile_target_key())
     if expected is None:
@@ -187,6 +231,29 @@ def _provenance_digest_path(target_path: str) -> str:
     return target_path + ".sha256"
 
 
+def _manifest_path(target_path: str) -> str:
+    return target_path + ".meta.json"
+
+
+def _write_manifest(target_path: str) -> None:
+    """Record the exact inputs the binary was built from.
+
+    Written last (binary -> digest -> manifest): an interrupted install
+    leaves the manifest missing, which _is_stale treats as stale, so the
+    next build repairs the install instead of trusting a partial one.
+    """
+    manifest = {
+        "deno_version": DENO_VERSION,
+        "survey_core_pin": SURVEY_CORE_PIN,
+        "js_sha256": _sha256_file(JS_ENTRYPOINT),
+        "built_at": int(time.time()),
+    }
+    staged = f"{_manifest_path(target_path)}.{os.getpid()}.staged"
+    with open(staged, "w", encoding="utf-8") as handle:
+        json.dump(manifest, handle, sort_keys=True, indent=2)
+    os.replace(staged, _manifest_path(target_path))
+
+
 def _atomic_install_binary(temp_output: str, target_path: str) -> None:
     staged_binary = f"{target_path}.{os.getpid()}.staged"
     shutil.copy2(temp_output, staged_binary)
@@ -199,6 +266,7 @@ def _atomic_install_binary(temp_output: str, target_path: str) -> None:
     # mismatch (fail-closed) instead of an untracked executable.
     os.replace(staged_binary, target_path)
     os.replace(staged_digest, _provenance_digest_path(target_path))
+    _write_manifest(target_path)
 
 
 def _build_target(args: tuple[str, str, bool]) -> str:
@@ -234,6 +302,7 @@ def _build_target(args: tuple[str, str, bool]) -> str:
             ],
             env=env,
             check=True,
+            timeout=DENO_COMPILE_TIMEOUT_SECONDS,
         )
         _atomic_install_binary(temp_output, target_path)
     return target_path
