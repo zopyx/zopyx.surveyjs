@@ -32,17 +32,44 @@ workers writing the same survey therefore increase conflicts and retries. For
 that reason, ZODB is suitable for polls and forms with **low utilization**, but
 is not the preferred backend for high-rate or heavily concurrent forms.
 
+This is not a theoretical concern: load testing observed the first ZODB
+conflicts at only five concurrent users, capping the single-instance write
+path well below 20 submissions/s (see :doc:`load-testing`).
+
 ZEO setup
 ~~~~~~~~~
 
 ZEO allows multiple Plone processes to share a ZODB, but it does not make the
 ZODB write path a good fit for heavily concurrent result storage. In a ZEO
-deployment, multiple workers may need to write submissions at the same time,
-and updates to shared survey or result objects can consequently cause
-conflicts and retries. For forms or pools with high submission volume, an
-RDBMS backend—preferably PostgreSQL or MySQL—is recommended instead. SQLite is
-also not recommended for high-volume writes because it has a single-writer
-constraint; use it only for local or low-volume deployments.
+deployment, multiple client processes may need to write submissions at the
+same time, and updates to shared survey or result objects can consequently
+cause conflicts and retries. For forms or polls with high submission volume,
+an RDBMS backend—preferably PostgreSQL or MySQL—is recommended instead.
+
+SQLite with concurrent ZEO processes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Combining the ``rdbms`` backend with SQLite and a multi-process ZEO
+deployment adds further constraints:
+
+* All client processes share a single database file. It must be reachable by
+  every process on a *local* filesystem: SQLite does not support reliable
+  concurrent access over network filesystems (NFS, SMB). Never place the
+  SQLite database on an NFS share.
+* SQLite allows only one writer at a time. WAL mode (enabled by this package,
+  together with a five-second busy timeout) lets reads proceed while a write
+  is in progress, but concurrent writes from several client processes still
+  serialize on the write lock. Under sustained contention, once the busy
+  timeout expires, submissions fail with ``database is locked`` errors.
+* Each Zope client process keeps its own connection pool. Write bursts from
+  one process directly extend the lock wait time of all others; failures
+  appear abruptly once the timeout is exhausted rather than degrading
+  smoothly.
+
+SQLite in a ZEO deployment is therefore acceptable only for low-volume forms
+and polls. Large-scale deployments, high-rate forms and polls, several
+concurrent workers, or multiple application hosts should use PostgreSQL or
+MySQL instead.
 
 RDBMS via SQLAlchemy/SQLModel
 -----------------------------
@@ -62,8 +89,9 @@ Supported database families are:
 SQLite is an RDBMS and is generally a better choice than ZODB for a local,
 moderately busy form. The backend enables WAL mode and a busy timeout for
 SQLite. SQLite still has a single-writer constraint, however; for sustained
-high submission rates, many workers, or multiple application hosts, use
-PostgreSQL or MySQL instead.
+high submission rates, many workers, multiple application hosts, or SQLite
+combined with concurrent ZEO client processes (see `SQLite with concurrent
+ZEO processes`_ above), use PostgreSQL or MySQL instead.
 
 Configuration
 =============
@@ -93,6 +121,8 @@ Workload              Recommended configuration
 Development           ``zodb`` or local ``rdbms`` with SQLite
 Low-rate production   ``zodb`` or SQLite, depending on concurrency needs
 Moderate local rate   ``rdbms`` with SQLite and WAL enabled
+ZEO multi-process     ``rdbms`` with PostgreSQL or MySQL; SQLite only
+                      for low-volume forms and polls
 High-rate production  ``rdbms`` with PostgreSQL or MySQL
 Multiple app hosts    ``rdbms`` with PostgreSQL or MySQL
 ====================  ================================================
