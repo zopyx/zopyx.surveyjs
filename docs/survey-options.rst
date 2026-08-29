@@ -189,23 +189,168 @@ Form Settings
    * - Access mode
      - Choice
      - ``public``
-     - Controls who may submit this form:
-
-       * ``public`` — anyone with the URL can view and submit the form.
-       * ``trusted`` — a trusted access token must be present in the URL.
-         Tokens are generated in the token management view (``@@token-store``)
-         and are valid for the configured TTL.
-       * ``trusted-tokens`` — like ``trusted``, but each token is
-         **single-use**: it is invalidated after the first successful
-         submission. Use this for one-time invitation links.
+     - Controls who may view and submit this form. Three modes:
+       ``public`` (open to anyone with the URL), ``trusted`` (one shared
+       access token) and ``trusted-tokens`` (single-use tokens). See
+       `Access modes`_ below for an in-depth comparison, including token
+       handling and error codes.
    * - Trusted access token TTL (hours)
      - Int
      - ``168``
-     - Lifetime of trusted access tokens in hours (default 168 = 7 days,
-       minimum 1). After expiry a token no longer grants access and a new
-       token must be generated. Shorter values reduce the window in which a
-       leaked token can be abused; longer values reduce the operational
-       overhead of regenerating tokens.
+     - Lifetime of **cached** trusted access tokens (``trusted`` mode) in
+       hours (default 168 = 7 days, minimum 1). After expiry a token no
+       longer grants access and a new token must be generated. Shorter
+       values reduce the window in which a leaked token can be abused;
+       longer values reduce the operational overhead of regenerating
+       tokens. Not used in ``trusted-tokens`` mode, where tokens have no
+       TTL and stay valid until consumed or revoked.
+
+Access modes
+~~~~~~~~~~~~
+
+The ``Access mode`` field decides who may view and submit this survey. It
+is enforced at two points: when the survey form is loaded
+(``get-form-json``) and when a submission is saved (``save-poll``). When
+the mode requires a token, requests without a valid one are rejected with
+a JSON error before any validation or storage happens.
+
+The access mode is *not* the only gate: in restricted modes a submission
+must additionally pass the authenticity-token check (anti-CSRF / replay
+protection, see :doc:`security`). Editors and Managers bypass the access
+mode checks entirely so they can preview and test surveys. Direct DOM
+embed submissions are governed by the embedding token stack instead of
+the access mode (see `Embedding`_ above).
+
+``public``
+~~~~~~~~~~
+
+Anyone who has the URL can view and submit the form. No token is
+required, nothing is tracked or consumed. Use this for open surveys,
+feedback forms and event registration.
+
+``trusted`` — Trusted access token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A single reusable access token gates the survey for a known group of
+people, without creating accounts for them.
+
+**Token generation.** Tokens are minted in the viewer's "Trusted access
+link" panel (``@@trusted-access-token`` view, Editor permission). Every
+call generates a fresh random token (``secrets.token_urlsafe(16)``).
+
+**Token storage.** Tokens live in the same diskcache that backs
+authenticity-token replay tracking, under a ``trusted:<token>`` key,
+together with metadata: form id, form version, issue time, expiry time
+and state (``ISSUED`` / ``REVOKED``). The cache entry expires when the
+token does.
+
+**Lifetime.** ``trusted_access_ttl_hours`` (default 168 = 7 days,
+minimum 1). The token is valid until the TTL expires; afterwards a new
+token must be generated. Short TTLs shrink the abuse window of a leaked
+link, long TTLs reduce the operational overhead of handing out new
+links.
+
+**Transport.** The token travels as a URL parameter, ``tt`` or
+``access_token``; the viewer accepts both and prefers ``tt``.
+
+**Validation.** Every request checks that the cache is reachable, that
+the token exists, has not been revoked and belongs to this survey.
+Failures:
+
+* ``503 trusted_access_cache_unavailable`` — the token cache is down;
+  the check is fail-closed for the cache itself.
+* ``403 trusted_access_token_invalid`` — unknown or expired token.
+* ``403 trusted_access_token_revoked`` — token was revoked by an editor.
+* ``403 trusted_access_form_mismatch`` — token was issued for a
+  different survey.
+
+**Consumption.** The token is **not** consumed on submission: it stays
+valid until the TTL expires or an editor revokes it. One link can be
+shared by the whole group.
+
+**Version binding.** The metadata records the form version, but
+validation only checks the form id; binding submissions to a specific
+form version is the job of the authenticity token, not of the trusted
+access token.
+
+``trusted-tokens`` — Single-use tokens
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each token grants exactly **one** successful submission. Use this for
+one-time invitations, vouchers and "vote exactly once" flows.
+
+**Token generation.** Tokens are managed in the ``@@token-store`` view
+(Manager permission): batch generation, CSV import/export and usage
+statistics. Tokens are 32-character URL-safe values
+(``secrets.token_urlsafe(24)``).
+
+**Token storage.** Per survey, via the ITokenStore adapter. Two backends
+exist:
+
+* ZODB — per-survey annotations (an OOBTree of token records), stored
+  transactionally with the survey.
+* SQL — the same interface against the SQL database, with extended audit
+  logging (user, IP, reason).
+
+Both backends keep tokens strictly per survey: a token generated for one
+survey cannot be used on another.
+
+**Lifetime.** No TTL. A token stays valid until it is consumed by a
+successful submission or invalidated manually.
+
+**Validation.** ``has_token`` — the token must exist and be unused.
+Failures:
+
+* ``503 trusted_tokens_store_unavailable`` — token store adapter
+  unavailable.
+* ``403 trusted_tokens_token_invalid`` — unknown or already used token.
+
+**Consumption.** A token is **not** consumed by validation. It is
+consumed only after the entire submission pipeline (validation, storage)
+has succeeded, with reason ``user_submission``. Consequences:
+
+* A failed submission (client-side or server-side validation error) does
+  **not** burn the token — the recipient can retry.
+* After a successful submission the token is spent; reusing it yields
+  ``403 trusted_tokens_token_invalid`` (replay protection).
+
+Choosing a mode
+~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Mode
+     - Access
+     - Token source
+     - Reusable?
+     - TTL
+     - Typical use
+   * - ``public``
+     - anyone with the URL
+     - —
+     - —
+     - —
+     - open surveys
+   * - ``trusted``
+     - one shared token
+     - viewer "Trusted access link" panel
+     - yes, until expiry or revocation
+     - 168 h default
+     - closed groups, shared links
+   * - ``trusted-tokens``
+     - one token per recipient
+     - ``@@token-store``
+     - no, single use
+     - none (until used or revoked)
+     - invitations, exactly-once flows
+
+For restricted surveys, combine the access mode with
+``force_server_side_validation`` (on by default) so a token holder cannot
+submit tampered payloads, and keep ``max_payload_size_mb`` low to bound
+resource usage. See :doc:`security` for the threat model behind these
+mechanisms.
+
 
 Survey languages
 ----------------
