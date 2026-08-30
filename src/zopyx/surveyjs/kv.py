@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 """Key-value store facade mirroring the diskcache API used by zopyx.surveyjs.
 
-Two interchangeable implementations of the six-method :class:`KVStore`
-interface:
+Two families of interchangeable implementations of the six-method
+:class:`KVStore` interface:
 
 * :class:`DiskCacheStore` — a thin pass-through wrapper over
   ``diskcache.Cache`` preserving its behavior (including an explicit zero
   lock timeout).
-* :class:`SQLKVStore` — a SQLite-only backend backed by a single
-  ``survey_kv_store`` table, using SQLite dialect upsert statements with
-  atomic ``add()`` semantics and epoch-based expiry.
+* :class:`SQLKVStore` — an SQLAlchemy-backed store on a single
+  ``survey_kv_store`` table, supporting the SQLite, DuckDB, PostgreSQL and
+  MySQL dialects. Expiry is stored as a UTC epoch float (no
+  timezone-aware/naive datetime comparisons) and writes use atomic
+  single-statement DML (see "Write semantics" below).
 
 The production call sites (``browser/services/auth.py``,
 ``browser/embed_security.py``, ``monitoring.py``) are unchanged in this
@@ -18,6 +20,19 @@ phase; this module only provides the facade they will later be wired to.
 Supported API methods: ``set``, ``add``, ``get``, ``iterkeys``, ``delete``,
 ``close`` — with TTL via the ``expire`` parameter (seconds; ``None`` means
 no expiry).
+
+Write semantics
+---------------
+``set()`` is INSERT with a fallback UPDATE on the unique-key conflict —
+never a read-then-write sequence, so concurrent writers cannot lose the
+value. ``add()`` is the security-sensitive primitive: it returns ``True``
+exactly once for concurrent attempts on an absent or expired key. It runs
+the INSERT first; on the unique-key conflict it performs a conditional
+UPDATE that only matches an expired row (``expires_at IS NOT NULL AND
+expires_at <= now``). The success signal is dialect-appropriate: the
+UPDATE...RETURNING row presence for SQLite/DuckDB/PostgreSQL (MySQL has no
+RETURNING; rowcount is used there). A live existing row fails the WHERE
+clause, so ``add()`` returns False for it.
 
 Deliberate deviations from raw diskcache (pinned by tests):
 
@@ -42,15 +57,18 @@ from typing import Any, Iterator, Optional
 
 import diskcache
 import orjson
-from sqlalchemy import Column, Float, String, Text, and_, delete, or_, select
-from sqlalchemy.dialects.sqlite import insert as sqlite_insert
+from sqlalchemy import Column, Double, String, Text, and_, delete, insert, or_, select, update
+from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.engine import make_url
-from sqlalchemy.exc import OperationalError
+from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlmodel import Field, SQLModel
 
 from .storage import _get_engine
 
 MAX_KEY_LENGTH = 255
+
+#: SQL dialects SQLKVStore is implemented and tested against.
+SUPPORTED_BACKENDS = frozenset({"sqlite", "duckdb", "postgresql", "mysql"})
 
 _LOCKED_ERROR_FRAGMENTS = ("database is locked", "database is busy")
 
@@ -126,10 +144,14 @@ class KVEntry(SQLModel, table=True):
     key: str = Field(
         sa_column=Column(String(MAX_KEY_LENGTH), primary_key=True, nullable=False)
     )
-    value: str = Field(sa_column=Column(Text, nullable=False))
-    # UTC epoch seconds; NULL means "no expiry".
+    value: str = Field(
+        sa_column=Column(Text().with_variant(LONGTEXT(), "mysql"), nullable=False)
+    )
+    # UTC epoch seconds; NULL means "no expiry". Double (64-bit) on every
+    # dialect: Float would compile to 32-bit FLOAT on DuckDB/MySQL and lose
+    # epoch precision.
     expires_at: Optional[float] = Field(
-        default=None, sa_column=Column(Float, nullable=True)
+        default=None, sa_column=Column(Double, nullable=True)
     )
 
 
@@ -189,21 +211,26 @@ def _retry_locked(operation, attempts: int = 5, base_delay: float = 0.02):
 
 
 class SQLKVStore(KVStore):
-    """SQLite-backed KV store with atomic write semantics.
+    """SQLAlchemy-backed KV store with atomic write semantics.
 
-    Supported URI scheme: ``sqlite`` only. Expiry is stored as a UTC epoch
+    Supported URI schemes: ``sqlite``, ``duckdb``, ``postgresql``, ``mysql``
+    (anything else raises ``ValueError``). Expiry is stored as a UTC epoch
     float, avoiding timezone-aware/naive datetime differences between
-    SQLite and SQLAlchemy.
+    dialects.
     """
 
     def __init__(self, database_uri: str):
         url = make_url(database_uri)
-        if url.get_backend_name() != "sqlite":
+        backend = url.get_backend_name()
+        if backend not in SUPPORTED_BACKENDS:
             raise ValueError(
-                "SQLKVStore supports SQLite URIs only, got backend "
-                f"{url.get_backend_name()!r}"
+                f"SQLKVStore supports {sorted(SUPPORTED_BACKENDS)} URIs, "
+                f"got backend {backend!r}"
             )
         self._uri = database_uri
+        self._backend = backend
+        # MySQL has no UPDATE ... RETURNING; rowcount is the success signal.
+        self._uses_rowcount = backend == "mysql"
         self._engine = _get_engine(database_uri)
         # Explicit create_all: the engine may already be cached from an
         # earlier construction (e.g. by SQLResultStorage) before this table
@@ -222,27 +249,35 @@ class SQLKVStore(KVStore):
         deadline = _deadline(expire)
 
         def _op():
-            stmt = sqlite_insert(KVEntry).values(
-                key=key, value=encoded, expires_at=deadline
-            )
-            stmt = stmt.on_conflict_do_update(
-                index_elements=[KVEntry.key],
-                set_={"value": encoded, "expires_at": deadline},
-            )
             with self._session() as session:
-                session.execute(stmt)
-                session.commit()
+                try:
+                    session.execute(
+                        insert(KVEntry).values(
+                            key=key, value=encoded, expires_at=deadline
+                        )
+                    )
+                    session.commit()
+                except IntegrityError:
+                    # Key exists (possibly with a value refreshed by a
+                    # concurrent writer): overwrite unconditionally.
+                    session.rollback()
+                    session.execute(
+                        update(KVEntry)
+                        .where(KVEntry.key == key)
+                        .values(value=encoded, expires_at=deadline)
+                    )
+                    session.commit()
             return True
 
         return _retry_locked(_op)
 
     def add(self, key: str, value: Any, expire: Optional[float] = None) -> bool:
-        """Insert only if absent or expired; atomic via a single statement.
+        """Insert only if absent or expired; atomic test-and-set.
 
-        ``INSERT ... ON CONFLICT(key) DO UPDATE ... WHERE expires_at <= now``
-        returns a row only when the insert succeeded or an expired row was
-        replaced. A live existing row fails the WHERE clause, so no row is
-        returned and the caller sees False.
+        The INSERT succeeds exactly once for concurrent callers. A unique
+        conflict is resolved by a conditional UPDATE that only matches an
+        expired row (``expires_at <= now``); a live row leaves the value
+        untouched and reports False.
         """
         key = _validate_key(key)
         encoded = _encode(value)
@@ -250,20 +285,36 @@ class SQLKVStore(KVStore):
         now = time.time()
 
         def _op():
-            stmt = sqlite_insert(KVEntry).values(
-                key=key, value=encoded, expires_at=deadline
-            )
-            stmt = stmt.on_conflict_do_update(
-                index_elements=[KVEntry.key],
-                set_={"value": encoded, "expires_at": deadline},
-                where=and_(
-                    KVEntry.expires_at.isnot(None), KVEntry.expires_at <= now
-                ),
-            ).returning(KVEntry.key)
             with self._session() as session:
-                row = session.execute(stmt).first()
-                session.commit()
-            return row is not None
+                try:
+                    session.execute(
+                        insert(KVEntry).values(
+                            key=key, value=encoded, expires_at=deadline
+                        )
+                    )
+                    session.commit()
+                    return True
+                except IntegrityError:
+                    session.rollback()
+                    conflict_stmt = (
+                        update(KVEntry)
+                        .where(
+                            KVEntry.key == key,
+                            KVEntry.expires_at.isnot(None),
+                            KVEntry.expires_at <= now,
+                        )
+                        .values(value=encoded, expires_at=deadline)
+                    )
+                    if self._uses_rowcount:
+                        result = session.execute(conflict_stmt)
+                        replaced = result.rowcount == 1
+                    else:
+                        result = session.execute(
+                            conflict_stmt.returning(KVEntry.key)
+                        )
+                        replaced = result.first() is not None
+                    session.commit()
+                    return replaced
 
         return _retry_locked(_op)
 
@@ -307,7 +358,8 @@ class SQLKVStore(KVStore):
             with self._session() as session:
                 result = session.execute(delete(KVEntry).where(KVEntry.key == key))
                 session.commit()
-                return result.rowcount > 0
+                # DuckDB reports -1; the return value is informational.
+                return result.rowcount > 0 if result.rowcount is not None else False
 
         return _retry_locked(_op)
 
@@ -320,8 +372,9 @@ def get_kv_store(
 ) -> KVStore:
     """Construct a KV store implementation.
 
-    :param backend: exactly ``diskcache`` or ``sqlite``.
-    :param path_or_uri: filesystem path (diskcache) or SQLAlchemy SQLite URI.
+    :param backend: one of ``diskcache``, ``sqlite``, ``duckdb``,
+        ``postgresql``, ``mysql``.
+    :param path_or_uri: filesystem path (diskcache) or SQLAlchemy URI.
         Required — there is no implicit cwd-relative default.
     :param timeout: diskcache lock timeout (diskcache backend only).
     """
@@ -330,8 +383,9 @@ def get_kv_store(
     backend_name = (backend or "").strip().lower()
     if backend_name == "diskcache":
         return DiskCacheStore(path_or_uri, timeout=timeout)
-    if backend_name == "sqlite":
+    if backend_name in SUPPORTED_BACKENDS:
         return SQLKVStore(path_or_uri)
     raise ValueError(
-        f"unknown backend {backend_name!r}; expected 'diskcache' or 'sqlite'"
+        f"unknown backend {backend_name!r}; expected one of "
+        f"'diskcache', {sorted(SUPPORTED_BACKENDS)}"
     )

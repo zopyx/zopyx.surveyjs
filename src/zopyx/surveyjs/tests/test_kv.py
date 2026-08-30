@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """Contract and deviation tests for the KV store facade.
 
-Runs the same behavioral contract against the diskcache wrapper and the
-SQLite-backed implementation, plus backend-specific deviation tests
-(JSON-only values, key-length limit, expired-key iteration/purge) and
-bounded thread-race coverage.
+Runs the same behavioral contract against the diskcache wrapper and every
+SQL backend (SQLite, DuckDB; PostgreSQL/MySQL live in
+``test_kv_db_containers.py`` and reuse the same mixins), plus
+backend-specific deviation tests (JSON-only values, key-length limit,
+expired-key iteration/purge) and bounded thread-race coverage.
 """
 
 from __future__ import annotations
@@ -16,21 +17,34 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from zopyx.surveyjs.kv import DiskCacheStore, SQLKVStore, get_kv_store
+from sqlalchemy import delete
+
+from zopyx.surveyjs.kv import (
+    DiskCacheStore,
+    KVEntry,
+    SQLKVStore,
+    get_kv_store,
+)
 from zopyx.surveyjs.storage import SQLResultStorage
 
 
 class KVStoreContractBase:
-    """Common behavioral contract; concrete backend classes combine this
-    mixin with ``unittest.TestCase`` so the base itself is never collected
-    by the test runner."""
+    """Common behavioral contract shared by every backend.
+
+    Mixin only: concrete backend classes combine it with
+    ``unittest.TestCase`` so the base is never collected by the runner.
+    """
 
     def make_store(self):
         raise NotImplementedError
 
+    def _purge(self):
+        """Reset the store so each test starts from an empty state."""
+
     def setUp(self):
         self.tmpdir = TemporaryDirectory()
         self.store = self.make_store()
+        self._purge()
         self.addCleanup(self._close_store)
 
     def _close_store(self):
@@ -39,7 +53,7 @@ class KVStoreContractBase:
         except Exception:
             pass
         # Dispose the (per-test, cached) engine so the SQLAlchemy pool
-        # releases its sqlite3 handles (no ResourceWarning noise).
+        # releases its handles (no ResourceWarning noise).
         engine = getattr(self.store, "_engine", None)
         if engine is not None:
             try:
@@ -181,20 +195,17 @@ class KVStoreContractBase:
         self.assertEqual(self.store.get("big"), payload)
 
 
-class DiskCacheStoreTests(KVStoreContractBase, unittest.TestCase):
-    """The diskcache wrapper must preserve diskcache behavior."""
+class SQLBackendPurgeMixin:
+    """Reset the SQL table before each test (shared-DB isolation)."""
 
-    def make_store(self):
-        return DiskCacheStore(f"{self.tmpdir.name}/cache.db")
+    def _purge(self):
+        with self.store._session() as session:
+            session.execute(delete(KVEntry))
+            session.commit()
 
 
-class SQLKVStoreTests(KVStoreContractBase, unittest.TestCase):
-    """SQLite-backed store: common contract plus SQL deviations."""
-
-    def make_store(self):
-        return SQLKVStore(f"sqlite:///{self.tmpdir.name}/kv.db")
-
-    # -- SQL-specific edge cases ---------------------------------------
+class SQLContractMixin:
+    """SQL-backend edge cases shared by every SQL dialect."""
 
     def test_key_exactly_255_chars(self):
         key = "k" * 255
@@ -216,9 +227,31 @@ class SQLKVStoreTests(KVStoreContractBase, unittest.TestCase):
         with self.assertRaises(TypeError):
             self.store.set("k1", object())
 
-    def test_rejects_non_sqlite_uri(self):
+    def test_unsupported_uri_backend_rejected(self):
         with self.assertRaises(ValueError):
-            SQLKVStore("postgresql://user:pass@localhost:5432/db")
+            SQLKVStore("mssql://user:pass@localhost/db")
+
+    def test_iterkeys_excludes_expired_rows(self):
+        self.store.set("old", "v", expire=-1)
+        self.store.set("new", "v", expire=60)
+        self.assertEqual(sorted(self.store.iterkeys()), ["new"])
+
+
+class DiskCacheStoreTests(KVStoreContractBase, unittest.TestCase):
+    """The diskcache wrapper must preserve diskcache behavior."""
+
+    def make_store(self):
+        return DiskCacheStore(f"{self.tmpdir.name}/cache.db")
+
+    def _purge(self):
+        self.store._cache.clear()
+
+
+class SQLiteKVStoreTests(
+    SQLBackendPurgeMixin, SQLContractMixin, KVStoreContractBase, unittest.TestCase
+):
+    def make_store(self):
+        return SQLKVStore(f"sqlite:///{self.tmpdir.name}/kv.db")
 
     def test_engine_cached_by_result_storage_is_reused(self):
         """Regression: an engine cached before the KV table existed must
@@ -228,11 +261,17 @@ class SQLKVStoreTests(KVStoreContractBase, unittest.TestCase):
         kv = SQLKVStore(uri)
         kv.set("k1", {"ok": True})
         self.assertEqual(kv.get("k1"), {"ok": True})
+        kv.close()
+        engine = getattr(kv, "_engine", None)
+        if engine is not None:
+            engine.dispose()
 
-    def test_iterkeys_excludes_expired_rows(self):
-        self.store.set("old", "v", expire=-1)
-        self.store.set("new", "v", expire=60)
-        self.assertEqual(sorted(self.store.iterkeys()), ["new"])
+
+class DuckDBKVStoreTests(
+    SQLBackendPurgeMixin, SQLContractMixin, KVStoreContractBase, unittest.TestCase
+):
+    def make_store(self):
+        return SQLKVStore(f"duckdb:///{self.tmpdir.name}/kv.duckdb")
 
 
 class KVStoreConcurrencyBase:
@@ -255,8 +294,6 @@ class KVStoreConcurrencyBase:
             self.store.close()
         except Exception:
             pass
-        # Dispose the (per-test, cached) engine so the SQLAlchemy pool
-        # releases its sqlite3 handles (no ResourceWarning noise).
         engine = getattr(self.store, "_engine", None)
         if engine is not None:
             try:
@@ -338,9 +375,14 @@ class DiskCacheStoreConcurrencyTests(KVStoreConcurrencyBase, unittest.TestCase):
         return DiskCacheStore(f"{self.tmpdir.name}/cache.db")
 
 
-class SQLKVStoreConcurrencyTests(KVStoreConcurrencyBase, unittest.TestCase):
+class SQLiteKVStoreConcurrencyTests(KVStoreConcurrencyBase, unittest.TestCase):
     def make_store(self):
         return SQLKVStore(f"sqlite:///{self.tmpdir.name}/kv.db")
+
+
+class DuckDBKVStoreConcurrencyTests(KVStoreConcurrencyBase, unittest.TestCase):
+    def make_store(self):
+        return SQLKVStore(f"duckdb:///{self.tmpdir.name}/kv.duckdb")
 
 
 class FactoryTests(unittest.TestCase):
@@ -362,6 +404,36 @@ class FactoryTests(unittest.TestCase):
             engine = getattr(store, "_engine", None)
             if engine is not None:
                 engine.dispose()
+
+    def test_duckdb_factory(self):
+        with TemporaryDirectory() as td:
+            store = get_kv_store("duckdb", f"duckdb:///{td}/kv.duckdb")
+            self.assertIsInstance(store, SQLKVStore)
+            store.set("k1", "v1")
+            self.assertEqual(store.get("k1"), "v1")
+            store.close()
+            engine = getattr(store, "_engine", None)
+            if engine is not None:
+                engine.dispose()
+
+    def test_postgresql_factory(self):
+        # Construction must not require a live server.
+        with patch("zopyx.surveyjs.kv._get_engine") as mock_engine, patch(
+            "zopyx.surveyjs.kv.SQLModel.metadata.create_all"
+        ):
+            mock_engine.return_value = object()
+            store = get_kv_store(
+                "postgresql", "postgresql://user:pass@localhost:5432/db"
+            )
+            self.assertIsInstance(store, SQLKVStore)
+
+    def test_mysql_factory(self):
+        with patch("zopyx.surveyjs.kv._get_engine") as mock_engine, patch(
+            "zopyx.surveyjs.kv.SQLModel.metadata.create_all"
+        ):
+            mock_engine.return_value = object()
+            store = get_kv_store("mysql", "mysql+pymysql://user:pass@localhost/db")
+            self.assertIsInstance(store, SQLKVStore)
 
     def test_unknown_backend_raises(self):
         with self.assertRaises(ValueError):
