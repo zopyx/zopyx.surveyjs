@@ -78,6 +78,10 @@ class PostgresKVStoreTests(
             type(self)._shared = SQLKVStore(_get_postgres_uri())
         return type(self)._shared
 
+    def make_second_store(self):
+        # Same URI -> same cached engine; "reopen" is a new store instance.
+        return SQLKVStore(_get_postgres_uri())
+
 
 @unittest.skipUnless(RUN_CONTAINER_TESTS, "RUN_DB_CONTAINER_TESTS=1 required")
 class MySqlKVStoreTests(
@@ -89,6 +93,9 @@ class MySqlKVStoreTests(
         if type(self)._shared is None:
             type(self)._shared = SQLKVStore(_get_mysql_uri())
         return type(self)._shared
+
+    def make_second_store(self):
+        return SQLKVStore(_get_mysql_uri())
 
 
 @unittest.skipUnless(RUN_CONTAINER_TESTS, "RUN_DB_CONTAINER_TESTS=1 required")

@@ -10,6 +10,8 @@ expired-key iteration/purge) and bounded thread-race coverage.
 
 from __future__ import annotations
 
+import os
+import subprocess
 import threading
 import time
 import unittest
@@ -194,6 +196,56 @@ class KVStoreContractBase:
         self.store.set("big", payload)
         self.assertEqual(self.store.get("big"), payload)
 
+    # -- edge keys / values --------------------------------------------
+
+    def test_empty_string_key(self):
+        self.store.set("", "v")
+        self.assertEqual(self.store.get(""), "v")
+        self.store.delete("")
+        self.assertIsNone(self.store.get(""))
+
+    def test_float_precision_fidelity(self):
+        value = 0.1 + 0.2
+        self.store.set("f", value)
+        self.assertEqual(self.store.get("f"), value)
+
+    # -- lifecycle ------------------------------------------------------
+
+    def make_second_store(self):
+        """Return a NEW store on the same location as the current one."""
+        raise NotImplementedError
+
+    def test_persistence_across_reopen(self):
+        self.store.set("k1", "v1")
+        self.store.set("k2", {"nested": [1, True, None]})
+        self.store.set("ttl", "soon", expire=60)
+        self.store.close()
+        store2 = self.make_second_store()
+        self.store = store2
+        self.assertEqual(store2.get("k1"), "v1")
+        self.assertEqual(store2.get("k2"), {"nested": [1, True, None]})
+        self.assertEqual(store2.get("ttl"), "soon")
+
+    def test_expired_value_gone_after_reopen(self):
+        self.store.set("gone", "x", expire=-1)
+        self.store.set("live", "y", expire=60)
+        self.store.close()
+        store2 = self.make_second_store()
+        self.store = store2
+        self.assertIsNone(store2.get("gone"))
+        self.assertEqual(store2.get("live"), "y")
+
+    def test_ops_after_close_still_work(self):
+        # Verified diskcache 5.6.3 behavior: close() lazily reopens, ops
+        # keep working; SQLKVStore.close() is a documented no-op.
+        self.store.close()
+        self.store.set("k1", "v1")
+        self.assertEqual(self.store.get("k1"), "v1")
+
+    def test_double_close(self):
+        self.store.close()
+        self.store.close()  # must not raise on either backend
+
 
 class SQLBackendPurgeMixin:
     """Reset the SQL table before each test (shared-DB isolation)."""
@@ -243,6 +295,9 @@ class DiskCacheStoreTests(KVStoreContractBase, unittest.TestCase):
     def make_store(self):
         return DiskCacheStore(f"{self.tmpdir.name}/cache.db")
 
+    def make_second_store(self):
+        return DiskCacheStore(f"{self.tmpdir.name}/cache.db")
+
     def _purge(self):
         self.store._cache.clear()
 
@@ -251,6 +306,9 @@ class SQLiteKVStoreTests(
     SQLBackendPurgeMixin, SQLContractMixin, KVStoreContractBase, unittest.TestCase
 ):
     def make_store(self):
+        return SQLKVStore(f"sqlite:///{self.tmpdir.name}/kv.db")
+
+    def make_second_store(self):
         return SQLKVStore(f"sqlite:///{self.tmpdir.name}/kv.db")
 
     def test_engine_cached_by_result_storage_is_reused(self):
@@ -271,6 +329,9 @@ class DuckDBKVStoreTests(
     SQLBackendPurgeMixin, SQLContractMixin, KVStoreContractBase, unittest.TestCase
 ):
     def make_store(self):
+        return SQLKVStore(f"duckdb:///{self.tmpdir.name}/kv.duckdb")
+
+    def make_second_store(self):
         return SQLKVStore(f"duckdb:///{self.tmpdir.name}/kv.duckdb")
 
 
@@ -383,6 +444,77 @@ class SQLiteKVStoreConcurrencyTests(KVStoreConcurrencyBase, unittest.TestCase):
 class DuckDBKVStoreConcurrencyTests(KVStoreConcurrencyBase, unittest.TestCase):
     def make_store(self):
         return SQLKVStore(f"duckdb:///{self.tmpdir.name}/kv.duckdb")
+
+
+class SubprocessAddRaceTests(unittest.TestCase):
+    """Same-file multi-process add() race (the ZEO shape).
+
+    Three interpreter processes race on one SQLite file / diskcache
+    directory; add() must return True for exactly one of them. Gated on
+    ``RUN_PROCESS_TESTS=1`` — subprocess tests inside zope.testrunner are
+    deliberately not part of the default run.
+    """
+
+    _SCRIPT = (
+        "from zopyx.surveyjs.kv import DiskCacheStore, SQLKVStore\n"
+        "store = SQLKVStore({location!r}) if {backend!r} == 'sqlite' "
+        "else DiskCacheStore({location!r})\n"
+        "ok = store.add('race', 1)\n"
+        "store.close()\n"
+        "import sys\n"
+        "sys.stdout.write('1' if ok else '0')\n"
+    )
+
+    def _run_workers(self, backend, location, count=3):
+        # Use the buildout console script as interpreter: a bare python
+        # lacks the egg paths bin/test injects at startup, so zope imports
+        # would fail. bin/zopepy injects the full buildout egg path.
+        repo_root = Path(__file__).resolve().parents[4]
+        interpreter = str(repo_root / "bin" / "zopepy")
+        src_dir = str(Path(__file__).resolve().parents[3])
+        env = dict(os.environ)
+        env["PYTHONPATH"] = src_dir + os.pathsep + env.get("PYTHONPATH", "")
+        procs = [
+            subprocess.Popen(
+                [interpreter, "-c", self._SCRIPT.format(backend=backend, location=location)],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                env=env,
+            )
+            for _ in range(count)
+        ]
+        results = []
+        for proc in procs:
+            out, err = proc.communicate(timeout=60)
+            self.assertEqual(proc.returncode, 0, err.decode())
+            results.append(out.decode().strip())
+            if proc.stdout:
+                proc.stdout.close()
+            if proc.stderr:
+                proc.stderr.close()
+        return results
+
+    @unittest.skipUnless(
+        os.environ.get("RUN_PROCESS_TESTS") == "1", "RUN_PROCESS_TESTS=1 required"
+    )
+    def test_sqlite_subprocess_add_race(self):
+        with TemporaryDirectory() as td:
+            uri = f"sqlite:///{td}/race.db"
+            # Prime the table in-process so the subprocesses' create_all
+            # finds it and cannot race CREATE TABLE.
+            SQLKVStore(uri).close()
+            results = self._run_workers("sqlite", uri)
+            self.assertEqual(results.count("1"), 1, results)
+
+    @unittest.skipUnless(
+        os.environ.get("RUN_PROCESS_TESTS") == "1", "RUN_PROCESS_TESTS=1 required"
+    )
+    def test_diskcache_subprocess_add_race(self):
+        with TemporaryDirectory() as td:
+            path = f"{td}/cache.db"
+            DiskCacheStore(path).close()
+            results = self._run_workers("diskcache", path)
+            self.assertEqual(results.count("1"), 1, results)
 
 
 class FactoryTests(unittest.TestCase):
