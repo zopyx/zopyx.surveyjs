@@ -1160,11 +1160,11 @@
       ]
     },
     {
-      "name": "page_storage",
+      "name": "page_results_storage",
       "title": {
-        "default": "Result Storage",
+        "default": "Results storage",
         "de": "Ergebnisspeicherung",
-        "en": "Result Storage",
+        "en": "Results storage",
         "es": "Almacenamiento de resultados",
         "fr": "Stockage des résultats",
         "it": "Archiviazione risultati",
@@ -1175,9 +1175,9 @@
         "ja": "結果ストレージ"
       },
       "navigationTitle": {
-        "default": "Storage",
+        "default": "Results storage",
         "de": "Speicherung",
-        "en": "Storage",
+        "en": "Results storage",
         "es": "Almacenamiento",
         "fr": "Stockage",
         "it": "Archiviazione",
@@ -1298,55 +1298,79 @@
           "placeholder": "sqlite:///var/surveyjs-results.db",
           "visibleIf": "{result_storage_backend} = 'rdbms'",
           "minWidth": "100%"
+        }
+      ]
+    },
+    {
+      "name": "page_caching_storage",
+      "title": {
+        "default": "Caching storage",
+        "de": "Cache-Speicherung",
+        "en": "Caching storage",
+        "es": "Almacenamiento de caché",
+        "fr": "Stockage du cache",
+        "it": "Archiviazione della cache",
+        "pt": "Armazenamento de cache",
+        "fi": "Välimuistin tallennus",
+        "hi": "कैश संग्रहण",
+        "ar": "تخزين ذاكرة التخزين المؤقت",
+        "ja": "キャッシュストレージ"
+      },
+      "navigationTitle": {
+        "default": "Caching storage",
+        "de": "Cache-Speicherung",
+        "en": "Caching storage",
+        "es": "Almacenamiento de caché",
+        "fr": "Stockage du cache",
+        "it": "Archiviazione della cache",
+        "pt": "Armazenamento de cache",
+        "fi": "Välimuistin tallennus",
+        "hi": "कैश संग्रहण",
+        "ar": "تخزين ذاكرة التخزين المؤقت",
+        "ja": "キャッシュストレージ"
+      },
+      "description": "Configure the shared cache used for authenticity-token replay protection, trusted access, embed-token one-time-use tracking and monitoring data. This is independent of Results storage. For a standalone server, or for multiple ZEO clients on the same host with one shared local filesystem, use Local diskcache / SQLite and keep the directory on local disk under INSTANCE_HOME; never place it on NFS or SMB. For ZEO clients on distinct hosts, local diskcache is not shared: use Relational database with one PostgreSQL or MySQL database reachable by every host, the same URI and TLS settings on all hosts. Use the relational option whenever replay protection, token revocation and one-time-use tracking must be consistent across hosts. Switching backends does not migrate existing cache entries; reissue active tokens after changing this setting.",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "kv_cache_backend",
+          "title": "Caching backend",
+          "description": "Use Local diskcache / SQLite for one host or ZEO clients sharing the same local filesystem. Use Relational database for ZEO clients on different hosts or any multi-host deployment.",
+          "choices": [
+            {"value": "diskcache", "text": "Local diskcache / SQLite"},
+            {"value": "rdbms", "text": "Relational database"}
+          ],
+          "defaultValue": "diskcache",
+          "minWidth": "100%"
         },
         {
-          "type": "panel",
-          "name": "panel_caching",
-          "title": "Caching",
-          "description": "Configure the shared cache used for authenticity-token replay protection, trusted access, embed-token one-time-use tracking and monitoring data. This is independent of Result Storage: changing where survey results are stored does not change where cache state is stored. For a standalone server, or for multiple ZEO clients on the same host with one shared local filesystem, use Local diskcache / SQLite and keep the directory on local disk under INSTANCE_HOME; never place it on NFS or SMB. For ZEO clients on distinct hosts, local diskcache is not shared: use Relational database with one PostgreSQL or MySQL database reachable by every host, the same URI and TLS settings on all hosts. Use the relational option whenever replay protection, token revocation and one-time-use tracking must be consistent across hosts. Switching backends does not migrate existing cache entries; reissue active tokens after changing this setting.",
-          "elements": [
-            {
-              "type": "dropdown",
-              "name": "kv_cache_backend",
-              "title": "Caching backend",
-              "description": "Use Local diskcache / SQLite for one host or ZEO clients sharing the same local filesystem. Use Relational database for ZEO clients on different hosts or any multi-host deployment.",
-              "choices": [
-                {"value": "diskcache", "text": "Local diskcache / SQLite"},
-                {"value": "rdbms", "text": "Relational database"}
-              ],
-              "defaultValue": "diskcache",
-              "minWidth": "100%"
-            },
-            {
-              "type": "text",
-              "name": "kv_cache_directory",
-              "title": "Caching directory",
-              "description": "Base directory for local caching. Relative paths are resolved against INSTANCE_HOME. Use a local filesystem shared by all ZEO clients on the same host; do not use NFS or SMB. This setting is ignored for the Relational database backend.",
-              "defaultValue": "var/surveyjs-cache",
-              "visibleIf": "{kv_cache_backend} = 'diskcache'",
-              "minWidth": "100%"
-            },
-            {
-              "type": "text",
-              "name": "kv_cache_database_uri",
-              "title": "Caching database URI",
-              "description": "Dedicated SQLAlchemy URI for the cache database. Required for the Relational database backend; the survey-result database URI is not used automatically. Use the same PostgreSQL or MySQL database and a TLS-enabled URI on every ZEO host.",
-              "placeholder": "postgresql+psycopg2://user:password@host/surveyjs",
-              "visibleIf": "{kv_cache_backend} = 'rdbms'",
-              "minWidth": "100%"
-            },
-            {
-              "type": "text",
-              "name": "kv_cache_lock_timeout_seconds",
-              "title": "Caching lock timeout (seconds)",
-              "description": "Maximum time for a local diskcache lock. This applies only to Local diskcache / SQLite; it is not a database query timeout. Use 0 to disable lock waiting.",
-              "inputType": "number",
-              "defaultValue": 5,
-              "min": 0,
-              "visibleIf": "{kv_cache_backend} = 'diskcache'",
-              "minWidth": "100%"
-            }
-          ]
+          "type": "text",
+          "name": "kv_cache_directory",
+          "title": "Caching directory",
+          "description": "Base directory for local caching. Relative paths are resolved against INSTANCE_HOME. Use a local filesystem shared by all ZEO clients on the same host; do not use NFS or SMB. This setting is ignored for the Relational database backend.",
+          "defaultValue": "var/surveyjs-cache",
+          "visibleIf": "{kv_cache_backend} = 'diskcache'",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "kv_cache_database_uri",
+          "title": "Caching database URI",
+          "description": "Dedicated SQLAlchemy URI for the cache database. Required for the Relational database backend; the results database URI is not used automatically. Use the same PostgreSQL or MySQL database and a TLS-enabled URI on every ZEO host.",
+          "placeholder": "postgresql+psycopg2://user:password@host/surveyjs",
+          "visibleIf": "{kv_cache_backend} = 'rdbms'",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "kv_cache_lock_timeout_seconds",
+          "title": "Caching lock timeout (seconds)",
+          "description": "Maximum time for a local diskcache lock. This applies only to Local diskcache / SQLite; it is not a database query timeout. Use 0 to disable lock waiting.",
+          "inputType": "number",
+          "defaultValue": 5,
+          "min": 0,
+          "visibleIf": "{kv_cache_backend} = 'diskcache'",
+          "minWidth": "100%"
         }
       ]
     },

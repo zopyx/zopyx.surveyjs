@@ -531,7 +531,7 @@ class ControlPanelAISettingsTests(unittest.TestCase):
 
 
 class FormsSettingsCachingSchemaTests(unittest.TestCase):
-    def test_caching_is_a_dedicated_fieldset_without_kv_ui_labels(self) -> None:
+    def test_storage_uses_dedicated_result_and_cache_fieldsets(self) -> None:
         schema_path = (
             Path(__file__).parents[1]
             / "browser"
@@ -539,24 +539,29 @@ class FormsSettingsCachingSchemaTests(unittest.TestCase):
             / "forms_settings.json"
         )
         schema = json.loads(schema_path.read_text())
-        storage = next(page for page in schema["pages"] if page["name"] == "page_storage")
-        self.assertIn("always stored in Plone/ZODB", storage["description"]["en"])
+        results_storage = next(
+            page for page in schema["pages"] if page["name"] == "page_results_storage"
+        )
+        caching_storage = next(
+            page for page in schema["pages"] if page["name"] == "page_caching_storage"
+        )
+
+        self.assertEqual(results_storage["navigationTitle"]["en"], "Results storage")
+        self.assertIn("always stored in Plone/ZODB", results_storage["description"]["en"])
         result_storage = next(
             element
-            for element in storage["elements"]
+            for element in results_storage["elements"]
             if element.get("name") == "result_storage_backend"
         )
         self.assertIn("submitted survey results only", result_storage["description"]["en"])
         self.assertIn("remains in Plone/ZODB", result_storage["description"]["en"])
-        caching = next(
-            element
-            for element in storage["elements"]
-            if element.get("name") == "panel_caching"
-        )
 
-        self.assertEqual(caching["type"], "panel")
+        self.assertEqual(caching_storage["navigationTitle"]["en"], "Caching storage")
+        caching_fields = {
+            element["name"] for element in caching_storage["elements"]
+        }
         self.assertEqual(
-            {element["name"] for element in caching["elements"]},
+            caching_fields,
             {
                 "kv_cache_backend",
                 "kv_cache_directory",
@@ -564,18 +569,19 @@ class FormsSettingsCachingSchemaTests(unittest.TestCase):
                 "kv_cache_lock_timeout_seconds",
             },
         )
+        self.assertNotIn("panel_caching", caching_fields)
         labels = []
-        for element in caching["elements"]:
+        for element in caching_storage["elements"]:
             for key in ("title", "description"):
                 value = element.get(key, "")
                 labels.append(value if isinstance(value, str) else json.dumps(value))
-        labels.append(caching["title"])
-        labels.append(caching["description"])
+        labels.append(caching_storage["title"]["en"])
+        labels.append(caching_storage["description"])
         self.assertTrue(all("KV" not in label for label in labels))
-        self.assertIn("standalone", caching["description"])
-        self.assertIn("ZEO", caching["description"])
-        self.assertIn("NFS", caching["description"])
-        self.assertIn("PostgreSQL", caching["description"])
+        self.assertIn("standalone", caching_storage["description"])
+        self.assertIn("ZEO", caching_storage["description"])
+        self.assertIn("NFS", caching_storage["description"])
+        self.assertIn("PostgreSQL", caching_storage["description"])
 
 
 class FormsSettingsInitialDataFunctionalTest(unittest.TestCase):
