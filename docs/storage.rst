@@ -86,6 +86,47 @@ Supported database families are:
   Plone workers.
 * **MySQL** — suitable when it is already part of the deployment platform.
 
+Required SQLAlchemy drivers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The SQLAlchemy/SQLModel layer provides the storage abstraction, but database
+servers other than SQLite require a DBAPI driver in the Python environment of
+the Plone process. The drivers supported by this package are:
+
+.. list-table:: Supported SQLAlchemy drivers
+   :header-rows: 1
+
+   * - Database
+     - Supported URI drivers
+     - Result/KV storage
+   * - SQLite
+     - Python ``sqlite3`` (built in)
+     - Result and KV
+   * - PostgreSQL
+     - ``psycopg2`` or ``psycopg``
+     - Result and KV
+   * - MySQL
+     - ``pymysql`` or ``mysqlconnector``
+     - Result and KV
+   * - DuckDB
+     - ``duckdb-engine`` + ``duckdb``
+     - KV only
+
+Only the SQLite driver is available with Python itself. The normal add-on
+runtime dependencies include SQLModel but do not install the PostgreSQL,
+MySQL or DuckDB drivers. Install the driver required by the selected URI in
+the same environment as Plone, for example::
+
+    uv pip install psycopg2-binary       # PostgreSQL + psycopg2
+    uv pip install pymysql                # MySQL + PyMySQL
+    uv pip install duckdb duckdb-engine  # DuckDB KV storage
+
+The ``mysql+mysqlconnector`` URI requires the separately installed
+``mysql-connector-python`` package. ``duckdb`` is supported by the KV facade
+for local or analytical use; it is not the recommended shared backend for
+multi-host ZEO deployments. PostgreSQL and MySQL are the recommended shared
+backends for both result storage and caching.
+
 SQLite is an RDBMS and is generally a better choice than ZODB for a local,
 moderately busy form. The backend enables WAL mode and a busy timeout for
 SQLite. SQLite still has a single-writer constraint, however; for sustained

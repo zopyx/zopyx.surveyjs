@@ -240,6 +240,18 @@ backend``. This prevents changing result persistence from unexpectedly
 changing security-cache behavior. See ``DISKCACHE.md`` in the repository root
 for the complete backend, namespace, migration and deployment guidance.
 
+RDBMS driver note
+~~~~~~~~~~~~~~~~~
+
+Selecting ``rdbms`` does not install a database driver automatically. SQLite
+uses Python's built-in ``sqlite3`` driver. PostgreSQL requires either
+``psycopg2``/``psycopg`` and MySQL requires either ``pymysql`` or
+``mysqlconnector``. The KV facade additionally supports DuckDB through
+``duckdb-engine`` and ``duckdb``; DuckDB is not a shared multi-host ZEO
+backend. Install the selected driver's package in the same Python environment
+as Plone. See :doc:`storage` for the complete Result Storage versus KV
+support matrix and installation examples.
+
 Security
 --------
 
