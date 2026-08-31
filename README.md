@@ -37,3 +37,4 @@ See [Development](docs/development.rst) for the complete development setup.
 
 GPL-2.0-or-later. SurveyJS Creator licensing is documented by SurveyJS and may
 require a commercial license.
+
