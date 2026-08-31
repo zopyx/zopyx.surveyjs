@@ -479,6 +479,20 @@ class ControlPanelAISettingsTests(unittest.TestCase):
         self.assertEqual(registry.records[record_name].value, "ollama")
         self.assertEqual(self.settings.ollama_url, "http://localhost:11434")
 
+    def test_validate_kv_backend_rejects_unknown_value(self) -> None:
+        errors = self.view._validate_data({"kv_cache_backend": "redis"})
+        self.assertTrue(any("KV cache backend" in error for error in errors))
+
+    def test_validate_kv_rdbms_requires_dedicated_uri(self) -> None:
+        errors = self.view._validate_data(
+            {
+                "kv_cache_backend": "rdbms",
+                "database_uri": "sqlite:///var/results.db",
+                "kv_cache_database_uri": "",
+            }
+        )
+        self.assertTrue(any("KV cache database URI" in error for error in errors))
+
     def test_validate_custom_requires_all_fields(self) -> None:
         errors = self.view._validate_data(
             {

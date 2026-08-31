@@ -16,6 +16,7 @@ from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
 from ..interfaces import IFormsSettings
+from ..kv import validate_kv_database_uri
 from ..utils import html_safe_json
 from ..permissions import ManagePortal
 from .services.ai import PROVIDERS
@@ -33,6 +34,7 @@ logger = logging.getLogger(__name__)
 _EMPTY_IS_NONE_FIELDS = ("ai_model", "ollama_url", "custom_api_url")
 # API key fields: keep-masked on save (empty submission keeps stored value)
 _API_KEY_FIELDS = ("ai_api_key", "custom_api_key")
+_KV_CACHE_BACKENDS = {"diskcache", "rdbms"}
 
 
 class FormsSettingsView(BrowserView):
@@ -136,6 +138,17 @@ class FormsSettingsView(BrowserView):
                 settings, "database_uri", "sqlite:///var/surveyjs-results.db"
             )
             or "sqlite:///var/surveyjs-results.db",
+            "kv_cache_backend": getattr(settings, "kv_cache_backend", "diskcache")
+            or "diskcache",
+            "kv_cache_database_uri": getattr(settings, "kv_cache_database_uri", "")
+            or "",
+            "kv_cache_directory": getattr(
+                settings, "kv_cache_directory", "var/surveyjs-cache"
+            )
+            or "var/surveyjs-cache",
+            "kv_cache_lock_timeout_seconds": float(
+                getattr(settings, "kv_cache_lock_timeout_seconds", 5.0)
+            ),
             "authenticity_token_enabled": bool(
                 getattr(settings, "authenticity_token_enabled", True)
             ),
@@ -227,6 +240,31 @@ class FormsSettingsView(BrowserView):
                 errors.append(
                     "Database URI is required when using relational database storage."
                 )
+
+        # Validate KV cache configuration
+        kv_backend = data.get("kv_cache_backend", "diskcache")
+        if kv_backend not in _KV_CACHE_BACKENDS:
+            errors.append(
+                "KV cache backend must be either 'diskcache' or 'rdbms'."
+            )
+        elif kv_backend == "rdbms":
+            kv_uri = data.get("kv_cache_database_uri", "").strip()
+            if not kv_uri:
+                errors.append(
+                    "KV cache database URI is required when using the "
+                    "relational KV cache backend."
+                )
+            else:
+                try:
+                    validate_kv_database_uri(kv_uri)
+                except ValueError as exc:
+                    errors.append(f"Invalid KV cache database URI: {exc}")
+        else:
+            try:
+                if float(data.get("kv_cache_lock_timeout_seconds", 5)) < 0:
+                    errors.append("KV cache lock timeout cannot be negative.")
+            except (TypeError, ValueError):
+                errors.append("KV cache lock timeout must be a valid number.")
 
         # Validate AI provider group completeness (mutually exclusive modes)
         provider = data.get("ai_provider", "installed")
@@ -333,6 +371,21 @@ class FormsSettingsView(BrowserView):
         # URI fields must be None (not empty string) when unset
         db_uri = data.get("database_uri", "").strip()
         set_value("database_uri", db_uri if db_uri else None)
+        kv_backend = data.get("kv_cache_backend", "diskcache")
+        if kv_backend not in _KV_CACHE_BACKENDS:
+            raise ValueError(f"unknown KV cache backend: {kv_backend!r}")
+        set_value("kv_cache_backend", kv_backend)
+        kv_uri = data.get("kv_cache_database_uri", "").strip()
+        set_value("kv_cache_database_uri", kv_uri)
+        kv_directory = data.get("kv_cache_directory", "var/surveyjs-cache").strip()
+        set_value("kv_cache_directory", kv_directory or "var/surveyjs-cache")
+        try:
+            set_value(
+                "kv_cache_lock_timeout_seconds",
+                max(float(data.get("kv_cache_lock_timeout_seconds", 5)), 0.0),
+            )
+        except (ValueError, TypeError):
+            set_value("kv_cache_lock_timeout_seconds", 5.0)
 
         # Security settings
         set_value(

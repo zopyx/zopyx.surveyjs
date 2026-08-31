@@ -45,6 +45,19 @@ class AuthServiceTests(unittest.TestCase):
         cache.set.side_effect = RuntimeError
         self.service._cache_set(cache, "x", "y")
 
+    def test_token_cache_uses_kv_facade_factory(self):
+        cache = MagicMock()
+        with patch(
+            "zopyx.surveyjs.browser.services.auth.get_configured_kv_store",
+            return_value=cache,
+        ) as factory:
+            self.assertIs(self.service._token_cache(self.settings), cache)
+        factory.assert_called_once_with(
+            self.settings,
+            "auth",
+            legacy_diskcache_path="var/token_cache.db",
+        )
+
     def test_require_trusted_access_public_and_missing_token(self):
         self.assertTrue(self.service.require_trusted_access())
         self.context.access_mode = "trusted"

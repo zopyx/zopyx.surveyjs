@@ -11,6 +11,8 @@ from ..monitoring import (
     TIME_WINDOWS,
     check_rate_limit,
     cleanup_old_data,
+    get_monitoring_diagnostics,
+    get_monitoring_metrics,
     get_submission_stats,
 )
 from ..utils import html_safe_json
@@ -157,7 +159,16 @@ class SurveyMonitorView(BrowserView):
         return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
     def get_cache_path(self):
-        """Return the path to the monitoring cache."""
-        from ..monitoring import _get_cache_dir
+        """Return the configured local monitoring cache path, if applicable."""
+        return get_monitoring_diagnostics().get("path", "")
 
-        return _get_cache_dir()
+    def get_cache_diagnostics(self):
+        """Return credential-free monitoring backend diagnostics."""
+        try:
+            return get_monitoring_diagnostics()
+        except Exception as exc:
+            return {"configured": False, "error": str(exc)}
+
+    def get_cache_metrics(self):
+        """Return process-local cache metrics for administrators."""
+        return get_monitoring_metrics()

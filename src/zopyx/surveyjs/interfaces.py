@@ -396,6 +396,49 @@ class IFormsSettings(IPloneLoggingSettings):
         default="sqlite:///var/surveyjs-results.db",
     )
 
+    kv_cache_backend = schema.Choice(
+        title="KV cache backend",
+        description=(
+            "Backend for authenticity-token, embed-token and monitoring caches."
+        ),
+        required=False,
+        default="diskcache",
+        vocabulary=SimpleVocabulary.fromItems(
+            [
+                ("diskcache", "diskcache", "Local diskcache / SQLite"),
+                ("rdbms", "rdbms", "Relational database"),
+            ]
+        ),
+    )
+
+    kv_cache_database_uri = schema.TextLine(
+        title="KV cache database URI",
+        description=(
+            "SQLAlchemy URI for the KV cache when the RDBMS backend is selected. "
+            "PostgreSQL or MySQL are recommended for multi-server deployments."
+        ),
+        required=False,
+        default="",
+    )
+
+    kv_cache_directory = schema.TextLine(
+        title="KV cache directory",
+        description=(
+            "Base directory for the diskcache backend. Relative paths are "
+            "resolved against INSTANCE_HOME."
+        ),
+        required=False,
+        default="var/surveyjs-cache",
+    )
+
+    kv_cache_lock_timeout_seconds = schema.Float(
+        title="KV cache lock timeout",
+        description="Lock timeout in seconds for the diskcache backend.",
+        required=False,
+        default=5.0,
+        min=0.0,
+    )
+
     authenticity_token_enabled = schema.Bool(
         title="Enable authenticity token",
         description="When enabled, require a short-lived authenticity token for form submissions.",

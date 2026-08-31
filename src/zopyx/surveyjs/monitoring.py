@@ -8,18 +8,21 @@ using diskcache for efficient time-series data storage.
 from __future__ import annotations
 
 import logging
-import os
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
-from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from zope.component.hooks import getSite
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
 
-try:
-    from diskcache import Cache
-except ImportError:
-    Cache = None
+from .interfaces import IFormsSettings
+from .kv import (
+    KVStore,
+    get_configured_kv_store,
+    get_kv_metrics,
+    get_kv_store_diagnostics,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -44,33 +47,40 @@ TIME_WINDOWS = {
 
 
 def _get_cache_dir() -> str:
-    """Get the cache directory for monitoring data."""
+    """Return the configured monitoring cache path for diagnostics."""
     try:
-        site = getSite()
-        if site is not None:
-            # Store in var/surveyjs-monitor relative to instance
-            instance_home = os.environ.get("INSTANCE_HOME", "")
-            if instance_home:
-                cache_dir = Path(instance_home) / "var" / "surveyjs-monitor"
-            else:
-                # Fallback to temp directory with site ID
-                site_id = site.getId()
-                cache_dir = Path("/tmp") / f"surveyjs-monitor-{site_id}"
-            cache_dir.mkdir(parents=True, exist_ok=True)
-            return str(cache_dir)
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        return str(get_kv_store_diagnostics(settings, "monitoring").get("path", ""))
     except Exception:
-        pass
-    # Final fallback
-    return "/tmp/surveyjs-monitor"
+        return ""
 
 
-def _get_cache() -> Optional[Cache]:
-    """Get or create the diskcache instance."""
-    if Cache is None:
-        return None
+def get_monitoring_diagnostics() -> dict:
+    """Return safe monitoring backend diagnostics."""
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IFormsSettings, check=False)
+    return get_kv_store_diagnostics(settings, "monitoring")
+
+
+def get_monitoring_metrics() -> dict[str, int]:
+    """Return process-local KV metrics for the monitoring dashboard."""
+    return get_kv_metrics()
+
+
+def _safe_cache_diagnostics() -> dict:
     try:
-        cache_dir = _get_cache_dir()
-        return Cache(cache_dir, timeout=5)
+        return get_monitoring_diagnostics()
+    except Exception as exc:
+        return {"configured": False, "error": str(exc)}
+
+
+def _get_cache() -> Optional[KVStore]:
+    """Get the configured monitoring KV store."""
+    try:
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        return get_configured_kv_store(settings, "monitoring")
     except Exception as exc:
         logger.warning("Failed to initialize monitoring cache: %s", exc)
         return None
@@ -144,7 +154,7 @@ def record_submission(context, event) -> None:
 
 
 def _increment_counter(
-    cache: Cache,
+    cache: KVStore,
     key: str,
     timestamp: datetime,
     poll_id: str,
@@ -225,7 +235,7 @@ def record_submission_duration(context, seconds: float) -> None:
 
 
 def _record_duration_bucket(
-    cache: Cache,
+    cache: KVStore,
     key: str,
     seconds: float,
     form_uid: Optional[str] = None,
@@ -324,7 +334,7 @@ def _generate_full_time_series(
 
 
 def _get_form_time_series(
-    cache: Cache,
+    cache: KVStore,
     cutoff: datetime,
     minutes: int,
     now: datetime,
@@ -422,7 +432,7 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
     """
     cache = _get_cache()
     if cache is None:
-        return {"error": "Cache not available"}
+        return {"error": "KVStore not available"}
 
     try:
         minutes = TIME_WINDOWS.get(time_window, 60)
@@ -525,6 +535,8 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
             "first_event": first_event_time.isoformat() if first_event_time else None,
             "last_event": last_event_time.isoformat() if last_event_time else None,
             "generated_at": now.isoformat(),
+            "cache_metrics": get_kv_metrics(),
+            "cache_diagnostics": _safe_cache_diagnostics(),
         }
 
     except Exception as exc:
@@ -537,7 +549,7 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
             pass
 
 
-def _get_form_breakdown(cache: Cache, cutoff: datetime) -> List[Dict]:
+def _get_form_breakdown(cache: KVStore, cutoff: datetime) -> List[Dict]:
     """Get per-form submission breakdown."""
     form_data: Dict[str, Dict] = defaultdict(
         lambda: {
@@ -660,7 +672,7 @@ def check_rate_limit(
     """
     cache = _get_cache()
     if cache is None:
-        return True, {"error": "Cache not available"}
+        return True, {"error": "KVStore not available"}
 
     try:
         now = datetime.now(timezone.utc)
@@ -718,6 +730,7 @@ def cleanup_old_data(max_age_hours: int = 48) -> int:
 
     removed = 0
     try:
+        removed += cache.cleanup_expired(limit=1000)
         cutoff = datetime.now(timezone.utc) - timedelta(hours=max_age_hours)
 
         for key in list(cache.iterkeys()):

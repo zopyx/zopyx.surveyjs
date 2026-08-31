@@ -3,13 +3,13 @@
 import secrets
 from datetime import datetime, timezone, timedelta
 
-import diskcache
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from zope.component import getAdapter
 
 from ...interfaces import IFormsSettings, ITokenStore
+from ...kv import get_configured_kv_store
 from ...security import AuthTokenError, build_auth_token, validate_auth_token
 from .http import json_error
 
@@ -89,7 +89,11 @@ class AuthService:
         """Open the token cache and return ``None`` if unavailable."""
         path = self._auth_token_cache_path(settings)
         try:
-            cache = diskcache.Cache(path)
+            cache = get_configured_kv_store(
+                settings,
+                "auth",
+                legacy_diskcache_path=path,
+            )
             return cache
         except Exception:
             return None

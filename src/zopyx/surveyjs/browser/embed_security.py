@@ -6,19 +6,18 @@ with HMAC-signed tokens, origin binding, and short-lived credentials.
 """
 
 import logging
-import os
 import secrets
 import time
 from datetime import datetime, timezone
 from urllib.parse import urlparse
 
-import diskcache
 import jwt
 from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 from ..interfaces import IFormsSettings
+from ..kv import get_configured_kv_store
 
 logger = logging.getLogger(__name__)
 audit_logger = logging.getLogger("zopyx.surveyjs.embed.audit")
@@ -51,10 +50,11 @@ class OriginNotAllowedError(EmbedSecurityError):
 
 
 def _get_embed_cache():
-    """Get diskcache instance for embed tokens."""
+    """Get the configured embed-token KV store."""
     try:
-        cache_path = os.path.join(os.getcwd(), "var", "embed_token_cache.db")
-        return diskcache.Cache(cache_path)
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        return get_configured_kv_store(settings, "embed")
     except Exception:
         return None
 
@@ -242,22 +242,27 @@ def generate_embed_token(survey_uid, origin, ttl_seconds=300, secret=None):
 
     # Store token metadata in cache for revocation/tracking
     cache = _get_embed_cache()
-    if cache is not None:
-        try:
-            cache_key = f"embed_token:{payload['jti']}"
-            cache.set(
-                cache_key,
-                {
-                    "survey_uid": survey_uid,
-                    "origin": origin,
-                    "issued_at": issued_at,
-                    "expires_at": expires_at,
-                    "used": False,
-                },
-                expire=ttl_seconds + 60,
-            )  # Keep slightly longer than token lifetime
-        finally:
-            cache.close()
+    if cache is None:
+        logger.error("embed.cache.unavailable: refusing to issue untrackable token")
+        raise EmbedSecurityError(
+            "Embed token tracking cache is unavailable; token issuance refused"
+        )
+
+    try:
+        cache_key = f"embed_token:{payload['jti']}"
+        cache.set(
+            cache_key,
+            {
+                "survey_uid": survey_uid,
+                "origin": origin,
+                "issued_at": issued_at,
+                "expires_at": expires_at,
+                "used": False,
+            },
+            expire=ttl_seconds + 60,
+        )  # Keep slightly longer than token lifetime
+    finally:
+        cache.close()
 
     metadata = {
         "expires_at": datetime.fromtimestamp(expires_at, tz=timezone.utc).isoformat(),

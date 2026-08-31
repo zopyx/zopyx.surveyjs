@@ -1298,6 +1298,47 @@
           "placeholder": "sqlite:///var/surveyjs-results.db",
           "visibleIf": "{result_storage_backend} = 'rdbms'",
           "minWidth": "100%"
+        },
+        {
+          "type": "dropdown",
+          "name": "kv_cache_backend",
+          "title": "KV cache backend",
+          "description": "Select local diskcache or a shared relational database for KV state.",
+          "choices": [
+            {"value": "diskcache", "text": "Local diskcache / SQLite"},
+            {"value": "rdbms", "text": "Relational database"}
+          ],
+          "defaultValue": "diskcache",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "kv_cache_directory",
+          "title": "KV cache directory",
+          "description": "Base directory for local diskcache. Relative paths use INSTANCE_HOME.",
+          "defaultValue": "var/surveyjs-cache",
+          "visibleIf": "{kv_cache_backend} = 'diskcache'",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "kv_cache_database_uri",
+          "title": "KV cache database URI",
+          "description": "SQLAlchemy URI for the KV cache. PostgreSQL or MySQL are recommended for multiple servers.",
+          "placeholder": "postgresql+psycopg2://user:password@host/surveyjs",
+          "visibleIf": "{kv_cache_backend} = 'rdbms'",
+          "minWidth": "100%"
+        },
+        {
+          "type": "text",
+          "name": "kv_cache_lock_timeout_seconds",
+          "title": "KV cache lock timeout (seconds)",
+          "description": "Maximum time to wait for a local diskcache lock. Use 0 to disable waiting.",
+          "inputType": "number",
+          "defaultValue": 5,
+          "min": 0,
+          "visibleIf": "{kv_cache_backend} = 'diskcache'",
+          "minWidth": "100%"
         }
       ]
     },

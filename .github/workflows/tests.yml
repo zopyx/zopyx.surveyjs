@@ -27,15 +27,20 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
 
       - name: Setup Plone Buildout
         uses: ./.github/actions/setup-plone-buildout
 
+      - name: Cache database container images
+        run: docker pull postgres:16 && docker pull mysql:8
+
       - name: Run unit tests
         run: make test
+        env:
+          RUN_DB_CONTAINER_TESTS: "1"
 
       - name: Verify pinned Deno build metadata
         run: bin/zopepy -m pytest src/zopyx/surveyjs/data_validation/tests/test_deno_build.py src/zopyx/surveyjs/data_validation/tests/test_validate_data.py -v

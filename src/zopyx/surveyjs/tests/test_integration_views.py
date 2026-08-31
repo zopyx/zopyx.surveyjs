@@ -427,7 +427,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             token = view.auth_token()
             cache = diskcache.Cache(cache_path)
             try:
-                self.assertEqual(cache.get(f"issued:{token}"), "ISSUED")
+                self.assertEqual(cache.get(f"auth:issued:{token}"), "ISSUED")
             finally:
                 cache.close()
             settings.authenticity_token_enabled = False
@@ -492,7 +492,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
                 Views(self.survey, req).save_poll()
                 cache = diskcache.Cache(cache_path)
                 try:
-                    self.assertEqual(cache.get(f"received:{token}"), "RECEIVED")
+                    self.assertEqual(cache.get(f"auth:received:{token}"), "RECEIVED")
                 finally:
                     cache.close()
             finally:

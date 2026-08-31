@@ -207,6 +207,39 @@ of migrated rows. Switch the backend in the control panel afterwards; the
 two backends are independent, so the ZODB data remains in place as a
 backup.
 
+The KV cache backend is configured independently from result storage. It is
+used for authenticity-token replay protection, trusted-access token metadata,
+Direct DOM embed-token one-time-use markers, and monitoring data.
+
+.. list-table:: KV cache settings
+   :header-rows: 1
+
+   * - Setting
+     - Description
+   * - KV cache backend
+     - ``diskcache`` (default) stores the caches in local SQLite-backed
+       diskcache directories. ``rdbms`` uses the SQL KV facade and is the
+       recommended choice when multiple application servers must share replay
+       and one-time-use state.
+   * - KV cache directory
+     - Base directory for the ``diskcache`` backend. Default:
+       ``var/surveyjs-cache``. Relative paths are resolved against
+       ``INSTANCE_HOME``. Separate ``auth``, ``embed`` and ``monitoring``
+       namespaces are created below this directory.
+   * - KV cache database URI
+     - SQLAlchemy URI for the ``rdbms`` backend. PostgreSQL or MySQL are
+       recommended for multi-server deployments. This setting is required
+       when the RDBMS KV backend is selected; the result storage URI is not
+       used implicitly.
+   * - KV cache lock timeout
+     - Diskcache lock timeout in seconds. Default: ``5.0``; ``0`` disables
+       waiting for a lock. This setting does not control SQL query timeouts.
+
+The cache backend is deliberately not inferred from ``Result storage
+backend``. This prevents changing result persistence from unexpectedly
+changing security-cache behavior. See ``DISKCACHE.md`` in the repository root
+for the complete backend, namespace, migration and deployment guidance.
+
 Security
 --------
 

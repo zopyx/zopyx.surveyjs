@@ -193,6 +193,18 @@ Relational result storage
   ``site_id`` to support multi-site deployments. Configure it under
   Site Setup > Forms → Storage.
 
+KV cache backend
+  The KV facade used by authenticity tokens, Direct DOM embed tokens and
+  monitoring is configured separately under Site Setup > Forms → Storage.
+  The default is ``diskcache`` with caches below
+  ``$INSTANCE_HOME/var/surveyjs-cache/{auth,embed,monitoring}``. Relative
+  paths are resolved against ``INSTANCE_HOME`` rather than the process
+  working directory. For multiple application servers, select ``rdbms`` and
+  configure ``kv_cache_database_uri`` with a PostgreSQL or MySQL SQLAlchemy
+  URI. A dedicated KV URI is required; the result ``database_uri`` is not
+  used implicitly. See ``DISKCACHE.md`` for the deployment
+  topology, namespace and backend-switch implications.
+
 SurveyJS license and AI parameters
   The SurveyJS license key and the AI model/API key are injected while the
   site is built — from a key file or 1Password (local development) or from

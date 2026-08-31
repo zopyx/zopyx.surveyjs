@@ -100,6 +100,27 @@ class EmbedSecurityTests(unittest.TestCase):
         ), self.assertRaises(embed_security.EmbedSecurityError):
             embed_security.validate_embed_token("token", ORIGIN)
 
+    def test_embed_cache_uses_configured_kv_facade_factory(self):
+        settings = SimpleNamespace(kv_cache_backend="diskcache")
+        registry = MagicMock()
+        registry.forInterface.return_value = settings
+        with patch(
+            "zopyx.surveyjs.browser.embed_security.getUtility",
+            return_value=registry,
+        ), patch(
+            "zopyx.surveyjs.browser.embed_security.get_configured_kv_store",
+            return_value="cache",
+        ) as factory:
+            self.assertEqual(embed_security._get_embed_cache(), "cache")
+        factory.assert_called_once_with(settings, "embed")
+
+    def test_generate_embed_token_fails_closed_without_tracking_cache(self):
+        with patch(
+            "zopyx.surveyjs.browser.embed_security._get_embed_cache",
+            return_value=None,
+        ), self.assertRaises(embed_security.EmbedSecurityError):
+            embed_security.generate_embed_token("survey-1", ORIGIN, secret=SECRET)
+
     def test_generate_embed_token_clamps_ttl_and_records_cache_metadata(self):
         cache = MagicMock()
         with patch(
