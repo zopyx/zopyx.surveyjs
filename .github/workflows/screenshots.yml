@@ -32,6 +32,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 env:
   PLONE_URL: http://localhost:8082/demo
   PLONE_ADMIN_USER: admin2
@@ -40,19 +43,22 @@ env:
 
 jobs:
   screenshots:
+    name: Run screenshots
     runs-on: ubuntu-latest
     timeout-minutes: 30
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - name: Setup Plone Buildout
-        uses: ./.github/actions/setup-plone-buildout
+        uses: $/.github/actions/setup-plone-buildout
 
       # Set up Node.js for Playwright
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: '20'
           cache: 'npm'
@@ -63,7 +69,7 @@ jobs:
         run: npm ci
 
       - name: Cache Playwright browsers
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('playwright-tests/package-lock.json') }}
@@ -80,8 +86,10 @@ jobs:
       - name: Add SurveyJS license key to checkout
         shell: bash
         run: |
-          printf '%s' "${{ secrets.SURVEYJS_KEY }}" > surveyjs.licensekey
+          printf '%s' "$SURVEYJS_KEY" > surveyjs.licensekey
           chmod 600 surveyjs.licensekey
+        env:
+          SURVEYJS_KEY: ${{ secrets.SURVEYJS_KEY }}
 
       # Start Plone and run screenshots
       - name: Initialize and start Plone
@@ -105,7 +113,7 @@ jobs:
       - name: Run Playwright screenshot tests
         working-directory: ./playwright-tests
         run: |
-          CATEGORY="${{ github.event.inputs.category || 'all' }}"
+          CATEGORY="${CATEGORY_INPUT:-all}"
           echo "Running screenshot category: $CATEGORY"
           
           if [ "$CATEGORY" = "all" ]; then
@@ -113,11 +121,13 @@ jobs:
           else
             npm run screenshots:$CATEGORY
           fi
+        env:
+          CATEGORY_INPUT: ${{ github.event.inputs.category }}
 
       # Upload artifacts on failure for debugging
       - name: Upload test results on failure
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: playwright-test-results
           path: |
@@ -128,7 +138,7 @@ jobs:
       # Upload screenshots as artifacts on success
       - name: Upload screenshots
         if: success()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: playwright-screenshots
           path: |

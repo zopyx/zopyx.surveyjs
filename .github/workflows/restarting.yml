@@ -14,24 +14,29 @@ permissions:
 
 jobs:
   restart-container:
+    name: Restart remote container
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Restart remote container
-        uses: appleboy/ssh-action@v1.2.5
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
         with:
           host: public.zopyx.com 
           username: privacyforms
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
-            docker pull ghcr.io/${{ github.repository_owner }}/privacyforms/demo:latest
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+            docker pull "ghcr.io/$IMAGE_OWNER/privacyforms/demo:latest"
             docker stop -t 30 pfs-demo || true
             docker rm pfs-demo || true
             docker run -d \
               --name pfs-demo \
               --restart unless-stopped \
               -p 10000:8082 \
-              ghcr.io/${{ github.repository_owner }}/privacyforms/demo:latest
+              "ghcr.io/$IMAGE_OWNER/privacyforms/demo:latest"
             docker ps --filter "name=^/pfs-demo$" --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
             docker logs --tail 50 pfs-demo
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GHCR_USERNAME: ${{ secrets.GHCR_USERNAME }}
+          IMAGE_OWNER: ${{ github.repository_owner }}
