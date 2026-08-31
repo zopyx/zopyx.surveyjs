@@ -1188,9 +1188,9 @@
         "ja": "ストレージ"
       },
       "description": {
-        "default": "Configure where survey results are stored.",
-        "de": "Konfigurieren Sie, wo Umfrageergebnisse gespeichert werden.",
-        "en": "Configure where survey results are stored.",
+        "default": "Configure where submitted survey results are stored. The SurveyJS JSON form definition and its versions are always stored in Plone/ZODB. This setting controls submitted results only; caching is configured separately in the Caching section.",
+        "de": "Konfigurieren Sie, wo eingereichte Umfrageergebnisse gespeichert werden. Die SurveyJS-JSON-Formulardefinition und ihre Versionen werden immer in Plone/ZODB gespeichert. Diese Einstellung betrifft nur eingereichte Ergebnisse; Caching wird separat im Bereich Caching konfiguriert.",
+        "en": "Configure where submitted survey results are stored. The SurveyJS JSON form definition and its versions are always stored in Plone/ZODB. This setting controls submitted results only; caching is configured separately in the Caching section.",
         "es": "Configure dónde se almacenan los resultados de la encuesta.",
         "fr": "Configurez où les résultats de sondage sont stockés.",
         "it": "Configura dove vengono archiviati i risultati del sondaggio.",
@@ -1218,9 +1218,9 @@
             "ja": "ストレージバックエンド"
           },
           "description": {
-            "default": "Storage backend for survey results.",
-            "de": "Speicher-Backend für Umfrageergebnisse.",
-            "en": "Storage backend for survey results.",
+            "default": "Storage backend for submitted survey results only. The SurveyJS JSON form definition remains in Plone/ZODB. Choose Plone (ZODB) for the default integrated setup or Relational database for external result reporting and multi-server result storage.",
+            "de": "Speicher-Backend nur für eingereichte Umfrageergebnisse. Die SurveyJS-JSON-Formulardefinition bleibt in Plone/ZODB. Wählen Sie Plone (ZODB) für die standardmäßige integrierte Konfiguration oder eine relationale Datenbank für externe Auswertungen und mehrserverfähige Ergebnisspeicherung.",
+            "en": "Storage backend for submitted survey results only. The SurveyJS JSON form definition remains in Plone/ZODB. Choose Plone (ZODB) for the default integrated setup or Relational database for external result reporting and multi-server result storage.",
             "es": "Backend de almacenamiento para resultados de encuestas.",
             "fr": "Backend de stockage pour les résultats de sondage.",
             "it": "Backend di archiviazione per i risultati del sondaggio.",

@@ -374,7 +374,10 @@ class IFormsSettings(IPloneLoggingSettings):
 
     result_storage_backend = schema.Choice(
         title="Storage backend",
-        description="Storage backend for survey results and access tokens.",
+        description=(
+            "Storage backend for submitted survey results only. The SurveyJS "
+            "JSON form definition and its versions remain in Plone/ZODB."
+        ),
         required=False,
         default="zodb",
         vocabulary=SimpleVocabulary.fromItems(

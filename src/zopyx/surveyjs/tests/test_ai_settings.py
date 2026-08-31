@@ -540,6 +540,14 @@ class FormsSettingsCachingSchemaTests(unittest.TestCase):
         )
         schema = json.loads(schema_path.read_text())
         storage = next(page for page in schema["pages"] if page["name"] == "page_storage")
+        self.assertIn("always stored in Plone/ZODB", storage["description"]["en"])
+        result_storage = next(
+            element
+            for element in storage["elements"]
+            if element.get("name") == "result_storage_backend"
+        )
+        self.assertIn("submitted survey results only", result_storage["description"]["en"])
+        self.assertIn("remains in Plone/ZODB", result_storage["description"]["en"])
         caching = next(
             element
             for element in storage["elements"]
