@@ -91,6 +91,12 @@ setup(
             "orjson",
             "diskcache",
             "polib",
+            # KV facade portability suite (test-only engines)
+            "duckdb",
+            "duckdb-engine",
+            "testcontainers",
+            "psycopg2-binary",
+            "pymysql",
         ],
     },
     entry_points="""
