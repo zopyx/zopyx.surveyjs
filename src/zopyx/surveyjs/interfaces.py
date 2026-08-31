@@ -397,7 +397,7 @@ class IFormsSettings(IPloneLoggingSettings):
     )
 
     kv_cache_backend = schema.Choice(
-        title="KV cache backend",
+        title="Caching backend",
         description=(
             "Backend for authenticity-token, embed-token and monitoring caches."
         ),
@@ -412,17 +412,17 @@ class IFormsSettings(IPloneLoggingSettings):
     )
 
     kv_cache_database_uri = schema.TextLine(
-        title="KV cache database URI",
+        title="Caching database URI",
         description=(
-            "SQLAlchemy URI for the KV cache when the RDBMS backend is selected. "
-            "PostgreSQL or MySQL are recommended for multi-server deployments."
+            "Dedicated SQLAlchemy URI for the caching database when the "
+            "relational backend is selected."
         ),
         required=False,
         default="",
     )
 
     kv_cache_directory = schema.TextLine(
-        title="KV cache directory",
+        title="Caching directory",
         description=(
             "Base directory for the diskcache backend. Relative paths are "
             "resolved against INSTANCE_HOME."
@@ -432,7 +432,7 @@ class IFormsSettings(IPloneLoggingSettings):
     )
 
     kv_cache_lock_timeout_seconds = schema.Float(
-        title="KV cache lock timeout",
+        title="Caching lock timeout",
         description="Lock timeout in seconds for the diskcache backend.",
         required=False,
         default=5.0,

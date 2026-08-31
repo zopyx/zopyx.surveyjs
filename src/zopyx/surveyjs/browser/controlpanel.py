@@ -245,26 +245,26 @@ class FormsSettingsView(BrowserView):
         kv_backend = data.get("kv_cache_backend", "diskcache")
         if kv_backend not in _KV_CACHE_BACKENDS:
             errors.append(
-                "KV cache backend must be either 'diskcache' or 'rdbms'."
+                "Caching backend must be either 'diskcache' or 'rdbms'."
             )
         elif kv_backend == "rdbms":
             kv_uri = data.get("kv_cache_database_uri", "").strip()
             if not kv_uri:
                 errors.append(
-                    "KV cache database URI is required when using the "
-                    "relational KV cache backend."
+                    "Caching database URI is required when using the "
+                    "relational caching backend."
                 )
             else:
                 try:
                     validate_kv_database_uri(kv_uri)
                 except ValueError as exc:
-                    errors.append(f"Invalid KV cache database URI: {exc}")
+                    errors.append(f"Invalid caching database URI: {exc}")
         else:
             try:
                 if float(data.get("kv_cache_lock_timeout_seconds", 5)) < 0:
-                    errors.append("KV cache lock timeout cannot be negative.")
+                    errors.append("Caching lock timeout cannot be negative.")
             except (TypeError, ValueError):
-                errors.append("KV cache lock timeout must be a valid number.")
+                errors.append("Caching lock timeout must be a valid number.")
 
         # Validate AI provider group completeness (mutually exclusive modes)
         provider = data.get("ai_provider", "installed")

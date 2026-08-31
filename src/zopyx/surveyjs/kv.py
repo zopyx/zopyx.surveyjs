@@ -626,7 +626,7 @@ def get_configured_kv_store(
         sql_backend = validate_kv_database_uri(uri).get_backend_name()
         store = get_kv_store(sql_backend, uri)
     else:
-        raise ValueError(f"unknown KV cache backend: {backend!r}")
+        raise ValueError(f"unknown caching backend: {backend!r}")
     return NamespacedKVStore(store, namespace)
 
 

@@ -12,6 +12,7 @@ import re
 import sys
 import types
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from plone.app.testing import (
@@ -481,7 +482,7 @@ class ControlPanelAISettingsTests(unittest.TestCase):
 
     def test_validate_kv_backend_rejects_unknown_value(self) -> None:
         errors = self.view._validate_data({"kv_cache_backend": "redis"})
-        self.assertTrue(any("KV cache backend" in error for error in errors))
+        self.assertTrue(any("Caching backend" in error for error in errors))
 
     def test_validate_kv_rdbms_requires_dedicated_uri(self) -> None:
         errors = self.view._validate_data(
@@ -491,7 +492,7 @@ class ControlPanelAISettingsTests(unittest.TestCase):
                 "kv_cache_database_uri": "",
             }
         )
-        self.assertTrue(any("KV cache database URI" in error for error in errors))
+        self.assertTrue(any("Caching database URI" in error for error in errors))
 
     def test_validate_custom_requires_all_fields(self) -> None:
         errors = self.view._validate_data(
@@ -527,6 +528,46 @@ class ControlPanelAISettingsTests(unittest.TestCase):
         # An unconfigured installed provider stays valid: AI stays optional.
         errors = self.view._validate_data({"ai_provider": "installed"})
         self.assertEqual(errors, [])
+
+
+class FormsSettingsCachingSchemaTests(unittest.TestCase):
+    def test_caching_is_a_dedicated_fieldset_without_kv_ui_labels(self) -> None:
+        schema_path = (
+            Path(__file__).parents[1]
+            / "browser"
+            / "static"
+            / "forms_settings.json"
+        )
+        schema = json.loads(schema_path.read_text())
+        storage = next(page for page in schema["pages"] if page["name"] == "page_storage")
+        caching = next(
+            element
+            for element in storage["elements"]
+            if element.get("name") == "panel_caching"
+        )
+
+        self.assertEqual(caching["type"], "panel")
+        self.assertEqual(
+            {element["name"] for element in caching["elements"]},
+            {
+                "kv_cache_backend",
+                "kv_cache_directory",
+                "kv_cache_database_uri",
+                "kv_cache_lock_timeout_seconds",
+            },
+        )
+        labels = []
+        for element in caching["elements"]:
+            for key in ("title", "description"):
+                value = element.get(key, "")
+                labels.append(value if isinstance(value, str) else json.dumps(value))
+        labels.append(caching["title"])
+        labels.append(caching["description"])
+        self.assertTrue(all("KV" not in label for label in labels))
+        self.assertIn("standalone", caching["description"])
+        self.assertIn("ZEO", caching["description"])
+        self.assertIn("NFS", caching["description"])
+        self.assertIn("PostgreSQL", caching["description"])
 
 
 class FormsSettingsInitialDataFunctionalTest(unittest.TestCase):
