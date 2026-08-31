@@ -21,9 +21,13 @@ jobs:
       - name: Restart remote container
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
         with:
-          host: public.zopyx.com 
+          host: public.zopyx.com
           username: privacyforms
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # ssh-action does NOT forward step `env:` to the remote shell;
+          # variables must be listed explicitly in `envs:` (comma-separated)
+          # or they arrive empty on the server.
+          envs: GHCR_TOKEN,GHCR_USERNAME,IMAGE_OWNER
           script: |
             echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
             docker pull "ghcr.io/$IMAGE_OWNER/privacyforms/demo:latest"
