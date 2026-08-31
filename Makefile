@@ -54,7 +54,7 @@ coverage-browser:
 	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/browser/**/*.py'
 
 sdist:
-	uv run --no-project python setup.py sdist
+	uv run python setup.py sdist
 
 # Build the Sphinx documentation (see docs/Makefile)
 docs:
