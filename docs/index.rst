@@ -51,6 +51,7 @@ Project links
    ai
    chatbot
    templates
+   audit
    security
    development
    load-testing

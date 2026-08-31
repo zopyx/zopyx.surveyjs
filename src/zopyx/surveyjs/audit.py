@@ -120,8 +120,13 @@ def persistent_audit_log(
     action: str,
     details: dict[str, Any] | None = None,
     level: str = "info",
-) -> None:
-    """Write a persistent audit log entry. Never raise into the caller."""
+) -> bool:
+    """Write a persistent audit log entry without breaking the caller.
+
+    Return ``True`` when the entry was written and ``False`` when the audit
+    backend was unavailable. Audit logging is deliberately fail-open, but the
+    failure remains observable through the dedicated audit logger.
+    """
     payload = _base_details(context)
     payload["action"] = action
     if details:
@@ -135,8 +140,19 @@ def persistent_audit_log(
             info_url=_context_url(context),
             details=payload,
         )
+        return True
     except Exception:
-        logger.exception("Persistent audit logging failed: action=%s", action)
+        logger.exception(
+            "Persistent audit logging failed: action=%s path=%s",
+            action,
+            payload.get("path"),
+            extra={
+                "audit_failure": True,
+                "audit_action": action,
+                "audit_path": payload.get("path"),
+            },
+        )
+        return False
 
 
 def audit_metadata_update(
