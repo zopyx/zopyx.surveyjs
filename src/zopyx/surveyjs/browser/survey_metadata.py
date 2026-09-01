@@ -6,6 +6,8 @@ import orjson
 import plone.api
 from plone.protect import CheckAuthenticator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
 
 from .. import _
 from ..permissions import ModifyPortalContent
@@ -164,6 +166,7 @@ class SurveyMetadata(SurveyAddView):
             for key, value in updates.items():
                 setattr(self.context, key, value)
             self._apply_effective_expires(self.context, data)
+            notify(ObjectModifiedEvent(self.context))
             self.context.reindexObject()
         except Exception:
             logger.exception("Survey update failed: context=%s", self.context)

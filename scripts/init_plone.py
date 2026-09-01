@@ -213,6 +213,25 @@ def configure_authenticity_token_secret():
         print("Authenticity token registry records not found; skipping configuration")
 
 
+def configure_audit_logging():
+    """Enable site-wide audit logging and add Survey to audited content types."""
+    try:
+        api.portal.set_registry_record(
+            "zopyx.plone.persistentlogger.interfaces.IAuditLoggingSettings.enabled",
+            True,
+        )
+        api.portal.set_registry_record(
+            "zopyx.plone.persistentlogger.interfaces.IAuditLoggingSettings.content_types",
+            ["Survey"],
+        )
+        print("Enabled audit logging for Survey content type")
+    except Exception:
+        print(
+            "Audit logging registry records not found; "
+            "skipping audit logging configuration"
+        )
+
+
 def configure_mail_from_env():
     """Configure Plone mail settings from environment variables if present."""
 
@@ -590,6 +609,7 @@ configure_ai_model_from_env()
 configure_surveyjs_license()
 configure_authenticity_token_secret()
 configure_mail_from_env()
+configure_audit_logging()
 configure_site_languages()
 enable_language_selector()
 remove_navigation_portlets(site)
