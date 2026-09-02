@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     showSurveySettingsTab: false,
     showTranslationTab: false,
     showThemeTab: true,
+    showLogicTab: false,
+    showJSONEditorTab: false,
     showToolbox: false,
     showSidebar: true,
     showState: false,
@@ -286,6 +288,79 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // --- View theme JSON (read-only modal) ---
+  var viewJsonBtn = document.getElementById("viewJsonBtn");
+  var viewJsonModal = document.getElementById("viewJsonModal");
+  var viewJsonText = document.getElementById("viewJsonText");
+  var viewJsonCloseBtn = document.getElementById("viewJsonCloseBtn");
+  var viewJsonCancel = document.getElementById("viewJsonCancel");
+  var viewJsonCopyBtn = document.getElementById("viewJsonCopyBtn");
+
+  function closeJsonModal() {
+    if (viewJsonModal) viewJsonModal.setAttribute("hidden", "hidden");
+    if (viewJsonCopyBtn) {
+      viewJsonCopyBtn.textContent = "Copy";
+      viewJsonCopyBtn.disabled = false;
+    }
+  }
+  function copyJsonToClipboard() {
+    var text = viewJsonText ? viewJsonText.value : "";
+    if (!text) {
+      setStatus("Nothing to copy", true);
+      return;
+    }
+    function done() {
+      if (!viewJsonCopyBtn) return;
+      viewJsonCopyBtn.textContent = "Copied ✓";
+      setStatus("Theme JSON copied to clipboard");
+      setTimeout(function () {
+        viewJsonCopyBtn.textContent = "Copy";
+      }, 2000);
+    }
+    function fallback() {
+      try {
+        viewJsonText.removeAttribute("readonly");
+        viewJsonText.select();
+        viewJsonText.setSelectionRange(0, text.length);
+        var ok = document.execCommand("copy");
+        viewJsonText.setAttribute("readonly", "readonly");
+        if (ok) done();
+        else setStatus("Copy failed", true);
+      } catch (e) {
+        viewJsonText.setAttribute("readonly", "readonly");
+        setStatus("Copy failed: " + e.message, true);
+      }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+  if (viewJsonBtn && viewJsonModal) {
+    viewJsonBtn.addEventListener("click", function () {
+      var theme = creator.theme;
+      if (!theme || Object.keys(theme).length === 0) {
+        setStatus("No theme to show", true);
+        return;
+      }
+      viewJsonText.value = JSON.stringify(theme, null, 2);
+      viewJsonModal.removeAttribute("hidden");
+    });
+    if (viewJsonCloseBtn) {
+      viewJsonCloseBtn.addEventListener("click", closeJsonModal);
+    }
+    if (viewJsonCancel) {
+      viewJsonCancel.addEventListener("click", closeJsonModal);
+    }
+    if (viewJsonCopyBtn) {
+      viewJsonCopyBtn.addEventListener("click", copyJsonToClipboard);
+    }
+    viewJsonModal.addEventListener("click", function (e) {
+      if (e.target === viewJsonModal) closeJsonModal();
+    });
+  }
+
   // --- Import ---
   var importBtn = document.getElementById("importThemeBtn");
   var importInput = document.getElementById("importThemeInput");
@@ -315,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // --- Export to /tmp ---
+  // --- Export (download JSON) ---
   var exportBtn = document.getElementById("exportThemeBtn");
   if (exportBtn) {
     exportBtn.addEventListener("click", function () {
@@ -324,14 +399,38 @@ document.addEventListener("DOMContentLoaded", function () {
         setStatus("No theme to export", true);
         return;
       }
-      var themeStr = JSON.stringify(theme, null, 2);
-      postData({ action: "export_theme", themeJson: themeStr }, function (resp, status) {
-        if (resp && resp.success) {
-          setStatus("Exported to " + resp.path);
-        } else {
-          setStatus("Export failed: " + ((resp && resp.error) || "HTTP " + status), true);
+      var params = [
+        "action=export_theme",
+        "themeJson=" + encodeURIComponent(JSON.stringify(theme, null, 2)),
+        "_authenticator=" + encodeURIComponent(csrfToken)
+      ];
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", baseUrl, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.responseType = "blob";
+      xhr.onload = function () {
+        if (xhr.status !== 200) {
+          setStatus("Export failed: HTTP " + xhr.status, true);
+          return;
         }
-      });
+        var filename = themeName + ".json";
+        var disposition = xhr.getResponseHeader("Content-Disposition") || "";
+        var match = disposition.match(/filename="?([^";]+)"?/i);
+        if (match) filename = match[1];
+        var url = URL.createObjectURL(xhr.response);
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        setStatus("Exported " + filename);
+      };
+      xhr.onerror = function () {
+        setStatus("Export failed", true);
+      };
+      xhr.send(params.join("&"));
     });
   }
 });

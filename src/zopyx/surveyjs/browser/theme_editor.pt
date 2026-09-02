@@ -40,13 +40,23 @@
       </a>
       <h1><tal:block tal:content="view/theme_name">Theme</tal:block></h1>
       <div class="actions">
-        <button id="saveCurrentBtn" type="button" class="btn-secondary">Save</button>
+        <button id="saveCurrentBtn" type="button" class="btn-primary">Save</button>
         <button id="saveVersionBtn" type="button" class="btn-primary">Save a new version</button>
         <button id="restoreBtn" type="button" class="btn-secondary">Restore Version</button>
-        <button id="importThemeBtn" type="button" class="btn-secondary">Import</button>
+        <button id="importThemeBtn" type="button" class="btn-secondary">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Import</span>
+        </button>
         <input type="file" id="importThemeInput" accept=".json,application/json"
                style="display:none" />
-        <button id="exportThemeBtn" type="button" class="btn-secondary">Export to /tmp</button>
+        <button id="exportThemeBtn" type="button" class="btn-secondary">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+          <span>Export</span>
+        </button>
+        <button id="viewJsonBtn" type="button" class="btn-secondary">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <span>JSON</span>
+        </button>
       </div>
       <span id="themeStatus" class="status"></span>
     </div>
@@ -82,5 +92,29 @@
 
   <script id="theme-versions-data" type="application/json"
           tal:content="structure view/versions_json"></script>
+
+  <!-- View theme JSON modal (read-only) -->
+  <div id="viewJsonModal" class="theme-modal-overlay" hidden="hidden"
+       role="dialog" aria-modal="true" aria-labelledby="viewJsonTitle">
+    <div class="theme-modal">
+      <div class="theme-modal-header">
+        <div>
+          <p class="theme-modal-eyebrow">Current theme</p>
+          <h2 id="viewJsonTitle">Theme JSON</h2>
+          <p class="theme-modal-description">Read-only view of the current theme definition.</p>
+        </div>
+        <button id="viewJsonCloseBtn" type="button" class="modal-close-btn"
+                aria-label="Close" title="Close">&times;</button>
+      </div>
+      <div class="theme-modal-body">
+        <textarea id="viewJsonText" class="theme-json-view" readonly
+                  spellcheck="false" aria-label="Theme JSON (read-only)"></textarea>
+      </div>
+      <div class="theme-modal-footer">
+        <button id="viewJsonCopyBtn" type="button" class="btn-primary">Copy</button>
+        <button id="viewJsonCancel" type="button" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

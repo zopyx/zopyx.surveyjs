@@ -63,6 +63,20 @@ html, body {
 #themeEditorToolbar .btn-primary:hover {
   background: #0b3b64;
 }
+#themeEditorToolbar .actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+#themeEditorToolbar .actions svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
 #themeEditorToolbar .status {
   font-size: 0.8rem;
   color: #64748b;
@@ -227,6 +241,7 @@ html, body {
 .theme-modal-footer {
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
   padding: 0.9rem 1.5rem;
   background: #f8fafc;
   border-top: 1px solid #e2e8f0;
@@ -244,6 +259,45 @@ html, body {
 .theme-modal-footer .btn-secondary:focus-visible {
   border-color: #94a3b8;
   background: #f1f5f9;
+}
+/* View theme JSON modal */
+.theme-json-view {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46vh;
+  margin: 0;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  resize: vertical;
+  tab-size: 2;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow: auto;
+}
+.theme-json-view:focus {
+  outline: 2px solid rgba(15, 76, 129, 0.35);
+  outline-offset: 1px;
+}
+/* View theme JSON modal: wider and taller dialog */
+#viewJsonModal .theme-modal {
+  width: min(1100px, 96vw);
+  max-height: min(900px, 92vh);
+}
+#viewJsonModal .theme-modal-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+#viewJsonModal .theme-json-view {
+  flex: 1 1 auto;
+  min-height: 58vh;
 }
 @media (max-width: 560px) {
   .theme-modal-header,

@@ -158,16 +158,25 @@ class ThemeEditorView(Views):
         })
 
     def _export_theme_json(self):
-        """Write the theme JSON to /tmp/theme.json."""
+        """Serve the current theme JSON as a file download."""
         try:
             raw = self.request.form.get("themeJson", "")
             theme_json = json.loads(raw) if raw else self.theme_json
-            tmp_path = "/tmp/theme.json"
-            with open(tmp_path, "w", encoding="utf-8") as f:
-                json.dump(theme_json, f, indent=2)
-            logger.info("Theme exported to %s (%d bytes)", tmp_path, len(raw))
-            self.request.response.setHeader("Content-Type", "application/json")
-            return json.dumps({"success": True, "path": tmp_path})
+            name = self._theme.get("name", "theme")
+            filename = f"{name}.json".replace(" ", "_")
+            payload = json.dumps(theme_json, indent=2)
+            self.request.response.setHeader(
+                "Content-Type", "application/json; charset=utf-8"
+            )
+            self.request.response.setHeader(
+                "Content-Disposition",
+                f'attachment; filename="{filename}"',
+            )
+            self.request.response.setHeader(
+                "Content-Length", str(len(payload.encode("utf-8")))
+            )
+            logger.info("Theme export downloaded: %s (%s)", self._theme["id"], filename)
+            return payload
         except Exception as exc:
             logger.exception("Theme export failed")
             self.request.response.setStatus(500)
