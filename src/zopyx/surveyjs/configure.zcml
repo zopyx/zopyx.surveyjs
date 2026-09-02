@@ -49,6 +49,17 @@
         />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+      source="1002"
+      destination="1003"
+      profile="zopyx.surveyjs:default">
+    <genericsetup:upgradeStep
+        title="Register Privacy Forms Studio Theme Manager control panel entry"
+        description="Re-imports the controlpanel step to register the new configlet that links to @@theme-manager."
+        handler=".upgrades.to_1003"
+        />
+  </genericsetup:upgradeSteps>
+
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="zopyx.surveyjs-hiddenprofiles"

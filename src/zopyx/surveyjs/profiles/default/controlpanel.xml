@@ -16,4 +16,17 @@
     <permission>Manage portal</permission>
   </configlet>
 
+  <configlet
+    title="Privacy Forms Studio Theme Manager"
+    action_id="zopyx.surveyjs.theme-manager"
+    appId="zopyx.surveyjs.theme-manager"
+    category="Products"
+    condition_expr=""
+    icon_expr=""
+    url_expr="string:${portal_url}/@@theme-manager"
+    visible="True"
+    i18n:attributes="title">
+    <permission>Manage portal</permission>
+  </configlet>
+
 </object>
