@@ -119,7 +119,7 @@ def configure_ai_model_from_env():
         print("AI registry records not found; skipping AI environment configuration")
 
 
-SURVEYJS_OP_REFERENCE = "op://Private/SurveyJS License Key/Licence"
+SURVEYJS_OP_REFERENCE = "op://Personal/SurveyJS License Key/Licence"
 SURVEYJS_LICENSE_KEY_PATTERN = re.compile(
     r"^[0-9a-fA-F-]{36};1=\d{4}-\d{2}-\d{2}$"
 )
