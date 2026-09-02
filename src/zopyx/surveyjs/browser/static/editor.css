@@ -22,10 +22,36 @@
 .survey-editor-toolbar {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 10px;
 }
 
+.survey-theme-switcher {
+    max-width: 240px;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #1e293b;
+}
+
+.survey-theme-switcher:hover,
+.survey-theme-switcher:focus {
+    border-color: #0f4c81;
+    outline: 2px solid rgba(15, 76, 129, 0.18);
+    outline-offset: 2px;
+}
+
+#surveyThemeSaveBtn {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
 .survey-fullscreen-toggle {
+    margin-left: auto;
     background: #1f2937;
     border-radius: 999px;
     color: #ffffff;

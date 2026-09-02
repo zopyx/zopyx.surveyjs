@@ -87,6 +87,20 @@
 #themeTable td:first-child a:hover {
   text-decoration: underline;
 }
+.theme-default-badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  background: #0f4c81;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  line-height: 1.4;
+}
 .actions-cell {
   width: 1%;
   text-align: right;
@@ -150,6 +164,16 @@
   border-color: #fecaca;
   background: #fff1f2;
   color: #b91c1c;
+}
+.actions-cell .btn-default {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #92400e;
+}
+.actions-cell .btn-default:hover,
+.actions-cell .btn-default:focus-visible {
+  border-color: #d97706;
+  background: #fef3c7;
 }
 
 .theme-preview-overlay {

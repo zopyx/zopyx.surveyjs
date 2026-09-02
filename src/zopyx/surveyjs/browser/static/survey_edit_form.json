@@ -1410,6 +1410,99 @@
       ]
     },
     {
+      "name": "page_theming",
+      "title": {
+        "default": "Theming",
+        "de": "Theming",
+        "en": "Theming",
+        "es": "Tematización",
+        "fr": "Thème",
+        "it": "Tema",
+        "pt": "Tematização",
+        "fi": "Teemaus",
+        "hi": "थीमिंग",
+        "ar": "تنسيق المظهر",
+        "ja": "テーマ設定"
+      },
+      "navigationTitle": {
+        "default": "Theming",
+        "de": "Theming",
+        "en": "Theming",
+        "es": "Tematización",
+        "fr": "Thème",
+        "it": "Tema",
+        "pt": "Tematização",
+        "fi": "Teemaus",
+        "hi": "थीमिंग",
+        "ar": "تنسيق المظهر",
+        "ja": "テーマ設定"
+      },
+      "description": {
+        "default": "Select a theme for this survey. Themes are managed in the Theme Manager.",
+        "de": "Wählen Sie ein Theme für diese Umfrage. Themes werden im Theme-Manager verwaltet.",
+        "en": "Select a theme for this survey. Themes are managed in the Theme Manager.",
+        "es": "Seleccione un tema para esta encuesta. Los temas se gestionan en el Administrador de temas.",
+        "fr": "Sélectionnez un thème pour ce sondage. Les thèmes sont gérés dans le gestionnaire de thèmes.",
+        "it": "Seleziona un tema per questo sondaggio. I temi sono gestiti nel Theme Manager.",
+        "pt": "Selecione um tema para esta pesquisa. Os temas são gerenciados no Gerenciador de Temas.",
+        "fi": "Valitse teema tälle kyselylle. Teemoja hallinnoidaan Teemahallinnassa.",
+        "hi": "इस सर्वे के लिए थीम चुनें। थीम का प्रबंधन थीम मैनेजर में किया जाता है।",
+        "ar": "اختر سمة لهذا الاستبيان. تتم إدارة السمات في مدير السمات.",
+        "ja": "このアンケートのテーマを選択します。テーマはテーママネージャーで管理されます。"
+      },
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "theme",
+          "title": {
+            "default": "Theme",
+            "de": "Theme",
+            "en": "Theme",
+            "es": "Tema",
+            "fr": "Thème",
+            "it": "Tema",
+            "pt": "Tema",
+            "fi": "Teema",
+            "hi": "थीम",
+            "ar": "السمة",
+            "ja": "テーマ"
+          },
+          "description": {
+            "default": "Apply a theme to style this survey. Themes are created and managed in the Theme Manager.",
+            "de": "Wenden Sie ein Theme zur Gestaltung dieser Umfrage an. Themes werden im Theme-Manager erstellt und verwaltet.",
+            "en": "Apply a theme to style this survey. Themes are created and managed in the Theme Manager.",
+            "es": "Aplique un tema para diseñar esta encuesta. Los temas se crean y gestionan en el Administrador de temas.",
+            "fr": "Appliquez un thème pour styliser ce sondage. Les thèmes sont créés et gérés dans le gestionnaire de thèmes.",
+            "it": "Applica un tema per stilizzare questo sondaggio. I temi vengono creati e gestiti nel Theme Manager.",
+            "pt": "Aplique um tema para estilizar esta pesquisa. Os temas são criados e gerenciados no Gerenciador de Temas.",
+            "fi": "Käytä teemaa tämän kyselyn tyylittämiseen. Teemat luodaan ja hallinnoidaan Teemahallinnassa.",
+            "hi": "इस सर्वे को स्टाइल करने के लिए थीम लागू करें। थीम थीम मैनेजर में बनाई और प्रबंधित की जाती हैं।",
+            "ar": "طبق سمة لتصميم هذا الاستبيان. يتم إنشاء السمات وإدارتها في مدير السمات.",
+            "ja": "このアンケートのスタイルにテーマを適用します。テーマはテーママネージャーで作成・管理されます。"
+          },
+          "choices": [
+            {
+              "value": "",
+              "text": {
+                "default": "No theme",
+                "de": "Kein Theme",
+                "en": "No theme",
+                "es": "Sin tema",
+                "fr": "Aucun thème",
+                "it": "Nessun tema",
+                "pt": "Nenhum tema",
+                "fi": "Ei teemaa",
+                "hi": "कोई थीम नहीं",
+                "ar": "بدون سمة",
+                "ja": "テーマなし"
+              }
+            }
+          ],
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
       "name": "page_dates",
       "title": {
         "default": "Dates",

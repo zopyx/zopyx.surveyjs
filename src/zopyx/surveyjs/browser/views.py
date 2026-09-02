@@ -220,6 +220,33 @@ class Views(BrowserView):
         return pdf is not None and getattr(pdf, "data", None)
 
     @property
+    def survey_theme_json(self) -> dict:
+        """Return the theme JSON for this survey, or the default theme, or empty dict."""
+        try:
+            from zope.annotation.interfaces import IAnnotations
+            from zope.component.hooks import getSite
+            from .services import themes as themes_service
+
+            site = getSite()
+            if site is None:
+                return {}
+            annotations = IAnnotations(site)
+
+            # First: check survey's configured theme
+            theme_id = getattr(self.context, "theme", None)
+            if not theme_id:
+                # Fall back to default theme
+                theme_id = themes_service.get_default_theme_id(annotations)
+
+            if theme_id:
+                theme = themes_service.get_theme(annotations, theme_id)
+                if theme:
+                    return theme.get("theme_json", {})
+        except Exception:
+            pass
+        return {}
+
+    @property
     def survey_language_labels(self) -> dict[str, str]:
         from ..content.survey import survey_languages_vocabulary
 

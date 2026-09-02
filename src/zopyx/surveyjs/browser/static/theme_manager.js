@@ -177,6 +177,20 @@
     });
   }
 
+  // --- Make default ---
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".make-default-btn");
+    if (!btn) return;
+    var themeId = btn.getAttribute("data-theme-id");
+    if (!themeId) return;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", getBaseUrl(), true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () { reload(); };
+    xhr.send("action=set_default&theme_id=" + encodeURIComponent(themeId) +
+      "&_authenticator=" + encodeURIComponent(csrfToken));
+  });
+
   // --- Upload ---
   if (uploadBtn && uploadInput) {
     uploadBtn.addEventListener("click", function () {

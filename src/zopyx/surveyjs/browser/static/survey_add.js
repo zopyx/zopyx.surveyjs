@@ -151,6 +151,15 @@
     });
   }
 
+  function getDynamicThemeChoices() {
+    if (!initialData || !Array.isArray(initialData.__survey_themes_choices)) {
+      return [];
+    }
+    return initialData.__survey_themes_choices.filter(function (item) {
+      return item && item.value && item.text;
+    });
+  }
+
   function getDynamicAIModelChoices() {
     if (!initialData || !Array.isArray(initialData.__ai_model_choices)) {
       return [];
@@ -168,6 +177,7 @@
       return;
     }
     const languageChoices = getDynamicSurveyLanguageChoices();
+    const themeChoices = getDynamicThemeChoices();
     const aiModelChoices = getDynamicAIModelChoices();
     function applyToElements(elements) {
       if (!Array.isArray(elements)) {
@@ -179,6 +189,9 @@
         }
         if (element.name === "survey_languages" && languageChoices.length) {
           element.choices = languageChoices;
+        }
+        if (element.name === "theme" && themeChoices.length) {
+          element.choices = themeChoices;
         }
         if (element.name === "ai_model" && aiModelChoices.length) {
           element.choices = aiModelChoices;
@@ -315,6 +328,7 @@
       const surveyData = Object.assign({}, initialData);
       delete surveyData.__survey_languages_choices;
       delete surveyData.__ai_model_choices;
+      delete surveyData.__survey_themes_choices;
       survey.data = surveyData;
     }
 /**

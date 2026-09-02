@@ -524,7 +524,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             self.survey.restrictedTraverse("@@dashboard")()
 
     def test_pdf_generator_view_renders_for_manager(self) -> None:
-        view = self.survey.restrictedTraverse("@@pdf-generator")
+        view = self.survey.restrictedTraverse("@@pfs-generator")
         html = view()
         self.assertIn("PDF generator", html)
 
@@ -532,7 +532,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     def test_pdf_generator_view_forbidden_for_non_manager(self) -> None:
         setRoles(self.portal, TEST_USER_ID, ["Member"])
         with self.assertRaises(Unauthorized):
-            self.survey.restrictedTraverse("@@pdf-generator")()
+            self.survey.restrictedTraverse("@@pfs-generator")()
 
     def test_ai_view_renders_empty_chat_panel_without_temp_form(self) -> None:
         view = self.survey.restrictedTraverse("@@ai")

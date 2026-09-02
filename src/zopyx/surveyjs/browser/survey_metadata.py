@@ -84,6 +84,7 @@ class SurveyMetadata(SurveyAddView):
         access_mode = getattr(survey, "access_mode", "public") or "public"
         ttl = getattr(survey, "trusted_access_ttl_hours", 168)
         embedding_mode = getattr(survey, "embedding_mode", "none") or "none"
+        theme = getattr(survey, "theme", None) or ""
 
         return {
             "title": getattr(survey, "title", "") or "",
@@ -116,6 +117,7 @@ class SurveyMetadata(SurveyAddView):
             "access_mode": access_mode,
             "trusted_access_ttl_hours": ttl or 168,
             "embedding_mode": embedding_mode,
+            "theme": theme,
         }
 
     def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:

@@ -46,7 +46,7 @@
     class=".demo_content.DemoContent"
   />
   <browser:page
-    name="pdf-theme-editor"
+    name="pfs-theme-editor"
     for="plone.base.interfaces.IPloneSiteRoot"
     permission="cmf.ManagePortal"
     class=".pdf_theme_editor.PDFThemeEditorView"
@@ -95,7 +95,7 @@
     template="survey_templates_overview.pt"
   />
   <browser:page
-    name="pdf-generator"
+    name="pfs-generator"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     permission="cmf.ManagePortal"

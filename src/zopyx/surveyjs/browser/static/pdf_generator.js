@@ -1,5 +1,5 @@
 /**
- * PDF generator view logic for @@pdf-generator.
+ * PFS generator view logic for @@pfs-generator.
  * Submits generation requests and manages UI state/progress.
  */
 document.addEventListener("DOMContentLoaded", function () {

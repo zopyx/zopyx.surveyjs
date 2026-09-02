@@ -6,7 +6,7 @@ import uuid
 from BTrees.OOBTree import OOBTree
 from zope.annotation.interfaces import IAnnotations
 
-from ...constants import THEMES_KEY
+from ...constants import THEMES_KEY, DEFAULT_THEME_KEY
 from ...utils import ensure_timezone_aware
 
 
@@ -114,8 +114,25 @@ def delete_theme(annotations, theme_id):
     themes = ensure_themes(annotations)
     if theme_id in themes:
         del themes[theme_id]
+        # Clear default if it was the default theme
+        if get_default_theme_id(annotations) == theme_id:
+            annotations.pop(DEFAULT_THEME_KEY, None)
         return True
     return False
+
+
+def set_default_theme(annotations, theme_id):
+    """Set a theme as the default. Returns False if theme_id doesn't exist."""
+    themes = ensure_themes(annotations)
+    if theme_id not in themes:
+        return False
+    annotations[DEFAULT_THEME_KEY] = theme_id
+    return True
+
+
+def get_default_theme_id(annotations):
+    """Return the default theme ID, or None."""
+    return annotations.get(DEFAULT_THEME_KEY, None)
 
 
 def sorted_theme_versions(theme, reverse=False):

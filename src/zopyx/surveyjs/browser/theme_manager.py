@@ -26,6 +26,8 @@ class ThemeManagerView(Views):
                 return self._delete_theme()
             elif action == "upload":
                 return self._upload_theme()
+            elif action == "set_default":
+                return self._set_default_theme()
         # GET actions: download
         action = (self.request.get("action") or "").strip()
         if action == "download":
@@ -37,20 +39,27 @@ class ThemeManagerView(Views):
         return IAnnotations(getSite())
 
     @property
+    def default_theme_id(self):
+        return themes_service.get_default_theme_id(self._annotations)
+
+    @property
     def themes(self):
         """Return list of themes for the template."""
         raw = themes_service.list_themes(self._annotations)
+        default_id = self.default_theme_id
         result = []
         for t in raw:
+            tid = t.get("id")
             created = t.get("created")
             modified = t.get("modified")
             result.append(dict(
-                id=t.get("id"),
+                id=tid,
                 name=t.get("name", "Unnamed"),
                 created=created.isoformat() if hasattr(created, "isoformat") else str(created or ""),
                 modified=modified.isoformat() if hasattr(modified, "isoformat") else str(modified or ""),
                 theme_json=t.get("theme_json", {}),
                 version_count=len(t.get("versions", {})),
+                is_default=(tid == default_id),
             ))
         return result
 
@@ -133,3 +142,16 @@ class ThemeManagerView(Views):
             return plone.api.user.get_current().getId()
         except Exception:
             return "admin"
+
+    def _set_default_theme(self):
+        theme_id = (self.request.form.get("theme_id") or "").strip()
+        if not theme_id:
+            self.request.response.setStatus(400)
+            return json.dumps({"success": False, "error": "theme_id is required"})
+        ok = themes_service.set_default_theme(self._annotations, theme_id)
+        import transaction
+        transaction.commit()
+        if ok:
+            logger.info("Default theme set: %s", theme_id)
+        self.request.response.setHeader("Content-Type", "application/json")
+        return json.dumps({"success": ok})
