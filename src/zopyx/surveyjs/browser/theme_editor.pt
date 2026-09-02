@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      tal:define="portal_state context/@@plone_portal_state">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theme Editor — <tal:block tal:content="view/theme_name">Theme</tal:block></title>
+
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-var-csrf" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-vars-base" />
+
+  <span id="survey-editor-config"
+        hidden="hidden"
+        tal:attributes="data-license-key python: view.surveyjs_license_key or '';
+                        data-theme-id view/theme_id;
+                        data-theme-name view/theme_name"></span>
+
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-core" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-ui" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-theme-index" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-creator" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-creator-i18n" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-ui-presets" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-ui-preset-editor" />
+
+  <link rel="stylesheet" type="text/css"
+        href="++resource++zopyx.surveyjs/theme_editor.css" />
+  <script src="++resource++zopyx.surveyjs/theme_editor.js"
+          type="text/javascript"></script>
+</head>
+<body>
+  <div id="themeEditorApp">
+    <div id="themeEditorToolbar">
+      <a id="backBtn" class="back-link"
+         tal:attributes="href string:${context/absolute_url}/@@theme-manager">
+        &larr; Back to Themes
+      </a>
+      <h1><tal:block tal:content="view/theme_name">Theme</tal:block></h1>
+      <div class="actions">
+        <button id="saveCurrentBtn" type="button" class="btn-secondary">Save</button>
+        <button id="saveVersionBtn" type="button" class="btn-primary">Save a new version</button>
+        <button id="restoreBtn" type="button" class="btn-secondary">Restore Version</button>
+        <button id="importThemeBtn" type="button" class="btn-secondary">Import</button>
+        <input type="file" id="importThemeInput" accept=".json,application/json"
+               style="display:none" />
+        <button id="exportThemeBtn" type="button" class="btn-secondary">Export to /tmp</button>
+      </div>
+      <span id="themeStatus" class="status"></span>
+    </div>
+    <div id="surveyContainer"></div>
+  </div>
+
+  <!-- Restore versions modal -->
+  <div id="restoreModal" class="theme-modal-overlay" hidden="hidden"
+       role="dialog" aria-modal="true" aria-labelledby="restoreModalTitle">
+    <div class="theme-modal">
+      <div class="theme-modal-header">
+        <div>
+          <p class="theme-modal-eyebrow">Theme history</p>
+          <h2 id="restoreModalTitle">Restore a version</h2>
+          <p class="theme-modal-description">Choose an earlier saved version to use as the current theme.</p>
+        </div>
+        <button id="restoreModalCloseBtn" type="button" class="modal-close-btn"
+                aria-label="Close" title="Close">&times;</button>
+      </div>
+      <div class="theme-modal-body">
+        <table class="table" id="versionsTable">
+          <thead>
+            <tr><th>Created</th><th>User</th><th>Action</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="theme-modal-footer">
+        <button id="restoreModalCancel" type="button" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script id="theme-versions-data" type="application/json"
+          tal:content="structure view/versions_json"></script>
+</body>
+</html>

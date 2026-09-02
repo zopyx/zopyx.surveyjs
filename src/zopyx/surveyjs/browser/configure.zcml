@@ -46,6 +46,27 @@
     class=".demo_content.DemoContent"
   />
   <browser:page
+    name="pdf-theme-editor"
+    for="plone.base.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
+    class=".pdf_theme_editor.PDFThemeEditorView"
+    template="pdf_theme_editor.pt"
+  />
+  <browser:page
+    name="theme-manager"
+    for="plone.base.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
+    class=".theme_manager.ThemeManagerView"
+    template="theme_manager.pt"
+  />
+  <browser:page
+    name="theme-editor"
+    for="plone.base.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
+    class=".theme_editor.ThemeEditorView"
+    template="theme_editor.pt"
+  />
+  <browser:page
     name="results"
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".survey_results.SurveyResults"
