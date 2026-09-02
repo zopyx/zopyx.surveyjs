@@ -27,6 +27,7 @@ import orjson
 import re
 from plone import api
 from plone.namedfile.file import NamedBlobImage
+from zopyx.surveyjs.browser.services import themes as themes_service
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY, RESULTS_KEY
 from zopyx.surveyjs.content.survey import Counter
 from zope.annotation.interfaces import IAnnotations
@@ -471,6 +472,54 @@ def init_prefilled_address_survey(site, container):
 
     if inserted:
         print(f"Prefilled address survey seeded with {inserted} results")
+
+
+# Official SurveyJS "Default" theme presets, seeded into the site theme
+# manager. Each entry maps a stored theme name to the seed file under
+# scripts/themes/ (extracted from the vendored surveyjs bundle; the light
+# presets ship with an empty cssVariables map and rely on the CSS defaults).
+DEFAULT_THEMES = (
+    # (stored name, seed file, palette, panelless)
+    ("light", "light", "light", False),
+    ("dark", "dark", "dark", False),
+    ("light-no-panels", "light-no-panels", "light", True),
+    ("dark-no-panels", "dark-no-panels", "dark", True),
+)
+
+
+def seed_surveyjs_themes(site):
+    """Seed the default SurveyJS light/dark themes (with/without panels)
+    into the site-root theme manager used by @@theme-manager/@@theme-editor.
+    """
+    themes_dir = FORMS_PATH.parent / "themes"
+    if not themes_dir.exists():
+        print(
+            f"Theme seed directory not found at {themes_dir}; "
+            "skipping SurveyJS theme seeding"
+        )
+        return
+
+    annotations = IAnnotations(site)
+    existing_names = {
+        theme.get("name") for theme in themes_service.list_themes(annotations)
+    }
+    seeded = 0
+    for name, seed_file, palette, panelless in DEFAULT_THEMES:
+        if name in existing_names:
+            print(f"SurveyJS theme '{name}' already exists; skipping")
+            continue
+        seed_path = themes_dir / f"{seed_file}.json"
+        if not seed_path.exists():
+            print(f"Theme seed file not found at {seed_path}; skipping '{name}'")
+            continue
+        theme_json = orjson.loads(seed_path.read_bytes())
+        themes_service.create_theme(annotations, name, theme_json, user_id=ADMIN)
+        seeded += 1
+        mode = "no panels" if panelless else "panels"
+        print(f"Configured SurveyJS theme '{name}' ({palette} mode, {mode})")
+    if seeded:
+        print(f"Seeded {seeded} SurveyJS themes into the theme manager")
+
 
 def remove_navigation_portlets(context):
     """Remove navigation portlets and block them from being re-acquired."""
@@ -2199,6 +2248,10 @@ create_demo_survey(
     container=demos_by_language["ja"],
     language="ja",
 )
+
+# Seed the default SurveyJS light/dark themes (with/without panels) into
+# the site theme manager
+seed_surveyjs_themes(site)
 
 # Create a demo user with Editor role
 if not api.user.get(username="forms"):
