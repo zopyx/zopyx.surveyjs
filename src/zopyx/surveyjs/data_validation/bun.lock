@@ -5,11 +5,11 @@
     "": {
       "name": "surveyjs-validation-demo",
       "dependencies": {
-        "survey-core": "^3.0.0",
+        "survey-core": "3.0.2",
       },
     },
   },
   "packages": {
-    "survey-core": ["survey-core@3.0.0", "", {}, "sha512-K4sY0hQWykvLZ98ejfqG5ReSX4UZVlcbDS8x/TsKQcEH4jo1kkwqJRlrDEyKDzTcbqtV/rUT5wDZmW+plYwxeQ=="],
+    "survey-core": ["survey-core@3.0.2", "", {}, "sha512-koM/Y8tV5YBaRxoET4kzHcnHWH0x//xSUtyahCS7WkBM9KaNrerh7reAXss7qVdInLZ4pkRTE76GiOWTuSaD5Q=="],
   }
 }

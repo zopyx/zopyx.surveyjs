@@ -14,7 +14,7 @@ Source layout
 
 * ``validate.mjs`` — the validator itself (ESM script, imports
   ``survey-core``).
-* ``package.json`` / ``bun.lock`` — the ``survey-core@^3.0.0`` dependency
+* ``package.json`` / ``bun.lock`` — the ``survey-core@3.0.2`` dependency
   (``npm validate`` / ``bun validate.mjs`` run the script directly).
 * ``validate_data.py`` — the Python wrapper used by the add-on; locates or
   builds the platform binary and runs it with the given JSON files.
@@ -76,7 +76,7 @@ The add-on does not call the binary directly. ``validate_data.py``:
    next to the module) and **builds it automatically** when missing or
    older than five days — it downloads the current Deno release from
    GitHub and compiles ``validate.mjs`` with an import map
-   (``npm:survey-core@^3.0.0``);
+   (``npm:survey-core@3.0.2``);
 2. runs the binary with ``--schema-json``, ``--form-json`` and
    ``--result-json``;
 3. returns the exit code to the caller.

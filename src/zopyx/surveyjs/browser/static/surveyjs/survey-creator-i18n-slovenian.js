@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0
+ * SurveyJS Creator v3.0.2
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator

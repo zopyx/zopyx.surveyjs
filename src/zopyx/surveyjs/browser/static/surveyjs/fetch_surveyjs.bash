@@ -1,8 +1,8 @@
 #!/bin/bash
 # Fetch SurveyJS v3 vendor files from unpkg
-# See: https://unpkg.com/survey-core@3.0.0/
+# See: https://unpkg.com/survey-core@3.0.2/
 
-SURVEY_VERSION="3.0.0"
+SURVEY_VERSION="3.0.2"
 CHART_VERSION="4.5.1"
 
 wget -O jspdf.umd.min.js https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js

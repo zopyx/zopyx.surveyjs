@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.0
+ * SurveyJS Creator v3.0.2
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -143,11 +143,23 @@
       translationImportFromSCVButton: "Import from CSV",
       translateUsigAI: "Auto-translate All",
       translateUsigAIFrom: "Translate from: ",
+      translateRemainingStrings: "Translate remaining strings",
       translationDialogTitle: "Untranslated strings",
       translationMergeLocaleWithDefault: "Merge {0} with default locale",
       translationPlaceHolder: "Translation...",
       translationSource: "Source: ",
       translationTarget: "Target: ",
+      translationSourceLanguage: "Source language",
+      translationTargetLanguage: "Target language",
+      translationProgress: "{0} of {1} strings translated",
+      translationClearProgress: "Are you certain you wish to delete all translated strings for the selected language?",
+      translationSideBySideViewForm: "Form View",
+      translationSideBySideViewGrid: "Grid View",
+      translateStrings: "Translate strings",
+      translationSurveyStrings: "Survey Strings",
+      translationStateNothingToTranslate: "No strings to translate",
+      translationStateAllTranslated: "All strings are translated",
+      translationStateUntranslated: "{0} strings are not translated",
       translationYouTubeNotSupported: "YouTube links are not supported.",
       themeExportButton: "Export",
       themeImportButton: "Import",
@@ -525,6 +537,7 @@
       allowEmptyResponse: "Accept empty response",
       surveyTitlePlaceholder: "Survey Title",
       pageTitlePlaceholder: "Page {num}",
+      panelTitlePlaceholder: "Panel Title",
       startPageTitlePlaceholder: "Start Page",
       descriptionPlaceholder: "Description",
       surveyDescriptionPlaceholder: "Description",

@@ -4,7 +4,7 @@
 # Usage: ./download_creator_i18n.sh [language-name]
 # Example: ./download_creator_i18n.sh german
 
-CREATOR_VERSION="3.0.0"
+CREATOR_VERSION="3.0.2"
 BASE_URL="https://unpkg.com/survey-creator-core@${CREATOR_VERSION}/i18n"
 
 if [ -z "$1" ]; then

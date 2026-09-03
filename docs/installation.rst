@@ -101,7 +101,7 @@ Source layout
 The validator lives in ``src/zopyx/surveyjs/data_validation/``:
 
 * ``validate.mjs`` — the validation script (ESM, imports ``survey-core``).
-* ``package.json`` / ``bun.lock`` — the ``survey-core@^3.0.0`` dependency
+* ``package.json`` / ``bun.lock`` — the ``survey-core@3.0.2`` dependency
   (``npm validate`` / ``bun validate.mjs`` run the script directly).
 * ``deno_build.py`` — self-contained build script (downloads the pinned Deno
   release and verifies its SHA256 digest and reported version).
@@ -118,7 +118,7 @@ If the binary is missing or older than five days, the wrapper builds it
 automatically: ``deno_build.py`` downloads the pinned Deno release from
 GitHub, verifies the archive SHA256 digest, verifies ``deno --version``, and
 then compiles ``validate.mjs`` with an import map
-(``npm:survey-core@^3.0.0``) and writes ``validate-linux`` (or
+(``npm:survey-core@3.0.2``) and writes ``validate-linux`` (or
 ``validate-mac``) next to the module. No Deno installation is required on
 the Plone host for this path — the script fetches it into a temporary
 directory.
