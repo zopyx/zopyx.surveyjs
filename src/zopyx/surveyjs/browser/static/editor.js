@@ -569,10 +569,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // Apply theme via CSS variables on creator container (most reliable for Survey Creator)
   // and also via survey API as fallback
   var _lastThemeVars = null;
+  var _lastCreatorTheme = null;
 
   function applyThemeToElements(theme) {
     var tj = theme || themeJson;
     try {
+      var editorContainer = document.getElementById("surveyEditorContainer");
+      if (editorContainer) {
+        editorContainer.classList.toggle(
+          "survey-editor-panelless",
+          Boolean(tj && tj.isPanelless)
+        );
+      }
       // Collect all targets once
       var targets = [
         document.getElementById("surveyEditorContainer"),
@@ -584,6 +592,19 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (tj) {
+        // Keep the Creator's theme model in sync as well.  This is important
+        // for preview surveys: the Creator creates those lazily and applies
+        // its own theme when the Preview tab is opened.
+        if (creator && _lastCreatorTheme !== tj) {
+          try {
+            if (typeof creator.applyCreatorTheme === "function") {
+              creator.applyCreatorTheme(tj);
+            } else {
+              creator.theme = tj;
+            }
+            _lastCreatorTheme = tj;
+          } catch (e) {}
+        }
         var vars = tj.cssVariables || {};
         // Clear previously applied vars that are not in the new theme
         if (_lastThemeVars) {
@@ -616,6 +637,12 @@ document.addEventListener("DOMContentLoaded", function () {
           } catch (e) {}
         }
       } else {
+        if (creator && _lastCreatorTheme !== null) {
+          try {
+            creator.theme = null;
+            _lastCreatorTheme = null;
+          } catch (e) {}
+        }
         // No theme — clear all previously applied CSS variables
         if (_lastThemeVars) {
           targets.forEach(function (el) {
@@ -639,6 +666,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     } catch (e) {}
+  }
+
+  // Preview is created lazily by Survey Creator.  Re-apply the selected
+  // theme whenever that happens so panelless themes affect the preview too.
+  if (creator.onPreviewSurveyCreated && typeof creator.onPreviewSurveyCreated.add === "function") {
+    creator.onPreviewSurveyCreated.add(function (_sender, options) {
+      if (options && options.survey && themeJson && typeof options.survey.applyTheme === "function") {
+        try { options.survey.applyTheme(themeJson); } catch (e) {}
+      }
+      applyThemeToElements();
+    });
   }
 
   // Poll for the creator to be ready and apply theme repeatedly

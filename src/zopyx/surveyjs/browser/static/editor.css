@@ -19,6 +19,17 @@
     border-bottom: 1px solid #bdbdbd;
 }
 
+/* The Creator designer uses its own question-card selectors, while
+   SurveyJS panelless themes target the simple-panel variables. */
+#surveyEditorContainer.survey-editor-panelless .svc-question__content {
+    background: var(--sjs2-color-component-panel-simple-default-bg, transparent);
+    border-radius: var(--sjs2-radius-component-panel-simple, 0);
+    box-shadow: var(--sjs2-border-effect-component-panel-simple-default, none);
+    padding: var(--sjs2-layout-component-panel-simple-content-area-padding-top, 0)
+             var(--sjs2-layout-component-panel-simple-content-area-padding-horizontal, 0)
+             var(--sjs2-layout-component-panel-simple-content-area-padding-bottom, 0);
+}
+
 .survey-editor-toolbar {
     display: flex;
     justify-content: flex-end;
