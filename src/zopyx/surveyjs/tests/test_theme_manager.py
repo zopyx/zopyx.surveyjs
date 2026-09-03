@@ -62,6 +62,39 @@ class TestThemeManagerViews(unittest.TestCase):
         self.assertIn("Theme Manager", self.browser.contents)
         self.assertIn("New Theme", self.browser.contents)
 
+    def test_theme_manager_make_default_icon_is_leftmost(self):
+        """The 'Make default' (star) icon is the first action icon per row."""
+        resp = self._post(
+            self.portal.absolute_url() + "/@@theme-manager",
+            {"action": "create", "name": "Leftmost Star Theme"},
+        )
+        payload = json.loads(resp)
+        self.assertTrue(payload["success"])
+        theme_id = payload["theme_id"]
+
+        self.browser.open(self.portal.absolute_url() + "/@@theme-manager")
+        contents = self.browser.contents
+
+        # Newly created themes are not the default, so the star must be shown
+        # and must be the first icon in that row's actions cell.
+        name_pos = contents.index("Leftmost Star Theme")
+        row_start = contents.rindex("<tr", 0, name_pos)
+        actions_start = contents.index("actions-cell", row_start)
+        actions_end = contents.index("</td>", actions_start)
+        cell = contents[actions_start:actions_end]
+        self.assertIn("make-default-btn", cell)
+        self.assertLess(
+            cell.index("make-default-btn"), cell.index("preview-btn"),
+            "Make default (star) icon must be the leftmost action icon",
+        )
+        self.assertLess(
+            cell.index("make-default-btn"), cell.index("delete-btn"),
+            "Make default (star) icon must be the leftmost action icon",
+        )
+
+        # The theme is still listed.
+        self.assertIn("Leftmost Star Theme", contents)
+
     def test_theme_create_and_verify_in_list(self):
         """Create a new theme via POST and verify it appears in the list."""
         self.browser.open(self.portal.absolute_url() + "/@@theme-manager")

@@ -92,6 +92,14 @@
             <td data-theme-date="modified" tal:attributes="data-date theme/modified">modified</td>
             <td tal:content="theme/version_count">0</td>
             <td class="actions-cell">
+              <button class="btn btn-sm btn-default make-default-btn" type="button"
+                      aria-label="Make default theme" title="Make default theme"
+                      tal:condition="not:theme/is_default"
+                      tal:attributes="data-theme-id theme/id;
+                                      data-theme-name theme/name">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7H22l-6 4.5 2.4 7L12 16l-6.4 4.5L8 13.5 2 9h7.6Z"/></svg>
+                <span class="theme-action-label">Make default</span>
+              </button>
               <button class="btn btn-sm btn-preview preview-btn" type="button"
                       aria-label="Preview theme" title="Preview theme"
                       tal:attributes="data-theme-name theme/name;
@@ -104,14 +112,6 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 16.5-.8 3.8 3.8-.8L18.5 8l-2.5-2.5L4 16.5Z"/><path d="m14.5 6.5 2.5 2.5M4 20h16"/></svg>
                 <span class="theme-action-label">Edit</span>
               </a>
-              <button class="btn btn-sm btn-default make-default-btn" type="button"
-                      aria-label="Make default theme" title="Make default theme"
-                      tal:condition="not:theme/is_default"
-                      tal:attributes="data-theme-id theme/id;
-                                      data-theme-name theme/name">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7H22l-6 4.5 2.4 7L12 16l-6.4 4.5L8 13.5 2 9h7.6Z"/></svg>
-                <span class="theme-action-label">Make default</span>
-              </button>
               <a class="btn btn-sm btn-secondary" aria-label="Download theme" title="Download theme"
                  tal:attributes="href string:${view/portal_url}/@@theme-manager?action=download&amp;theme_id=${theme/id}">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
