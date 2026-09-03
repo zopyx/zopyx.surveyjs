@@ -49,6 +49,7 @@ SURVEY_ADD_DEFAULTS: dict[str, Any] = {
     "access_mode": "public",
     "trusted_access_ttl_hours": 168,
     "embedding_mode": "none",
+    "theme": "",
 }
 
 
@@ -90,6 +91,7 @@ class SurveyAddView(BrowserView):
     def initial_data_json(self) -> str:
         payload = deepcopy(self.form_values)
         payload["__survey_languages_choices"] = self._survey_languages_choices()
+        payload["__survey_themes_choices"] = self._survey_themes_choices()
         return html_safe_json(payload)
 
     @property
@@ -110,6 +112,24 @@ class SurveyAddView(BrowserView):
             title = getattr(term, "title", None) or str(value)
             choices.append({"value": str(value), "text": str(title)})
         return choices
+
+    def _survey_themes_choices(self) -> list[dict[str, str]]:
+        try:
+            from zope.component.hooks import getSite
+            from zope.annotation.interfaces import IAnnotations
+            from .services import themes as themes_service
+            site = getSite()
+            if site is None:
+                return []
+            annotations = IAnnotations(site)
+            themes = themes_service.list_themes(annotations)
+            return [
+                {"value": t["id"], "text": t.get("name", "Unnamed")}
+                for t in themes
+                if t.get("id")
+            ]
+        except Exception:
+            return []
 
     def handle_submit(self):
         data, extraction_errors = self._extract_form_data()
@@ -209,6 +229,7 @@ class SurveyAddView(BrowserView):
             "access_mode": data.get("access_mode") or "public",
             "trusted_access_ttl_hours": ttl,
             "embedding_mode": data.get("embedding_mode") or "none",
+            "theme": data.get("theme") or "",
         }
 
     def _build_create_kwargs(self, data: dict[str, Any]) -> dict[str, Any]:

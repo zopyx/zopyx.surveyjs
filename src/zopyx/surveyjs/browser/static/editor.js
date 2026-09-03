@@ -475,15 +475,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
   const creatorOptions = {
-    autoSaveEnabled: true,
+    autoSaveEnabled: false,
     collapseOnDrag: true,
-    showToolbox: "right",
+    showToolbox: true,
     showState: true,
-    showPropertyGrid: "right",
-    showThemeTab: true,
+    showSidebar: true,
+    showThemeTab: false,
     showTranslationTab: false,
     rightContainerActiveItem: "toolbox",
-    autoSaveEnabled: false,
   };
 
   const licenseEl = document.getElementById("survey-editor-config");
@@ -550,29 +549,148 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     survey.allowFullScreen = true;
   };
-  if (
-    creator.onPreviewSurveyCreated &&
-/**
- * @function
- */
-    typeof creator.onPreviewSurveyCreated.add === "function"
-  ) {
-/**
- * @function
- */
-    creator.onPreviewSurveyCreated.add(function (_sender, options) {
-      enablePreviewFullscreen(options && options.survey);
-    });
-  }
-  if (creator.previewSurvey) {
-    enablePreviewFullscreen(creator.previewSurvey);
+
+  // Read theme JSON early so it's available for the creator
+  var themeJson = null;
+  var allThemeJsons = {};
+  var themeJsonEl = document.getElementById("survey-editor-config");
+  if (themeJsonEl) {
+    try {
+      var raw = themeJsonEl.getAttribute("data-survey-theme-json");
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object" && Object.keys(parsed).length > 0) {
+          themeJson = parsed;
+        }
+      }
+    } catch (e) {}
   }
 
-/**
- * @function
- */
+  // Apply theme via CSS variables on creator container (most reliable for Survey Creator)
+  // and also via survey API as fallback
+  var _lastThemeVars = null;
+  var _lastCreatorTheme = null;
+
+  function applyThemeToElements(theme) {
+    var tj = theme || themeJson;
+    try {
+      var editorContainer = document.getElementById("surveyEditorContainer");
+      if (editorContainer) {
+        editorContainer.classList.toggle(
+          "survey-editor-panelless",
+          Boolean(tj && tj.isPanelless)
+        );
+      }
+      // Collect all targets once
+      var targets = [
+        document.getElementById("surveyEditorContainer"),
+        document.getElementById("surveyContainer"),
+        document.getElementById("surveyContainer") ? document.getElementById("surveyContainer").parentNode : null,
+      ];
+      document.querySelectorAll(".svc-creator, .sv_main, .sv_body, .sv-root-modern").forEach(function(el) {
+        targets.push(el);
+      });
+
+      if (tj) {
+        // Keep the Creator's theme model in sync as well.  This is important
+        // for preview surveys: the Creator creates those lazily and applies
+        // its own theme when the Preview tab is opened.
+        if (creator && _lastCreatorTheme !== tj) {
+          try {
+            if (typeof creator.applyCreatorTheme === "function") {
+              creator.applyCreatorTheme(tj);
+            } else {
+              creator.theme = tj;
+            }
+            _lastCreatorTheme = tj;
+          } catch (e) {}
+        }
+        var vars = tj.cssVariables || {};
+        // Clear previously applied vars that are not in the new theme
+        if (_lastThemeVars) {
+          targets.forEach(function (el) {
+            if (!el) return;
+            Object.keys(_lastThemeVars).forEach(function (key) {
+              if (!(key in vars)) {
+                try { el.style.removeProperty(key); } catch (e) {}
+              }
+            });
+          });
+        }
+        // Apply new vars
+        targets.forEach(function (el) {
+          if (!el) return;
+          Object.keys(vars).forEach(function (key) {
+            try { el.style.setProperty(key, vars[key]); } catch (e) {}
+          });
+        });
+        _lastThemeVars = vars;
+        // Apply to creator's survey via API
+        if (creator) {
+          try {
+            if (creator.survey && typeof creator.survey.applyTheme === "function") {
+              creator.survey.applyTheme(tj);
+            }
+            if (creator.previewSurvey && typeof creator.previewSurvey.applyTheme === "function") {
+              creator.previewSurvey.applyTheme(tj);
+            }
+          } catch (e) {}
+        }
+      } else {
+        if (creator && _lastCreatorTheme !== null) {
+          try {
+            creator.theme = null;
+            _lastCreatorTheme = null;
+          } catch (e) {}
+        }
+        // No theme — clear all previously applied CSS variables
+        if (_lastThemeVars) {
+          targets.forEach(function (el) {
+            if (!el) return;
+            Object.keys(_lastThemeVars).forEach(function (key) {
+              try { el.style.removeProperty(key); } catch (e) {}
+            });
+          });
+          _lastThemeVars = null;
+        }
+        // Reset survey theme
+        if (creator) {
+          try {
+            if (creator.survey && typeof creator.survey.applyTheme === "function") {
+              creator.survey.applyTheme({});
+            }
+            if (creator.previewSurvey && typeof creator.previewSurvey.applyTheme === "function") {
+              creator.previewSurvey.applyTheme({});
+            }
+          } catch (e) {}
+        }
+      }
+    } catch (e) {}
+  }
+
+  // Preview is created lazily by Survey Creator.  Re-apply the selected
+  // theme whenever that happens so panelless themes affect the preview too.
+  if (creator.onPreviewSurveyCreated && typeof creator.onPreviewSurveyCreated.add === "function") {
+    creator.onPreviewSurveyCreated.add(function (_sender, options) {
+      if (options && options.survey && themeJson && typeof options.survey.applyTheme === "function") {
+        try { options.survey.applyTheme(themeJson); } catch (e) {}
+      }
+      applyThemeToElements();
+    });
+  }
+
+  // Poll for the creator to be ready and apply theme repeatedly
+  function scheduleThemeApplication() {
+    applyThemeToElements();
+    // Re-apply a few times to catch the survey being rebuilt
+    window.setTimeout(applyThemeToElements, 500);
+    window.setTimeout(applyThemeToElements, 1500);
+  }
+
+  // Apply after locales are loaded; schedule theme application after render
   applyCreatorLocale(initialLocale).then(function () {
     creator.render("surveyContainer");
+    scheduleThemeApplication();
   });
 
   const editorRoot = document.getElementById("surveyEditorContainer");
@@ -724,6 +842,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var url = ACTUAL_URL + "/get-form-json";
 
+  // --- Theme switcher ---
+    var themeSwitcher = document.getElementById("surveyThemeSwitcher");
+    var themeSaveBtn = document.getElementById("surveyThemeSaveBtn");
+    var savedThemeId = themeJsonEl ? themeJsonEl.getAttribute("data-survey-current-theme") || "" : "";
+    // Populate dropdown from config
+    if (themeSwitcher && themeJsonEl) {
+      try {
+        var choicesRaw = themeJsonEl.getAttribute("data-survey-themes-choices");
+        if (choicesRaw) {
+          var choices = JSON.parse(choicesRaw);
+          themeSwitcher.innerHTML = "";
+          choices.forEach(function (c) {
+            var opt = document.createElement("option");
+            opt.value = c.value || "";
+            opt.textContent = c.text || "";
+            if (c.value === savedThemeId) opt.selected = true;
+            themeSwitcher.appendChild(opt);
+          });
+        }
+      } catch (e) {}
+
+      themeSwitcher.addEventListener("change", function () {
+        var selectedId = themeSwitcher.value;
+        if (themeSaveBtn) {
+          themeSaveBtn.style.display = (selectedId !== savedThemeId) ? "inline-block" : "none";
+        }
+        if (!selectedId) {
+          // No theme selected — reset to default or clear
+          themeJson = null;
+          applyThemeToElements();
+          return;
+        }
+        // Fetch theme JSON for the selected theme
+        $.getJSON(ACTUAL_URL + "/@@editor?action=get_theme_json&theme_id=" + encodeURIComponent(selectedId), function (data) {
+          if (data && typeof data === "object" && Object.keys(data).length > 0) {
+            themeJson = data;
+          } else {
+            themeJson = null;
+          }
+          applyThemeToElements();
+        });
+      });
+    }
+
+    if (themeSaveBtn) {
+      themeSaveBtn.addEventListener("click", function () {
+        var selectedId = themeSwitcher ? themeSwitcher.value : "";
+        $.ajax({
+          url: ACTUAL_URL + "/@@editor",
+          type: "POST",
+          data: {
+            action: "save_theme",
+            theme_id: selectedId,
+            _authenticator: CSRF_TOKEN,
+          },
+          success: function (resp) {
+            try {
+              var r = JSON.parse(resp);
+              if (r.success) {
+                savedThemeId = selectedId;
+                themeSaveBtn.style.display = "none";
+                if (themeSwitcher) themeSwitcher.value = selectedId;
+              }
+            } catch (e) {}
+          },
+        });
+      });
+    }
+
 /**
  * @function
  */
@@ -744,6 +931,10 @@ document.addEventListener("DOMContentLoaded", function () {
  */
     applyCreatorLocale(formLocale || initialLocale).then(function () {
       creator.JSON = result;
+      // Apply theme after JSON is loaded (allow creator to rebuild survey)
+      window.setTimeout(function () {
+        applyThemeToElements();
+      }, 200);
 /**
  * @function
  */

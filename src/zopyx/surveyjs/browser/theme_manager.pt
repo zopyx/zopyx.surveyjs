@@ -1,0 +1,141 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs"
+      metal:use-macro="context/main_template/macros/master"
+      tal:define="portal_state context/@@plone_portal_state">
+
+  <metal:block fill-slot="content-core">
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url" />
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-var-csrf" />
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-vars-base" />
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-core" />
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-ui" />
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-theme-index" />
+    <div class="theme-manager">
+      <div class="theme-manager-header">
+        <h1>Theme Manager</h1>
+        <div class="theme-manager-actions">
+          <button id="createThemeBtn" class="btn btn-primary" type="button">
+            New Theme
+          </button>
+          <button id="uploadThemeBtn" class="btn btn-secondary" type="button">
+            Upload Theme JSON
+          </button>
+          <input type="file" id="uploadThemeInput"
+                 accept=".json,application/json" style="display:none" />
+        </div>
+      </div>
+
+      <div id="createThemeDialog" class="theme-dialog-overlay" hidden="hidden">
+        <div class="theme-dialog">
+          <h2>New Theme</h2>
+          <p>Enter a name for the new theme.</p>
+          <input type="text" id="newThemeName" class="form-control"
+                 placeholder="My Custom Theme" />
+          <div class="theme-dialog-actions">
+            <button id="createDialogCancel" class="btn btn-secondary"
+                    type="button">Cancel</button>
+            <button id="createDialogConfirm" class="btn btn-primary"
+                    type="button">Create</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="deleteConfirmDialog" class="theme-dialog-overlay" hidden="hidden">
+        <div class="theme-dialog">
+          <h2>Delete Theme</h2>
+          <p>Are you sure you want to delete <strong id="deleteThemeName"></strong>?</p>
+          <div class="theme-dialog-actions">
+            <button id="deleteDialogCancel" class="btn btn-secondary"
+                    type="button">Cancel</button>
+            <button id="deleteDialogConfirm" class="btn btn-danger"
+                    type="button">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="themePreviewDialog" class="theme-preview-overlay" hidden="hidden"
+           role="dialog" aria-modal="true" aria-labelledby="themePreviewTitle">
+        <div class="theme-preview-dialog">
+          <div class="theme-preview-header">
+            <div>
+              <p class="theme-dialog-eyebrow">Live preview</p>
+              <h2 id="themePreviewTitle">Theme preview</h2>
+            </div>
+            <button id="themePreviewClose" class="theme-preview-close" type="button"
+                    aria-label="Close preview" title="Close preview">&times;</button>
+          </div>
+          <div id="themePreviewContainer" class="theme-preview-container"></div>
+        </div>
+      </div>
+
+      <table class="table table-striped" id="themeTable"
+             tal:condition="view/themes">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Modified</th>
+            <th>Versions</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr tal:repeat="theme view/themes">
+            <td>
+              <a tal:attributes="href string:${view/portal_url}/@@theme-editor?theme_id=${theme/id}"
+                 tal:content="theme/name">Name</a>
+              <span tal:condition="theme/is_default"
+                    class="theme-default-badge">Default</span>
+            </td>
+            <td data-theme-date="modified" tal:attributes="data-date theme/modified">modified</td>
+            <td tal:content="theme/version_count">0</td>
+            <td class="actions-cell">
+              <button class="btn btn-sm btn-preview preview-btn" type="button"
+                      aria-label="Preview theme" title="Preview theme"
+                      tal:attributes="data-theme-name theme/name;
+                                      data-theme-json python:view.html_safe_json(theme.get('theme_json', {}))">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                <span class="theme-action-label">Preview</span>
+              </button>
+              <a class="btn btn-sm btn-primary" aria-label="Edit theme" title="Edit theme"
+                 tal:attributes="href string:${view/portal_url}/@@theme-editor?theme_id=${theme/id}">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 16.5-.8 3.8 3.8-.8L18.5 8l-2.5-2.5L4 16.5Z"/><path d="m14.5 6.5 2.5 2.5M4 20h16"/></svg>
+                <span class="theme-action-label">Edit</span>
+              </a>
+              <button class="btn btn-sm btn-default make-default-btn" type="button"
+                      aria-label="Make default theme" title="Make default theme"
+                      tal:condition="not:theme/is_default"
+                      tal:attributes="data-theme-id theme/id;
+                                      data-theme-name theme/name">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7H22l-6 4.5 2.4 7L12 16l-6.4 4.5L8 13.5 2 9h7.6Z"/></svg>
+                <span class="theme-action-label">Make default</span>
+              </button>
+              <a class="btn btn-sm btn-secondary" aria-label="Download theme" title="Download theme"
+                 tal:attributes="href string:${view/portal_url}/@@theme-manager?action=download&amp;theme_id=${theme/id}">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
+                <span class="theme-action-label">Download</span>
+              </a>
+              <button class="btn btn-sm btn-danger delete-btn" type="button"
+                      aria-label="Delete theme" title="Delete theme"
+                      tal:attributes="data-theme-id theme/id;
+                                      data-theme-name theme/name">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></svg>
+                <span class="theme-action-label">Delete</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p tal:condition="not:view/themes" class="text-muted">
+        No themes yet. Create your first theme.
+      </p>
+    </div>
+
+    <script src="++resource++zopyx.surveyjs/theme_manager.js"
+            type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css"
+          href="++resource++zopyx.surveyjs/theme_manager.css" />
+  </metal:block>
+</html>

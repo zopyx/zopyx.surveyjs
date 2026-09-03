@@ -219,7 +219,15 @@ __marimo__/
 .streamlit/secrets.toml
 
 durations.svg
-.codespeak/ignored/src/zopyx/surveyjs/data_validation/validate-linux
+.codespeak/ignored/
+.codex/
+.hermes/
+openspec/
+evcc.yaml
+out.json
+sbom-source.cdx.json
+node_modules/
+src/zopyx.plone.persistentlogger
 
 bin
 src/privacyforms.theme/

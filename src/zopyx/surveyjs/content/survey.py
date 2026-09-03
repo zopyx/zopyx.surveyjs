@@ -240,6 +240,12 @@ class ISurvey(model.Schema):
         ),
     )
 
+    fieldset(
+        "theming",
+        label=_("Theming"),
+        fields=("theme",),
+    )
+
     form.widget("actions", CheckBoxFieldWidget)
     form.widget("email_body", TextAreaFieldWidget, rows=10, cols=80)
     survey_languages = schema.List(
@@ -338,6 +344,13 @@ class ISurvey(model.Schema):
         default=300,
         min=60,
         max=3600,
+    )
+
+    theme = schema.Choice(
+        title=_("Theme"),
+        description=_("Select a theme for this survey."),
+        vocabulary="zopyx.surveyjs.SurveyThemes",
+        required=False,
     )
 
     email_sender = schema.TextLine(

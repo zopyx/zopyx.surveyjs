@@ -14,5 +14,9 @@
         name="zopyx.surveyjs.AIModels"
     />
 
+    <utility
+        component=".survey_themes.SurveyThemesVocabularyFactory"
+        name="zopyx.surveyjs.SurveyThemes"
+    />
 
 </configure>

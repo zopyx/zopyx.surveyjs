@@ -390,7 +390,14 @@ function handleViewerReady(event) {
       // Create the survey from the loaded JSON
       const survey = new Survey.Model(result);
       currentSurvey = survey;
-      survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
+
+      // Apply theme: configured survey theme, default theme, or hardcoded fallback
+      var themeJson = viewerConfig.themeJson;
+      if (themeJson && typeof themeJson === "object" && Object.keys(themeJson).length > 0) {
+        survey.applyTheme(themeJson);
+      } else {
+        survey.applyTheme(SurveyTheme.LayeredDarkPanelless);
+      }
       
       // Determine effective locale: URL param > survey locale > browser locale
       const effectiveLocale = urlLocaleParam || result.locale || surveyLocale;

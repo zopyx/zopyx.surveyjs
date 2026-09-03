@@ -29,7 +29,10 @@
     <span id="survey-editor-config"
           hidden="hidden"
           tal:attributes="data-license-key python: view.surveyjs_license_key or '';
-                          data-survey-languages view/survey_languages_json"></span>
+                          data-survey-languages view/survey_languages_json;
+                          data-survey-theme-json python: view.html_safe_json(view.survey_theme_json);
+                          data-survey-themes-choices view/themes_choices_json;
+                          data-survey-current-theme view/current_theme_id"></span>
 
     <metal:surveyjs-core
         use-macro="context/@@survey-assets/macros/surveyjs-core"
@@ -98,6 +101,16 @@
 
     <div id="surveyEditorContainer">
       <div class="survey-editor-toolbar">
+        <select id="surveyThemeSwitcher"
+                class="survey-theme-switcher form-control"
+                aria-label="Switch theme"
+                title="Switch theme">
+          <option value="">No theme</option>
+        </select>
+        <button id="surveyThemeSaveBtn"
+                class="btn btn-sm btn-primary"
+                type="button"
+                title="Save selected theme to survey metadata">Save theme</button>
         <a id="surveyFullscreenToggle"
            class="survey-fullscreen-toggle"
            href="#"
