@@ -38,7 +38,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Plone Buildout
-        uses: $/.github/actions/setup-plone-buildout
+        uses: ./.github/actions/setup-plone-buildout
 
       - name: Cache database container images
         run: docker pull postgres:16 && docker pull mysql:8

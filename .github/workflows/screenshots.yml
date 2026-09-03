@@ -54,7 +54,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Plone Buildout
-        uses: $/.github/actions/setup-plone-buildout
+        uses: ./.github/actions/setup-plone-buildout
 
       # Set up Node.js for Playwright
       - name: Set up Node.js
