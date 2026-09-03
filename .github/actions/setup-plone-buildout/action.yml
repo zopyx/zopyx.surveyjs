@@ -41,12 +41,12 @@ runs:
 
     - name: Install Python with uv
       shell: bash
-      run: uv python install 3.13
+      run: uv python install 3.14
 
     - name: Create venv and install buildout tooling
       shell: bash
       run: |
-        uv venv --python 3.13
+        uv venv --python 3.14
         uv pip install -r requirements.txt
 
     - name: Cache buildout artifacts
