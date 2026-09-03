@@ -40,20 +40,26 @@
       </a>
       <h1><tal:block tal:content="view/theme_name">Theme</tal:block></h1>
       <div class="actions">
-        <button id="saveCurrentBtn" type="button" class="btn-primary">Save</button>
-        <button id="saveVersionBtn" type="button" class="btn-primary">Save a new version</button>
-        <button id="restoreBtn" type="button" class="btn-secondary">Restore Version</button>
-        <button id="importThemeBtn" type="button" class="btn-secondary">
+        <button id="saveCurrentBtn" type="button" class="btn-primary btn-save-current">Save</button>
+        <button id="saveVersionBtn" type="button" class="btn-primary btn-save-version">Save a new version</button>
+        <button id="restoreBtn" type="button" class="btn-secondary btn-restore">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 12a9 9 0 1 0 3-6.7" />
+            <path d="M3 4v6h6" />
+          </svg>
+          <span>Restore Version</span>
+        </button>
+        <button id="importThemeBtn" type="button" class="btn-secondary btn-import">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <span>Import</span>
         </button>
         <input type="file" id="importThemeInput" accept=".json,application/json"
                style="display:none" />
-        <button id="exportThemeBtn" type="button" class="btn-secondary">
+        <button id="exportThemeBtn" type="button" class="btn-secondary btn-export">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
           <span>Export</span>
         </button>
-        <button id="viewJsonBtn" type="button" class="btn-secondary">
+        <button id="viewJsonBtn" type="button" class="btn-secondary btn-view-json">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
           <span>JSON</span>
         </button>
@@ -79,7 +85,7 @@
       <div class="theme-modal-body">
         <table class="table" id="versionsTable">
           <thead>
-            <tr><th>Created</th><th>User</th><th>Action</th></tr>
+            <tr><th>Version</th><th>Created</th><th>User</th><th>Action</th></tr>
           </thead>
           <tbody></tbody>
         </table>

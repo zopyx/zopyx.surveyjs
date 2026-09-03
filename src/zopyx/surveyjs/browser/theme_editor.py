@@ -64,10 +64,11 @@ class ThemeEditorView(Views):
     def versions_json(self):
         versions = themes_service.sorted_theme_versions(self._theme, reverse=True)
         result = []
-        for v in versions:
+        for number, v in enumerate(versions, start=len(versions)):
             created = v.get("created")
             result.append(dict(
                 id=v.get("id"),
+                number=number,
                 created=created.isoformat() if hasattr(created, "isoformat") else str(created or ""),
                 user=v.get("user", ""),
             ))

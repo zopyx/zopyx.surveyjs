@@ -233,14 +233,19 @@ document.addEventListener("DOMContentLoaded", function () {
       var versionsEl = document.getElementById("theme-versions-data");
       var versions = JSON.parse(versionsEl.textContent || "[]");
       tbody.innerHTML = "";
-      versions.forEach(function (v) {
+      versions.forEach(function (v, index) {
         var tr = document.createElement("tr");
         var td1 = document.createElement("td");
-        td1.textContent = formatDateTime(v.created);
-        td1.title = v.created;
+        // New payloads include the stable number; derive it for older or
+        // cached payloads where the field is not present yet.
+        var versionNumber = Number(v.number) || (versions.length - index);
+        td1.textContent = "Version " + versionNumber;
         var td2 = document.createElement("td");
-        td2.textContent = v.user;
+        td2.textContent = formatDateTime(v.created);
+        td2.title = v.created;
         var td3 = document.createElement("td");
+        td3.textContent = v.user;
+        var td4 = document.createElement("td");
         var btn = document.createElement("button");
         btn.className = "btn btn-sm btn-primary";
         btn.textContent = "Restore";
@@ -255,10 +260,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           });
         });
-        td3.appendChild(btn);
+        td4.appendChild(btn);
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
+        tr.appendChild(td4);
         tbody.appendChild(tr);
       });
     } catch (e) {

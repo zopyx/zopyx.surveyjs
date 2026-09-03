@@ -63,6 +63,72 @@ html, body {
 #themeEditorToolbar .btn-primary:hover {
   background: #0b3b64;
 }
+#themeEditorToolbar .btn-save-current {
+  border-color: #86efac;
+  background: #ecfdf5;
+  color: #047857;
+}
+#themeEditorToolbar .btn-save-current:hover,
+#themeEditorToolbar .btn-save-current:focus-visible {
+  border-color: #4ade80;
+  background: #d1fae5;
+  color: #065f46;
+}
+#themeEditorToolbar .btn-save-version {
+  border-color: #93c5fd;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+#themeEditorToolbar .btn-save-version:hover,
+#themeEditorToolbar .btn-save-version:focus-visible {
+  border-color: #60a5fa;
+  background: #dbeafe;
+  color: #1e40af;
+}
+#themeEditorToolbar .btn-import {
+  border-color: #c4b5fd;
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+#themeEditorToolbar .btn-import:hover,
+#themeEditorToolbar .btn-import:focus-visible {
+  border-color: #a78bfa;
+  background: #ede9fe;
+  color: #5b21b6;
+}
+#themeEditorToolbar .btn-export {
+  border-color: #99f6e4;
+  background: #ecfeff;
+  color: #0f766e;
+}
+#themeEditorToolbar .btn-export:hover,
+#themeEditorToolbar .btn-export:focus-visible {
+  border-color: #5eead4;
+  background: #cffafe;
+  color: #115e59;
+}
+#themeEditorToolbar .btn-view-json {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+}
+#themeEditorToolbar .btn-view-json:hover,
+#themeEditorToolbar .btn-view-json:focus-visible {
+  border-color: #94a3b8;
+  background: #e2e8f0;
+  color: #334155;
+}
+#themeEditorToolbar .btn-restore {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+#themeEditorToolbar .btn-restore:hover,
+#themeEditorToolbar .btn-restore:focus-visible {
+  border-color: #f87171;
+  background: #fee2e2;
+  color: #991b1b;
+}
 #themeEditorToolbar .actions button {
   display: inline-flex;
   align-items: center;
