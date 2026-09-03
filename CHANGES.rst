@@ -2,6 +2,21 @@ Changelog
 =========
 
 
+1.0a6 (unreleased)
+------------------
+
+- Add per-survey SurveyJS theme selection with default theme support.
+- Add the Theme Manager configlet, theme creation/upload actions, and
+  improved upload and creation button styling with icons.
+- Improve the theme editor toolbar with semantic action colors and a restore
+  version action icon.
+- Apply panelless SurveyJS themes correctly in the editor preview.
+- Show version numbers in the theme history and restore-version dialog.
+- Update the vendored SurveyJS browser bundles, translations, and server-side
+  validator to SurveyJS 3.0.2.
+- Fix CI buildout action paths and use Python 3.14 for the Plone environment.
+
+
 1.0a5 (unreleased)
 ------------------
 
