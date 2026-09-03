@@ -61,6 +61,11 @@ class TestThemeManagerViews(unittest.TestCase):
         self.browser.open(self.portal.absolute_url() + "/@@theme-manager")
         self.assertIn("Theme Manager", self.browser.contents)
         self.assertIn("New Theme", self.browser.contents)
+        contents = self.browser.contents
+        create_start = contents.index('id="createThemeBtn"')
+        upload_start = contents.index('id="uploadThemeBtn"')
+        self.assertIn("<svg", contents[create_start:upload_start])
+        self.assertIn("<svg", contents[upload_start:contents.index("</button>", upload_start)])
 
     def test_theme_manager_make_default_icon_is_leftmost(self):
         """The 'Make default' (star) icon is the first action icon per row."""
