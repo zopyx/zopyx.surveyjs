@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.2
+ * SurveyJS Creator v3.0.4
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -257,6 +257,8 @@
       translateUsigAI: "Tümünü Otomatik Çevir",
       // [Auto-translated] "Translate from: "
       translateUsigAIFrom: "Çeviri kaynağı: ",
+      // [Auto-translated] "Translate remaining strings"
+      translateRemainingStrings: "Kalan dizileri dönüştürün",
       // [Auto-translated] "Untranslated strings"
       translationDialogTitle: "Çevrilmemiş dizeler",
       // "Merge {0} with default locale"
@@ -267,6 +269,28 @@
       translationSource: "Kaynak: ",
       // [Auto-translated] "Target: "
       translationTarget: "Hedef: ",
+      // [Auto-translated] "Source language"
+      translationSourceLanguage: "Kaynak dil",
+      // [Auto-translated] "Target language"
+      translationTargetLanguage: "Hedef dil",
+      // [Auto-translated] "{0} of {1} strings translated"
+      translationProgress: "{0} {1} teller çevrildi",
+      // [Auto-translated] "Are you certain you wish to delete all translated strings for the selected language?"
+      translationClearProgress: "Seçilen dil için tüm çevrilmiş dizeleri silmek istediğinizden emin misiniz?",
+      // [Auto-translated] "Form View"
+      translationSideBySideViewForm: "Form Görünümü",
+      // [Auto-translated] "Grid View"
+      translationSideBySideViewGrid: "Şebeke Görünümü",
+      // [Auto-translated] "Translate strings"
+      translateStrings: "Çeviri dizeleri",
+      // [Auto-translated] "Survey Strings"
+      translationSurveyStrings: "Anket Dizileri",
+      // [Auto-translated] "No strings to translate"
+      translationStateNothingToTranslate: "Çevirecek bir şart yok",
+      // [Auto-translated] "All strings are translated"
+      translationStateAllTranslated: "Tüm dizileri çeviriyor",
+      // [Auto-translated] "{0} strings are not translated"
+      translationStateUntranslated: "{0} dizeler çevrilmez",
       // [Auto-translated] "YouTube links are not supported."
       translationYouTubeNotSupported: "YouTube bağlantıları desteklenmemektedir.",
       // [Auto-translated] "Export"
@@ -845,6 +869,10 @@
       removeItem: "Öğeyi kaldırmak için tıklayın...",
       // [Auto-translated] "Drag the item"
       dragItem: "Öğeyi sürükleyin",
+      // [Auto-translated] "Expand nested choices"
+      expandNestedChoices: "İç içe seçenekleri genişlet",
+      // [Auto-translated] "Collapse nested choices"
+      collapseNestedChoices: "Çöktü iç içe seçimler",
       // "Edit"
       edit: "Düzenle",
       // [Auto-translated] "Done"
@@ -947,6 +975,8 @@
       surveyTitlePlaceholder: "Anket başlığı",
       // "Page {num}"
       pageTitlePlaceholder: "Sayfa başlığı",
+      // [Auto-translated] "Panel Title"
+      panelTitlePlaceholder: "Panel Başlığı",
       // [Auto-translated] "Start Page"
       startPageTitlePlaceholder: "Başlangıç Sayfası",
       // "Description"
@@ -1299,6 +1329,8 @@
       minRowCount: "Minimum satır sayısı",
       // [Auto-translated] "Maximum row count"
       maxRowCount: "Maksimum satır sayısı",
+      // [Auto-translated] "Row count expression"
+      rowCountExpression: "Satır sayısı ifadesi",
       // "Confirm row removal"
       confirmDelete: "Satır silme işlemini onaylama",
       // [Auto-translated] "Confirmation message"
@@ -1309,6 +1341,8 @@
       minPanelCount: "Minimum giriş sayısı",
       // [Auto-translated] "Maximum number of entries"
       maxPanelCount: "Maksimum giriş sayısı",
+      // [Auto-translated] "Entry count expression"
+      panelCountExpression: "Giriş sayısı ifadesi",
       // [Auto-translated] "Initial entry state"
       panelsState: "İlk giriş durumu",
       // [Auto-translated] "\"Previous Entry\" button text"
@@ -1946,6 +1980,12 @@
         // [Auto-translated] "Informational"
         info: "Bilgi"
       },
+      cameraFacingMode: {
+        // [Auto-translated] "Front"
+        user: "Ön Kısım",
+        // [Auto-translated] "Rear"
+        environment: "Arka"
+      },
       acceptedCategories: {
         // [Auto-translated] "Images"
         image: "Görseller",
@@ -2541,10 +2581,14 @@
         keyName: "Kullanıcının her panelde bu soruya benzersiz bir yanıt vermesini zorunlu kılmak için bir soru adına başvurun.",
         // [Auto-translated] "Triggers a confirmation prompt before removing an entry."
         confirmDelete: "Bir girişi kaldırmadan önce bir onay istemini tetikler.",
+        // [Auto-translated] "Specify an expression that calculates the number of entries. This expression overrides the \"Initial number of entries\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum number of entries\" and \"Maximum number of entries\" settings. While this expression is set, respondents cannot add or remove entries manually."
+        panelCountExpression: 'Giriş sayısını hesaplayan bir ifade belirtin. Bu ifade "Başlangıç girdi sayısı" ayarını geçersiz kılar ve referans verdiği değerler değiştiğinde yeniden değerlendirilir. Sonuç, "Minimum giriş sayısı" ve "En fazla giriş sayısı" ayarlarıyla sınırlıdır. Bu ifade ayarlanmışken, katılımcılar girişleri manuel olarak ekleyip çıkaramaz.',
         // [Auto-translated] "Assigns numbers to questions nested within the dynamic panel."
         showQuestionNumbers: "Dinamik panelde iç içe geçmiş sorulara numaralar atar."
       },
       matrixdynamic: {
+        // [Auto-translated] "Specify an expression that calculates the number of rows. This expression overrides the \"Row count\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum row count\" and \"Maximum row count\" settings. While this expression is set, respondents cannot add or remove rows manually."
+        rowCountExpression: 'Satır sayısını hesaplayan bir ifade belirtin. Bu ifade, "Satır sayısı" ayarını geçersiz kılır ve referans verdiği değerler değiştiğinde yeniden değerlendirilir. Sonuç, "Minimum satır sayısı" ve "Maksimum satır sayısı" ayarlarıyla sınırlıdır. Bu ifade ayarlanmışken, yanıtlayıcılar el ile satır ekleyemez veya kaldıramaz.',
         // [Auto-translated] "Triggers a confirmation prompt before removing a row."
         confirmDelete: "Bir satırı kaldırmadan önce bir onay istemini tetikler.",
         // [Auto-translated] "Automatically expands the detail section when a new row is added to the matrix."
@@ -3014,6 +3058,8 @@
       tabAlign: "Sekme hizalaması",
       // [Auto-translated] "File source type"
       sourceType: "Dosya kaynağı türü",
+      // [Auto-translated] "Default camera"
+      cameraFacingMode: "Varsayılan kamera",
       // [Auto-translated] "Fit to container"
       fitToContainer: "Konteynere sığdır",
       // [Auto-translated] "Set value expression"
@@ -3390,10 +3436,69 @@
     },
     // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
     defaultJson: {
-      choices: [{ value: "item1", text: "Madde 1" }, { value: "item2", text: "Madde 2" }, { value: "item3", text: "Madde 3" }],
-      columns: [{ value: "column1", text: "Sütun 1" }, { value: "column2", text: "Sütun 2" }, { value: "column3", text: "Sütun 3" }],
-      rows: [{ value: "row1", text: "Satır 1" }, { value: "row2", text: "Satır 2" }],
-      matrixColumns: [{ name: "column1", title: "Sütun 1" }, { name: "column2", title: "Sütun 2" }, { name: "column3", title: "Sütun 3" }]
+      choices: [
+        {
+          value: "item1",
+          // "Item 1"
+          text: "Madde 1"
+        },
+        {
+          value: "item2",
+          // "Item 2"
+          text: "Madde 2"
+        },
+        {
+          value: "item3",
+          // "Item 3"
+          text: "Madde 3"
+        }
+      ],
+      columns: [
+        {
+          value: "column1",
+          // "Column 1"
+          text: "Sütun 1"
+        },
+        {
+          value: "column2",
+          // "Column 2"
+          text: "Sütun 2"
+        },
+        {
+          value: "column3",
+          // "Column 3"
+          text: "Sütun 3"
+        }
+      ],
+      rows: [
+        {
+          value: "row1",
+          // "Row 1"
+          text: "Satır 1"
+        },
+        {
+          value: "row2",
+          // "Row 2"
+          text: "Satır 2"
+        }
+      ],
+      matrixColumns: [
+        {
+          name: "column1",
+          // "Column 1"
+          title: "Sütun 1"
+        },
+        {
+          name: "column2",
+          // "Column 2"
+          title: "Sütun 2"
+        },
+        {
+          name: "column3",
+          // "Column 3"
+          title: "Sütun 3"
+        }
+      ]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "tr", strings: turkishStrings });

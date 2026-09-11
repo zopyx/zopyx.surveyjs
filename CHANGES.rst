@@ -13,7 +13,7 @@ Changelog
 - Apply panelless SurveyJS themes correctly in the editor preview.
 - Show version numbers in the theme history and restore-version dialog.
 - Update the vendored SurveyJS browser bundles, translations, and server-side
-  validator to SurveyJS 3.0.2.
+  validator to SurveyJS 3.0.4.
 - Fix CI buildout action paths and use Python 3.14 for the Plone environment.
 
 

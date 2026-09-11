@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.2
+ * SurveyJS Creator v3.0.4
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -257,6 +257,8 @@
       translateUsigAI: "Automatický překlad Vše",
       // [Auto-translated] "Translate from: "
       translateUsigAIFrom: "Přeložit z: ",
+      // [Auto-translated] "Translate remaining strings"
+      translateRemainingStrings: "Přeložte zbývající řetězce",
       // [Auto-translated] "Untranslated strings"
       translationDialogTitle: "Nepřeložené řetězce",
       // "Merge {0} with default locale"
@@ -267,6 +269,28 @@
       translationSource: "Zdroj: ",
       // [Auto-translated] "Target: "
       translationTarget: "Cíl: ",
+      // [Auto-translated] "Source language"
+      translationSourceLanguage: "Zdrojový jazyk",
+      // [Auto-translated] "Target language"
+      translationTargetLanguage: "Cílový jazyk",
+      // [Auto-translated] "{0} of {1} strings translated"
+      translationProgress: "{0} {1} přeložených strun",
+      // [Auto-translated] "Are you certain you wish to delete all translated strings for the selected language?"
+      translationClearProgress: "Jste si jistý, že chcete smazat všechny přeložené řetězce pro vybraný jazyk?",
+      // [Auto-translated] "Form View"
+      translationSideBySideViewForm: "Zobrazení formuláře",
+      // [Auto-translated] "Grid View"
+      translationSideBySideViewGrid: "Pohled na mřížku",
+      // [Auto-translated] "Translate strings"
+      translateStrings: "Překlad řetězců",
+      // [Auto-translated] "Survey Strings"
+      translationSurveyStrings: "Průzkumné řetězce",
+      // [Auto-translated] "No strings to translate"
+      translationStateNothingToTranslate: "Žádné závazky k překladu",
+      // [Auto-translated] "All strings are translated"
+      translationStateAllTranslated: "Všechny řetězce jsou přeloženy",
+      // [Auto-translated] "{0} strings are not translated"
+      translationStateUntranslated: "{0} řetězce nejsou překládány",
       // [Auto-translated] "YouTube links are not supported."
       translationYouTubeNotSupported: "Odkazy na YouTube nejsou podporovány.",
       // [Auto-translated] "Export"
@@ -845,6 +869,10 @@
       removeItem: "Kliknutím odstraníte položku...",
       // "Drag the item"
       dragItem: "Přetáhněte položku",
+      // [Auto-translated] "Expand nested choices"
+      expandNestedChoices: "Rozšiřte vnořené volby",
+      // [Auto-translated] "Collapse nested choices"
+      collapseNestedChoices: "Kolaps vnořených voleb",
       // "Edit"
       edit: "Upravit",
       // "Done"
@@ -947,6 +975,8 @@
       surveyTitlePlaceholder: "Sem zadejte název průzkumu",
       // "Page {num}"
       pageTitlePlaceholder: "Sem zadejte název stránky",
+      // [Auto-translated] "Panel Title"
+      panelTitlePlaceholder: "Název panelu",
       // [Auto-translated] "Start Page"
       startPageTitlePlaceholder: "Úvodní stránka",
       // "Description"
@@ -1299,6 +1329,8 @@
       minRowCount: "Minimální počet řádků",
       // "Maximum row count"
       maxRowCount: "Maximální počet řádků",
+      // [Auto-translated] "Row count expression"
+      rowCountExpression: "Výraz pro počet řádků",
       // "Confirm row removal"
       confirmDelete: "Potvrdit smazání řádku",
       // "Confirmation message"
@@ -1309,6 +1341,8 @@
       minPanelCount: "Minimální počet panelů",
       // "Maximum number of entries"
       maxPanelCount: "Maximální počet panelů",
+      // [Auto-translated] "Entry count expression"
+      panelCountExpression: "Výraz počtu vstupů",
       // "Initial entry state"
       panelsState: "Stav rozbalení vnitřního panelu",
       // "\"Previous Entry\" button text"
@@ -1946,6 +1980,12 @@
         // [Auto-translated] "Informational"
         info: "Informační"
       },
+      cameraFacingMode: {
+        // [Auto-translated] "Front"
+        user: "Přední část",
+        // [Auto-translated] "Rear"
+        environment: "Zadní část"
+      },
       acceptedCategories: {
         // [Auto-translated] "Images"
         image: "Obrázky",
@@ -2541,10 +2581,14 @@
         keyName: "Odkazujte na název otázky, chcete-li vyžadovat, aby uživatel na tuto otázku v každém panelu poskytl jedinečnou odpověď.",
         // [Auto-translated] "Triggers a confirmation prompt before removing an entry."
         confirmDelete: "Spustí výzvu k potvrzení před odstraněním položky.",
+        // [Auto-translated] "Specify an expression that calculates the number of entries. This expression overrides the \"Initial number of entries\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum number of entries\" and \"Maximum number of entries\" settings. While this expression is set, respondents cannot add or remove entries manually."
+        panelCountExpression: 'Zadejte výraz, který počítá počet záznamů. Tento výraz přepisuje nastavení "Počáteční počet záznamů" a je znovu vyhodnocován pokaždé, když se změní hodnoty, na které odkazuje. Výsledek je omezen nastavením "Minimální počet záznamů" a "Maximální počet položek". Dokud je tento výraz nastaven, respondenti nemohou položky ručně přidávat ani odebírat.',
         // [Auto-translated] "Assigns numbers to questions nested within the dynamic panel."
         showQuestionNumbers: "Přiřadí čísla otázkám vnořeným v dynamickém panelu."
       },
       matrixdynamic: {
+        // [Auto-translated] "Specify an expression that calculates the number of rows. This expression overrides the \"Row count\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum row count\" and \"Maximum row count\" settings. While this expression is set, respondents cannot add or remove rows manually."
+        rowCountExpression: 'Zadejte výraz, který počítá počet řádků. Tento výraz přepisuje nastavení "Počet řádků" a je znovu vyhodnocován pokaždé, když se změní hodnoty, na které odkazuje. Výsledek je omezen nastavením "Minimální počet řádků" a "Maximální počet řádků". Zatímco je tento výraz nastaven, respondenti nemohou ručně přidávat ani odebírat řádky.',
         // [Auto-translated] "Triggers a confirmation prompt before removing a row."
         confirmDelete: "Spustí výzvu k potvrzení před odstraněním řádku.",
         // [Auto-translated] "Automatically expands the detail section when a new row is added to the matrix."
@@ -3014,6 +3058,8 @@
       tabAlign: "Zarovnání záložek",
       // [Auto-translated] "File source type"
       sourceType: "Typ zdroje souboru",
+      // [Auto-translated] "Default camera"
+      cameraFacingMode: "Výchozí fotoaparát",
       // [Auto-translated] "Fit to container"
       fitToContainer: "Vhodné pro kontejner",
       // [Auto-translated] "Set value expression"
@@ -3390,10 +3436,69 @@
     },
     // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
     defaultJson: {
-      choices: [{ value: "item1", text: "Položka 1" }, { value: "item2", text: "Položka 2" }, { value: "item3", text: "Položka 3" }],
-      columns: [{ value: "column1", text: "Sloupec 1" }, { value: "column2", text: "Sloupec 2" }, { value: "column3", text: "Sloupec 3" }],
-      rows: [{ value: "row1", text: "Řádek 1" }, { value: "row2", text: "Řádek 2" }],
-      matrixColumns: [{ name: "column1", title: "Sloupec 1" }, { name: "column2", title: "Sloupec 2" }, { name: "column3", title: "Sloupec 3" }]
+      choices: [
+        {
+          value: "item1",
+          // "Item 1"
+          text: "Položka 1"
+        },
+        {
+          value: "item2",
+          // "Item 2"
+          text: "Položka 2"
+        },
+        {
+          value: "item3",
+          // "Item 3"
+          text: "Položka 3"
+        }
+      ],
+      columns: [
+        {
+          value: "column1",
+          // "Column 1"
+          text: "Sloupec 1"
+        },
+        {
+          value: "column2",
+          // "Column 2"
+          text: "Sloupec 2"
+        },
+        {
+          value: "column3",
+          // "Column 3"
+          text: "Sloupec 3"
+        }
+      ],
+      rows: [
+        {
+          value: "row1",
+          // "Row 1"
+          text: "Řádek 1"
+        },
+        {
+          value: "row2",
+          // "Row 2"
+          text: "Řádek 2"
+        }
+      ],
+      matrixColumns: [
+        {
+          name: "column1",
+          // "Column 1"
+          title: "Sloupec 1"
+        },
+        {
+          name: "column2",
+          // "Column 2"
+          title: "Sloupec 2"
+        },
+        {
+          name: "column3",
+          // "Column 3"
+          title: "Sloupec 3"
+        }
+      ]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "cs", strings: czStrings });

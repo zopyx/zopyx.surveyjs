@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.2
+ * SurveyJS Creator v3.0.4
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -257,6 +257,8 @@
       translateUsigAI: "Samodejno prevedi vse",
       // "Translate from: "
       translateUsigAIFrom: "Prevedi iz: ",
+      // [Auto-translated] "Translate remaining strings"
+      translateRemainingStrings: "Prevedi preostale nize",
       // "Untranslated strings"
       translationDialogTitle: "Neprevedeni nizi",
       // "Merge {0} with default locale"
@@ -267,6 +269,28 @@
       translationSource: "Vir: ",
       // "Target: "
       translationTarget: "Cilj: ",
+      // [Auto-translated] "Source language"
+      translationSourceLanguage: "Izvorni jezik",
+      // [Auto-translated] "Target language"
+      translationTargetLanguage: "Ciljni jezik",
+      // [Auto-translated] "{0} of {1} strings translated"
+      translationProgress: "{0} {1} prevedenih nizov",
+      // [Auto-translated] "Are you certain you wish to delete all translated strings for the selected language?"
+      translationClearProgress: "Ste prepričani, da želite izbrisati vse prevedene nize za izbrani jezik?",
+      // [Auto-translated] "Form View"
+      translationSideBySideViewForm: "Pogled na obrazec",
+      // [Auto-translated] "Grid View"
+      translationSideBySideViewGrid: "Mrežni pogled",
+      // [Auto-translated] "Translate strings"
+      translateStrings: "Prevajaj nize",
+      // [Auto-translated] "Survey Strings"
+      translationSurveyStrings: "Pregledni nizi",
+      // [Auto-translated] "No strings to translate"
+      translationStateNothingToTranslate: "Brez obveznosti za prevajanje",
+      // [Auto-translated] "All strings are translated"
+      translationStateAllTranslated: "Vsi nizi so prevedeni",
+      // [Auto-translated] "{0} strings are not translated"
+      translationStateUntranslated: "{0} nizi niso prevedeni",
       // "YouTube links are not supported."
       translationYouTubeNotSupported: "Povezave do YouTuba niso podprte.",
       // "Export"
@@ -845,6 +869,10 @@
       removeItem: "Kliknite za odstranitev elementa...",
       // "Drag the item"
       dragItem: "Povlecite element",
+      // [Auto-translated] "Expand nested choices"
+      expandNestedChoices: "Razširite gnezdene izbire",
+      // [Auto-translated] "Collapse nested choices"
+      collapseNestedChoices: "Collapse gnezdene izbire",
       // "Edit"
       edit: "Uredi",
       // "Done"
@@ -947,6 +975,8 @@
       surveyTitlePlaceholder: "Naslov ankete",
       // "Page {num}"
       pageTitlePlaceholder: "Stran {num}",
+      // [Auto-translated] "Panel Title"
+      panelTitlePlaceholder: "Naslov panela",
       // "Start Page"
       startPageTitlePlaceholder: "Začetna stran",
       // "Description"
@@ -1299,6 +1329,8 @@
       minRowCount: "Najmanjše število vrstic",
       // "Maximum row count"
       maxRowCount: "Največje število vrstic",
+      // [Auto-translated] "Row count expression"
+      rowCountExpression: "Izraz za število vrstic",
       // "Confirm row removal"
       confirmDelete: "Potrdi brisanje vrstice",
       // "Confirmation message"
@@ -1309,6 +1341,8 @@
       minPanelCount: "Najmanjše število panelov",
       // "Maximum number of entries"
       maxPanelCount: "Največje število panelov",
+      // [Auto-translated] "Entry count expression"
+      panelCountExpression: "Izraz za število vstopov",
       // "Initial entry state"
       panelsState: "Stanje znotraj zapiranja panela",
       // "\"Previous Entry\" button text"
@@ -1946,6 +1980,12 @@
         // [Auto-translated] "Informational"
         info: "Informativne"
       },
+      cameraFacingMode: {
+        // [Auto-translated] "Front"
+        user: "Spredaj",
+        // [Auto-translated] "Rear"
+        environment: "Zadnji del"
+      },
       acceptedCategories: {
         // [Auto-translated] "Images"
         image: "Slike",
@@ -2541,10 +2581,14 @@
         keyName: "Sklicujte se na ime vprašanja, da zahteva od uporabnika, da za to vprašanje v vsakem panelu poda edinstven odgovor.",
         // "Triggers a confirmation prompt before removing an entry."
         confirmDelete: "Sproži potrditveni poziv pred odstranitvijo plošče.",
+        // [Auto-translated] "Specify an expression that calculates the number of entries. This expression overrides the \"Initial number of entries\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum number of entries\" and \"Maximum number of entries\" settings. While this expression is set, respondents cannot add or remove entries manually."
+        panelCountExpression: 'Določite izraz, ki izračuna število vnosov. Ta izraz preglasi nastavitev "Začetno število vnosov" in se ponovno oceni vsakič, ko se spremenijo vrednosti, na katere se sklicuje. Rezultat je omejen z nastavitvami "Minimalno število vnosov" in "Največje število vnosov". Medtem ko je ta izraz nastavljen, anketiranci ne morejo ročno dodajati ali odstranjevati vnosov.',
         // [Auto-translated] "Assigns numbers to questions nested within the dynamic panel."
         showQuestionNumbers: "Dodeli številke vprašanjem, ugnezdenim v dinamični plošči."
       },
       matrixdynamic: {
+        // [Auto-translated] "Specify an expression that calculates the number of rows. This expression overrides the \"Row count\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum row count\" and \"Maximum row count\" settings. While this expression is set, respondents cannot add or remove rows manually."
+        rowCountExpression: 'Določite izraz, ki izračuna število vrstic. Ta izraz preglasi nastavitev "Število vrstic" in se ponovno oceni vsakič, ko se spremenijo vrednosti, na katere se sklicuje. Rezultat je omejen z nastavitvami "Minimalno število vrstic" in "Največje število vrstic". Medtem ko je ta izraz nastavljen, anketiranci ne morejo ročno dodajati ali odstranjevati vrstic.',
         // [Auto-translated] "Triggers a confirmation prompt before removing a row."
         confirmDelete: "Sproži potrditveni poziv pred odstranitvijo vrstice.",
         // [Auto-translated] "Automatically expands the detail section when a new row is added to the matrix."
@@ -3014,6 +3058,8 @@
       tabAlign: "Poravnava zavičkov",
       // "File source type"
       sourceType: "Vrsta vira datotek",
+      // [Auto-translated] "Default camera"
+      cameraFacingMode: "Privzeta kamera",
       // "Fit to container"
       fitToContainer: "Prilagodi vsebino za vsak prostor",
       // "Set value expression"
@@ -3390,10 +3436,69 @@
     },
     // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
     defaultJson: {
-      choices: [{ value: "item1", text: "Element 1" }, { value: "item2", text: "Element 2" }, { value: "item3", text: "Element 3" }],
-      columns: [{ value: "column1", text: "Stolpec 1" }, { value: "column2", text: "Stolpec 2" }, { value: "column3", text: "Stolpec 3" }],
-      rows: [{ value: "row1", text: "Vrstica 1" }, { value: "row2", text: "Vrstica 2" }],
-      matrixColumns: [{ name: "column1", title: "Stolpec 1" }, { name: "column2", title: "Stolpec 2" }, { name: "column3", title: "Stolpec 3" }]
+      choices: [
+        {
+          value: "item1",
+          // "Item 1"
+          text: "Element 1"
+        },
+        {
+          value: "item2",
+          // "Item 2"
+          text: "Element 2"
+        },
+        {
+          value: "item3",
+          // "Item 3"
+          text: "Element 3"
+        }
+      ],
+      columns: [
+        {
+          value: "column1",
+          // "Column 1"
+          text: "Stolpec 1"
+        },
+        {
+          value: "column2",
+          // "Column 2"
+          text: "Stolpec 2"
+        },
+        {
+          value: "column3",
+          // "Column 3"
+          text: "Stolpec 3"
+        }
+      ],
+      rows: [
+        {
+          value: "row1",
+          // "Row 1"
+          text: "Vrstica 1"
+        },
+        {
+          value: "row2",
+          // "Row 2"
+          text: "Vrstica 2"
+        }
+      ],
+      matrixColumns: [
+        {
+          name: "column1",
+          // "Column 1"
+          title: "Stolpec 1"
+        },
+        {
+          name: "column2",
+          // "Column 2"
+          title: "Stolpec 2"
+        },
+        {
+          name: "column3",
+          // "Column 3"
+          title: "Stolpec 3"
+        }
+      ]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "sl", strings: slStrings });

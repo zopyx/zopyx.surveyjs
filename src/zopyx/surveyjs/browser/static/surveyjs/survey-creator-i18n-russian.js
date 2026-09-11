@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.2
+ * SurveyJS Creator v3.0.4
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -257,6 +257,8 @@
       translateUsigAI: "Автоматический перевод всех",
       // [Auto-translated] "Translate from: "
       translateUsigAIFrom: "Перевести с: ",
+      // [Auto-translated] "Translate remaining strings"
+      translateRemainingStrings: "Перевод оставшихся строк",
       // [Auto-translated] "Untranslated strings"
       translationDialogTitle: "Непереведенные строки",
       // "Merge {0} with default locale"
@@ -267,6 +269,28 @@
       translationSource: "Источник: ",
       // [Auto-translated] "Target: "
       translationTarget: "Цель: ",
+      // [Auto-translated] "Source language"
+      translationSourceLanguage: "Исходный язык",
+      // [Auto-translated] "Target language"
+      translationTargetLanguage: "Целевой язык",
+      // [Auto-translated] "{0} of {1} strings translated"
+      translationProgress: "{0} {1} переведённых струн",
+      // [Auto-translated] "Are you certain you wish to delete all translated strings for the selected language?"
+      translationClearProgress: "Вы уверены, что хотите удалить все переведённые строки для выбранного языка?",
+      // [Auto-translated] "Form View"
+      translationSideBySideViewForm: "Вид формы",
+      // [Auto-translated] "Grid View"
+      translationSideBySideViewGrid: "Вид сетки",
+      // [Auto-translated] "Translate strings"
+      translateStrings: "Перевод строк",
+      // [Auto-translated] "Survey Strings"
+      translationSurveyStrings: "Обзорные струны",
+      // [Auto-translated] "No strings to translate"
+      translationStateNothingToTranslate: "Никаких строк для перевода",
+      // [Auto-translated] "All strings are translated"
+      translationStateAllTranslated: "Все строки переводятся",
+      // [Auto-translated] "{0} strings are not translated"
+      translationStateUntranslated: "{0} строки не переводятся",
       // [Auto-translated] "YouTube links are not supported."
       translationYouTubeNotSupported: "Ссылки на YouTube не поддерживаются.",
       // [Auto-translated] "Export"
@@ -845,6 +869,10 @@
       removeItem: "Нажмите, чтобы удалить элемент...",
       // [Auto-translated] "Drag the item"
       dragItem: "Перетащите элемент",
+      // [Auto-translated] "Expand nested choices"
+      expandNestedChoices: "Расширение вложенных вариантов",
+      // [Auto-translated] "Collapse nested choices"
+      collapseNestedChoices: "Варианты с вложением коллапса",
       // "Edit"
       edit: "Редактировать",
       // [Auto-translated] "Done"
@@ -947,6 +975,8 @@
       surveyTitlePlaceholder: "Введите заголовок опроса",
       // "Page {num}"
       pageTitlePlaceholder: "Введите заголовок страницы",
+      // [Auto-translated] "Panel Title"
+      panelTitlePlaceholder: "Название панели",
       // [Auto-translated] "Start Page"
       startPageTitlePlaceholder: "Стартовая страница",
       // "Description"
@@ -1299,6 +1329,8 @@
       minRowCount: "Минимальное количество строк",
       // [Auto-translated] "Maximum row count"
       maxRowCount: "Максимальное количество строк",
+      // [Auto-translated] "Row count expression"
+      rowCountExpression: "Выражение количества строк",
       // "Confirm row removal"
       confirmDelete: "Подтверждение удаления строки",
       // [Auto-translated] "Confirmation message"
@@ -1309,6 +1341,8 @@
       minPanelCount: "Минимальное количество входов",
       // [Auto-translated] "Maximum number of entries"
       maxPanelCount: "Максимальное количество входов",
+      // [Auto-translated] "Entry count expression"
+      panelCountExpression: "Выражение количества входов",
       // [Auto-translated] "Initial entry state"
       panelsState: "Начальное состояние входа",
       // [Auto-translated] "\"Previous Entry\" button text"
@@ -1946,6 +1980,12 @@
         // [Auto-translated] "Informational"
         info: "Информационный"
       },
+      cameraFacingMode: {
+        // [Auto-translated] "Front"
+        user: "Фронт",
+        // [Auto-translated] "Rear"
+        environment: "Задняя часть"
+      },
       acceptedCategories: {
         // [Auto-translated] "Images"
         image: "Изображения",
@@ -2541,10 +2581,14 @@
         keyName: "Укажите имя вопроса, чтобы пользователь мог предоставить уникальный ответ на этот вопрос на каждой панели.",
         // [Auto-translated] "Triggers a confirmation prompt before removing an entry."
         confirmDelete: "Запускает запрос на подтверждение перед удалением записи.",
+        // [Auto-translated] "Specify an expression that calculates the number of entries. This expression overrides the \"Initial number of entries\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum number of entries\" and \"Maximum number of entries\" settings. While this expression is set, respondents cannot add or remove entries manually."
+        panelCountExpression: "Укажите выражение, которое вычисляет количество записей. Это выражение переопределяет параметры «Начальное количество записей» и пересчитывается при каждом изменении ссылающихся значений. Результат ограничен настройками «Минимальное количество записей» и «Максимальное количество записей». Пока это выражение установлено, респонденты не могут вручную добавлять или удалять записи.",
         // [Auto-translated] "Assigns numbers to questions nested within the dynamic panel."
         showQuestionNumbers: "Присваивает номера вопросам, вложенным в динамическую панель."
       },
       matrixdynamic: {
+        // [Auto-translated] "Specify an expression that calculates the number of rows. This expression overrides the \"Row count\" setting and is reevaluated whenever the values it references change. The result is limited by the \"Minimum row count\" and \"Maximum row count\" settings. While this expression is set, respondents cannot add or remove rows manually."
+        rowCountExpression: "Укажите выражение, которое вычисляет количество строк. Это выражение переопределяет параметр «Количество строк» и пересчитывается при каждом изменении ссылающихся значений. Результат ограничен настройками «Минимальное количество строк» и «Максимальное количество строк». Пока это выражение установлено, респонденты не могут вручную добавлять или удалять строки.",
         // [Auto-translated] "Triggers a confirmation prompt before removing a row."
         confirmDelete: "Запускает запрос на подтверждение перед удалением строки.",
         // [Auto-translated] "Automatically expands the detail section when a new row is added to the matrix."
@@ -3014,6 +3058,8 @@
       tabAlign: "Выравнивание табуляции",
       // [Auto-translated] "File source type"
       sourceType: "Тип источника файла",
+      // [Auto-translated] "Default camera"
+      cameraFacingMode: "Стандартная камера",
       // [Auto-translated] "Fit to container"
       fitToContainer: "Подходит для контейнера",
       // [Auto-translated] "Set value expression"
@@ -3390,10 +3436,69 @@
     },
     // Localized default JSON for new questions (see settings.toolbox.defaultJSON)
     defaultJson: {
-      choices: [{ value: "item1", text: "Пункт 1" }, { value: "item2", text: "Пункт 2" }, { value: "item3", text: "Пункт 3" }],
-      columns: [{ value: "column1", text: "Колонка 1" }, { value: "column2", text: "Колонка 2" }, { value: "column3", text: "Колонка 3" }],
-      rows: [{ value: "row1", text: "Строка 1" }, { value: "row2", text: "Строка 2" }],
-      matrixColumns: [{ name: "column1", title: "Колонка 1" }, { name: "column2", title: "Колонка 2" }, { name: "column3", title: "Колонка 3" }]
+      choices: [
+        {
+          value: "item1",
+          // "Item 1"
+          text: "Пункт 1"
+        },
+        {
+          value: "item2",
+          // "Item 2"
+          text: "Пункт 2"
+        },
+        {
+          value: "item3",
+          // "Item 3"
+          text: "Пункт 3"
+        }
+      ],
+      columns: [
+        {
+          value: "column1",
+          // "Column 1"
+          text: "Колонка 1"
+        },
+        {
+          value: "column2",
+          // "Column 2"
+          text: "Колонка 2"
+        },
+        {
+          value: "column3",
+          // "Column 3"
+          text: "Колонка 3"
+        }
+      ],
+      rows: [
+        {
+          value: "row1",
+          // "Row 1"
+          text: "Строка 1"
+        },
+        {
+          value: "row2",
+          // "Row 2"
+          text: "Строка 2"
+        }
+      ],
+      matrixColumns: [
+        {
+          name: "column1",
+          // "Column 1"
+          title: "Колонка 1"
+        },
+        {
+          name: "column2",
+          // "Column 2"
+          title: "Колонка 2"
+        },
+        {
+          name: "column3",
+          // "Column 3"
+          title: "Колонка 3"
+        }
+      ]
     }
   };
   surveyCreatorCore.setupLocale({ localeCode: "ru", strings: ruStrings });
