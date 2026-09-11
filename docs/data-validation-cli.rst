@@ -73,10 +73,10 @@ Python wrapper
 The add-on does not call the binary directly. ``validate_data.py``:
 
 1. resolves the platform binary (``validate-linux`` / ``validate-mac``
-   next to the module) and **builds it automatically** when missing or
-   older than five days — it downloads the current Deno release from
-   GitHub and compiles ``validate.mjs`` with an import map
-   (``npm:survey-core@3.0.4``);
+   next to the module) and **builds it automatically** when it is missing
+   or was produced from a different ``validate.mjs`` or toolchain pin — it
+   downloads the pinned Deno release from GitHub and compiles
+   ``validate.mjs`` with an import map (``npm:survey-core@3.0.4``);
 2. runs the binary with ``--schema-json``, ``--form-json`` and
    ``--result-json``;
 3. returns the exit code to the caller.

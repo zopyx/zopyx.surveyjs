@@ -52,6 +52,16 @@ DENO_DOWNLOAD_RETRY_DELAY_SECONDS = 5
 # Upper bound for `deno compile` (downloads npm deps + bundles survey-core).
 # A hung compile must not stall site setup or the runtime build path forever.
 DENO_COMPILE_TIMEOUT_SECONDS = 15 * 60
+# Deno >= 2.9 refuses to resolve a package release younger than its
+# minimum-dependency-age window (24 h by default). That guard protects
+# floating or range-based resolution from silently picking up a
+# just-published release; this build resolves the exact SURVEY_CORE_PIN
+# instead, so the window can only ever block a deliberate pin bump -- CI and
+# install-time builds would fail for a full day after each upstream release
+# (observed when the pin moved to 3.0.4). "0" disables the window for this
+# resolution; the exact pin, the pinned Deno toolchain and the provenance
+# manifest stay the supply-chain boundary.
+DENO_MINIMUM_DEPENDENCY_AGE = "0"
 
 # The validator reads caller-supplied JSON inputs and writes one result file,
 # so read/write must stay broad; everything else is explicitly denied. These
@@ -291,6 +301,7 @@ def _build_target(args: tuple[str, str, bool]) -> str:
                 deno_path,
                 "compile",
                 *COMPILE_PERMISSION_FLAGS,
+                f"--minimum-dependency-age={DENO_MINIMUM_DEPENDENCY_AGE}",
                 "--no-check",
                 "--import-map",
                 import_map_path,
@@ -359,7 +370,7 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Rebuild the binary even if it is newer than 5 days.",
+        help="Rebuild the binary even when validate.mjs and the pinned toolchain are unchanged.",
     )
     parser.add_argument(
         "--targets",

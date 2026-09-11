@@ -151,6 +151,32 @@ class DenoBuildTests(unittest.TestCase):
         self.assertTrue(call_kwargs["check"])
         self.assertIn("compile", run_mock.call_args.args[0])
 
+    def test_build_target_disables_minimum_dependency_age(self) -> None:
+        # Deno >= 2.9 blocks resolving a release younger than its 24 h
+        # minimum-dependency-age window, which failed CI (both the
+        # validator-binary job and the integration tests) right after the
+        # survey-core pin moved to 3.0.4. The compile must pass the explicit
+        # opt-out so a deliberate pin bump builds immediately.
+        with (
+            mock.patch("deno_build._is_stale", return_value=True),
+            mock.patch("deno_build.shutil.copy2"),
+            mock.patch("deno_build.open", mock.mock_open()),
+            mock.patch(
+                "deno_build.subprocess.run",
+                return_value=mock.Mock(returncode=0),
+            ) as run_mock,
+            mock.patch("deno_build._atomic_install_binary"),
+            mock.patch("deno_build.tempfile.TemporaryDirectory") as td_mock,
+        ):
+            td_mock.return_value.__enter__.return_value = "/tmp/fake-build-dir"
+            deno_build._build_target(("linux", "/tmp/deno", True))
+
+        command = run_mock.call_args.args[0]
+        self.assertIn(
+            f"--minimum-dependency-age={deno_build.DENO_MINIMUM_DEPENDENCY_AGE}",
+            command,
+        )
+
     def test_is_stale_uses_manifest_not_age(self) -> None:
         # Rebuild policy is deterministic: the binary is stale only when
         # validate.mjs or the pinned toolchain changed -- never on age.
