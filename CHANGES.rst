@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+1.0a7 (unreleased)
+------------------
+
+- Update the vendored SurveyJS browser bundles, translations, and server-side
+  validator to SurveyJS 3.0.4.
+- Build the validator without Deno's 24-hour minimum-dependency-age window, so
+  a deliberately pinned ``survey-core`` release compiles immediately instead of
+  failing the CI validator job and install-time builds for a day after each
+  upstream release.
+- Remove a timing race from the KV store TTL expiry test that failed
+  intermittently on loaded CI runners.
+
+
 1.0a6 (unreleased)
 ------------------
 
@@ -13,7 +26,7 @@ Changelog
 - Apply panelless SurveyJS themes correctly in the editor preview.
 - Show version numbers in the theme history and restore-version dialog.
 - Update the vendored SurveyJS browser bundles, translations, and server-side
-  validator to SurveyJS 3.0.4.
+  validator to SurveyJS 3.0.2.
 - Fix CI buildout action paths and use Python 3.14 for the Plone environment.
 
 

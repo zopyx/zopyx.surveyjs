@@ -140,8 +140,9 @@ Binary location and building
   ``src/zopyx/surveyjs/data_validation/`` (``validate.mjs``, ``Makefile``,
   ``package.json``, ``deno_build.py``).
 * At runtime the wrapper expects the platform binary **next to the module**
-  (``validate-linux`` / ``validate-mac``) and builds it automatically when
-  missing or older than five days. The Deno release is pinned in
+  (``validate-linux`` / ``validate-mac``) and builds it automatically when it is
+  missing or was produced from a different ``validate.mjs`` or toolchain pin
+  (manifest based, not age based). The Deno release is pinned in
   ``deno_build.py`` and its archive digest and executable version are verified
   before compilation.
 * Manual builds with bun or deno, cross-compilation via Docker, and

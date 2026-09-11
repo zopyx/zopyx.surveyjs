@@ -18,7 +18,7 @@ long_description = "\n\n".join(
 
 setup(
     name="zopyx.surveyjs",
-    version="1.0a6",
+    version="1.0a7",
     description="SurveyJS integration with Plone",
     long_description=long_description,
     long_description_content_type="text/markdown",
