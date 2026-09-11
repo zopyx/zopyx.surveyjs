@@ -156,8 +156,13 @@ class KVStoreContractBase:
         self.assertIsNone(self.store.get("n"))
 
     def test_short_positive_expiry_expires(self):
+        # A positive TTL must keep the value readable, but the liveness check
+        # needs headroom: a loaded CI runner can deschedule this process for
+        # longer than a 100 ms TTL between the set and the get, which made
+        # this assertion fail intermittently (observed on the 3.0.4 run).
+        self.store.set("live", "v1", expire=30)
+        self.assertEqual(self.store.get("live"), "v1")
         self.store.set("k1", "v1", expire=0.1)
-        self.assertEqual(self.store.get("k1"), "v1")
         self.assertTrue(self._wait_until_expired("k1"))
         self.assertIsNone(self.store.get("k1"))
 
