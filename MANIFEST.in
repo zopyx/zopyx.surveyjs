@@ -2,3 +2,10 @@ graft src/zopyx
 graft docs
 include *.rst
 global-exclude *.pyc
+
+# Local-only documentation must never reach the source distribution:
+# docs/old describes removed features, docs/html and docs/_build are
+# build artifacts of a local `make docs` run.
+prune docs/old
+prune docs/html
+prune docs/_build

@@ -69,6 +69,21 @@ jobs:
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
-        run: gh release create "${GITHUB_REF_NAME}" dist/*.tar.gz --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Pre-releases (1.0b1, 1.0rc1, …, including .dev/.post artefacts)
+          # must be flagged as such, otherwise the tag would be offered as
+          # the project's latest release.
+          version="$(basename dist/*.tar.gz | sed -E 's/^.*surveyjs[._-]([^-]+)\.tar\.gz$/\1/')"
+          case "$version" in
+            *[ab][0-9]*|*rc[0-9]*|*dev[0-9]*|*post[0-9]*)
+              gh release create "${GITHUB_REF_NAME}" dist/*.tar.gz \
+                --generate-notes --prerelease
+              ;;
+            *)
+              gh release create "${GITHUB_REF_NAME}" dist/*.tar.gz \
+                --generate-notes
+              ;;
+          esac

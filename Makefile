@@ -54,7 +54,10 @@ coverage-browser:
 	PYTHONWARNINGS=ignore bin/zopepy -m coverage report -m --include='src/zopyx/surveyjs/browser/**/*.py'
 
 sdist:
-	uv run python setup.py sdist
+	# --no-project: this is a buildout repository whose pyproject.toml has no
+	# [project] table, so uv must not try to resolve/build it as a workspace
+	# project (same reason as the docs Makefile).
+	uv run --no-project python setup.py sdist
 
 # Build the Sphinx documentation (see docs/Makefile)
 docs:
