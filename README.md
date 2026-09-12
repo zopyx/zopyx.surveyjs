@@ -26,7 +26,7 @@ embed surveys and forms.
 ```shell
 uv venv --clear
 uv pip install -r requirements.txt
-./bin/buildout
+.venv/bin/buildout
 make test
 make docs
 ```
@@ -37,4 +37,10 @@ See [Development](docs/development.rst) for the complete development setup.
 
 GPL-2.0-or-later. SurveyJS Creator licensing is documented by SurveyJS and may
 require a commercial license.
+
+## Releasing
+
+The release checklist (version bump, gates, tag, GitHub pre-release, PyPI
+trusted publishing) lives in `RELEASE.rst`. Known gaps that a release notes
+entry must mention are collected in `docs/limitations.rst`.
 

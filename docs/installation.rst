@@ -10,15 +10,22 @@ Plone instance itself is still assembled by Buildout.
 Prerequisites
 =============
 
-* **Plone 6.2** (should work with 6.1) — the repository's test
-  configuration (``test_plone60.cfg``) extends the Plone 6.2.x buildout
-  test config; a legacy ``test_plone52.cfg`` (Plone 5.2) is kept for
-  reference only.
-* **Python 3.13 or 3.14** — downloaded and managed automatically by
-  ``uv`` (the CI and the development venv use 3.13).
+* **Plone 6.2** — the version covered by the CI test suite (the test
+  configuration ``test_plone60.cfg`` extends the Plone 6.2.x buildout test
+  config). Plone 6.1 is not exercised by CI and therefore not advertised as
+  supported. Plone 5.2 and its buildout configuration are gone.
+* **Python 3.12, 3.13 or 3.14** — downloaded and managed automatically by
+  ``uv``. The Plone test suite runs on 3.14; the Plone-free test subset
+  (converters, schema, validator wrapper) runs on all three versions in CI.
 * **Latest ``uv``** (see https://docs.astral.sh/uv/; the CI pins it via the
   ``astral-sh/setup-uv`` action with ``version: latest``)
 * A Buildout-based Plone project
+* The Python runtime dependencies — including ``privacyforms.ai`` and
+  ``privacyforms.pdf``, which the AI generator and the fillable-PDF features
+  need — are declared in the package metadata and installed with the add-on.
+  PDF *filling* additionally requires the optional extra
+  ``zopyx.surveyjs[pdf]`` (PyMuPDF, dual-licensed AGPL-3.0 or commercial);
+  without it the filled-PDF download is refused with an error message.
 * Only for the optional validator build: ``bun`` or ``deno`` on the PATH
   (the add-on can also fetch Deno itself, see below)
 
@@ -37,7 +44,7 @@ recipe works for a fresh checkout and for the development instance:
     uv pip install -r requirements.txt
 
     # 3. Run buildout — generates bin/instance, bin/test, bin/zopepy, …
-    ./bin/buildout
+    .venv/bin/buildout
 
     # 4. Start Plone
     ./bin/instance fg          # foreground

@@ -8,10 +8,12 @@ plus the follow-up working-tree changes on branch `feature/submission-data-valid
 `src/zopyx/surveyjs/tests/test_integration_*.py`, `Makefile`.
 **Date:** 2026-08-25
 
-**Verified state:** `bin/test -s zopyx.surveyjs` → **195 tests, 0 failures, 0 errors,
-7 skipped**; `make test` exit 0 (plus 96 pytest tests, all passing). No
-test-selection filters hide failures. **Current implementation rating: 9.5/10**
-(was 6/10 at commit `9eba824`).
+**Verified state (updated 2026-09-12):** `bin/test -s zopyx.surveyjs` → **472
+tests, 0 failures, 0 errors, 75 skipped** (66 database-container tests that need
+`RUN_DB_CONTAINER_TESTS=1` plus Docker, 2 subprocess-race tests, 7 documented
+publisher-/ZCML-level skips); `make test` exit 0 (plus 115 pytest tests for the
+Plone-free subset, all passing). No test-selection filters hide failures.
+**Current implementation rating: 9.5/10** (was 6/10 at commit `9eba824`).
 
 Severity legend: **C** = critical (correctness/CI), **H** = high (functional/security), **M** = medium, **L** = low.
 
@@ -248,9 +250,11 @@ per-file limits derived from the request payload limit.
 ### Verified results
 
 ```text
-195 Zope tests: 0 failures, 0 errors, 7 skipped
+472 Zope tests: 0 failures, 0 errors, 75 skipped
+  (66 database-container tests need RUN_DB_CONTAINER_TESTS=1 + Docker,
+   2 subprocess-race tests, 7 publisher-/ZCML-level skips)
 39 submission-validation unit tests + 48 subtests: all passed
-96 pytest tests (validation/converters/schema): all passed
+115 pytest tests (validation/converters/schema): all passed
 Ruff: all touched Python files passed
 make test: exit 0
 ```

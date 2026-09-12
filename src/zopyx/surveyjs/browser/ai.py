@@ -39,8 +39,6 @@ from .services import ai as ai_service
 from .services import forms as forms_service
 from .views import Views
 
-from privacyforms_ai import AI
-
 
 class AIView(Views):
     """Browser view for AI-powered form generation and refinement (@@ai).
@@ -539,7 +537,7 @@ class AIView(Views):
             The AI response payload (typically JSON text).
         """
         model = self._prepare_ai_model(settings)
-        return AI.prompt_with_attachment(
+        return ai_service.get_ai_helper().prompt_with_attachment(
             model=model,
             prompt=prompt,
             file_path=file_path,

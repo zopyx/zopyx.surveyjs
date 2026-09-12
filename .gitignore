@@ -254,3 +254,48 @@ src/zopyx/surveyjs/data_validation/validate-linux.sha256
 src/zopyx/surveyjs/data_validation/validate-linux.meta.json
 src/zopyx/surveyjs/data_validation/validate-linux.verified
  .vscode/settings.json
+
+# ---------------------------------------------------------------------------
+# Local-only artifacts that must never enter a release
+# ---------------------------------------------------------------------------
+
+# Issued token exports can contain live tokens
+tokens.csv
+
+# Generated security-review artifacts. These are historical snapshots of the
+# multi-agent review; SECURITY.md is the maintained summary and stays tracked.
+360_SECURITY_REVIEW_FINAL.md
+ACCESS_CONTROL_BYPASS_REPORT.md
+AGENT6_DATA_VALIDATION_BYPASS_REPORT.md
+CORS_ORIGIN_VULNERABILITY_REPORT.md
+CRYPTO_VULNERABILITY_REPORT.md
+CSRF_ANALYSIS_REPORT.md
+DEPENDENCY_VULNERABILITY_REPORT.md
+FILE_UPLOAD_VULNERABILITY_REPORT.md
+INFORMATION_DISCLOSURE_REPORT.md
+JWT_VULNERABILITY_REPORT.md
+LIVE_ATTACK_DEMONSTRATION.md
+REPLAY_PROTECTION_ANALYSIS.md
+SECURITY_ARCHITECTURE.html
+SECURITY_ARCHITECTURE.md
+SECURITY_ARCHITECTURE.pdf
+SECURITY_ARCHITECTURE.png
+SESSION_AUTH_EXPLOITATION_REPORT.md
+SSRF_VULNERABILITY_REPORT.md
+VULNERABILITY_REPORT_*.md
+
+# Local scratch files and agent/tool directories
+analysis.pdf
+form.json
+tmp/
+.opencode/
+.qwen/
+
+# Local buildout variant for a Plone 6.2 throw-away instance (the CI and the
+# documented test config is test_plone60.cfg)
+test-6.2.x.cfg
+
+# uv lock file of the bootstrap workspace: requirements.txt pins the buildout
+# toolchain, the lock file is local scratch (uv resolves it against the
+# locally available Python, so it is not portable)
+uv.lock

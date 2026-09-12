@@ -51,6 +51,66 @@ jobs:
       - name: Verify pinned Deno build metadata
         run: bin/zopepy -m pytest src/zopyx/surveyjs/data_validation/tests/test_deno_build.py src/zopyx/surveyjs/data_validation/tests/test_validate_data.py -v
 
+  package-matrix:
+    name: Package on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      # WeasyPrint (converters/pdf.py) needs Pango/Cairo at import time.
+      - name: Install system libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2 \
+            libpango-1.0-0 \
+            libpangoft2-1.0-0 \
+            libharfbuzz0b \
+            libgdk-pixbuf-2.0-0
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          version: "latest"
+          enable-cache: true
+
+      # Builds the distribution from setup.py: this is the metadata and
+      # packaging gate for every advertised Python version.
+      - name: Build and install the distribution
+        run: |
+          uv venv --python ${{ matrix.python-version }}
+          uv pip install --python .venv/bin/python --no-deps .
+
+      # Only the Plone-free runtime dependencies: the tests below exercise
+      # the imported package, not the buildout environment.
+      - name: Install the test dependencies
+        run: |
+          uv pip install --python .venv/bin/python \
+            pytest \
+            zope.i18nmessageid \
+            orjson \
+            markdown2 \
+            openpyxl \
+            python-docx \
+            weasyprint \
+            cssselect \
+            cssselect2
+
+      - name: Run the Plone-free test subset
+        run: |
+          .venv/bin/python -m pytest \
+            src/zopyx/surveyjs/converters/tests \
+            src/zopyx/surveyjs/schema/tests \
+            src/zopyx/surveyjs/data_validation/tests \
+            -q
+
   validator-binary:
     name: Verify validator binary
     runs-on: ubuntu-latest

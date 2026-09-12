@@ -257,7 +257,7 @@ the cache is missing.
 on the submission event; `record_submission_duration` is called from
 `save_poll` right after the event fires (`views.py:888-890`).
 `check_rate_limit` is the hook for the rate-limiting concept
-(`docs/todo.rst`; not yet wired as a hard gate).
+(`docs/limitations.rst`; not yet wired as a hard gate).
 
 ## Cross-cutting: what diskcache gives the app
 
@@ -311,9 +311,9 @@ memory):
 - `tests/test_integration_views.py` references diskcache (replay/trusted
   access integration coverage).
 - Docs: `docs/security.rst`, `docs/survey-options.rst` (trusted TTL
-  field), `docs/global-options.rst`, `docs/todo.rst` ("Diskcache handling
-  in ZEO deployments" — status open; "Rate limiting concept" uses the same
-  counters). Older analysis docs under `docs/old/` also reference it.
+  field), `docs/global-options.rst`, `docs/limitations.rst` ("Multi-server
+  and container deployments"; "Rate limiting" uses the same counters).
+  Older analysis docs under `docs/old/` also reference it.
 - Dependency declared in `setup.py` `install_requires` and test extras.
 
 ## Bottom line
@@ -322,4 +322,4 @@ diskcache is load-bearing for **security** (replay protection and
 one-time-use via atomic `add()`, fail-closed) and for **analytics**
 (monitoring counters, fail-open). Its main risk surface in production is
 path resolution (cwd dependence) and per-server divergence in multi-server
-ZEO setups — both tracked in issue #33 / `docs/todo.rst`.
+ZEO setups — both tracked in issue #33 / `docs/limitations.rst`.

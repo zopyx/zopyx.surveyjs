@@ -25,10 +25,10 @@ jobs:
           version: "latest"
 
       - name: Install Python with uv
-        run: uv python install 3.13
+        run: uv python install 3.14
 
       - name: Create venv
-        run: uv venv --python 3.13
+        run: uv venv --python 3.14
 
       - name: Install build tooling
         run: uv pip install --python .venv/bin/python build twine

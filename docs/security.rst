@@ -18,11 +18,14 @@ external POST actions.
 
 Verified baseline:
 
-* ``bin/test -s zopyx.surveyjs`` — 195 tests, 0 failures, 0 errors, 7 skips;
-* ``make test`` — successful, including 96 passing pytest tests;
+* ``bin/test -s zopyx.surveyjs`` — 472 tests, 0 failures, 0 errors, 75 skips
+  (66 database-container tests requiring ``RUN_DB_CONTAINER_TESTS=1`` and
+  Docker, 2 subprocess-race tests, 7 documented publisher-/ZCML-level cases);
+* ``make test`` — successful, including 115 passing pytest tests for the
+  Plone-free subset (converters, schema, validator wrapper);
 * Ruff and ``git diff --check`` — successful.
 
-The seven skips are explicitly documented publisher-/ZCML-level cases. Stale
+The seven publisher-/ZCML-level skips are explicitly documented. Stale
 legacy API tests were removed from discovery rather than silently renamed in
 the active test suite.
 

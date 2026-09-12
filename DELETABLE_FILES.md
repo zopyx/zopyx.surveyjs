@@ -61,9 +61,12 @@ These live inside the package, so `graft src/zopyx` puts them in the release.
 ## 5. Buildout / dev configuration (not needed for the PyPI release)
 
 - `buildout.cfg`, `base.cfg`, `dev.cfg`, `bobtemplate.cfg`, `.mr.developer.cfg`
-- `test_plone52.cfg`, `test_plone60.cfg`, `constraints.txt`
-- `tox.ini`, `.travis.yml`, `.gitlab-ci.yml`, `.pre-commit-config.yaml`
+- `test_plone60.cfg`
 - `.env.encrypted`, `.webui_secret_key` — dev secrets, never ship
+- Already removed: `test_plone52.cfg` (legacy Plone 5.2 buildout), `tox.ini`
+  (Python 2.7/3.7 and Plone 4.3–5.2 against a missing constraints file),
+  `constraints.txt` (only contained `-c constraints_plone52.txt`),
+  `.travis.yml` and `.gitlab-ci.yml` (both pinned `python:2.7`).
 
 Keep: `requirements.txt` (buildout bootstrap, referenced by `AGENTS.md`),
 `Makefile` (the `sdist.yml` release workflow runs `make sdist`).

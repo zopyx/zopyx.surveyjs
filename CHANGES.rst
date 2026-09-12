@@ -2,6 +2,65 @@ Changelog
 =========
 
 
+1.0b1 (unreleased)
+------------------
+
+First beta release. The functional changes since the last published version on
+PyPI (``1.0a4``) are described in the ``1.0a5``–``1.0a7`` sections below; the
+entries here are the release-preparation changes of the beta itself.
+
+- Set the package version to ``1.0b1``.
+- Declare the runtime dependencies that previously existed only in this
+  repository's buildout: ``privacyforms.ai`` (imported by the AI generator,
+  the AI service and the model vocabulary) and ``privacyforms.pdf`` (the
+  fillable-PDF workflow). PDF *filling* needs PyMuPDF, which is shipped as the
+  optional extra ``zopyx.surveyjs[pdf]`` instead of a hard requirement because
+  it is dual-licensed (AGPL-3.0 or a commercial Artifex licence).
+- Import ``privacyforms_ai`` lazily (``browser/services/ai.py:get_ai_helper()``)
+  instead of at module level in ``browser/ai.py``. A deployment without the
+  helper now fails the single AI feature with an actionable message instead of
+  failing while Zope configures the add-on (ZCML resolves ``.ai.AIView``).
+- Remove unreachable PDF code: ``browser/services/pdf.py`` (no caller at all,
+  its ``extract_mode="llm"`` branch imported the deleted ``ai_generator``
+  module) and ``pdf_forms.py`` (the unwired pdfcpu pipeline, reachable only
+  from the removed module). The supported paths are the AI generator
+  (``@@ai-upload``) and the fillable-PDF workflow.
+- Documentation corrections: the fillable-PDF pages no longer claim that
+  survey data is merged into a PDF template (values come from the fill form,
+  keyed by raw PDF field names; signature fields are never written), the
+  ``todo`` page is replaced by ``limitations.rst`` documenting the known gaps
+  (rate limiting, automatic PDF merge, security items tracked in SECURITY.md,
+  multi-server KV behaviour), the stale test-baseline numbers in ``SECURITY.md``
+  and ``docs/security.rst`` are refreshed to the measured 475 Plone tests /
+  115 pytest tests, and ``docs/old/`` carries a README marking its files as
+  historical, non-authoritative notes.
+- Add ``RELEASE.rst`` with the release checklist, and use Python 3.14 in the
+  PyPI/TestPyPI publish workflows so the publishing interpreter matches the
+  one the test suite runs on.
+- Enable the ``pdf`` extra in this repository's buildout (``base.cfg``) so the
+  documented "Download Filled PDF" workflow actually works in the dev and demo
+  instance; PyMuPDF was previously missing there, so the feature failed with
+  "PyMuPDF is required". PyMuPDF stays an extra because of its dual licence
+  (AGPL-3.0 or commercial).
+- Remove the pdfcpu binary from the container image and delete the unreachable
+  pdfcpu CLI wrapper ``pdf_form_extract.py`` together with its tests. With
+  ``pdf_forms.py`` gone, nothing used the binary any more; the supported PDF
+  extraction path is ``privacyforms.pdf``.
+- Remove the remaining add-on-template leftovers: ``constraints.txt`` (it only
+  contained ``-c constraints_plone52.txt``), ``.travis.yml`` and
+  ``.gitlab-ci.yml`` (both pinned to ``python:2.7``). GitHub Actions is the CI.
+- Ignore the local buildout variant ``test-6.2.x.cfg`` and the local ``uv.lock``
+  in ``.gitignore`` (``requirements.txt`` pins the buildout toolchain).
+- ``SECURITY.md`` now itemises the unfixed security findings with location,
+  impact and recommendation — SSRF via ``post_endpoint_url``, missing rate
+  limiting, CSV/XLSX formula injection, unaudited exports, token-store
+  atomicity, key length/rotation, missing token/session binding, container
+  hardening, dependency pinning, bot controls, output encoding and CSRF —
+  instead of naming them in prose only.
+- Add ``scripts/invalidate_tokens.py`` to invalidate the tokens of a leaked
+  CSV export across all surveys (dry run by default, ``--apply`` to write).
+
+
 1.0a7 (unreleased)
 ------------------
 
@@ -13,6 +72,27 @@ Changelog
   upstream release.
 - Remove a timing race from the KV store TTL expiry test that failed
   intermittently on loaded CI runners.
+- Correct the package metadata: the PyPI project URLs now point at the actual
+  repository (``zopyx/zopyx.surveyjs``) instead of the never-existing
+  ``collective/zopyx.surveyjs``, and they document where the documentation
+  and the changelog live. The classifiers now list only the supported
+  platform (Plone 6.2, replacing the obsolete Plone 5.2 entry) and the
+  Python versions that CI actually exercises (3.12, 3.13, 3.14).
+- Add a CI job that installs the built distribution and runs the Plone-free
+  test subset (converters, schema, validator wrapper) on Python 3.12, 3.13
+  and 3.14, so the advertised Python support is verified rather than assumed.
+- Remove the legacy Plone 5.2 buildout configuration (``test_plone52.cfg``)
+  and the ``tox.ini`` inherited from the add-on template, which still
+  targeted Python 2.7/3.7 and Plone 4.3–5.2 and referred to a constraints
+  file that no longer exists.
+- Exclude local-only documentation from the source distribution:
+  ``docs/old`` describes removed features, ``docs/html``/``docs/_build`` are
+  artifacts of a local ``make docs`` run.
+- Tag pre-releases (``a``/``b``/``rc``) are published as GitHub pre-releases
+  instead of full releases, so a beta is never offered as the latest release.
+- Ignore generated security-review artifacts and local scratch files
+  (``tokens.csv``, the vulnerability report snapshots, ``tmp/``, local
+  agent/tool directories) so they cannot be committed accidentally.
 
 
 1.0a6 (unreleased)

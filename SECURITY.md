@@ -10,12 +10,16 @@ pre-validation boundary for new submissions.
 
 Verified baseline:
 
-- `bin/test -s zopyx.surveyjs`: 195 tests, 0 failures, 0 errors, 7 skips.
-- `make test`: successful; 96 pytest tests passed.
-- Ruff and `git diff --check`: successful.
-
-The seven remaining skips are documented publisher-/ZCML-level security cases
-that cannot be meaningfully exercised through direct `TestRequest` calls.
+- `bin/test -s zopyx.surveyjs`: 472 tests, 0 failures, 0 errors, 75 skips
+  (66 database-container tests that require `RUN_DB_CONTAINER_TESTS=1` plus
+  Docker, 2 subprocess-race tests, 7 documented publisher-/ZCML-level
+  security cases that cannot be meaningfully exercised through direct
+  `TestRequest` calls).
+- `make test`: successful; the Plone-free subset (converters, schema,
+  validator wrapper) adds 115 passing pytest tests with 100 % coverage of
+  `converters/`.
+- Ruff and `git diff --check`: successful (13 pre-existing Ruff findings in
+  untouched files are known and not release blockers).
 
 ## Scope
 
@@ -127,12 +131,28 @@ To reduce abuse and increase reliability:
 
 ## Remaining security work
 
-The submission hardening does not resolve unrelated findings. Separate review
-items include CSRF enforcement directly inside the public JSON view versus a
-publisher-level functional test, SSRF controls for configured
-`post_endpoint_url` values, output encoding for stored values rendered by
-result views, rate limiting, quotas, bot controls, dependency pinning and key
-rotation.
+The submission hardening does **not** resolve unrelated findings. The
+following items were verified against the current source and are known,
+unfixed and accepted for the 1.0 beta. Each one must either be fixed or
+re-accepted explicitly in the release notes of a subsequent release.
+
+| # | Item | Where | Impact | Recommendation |
+|---|------|-------|--------|----------------|
+| 1 | **SSRF through a survey's `post_endpoint_url`** — an editor can point a survey at any reachable host, and submission data is POSTed there | `content/survey.py` (`post_endpoint_url`), used by `browser/views.py`, `browser/survey_results.py`, `subscribers.py` | Server-side requests to internal services and cloud metadata endpoints (credential theft, data exfiltration) | Allowlist the target hosts, or at least reject private/link-local addresses; restrict the field to `Manager` |
+| 2 | **No rate limiting** — monitoring only, no HTTP 429 anywhere | `monitoring.py` (`check_rate_limit`), `views.py` (`save_poll`) | Flooding, mail amplification, AI cost exhaustion | Enforce at the reverse proxy/WAF, or implement the concept in `docs/limitations.rst` |
+| 3 | **CSV/XLSX formula injection** — values are written unescaped, so a field starting with `=`, `+`, `-` or `@` executes in Excel/LibreOffice | `converters/csv_export.py`, `converters/xlsx_export.py` | Client-side code execution on the workstation that opens an export | Prefix such values with `'` (or use a text cell type) |
+| 4 | **Exports are not audited** — CSV/JSON/XLSX downloads leave no trace | `converters/`, export views | Data exfiltration without forensic evidence | Write an audit record per export |
+| 5 | **Token store**: `generate_tokens()` has no upper bound; `has_token()`/`invalidate()` are separate read-then-write steps | `adapters/token_store.py` | Unbounded ZODB growth; a token can be accepted twice under concurrency | Cap the batch size; make check-and-consume atomic |
+| 6 | **Key handling**: no minimum length for the HMAC signature key, no key rotation | `security.py` (`_sign`), `browser/services/auth.py` | Weak keys, permanent compromise after a leak | Enforce a 32-byte minimum and implement rotation with a grace period |
+| 7 | **No session binding for issued tokens** | `security.py`, `browser/services/auth.py` | A stolen token is valid from any client | Bind tokens to a session/user claim |
+| 8 | **Container image**: runs as root on an unpinned base image | `Dockerfile` (`FROM ubuntu:24.04`, no `USER`) | Container escape escalates to root; non-reproducible base | Add a `USER`, pin the base image by digest |
+| 9 | **Dependency pinning**: 22 of 26 runtime dependencies have no version bounds | `setup.py` (`install_requires`) | Non-reproducible installs, silent breaking upgrades | Add upper bounds/constraints for the runtime set |
+| 10 | **Bot controls and quotas** — no honeypot, no per-survey submission quota | submission path | Spam submissions consume storage | Honeypot field or proof-of-work; quota per survey |
+| 11 | **Output encoding** of stored values rendered by result views | `browser/survey_results.py`, templates | Stored XSS if a template ever renders raw values | Escape consistently, add a regression test |
+| 12 | **CSRF enforcement inside the public JSON view** | `views.py` (`save_poll`) | Cross-site submissions | Enforce at the view level, cover it with a publisher-level test |
+
+The submission-validation layer documented above is independent of this list
+and does not mitigate items 1–12.
 
 ## Reporting
 
