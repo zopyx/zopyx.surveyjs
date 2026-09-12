@@ -139,6 +139,14 @@ Nine export formats are available (per submission via
 Conversion pipeline
 -------------------
 
+.. image:: _static/diagrams/export-pipeline.png
+   :align: center
+   :target: _static/diagrams/export-pipeline.html
+   :alt: Export pipeline: stored submissions and the form schema feed the
+         SurveyConverter, which produces one Markdown intermediate document
+         that the format writers turn into downloads, mail attachments and the
+         raw POST payload
+
 All conversions run server-side through the converter framework
 (``converters/``). The stored payload and the form schema are fed to a
 ``SurveyConverter`` which collects typed items and attachments (uploaded

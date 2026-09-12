@@ -1,0 +1,299 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Submission Validation Pipeline",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "transport-gate",
+        "label": "Transport gate",
+        "focus": [
+          "receive",
+          "transport",
+          "reject_transport"
+        ],
+        "note": "Size limits are enforced before any JSON is parsed."
+      },
+      {
+        "id": "content-checks",
+        "label": "Content checks",
+        "focus": [
+          "shape",
+          "files",
+          "reject_shape",
+          "reject_files"
+        ],
+        "note": "Fields, text safety, filenames and file content are checked on a copy."
+      },
+      {
+        "id": "enforcement",
+        "label": "Enforcement and hand-off",
+        "focus": [
+          "external",
+          "handoff",
+          "reject_external"
+        ],
+        "note": "The external validator decides last, and only a normalized copy is handed off."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "request",
+      "label": "Submission request"
+    },
+    {
+      "id": "checks",
+      "label": "Validation stages (security.py + validator binary)"
+    },
+    {
+      "id": "rejections",
+      "label": "Rejected submissions",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "transport",
+      "label": "Transport",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "content",
+      "label": "Content",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "enforce",
+      "label": "Enforce",
+      "fromCol": 4,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "groups": [
+    {
+      "id": "hardening",
+      "label": "Before any action",
+      "lane": "checks",
+      "fromCol": 1,
+      "toCol": 3,
+      "variant": "security"
+    }
+  ],
+  "mainPath": [
+    "receive",
+    "transport",
+    "shape",
+    "files",
+    "external",
+    "handoff"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "receive"
+    ],
+    "allowedTerminals": [
+      "handoff",
+      "reject_transport",
+      "reject_shape",
+      "reject_files",
+      "reject_external"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "receive",
+      "lane": "request",
+      "col": 0,
+      "type": "backend",
+      "label": "Receive",
+      "sublabel": "POST @@save-poll",
+      "tag": "pollResult",
+      "width": 170
+    },
+    {
+      "id": "transport",
+      "lane": "checks",
+      "col": 1,
+      "type": "security",
+      "label": "Transport limits",
+      "sublabel": "header + body size",
+      "width": 170
+    },
+    {
+      "id": "shape",
+      "lane": "checks",
+      "col": 2,
+      "type": "security",
+      "label": "Shape & fields",
+      "sublabel": "JSON shape · fields · text",
+      "width": 170
+    },
+    {
+      "id": "files",
+      "lane": "checks",
+      "col": 3,
+      "type": "security",
+      "label": "Files & limits",
+      "sublabel": "data URLs · filenames · MIME",
+      "width": 170
+    },
+    {
+      "id": "external",
+      "lane": "checks",
+      "col": 4,
+      "type": "external",
+      "label": "Validator binary",
+      "sublabel": "survey-core · 30 s",
+      "tag": "fail-closed",
+      "width": 170
+    },
+    {
+      "id": "handoff",
+      "lane": "request",
+      "col": 5,
+      "type": "backend",
+      "label": "Hand-off",
+      "sublabel": "normalized copy → notify()",
+      "width": 170
+    },
+    {
+      "id": "reject_transport",
+      "lane": "rejections",
+      "col": 1,
+      "type": "security",
+      "label": "Reject 413",
+      "sublabel": "request_too_large",
+      "width": 170
+    },
+    {
+      "id": "reject_shape",
+      "lane": "rejections",
+      "col": 2,
+      "type": "security",
+      "label": "Reject 400",
+      "sublabel": "invalid_json · unknown_field",
+      "width": 170
+    },
+    {
+      "id": "reject_files",
+      "lane": "rejections",
+      "col": 3,
+      "type": "security",
+      "label": "Reject 400",
+      "sublabel": "unsafe_filename · mime_mismatch",
+      "width": 170
+    },
+    {
+      "id": "reject_external",
+      "lane": "rejections",
+      "col": 4,
+      "type": "security",
+      "label": "Reject 400 / 500",
+      "sublabel": "validation failed · no binary",
+      "width": 170
+    }
+  ],
+  "edges": [
+    {
+      "id": "receive-transport",
+      "from": "receive",
+      "to": "transport",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "transport-shape",
+      "from": "transport",
+      "to": "shape",
+      "role": "main",
+      "label": "within limit"
+    },
+    {
+      "id": "shape-files",
+      "from": "shape",
+      "to": "files",
+      "role": "main"
+    },
+    {
+      "id": "files-external",
+      "from": "files",
+      "to": "external",
+      "variant": "emphasis",
+      "role": "main",
+      "label": "schema + payload"
+    },
+    {
+      "id": "external-handoff",
+      "from": "external",
+      "to": "handoff",
+      "variant": "emphasis",
+      "role": "main",
+      "label": "valid"
+    },
+    {
+      "id": "transport-reject",
+      "from": "transport",
+      "to": "reject_transport",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "shape-reject",
+      "from": "shape",
+      "to": "reject_shape",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "files-reject",
+      "from": "files",
+      "to": "reject_files",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "external-reject",
+      "from": "external",
+      "to": "reject_external",
+      "variant": "security",
+      "role": "error",
+      "label": "invalid"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Order is the contract",
+      "items": [
+        "Transport limits are enforced before any JSON is parsed",
+        "Checks run on a recursive copy, never on the caller payload",
+        "Only the normalized copy reaches validation, storage and actions"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Fail closed, decide early",
+      "items": [
+        "A rejected submission never reaches a subscriber or action",
+        "A missing or tampered validator binary refuses the submission",
+        "Single-use tokens are consumed only after validation succeeded"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Deterministic evidence",
+      "items": [
+        "Every failure returns a stable code plus an optional field",
+        "Failures are logged at warning level without submission content",
+        "Audit entries carry only reason, field, origin and remote address"
+      ]
+    }
+  ]
+}

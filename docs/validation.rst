@@ -9,6 +9,17 @@ browser — the browser checks improve the user experience, the server check
 is the security boundary (client-side validation can always be bypassed;
 see :doc:`security`).
 
+.. image:: _static/diagrams/validation-pipeline.png
+   :align: center
+   :target: _static/diagrams/validation-pipeline.html
+   :alt: Validation pipeline: transport limits, shape and field checks, file
+         and MIME checks, the external validator binary, and the rejected
+         submissions lane with the resulting HTTP error codes
+
+The pipeline is ordered and fail-closed: size limits are enforced before any
+JSON is parsed, every content check runs on a copy of the payload, and a
+rejected submission never reaches a subscriber, the storage or any action.
+
 Pre-validation before event dispatch and storage
 ------------------------------------------------
 

@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "Access Token Lifecycle",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      690
+    ],
+    "views": [
+      {
+        "id": "happy-path",
+        "label": "Issue, check, consume",
+        "focus": [
+          "issued",
+          "valid",
+          "checked",
+          "accepted",
+          "consumed"
+        ],
+        "note": "A token is minted per form load, checked on submission and spent on success."
+      },
+      {
+        "id": "rejections",
+        "label": "Rejected tokens",
+        "focus": [
+          "checked",
+          "replayed",
+          "expired"
+        ],
+        "note": "Replay and an elapsed TTL are rejected before anything is stored."
+      },
+      {
+        "id": "fail-closed",
+        "label": "Fail closed",
+        "focus": [
+          "checked",
+          "cache_down",
+          "valid"
+        ],
+        "note": "An unreadable replay store rejects the submission instead of allowing it."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "main",
+      "label": "Token lifetime"
+    },
+    {
+      "id": "holds",
+      "label": "Interruptions + recovery"
+    },
+    {
+      "id": "terminal",
+      "label": "Off the happy path"
+    }
+  ],
+  "states": [
+    {
+      "id": "issued",
+      "type": "start",
+      "label": "Issued",
+      "sublabel": "@@viewer mints it",
+      "lane": "main",
+      "col": 0,
+      "step": "01",
+      "tag": "HS256 · version"
+    },
+    {
+      "id": "valid",
+      "type": "active",
+      "label": "Valid",
+      "sublabel": "carried in the request",
+      "lane": "main",
+      "col": 1,
+      "step": "02",
+      "tag": "auth · tt · embed"
+    },
+    {
+      "id": "checked",
+      "type": "decision",
+      "label": "Checked",
+      "sublabel": "signature · replay",
+      "lane": "main",
+      "col": 2,
+      "step": "03",
+      "tag": "503 if cache down"
+    },
+    {
+      "id": "accepted",
+      "type": "success",
+      "label": "Accepted",
+      "sublabel": "validation first",
+      "lane": "main",
+      "col": 3,
+      "step": "04",
+      "tag": "no side effect"
+    },
+    {
+      "id": "consumed",
+      "type": "success",
+      "label": "Consumed",
+      "sublabel": "single-use is spent",
+      "lane": "main",
+      "col": 4,
+      "step": "05",
+      "tag": "once only"
+    },
+    {
+      "id": "replayed",
+      "type": "failure",
+      "label": "Replayed",
+      "sublabel": "same token twice",
+      "lane": "terminal",
+      "col": 0,
+      "tag": "403 replay"
+    },
+    {
+      "id": "expired",
+      "type": "failure",
+      "label": "Expired",
+      "sublabel": "TTL or key rotated",
+      "lane": "terminal",
+      "col": 1,
+      "tag": "403 re-issue"
+    },
+    {
+      "id": "cache_down",
+      "type": "waiting",
+      "label": "Cache unavailable",
+      "sublabel": "replay store down",
+      "tag": "503 retryable",
+      "lane": "holds",
+      "col": 1
+    }
+  ],
+  "transitions": [
+    {
+      "id": "issue-valid",
+      "from": "issued",
+      "to": "valid",
+      "label": "load",
+      "variant": "emphasis",
+      "labelDy": -32,
+      "route": "straight"
+    },
+    {
+      "id": "valid-checked",
+      "from": "valid",
+      "to": "checked",
+      "label": "submit",
+      "labelDy": -32,
+      "route": "straight"
+    },
+    {
+      "id": "checked-accepted",
+      "from": "checked",
+      "to": "accepted",
+      "label": "passes",
+      "variant": "emphasis",
+      "labelDy": -32,
+      "route": "straight"
+    },
+    {
+      "id": "accepted-consumed",
+      "from": "accepted",
+      "to": "consumed",
+      "label": "consume",
+      "variant": "emphasis",
+      "labelDy": -32,
+      "route": "straight"
+    },
+    {
+      "id": "checked-replayed",
+      "from": "checked",
+      "to": "replayed",
+      "variant": "security",
+      "route": "drop"
+    },
+    {
+      "id": "checked-expired",
+      "from": "checked",
+      "to": "expired",
+      "label": "TTL elapsed",
+      "variant": "security",
+      "labelDy": 42
+    },
+    {
+      "id": "checked-cache-down",
+      "from": "checked",
+      "to": "cache_down",
+      "label": "store unreachable",
+      "variant": "security",
+      "route": "drop",
+      "labelAt": [
+        295,
+        212
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One token per form load",
+      "items": [
+        "@@viewer mints it per form load",
+        "Bound to form id and version"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Replay and fail closed",
+      "items": [
+        "Replay state on disk; reuse is a 403",
+        "Unreadable replay store: 503"
+      ]
+    }
+  ]
+}

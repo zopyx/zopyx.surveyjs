@@ -16,6 +16,18 @@ It applies to survey results and the access-token store.
    selecting the SQLite URI does not activate relational storage by itself.
    Select ``rdbms`` as the backend as well.
 
+.. image:: _static/diagrams/deployment-topology.png
+   :align: center
+   :target: _static/diagrams/deployment-topology.html
+   :alt: Deployment topology: reverse proxy, Plone instances or ZEO clients,
+         the local validator subprocess, the results backends (ZODB or RDBMS)
+         and the KV cache, with the owning team named per component
+
+The picture names the pieces that must survive a restart and a redeploy: the
+results backend is either ZODB (annotations, the default) or the relational
+store, the KV cache holds authenticity/embed tokens and replay state, and the
+validator runs as a local subprocess on the application host.
+
 Choosing a backend
 ==================
 

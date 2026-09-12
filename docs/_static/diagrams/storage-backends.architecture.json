@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Where Forms, Results and Cache Live",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "views": [
+      {
+        "id": "forms-and-results",
+        "label": "Forms and results",
+        "focus": [
+          "forms",
+          "submissions",
+          "datafs"
+        ],
+        "note": "Form JSON always lives in Plone content; submissions can go either way."
+      },
+      {
+        "id": "results-choice",
+        "label": "Results backend choice",
+        "focus": [
+          "submissions",
+          "datafs",
+          "rdbms"
+        ],
+        "note": "ZODB annotations and relational tables are alternatives, not layers."
+      },
+      {
+        "id": "cache-choice",
+        "label": "Cache and token store",
+        "focus": [
+          "tokens",
+          "diskcache",
+          "kv_tables"
+        ],
+        "note": "The KV cache is configured separately from the results backend."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "forms",
+      "type": "database",
+      "label": "Forms & versions",
+      "sublabel": "SurveyJS JSON · locks",
+      "pos": [
+        40,
+        100
+      ],
+      "size": [
+        175,
+        60
+      ],
+      "tag": "Plone content"
+    },
+    {
+      "id": "submissions",
+      "type": "database",
+      "label": "Submissions",
+      "sublabel": "poll_id · seq_no · site_id",
+      "pos": [
+        40,
+        250
+      ],
+      "size": [
+        175,
+        60
+      ],
+      "tag": "per survey"
+    },
+    {
+      "id": "tokens",
+      "type": "security",
+      "label": "Tokens & monitoring",
+      "sublabel": "auth · embed · replay state",
+      "pos": [
+        40,
+        400
+      ],
+      "size": [
+        175,
+        60
+      ],
+      "tag": "fail closed"
+    },
+    {
+      "id": "datafs",
+      "type": "database",
+      "label": "ZODB Data.fs",
+      "sublabel": "objects + result annotations",
+      "pos": [
+        420,
+        100
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "tag": "default"
+    },
+    {
+      "id": "rdbms",
+      "type": "database",
+      "label": "RDBMS tables",
+      "sublabel": "PostgreSQL · MySQL · SQLite",
+      "pos": [
+        420,
+        250
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "tag": "site_id indexed"
+    },
+    {
+      "id": "diskcache",
+      "type": "database",
+      "label": "diskcache files",
+      "sublabel": "var/surveyjs-cache/{auth,embed}",
+      "pos": [
+        420,
+        400
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "tag": "single host"
+    },
+    {
+      "id": "kv_tables",
+      "type": "database",
+      "label": "KV tables",
+      "sublabel": "dedicated PostgreSQL/MySQL URI",
+      "pos": [
+        790,
+        400
+      ],
+      "size": [
+        200,
+        60
+      ],
+      "tag": "multi-host"
+    }
+  ],
+  "connections": [
+    {
+      "id": "forms-datafs",
+      "from": "forms",
+      "to": "datafs",
+      "label": "form versions",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "id": "submissions-datafs",
+      "from": "submissions",
+      "to": "datafs",
+      "label": "annotations",
+      "fromSide": "top",
+      "toSide": "left"
+    },
+    {
+      "id": "submissions-rdbms",
+      "from": "submissions",
+      "to": "rdbms",
+      "label": "SQLModel rows",
+      "variant": "dashed",
+      "route": "straight"
+    },
+    {
+      "id": "tokens-diskcache",
+      "from": "tokens",
+      "to": "diskcache",
+      "label": "default",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "id": "tokens-kv-tables",
+      "from": "tokens",
+      "to": "kv_tables",
+      "label": "multi-host",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom",
+      "via": [
+        [
+          127.5,
+          500
+        ],
+        [
+          890,
+          500
+        ]
+      ],
+      "labelAt": [
+        509,
+        474
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Forms are never a backend choice",
+      "items": [
+        "Form JSON and every version live in Plone content",
+        "Restore and lock act on versions, not submissions",
+        "No storage setting changes this"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "One backend for all results",
+      "items": [
+        "Switching ZODB ↔ RDBMS does not migrate existing results",
+        "RDBMS rows carry site_id for multi-site setups",
+        "Back up Data.fs and the database separately"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Cache and tokens: separate switch",
+      "items": [
+        "diskcache files below var/surveyjs-cache by default",
+        "Several hosts need a dedicated KV database URI",
+        "An unreadable KV store rejects submissions"
+      ]
+    }
+  ]
+}

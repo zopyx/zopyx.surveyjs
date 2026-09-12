@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Results and Export Pipeline",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "views": [
+      {
+        "id": "conversion",
+        "label": "Conversion",
+        "focus": [
+          "stored",
+          "schema",
+          "converter",
+          "markdown"
+        ],
+        "note": "Stored payload and the form schema are collected into one intermediate document."
+      },
+      {
+        "id": "writers",
+        "label": "Format writers",
+        "focus": [
+          "markdown",
+          "office",
+          "textual"
+        ],
+        "note": "One intermediate document feeds nine output formats."
+      },
+      {
+        "id": "delivery",
+        "label": "Delivery",
+        "focus": [
+          "office",
+          "textual",
+          "downloads",
+          "mail",
+          "post"
+        ],
+        "note": "Downloads and mail carry rendered exports; POST sends the raw submission."
+      }
+    ]
+  },
+  "stages": [
+    {
+      "label": "Stored data"
+    },
+    {
+      "label": "Conversion"
+    },
+    {
+      "label": "Intermediate"
+    },
+    {
+      "label": "Writers"
+    },
+    {
+      "label": "Delivery"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "stored",
+      "type": "database",
+      "label": "Stored submissions",
+      "sublabel": "poll_id · result · version",
+      "stage": 0,
+      "row": 2,
+      "tag": "per survey",
+      "width": 150
+    },
+    {
+      "id": "schema",
+      "type": "database",
+      "label": "Form version schema",
+      "sublabel": "labels · pages · types",
+      "stage": 0,
+      "row": 0,
+      "tag": "latest version",
+      "width": 150
+    },
+    {
+      "id": "converter",
+      "type": "backend",
+      "label": "SurveyConverter",
+      "sublabel": "typed items + attachments",
+      "stage": 1,
+      "row": 1,
+      "tag": "converters/",
+      "width": 160
+    },
+    {
+      "id": "markdown",
+      "type": "backend",
+      "label": "Markdown IR",
+      "sublabel": "one intermediate document",
+      "stage": 2,
+      "row": 1,
+      "tag": "format neutral",
+      "width": 160
+    },
+    {
+      "id": "office",
+      "type": "backend",
+      "label": "PDF & Office",
+      "sublabel": "pdf · docx · xlsx",
+      "stage": 3,
+      "row": 0,
+      "width": 150
+    },
+    {
+      "id": "textual",
+      "type": "backend",
+      "label": "Text & data",
+      "sublabel": "text · md · html · csv · json",
+      "stage": 3,
+      "row": 2,
+      "width": 160
+    },
+    {
+      "id": "downloads",
+      "type": "external",
+      "label": "Downloads",
+      "sublabel": "@@download-result · bulk",
+      "stage": 4,
+      "row": 0,
+      "width": 160
+    },
+    {
+      "id": "mail",
+      "type": "external",
+      "label": "Mail attachment",
+      "sublabel": "@@mail-result · mail action",
+      "stage": 4,
+      "row": 1,
+      "width": 160
+    },
+    {
+      "id": "post",
+      "type": "external",
+      "label": "POST webhook",
+      "sublabel": "@@post-result · raw payload",
+      "stage": 4,
+      "row": 2,
+      "width": 160
+    }
+  ],
+  "flows": [
+    {
+      "id": "stored-converter",
+      "from": "stored",
+      "to": "converter",
+      "label": "submission payload",
+      "classification": "stored record",
+      "variant": "emphasis"
+    },
+    {
+      "id": "schema-converter",
+      "from": "schema",
+      "to": "converter",
+      "label": "field labels",
+      "classification": "form schema",
+      "variant": "default"
+    },
+    {
+      "id": "converter-markdown",
+      "from": "converter",
+      "to": "markdown",
+      "label": "blocks",
+      "classification": "typed items",
+      "variant": "emphasis",
+      "labelDy": -40
+    },
+    {
+      "id": "markdown-office",
+      "from": "markdown",
+      "to": "office",
+      "label": "files",
+      "classification": "writers",
+      "variant": "default",
+      "labelDy": -40
+    },
+    {
+      "id": "markdown-textual",
+      "from": "markdown",
+      "to": "textual",
+      "label": "files",
+      "classification": "writers",
+      "variant": "default",
+      "labelDy": 40
+    },
+    {
+      "id": "office-downloads",
+      "from": "office",
+      "to": "downloads",
+      "label": "file",
+      "classification": "attachment",
+      "variant": "default",
+      "route": "straight",
+      "labelDy": 16
+    },
+    {
+      "id": "stored-post",
+      "from": "stored",
+      "to": "post",
+      "label": "raw payload, no export",
+      "classification": "post action",
+      "variant": "dashed",
+      "route": "bottom-channel",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "id": "textual-mail",
+      "from": "textual",
+      "to": "mail",
+      "label": "export",
+      "classification": "mail action",
+      "variant": "dashed",
+      "labelAt": [
+        853,
+        330
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "One intermediate document",
+      "items": [
+        "The stored payload and the current form schema are collected first",
+        "A single Markdown document is the source for every format writer",
+        "Attachments from file-upload questions travel with the export"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Nine formats, two writer groups",
+      "items": [
+        "PDF, DOCX and XLSX are rendered from the same blocks as text and CSV",
+        "Markdown selected for mail is replaced by PDF silently",
+        "Bulk exports always use JSON or CSV, never a single-submission format"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Delivery is explicit",
+      "items": [
+        "Downloads and mail carry a rendered export",
+        "POST forwards the raw submission plus the form schema, without an export",
+        "Every path is permission-checked: editors and Managers only"
+      ]
+    }
+  ]
+}

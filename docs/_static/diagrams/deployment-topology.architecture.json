@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Storage Deployment Topology",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "engineering_profile": "deployment-ownership",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "views": [
+      {
+        "id": "request-path",
+        "label": "Request path",
+        "focus": [
+          "visitors",
+          "proxy",
+          "plone",
+          "validator"
+        ],
+        "note": "Visitors reach Plone through the reverse proxy; the validator is a local subprocess."
+      },
+      {
+        "id": "results-store",
+        "label": "Where results live",
+        "focus": [
+          "plone",
+          "zeo",
+          "zodb",
+          "rdbms"
+        ],
+        "note": "ZODB annotations and the relational backend are alternatives, not a tier."
+      },
+      {
+        "id": "shared-state",
+        "label": "Shared state and caches",
+        "focus": [
+          "plone",
+          "kv",
+          "zeo"
+        ],
+        "note": "Token and replay state must be reachable and writable by every process."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "visitors",
+      "type": "external",
+      "label": "Visitors & editors",
+      "sublabel": "HTTPS",
+      "pos": [
+        40,
+        90
+      ],
+      "size": [
+        170,
+        60
+      ]
+    },
+    {
+      "id": "proxy",
+      "type": "cloud",
+      "label": "Reverse proxy",
+      "sublabel": "TLS · rate limiting",
+      "pos": [
+        290,
+        90
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "tag": "platform / ops"
+    },
+    {
+      "id": "plone",
+      "type": "backend",
+      "label": "Plone instance(s)",
+      "sublabel": "views · subscribers",
+      "pos": [
+        290,
+        260
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "tag": "app team"
+    },
+    {
+      "id": "validator",
+      "type": "external",
+      "label": "Validator binary",
+      "sublabel": "local subprocess · 30 s",
+      "pos": [
+        600,
+        260
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "tag": "app team"
+    },
+    {
+      "id": "zeo",
+      "type": "backend",
+      "label": "ZEO server",
+      "sublabel": "shared object DB",
+      "pos": [
+        800,
+        260
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "tag": "platform / ops"
+    },
+    {
+      "id": "rdbms",
+      "type": "database",
+      "label": "Results RDBMS",
+      "sublabel": "PostgreSQL · MySQL · SQLite",
+      "pos": [
+        600,
+        430
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "tag": "data team"
+    },
+    {
+      "id": "kv",
+      "type": "database",
+      "label": "KV cache",
+      "sublabel": "diskcache or KV tables",
+      "pos": [
+        40,
+        430
+      ],
+      "size": [
+        170,
+        60
+      ],
+      "tag": "platform / ops"
+    },
+    {
+      "id": "zodb",
+      "type": "database",
+      "label": "ZODB Data.fs",
+      "sublabel": "annotations · BTree buckets",
+      "pos": [
+        800,
+        430
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "tag": "data team"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Application tier — one host or ZEO clients",
+      "wraps": [
+        "proxy",
+        "plone",
+        "validator",
+        "zeo"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "State tier — size and back up separately",
+      "wraps": [
+        "rdbms",
+        "kv",
+        "zodb"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "security-group",
+      "label": "private state access",
+      "wraps": [
+        "rdbms",
+        "kv",
+        "zodb"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "id": "visitors-proxy",
+      "from": "visitors",
+      "to": "proxy",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "proxy-plone",
+      "from": "proxy",
+      "to": "plone",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "plone-validator",
+      "from": "plone",
+      "to": "validator",
+      "label": "subprocess · 30 s",
+      "variant": "security"
+    },
+    {
+      "id": "plone-zeo",
+      "from": "plone",
+      "to": "zeo",
+      "label": "ZODB clients",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          380,
+          205
+        ],
+        [
+          890,
+          205
+        ]
+      ]
+    },
+    {
+      "id": "zeo-zodb",
+      "from": "zeo",
+      "to": "zodb",
+      "label": "serves Data.fs",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 40
+    },
+    {
+      "id": "plone-rdbms",
+      "from": "plone",
+      "to": "rdbms",
+      "label": "rdbms backend",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "via": [
+        [
+          380,
+          390
+        ],
+        [
+          695,
+          390
+        ]
+      ]
+    },
+    {
+      "id": "plone-kv",
+      "from": "plone",
+      "to": "kv",
+      "label": "tokens · replay state",
+      "variant": "dashed",
+      "fromSide": "left",
+      "toSide": "right",
+      "via": [
+        [
+          250,
+          290
+        ],
+        [
+          250,
+          460
+        ]
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Choose the backend by concurrency",
+      "items": [
+        "ZODB needs no extra service, but conflicts start at ~5 concurrent writers",
+        "SQLite is single-writer: WAL and a busy timeout serialize writes",
+        "PostgreSQL or MySQL for many workers, hosts or sustained rates"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Shared state must be reachable by every process",
+      "items": [
+        "Token and replay caches belong on a local filesystem, never NFS or SMB",
+        "Multiple hosts need a dedicated KV database URI, not the results URI",
+        "SQLite under ZEO is acceptable only for low-volume forms"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Run the state tier deliberately",
+      "items": [
+        "Back up ZODB/Data.fs and the RDBMS separately, one is not the other",
+        "Every stored row carries the site_id for multi-site setups",
+        "Watch logs for conflict and lock errors; load-test the real worker count"
+      ]
+    }
+  ]
+}

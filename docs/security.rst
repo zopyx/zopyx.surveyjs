@@ -192,6 +192,18 @@ Per-survey — Embedding
 Internal security measures
 ==========================
 
+.. image:: _static/diagrams/token-lifecycle.png
+   :align: center
+   :target: _static/diagrams/token-lifecycle.html
+   :alt: Token lifecycle: issued per form load, checked on submission, consumed
+         on success, with the rejected states (replayed, expired) and the
+         fail-closed 503 when the replay store is unreadable
+
+A token is minted when the form is loaded, checked while the submission
+arrives, and spent only after validation succeeded. The states below the rail
+are the ways a token stops being usable — and the cache failure that rejects a
+submission instead of allowing it.
+
 Authenticity token (anti-CSRF / anti-replay)
 --------------------------------------------
 

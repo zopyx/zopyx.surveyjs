@@ -201,6 +201,19 @@ supported by the runtime wrapper.
 Optional components
 ===================
 
+.. image:: _static/diagrams/storage-backends.png
+   :align: center
+   :target: _static/diagrams/storage-backends.html
+   :alt: Storage backends: form versions always live in Plone/ZODB content,
+         submissions go either to ZODB annotations or to relational tables, and
+         the token and monitoring cache uses diskcache files or a dedicated KV
+         database
+
+Three data domains, three separate decisions: form versions always stay in
+Plone content, submissions use one globally configured backend, and the token
+and monitoring cache has its own switch — local ``diskcache`` files on a single
+host, a dedicated KV database URI when several hosts must agree.
+
 Relational result storage
   The SQLModel backend supports SQLite, PostgreSQL, and MySQL. Ensure the
   configured database URI is reachable by the Plone process (default:
