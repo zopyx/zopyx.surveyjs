@@ -116,6 +116,32 @@ def is_configured(settings) -> bool:
     return False
 
 
+def get_ai_helper():
+    """Return privacyforms_ai's ``AI`` helper.
+
+    The import is deliberately lazy: ``privacyforms_ai`` is a hard runtime
+    dependency, but importing it at module level would make an incomplete
+    installation fail while Zope configures the add-on (ZCML resolves
+    ``.ai.AIView``) instead of failing the single feature that needs it.
+
+    Returns:
+        The ``AI`` class from ``privacyforms_ai``.
+
+    Raises:
+        RuntimeError: If the package is not installed.
+    """
+    try:
+        from privacyforms_ai import AI
+    except ImportError:
+        raise RuntimeError(
+            "The privacyforms_ai package is not installed. Install the "
+            "zopyx.surveyjs dependencies (privacyforms.ai) to use the AI "
+            "features."
+        ) from None
+
+    return AI
+
+
 def build_llm_model(settings):
     """Resolve the active provider configuration to an llm model instance.
 
@@ -128,10 +154,7 @@ def build_llm_model(settings):
     Returns:
         An ``llm.models.Model`` instance ready for ``send_prompt()``.
     """
-    try:
-        from privacyforms_ai import AI
-    except ImportError:
-        raise RuntimeError("privacyforms_ai package not found") from None
+    AI = get_ai_helper()
 
     provider = settings.get("provider")
     model_name = settings.get("model_name")

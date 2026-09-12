@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """Installer for the zopyx.surveyjs package."""
 
-import sys
-
 from setuptools import find_packages
 from setuptools import setup
 
@@ -27,22 +25,28 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 5.2",
+        # Only Plone 6.2 is covered by the CI test suite; do not advertise
+        # versions that no automated run exercises.
+        "Framework :: Plone :: 6.2",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
     ],
     keywords="Python Plone CMS",
     author="Andreas Jung",
     author_email="info@zopyx.com",
-    url="https://github.com/collective/zopyx.surveyjs",
+    url="https://github.com/zopyx/zopyx.surveyjs",
     project_urls={
         "PyPI": "https://pypi.python.org/pypi/zopyx.surveyjs",
-        "Source": "https://github.com/collective/zopyx.surveyjs",
-        "Tracker": "https://github.com/collective/zopyx.surveyjs/issues",
-        # 'Documentation': 'https://zopyx.surveyjs.readthedocs.io/en/latest/',
+        "Source": "https://github.com/zopyx/zopyx.surveyjs",
+        "Tracker": "https://github.com/zopyx/zopyx.surveyjs/issues",
+        "Documentation": "https://docs.privacyforms.studio",
+        "Changelog": (
+            "https://github.com/zopyx/zopyx.surveyjs/blob/master/CHANGES.rst"
+        ),
     },
     license="GPL version 2 or later",
     packages=find_packages("src", exclude=["ez_setup"]),
@@ -77,8 +81,24 @@ setup(
         "zopyx.plone.persistentlogger",
         "cssselect",
         "cssselect2",
+        # Hard runtime dependency of the browser layer (browser/ai.py and
+        # browser/services/ai.py): without it the AI generator and the model
+        # vocabulary cannot work. Published on PyPI; the buildout in this
+        # repository overrides it with the sibling develop egg.
+        "privacyforms.ai>=0.1.8",
+        # Documented dependency of the fillable-PDF workflow. The add-on
+        # ships an inline pypdf fallback for field detection, but the
+        # supported path is this package.
+        "privacyforms.pdf>=0.2.0",
     ],
     extras_require={
+        "pdf": [
+            # Filling and downloading a PDF template (@@fillable-pdf-fill)
+            # needs PyMuPDF. It stays an extra instead of a hard requirement
+            # because PyMuPDF is dual-licensed (AGPL-3.0 or Artifex
+            # commercial) and must not be imposed on every deployment.
+            "PyMuPDF",
+        ],
         "test": [
             "plone.app.testing",
             # Plone KGS does not use this version, because it would break
