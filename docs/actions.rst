@@ -107,6 +107,13 @@ Details:
 Execution flow
 ==============
 
+.. image:: _static/diagrams/submission-lifecycle.png
+   :align: center
+   :target: _static/diagrams/submission-lifecycle.html
+   :alt: Sequence diagram of a submission: the viewer issues the authenticity
+         token, @@save-poll hardens and validates the payload, the action
+         subscribers run, and the response is returned
+
 1. **``@@save-poll`` receives the submission** (form field ``pollResult``)
    and applies the hardening checks: payload size limit (HTTP 413 for
    oversized bodies), access mode and authenticity token (see

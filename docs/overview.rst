@@ -7,6 +7,18 @@ builder (SurveyJS Creator), a public form viewer, storage for submissions,
 export tools, and optional integrations such as mail delivery or POSTing
 submissions to external endpoints.
 
+.. image:: _static/diagrams/component-overview.png
+   :align: center
+   :target: _static/diagrams/component-overview.html
+   :alt: Component overview: browser, Plone add-on views and services, the
+         results store, and the optional external integrations (validator
+         binary, LLM provider, mail and POST endpoint)
+
+The browser talks to the add-on's views, which delegate to the service layer
+and persist submissions in the configured store. Everything else in that
+picture — the validator binary, the LLM provider, mail and the POST endpoint —
+is an optional outbound integration and can stay unused.
+
 Key capabilities
 ================
 

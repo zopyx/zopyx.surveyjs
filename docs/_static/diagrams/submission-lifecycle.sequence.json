@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Submission Lifecycle: @@save-poll",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [1080, 560],
+    "views": [
+      { "id": "load-and-token", "label": "Load and authorize", "focus": ["browser", "addon"], "note": "The viewer issues the authenticity token bound to the current form version." },
+      { "id": "harden-and-validate", "label": "Harden and validate", "focus": ["addon", "boundary", "validator"], "note": "Transport limits, tokens and both validators run before any side effect." },
+      { "id": "act-and-answer", "label": "Act and answer", "focus": ["actions", "store", "sinks", "addon", "browser"], "note": "Every selected action runs; none of them can fail the submission." }
+    ]
+  },
+  "participants": [
+    { "id": "browser", "type": "frontend", "label": "Browser", "sublabel": "SurveyJS viewer" },
+    { "id": "addon", "type": "backend", "label": "Plone add-on", "sublabel": "viewer · save-poll" },
+    { "id": "boundary", "type": "security", "label": "Boundary check", "sublabel": "security.py" },
+    { "id": "validator", "type": "external", "label": "Validator", "sublabel": "survey-core · 30 s" },
+    { "id": "actions", "type": "messagebus", "label": "Subscribers", "sublabel": "store · mail · post" },
+    { "id": "store", "type": "database", "label": "Results store", "sublabel": "ZODB / RDBMS" },
+    { "id": "sinks", "type": "external", "label": "Mail & webhook", "sublabel": "SMTP · POST" }
+  ],
+  "segments": [
+    { "from": 154, "to": 296, "label": "Receive & harden" },
+    { "from": 312, "to": 504, "label": "Validate & answer" }
+  ],
+  "messages": [
+    { "from": "browser", "to": "addon", "y": 174, "label": "GET @@get-form-json · access mode enforced", "variant": "emphasis" },
+    { "from": "addon", "to": "browser", "y": 202, "label": "form schema + auth_token (HS256, version bound)", "variant": "return" },
+    { "from": "browser", "to": "addon", "y": 230, "label": "POST @@save-poll · pollResult", "variant": "emphasis" },
+    { "from": "addon", "to": "boundary", "y": 258, "label": "size limit · token & replay check · normalize", "variant": "security" },
+    { "from": "boundary", "to": "addon", "y": 286, "label": "413 / 403 reject, or normalized deep copy", "variant": "return" },
+    { "from": "addon", "to": "validator", "y": 332, "label": "schema + payload written as temp files", "variant": "default" },
+    { "from": "validator", "to": "addon", "y": 360, "label": "valid, or 400 external_validation_failed", "variant": "return" },
+    { "from": "addon", "to": "actions", "y": 388, "label": "notify(submission event)", "variant": "emphasis" },
+    { "from": "actions", "to": "store", "y": 416, "label": "store · poll_id, seq_no, site_id", "variant": "default" },
+    { "from": "actions", "to": "sinks", "y": 444, "label": "mail · mail-notification · post payload", "variant": "dashed" },
+    { "from": "addon", "to": "browser", "y": 472, "label": "{ isSuccess: true, stored: false if store off }", "variant": "return" }
+  ],
+  "activations": [
+    { "participant": "addon", "from": 168, "to": 478, "type": "backend" },
+    { "participant": "boundary", "from": 252, "to": 292, "type": "security" },
+    { "participant": "validator", "from": 326, "to": 366, "type": "external" },
+    { "participant": "actions", "from": 382, "to": 450, "type": "messagebus" },
+    { "participant": "store", "from": 410, "to": 422, "type": "database" },
+    { "participant": "sinks", "from": 438, "to": 450, "type": "external" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Authorize at load time", "items": ["@@viewer issues a short-lived HS256 token bound to the form id and version", "Publishing a new form version invalidates every outstanding token", "Recording the token on disk gives replay protection (24 h TTL)"] },
+    { "dot": "rose", "title": "Fail closed, fail early", "items": ["Payload size is enforced before JSON parsing (413)", "Access mode, token and replay checks reject with 403", "An unavailable token cache rejects (503) instead of allowing"] },
+    { "dot": "emerald", "title": "Actions are independent", "items": ["One subscriber per side effect: store, mail, mail-notification, post", "A failing mail host or webhook is logged, never raised", "The submission stays accepted: { isSuccess: true }"] }
+  ]
+}

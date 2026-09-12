@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Privacy Forms Studio — Component Overview",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1080,
+      560
+    ],
+    "views": [
+      {
+        "id": "form-lifecycle",
+        "label": "Forms and submissions",
+        "focus": [
+          "browser",
+          "views",
+          "services",
+          "storage"
+        ],
+        "note": "Public rendering, submission handling and result storage on one path."
+      },
+      {
+        "id": "trust-boundary",
+        "label": "Trust boundary",
+        "focus": [
+          "embedpage",
+          "embedsec",
+          "views",
+          "validator"
+        ],
+        "note": "Embeds and public submissions are validated before anything is stored."
+      },
+      {
+        "id": "side-effects",
+        "label": "Optional side effects",
+        "focus": [
+          "services",
+          "storage",
+          "converters",
+          "sinks",
+          "llm"
+        ],
+        "note": "Every outbound dependency is opt-in and configured per site or survey."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "embedpage",
+      "type": "external",
+      "label": "External page",
+      "sublabel": "iframe / Direct DOM",
+      "pos": [
+        40,
+        90
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "embedsec",
+      "type": "security",
+      "label": "Embed security",
+      "sublabel": "origin allowlist · JWT",
+      "pos": [
+        290,
+        90
+      ],
+      "size": [
+        190,
+        60
+      ],
+      "tag": "single-use"
+    },
+    {
+      "id": "llm",
+      "type": "cloud",
+      "label": "LLM provider",
+      "sublabel": "Ollama · custom · installed",
+      "pos": [
+        570,
+        90
+      ],
+      "size": [
+        180,
+        60
+      ]
+    },
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "Browser",
+      "sublabel": "Creator + Viewer",
+      "pos": [
+        40,
+        260
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "views",
+      "type": "backend",
+      "label": "Browser views",
+      "sublabel": "@@viewer · @@save-poll",
+      "pos": [
+        290,
+        260
+      ],
+      "size": [
+        190,
+        60
+      ]
+    },
+    {
+      "id": "services",
+      "type": "backend",
+      "label": "Service layer",
+      "sublabel": "ai · auth · export · results",
+      "pos": [
+        570,
+        260
+      ],
+      "size": [
+        180,
+        60
+      ]
+    },
+    {
+      "id": "storage",
+      "type": "database",
+      "label": "Results store",
+      "sublabel": "ZODB annotations / RDBMS",
+      "pos": [
+        840,
+        260
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "tag": "site scoped"
+    },
+    {
+      "id": "validator",
+      "type": "external",
+      "label": "Validator binary",
+      "sublabel": "survey-core 3.x · no Node.js",
+      "pos": [
+        290,
+        430
+      ],
+      "size": [
+        190,
+        60
+      ]
+    },
+    {
+      "id": "sinks",
+      "type": "external",
+      "label": "Mail & webhook",
+      "sublabel": "SMTP · POST endpoint",
+      "pos": [
+        570,
+        430
+      ],
+      "size": [
+        180,
+        60
+      ]
+    },
+    {
+      "id": "converters",
+      "type": "backend",
+      "label": "Converters",
+      "sublabel": "Markdown IR → 9 formats",
+      "pos": [
+        840,
+        430
+      ],
+      "size": [
+        180,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Your Plone site — data stays local",
+      "wraps": [
+        "views",
+        "services",
+        "storage",
+        "converters"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Checks before any action",
+      "wraps": [
+        "embedsec",
+        "views"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "browser-views",
+      "from": "browser",
+      "to": "views",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "embedpage-embedsec",
+      "from": "embedpage",
+      "to": "embedsec",
+      "label": "loader + token",
+      "labelDy": 30
+    },
+    {
+      "id": "embedsec-views",
+      "from": "embedsec",
+      "to": "views",
+      "label": "X-Embed-Token + Origin",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "views-services",
+      "from": "views",
+      "to": "services",
+      "label": "in-process"
+    },
+    {
+      "id": "services-storage",
+      "from": "services",
+      "to": "storage",
+      "label": "store action",
+      "variant": "emphasis"
+    },
+    {
+      "id": "views-validator",
+      "from": "views",
+      "to": "validator",
+      "label": "schema + payload",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "services-llm",
+      "from": "services",
+      "to": "llm",
+      "label": "llm package",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "services-sinks",
+      "from": "services",
+      "to": "sinks",
+      "label": "mail · post action",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "storage-converters",
+      "from": "storage",
+      "to": "converters",
+      "label": "stored payload + schema",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Runs on your own Plone site",
+      "items": [
+        "Forms, submissions and versions live in ZODB or your own RDBMS",
+        "Tokens, replay state and the chatbot index stay local",
+        "No external SaaS service is required for forms to work"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Trust boundary at the edge",
+      "items": [
+        "@@save-poll hardens and validates before any side effect",
+        "Embeds add an origin allowlist and single-use signed tokens",
+        "Permissions separate viewing, editing and administration"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Optional integrations",
+      "items": [
+        "Validator binary: built once, invoked as a subprocess",
+        "AI generator and chatbot share one configured LLM provider",
+        "Mail and POST webhooks are per-survey actions"
+      ]
+    }
+  ]
+}
