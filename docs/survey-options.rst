@@ -433,7 +433,8 @@ PDF Form / Fillable PDF
    * - Fillable PDF template
      - File
      - empty
-     - Upload a fillable PDF template that is used for automated PDF
-       generation from survey submissions. This powers the "fillable PDF"
-       feature, where completed survey data is merged into the template and
-       the resulting PDF is delivered as the export artifact.
+     - Upload a fillable PDF template that is used by the "fillable PDF"
+       feature: the template is offered for download and can be filled in
+       the browser (``@@fillable-pdf``). The filled values are read from
+       the fill form's submission, keyed by the raw PDF field names — the
+       add-on does not merge stored survey responses into the template.

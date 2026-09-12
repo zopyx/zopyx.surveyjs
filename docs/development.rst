@@ -94,3 +94,15 @@ Testing
   converter unit tests under coverage).
 - The data-validation package has its own pytest suite under
   ``src/zopyx/surveyjs/data_validation/tests``.
+- The database-container tests (``RUN_DB_CONTAINER_TESTS=1``) and the
+  validator-binary job run only in CI, so a local ``make test`` shows more
+  skips than CI — see ``docs/limitations.rst``.
+
+Releasing
+=========
+
+The complete release checklist — version bump in ``setup.py``, changelog
+section, local gates, sdist inspection, CI, upgrade path from the previously
+published version, tag, GitHub pre-release and PyPI trusted publishing — is
+maintained in ``RELEASE.rst`` at the repository root. Known gaps that release
+notes must mention are collected in :doc:`limitations`.

@@ -92,8 +92,8 @@ fieldset groups related settings:
 **PDF Form / Fillable PDF**
 
   Upload a fillable PDF form (visitors download, fill and submit it) or a
-  fillable PDF template (survey data is merged into the template for
-  automated PDF generation).
+  fillable PDF template (offered in the fillable-PDF screen for filling in
+  the browser; values come from the fill form, not from stored responses).
 
 The full field reference (every field, its type, default and a detailed
 description) is in :doc:`survey-options`; the global site-wide defaults

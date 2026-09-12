@@ -43,10 +43,16 @@ once a template has been uploaded.
   * Each row shows the field **name** (code style), a **type badge**
     (textfield, checkbox, …) and a **required** marker where applicable.
   * Input controls match the field type: text input, checkbox, dropdown
-    (with the PDF's options) or a signature placeholder (signature
-    fields are filled via the UI workflow).
-  * **Download Filled PDF** submits the values and returns the completed
-    PDF — the survey data is merged into the template.
+    (with the PDF's options) or a signature placeholder. Signature fields
+    are displayed only; they are never written into the PDF.
+  * **Download Filled PDF** submits the values entered in this form and
+    returns the completed PDF. The values are read from the submitted
+    request keyed by the **raw PDF field names** — they are *not* taken
+    from stored survey responses, so there is no automatic
+    survey-data → PDF merge. Filling additionally requires PyMuPDF
+    (``pip install "zopyx.surveyjs[pdf]"``); without it the download is
+    refused with the message "PDF filling is not available. PyMuPDF is
+    required.".
 
 **Form Fields** (with template)
 
@@ -99,9 +105,10 @@ Tips & notes
 
 * Only real **fillable PDFs** work — the file must contain form fields.
   If the "Form Fields" section shows no fields, the PDF is not fillable.
-* The **In Form** indicator is the key to automation: fields that exist
-  in the JSON form can be pre-filled from survey data; the others must be
-  entered manually.
+* The **In Form** indicator is informational only: it reports which PDF
+  fields have a counterpart in the JSON form. It does not pre-fill or
+  merge anything — values are always entered in the fill form and read
+  from the submitted request, never from stored submissions.
 * The feature is separate from the PDF export of submissions: the PDF
   generator (``@@pdf-generator``) and the export converters render survey
   data as PDF documents — see :doc:`exports`.

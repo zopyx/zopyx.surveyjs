@@ -15,9 +15,10 @@ pinned toolchain (``zc.buildout`` 5.2, setuptools, …)::
     $ uv pip install -r requirements.txt
 
 Run buildout — this generates ``bin/instance``, ``bin/test``,
-``bin/zopepy`` and the other scripts::
+``bin/zopepy`` and the other scripts (the buildout script itself lives in the
+virtual environment)::
 
-    $ ./bin/buildout
+    $ .venv/bin/buildout
 
 Start Plone::
 
