@@ -1,0 +1,45 @@
+{
+  "schema": {
+    "title": "Create a Privacy Forms Studio site",
+    "description": "Adds a new Plone content management system site with the Privacy Forms Studio / SurveyJS add-on installed to the underlying application server.",
+    "type": "object",
+    "required": [
+      "site_id",
+      "title"
+    ],
+    "properties": {
+      "site_id": {
+        "type": "string",
+        "title": "Path Identifier",
+        "default": "surveyjs",
+        "description": "The ID of the site. No special characters or spaces are allowed. This ends up as part of the URL unless hidden by an upstream web server."
+      },
+      "title": {
+        "type": "string",
+        "title": "Title",
+        "default": "Privacy Forms Studio",
+        "description": "A short title for the site. This will be shown as part of the title of the browser window on each page."
+      },
+      "description": {
+        "type": "string",
+        "title": "Site Description",
+        "default": "Forms and surveys with SurveyJS."
+      },
+      "site_logo": {
+        "type": "string",
+        "format": "data-url",
+        "title": "Site logo"
+      },
+      "default_language": {"$ref": "#/definitions/languages"},
+      "portal_timezone": {"$ref": "#/definitions/timezones"},
+      "setup_content": {
+        "type": "boolean",
+        "title": "Create Example Content",
+        "description": "Should example content be added during site creation? This installs the demo profile: the SurveyJS themes and the demo-forms folder with three example forms.",
+        "default": true
+      }
+    }
+  },
+  "uischema": {
+  }
+}

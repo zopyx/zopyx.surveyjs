@@ -37,6 +37,7 @@ Project links
    overview
    philosophy
    installation
+   distribution
    deployment-secrets
    usage
    storage

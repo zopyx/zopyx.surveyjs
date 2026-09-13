@@ -147,6 +147,9 @@ published, so they can be filled in anonymously. Applying the profile again
 after a package upgrade refreshes the shipped form definitions: a form gets a
 new version only when its definition actually changed.
 
+This profile is also the example content of the add-on's site distribution, see
+:doc:`distribution` for creating a new site that already contains it.
+
 External survey validation (deno / bun)
 =======================================
 

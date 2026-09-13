@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
+
+  <!--
+    Site distribution: creates a Classic UI Plone site with this add-on
+    installed. If the user asks for example content, the demo profile
+    (zopyx.surveyjs:demo) seeds the SurveyJS themes and the demo-forms folder.
+
+    The distribution data lives in distributions/surveyjs/: profiles.json
+    (GenericSetup profiles), schema.json (site creation form) and image.png
+    (shown in the site creation UI).
+  -->
+  <plone:distribution
+      name="surveyjs"
+      title="Privacy Forms Studio (SurveyJS)"
+      description="A Classic UI Plone site with the Privacy Forms Studio / SurveyJS add-on installed. Example content adds the SurveyJS themes and a demo-forms folder with three example forms."
+      directory="distributions/surveyjs"
+      headless="false"
+      post_handler="plone.distribution.handler.post_handler"
+      />
+
+</configure>

@@ -16,6 +16,17 @@
 
   <include file="permissions.zcml" />
 
+  <!--
+    The <plone:distribution> directive comes from plone.distribution; only its
+    meta.zcml is needed here, the distribution framework itself is part of
+    Plone.
+  -->
+  <include
+      package="plone.distribution"
+      file="meta.zcml"
+      />
+  <include file="distributions.zcml" />
+
   <include package=".browser" />
   <include package=".vocabularies" />
   <include package=".adapters" />
@@ -36,6 +47,14 @@
       description="Uninstalls the Privacy Forms Studio add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       post_handler=".setuphandlers.uninstall"
+      />
+
+  <genericsetup:registerProfile
+      name="demo"
+      title="Privacy Forms Studio (demo content)"
+      directory="profiles/demo"
+      description="Seeds the SurveyJS demo themes and a demo-forms folder with three example forms. Install on top of the regular add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
   <genericsetup:upgradeSteps

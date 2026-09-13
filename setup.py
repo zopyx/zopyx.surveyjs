@@ -28,6 +28,7 @@ setup(
         # Only Plone 6.2 is covered by the CI test suite; do not advertise
         # versions that no automated run exercises.
         "Framework :: Plone :: 6.2",
+        "Framework :: Plone :: Distribution",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
@@ -61,6 +62,10 @@ setup(
         "z3c.jbot",
         "orjson",
         "plone.api>=1.8.4",
+        # Site distribution support (<plone:distribution> + the site creation
+        # UI); part of Plone 6.2, declared here because distributions/surveyjs
+        # registers a distribution with it.
+        "plone.distribution",
         "plone.restapi ",
         "plone.app.dexterity",
         "httpx",
