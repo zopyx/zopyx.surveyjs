@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+1.0b2 (unreleased)
+------------------
+
+- Add the optional GenericSetup profile ``zopyx.surveyjs:demo``
+  (``profiles/demo/``, handlers in ``demo_profile.py``). It seeds the four
+  SurveyJS theme presets (``light``, ``dark``, ``light-no-panels``,
+  ``dark-no-panels``) and creates a published ``demo-forms`` folder with three
+  complex English example forms, one per scope and each using a different
+  theme: employee onboarding, customer satisfaction and conference
+  registration. Both import steps are idempotent, and a form gets a new version
+  only when its shipped definition changed, so re-applying the profile after an
+  upgrade refreshes the demo content without duplicating anything.
+- Add the Plone site distribution ``surveyjs`` (``distributions.zcml`` plus
+  ``distributions/surveyjs/``). It creates a Classic UI site with this add-on
+  installed and uses the demo profile as its example content, so the themes and
+  the ``demo-forms`` folder are created when a site is created with example
+  content (``setup_content``). Documented in ``docs/distribution.rst``.
+
+
 1.0b1 (unreleased)
 ------------------
 
