@@ -65,7 +65,9 @@ class TestThemeManagerViews(unittest.TestCase):
         create_start = contents.index('id="createThemeBtn"')
         upload_start = contents.index('id="uploadThemeBtn"')
         self.assertIn("<svg", contents[create_start:upload_start])
-        self.assertIn("<svg", contents[upload_start:contents.index("</button>", upload_start)])
+        self.assertIn(
+            "<svg", contents[upload_start : contents.index("</button>", upload_start)]
+        )
 
     def test_theme_manager_make_default_icon_is_leftmost(self):
         """The 'Make default' (star) icon is the first action icon per row."""
@@ -75,7 +77,6 @@ class TestThemeManagerViews(unittest.TestCase):
         )
         payload = json.loads(resp)
         self.assertTrue(payload["success"])
-        theme_id = payload["theme_id"]
 
         self.browser.open(self.portal.absolute_url() + "/@@theme-manager")
         contents = self.browser.contents
@@ -89,11 +90,13 @@ class TestThemeManagerViews(unittest.TestCase):
         cell = contents[actions_start:actions_end]
         self.assertIn("make-default-btn", cell)
         self.assertLess(
-            cell.index("make-default-btn"), cell.index("preview-btn"),
+            cell.index("make-default-btn"),
+            cell.index("preview-btn"),
             "Make default (star) icon must be the leftmost action icon",
         )
         self.assertLess(
-            cell.index("make-default-btn"), cell.index("delete-btn"),
+            cell.index("make-default-btn"),
+            cell.index("delete-btn"),
             "Make default (star) icon must be the leftmost action icon",
         )
 
@@ -168,11 +171,13 @@ class TestThemeManagerViews(unittest.TestCase):
 
     def test_theme_upload_success(self):
         """Upload a valid theme JSON."""
-        valid_theme = json.dumps({
-            "themeName": "UploadedTheme",
-            "colorPalette": "light",
-            "cssVariables": {"--sjs-primary-backcolor": "#ff0000"},
-        })
+        valid_theme = json.dumps(
+            {
+                "themeName": "UploadedTheme",
+                "colorPalette": "light",
+                "cssVariables": {"--sjs-primary-backcolor": "#ff0000"},
+            }
+        )
         resp = self._post(
             self.portal.absolute_url() + "/@@theme-manager",
             {
@@ -187,11 +192,13 @@ class TestThemeManagerViews(unittest.TestCase):
 
     def test_theme_download_returns_json(self):
         """Download a theme returns its JSON as attachment."""
-        valid_theme = json.dumps({
-            "themeName": "DownloadMe",
-            "colorPalette": "dark",
-            "cssVariables": {"--sjs-font-family": "Arial"},
-        })
+        valid_theme = json.dumps(
+            {
+                "themeName": "DownloadMe",
+                "colorPalette": "dark",
+                "cssVariables": {"--sjs-font-family": "Arial"},
+            }
+        )
         resp = self._post(
             self.portal.absolute_url() + "/@@theme-manager",
             {
@@ -204,7 +211,8 @@ class TestThemeManagerViews(unittest.TestCase):
 
         self.browser.open(
             self.portal.absolute_url()
-            + "/@@theme-manager?action=download&theme_id=" + theme_id
+            + "/@@theme-manager?action=download&theme_id="
+            + theme_id
         )
         self.assertIn("application/json", self.browser.headers.get("Content-Type", ""))
         self.assertIn("attachment", self.browser.headers.get("Content-Disposition", ""))
@@ -219,8 +227,7 @@ class TestThemeManagerViews(unittest.TestCase):
     def test_theme_editor_unknown_theme_returns_404(self):
         """Theme editor with nonexistent theme_id returns 404."""
         self.browser.open(
-            self.portal.absolute_url()
-            + "/@@theme-editor?theme_id=nonexistent"
+            self.portal.absolute_url() + "/@@theme-editor?theme_id=nonexistent"
         )
         self.assertIn("Theme not found", self.browser.contents)
 
@@ -232,10 +239,12 @@ class TestThemeManagerViews(unittest.TestCase):
         )
         theme_id = json.loads(resp)["theme_id"]
 
-        theme_json = json.dumps({
-            "themeName": "Versioned",
-            "cssVariables": {"--sjs-primary-backcolor": "#00ff00"},
-        })
+        theme_json = json.dumps(
+            {
+                "themeName": "Versioned",
+                "cssVariables": {"--sjs-primary-backcolor": "#00ff00"},
+            }
+        )
         resp = self._post(
             self.portal.absolute_url() + "/@@theme-editor",
             {
@@ -261,10 +270,12 @@ class TestThemeManagerViews(unittest.TestCase):
             {"action": "create", "name": "Current Version Theme"},
         )
         theme_id = json.loads(resp)["theme_id"]
-        theme_json = json.dumps({
-            "themeName": "Current Version",
-            "cssVariables": {"--sjs-primary-backcolor": "#123456"},
-        })
+        theme_json = json.dumps(
+            {
+                "themeName": "Current Version",
+                "cssVariables": {"--sjs-primary-backcolor": "#123456"},
+            }
+        )
 
         resp = self._post(
             self.portal.absolute_url() + "/@@theme-editor",
@@ -286,10 +297,12 @@ class TestThemeManagerViews(unittest.TestCase):
 
     def test_theme_editor_restore_version(self):
         """Restore a previous version of a theme."""
-        initial_json = json.dumps({
-            "themeName": "RestoreTest",
-            "cssVariables": {"--sjs-primary-backcolor": "#0000ff"},
-        })
+        initial_json = json.dumps(
+            {
+                "themeName": "RestoreTest",
+                "cssVariables": {"--sjs-primary-backcolor": "#0000ff"},
+            }
+        )
         resp = self._post(
             self.portal.absolute_url() + "/@@theme-manager",
             {
@@ -305,10 +318,12 @@ class TestThemeManagerViews(unittest.TestCase):
         versions = list(theme["versions"].values())
         initial_version_id = versions[0]["id"]
 
-        updated_json = json.dumps({
-            "themeName": "RestoreTest",
-            "cssVariables": {"--sjs-primary-backcolor": "#ff0000"},
-        })
+        updated_json = json.dumps(
+            {
+                "themeName": "RestoreTest",
+                "cssVariables": {"--sjs-primary-backcolor": "#ff0000"},
+            }
+        )
         self._post(
             self.portal.absolute_url() + "/@@theme-editor",
             {
@@ -351,10 +366,12 @@ class TestThemeManagerViews(unittest.TestCase):
 
     def test_theme_editor_get_theme_data(self):
         """GET theme data returns the theme JSON."""
-        valid_theme = json.dumps({
-            "themeName": "GetDataTest",
-            "cssVariables": {"--sjs-font-size": "16px"},
-        })
+        valid_theme = json.dumps(
+            {
+                "themeName": "GetDataTest",
+                "cssVariables": {"--sjs-font-size": "16px"},
+            }
+        )
         resp = self._post(
             self.portal.absolute_url() + "/@@theme-manager",
             {
@@ -371,6 +388,4 @@ class TestThemeManagerViews(unittest.TestCase):
         )
         payload = json.loads(resp)
         self.assertEqual(payload.get("themeName"), "GetDataTest")
-        self.assertEqual(
-            payload.get("cssVariables", {}).get("--sjs-font-size"), "16px"
-        )
+        self.assertEqual(payload.get("cssVariables", {}).get("--sjs-font-size"), "16px")

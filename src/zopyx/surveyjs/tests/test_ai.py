@@ -50,6 +50,30 @@ class AIViewTests(unittest.TestCase):
         view.request = DummyRequest(form=form)
         return view
 
+    def test_to_jsonable_survives_failing_serializer_methods(self) -> None:
+        """Failing serializer methods fall through to vars(), they never raise.
+
+        Regression test: this module used ``logger`` without defining it, so
+        the debug logging in the ``except`` branches raised ``NameError``
+        instead of trying the next serialization strategy.
+        """
+
+        class FailingSerializer:
+            def __init__(self):
+                self.value = 42
+
+            def model_dump(self):
+                raise RuntimeError("model_dump failed")
+
+            def json(self):
+                raise RuntimeError("json failed")
+
+            def to_json(self):
+                raise RuntimeError("to_json failed")
+
+        view = self._make_view()
+        self.assertEqual(view._to_jsonable(FailingSerializer()), {"value": 42})
+
     def test_build_pdf_to_survey_mapping_maps_pdf_id_to_survey_name(self) -> None:
         view = self._make_view()
         pdf_form_data = [

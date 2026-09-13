@@ -31,13 +31,15 @@ pass before the version is published.
 
     make test           # bin/test -s zopyx.surveyjs + coverage pytest subset
     make docs           # Sphinx with -W (warnings are errors)
-    uv run --no-project ruff check src setup.py
+    uv run --no-project ruff check --fix .
+    uv run --no-project ruff format --check .
     git diff --check
 
-Expected baseline: 472 Plone tests with 0 failures and 0 errors (75 skipped
+Expected baseline: 496 Plone tests with 0 failures and 0 errors (75 skipped
 without ``RUN_DB_CONTAINER_TESTS=1``), 115 pytest tests, 100 % converter
-coverage, docs build clean. Ruff reports 12 pre-existing findings in untouched
-files; no *new* findings are acceptable.
+coverage, docs build clean. ``ruff check`` and ``ruff format --check`` report
+nothing; the findings that used to be tolerated in untouched files have been
+fixed, so any finding is a blocker now.
 
 3. Source distribution **(gate)**
 ---------------------------------

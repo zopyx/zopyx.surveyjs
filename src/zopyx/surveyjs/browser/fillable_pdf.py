@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 # Try to import privacyforms_pdf, fallback to inline implementation
 try:
-    from privacyforms_pdf.extractor import PDFFormExtractor, PDFFormNotFoundError
+    from privacyforms_pdf.extractor import PDFFormExtractor
 
     PRIVACYFORMS_PDF_AVAILABLE = True
 except ImportError:

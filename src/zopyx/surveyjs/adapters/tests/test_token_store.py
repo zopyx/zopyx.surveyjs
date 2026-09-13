@@ -59,6 +59,10 @@ class TokenStoreAdapterTest(unittest.TestCase):
         # Second survey should have no tokens
         self.assertEqual(token_store2.list_tokens(), [])
 
+        # ... while the first survey still holds exactly its own tokens
+        self.assertEqual(len(self.token_store.list_tokens()), len(tokens1))
+        self.assertTrue(all(self.token_store.has_token(t) for t in tokens1))
+
         # Clean up
         api.content.delete(obj=survey2)
 
@@ -113,7 +117,9 @@ class TokenStoreAdapterTest(unittest.TestCase):
         """Atomic consumption succeeds once and rejects subsequent use."""
         token = self.token_store.generate_tokens(1)[0]
         self.assertTrue(self.token_store.consume_token(token, reason="user_submission"))
-        self.assertFalse(self.token_store.consume_token(token, reason="user_submission"))
+        self.assertFalse(
+            self.token_store.consume_token(token, reason="user_submission")
+        )
         self.assertFalse(self.token_store.has_token(token))
 
     def test_invalidate_sets_used_timestamp(self):
@@ -333,6 +339,10 @@ class SQLTokenStoreTest(unittest.TestCase):
         # Note: With in-memory DBs, each store has its own connection
         # This test verifies the scoping logic is correct
         self.assertTrue(self.token_store.has_token(tokens[0]))
+        self.assertFalse(
+            store2.has_token(tokens[0]),
+            "a token of survey 1 must not be visible to survey 2",
+        )
 
         api.content.delete(obj=survey2)
 

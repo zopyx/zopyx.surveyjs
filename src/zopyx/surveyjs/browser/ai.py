@@ -28,6 +28,7 @@ Dependencies:
 
 from datetime import datetime, timezone
 import json
+import logging
 from pathlib import Path
 import tempfile
 
@@ -38,6 +39,8 @@ from zope.annotation.interfaces import IAnnotations
 from .services import ai as ai_service
 from .services import forms as forms_service
 from .views import Views
+
+logger = logging.getLogger(__name__)
 
 
 class AIView(Views):
@@ -109,7 +112,9 @@ class AIView(Views):
                 try:
                     return self._to_jsonable(method())
                 except Exception as e:
-                    logger.debug("JSON serialization method %s failed: %s", method_name, e)
+                    logger.debug(
+                        "JSON serialization method %s failed: %s", method_name, e
+                    )
 
         for method_name in ("model_dump_json", "json", "to_json"):
             method = getattr(value, method_name, None)
@@ -121,7 +126,9 @@ class AIView(Views):
                     if isinstance(raw, str):
                         return self._to_jsonable(json.loads(raw))
                 except Exception as e:
-                    logger.debug("JSON serialization method %s failed: %s", method_name, e)
+                    logger.debug(
+                        "JSON serialization method %s failed: %s", method_name, e
+                    )
 
         if hasattr(value, "__dict__"):
             try:
