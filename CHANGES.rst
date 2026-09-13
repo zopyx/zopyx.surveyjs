@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.0b2 (unreleased)
-------------------
+1.0b2 (released 2026-09-13)
+---------------------------
 
 - Set the package version to ``1.0b2``.
 - Add the optional GenericSetup profile ``zopyx.surveyjs:demo``

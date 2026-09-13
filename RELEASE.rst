@@ -18,8 +18,8 @@ pass before the version is published.
 - ``(unreleased)`` states that the version is not on PyPI yet. After a
   successful publish (step 8) the heading is switched to
   ``<version> (released YYYY-MM-DD)`` using the upload date. A version that was
-  never published keeps ``(unreleased)`` permanently (``1.0a5``–``1.0a7`` and
-  ``1.0b2`` so far); the label is never flipped before the upload.
+  never published keeps ``(unreleased)`` permanently (``1.0a5``–``1.0a7`` so
+  far); the label is never flipped before the upload.
 - If the last published version on PyPI is older than the previous section,
   the new section must summarise the changes users get on upgrade from that
   published version.
@@ -71,7 +71,7 @@ arrives, in which case re-run it on the release commit.
 5. Upgrade path **(gate)**
 --------------------------
 
-Install the previous published version (currently ``1.0b1``) into a throwaway
+Install the previous published version (currently ``1.0b2``) into a throwaway
 Plone site, then upgrade to the release candidate of this version and check:
 
 - the add-on installs and the GenericSetup profile chain
@@ -91,8 +91,8 @@ Plone site, then upgrade to the release candidate of this version and check:
 The ``Build source distribution`` workflow builds the sdist for the tag and
 creates a GitHub release. Versions containing ``a``/``b``/``rc``/``dev``/``post``
 are automatically flagged as GitHub **pre-releases** (see ``sdist.yml``), so a
-beta is never offered as the project's latest release. For ``1.0b2`` expect a
-pre-release entry, not "Latest".
+beta is never offered as the project's latest release — ``v1.0b2`` was
+published as a pre-release entry, not "Latest".
 
 7. Publish to PyPI
 ------------------
