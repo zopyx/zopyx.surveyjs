@@ -1,0 +1,422 @@
+{
+  "title": "Conference Registration",
+  "description": "Registration and session booking for a two-day conference.",
+  "locale": "en",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "belowheader",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Your registration has been recorded.</h3><p>The conference office sends the invoice and the session confirmation by e-mail within two working days.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "registrationIntro",
+          "html": "<h3>Forms &amp; Data Conference 2027</h3><p><b>Date:</b> 14 - 15 April 2027 &middot; <b>Venue:</b> Konferenzzentrum Musterstadt</p><p>Day passes cost 350 EUR, the full conference 890 EUR, the workshop bundle 1190 EUR and student tickets 190 EUR. All prices are per attendee and exclude VAT. Group registrations can add up to five further attendees on this form.</p><p><b>Scope:</b> event registration, session booking and billing.</p>"
+        }
+      ]
+    },
+    {
+      "name": "attendee",
+      "title": "Main attendee",
+      "elements": [
+        {
+          "type": "text",
+          "name": "fullName",
+          "title": "Full name",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "email",
+          "title": "E-mail address",
+          "inputType": "email",
+          "isRequired": true,
+          "description": "All confirmations and invoices are sent to this address."
+        },
+        {
+          "type": "text",
+          "name": "organisation",
+          "title": "Company or organisation",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "jobTitle",
+          "title": "Job title"
+        },
+        {
+          "type": "dropdown",
+          "name": "country",
+          "title": "Country",
+          "choices": [
+            "Germany",
+            "Austria",
+            "Switzerland",
+            "Netherlands",
+            "France",
+            "Spain",
+            "Italy",
+            "Poland",
+            "United Kingdom",
+            "United States"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "attendanceMode",
+          "title": "How will you attend?",
+          "isRequired": true,
+          "choices": [
+            "On-site",
+            "Online"
+          ],
+          "defaultValue": "On-site"
+        },
+        {
+          "type": "text",
+          "name": "arrivalDate",
+          "title": "Arrival date",
+          "inputType": "date",
+          "visibleIf": "{attendanceMode} = 'On-site'",
+          "description": "Needed for the hotel contingent and the welcome pack."
+        }
+      ]
+    },
+    {
+      "name": "booking",
+      "title": "Tickets",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "ticketType",
+          "title": "Ticket type",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "Student",
+              "text": "Student - 190 EUR"
+            },
+            {
+              "value": "Standard day pass",
+              "text": "Standard day pass - 350 EUR"
+            },
+            {
+              "value": "Full conference",
+              "text": "Full conference - 890 EUR"
+            },
+            {
+              "value": "Workshop bundle",
+              "text": "Workshop bundle - 1190 EUR"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "ticketQuantity",
+          "title": "Number of tickets",
+          "inputType": "number",
+          "isRequired": true,
+          "defaultValue": 1,
+          "validators": [
+            {
+              "type": "numeric",
+              "minValue": 1,
+              "maxValue": 10
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "name": "workshops",
+          "title": "Workshops you want to attend",
+          "visibleIf": "{ticketType} = 'Workshop bundle' or {ticketType} = 'Full conference'",
+          "showSelectAllItem": true,
+          "selectAllText": "All workshops",
+          "choices": [
+            "Schema-driven form design",
+            "Server-side validation at scale",
+            "AI-assisted form generation",
+            "Data exports and reporting",
+            "Accessible forms"
+          ],
+          "description": "Workshops run in parallel tracks and are limited to 25 seats each."
+        },
+        {
+          "type": "expression",
+          "name": "ticketPrice",
+          "title": "Price per ticket",
+          "expression": "iif({ticketType} = 'Standard day pass', 350, iif({ticketType} = 'Full conference', 890, iif({ticketType} = 'Workshop bundle', 1190, 190)))",
+          "displayStyle": "none"
+        },
+        {
+          "type": "expression",
+          "name": "orderTotal",
+          "title": "Estimated total",
+          "expression": "{ticketPrice} * {ticketQuantity}",
+          "displayStyle": "currency"
+        },
+        {
+          "type": "html",
+          "name": "totalHint",
+          "html": "<p><b>Estimated total: {orderTotal} EUR</b> (excluding VAT)</p>"
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "title": "Payment and billing",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "paymentMethod",
+          "title": "Payment method",
+          "isRequired": true,
+          "choices": [
+            "Invoice",
+            "Credit card",
+            "Purchase order"
+          ],
+          "defaultValue": "Invoice"
+        },
+        {
+          "type": "text",
+          "name": "vatNumber",
+          "title": "VAT identification number",
+          "visibleIf": "{paymentMethod} = 'Invoice'",
+          "description": "Required for reverse charge inside the EU."
+        },
+        {
+          "type": "text",
+          "name": "billingReference",
+          "title": "Billing reference or cost centre",
+          "visibleIf": "{paymentMethod} = 'Invoice'",
+          "description": "Shown on the invoice."
+        },
+        {
+          "type": "text",
+          "name": "purchaseOrderNumber",
+          "title": "Purchase order number",
+          "visibleIf": "{paymentMethod} = 'Purchase order'",
+          "isRequired": true
+        },
+        {
+          "type": "signaturepad",
+          "name": "authorisedSignature",
+          "title": "Signature of the person authorising the invoice",
+          "visibleIf": "{paymentMethod} = 'Purchase order'",
+          "isRequired": true,
+          "signatureHeight": 160,
+          "penColor": "#0f4c81",
+          "backgroundColor": "#ffffff"
+        },
+        {
+          "type": "boolean",
+          "name": "needsInvoiceByPost",
+          "title": "Do you need a paper invoice?",
+          "visibleIf": "{paymentMethod} = 'Invoice' or {paymentMethod} = 'Purchase order'",
+          "labelTrue": "Yes, send it by post",
+          "labelFalse": "No, e-mail is enough",
+          "defaultValue": false
+        }
+      ]
+    },
+    {
+      "name": "sessions",
+      "title": "Sessions and workshops",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "sessionSelection",
+          "title": "Which sessions do you plan to attend?",
+          "visibleIf": "{ticketType} != 'Standard day pass'",
+          "columns": [
+            "Day 1",
+            "Day 2",
+            "Not attending"
+          ],
+          "rows": [
+            {
+              "value": "keynote",
+              "text": "Keynote: The state of form engineering"
+            },
+            {
+              "value": "schema",
+              "text": "Hands-on: Schema-driven forms"
+            },
+            {
+              "value": "exports",
+              "text": "Workshop: Data exports at scale"
+            },
+            {
+              "value": "privacy",
+              "text": "Panel: Privacy by design"
+            }
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "sessionRequests",
+          "title": "Topics you would like to see covered",
+          "description": "Optional: request up to four additional topics.",
+          "rowCount": 1,
+          "minRowCount": 0,
+          "maxRowCount": 4,
+          "addRowText": "Add a topic",
+          "removeRowText": "Remove this topic",
+          "columns": [
+            {
+              "name": "topic",
+              "title": "Topic",
+              "cellType": "text",
+              "isRequired": true
+            },
+            {
+              "name": "preferredFormat",
+              "title": "Preferred format",
+              "cellType": "dropdown",
+              "choices": [
+                "Talk",
+                "Hands-on workshop",
+                "Round table",
+                "Birds of a feather"
+              ]
+            },
+            {
+              "name": "durationMinutes",
+              "title": "Duration (minutes)",
+              "cellType": "text",
+              "inputType": "number",
+              "min": 15,
+              "defaultValue": 45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "group",
+      "title": "Additional attendees",
+      "elements": [
+        {
+          "type": "boolean",
+          "name": "isGroupRegistration",
+          "title": "Are you registering further attendees from your organisation?",
+          "labelTrue": "Yes, register additional attendees",
+          "labelFalse": "No, just me",
+          "defaultValue": false
+        },
+        {
+          "type": "paneldynamic",
+          "name": "additionalAttendees",
+          "title": "Further attendees",
+          "visibleIf": "{isGroupRegistration} = true",
+          "panelCount": 1,
+          "minPanelCount": 1,
+          "maxPanelCount": 5,
+          "templateTitle": "Attendee #{panelIndex}",
+          "panelAddText": "Add another attendee",
+          "panelRemoveText": "Remove this attendee",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "attendeeName",
+              "title": "Full name",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "attendeeEmail",
+              "title": "E-mail address",
+              "inputType": "email",
+              "isRequired": true
+            },
+            {
+              "type": "dropdown",
+              "name": "attendeeTicket",
+              "title": "Ticket type",
+              "choices": [
+                "Student",
+                "Standard day pass",
+                "Full conference",
+                "Workshop bundle"
+              ]
+            },
+            {
+              "type": "boolean",
+              "name": "attendeeWorkshops",
+              "title": "Will this attendee join the workshops?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "final",
+      "title": "Food, access and confirmation",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "mealPreference",
+          "title": "Meal preference",
+          "visibleIf": "{attendanceMode} = 'On-site'",
+          "choices": [
+            "No preference",
+            "Fish",
+            "Meat",
+            "Vegetarian",
+            "Vegan"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "checkbox",
+          "name": "dietaryRequirements",
+          "title": "Dietary requirements and allergies",
+          "visibleIf": "{attendanceMode} = 'On-site'",
+          "showOtherItem": true,
+          "choices": [
+            "Gluten-free",
+            "Lactose-free",
+            "Nut allergy",
+            "Halal",
+            "Kosher",
+            "Low sugar"
+          ]
+        },
+        {
+          "type": "boolean",
+          "name": "needsAccessibilitySupport",
+          "title": "Do you need accessibility support on site?",
+          "visibleIf": "{attendanceMode} = 'On-site'",
+          "labelTrue": "Yes",
+          "labelFalse": "No",
+          "defaultValue": false
+        },
+        {
+          "type": "comment",
+          "name": "accessibilityDetails",
+          "title": "Please describe what you need",
+          "visibleIf": "{needsAccessibilitySupport} = true",
+          "rows": 3,
+          "maxLength": 500
+        },
+        {
+          "type": "boolean",
+          "name": "acceptedTerms",
+          "title": "I accept the conference terms and the privacy policy.",
+          "isRequired": true,
+          "labelTrue": "Accepted",
+          "labelFalse": "Not accepted"
+        },
+        {
+          "type": "html",
+          "name": "confirmationHint",
+          "html": "<p>After submitting you receive a confirmation with a payment reference. Cancellations are free of charge until 14 March 2027.</p>"
+        }
+      ]
+    }
+  ]
+}

@@ -31,6 +31,24 @@ class ZopyxSurveyjsLayer(PloneSandboxLayer):
 ZOPYX_SURVEYJS_FIXTURE = ZopyxSurveyjsLayer()
 
 
+class ZopyxSurveyjsDemoLayer(PloneSandboxLayer):
+    """Test layer of the regular add-on plus the optional demo profile."""
+
+    defaultBases = (ZOPYX_SURVEYJS_FIXTURE,)
+
+    def setUpPloneSite(self, portal):
+        applyProfile(portal, "zopyx.surveyjs:demo")
+
+
+ZOPYX_SURVEYJS_DEMO_FIXTURE = ZopyxSurveyjsDemoLayer()
+
+
+ZOPYX_SURVEYJS_DEMO_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(ZOPYX_SURVEYJS_DEMO_FIXTURE,),
+    name="ZopyxSurveyjsDemoLayer:IntegrationTesting",
+)
+
+
 ZOPYX_SURVEYJS_INTEGRATION_TESTING = IntegrationTesting(
     bases=(ZOPYX_SURVEYJS_FIXTURE,),
     name="ZopyxSurveyjsLayer:IntegrationTesting",

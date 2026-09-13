@@ -94,6 +94,59 @@ Run the test suite to confirm everything is wired up correctly:
 
     make test
 
+.. _demo-content-profile:
+
+Demo content profile (optional)
+===============================
+
+The add-on ships a second GenericSetup profile, ``zopyx.surveyjs:demo``, that
+seeds a ready-to-explore demo setup on an **existing** site. It is an
+extension profile, so install the regular add-on first. It is not a separate
+entry in the Add-ons control panel; apply it through GenericSetup, either from
+the ZMI (``portal_setup`` → *Import* → select ``zopyx.surveyjs:demo``) or with
+a script:
+
+.. code-block:: python
+
+    from plone import api
+
+    setup = api.portal.get_tool("portal_setup")
+    setup.runAllImportStepsFromProfile("profile-zopyx.surveyjs:demo")
+
+The profile is idempotent — re-running it never duplicates themes, forms or
+form versions — and it creates:
+
+* the four SurveyJS theme presets that ``scripts/init_plone.py`` seeds as
+  well: ``light``, ``dark``, ``light-no-panels`` and ``dark-no-panels``
+  (existing themes with one of these names are left untouched), and
+* a published folder ``demo-forms`` with three complex English example forms,
+  each covering a different scope and each using a different theme:
+
+  .. list-table::
+     :header-rows: 1
+
+     * - Form (id)
+       - Scope
+       - Theme
+     * - Employee Onboarding (``employee-onboarding``)
+       - HR onboarding intake: personal data, employment terms, IT
+         provisioning, emergency contacts, policies, signature
+       - ``light``
+     * - Customer Satisfaction Survey (``customer-satisfaction``)
+       - Product and support satisfaction: usage profile, ratings, matrices,
+         conditional support questions, improvement ranking, renewal intent
+       - ``dark``
+     * - Conference Registration (``conference-registration``)
+       - Event registration: attendee data, tickets with calculated totals,
+         payment/billing, session booking, group attendees, dietary and
+         accessibility requirements
+       - ``light-no-panels``
+
+All three forms are stored with ``Store`` as submission action and are
+published, so they can be filled in anonymously. Applying the profile again
+after a package upgrade refreshes the shipped form definitions: a form gets a
+new version only when its definition actually changed.
+
 External survey validation (deno / bun)
 =======================================
 

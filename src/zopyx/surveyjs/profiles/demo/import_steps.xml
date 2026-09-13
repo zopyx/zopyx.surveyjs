@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<import-steps>
+
+  <import-step
+      id="zopyx.surveyjs.demo.themes"
+      version="1"
+      handler="zopyx.surveyjs.demo_profile.import_demo_themes"
+      title="SurveyJS demo themes">Seed the SurveyJS theme presets (light, dark,
+      light-no-panels, dark-no-panels) into the site's theme manager. Themes
+      with an existing name are left untouched.</import-step>
+
+  <import-step
+      id="zopyx.surveyjs.demo.forms"
+      version="1"
+      handler="zopyx.surveyjs.demo_profile.import_demo_forms"
+      title="SurveyJS demo forms"><dependency step="zopyx.surveyjs.demo.themes" />
+      Create the published demo-forms folder with three English example forms
+      (employee onboarding, customer satisfaction, conference registration),
+      each using a different theme.</import-step>
+
+</import-steps>

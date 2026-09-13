@@ -1,0 +1,391 @@
+{
+  "title": "Employee Onboarding",
+  "description": "Human resources onboarding intake for a new hire.",
+  "locale": "en",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "aboveheader",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Thank you — your onboarding data has been recorded.</h3><p>Human Resources will confirm your first day and the equipment order by e-mail.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "onboardingIntro",
+          "html": "<h3>Welcome to the team</h3><p>This form collects everything Human Resources and IT need before your first working day. It takes about ten minutes. Fields marked as required must be filled in; you can move back to any page before submitting.</p><p><b>Scope:</b> employee onboarding (HR, IT provisioning, compliance).</p>"
+        }
+      ]
+    },
+    {
+      "name": "personal",
+      "title": "Personal details",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "namePanel",
+          "title": "Name",
+          "elements": [
+            {
+              "type": "text",
+              "name": "firstName",
+              "title": "First name",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "lastName",
+              "title": "Last name",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "preferredName",
+              "title": "Preferred name (optional)"
+            },
+            {
+              "type": "text",
+              "name": "birthDate",
+              "title": "Date of birth",
+              "inputType": "date",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "contactPanel",
+          "title": "Contact",
+          "elements": [
+            {
+              "type": "text",
+              "name": "email",
+              "title": "Private e-mail address",
+              "inputType": "email",
+              "isRequired": true,
+              "description": "Used for contract documents before the corporate mailbox exists."
+            },
+            {
+              "type": "text",
+              "name": "phone",
+              "title": "Phone number",
+              "inputType": "tel"
+            },
+            {
+              "type": "text",
+              "name": "street",
+              "title": "Street and number"
+            },
+            {
+              "type": "text",
+              "name": "postalCode",
+              "title": "Postal code"
+            },
+            {
+              "type": "text",
+              "name": "city",
+              "title": "City"
+            },
+            {
+              "type": "dropdown",
+              "name": "countryOfResidence",
+              "title": "Country of residence",
+              "isRequired": true,
+              "choices": [
+                "Germany",
+                "Austria",
+                "Switzerland",
+                "Netherlands",
+                "France",
+                "Spain",
+                "Italy",
+                "Poland",
+                "United Kingdom",
+                "United States"
+              ],
+              "showOtherItem": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "employment",
+      "title": "Employment",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "department",
+          "title": "Department",
+          "isRequired": true,
+          "choices": [
+            "Engineering",
+            "Product",
+            "Design",
+            "Sales",
+            "Marketing",
+            "Customer Support",
+            "Finance",
+            "People & Culture"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "text",
+          "name": "jobTitle",
+          "title": "Job title",
+          "isRequired": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "employmentType",
+          "title": "Employment type",
+          "isRequired": true,
+          "choices": [
+            "Permanent",
+            "Fixed-term contract",
+            "Working student",
+            "Internship",
+            "Freelance contract"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "text",
+          "name": "startDate",
+          "title": "First working day",
+          "inputType": "date",
+          "isRequired": true,
+          "description": "Contracts usually start on the first or the fifteenth of a month."
+        },
+        {
+          "type": "text",
+          "name": "managerName",
+          "title": "Reporting to (name)"
+        },
+        {
+          "type": "dropdown",
+          "name": "workModel",
+          "title": "Work model",
+          "isRequired": true,
+          "choices": [
+            "On-site",
+            "Hybrid",
+            "Fully remote"
+          ],
+          "defaultValue": "Hybrid"
+        },
+        {
+          "type": "text",
+          "name": "officeLocation",
+          "title": "Office location",
+          "visibleIf": "{workModel} != 'Fully remote'",
+          "description": "Desk assignment and building access are prepared for this site."
+        },
+        {
+          "type": "text",
+          "name": "probationMonths",
+          "title": "Probation period (months)",
+          "inputType": "number",
+          "defaultValue": 6,
+          "validators": [
+            {
+              "type": "numeric",
+              "minValue": 0,
+              "maxValue": 12
+            }
+          ],
+          "description": "Recorded for the probation review reminder."
+        }
+      ]
+    },
+    {
+      "name": "provisioning",
+      "title": "IT and equipment",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "equipment",
+          "title": "Requested equipment",
+          "isRequired": true,
+          "showSelectAllItem": true,
+          "selectAllText": "Standard workplace set",
+          "choices": [
+            "Laptop",
+            "Docking station",
+            "External monitor",
+            "Headset",
+            "Mobile phone",
+            "Ergonomic chair"
+          ],
+          "description": "Everything selected here is ordered by IT before your first day."
+        },
+        {
+          "type": "dropdown",
+          "name": "laptopModel",
+          "title": "Preferred laptop model",
+          "visibleIf": "{equipment} contains 'Laptop'",
+          "choices": [
+            "MacBook Air 13 inch",
+            "MacBook Pro 14 inch",
+            "ThinkPad T14 (Linux)",
+            "Latitude 5450 (Windows)",
+            "Framework 13 (Linux)"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "operatingSystem",
+          "title": "Primary operating system",
+          "visibleIf": "{equipment} contains 'Laptop'",
+          "choices": [
+            "macOS",
+            "Linux",
+            "Windows"
+          ],
+          "defaultValue": "Linux"
+        },
+        {
+          "type": "boolean",
+          "name": "needsAdminRights",
+          "title": "Do you need administrative rights on your device?",
+          "labelTrue": "Yes, I need admin rights",
+          "labelFalse": "No, standard account is enough",
+          "defaultValue": false
+        },
+        {
+          "type": "comment",
+          "name": "softwareRequests",
+          "title": "Software you need on day one",
+          "rows": 4,
+          "maxLength": 600,
+          "description": "Please list each application with a short justification."
+        },
+        {
+          "type": "file",
+          "name": "idDocument",
+          "title": "Copy of your identity document",
+          "isRequired": true,
+          "maxSize": 5242880,
+          "allowMultiple": false,
+          "acceptedTypes": ".pdf,.jpg,.jpeg,.png",
+          "sourceType": "file",
+          "description": "Required for the personnel file. Only PDF, JPG or PNG up to 5 MB."
+        }
+      ]
+    },
+    {
+      "name": "emergency",
+      "title": "Emergency contacts",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "emergencyContacts",
+          "title": "Who should we contact in an emergency?",
+          "description": "Please provide at least one contact.",
+          "panelCount": 1,
+          "minPanelCount": 1,
+          "maxPanelCount": 3,
+          "templateTitle": "Contact #{panelIndex}",
+          "panelAddText": "Add another contact",
+          "panelRemoveText": "Remove this contact",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "contactName",
+              "title": "Full name",
+              "isRequired": true
+            },
+            {
+              "type": "dropdown",
+              "name": "relationship",
+              "title": "Relationship",
+              "choices": [
+                "Spouse or partner",
+                "Parent",
+                "Sibling",
+                "Child",
+                "Friend",
+                "Other"
+              ]
+            },
+            {
+              "type": "text",
+              "name": "contactPhone",
+              "title": "Phone number",
+              "inputType": "tel",
+              "isRequired": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "compliance",
+      "title": "Policies and signature",
+      "elements": [
+        {
+          "type": "matrix",
+          "name": "policyAcknowledgement",
+          "title": "Policy acknowledgement",
+          "description": "Please confirm that you have read each document. The documents are attached to your welcome e-mail.",
+          "isRequired": true,
+          "eachRowRequired": true,
+          "columns": [
+            "Not read yet",
+            "Read",
+            "Read and accepted"
+          ],
+          "rows": [
+            {
+              "value": "codeOfConduct",
+              "text": "Code of conduct"
+            },
+            {
+              "value": "dataProtection",
+              "text": "Data protection and confidentiality"
+            },
+            {
+              "value": "itSecurity",
+              "text": "IT security policy"
+            },
+            {
+              "value": "homeOffice",
+              "text": "Home office and travel guidelines"
+            }
+          ]
+        },
+        {
+          "type": "expression",
+          "name": "teamMailAlias",
+          "title": "Suggested e-mail alias",
+          "expression": "substring({firstName}, 0, 1) + '.' + {lastName} + '@example.com'",
+          "displayStyle": "none"
+        },
+        {
+          "type": "html",
+          "name": "aliasHint",
+          "html": "<p>IT will create your corporate mailbox. Suggested alias: <b>{teamMailAlias}</b></p>"
+        },
+        {
+          "type": "boolean",
+          "name": "declaration",
+          "title": "I confirm that the information above is complete and correct.",
+          "isRequired": true,
+          "labelTrue": "Confirmed",
+          "labelFalse": "Not confirmed"
+        },
+        {
+          "type": "signaturepad",
+          "name": "signature",
+          "title": "Signature",
+          "isRequired": true,
+          "signatureHeight": 180,
+          "penColor": "#1f2933",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

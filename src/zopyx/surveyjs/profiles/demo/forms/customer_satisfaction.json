@@ -1,0 +1,395 @@
+{
+  "title": "Customer Satisfaction Survey",
+  "description": "Product and support satisfaction for an existing customer account.",
+  "locale": "en",
+  "showQuestionNumbers": "on",
+  "showProgressBar": "top",
+  "progressBarType": "pages",
+  "completedHtml": "<h3>Thank you for your feedback!</h3><p>Your answers go directly to the product team. If you agreed to an interview, we will get in touch within five working days.</p>",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "satisfactionIntro",
+          "html": "<h3>How are we doing?</h3><p>This survey covers product usage, support experience and your plans for the coming year. It takes about eight minutes to complete and your answers are stored with your account so that we can follow up.</p><p><b>Scope:</b> customer satisfaction and account retention.</p>"
+        }
+      ]
+    },
+    {
+      "name": "profile",
+      "title": "About your account",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "userRole",
+          "title": "Which role describes your work best?",
+          "isRequired": true,
+          "choices": [
+            "Administrator",
+            "Team lead",
+            "Form author",
+            "Analyst",
+            "Developer",
+            "Consultant"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "dropdown",
+          "name": "companySize",
+          "title": "How many people work in your organisation?",
+          "choices": [
+            "1 - 9",
+            "10 - 49",
+            "50 - 249",
+            "250 - 999",
+            "1000 or more"
+          ]
+        },
+        {
+          "type": "text",
+          "name": "monthsUsing",
+          "title": "How many months have you been using the product?",
+          "inputType": "number",
+          "validators": [
+            {
+              "type": "numeric",
+              "minValue": 0,
+              "maxValue": 240
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "usageFrequency",
+          "title": "How often do you work with the product?",
+          "isRequired": true,
+          "choices": [
+            "Daily",
+            "Several times a week",
+            "Weekly",
+            "Monthly",
+            "Less often"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "tagbox",
+          "name": "featuresUsed",
+          "title": "Which capabilities do you use?",
+          "description": "Type to filter, or pick from the list.",
+          "choices": [
+            "Form builder",
+            "Survey templates",
+            "Data validation",
+            "Result exports",
+            "AI form generation",
+            "PDF forms",
+            "Embedding",
+            "REST API"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "satisfaction",
+      "title": "Satisfaction",
+      "elements": [
+        {
+          "type": "rating",
+          "name": "nps",
+          "title": "How likely are you to recommend the product to a colleague?",
+          "isRequired": true,
+          "rateMin": 0,
+          "rateMax": 10,
+          "rateStep": 1,
+          "minRateDescription": "Not at all likely",
+          "maxRateDescription": "Extremely likely"
+        },
+        {
+          "type": "matrix",
+          "name": "areaRatings",
+          "title": "Please rate the following areas",
+          "isRequired": true,
+          "eachRowRequired": true,
+          "columns": [
+            "Poor",
+            "Fair",
+            "Good",
+            "Excellent"
+          ],
+          "rows": [
+            {
+              "value": "setup",
+              "text": "Setup and configuration"
+            },
+            {
+              "value": "builder",
+              "text": "Form builder usability"
+            },
+            {
+              "value": "exports",
+              "text": "Result exports"
+            },
+            {
+              "value": "performance",
+              "text": "Performance and reliability"
+            },
+            {
+              "value": "documentation",
+              "text": "Documentation"
+            }
+          ]
+        },
+        {
+          "type": "matrixdropdown",
+          "name": "featureDeepDive",
+          "title": "How important is each capability, and how satisfied are you with it?",
+          "rows": [
+            {
+              "value": "validation",
+              "text": "Server-side validation"
+            },
+            {
+              "value": "ai",
+              "text": "AI form generation"
+            },
+            {
+              "value": "pdf",
+              "text": "Fillable PDF forms"
+            },
+            {
+              "value": "embedding",
+              "text": "Embedding in other sites"
+            }
+          ],
+          "columns": [
+            {
+              "name": "importance",
+              "title": "Importance",
+              "cellType": "dropdown",
+              "choices": [
+                "Low",
+                "Medium",
+                "High",
+                "Critical"
+              ]
+            },
+            {
+              "name": "satisfaction",
+              "title": "Satisfaction",
+              "cellType": "rating",
+              "rateMin": 1,
+              "rateMax": 5
+            },
+            {
+              "name": "remarks",
+              "title": "Remarks",
+              "cellType": "text"
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "overallSatisfaction",
+          "title": "Overall, how satisfied are you with the product?",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": 1,
+              "text": "Very disappointed"
+            },
+            {
+              "value": 2,
+              "text": "Disappointed"
+            },
+            {
+              "value": 3,
+              "text": "Neutral"
+            },
+            {
+              "value": 4,
+              "text": "Satisfied"
+            },
+            {
+              "value": 5,
+              "text": "Very satisfied"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "support",
+      "title": "Support experience",
+      "elements": [
+        {
+          "type": "boolean",
+          "name": "contactedSupport",
+          "title": "Have you contacted our support team in the last twelve months?",
+          "labelTrue": "Yes",
+          "labelFalse": "No",
+          "defaultValue": false
+        },
+        {
+          "type": "dropdown",
+          "name": "supportChannel",
+          "title": "Which channel did you use?",
+          "visibleIf": "{contactedSupport} = true",
+          "choices": [
+            "E-mail",
+            "Support portal",
+            "Phone",
+            "Video call"
+          ],
+          "showOtherItem": true
+        },
+        {
+          "type": "rating",
+          "name": "supportRating",
+          "title": "How would you rate our support?",
+          "visibleIf": "{contactedSupport} = true",
+          "rateMin": 1,
+          "rateMax": 5,
+          "minRateDescription": "Very poor",
+          "maxRateDescription": "Excellent"
+        },
+        {
+          "type": "radiogroup",
+          "name": "resolutionSpeed",
+          "title": "How quickly was your request resolved?",
+          "visibleIf": "{contactedSupport} = true",
+          "choices": [
+            "Same day",
+            "Within two working days",
+            "Within a week",
+            "Longer than a week",
+            "Still open"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "supportComment",
+          "title": "What should we improve in our support process?",
+          "visibleIf": "{contactedSupport} = true",
+          "rows": 4,
+          "maxLength": 800
+        }
+      ]
+    },
+    {
+      "name": "improvements",
+      "title": "Improvements",
+      "elements": [
+        {
+          "type": "comment",
+          "name": "whatWorksWell",
+          "title": "What works well for you today?",
+          "isRequired": true,
+          "rows": 4,
+          "maxLength": 800
+        },
+        {
+          "type": "comment",
+          "name": "whatToImprove",
+          "title": "What should we improve first?",
+          "rows": 4,
+          "maxLength": 800
+        },
+        {
+          "type": "ranking",
+          "name": "improvementPriorities",
+          "title": "Please rank the following topics by importance to you",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "questionTypes",
+              "text": "More question types"
+            },
+            {
+              "value": "reporting",
+              "text": "Better reporting and dashboards"
+            },
+            {
+              "value": "integrations",
+              "text": "Deeper integrations"
+            },
+            {
+              "value": "performance",
+              "text": "Faster form rendering"
+            },
+            {
+              "value": "pricing",
+              "text": "Simpler pricing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "outlook",
+      "title": "Outlook",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "renewalIntent",
+          "title": "How likely are you to renew your subscription?",
+          "isRequired": true,
+          "choices": [
+            "Definitely renew",
+            "Probably renew",
+            "Undecided",
+            "Probably not renew",
+            "Definitely not renew"
+          ]
+        },
+        {
+          "type": "comment",
+          "name": "renewalReason",
+          "title": "What would have to change for you to renew?",
+          "visibleIf": "{renewalIntent} = 'Undecided' or {renewalIntent} = 'Probably not renew' or {renewalIntent} = 'Definitely not renew'",
+          "rows": 4,
+          "maxLength": 800
+        },
+        {
+          "type": "boolean",
+          "name": "willingToInterview",
+          "title": "May we contact you for a short feedback interview?",
+          "visibleIf": "{renewalIntent} = 'Definitely renew' or {renewalIntent} = 'Probably renew'",
+          "labelTrue": "Yes, please contact me",
+          "labelFalse": "No, thank you"
+        },
+        {
+          "type": "text",
+          "name": "contactEmail",
+          "title": "E-mail address for the interview",
+          "visibleIf": "{willingToInterview} = true",
+          "inputType": "email",
+          "isRequired": true
+        },
+        {
+          "type": "boolean",
+          "name": "newsletterOptIn",
+          "title": "Send me product updates and release notes",
+          "labelTrue": "Yes",
+          "labelFalse": "No",
+          "defaultValue": true
+        },
+        {
+          "type": "expression",
+          "name": "advocacyBand",
+          "title": "Advocacy band",
+          "expression": "iif({nps} >= 9, 'Promoter', iif({nps} >= 7, 'Passive', 'Detractor'))",
+          "displayStyle": "none"
+        },
+        {
+          "type": "html",
+          "name": "advocacyHint",
+          "html": "<p>Based on your recommendation score this account is classified as: <b>{advocacyBand}</b></p>"
+        }
+      ]
+    }
+  ]
+}
