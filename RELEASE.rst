@@ -14,9 +14,12 @@ pass before the version is published.
 
 - Bump ``version=`` in ``setup.py``.
 - Add a new ``<version> (unreleased)`` section at the top of ``CHANGES.rst``
-  describing what accumulated since the previous section. Existing sections
-  keep their ``(unreleased)`` label even for versions that were never
-  published (``1.0a5``–``1.0a7`` were not).
+  describing what accumulated since the previous section.
+- ``(unreleased)`` states that the version is not on PyPI yet. After a
+  successful publish (step 8) the heading is switched to
+  ``<version> (released YYYY-MM-DD)`` using the upload date. A version that was
+  never published keeps ``(unreleased)`` permanently (``1.0a5``–``1.0a7`` and
+  ``1.0b2`` so far); the label is never flipped before the upload.
 - If the last published version on PyPI is older than the previous section,
   the new section must summarise the changes users get on upgrade from that
   published version.
@@ -106,6 +109,10 @@ build with Python 3.14, matching CI.
 8. After publishing
 -------------------
 
+- Switch the ``CHANGES.rst`` section of the released version from
+  ``(unreleased)`` to ``(released YYYY-MM-DD)``, using the PyPI upload date
+  (the date in the release's file listing), and use the same date in the
+  GitHub release notes.
 - Verify the installed distribution in a real site
   (``pip install zopyx.surveyjs==<version>`` into a Plone buildout, run
   ``bin/instance fg``, log in, open a survey).

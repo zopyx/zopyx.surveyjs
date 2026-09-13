@@ -21,8 +21,8 @@ Changelog
   content (``setup_content``). Documented in ``docs/distribution.rst``.
 
 
-1.0b1 (unreleased)
-------------------
+1.0b1 (released 2026-09-12)
+---------------------------
 
 First beta release. The functional changes since the last published version on
 PyPI (``1.0a4``) are described in the ``1.0a5``–``1.0a7`` sections below; the
@@ -135,8 +135,8 @@ entries here are the release-preparation changes of the beta itself.
 - Version bump to 1.0a5 to trigger a fresh CI run of all workflows.
 
 
-1.0a4 (unreleased)
-------------------
+1.0a4 (released 2026-08-11)
+---------------------------
 
 - Fix: the generated demo site (``scripts/init_plone.py``) showed up without
   any theme. ``addPloneSite`` was called with an invalid ``distribution``
@@ -146,14 +146,14 @@ entries here are the release-preparation changes of the beta itself.
   theme instead of ``privacyforms.theme``.
 
 
-1.0a3 (unreleased)
-------------------
+1.0a3 (released 2026-08-11)
+---------------------------
 
 - Nothing changed yet.
 
 
-1.0a2 (unreleased)
-------------------
+1.0a2 (released 2026-08-11)
+---------------------------
 
 - Nothing changed yet.
 
