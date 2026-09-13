@@ -244,9 +244,7 @@ class FormsSettingsView(BrowserView):
         # Validate KV cache configuration
         kv_backend = data.get("kv_cache_backend", "diskcache")
         if kv_backend not in _KV_CACHE_BACKENDS:
-            errors.append(
-                "Caching backend must be either 'diskcache' or 'rdbms'."
-            )
+            errors.append("Caching backend must be either 'diskcache' or 'rdbms'.")
         elif kv_backend == "rdbms":
             kv_uri = data.get("kv_cache_database_uri", "").strip()
             if not kv_uri:

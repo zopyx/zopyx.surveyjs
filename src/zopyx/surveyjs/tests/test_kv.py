@@ -135,9 +135,7 @@ class KVStoreContractBase:
         self.store.set("sub:1", 1)
         self.store.set("sub:2", 2)
         self.store.set("form:1", 3)
-        self.assertEqual(
-            sorted(self.store.iterkeys()), ["form:1", "sub:1", "sub:2"]
-        )
+        self.assertEqual(sorted(self.store.iterkeys()), ["form:1", "sub:1", "sub:2"])
         self.assertEqual(
             sorted(k for k in self.store.iterkeys() if k.startswith("sub:")),
             ["sub:1", "sub:2"],
@@ -397,9 +395,7 @@ class KVStoreConcurrencyBase:
                 except Exception:
                     pass
 
-        threads = [
-            threading.Thread(target=worker, args=(index,)) for index in range(8)
-        ]
+        threads = [threading.Thread(target=worker, args=(index,)) for index in range(8)]
         for thread in threads:
             thread.start()
         for thread in threads:
@@ -431,9 +427,7 @@ class KVStoreConcurrencyBase:
                 except Exception:
                     pass
 
-        threads = [
-            threading.Thread(target=worker, args=(f"t{n}",)) for n in range(4)
-        ]
+        threads = [threading.Thread(target=worker, args=(f"t{n}",)) for n in range(4)]
         for thread in threads:
             thread.start()
         for thread in threads:
@@ -487,7 +481,11 @@ class SubprocessAddRaceTests(unittest.TestCase):
         env["PYTHONPATH"] = src_dir + os.pathsep + env.get("PYTHONPATH", "")
         procs = [
             subprocess.Popen(
-                [interpreter, "-c", self._SCRIPT.format(backend=backend, location=location)],
+                [
+                    interpreter,
+                    "-c",
+                    self._SCRIPT.format(backend=backend, location=location),
+                ],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 env=env,
@@ -561,8 +559,9 @@ class FactoryTests(unittest.TestCase):
 
     def test_postgresql_factory(self):
         # Construction must not require a live server.
-        with patch("zopyx.surveyjs.kv._get_engine") as mock_engine, patch(
-            "zopyx.surveyjs.kv.SQLModel.metadata.create_all"
+        with (
+            patch("zopyx.surveyjs.kv._get_engine") as mock_engine,
+            patch("zopyx.surveyjs.kv.SQLModel.metadata.create_all"),
         ):
             mock_engine.return_value = object()
             store = get_kv_store(
@@ -571,8 +570,9 @@ class FactoryTests(unittest.TestCase):
             self.assertIsInstance(store, SQLKVStore)
 
     def test_mysql_factory(self):
-        with patch("zopyx.surveyjs.kv._get_engine") as mock_engine, patch(
-            "zopyx.surveyjs.kv.SQLModel.metadata.create_all"
+        with (
+            patch("zopyx.surveyjs.kv._get_engine") as mock_engine,
+            patch("zopyx.surveyjs.kv.SQLModel.metadata.create_all"),
         ):
             mock_engine.return_value = object()
             store = get_kv_store("mysql", "mysql+pymysql://user:pass@localhost/db")
@@ -635,7 +635,9 @@ class ConfiguredKVStoreTests(unittest.TestCase):
             kv_cache_database_uri="sqlite:///var/kv.db",
             database_uri="sqlite:///var/results.db",
         )
-        with patch("zopyx.surveyjs.kv.get_kv_store", return_value=MagicMock()) as factory:
+        with patch(
+            "zopyx.surveyjs.kv.get_kv_store", return_value=MagicMock()
+        ) as factory:
             store = get_configured_kv_store(settings, "embed")
         self.assertIsInstance(store, NamespacedKVStore)
         factory.assert_called_once_with("sqlite", "sqlite:///var/kv.db")

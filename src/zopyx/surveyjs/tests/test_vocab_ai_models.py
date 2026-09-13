@@ -26,7 +26,11 @@ class AIModelsVocabularyIntegrationTest(unittest.TestCase):
     def test_vocab_ai_models_returns_models(self, mock_ai):
         mock_ai.get_models.return_value = [
             {"key": "gpt-4o", "name": "Chat: gpt-4o", "provider": "openai"},
-            {"key": "claude-3-opus", "name": "ClaudeMessages: claude-3-opus", "provider": "anthropic"},
+            {
+                "key": "claude-3-opus",
+                "name": "ClaudeMessages: claude-3-opus",
+                "provider": "anthropic",
+            },
         ]
         vocab_name = "zopyx.surveyjs.AIModels"
         factory = getUtility(IVocabularyFactory, vocab_name)

@@ -197,9 +197,12 @@ def _download_deno(dest_dir: str) -> str:
     last_error: Exception | None = None
     for attempt in range(1, DENO_DOWNLOAD_ATTEMPTS + 1):
         try:
-            with urllib.request.urlopen(
-                request, timeout=DENO_DOWNLOAD_TIMEOUT_SECONDS
-            ) as response, open(zip_path, "wb") as handle:
+            with (
+                urllib.request.urlopen(
+                    request, timeout=DENO_DOWNLOAD_TIMEOUT_SECONDS
+                ) as response,
+                open(zip_path, "wb") as handle,
+            ):
                 shutil.copyfileobj(response, handle)
             break
         except OSError as exc:  # network errors, timeouts

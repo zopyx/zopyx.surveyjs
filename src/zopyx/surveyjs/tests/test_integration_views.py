@@ -206,9 +206,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     @unittest.skip("direct TestRequest invocation bypasses publisher CSRF enforcement")
     def test_save_poll_requires_csrf_token_on_post(self) -> None:
         self._add_version()
-        req = self._make_request(
-            form={"pollResult": orjson.dumps({"q1": "yes"})}
-        )
+        req = self._make_request(form={"pollResult": orjson.dumps({"q1": "yes"})})
         req["REQUEST_METHOD"] = "POST"
 
         with self.assertRaises(Unauthorized):
@@ -277,11 +275,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
 
     def test_save_poll_rejects_unsafe_file_before_event(self) -> None:
         self._add_version(
-            payload={
-                "pages": [
-                    {"elements": [{"type": "file", "name": "upload"}]}
-                ]
-            }
+            payload={"pages": [{"elements": [{"type": "file", "name": "upload"}]}]}
         )
         self.survey.actions = {"store"}
         payload = {
@@ -643,7 +637,9 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         with (
             patch("plone.api.portal.show_message"),
             patch.object(type(req.response), "redirect"),
-            patch("zopyx.surveyjs.converters.cli.SurveyConverter.send_email") as send_email,
+            patch(
+                "zopyx.surveyjs.converters.cli.SurveyConverter.send_email"
+            ) as send_email,
         ):
             SurveyResults(self.survey, req).mail_result()
 

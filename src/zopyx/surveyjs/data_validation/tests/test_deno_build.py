@@ -227,9 +227,7 @@ class DenoBuildTests(unittest.TestCase):
             with open(deno_build._manifest_path(target)) as handle:
                 manifest = json.load(handle)
             self.assertEqual(manifest["deno_version"], deno_build.DENO_VERSION)
-            self.assertEqual(
-                manifest["survey_core_pin"], deno_build.SURVEY_CORE_PIN
-            )
+            self.assertEqual(manifest["survey_core_pin"], deno_build.SURVEY_CORE_PIN)
             self.assertEqual(
                 manifest["js_sha256"],
                 deno_build._sha256_file(deno_build.JS_ENTRYPOINT),

@@ -503,9 +503,7 @@ class ControlPanelAISettingsTests(unittest.TestCase):
                 "custom_api_key": "",
             }
         )
-        self.assertTrue(
-            any("Custom LLM configuration" in error for error in errors)
-        )
+        self.assertTrue(any("Custom LLM configuration" in error for error in errors))
 
     def test_validate_custom_complete_passes(self) -> None:
         errors = self.view._validate_data(
@@ -519,9 +517,7 @@ class ControlPanelAISettingsTests(unittest.TestCase):
         self.assertEqual(errors, [])
 
     def test_validate_ollama_requires_url(self) -> None:
-        errors = self.view._validate_data(
-            {"ai_provider": "ollama", "ollama_url": ""}
-        )
+        errors = self.view._validate_data({"ai_provider": "ollama", "ollama_url": ""})
         self.assertTrue(any("Ollama configuration" in error for error in errors))
 
     def test_validate_installed_allows_unconfigured(self) -> None:
@@ -533,10 +529,7 @@ class ControlPanelAISettingsTests(unittest.TestCase):
 class FormsSettingsCachingSchemaTests(unittest.TestCase):
     def test_storage_uses_dedicated_result_and_cache_fieldsets(self) -> None:
         schema_path = (
-            Path(__file__).parents[1]
-            / "browser"
-            / "static"
-            / "forms_settings.json"
+            Path(__file__).parents[1] / "browser" / "static" / "forms_settings.json"
         )
         schema = json.loads(schema_path.read_text())
         results_storage = next(
@@ -547,19 +540,21 @@ class FormsSettingsCachingSchemaTests(unittest.TestCase):
         )
 
         self.assertEqual(results_storage["navigationTitle"]["en"], "Results storage")
-        self.assertIn("always stored in Plone/ZODB", results_storage["description"]["en"])
+        self.assertIn(
+            "always stored in Plone/ZODB", results_storage["description"]["en"]
+        )
         result_storage = next(
             element
             for element in results_storage["elements"]
             if element.get("name") == "result_storage_backend"
         )
-        self.assertIn("submitted survey results only", result_storage["description"]["en"])
+        self.assertIn(
+            "submitted survey results only", result_storage["description"]["en"]
+        )
         self.assertIn("remains in Plone/ZODB", result_storage["description"]["en"])
 
         self.assertEqual(caching_storage["navigationTitle"]["en"], "Caching storage")
-        caching_fields = {
-            element["name"] for element in caching_storage["elements"]
-        }
+        caching_fields = {element["name"] for element in caching_storage["elements"]}
         self.assertEqual(
             caching_fields,
             {

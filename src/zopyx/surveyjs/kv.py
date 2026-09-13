@@ -169,7 +169,8 @@ def get_kv_store_diagnostics(settings: Any, namespace: str) -> dict[str, Any]:
             "host": url.host or "localhost",
             "port": url.port,
             "database": url.database,
-            "tls": "sslmode" in url.query or any(
+            "tls": "sslmode" in url.query
+            or any(
                 key in url.query for key in ("ssl", "ssl_ca", "ssl_cert", "ssl_key")
             ),
             "configured": True,
@@ -210,9 +211,7 @@ class KVStore(abc.ABC):
         """Release resources."""
 
     @abc.abstractmethod
-    def cleanup_expired(
-        self, limit: int = 1000, prefix: Optional[str] = None
-    ) -> int:
+    def cleanup_expired(self, limit: int = 1000, prefix: Optional[str] = None) -> int:
         """Remove up to ``limit`` expired entries."""
 
 
@@ -246,9 +245,7 @@ class DiskCacheStore(KVStore):
     def close(self) -> None:
         self._cache.close()
 
-    def cleanup_expired(
-        self, limit: int = 1000, prefix: Optional[str] = None
-    ) -> int:
+    def cleanup_expired(self, limit: int = 1000, prefix: Optional[str] = None) -> int:
         del limit, prefix  # diskcache controls its own culling batch size
         removed = int(self._cache.expire())
         _metric("expired_entries_removed", removed)
@@ -286,9 +283,7 @@ def _validate_key(key: Any) -> str:
     if not isinstance(key, str):
         raise TypeError(f"key must be str, got {type(key).__name__}")
     if len(key) > MAX_KEY_LENGTH:
-        raise ValueError(
-            f"key longer than {MAX_KEY_LENGTH} characters: {len(key)}"
-        )
+        raise ValueError(f"key longer than {MAX_KEY_LENGTH} characters: {len(key)}")
     return key
 
 
@@ -378,9 +373,9 @@ class SQLKVStore(KVStore):
         if self._backend == "duckdb":
             return text(
                 'INSERT INTO survey_kv_store ("key", value, expires_at) '
-                'VALUES (:key, :value, :expires_at) '
+                "VALUES (:key, :value, :expires_at) "
                 'ON CONFLICT ("key") DO UPDATE SET '
-                'value = excluded.value, expires_at = excluded.expires_at'
+                "value = excluded.value, expires_at = excluded.expires_at"
             )
         insert_factory = (
             postgresql_insert if self._backend == "postgresql" else sqlite_insert
@@ -388,7 +383,10 @@ class SQLKVStore(KVStore):
         statement = insert_factory(KVEntry).values(**values)
         return statement.on_conflict_do_update(
             index_elements=[KVEntry.key],
-            set_={"value": statement.excluded.value, "expires_at": statement.excluded.expires_at},
+            set_={
+                "value": statement.excluded.value,
+                "expires_at": statement.excluded.expires_at,
+            },
         )
 
     def set(self, key: str, value: Any, expire: Optional[float] = None) -> Any:
@@ -450,9 +448,7 @@ class SQLKVStore(KVStore):
                         result = session.execute(conflict_stmt)
                         replaced = result.rowcount == 1
                     else:
-                        result = session.execute(
-                            conflict_stmt.returning(KVEntry.key)
-                        )
+                        result = session.execute(conflict_stmt.returning(KVEntry.key))
                         replaced = result.first() is not None
                     session.commit()
                     return replaced
@@ -470,9 +466,7 @@ class SQLKVStore(KVStore):
                 # Conditional lazy purge: never delete a row that a
                 # concurrent writer refreshed after our observed `now`.
                 session.execute(
-                    delete(KVEntry).where(
-                        KVEntry.key == key, KVEntry.expires_at <= now
-                    )
+                    delete(KVEntry).where(KVEntry.key == key, KVEntry.expires_at <= now)
                 )
                 session.commit()
                 return default
@@ -504,9 +498,7 @@ class SQLKVStore(KVStore):
 
         return _retry_locked(_op)
 
-    def cleanup_expired(
-        self, limit: int = 1000, prefix: Optional[str] = None
-    ) -> int:
+    def cleanup_expired(self, limit: int = 1000, prefix: Optional[str] = None) -> int:
         """Delete up to ``limit`` expired rows, optionally by key prefix."""
         if limit < 1:
             return 0
@@ -565,9 +557,7 @@ class NamespacedKVStore(KVStore):
     def delete(self, key: str) -> Any:
         return self._store.delete(self._key(key))
 
-    def cleanup_expired(
-        self, limit: int = 1000, prefix: Optional[str] = None
-    ) -> int:
+    def cleanup_expired(self, limit: int = 1000, prefix: Optional[str] = None) -> int:
         physical_prefix = self._prefix + prefix if prefix is not None else self._prefix
         return self._store.cleanup_expired(limit=limit, prefix=physical_prefix)
 
@@ -589,7 +579,9 @@ def _resolve_legacy_diskcache_path(path: str) -> str:
     resolved = Path(os.path.expanduser(path))
     if not resolved.is_absolute():
         instance_home = os.environ.get("INSTANCE_HOME")
-        resolved = Path(instance_home) / resolved if instance_home else Path.cwd() / resolved
+        resolved = (
+            Path(instance_home) / resolved if instance_home else Path.cwd() / resolved
+        )
     return str(resolved)
 
 

@@ -45,10 +45,14 @@ class OverviewMethodTests(unittest.TestCase):
         storage = MagicMock()
         storage.count_results.side_effect = RuntimeError("storage down")
         view = self.configure_view(SurveyOverview.__new__(SurveyOverview))
-        with patch("plone.api.portal.get_tool", return_value=catalog), patch(
-            "zopyx.surveyjs.browser.survey_overview.get_result_storage",
-            return_value=storage,
-        ), patch("plone.api.content.get_state", side_effect=RuntimeError):
+        with (
+            patch("plone.api.portal.get_tool", return_value=catalog),
+            patch(
+                "zopyx.surveyjs.browser.survey_overview.get_result_storage",
+                return_value=storage,
+            ),
+            patch("plone.api.content.get_state", side_effect=RuntimeError),
+        ):
             entries = view.survey_overview_entries()
         self.assertEqual(len(entries), 1)
         self.assertEqual(entries[0]["access_mode"], "Trusted access token")
@@ -64,9 +68,12 @@ class OverviewMethodTests(unittest.TestCase):
         brain.expires = "invalid"
         catalog = MagicMock()
         catalog.searchResults.return_value = [brain]
-        view = self.configure_view(SurveyTemplatesOverview.__new__(SurveyTemplatesOverview))
-        with patch("plone.api.portal.get_tool", return_value=catalog), patch(
-            "plone.api.content.get_state", return_value="private"
+        view = self.configure_view(
+            SurveyTemplatesOverview.__new__(SurveyTemplatesOverview)
+        )
+        with (
+            patch("plone.api.portal.get_tool", return_value=catalog),
+            patch("plone.api.content.get_state", return_value="private"),
         ):
             entries = view.survey_templates_overview_entries()
         self.assertEqual(entries[0]["uid"], "uid-1")
@@ -94,11 +101,18 @@ class CreateTemplateFromVersionTests(unittest.TestCase):
             self.view.request.form = {}
             self.view.create_template_from_version()
             self.view.request.form = {"version_id": "missing", "template_title": "T"}
-            with patch("zopyx.surveyjs.browser.survey_versions.IAnnotations", return_value=self.annotations):
+            with patch(
+                "zopyx.surveyjs.browser.survey_versions.IAnnotations",
+                return_value=self.annotations,
+            ):
                 self.view.create_template_from_version()
             self.view.request.form = {"version_id": "v1", "template_title": "T"}
-            with patch("zopyx.surveyjs.browser.survey_versions.IAnnotations", return_value=self.annotations), patch(
-                "plone.api.user.has_permission", return_value=False
+            with (
+                patch(
+                    "zopyx.surveyjs.browser.survey_versions.IAnnotations",
+                    return_value=self.annotations,
+                ),
+                patch("plone.api.user.has_permission", return_value=False),
             ):
                 self.view.create_template_from_version()
         self.assertGreaterEqual(self.view.request.response.redirect.call_count, 3)
@@ -106,19 +120,32 @@ class CreateTemplateFromVersionTests(unittest.TestCase):
     def test_create_template_copies_form_and_reports_creation_failure(self):
         template = MagicMock()
         template.absolute_url.return_value = "http://nohost/template"
-        with patch("zopyx.surveyjs.browser.survey_versions.IAnnotations", return_value=self.annotations), patch(
-            "plone.api.user.has_permission", return_value=True
-        ), patch("plone.api.content.create", return_value=template), patch(
-            "zopyx.surveyjs.browser.survey_versions.iterSchemata", return_value=[]
-        ), patch("plone.api.portal.show_message"):
+        with (
+            patch(
+                "zopyx.surveyjs.browser.survey_versions.IAnnotations",
+                return_value=self.annotations,
+            ),
+            patch("plone.api.user.has_permission", return_value=True),
+            patch("plone.api.content.create", return_value=template),
+            patch(
+                "zopyx.surveyjs.browser.survey_versions.iterSchemata", return_value=[]
+            ),
+            patch("plone.api.portal.show_message"),
+        ):
             self.view.create_template_from_version()
         self.assertIn('"pages": []', template.template_json)
         template.reindexObject.assert_called_once()
 
-        with patch("zopyx.surveyjs.browser.survey_versions.IAnnotations", return_value=self.annotations), patch(
-            "plone.api.user.has_permission", return_value=True
-        ), patch("plone.api.content.create", side_effect=RuntimeError("create failed")), patch(
-            "plone.api.portal.show_message"
+        with (
+            patch(
+                "zopyx.surveyjs.browser.survey_versions.IAnnotations",
+                return_value=self.annotations,
+            ),
+            patch("plone.api.user.has_permission", return_value=True),
+            patch(
+                "plone.api.content.create", side_effect=RuntimeError("create failed")
+            ),
+            patch("plone.api.portal.show_message"),
         ):
             self.view.create_template_from_version()
         self.assertGreaterEqual(self.view.request.response.redirect.call_count, 2)

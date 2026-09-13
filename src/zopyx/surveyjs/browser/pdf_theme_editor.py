@@ -2,7 +2,6 @@
 
 import json
 import logging
-import os
 
 from plone.protect import CheckAuthenticator
 from .views import Views
@@ -28,7 +27,9 @@ class PDFThemeEditorView(Views):
                 theme_json = {}
             else:
                 theme_json = json.loads(raw)
-            print(f"PDFThemeEditor received theme JSON: {json.dumps(theme_json, indent=2)}")
+            print(
+                f"PDFThemeEditor received theme JSON: {json.dumps(theme_json, indent=2)}"
+            )
             tmp_path = "/tmp/theme.json"
             with open(tmp_path, "w", encoding="utf-8") as f:
                 json.dump(theme_json, f, indent=2)

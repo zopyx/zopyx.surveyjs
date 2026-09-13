@@ -118,6 +118,7 @@ class SurveyAddView(BrowserView):
             from zope.component.hooks import getSite
             from zope.annotation.interfaces import IAnnotations
             from .services import themes as themes_service
+
             site = getSite()
             if site is None:
                 return []

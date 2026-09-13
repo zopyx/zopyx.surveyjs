@@ -493,7 +493,9 @@ def send_submission_notification(context, event):
         bcc_recipients = SurveyConverter._normalize_recipients(
             mail_settings.get("email_bcc") or []
         )
-        all_recipients = list(dict.fromkeys(recipients + cc_recipients + bcc_recipients))
+        all_recipients = list(
+            dict.fromkeys(recipients + cc_recipients + bcc_recipients)
+        )
         if not all_recipients:
             logger.info(
                 "Mail notification enabled but no valid recipients for %s",

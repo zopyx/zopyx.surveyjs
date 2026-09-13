@@ -264,8 +264,7 @@ class IFormsSettings(IPloneLoggingSettings):
     custom_llm_name = schema.TextLine(
         title="LLM Name",
         description=(
-            "Model name as expected by the custom API endpoint "
-            "(e.g., 'deepseek-chat')."
+            "Model name as expected by the custom API endpoint (e.g., 'deepseek-chat')."
         ),
         required=False,
         default="",

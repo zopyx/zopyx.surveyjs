@@ -66,12 +66,16 @@ class ThemeEditorView(Views):
         result = []
         for number, v in enumerate(versions, start=len(versions)):
             created = v.get("created")
-            result.append(dict(
-                id=v.get("id"),
-                number=number,
-                created=created.isoformat() if hasattr(created, "isoformat") else str(created or ""),
-                user=v.get("user", ""),
-            ))
+            result.append(
+                dict(
+                    id=v.get("id"),
+                    number=number,
+                    created=created.isoformat()
+                    if hasattr(created, "isoformat")
+                    else str(created or ""),
+                    user=v.get("user", ""),
+                )
+            )
         return json.dumps(result)
 
     def _get_theme_data_json(self):
@@ -92,16 +96,22 @@ class ThemeEditorView(Views):
             )
             if theme is None:
                 self.request.response.setStatus(404)
-                return json.dumps({"success": False, "error": "Theme has no current version"})
+                return json.dumps(
+                    {"success": False, "error": "Theme has no current version"}
+                )
             import transaction
+
             transaction.commit()
             logger.info("Current theme version updated: %s", self._theme["id"])
             versions = themes_service.sorted_theme_versions(theme, reverse=True)
-            versions_info = [dict(
-                id=v["id"],
-                created=v["created"].isoformat(),
-                user=v["user"],
-            ) for v in versions]
+            versions_info = [
+                dict(
+                    id=v["id"],
+                    created=v["created"].isoformat(),
+                    user=v["user"],
+                )
+                for v in versions
+            ]
             self.request.response.setHeader("Content-Type", "application/json")
             return json.dumps({"success": True, "versions": versions_info})
         except Exception as exc:
@@ -122,14 +132,18 @@ class ThemeEditorView(Views):
                 self._annotations, self._theme["id"], theme_json, user
             )
             import transaction
+
             transaction.commit()
             logger.info("Theme version saved: %s", self._theme["id"])
             versions = themes_service.sorted_theme_versions(theme, reverse=True)
-            versions_info = [dict(
-                id=v["id"],
-                created=v["created"].isoformat(),
-                user=v["user"],
-            ) for v in versions]
+            versions_info = [
+                dict(
+                    id=v["id"],
+                    created=v["created"].isoformat(),
+                    user=v["user"],
+                )
+                for v in versions
+            ]
             self.request.response.setHeader("Content-Type", "application/json")
             return json.dumps({"success": True, "versions": versions_info})
         except Exception as exc:
@@ -150,13 +164,16 @@ class ThemeEditorView(Views):
             self.request.response.setStatus(404)
             return json.dumps({"success": False, "error": "Version not found"})
         import transaction
+
         transaction.commit()
         logger.info("Theme restored to version %s: %s", version_id, self._theme["id"])
         self.request.response.setHeader("Content-Type", "application/json")
-        return json.dumps({
-            "success": True,
-            "theme_json": theme.get("theme_json", {}),
-        })
+        return json.dumps(
+            {
+                "success": True,
+                "theme_json": theme.get("theme_json", {}),
+            }
+        )
 
     def _export_theme_json(self):
         """Serve the current theme JSON as a file download."""
@@ -187,6 +204,7 @@ class ThemeEditorView(Views):
     def _current_user(self):
         try:
             import plone.api
+
             return plone.api.user.get_current().getId()
         except Exception:
             return "admin"

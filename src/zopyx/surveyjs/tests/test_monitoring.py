@@ -10,13 +10,16 @@ class MonitoringFacadeTests(unittest.TestCase):
         settings = SimpleNamespace(kv_cache_backend="diskcache")
         registry = MagicMock()
         registry.forInterface.return_value = settings
-        with patch(
-            "zopyx.surveyjs.monitoring.getUtility",
-            return_value=registry,
-        ), patch(
-            "zopyx.surveyjs.monitoring.get_configured_kv_store",
-            return_value="cache",
-        ) as factory:
+        with (
+            patch(
+                "zopyx.surveyjs.monitoring.getUtility",
+                return_value=registry,
+            ),
+            patch(
+                "zopyx.surveyjs.monitoring.get_configured_kv_store",
+                return_value="cache",
+            ) as factory,
+        ):
             self.assertEqual(monitoring._get_cache(), "cache")
         factory.assert_called_once_with(settings, "monitoring")
 

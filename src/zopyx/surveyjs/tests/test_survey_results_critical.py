@@ -15,9 +15,7 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
         self.view.request = MagicMock()
         self.view.request.form = {"poll_id": "poll-1"}
         self.view.request.response.redirect.return_value = None
-        self._show_message = patch(
-            "plone.api.portal.show_message"
-        ).start()
+        self._show_message = patch("plone.api.portal.show_message").start()
         self._annotations = patch(
             "zopyx.surveyjs.browser.survey_results.IAnnotations",
             return_value={},
@@ -27,7 +25,9 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
     def patch_auth(self):
         return patch.object(self.view, "_check_post_authenticator")
 
-    def test_post_result_rejects_missing_id_disabled_action_endpoint_result_and_form(self):
+    def test_post_result_rejects_missing_id_disabled_action_endpoint_result_and_form(
+        self,
+    ):
         with self.patch_auth():
             self.view.request.form = {}
             self.assertIsNone(self.view.post_result())
@@ -41,17 +41,24 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
         self.view.context.post_endpoint_url = "https://receiver.example/api"
         storage = MagicMock()
         storage.get_result.return_value = None
-        with self.patch_auth(), patch(
-            "zopyx.surveyjs.browser.survey_results.get_result_storage",
-            return_value=storage,
+        with (
+            self.patch_auth(),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.get_result_storage",
+                return_value=storage,
+            ),
         ):
             self.assertIsNone(self.view.post_result())
 
         storage.get_result.return_value = {"poll_id": "poll-1", "result": {"a": 1}}
-        with self.patch_auth(), patch(
-            "zopyx.surveyjs.browser.survey_results.get_result_storage",
-            return_value=storage,
-        ), patch.object(self.view, "_latest_form_json", return_value=None):
+        with (
+            self.patch_auth(),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.get_result_storage",
+                return_value=storage,
+            ),
+            patch.object(self.view, "_latest_form_json", return_value=None),
+        ):
             self.assertIsNone(self.view.post_result())
         self.assertGreaterEqual(self.view.request.response.redirect.call_count, 5)
 
@@ -64,15 +71,18 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
         }
         response = MagicMock(status_code=202)
         self.view.request.response.redirect.reset_mock()
-        with self.patch_auth(), patch(
-            "zopyx.surveyjs.browser.survey_results.get_result_storage",
-            return_value=storage,
-        ), patch.object(
-            self.view, "_latest_form_json", return_value={"pages": []}
-        ), patch(
-            "zopyx.surveyjs.browser.survey_results.httpx.post",
-            return_value=response,
-        ) as post:
+        with (
+            self.patch_auth(),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.get_result_storage",
+                return_value=storage,
+            ),
+            patch.object(self.view, "_latest_form_json", return_value={"pages": []}),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.httpx.post",
+                return_value=response,
+            ) as post,
+        ):
             self.view.post_result()
         post.assert_called_once()
         payload = post.call_args.kwargs["json"]
@@ -81,12 +91,18 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
         self.assertEqual(post.call_args.kwargs["timeout"], 10.0)
 
         response.raise_for_status.side_effect = RuntimeError("receiver failed")
-        with self.patch_auth(), patch(
-            "zopyx.surveyjs.browser.survey_results.get_result_storage",
-            return_value=storage,
-        ), patch.object(
-            self.view, "_latest_form_json", return_value={"pages": []}
-        ), patch("zopyx.surveyjs.browser.survey_results.httpx.post", return_value=response):
+        with (
+            self.patch_auth(),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.get_result_storage",
+                return_value=storage,
+            ),
+            patch.object(self.view, "_latest_form_json", return_value={"pages": []}),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.httpx.post",
+                return_value=response,
+            ),
+        ):
             self.view.post_result()
         self.assertTrue(self.view.request.response.redirect.called)
 
@@ -100,7 +116,9 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
             return_value=storage,
         ):
             storage.get_result.return_value = None
-            self.assertEqual(self.view.result_detail()["error"], "Poll result not found")
+            self.assertEqual(
+                self.view.result_detail()["error"], "Poll result not found"
+            )
             storage.get_result.return_value = {"result": {"a": 1}}
             with patch.object(self.view, "_latest_form_json", return_value=None):
                 self.assertEqual(
@@ -118,20 +136,24 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
         }
         converter = MagicMock()
         converter.collect_items.return_value = ([{"label": "A"}], [])
-        with patch(
-            "zopyx.surveyjs.browser.survey_results.get_result_storage",
-            return_value=storage,
-        ), patch.object(
-            self.view, "_latest_form_json", return_value={"pages": []}
-        ), patch(
-            "zopyx.surveyjs.converters.cli.SurveyConverter",
-            return_value=converter,
-        ), patch(
-            "zopyx.surveyjs.converters.build_markdown",
-            return_value="markdown",
-        ), patch(
-            "zopyx.surveyjs.converters.html.build_html",
-            return_value="<p>answer</p>",
+        with (
+            patch(
+                "zopyx.surveyjs.browser.survey_results.get_result_storage",
+                return_value=storage,
+            ),
+            patch.object(self.view, "_latest_form_json", return_value={"pages": []}),
+            patch(
+                "zopyx.surveyjs.converters.cli.SurveyConverter",
+                return_value=converter,
+            ),
+            patch(
+                "zopyx.surveyjs.converters.build_markdown",
+                return_value="markdown",
+            ),
+            patch(
+                "zopyx.surveyjs.converters.html.build_html",
+                return_value="<p>answer</p>",
+            ),
         ):
             result = self.view.result_detail()
         self.assertEqual(result["poll_id"], "poll-1")

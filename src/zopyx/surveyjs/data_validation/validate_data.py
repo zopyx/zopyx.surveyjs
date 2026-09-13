@@ -112,9 +112,7 @@ def _verify_binary_integrity(binary_path: str) -> None:
         with open(digest_path, encoding="utf-8") as handle:
             expected = handle.read().strip()
     except OSError as exc:
-        raise RuntimeError(
-            f"Validation binary digest missing: {digest_path}"
-        ) from exc
+        raise RuntimeError(f"Validation binary digest missing: {digest_path}") from exc
     actual = _sha256_file(binary_path)
     if not hmac.compare_digest(actual, expected):
         raise RuntimeError(

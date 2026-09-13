@@ -57,8 +57,12 @@ _FILE_SIGNATURES = {
     "application/pdf": (b"%PDF-",),
     "application/rtf": (b"{\\rtf",),
     "application/vnd.ms-excel": (b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1",),
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (b"PK\x03\x04",),
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": (b"PK\x03\x04",),
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
+        b"PK\x03\x04",
+    ),
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": (
+        b"PK\x03\x04",
+    ),
     "application/zip": (b"PK\x03\x04",),
 }
 
@@ -216,9 +220,7 @@ def _validate_string(value: str, field: str) -> None:
         raise SubmissionValidationError("control_character", field)
 
     normalized_prefix = "".join(
-        char
-        for char in value.lstrip()[:64]
-        if not char.isspace() and ord(char) >= 0x20
+        char for char in value.lstrip()[:64] if not char.isspace() and ord(char) >= 0x20
     ).lower()
     if _DANGEROUS_URL.match(normalized_prefix):
         raise SubmissionValidationError("dangerous_url", field)
@@ -256,7 +258,9 @@ def _normalize_file_value(
         name = item.get("name")
         declared_type = item.get("type")
         content = item.get("content")
-        if not all(isinstance(item_value, str) for item_value in (name, declared_type, content)):
+        if not all(
+            isinstance(item_value, str) for item_value in (name, declared_type, content)
+        ):
             raise SubmissionValidationError("invalid_file", field)
         name = cast(str, name)
         declared_type = cast(str, declared_type)
@@ -315,11 +319,11 @@ def _normalize_file_value(
 def _matches_image_signature(mime_type: str, content: bytes) -> bool:
     if mime_type == "image/webp":
         return (
-            len(content) >= 12
-            and content[:4] == b"RIFF"
-            and content[8:12] == b"WEBP"
+            len(content) >= 12 and content[:4] == b"RIFF" and content[8:12] == b"WEBP"
         )
-    return any(content.startswith(signature) for signature in _IMAGE_SIGNATURES[mime_type])
+    return any(
+        content.startswith(signature) for signature in _IMAGE_SIGNATURES[mime_type]
+    )
 
 
 def _normalize_filename(value: str) -> str | None:

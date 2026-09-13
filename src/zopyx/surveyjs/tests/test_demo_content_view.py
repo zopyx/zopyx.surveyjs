@@ -16,17 +16,22 @@ class DemoContentViewTests(unittest.TestCase):
         obj = MagicMock()
         with patch("plone.api.content.get_state", return_value="private"):
             self.assertTrue(view._ensure_private(obj))
-        with patch("plone.api.content.get_state", return_value="published"), patch(
-            "plone.api.content.get_transitions",
-            return_value=[{"id": "retract"}],
-            create=True,
-        ), patch("plone.api.content.transition") as transition:
+        with (
+            patch("plone.api.content.get_state", return_value="published"),
+            patch(
+                "plone.api.content.get_transitions",
+                return_value=[{"id": "retract"}],
+                create=True,
+            ),
+            patch("plone.api.content.transition") as transition,
+        ):
             self.assertTrue(view._ensure_private(obj))
             transition.assert_called_once_with(obj=obj, transition="retract")
         with patch("plone.api.content.get_state", side_effect=RuntimeError("workflow")):
             self.assertFalse(view._ensure_private(obj))
-        with patch("plone.api.content.get_state", return_value="published"), patch(
-            "plone.api.content.get_transitions", return_value=[], create=True
+        with (
+            patch("plone.api.content.get_state", return_value="published"),
+            patch("plone.api.content.get_transitions", return_value=[], create=True),
         ):
             self.assertFalse(view._ensure_private(obj))
 
@@ -59,20 +64,38 @@ class DemoContentViewTests(unittest.TestCase):
         content.create.side_effect = [demos, *surveys]
         user = MagicMock()
         user.getId.return_value = "demo-user"
-        with patch("plone.api.portal.get", return_value=portal), patch.object(
-            portal, "get", return_value=None
-        ), patch("plone.api.content.create", side_effect=[demos, *surveys]), patch(
-            "plone.api.user.get_current", return_value=user
-        ), patch.object(view, "_ensure_private"), patch.object(
-            view, "_generate_multilingual_demo_survey", return_value={"pages": [], "locale": "en"}
-        ), patch.object(view, "_generate_surveyjs_demo_survey", side_effect=RuntimeError("broken")), patch.object(
-            view, "_create_prefilled_survey", return_value=(None, "missing fixture")
-        ), patch.object(view, "_generate_all_field_types_survey", return_value={"pages": [{"elements": []}]}), patch.object(
-            view, "_generate_demo_results"), patch.object(view, "_generate_demo_results_all_field_types"), patch(
-            "zopyx.surveyjs.browser.demo_content.IAnnotations", return_value={}
-        ), patch("zopyx.surveyjs.browser.demo_content.forms_service.save_form_version"), patch(
-            "zopyx.surveyjs.browser.demo_content.json_response"
-        ) as response:
+        with (
+            patch("plone.api.portal.get", return_value=portal),
+            patch.object(portal, "get", return_value=None),
+            patch("plone.api.content.create", side_effect=[demos, *surveys]),
+            patch("plone.api.user.get_current", return_value=user),
+            patch.object(view, "_ensure_private"),
+            patch.object(
+                view,
+                "_generate_multilingual_demo_survey",
+                return_value={"pages": [], "locale": "en"},
+            ),
+            patch.object(
+                view,
+                "_generate_surveyjs_demo_survey",
+                side_effect=RuntimeError("broken"),
+            ),
+            patch.object(
+                view, "_create_prefilled_survey", return_value=(None, "missing fixture")
+            ),
+            patch.object(
+                view,
+                "_generate_all_field_types_survey",
+                return_value={"pages": [{"elements": []}]},
+            ),
+            patch.object(view, "_generate_demo_results"),
+            patch.object(view, "_generate_demo_results_all_field_types"),
+            patch("zopyx.surveyjs.browser.demo_content.IAnnotations", return_value={}),
+            patch(
+                "zopyx.surveyjs.browser.demo_content.forms_service.save_form_version"
+            ),
+            patch("zopyx.surveyjs.browser.demo_content.json_response") as response,
+        ):
             view()
         payload = response.call_args.args[1]
         self.assertEqual(payload["folder"], "demos")

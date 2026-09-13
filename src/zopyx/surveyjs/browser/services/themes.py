@@ -4,7 +4,6 @@ from datetime import datetime, timezone
 import uuid
 
 from BTrees.OOBTree import OOBTree
-from zope.annotation.interfaces import IAnnotations
 
 from ...constants import THEMES_KEY, DEFAULT_THEME_KEY
 from ...utils import ensure_timezone_aware

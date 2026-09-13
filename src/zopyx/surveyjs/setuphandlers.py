@@ -20,12 +20,8 @@ class HiddenProfiles(object):
 
 def _ensure_authenticity_token_secret():
     """Set a uuid4 authenticity_token_secret if none is set."""
-    secret_key = (
-        "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_secret"
-    )
-    enabled_key = (
-        "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_enabled"
-    )
+    secret_key = "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_secret"
+    enabled_key = "zopyx.surveyjs.interfaces.IFormsSettings.authenticity_token_enabled"
     try:
         current = api.portal.get_registry_record(secret_key)
         if current:

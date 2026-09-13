@@ -41,26 +41,27 @@ class TokenStore:
 
     def _get_user_context(self) -> dict:
         """Get current user context for audit logging.
-        
+
         :return: Dict with user_id and client_ip
         """
         try:
             from plone import api
+
             user = api.user.get_current()
             user_id = user.getId() if user else "anonymous"
         except Exception as e:
             logger.debug("Failed to get user context: %s", e)
             user_id = "unknown"
-        
+
         # Try to get client IP from request
         client_ip = "unknown"
         try:
-            request = getattr(self.survey, 'REQUEST', None)
+            request = getattr(self.survey, "REQUEST", None)
             if request:
                 client_ip = request.getClientIP() or "unknown"
         except Exception as e:
             logger.debug("Failed to get client IP: %s", e)
-        
+
         return {"user_id": user_id, "client_ip": client_ip}
 
     def __init__(self, survey):
@@ -164,7 +165,7 @@ class TokenStore:
                 token[:8],
             )
             return False
-        
+
         user_context = self._get_user_context()
         info = dict(storage[token])
         info["used"] = datetime.now(timezone.utc).isoformat()
@@ -173,7 +174,7 @@ class TokenStore:
         if reason:
             info["revocation_reason"] = reason
         storage[token] = info
-        
+
         logger.info(
             "[TokenStore:%s] Token invalidated: %s...", self._backend, token[:8]
         )

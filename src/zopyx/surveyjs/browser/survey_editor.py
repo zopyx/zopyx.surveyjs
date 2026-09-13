@@ -77,9 +77,12 @@ class SurveyEditor(Views):
         notify(ObjectModifiedEvent(self.context))
         self.context.reindexObject()
         import transaction
+
         transaction.commit()
 
-        logger.info("Survey theme updated: %s -> %s", self.context.absolute_url(), theme_id)
+        logger.info(
+            "Survey theme updated: %s -> %s", self.context.absolute_url(), theme_id
+        )
         self.request.response.setHeader("Content-Type", "application/json")
         return json.dumps({"success": True, "theme_id": theme_id})
 

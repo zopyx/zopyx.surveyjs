@@ -437,7 +437,7 @@ class SQLTokenStore:
     Mirrors the ZODB TokenStore interface while providing
     SQL persistence and query capabilities.
     """
-    
+
     # Audit logger for token operations
     audit_logger = logging.getLogger(f"{__name__}.audit")
 
@@ -462,26 +462,27 @@ class SQLTokenStore:
 
     def _get_user_context(self) -> dict:
         """Get current user context for audit logging.
-        
+
         :return: Dict with user_id and client_ip
         """
         try:
             from plone import api
+
             user = api.user.get_current()
             user_id = user.getId() if user else "anonymous"
         except Exception as e:
             logger.debug("Failed to get user context: %s", e)
             user_id = "unknown"
-        
+
         # Try to get client IP from request
         client_ip = "unknown"
         try:
-            request = getattr(self.survey, 'REQUEST', None)
+            request = getattr(self.survey, "REQUEST", None)
             if request:
                 client_ip = request.getClientIP() or "unknown"
         except Exception as e:
             logger.debug("Failed to get client IP: %s", e)
-        
+
         return {"user_id": user_id, "client_ip": client_ip}
 
     def _session(self) -> Session:
@@ -592,7 +593,7 @@ class SQLTokenStore:
             row.used_from = user_context["client_ip"]
             # Note: batch_id is already set, could add revocation_reason field if needed
             session.commit()
-            
+
             logger.info(
                 "[SQLTokenStore:%s] Token invalidated: %s...", self._backend, token[:8]
             )
@@ -685,7 +686,7 @@ class SQLTokenStore:
     def clear(self) -> None:
         """Clear all tokens from the store."""
         user_context = self._get_user_context()
-        
+
         # Get count before deletion for audit log
         with self._session() as session:
             stmt = select(SurveyToken).where(
@@ -693,7 +694,7 @@ class SQLTokenStore:
                 SurveyToken.survey_id == self._survey_id,
             )
             count = len(session.exec(stmt).all())
-        
+
         with self._session() as session:
             stmt = delete(SurveyToken).where(
                 SurveyToken.site_id == self._site_id,
@@ -701,7 +702,7 @@ class SQLTokenStore:
             )
             session.exec(stmt)
             session.commit()
-        
+
         logger.info("[SQLTokenStore:%s] Cleared %d tokens", self._backend, count)
         self.audit_logger.info(
             "TOKENS_CLEARED: survey=%s user=%s ip=%s count=%d",

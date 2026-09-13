@@ -91,17 +91,13 @@ class TestDemoProfile(unittest.TestCase):
     def demo_surveys(self):
         folder = self.folder()
         return {
-            obj.id: obj
-            for obj in folder.objectValues()
-            if obj.portal_type == "Survey"
+            obj.id: obj for obj in folder.objectValues() if obj.portal_type == "Survey"
         }
 
     # -- tests -----------------------------------------------------------
 
     def test_profile_is_registered(self):
-        self.assertTrue(
-            self.portal.portal_setup.profileExists("zopyx.surveyjs:demo")
-        )
+        self.assertTrue(self.portal.portal_setup.profileExists("zopyx.surveyjs:demo"))
 
     def test_demo_themes_seeded(self):
         by_name = self.themes_by_name()
@@ -134,9 +130,7 @@ class TestDemoProfile(unittest.TestCase):
             self.assertTrue(form_json["pages"])
 
     def test_each_form_uses_a_different_theme(self):
-        themes_by_id = {
-            theme["id"]: theme["name"] for theme in self.themes().values()
-        }
+        themes_by_id = {theme["id"]: theme["name"] for theme in self.themes().values()}
         assigned = {}
         for spec in DEMO_FORMS:
             theme_id = self.survey(spec.id).theme
@@ -157,9 +151,7 @@ class TestDemoProfile(unittest.TestCase):
             questions = 0
             for page in form_json["pages"]:
                 questions += count_questions(page.get("elements"))
-            self.assertGreaterEqual(
-                questions, 20, f"{spec.id}: too few questions"
-            )
+            self.assertGreaterEqual(questions, 20, f"{spec.id}: too few questions")
 
     def test_shipped_form_definitions_are_the_stored_versions(self):
         for spec in DEMO_FORMS:
@@ -192,8 +184,7 @@ class TestDemoProfile(unittest.TestCase):
     def test_reapplying_the_profile_is_idempotent(self):
         theme_count = len(self.themes())
         version_counts = {
-            spec.id: len(self.versions(self.survey(spec.id)))
-            for spec in DEMO_FORMS
+            spec.id: len(self.versions(self.survey(spec.id))) for spec in DEMO_FORMS
         }
 
         applyProfile(self.portal, "zopyx.surveyjs:demo")

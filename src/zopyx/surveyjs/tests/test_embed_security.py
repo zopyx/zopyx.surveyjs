@@ -94,44 +94,57 @@ class EmbedSecurityTests(unittest.TestCase):
         self.assertEqual(ctx.exception.reason, "origin_mismatch")
 
     def test_validate_embed_token_requires_configured_key(self):
-        with patch(
-            "zopyx.surveyjs.browser.embed_security._get_signing_key",
-            return_value=None,
-        ), self.assertRaises(embed_security.EmbedSecurityError):
+        with (
+            patch(
+                "zopyx.surveyjs.browser.embed_security._get_signing_key",
+                return_value=None,
+            ),
+            self.assertRaises(embed_security.EmbedSecurityError),
+        ):
             embed_security.validate_embed_token("token", ORIGIN)
 
     def test_embed_cache_uses_configured_kv_facade_factory(self):
         settings = SimpleNamespace(kv_cache_backend="diskcache")
         registry = MagicMock()
         registry.forInterface.return_value = settings
-        with patch(
-            "zopyx.surveyjs.browser.embed_security.getUtility",
-            return_value=registry,
-        ), patch(
-            "zopyx.surveyjs.browser.embed_security.get_configured_kv_store",
-            return_value="cache",
-        ) as factory:
+        with (
+            patch(
+                "zopyx.surveyjs.browser.embed_security.getUtility",
+                return_value=registry,
+            ),
+            patch(
+                "zopyx.surveyjs.browser.embed_security.get_configured_kv_store",
+                return_value="cache",
+            ) as factory,
+        ):
             self.assertEqual(embed_security._get_embed_cache(), "cache")
         factory.assert_called_once_with(settings, "embed")
 
     def test_generate_embed_token_fails_closed_without_tracking_cache(self):
-        with patch(
-            "zopyx.surveyjs.browser.embed_security._get_embed_cache",
-            return_value=None,
-        ), self.assertRaises(embed_security.EmbedSecurityError):
+        with (
+            patch(
+                "zopyx.surveyjs.browser.embed_security._get_embed_cache",
+                return_value=None,
+            ),
+            self.assertRaises(embed_security.EmbedSecurityError),
+        ):
             embed_security.generate_embed_token("survey-1", ORIGIN, secret=SECRET)
 
     def test_generate_embed_token_clamps_ttl_and_records_cache_metadata(self):
         cache = MagicMock()
-        with patch(
-            "zopyx.surveyjs.browser.embed_security._get_embed_cache",
-            return_value=cache,
-        ), patch(
-            "zopyx.surveyjs.browser.embed_security.time.time",
-            return_value=2000000000,
-        ), patch(
-            "zopyx.surveyjs.browser.embed_security.secrets.token_urlsafe",
-            side_effect=["jti-generated", "nonce-generated"],
+        with (
+            patch(
+                "zopyx.surveyjs.browser.embed_security._get_embed_cache",
+                return_value=cache,
+            ),
+            patch(
+                "zopyx.surveyjs.browser.embed_security.time.time",
+                return_value=2000000000,
+            ),
+            patch(
+                "zopyx.surveyjs.browser.embed_security.secrets.token_urlsafe",
+                side_effect=["jti-generated", "nonce-generated"],
+            ),
         ):
             token, metadata = embed_security.generate_embed_token(
                 "survey-1", ORIGIN, ttl_seconds=1, secret=SECRET
@@ -179,7 +192,9 @@ class EmbedSecurityTests(unittest.TestCase):
         )
 
         request = MagicMock()
-        request.get.side_effect = lambda name: "OPTIONS" if name == "REQUEST_METHOD" else None
+        request.get.side_effect = (
+            lambda name: "OPTIONS" if name == "REQUEST_METHOD" else None
+        )
         request.get_header.return_value = ORIGIN
         self.assertTrue(
             embed_security.handle_cors_preflight(request, response, [ORIGIN])

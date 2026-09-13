@@ -206,7 +206,12 @@ class InstalledAndCustomTestTests(unittest.TestCase):
             return_value=MagicMock(),
         ):
             result = view._test_provider(
-                {"provider": "installed", "model_name": "", "api_key": "", "api_url": ""}
+                {
+                    "provider": "installed",
+                    "model_name": "",
+                    "api_key": "",
+                    "api_url": "",
+                }
             )
         self.assertFalse(result["ok"])
         self.assertIn("AI model is required", result["message"])
@@ -217,9 +222,7 @@ class InstalledAndCustomTestTests(unittest.TestCase):
         def fail(model):
             raise RuntimeError("boom")
 
-        with patch.dict(
-            sys.modules, {"privacyforms_ai": _fake_privacyforms_ai(fail)}
-        ):
+        with patch.dict(sys.modules, {"privacyforms_ai": _fake_privacyforms_ai(fail)}):
             with patch(
                 "zopyx.surveyjs.browser.controlpanel.build_llm_model",
                 return_value=object(),

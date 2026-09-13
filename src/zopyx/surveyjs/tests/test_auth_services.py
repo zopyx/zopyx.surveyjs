@@ -69,8 +69,9 @@ class AuthServiceTests(unittest.TestCase):
         self.context.access_mode = "trusted"
         self.request.form = {"access_token": "token"}
         cache = MagicMock()
-        with patch.object(self.service, "_auth_settings", return_value=self.settings), patch.object(
-            self.service, "_token_cache", return_value=cache
+        with (
+            patch.object(self.service, "_auth_settings", return_value=self.settings),
+            patch.object(self.service, "_token_cache", return_value=cache),
         ):
             cache.get.return_value = None
             self.assertFalse(self.service.require_trusted_access())
@@ -87,20 +88,26 @@ class AuthServiceTests(unittest.TestCase):
         store = MagicMock()
         store.has_token.return_value = True
         store.consume_token.return_value = True
-        with patch("zopyx.surveyjs.browser.services.auth.getAdapter", return_value=store):
+        with patch(
+            "zopyx.surveyjs.browser.services.auth.getAdapter", return_value=store
+        ):
             self.assertTrue(self.service.require_trusted_access())
             self.assertTrue(self.service.consume_trusted_access_token())
         store.consume_token.assert_called_once_with("token", reason="user_submission")
 
         store.has_token.return_value = False
-        with patch("zopyx.surveyjs.browser.services.auth.getAdapter", return_value=store):
+        with patch(
+            "zopyx.surveyjs.browser.services.auth.getAdapter", return_value=store
+        ):
             self.assertFalse(self.service.require_trusted_access())
 
     def test_consume_trusted_token_fails_without_token_or_store(self):
         self.context.access_mode = "trusted-tokens"
         self.assertFalse(self.service.consume_trusted_access_token())
         self.request.form = {"tt": "token"}
-        with patch("zopyx.surveyjs.browser.services.auth.getAdapter", side_effect=RuntimeError):
+        with patch(
+            "zopyx.surveyjs.browser.services.auth.getAdapter", side_effect=RuntimeError
+        ):
             self.assertFalse(self.service.consume_trusted_access_token())
 
     def test_build_auth_token_is_disabled_or_requires_secret(self):

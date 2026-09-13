@@ -214,9 +214,7 @@ def record_submission_duration(context, seconds: float) -> None:
         now = datetime.now(timezone.utc)
         minute_key = now.strftime("%Y%m%d%H%M")
 
-        _record_duration_bucket(
-            cache, f"{DURATION_KEY_PREFIX}{minute_key}", seconds
-        )
+        _record_duration_bucket(cache, f"{DURATION_KEY_PREFIX}{minute_key}", seconds)
         _record_duration_bucket(
             cache,
             f"{FORM_DURATION_PREFIX}{_get_form_uid(context)}:{minute_key}",
@@ -513,9 +511,7 @@ def get_submission_stats(time_window: str = "1h") -> Dict:
                 }
             except Exception:
                 continue
-        duration_series = _generate_full_duration_series(
-            minutes, now, duration_raw
-        )
+        duration_series = _generate_full_duration_series(minutes, now, duration_raw)
 
         # Calculate rate (submissions per minute)
         rate = total_count / minutes if minutes > 0 else 0

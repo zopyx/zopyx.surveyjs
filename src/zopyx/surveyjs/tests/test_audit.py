@@ -20,9 +20,7 @@ class AuditContext:
 class PersistentAuditLogTests(unittest.TestCase):
     def test_returns_true_when_backend_writes_entry(self) -> None:
         adapter = MagicMock()
-        with patch(
-            "zopyx.surveyjs.audit.IPersistentLogger", return_value=adapter
-        ):
+        with patch("zopyx.surveyjs.audit.IPersistentLogger", return_value=adapter):
             result = persistent_audit_log(
                 AuditContext(),
                 "Survey updated",

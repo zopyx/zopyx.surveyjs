@@ -143,9 +143,7 @@ class TestDistributionSite(unittest.TestCase):
         self.assertIsNotNone(folder)
         self.assertEqual(api.content.get_state(folder), "published")
         surveys = {
-            obj.id: obj
-            for obj in folder.objectValues()
-            if obj.portal_type == "Survey"
+            obj.id: obj for obj in folder.objectValues() if obj.portal_type == "Survey"
         }
         self.assertEqual(set(surveys), {spec.id for spec in DEMO_FORMS})
         for survey in surveys.values():
@@ -155,9 +153,7 @@ class TestDistributionSite(unittest.TestCase):
     def test_demo_themes_seeded_with_distinct_selection(self):
         themes = IAnnotations(self.site).get(THEMES_KEY, {})
         by_id = {theme["id"]: theme["name"] for theme in themes.values()}
-        self.assertEqual(
-            set(by_id.values()), {theme.name for theme in DEFAULT_THEMES}
-        )
+        self.assertEqual(set(by_id.values()), {theme.name for theme in DEFAULT_THEMES})
         folder = self.site.get(DEMO_FOLDER_ID)
         assigned = {folder[spec.id].theme for spec in DEMO_FORMS}
         self.assertEqual(len(assigned), len(DEMO_FORMS))
@@ -183,9 +179,7 @@ class TestDistributionWithoutContent(unittest.TestCase):
         self.site = self.layer["app"][SITE_WITHOUT_CONTENT]
 
     def test_addon_installed(self):
-        self.assertTrue(
-            self.site.portal_setup.profileExists("zopyx.surveyjs:default")
-        )
+        self.assertTrue(self.site.portal_setup.profileExists("zopyx.surveyjs:default"))
         self.assertIn("Survey", self.site.portal_types.objectIds())
 
     def test_no_demo_content(self):

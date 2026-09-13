@@ -46,12 +46,18 @@ class FillablePDFViewTests(unittest.TestCase):
                 {
                     "elements": [
                         {"type": "text", "name": "name", "inputType": "text"},
-                        {"type": "panel", "name": "panel", "elements": [{"type": "checkbox", "name": "ok"}]},
+                        {
+                            "type": "panel",
+                            "name": "panel",
+                            "elements": [{"type": "checkbox", "name": "ok"}],
+                        },
                     ]
                 }
             ]
         }
-        self.assertEqual(self.view._extract_field_names_from_json(form), {"name", "panel", "ok"})
+        self.assertEqual(
+            self.view._extract_field_names_from_json(form), {"name", "panel", "ok"}
+        )
         self.assertEqual(
             self.view._extract_form_properties_from_json(form),
             [
@@ -60,31 +66,47 @@ class FillablePDFViewTests(unittest.TestCase):
             ],
         )
         with patch.object(self.view, "_get_latest_form_json", return_value=form):
-            self.assertEqual([p["name"] for p in self.view.json_form_properties], ["name", "ok"])
+            self.assertEqual(
+                [p["name"] for p in self.view.json_form_properties], ["name", "ok"]
+            )
 
     def test_pdf_fields_uses_inline_extraction_and_marks_json_matches(self):
         pdf = MagicMock(data=b"pdf")
         self.view.context.fillable_pdf = pdf
-        with patch.object(
-            self.view,
-            "_extract_pdf_fields_inline",
-            return_value=[{"name": "name", "type": "text"}, {"name": "other", "type": "text"}],
-        ), patch.object(self.view, "_get_json_form_field_names", return_value={"name"}):
+        with (
+            patch.object(
+                self.view,
+                "_extract_pdf_fields_inline",
+                return_value=[
+                    {"name": "name", "type": "text"},
+                    {"name": "other", "type": "text"},
+                ],
+            ),
+            patch.object(
+                self.view, "_get_json_form_field_names", return_value={"name"}
+            ),
+        ):
             with patch.object(fillable_pdf, "PRIVACYFORMS_PDF_AVAILABLE", False):
                 fields = self.view.pdf_fields
         self.assertTrue(fields[0]["exists_in_json_form"])
         self.assertFalse(fields[1]["exists_in_json_form"])
         self.view.context.fillable_pdf = pdf
-        with patch.object(self.view, "_extract_pdf_fields_inline", return_value=fields), patch.object(
-            self.view, "_get_json_form_field_names", return_value={"name"}
-        ), patch.object(fillable_pdf, "PRIVACYFORMS_PDF_AVAILABLE", False):
+        with (
+            patch.object(self.view, "_extract_pdf_fields_inline", return_value=fields),
+            patch.object(
+                self.view, "_get_json_form_field_names", return_value={"name"}
+            ),
+            patch.object(fillable_pdf, "PRIVACYFORMS_PDF_AVAILABLE", False),
+        ):
             typed = self.view.pdf_fields_with_input_types
         self.assertEqual(typed[0]["input_type"], "text")
 
     def test_validate_pdf_handles_empty_fields_invalid_and_valid(self):
         reader = MagicMock()
         reader.pages = [MagicMock()]
-        with patch("zopyx.surveyjs.browser.fillable_pdf.PdfReader", return_value=reader):
+        with patch(
+            "zopyx.surveyjs.browser.fillable_pdf.PdfReader", return_value=reader
+        ):
             reader.get_fields.return_value = None
             valid, message = self.view._validate_fillable_pdf(b"pdf")
             self.assertFalse(valid)
@@ -113,29 +135,39 @@ class FillablePDFViewTests(unittest.TestCase):
         pdf_file.read.return_value = b"pdf"
         self.view.request.form = {"pdf_file": pdf_file}
         named_file = MagicMock(filename="form.pdf", data=b"pdf")
-        with patch.object(self.view, "_validate_fillable_pdf", return_value=(True, "ok")), patch(
-            "zopyx.surveyjs.browser.fillable_pdf.NamedBlobFile", return_value=named_file
-        ), patch(
-            "plone.api.portal.show_message"
+        with (
+            patch.object(
+                self.view, "_validate_fillable_pdf", return_value=(True, "ok")
+            ),
+            patch(
+                "zopyx.surveyjs.browser.fillable_pdf.NamedBlobFile",
+                return_value=named_file,
+            ),
+            patch("plone.api.portal.show_message"),
         ):
             self.view.upload_pdf()
         self.assertEqual(self.view.context.fillable_pdf.filename, "form.pdf")
         invalid_file = MagicMock(filename="bad.pdf")
         invalid_file.read.return_value = b"pdf"
         self.view.request.form = {"pdf_file": invalid_file}
-        with patch.object(self.view, "_validate_fillable_pdf", return_value=(False, "invalid")), patch(
-            "plone.api.portal.show_message"
+        with (
+            patch.object(
+                self.view, "_validate_fillable_pdf", return_value=(False, "invalid")
+            ),
+            patch("plone.api.portal.show_message"),
         ):
             self.view.upload_pdf()
         self.assertEqual(self.view.request.response.redirect.call_count, 2)
 
     def test_fill_pdf_rejects_unavailable_or_missing_template(self):
-        with patch.object(fillable_pdf, "PYMUPDF_AVAILABLE", False), patch(
-            "plone.api.portal.show_message"
+        with (
+            patch.object(fillable_pdf, "PYMUPDF_AVAILABLE", False),
+            patch("plone.api.portal.show_message"),
         ):
             self.view.fill_pdf()
-        with patch.object(fillable_pdf, "PYMUPDF_AVAILABLE", True), patch(
-            "plone.api.portal.show_message"
+        with (
+            patch.object(fillable_pdf, "PYMUPDF_AVAILABLE", True),
+            patch("plone.api.portal.show_message"),
         ):
             self.view.fill_pdf()
         self.assertEqual(self.view.request.response.redirect.call_count, 2)
@@ -159,9 +191,11 @@ class FillablePDFViewTests(unittest.TestCase):
         doc.tobytes.return_value = b"filled-pdf"
         fake_fitz = MagicMock()
         fake_fitz.open.return_value = doc
-        with patch.object(fillable_pdf, "PYMUPDF_AVAILABLE", True), patch.object(
-            fillable_pdf, "fitz", fake_fitz, create=True
-        ), patch("plone.api.portal.show_message"):
+        with (
+            patch.object(fillable_pdf, "PYMUPDF_AVAILABLE", True),
+            patch.object(fillable_pdf, "fitz", fake_fitz, create=True),
+            patch("plone.api.portal.show_message"),
+        ):
             self.view.fill_pdf()
         self.assertEqual(text.field_value, "Alice")
         self.assertTrue(checkbox.field_value)

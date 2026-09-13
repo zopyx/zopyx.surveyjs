@@ -196,9 +196,7 @@ class DemoContent(BrowserView):
             # Generate 50 demo results for this survey
             self._generate_demo_results_all_field_types(survey, form_json, count=50)
 
-            created.append(
-                {"id": survey_id, "title": "All Field Types Demo"}
-            )
+            created.append({"id": survey_id, "title": "All Field Types Demo"})
         except Exception as exc:
             errors.append({"path": "all-field-types-demo", "error": str(exc)})
 
@@ -1128,7 +1126,10 @@ class DemoContent(BrowserView):
                             ],
                             "defaultValue": {
                                 "service": {"rating": "4", "comment": "Great service"},
-                                "product": {"rating": "5", "comment": "Excellent product"},
+                                "product": {
+                                    "rating": "5",
+                                    "comment": "Excellent product",
+                                },
                             },
                         },
                         # Dynamic Panel
@@ -1270,7 +1271,9 @@ class DemoContent(BrowserView):
                         max_val = q.get("max", 100)
                         result[name] = random.randint(min_val, max_val)
                     elif input_type == "date":
-                        result[name] = f"2024-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
+                        result[name] = (
+                            f"2024-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
+                        )
                     else:
                         result[name] = f"Sample text {i}"
 
@@ -1322,8 +1325,12 @@ class DemoContent(BrowserView):
                             col_name = col.get("name")
                             cell_type = col.get("cellType", "text")
                             if cell_type == "dropdown":
-                                cell_choices = [c["value"] for c in col.get("choices", [])]
-                                col_data[col_name] = random.choice(cell_choices) if cell_choices else ""
+                                cell_choices = [
+                                    c["value"] for c in col.get("choices", [])
+                                ]
+                                col_data[col_name] = (
+                                    random.choice(cell_choices) if cell_choices else ""
+                                )
                             else:
                                 col_data[col_name] = f"Comment {i}"
                         row_data[row] = col_data
@@ -1333,10 +1340,12 @@ class DemoContent(BrowserView):
                     panel_count = random.randint(1, 2)
                     panels = []
                     for p in range(panel_count):
-                        panels.append({
-                            "itemName": f"Item {p + 1}",
-                            "itemValue": random.randint(10, 1000),
-                        })
+                        panels.append(
+                            {
+                                "itemName": f"Item {p + 1}",
+                                "itemValue": random.randint(10, 1000),
+                            }
+                        )
                     result[name] = panels
 
                 elif qtype == "imagepicker":
