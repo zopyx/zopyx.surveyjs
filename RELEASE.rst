@@ -71,7 +71,7 @@ arrives, in which case re-run it on the release commit.
 5. Upgrade path **(gate)**
 --------------------------
 
-Install the previous published version (currently ``1.0a4``) into a throwaway
+Install the previous published version (currently ``1.0b1``) into a throwaway
 Plone site, then upgrade to the release candidate of this version and check:
 
 - the add-on installs and the GenericSetup profile chain
@@ -91,7 +91,7 @@ Plone site, then upgrade to the release candidate of this version and check:
 The ``Build source distribution`` workflow builds the sdist for the tag and
 creates a GitHub release. Versions containing ``a``/``b``/``rc``/``dev``/``post``
 are automatically flagged as GitHub **pre-releases** (see ``sdist.yml``), so a
-beta is never offered as the project's latest release. For ``1.0b1`` expect a
+beta is never offered as the project's latest release. For ``1.0b2`` expect a
 pre-release entry, not "Latest".
 
 7. Publish to PyPI

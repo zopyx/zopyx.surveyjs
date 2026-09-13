@@ -5,6 +5,7 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Set the package version to ``1.0b2``.
 - Add the optional GenericSetup profile ``zopyx.surveyjs:demo``
   (``profiles/demo/``, handlers in ``demo_profile.py``). It seeds the four
   SurveyJS theme presets (``light``, ``dark``, ``light-no-panels``,
@@ -19,6 +20,30 @@ Changelog
   installed and uses the demo profile as its example content, so the themes and
   the ``demo-forms`` folder are created when a site is created with example
   content (``setup_content``). Documented in ``docs/distribution.rst``.
+- Add seven diagrams to the documentation (``docs/_static/diagrams/``): the
+  component overview and the submission lifecycle, the validation pipeline, the
+  deployment topology, the token lifecycle, the export pipeline and the storage
+  backends. Every raster image links to its interactive HTML artifact (zoom,
+  pan, light/dark themes, guided views, search), the generator specifications
+  ship alongside so the diagrams stay reproducible, and the images are embedded
+  in ``overview.rst``, ``actions.rst``, ``validation.rst``, ``storage.rst``,
+  ``security.rst``, ``exports.rst`` and ``installation.rst``.
+- Fix ``browser/ai.py``: ``_to_jsonable()`` logged from its ``except`` branches
+  through a module logger that was never defined, so a serializer method that
+  raised turned the whole call into a ``NameError`` instead of falling through
+  to the next strategy (``vars(value)``). The logger is defined now, and
+  ``tests/test_ai.py::AIViewTests::test_to_jsonable_survives_failing_serializer_methods``
+  covers the fallback.
+- Make the repository pass ``ruff`` completely: ``ruff format`` and
+  ``ruff check --fix`` reformatted 41 files (docstring whitespace, blank lines
+  after the import block, import grouping, comment indentation) without any
+  behaviour change, and the ten findings that survived the automatic fixes were
+  fixed by hand — the missing logger above, an unused
+  ``PDFFormNotFoundError`` re-export in ``browser/fillable_pdf.py``, and unused
+  locals in the token-store and theme-manager tests, which now assert the
+  behaviour their comments only described. ``RELEASE.rst`` requires a clean
+  ``ruff check``/``ruff format --check`` run as part of the release gate and no
+  longer tolerates pre-existing findings.
 
 
 1.0b1 (released 2026-09-12)
