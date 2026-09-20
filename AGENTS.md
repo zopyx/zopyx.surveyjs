@@ -64,6 +64,16 @@ See `DEVELOP.rst` for details.
 - Avoid introducing new dependencies without a strong reason.
 - Keep buildout configs consistent; update `requirements.txt` only when needed.
 - If touching security- or validation-related code, add or update tests.
+- Keep GitHub issues short and to the point: the essentials only, no blather.
+
+## Issue Tracker (GitHub)
+- Issues, comments and closing notes stay short and to the point — state the
+  problem, the decision and the evidence; drop background, restatements and
+  ceremony.
+- Reference the fixing commit (short sha) and the tests that cover it; do not
+  paste diffs or repeat the body.
+- Close an issue when the requested fix is merged and CI is green; note
+  adjacent, unfixed cases in one sentence instead of leaving the issue open.
 
 ## Git Operations
 - **NEVER commit automatically.** Always ask the user for explicit confirmation before committing.
