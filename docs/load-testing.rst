@@ -67,11 +67,13 @@ Pitfalls and known behaviour
   from the viewer page; a token must never be reused (replay protection
   returns 403).
 * **ZODB ConflictError hotspot** — at 5 VUs the submission storage
-  (shared ``BTrees.OOBTree`` buckets) already produces conflicts; Zope
-  retries them, but the retry re-executes ``save_poll`` with an already
-  consumed auth token, so every conflict surfaces as a client-visible
-  403 (observed: 9–12% of submissions at 5 VUs, growing with the stored
-  result count). This is the current scaling ceiling of the write path.
+  (shared ``BTrees.OOBTree`` buckets) already produces conflicts. Zope
+  retries them, and because the aborted attempt releases the auth-token
+  replay marker it wrote (issue #35), the retry re-executes ``save_poll``
+  with the same token and succeeds instead of failing with a spurious
+  403. The conflict rate itself is still the scaling ceiling of the write
+  path: a conflict that exhausts the retry budget
+  (``max-conflict-retries``, default 3) fails the request.
 * **Submissions are real** — every successful iteration stores a
   submission in the ZODB. Use a throwaway survey or clear results
   afterwards (``@@clear-results``) to keep a demo site clean.

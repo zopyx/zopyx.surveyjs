@@ -143,7 +143,11 @@ continue to use the logical keys shown below.
   TTL 24 h. Written with `cache.add()` — the **atomic replay-protection
   marker**. `add()` returns `True` only if the key did not already exist; a
   `False` return means the exact same token was submitted before → HTTP
-  403 `auth_token_replay` (`auth.py:400-408`).
+  403 `auth_token_replay` (`auth.py:400-408`). The marker outlives the
+  request's transaction, so it is released again when the attempt aborts
+  (`kv.release_key_on_abort()`): Zope re-runs `save_poll` after a ZODB
+  `ConflictError` and the retry must not see the aborted attempt's own
+  marker (issue #35).
 - `trusted:<token>` (`auth.py:44-46, 162-169`) — value = metadata dict,
   TTL = per-form `trusted_access_ttl_hours` (default 168 h,
   `auth.py:48-55`). Metadata: `form_id`, `form_version`, `issued_at`,

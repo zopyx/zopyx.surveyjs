@@ -2,6 +2,30 @@ Changelog
 =========
 
 
+1.0b3 (unreleased)
+------------------
+
+- Fix the ZODB conflict → replay 403 cascade in ``@@save-poll`` (issue #35).
+  The ``received:`` auth-token replay marker is written when the token is
+  accepted, before the submission is stored. A ZODB ``ConflictError`` makes
+  Zope abort the attempt and re-run the whole request with the same form
+  data, so the retried attempt found its own marker and rejected the
+  submission with ``auth_token_replay`` (403): every conflict surfaced as a
+  client-visible auth failure instead of a clean retry. The marker is now
+  released again when the attempt's transaction aborts
+  (``kv.release_key_on_abort()``), which keeps the fail-closed
+  "consumed on receipt" behaviour for a committed submission while letting
+  the retry pass its own token check. Tests:
+  ``test_kv.py::ReleaseKeyOnAbortTests``,
+  ``test_auth_services.py::AuthServiceTests::test_replay_marker_is_released_when_the_attempt_aborts``
+  and
+  ``test_integration_views.py::SurveyViewIntegrationTests::test_save_poll_releases_the_replay_marker_when_the_attempt_aborts``.
+- Document the fixed retry behaviour in ``docs/security.rst`` (replay
+  protection) and ``docs/load-testing.rst`` (the conflict hotspot is no
+  longer an auth failure, but the conflict rate remains the scaling
+  ceiling of the write path).
+
+
 1.0b2 (released 2026-09-13)
 ---------------------------
 

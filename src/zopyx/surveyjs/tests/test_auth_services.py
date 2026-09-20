@@ -1,8 +1,13 @@
 from types import SimpleNamespace
+import os
 import unittest
+from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock, patch
 
+import transaction
+
 from zopyx.surveyjs.browser.services.auth import AuthService
+from zopyx.surveyjs.kv import get_kv_store
 
 
 class AuthServiceTests(unittest.TestCase):
@@ -128,6 +133,40 @@ class AuthServiceTests(unittest.TestCase):
         self.settings.authenticity_token_secret = ""
         with patch.object(self.service, "_auth_settings", return_value=self.settings):
             self.assertFalse(self.service.require_auth_token("v1"))
+
+    def test_replay_marker_is_released_when_the_attempt_aborts(self):
+        """A Zope retry after a ZODB conflict re-runs the view with the same
+        token, so the aborted attempt must not leave its marker behind."""
+        self.settings.authenticity_token_enabled = True
+        self.settings.authenticity_token_secret = "secret"
+        with TemporaryDirectory() as tmpdir:
+            store = get_kv_store("diskcache", os.path.join(tmpdir, "auth.db"))
+            self.addCleanup(store.close)
+            with (
+                patch.object(
+                    self.service, "_auth_settings", return_value=self.settings
+                ),
+                patch.object(self.service, "_token_cache", return_value=store),
+            ):
+                token = self.service.build_auth_token("v1")
+                self.assertTrue(token)
+                marker = f"received:{token}"
+                self.request.form = {"auth_token": token}
+
+                self.assertTrue(self.service.require_auth_token("v1"))
+                self.assertEqual(store.get(marker), "RECEIVED")
+
+                # A second submission of a consumed token is still a replay
+                # as long as the attempt's transaction is alive.
+                self.assertFalse(self.service.require_auth_token("v1"))
+                self.request.response.setStatus.assert_called_with(403)
+
+                # Zope aborts the conflicted attempt and re-runs the request.
+                transaction.abort()
+                self.assertIsNone(store.get(marker))
+
+                self.assertTrue(self.service.require_auth_token("v1"))
+                self.assertEqual(store.get(marker), "RECEIVED")
 
 
 if __name__ == "__main__":

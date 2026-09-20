@@ -20,6 +20,7 @@ from types import SimpleNamespace
 from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock, patch
 
+import transaction
 from sqlalchemy import delete
 
 from zopyx.surveyjs.kv import (
@@ -31,6 +32,7 @@ from zopyx.surveyjs.kv import (
     get_kv_metrics,
     get_kv_store,
     get_kv_store_diagnostics,
+    release_key_on_abort,
     validate_kv_database_uri,
 )
 from zopyx.surveyjs.storage import SQLResultStorage
@@ -697,3 +699,52 @@ class ConfiguredKVStoreTests(unittest.TestCase):
         diagnostics = get_kv_store_diagnostics(settings, "auth")
         self.assertEqual(diagnostics["host"], "localhost")
         self.assertNotIn("secret", repr(diagnostics))
+
+
+class ReleaseKeyOnAbortTests(unittest.TestCase):
+    """The after-abort release that keeps a retried request working (#35)."""
+
+    def _marker_store(self, path):
+        """Open the store the marker lives in and close it at test cleanup."""
+        store = get_kv_store("diskcache", path)
+        self.addCleanup(store.close)
+        return store
+
+    def test_marker_is_deleted_when_the_transaction_aborts(self):
+        with TemporaryDirectory() as td:
+            path = os.path.join(td, "kv")
+            store = self._marker_store(path)
+            self.assertTrue(store.add("received:token", "RECEIVED", expire=60))
+
+            # Reopened after the abort, like the call sites do.
+            release_key_on_abort(
+                lambda: get_kv_store("diskcache", path), "received:token"
+            )
+            transaction.abort()
+
+            self.assertIsNone(store.get("received:token"))
+
+    def test_marker_survives_a_committed_attempt(self):
+        with TemporaryDirectory() as td:
+            path = os.path.join(td, "kv")
+            store = self._marker_store(path)
+            self.assertTrue(store.add("received:token", "RECEIVED", expire=60))
+
+            release_key_on_abort(
+                lambda: get_kv_store("diskcache", path), "received:token"
+            )
+            transaction.commit()
+
+            self.assertEqual(store.get("received:token"), "RECEIVED")
+
+    def test_unavailable_store_does_not_break_the_abort(self):
+        def failing_factory():
+            raise RuntimeError("store unavailable")
+
+        release_key_on_abort(failing_factory, "received:token")
+        release_key_on_abort(lambda: None, "trusted:token")
+
+        with self.assertLogs("zopyx.surveyjs.kv", level="WARNING") as logs:
+            transaction.abort()
+
+        self.assertEqual(len(logs.records), 2)

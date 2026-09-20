@@ -55,11 +55,12 @@ Deliberate deviations from raw diskcache (pinned by tests):
 from __future__ import annotations
 
 import abc
+import logging
 import os
 import time
 from collections import Counter
 from pathlib import Path
-from typing import Any, Iterator, Optional
+from typing import Any, Callable, Iterator, Optional
 
 import diskcache
 import orjson
@@ -86,6 +87,8 @@ from sqlmodel import Field, SQLModel
 from .storage import _get_engine
 
 MAX_KEY_LENGTH = 255
+
+logger = logging.getLogger(__name__)
 
 #: SQL dialects SQLKVStore is implemented and tested against.
 SUPPORTED_BACKENDS = frozenset({"sqlite", "duckdb", "postgresql", "mysql"})
@@ -644,3 +647,57 @@ def get_kv_store(
         f"unknown backend {backend_name!r}; expected one of "
         f"'diskcache', {sorted(SUPPORTED_BACKENDS)}"
     )
+
+
+def release_key_on_abort(
+    store_factory: Callable[[], Optional[KVStore]], key: str
+) -> None:
+    """Delete ``key`` from its store again when the transaction aborts.
+
+    Replay and one-time markers are written outside the ZODB transaction, but
+    Zope re-runs the whole publication when a request fails with a transient
+    error (a ZODB ``ConflictError``, for instance): the retried attempt sends
+    the same body again and would find the marker written by the aborted
+    attempt and reject the request as a replay. Releasing the marker as an
+    after-abort hook deletes it before the retry runs, so the retry succeeds
+    while a committed submission still consumes its marker for good.
+
+    :param store_factory: callable reopening the store holding the marker; it
+        is called after the abort, when the caller's own handle is closed.
+    :param key: the marker key as stored (already namespaced).
+    """
+    namespace = key.partition(":")[0]
+    try:
+        import transaction
+
+        txn = transaction.get()
+    except Exception:
+        logger.debug("KV marker %s not registered for abort release", namespace)
+        return
+
+    def _release_marker() -> None:
+        try:
+            store = store_factory()
+        except Exception:
+            store = None
+        if store is None:
+            logger.warning(
+                "KV marker %s not released after abort: store unavailable",
+                namespace,
+            )
+            return
+        try:
+            store.delete(key)
+        except Exception:
+            logger.warning(
+                "KV marker %s not released after abort",
+                namespace,
+                exc_info=True,
+            )
+        finally:
+            try:
+                store.close()
+            except Exception:
+                pass
+
+    txn.addAfterAbortHook(_release_marker)

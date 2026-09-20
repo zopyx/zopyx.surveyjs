@@ -222,7 +222,11 @@ and required by ``@@save-poll`` in the ``auth_token`` form field:
 * **Replay protection** is stateful: every received token is recorded in a
   diskcache (atomic add, 24 h TTL). A second submission with the same token
   is rejected with ``auth_token_replay`` (403). If the cache is
-  unavailable, the request is rejected (503) — fail closed.
+  unavailable, the request is rejected (503) — fail closed. The marker is
+  released again when the request's transaction aborts: Zope retries a
+  request that hit a ZODB ``ConflictError`` by re-running ``@@save-poll``
+  with the same token, which must not be mistaken for a replay. Only a
+  committed submission consumes its token for good.
 
 Trusted access tokens
 ---------------------

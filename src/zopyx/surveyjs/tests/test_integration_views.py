@@ -10,6 +10,7 @@ from unittest.mock import MagicMock, patch
 from tempfile import TemporaryDirectory
 
 import orjson
+import transaction
 from BTrees.OOBTree import OOBTree
 from plone import api
 from plone.app.testing import setRoles, TEST_USER_ID
@@ -35,6 +36,15 @@ import diskcache
 import unittest
 
 __path__ = [os.path.dirname(__file__)]
+
+
+def _read_auth_marker(cache_path: str, token: str) -> Any:
+    """Read the ``received:`` replay marker for ``token`` from the KV store."""
+    cache = diskcache.Cache(cache_path)
+    try:
+        return cache.get(f"auth:received:{token}")
+    finally:
+        cache.close()
 
 
 class _CompatibleTestRequest(TestRequest):
@@ -155,6 +165,17 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         if cache_path:
             settings.authenticity_token_cache_path = cache_path
         return settings
+
+    def _submit_poll(self, token: str):
+        """Submit ``@@save-poll`` with an authenticity token."""
+        request = self._make_request(
+            form={
+                "pollResult": orjson.dumps({"q1": "ok"}),
+                "auth_token": token,
+            }
+        )
+        Views(self.survey, request).save_poll()
+        return request
 
     def test_ensure_timezone_aware_normalizes(self) -> None:
         aware = ensure_timezone_aware(datetime(2024, 1, 1, tzinfo=timezone.utc))
@@ -489,6 +510,38 @@ class SurveyViewIntegrationTests(unittest.TestCase):
                     self.assertEqual(cache.get(f"auth:received:{token}"), "RECEIVED")
                 finally:
                     cache.close()
+            finally:
+                settings.authenticity_token_enabled = False
+
+    def test_save_poll_releases_the_replay_marker_when_the_attempt_aborts(self) -> None:
+        """A ZODB conflict aborts the request and Zope re-runs ``save_poll``.
+
+        The retry submits the same auth token, so the marker written by the
+        aborted attempt must be gone by then — otherwise the retry is rejected
+        as a replay (issue #35). The retry's own token check then succeeds
+        again, which ``test_auth_services`` pins against a real store.
+        """
+        version_id = self._add_version()
+        with TemporaryDirectory() as tmpdir:
+            cache_path = os.path.join(tmpdir, "token_cache.db")
+            settings = self._enable_auth_tokens(cache_path=cache_path)
+            view = Views(self.survey, self._make_request())
+            token = build_auth_token(
+                form_id=view._form_id(),
+                form_version=version_id,
+                issuer=settings.authenticity_token_issuer,
+                audience=settings.authenticity_token_audience,
+                ttl_seconds=settings.authenticity_token_ttl_seconds,
+                secret=settings.authenticity_token_secret,
+            )
+            try:
+                self.assertEqual(self._submit_poll(token).response.getStatus(), 200)
+                self.assertEqual(_read_auth_marker(cache_path, token), "RECEIVED")
+
+                # Zope aborts the conflicted attempt; the aborted attempt's
+                # marker is released before the retry runs.
+                transaction.abort()
+                self.assertIsNone(_read_auth_marker(cache_path, token))
             finally:
                 settings.authenticity_token_enabled = False
 

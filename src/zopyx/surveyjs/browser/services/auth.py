@@ -9,7 +9,7 @@ from zope.component import getUtility
 from zope.component import getAdapter
 
 from ...interfaces import IFormsSettings, ITokenStore
-from ...kv import get_configured_kv_store
+from ...kv import get_configured_kv_store, release_key_on_abort
 from ...security import AuthTokenError, build_auth_token, validate_auth_token
 from .http import json_error
 
@@ -410,6 +410,14 @@ class AuthService:
                     "auth_token_replay",
                 )
                 return False
+            # The marker survives the request's transaction, so it has to be
+            # released again when the attempt aborts: Zope re-runs save_poll
+            # after a ZODB ConflictError and the retry would otherwise reject
+            # its own marker as a replay (issue #35).
+            release_key_on_abort(
+                lambda: self._token_cache(settings),
+                received_key,
+            )
         finally:
             cache.close()
         return True
