@@ -26,14 +26,21 @@ except ImportError:
     PRIVACYFORMS_PDF_AVAILABLE = False
     logger.debug("privacyforms_pdf not available, using inline implementation")
 
-# Try to import fitz (PyMuPDF) for PDF form filling
+# PyMuPDF is used for PDF form filling. Import the modern ``pymupdf`` module
+# name: importing the legacy ``fitz`` alias emits a deprecation warning on
+# PyMuPDF >= 1.24. The module stays bound as ``fitz`` for the call sites below.
 try:
-    import fitz
+    import pymupdf as fitz
 
     PYMUPDF_AVAILABLE = True
-except ImportError:
-    PYMUPDF_AVAILABLE = False
-    logger.debug("PyMuPDF not available, PDF filling will not work")
+except ImportError:  # PyMuPDF < 1.24 only ships the legacy alias
+    try:
+        import fitz
+
+        PYMUPDF_AVAILABLE = True
+    except ImportError:
+        PYMUPDF_AVAILABLE = False
+        logger.debug("PyMuPDF not available, PDF filling will not work")
 
 
 class PDFValidationError(Exception):

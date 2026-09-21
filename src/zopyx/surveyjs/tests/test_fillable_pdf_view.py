@@ -206,6 +206,12 @@ class FillablePDFViewTests(unittest.TestCase):
             "Content-Type", "application/pdf"
         )
 
+    def test_pymupdf_is_imported_under_its_modern_name(self):
+        """The legacy ``fitz`` alias logs a PyMuPDF deprecation warning."""
+        if not fillable_pdf.PYMUPDF_AVAILABLE:
+            self.skipTest("PyMuPDF not installed")
+        self.assertEqual(fillable_pdf.fitz.__name__, "pymupdf")
+
 
 if __name__ == "__main__":
     unittest.main()
