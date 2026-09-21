@@ -79,6 +79,10 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
             ),
             patch.object(self.view, "_latest_form_json", return_value={"pages": []}),
             patch(
+                "zopyx.surveyjs.browser.survey_results.validate_post_endpoint_url",
+                return_value="https://receiver.example/api",
+            ),
+            patch(
                 "zopyx.surveyjs.browser.survey_results.httpx.post",
                 return_value=response,
             ) as post,
@@ -105,6 +109,38 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
         ):
             self.view.post_result()
         self.assertTrue(self.view.request.response.redirect.called)
+
+    def test_post_result_rejects_unsafe_endpoint_without_network_request(self):
+        self.view.context.post_endpoint_url = "http://127.0.0.1/internal"
+        with (
+            self.patch_auth(),
+            patch("zopyx.surveyjs.browser.survey_results.httpx.post") as post,
+        ):
+            self.view.post_result()
+        post.assert_not_called()
+
+    def test_post_result_disables_redirects(self):
+        storage = MagicMock()
+        storage.get_result.return_value = {"poll_id": "poll-1", "result": {}}
+        response = MagicMock(status_code=204)
+        with (
+            self.patch_auth(),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.get_result_storage",
+                return_value=storage,
+            ),
+            patch.object(self.view, "_latest_form_json", return_value={"pages": []}),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.validate_post_endpoint_url",
+                return_value="https://receiver.example/api",
+            ),
+            patch(
+                "zopyx.surveyjs.browser.survey_results.httpx.post",
+                return_value=response,
+            ) as post,
+        ):
+            self.view.post_result()
+        self.assertFalse(post.call_args.kwargs["follow_redirects"])
 
     def test_result_detail_reports_missing_inputs_result_and_form(self):
         self.view.request.form = {}

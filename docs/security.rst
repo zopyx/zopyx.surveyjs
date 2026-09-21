@@ -112,6 +112,19 @@ Global — Security fieldset (Site Setup > Forms)
     Where replay tracking and trusted-token metadata live. Must be writable
     by the Plone process and not publicly served.
 
+``post_endpoint_validation_mode`` (default: ``public``)
+    Controls validation of survey ``post_endpoint_url`` destinations. In
+    ``public`` mode, the hostname does not need to be on a site-wide list,
+    but it must still pass the outbound endpoint checks described below. In
+    ``allowlist`` mode, the hostname must also match an exact hostname or a
+    ``*.suffix`` entry in ``post_endpoint_allowlist``.
+
+``post_endpoint_allowlist``
+    One hostname or wildcard pattern per line for strict allowlist mode. At
+    least one non-empty entry is required when that mode is selected. Entries
+    are normalized case-insensitively and a trailing dot is ignored; a
+    wildcard matches subdomains of its suffix.
+
 Global — Logging fieldset
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -287,6 +300,30 @@ Payload and validation hardening
   before event dispatch and storage.
 * Single-use embed/trusted tokens are consumed only after validation succeeds.
 
+Outbound POST / SSRF policy
+---------------------------
+
+Survey POST actions can send the accepted submission, the latest form schema
+and the survey URL to ``post_endpoint_url``. The automatic submission
+subscriber and the results-page manual POST both call the same validator
+before making the request. The action is skipped or refused when the survey
+does not enable ``post``, no endpoint is configured, or the endpoint fails
+validation.
+
+The validator applies these checks in both ``public`` and ``allowlist`` mode:
+
+* The URL must use ``http`` or ``https`` and must not contain username or
+  password credentials.
+* The hostname is resolved before the request. Every returned address is
+  checked, and any private, loopback, link-local, multicast, reserved or
+  unspecified address is rejected.
+* DNS failures, invalid ports, empty hostnames and hostnames with no resolved
+  addresses fail closed. In ``allowlist`` mode, the hostname must additionally
+  match the configured exact or ``*.suffix`` allowlist entry.
+* Requests use a 10-second timeout and do not follow redirects. A rejected
+  automatic POST is logged and skipped; a rejected manual POST reports that
+  the configured endpoint is not allowed and returns to the results page.
+
 The complete validation contract is documented in
 :doc:`validation`; the requirement-by-requirement evidence is in
 ``SUBMISSION_VALIDATION_REQUIREMENTS.md``.
@@ -299,7 +336,6 @@ The following remain separate work items unless implemented elsewhere:
 
 * CSRF enforcement in the public JSON view itself, or publisher-level tests
   proving the surrounding Plone protection layer;
-* SSRF validation for configured ``post_endpoint_url`` destinations;
 * output encoding for stored values rendered by result views;
 * rate limiting, quotas, bot controls, dependency pinning and key rotation.
 

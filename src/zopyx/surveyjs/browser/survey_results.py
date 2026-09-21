@@ -10,6 +10,11 @@ from zope.annotation.interfaces import IAnnotations
 
 from .. import _
 from ..storage import _get_storage_location, get_result_storage
+from ..ssrf import (
+    POST_ENDPOINT_TIMEOUT,
+    get_post_endpoint_policy,
+    validate_post_endpoint_url,
+)
 from ..utils import ensure_timezone_aware, resolve_mail_settings
 from .services import results as results_service
 from .services.http import json_error, json_response, parse_json_body
@@ -336,6 +341,18 @@ class SurveyResults(Views):
                 self.context.absolute_url() + "/results"
             )
 
+        try:
+            endpoint_url = validate_post_endpoint_url(
+                endpoint_url, **get_post_endpoint_policy()
+            )
+        except ValueError:
+            plone.api.portal.show_message(
+                _("Configured POST endpoint is not allowed"), type="error"
+            )
+            return self.request.response.redirect(
+                self.context.absolute_url() + "/results"
+            )
+
         storage = get_result_storage(self.context)
         result_data = storage.get_result(self.context, poll_id)
 
@@ -366,7 +383,12 @@ class SurveyResults(Views):
         }
 
         try:
-            response = httpx.post(endpoint_url, json=payload, timeout=10.0)
+            response = httpx.post(
+                endpoint_url,
+                json=payload,
+                timeout=POST_ENDPOINT_TIMEOUT,
+                follow_redirects=False,
+            )
             response.raise_for_status()
             plone.api.portal.show_message(
                 _(
