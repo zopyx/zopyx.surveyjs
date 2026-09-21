@@ -5,6 +5,13 @@ Changelog
 1.0b3 (unreleased)
 ------------------
 
+- Add configurable outbound POST endpoint policies under the Forms control
+  panel's Security fieldset. The default public-endpoint policy blocks private
+  and special-use destinations; strict allowlist mode accepts exact hostnames
+  and ``*.suffix`` patterns only. Redirects are disabled and outbound POSTs
+  use a bounded timeout.
+- Return HTTP 405 for unsupported methods on the public form JSON and
+  submission endpoints instead of exposing 500 ``AttributeError`` responses.
 - Fix the ZODB conflict → replay 403 cascade in ``@@save-poll`` (issue #35).
   The ``received:`` auth-token replay marker is written when the token is
   accepted, before the submission is stored. A ZODB ``ConflictError`` makes
