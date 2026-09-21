@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.0b3 (unreleased)
-------------------
+1.0b3 (released 2026-09-21)
+----------------------------
 
 - Add configurable outbound POST endpoint policies under the Forms control
   panel's Security fieldset. The default public-endpoint policy blocks private
