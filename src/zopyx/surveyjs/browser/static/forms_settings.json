@@ -1417,6 +1417,26 @@
       },
       "elements": [
         {
+          "type": "dropdown",
+          "name": "post_endpoint_validation_mode",
+          "title": "Outbound POST endpoint policy",
+          "description": "Use the current public-endpoint policy or require configured hosts.",
+          "choices": [
+            { "value": "public", "text": "Public endpoints (block private networks)" },
+            { "value": "allowlist", "text": "Allowlist only" }
+          ],
+          "defaultValue": "public",
+          "minWidth": "100%"
+        },
+        {
+          "type": "comment",
+          "name": "post_endpoint_allowlist",
+          "title": "Allowed POST endpoint hostnames",
+          "description": "One exact hostname per line. Wildcards such as *.example.com are supported in allowlist mode.",
+          "visibleIf": "{post_endpoint_validation_mode} = 'allowlist'",
+          "minWidth": "100%"
+        },
+        {
           "type": "boolean",
           "name": "authenticity_token_enabled",
           "title": {

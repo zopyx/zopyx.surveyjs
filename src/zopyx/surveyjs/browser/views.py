@@ -196,8 +196,7 @@ class RootRedirect(BrowserView):
 
 
 class Views(BrowserView):
-    def _check_post_authenticator(self):
-        """Validate Plone's CSRF token for mutating POST requests."""
+    def _request_method(self) -> str:
         request_get = getattr(self.request, "get", None)
         method = getattr(self.request, "method", None)
         if not method:
@@ -206,7 +205,11 @@ class Views(BrowserView):
                 if callable(request_get)
                 else getattr(self.request, "REQUEST_METHOD", "GET")
             )
-        if str(method).upper() == "POST":
+        return str(method).upper()
+
+    def _check_post_authenticator(self):
+        """Validate Plone's CSRF token for mutating POST requests."""
+        if self._request_method() == "POST":
             CheckAuthenticator(self.request)
 
     @staticmethod
@@ -529,6 +532,10 @@ class Views(BrowserView):
     def get_form_json(self):
         """JSON for SurveyJS renderer"""
 
+        if self._request_method() != "GET":
+            json_error(self.request.response, 405, "method_not_allowed")
+            return
+
         if not self._require_trusted_access():
             return
         annos = IAnnotations(self.context)
@@ -572,6 +579,10 @@ class Views(BrowserView):
         json_response(self.request.response, dict(isSuccess=True))
 
     def save_poll(self):
+        if self._request_method() not in {"POST", "OPTIONS"}:
+            json_error(self.request.response, 405, "method_not_allowed")
+            return
+
         self._check_post_authenticator()
         # Measure total server-side processing time of this submission
         # (payload parsing, validation, storage) for the monitor dashboard.

@@ -110,6 +110,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self, form: Dict[str, Any] | None = None, body: bytes | None = None
     ):
         request = _CompatibleTestRequest(form=form or {})
+        if form and "pollResult" in form:
+            request["REQUEST_METHOD"] = "POST"
         if body is not None:
             request["BODY"] = body
         return request
@@ -202,6 +204,26 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         view_get.get_form_json()
         data = orjson.loads(req_get.response.consumeBody())
         self.assertEqual(data["pages"][0]["elements"][0]["name"], "q1")
+
+    def test_get_form_json_rejects_non_get_methods(self) -> None:
+        request = self._make_request()
+        request["REQUEST_METHOD"] = "POST"
+
+        Views(self.survey, request).get_form_json()
+
+        self.assertEqual(request.response.getStatus(), 405)
+        body = orjson.loads(request.response.consumeBody())
+        self.assertEqual(body["error"], "method_not_allowed")
+
+    def test_save_poll_rejects_non_post_methods(self) -> None:
+        request = self._make_request()
+        request["REQUEST_METHOD"] = "GET"
+
+        Views(self.survey, request).save_poll()
+
+        self.assertEqual(request.response.getStatus(), 405)
+        body = orjson.loads(request.response.consumeBody())
+        self.assertEqual(body["error"], "method_not_allowed")
 
     @unittest.skip("direct TestRequest invocation bypasses publisher CSRF enforcement")
     def test_save_form_json_requires_csrf_token(self) -> None:

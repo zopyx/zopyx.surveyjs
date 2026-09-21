@@ -171,6 +171,8 @@ class IFormsSettings(IPloneLoggingSettings):
         "security",
         label="Security",
         fields=(
+            "post_endpoint_validation_mode",
+            "post_endpoint_allowlist",
             "authenticity_token_enabled",
             "authenticity_token_secret",
             "authenticity_token_ttl_seconds",
@@ -446,6 +448,28 @@ class IFormsSettings(IPloneLoggingSettings):
         description="When enabled, require a short-lived authenticity token for form submissions.",
         required=False,
         default=True,
+    )
+
+    post_endpoint_validation_mode = schema.Choice(
+        title="POST endpoint validation",
+        description=(
+            "Use public-endpoint validation, or require every POST endpoint "
+            "hostname to match the allowlist below."
+        ),
+        required=False,
+        default="public",
+        values=("public", "allowlist"),
+    )
+
+    post_endpoint_allowlist = schema.List(
+        title="POST endpoint allowlist",
+        description=(
+            "Allowed endpoint hostnames, one per line. Use an exact hostname "
+            "or a wildcard such as *.example.com. Used in strict allowlist mode."
+        ),
+        value_type=schema.TextLine(title="Hostname or pattern", required=False),
+        required=False,
+        defaultFactory=list,
     )
 
     authenticity_token_secret = schema.Password(

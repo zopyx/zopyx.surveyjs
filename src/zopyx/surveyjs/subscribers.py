@@ -48,6 +48,11 @@ from plone.dexterity.interfaces import IDexterityFTI, IDexterityContent
 
 from .constants import FORM_VERSIONS_KEY
 from .storage import _get_storage_location, get_result_storage
+from .ssrf import (
+    POST_ENDPOINT_TIMEOUT,
+    get_post_endpoint_policy,
+    validate_post_endpoint_url,
+)
 from .utils import ensure_timezone_aware, resolve_mail_settings
 from .audit import audit_metadata_update, audit_controlpanel_change
 from .content.survey import Counter
@@ -546,6 +551,14 @@ def post_submission_payload(context, event):
         )
         return
 
+    try:
+        endpoint_url = validate_post_endpoint_url(
+            endpoint_url, **get_post_endpoint_policy()
+        )
+    except ValueError as exc:
+        logger.warning("Refusing unsafe POST endpoint for survey: %s", exc)
+        return
+
     poll_entry = event.form_data or {}
     poll_id = poll_entry.get("poll_id") or str(uuid.uuid1())
     created = poll_entry.get("created")
@@ -568,7 +581,12 @@ def post_submission_payload(context, event):
     }
 
     try:
-        response = httpx.post(endpoint_url, json=payload, timeout=10.0)
+        response = httpx.post(
+            endpoint_url,
+            json=payload,
+            timeout=POST_ENDPOINT_TIMEOUT,
+            follow_redirects=False,
+        )
         response.raise_for_status()
         logger.info(
             "Submission POSTed for poll %s with status %s",

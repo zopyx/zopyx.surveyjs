@@ -144,12 +144,26 @@ class SubscribersIntegrationTests(unittest.TestCase):
         with patch(
             "zopyx.surveyjs.subscribers.httpx.post", return_value=response
         ) as post:
-            subscribers.post_submission_payload(self.survey, event)
+            with patch(
+                "zopyx.surveyjs.subscribers.validate_post_endpoint_url",
+                return_value="https://example.com/post",
+            ):
+                subscribers.post_submission_payload(self.survey, event)
 
         payload = post.call_args.kwargs["json"]
         self.assertEqual(payload["poll"]["poll_id"], "poll-42")
         self.assertEqual(payload["form"], {"pages": []})
         self.assertEqual(payload["survey_url"], self.survey.absolute_url())
+        self.assertEqual(post.call_args.kwargs["timeout"], 10.0)
+        self.assertFalse(post.call_args.kwargs["follow_redirects"])
+
+    def test_post_submission_payload_rejects_private_endpoint(self) -> None:
+        self.survey.actions = {"post"}
+        self.survey.post_endpoint_url = "http://127.0.0.1/internal"
+        event = DummyEvent({"poll_id": "poll-42"})
+        with patch("zopyx.surveyjs.subscribers.httpx.post") as post:
+            subscribers.post_submission_payload(self.survey, event)
+        post.assert_not_called()
 
     def test_store_submission_result_records_metadata(self) -> None:
         self.survey.actions = {"store"}

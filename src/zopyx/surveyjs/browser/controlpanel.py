@@ -149,6 +149,13 @@ class FormsSettingsView(BrowserView):
             "kv_cache_lock_timeout_seconds": float(
                 getattr(settings, "kv_cache_lock_timeout_seconds", 5.0)
             ),
+            "post_endpoint_validation_mode": getattr(
+                settings, "post_endpoint_validation_mode", "public"
+            )
+            or "public",
+            "post_endpoint_allowlist": "\n".join(
+                getattr(settings, "post_endpoint_allowlist", None) or []
+            ),
             "authenticity_token_enabled": bool(
                 getattr(settings, "authenticity_token_enabled", True)
             ),
@@ -263,6 +270,16 @@ class FormsSettingsView(BrowserView):
                     errors.append("Caching lock timeout cannot be negative.")
             except (TypeError, ValueError):
                 errors.append("Caching lock timeout must be a valid number.")
+
+        endpoint_mode = data.get("post_endpoint_validation_mode", "public")
+        if endpoint_mode not in {"public", "allowlist"}:
+            errors.append("POST endpoint validation must be public or allowlist.")
+        elif endpoint_mode == "allowlist":
+            allowlist = data.get("post_endpoint_allowlist", "") or ""
+            if not any(line.strip() for line in allowlist.splitlines()):
+                errors.append(
+                    "At least one POST endpoint hostname is required in allowlist mode."
+                )
 
         # Validate AI provider group completeness (mutually exclusive modes)
         provider = data.get("ai_provider", "installed")
@@ -384,6 +401,17 @@ class FormsSettingsView(BrowserView):
             )
         except (ValueError, TypeError):
             set_value("kv_cache_lock_timeout_seconds", 5.0)
+
+        endpoint_mode = data.get("post_endpoint_validation_mode", "public")
+        set_value(
+            "post_endpoint_validation_mode",
+            endpoint_mode if endpoint_mode in {"public", "allowlist"} else "public",
+        )
+        endpoint_allowlist = data.get("post_endpoint_allowlist", "") or ""
+        set_value(
+            "post_endpoint_allowlist",
+            [line.strip() for line in endpoint_allowlist.splitlines() if line.strip()],
+        )
 
         # Security settings
         set_value(

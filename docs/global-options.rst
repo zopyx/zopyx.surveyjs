@@ -289,6 +289,19 @@ Security
      - Filesystem path of the diskcache used to store token metadata.
        Default: ``var/token_cache.db``. The path must be writable by the
        Plone process and should not be publicly accessible.
+   * - POST endpoint validation
+     - Policy for outbound POST endpoints configured on surveys. ``public``
+       (default) permits hostnames that resolve only to public addresses;
+       ``allowlist`` additionally requires the hostname to match an entry in
+       the POST endpoint allowlist. Both modes accept only HTTP and HTTPS
+       URLs and reject endpoints that resolve to private or other special-use
+       addresses.
+   * - POST endpoint allowlist
+     - Hostnames allowed in ``allowlist`` mode, one per line. Entries may be
+       exact hostnames (for example, ``hooks.example.com``) or subdomain
+       patterns such as ``*.example.com``. At least one non-empty entry is
+       required when allowlist mode is selected. The list is ignored in
+       ``public`` mode.
 
 Direct DOM Embedding
 --------------------

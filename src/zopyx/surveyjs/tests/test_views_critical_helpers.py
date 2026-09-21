@@ -20,6 +20,7 @@ class ViewsCoverageTests(unittest.TestCase):
         view.request = MagicMock()
         view.request.form = {}
         view.request.response = MagicMock()
+        view.request.method = "POST"
         view.request.get.return_value = "GET"
         view.request.get_header.return_value = None
         view.request.getHeader.return_value = None
@@ -125,6 +126,7 @@ class ViewsCoverageTests(unittest.TestCase):
             view.save_poll()
             self.assertEqual(error.call_args.args[2], "invalid_json")
         view.request.form = {"pollResult": "{}"}
+        view.request.method = "OPTIONS"
         view.request.get_header.side_effect = (
             lambda name: "https://app.example" if name == "Origin" else None
         )
