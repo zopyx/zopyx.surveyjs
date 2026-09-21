@@ -1,7 +1,8 @@
 """Initialize a demo Plone site with zopyx.surveyjs installed.
 
 This script creates a demo Plone site with:
-- Barceloneta enabled and a published logo image for the welcome page
+- Barceloneta enabled, a published logo image for the welcome page and the PFS
+  shield as the 80x80 Plone site logo in the header
 - Addable types limited to Folder, Document, Survey
 - Demo surveys seeded from JSON files under scripts/forms/
 - Intro texts loaded from HTML snippets under scripts/forms/
@@ -14,9 +15,14 @@ Run it in a Plone instance interpreter, e.g.:
 
 from AccessControl.SecurityManagement import newSecurityManager
 from BTrees.OOBTree import OOBTree
+from io import BytesIO
+from PIL import Image
 from plone.app.textfield.value import RichTextValue
 from plone.api.exc import InvalidParameterError
 from plone.app.theming.browser.controlpanel import ThemingControlpanel
+from plone.base.interfaces import ISiteSchema
+from plone.formwidget.namedfile.converter import b64encode_file
+from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.factory import addPloneSite
 from datetime import datetime, timezone
 import os
@@ -46,6 +52,8 @@ from plone.portlets.interfaces import (
 SITE_ID = "demo"
 ADMIN = "admin2"
 BUILD_TIMESTAMP = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+# Edge length of the square site logo used in the Plone header.
+SITE_LOGO_SIZE = 80
 
 
 def _resolve_forms_path():
@@ -69,6 +77,43 @@ def _resolve_forms_path():
 
 FORMS_PATH = _resolve_forms_path()
 ROOT_PATH = Path(__file__).resolve().parent.parent
+
+
+def build_site_logo_png(data, size=SITE_LOGO_SIZE):
+    """Return a ``size`` x ``size`` PNG holding the PFS shield icon.
+
+    The shipped logo stacks the square shield above the "privacyforms.studio"
+    wordmark; at 80x80 the wordmark would be an unreadable smudge, so only the
+    icon is kept, centered on a transparent square canvas. Falls back to
+    fitting the whole logo into the square if the two parts cannot be split.
+    """
+    source = Image.open(BytesIO(data)).convert("RGBA")
+    bbox = source.getbbox()
+    if bbox:
+        source = source.crop(bbox)
+
+    # The gap between icon and wordmark is the first fully transparent row
+    # below the upper quarter of the image.
+    alpha = source.split()[-1]
+    width, height = source.size
+    split = None
+    for y in range(int(height * 0.25), height):
+        if alpha.crop((0, y, width, y + 1)).getbbox() is None:
+            split = y
+            break
+
+    icon = source.crop((0, 0, width, split)) if split else source
+    icon = icon.crop(icon.getbbox() or (0, 0, icon.width, icon.height))
+
+    side = max(icon.size)
+    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    canvas.paste(icon, ((side - icon.width) // 2, (side - icon.height) // 2))
+
+    out = BytesIO()
+    canvas.resize((size, size), Image.Resampling.LANCZOS).save(
+        out, format="PNG", optimize=True
+    )
+    return out.getvalue()
 
 
 def load_env_file():
@@ -664,7 +709,9 @@ enable_language_selector()
 remove_navigation_portlets(site)
 remove_home_tab(site)
 
-# Create logo as Image content object (transparent cropped version)
+# Create logo as Image content object (transparent cropped version) and derive
+# the Plone site logo from the same file (registry record `plone.site_logo`), so
+# the header renders the PFS logo instead of the default Plone logo.
 logo_path = Path(os.getcwd()) / "scripts" / "logos" / "logo-with-text-cropped-transparent.png"
 if logo_path.exists():
     logo_image = api.content.create(
@@ -675,9 +722,28 @@ if logo_path.exists():
         image=NamedBlobImage(data=logo_path.read_bytes(), filename="logo.png"),
     )
     logo_image.reindexObject()
+
+    # `plone.site_logo` stores a base64 encoded filename + payload, the same
+    # format the site control panel writes when a logo is uploaded. The header
+    # gets the small square icon (SITE_LOGO_SIZE), the full-size logo stays
+    # available as the /demo/logo Image for the welcome pages.
+    registry = getUtility(IRegistry)
+    if "plone.site_logo" not in registry:
+        registry.registerInterface(ISiteSchema, prefix="plone")
+    site_settings = registry.forInterface(ISiteSchema, prefix="plone", check=False)
+    site_logo_png = build_site_logo_png(logo_path.read_bytes())
+    site_settings.site_logo = b64encode_file("logo.png", site_logo_png)
+
     print("Created logo as Image content object (transparent cropped)")
+    print(
+        f"Configured PFS logo as Plone site logo (plone.site_logo, "
+        f"{SITE_LOGO_SIZE}x{SITE_LOGO_SIZE})"
+    )
 else:
-    print(f"Logo not found at {logo_path}; skipping logo image creation")
+    print(
+        f"Logo not found at {logo_path}; skipping logo image creation "
+        "and site logo configuration"
+    )
 
 # Create surveyjs.png as Image content object
 surveyjs_logo_path = Path(os.getcwd()) / "scripts" / "surveyjs.png"
