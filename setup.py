@@ -111,6 +111,9 @@ setup(
             # plone_coredev tests as of 2016-04-01.
             "plone.testing>=5.0.0",
             "plone.app.contenttypes",
+            # Required by plone.app.contenttypes.testing (imported by our
+            # testing.py), even though no Robot test uses it any more.
+            "plone.app.robotframework[debug]",
             #            "collective.z3cform.jsonwidget",
             "orjson",
             "diskcache",

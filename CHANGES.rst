@@ -68,10 +68,11 @@ Changelog
 - Remove the unused Robot Framework scaffold: ``tests/test_robot.py``, the
   two ``tests/robot/*.robot`` files (plone/Dexterity boilerplate), the
   ``ZOPYX_SURVEYJS_ACCEPTANCE_TESTING`` layer with its
-  ``plone.app.robotframework``/``zserver`` fixture bases,
-  the ``plone.app.robotframework[debug]`` test dependency and the ``robot``
+  ``plone.app.robotframework``/``zserver`` fixture bases and the ``robot``
   buildout part. No workflow, Makefile target or documentation ever used
-  them.
+  them. The ``plone.app.robotframework[debug]`` *test* dependency stays: it
+  is imported by ``plone.app.contenttypes.testing``, which ``testing.py``
+  builds on.
 
 
 1.0b3 (released 2026-09-21)
