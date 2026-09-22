@@ -178,7 +178,6 @@ class IFormsSettings(IPloneLoggingSettings):
             "authenticity_token_ttl_seconds",
             "authenticity_token_issuer",
             "authenticity_token_audience",
-            "authenticity_token_cache_path",
         ),
     )
 
@@ -499,13 +498,6 @@ class IFormsSettings(IPloneLoggingSettings):
         description="Audience claim for authenticity tokens.",
         required=False,
         default="privacyforms.studio",
-    )
-
-    authenticity_token_cache_path = schema.TextLine(
-        title="Authenticity token cache path",
-        description="Filesystem path for diskcache storage.",
-        required=False,
-        default="var/token_cache.db",
     )
 
     # Direct DOM Embedding settings

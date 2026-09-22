@@ -18,7 +18,6 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import TestRequest
-from zope.security.interfaces import Unauthorized
 from plone.protect.authenticator import createToken
 
 from zopyx.surveyjs.browser.ai import AIView
@@ -148,7 +147,13 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         annos[RESULTS_KEY][poll_id] = entry
         return entry
 
-    def _enable_auth_tokens(self, cache_path: str | None = None) -> IFormsSettings:
+    def _set_kv_cache_directory(self, settings, cache_dir: str) -> None:
+        """Point the KV cache at a temporary directory for this test."""
+        previous = settings.kv_cache_directory
+        settings.kv_cache_directory = cache_dir
+        self.addCleanup(setattr, settings, "kv_cache_directory", previous)
+
+    def _enable_auth_tokens(self, cache_dir: str | None = None) -> IFormsSettings:
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
         settings.authenticity_token_enabled = True
@@ -156,16 +161,16 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         settings.authenticity_token_issuer = "test-issuer"
         settings.authenticity_token_audience = "test-audience"
         settings.authenticity_token_ttl_seconds = 600
-        if cache_path:
-            settings.authenticity_token_cache_path = cache_path
+        if cache_dir:
+            self._set_kv_cache_directory(settings, cache_dir)
         return settings
 
-    def _enable_trusted_access(self, cache_path: str | None = None) -> IFormsSettings:
+    def _enable_trusted_access(self, cache_dir: str | None = None) -> IFormsSettings:
         self.survey.access_mode = "trusted"
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
-        if cache_path:
-            settings.authenticity_token_cache_path = cache_path
+        if cache_dir:
+            self._set_kv_cache_directory(settings, cache_dir)
         return settings
 
     def _submit_poll(self, token: str):
@@ -225,15 +230,6 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         body = orjson.loads(request.response.consumeBody())
         self.assertEqual(body["error"], "method_not_allowed")
 
-    @unittest.skip("direct TestRequest invocation bypasses publisher CSRF enforcement")
-    def test_save_form_json_requires_csrf_token(self) -> None:
-        payload = {"pages": [{"elements": [{"type": "text", "name": "q1"}]}]}
-        req = self._make_request(form={"surveyText": orjson.dumps(payload)})
-        req["REQUEST_METHOD"] = "POST"
-
-        with self.assertRaises(Unauthorized):
-            Views(self.survey, req).save_form_json()
-
     def test_save_poll_stores_when_enabled(self) -> None:
         self._add_version()
         req = self._make_request(form={"pollResult": orjson.dumps({"q1": "yes"})})
@@ -245,15 +241,6 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertEqual(stored.get("site_id"), self.portal.getId())
         body = orjson.loads(req.response.consumeBody())
         self.assertTrue(body["isSuccess"])
-
-    @unittest.skip("direct TestRequest invocation bypasses publisher CSRF enforcement")
-    def test_save_poll_requires_csrf_token_on_post(self) -> None:
-        self._add_version()
-        req = self._make_request(form={"pollResult": orjson.dumps({"q1": "yes"})})
-        req["REQUEST_METHOD"] = "POST"
-
-        with self.assertRaises(Unauthorized):
-            Views(self.survey, req).save_poll()
 
     def test_save_poll_uses_sql_backend(self) -> None:
         self._add_version()
@@ -404,31 +391,6 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         finally:
             settings.authenticity_token_enabled = False
 
-    @unittest.skip("legacy trusted-access expectation predates current access mode")
-    def test_get_form_json_requires_trusted_access_token(self) -> None:
-        self._add_version()
-        self.survey.access_mode = "trusted"
-        req = self._make_request()
-        Views(self.survey, req).get_form_json()
-        self.assertEqual(req.response.getStatus(), 403)
-        body = orjson.loads(req.response.consumeBody())
-        self.assertEqual(body["error"], "trusted_access_token_missing")
-
-    @unittest.skip("legacy trusted-access issuing API was removed")
-    def test_get_form_json_accepts_trusted_access_token(self) -> None:
-        version_id = self._add_version()
-        with TemporaryDirectory() as tmpdir:
-            cache_path = os.path.join(tmpdir, "token_cache.db")
-            settings = self._enable_trusted_access(cache_path=cache_path)
-            view = Views(self.survey, self._make_request())
-            token, _metadata = view._issue_trusted_access_token(settings, version_id)
-            req = self._make_request(form={"access_token": token})
-            Views(self.survey, req).get_form_json()
-            self.assertEqual(req.response.getStatus(), 200)
-            body = orjson.loads(req.response.consumeBody())
-            self.assertIn("pages", body)
-            settings.authenticity_token_enabled = False
-
     def test_save_poll_rejects_invalid_auth_token_when_enabled(self) -> None:
         settings = self._enable_auth_tokens()
         version_id = self._add_version()
@@ -458,8 +420,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     def test_auth_token_cache_records_issued(self) -> None:
         self._add_version()
         with TemporaryDirectory() as tmpdir:
-            cache_path = os.path.join(tmpdir, "token_cache.db")
-            settings = self._enable_auth_tokens(cache_path=cache_path)
+            cache_path = os.path.join(tmpdir, "auth")
+            settings = self._enable_auth_tokens(cache_dir=tmpdir)
             view = Views(self.survey, self._make_request())
             token = view.auth_token()
             cache = diskcache.Cache(cache_path)
@@ -472,8 +434,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     def test_save_poll_rejects_replayed_token(self) -> None:
         version_id = self._add_version()
         with TemporaryDirectory() as tmpdir:
-            cache_path = os.path.join(tmpdir, "token_cache.db")
-            settings = self._enable_auth_tokens(cache_path=cache_path)
+            settings = self._enable_auth_tokens(cache_dir=tmpdir)
             view = Views(self.survey, self._make_request())
             token = build_auth_token(
                 form_id=view._form_id(),
@@ -508,8 +469,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
     def test_save_poll_caches_received_token(self) -> None:
         version_id = self._add_version()
         with TemporaryDirectory() as tmpdir:
-            cache_path = os.path.join(tmpdir, "token_cache.db")
-            settings = self._enable_auth_tokens(cache_path=cache_path)
+            cache_path = os.path.join(tmpdir, "auth")
+            settings = self._enable_auth_tokens(cache_dir=tmpdir)
             view = Views(self.survey, self._make_request())
             token = build_auth_token(
                 form_id=view._form_id(),
@@ -545,8 +506,8 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         """
         version_id = self._add_version()
         with TemporaryDirectory() as tmpdir:
-            cache_path = os.path.join(tmpdir, "token_cache.db")
-            settings = self._enable_auth_tokens(cache_path=cache_path)
+            cache_path = os.path.join(tmpdir, "auth")
+            settings = self._enable_auth_tokens(cache_dir=tmpdir)
             view = Views(self.survey, self._make_request())
             token = build_auth_token(
                 form_id=view._form_id(),
@@ -567,12 +528,6 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             finally:
                 settings.authenticity_token_enabled = False
 
-    def test_parse_json_loose_fallback(self) -> None:
-        req = self._make_request()
-        view = Views(self.survey, req)
-        parsed = view._parse_json_loose('prefix {"answer": 42} suffix')
-        self.assertEqual(parsed, {"answer": 42})
-
     def test_dashboard_view_renders_for_manager(self) -> None:
         view = self.survey.restrictedTraverse("@@dashboard")
         html = view()
@@ -586,22 +541,10 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         html = view()
         self.assertIn("Metadata", html)
 
-    @unittest.skip("legacy dashboard permission test uses removed view API")
-    def test_dashboard_view_forbidden_for_non_manager(self) -> None:
-        setRoles(self.portal, TEST_USER_ID, ["Member"])
-        with self.assertRaises(Unauthorized):
-            self.survey.restrictedTraverse("@@dashboard")()
-
     def test_pdf_generator_view_renders_for_manager(self) -> None:
         view = self.survey.restrictedTraverse("@@pfs-generator")
         html = view()
         self.assertIn("PDF generator", html)
-
-    @unittest.skip("legacy PDF view permission test uses current Zope traversal rules")
-    def test_pdf_generator_view_forbidden_for_non_manager(self) -> None:
-        setRoles(self.portal, TEST_USER_ID, ["Member"])
-        with self.assertRaises(Unauthorized):
-            self.survey.restrictedTraverse("@@pfs-generator")()
 
     def test_ai_view_renders_empty_chat_panel_without_temp_form(self) -> None:
         view = self.survey.restrictedTraverse("@@ai")
@@ -878,29 +821,3 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self.assertIn("Feature disabled, access forbidden.", body)
         self.assertNotIn(self.survey.title, body)
         self.assertNotIn(self.survey.description, body)
-
-    @unittest.skip("legacy feature-guard template test targets obsolete request API")
-    def test_feature_guards_redirect_and_allow_access(self) -> None:
-        view_specs = [
-            ("dashboard", "dashboard", "Survey data dashboard"),
-            ("pdf-generator", "pdf-generator", "PDF generator"),
-        ]
-
-        for view_name, feature_key, expected_text in view_specs:
-            with self.subTest(view=view_name, state="disabled"):
-                self._set_features([])
-                req = self._make_request()
-                view = api.content.get_view(view_name, self.survey, req)
-                view()
-                self.assertEqual(req.response.getStatus(), 302)
-                location = req.response.getHeader("location") or ""
-                self.assertIn("/@@feature-disabled", location)
-
-            with self.subTest(view=view_name, state="enabled"):
-                self._set_features([feature_key])
-                req = self._make_request()
-                view = api.content.get_view(view_name, self.survey, req)
-                body = view()
-                self.assertEqual(req.response.getStatus(), 200)
-                self.assertIsNone(req.response.getHeader("location"))
-                self.assertIn(expected_text, body)

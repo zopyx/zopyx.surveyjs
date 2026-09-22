@@ -46,9 +46,8 @@ the three modes are **mutually exclusive**:
 
 The resolver is ``build_llm_model()`` in ``browser/services/ai.py``; a
 settings dict from ``load_ai_settings()`` is turned into a concrete
-``llm`` model instance. On legacy installs without an explicit provider
-selection, the provider is derived from the populated fields (Ollama URL
-wins, then custom URL, otherwise installed).
+``llm`` model instance. The stored provider selection decides which fields
+are used; ``installed`` is the default.
 
 Prompt pipeline
 ---------------
@@ -64,8 +63,11 @@ structured prompt:
    suitable field types, readable names, validation where the prompt makes
    requirements obvious, and "ready to edit in SurveyJS Creator".
 3. The global **Prompt before / Prompt after** settings wrap the author's
-   text, so site-wide conventions (tone, mandatory sections, output
-   constraints) apply to every generation.
+   text for prompt-based creation and for refinement, so site-wide
+   conventions (tone, mandatory sections, output constraints) apply to
+   every request. **Prompt default** only prefills the prompt field of an
+   empty AI workspace; it is never sent on its own. Document conversion
+   uses its own instruction set and is not wrapped.
 4. For **refinement**, the current form JSON is embedded into the prompt
    and the model is asked to return the *full updated* JSON — not a diff.
 5. The response is parsed tolerantly: ``extract_json_text()`` pulls the

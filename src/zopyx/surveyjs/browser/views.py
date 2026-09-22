@@ -71,17 +71,6 @@ CONVERTER_FORMATS = [
 ]
 
 
-def _extract_json_object(raw_text: str) -> str | None:
-    """Best-effort extraction of a JSON object from noisy text."""
-    if not raw_text:
-        return None
-    start = raw_text.find("{")
-    end = raw_text.rfind("}")
-    if start == -1 or end == -1 or end <= start:
-        return None
-    return raw_text[start : end + 1]
-
-
 def _mask_storage_location(location: str) -> str:
     if location == "zodb":
         return "Plone (ZODB)"
@@ -92,15 +81,6 @@ def _mask_storage_location(location: str) -> str:
     if url.password:
         url = url.set(password="****")
     return url.render_as_string(hide_password=False)
-
-
-def _find_sample_forms_dir() -> Path | None:
-    start = Path(__file__).resolve()
-    for parent in start.parents:
-        candidate = parent / "sample_forms"
-        if candidate.is_dir():
-            return candidate
-    return None
 
 
 def _run_external_validation(form_json, poll_result, submission_hash: str):
@@ -951,13 +931,6 @@ class Views(BrowserView):
         plone.api.portal.show_message(_("Results cleared"))
         self.request.response.redirect(self.context.absolute_url() + "/view")
 
-    def get_polls_json(self):
-        """get polls"""
-        storage = get_result_storage(self.context)
-        results = storage.list_results(self.context)
-
-        json_response(self.request.response, results)
-
     def get_polls_json2(self):
         """get polls"""
         storage = get_result_storage(self.context)
@@ -1075,17 +1048,6 @@ class Views(BrowserView):
             dict(key=key, label=label, short_label=label.split(" (", 1)[0])
             for key, label, ext, _content_type in CONVERTER_FORMATS
         ]
-
-    def _parse_json_loose(self, raw_text: str) -> dict:
-        """Try strict JSON first, then a bracket-extracted fallback."""
-        cleaned = raw_text or ""
-        try:
-            return orjson.loads(cleaned)
-        except orjson.JSONDecodeError:
-            fallback = _extract_json_object(cleaned)
-            if fallback:
-                return orjson.loads(fallback)
-            raise
 
     def _get_converter_format(self, format_key):
         for key, label, ext, content_type in CONVERTER_FORMATS:

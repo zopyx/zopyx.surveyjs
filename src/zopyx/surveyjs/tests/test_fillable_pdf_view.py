@@ -70,13 +70,13 @@ class FillablePDFViewTests(unittest.TestCase):
                 [p["name"] for p in self.view.json_form_properties], ["name", "ok"]
             )
 
-    def test_pdf_fields_uses_inline_extraction_and_marks_json_matches(self):
+    def test_pdf_fields_marks_json_matches_and_adds_input_types(self):
         pdf = MagicMock(data=b"pdf")
         self.view.context.fillable_pdf = pdf
         with (
             patch.object(
                 self.view,
-                "_extract_pdf_fields_inline",
+                "_extract_fields_with_privacyforms_pdf",
                 return_value=[
                     {"name": "name", "type": "text"},
                     {"name": "other", "type": "text"},
@@ -86,17 +86,19 @@ class FillablePDFViewTests(unittest.TestCase):
                 self.view, "_get_json_form_field_names", return_value={"name"}
             ),
         ):
-            with patch.object(fillable_pdf, "PRIVACYFORMS_PDF_AVAILABLE", False):
-                fields = self.view.pdf_fields
+            fields = self.view.pdf_fields
         self.assertTrue(fields[0]["exists_in_json_form"])
         self.assertFalse(fields[1]["exists_in_json_form"])
         self.view.context.fillable_pdf = pdf
         with (
-            patch.object(self.view, "_extract_pdf_fields_inline", return_value=fields),
+            patch.object(
+                self.view,
+                "_extract_fields_with_privacyforms_pdf",
+                return_value=fields,
+            ),
             patch.object(
                 self.view, "_get_json_form_field_names", return_value={"name"}
             ),
-            patch.object(fillable_pdf, "PRIVACYFORMS_PDF_AVAILABLE", False),
         ):
             typed = self.view.pdf_fields_with_input_types
         self.assertEqual(typed[0]["input_type"], "text")
@@ -215,3 +217,50 @@ class FillablePDFViewTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PDFFieldExtractionTests(unittest.TestCase):
+    """The privacyforms_pdf extraction must return the dict shape the
+    fillable-PDF template and the AI field mapping rely on."""
+
+    EXPECTED_KEYS = {
+        "name",
+        "id",
+        "type",
+        "value",
+        "pages",
+        "page_num",
+        "locked",
+        "options",
+        "readonly",
+        "required",
+        "geometry",
+    }
+
+    def test_extracts_fields_from_a_real_pdf(self):
+        from pathlib import Path
+
+        data = (Path(__file__).parent / "FilledForm.pdf").read_bytes()
+        view = FillablePDFView.__new__(FillablePDFView)
+
+        fields = view._extract_fields_with_privacyforms_pdf(data)
+
+        self.assertTrue(fields)
+        for field in fields:
+            self.assertEqual(set(field), self.EXPECTED_KEYS)
+            self.assertTrue(field["name"])
+            self.assertIsInstance(field["pages"], list)
+            self.assertIsInstance(field["options"], list)
+            self.assertIsInstance(field["required"], bool)
+
+    def test_pdf_fields_returns_an_empty_list_when_extraction_fails(self):
+        view = FillablePDFView.__new__(FillablePDFView)
+        view.context = MagicMock()
+        view.context.fillable_pdf = MagicMock(data=b"%PDF-1.4\n")
+
+        with patch.object(
+            view,
+            "_extract_fields_with_privacyforms_pdf",
+            side_effect=ValueError("broken pdf"),
+        ):
+            self.assertEqual(view.pdf_fields, [])

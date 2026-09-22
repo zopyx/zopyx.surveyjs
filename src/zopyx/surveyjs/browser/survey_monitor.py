@@ -5,7 +5,6 @@ import json
 from datetime import datetime, timezone
 
 from Products.Five import BrowserView
-from zope.interface import Interface
 
 from ..monitoring import (
     TIME_WINDOWS,
@@ -16,10 +15,6 @@ from ..monitoring import (
     get_submission_stats,
 )
 from ..utils import html_safe_json
-
-
-class ISurveyMonitorView(Interface):
-    """Marker interface for survey monitor view."""
 
 
 class SurveyMonitorView(BrowserView):

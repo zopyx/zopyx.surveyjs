@@ -26,7 +26,6 @@ class AuthServiceTests(unittest.TestCase):
             authenticity_token_issuer="issuer",
             authenticity_token_audience="audience",
             authenticity_token_ttl_seconds=600,
-            authenticity_token_cache_path="",
         )
 
     def test_trusted_mode_and_token_extraction(self):
@@ -57,11 +56,7 @@ class AuthServiceTests(unittest.TestCase):
             return_value=cache,
         ) as factory:
             self.assertIs(self.service._token_cache(self.settings), cache)
-        factory.assert_called_once_with(
-            self.settings,
-            "auth",
-            legacy_diskcache_path="var/token_cache.db",
-        )
+        factory.assert_called_once_with(self.settings, "auth")
 
     def test_require_trusted_access_public_and_missing_token(self):
         self.assertTrue(self.service.require_trusted_access())

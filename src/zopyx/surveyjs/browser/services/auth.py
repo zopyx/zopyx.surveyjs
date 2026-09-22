@@ -80,20 +80,10 @@ class AuthService:
         except (TypeError, ValueError):
             return 600
 
-    def _auth_token_cache_path(self, settings):
-        """Return the diskcache path for token tracking."""
-        path = getattr(settings, "authenticity_token_cache_path", "") or ""
-        return str(path).strip() or "var/token_cache.db"
-
     def _token_cache(self, settings):
         """Open the token cache and return ``None`` if unavailable."""
-        path = self._auth_token_cache_path(settings)
         try:
-            cache = get_configured_kv_store(
-                settings,
-                "auth",
-                legacy_diskcache_path=path,
-            )
+            cache = get_configured_kv_store(settings, "auth")
             return cache
         except Exception:
             return None

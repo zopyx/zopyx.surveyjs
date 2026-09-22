@@ -577,40 +577,25 @@ def _resolve_diskcache_path(directory: str, namespace: str) -> str:
     return str(path / namespace)
 
 
-def _resolve_legacy_diskcache_path(path: str) -> str:
-    """Resolve a customized legacy cache path consistently."""
-    resolved = Path(os.path.expanduser(path))
-    if not resolved.is_absolute():
-        instance_home = os.environ.get("INSTANCE_HOME")
-        resolved = (
-            Path(instance_home) / resolved if instance_home else Path.cwd() / resolved
-        )
-    return str(resolved)
-
-
 def get_configured_kv_store(
     settings: Any,
     namespace: str,
     *,
-    legacy_diskcache_path: Optional[str] = None,
     timeout: Optional[float] = None,
 ) -> KVStore:
     """Create a configured, namespaced KV store.
 
     ``kv_cache_backend`` selects ``diskcache`` or ``rdbms``. For diskcache,
-    the configured base directory is resolved against ``INSTANCE_HOME``. The
-    legacy auth cache path remains supported when it is explicitly customized.
-    For RDBMS, ``kv_cache_database_uri`` is required and is never inferred
-    from the result-storage database URI.
+    the configured base directory is resolved against ``INSTANCE_HOME`` and
+    the namespace subdirectory is created below it. For RDBMS,
+    ``kv_cache_database_uri`` is required and is never inferred from the
+    result-storage database URI.
     """
     backend = str(getattr(settings, "kv_cache_backend", "diskcache") or "diskcache")
     backend = backend.strip().lower()
     if backend == "diskcache":
-        if legacy_diskcache_path and legacy_diskcache_path != "var/token_cache.db":
-            location = _resolve_legacy_diskcache_path(legacy_diskcache_path)
-        else:
-            directory = getattr(settings, "kv_cache_directory", "var/surveyjs-cache")
-            location = _resolve_diskcache_path(str(directory), namespace)
+        directory = getattr(settings, "kv_cache_directory", "var/surveyjs-cache")
+        location = _resolve_diskcache_path(str(directory), namespace)
         if timeout is None:
             timeout = getattr(settings, "kv_cache_lock_timeout_seconds", 5.0)
         store = get_kv_store("diskcache", location, timeout=float(timeout))

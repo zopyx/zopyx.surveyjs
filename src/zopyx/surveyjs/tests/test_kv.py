@@ -612,24 +612,18 @@ class ConfiguredKVStoreTests(unittest.TestCase):
                     Path(instance_home, "var", "surveyjs-cache", "auth").is_dir()
                 )
 
-    def test_custom_legacy_path_is_instance_home_relative(self):
+    def test_custom_diskcache_directory_is_instance_home_relative(self):
         with TemporaryDirectory() as instance_home:
             settings = SimpleNamespace(
                 kv_cache_backend="diskcache",
-                kv_cache_directory="var/surveyjs-cache",
+                kv_cache_directory="var/my-cache",
                 kv_cache_lock_timeout_seconds=5,
             )
             with patch.dict(os.environ, {"INSTANCE_HOME": instance_home}):
-                store = get_configured_kv_store(
-                    settings,
-                    "auth",
-                    legacy_diskcache_path="var/legacy-token-cache.db",
-                )
+                store = get_configured_kv_store(settings, "auth")
                 self.addCleanup(store.close)
                 store.set("received:token", "RECEIVED")
-                self.assertTrue(
-                    Path(instance_home, "var", "legacy-token-cache.db").is_dir()
-                )
+                self.assertTrue(Path(instance_home, "var", "my-cache", "auth").is_dir())
 
     def test_rdbms_configuration_uses_database_uri_and_namespace(self):
         settings = SimpleNamespace(

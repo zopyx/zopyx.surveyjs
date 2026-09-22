@@ -24,14 +24,17 @@ from plone.app.testing import (
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
+from zopyx.surveyjs.browser.ai import AIView
 from zopyx.surveyjs.browser.controlpanel import FormsSettingsView
 from zopyx.surveyjs.browser.services.ai import (
     PROVIDER_CUSTOM,
     PROVIDER_INSTALLED,
     PROVIDER_OLLAMA,
+    apply_prompt_wrapper,
     build_llm_model,
     is_configured,
     load_ai_settings,
+    load_prompt_settings,
 )
 from zopyx.surveyjs.interfaces import IFormsSettings
 from zopyx.surveyjs.testing import (  # noqa
@@ -49,6 +52,8 @@ AI_FIELDS = (
     "custom_api_url",
     "custom_api_key",
 )
+
+PROMPT_FIELDS = ("ai_prompt_before", "ai_prompt_default", "ai_prompt_after")
 
 
 def _make_fake_ai():
@@ -338,25 +343,6 @@ class LoadAISettingsIntegrationTests(unittest.TestCase):
             },
         )
 
-    def test_legacy_ollama_url_derives_provider(self) -> None:
-        # Simulate a pre-upgrade install: no ai_provider record.
-        registry = getUtility(IRegistry)
-        record_name = "zopyx.surveyjs.interfaces.IFormsSettings.ai_provider"
-        del registry.records[record_name]
-        self.settings.ollama_url = "http://localhost:11434"
-        self.settings.ai_model = "gpt-4o"
-        result = load_ai_settings()
-        self.assertEqual(result["provider"], "ollama")
-        self.assertEqual(result["api_url"], "http://localhost:11434")
-
-    def test_legacy_empty_config_derives_installed(self) -> None:
-        registry = getUtility(IRegistry)
-        record_name = "zopyx.surveyjs.interfaces.IFormsSettings.ai_provider"
-        del registry.records[record_name]
-        result = load_ai_settings()
-        self.assertEqual(result["provider"], "installed")
-        self.assertIsNone(result["model_name"])
-
     def test_values_are_stripped(self) -> None:
         self.settings.ai_provider = "ollama"
         self.settings.ollama_url = "http://localhost:11434"
@@ -397,19 +383,6 @@ class ControlPanelAISettingsTests(unittest.TestCase):
         self.settings.ai_provider = "custom"
         self.settings.custom_api_url = "https://api.deepseek.com"
         self.assertEqual(self.view._effective_ai_provider(self.settings), "custom")
-
-    def test_effective_ai_provider_derives_ollama_from_legacy_url(self) -> None:
-        registry = getUtility(IRegistry)
-        record_name = "zopyx.surveyjs.interfaces.IFormsSettings.ai_provider"
-        del registry.records[record_name]
-        self.settings.ollama_url = "http://localhost:11434"
-        self.assertEqual(self.view._effective_ai_provider(self.settings), "ollama")
-
-    def test_effective_ai_provider_defaults_to_installed(self) -> None:
-        registry = getUtility(IRegistry)
-        record_name = "zopyx.surveyjs.interfaces.IFormsSettings.ai_provider"
-        del registry.records[record_name]
-        self.assertEqual(self.view._effective_ai_provider(self.settings), "installed")
 
     def test_save_custom_clears_other_groups(self) -> None:
         data = {
@@ -464,21 +437,6 @@ class ControlPanelAISettingsTests(unittest.TestCase):
         self.assertEqual(self.settings.ollama_model, "llama3.2")
         self.assertIsNone(self.settings.ai_model)
         self.assertEqual(self.settings.custom_api_key, "")
-
-    def test_save_creates_missing_registry_records(self) -> None:
-        # Simulate an install that was upgraded without re-importing the
-        # registry profile step: the ai_provider record does not exist yet.
-        registry = getUtility(IRegistry)
-        record_name = "zopyx.surveyjs.interfaces.IFormsSettings.ai_provider"
-        del registry.records[record_name]
-        data = {
-            "ai_provider": "ollama",
-            "ollama_url": "http://localhost:11434",
-            "ollama_model": "llama3.2",
-        }
-        self.view._save_to_registry(data)
-        self.assertEqual(registry.records[record_name].value, "ollama")
-        self.assertEqual(self.settings.ollama_url, "http://localhost:11434")
 
     def test_validate_kv_backend_rejects_unknown_value(self) -> None:
         errors = self.view._validate_data({"kv_cache_backend": "redis"})
@@ -653,14 +611,124 @@ class FormsSettingsInitialDataFunctionalTest(unittest.TestCase):
         self.assertEqual(data["ai_provider"], "installed")
         self.assertEqual(data["ai_model"], "gpt-4o")
 
-    def test_initial_data_derives_ollama_from_legacy_url(self) -> None:
-        # Pre-upgrade install: no ai_provider record, but an Ollama URL.
+
+class ApplyPromptWrapperTests(unittest.TestCase):
+    def test_unconfigured_wrapper_returns_prompt_unchanged(self) -> None:
+        self.assertEqual(
+            apply_prompt_wrapper(
+                "  Create a form  ", {"before": "", "default": "", "after": ""}
+            ),
+            "Create a form",
+        )
+
+    def test_before_and_after_wrap_the_prompt(self) -> None:
+        wrapped = apply_prompt_wrapper(
+            "Create a form",
+            {
+                "before": "Use German labels.",
+                "default": "not used here",
+                "after": "Add a consent question.",
+            },
+        )
+        self.assertEqual(
+            wrapped,
+            "Use German labels.\n\nCreate a form\n\nAdd a consent question.",
+        )
+
+    def test_blank_parts_are_dropped(self) -> None:
+        self.assertEqual(
+            apply_prompt_wrapper(
+                "Only me", {"before": "   ", "default": "x", "after": ""}
+            ),
+            "Only me",
+        )
+
+    def test_missing_keys_are_tolerated(self) -> None:
+        self.assertEqual(apply_prompt_wrapper("Prompt", {}), "Prompt")
+
+
+class LoadPromptSettingsTests(unittest.TestCase):
+    layer = ZOPYX_SURVEYJS_INTEGRATION_TESTING
+
+    def setUp(self) -> None:
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
         registry = getUtility(IRegistry)
-        record_name = "zopyx.surveyjs.interfaces.IFormsSettings.ai_provider"
-        del registry.records[record_name]
-        self.settings.ollama_url = "http://localhost:11434"
-        data = self._initial_data()
-        self.assertEqual(data["ai_provider"], "ollama")
+        self.settings = registry.forInterface(IFormsSettings, check=False)
+        self._reset()
+
+    def tearDown(self) -> None:
+        self._reset()
+
+    def _reset(self) -> None:
+        for field in PROMPT_FIELDS:
+            setattr(self.settings, field, "")
+
+    def test_defaults_are_empty(self) -> None:
+        self.assertEqual(
+            load_prompt_settings(), {"before": "", "default": "", "after": ""}
+        )
+
+    def test_values_are_stripped(self) -> None:
+        self.settings.ai_prompt_before = "  Rule A  "
+        self.settings.ai_prompt_default = "  Prefill  "
+        self.settings.ai_prompt_after = "  Rule B  "
+        self.assertEqual(
+            load_prompt_settings(),
+            {"before": "Rule A", "default": "Prefill", "after": "Rule B"},
+        )
+
+
+class AIPromptWiringTests(unittest.TestCase):
+    """The global prompt settings must reach the generated prompts and
+    prefill the prompt field of the AI workspace."""
+
+    layer = ZOPYX_SURVEYJS_INTEGRATION_TESTING
+
+    def setUp(self) -> None:
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        registry = getUtility(IRegistry)
+        self.settings = registry.forInterface(IFormsSettings, check=False)
+        for field in PROMPT_FIELDS:
+            setattr(self.settings, field, "")
+
+    def tearDown(self) -> None:
+        for field in PROMPT_FIELDS:
+            setattr(self.settings, field, "")
+
+    def _view(self) -> AIView:
+        view = AIView.__new__(AIView)
+        view.context = self.portal
+        return view
+
+    def test_generation_prompt_wraps_the_user_request(self) -> None:
+        self.settings.ai_prompt_before = "Always use German labels."
+        self.settings.ai_prompt_after = "Always add a consent question."
+        prompt = self._view()._build_generation_prompt("Create a contact form")
+        self.assertLess(
+            prompt.index("Always use German labels."),
+            prompt.index("Create a contact form"),
+        )
+        self.assertLess(
+            prompt.index("Create a contact form"),
+            prompt.index("Always add a consent question."),
+        )
+
+    def test_generation_prompt_without_wrapper_keeps_the_request_verbatim(self) -> None:
+        prompt = self._view()._build_generation_prompt("Create a contact form")
+        self.assertIn("User request:\nCreate a contact form\n", prompt)
+
+    def test_default_prompt_property_prefills_the_field(self) -> None:
+        self.settings.ai_prompt_default = "Create a customer satisfaction survey."
+        self.assertEqual(
+            self._view().default_prompt, "Create a customer satisfaction survey."
+        )
+
+    def test_default_prompt_is_not_wrapped_into_the_request(self) -> None:
+        self.settings.ai_prompt_default = "Prefill only."
+        prompt = self._view()._build_generation_prompt("Real request")
+        self.assertNotIn("Prefill only.", prompt)
 
 
 if __name__ == "__main__":

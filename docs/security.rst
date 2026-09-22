@@ -108,9 +108,11 @@ Global — Security fieldset (Site Setup > Forms)
     Expected JWT claims. Change them if you operate multiple sites or
     environments to prevent tokens minted elsewhere from being accepted.
 
-``authenticity_token_cache_path`` (default: ``var/token_cache.db``)
-    Where replay tracking and trusted-token metadata live. Must be writable
-    by the Plone process and not publicly served.
+``kv_cache_directory`` (default: ``var/surveyjs-cache``)
+    Where replay tracking and trusted-token metadata live: the ``auth``
+    namespace below this directory. Must be writable by the Plone process
+    and not publicly served. On a multi-server deployment select the
+    ``rdbms`` caching backend instead — see :doc:`storage`.
 
 ``post_endpoint_validation_mode`` (default: ``public``)
     Controls validation of survey ``post_endpoint_url`` destinations. In
@@ -386,9 +388,10 @@ Operational guidance
   the authenticity token stops scripted submission from *within* a browser
   session, but a determined client can always fetch a fresh token; rate
   limiting is the complementary control.
-* Protect and monitor the token cache paths (``var/token_cache.db``,
-  ``var/embed_token_cache.db``): they contain replay/token state and must be
-  writable by Plone but not publicly served.
+* Protect and monitor the KV cache directories (``var/surveyjs-cache/auth``,
+  ``var/surveyjs-cache/embed``, ``var/surveyjs-cache/monitoring`` or the
+  configured ``kv_cache_directory``): they contain replay/token state and
+  must be writable by Plone but not publicly served.
 * Watch the logs for repeated ``auth_token_replay``, oversized-payload
   rejections and ``embed.submission.rejected`` entries — they are the
   visible signs of probing or abuse.

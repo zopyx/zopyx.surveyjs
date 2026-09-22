@@ -4,7 +4,7 @@ This repository is a Plone add-on that integrates SurveyJS. It is primarily a Py
 
 ## Quick Orientation
 - Python/Plone package lives under `src/`.
-- Buildout configs: `buildout.cfg`, `dev.cfg`, `test_plone52.cfg`, `test_plone60.cfg`.
+- Buildout configs: `buildout.cfg`, `dev.cfg`, `base.cfg`, `test_plone60.cfg`, `test-6.2.x.cfg`.
 - Validation binary (bun/deno) in `src/zopyx/surveyjs/data_validation/` (auto-built at runtime; see `docs/installation.rst`).
 - Docs: `README.md`, `DEVELOP.rst`, `docs/`.
 

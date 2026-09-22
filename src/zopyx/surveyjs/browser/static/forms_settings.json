@@ -1626,39 +1626,6 @@
           "defaultValue": "privacyforms.studio",
           "visibleIf": "{authenticity_token_enabled} = true",
           "minWidth": "100%"
-        },
-        {
-          "type": "text",
-          "name": "authenticity_token_cache_path",
-          "title": {
-            "default": "Token cache path",
-            "de": "Token-Cache-Pfad",
-            "en": "Token cache path",
-            "es": "Ruta de caché del token",
-            "fr": "Chemin du cache du jeton",
-            "it": "Percorso cache token",
-            "pt": "Caminho do cache do token",
-            "fi": "Tunnuksen välimuistipolku",
-            "hi": "टोकन कैश पथ",
-            "ar": "مسار ذاكرة التخزين المؤقت للرمز",
-            "ja": "トークンキャッシュパス"
-          },
-          "description": {
-            "default": "Filesystem path for diskcache storage.",
-            "de": "Dateisystempfad für Diskcache-Speicher.",
-            "en": "Filesystem path for diskcache storage.",
-            "es": "Ruta del sistema de archivos para almacenamiento en caché de disco.",
-            "fr": "Chemin du système de fichiers pour le stockage du cache disque.",
-            "it": "Percorso filesystem per l'archiviazione della cache su disco.",
-            "pt": "Caminho do sistema de arquivos para armazenamento em cache em disco.",
-            "fi": "Tiedostojärjestelmäpolku levyvälimuistille.",
-            "hi": "डिस्ककैश स्टोरेज के लिए फाइल सिस्टम पथ।",
-            "ar": "مسار نظام الملفات لتخزين ذاكرة التخزين المؤقت على القرص.",
-            "ja": "ディスクキャッシュストレージのファイルシステムパス。"
-          },
-          "defaultValue": "var/token_cache.db",
-          "visibleIf": "{authenticity_token_enabled} = true",
-          "minWidth": "100%"
         }
       ]
     },

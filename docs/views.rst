@@ -144,6 +144,3 @@ Administration
    * - ``@@survey-templates-overview``
      - ``cmf.ManagePortal``
      - Overview page listing survey templates.
-   * - ``@@demo-content``
-     - ``cmf.ManagePortal``
-     - Creates the demo content (site root).

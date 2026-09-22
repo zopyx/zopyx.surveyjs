@@ -52,10 +52,7 @@ def load_ai_settings():
     registry = getUtility(IRegistry)
     settings = registry.forInterface(IFormsSettings, check=False)
 
-    provider = getattr(settings, "ai_provider", None)
-    if provider not in PROVIDERS:
-        # Legacy installs: derive the provider from populated fields.
-        provider = None
+    provider = getattr(settings, "ai_provider", None) or PROVIDER_INSTALLED
 
     model_name = _strip(getattr(settings, "ai_model", None))
     api_key = _strip(getattr(settings, "ai_api_key", None))
@@ -64,14 +61,6 @@ def load_ai_settings():
     custom_llm_name = _strip(getattr(settings, "custom_llm_name", None))
     custom_api_url = _strip(getattr(settings, "custom_api_url", None))
     custom_api_key = _strip(getattr(settings, "custom_api_key", None))
-
-    if provider is None:
-        if ollama_url:
-            provider = PROVIDER_OLLAMA
-        elif custom_api_url:
-            provider = PROVIDER_CUSTOM
-        else:
-            provider = PROVIDER_INSTALLED
 
     if provider == PROVIDER_OLLAMA:
         return {
@@ -93,6 +82,42 @@ def load_ai_settings():
         "api_key": api_key,
         "api_url": None,
     }
+
+
+def load_prompt_settings() -> dict:
+    """Return the configured AI prompt wrapper from the Plone registry.
+
+    Returns a dict with the keys:
+
+        before: instructions prepended to the user's prompt
+        default: default text for the AI prompt field of the UI
+        after: instructions appended to the user's prompt
+
+    Unset or blank registry records become empty strings.
+    """
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(IFormsSettings, check=False)
+    return {
+        "before": _strip(getattr(settings, "ai_prompt_before", None)) or "",
+        "default": _strip(getattr(settings, "ai_prompt_default", None)) or "",
+        "after": _strip(getattr(settings, "ai_prompt_after", None)) or "",
+    }
+
+
+def apply_prompt_wrapper(user_prompt: str, prompt_settings: dict) -> str:
+    """Wrap a user prompt with the configured before/after instructions.
+
+    ``before`` is prepended and ``after`` is appended, separated by blank
+    lines; blank parts are dropped, so an unconfigured wrapper returns the
+    prompt unchanged. ``default`` is deliberately not used here — it only
+    prefills the prompt field of the UI.
+    """
+    parts = (
+        str((prompt_settings or {}).get("before") or "").strip(),
+        str(user_prompt or "").strip(),
+        str((prompt_settings or {}).get("after") or "").strip(),
+    )
+    return "\n\n".join(part for part in parts if part)
 
 
 def is_configured(settings) -> bool:
@@ -186,7 +211,7 @@ def build_llm_model(settings):
             effective_model = f"ollama/{effective_model}"
         return AI.get_model(effective_model)
 
-    # installed provider (or legacy fallback)
+    # installed provider
     if not model_name:
         raise RuntimeError(
             "No AI model configured. Configure an AI model in Forms settings."

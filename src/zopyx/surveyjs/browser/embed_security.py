@@ -43,12 +43,6 @@ class TokenInvalidError(EmbedSecurityError):
     pass
 
 
-class OriginNotAllowedError(EmbedSecurityError):
-    """Raised when an origin is not in the allowlist."""
-
-    pass
-
-
 def _get_embed_cache():
     """Get the configured embed-token KV store."""
     try:

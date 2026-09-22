@@ -5,6 +5,8 @@ from unittest.mock import patch
 
 from zopyx.surveyjs.browser.ai import AIView
 
+EMPTY_PROMPT_SETTINGS = {"before": "", "default": "", "after": ""}
+
 
 class DummyResponse:
     def __init__(self) -> None:
@@ -205,6 +207,10 @@ class AIViewTests(unittest.TestCase):
 
     @patch("zopyx.surveyjs.browser.ai.Path.write_text")
     @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch(
+        "zopyx.surveyjs.browser.ai.ai_service.load_prompt_settings",
+        return_value=EMPTY_PROMPT_SETTINGS,
+    )
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
@@ -216,7 +222,7 @@ class AIViewTests(unittest.TestCase):
         },
     )
     def test_chat_refine_creates_temp_form_when_workspace_is_empty(
-        self, _settings, _annos, _show_message, _write_text
+        self, _settings, _annos, _prompts, _show_message, _write_text
     ) -> None:
         annos = {}
         view = self._make_view(
@@ -238,6 +244,10 @@ class AIViewTests(unittest.TestCase):
 
     @patch("zopyx.surveyjs.browser.ai.Path.write_text")
     @patch("zopyx.surveyjs.browser.ai.plone.api.portal.show_message")
+    @patch(
+        "zopyx.surveyjs.browser.ai.ai_service.load_prompt_settings",
+        return_value=EMPTY_PROMPT_SETTINGS,
+    )
     @patch("zopyx.surveyjs.browser.ai.IAnnotations", side_effect=_fake_annotations)
     @patch(
         "zopyx.surveyjs.browser.ai.ai_service.load_ai_settings",
@@ -249,7 +259,7 @@ class AIViewTests(unittest.TestCase):
         },
     )
     def test_chat_refine_appends_history_when_workspace_has_form(
-        self, _settings, _annos, _show_message, _write_text
+        self, _settings, _annos, _prompts, _show_message, _write_text
     ) -> None:
         annos = {
             AIView.TEMP_FORM_ANNOTATION_KEY: {

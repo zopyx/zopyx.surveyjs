@@ -7,7 +7,6 @@ from .storage import (
     SQLResultStorage,
     ZODBResultStorage,
     _get_database_uri,
-    _sqlite_path_to_uri,
 )
 
 logger = logging.getLogger(__name__)
@@ -26,11 +25,3 @@ def migrate_zodb_results_to_rdbms(context, database_uri: Optional[str] = None) -
         getattr(context, "absolute_url", lambda: repr(context))(),
     )
     return len(results)
-
-
-def migrate_zodb_results_to_sqlite(context, sqlite_path: Optional[str] = None) -> int:
-    """Backward-compatible wrapper for the legacy SQLite migration helper."""
-    database_uri = _get_database_uri()
-    if sqlite_path:
-        database_uri = _sqlite_path_to_uri(sqlite_path)
-    return migrate_zodb_results_to_rdbms(context, database_uri=database_uri)

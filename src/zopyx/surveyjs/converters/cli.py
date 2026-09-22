@@ -1,18 +1,7 @@
-#!/usr/bin/env -S uv run
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#     "markdown2>=2.4.12",
-#     "weasyprint>=62.3",
-#     "openpyxl>=3.1.3",
-#     "python-docx>=1.1.0",
-# ]
-# ///
 from __future__ import annotations
 
 """SurveyJS result converter producing multiple output formats with attachment handling."""
 
-import argparse
 import base64
 import email.utils
 import json
@@ -42,87 +31,17 @@ from . import (
 from .html import build_html
 
 ROOT = Path(__file__).parent
-SURVEY_DATA_PATH = ROOT / "survey-data-form.json"
-FORM_PATH = ROOT / "survey-form-form.json"
-OUTPUT_DIR = ROOT / "output"
 
 logger = logging.getLogger(__name__)
 
 # Environment variable keys used for configuration overrides.
 ENV_DOTENV_PATH = "SURVEY_DOTENV_PATH"
-ENV_DATA_PATH = "SURVEYJS_DATA_JSON"
-ENV_FORM_PATH = "SURVEYJS_FORM_JSON"
-ENV_EMAIL_RECIPIENT = "SURVEY_EMAIL_RECIPIENT"
 ENV_SMTP_HOST = "SURVEY_SMTP_HOST"
 ENV_SMTP_PORT = "SURVEY_SMTP_PORT"
 ENV_SMTP_USERNAME = "SURVEY_SMTP_USERNAME"
 ENV_SMTP_PASSWORD = "SURVEY_SMTP_PASSWORD"
 ENV_SMTP_STARTTLS = "SURVEY_SMTP_STARTTLS"
 ENV_EMAIL_SENDER = "SURVEY_EMAIL_SENDER"
-
-
-def data_default() -> str:
-    """Resolve survey data path using env override when provided."""
-    return os.environ.get(ENV_DATA_PATH, str(SURVEY_DATA_PATH))
-
-
-def form_default() -> str:
-    """Resolve survey form path using env override when provided."""
-    return os.environ.get(ENV_FORM_PATH, str(FORM_PATH))
-
-
-def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    """Parse CLI options for selecting input and output settings."""
-    load_dotenv()
-
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--data",
-        default=data_default(),
-        help=(
-            f"Path to survey data JSON "
-            f"(default: {SURVEY_DATA_PATH}, env override: ${ENV_DATA_PATH})."
-        ),
-    )
-    parser.add_argument(
-        "--form",
-        default=form_default(),
-        help=(
-            f"Path to survey form JSON "
-            f"(default: {FORM_PATH}, env override: ${ENV_FORM_PATH})."
-        ),
-    )
-    parser.add_argument(
-        "--output",
-        default=str(OUTPUT_DIR),
-        help=f"Output directory (default: {OUTPUT_DIR}).",
-    )
-    parser.add_argument(
-        "--formats",
-        default="all",
-        help="Comma-separated formats to emit (text,md,html,pdf,csv,xlsx,xml,docx,json). Default: all.",
-    )
-    parser.add_argument(
-        "--email",
-        default=os.environ.get(ENV_EMAIL_RECIPIENT),
-        help=(
-            "Email recipient to receive all generated files as attachments "
-            f"(default from ${ENV_EMAIL_RECIPIENT})."
-        ),
-    )
-    return parser.parse_args(argv)
-
-
-def parse_formats(spec: str) -> set[str]:
-    """Normalize and validate requested formats."""
-    allowed = {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx", "json"}
-    if spec.lower() == "all":
-        return allowed
-    requested = {part.strip().lower() for part in spec.split(",") if part.strip()}
-    invalid = requested - allowed
-    if invalid:
-        raise ValueError(f"Unknown formats: {', '.join(sorted(invalid))}")
-    return requested or allowed
 
 
 def slugify(value: Any) -> str:
@@ -796,29 +715,3 @@ class SurveyConverter:
             print(f"Email sent to {email_recipient}")
 
         return written_paths
-
-
-def main() -> None:
-    """Entry point: parse args and run the converter."""
-    args = parse_args()
-    try:
-        formats = parse_formats(args.formats)
-    except ValueError as exc:
-        raise SystemExit(str(exc)) from exc
-
-    data_path = Path(args.data)
-    form_path = Path(args.form)
-    output_dir = Path(args.output)
-
-    if args.email and not logging.getLogger().handlers:
-        logging.basicConfig(
-            level=logging.INFO,
-            format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-        )
-
-    converter = SurveyConverter(data_path, form_path, output_dir)
-    converter.run(formats, email_recipient=args.email)
-
-
-if __name__ == "__main__":
-    main()

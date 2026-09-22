@@ -285,10 +285,6 @@ Security
      - Audience claim embedded in tokens. Default: ``privacyforms.studio``.
        A distinct audience value prevents tokens being accepted in other
        contexts or environments.
-   * - Authenticity token cache path
-     - Filesystem path of the diskcache used to store token metadata.
-       Default: ``var/token_cache.db``. The path must be writable by the
-       Plone process and should not be publicly accessible.
    * - POST endpoint validation
      - Policy for outbound POST endpoints configured on surveys. ``public``
        (default) permits hostnames that resolve only to public addresses;

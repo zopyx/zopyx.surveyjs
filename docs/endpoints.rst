@@ -92,14 +92,10 @@ Submission & form API
 Results API
 ===========
 
-``@@get-polls-json``
-    GET · ``cmf.ModifyPortalContent`` · all stored submissions, each with
-    metadata (``poll_id``, ``created``, ``user``, ``form_version``) and the
-    result payload.
-
 ``@@get-polls-json2``
-    GET · ``cmf.ModifyPortalContent`` · like ``@@get-polls-json``, but
-    returns only the submission payloads (without metadata).
+    GET · ``cmf.ModifyPortalContent`` · all stored submissions, returned as the
+    submission payloads only (without the ``poll_id`` / ``created`` / ``user`` /
+    ``form_version`` metadata wrapper).
 
 ``@@view-result-json``
     GET · ``cmf.ModifyPortalContent`` · JSON of a single submission.

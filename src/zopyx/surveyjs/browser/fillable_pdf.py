@@ -9,6 +9,7 @@ from pathlib import Path
 import plone.api
 from pypdf import PdfReader
 from plone.namedfile.file import NamedBlobFile
+from privacyforms_pdf.extractor import PDFFormService
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
 
@@ -17,36 +18,15 @@ from .services import forms as forms_service
 
 logger = logging.getLogger(__name__)
 
-# Try to import privacyforms_pdf, fallback to inline implementation
-try:
-    from privacyforms_pdf.extractor import PDFFormExtractor
-
-    PRIVACYFORMS_PDF_AVAILABLE = True
-except ImportError:
-    PRIVACYFORMS_PDF_AVAILABLE = False
-    logger.debug("privacyforms_pdf not available, using inline implementation")
-
 # PyMuPDF is used for PDF form filling. Import the modern ``pymupdf`` module
-# name: importing the legacy ``fitz`` alias emits a deprecation warning on
-# PyMuPDF >= 1.24. The module stays bound as ``fitz`` for the call sites below.
+# name; the module stays bound as ``fitz`` for the call sites below.
 try:
     import pymupdf as fitz
 
     PYMUPDF_AVAILABLE = True
-except ImportError:  # PyMuPDF < 1.24 only ships the legacy alias
-    try:
-        import fitz
-
-        PYMUPDF_AVAILABLE = True
-    except ImportError:
-        PYMUPDF_AVAILABLE = False
-        logger.debug("PyMuPDF not available, PDF filling will not work")
-
-
-class PDFValidationError(Exception):
-    """Raised when PDF validation fails."""
-
-    pass
+except ImportError:  # pragma: no cover - the ``pdf`` extra is not installed
+    PYMUPDF_AVAILABLE = False
+    logger.debug("PyMuPDF not available, PDF filling will not work")
 
 
 class FillablePDFView(Views):
@@ -110,18 +90,14 @@ class FillablePDFView(Views):
     def pdf_fields(self):
         """Return list of form fields from the uploaded PDF.
 
-        Uses privacyforms_pdf.PDFFormExtractor if available,
-        otherwise falls back to inline implementation.
+        Uses ``privacyforms_pdf.PDFFormService``.
         """
         pdf = getattr(self.context, "fillable_pdf", None)
         if not pdf or not getattr(pdf, "data", None):
             return []
 
         try:
-            if PRIVACYFORMS_PDF_AVAILABLE:
-                fields = self._extract_fields_with_privacyforms_pdf(pdf.data)
-            else:
-                fields = self._extract_pdf_fields_inline(pdf.data)
+            fields = self._extract_fields_with_privacyforms_pdf(pdf.data)
 
             # Add existence info for each field
             json_field_names = self._get_json_form_field_names()
@@ -233,55 +209,52 @@ class FillablePDFView(Views):
         return properties
 
     def _extract_fields_with_privacyforms_pdf(self, data: bytes) -> list[dict]:
-        """Extract fields using privacyforms_pdf library."""
-        # Write to temporary file since PDFFormExtractor expects a file path
+        """Extract fields using ``privacyforms_pdf.PDFFormService``.
+
+        The service expects a file path, so the upload is written to a
+        temporary file for the duration of the extraction.
+        """
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp_file:
             tmp_file.write(data)
             tmp_path = Path(tmp_file.name)
 
         try:
-            extractor = PDFFormExtractor()
-            form_data = extractor.extract(tmp_path)
+            form_data = PDFFormService().extract(tmp_path)
 
-            # Convert PDFField objects to simple dicts for template
             fields = []
             for field in form_data.fields:
-                # Strip leading "/" from value and options
-                value = field.value
-                if isinstance(value, str) and value.startswith("/"):
-                    value = value[1:]
-
-                options = [
-                    opt[1:] if opt.startswith("/") else opt
-                    for opt in (field.options or [])
-                ]
-
-                field_dict = {
-                    "name": field.name,
-                    "id": field.id,
-                    "type": field.field_type,
-                    "value": value,
-                    "pages": field.pages,
-                    "page_num": field.pages[0] if field.pages else 1,
-                    "locked": field.locked,
-                    "options": options,
-                    "readonly": False,  # Not exposed by PDFField
-                    "required": False,  # Not exposed by PDFField
-                }
-                # Add geometry if available
-                if field.geometry:
-                    field_dict["geometry"] = {
-                        "page": field.geometry.page,
-                        "rect": field.geometry.rect,
-                        "x": field.geometry.x,
-                        "y": field.geometry.y,
-                        "width": field.geometry.width,
-                        "height": field.geometry.height,
+                layout = field.layout
+                flags = field.field_flags
+                page = getattr(layout, "page", None) or 1
+                geometry = (
+                    {
+                        "page": page,
+                        "x": layout.x,
+                        "y": layout.y,
+                        "width": layout.width,
+                        "height": layout.height,
                     }
-                else:
-                    field_dict["geometry"] = None
-
-                fields.append(field_dict)
+                    if layout is not None
+                    else None
+                )
+                fields.append(
+                    {
+                        "name": field.name,
+                        "id": field.id,
+                        "type": field.type,
+                        "value": field.value,
+                        "pages": [page],
+                        "page_num": page,
+                        "locked": bool(flags.read_only) if flags else False,
+                        "options": [
+                            choice.text or choice.value
+                            for choice in (field.choices or [])
+                        ],
+                        "readonly": bool(flags.read_only) if flags else False,
+                        "required": bool(flags.required) if flags else False,
+                        "geometry": geometry,
+                    }
+                )
 
             return fields
         finally:
@@ -291,214 +264,10 @@ class FillablePDFView(Views):
             except Exception:
                 pass
 
-    def _extract_pdf_fields_inline(self, data: bytes) -> list[dict]:
-        """Extract form field information using inline implementation.
-
-        Fallback when privacyforms_pdf is not available.
-        Based on privacyforms_pdf/extractor.py logic.
-        """
-
-        fields = []
-        pdf_stream = io.BytesIO(data)
-        reader = PdfReader(pdf_stream)
-
-        # Check if PDF has a form
-        pdf_fields = reader.get_fields()
-        if not pdf_fields:
-            return []
-
-        # Extract widget info (pages and geometry) in one pass
-        widget_info = self._extract_widgets_info_inline(reader)
-
-        for field_counter, (field_name, field_data) in enumerate(
-            pdf_fields.items(), start=1
-        ):
-            # Get field type
-            field_type = self._get_field_type_inline(field_data)
-
-            # Get field value
-            value = self._get_field_value_inline(field_data)
-
-            # Get info from widget scan
-            info = widget_info.get(field_name, ([], None))
-            pages = info[0] if info[0] else [1]
-            geometry = info[1]
-
-            # Get options for choice fields
-            options = self._get_field_options_inline(field_data)
-
-            # Build field dict
-            field_info = {
-                "name": field_name,
-                "id": str(field_counter),
-                "type": field_type,
-                "value": value,
-                "pages": pages,
-                "page_num": pages[0] if pages else 1,
-                "locked": False,
-                "geometry": geometry,
-                "options": options,
-                "readonly": False,
-                "required": False,
-            }
-
-            # Check field flags
-            ff = field_data.get("/Ff", 0)
-            if isinstance(ff, int):
-                field_info["readonly"] = bool(ff & 1)
-                field_info["required"] = bool(ff & 2)
-
-            fields.append(field_info)
-
-        # Sort by page number, then by name
-        fields.sort(key=lambda f: (f["page_num"], f["name"]))
-
-        return fields
-
-    def _get_field_type_inline(self, field: dict) -> str:
-        """Determine field type from pypdf field data (inline fallback)."""
-        ft = field.get("/FT")
-        if ft is None:
-            ft = field.get("/Type")
-
-        if ft == "/Tx":
-            return "textfield"
-        elif ft == "/Btn":
-            if "/Opt" in field:
-                return "radiobuttongroup"
-            ff = field.get("/Ff", 0)
-            if isinstance(ff, int) and ff & 0x8000:
-                return "pushbutton"
-            return "checkbox"
-        elif ft == "/Ch":
-            ff = field.get("/Ff", 0)
-            if isinstance(ff, int) and ff & 0x40000:
-                return "combobox"
-            return "listbox"
-        elif ft == "/Sig":
-            return "signature"
-        return "textfield"
-
-    def _get_field_value_inline(self, field: dict) -> str | bool:
-        """Extract value from pypdf field data (inline fallback)."""
-        value = field.get("/V")
-        if value is None:
-            return ""
-        if isinstance(value, str):
-            if value.lower() in ("/yes", "yes", "/on", "on", "1"):
-                return True
-            elif value.lower() in ("/off", "off", "no", "0"):
-                return False
-            # Strip leading "/" from PDF name objects
-            return value[1:] if value.startswith("/") else value
-        if hasattr(value, "name"):
-            name = value.name
-            if name.lower() in ("/yes", "yes", "/on", "on", "1"):
-                return True
-            elif name.lower() in ("/off", "off", "no", "0"):
-                return False
-            # Strip leading "/" from PDF name objects
-            return name[1:] if name.startswith("/") else name
-        return str(value)
-
-    def _strip_slash(self, value: str) -> str:
-        """Strip leading "/" from PDF name objects."""
-        return value[1:] if value.startswith("/") else value
-
-    def _get_field_options_inline(self, field: dict) -> list[str]:
-        """Extract options for choice/radio fields (inline fallback)."""
-        options = field.get("/Opt", [])
-        if options:
-            result = []
-            for opt in options:
-                if isinstance(opt, list) and len(opt) >= 2:
-                    result.append(self._strip_slash(str(opt[1])))
-                elif isinstance(opt, list) and len(opt) == 1:
-                    result.append(self._strip_slash(str(opt[0])))
-                else:
-                    result.append(self._strip_slash(str(opt)))
-            return result
-
-        kids = field.get("/Kids", [])
-        if kids:
-            opt_list = []
-            for kid in kids:
-                kid_obj = kid.get_object() if hasattr(kid, "get_object") else kid
-                if kid_obj and "/AP" in kid_obj:
-                    ap = kid_obj["/AP"]
-                    if "/N" in ap:
-                        names = list(ap["/N"].keys())
-                        opt_list.extend(
-                            [
-                                self._strip_slash(str(n))
-                                for n in names
-                                if str(n).lower() != "/off"
-                            ]
-                        )
-            return list(dict.fromkeys(opt_list))
-        return []
-
-    def _extract_widgets_info_inline(self, reader: PdfReader) -> dict:
-        """Scan all pages once to find widget pages and geometry (inline fallback)."""
-        info = {}
-
-        for page_num, page in enumerate(reader.pages, start=1):
-            if "/Annots" not in page:
-                continue
-
-            annots = page["/Annots"]
-            for annot_ref in annots:
-                try:
-                    annot = (
-                        annot_ref.get_object()
-                        if hasattr(annot_ref, "get_object")
-                        else annot_ref
-                    )
-
-                    if annot.get("/Subtype") != "/Widget":
-                        continue
-
-                    t_value = annot.get("/T")
-                    if not t_value:
-                        continue
-
-                    field_name = (
-                        str(t_value)
-                        if isinstance(t_value, str)
-                        else str(getattr(t_value, "name", t_value))
-                    )
-
-                    geometry = None
-                    rect = annot.get("/Rect")
-                    if rect:
-                        x0, y0, x1, y1 = [float(coord) for coord in rect]
-                        geometry = {
-                            "page": page_num,
-                            "rect": (x0, y0, x1, y1),
-                            "x": x0,
-                            "y": y0,
-                            "width": x1 - x0,
-                            "height": y1 - y0,
-                        }
-
-                    if field_name not in info:
-                        info[field_name] = ([page_num], geometry)
-                    else:
-                        pages, existing_geom = info[field_name]
-                        if page_num not in pages:
-                            pages.append(page_num)
-                        if existing_geom is None:
-                            info[field_name] = (pages, geometry)
-
-                except Exception:
-                    pass
-
-        return info
-
     def _validate_fillable_pdf(self, data: bytes) -> tuple[bool, str]:
         """Validate that the PDF contains fillable form fields.
 
-        Uses PDFFormExtractor if available, otherwise uses inline implementation.
+        Uses pypdf.
         """
         try:
             pdf_stream = io.BytesIO(data)

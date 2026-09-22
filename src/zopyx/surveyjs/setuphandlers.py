@@ -34,11 +34,8 @@ def _ensure_authenticity_token_secret():
 
 def _prebuild_deno_binary():
     """Pre-build the Deno-based validate binary so it is ready at first use."""
-    try:
-        from .data_validation.deno_build import deno_build_targets
-    except ImportError:
-        logger.warning("Cannot import deno_build_targets, skipping pre-build.")
-        return
+    from .data_validation.deno_build import deno_build_targets
+
     system = platform.system().lower()
     if system not in ("darwin", "linux"):
         logger.warning("Unsupported platform for Deno pre-build: %s", system)

@@ -157,6 +157,14 @@ class AIView(Views):
         return isinstance(self.temp_form_data, dict)
 
     @property
+    def default_prompt(self) -> str:
+        """Return the configured default prompt for the AI prompt field.
+
+        Used to prefill the prompt textarea when no draft exists.
+        """
+        return ai_service.load_prompt_settings()["default"]
+
+    @property
     def temp_form_json_pretty(self):
         """Get formatted JSON string of temporary form data.
 
@@ -258,11 +266,8 @@ class AIView(Views):
                 - error: str error message, or None on success
         """
         try:
-            try:
-                from privacyforms.pdf import PDFFormExtractor
-            except ImportError:
-                from privacyforms_pdf import PDFFormExtractor
-        except Exception as exc:
+            from privacyforms_pdf import PDFFormService
+        except ImportError as exc:
             return None, None, f"privacyforms PDF extractor not available: {exc}"
 
         temp_path = None
@@ -271,12 +276,11 @@ class AIView(Views):
                 tmp.write(pdf_bytes)
                 temp_path = tmp.name
 
-            extractor = PDFFormExtractor()
-            has_form = bool(extractor.has_form(temp_path))
+            service = PDFFormService()
+            has_form = bool(service.has_form(temp_path))
             form_data = None
             if has_form:
-                extracted = extractor.extract(temp_path)
-                form_data = self._to_jsonable(extracted)
+                form_data = self._to_jsonable(service.extract(temp_path))
             return has_form, form_data, None
         except Exception as exc:
             return None, None, str(exc)
@@ -601,8 +605,18 @@ class AIView(Views):
         except (NoJSONFound, json.JSONDecodeError):
             return json.loads(response_text)
 
-    def _build_generation_prompt(self, user_prompt: str) -> str:
-        """Build a text-only AI prompt for creating a new SurveyJS form."""
+    def _build_generation_prompt(self, user_prompt: str, prompt_settings=None) -> str:
+        """Build a text-only AI prompt for creating a new SurveyJS form.
+
+        The user prompt is wrapped with the global ``Prompt before`` and
+        ``Prompt after`` instructions.
+        """
+        wrapped_prompt = ai_service.apply_prompt_wrapper(
+            user_prompt,
+            prompt_settings
+            if prompt_settings is not None
+            else ai_service.load_prompt_settings(),
+        )
         return (
             "You are a SurveyJS expert creating a new SurveyJS JSON form.\n"
             "Return ONLY a valid SurveyJS JSON object.\n\n"
@@ -614,7 +628,7 @@ class AIView(Views):
             "- Keep the form practical and ready to edit in SurveyJS Creator.\n"
             "- Do not include markdown, explanations, code fences, comments, or trailing commas.\n\n"
             "User request:\n"
-            f"{user_prompt}\n"
+            f"{wrapped_prompt}\n"
         )
 
     def upload_document(self):
@@ -920,6 +934,7 @@ Requirements:
         current_form = annos.get(self.TEMP_FORM_ANNOTATION_KEY)
 
         settings = ai_service.load_ai_settings()
+        prompt_settings = ai_service.load_prompt_settings()
         if not ai_service.is_configured(settings):
             return self._redirect_ai(
                 "AI model not configured. Configure an AI model in Forms settings.",
@@ -936,7 +951,7 @@ Requirements:
                     "Current form JSON:\n"
                     f"{json.dumps(current_form, ensure_ascii=False, default=str)}\n\n"
                     "User request:\n"
-                    f"{prompt}\n"
+                    f"{ai_service.apply_prompt_wrapper(prompt, prompt_settings)}\n"
                 )
                 ai_result_text = self._call_ai_text_refinement(
                     chat_prompt,
@@ -945,7 +960,7 @@ Requirements:
                 next_form = self._parse_generated_json(ai_result_text)
             else:
                 ai_result_text = self._call_ai_text_refinement(
-                    self._build_generation_prompt(prompt),
+                    self._build_generation_prompt(prompt, prompt_settings),
                     settings=settings,
                 )
                 next_form = self._parse_generated_json(ai_result_text)

@@ -8,7 +8,6 @@ from urllib.parse import urlsplit
 
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
-from zope.interface.interfaces import ComponentLookupError
 
 from .interfaces import IFormsSettings
 
@@ -19,12 +18,7 @@ _ALLOWED_SCHEMES = frozenset({"http", "https"})
 
 def get_post_endpoint_policy() -> dict[str, object]:
     """Return the site-wide outbound POST policy from the Plone registry."""
-    try:
-        settings = getUtility(IRegistry).forInterface(IFormsSettings, check=False)
-    except ComponentLookupError:
-        # Keep small unit-test views and partially initialized sites safe and
-        # compatible; the normal Plone application always has the registry.
-        return {"mode": "public", "allowlist": ()}
+    settings = getUtility(IRegistry).forInterface(IFormsSettings, check=False)
     return {
         "mode": getattr(settings, "post_endpoint_validation_mode", "public")
         or "public",

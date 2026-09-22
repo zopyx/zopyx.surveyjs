@@ -4,7 +4,6 @@ from unittest.mock import MagicMock, patch
 
 from zopyx.surveyjs.browser.views import (
     Views,
-    _extract_json_object,
     _mask_storage_location,
     _run_external_validation,
 )
@@ -27,8 +26,6 @@ class ViewsCoverageTests(unittest.TestCase):
         return view
 
     def test_json_storage_and_text_helpers(self):
-        self.assertEqual(_extract_json_object('noise {"a": 1} trailing'), '{"a": 1}')
-        self.assertIsNone(_extract_json_object("no json"))
         self.assertEqual(_mask_storage_location("zodb"), "Plone (ZODB)")
         masked = _mask_storage_location("postgresql://user:pw123@db.example/forms")
         self.assertTrue(masked.startswith("postgresql://user:"))
@@ -46,9 +43,6 @@ class ViewsCoverageTests(unittest.TestCase):
         )
         self.assertEqual(
             view._interpolate_text("Hello {missing}", {}), "Hello {missing}"
-        )
-        self.assertEqual(
-            view._parse_json_loose('prefix {"ok": true} suffix'), {"ok": True}
         )
         self.assertIsNone(view._get_converter_format("missing"))
         self.assertEqual(

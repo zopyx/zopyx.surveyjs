@@ -32,11 +32,7 @@ def resolve_mail_settings(context, field_names: list[str]) -> dict[str, Any]:
     """Resolve mail-related settings from survey-local or global registry settings.
 
     When ``context.use_global_mail_settings`` is truthy, values are read from the
-    control panel (``IFormsSettings``). If a requested field is not present on the
-    registry schema, this helper falls back to the local survey value for that field.
-
-    If the toggle is absent (legacy objects), local values are used by default for
-    backwards compatibility.
+    control panel (``IFormsSettings``); otherwise the survey-local values are used.
     """
     use_global = bool(getattr(context, "use_global_mail_settings", False))
     settings = None
@@ -55,7 +51,7 @@ def resolve_mail_settings(context, field_names: list[str]) -> dict[str, Any]:
         "use_global_mail_settings": use_global,
     }
     for field_name in field_names:
-        if use_global and settings is not None and hasattr(settings, field_name):
+        if use_global and settings is not None:
             resolved[field_name] = getattr(settings, field_name, None)
         else:
             resolved[field_name] = getattr(context, field_name, None)

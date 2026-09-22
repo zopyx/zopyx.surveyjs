@@ -40,19 +40,6 @@
     class=".survey_metadata.SurveyMetadata"
   />
   <browser:page
-    name="demo-content"
-    for="plone.base.interfaces.IPloneSiteRoot"
-    permission="cmf.ManagePortal"
-    class=".demo_content.DemoContent"
-  />
-  <browser:page
-    name="pfs-theme-editor"
-    for="plone.base.interfaces.IPloneSiteRoot"
-    permission="cmf.ManagePortal"
-    class=".pdf_theme_editor.PDFThemeEditorView"
-    template="pdf_theme_editor.pt"
-  />
-  <browser:page
     name="theme-manager"
     for="plone.base.interfaces.IPloneSiteRoot"
     permission="cmf.ManagePortal"
@@ -219,13 +206,6 @@
     for="zopyx.surveyjs.content.survey.ISurvey"
     class=".views.Views"
     attribute="save_poll"
-  />
-  <browser:page 
-    name="get-polls-json"
-    permission="cmf.ModifyPortalContent"
-    for="zopyx.surveyjs.content.survey.ISurvey"
-    class=".views.Views"
-    attribute="get_polls_json"
   />
   <browser:page 
     name="get-polls-json2"

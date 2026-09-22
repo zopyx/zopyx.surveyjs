@@ -1,7 +1,7 @@
 """Storage backends for SurveyJS form submissions.
 
 This module provides a small abstraction for persisting survey results either
-in ZODB annotations (default/legacy behavior) or in an SQL database via
+in ZODB annotations (default) or in an SQL database via
 SQLModel. The active backend is selected from Plone registry settings.
 """
 
@@ -116,17 +116,6 @@ def _get_storage_location() -> str:
     if backend == "rdbms":
         return _get_database_uri()
     return "zodb"
-
-
-def _sqlite_path_to_uri(sqlite_path: str) -> str:
-    """Convert a filesystem SQLite path into a SQLAlchemy SQLite URI."""
-    sqlite_path = sqlite_path.strip()
-    if sqlite_path in (":memory:", "file::memory:?cache=shared"):
-        return "sqlite:///" + sqlite_path
-    expanded = os.path.expanduser(sqlite_path)
-    if os.path.isabs(expanded):
-        return f"sqlite:////{expanded.lstrip('/')}"
-    return f"sqlite:///{expanded}"
 
 
 def _get_engine(db_uri: str):
@@ -385,12 +374,6 @@ def get_result_storage(context) -> ResultStorage:
     if backend == "rdbms":
         return SQLResultStorage(_get_database_uri())
     return ZODBResultStorage()
-
-
-class SQLiteResultStorage(SQLResultStorage):
-    """Backward-compatible alias for the SQLModel storage backend."""
-
-    pass
 
 
 # ============================================================================

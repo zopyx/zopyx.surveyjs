@@ -7,7 +7,6 @@ from unittest.mock import patch
 import orjson
 
 from zopyx.surveyjs.browser.views import (
-    _extract_json_object,
     _mask_storage_location,
     _run_external_validation,
     Views,
@@ -15,11 +14,6 @@ from zopyx.surveyjs.browser.views import (
 
 
 class ViewsHelperTests(unittest.TestCase):
-    def test_extract_json_object(self) -> None:
-        self.assertIsNone(_extract_json_object("no json here"))
-        extracted = _extract_json_object('prefix {"a": 1} suffix')
-        self.assertEqual(extracted, '{"a": 1}')
-
     def test_mask_storage_location_hides_password(self) -> None:
         self.assertEqual(_mask_storage_location("zodb"), "Plone (ZODB)")
         masked = _mask_storage_location("postgresql://user:secret@localhost/db")

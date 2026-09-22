@@ -46,16 +46,6 @@ TIME_WINDOWS = {
 }
 
 
-def _get_cache_dir() -> str:
-    """Return the configured monitoring cache path for diagnostics."""
-    try:
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(IFormsSettings, check=False)
-        return str(get_kv_store_diagnostics(settings, "monitoring").get("path", ""))
-    except Exception:
-        return ""
-
-
 def get_monitoring_diagnostics() -> dict:
     """Return safe monitoring backend diagnostics."""
     registry = getUtility(IRegistry)

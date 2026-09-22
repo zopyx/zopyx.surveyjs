@@ -9,8 +9,7 @@ from unittest.mock import patch
 from zopyx.surveyjs.converters import (
     Attachment,
     SurveyConverter,
-    parse_args,
-    parse_formats,
+    load_dotenv,
     slugify,
 )
 
@@ -59,15 +58,6 @@ class SurveyConverterTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.tmpdir.cleanup()
 
-    def test_parse_formats_validation(self) -> None:
-        self.assertEqual(
-            parse_formats("all"),
-            {"text", "md", "html", "pdf", "csv", "xlsx", "xml", "docx", "json"},
-        )
-        self.assertEqual(parse_formats("text,md"), {"text", "md"})
-        with self.assertRaises(ValueError):
-            parse_formats("text,unknown")
-
     def test_slugify(self) -> None:
         self.assertEqual(slugify("Hello World!"), "Hello_World")
         self.assertEqual(slugify(""), "sample")
@@ -98,18 +88,6 @@ class SurveyConverterTests(unittest.TestCase):
 
         html_content = (self.output_dir / "test-123.html").read_text(encoding="utf-8")
         self.assertIn("data:image/png;base64", html_content)
-
-    @patch.dict(
-        "os.environ",
-        {
-            "SURVEYJS_DATA_JSON": "/tmp/custom-data.json",
-            "SURVEYJS_FORM_JSON": "/tmp/custom-form.json",
-        },
-    )
-    def test_parse_args_supports_env_defaults(self) -> None:
-        args = parse_args([])
-        self.assertEqual(args.data, "/tmp/custom-data.json")
-        self.assertEqual(args.form, "/tmp/custom-form.json")
 
     @patch("zopyx.surveyjs.converters.cli.smtplib.SMTP")
     def test_run_can_email_generated_files(self, smtp_mock: Any) -> None:
@@ -216,10 +194,16 @@ class SurveyConverterTests(unittest.TestCase):
         with patch.dict(
             "os.environ", {"SURVEY_DOTENV_PATH": str(env_file)}, clear=True
         ):
-            args = parse_args([])
-            self.assertEqual(args.data, "/tmp/from-dotenv-data.json")
-            self.assertEqual(args.form, "/tmp/from-dotenv-form.json")
-            self.assertEqual(args.email, "fromenv@example.com")
+            load_dotenv()
+            self.assertEqual(
+                os.environ["SURVEYJS_DATA_JSON"], "/tmp/from-dotenv-data.json"
+            )
+            self.assertEqual(
+                os.environ["SURVEYJS_FORM_JSON"], "/tmp/from-dotenv-form.json"
+            )
+            self.assertEqual(
+                os.environ["SURVEY_EMAIL_RECIPIENT"], "fromenv@example.com"
+            )
             # Ensure SMTP related values are loaded as well
             self.assertEqual(os.environ["SURVEY_SMTP_HOST"], "mail.example.com")
             self.assertEqual(os.environ["SURVEY_SMTP_PORT"], "2525")

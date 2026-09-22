@@ -20,7 +20,7 @@ dev = [
 ]
 
 [tool.ruff]
-exclude = ["scripts", "fillable_forms"]
+exclude = ["scripts"]
 
 [tool.ruff.lint]
 ignore = ["E402"]

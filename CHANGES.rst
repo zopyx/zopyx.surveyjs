@@ -2,6 +2,78 @@ Changelog
 =========
 
 
+1.0b4 (unreleased)
+------------------
+
+- Remove the ``authenticity_token_cache_path`` setting (UI "Token cache
+  path") and the ``legacy_diskcache_path`` argument of
+  ``kv.get_configured_kv_store()``. The authenticity-token cache location is
+  derived solely from ``kv_cache_directory`` (``<directory>/auth``) or the
+  ``rdbms`` caching backend; ``docs/security.rst`` and
+  ``docs/global-options.rst`` describe the current behaviour.
+- Wire the previously inert AI prompt settings: "Prompt before" and "Prompt
+  after" now wrap the user prompt for prompt-based creation and refinement
+  (``browser/services/ai.py::apply_prompt_wrapper()``), and "Default prompt"
+  prefills the prompt field of an empty AI workspace (``browser/ai.pt``).
+  Tests: ``test_ai_settings.py::ApplyPromptWrapperTests``,
+  ``LoadPromptSettingsTests`` and ``AIPromptWiringTests``.
+- Replace the dead ``PDFFormExtractor`` call path with the current
+  ``privacyforms.pdf`` API (``PDFFormService``, ``PDFField.layout`` /
+  ``choices`` / ``field_flags``). ``PDFFormExtractor`` does not exist in any
+  published ``privacyforms.pdf`` >= 0.2.0, so field extraction ran through
+  the inline pypdf implementation and the AI-upload PDF detection always
+  failed. The inline duplicate (204 lines) and the ``fitz`` import alias are
+  gone; ``test_fillable_pdf_view.py::PDFFieldExtractionTests`` covers the
+  extraction against a real PDF.
+- Remove dead code: ``views._find_sample_forms_dir()``,
+  ``views._extract_json_object()``/``_parse_json_loose()`` (the tolerant
+  extractor lives in ``json_extract.py``), ``monitoring._get_cache_dir()``,
+  ``storage._sqlite_path_to_uri()``, ``SQLiteResultStorage``,
+  ``FormsSettingsEditForm``/``FormsSettingsControlPanel``,
+  ``OriginNotAllowedError``, ``PDFValidationError``, ``ISurveyMonitorView``,
+  ``migrate_zodb_results_to_sqlite()`` and the ``@@get-polls-json`` endpoint
+  (v1, no caller — the dashboard uses ``@@get-polls-json2``).
+- Remove the remaining compatibility shims: the AI provider derivation from
+  "legacy populated fields" (``load_ai_settings()``,
+  ``FormsSettingsView._effective_ai_provider()``), the registry-record
+  creation in ``_save_to_registry()``, the ``hasattr`` mail-settings branch
+  in ``utils.resolve_mail_settings()``, the ``ComponentLookupError`` fallback
+  in ``ssrf.get_post_endpoint_policy()`` and the optional ``privacyforms_ai``
+  imports of ``vocabularies/ai_models.py``, ``chatbot/engine.py`` and
+  ``setuphandlers._prebuild_deno_binary()``.
+- Remove test and repository leftovers: ``tests/legacy_survey_template.py``,
+  the emptied ``tests/integration/`` directory, seven permanently skipped
+  tests in ``test_integration_views.py``, the root directories
+  ``sample_forms/``, ``fillable_forms/``, ``embedding_demo1/`` and
+  ``uv-plone62/``, plus ``FilledForm.pdf``, ``bobtemplate.cfg`` and
+  ``mprocs.yaml``. ``.webui_secret_key`` is untracked and gitignored, and
+  ``AGENTS.md`` no longer names the removed ``test_plone52.cfg``.
+- Remove the orphaned ``@@pfs-theme-editor`` view
+  (``browser/pdf_theme_editor.py``, its template and the two static assets).
+  It was registered for the site root but referenced by no template,
+  JavaScript, test or documentation; the survey theme system lives in
+  ``@@theme-manager``/``@@theme-editor``.
+- Remove the ``@@demo-content`` view (``browser/demo_content.py``, 1446
+  lines). The demo content is provided by the ``zopyx.surveyjs:demo``
+  GenericSetup profile; ``scripts/init_plone.py`` no longer invokes the view
+  and the endpoint is gone from ``docs/views.rst``.
+- Remove the unused command-line surface of the result converter
+  (``converters/cli.py``): the ``argparse`` entry point (``main()``,
+  ``parse_args()``, ``data_default()``, ``form_default()``,
+  ``parse_formats()``), the PEP 723 script header and the CLI-only path
+  constants. The module keeps the export/mail engine (``SurveyConverter``)
+  used by ``subscribers.py`` and ``browser/survey_results.py``, plus
+  ``slugify()`` and ``load_dotenv()``; ``converters.__init__`` no longer
+  re-exports the argparse helpers.
+- Remove the unused Robot Framework scaffold: ``tests/test_robot.py``, the
+  two ``tests/robot/*.robot`` files (plone/Dexterity boilerplate), the
+  ``ZOPYX_SURVEYJS_ACCEPTANCE_TESTING`` layer with its
+  ``plone.app.robotframework``/``zserver`` fixture bases,
+  the ``plone.app.robotframework[debug]`` test dependency and the ``robot``
+  buildout part. No workflow, Makefile target or documentation ever used
+  them.
+
+
 1.0b3 (released 2026-09-21)
 ----------------------------
 

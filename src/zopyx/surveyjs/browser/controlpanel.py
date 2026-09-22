@@ -21,6 +21,7 @@ from ..utils import html_safe_json
 from ..permissions import ManagePortal
 from .services.ai import PROVIDERS
 from .services.ai import PROVIDER_FIELDS
+from .services.ai import PROVIDER_INSTALLED
 from .services.ai import build_llm_model
 from .services.ai import is_configured
 from .services.http import json_error
@@ -174,10 +175,6 @@ class FormsSettingsView(BrowserView):
                 settings, "authenticity_token_audience", "privacyforms.studio"
             )
             or "privacyforms.studio",
-            "authenticity_token_cache_path": getattr(
-                settings, "authenticity_token_cache_path", "var/token_cache.db"
-            )
-            or "var/token_cache.db",
             # Direct DOM Embedding settings
             "embed_direct_global_enabled": bool(
                 getattr(settings, "embed_direct_global_enabled", False)
@@ -196,20 +193,9 @@ class FormsSettingsView(BrowserView):
         return values
 
     def _effective_ai_provider(self, settings) -> str:
-        """Return the AI provider mode for the settings form.
-
-        Uses the stored ``ai_provider`` when valid; otherwise derives it
-        from legacy populated fields (ollama URL wins over a configured
-        model, matching the previous resolver precedence).
-        """
-        provider = getattr(settings, "ai_provider", None)
-        if provider in PROVIDERS:
-            return provider
-        if getattr(settings, "ollama_url", None):
-            return "ollama"
-        if getattr(settings, "custom_api_url", None):
-            return "custom"
-        return "installed"
+        """Return the AI provider mode for the settings form."""
+        provider = getattr(settings, "ai_provider", "") or ""
+        return provider if provider in PROVIDERS else PROVIDER_INSTALLED
 
     def _extract_form_data(self) -> tuple[dict[str, Any], list[str]]:
         """Extract form data from request."""
@@ -309,18 +295,7 @@ class FormsSettingsView(BrowserView):
         def set_value(name: str, value: Any) -> None:
             if not hasattr(settings, name):
                 return
-            try:
-                setattr(settings, name, value)
-            except AttributeError:
-                # Record not registered yet (e.g. install upgraded without
-                # re-importing the registry profile step): create it from the
-                # schema field so saving the settings never fails.
-                from plone.registry.interfaces import IPersistentField
-                from plone.registry.record import Record
-
-                field = IPersistentField(IFormsSettings[name])
-                record = Record(field, value)
-                registry.records[f"{IFormsSettings.__identifier__}.{name}"] = record
+            setattr(settings, name, value)
 
         # General settings
         set_value("surveyjs_license_key", data.get("surveyjs_license_key", "").strip())
@@ -436,10 +411,6 @@ class FormsSettingsView(BrowserView):
         set_value(
             "authenticity_token_audience",
             data.get("authenticity_token_audience", "privacyforms.studio").strip(),
-        )
-        set_value(
-            "authenticity_token_cache_path",
-            data.get("authenticity_token_cache_path", "var/token_cache.db").strip(),
         )
 
         # Direct DOM Embedding settings
@@ -639,16 +610,3 @@ class AITestView(BrowserView):
         ):
             message += " Warning: model '%s' was not found on the server." % model_name
         return {"ok": True, "message": message}
-
-
-# Keep old class for backward compatibility during transition
-class FormsSettingsEditForm:
-    """Deprecated: Use FormsSettingsView instead."""
-
-    pass
-
-
-class FormsSettingsControlPanel:
-    """Deprecated: Use FormsSettingsView instead."""
-
-    pass

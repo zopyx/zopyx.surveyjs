@@ -20,6 +20,12 @@ class SurveyResultsCriticalMethodTests(unittest.TestCase):
             "zopyx.surveyjs.browser.survey_results.IAnnotations",
             return_value={},
         ).start()
+        # The outbound-POST policy comes from the registry, which these unit
+        # tests do not set up; the URL validation itself stays real.
+        self._post_policy = patch(
+            "zopyx.surveyjs.browser.survey_results.get_post_endpoint_policy",
+            return_value={"mode": "public", "allowlist": ()},
+        ).start()
         self.addCleanup(patch.stopall)
 
     def patch_auth(self):

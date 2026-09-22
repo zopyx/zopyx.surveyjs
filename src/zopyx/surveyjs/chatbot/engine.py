@@ -105,10 +105,8 @@ class ChatEngine:
         )
 
     def _generate_response(self, prompt: str) -> str:
-        try:
-            from zopyx.surveyjs.browser.services.ai import build_llm_model
-        except ImportError:
-            raise ImportError("The 'zopyx.surveyjs' service helpers are not available.")
+        from zopyx.surveyjs.browser.services.ai import build_llm_model
+
         model = build_llm_model(self.settings)
         response = model.prompt(prompt)
         text = response.text() if callable(response.text) else response.text

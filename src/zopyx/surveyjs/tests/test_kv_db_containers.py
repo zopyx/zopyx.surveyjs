@@ -153,7 +153,6 @@ class ConfiguredContainerKVStoreTests:
             kv_cache_backend="rdbms",
             kv_cache_database_uri=uri,
             database_uri="sqlite:///var/results.db",
-            authenticity_token_cache_path="var/token_cache.db",
         )
         service = AuthService(None, None, lambda: "form-1")
         store = service._token_cache(settings)

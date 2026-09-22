@@ -21,14 +21,14 @@ import sys
 import time
 
 try:
-    from .deno_build import deno_build_targets
-except ImportError:  # pragma: no cover - fallback for standalone usage
-    from deno_build import deno_build_targets
+    import resource
+except ImportError:  # pragma: no cover - Windows only
+    resource = None  # type: ignore[assignment]
 
 try:
-    import resource
-except ImportError:  # pragma: no cover - Windows (unsupported anyway)
-    resource = None  # type: ignore[assignment]
+    from .deno_build import deno_build_targets
+except ImportError:  # pragma: no cover - standalone test harness
+    from deno_build import deno_build_targets
 
 logger = logging.getLogger("zopyx.surveyjs.validation")
 
