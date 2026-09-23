@@ -329,9 +329,12 @@ Payload and validation hardening
 * Generated result HTML is sanitized with a parser-based allow list before it
   is rendered (result detail view), exported (HTML/PDF) or mailed: elements,
   attributes and URL schemes are checked against an allow list;
-  ``javascript:``/``vbscript:``/``data:`` URLs (including obfuscated spellings
-  such as ``java\tscript:``) and the content of ``script``/``style``/``svg``/
-  ``iframe`` are removed (``converters/sanitize.py``).
+  ``javascript:``/``vbscript:`` and non-image ``data:`` URLs (including
+  ``java\tscript:``) and the content of ``script``/``style``/``svg``/
+  ``iframe`` are removed (``converters/sanitize.py``). For PDF rendering,
+  ``write_pdf()`` applies the allow list again in data-images-only mode, so
+  external and relative image sources are dropped before WeasyPrint can fetch
+  them; already inlined data images remain available.
 * CSV/XLSX exports neutralise spreadsheet formula injection: values starting
   with ``=``, ``+``, ``-``, ``@``, tab or CR are written as text (CSV: leading
   apostrophe; XLSX: explicit string cells) so an answer cannot execute or build
@@ -384,9 +387,6 @@ The following remain separate work items unless implemented elsewhere:
 
 * CSRF enforcement in the public JSON view itself, or publisher-level tests
   proving the surrounding Plone protection layer;
-* server-side request forgery during PDF rendering: HTTP(S) image URLs in
-  untrusted answers are retained by the HTML sanitizer and fetched by
-  WeasyPrint; restrict its URL fetcher before treating generated PDFs as safe;
 * the submission limiter's concurrent read-modify-write race, plus per-form
   quotas, bot controls, dependency pinning and key rotation.
 

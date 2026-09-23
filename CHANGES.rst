@@ -28,6 +28,11 @@ Changelog
   longer trusted just because they passed the validator. Tests:
   ``test_converters.py::test_build_html_neutralises_click_triggered_javascript_urls``
   and the ``test_sanitize_html_*`` cases.
+- Prevent server-side requests during PDF rendering: ``write_pdf()`` applies
+  the allow-list sanitizer in data-images-only mode before calling WeasyPrint,
+  removing network, file and relative image sources while preserving inline
+  images. Test:
+  ``test_converters.py::test_write_pdf_drops_non_inline_images_but_keeps_inline_images``.
 - Neutralise spreadsheet formula injection in the CSV/XLSX exports
   (``converters/spreadsheet.py``): formula-leading values are written as text
   in ``converters/csv_export.py``, ``converters/xlsx_export.py`` and the CSV

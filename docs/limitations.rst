@@ -19,9 +19,11 @@ Rate limiting
   of being admitted. See :doc:`security` → "Submission rate limiting".
 * Thresholds are global (``submission_rate_limit_per_minute`` /
   ``_per_hour`` in the Forms control panel); there are no per-form limits.
-* The bucket update is a read-modify-write on the KV store, so two fully
-  concurrent requests can admit one request more than the limit allows. The
-  counter is bounded, so this does not accumulate.
+* The bucket update is a read-modify-write on the KV store, not an atomic
+  increment. Concurrent requests can all observe the same prior count and be
+  admitted, so a parallel burst can exceed the configured limit by the burst
+  concurrency and lose counter increments; the overshoot is not bounded to one
+  request. Atomic counting remains on the roadmap.
 * ``monitoring.check_rate_limit()`` still computes per-minute and 5-minute
   rolling averages from the KV counters for the monitor dashboard
   (``@@survey-monitor``) and remains fail-open — it is display data, not the
@@ -53,6 +55,17 @@ PDF filling additionally requires PyMuPDF, which is an optional extra
 (AGPL-3.0 or a commercial Artifex licence). Without it the download is
 refused with an error message.
 
+PDF rendering and remote images
+-------------------------------
+
+**Status: fixed at the PDF sink.** ``write_pdf()`` reapplies the HTML
+allow-list sanitizer with ``data_images_only=True`` immediately before
+WeasyPrint renders the document. HTTP(S), ``file:`` and relative image sources
+are removed; inline image data URLs remain available. Ordinary HTML result
+views may still load external images in the visitor's browser, but PDF rendering
+no longer fetches respondent-controlled resources.
+Regression test: ``test_write_pdf_drops_non_inline_images_but_keeps_inline_images``.
+
 Security items tracked outside this page
 ----------------------------------------
 
@@ -63,9 +76,10 @@ the unfixed items are itemised with impact and recommendation in
 ``SECURITY.md`` → "Remaining security work" (SSRF through a configured
 ``post_endpoint_url``, unaudited exports, token-store atomicity, key length
 and rotation, missing session binding, container hardening, dependency
-pinning, bot controls, CSRF). Submission rate limiting, CSV/XLSX formula
-injection and the output encoding of rendered result values were fixed in
-1.0b4 and are documented in :doc:`security`.
+pinning, bot controls, CSRF, and concurrent rate-limit overshoot). Submission
+rate limiting, CSV/XLSX formula injection, output encoding of rendered result
+values, and server-side PDF image fetching were fixed in 1.0b4 and are
+documented in :doc:`security`.
 
 Multi-server and container deployments
 --------------------------------------

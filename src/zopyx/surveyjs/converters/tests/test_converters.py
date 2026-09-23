@@ -415,6 +415,37 @@ def test_write_pdf_uses_weasyprint(
     assert "Created by" in captured["string"]
 
 
+def test_write_pdf_drops_non_inline_images_but_keeps_inline_images(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    captured = {}
+
+    class CapturingHTML:
+        def __init__(self, string: str, **_kwargs) -> None:
+            captured["string"] = string
+
+        def write_pdf(self, destination: Path) -> None:
+            destination.write_bytes(b"%PDF-1.4 dummy")
+
+    monkeypatch.setattr(pdf, "HTML", CapturingHTML)
+    body = (
+        '<img src="http://127.0.0.1:8080/private">'
+        '<img src="file:///etc/passwd">'
+        '<img src="../private.png">'
+        '<img src="data:image/png;base64,AAAA">'
+        '<a href="https://example.test/page">link</a>'
+    )
+
+    pdf.write_pdf(body, tmp_path / "safe.pdf")
+
+    rendered_html = captured["string"]
+    assert 'src="http://127.0.0.1:8080/private"' not in rendered_html
+    assert 'src="file:///etc/passwd"' not in rendered_html
+    assert 'src="../private.png"' not in rendered_html
+    assert 'src="data:image/png;base64,AAAA"' in rendered_html
+    assert '<a href="https://example.test/page">link</a>' in rendered_html
+
+
 def test_write_csv_outputs_rows(tmp_path: Path) -> None:
     dest = tmp_path / "csv" / "survey.csv"
     rows = [("k", "label", "value", "att")]

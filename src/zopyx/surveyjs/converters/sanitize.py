@@ -140,17 +140,27 @@ _CLASS_NAME = re.compile(r"^[A-Za-z0-9_\- ]{1,64}$")
 _SCOPE_VALUES = frozenset({"row", "col", "rowgroup", "colgroup"})
 
 
-def sanitize_html(html_body: str) -> str:
-    """Return ``html_body`` with everything outside the allow list removed."""
+def sanitize_html(html_body: str, *, data_images_only: bool = False) -> str:
+    """Return ``html_body`` with everything outside the allow list removed.
+
+    ``data_images_only`` removes relative and network image sources as well,
+    which is required at sinks such as server-side PDF rendering.
+    """
     if not html_body:
         return html_body
-    sanitizer = _AllowListSanitizer()
+    sanitizer = _AllowListSanitizer(data_images_only=data_images_only)
     sanitizer.feed(html_body)
     sanitizer.close()
     return sanitizer.result()
 
 
-def _clean_url(value: str, *, allow_data_image: bool) -> str | None:
+def _clean_url(
+    value: str,
+    *,
+    allow_data_image: bool,
+    allow_network: bool = True,
+    allow_relative: bool = True,
+) -> str | None:
     """Return a safe URL from ``value`` or ``None`` when it is not allowed."""
     candidate = value.strip()
     probe = _URL_IGNORED_CHARACTERS.sub("", candidate)
@@ -162,21 +172,33 @@ def _clean_url(value: str, *, allow_data_image: bool) -> str | None:
             return candidate
         return None
     if _URL_SCHEME.match(probe):
-        if lowered.startswith(SAFE_URL_SCHEMES):
+        if allow_network and lowered.startswith(SAFE_URL_SCHEMES):
             return candidate
         return None
     if probe.startswith("//"):
         # Protocol-relative URL: always a foreign origin.
         return None
-    return candidate
+    return candidate if allow_relative else None
 
 
-def _clean_attribute(tag: str, name: str, value: str | None) -> str | None:
+def _clean_attribute(
+    tag: str,
+    name: str,
+    value: str | None,
+    *,
+    data_images_only: bool = False,
+) -> str | None:
     """Return a safe attribute value or ``None`` when the attribute is dropped."""
     if value is None:
         return None
     if URL_ATTRIBUTES.get(tag) == name:
-        return _clean_url(value, allow_data_image=(tag == "img"))
+        image_in_pdf = data_images_only and tag == "img"
+        return _clean_url(
+            value,
+            allow_data_image=(tag == "img"),
+            allow_network=not image_in_pdf,
+            allow_relative=not image_in_pdf,
+        )
     if name == "class":
         return value if _CLASS_NAME.fullmatch(value) else None
     if name in {"width", "height"}:
@@ -195,8 +217,9 @@ def _clean_attribute(tag: str, name: str, value: str | None) -> str | None:
 class _AllowListSanitizer(HTMLParser):
     """Serialize parsed markup, keeping only allow-listed tags/attributes."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, data_images_only: bool = False) -> None:
         super().__init__(convert_charrefs=True)
+        self._data_images_only = data_images_only
         self._output: list[str] = []
         self._open: list[str] = []
         self._dropping: str = ""
@@ -219,7 +242,12 @@ class _AllowListSanitizer(HTMLParser):
             name = (raw_name or "").lower()
             if name in seen or (name not in allowed and name not in GLOBAL_ATTRIBUTES):
                 continue
-            value = _clean_attribute(tag, name, raw_value)
+            value = _clean_attribute(
+                tag,
+                name,
+                raw_value,
+                data_images_only=self._data_images_only,
+            )
             if value is None:
                 continue
             seen.add(name)

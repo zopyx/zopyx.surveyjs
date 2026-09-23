@@ -159,17 +159,21 @@ re-accepted explicitly in the release notes of a subsequent release.
 | 9 | **Dependency pinning**: 22 of 26 runtime dependencies have no version bounds | `setup.py` (`install_requires`) | Non-reproducible installs, silent breaking upgrades | Add upper bounds/constraints for the runtime set |
 | 10 | **Bot controls and quotas** — no honeypot, no per-survey submission quota | submission path | Spam submissions consume storage | Honeypot field or proof-of-work; quota per survey |
 | 12 | **CSRF enforcement inside the public JSON view** | `views.py` (`save_poll`) | Cross-site submissions | Enforce at the view level, cover it with a publisher-level test |
+| 14 | **Submission rate-limit counter is non-atomic** — concurrent requests can all read the same prior count and be admitted | `ratelimit.py` (`_consume`) | Parallel bursts can exceed the configured per-minute/hour limit and lose counter increments | Add an atomic increment with expiry for every KV backend and test concurrent submissions |
 
 Fixed after this list was written (1.0b4, security review of 2026-09-23):
 **no rate limiting** (#2 — `ratelimit.py`, HTTP 429/503 on `@@save-poll`),
-**CSV/XLSX formula injection** (#3 — `converters/spreadsheet.py`) and
+**CSV/XLSX formula injection** (#3 — `converters/spreadsheet.py`),
 **output encoding of stored values rendered by result views** (#11 —
 `converters/sanitize.py`, allow-list sanitization of the generated result
-HTML). Direct-embed tokens are now also bound to their survey
-(`survey_mismatch` / `direct_embedding_not_enabled`).
+HTML) and **PDF-renderer SSRF** (#13 — `converters/pdf.py` drops all network
+and relative image sources before WeasyPrint; regression test
+`test_write_pdf_drops_non_inline_images_but_keeps_inline_images`). Direct-embed
+tokens are now also bound to their survey (`survey_mismatch` /
+`direct_embedding_not_enabled`).
 
 The submission-validation layer documented above is independent of this list
-and does not mitigate items 1–12.
+and does not mitigate the remaining items in the table.
 
 ## Reporting
 
