@@ -31,3 +31,19 @@ def to_1003(context):
         "profile-zopyx.surveyjs:default",
         "controlpanel",
     )
+
+
+def to_1004(context):
+    """Register the submission rate limiting settings records.
+
+    Re-runs the plone.app.registry import step so the records for the new
+    IFormsSettings rate limiting fields (submission_rate_limit_enabled,
+    submission_rate_limit_per_minute, submission_rate_limit_per_hour,
+    submission_rate_limit_trust_proxy) exist on installations upgrading
+    from a previous profile version.
+    """
+    setup_tool = api.portal.get_tool("portal_setup")
+    setup_tool.runImportStepFromProfile(
+        "profile-zopyx.surveyjs:default",
+        "plone.app.registry",
+    )

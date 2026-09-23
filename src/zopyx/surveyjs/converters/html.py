@@ -8,11 +8,18 @@ from typing import Iterable
 from markdown2 import markdown
 
 from .common import inline_html_images, wrap_html_output
+from .sanitize import sanitize_html
 from .types import Attachment
 
 
 def build_html(markdown_body: str, attachments: Iterable[Attachment]) -> str:
-    """Convert Markdown to HTML and inline image attachments."""
+    """Convert Markdown to HTML, inline images and sanitize the result.
+
+    The Markdown body carries attacker-controlled answer values (and
+    ``markdown2`` passes raw inline HTML through), so the generated fragment
+    is run through the allow-list sanitizer before it is rendered, exported or
+    mailed.
+    """
     html_body = markdown(markdown_body, extras=["tables"])
     # Ensure creator/created metadata appear on separate rows if present
     import re
@@ -37,7 +44,7 @@ def build_html(markdown_body: str, attachments: Iterable[Attachment]) -> str:
         html_body = meta_html + html_body
 
     html_body = inline_html_images(html_body, attachments)
-    return html_body
+    return sanitize_html(html_body)
 
 
 def write_html(

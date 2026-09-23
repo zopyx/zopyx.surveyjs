@@ -9,27 +9,34 @@ feature documentation points to this page.
 Rate limiting
 -------------
 
-**Status: monitoring only, no enforcement.**
+**Status: enforced in ``@@save-poll``, thresholds site-wide (not per form).**
 
-* ``monitoring.check_rate_limit()`` computes per-minute and 5-minute rolling
-  averages from the KV counters, but the function is only called by the
-  monitor dashboard (``@@survey-monitor``) for display purposes.
-* Nothing in the submission path (``save_poll``) rejects a request based on
-  submission rate; there is no HTTP 429 response anywhere in the package.
-* Counting happens in a subscriber *after* a submission has been accepted,
-  so the counters measure accepted traffic, not attempts. Rejected floods
-  are invisible to them.
-* The check is fail-open by design, the counter update is not atomic
-  (get/set instead of an atomic increment), ``max_per_minute`` is a
-  hardcoded default and per-form limits are not exposed.
+* ``save_poll`` meters every submission *attempt* per survey and client
+  address before the payload is parsed and answers HTTP 429
+  (``rate_limited``, with a ``Retry-After`` header) over the configured
+  one-minute/one-hour limits. An unmeterable request — the bucket store is
+  unavailable — is refused with HTTP 503 (``rate_limit_unavailable``) instead
+  of being admitted. See :doc:`security` → "Submission rate limiting".
+* Thresholds are global (``submission_rate_limit_per_minute`` /
+  ``_per_hour`` in the Forms control panel); there are no per-form limits.
+* The bucket update is a read-modify-write on the KV store, so two fully
+  concurrent requests can admit one request more than the limit allows. The
+  counter is bounded, so this does not accumulate.
+* ``monitoring.check_rate_limit()`` still computes per-minute and 5-minute
+  rolling averages from the KV counters for the monitor dashboard
+  (``@@survey-monitor``) and remains fail-open — it is display data, not the
+  enforcement point.
+* Those monitoring counters are fed by a subscriber *after* a submission has
+  been accepted, so they measure accepted traffic, not attempts. Rejected
+  floods are visible in the limiter's own buckets and in the
+  ``submission.rate_limited`` audit events instead.
 
-**Deployment guidance:** enforce rate limiting at the reverse proxy or WAF in
-front of Plone (see :doc:`security` and ``SECURITY.md``).
+**Deployment guidance:** keep an additional limit at the reverse proxy or WAF
+in front of Plone (see :doc:`security` and ``SECURITY.md``); it protects the
+process from traffic that never reaches Plone, the built-in limiter protects
+your submission/mail/AI budget from what does.
 
-**Roadmap:** configurable global and per-form thresholds in the Forms control
-panel, an enforcement point in ``save_poll`` (after authentication/token
-checks, before validation and storage) with a machine-readable HTTP 429
-response, atomic counting, and a documented policy for cache outages.
+**Roadmap:** per-form thresholds and an atomic counter increment.
 
 Automatic survey data → PDF merge
 ---------------------------------
@@ -54,10 +61,11 @@ storage, mail actions and external POST actions) is implemented and
 documented in :doc:`validation`. It does **not** cover unrelated findings;
 the unfixed items are itemised with impact and recommendation in
 ``SECURITY.md`` → "Remaining security work" (SSRF through a configured
-``post_endpoint_url``, missing rate limiting, CSV/XLSX formula injection,
-unaudited exports, token-store atomicity, key length and rotation, missing
-session binding, container hardening, dependency pinning, bot controls,
-output encoding, CSRF).
+``post_endpoint_url``, unaudited exports, token-store atomicity, key length
+and rotation, missing session binding, container hardening, dependency
+pinning, bot controls, CSRF). Submission rate limiting, CSV/XLSX formula
+injection and the output encoding of rendered result values were fixed in
+1.0b4 and are documented in :doc:`security`.
 
 Multi-server and container deployments
 --------------------------------------

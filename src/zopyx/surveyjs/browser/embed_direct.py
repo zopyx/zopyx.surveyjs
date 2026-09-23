@@ -29,6 +29,8 @@ from .embed_security import (
     set_cors_headers,
     handle_cors_preflight,
     is_embed_direct_globally_enabled,
+    is_direct_embedding_mode,
+    get_survey_uid,
     EmbedSecurityError,
     TokenExpiredError,
     TokenInvalidError,
@@ -64,8 +66,7 @@ class EmbedDirectTokenView(BrowserView):
             return
 
         # Check survey embedding mode
-        embed_mode = getattr(self.context, "embedding_mode", None)
-        if embed_mode != "direct":
+        if not is_direct_embedding_mode(self.context):
             json_error(
                 self.request.response,
                 400,
@@ -96,10 +97,7 @@ class EmbedDirectTokenView(BrowserView):
             return
 
         # Get survey UID
-        try:
-            survey_uid = self.context.UID()
-        except Exception:
-            survey_uid = self.context.getId()
+        survey_uid = get_survey_uid(self.context)
 
         # Generate token
         try:
@@ -192,10 +190,7 @@ class EmbedConfigView(BrowserView):
             return
 
         # Verify survey matches token
-        try:
-            survey_uid = self.context.UID()
-        except Exception:
-            survey_uid = self.context.getId()
+        survey_uid = get_survey_uid(self.context)
 
         if payload.get("sub") != survey_uid:
             json_error(self.request.response, 403, "survey_mismatch")
@@ -648,7 +643,7 @@ class DirectEmbedDemoView(BrowserView):
             )
 
         # Check if direct embedding is configured
-        if getattr(self.context, "embedding_mode", None) != "direct":
+        if not is_direct_embedding_mode(self.context):
             return self._render_config_error(
                 "Direct embedding not enabled",
                 "This survey's embedding mode must be set to 'Direct DOM'.",
@@ -662,10 +657,7 @@ class DirectEmbedDemoView(BrowserView):
             )
 
         # Generate a demo token for the first allowed origin
-        try:
-            survey_uid = self.context.UID()
-        except Exception:
-            survey_uid = self.context.getId()
+        survey_uid = get_survey_uid(self.context)
 
         demo_origin = allowed_origins[0]
         ttl = getattr(self.context, "embed_direct_token_ttl", 300) or 300

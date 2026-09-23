@@ -175,6 +175,19 @@ class FormsSettingsView(BrowserView):
                 settings, "authenticity_token_audience", "privacyforms.studio"
             )
             or "privacyforms.studio",
+            # Submission rate limiting
+            "submission_rate_limit_enabled": bool(
+                getattr(settings, "submission_rate_limit_enabled", True)
+            ),
+            "submission_rate_limit_per_minute": int(
+                getattr(settings, "submission_rate_limit_per_minute", 120) or 120
+            ),
+            "submission_rate_limit_per_hour": int(
+                getattr(settings, "submission_rate_limit_per_hour", 1200) or 1200
+            ),
+            "submission_rate_limit_trust_proxy": bool(
+                getattr(settings, "submission_rate_limit_trust_proxy", False)
+            ),
             # Direct DOM Embedding settings
             "embed_direct_global_enabled": bool(
                 getattr(settings, "embed_direct_global_enabled", False)
@@ -266,6 +279,20 @@ class FormsSettingsView(BrowserView):
                 errors.append(
                     "At least one POST endpoint hostname is required in allowlist mode."
                 )
+
+        # Validate submission rate limits
+        for field, label in (
+            ("submission_rate_limit_per_minute", "Submissions per minute"),
+            ("submission_rate_limit_per_hour", "Submissions per hour"),
+        ):
+            raw_limit = data.get(field)
+            if raw_limit is None or raw_limit == "":
+                continue
+            try:
+                if int(raw_limit) < 1:
+                    errors.append(f"{label} must be at least 1.")
+            except (ValueError, TypeError):
+                errors.append(f"{label} must be a valid number.")
 
         # Validate AI provider group completeness (mutually exclusive modes)
         provider = data.get("ai_provider", "installed")
@@ -411,6 +438,24 @@ class FormsSettingsView(BrowserView):
         set_value(
             "authenticity_token_audience",
             data.get("authenticity_token_audience", "privacyforms.studio").strip(),
+        )
+
+        # Submission rate limiting
+        set_value(
+            "submission_rate_limit_enabled",
+            bool(data.get("submission_rate_limit_enabled", True)),
+        )
+        for field, default in (
+            ("submission_rate_limit_per_minute", 120),
+            ("submission_rate_limit_per_hour", 1200),
+        ):
+            try:
+                set_value(field, max(int(data.get(field, default)), 1))
+            except (ValueError, TypeError):
+                set_value(field, default)
+        set_value(
+            "submission_rate_limit_trust_proxy",
+            bool(data.get("submission_rate_limit_trust_proxy", False)),
         )
 
         # Direct DOM Embedding settings

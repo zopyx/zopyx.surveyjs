@@ -291,6 +291,23 @@ def is_embed_direct_globally_enabled():
         return False
 
 
+def get_survey_uid(context):
+    """Return the identifier used as the embed token subject for ``context``.
+
+    Embed tokens carry the survey UID as their ``sub`` claim; a survey without
+    a UID falls back to its id, exactly like token issuance does.
+    """
+    try:
+        return context.UID()
+    except Exception:
+        return context.getId()
+
+
+def is_direct_embedding_mode(context):
+    """Return whether ``context`` is configured for Direct DOM embedding."""
+    return (getattr(context, "embedding_mode", None) or "") == "direct"
+
+
 def get_embed_direct_max_origins(default=10):
     """Get maximum allowed origins per survey.
 

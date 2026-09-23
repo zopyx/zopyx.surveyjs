@@ -178,6 +178,10 @@ class IFormsSettings(IPloneLoggingSettings):
             "authenticity_token_ttl_seconds",
             "authenticity_token_issuer",
             "authenticity_token_audience",
+            "submission_rate_limit_enabled",
+            "submission_rate_limit_per_minute",
+            "submission_rate_limit_per_hour",
+            "submission_rate_limit_trust_proxy",
         ),
     )
 
@@ -498,6 +502,54 @@ class IFormsSettings(IPloneLoggingSettings):
         description="Audience claim for authenticity tokens.",
         required=False,
         default="privacyforms.studio",
+    )
+
+    submission_rate_limit_enabled = schema.Bool(
+        title="Limit submission rate",
+        description=(
+            "Count submission attempts per survey and client address and "
+            "reject requests over the configured limits with HTTP 429. While "
+            "the caching backend is unavailable, submissions are refused with "
+            "HTTP 503 instead of being admitted."
+        ),
+        required=False,
+        default=True,
+    )
+
+    submission_rate_limit_per_minute = schema.Int(
+        title="Submissions per minute",
+        description=(
+            "Maximum submission attempts per minute for one survey and one "
+            "client address. Raise it (or turn the limiter off) when many "
+            "respondents share one address behind NAT or a reverse proxy."
+        ),
+        required=False,
+        default=120,
+        min=1,
+    )
+
+    submission_rate_limit_per_hour = schema.Int(
+        title="Submissions per hour",
+        description=(
+            "Maximum submission attempts per hour for one survey and one "
+            "client address. Rejected attempts count towards this budget as "
+            "well, so a flood cannot burn it down by retrying."
+        ),
+        required=False,
+        default=1200,
+        min=1,
+    )
+
+    submission_rate_limit_trust_proxy = schema.Bool(
+        title="Trust X-Forwarded-For for the client address",
+        description=(
+            "Use the right-most X-Forwarded-For entry as the client address. "
+            "Only enable this when every request passes through a reverse "
+            "proxy that sets the header; otherwise clients can choose their "
+            "own rate-limit bucket."
+        ),
+        required=False,
+        default=False,
     )
 
     # Direct DOM Embedding settings

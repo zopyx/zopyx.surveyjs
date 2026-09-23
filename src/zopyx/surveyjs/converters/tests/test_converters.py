@@ -16,6 +16,8 @@ from zopyx.surveyjs.converters import (
     json_export,
     markdown,
     pdf,
+    sanitize,
+    spreadsheet,
     text,
     xlsx_export,
     xml_export,
@@ -153,6 +155,156 @@ def test_wrap_pdf_html_inserts_metadata_without_heading() -> None:
     assert wrapped.index("Created by:") < wrapped.index("Body")
 
 
+def test_build_html_neutralises_click_triggered_javascript_urls() -> None:
+    """The stored-XSS chain of the security review (answer -> converter)."""
+    md_text = '[review](javascript:alert(document.domain))'
+    html_body = html.build_html(md_text, [])
+
+    assert "javascript:" not in html_body
+    assert "review" in html_body
+
+    raw_html = '<a href="javascript:alert(1)">click</a>'
+    assert "javascript:" not in html.build_html(raw_html, [])
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        '<a href="java\tscript:alert(1)">x</a>',
+        '<a href="JaVaScRiPt:alert(1)">x</a>',
+        '<a href="&#106;avascript:alert(1)">x</a>',
+        '<a href="vbscript:msgbox(1)">x</a>',
+        '<a href="data:text/html;base64,PHNjcmlwdD4=">x</a>',
+        '<a href="//evil.example/x">x</a>',
+        '<a href="  javascript:alert(1)">x</a>',
+    ],
+)
+def test_sanitize_html_drops_unsafe_url_schemes(payload: str) -> None:
+    sanitized = sanitize.sanitize_html(payload)
+
+    assert "javascript:" not in sanitized.lower()
+    assert "vbscript:" not in sanitized.lower()
+    assert "data:text/html" not in sanitized.lower()
+    assert "evil.example" not in sanitized
+    assert ">x</a>" in sanitized
+
+
+def test_sanitize_html_keeps_safe_urls() -> None:
+    sanitized = sanitize.sanitize_html(
+        '<a href="https://example.com/x?a=1">https</a>'
+        '<a href="mailto:survey@example.com">mail</a>'
+        '<a href="tel:+4912345">tel</a>'
+        '<a href="report.pdf">relative</a>'
+    )
+
+    assert '<a href="https://example.com/x?a=1">https</a>' in sanitized
+    assert '<a href="mailto:survey@example.com">mail</a>' in sanitized
+    assert '<a href="tel:+4912345">tel</a>' in sanitized
+    assert '<a href="report.pdf">relative</a>' in sanitized
+
+
+def test_sanitize_html_drops_active_content_and_its_text() -> None:
+    sanitized = sanitize.sanitize_html(
+        '<script>alert(1)</script>ok'
+        '<style>body{}</style>'
+        '<iframe src="https://evil.example"></iframe>'
+        '<svg><animate onbegin="alert(1)"></animate></svg>'
+    )
+
+    assert "alert(1)" not in sanitized
+    assert "<script" not in sanitized
+    assert "<style" not in sanitized
+    assert "<iframe" not in sanitized
+    assert "<svg" not in sanitized
+    assert sanitized.endswith("ok")
+
+
+def test_sanitize_html_drops_event_handler_attributes() -> None:
+    sanitized = sanitize.sanitize_html(
+        '<img src="https://example.com/x.png" onerror="alert(1)" onload="alert(2)">'
+        '<p style="background:url(javascript:alert(1))" onclick="alert(3)">text</p>'
+    )
+
+    assert "onerror" not in sanitized
+    assert "onload" not in sanitized
+    assert "onclick" not in sanitized
+    assert "style=" not in sanitized
+    assert '<img src="https://example.com/x.png" />' in sanitized
+    assert "<p>text</p>" in sanitized
+
+
+def test_sanitize_html_keeps_allow_listed_markup() -> None:
+    sanitized = sanitize.sanitize_html(
+        "<h1>Title</h1><p><strong>bold</strong> <em>italic</em></p>"
+        "<ul><li>one</li></ul>"
+        "<table><thead><tr><th scope=\"col\">H</th></tr></thead>"
+        "<tbody><tr><td colspan=\"2\">1</td></tr></tbody></table>"
+        '<div class="meta"><span>m</span></div>'
+    )
+
+    for fragment in (
+        "<h1>Title</h1>",
+        "<strong>bold</strong>",
+        "<em>italic</em>",
+        "<li>one</li>",
+        '<th scope="col">H</th>',
+        '<td colspan="2">1</td>',
+        '<div class="meta">',
+    ):
+        assert fragment in sanitized
+
+
+def test_sanitize_html_escapes_text_and_closes_open_elements() -> None:
+    sanitized = sanitize.sanitize_html("<em>5 < 6 &amp; 7 > 4")
+
+    assert sanitized == "<em>5 &lt; 6 &amp; 7 &gt; 4</em>"
+
+
+def test_sanitize_html_rejects_unsafe_attribute_values() -> None:
+    sanitized = sanitize.sanitize_html(
+        '<div class="a" onmouseover="alert(1)">x</div>'
+        '<img src="https://example.com/x.png" width="javascript" height="10">'
+        '<a href="mailto:a@example.com" rel="noopener evil">m</a>'
+    )
+
+    assert "onmouseover" not in sanitized
+    assert "width=" not in sanitized
+    assert 'height="10"' in sanitized
+    assert 'rel="noopener"' in sanitized
+
+
+def test_sanitize_html_handles_edges_of_the_parser() -> None:
+    # Non-allow-listed elements are unwrapped, their text survives.
+    assert sanitize.sanitize_html("<marquee>text</marquee>") == "text"
+    # Self-closing forms of dropped and unknown elements.
+    assert sanitize.sanitize_html("<iframe/><custom-el/>ok") == "ok"
+    # A self-closing tag inside dropped content stays dropped.
+    assert sanitize.sanitize_html("<svg><image/>alert</svg>ok") == "ok"
+    # Stray end tags are ignored instead of producing broken markup.
+    assert sanitize.sanitize_html("</marquee></br></em>ok") == "ok"
+    # Attributes without a value and empty URLs are dropped.
+    assert sanitize.sanitize_html('<a href title="t">x</a>') == '<a title="t">x</a>'
+    assert sanitize.sanitize_html('<a href="">x</a>') == "<a>x</a>"
+    # Comments, declarations and instructions never reach the output.
+    html_body = sanitize.sanitize_html(
+        "<!-- comment --><!DOCTYPE html><?php echo 1; ?><![CDATA[x]]><p>body</p>"
+    )
+    assert html_body == "<p>body</p>"
+
+
+def test_sanitize_html_passes_through_empty_input() -> None:
+    assert sanitize.sanitize_html("") == ""
+    assert sanitize.sanitize_html("plain text") == "plain text"
+
+
+def test_build_html_keeps_inlined_image_attachments(
+    image_attachment: Attachment,
+) -> None:
+    html_body = html.build_html("![Alt](photo.png)", [image_attachment])
+
+    assert 'src="data:image/png;base64' in html_body
+
+
 def test_wrap_html_output_adds_style() -> None:
     wrapped = common.wrap_html_output("<p>Body</p>")
     assert wrapped.startswith("<html>")
@@ -282,6 +434,64 @@ def test_write_xlsx_outputs_rows(tmp_path: Path) -> None:
     assert ws.title == "Survey"
     assert ws.cell(row=1, column=1).value == "Key"
     assert ws.cell(row=2, column=2).value == "label"
+
+
+def test_write_csv_escapes_formula_leading_values(tmp_path: Path) -> None:
+    dest = tmp_path / "csv" / "survey.csv"
+    rows = [
+        ("k1", "label", "=1+1", ""),
+        ("k2", "label", "+SUM(A1:A2)", ""),
+        ("k3", "label", "-2+3", ""),
+        ("k4", "label", "@SUM(1+1)*cmd|' /C calc'!A0", ""),
+        ("k5", "label", "plain value", ""),
+    ]
+    csv_export.write_csv(rows, dest)
+
+    content = dest.read_text(encoding="utf-8").splitlines()
+    assert content[0] == "Key,Field,Value,Attachments"
+    assert content[1] == "k1,label,'=1+1,"
+    assert content[2] == "k2,label,'+SUM(A1:A2),"
+    assert content[3] == "k3,label,'-2+3,"
+    assert content[4] == "k4,label,'@SUM(1+1)*cmd|' /C calc'!A0,"
+    assert content[5] == "k5,label,plain value,"
+
+
+def test_write_xlsx_stores_formula_leading_values_as_text(tmp_path: Path) -> None:
+    import zipfile
+
+    dest = tmp_path / "xlsx" / "survey.xlsx"
+    rows = [
+        ("k1", "label", "=1+1", ""),
+        ("k2", "label", "plain value", ""),
+    ]
+    xlsx_export.write_xlsx(rows, dest)
+
+    wb = load_workbook(dest)
+    ws = wb.active
+    cell = ws.cell(row=2, column=3)
+    assert cell.value == "=1+1"
+    assert cell.data_type == "s"
+    assert ws.cell(row=3, column=3).value == "plain value"
+
+    with zipfile.ZipFile(dest) as archive:
+        sheet = archive.read("xl/worksheets/sheet1.xml").decode("utf-8")
+    # The value must not be persisted as a formula element.
+    assert "<f>" not in sheet
+    assert "=1+1" in sheet
+
+
+def test_escape_formula_value_leaves_safe_values_untouched() -> None:
+    assert spreadsheet.escape_formula_value(5) == 5
+    assert spreadsheet.escape_formula_value(None) is None
+    assert spreadsheet.escape_formula_value("plain") == "plain"
+    assert spreadsheet.escape_formula_value("text=1+1") == "text=1+1"
+    assert spreadsheet.escape_formula_value("=1+1") == "'=1+1"
+    assert spreadsheet.escape_formula_value("\tvalue") == "'\tvalue"
+    assert spreadsheet.escape_formula_value("\rvalue") == "'\rvalue"
+
+
+def test_escape_formula_row_escapes_every_cell() -> None:
+    assert spreadsheet.escape_formula_row(["=a", "b", "@c"]) == ["'=a", "b", "'@c"]
 
 
 def test_build_xml_handles_tables_and_attachments(

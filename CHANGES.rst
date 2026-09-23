@@ -5,6 +5,35 @@ Changelog
 1.0b4 (unreleased)
 ------------------
 
+- Admission control for public submissions (security review findings 3–6).
+  ``@@save-poll`` now consumes a per-survey, per-client bucket before any
+  parsing and answers ``429 rate_limited`` (with ``Retry-After``) over the
+  limit and ``503 rate_limit_unavailable`` when the bucket store is
+  unavailable (fail closed). New settings
+  ``submission_rate_limit_enabled`` / ``_per_minute`` / ``_per_hour`` /
+  ``_trust_proxy`` in the "Security" fieldset, profile version 1004 with a
+  registry upgrade step (``upgrades.to_1004``). Tests:
+  ``test_ratelimit.py``, ``test_coverage_views.py::SavePollRateLimitTests``,
+  ``test_integration_views.py::test_save_poll_rate_limit_*``.
+- Bind direct-embed tokens to their survey: ``@@save-poll`` rejects a token
+  whose ``sub`` claim is not the target survey's UID (``survey_mismatch``) and
+  refuses embed submissions for surveys that are not in ``direct`` mode
+  (``direct_embedding_not_enabled``); both share the token issuance helpers
+  (``embed_security.get_survey_uid`` / ``is_direct_embedding_mode``). Tests:
+  ``test_integration_views.py::test_save_poll_rejects_embed_token_issued_for_another_survey``
+  and neighbours.
+- Sanitize generated result HTML with a parser-based allow list
+  (``converters/sanitize.py``), closing the stored, click-triggered XSS in the
+  result detail view, the HTML/PDF exports and the mail body. Values are no
+  longer trusted just because they passed the validator. Tests:
+  ``test_converters.py::test_build_html_neutralises_click_triggered_javascript_urls``
+  and the ``test_sanitize_html_*`` cases.
+- Neutralise spreadsheet formula injection in the CSV/XLSX exports
+  (``converters/spreadsheet.py``): formula-leading values are written as text
+  in ``converters/csv_export.py``, ``converters/xlsx_export.py`` and the CSV
+  download of the dashboard. Tests:
+  ``test_converters.py::test_write_csv_escapes_formula_leading_values`` and
+  ``test_write_xlsx_stores_formula_leading_values_as_text``.
 - Remove the ``authenticity_token_cache_path`` setting (UI "Token cache
   path") and the ``legacy_diskcache_path`` argument of
   ``kv.get_configured_kv_store()``. The authenticity-token cache location is

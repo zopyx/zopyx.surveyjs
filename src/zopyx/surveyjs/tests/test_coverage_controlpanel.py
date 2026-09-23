@@ -339,6 +339,53 @@ class FormsSettingsValidateTests(unittest.TestCase):
             [],
         )
 
+    def test_rate_limits_below_one_are_rejected(self) -> None:
+        self.assertIn(
+            "Submissions per minute must be at least 1.",
+            self.view._validate_data({"submission_rate_limit_per_minute": 0}),
+        )
+        self.assertIn(
+            "Submissions per hour must be at least 1.",
+            self.view._validate_data({"submission_rate_limit_per_hour": "-5"}),
+        )
+
+    def test_non_numeric_rate_limits_are_rejected(self) -> None:
+        self.assertIn(
+            "Submissions per minute must be a valid number.",
+            self.view._validate_data({"submission_rate_limit_per_minute": "lots"}),
+        )
+        self.assertIn(
+            "Submissions per hour must be a valid number.",
+            self.view._validate_data({"submission_rate_limit_per_hour": "1e3x"}),
+        )
+        # A field that was not submitted at all is skipped.
+        self.assertEqual(
+            self.view._validate_data({"submission_rate_limit_per_hour": None}), []
+        )
+
+    def test_valid_or_empty_rate_limits_are_accepted(self) -> None:
+        self.assertEqual(
+            self.view._validate_data(
+                {
+                    "submission_rate_limit_enabled": True,
+                    "submission_rate_limit_per_minute": "60",
+                    "submission_rate_limit_per_hour": 600,
+                    "submission_rate_limit_trust_proxy": False,
+                }
+            ),
+            [],
+        )
+        # An untouched field arrives as an empty string and is skipped.
+        self.assertEqual(
+            self.view._validate_data(
+                {
+                    "submission_rate_limit_per_minute": "",
+                    "submission_rate_limit_per_hour": "",
+                }
+            ),
+            [],
+        )
+
 
 # --------------------------------------------------------------------------
 # _save_to_registry edge cases
@@ -462,6 +509,51 @@ class FormsSettingsSaveEdgeCaseTests(unittest.TestCase):
         self.assertNotIn("embed_direct_signing_key", written)
         # the save still runs to the end
         self.assertEqual(written["authenticity_token_issuer"], "privacyforms.studio")
+
+    def test_rate_limit_values_are_written_and_clamped(self) -> None:
+        _registry, settings = _recording_settings(self.field_names)
+
+        self._save(
+            {
+                "submission_rate_limit_enabled": True,
+                "submission_rate_limit_per_minute": "30",
+                "submission_rate_limit_per_hour": "-10",
+                "submission_rate_limit_trust_proxy": False,
+            },
+            settings,
+        )
+
+        written = _writes(settings)
+        self.assertIs(written["submission_rate_limit_enabled"], True)
+        self.assertEqual(written["submission_rate_limit_per_minute"], 30)
+        self.assertEqual(written["submission_rate_limit_per_hour"], 1)
+        self.assertIs(written["submission_rate_limit_trust_proxy"], False)
+
+    def test_invalid_rate_limit_values_fall_back_to_defaults(self) -> None:
+        _registry, settings = _recording_settings(self.field_names)
+
+        self._save(
+            {
+                "submission_rate_limit_per_minute": "soon",
+                "submission_rate_limit_per_hour": "later",
+            },
+            settings,
+        )
+
+        written = _writes(settings)
+        self.assertEqual(written["submission_rate_limit_per_minute"], 120)
+        self.assertEqual(written["submission_rate_limit_per_hour"], 1200)
+
+    def test_absent_rate_limit_fields_use_the_defaults(self) -> None:
+        _registry, settings = _recording_settings(self.field_names)
+
+        self._save({}, settings)
+
+        written = _writes(settings)
+        self.assertIs(written["submission_rate_limit_enabled"], True)
+        self.assertEqual(written["submission_rate_limit_per_minute"], 120)
+        self.assertEqual(written["submission_rate_limit_per_hour"], 1200)
+        self.assertIs(written["submission_rate_limit_trust_proxy"], False)
 
     def test_fields_missing_from_the_settings_are_skipped(self) -> None:
         _registry, settings = _recording_settings(())

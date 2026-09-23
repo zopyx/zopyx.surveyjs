@@ -26,6 +26,7 @@ from ..permissions import AddSurvey, ModifyPortalContent
 from ..constants import FORM_VERSIONS_KEY
 from ..audit import audit_form_version_change
 from ..monitoring import record_submission_duration
+from ..ratelimit import REASON_STORE_UNAVAILABLE, check_submission_rate_limit
 from ..storage import _get_storage_location, get_result_storage
 from ..utils import ensure_timezone_aware
 from ..utils import html_safe_json
@@ -585,6 +586,52 @@ class Views(BrowserView):
             ):
                 return
 
+        # Admission control: count the attempt per survey and client before
+        # any parsing/validation work happens. Fails closed when the bucket
+        # store is unavailable (HTTP 503).
+        rate_decision = check_submission_rate_limit(self.context, self.request)
+        if not rate_decision.allowed:
+            if rate_decision.reason == REASON_STORE_UNAVAILABLE:
+                logger.error(
+                    "Survey save failed: status=503 reason=rate_limit_unavailable"
+                )
+                json_error(
+                    self.request.response,
+                    503,
+                    "rate_limit_unavailable",
+                    extra={"isSuccess": False},
+                )
+                return
+            submission_audit.warning(
+                "submission.rate_limited",
+                extra={
+                    "reason": rate_decision.reason,
+                    "limit": rate_decision.limit,
+                    "count": rate_decision.count,
+                    "origin": origin or "",
+                    "remote_addr": self.request.get("REMOTE_ADDR", ""),
+                },
+            )
+            logger.warning("Survey save failed: status=429 reason=rate_limited")
+            try:
+                self.request.response.setHeader(
+                    "Retry-After", str(rate_decision.retry_after)
+                )
+            except Exception:
+                logger.debug("Could not set Retry-After header", exc_info=True)
+            json_error(
+                self.request.response,
+                429,
+                "rate_limited",
+                message="Too many submissions; please retry later",
+                extra={
+                    "isSuccess": False,
+                    "retry_after": rate_decision.retry_after,
+                    "limit": rate_decision.limit,
+                },
+            )
+            return
+
         raw_poll = self.request.form.get("pollResult")
         if raw_poll is None:
             logger.warning("Survey save failed: status=400 reason=missing_poll_result")
@@ -703,6 +750,8 @@ class Views(BrowserView):
                 set_cors_headers,
                 mark_token_used,
                 is_embed_direct_globally_enabled,
+                is_direct_embedding_mode,
+                get_survey_uid,
             )
 
             if not is_embed_direct_globally_enabled():
@@ -778,8 +827,50 @@ class Views(BrowserView):
             # Keep the verified jti and consume it only after submission
             # validation has passed, matching trusted-token semantics.
             jti = payload.get("jti")
-            # Embed validation passed — skip trusted access and auth token checks
-            pass
+
+            # A token authorizes exactly one survey: without this check a
+            # token issued for survey A would be accepted by survey B's save
+            # endpoint (it only has to be bound to an origin both surveys
+            # allow-list) and the target's trusted-access restriction would be
+            # bypassed. The configuration endpoint performs the same check.
+            if payload.get("sub") != get_survey_uid(self.context):
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={
+                        "reason": "survey_mismatch",
+                        "origin": origin,
+                        "remote_addr": remote_addr,
+                    },
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "survey_mismatch",
+                    message="Token was not issued for this survey",
+                    extra={"isSuccess": False},
+                )
+                return
+
+            # A survey that is no longer configured for Direct DOM embedding
+            # must not accept embed submissions, even with a still-valid
+            # token.
+            if not is_direct_embedding_mode(self.context):
+                _audit.info(
+                    "embed.submission.rejected",
+                    extra={
+                        "reason": "direct_embedding_not_enabled",
+                        "origin": origin,
+                        "remote_addr": remote_addr,
+                    },
+                )
+                json_error(
+                    self.request.response,
+                    403,
+                    "direct_embedding_not_enabled",
+                    message="This survey is not configured for Direct DOM embedding",
+                    extra={"isSuccess": False},
+                )
+                return
         else:
             if not self._require_trusted_access():
                 return
@@ -963,6 +1054,8 @@ class Views(BrowserView):
 
     def download_polls_csv(self):
         """Download all poll results as CSV."""
+        from ..converters.spreadsheet import escape_formula_row
+
         storage = get_result_storage(self.context)
         results = self._filter_results_by_date(storage.list_results(self.context))
         logger.info("Downloading poll results (CSV) from %s", _get_storage_location())
@@ -1008,7 +1101,7 @@ class Views(BrowserView):
                     value = ""
                 row.append(str(value))
 
-            writer.writerow(row)
+            writer.writerow(escape_formula_row(row))
 
         filename = f"{self.context.getId()}-survey-data.csv"
         csv_bytes = output.getvalue().encode("utf-8")

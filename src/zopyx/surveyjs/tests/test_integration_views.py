@@ -528,6 +528,243 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             finally:
                 settings.authenticity_token_enabled = False
 
+    # ------------------------------------------------------------------
+    # admission control for public submissions
+    # ------------------------------------------------------------------
+
+    def _set_rate_limits(
+        self,
+        settings,
+        *,
+        enabled: bool = True,
+        per_minute: int = 1,
+        per_hour: int = 100,
+        trust_proxy: bool = False,
+    ) -> None:
+        """Configure the submission rate limits for this test."""
+        previous = (
+            settings.submission_rate_limit_enabled,
+            settings.submission_rate_limit_per_minute,
+            settings.submission_rate_limit_per_hour,
+            settings.submission_rate_limit_trust_proxy,
+        )
+        settings.submission_rate_limit_enabled = enabled
+        settings.submission_rate_limit_per_minute = per_minute
+        settings.submission_rate_limit_per_hour = per_hour
+        settings.submission_rate_limit_trust_proxy = trust_proxy
+        self.addCleanup(self._restore_rate_limits, settings, previous)
+
+    @staticmethod
+    def _restore_rate_limits(settings, previous) -> None:
+        (
+            settings.submission_rate_limit_enabled,
+            settings.submission_rate_limit_per_minute,
+            settings.submission_rate_limit_per_hour,
+            settings.submission_rate_limit_trust_proxy,
+        ) = previous
+
+    def _submit(
+        self, payload: Dict[str, Any] | None = None, remote_addr: str = "10.0.0.9"
+    ):
+        """Submit ``@@save-poll`` from ``remote_addr`` and return the request."""
+        request = self._make_request(
+            form={"pollResult": orjson.dumps(payload or {"q1": "ok"})}
+        )
+        request["REMOTE_ADDR"] = remote_addr
+        Views(self.survey, request).save_poll()
+        return request
+
+    def test_save_poll_rate_limit_rejects_attempts_over_the_limit(self) -> None:
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._set_rate_limits(settings, per_minute=2)
+
+            first = self._submit()
+            second = self._submit()
+            third = self._submit()
+
+            self.assertEqual(first.response.getStatus(), 200)
+            self.assertEqual(second.response.getStatus(), 200)
+            self.assertEqual(third.response.getStatus(), 429)
+            body = orjson.loads(third.response.consumeBody())
+            self.assertEqual(body["error"], "rate_limited")
+            self.assertFalse(body["isSuccess"])
+            self.assertEqual(body["limit"], 2)
+            self.assertGreaterEqual(body["retry_after"], 1)
+            self.assertLessEqual(body["retry_after"], 60)
+            self.assertEqual(
+                third.response.getHeader("Retry-After"), str(body["retry_after"])
+            )
+            # The refused attempt is not stored.
+            self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 2)
+
+    def test_save_poll_rate_limit_is_scoped_to_the_client_address(self) -> None:
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._set_rate_limits(settings, per_minute=1)
+
+            first = self._submit(remote_addr="10.0.0.1")
+            blocked = self._submit(remote_addr="10.0.0.1")
+            other = self._submit(remote_addr="10.0.0.2")
+
+            self.assertEqual(first.response.getStatus(), 200)
+            self.assertEqual(blocked.response.getStatus(), 429)
+            self.assertEqual(other.response.getStatus(), 200)
+
+    def test_save_poll_rate_limit_trust_proxy_uses_forwarded_address(self) -> None:
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._set_rate_limits(settings, per_minute=1, trust_proxy=True)
+
+            first = self._submit(remote_addr="10.0.0.9")
+            # Same proxy address, different forwarded client: the limiter
+            # must key on the right-most X-Forwarded-For entry.
+            second_request = self._make_request(
+                form={"pollResult": orjson.dumps({"q1": "ok"})}
+            )
+            second_request["REMOTE_ADDR"] = "10.0.0.9"
+            second_request.setHeader("X-Forwarded-For", "203.0.113.7, 198.51.100.3")
+            Views(self.survey, second_request).save_poll()
+
+            self.assertEqual(first.response.getStatus(), 200)
+            self.assertEqual(second_request.response.getStatus(), 200)
+
+    def test_save_poll_rate_limit_disabled_admits_repeated_attempts(self) -> None:
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._set_rate_limits(settings, enabled=False, per_minute=1)
+
+            statuses = [self._submit().response.getStatus() for _ in range(3)]
+
+            self.assertEqual(statuses, [200, 200, 200])
+
+    def test_save_poll_fails_closed_when_the_bucket_store_is_unavailable(self) -> None:
+        self._add_version()
+        with patch(
+            "zopyx.surveyjs.ratelimit._open_store",
+            side_effect=RuntimeError("store down"),
+        ):
+            request = self._submit()
+
+        self.assertEqual(request.response.getStatus(), 503)
+        body = orjson.loads(request.response.consumeBody())
+        self.assertEqual(body["error"], "rate_limit_unavailable")
+        self.assertFalse(body["isSuccess"])
+        self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 0)
+
+    # ------------------------------------------------------------------
+    # direct embed token binding
+    # ------------------------------------------------------------------
+
+    def _enable_direct_embedding(
+        self, settings, *, signing_key: str = "embed-test-secret"
+    ) -> None:
+        previous = getattr(settings, "embed_direct_global_enabled", False)
+        settings.embed_direct_global_enabled = True
+        settings.embed_direct_signing_key = signing_key
+        self.addCleanup(
+            setattr, settings, "embed_direct_global_enabled", previous
+        )
+        self.survey.embedding_mode = "direct"
+        self.survey.embed_direct_origins = ["https://app.example"]
+
+    def _submit_embed(self, token: str, origin: str = "https://app.example"):
+        request = self._make_request(form={"pollResult": orjson.dumps({"q1": "ok"})})
+        request["REMOTE_ADDR"] = "10.0.0.9"
+        request.setHeader("Origin", origin)
+        request.setHeader("X-Embed-Token", token)
+        Views(self.survey, request).save_poll()
+        return request
+
+    def test_save_poll_rejects_embed_token_issued_for_another_survey(self) -> None:
+        from zopyx.surveyjs.browser.embed_security import generate_embed_token
+
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._enable_direct_embedding(settings)
+
+            other_survey = api.content.create(
+                container=self.portal,
+                type="Survey",
+                id="other-embed-survey",
+                title="Other embed survey",
+            )
+            token, _metadata = generate_embed_token(
+                other_survey.UID(),
+                "https://app.example",
+                secret=settings.embed_direct_signing_key,
+            )
+
+            request = self._submit_embed(token)
+
+            self.assertEqual(request.response.getStatus(), 403)
+            body = orjson.loads(request.response.consumeBody())
+            self.assertEqual(body["error"], "survey_mismatch")
+            self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 0)
+
+    def test_save_poll_accepts_embed_token_issued_for_the_target_survey(self) -> None:
+        from zopyx.surveyjs.browser.embed_security import generate_embed_token
+
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._enable_direct_embedding(settings)
+
+            token, _metadata = generate_embed_token(
+                self.survey.UID(),
+                "https://app.example",
+                secret=settings.embed_direct_signing_key,
+            )
+
+            request = self._submit_embed(token)
+
+            self.assertEqual(request.response.getStatus(), 200)
+            body = orjson.loads(request.response.consumeBody())
+            self.assertTrue(body["isSuccess"])
+            self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 1)
+
+    def test_save_poll_rejects_embed_submission_without_direct_mode(self) -> None:
+        from zopyx.surveyjs.browser.embed_security import generate_embed_token
+
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._enable_direct_embedding(settings)
+            token, _metadata = generate_embed_token(
+                self.survey.UID(),
+                "https://app.example",
+                secret=settings.embed_direct_signing_key,
+            )
+            # The survey is switched back to iframe embedding after the token
+            # was issued: the token must not keep the embed path open.
+            self.survey.embedding_mode = "iframe"
+
+            request = self._submit_embed(token)
+
+            self.assertEqual(request.response.getStatus(), 403)
+            body = orjson.loads(request.response.consumeBody())
+            self.assertEqual(body["error"], "direct_embedding_not_enabled")
+            self.assertEqual(len(IAnnotations(self.survey)[RESULTS_KEY]), 0)
+
     def test_dashboard_view_renders_for_manager(self) -> None:
         view = self.survey.restrictedTraverse("@@dashboard")
         html = view()

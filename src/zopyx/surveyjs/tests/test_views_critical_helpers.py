@@ -8,6 +8,20 @@ from zopyx.surveyjs.browser.views import (
     _run_external_validation,
 )
 from zopyx.surveyjs.browser import views as views_module
+from zopyx.surveyjs.ratelimit import RateLimitDecision
+
+
+def _allow_rate_limit():
+    """Patch the submission rate limiter to admit every attempt.
+
+    These tests exercise the payload guards, not admission control; the
+    limiter itself is covered in ``test_ratelimit.py``.
+    """
+    return patch.object(
+        views_module,
+        "check_submission_rate_limit",
+        return_value=RateLimitDecision(True),
+    )
 
 
 class ViewsCoverageTests(unittest.TestCase):
@@ -98,6 +112,7 @@ class ViewsCoverageTests(unittest.TestCase):
         view = self.make_view()
         with (
             patch.object(view, "_check_post_authenticator"),
+            _allow_rate_limit(),
             patch.object(views_module, "json_error") as error,
         ):
             view.save_poll()
@@ -115,6 +130,7 @@ class ViewsCoverageTests(unittest.TestCase):
         view.request.form = {"pollResult": "not-json"}
         with (
             patch.object(view, "_check_post_authenticator"),
+            _allow_rate_limit(),
             patch.object(views_module, "json_error") as error,
         ):
             view.save_poll()

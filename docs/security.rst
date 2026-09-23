@@ -127,6 +127,35 @@ Global — Security fieldset (Site Setup > Forms)
     are normalized case-insensitively and a trailing dot is ignored; a
     wildcard matches subdomains of its suffix.
 
+Global — Submission rate limiting (Security fieldset)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``submission_rate_limit_enabled`` (default: on)
+    Admission control for public submissions. Every request that reaches
+    ``@@save-poll`` consumes one slot in a per-survey, per-client bucket —
+    *attempts*, not accepted submissions, so a rejected flood keeps its own
+    budget drained. Turn it off only for surveys that must accept unmetered
+    traffic.
+
+``submission_rate_limit_per_minute`` (default: 120) /
+``submission_rate_limit_per_hour`` (default: 1200)
+    Bucket sizes. Requests over the limit are answered with
+    ``429 rate_limited`` and a ``Retry-After`` header (seconds until the
+    current window rolls over) and are not stored. Raise the per-minute value
+    for surveys behind a shared NAT or reverse-proxy address, where many
+    respondents look like a single client.
+
+``submission_rate_limit_trust_proxy`` (default: off)
+    Key the bucket on the right-most ``X-Forwarded-For`` entry instead of
+    ``REMOTE_ADDR``. Enable only when *every* request passes through a reverse
+    proxy that appends that header — otherwise clients can forge their own
+    bucket key. A spoofed key only sidesteps the limiter, it never grants
+    access to other surveys.
+
+The limiter fails closed: when the bucket store (``kv_cache_directory`` or the
+``rdbms`` caching backend) cannot be read or written, submissions are refused
+with ``503 rate_limit_unavailable`` instead of being admitted.
+
 Global — Logging fieldset
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -264,6 +293,11 @@ Direct DOM embedding stack
 * Tokens are PyJWT HS256 JWTs with a dedicated signing key, verified with
   fixed ``aud``/``iss`` values (``embed-client`` / ``privacyforms.studio``)
   and an **origin claim** that must equal the request's ``Origin`` header.
+* **Survey binding**: the ``sub`` claim must equal the target survey's UID
+  (otherwise ``survey_mismatch``, 403) and the target survey must still be in
+  ``direct`` embedding mode (otherwise ``direct_embedding_not_enabled``, 403).
+  A token issued for one survey therefore cannot authorize a submission to
+  another survey, even when both allow-list the same origin.
 * **One-time use**: the token's ``jti`` is atomically marked used at
   submission time; a replayed token is rejected
   (``token_already_used``, 403). Cache failure → reject (fail closed).
@@ -289,8 +323,21 @@ Payload and validation hardening
   retained behind ``enforce_required_fields=True`` but is disabled by default
   for compatibility.
 * When enabled, the ``missing_required`` check rejects empty required values;
-  it is disabled by default. Dangerous markup and event-handler attributes,
-  control characters and unsafe URL schemes remain enforced.
+  it is disabled by default. Dangerous markup and event-handler attributes and
+  control characters remain enforced. URL attributes are *not* restricted on
+  input — a legitimate answer may contain a link — so the generated result
+  HTML is sanitized instead (see below).
+* Generated result HTML is sanitized with a parser-based allow list before it
+  is rendered (result detail view), exported (HTML/PDF) or mailed: elements,
+  attributes and URL schemes are checked against an allow list;
+  ``javascript:``/``vbscript:``/``data:`` URLs (including obfuscated spellings
+  such as ``java\tscript:``) and the content of ``script``/``style``/``svg``/
+  ``iframe`` are removed (``converters/sanitize.py``).
+* CSV/XLSX exports neutralise spreadsheet formula injection: values starting
+  with ``=``, ``+``, ``-``, ``@``, tab or CR are written as text (CSV: leading
+  apostrophe; XLSX: explicit string cells) so an answer cannot execute or build
+  risky links when an Editor opens the export
+  (``converters/spreadsheet.py``).
 * Structured files use a restrictive MIME allowlist, valid Base64 data URLs,
   MIME consistency checks and magic-byte verification. SVG and
   ``application/octet-stream`` are rejected by default.

@@ -29,6 +29,7 @@ from zopyx.surveyjs.browser.views import (
     _run_external_validation,
 )
 from zopyx.surveyjs.constants import FORM_VERSIONS_KEY
+from zopyx.surveyjs.ratelimit import RateLimitDecision
 
 SURVEY_URL = "http://nohost/survey"
 
@@ -1054,6 +1055,16 @@ def form_versions(annos):
 
 
 class SavePollGuardTests(unittest.TestCase):
+    def setUp(self) -> None:
+        # These tests exercise the payload guards, not admission control.
+        limiter = patch.object(
+            views_module,
+            "check_submission_rate_limit",
+            return_value=RateLimitDecision(True),
+        )
+        limiter.start()
+        self.addCleanup(limiter.stop)
+
     def _view(self, form=None, method="POST", headers=None, annos=None, **attrs):
         request = _Request(form=form, method=method, headers=headers)
         context = MagicMock()
@@ -1389,6 +1400,18 @@ class SavePollEmbedTests(unittest.TestCase):
         "X-Embed-Token": "token-value",
     }
 
+    SURVEY_UID = "survey-uid"
+
+    def setUp(self) -> None:
+        # These tests exercise embed token handling, not admission control.
+        limiter = patch.object(
+            views_module,
+            "check_submission_rate_limit",
+            return_value=RateLimitDecision(True),
+        )
+        limiter.start()
+        self.addCleanup(limiter.stop)
+
     def _view(self, annos=None, form=None, **attrs):
         request = _Request(
             form=form
@@ -1402,6 +1425,8 @@ class SavePollEmbedTests(unittest.TestCase):
         context.absolute_url.return_value = SURVEY_URL
         context.actions = {"store"}
         context.embed_direct_origins = ["https://app.example"]
+        context.embedding_mode = "direct"
+        context.UID.return_value = self.SURVEY_UID
         context.max_payload_size_mb = 1
         context.force_server_side_validation = False
         for key, value in attrs.items():
@@ -1527,7 +1552,7 @@ class SavePollEmbedTests(unittest.TestCase):
             patch.object(
                 embed_security_module,
                 "validate_embed_token",
-                return_value={"jti": "jti-1"},
+                return_value={"jti": "jti-1", "sub": self.SURVEY_UID},
             ),
             patch.object(embed_security_module, "mark_token_used", return_value=False),
             patch("logging.getLogger", return_value=audit),
@@ -1565,7 +1590,7 @@ class SavePollEmbedTests(unittest.TestCase):
             patch.object(
                 embed_security_module,
                 "validate_embed_token",
-                return_value={"jti": "jti-2"},
+                return_value={"jti": "jti-2", "sub": self.SURVEY_UID},
             ),
             patch.object(
                 embed_security_module,
@@ -1585,6 +1610,179 @@ class SavePollEmbedTests(unittest.TestCase):
         self.assertEqual(
             audit.info.call_args.kwargs["extra"]["remote_addr"], "10.0.0.9"
         )
+
+
+    def test_embed_token_for_another_survey_is_rejected(self) -> None:
+        view, request, annos = self._view()
+        audit = MagicMock()
+        with (
+            patch.object(view, "_check_post_authenticator"),
+            patch.object(views_module, "IAnnotations", return_value=annos),
+            patch.object(views_module, "notify") as notify,
+            patch.object(views_module, "record_submission_duration"),
+            patch.object(
+                embed_security_module,
+                "is_embed_direct_globally_enabled",
+                return_value=True,
+            ),
+            patch.object(
+                embed_security_module,
+                "validate_origin",
+                return_value=(True, "https://app.example", ""),
+            ),
+            patch.object(embed_security_module, "set_cors_headers"),
+            patch.object(
+                embed_security_module,
+                "validate_embed_token",
+                return_value={"jti": "jti-3", "sub": "another-survey"},
+            ),
+            patch.object(embed_security_module, "mark_token_used") as mark,
+            patch("logging.getLogger", return_value=audit),
+        ):
+            view.save_poll()
+
+        self.assertEqual(request.response.status, 403)
+        body = request.response.json()
+        self.assertEqual(body["error"], "survey_mismatch")
+        self.assertEqual(body["message"], "Token was not issued for this survey")
+        mark.assert_not_called()
+        notify.assert_not_called()
+        self.assertEqual(
+            audit.info.call_args.kwargs["extra"]["reason"], "survey_mismatch"
+        )
+
+    def test_embed_submission_requires_direct_embedding_mode(self) -> None:
+        view, request, annos = self._view(embedding_mode="iframe")
+        audit = MagicMock()
+        with (
+            patch.object(view, "_check_post_authenticator"),
+            patch.object(views_module, "IAnnotations", return_value=annos),
+            patch.object(views_module, "notify") as notify,
+            patch.object(views_module, "record_submission_duration"),
+            patch.object(
+                embed_security_module,
+                "is_embed_direct_globally_enabled",
+                return_value=True,
+            ),
+            patch.object(
+                embed_security_module,
+                "validate_origin",
+                return_value=(True, "https://app.example", ""),
+            ),
+            patch.object(embed_security_module, "set_cors_headers"),
+            patch.object(
+                embed_security_module,
+                "validate_embed_token",
+                return_value={"jti": "jti-4", "sub": self.SURVEY_UID},
+            ),
+            patch.object(embed_security_module, "mark_token_used") as mark,
+            patch("logging.getLogger", return_value=audit),
+        ):
+            view.save_poll()
+
+        self.assertEqual(request.response.status, 403)
+        body = request.response.json()
+        self.assertEqual(body["error"], "direct_embedding_not_enabled")
+        mark.assert_not_called()
+        notify.assert_not_called()
+        self.assertEqual(
+            audit.info.call_args.kwargs["extra"]["reason"],
+            "direct_embedding_not_enabled",
+        )
+
+
+class SavePollRateLimitTests(unittest.TestCase):
+    """Admission control responses of ``@@save-poll``."""
+
+    def setUp(self) -> None:
+        # The limiter itself is covered in test_ratelimit.py; here the
+        # decision is injected so the responses are asserted directly.
+        self.view, self.request = self._view()
+        authenticator = patch.object(self.view, "_check_post_authenticator")
+        authenticator.start()
+        self.addCleanup(authenticator.stop)
+
+    def _view(self, **attrs):
+        request = _Request(
+            form={"pollResult": orjson.dumps({"q1": "a"})},
+            method="POST",
+            headers={"Content-Length": "20"},
+            environ={"REMOTE_ADDR": "10.0.0.9"},
+        )
+        context = MagicMock()
+        context.absolute_url.return_value = SURVEY_URL
+        context.actions = {"store"}
+        context.embed_direct_origins = []
+        context.max_payload_size_mb = 1
+        context.force_server_side_validation = False
+        for key, value in attrs.items():
+            setattr(context, key, value)
+        view = _make_view(context=context, request=request)
+        return view, request
+
+    def test_rate_limited_submission_returns_429_with_retry_after(self) -> None:
+        decision = RateLimitDecision(
+            False, "rate_limited", limit=120, count=121, retry_after=7
+        )
+        with (
+            patch.object(
+                views_module, "check_submission_rate_limit", return_value=decision
+            ) as limiter,
+            patch.object(views_module, "notify") as notify,
+            patch.object(views_module, "record_submission_duration"),
+        ):
+            self.view.save_poll()
+
+        limiter.assert_called_once()
+        self.assertEqual(self.request.response.status, 429)
+        self.assertEqual(self.request.response.headers["Retry-After"], "7")
+        body = self.request.response.json()
+        self.assertEqual(body["error"], "rate_limited")
+        self.assertEqual(body["retry_after"], 7)
+        self.assertEqual(body["limit"], 120)
+        self.assertFalse(body["isSuccess"])
+        notify.assert_not_called()
+
+    def test_unavailable_bucket_store_fails_closed_with_503(self) -> None:
+        decision = RateLimitDecision(False, "store_unavailable")
+        with (
+            patch.object(
+                views_module, "check_submission_rate_limit", return_value=decision
+            ),
+            patch.object(views_module, "notify") as notify,
+            patch.object(views_module, "record_submission_duration"),
+        ):
+            self.view.save_poll()
+
+        self.assertEqual(self.request.response.status, 503)
+        body = self.request.response.json()
+        self.assertEqual(body["error"], "rate_limit_unavailable")
+        self.assertFalse(body["isSuccess"])
+        notify.assert_not_called()
+
+    def test_unsettable_retry_after_header_still_returns_429(self) -> None:
+        decision = RateLimitDecision(
+            False, "rate_limited", limit=1, count=2, retry_after=30
+        )
+        original_set_header = self.request.response.setHeader
+
+        def failing_set_header(name, value):
+            if name == "Retry-After":
+                raise RuntimeError("headers already sent")
+            return original_set_header(name, value)
+
+        self.request.response.setHeader = failing_set_header
+        with (
+            patch.object(
+                views_module, "check_submission_rate_limit", return_value=decision
+            ),
+            patch.object(views_module, "notify"),
+            patch.object(views_module, "record_submission_duration"),
+        ):
+            self.view.save_poll()
+
+        self.assertEqual(self.request.response.status, 429)
+        self.assertEqual(self.request.response.json()["error"], "rate_limited")
 
 
 if __name__ == "__main__":

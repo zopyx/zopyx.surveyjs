@@ -79,6 +79,17 @@
         />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+      source="1003"
+      destination="1004"
+      profile="zopyx.surveyjs:default">
+    <genericsetup:upgradeStep
+        title="Register submission rate limiting settings records"
+        description="Re-imports the registry step to create the records for the new IFormsSettings rate limiting fields."
+        handler=".upgrades.to_1004"
+        />
+  </genericsetup:upgradeSteps>
+
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="zopyx.surveyjs-hiddenprofiles"
