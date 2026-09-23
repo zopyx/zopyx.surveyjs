@@ -20,6 +20,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import TestRequest
 from plone.protect.authenticator import createToken
 
+from zopyx.surveyjs import ratelimit
 from zopyx.surveyjs.browser.ai import AIView
 from zopyx.surveyjs.browser.views import EmbedViewer, Views
 from zopyx.surveyjs.browser.survey_results import SurveyResults
@@ -563,6 +564,18 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             settings.submission_rate_limit_trust_proxy,
         ) = previous
 
+    #: Frozen clock for the rate-limit tests.  The bucket key contains the
+    #: window index (``int(now // 60)``), so with the wall clock a burst of
+    #: submissions can straddle a minute boundary and start a fresh bucket: the
+    #: limiter then admits a request the test expects to be refused (this flaked
+    #: in CI run 35819976711, test_save_poll_rate_limit_is_scoped_to_....).
+    RATE_LIMIT_CLOCK = 1_700_000_000.0
+
+    def _frozen_rate_limit_clock(self, now: float | None = None):
+        """Freeze the limiter's clock for the duration of the test body."""
+        frozen = self.RATE_LIMIT_CLOCK if now is None else now
+        return patch.object(ratelimit, "_current_time", return_value=frozen)
+
     def _submit(
         self, payload: Dict[str, Any] | None = None, remote_addr: str = "10.0.0.9"
     ):
@@ -578,7 +591,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self._add_version()
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
-        with TemporaryDirectory() as tmpdir:
+        with TemporaryDirectory() as tmpdir, self._frozen_rate_limit_clock():
             self._set_kv_cache_directory(settings, tmpdir)
             self._set_rate_limits(settings, per_minute=2)
 
@@ -605,7 +618,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         self._add_version()
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
-        with TemporaryDirectory() as tmpdir:
+        with TemporaryDirectory() as tmpdir, self._frozen_rate_limit_clock():
             self._set_kv_cache_directory(settings, tmpdir)
             self._set_rate_limits(settings, per_minute=1)
 
@@ -617,11 +630,32 @@ class SurveyViewIntegrationTests(unittest.TestCase):
             self.assertEqual(blocked.response.getStatus(), 429)
             self.assertEqual(other.response.getStatus(), 200)
 
+    def test_save_poll_rate_limit_bucket_ends_with_the_window(self) -> None:
+        """The fixed window is part of the bucket key: the next one starts over."""
+        self._add_version()
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IFormsSettings, check=False)
+        window = ratelimit.MINUTE_WINDOW_SECONDS
+        last_second = (int(self.RATE_LIMIT_CLOCK) // window + 1) * window - 1
+        with TemporaryDirectory() as tmpdir:
+            self._set_kv_cache_directory(settings, tmpdir)
+            self._set_rate_limits(settings, per_minute=1)
+
+            with self._frozen_rate_limit_clock(last_second):
+                first = self._submit(remote_addr="10.0.0.1")
+                blocked = self._submit(remote_addr="10.0.0.1")
+            with self._frozen_rate_limit_clock(last_second + 2):
+                next_window = self._submit(remote_addr="10.0.0.1")
+
+            self.assertEqual(first.response.getStatus(), 200)
+            self.assertEqual(blocked.response.getStatus(), 429)
+            self.assertEqual(next_window.response.getStatus(), 200)
+
     def test_save_poll_rate_limit_trust_proxy_uses_forwarded_address(self) -> None:
         self._add_version()
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IFormsSettings, check=False)
-        with TemporaryDirectory() as tmpdir:
+        with TemporaryDirectory() as tmpdir, self._frozen_rate_limit_clock():
             self._set_kv_cache_directory(settings, tmpdir)
             self._set_rate_limits(settings, per_minute=1, trust_proxy=True)
 

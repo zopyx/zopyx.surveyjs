@@ -9,7 +9,11 @@ after ``notify()``).
 
 Buckets are fixed windows in the configured KV store (namespace
 ``ratelimit``), keyed by survey UID, a digest of the client address and the
-window index, and they expire on their own.  The counter update is a
+window index, and they expire on their own.  The window index (``now // 60``)
+is part of the key, so a burst that straddles a window boundary starts a fresh
+bucket instead of continuing the old one; tests that count submissions therefore
+freeze :func:`_current_time` rather than racing the boundary.  The counter
+update is a
 read-modify-write, so two fully concurrent requests can both read the same
 count and admit one request more than the limit allows; the counter is bounded
 and never loses more than that, which is the accepted trade-off for keeping the
@@ -187,6 +191,15 @@ def _open_store() -> KVStore:
     return get_configured_kv_store(settings, KV_NAMESPACE)
 
 
+def _current_time() -> float:
+    """Return the clock used for the window arithmetic.
+
+    Module-level seam: tests freeze it so that a burst of submissions cannot
+    straddle a window boundary and reset the bucket it is counting into.
+    """
+    return time.time()
+
+
 def _consume(
     store: KVStore,
     unit: str,
@@ -238,7 +251,7 @@ def check_submission_rate_limit(context, request, settings: Any = None):
         return RateLimitDecision(False, REASON_STORE_UNAVAILABLE)
 
     try:
-        now = time.time()
+        now = _current_time()
         minute_count, minute_allowed = _consume(
             store, "m", identity, now, config.per_minute, MINUTE_WINDOW_SECONDS
         )
