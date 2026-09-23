@@ -137,8 +137,7 @@ Global — Submission rate limiting (Security fieldset)
     budget drained. Turn it off only for surveys that must accept unmetered
     traffic.
 
-``submission_rate_limit_per_minute`` (default: 120) /
-``submission_rate_limit_per_hour`` (default: 1200)
+``submission_rate_limit_per_minute`` and ``submission_rate_limit_per_hour`` (defaults: 120 / 1200)
     Bucket sizes. Requests over the limit are answered with
     ``429 rate_limited`` and a ``Retry-After`` header (seconds until the
     current window rolls over) and are not stored. Raise the per-minute value
@@ -385,8 +384,11 @@ The following remain separate work items unless implemented elsewhere:
 
 * CSRF enforcement in the public JSON view itself, or publisher-level tests
   proving the surrounding Plone protection layer;
-* output encoding for stored values rendered by result views;
-* rate limiting, quotas, bot controls, dependency pinning and key rotation.
+* server-side request forgery during PDF rendering: HTTP(S) image URLs in
+  untrusted answers are retained by the HTML sanitizer and fetched by
+  WeasyPrint; restrict its URL fetcher before treating generated PDFs as safe;
+* the submission limiter's concurrent read-modify-write race, plus per-form
+  quotas, bot controls, dependency pinning and key rotation.
 
 Permission model
 ----------------
