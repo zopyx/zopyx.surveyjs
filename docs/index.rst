@@ -2,6 +2,7 @@
    :alt: Privacy Forms Studio
    :width: 320px
    :align: center
+   :class: pfs-logo
 
 =====================
 Privacy Forms Studio

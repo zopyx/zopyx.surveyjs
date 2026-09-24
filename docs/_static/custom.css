@@ -1,3 +1,10 @@
+/* Landing-page logo: the theme rule `.yue figure img` zeroes the image's
+   margins with a higher specificity than a bare `img.pfs-logo`, so the
+   override needs the `.yue` prefix. */
+.yue img.pfs-logo {
+    margin-bottom: 1.5rem;
+}
+
 /* Landing-page project links */
 table.project-links {
     border-collapse: separate;
