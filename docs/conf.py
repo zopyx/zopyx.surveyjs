@@ -135,7 +135,10 @@ html_theme_options = {
 # html_short_title = None
 
 # The name of an image file (relative to this directory) to place at the top
-# of the sidebar.
+# of the sidebar. Left unset on purpose: the theme renders a header logo at a
+# fixed 28 px height, where the stacked PFS logo (shield + wordmark) is an
+# illegible smudge and the project title disappears. The docs therefore carry
+# the logo on the landing page (`index.rst`, `_static/logo.png`) only.
 # html_logo = None
 
 # The name of an image file (relative to this directory) to use as a favicon of

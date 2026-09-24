@@ -1,3 +1,8 @@
+.. image:: _static/logo.png
+   :alt: Privacy Forms Studio
+   :width: 320px
+   :align: center
+
 =====================
 Privacy Forms Studio
 =====================
