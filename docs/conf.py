@@ -26,7 +26,8 @@
 extensions = ["myst_parser"]
 
 # Add any paths that contain templates here, relative to this directory.
-# templates_path = ["_templates"]
+# `_templates/extra-foot.html` renders the build timestamp in the page footer.
+templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -158,9 +159,13 @@ html_css_files = ["custom.css"]
 # html_extra_path = []
 
 # If not None, a 'Last updated on:' timestamp is inserted at every page
-# bottom, using the given strftime format.
-# The empty string is equivalent to '%b %d, %Y'.
-# html_last_updated_fmt = None
+# bottom, using the given strftime format. Sphinx renders this in the page
+# footer through `_templates/extra-foot.html`; the shibuya theme itself does
+# not display `last_updated` anywhere. The value is the build time (or
+# SOURCE_DATE_EPOCH when set), forced to UTC so a CI build and a local build
+# are labelled unambiguously.
+html_last_updated_fmt = "%Y-%m-%d %H:%M %Z"
+html_last_updated_use_utc = True
 
 # If true, SmartyPants will be used to convert quotes and dashes to
 # typographically correct entities.

@@ -1,3 +1,13 @@
+/* Build timestamp below the page footer (docs/_templates/extra-foot.html):
+   align it with the footer's container and keep it unobtrusive. */
+p.build-date {
+    color: var(--sy-c-light);
+    font-size: 0.84rem;
+    margin: 0 auto;
+    max-width: 90rem;
+    padding: 0.75rem max(env(safe-area-inset-right), 1.5rem) 1.25rem;
+}
+
 /* Landing-page logo: the theme rule `.yue figure img` zeroes the image's
    margins with a higher specificity than a bare `img.pfs-logo`, so the
    override needs the `.yue` prefix. */

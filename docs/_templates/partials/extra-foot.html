@@ -1,0 +1,9 @@
+{#- Overrides shibuya's empty footer extension point (`base.html` includes
+    `partials/extra-foot.html` at the end of `<body>`, right after the
+    `sy-foot` block). Renders the build timestamp that `html_last_updated_fmt`
+    provides as the `last_updated` context value, since the theme itself never
+    displays it. The name must keep the theme's `partials/` prefix: Sphinx
+    prepends `templates_path` to the same loader chain the theme uses. -#}
+{%- if last_updated -%}
+<p class="build-date">Built {{ last_updated }}</p>
+{%- endif -%}
