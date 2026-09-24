@@ -6,6 +6,21 @@
     padding-left: 0 !important;
 }
 
+/*
+ * The SJS2 default theme declares `--sjs2-typography-font-family-text: Open
+ * Sans` (@see :where(.sd-theme-root) in survey-core.min.css) - a single family
+ * name with no fallback stack, and no Open Sans webfont is shipped with the
+ * add-on. Where Open Sans is not installed locally (iOS, Android, most Linux
+ * desktops) the unresolvable family falls back to the browser's default font,
+ * i.e. Times/serif, while the surrounding Barceloneta page keeps its Roboto.
+ * Inheriting the Bootstrap/Plone stack avoids that. The plain class selector is
+ * deliberate: the library's own rule is wrapped in :where() (zero specificity),
+ * so an equally wrapped override would lose against it.
+ */
+.sd-root-modern.sd-theme-root {
+    --sjs2-typography-font-family-text: var(--bs-font-sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif);
+}
+
 .survey-viewer-container {
     display: flex;
     flex-direction: column;

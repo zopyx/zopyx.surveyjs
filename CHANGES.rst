@@ -5,6 +5,15 @@ Changelog
 1.0b4 (unreleased)
 ------------------
 
+- Render the surveys in the page font stack: the SJS2 default theme sets
+  ``--sjs2-typography-font-family-text`` to a bare ``Open Sans`` without any
+  fallback, and no Open Sans webfont ships with the add-on, so every client
+  without that font installed locally (iOS, Android, most Linux desktops)
+  rendered the whole form in the browser default font, i.e. Times/serif.
+  ``viewer.css`` now sets the variable to ``var(--bs-font-sans-serif, ...)``
+  on ``.sd-root-modern.sd-theme-root`` (a plain class selector is required —
+  the library rule is wrapped in ``:where()`` and would win an equal-specificity
+  override).
 - Admission control for public submissions (security review findings 3–6).
   ``@@save-poll`` now consumes a per-survey, per-client bucket before any
   parsing and answers ``429 rate_limited`` (with ``Retry-After``) over the
