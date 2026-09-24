@@ -116,6 +116,14 @@ Changelog
   them. The ``plone.app.robotframework[debug]`` *test* dependency stays: it
   is imported by ``plone.app.contenttypes.testing``, which ``testing.py``
   builds on.
+- Document the transparency obligations of Article 50 of the EU AI Act for
+  the AI features (``docs/ai.rst`` → "AI transparency (EU AI Act, Article
+  50)", ``docs/limitations.rst``). The section maps Art. 50(1), (2), (4) and
+  (5) onto ``@@ai``, ``@@chatbot`` and the export pipeline, states that the
+  open-source carve-out of Art. 2(12) does not apply to systems falling under
+  Art. 5 or Art. 50, and records that the add-on implements neither the
+  interaction disclosure nor the marking of AI-generated output, so the duty
+  remains with the operator. Documentation only, no code change.
 
 
 1.0b3 (released 2026-09-21)

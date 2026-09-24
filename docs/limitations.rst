@@ -40,6 +40,28 @@ your submission/mail/AI budget from what does.
 
 **Roadmap:** per-form thresholds and an atomic counter increment.
 
+AI transparency (EU AI Act, Article 50)
+---------------------------------------
+
+**Status: not implemented — the disclosure duty stays with the operator.**
+
+* Neither ``@@ai`` nor ``@@chatbot`` tells the user that they are interacting
+  with an AI system; the model badge in the AI panel names the configured
+  model, which is not an Art. 50(1) notice. See :doc:`ai` → "AI transparency
+  (EU AI Act, Article 50)".
+* AI-generated content is not marked as such: the workspace does not label the
+  draft as AI-generated, and no exporter (HTML, PDF, DOCX, Markdown, plain
+  text) adds a label or watermark, let alone a machine-readable marking
+  (Art. 50(2)/(4)).
+* The open-source licence of the add-on is no exemption — Art. 2(12) carves
+  free and open-source systems out of the Regulation only while they do not
+  fall under Art. 5 or Art. 50.
+* **Deployment guidance:** a site that exposes the AI features to authors,
+  respondents or the public must add the disclosure itself (notice in the AI
+  panel and the chatbot, label on published AI-generated exports) and record
+  where AI-generated content is used. Do not treat an exported document as
+  editorially reviewed just because it was exported.
+
 Automatic survey data → PDF merge
 ---------------------------------
 

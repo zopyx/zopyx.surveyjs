@@ -150,6 +150,69 @@ Configuration & operational notes
   you want to keep, because ``@@ai-clear-temp-storage`` removes them
   permanently.
 
+AI transparency (EU AI Act, Article 50)
+=======================================
+
+The AI features of this add-on fall under the transparency obligations of
+**Article 50 of the EU AI Act** (Regulation (EU) 2024/1689, applicable since
+2 August 2026). Those obligations bind the operator of a site that runs the
+features, not the add-on: whoever puts the generator or the chatbot into
+service under their own name is the *provider* (Art. 3(3)) and, as a user,
+the *deployer* (Art. 3(4)) — "whether for payment or free of charge".
+
+**A free and open-source licence is not an exemption from Article 50.** The
+open-source carve-out of **Art. 2(12)** ("this Regulation does not apply to
+AI systems released under free and open-source licences") excludes systems
+that are placed on the market or put into service as high-risk systems or as
+a system that falls under Art. 5 or Art. 50 — so it does not apply here once
+the AI features are exposed to people.
+
+What the obligations mean for this add-on
+-----------------------------------------
+
+**Art. 50(1) — interaction disclosure.** ``@@ai`` (prompt-based creation,
+refinement) and the :doc:`chatbot <chatbot>` (``@@chatbot``) are intended to
+interact directly with natural persons, so those persons must be informed
+that they are interacting with an
+AI system. The information has to be clear and distinguishable and given at
+the latest at the first interaction (Art. 50(5), which also points to the
+applicable accessibility requirements). The "obvious from the point of view
+of a reasonably well-informed person" exemption is narrow and should not be
+relied on for a chat that answers in natural language.
+
+**Art. 50(2) — machine-readable marking of AI-generated content.** The
+generator produces synthetic text: the SurveyJS JSON, page and question
+titles, descriptions and labels. Providers of AI systems generating
+synthetic content must ensure that the outputs are marked in a
+machine-readable format and detectable as artificially generated, to the
+extent technically feasible and taking the state of the art into account.
+The exception for pure assistive/standard editing — output that does not
+substantially alter the input or its semantics — does not describe
+generating a form definition from a prompt or from an uploaded document.
+
+**Art. 50(4) — published text.** Where exported content (HTML, PDF, DOCX,
+Markdown, plain text — see :doc:`exports`) is published with the purpose of
+informing the public on matters of public interest, the deployer must
+disclose that the text was artificially generated, unless a natural or legal
+person holds editorial responsibility for the publication. The exemption is
+about real editorial control, not about a click on the export button.
+
+Status in this add-on
+---------------------
+
+**Neither disclosure is implemented.** ``@@ai`` shows the configured model
+and the workspace state, not a notice that this is an AI system; the chatbot
+opens without one; and no exporter adds a label, footnote or watermark that
+marks its content as artificially generated. A deployment that exposes these
+features to authors, respondents or the public has to add the disclosure
+itself — see :doc:`limitations` → "AI transparency (EU AI Act, Article 50)".
+
+Article 50 is not the whole AI Act: it is additional to the risk-management
+and data-governance requirements of Chapter III for systems classified as
+high-risk (Art. 50(6)), and it leaves other transparency duties under Union
+or national law untouched. This section describes how this project reads the
+provision; it is not legal advice.
+
 Endpoints
 =========
 
