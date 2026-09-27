@@ -23,7 +23,7 @@
     "@zerostep/playwright": "^0.1.5"
   },
   "devDependencies": {
-    "tsx": "^4.23.13",
+    "tsx": "^4.23.15",
     "serve": "^14.2.0"
   }
 }
