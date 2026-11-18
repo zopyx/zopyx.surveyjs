@@ -124,6 +124,21 @@ Changelog
   Art. 5 or Art. 50, and records that the add-on implements neither the
   interaction disclosure nor the marking of AI-generated output, so the duty
   remains with the operator. Documentation only, no code change.
+- Pin the buildout chain to Plone 6.2.2.1 instead of the moving
+  ``6.2-latest`` KGS: ``test_plone60.cfg`` extends
+  ``https://dist.plone.org/release/6.2.2.1/versions.cfg`` (after the
+  ``buildout.plonetest`` extends, so its pins win) and sets ``find-links``
+  to the same release, and ``requirements.txt`` follows that release's own
+  requirements file (pip 26.2.2, setuptools 81.0.0, zc.buildout 5.2.0).
+  CI previously aborted in "Setup Plone Buildout" with
+  ``VersionConflict: (zc-buildout 5.2.0, Requirement.parse('zc.buildout==6.0.2'))``,
+  raised while mr.developer was installed as a buildout extension from the
+  6.2-latest pins. ``base.cfg [versions]`` additionally drops the
+  ``typing-extensions`` 4.15.0 override (pydantic needs >= 4.16.0, the
+  chain pins 4.16.0), pins ``urllib3`` 2.8.0 (kubernetes >= 37) and
+  ``protobuf`` 6.33.6 (robotframework-browser pins it exactly). Verified
+  with ``./.venv/bin/buildout`` (Products.CMFPlone 6.2.2) and ``make test``
+  (598 tests, 0 failures).
 
 
 1.0b3 (released 2026-09-21)
