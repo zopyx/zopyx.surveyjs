@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.4
+ * SurveyJS Creator v3.2.7
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -371,10 +371,6 @@
         // precision: "Value precision",
         // min: "Minimum value",
         // max: "Maximum value"
-      },
-      currencymask: {
-        // prefix: "Currency prefix",
-        // suffix: "Currency suffix"
       },
       // isExclusive: "Clear others when selected",
       // imageHeight: "Display area height",
@@ -1164,10 +1160,6 @@
       datetimemask: {
         pattern: "Ex.: mm/dd/yyyy"
       },
-      currencymask: {
-        prefix: "Ex.: $",
-        suffix: "Ex.: USD"
-      },
       panelbase: {
         // questionTitleWidth: "Ex.: 200px"
       },
@@ -1443,10 +1435,6 @@
         // decimalSeparator: "A symbol used to separate the fractional part from the integer part of a displayed number.",
         // thousandsSeparator: "A symbol used to separate the digits of a large number into groups of three.",
         // precision: "Limits how many digits to retain after the decimal point for a displayed number."
-      },
-      currencymask: {
-        // prefix: "One or several symbols to be displayed before the value.",
-        // suffix: "One or several symbols to be displayed after the value."
       },
       theme: {
         // isPanelless: "This setting applies only to questions outside of a panel.",

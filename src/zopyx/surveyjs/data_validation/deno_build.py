@@ -80,7 +80,7 @@ COMPILE_PERMISSION_FLAGS = [
 
 # Exact pin (no semver range) matching bun.lock so both build paths resolve
 # the identical survey-core release.
-SURVEY_CORE_PIN = "npm:survey-core@3.0.4"
+SURVEY_CORE_PIN = "npm:survey-core@3.2.7"
 
 BUILD_LOCK_PATH = os.path.join(PROJECT_DIR, ".validate-build.lock")
 

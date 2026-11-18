@@ -139,6 +139,16 @@ Changelog
   ``protobuf`` 6.33.6 (robotframework-browser pins it exactly). Verified
   with ``./.venv/bin/buildout`` (Products.CMFPlone 6.2.2) and ``make test``
   (598 tests, 0 failures).
+- Update the vendored SurveyJS libraries from 3.0.4 to 3.2.7: survey-core
+  (``survey.core.min.js``, ``survey-core.min.css``, i18n, themes),
+  survey-js-ui, survey-creator-core (+ combined and per-language i18n),
+  survey-creator-js, survey-analytics and survey-pdf, all refetched from
+  unpkg via ``fetch_surveyjs.bash`` / ``download_creator_i18n.sh`` (the two
+  scripts now pin ``3.2.7``). The server-side validator follows with
+  ``SURVEY_CORE_PIN = "npm:survey-core@3.2.7"`` in ``deno_build.py``,
+  ``survey-core: 3.2.7`` in ``data_validation/package.json`` and the
+  regenerated ``bun.lock``. ``docs/installation.rst`` and
+  ``docs/data-validation-cli.rst`` name the new pin.
 
 
 1.0b3 (released 2026-09-21)

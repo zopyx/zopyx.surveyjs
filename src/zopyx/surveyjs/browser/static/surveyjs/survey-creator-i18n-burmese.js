@@ -1,5 +1,5 @@
 /*!
- * SurveyJS Creator v3.0.4
+ * SurveyJS Creator v3.2.7
  * (c) 2015-2026 Devsoft Baltic OÜ - http://surveyjs.io/
  * Github: https://github.com/surveyjs/survey-creator
  * License: https://surveyjs.io/Licenses#SurveyCreator
@@ -733,12 +733,6 @@
         min: "အနည်းဆုံးတန်ဖိုး",
         // "Maximum value"
         max: "အများဆုံးတန်ဖိုး"
-      },
-      currencymask: {
-        // "Currency prefix"
-        prefix: "ငွေကြေးစနစ်နာမည်",
-        // "Currency suffix"
-        suffix: "ငွေကြေးနောက်ဆက်"
       },
       // isCommentRequired: "Require user to enter a comment",
       imageHeight: "ပုံအမြင့်",
@@ -2129,12 +2123,6 @@
         // "Ex.: mm/dd/yyyy HH:MM:ss"
         pattern: "ဥပမာ: mm/dd/yyyy HH:MM:ss"
       },
-      currencymask: {
-        // "Ex.: $"
-        prefix: "ဥပမာ: $",
-        // "Ex.: USD"
-        suffix: "ဥပမာ: USD"
-      },
       panelbase: {
         // "Ex.: 200px"
         questionTitleWidth: "ဥပမာ: 200px"
@@ -2516,12 +2504,6 @@
         thousandsSeparator: "ကြီးမားသောနံပါတ်များကို သုံးခုစီခွဲထုတ်ရန် သုံးသော သင်္ကေတ။",
         // "Limits how many digits to retain after the decimal point for a displayed number."
         precision: "ထင်ဟပ်အမှတ်များကို Decimal Point အောက်တွင် တိကျစွာ ထားရှိပါ။"
-      },
-      currencymask: {
-        // "One or several symbols to be displayed before the value."
-        prefix: "တန်ဖိုးအရှေ့တွင် ပြသရန် သင်္ကေတတစ်ခု သို့မဟုတ် သင်္ကေတအများကို ထည့်သွင်းပါ။",
-        // "One or several symbols to be displayed after the value."
-        suffix: "တန်ဖိုးအနောက်တွင် ပြသရန် သင်္ကေတတစ်ခု သို့မဟုတ် သင်္ကေတအများကို ထည့်သွင်းပါ။"
       },
       theme: {
         // "This setting applies only to questions outside of a panel."
