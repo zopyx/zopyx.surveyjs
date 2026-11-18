@@ -232,7 +232,14 @@ class BuildLLMModelTests(unittest.TestCase):
         self.assertEqual(model, "custom:deepseek-chat")
         self.assertEqual(
             fake.calls["get_custom_model"],
-            [("deepseek-chat", "https://api.deepseek.com", "secret", {})],
+            [
+                (
+                    "deepseek-chat",
+                    "https://api.deepseek.com",
+                    "secret",
+                    {"vision": True},
+                )
+            ],
         )
 
     def test_custom_incomplete_raises(self) -> None:
