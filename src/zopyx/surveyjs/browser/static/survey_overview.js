@@ -8,10 +8,17 @@
  * @param {Event} event
  */
 function handleSurveyOverviewReady(event) {
-    const defaultTranslate = function (msgid) {
+    const t = window._t || function (msgid, mapping) {
+      if (!mapping) {
         return msgid;
+      }
+      return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+        if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+          return String(mapping[key]);
+        }
+        return match;
+      });
     };
-    const t = window._t || defaultTranslate;
 
     const gridMount = document.getElementById("survey-overview-grid");
     if (!gridMount) {

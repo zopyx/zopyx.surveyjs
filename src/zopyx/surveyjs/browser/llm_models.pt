@@ -17,25 +17,25 @@
     <h1 i18n:translate="">LLM Models</h1>
 
     <tal:no-llm tal:condition="not: view/has_llm">
-      <div class="alert alert-warning">
-        <code>llm</code> library not installed. <pre class="inline">pip install llm</pre>
+      <div class="alert alert-warning" i18n:translate="">
+        <code i18n:name="library">llm</code> library not installed. <pre class="inline" i18n:name="command">pip install llm</pre>
       </div>
     </tal:no-llm>
 
     <tal:has-llm tal:condition="view/has_llm">
       <tal:models tal:define="models view/get_models">
         <tal:no-models tal:condition="not: models">
-          <p class="text-muted">No models registered.</p>
+          <p class="text-muted" i18n:translate="">No models registered.</p>
         </tal:no-models>
 
         <tal:has-models tal:condition="models">
           <table class="llm-models-table">
             <thead>
               <tr>
-                <th>Model</th>
-                <th>Class</th>
-                <th>Capabilities</th>
-                <th>Aliases</th>
+                <th i18n:translate="">Model</th>
+                <th i18n:translate="">Class</th>
+                <th i18n:translate="">Capabilities</th>
+                <th i18n:translate="">Aliases</th>
               </tr>
             </thead>
             <tbody>
@@ -47,10 +47,10 @@
                   <span class="llm-class" tal:content="model/class_name">Class</span>
                 </td>
                 <td class="llm-col-caps">
-                  <span class="llm-cap" tal:condition="model/can_stream" title="Streaming">&#9889;</span>
-                  <span class="llm-cap" tal:condition="model/supports_schema" title="JSON Schema">&#128203;</span>
-                  <span class="llm-cap" tal:condition="model/supports_tools" title="Tools">&#128295;</span>
-                  <span class="llm-cap" tal:condition="model/is_async" title="Async">&#9851;</span>
+                  <span class="llm-cap" tal:condition="model/can_stream" i18n:attributes="title" title="Streaming">&#9889;</span>
+                  <span class="llm-cap" tal:condition="model/supports_schema" i18n:attributes="title" title="JSON Schema">&#128203;</span>
+                  <span class="llm-cap" tal:condition="model/supports_tools" i18n:attributes="title" title="Tools">&#128295;</span>
+                  <span class="llm-cap" tal:condition="model/is_async" i18n:attributes="title" title="Async">&#9851;</span>
                   <span class="llm-cap-attachments" tal:condition="model/attachment_types"
                         tal:content="python: ','.join(model['attachment_types'][:2]) + ('...' if len(model['attachment_types']) > 2 else '')">types</span>
                 </td>

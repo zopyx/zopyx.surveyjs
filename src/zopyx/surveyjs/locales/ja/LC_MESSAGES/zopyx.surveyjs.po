@@ -1,53 +1,263 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2026-02-24 06:33+0000\n"
 "PO-Revision-Date: 2026-02-24 08:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"Language: ja\n"
 "X-Generator: Autopo v1.0.8\n"
 
-#: browser/static/js
-#: generated
+#: browser/static/js generated
 msgid " (Version ${version})"
 msgstr "（バージョン ${version}）"
+
+#: generated
+msgid " Previous"
+msgstr "前へ"
+
+#: generated
+msgid "#"
+msgstr "#"
+
+#: ../browser/survey_monitor.pt:119
+msgid "${count} /min"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:688
+msgid "${count} KB"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:692
+msgid "${count} fields"
+msgstr ""
+
+#: ../browser/token_store.pt:125
+msgid "${heading} Generate tokens to create unique access URLs. Each token can only be used once. Download the CSV to distribute URLs to participants."
+msgstr ""
+
+#: ../browser/token_store.pt:128
+msgid "${heading} Upload a CSV file with a single column named ${token}. Each token must be at least 8 characters long. Example:"
+msgstr ""
+
+#: ../browser/llm_models.pt:21
+msgid "${library} library not installed. ${command}"
+msgstr ""
+
+#: generated
+msgid "${name} — Preview"
+msgstr ""
+
+#: ../browser/token_store.pt:115
+msgid "&#x26A0; Clear All"
+msgstr ""
+
+#: ../browser/theme_editor.pt:40
+msgid "&larr; Back to Themes"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:856
+msgid "(empty)"
+msgstr ""
 
 #: generated
 msgid "--"
 msgstr "--"
 
+#: ../browser/fillable_pdf.pt:768
+msgid "-- Select --"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:120
+msgid "5min Average:"
+msgstr ""
+
+#: ../browser/survey_actions.pt:154
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "SurveyJSライセンスは組織内の個々の開発者を対象としています — フォームに入力するエンドユーザーごとでは<strong>ありません</strong>。"
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr "ローカルのAIプロバイダーが構成されています あなたのPDFはネットワーク内に留まります"
+
+#: generated
+msgid "A preview of how this theme looks on a form."
+msgstr ""
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr "リモートのAIプロバイダーが設定されており使用されます あなたのPDFはネットワーク外に送信される可能性があります"
+
+#. Default: "AI"
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "AI"
+
+#. Default: "AI Assistant"
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "AIアシスタント"
+
+#: generated
+msgid "AI Form Generator"
+msgstr "AI フォーム ジェネレーター"
+
 #: generated
 msgid "AI Generator"
 msgstr "AI ジェネレーター"
 
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr "AIプロバイダーが設定されていないためAIフォーム生成は利用できません"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "AI form generator"
+msgstr "AIフォーム生成"
+
+msgid "AI provider missing:"
+msgstr "AIプロバイダーがありません"
+
+#: generated
+msgid "About You"
+msgstr ""
+
+#. Default: "Accepted formats: PDF, DOCX, ODT, HTML."
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "受け入れ可能な形式：PDF、DOCX、ODT、HTML。"
+
+#: ../browser/token_store.pt:23
+msgid "Access Tokens"
+msgstr ""
+
+msgid "Access mode"
+msgstr "アクセスモード"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr "このアンケートへのアクセスは制限されています 続行するにはパスワードを入力してください"
+
+#: generated
+msgid "Action"
+msgstr "アクション"
+
 #: generated
 msgid "Actions"
 msgstr "アクション"
+
+#: ../browser/survey_monitor.pt:104
+msgid "Active Forms"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:195
+msgid "Activity"
+msgstr ""
+
+msgid "Add extra conversion guidance..."
+msgstr "追加のコンバージョンガイダンスを追加"
+
+#: generated
+msgid "Additional comments"
+msgstr ""
+
+msgid "Additional prompt"
+msgstr "追加プロンプト"
+
+#: zopyx/surveyjs/browser/psf.py:109
+msgid "Administration"
+msgstr "管理"
+
+#: generated
+msgid "Age Group"
+msgstr ""
+
+#: ../browser/llm_models.pt:38
+msgid "Aliases"
+msgstr ""
+
+msgid "All"
+msgstr "すべて"
 
 #: generated
 msgid "All results have been cleared successfully."
 msgstr "すべての結果が正常に消去されました"
 
 #: generated
+msgid "Always review and adjust the generated form before use."
+msgstr "使用前に必ず生成されたフォームを確認し調整してください"
+
+msgid "Analyze PDF"
+msgstr "PDF を解析"
+
+#: generated
 msgid "Answer"
 msgstr "回答"
+
+#. Default: "Apply AI Change"
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "AIの変更を適用"
+
+#. Default: "Applying..."
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "適用中..."
+
+#: ../browser/theme_manager.pt:57
+msgid "Are you sure you want to delete ${name}?"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:933
+msgid "Are you sure you want to delete the PDF template?"
+msgstr ""
+
+#. Default: "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+msgstr "AIに現在の一時フォームの変更を依頼してください。各プロンプトは最新の一時バージョンに基づきます。"
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "フォーム所有者に信頼できるアクセスリンクを依頼してください"
+
+#: ../browser/llm_models.pt:53
+msgid "Async"
+msgstr ""
+
+#: generated
+msgid "Attach File"
+msgstr ""
 
 #: generated
 msgid "Attached file: ${name}"
 msgstr "添付ファイル: ${name}"
+
+#: ../browser/survey_monitor.pt:60
+msgid "Auto-refresh (30s)"
+msgstr ""
+
+#: generated
+msgid "Average"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:193
+msgid "Avg Processing"
+msgstr ""
 
 #: generated
 msgid "BCC recipient"
 msgstr "BCC 受信者"
 
 #: generated
-msgid ""
-"Be specific about the types of questions, response formats, and any "
-"particular fields you need."
+msgid "Back to results"
+msgstr "結果に戻る"
+
+#: generated
+msgid "Be specific about the types of questions, response formats, and any particular fields you need."
 msgstr "必要な質問の種類や回答形式、特定の項目について具体的に示してください"
 
 #: generated
@@ -63,16 +273,24 @@ msgid "Body for notifications"
 msgstr "通知本文"
 
 #: generated
-msgid ""
-"Body text for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
+msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
 msgstr "通知専用メールの本文テキストです {title} {detail_url} {poll_id} をサポートします"
 
 #: generated
-msgid ""
-"Body text for result export emails. Supports {created}, {creator}, {formats}."
-""
+msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
 msgstr "結果エクスポートメール用の本文テキスト {created} {creator} {formats} をサポート"
+
+#: zopyx/surveyjs/browser/psf.py:98
+msgid "Browse saved templates and reuse them for new forms or surveys."
+msgstr "保存済みのテンプレートを閲覧し新しいフォームやアンケートに再利用します"
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "アンケートフォームを作成し洗練させる"
+
+#: ../browser/survey_actions.pt:159
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "Privacy Form Studioを使用することにより、お客様は以下の事項を認識し同意するものとします："
 
 #: generated
 msgid "CC recipient"
@@ -82,13 +300,280 @@ msgstr "CC 受信者"
 msgid "CSV (.csv)"
 msgstr "CSV (.csv)"
 
+#: ../browser/survey_monitor.pt:35
+msgid "Cache: ${path}"
+msgstr ""
+
+#: generated
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: ../browser/llm_models.pt:37
+msgid "Capabilities"
+msgstr ""
+
+#: ../browser/survey_actions.pt:81
+msgid "Chatbot"
+msgstr ""
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "すでに入力可能なフィールドを含むPDFを選択"
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr "変換したいフォームレイアウトを含むPDFを選択してください"
+
+#: zopyx/surveyjs/browser/pfs.pt:19
+msgid "Choose a guided action appropriate to your role. These shortcuts help team members manage form and survey data consistently and efficiently."
+msgstr "自分の役割に合ったガイド付きアクションから始めましょう これらのショートカットによりチームの全メンバーがフォームやアンケートのデータを生産的かつ自信を持って自在に扱えるようになります"
+
+#: ../browser/theme_editor.pt:82
+msgid "Choose an earlier saved version to use as the current theme."
+msgstr ""
+
+msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
+msgstr "このフォームを公開アクセス可能にするか URL に信頼されたアクセス トークンを必要とするかを選択してください"
+
+#: ../browser/llm_models.pt:36
+msgid "Class"
+msgstr ""
+
+#: generated
+msgid "Clear All Results"
+msgstr "すべての結果をクリア"
+
+#: generated
+msgid "Clear all results"
+msgstr "すべての結果をクリア"
+
+#: ../browser/token_store.pt:139
+msgid "Clear all tokens?"
+msgstr ""
+
+#. Default: "Clear workspace"
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "ワークスペースをクリア"
+
+#: generated
+msgid "Close"
+msgstr "閉じる"
+
+#: ../browser/theme_manager.pt:75
+msgid "Close preview"
+msgstr ""
+
+#: generated
+msgid "Confirm delete"
+msgstr "削除を確認"
+
+#: generated
+msgid "Confirm restore"
+msgstr "復元を確認"
+
+#: generated
+msgid "Conversion complete. Review the preview and click Store converted form as new version."
+msgstr "変換が完了しました プレビューを確認し 変換されたフォームを新しいバージョンとして保存をクリックしてください"
+
+#: generated
+msgid "Convert PDF"
+msgstr "PDF 変換"
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "変換されたフォームが保存されました <a href=\"${url}\">バージョンを表示</a>"
+
+#: generated
+msgid "Copied ✓"
+msgstr ""
+
+#: ../browser/theme_editor.pt:122
+msgid "Copy"
+msgstr ""
+
+#: generated
+msgid "Copy failed"
+msgstr ""
+
+#: generated
+msgid "Copy failed: ${error}"
+msgstr ""
+
+msgid "Copy link"
+msgstr "リンクをコピー"
+
+#: ../browser/theme_manager.pt:48
+msgid "Create"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pfs.pt:61
+msgid "Create a new form or survey using one of your curated presets."
+msgstr "キュレートしたプリセットのいずれかを使って新しいフォームまたはアンケートを開始する"
+
+#: zopyx/surveyjs/browser/psf.py:75
+msgid "Create form"
+msgstr "フォームを作成"
+
+#: zopyx/surveyjs/browser/pfs.pt:59
+msgid "Create from template"
+msgstr "テンプレートから作成"
+
+#: zopyx/surveyjs/browser/survey_add.pt:61
+msgid "Create survey"
+msgstr "アンケートを作成"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:287
+msgid "Create template"
+msgstr "テンプレートを作成"
+
+#: ../browser/survey_result_detail.pt:65
+#: ../browser/theme_editor.pt:90
+msgid "Created"
+msgstr ""
+
+#: generated
+msgid "Created:"
+msgstr "作成日"
+
+#: generated
+msgid "Cumulative"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:114
+msgid "Current Minute:"
+msgstr ""
+
+#. Default: "Current Temporary State"
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "現在の一時状態"
+
+#: generated
+msgid "Current Version:"
+msgstr "現在のバージョン"
+
+#: ../browser/theme_editor.pt:110
+msgid "Current theme"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently editing metadata"
+msgstr "メタデータ編集中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently importing from PDF"
+msgstr "PDFからインポート中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in AI generator"
+msgstr "AI生成ツール使用中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in fillable PDF forms setup"
+msgstr "入力可能PDFフォーム設定中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in visual editor"
+msgstr "ビジュアルエディタ使用中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently managing versions"
+msgstr "バージョン管理中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on PDF form"
+msgstr "PDFフォーム表示中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on dashboard"
+msgstr "ダッシュボード表示中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing results"
+msgstr "結果表示中"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing survey form"
+msgstr "フォームを表示中"
+
+#: generated
+msgid "Customer Satisfaction Survey"
+msgstr ""
+
+#: generated
+msgid "Customer feedback"
+msgstr ""
+
+msgid "DOCS"
+msgstr "ドキュメント"
+
+#: generated
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: generated
+msgid "Date"
+msgstr "日付"
+
+#: generated
+msgid "Date/Time"
+msgstr "日付/時刻"
+
+#: generated
+msgid "Date:"
+msgstr "日付"
+
+#: ../browser/theme_manager.pt:97
+msgid "Default"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:835
+msgid "Default Value"
+msgstr ""
+
+#: generated
+msgid "Delete"
+msgstr "削除"
+
 #: generated
 msgid "Delete ${count} selected result(s)?"
 msgstr "選択した結果を${count}件削除しますか"
 
 #: generated
+msgid "Delete Result"
+msgstr "結果を削除"
+
+#: generated
+msgid "Delete Selected Results"
+msgstr "選択した結果を削除"
+
+#: ../browser/theme_manager.pt:56
+msgid "Delete Theme"
+msgstr ""
+
+#: generated
+msgid "Delete result"
+msgstr "結果を削除"
+
+#: generated
+msgid "Delete selected"
+msgstr "選択したものを削除"
+
+#: ../browser/fillable_pdf.pt:674
+msgid "Delete template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:128
+msgid "Delete theme"
+msgstr ""
+
+#: generated
 msgid "Delete this result?"
 msgstr "この結果を削除しますか"
+
+#: generated
+msgid "Delete version"
+msgstr "バージョンを削除"
 
 #: generated
 msgid "Describe Your Form"
@@ -101,6 +586,83 @@ msgstr "現在のフォームに加えたい変更内容を記述してくださ
 #: generated
 msgid "Describe the form you want to create:"
 msgstr "作成したいフォームについて説明してください"
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr "アンケートを自然な言葉で説明するとAIがフォームを生成します"
+
+#: generated
+msgid "Description"
+msgstr "説明"
+
+#: generated
+msgid "Details"
+msgstr "詳細"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
+msgid "Detected fields"
+msgstr "検出されたフィールド"
+
+#: generated
+msgid "Dissatisfied"
+msgstr ""
+
+#. Default: "Document To Online Form"
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "ドキュメントをオンラインフォームへ"
+
+#: generated
+msgid "Download"
+msgstr "ダウンロード"
+
+#: ../browser/fillable_pdf.pt:795
+msgid "Download Filled PDF"
+msgstr ""
+
+#: generated
+msgid "Download PDF"
+msgstr "PDF をダウンロード"
+
+#: ../browser/token_store.pt:108
+msgid "Download all tokens"
+msgstr ""
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr "フォーム定義をダウンロード（JSON）"
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr "フォーム定義をJSONとしてダウンロード"
+
+#: generated
+msgid "Download result"
+msgstr "結果をダウンロード"
+
+#: generated
+msgid "Download results (CSV)"
+msgstr "結果をダウンロード (CSV)"
+
+#: generated
+msgid "Download results (JSON)"
+msgstr "結果をダウンロード (JSON)"
+
+#: ../browser/fillable_pdf.pt:664
+msgid "Download template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:123
+msgid "Download theme"
+msgstr ""
+
+#: ../browser/token_store.pt:103
+msgid "Download valid tokens"
+msgstr ""
+
+#: ../browser/token_store.pt:134
+msgid "Duplicate tokens (already existing in the store) will be skipped during import."
+msgstr ""
 
 #: generated
 msgid "E-Mail BCC"
@@ -122,6 +684,22 @@ msgstr "メール送信者"
 msgid "Edit"
 msgstr "編集"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Edit metadata"
+msgstr "メタデータを編集"
+
+#: ../browser/theme_manager.pt:118
+msgid "Edit theme"
+msgstr ""
+
+#: generated
+msgid "Effective"
+msgstr "効果的"
+
+#: generated
+msgid "Email *"
+msgstr ""
+
 #: generated
 msgid "Email address to receive a blind copy"
 msgstr "ブラインドコピーを受信するメールアドレス"
@@ -130,9 +708,37 @@ msgstr "ブラインドコピーを受信するメールアドレス"
 msgid "Email address to receive a copy"
 msgstr "コピーを受け取るメールアドレス"
 
+#: ../browser/embedded_demo.pt:9
+msgid "Embedded Survey Demo"
+msgstr ""
+
+#: ../browser/embedded_demo.pt:50
+msgid "Embedded mental health survey demo"
+msgstr ""
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr "埋め込みは許可されていません"
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
+msgstr "アンケート設定で有効にしてここで回答を収集および表示します"
+
 #: generated
 msgid "Enable validation (experimental)"
 msgstr "バリデーションを有効にする（実験的）"
+
+#: ../browser/theme_manager.pt:42
+msgid "Enter a name for the new theme."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:706
+msgid "Enter values for the PDF fields below and submit to generate a filled PDF."
+msgstr ""
+
+#: generated
+msgid "Enter your name"
+msgstr ""
 
 #: generated
 msgid "Error clearing results:"
@@ -179,20 +785,19 @@ msgid "Error saving form:"
 msgstr "フォームの保存中にエラーが発生しました"
 
 #: generated
+msgid "Error:"
+msgstr "エラー"
+
+#: generated
 msgid "Error: ${error}"
 msgstr "エラー: ${error}"
 
 #: generated
-msgid ""
-"Example: Add rating scales for each question, Include a comments section at "
-"the end, Change the first question to a dropdown"
+msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
 msgstr "例: 各質問に評価尺度を追加する 最後にコメント欄を含める 最初の質問をドロップダウンに変更する"
 
 #: generated
-msgid ""
-"Example: Create a customer satisfaction survey with questions about product "
-"quality, delivery experience, and overall satisfaction. Include rating "
-"scales and a comments section."
+msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
 msgstr "例: 製品品質、配送体験、全体的な満足度に関する質問を含む顧客満足度調査を作成します 評価尺度とコメント欄を含めます"
 
 #: generated
@@ -203,18 +808,69 @@ msgstr "Excel (.xlsx)"
 msgid "Existing form"
 msgstr "既存フォーム"
 
+msgid "Exit fullscreen"
+msgstr "全画面表示を終了"
+
+#: generated
+msgid "Experimental:"
+msgstr "実験的"
+
+#: generated
+msgid "Expires"
+msgstr "有効期限"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "チャートと要約インサイトで回答を探索する"
+
+#: ../browser/theme_editor.pt:62
+msgid "Export"
+msgstr ""
+
+#: generated
+msgid "Export failed"
+msgstr ""
+
+#: generated
+msgid "Export failed: HTTP ${status}"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:116
+msgid "Export range"
+msgstr "エクスポート範囲"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "現在の SurveyJS フォームをダウンロード可能な PDF としてエクスポートする"
+
+#: generated
+msgid "Exported ${name}"
+msgstr ""
+
+msgid "External AI provider:"
+msgstr "外部AIプロバイダー"
+
+msgid "Extraction mode"
+msgstr "抽出モード"
+
 #: generated
 msgid "Failed to POST result: ${error}"
 msgstr "結果のPOSTに失敗しました: ${error}"
 
 #: generated
-msgid ""
-"Failed to clear results. Please check the console for more information."
+msgid "Failed to clear results. Please check the console for more information."
 msgstr "結果を消去できませんでした 詳細はコンソールを確認してください"
 
+#: zopyx/surveyjs/browser/psf.py:228
+msgid "Failed to create survey: ${error}"
+msgstr "アンケートの作成に失敗しました: ${error}"
+
+#: zopyx/surveyjs/browser/survey_versions.py:322
+msgid "Failed to create template: ${error}"
+msgstr "テンプレートの作成に失敗しました: ${error}"
+
 #: generated
-msgid ""
-"Failed to delete selected results. Please check the console for details."
+msgid "Failed to delete selected results. Please check the console for details."
 msgstr "選択した結果を削除できませんでした 詳細はコンソールを確認してください"
 
 #: generated
@@ -226,8 +882,7 @@ msgid "Failed to generate form. Please try again."
 msgstr "フォームの生成に失敗しました もう一度お試しください"
 
 #: generated
-msgid ""
-"Failed to load JSON data. Please check the console for more information."
+msgid "Failed to load JSON data. Please check the console for more information."
 msgstr "JSONデータの読み込みに失敗しました 詳細についてはコンソールを確認してください"
 
 #: generated
@@ -247,8 +902,7 @@ msgid "Failed to refine existing form. Please try again."
 msgstr "既存のフォームの改善に失敗しました もう一度お試しください"
 
 #: generated
-msgid ""
-"Failed to refine form. Your current version is preserved. Please try again."
+msgid "Failed to refine form. Your current version is preserved. Please try again."
 msgstr "フォームの洗練に失敗しました 現在のバージョンは保持されています もう一度お試しください"
 
 #: generated
@@ -259,13 +913,102 @@ msgstr "プレビューのレンダリングに失敗しました: ${error}"
 msgid "Failed to save form: ${error}"
 msgstr "フォームの保存に失敗しました: ${error}"
 
+#~ msgid "« Previous"
+#~ msgstr "« 前へ"
+#: generated
+msgid "Failed to save survey results. Please try again."
+msgstr "アンケート結果の保存に失敗しました もう一度お試しください"
+
 #: generated
 msgid "Failed to send mail: ${error}"
 msgstr "メールの送信に失敗しました: ${error}"
 
+#: ../browser/survey_actions.pt:187
+msgid "Feature disabled, access forbidden."
+msgstr ""
+
+#: generated
+msgid "Feedback"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:832
+msgid "Field Name"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:867
+msgid "Field exists in JSON form"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:870
+msgid "Field not found in JSON form"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:886
+msgid "Fields defined in the current JSON form (from AI generation or editor)."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:659
+msgid "File"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:705
+msgid "Fill PDF Form"
+msgstr ""
+
+#: ../browser/survey_actions.pt:72
+msgid "Fillable PDF"
+msgstr ""
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "入力可能なPDFフォーム"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "入力可能なPDFフォーム"
+
+#: ../browser/fillable_pdf.pt:621
+#: ../content/survey.py:472
+msgid "Fillable PDF Template"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Fillable PDF forms setup"
+msgstr "入力可能PDFフォームの設定"
+
+msgid "First"
+msgstr "最初"
+
+msgid "First Page"
+msgstr "最初のページ"
+
+#: ../browser/survey_actions.pt:165
+msgid "For pricing and licensing options, please visit"
+msgstr "価格とライセンスオプションについては、以下をご覧ください："
+
 #: generated
 msgid "Force Server Side Validation"
 msgstr "サーバー側検証を強制"
+
+#: ../browser/survey_monitor.pt:184
+msgid "Form"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:179
+msgid "Form Activity"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:804
+msgid "Form Fields"
+msgstr ""
+
+#: generated
+msgid "Form JSON"
+msgstr "フォームJSON"
+
+#: generated
+msgid "Form Preview"
+msgstr "フォームプレビュー"
 
 #: generated
 msgid "Form Results"
@@ -276,20 +1019,32 @@ msgid "Form Settings"
 msgstr "フォーム設定"
 
 #: generated
+msgid "Form Version Management"
+msgstr "フォームバージョン管理"
+
+#: generated
 msgid "Form View"
 msgstr "フォームビュー"
 
 #: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\"${url}\">View versions</"
-"a>."
+msgid "Form from PDF"
+msgstr "PDFからのフォーム"
+
+#: generated
+msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
 msgstr "フォームがインポートされ、新しいバージョンとして保存されました <a href=\"${url}\">バージョンを表示</a>"
 
 #: generated
-msgid ""
-"Form saved successfully! You can now view it in the Visual Editor or "
-"Versions."
+msgid "Form imported and saved as a new version. <a href=\\\"${url}\\\">View versions</a>."
+msgstr "フォームがインポートされ、新しいバージョンとして保存されました <a href=\"${url}\">バージョンを表示</a>"
+
+#: generated
+msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
 msgstr "フォームが正常に保存されました Visual Editor または Versions で表示できます"
+
+#: generated
+msgid "Form validation using pdfcpu"
+msgstr "pdfcpu を使用したフォーム検証"
 
 #: generated
 msgid "Form/Survey"
@@ -299,13 +1054,57 @@ msgstr "フォーム／アンケート"
 msgid "Formats"
 msgstr "形式"
 
+#: ../browser/survey_actions.pt:174
+msgid "Forms Settings"
+msgstr "フォーム設定"
+
+#: generated
+msgid "Forms overview"
+msgstr "フォーム概要"
+
+#: zopyx/surveyjs/browser/survey_results.pt:118
+msgid "From"
+msgstr "から"
+
+#: generated
+msgid "Full Name *"
+msgstr ""
+
+msgid "Fullscreen"
+msgstr "全画面"
+
+#: ../browser/token_store.pt:89
+msgid "Generate"
+msgstr ""
+
+#. Default: "Generate AI Draft"
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "AIドラフトを生成"
+
 #: generated
 msgid "Generate Form"
 msgstr "フォームを生成"
 
 #: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "現在のアンケートフォームのPDF版を生成する"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:290
+msgid "Generate a new SurveyTemplate from the selected version. You can adjust the name before creation."
+msgstr "選択したバージョンから新しいSurveyTemplateを生成します 作成前に名前を調整できます"
+
+#: generated
 msgid "Generate forms using AI"
 msgstr "AIを使用してフォームを生成する"
+
+#: ../browser/token_store.pt:61
+msgid "Generate new tokens"
+msgstr ""
+
+#: generated
+msgid "Generated form preview will appear here."
+msgstr "生成されたフォームのプレビューがここに表示されます"
 
 #: generated
 msgid "Generating..."
@@ -319,6 +1118,32 @@ msgstr "生成に失敗しました"
 msgid "HTML (.html)"
 msgstr "HTML（.html）"
 
+#: ../browser/survey_actions.pt:178
+msgid "Have questions?"
+msgstr "ご質問がありますか？"
+
+#: generated
+msgid "Heads up:"
+msgstr "注意"
+
+#. Default: "History (max 5)"
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "履歴（最大5件）"
+
+#: generated
+msgid "How satisfied are you?"
+msgstr ""
+
+#: generated
+msgid "ID:"
+msgstr "ID"
+
+#: ../browser/theme_editor.pt:56
+#: ../browser/token_store.pt:92
+msgid "Import"
+msgstr ""
+
 #: generated
 msgid "Import failed"
 msgstr "インポートに失敗しました"
@@ -327,9 +1152,46 @@ msgstr "インポートに失敗しました"
 msgid "Import failed. Please try again."
 msgstr "インポートに失敗しました もう一度お試しください"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Import form from PDF"
+msgstr "PDFからフォームをインポート"
+
+#: ../browser/token_store.pt:64
+msgid "Import tokens from CSV"
+msgstr ""
+
+#: generated
+msgid "Imported: ${name}"
+msgstr ""
+
+#. Default: "Improve Temporary Form"
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "一時フォームを改善"
+
+#: ../browser/fillable_pdf.pt:837
+msgid "In Form"
+msgstr ""
+
+#: generated
+msgid "Inactive"
+msgstr "無効"
+
+#: ../browser/fillable_pdf.pt:683
+msgid "Info"
+msgstr ""
+
 #: generated
 msgid "Initial Generation"
 msgstr "初期生成"
+
+#: ../browser/fillable_pdf.pt:907
+msgid "Input Type"
+msgstr ""
+
+#: generated
+msgid "Interests"
+msgstr ""
 
 #: generated
 msgid "Invalid JSON file: ${error}"
@@ -344,8 +1206,28 @@ msgid "Invalid survey URL: ${url}"
 msgstr "無効なアンケートURL: ${url}"
 
 #: generated
+msgid "Invalid theme JSON"
+msgstr ""
+
+#: generated
+msgid "JSON"
+msgstr "JSON"
+
+#: generated
 msgid "JSON (.json)"
 msgstr "JSON (.json)"
+
+#: ../browser/fillable_pdf.pt:885
+msgid "JSON Form Properties"
+msgstr ""
+
+#: ../browser/llm_models.pt:51
+msgid "JSON Schema"
+msgstr ""
+
+#: generated
+msgid "JSON Version Content"
+msgstr "JSON バージョン コンテンツ"
 
 #: generated
 msgid "JSON uploaded successfully as new version"
@@ -354,6 +1236,86 @@ msgstr "JSON が新しいバージョンとして正常にアップロードさ�
 #: generated
 msgid "Key / Question"
 msgstr "キー / 質問"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
+msgid "LLM (visual conversion)"
+msgstr "LLM（ビジュアル変換）"
+
+#: ../browser/llm_models.pt:17
+msgid "LLM Models"
+msgstr ""
+
+#: generated
+msgid "Language"
+msgstr "言語"
+
+msgid "Last"
+msgstr "最後"
+
+#: ../browser/survey_monitor.py:68
+msgid "Last 10 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:73
+msgid "Last 12 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:71
+msgid "Last 2 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:69
+msgid "Last 20 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:74
+msgid "Last 24 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:67
+msgid "Last 5 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:72
+msgid "Last 6 hours"
+msgstr ""
+
+msgid "Last Page"
+msgstr "最終ページ"
+
+#: ../browser/survey_monitor.py:70
+msgid "Last hour"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:230
+msgid "Last updated: ${time}"
+msgstr ""
+
+#. Default: "Latest version to workspace"
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "最新バージョンをワークスペースへ"
+
+#: zopyx/surveyjs/browser/psf.py:72
+msgid "Launch a brand-new form or survey and start collecting answers."
+msgstr "新しいフォームやアンケートを立ち上げて回答の収集を開始する"
+
+#: zopyx/surveyjs/browser/survey_add.pt:46
+#: zopyx/surveyjs/browser/survey_metadata.pt:46
+msgid "Let's fix a few things:"
+msgstr "いくつか修正しましょう"
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr "信頼されたアクセス トークンの有効期間（時間単位）"
+
+#: ../browser/theme_manager.pt:72
+msgid "Live preview"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.pt:57
+#: zopyx/surveyjs/browser/survey_metadata.pt:57
+msgid "Loading form..."
+msgstr "フォームを読み込んでいます"
 
 #: generated
 msgid "Loading preview..."
@@ -366,6 +1328,17 @@ msgstr "アンケートを読み込んでいます"
 #: generated
 msgid "Loading..."
 msgstr "読み込み中"
+
+msgid "Local AI provider:"
+msgstr "ローカルAIプロバイダー"
+
+#: generated
+msgid "Lock"
+msgstr "ロック"
+
+#: generated
+msgid "Locked"
+msgstr "ロック済み"
 
 #: generated
 msgid "Mail"
@@ -380,12 +1353,36 @@ msgid "Mail notifications"
 msgstr "メール通知"
 
 #: generated
+msgid "Mail result"
+msgstr "メール結果"
+
+#: generated
 msgid "Mail sent"
 msgstr "メール送信完了"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
 msgstr "メール設定が不完全です（宛先と件名が必須です）"
+
+#: ../browser/theme_manager.pt:109
+msgid "Make default"
+msgstr ""
+
+#: ../browser/theme_manager.pt:103
+msgid "Make default theme"
+msgstr ""
+
+#: ../browser/token_store.pt:26
+msgid "Manage single-use access tokens for this survey."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Manage versions"
+msgstr "バージョン管理"
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
+msgstr "アンケートフォームの過去バージョンを管理、表示、復元する"
 
 #: generated
 msgid "Manager only"
@@ -396,6 +1393,10 @@ msgid "Markdown (.md)"
 msgstr "Markdown (.md)"
 
 #: generated
+msgid "Max"
+msgstr ""
+
+#: generated
 msgid "Max size payload (MB)"
 msgstr "最大ペイロードサイズ (MB)"
 
@@ -403,17 +1404,119 @@ msgstr "最大ペイロードサイズ (MB)"
 msgid "Maximum allowed payload size for submissions in megabytes."
 msgstr "送信で許可される最大ペイロードサイズ（メガバイト単位）"
 
+#: zopyx/surveyjs/browser/survey_actions.pt:18
+msgid "Metadata"
+msgstr "メタデータ"
+
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
 msgstr "data-survey-url 属性がありません 指定されたアンケートのURLを入力してください"
+
+#: ../browser/llm_models.pt:35
+msgid "Model"
+msgstr ""
+
+#. Default: "Model:"
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "モデル:"
+
+#: ../browser/theme_manager.pt:87
+msgid "Modified"
+msgstr ""
+
+#: generated
+msgid "Music"
+msgstr ""
+
+#: ../browser/theme_manager.pt:43
+msgid "My Custom Theme"
+msgstr ""
+
+#: ../browser/theme_manager.pt:86
+msgid "Name"
+msgstr ""
+
+#: generated
+msgid "Neutral"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:195
+msgid "New Survey"
+msgstr "新しいアンケート"
+
+#: ../browser/theme_manager.pt:25
+msgid "New Theme"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:71
+msgid "New form/survey"
+msgstr "新しいフォーム/アンケート"
+
+#: generated
+msgid "New version saved (${count} versions)"
+msgstr ""
+
+msgid "Next"
+msgstr "次へ"
+
+#: generated
+msgid "Next "
+msgstr "次へ"
+
+msgid "Next Page"
+msgstr "次のページ"
+
+#: ../browser/fillable_pdf.pt:893
+msgid "No JSON form data available. Generate or edit a form to see properties."
+msgstr ""
+
+#~ msgid "Next »"
+#~ msgstr "次へ »"
+#: generated
+msgid "No PDF selected yet."
+msgstr "まだPDFが選択されていません"
+
+#: ../browser/fillable_pdf.pt:625
+msgid "No PDF template has been uploaded yet. Upload a fillable PDF form to enable automated PDF generation from survey submissions."
+msgstr ""
 
 #: generated
 msgid "No POST endpoint configured for this survey"
 msgstr "このアンケートにはPOSTエンドポイントが設定されていません"
 
 #: generated
+msgid "No Survey Results Yet"
+msgstr "まだアンケート結果はありません"
+
+#: generated
+msgid "No Versions Available"
+msgstr "利用可能なバージョンがありません"
+
+#. Default: "No chat refinement history yet."
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "チャットの改善履歴はまだありません。"
+
+#~ msgid ""
+#~ "Conversion complete. Review the preview and click “Store converted form as "
+#~ "new version”."
+#~ msgstr "変換が完了しました。プレビューを確認し、「変換されたフォームを新しいバージョンとして保存」をクリックしてください。"
+#: generated
+msgid "No converted form available to store."
+msgstr "保存できる変換済みフォームはありません"
+
+#: generated
+msgid "No data available for selected time window"
+msgstr ""
+
+#: generated
 msgid "No existing form found to refine."
 msgstr "絞り込む既存フォームが見つかりません"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
+msgid "No fields detected yet."
+msgstr "まだフィールドが検出されていません"
 
 #: generated
 msgid "No file selected"
@@ -427,6 +1530,14 @@ msgstr "ファイルがアップロードされていません"
 msgid "No form definition available to include in POST"
 msgstr "POST に含めるフォーム定義がありません"
 
+#: ../browser/fillable_pdf.pt:713
+msgid "No form fields available to fill."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:812
+msgid "No form fields could be extracted from this PDF. It may not be a fillable form."
+msgstr ""
+
 #: generated
 msgid "No form to preview"
 msgstr "プレビューするフォームがありません"
@@ -434,6 +1545,72 @@ msgstr "プレビューするフォームがありません"
 #: generated
 msgid "No form to save"
 msgstr "保存するフォームがありません"
+
+#: generated
+msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+msgstr "フォームバージョンはまだ作成されていません フォームクリエイターを使用して最初のアンケートを作成するか 上のフォームを使って既存のJSONファイルをアップロードしてください"
+
+#: ../browser/llm_models.pt:28
+msgid "No models registered."
+msgstr ""
+
+#: generated
+msgid "No results found matching your search query."
+msgstr "検索クエリに一致する結果が見つかりません"
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "まだ結果がありません"
+
+#: generated
+msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgstr "まだ保存された結果はありません 回答が保存されるとここに分析が表示されます"
+
+#: ../browser/survey_monitor.pt:220
+msgid "No submissions in selected time window"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
+msgid "No survey templates found below this location."
+msgstr "この場所より下にはアンケートテンプレートが見つかりません"
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "この場所より下にはアンケートが見つかりません"
+
+#: zopyx/surveyjs/browser/survey_template_views.py:22
+msgid "No template JSON configured."
+msgstr "テンプレートJSONが設定されていません"
+
+#. Default: "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+msgstr "一時フォームはまだありません。ドキュメントをアップロードするか、チャットで作成するか、最新バージョンをコピーしてください。"
+
+#: ../browser/survey_editor.pt:109
+#: ../browser/survey_editor.py:36
+msgid "No theme"
+msgstr ""
+
+#: generated
+msgid "No theme to export"
+msgstr ""
+
+#: generated
+msgid "No theme to save"
+msgstr ""
+
+#: generated
+msgid "No theme to show"
+msgstr ""
+
+#: ../browser/theme_manager.pt:139
+msgid "No themes yet. Create your first theme."
+msgstr ""
+
+#: ../browser/token_store.pt:51
+msgid "No tokens generated yet. Use the form below to create access tokens."
+msgstr ""
 
 #: generated
 msgid "No version ID provided"
@@ -444,1206 +1621,8 @@ msgid "Not saved"
 msgstr "未保存"
 
 #: generated
-msgid "Optional BCC recipients for result exports (one address per line)."
-msgstr "結果エクスポート用の任意のBCC受信者（1行につき1アドレス）"
-
-#: generated
-msgid "Optional CC recipients for result exports (one address per line)."
-msgstr "結果エクスポート用の任意のCC受信者（1行につき1件のアドレス）"
-
-#: generated
-msgid ""
-"Optional HTTP endpoint to receive submissions as JSON when the POST action "
-"is enabled."
-msgstr "POST アクションが有効な場合に送信内容を JSON として受信するための任意の HTTP エンドポイント"
-
-#: generated
-msgid "PDF (.pdf)"
-msgstr "PDF (.pdf)"
-
-#: generated
-msgid "PDF Form Import"
-msgstr "PDFフォームインポート"
-
-#: generated
-msgid "POST action is not enabled for this survey"
-msgstr "このアンケートではPOSTアクションが有効になっていません"
-
-#: generated
-msgid "POST endpoint URL"
-msgstr "POST エンドポイント URL"
-
-#: generated
-msgid "POST to endpoint"
-msgstr "エンドポイントへのPOST"
-
-#: generated
-msgid "Please enter a description"
-msgstr "説明を入力してください"
-
-#: generated
-msgid "Please select a PDF file to upload."
-msgstr "アップロードするPDFファイルを選択してください"
-
-#: generated
-msgid "Poll ID is required"
-msgstr "投票IDは必須です"
-
-#: generated
-msgid "Poll result not found"
-msgstr "投票結果が見つかりません"
-
-#: generated
-msgid "Preview error:"
-msgstr "プレビューエラー"
-
-#: generated
-msgid ""
-"Primary recipient for notifications and result exports (single address). "
-msgstr "通知および結果エクスポートの主な受信者（単一アドレス）"
-
-#: generated
-msgid "Privacy Forms Studio"
-msgstr "プライバシーフォームスタジオ"
-
-#: generated
-msgid "Refine Form"
-msgstr "フォームを洗練する"
-
-#: generated
-msgid "Refine Your Form"
-msgstr "フォームを洗練する"
-
-#: generated
-msgid "Refinement ${index}"
-msgstr "洗練 ${index}"
-
-#: generated
-msgid "Refinement failed"
-msgstr "洗練に失敗しました"
-
-#: generated
-msgid "Refining..."
-msgstr "洗練中"
-
-#: generated
-msgid "Requested export format is not available"
-msgstr "要求されたエクスポート形式は利用できません"
-
-#: generated
-msgid "Result POSTed to endpoint (status ${status})"
-msgstr "結果がエンドポイントにPOSTされました（ステータス ${status}）"
-
-#: generated
-msgid "Results cleared"
-msgstr "結果を消去"
-
-#: generated
-msgid "Results"
-msgstr "結果"
-
-#: generated
-msgid "Row"
-msgstr "行"
-
-#: generated
-msgid "Run the external SurveyJS validator binary for every save/submit."
-msgstr "保存や送信のたびに外部の SurveyJS バリデータバイナリを実行する"
-
-#: generated
-msgid "Save failed"
-msgstr "保存に失敗しました"
-
-#: generated
-msgid "Saving"
-msgstr "保存"
-
-#: generated
-msgid "Select export formats to attach when the Mail action sends results."
-msgstr "メールアクションが結果を送信する際に添付するエクスポート形式を選択してください"
-
-#: generated
-msgid "Select how to handle survey submissions (multiple options possible). "
-msgstr "アンケートの送信をどのように処理するかを選択してください（複数選択可）"
-
-#: generated
-msgid ""
-"Sender address for outgoing mail. Mandatory when the Mail action is selected."
-""
-msgstr "送信メールの送信者アドレス メールアクションが選択されている場合は必須"
-
-#: generated
-msgid ""
-"Start over? This will clear your refinement history and return to the "
-"initial prompt."
-msgstr "最初からやり直しますか これまでの調整履歴がすべて消去され最初のプロンプトに戻ります"
-
-#: generated
-msgid "Store"
-msgstr "保存"
-
-#: generated
-msgid "Subject"
-msgstr "件名"
-
-#: generated
-msgid ""
-"Subject for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
-msgstr "通知専用メールの件名 {title} {detail_url} {poll_id} をサポート"
-
-#: generated
-msgid "Subject for notifications"
-msgstr "通知の件名"
-
-#: generated
-msgid ""
-"Subject for result export emails. Supports {poll_id} for the submission ID. "
-msgstr "結果エクスポートメールの件名 送信IDとして {poll_id} をサポートします"
-
-#: generated
-msgid "Survey Embed Error"
-msgstr "アンケート埋め込みエラー"
-
-#: generated
-msgid "Survey Form"
-msgstr "アンケートフォーム"
-
-#: generated
-msgid "Survey closed"
-msgstr "アンケートは終了しました"
-
-#: generated
-msgid ""
-"Survey embedding is not allowed. Please contact the survey administrator."
-msgstr "アンケートの埋め込みは許可されていません 管理者に連絡してください"
-
-#: generated
-msgid "Survey library not loaded"
-msgstr "アンケートライブラリが読み込まれていません"
-
-#: generated
-msgid "Survey open"
-msgstr "アンケート公開"
-
-#: generated
-msgid "SurveyJS Embed: Element not found"
-msgstr "SurveyJS 埋め込み 要素が見つかりません"
-
-#: generated
-msgid "SurveyJS Embed: Error handling resize message"
-msgstr "SurveyJS 埋め込み エラー処理 リサイズメッセージ"
-
-#: generated
-msgid "SurveyJS Embed: Error requesting height"
-msgstr "SurveyJS 埋め込み 高さのリクエスト中にエラー"
-
-#: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class "
-"\"${className}\""
-msgstr "SurveyJS 埋め込み 埋め込みコンテナーが見つかりません クラス「${className}」を持つ要素を追加してください"
-
-#: generated
-msgid "Text (.txt)"
-msgstr "テキスト (.txt)"
-
-#: generated
-msgid "Unknown error"
-msgstr "不明なエラー"
-
-#: generated
-msgid "Validate submissions against the form schema before saving. "
-msgstr "保存前に送信内容をフォームスキーマに対して検証する"
-
-#: generated
-msgid "Version ${current} of ${total}"
-msgstr "バージョン ${current} / ${total}"
-
-#: generated
-msgid "Version deleted"
-msgstr "バージョンが削除されました"
-
-#: generated
-msgid "Version is locked and cannot be deleted"
-msgstr "バージョンはロックされており削除できません"
-
-#: generated
-msgid "Version locked"
-msgstr "バージョン固定"
-
-#: generated
-msgid "Version not found"
-msgstr "バージョンが見つかりません"
-
-#: generated
-msgid "Version restored successfully. A new version has been created."
-msgstr "バージョンの復元に成功しました 新しいバージョンが作成されました"
-
-#: generated
-msgid "Version unlocked"
-msgstr "バージョンのロック解除"
-
-#: generated
-msgid "Versions"
-msgstr "バージョン"
-
-#: generated
-msgid "View"
-msgstr "表示"
-
-#: generated
-msgid "Visual Editor"
-msgstr "ビジュアルエディター"
-
-#: generated
-msgid "What would you like to change?"
-msgstr "何を変更したいですか"
-
-#: generated
-msgid "Word (.docx)"
-msgstr "Word（.docx）"
-
-#: generated
-msgid "XML (.xml)"
-msgstr "XML (.xml)"
-
-msgid "Access mode"
-msgstr "アクセスモード"
-
-msgid ""
-"Choose whether this form is publicly accessible or requires a trusted access "
-"token in the URL."
-msgstr "このフォームを公開アクセス可能にするか URL に信頼されたアクセス トークンを必要とするかを選択してください"
-
-msgid "Public"
-msgstr "公開"
-
-msgid "Trusted access token"
-msgstr "信頼されたアクセス トークン"
-
-msgid "Trusted access token TTL (hours)"
-msgstr "信頼済みアクセストークンのTTL（時間）"
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Unsaved changes"
-msgstr "未保存の変更"
-
-msgid "You have edits that haven't been saved yet."
-msgstr "まだ保存されていない編集内容があります"
-
-msgid "Lifetime of trusted access tokens in hours."
-msgstr "信頼されたアクセス トークンの有効期間（時間単位）"
-
-#: generated
-msgid ""
-"You're saving ${version}. The latest version is not selected. Continue?"
-msgstr "${version}を保存しようとしています 最新バージョンが選択されていません 続行しますか"
-
-#: generated
-msgid "version ${current} of ${total}"
-msgstr "バージョン ${total} 中 ${current}"
-
-#: generated
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: generated
-msgid "Close"
-msgstr "閉じる"
-
-#: generated
-msgid "Confirm restore"
-msgstr "復元を確認"
-
-#: generated
-msgid "Date:"
-msgstr "日付"
-
-#: generated
-msgid "Delete"
-msgstr "削除"
-
-#: generated
-msgid "Confirm delete"
-msgstr "削除を確認"
-
-#: generated
-msgid "Delete version"
-msgstr "バージョンを削除"
-
-#: generated
-msgid "Download"
-msgstr "ダウンロード"
-
-#: generated
-msgid "Download form definition as JSON"
-msgstr "フォーム定義をJSONとしてダウンロード"
-
-#: generated
-msgid "ID:"
-msgstr "ID"
-
-#: generated
-msgid "JSON Version Content"
-msgstr "JSON バージョン コンテンツ"
-
-#: generated
-msgid "Locked"
-msgstr "ロック済み"
-
-#: generated
-msgid "Preview"
-msgstr "プレビュー"
-
-#: generated
-msgid "Preview JSON"
-msgstr "JSON をプレビュー"
-
-#: generated
-msgid "Restore"
-msgstr "復元"
-
-#: generated
-msgid "Restore to previous version"
-msgstr "前のバージョンに復元"
-
-#: generated
-msgid "Restore version"
-msgstr "バージョンを復元"
-
-#: generated
-msgid ""
-"Restoring will create a new version using the selected snapshot and keep the "
-"current version in history."
-msgstr "復元すると選択したスナップショットを使用して新しいバージョンが作成され現在のバージョンは履歴に保持されます"
-
-#: generated
-msgid "Upload and Create Version"
-msgstr "アップロードとバージョンを作成"
-
-#: generated
-msgid "User:"
-msgstr "ユーザー"
-
-#: generated
-msgid "Experimental:"
-msgstr "実験的"
-
-#: generated
-msgid "This is a helper to get started, not a finished form."
-msgstr "これは開始するための補助であり 完成したフォームではありません"
-
-#: generated
-msgid "Use clear, specific prompts for best results."
-msgstr "最良の結果を得るために明確で具体的なプロンプトを使用してください"
-
-#: generated
-msgid "Always review and adjust the generated form before use."
-msgstr "使用前に必ず生成されたフォームを確認し調整してください"
-
-#: generated
-msgid "Error:"
-msgstr "エラー"
-
-#: generated
-msgid "#"
-msgstr "#"
-
-#: generated
-msgid "AI Form Generator"
-msgstr "AI フォーム ジェネレーター"
-
-#: generated
-msgid "Action"
-msgstr "アクション"
-
-#: generated
-msgid "Back to results"
-msgstr "結果に戻る"
-
-#: generated
-msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr "変換したいフォームレイアウトを含むPDFを選択してください"
-
-#: generated
-msgid "Clear All Results"
-msgstr "すべての結果をクリア"
-
-#: generated
-msgid "Clear all results"
-msgstr "すべての結果をクリア"
-
-#: generated
-msgid "Convert PDF"
-msgstr "PDF 変換"
-
-#: generated
-msgid "Created:"
-msgstr "作成日"
-
-#: generated
-msgid "Current Version:"
-msgstr "現在のバージョン"
-
-#: generated
-msgid "Date"
-msgstr "日付"
-
-#: generated
-msgid "Date/Time"
-msgstr "日付/時刻"
-
-#: generated
-msgid "Delete result"
-msgstr "結果を削除"
-
-#: generated
-msgid "Delete selected"
-msgstr "選択したものを削除"
-
-#: generated
-msgid "Describe your survey in natural language and let AI generate the form"
-msgstr "アンケートを自然な言葉で説明するとAIがフォームを生成します"
-
-#: generated
-msgid "Details"
-msgstr "詳細"
-
-#: generated
-msgid "Download form definition (JSON)"
-msgstr "フォーム定義をダウンロード（JSON）"
-
-#: generated
-msgid "Download result"
-msgstr "結果をダウンロード"
-
-#: generated
-msgid "Download results (CSV)"
-msgstr "結果をダウンロード (CSV)"
-
-#: generated
-msgid "Download results (JSON)"
-msgstr "結果をダウンロード (JSON)"
-
-#: generated
-msgid "Embedding Not Allowed"
-msgstr "埋め込みは許可されていません"
-
-#: generated
-msgid "Enable it in the survey settings to collect and view responses here."
-msgstr "アンケート設定で有効にしてここで回答を収集および表示します"
-
-#: generated
-msgid "Form JSON"
-msgstr "フォームJSON"
-
-#: generated
-msgid "Form Preview"
-msgstr "フォームプレビュー"
-
-#: generated
-msgid "Form Version Management"
-msgstr "フォームバージョン管理"
-
-#: generated
-msgid "Generated form preview will appear here."
-msgstr "生成されたフォームのプレビューがここに表示されます"
-
-#: generated
-msgid "Heads up:"
-msgstr "注意"
-
-#: generated
-msgid "JSON"
-msgstr "JSON"
-
-#: generated
-msgid "Mail result"
-msgstr "メール結果"
-
-#: generated
-msgid "Manage, view, and restore previous versions of your survey forms"
-msgstr "アンケートフォームの過去バージョンを管理、表示、復元する"
-
-#: generated
-#~ msgid "Next »"
-#~ msgstr "次へ »"
-
-#: generated
-msgid "No PDF selected yet."
-msgstr "まだPDFが選択されていません"
-
-#: generated
-msgid ""
-"No stored results yet. Once responses are saved, analytics will appear here."
-msgstr "まだ保存された結果はありません 回答が保存されるとここに分析が表示されます"
-
-#: generated
-msgid "No Survey Results Yet"
-msgstr "まだアンケート結果はありません"
-
-#: generated
-msgid "No Versions Available"
-msgstr "利用可能なバージョンがありません"
-
-#: generated
-msgid ""
-"No form versions have been created yet. Use the Form Creator to design your "
-"first survey, or upload an existing JSON file using the form above."
+msgid "Nothing to copy"
 msgstr ""
-"フォームバージョンはまだ作成されていません フォームクリエイターを使用して最初のアンケートを作成するか "
-"上のフォームを使って既存のJSONファイルをアップロードしてください"
-
-#: generated
-msgid "No results found matching your search query."
-msgstr "検索クエリに一致する結果が見つかりません"
-
-#: generated
-msgid "PDF Form Importer"
-msgstr "PDFフォームインポーター"
-
-#: generated
-msgid "PDF Preview"
-msgstr "PDF プレビュー"
-
-#: generated
-msgid "PDF file"
-msgstr "PDF ファイル"
-
-#: generated
-msgid "POST result"
-msgstr "POST 結果"
-
-#: generated
-msgid "Poll ID:"
-msgstr "投票ID"
-
-#: generated
-msgid "Preview Form"
-msgstr "フォームをプレビュー"
-
-#: generated
-msgid "Processing..."
-msgstr "処理中"
-
-#: generated
-msgid "Refine existing form"
-msgstr "既存フォームを改善"
-
-#: generated
-msgid "Refinement History"
-msgstr "改良履歴"
-
-#: generated
-msgid "Results are not being saved because the \"Store\" action is turned off."
-msgstr "結果は「保存」アクションがオフになっているため保存されていません"
-
-#: generated
-msgid "Save Form"
-msgstr "フォームを保存"
-
-#: generated
-msgid "Search"
-msgstr "検索"
-
-#: generated
-msgid "Search by user..."
-msgstr "ユーザーで検索"
-
-msgid "Search by user, UUID, or date"
-msgstr "ユーザー UUID または日付で検索"
-
-#: generated
-msgid "Select JSON file:"
-msgstr "JSONファイルを選択"
-
-#: generated
-msgid "Select all results"
-msgstr "すべての結果を選択"
-
-#: generated
-msgid "Select result"
-msgstr "結果を選択"
-
-#: generated
-msgid "Sequence:"
-msgstr "シーケンス"
-
-#: generated
-msgid "Start Over"
-msgstr "最初からやり直す"
-
-#: generated
-msgid "Storage disabled."
-msgstr "ストレージは無効です"
-
-#: generated
-msgid "Storage:"
-msgstr "保存"
-
-#: generated
-msgid "Stored form data"
-msgstr "保存されたフォームデータ"
-
-#: generated
-msgid "Submission Details"
-msgstr "提出詳細"
-
-#: generated
-msgid "Survey"
-msgstr "アンケート"
-
-#: generated
-msgid "Survey Response Details"
-msgstr "アンケート回答詳細"
-
-#: generated
-msgid "SurveyJS Preview"
-msgstr "SurveyJS プレビュー"
-
-#: generated
-msgid "Table"
-msgstr "テーブル"
-
-#: generated
-msgid ""
-"There are no survey responses yet. Once users submit the survey, their "
-"responses will appear here."
-msgstr "まだアンケートの回答はありません ユーザーがアンケートを送信するとここに回答が表示されます"
-
-#: generated
-msgid "Delete Result"
-msgstr "結果を削除"
-
-#: generated
-msgid "Delete Selected Results"
-msgstr "選択した結果を削除"
-
-#: generated
-msgid ""
-"This will permanently delete the selected result. This cannot be undone."
-msgstr "選択した結果は完全に削除されます この操作は元に戻せません"
-
-#: generated
-msgid ""
-"This action will permanently delete all survey results. This cannot be "
-"undone."
-msgstr "この操作を行うとすべてのアンケート結果が完全に削除されます この操作は元に戻せません"
-
-#: generated
-msgid ""
-"This action permanently removes the selected version. This cannot be undone."
-msgstr "この操作は選択されたバージョンを完全に削除します この操作は元に戻せません"
-
-#: generated
-msgid ""
-"This feature is experimental. Please review the generated form carefully."
-msgstr "この機能は実験的なものです 生成されたフォームを慎重に確認してください"
-
-#: generated
-msgid ""
-"This survey is not configured to be embedded. Please contact the survey "
-"administrator."
-msgstr "このアンケートは埋め込み用に設定されていません アンケート管理者に連絡してください"
-
-#: generated
-msgid "To confirm, please type clear in the field below:"
-msgstr "確認のため、下のフィールドに clear と入力してください"
-
-#: generated
-msgid "Type 'clear' to confirm"
-msgstr "確認するには clear と入力してください"
-
-#: generated
-msgid "UUID"
-msgstr "UUID"
-
-#: generated
-msgid "Unable to load submission."
-msgstr "送信を読み込めません"
-
-#: generated
-msgid "Upload"
-msgstr "アップロード"
-
-#: generated
-msgid "Upload JSON form schema"
-msgstr "JSON フォームスキーマをアップロード"
-
-#: generated
-msgid "Upload PDF"
-msgstr "PDFをアップロード"
-
-#: generated
-msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr "PDFフォームをアップロードしてそこからSurveyJSのJSONを生成する"
-
-#: generated
-msgid ""
-"Upload a valid SurveyJS JSON file to create a new version. The file will be "
-"validated before saving."
-msgstr "新しいバージョンを作成するために有効な SurveyJS の JSON ファイルをアップロードしてください ファイルは保存前に検証されます"
-
-#: generated
-msgid ""
-"Use the latest saved form as the starting point instead of generating a new "
-"one."
-msgstr "新しいフォームを生成する代わりに最新の保存済みフォームを開始点として使用する"
-
-#: generated
-msgid "User"
-msgstr "ユーザー"
-
-#: generated
-msgid "Version History"
-msgstr "バージョン履歴"
-
-#: generated
-msgid "Version ID"
-msgstr "バージョンID"
-
-#: generated
-msgid "View JSON"
-msgstr "JSON を表示"
-
-#: generated
-msgid "Warning:"
-msgstr "警告"
-
-#: generated
-msgid "clear"
-msgstr "クリア"
-
-#: generated
-#~ msgid "« Previous"
-#~ msgstr "« 前へ"
-
-#: generated
-msgid "Failed to save survey results. Please try again."
-msgstr "アンケート結果の保存に失敗しました もう一度お試しください"
-
-#: generated
-msgid "Unable to load survey. Please try refreshing the page."
-msgstr "アンケートを読み込めません ページを再読み込みしてください"
-
-#: generated
-msgid "Lock"
-msgstr "ロック"
-
-#: generated
-msgid "Unlock"
-msgstr "アンロック"
-
-#: generated
-msgid "Status"
-msgstr "ステータス"
-
-#: generated
-msgid "Effective"
-msgstr "効果的"
-
-#: generated
-msgid "Expires"
-msgstr "有効期限"
-
-#: generated
-msgid "Stored results"
-msgstr "保存された結果"
-
-#: generated
-msgid "Published"
-msgstr "公開済み"
-
-#: generated
-msgid "Inactive"
-msgstr "無効"
-
-#: generated
-msgid "Store converted form as new version"
-msgstr "変換されたフォームを新しいバージョンとして保存"
-
-#: generated
-#~ msgid ""
-#~ "Conversion complete. Review the preview and click “Store converted form as "
-#~ "new version”."
-#~ msgstr "変換が完了しました。プレビューを確認し、「変換されたフォームを新しいバージョンとして保存」をクリックしてください。"
-
-#: generated
-msgid "No converted form available to store."
-msgstr "保存できる変換済みフォームはありません"
-
-#: generated
-msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
-msgstr "変換されたフォームが保存されました <a href=\"${url}\">バージョンを表示</a>"
-
-#: generated
-msgid "Store failed"
-msgstr "保存に失敗しました"
-
-#: generated
-msgid "Store failed. Please try again."
-msgstr "保存に失敗しました もう一度お試しください"
-
-#: generated
-msgid "Reset"
-msgstr "リセット"
-
-#: generated
-msgid "Refresh"
-msgstr "更新"
-
-#: generated
-msgid "Forms overview"
-msgstr "フォーム概要"
-
-#: generated
-msgid "Overview of forms in this section and their submission status."
-msgstr "このセクションのフォームの概要とその送信状況"
-
-#: generated
-msgid "No surveys found below this location."
-msgstr "この場所より下にはアンケートが見つかりません"
-
-msgid ""
-"Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
-"css in ++resource++zopyx.surveyjs/vendor/."
-msgstr ""
-"Tabulator アセットが見つかりません tabulator.min.js と tabulator.min.css を "
-"++resource++zopyx.surveyjs/vendor/ にインストールしてください"
-
-#: generated
-msgid "Title"
-msgstr "タイトル"
-
-#: generated
-msgid "Description"
-msgstr "説明"
-
-#: generated
-msgid "Workflow status"
-msgstr "ワークフロー状態"
-
-#: generated
-msgid "Submitted"
-msgstr "送信済み"
-
-#: generated
-msgid "Security mode"
-msgstr "セキュリティモード"
-
-#: generated
-msgid "Language"
-msgstr "言語"
-
-msgid "First"
-msgstr "最初"
-
-msgid "First Page"
-msgstr "最初のページ"
-
-msgid "Last"
-msgstr "最後"
-
-msgid "Last Page"
-msgstr "最終ページ"
-
-msgid "Prev"
-msgstr "前へ"
-
-msgid "Prev Page"
-msgstr "前のページ"
-
-msgid "Next"
-msgstr "次へ"
-
-msgid "Next Page"
-msgstr "次のページ"
-
-msgid "All"
-msgstr "すべて"
-
-msgid "Page Size"
-msgstr "ページサイズ"
-
-msgid "Additional prompt"
-msgstr "追加プロンプト"
-
-msgid "Add extra conversion guidance..."
-msgstr "追加のコンバージョンガイダンスを追加"
-
-msgid "Optional instructions to guide the conversion."
-msgstr "変換を案内するための任意の指示"
-
-msgid "DOCS"
-msgstr "ドキュメント"
-
-msgid "Fullscreen"
-msgstr "全画面"
-
-msgid "Exit fullscreen"
-msgstr "全画面表示を終了"
-
-msgid "AI provider missing:"
-msgstr "AIプロバイダーがありません"
-
-msgid ""
-"AI form generation is not available because no AI provider is configured."
-msgstr "AIプロバイダーが設定されていないためAIフォーム生成は利用できません"
-
-msgid "External AI provider:"
-msgstr "外部AIプロバイダー"
-
-msgid ""
-"A remote AI provider is configured and will be used. Your PDF may leave your "
-"network."
-msgstr "リモートのAIプロバイダーが設定されており使用されます あなたのPDFはネットワーク外に送信される可能性があります"
-
-msgid "Local AI provider:"
-msgstr "ローカルAIプロバイダー"
-
-msgid "A local AI provider is configured. Your PDF stays within your network."
-msgstr "ローカルのAIプロバイダーが構成されています あなたのPDFはネットワーク内に留まります"
-
-#: generated
-msgid "Next "
-msgstr "次へ"
-
-#: generated
-msgid " Previous"
-msgstr "前へ"
-
-#: generated
-msgid ""
-"Conversion complete. Review the preview and click Store converted form as "
-"new version."
-msgstr "変換が完了しました プレビューを確認し 変換されたフォームを新しいバージョンとして保存をクリックしてください"
-
-#: generated
-msgid "Form validation using pdfcpu"
-msgstr "pdfcpu を使用したフォーム検証"
-
-#: generated
-msgid "When enabled, pdfcpu is used to validate and enrich form fields."
-msgstr "有効にすると pdfcpu がフォームフィールドを検証および拡充するために使用されます"
-
-#: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
-"versions</a>."
-msgstr "フォームがインポートされ、新しいバージョンとして保存されました <a href=\"${url}\">バージョンを表示</a>"
-
-#: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class "
-"\\\"${className}\\\""
-msgstr "SurveyJS 埋め込み 対応する埋め込みコンテナが見つかりません クラス名が「${className}」の要素を追加してください"
-
-msgid "Trusted access required"
-msgstr "信頼されたアクセスが必要"
-
-msgid "Ask the form owner for a trusted access link."
-msgstr "フォーム所有者に信頼できるアクセスリンクを依頼してください"
-
-msgid "Open the link in this browser to continue."
-msgstr "続行するにはこのブラウザでリンクを開いてください"
-
-msgid "Trusted access link"
-msgstr "信頼できるアクセスリンク"
-
-msgid "Share this link to open the form."
-msgstr "フォームを開くにはこのリンクを共有してください"
-
-msgid "Copy link"
-msgstr "リンクをコピー"
-
-#: generated
-msgid "View Form"
-msgstr "フォームを表示"
-
-#: generated
-msgid "Preview the live survey experience."
-msgstr "ライブアンケートの体験をプレビュー"
-
-#: generated
-msgid "Build and refine the survey form."
-msgstr "アンケートフォームを作成し洗練させる"
-
-#: generated
-msgid "PDF generator"
-msgstr "PDF ジェネレーター"
-
-#: generated
-msgid "Generate a PDF version of the current survey form."
-msgstr "現在のアンケートフォームのPDF版を生成する"
-
-#: generated
-msgid "PDF export"
-msgstr "PDF エクスポート"
-
-#: generated
-msgid "Export the current SurveyJS form as a downloadable PDF."
-msgstr "現在の SurveyJS フォームをダウンロード可能な PDF としてエクスポートする"
-
-#: generated
-msgid "Survey data dashboard"
-msgstr "調査データダッシュボード"
-
-#: generated
-msgid "Explore responses with charts and summary insights."
-msgstr "チャートと要約インサイトで回答を探索する"
-
-#: generated
-msgid "Fillable PDF Form"
-msgstr "入力可能なPDFフォーム"
-
-#: generated
-msgid ""
-"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
-"submissions."
-msgstr "記入可能なPDFをアップロードしてSurveyJSフォームを生成しPDFベースの送信を有効にする"
-
-#: generated
-msgid "Password required"
-msgstr "パスワードが必要"
-
-#: generated
-msgid "Access to this survey is restricted. Enter the password to continue."
-msgstr "このアンケートへのアクセスは制限されています 続行するにはパスワードを入力してください"
-
-#: generated
-msgid "PDF Form"
-msgstr "PDFフォーム"
-
-#: generated
-msgid "Dashboard"
-msgstr "ダッシュボード"
-
-#: generated
-msgid "PDF Generator"
-msgstr "PDF ジェネレーター"
-
-#: generated
-msgid "Form from PDF"
-msgstr "PDFからのフォーム"
-
-#: generated
-msgid "Fillable PDF Forms"
-msgstr "入力可能なPDFフォーム"
-
-#: generated
-msgid "Download PDF"
-msgstr "PDF をダウンロード"
-
-msgid "Choose a PDF that already contains fillable fields"
-msgstr "すでに入力可能なフィールドを含むPDFを選択"
-
-msgid "Extraction mode"
-msgstr "抽出モード"
-
-msgid ""
-"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
-"cannot always map to original PDF fields."
-msgstr ""
-"pdfcpu は入力済み PDF のフィールドマッピングを保持します LLM はレイアウトには最適ですが元の PDF "
-"フィールドに常にマッピングできるわけではありません"
-
-msgid "Analyze PDF"
-msgstr "PDF を解析"
-
-#: zopyx/surveyjs/browser/psf.py:109
-msgid "Administration"
-msgstr "管理"
-
-#: zopyx/surveyjs/browser/psf.py:98
-msgid "Browse saved templates and reuse them for new forms or surveys."
-msgstr "保存済みのテンプレートを閲覧し新しいフォームやアンケートに再利用します"
-
-#: zopyx/surveyjs/browser/psf.py:75
-msgid "Create form"
-msgstr "フォームを作成"
-
-#: zopyx/surveyjs/browser/pfs.pt:59
-msgid "Create from template"
-msgstr "テンプレートから作成"
-
-#: zopyx/surveyjs/browser/survey_add.pt:61
-msgid "Create survey"
-msgstr "アンケートを作成"
-
-#: zopyx/surveyjs/browser/survey_versions.pt:287
-msgid "Create template"
-msgstr "テンプレートを作成"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
-msgid "Detected fields"
-msgstr "検出されたフィールド"
-
-#: zopyx/surveyjs/browser/survey_results.pt:116
-msgid "Export range"
-msgstr "エクスポート範囲"
-
-#: zopyx/surveyjs/browser/psf.py:228
-msgid "Failed to create survey: ${error}"
-msgstr "アンケートの作成に失敗しました: ${error}"
-
-#: zopyx/surveyjs/browser/survey_versions.py:322
-msgid "Failed to create template: ${error}"
-msgstr "テンプレートの作成に失敗しました: ${error}"
-
-#: zopyx/surveyjs/browser/survey_results.pt:118
-msgid "From"
-msgstr "から"
-
-#: zopyx/surveyjs/browser/survey_versions.pt:290
-msgid ""
-"Generate a new SurveyTemplate from the selected version. You can adjust the "
-"name before creation."
-msgstr "選択したバージョンから新しいSurveyTemplateを生成します 作成前に名前を調整できます"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
-msgid "LLM (visual conversion)"
-msgstr "LLM（ビジュアル変換）"
-
-#: zopyx/surveyjs/browser/psf.py:72
-msgid "Launch a brand-new form or survey and start collecting answers."
-msgstr "新しいフォームやアンケートを立ち上げて回答の収集を開始する"
-
-#: zopyx/surveyjs/browser/survey_add.pt:46
-#: zopyx/surveyjs/browser/survey_metadata.pt:46
-msgid "Let's fix a few things:"
-msgstr "いくつか修正しましょう"
-
-#: zopyx/surveyjs/browser/survey_add.pt:57
-#: zopyx/surveyjs/browser/survey_metadata.pt:57
-msgid "Loading form..."
-msgstr "フォームを読み込んでいます"
-
-#: zopyx/surveyjs/browser/survey_actions.pt:18
-msgid "Metadata"
-msgstr "メタデータ"
-
-#: zopyx/surveyjs/browser/psf.py:195
-msgid "New Survey"
-msgstr "新しいアンケート"
-
-#: zopyx/surveyjs/browser/psf.py:71
-msgid "New form/survey"
-msgstr "新しいフォーム/アンケート"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
-msgid "No fields detected yet."
-msgstr "まだフィールドが検出されていません"
-
-#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
-msgid "No survey templates found below this location."
-msgstr "この場所より下にはアンケートテンプレートが見つかりません"
-
-#: zopyx/surveyjs/browser/survey_template_views.py:22
-msgid "No template JSON configured."
-msgstr "テンプレートJSONが設定されていません"
 
 #: zopyx/surveyjs/browser/configure.zcml:29
 msgid "Open Forms overview"
@@ -1665,52 +1644,587 @@ msgstr "概要を開く"
 msgid "Open templates"
 msgstr "テンプレートを開く"
 
+msgid "Open the link in this browser to continue."
+msgstr "続行するにはこのブラウザでリンクを開いてください"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Open visual editor"
+msgstr "ビジュアルエディタを開く"
+
+#: generated
+msgid "Optional BCC recipients for result exports (one address per line)."
+msgstr "結果エクスポート用の任意のBCC受信者（1行につき1アドレス）"
+
+#: generated
+msgid "Optional CC recipients for result exports (one address per line)."
+msgstr "結果エクスポート用の任意のCC受信者（1行につき1件のアドレス）"
+
+#: generated
+msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+msgstr "POST アクションが有効な場合に送信内容を JSON として受信するための任意の HTTP エンドポイント"
+
+msgid "Optional instructions to guide the conversion."
+msgstr "変換を案内するための任意の指示"
+
+#: ../browser/fillable_pdf.pt:834
+msgid "Options"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:783
+msgid "Options: ${options}"
+msgstr ""
+
+#: generated
+msgid "Overall Satisfaction"
+msgstr ""
+
+#: generated
+msgid "Overview of forms in this section and their submission status."
+msgstr "このセクションのフォームの概要とその送信状況"
+
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:39
 msgid "Overview of survey templates available in this section."
 msgstr "このセクションで利用可能なアンケートテンプレートの概要"
+
+#: generated
+msgid "PDF (.pdf)"
+msgstr "PDF (.pdf)"
+
+#: generated
+msgid "PDF Form"
+msgstr "PDFフォーム"
+
+#: generated
+msgid "PDF Form Import"
+msgstr "PDFフォームインポート"
+
+#: generated
+msgid "PDF Form Importer"
+msgstr "PDFフォームインポーター"
+
+#: generated
+msgid "PDF Generator"
+msgstr "PDF ジェネレーター"
+
+#: generated
+msgid "PDF Preview"
+msgstr "PDF プレビュー"
+
+#: ../browser/fillable_pdf.pt:637
+msgid "PDF Template"
+msgstr ""
+
+#: generated
+msgid "PDF export"
+msgstr "PDF エクスポート"
+
+#: generated
+msgid "PDF file"
+msgstr "PDF ファイル"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "PDF form"
+msgstr "PDFフォーム"
+
+#: generated
+msgid "PDF generator"
+msgstr "PDF ジェネレーター"
+
+#: generated
+msgid "POST action is not enabled for this survey"
+msgstr "このアンケートではPOSTアクションが有効になっていません"
+
+#: generated
+msgid "POST endpoint URL"
+msgstr "POST エンドポイント URL"
+
+#: generated
+msgid "POST result"
+msgstr "POST 結果"
+
+#: generated
+msgid "POST to endpoint"
+msgstr "エンドポイントへのPOST"
+
+#: ../browser/fillable_pdf.pt:730
+msgid "Page ${page}"
+msgstr ""
+
+msgid "Page Size"
+msgstr "ページサイズ"
+
+#: generated
+msgid "Parse error: ${error}"
+msgstr ""
+
+#: generated
+msgid "Password required"
+msgstr "パスワードが必要"
+
+#: ../browser/survey_monitor.pt:84
+msgid "Per Minute"
+msgstr ""
+
+#: generated
+msgid "Please enter a description"
+msgstr "説明を入力してください"
 
 #: zopyx/surveyjs/browser/survey_add.py:96
 #: zopyx/surveyjs/browser/survey_metadata.py:111
 msgid "Please provide a title for your survey."
 msgstr "アンケートのタイトルを入力してください"
 
+#: generated
+msgid "Please select a PDF file to upload."
+msgstr "アップロードするPDFファイルを選択してください"
+
 #: zopyx/surveyjs/browser/psf.py:162
 msgid "Please select a template."
 msgstr "テンプレートを選択してください"
+
+#: generated
+msgid "Please share your experience with us."
+msgstr ""
+
+#: generated
+msgid "Poll ID is required"
+msgstr "投票IDは必須です"
+
+#: generated
+msgid "Poll ID:"
+msgstr "投票ID"
+
+#: generated
+msgid "Poll result not found"
+msgstr "投票結果が見つかりません"
+
+msgid "Prev"
+msgstr "前へ"
+
+msgid "Prev Page"
+msgstr "前のページ"
+
+#: generated
+msgid "Preview"
+msgstr "プレビュー"
+
+#: generated
+msgid "Preview Form"
+msgstr "フォームをプレビュー"
+
+#: generated
+msgid "Preview JSON"
+msgstr "JSON をプレビュー"
+
+#: generated
+msgid "Preview error:"
+msgstr "プレビューエラー"
+
+#. Default: "Preview form"
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "フォームをプレビュー"
+
+#: generated
+msgid "Preview mode - form not submitted"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:48
 msgid "Preview the form/surveey template."
 msgstr "フォーム/アンケートテンプレートをプレビューする"
 
+#: generated
+msgid "Preview the live survey experience."
+msgstr "ライブアンケートの体験をプレビュー"
+
+#: ../browser/theme_manager.pt:111
+msgid "Preview theme"
+msgstr ""
+
+#: generated
+msgid "Primary recipient for notifications and result exports (single address). "
+msgstr "通知および結果エクスポートの主な受信者（単一アドレス）"
+
+#: generated
+msgid "Privacy Forms Studio"
+msgstr "プライバシーフォームスタジオ"
+
+#: ../browser/survey_monitor.pt:160
+msgid "Processing Time"
+msgstr ""
+
+#: generated
+msgid "Processing..."
+msgstr "処理中"
+
+#: ../browser/fillable_pdf.pt:836
+msgid "Properties"
+msgstr ""
+
+msgid "Public"
+msgstr "公開"
+
+#: generated
+msgid "Published"
+msgstr "公開済み"
+
+#: ../browser/survey_monitor.pt:111
+msgid "Rate Limit Status"
+msgstr ""
+
+#: generated
+msgid "Rate limited"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:859
+msgid "Read-only"
+msgstr ""
+
+#: ../browser/theme_editor.pt:112
+msgid "Read-only view of the current theme definition."
+msgstr ""
+
+#: generated
+msgid "Refine Form"
+msgstr "フォームを洗練する"
+
+#: generated
+msgid "Refine Your Form"
+msgstr "フォームを洗練する"
+
+#: generated
+msgid "Refine existing form"
+msgstr "既存フォームを改善"
+
+#: generated
+msgid "Refinement ${index}"
+msgstr "洗練 ${index}"
+
+#: generated
+msgid "Refinement History"
+msgstr "改良履歴"
+
+#: generated
+msgid "Refinement failed"
+msgstr "洗練に失敗しました"
+
+#: generated
+msgid "Refining..."
+msgstr "洗練中"
+
+#: generated
+msgid "Refresh"
+msgstr "更新"
+
+#: generated
+msgid "Requested export format is not available"
+msgstr "要求されたエクスポート形式は利用できません"
+
+#: ../browser/fillable_pdf.pt:862
+msgid "Required"
+msgstr ""
+
+#: generated
+msgid "Reset"
+msgstr "リセット"
+
+#: ../browser/survey_monitor.pt:146
+msgid "Reset to the full time window"
+msgstr ""
+
+#: generated
+msgid "Restore"
+msgstr "復元"
+
+#: ../browser/theme_editor.pt:52
+msgid "Restore Version"
+msgstr ""
+
+#: ../browser/theme_editor.pt:81
+msgid "Restore a version"
+msgstr ""
+
+#: generated
+msgid "Restore failed: ${error}"
+msgstr ""
+
+#: generated
+msgid "Restore to previous version"
+msgstr "前のバージョンに復元"
+
+#: generated
+msgid "Restore version"
+msgstr "バージョンを復元"
+
+#: generated
+msgid "Restored version from ${date}"
+msgstr ""
+
+#: generated
+msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
+msgstr "復元すると選択したスナップショットを使用して新しいバージョンが作成され現在のバージョンは履歴に保持されます"
+
+#: generated
+msgid "Result POSTed to endpoint (status ${status})"
+msgstr "結果がエンドポイントにPOSTされました（ステータス ${status}）"
+
+#: generated
+msgid "Results"
+msgstr "結果"
+
+#: generated
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr "結果は「保存」アクションがオフになっているため保存されていません"
+
+#: generated
+msgid "Results cleared"
+msgstr "結果を消去"
+
+#: generated
+msgid "Row"
+msgstr "行"
+
+#: generated
+msgid "Run the external SurveyJS validator binary for every save/submit."
+msgstr "保存や送信のたびに外部の SurveyJS バリデータバイナリを実行する"
+
+#: generated
+msgid "Satisfied"
+msgstr ""
+
+#: ../browser/survey_versions.pt:155
+#: ../browser/theme_editor.pt:45
+msgid "Save"
+msgstr ""
+
+#: generated
+msgid "Save Form"
+msgstr "フォームを保存"
+
+#: ../browser/theme_editor.pt:46
+msgid "Save a new version"
+msgstr ""
+
 #: zopyx/surveyjs/browser/survey_metadata.pt:61
 msgid "Save changes"
 msgstr "変更を保存"
 
+#: generated
+msgid "Save failed"
+msgstr "保存に失敗しました"
+
+#: generated
+msgid "Save failed: ${error}"
+msgstr ""
+
+#: ../browser/survey_editor.pt:111
+msgid "Save selected theme to survey metadata"
+msgstr ""
+
+#: ../browser/survey_editor.pt:111
+msgid "Save theme"
+msgstr ""
+
+#: generated
+msgid "Saving"
+msgstr "保存"
+
+#: generated
+msgid "Search"
+msgstr "検索"
+
+msgid "Search by user, UUID, or date"
+msgstr "ユーザー UUID または日付で検索"
+
+#: generated
+msgid "Search by user..."
+msgstr "ユーザーで検索"
+
+#: generated
+msgid "Security mode"
+msgstr "セキュリティモード"
+
 #: zopyx/surveyjs/browser/psf.py:85
-msgid ""
-"See every form or survey at a glance, surface trends, and jump right in."
+msgid "See every form or survey at a glance, surface trends, and jump right in."
 msgstr "あらゆるフォームやアンケートを一目で把握し トレンドを可視化して すぐに取りかかる"
+
+#: generated
+msgid "Select JSON file:"
+msgstr "JSONファイルを選択"
+
+#: generated
+msgid "Select all results"
+msgstr "すべての結果を選択"
+
+#: zopyx/surveyjs/browser/pfs.pt:18
+msgid "Select an action"
+msgstr "今日は何をしたいですか"
 
 #: zopyx/surveyjs/browser/survey_add.py:100
 #: zopyx/surveyjs/browser/survey_metadata.py:115
 msgid "Select at least one submission handling option."
 msgstr "少なくとも一つの送信処理オプションを選択してください"
 
-#: zopyx/surveyjs/browser/pfs.pt:61
-msgid "Create a new form or survey using one of your curated presets."
-msgstr "キュレートしたプリセットのいずれかを使って新しいフォームまたはアンケートを開始する"
+#: generated
+msgid "Select export formats to attach when the Mail action sends results."
+msgstr "メールアクションが結果を送信する際に添付するエクスポート形式を選択してください"
 
-#: zopyx/surveyjs/browser/pfs.pt:19
-msgid ""
-"Choose a guided action appropriate to your role. These shortcuts help team "
-"members manage form and survey data consistently and efficiently."
+#: generated
+msgid "Select how to handle survey submissions (multiple options possible). "
+msgstr "アンケートの送信をどのように処理するかを選択してください（複数選択可）"
+
+#: generated
+msgid "Select result"
+msgstr "結果を選択"
+
+#: generated
+msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgstr "送信メールの送信者アドレス メールアクションが選択されている場合は必須"
+
+#: generated
+msgid "Sequence:"
+msgstr "シーケンス"
+
+msgid "Share this link to open the form."
+msgstr "フォームを開くにはこのリンクを共有してください"
+
+#: ../browser/fillable_pdf.pt:778
+msgid "Signature field (filled via UI)"
 msgstr ""
-"自分の役割に合ったガイド付きアクションから始めましょう "
-"これらのショートカットによりチームの全メンバーがフォームやアンケートのデータを生産的かつ自信を持って自在に扱えるようになります"
+
+#: generated
+msgid "Sports"
+msgstr ""
+
+#: generated
+msgid "Start Over"
+msgstr "最初からやり直す"
+
+#. Default: "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+msgstr "プロンプトで一時的なSurveyJSドラフトを開始します。最初のプロンプトでワークスペースフォームが作成されます。"
+
+#: generated
+msgid "Start over? This will clear your refinement history and return to the initial prompt."
+msgstr "最初からやり直しますか これまでの調整履歴がすべて消去され最初のプロンプトに戻ります"
+
+#: generated
+msgid "Status"
+msgstr "ステータス"
+
+#: ../browser/ai.pt:210
+msgid "Step back: ${step}"
+msgstr ""
+
+#: generated
+msgid "Storage disabled."
+msgstr "ストレージは無効です"
+
+#: generated
+msgid "Storage:"
+msgstr "保存"
+
+#: generated
+msgid "Store"
+msgstr "保存"
+
+#. Default: "Store as new version"
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "新しいバージョンとして保存"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "変換されたフォームを新しいバージョンとして保存"
+
+#: generated
+msgid "Store failed"
+msgstr "保存に失敗しました"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "保存に失敗しました もう一度お試しください"
+
+#: generated
+msgid "Stored form data"
+msgstr "保存されたフォームデータ"
+
+#: generated
+msgid "Stored results"
+msgstr "保存された結果"
+
+#: ../browser/llm_models.pt:50
+msgid "Streaming"
+msgstr ""
+
+#: generated
+msgid "Subject"
+msgstr "件名"
+
+#: generated
+msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "通知専用メールの件名 {title} {detail_url} {poll_id} をサポート"
+
+#: generated
+msgid "Subject for notifications"
+msgstr "通知の件名"
+
+#: generated
+msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr "結果エクスポートメールの件名 送信IDとして {poll_id} をサポートします"
+
+#: generated
+msgid "Submission Details"
+msgstr "提出詳細"
+
+#: ../browser/survey_monitor.pt:140
+msgid "Submission Rate Over Time"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:187
+msgid "Submissions"
+msgstr ""
+
+#: generated
+msgid "Submissions / min"
+msgstr ""
+
+#: generated
+msgid "Submitted"
+msgstr "送信済み"
+
+#: generated
+msgid "Suggestions"
+msgstr ""
+
+#: generated
+msgid "Survey"
+msgstr "アンケート"
+
+#: generated
+msgid "Survey Embed Error"
+msgstr "アンケート埋め込みエラー"
+
+#: generated
+msgid "Survey Form"
+msgstr "アンケートフォーム"
+
+#: generated
+msgid "Survey Response Details"
+msgstr "アンケート回答詳細"
+
+#: ../browser/survey_monitor.pt:28
+msgid "Survey Submission Monitor"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:38
 msgid "Survey Templates Overview"
 msgstr "アンケートテンプレート概要"
+
+#: generated
+msgid "Survey closed"
+msgstr "アンケートは終了しました"
 
 #: zopyx/surveyjs/browser/psf.py:235
 msgid "Survey created from template."
@@ -1720,9 +2234,84 @@ msgstr "テンプレートから作成されたアンケート"
 msgid "Survey created. Let's build it!"
 msgstr "アンケートが作成されました さあ作り上げましょう"
 
+#: generated
+msgid "Survey data dashboard"
+msgstr "調査データダッシュボード"
+
+#: generated
+msgid "Survey embedding is not allowed. Please contact the survey administrator."
+msgstr "アンケートの埋め込みは許可されていません 管理者に連絡してください"
+
+#: generated
+msgid "Survey library not loaded"
+msgstr "アンケートライブラリが読み込まれていません"
+
+#: generated
+msgid "Survey open"
+msgstr "アンケート公開"
+
 #: zopyx/surveyjs/browser/survey_metadata.py:136
 msgid "Survey updated."
 msgstr "アンケートが更新されました"
+
+#: generated
+msgid "SurveyJS Embed: Element not found"
+msgstr "SurveyJS 埋め込み 要素が見つかりません"
+
+#: generated
+msgid "SurveyJS Embed: Error handling resize message"
+msgstr "SurveyJS 埋め込み エラー処理 リサイズメッセージ"
+
+#: generated
+msgid "SurveyJS Embed: Error requesting height"
+msgstr "SurveyJS 埋め込み 高さのリクエスト中にエラー"
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+msgstr "SurveyJS 埋め込み 埋め込みコンテナーが見つかりません クラス「${className}」を持つ要素を追加してください"
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \\\"${className}\\\""
+msgstr "SurveyJS 埋め込み 対応する埋め込みコンテナが見つかりません クラス名が「${className}」の要素を追加してください"
+
+#: ../browser/survey_actions.pt:147
+msgid "SurveyJS License Key"
+msgstr "SurveyJSライセンスキー"
+
+#: ../browser/survey_actions.pt:169
+msgid "SurveyJS Licensing"
+msgstr "SurveyJSライセンス"
+
+#: ../browser/survey_actions.pt:160
+msgid "SurveyJS Licensing Terms"
+msgstr "SurveyJSライセンス条項"
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr "SurveyJS プレビュー"
+
+#: ../browser/survey_actions.pt:166
+msgid "SurveyJS Pricing"
+msgstr "SurveyJS価格"
+
+#: generated
+msgid "SurveyJS preview failed."
+msgstr ""
+
+#: ../browser/survey_editor.pt:104
+msgid "Switch theme"
+msgstr ""
+
+#: generated
+msgid "Table"
+msgstr "テーブル"
+
+msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+msgstr "Tabulator アセットが見つかりません tabulator.min.js と tabulator.min.css を ++resource++zopyx.surveyjs/vendor/ にインストールしてください"
+
+#: generated
+msgid "Technology"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_versions.pt:165
 msgid "Template"
@@ -1764,44 +2353,414 @@ msgstr "テンプレートを利用できません"
 msgid "Templates overview"
 msgstr "テンプレート概要"
 
+#. Default: "Temporary SurveyJS Preview"
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "一時的なSurveyJSプレビュー"
+
+#. Default: "Temporary form is available and can be previewed, refined, or stored as new version."
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new version."
+msgstr "一時フォームが利用可能で、プレビュー、改善、または新しいバージョンとして保存できます。"
+
+#: generated
+msgid "Text (.txt)"
+msgstr "テキスト (.txt)"
+
+#: ../browser/survey_actions.pt:149
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "CreatorおよびDashboardコンポーネントを本番環境で使用するには、SurveyJSライセンスが必要です。"
+
+#: ../browser/fillable_pdf.pt:805
+msgid "The following fields were extracted from the uploaded PDF template."
+msgstr ""
+
+#: ../browser/survey_actions.pt:179
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "このアドオンのメンテナが喜んでお手伝いします — お問い合わせ先："
+
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:73
 msgid "The template JSON could not be loaded."
 msgstr "テンプレートJSONを読み込めませんでした"
 
+#: generated
+msgid "Theme"
+msgstr ""
+
+#: ../browser/theme_editor.pt:11
+msgid "Theme Editor"
+msgstr ""
+
+#: ../browser/theme_editor.pt:111
+msgid "Theme JSON"
+msgstr ""
+
+#: ../browser/theme_editor.pt:118
+msgid "Theme JSON (read-only)"
+msgstr ""
+
+#: generated
+msgid "Theme JSON copied to clipboard"
+msgstr ""
+
+#: ../browser/theme_manager.pt:19
+msgid "Theme Manager"
+msgstr ""
+
+#: generated
+msgid "Theme could not be loaded"
+msgstr ""
+
+#: ../browser/theme_editor.pt:80
+msgid "Theme history"
+msgstr ""
+
+#: generated
+msgid "Theme loaded: ${name} · ${version}"
+msgstr ""
+
+#: ../browser/theme_manager.pt:73
+msgid "Theme preview"
+msgstr ""
+
+#: generated
+msgid "Theme saved (${count} versions)"
+msgstr ""
+
+#: generated
+msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+msgstr "まだアンケートの回答はありません ユーザーがアンケートを送信するとここに回答が表示されます"
+
+#: generated
+msgid "This action permanently removes the selected version. This cannot be undone."
+msgstr "この操作は選択されたバージョンを完全に削除します この操作は元に戻せません"
+
+#: generated
+msgid "This action will permanently delete all survey results. This cannot be undone."
+msgstr "この操作を行うとすべてのアンケート結果が完全に削除されます この操作は元に戻せません"
+
+#: generated
+msgid "This feature is experimental. Please review the generated form carefully."
+msgstr "この機能は実験的なものです 生成されたフォームを慎重に確認してください"
+
 #: zopyx/surveyjs/browser/survey_viewer.pt:120
 #: zopyx/surveyjs/browser/viewer_embed.pt:58
-msgid ""
-"This form requires a trusted access link. Please use the link provided by "
-"the form owner."
+msgid "This form requires a trusted access link. Please use the link provided by the form owner."
 msgstr "このフォームには信頼できるアクセスリンクが必要です フォームの所有者から提供されたリンクを使用してください"
+
+#: ../browser/embedded_demo.pt:46
+msgid "This is a demo page for demonstrating the embedded mode using the survey's iframe viewer."
+msgstr ""
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr "これは開始するための補助であり 完成したフォームではありません"
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "この調査にはまだ回答がありません。回答者がフォームを完了すると、結果がここに表示されます。"
+
+#: generated
+msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgstr "このアンケートは埋め込み用に設定されていません アンケート管理者に連絡してください"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:303
 msgid "This template will be created next to the current survey."
 msgstr "このテンプレートは現在のアンケートの横に作成されます"
 
+#: generated
+msgid "This will permanently delete the selected result. This cannot be undone."
+msgstr "選択した結果は完全に削除されます この操作は元に戻せません"
+
+#: ../browser/survey_monitor.pt:44
+msgid "Time Window:"
+msgstr ""
+
+#: generated
+msgid "Title"
+msgstr "タイトル"
+
 #: zopyx/surveyjs/browser/survey_results.pt:122
 msgid "To"
 msgstr "宛先"
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr "確認のため、下のフィールドに clear と入力してください"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:94
 msgid "Token"
 msgstr "トークン"
 
+#: ../browser/survey_actions.pt:56
+msgid "Tokens"
+msgstr ""
+
+#: ../browser/llm_models.pt:52
+msgid "Tools"
+msgstr ""
+
+#: ../browser/token_store.pt:38
+msgid "Total"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:74
+msgid "Total Submissions"
+msgstr ""
+
+msgid "Trusted access link"
+msgstr "信頼できるアクセスリンク"
+
+msgid "Trusted access required"
+msgstr "信頼されたアクセスが必要"
+
+msgid "Trusted access token"
+msgstr "信頼されたアクセス トークン"
+
+msgid "Trusted access token TTL (hours)"
+msgstr "信頼済みアクセストークンのTTL（時間）"
+
+#: ../browser/fillable_pdf.pt:833
+msgid "Type"
+msgstr ""
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr "確認するには clear と入力してください"
+
 #: zopyx/surveyjs/browser/survey_viewer.pt:79
 msgid "URL"
 msgstr "URL"
+
+#: generated
+msgid "UUID"
+msgstr "UUID"
+
+#: generated
+msgid "Unable to load submission."
+msgstr "送信を読み込めません"
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr "アンケートを読み込めません ページを再読み込みしてください"
+
+#: ../browser/survey_monitor.pt:94
+msgid "Unique Users"
+msgstr ""
+
+#: generated
+msgid "Unknown error"
+msgstr "不明なエラー"
+
+#: generated
+msgid "Unlock"
+msgstr "アンロック"
+
+#: ../browser/survey_editor.py:47
+msgid "Unnamed"
+msgstr ""
+
+msgid "Unsaved changes"
+msgstr "未保存の変更"
+
+#: ../browser/survey_monitor.py:119
+msgid "Untitled"
+msgstr ""
+
+#: ../browser/token_store.pt:42
+msgid "Unused"
+msgstr ""
+
+msgid "Update"
+msgstr "更新"
+
+#: generated
+msgid "Upload"
+msgstr "アップロード"
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr "JSON フォームスキーマをアップロード"
+
+#: generated
+msgid "Upload PDF"
+msgstr "PDFをアップロード"
+
+#: ../browser/fillable_pdf.pt:648
+msgid "Upload PDF Template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:32
+msgid "Upload Theme JSON"
+msgstr ""
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr "PDFフォームをアップロードしてそこからSurveyJSのJSONを生成する"
+
+#: ../browser/fillable_pdf.pt:644
+msgid "Upload a fillable PDF form (.pdf file only)"
+msgstr ""
+
+#: generated
+msgid "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions."
+msgstr "記入可能なPDFをアップロードしてSurveyJSフォームを生成しPDFベースの送信を有効にする"
+
+#. Default: "Upload a source document and generate a temporary SurveyJS form draft with AI."
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "ソースドキュメントをアップロードし、AIを使用して一時的なSurveyJSフォームドラフトを生成します。"
+
+#: generated
+msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+msgstr "新しいバージョンを作成するために有効な SurveyJS の JSON ファイルをアップロードしてください ファイルは保存前に検証されます"
+
+#. Default: "Upload and Convert"
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "アップロードして変換"
+
+#: generated
+msgid "Upload and Create Version"
+msgstr "アップロードとバージョンを作成"
+
+#. Default: "Upload documents and convert them to SurveyJS forms using AI"
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "ドキュメントをアップロードし、AIを使用してSurveyJSフォームに変換します"
+
+#: generated
+msgid "Upload failed: ${error}"
+msgstr ""
+
+#. Default: "Uploading..."
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "アップロード中..."
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr "最良の結果を得るために明確で具体的なプロンプトを使用してください"
+
+#: generated
+msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgstr "新しいフォームを生成する代わりに最新の保存済みフォームを開始点として使用する"
+
+#: ../browser/token_store.pt:46
+msgid "Used"
+msgstr ""
+
+#: generated
+msgid "User"
+msgstr "ユーザー"
+
+#: generated
+msgid "User:"
+msgstr "ユーザー"
+
+#: generated
+msgid "Validate submissions against the form schema before saving. "
+msgstr "保存前に送信内容をフォームスキーマに対して検証する"
+
+#: ../browser/theme_editor.pt:90
+msgid "Version"
+msgstr ""
+
+#: generated
+msgid "Version ${current} of ${total}"
+msgstr "バージョン ${current} / ${total}"
+
+#: generated
+msgid "Version ${number}"
+msgstr ""
+
+#: generated
+msgid "Version ${number} · ${date}"
+msgstr ""
+
+#: generated
+msgid "Version History"
+msgstr "バージョン履歴"
+
+#: generated
+msgid "Version ID"
+msgstr "バージョンID"
+
+#: generated
+msgid "Version deleted"
+msgstr "バージョンが削除されました"
+
+#: generated
+msgid "Version is locked and cannot be deleted"
+msgstr "バージョンはロックされており削除できません"
+
+#: generated
+msgid "Version locked"
+msgstr "バージョン固定"
+
+#: generated
+msgid "Version not found"
+msgstr "バージョンが見つかりません"
+
+#: generated
+msgid "Version restored successfully. A new version has been created."
+msgstr "バージョンの復元に成功しました 新しいバージョンが作成されました"
+
+#: generated
+msgid "Version unlocked"
+msgstr "バージョンのロック解除"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:294
 msgid "Version:"
 msgstr "バージョン"
 
+#: generated
+msgid "Versions"
+msgstr "バージョン"
+
+#: generated
+msgid "Very satisfied"
+msgstr ""
+
+#: generated
+msgid "View"
+msgstr "表示"
+
+#: generated
+msgid "View Form"
+msgstr "フォームを表示"
+
+#: generated
+msgid "View JSON"
+msgstr "JSON を表示"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View dashboard"
+msgstr "ダッシュボード表示"
+
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:47
 msgid "View form/survey template"
 msgstr "フォーム/アンケートテンプレートを表示"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View results"
+msgstr "結果を表示"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View survey form"
+msgstr "フォームを表示"
+
 #: zopyx/surveyjs/browser/psf.py:110
 msgid "Visit the control panel to adjust site-wide settings and integrations."
 msgstr "サイト全体の設定と連携を調整するにはコントロールパネルにアクセスしてください"
+
+#: generated
+msgid "Visual Editor"
+msgstr "ビジュアルエディター"
+
+#: generated
+msgid "Warning:"
+msgstr "警告"
 
 #: zopyx/surveyjs/browser/survey_add.py:112
 msgid "We could not create the survey at the moment. Please try again."
@@ -1816,9 +2775,37 @@ msgstr "送信されたフォームデータを読み取ることができませ
 msgid "We could not update the survey at the moment. Please try again."
 msgstr "現在アンケートを更新できませんでした もう一度お試しください"
 
-#: zopyx/surveyjs/browser/pfs.pt:18
-msgid "Select an action"
-msgstr "今日は何をしたいですか"
+#: generated
+msgid "What would you like to change?"
+msgstr "何を変更したいですか"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr "有効にすると pdfcpu がフォームフィールドを検証および拡充するために使用されます"
+
+#: generated
+msgid "Within limits"
+msgstr ""
+
+#: generated
+msgid "Word (.docx)"
+msgstr "Word（.docx）"
+
+#: generated
+msgid "Workflow status"
+msgstr "ワークフロー状態"
+
+#: generated
+msgid "Would you recommend us?"
+msgstr ""
+
+#: generated
+msgid "XML (.xml)"
+msgstr "XML (.xml)"
+
+#: ../browser/fillable_pdf.pt:760
+msgid "Yes"
+msgstr ""
 
 #: zopyx/surveyjs/browser/psf.py:158
 #: zopyx/surveyjs/browser/survey_add.py:63
@@ -1829,9 +2816,44 @@ msgstr "ここにアンケートを追加することは許可されていませ
 msgid "You are not allowed to edit this survey."
 msgstr "このアンケートは編集できません"
 
+#: ../browser/survey_actions.pt:173
+msgid "You can add your license key in the"
+msgstr "ライセンスキーは以下で追加できます："
+
 #: zopyx/surveyjs/browser/survey_versions.py:292
 msgid "You do not have permission to add templates here."
 msgstr "ここにテンプレートを追加する権限がありません"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "まだ保存されていない編集内容があります"
+
+#: generated
+msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgstr "${version}を保存しようとしています 最新バージョンが選択されていません 続行しますか"
+
+#: generated
+msgid "Your name"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:142
+msgid "Zoom in"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:142
+msgid "Zoom into the current time range"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:144
+msgid "Zoom out"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:144
+msgid "Zoom out of the current time range"
+msgstr ""
+
+#: ../browser/survey_actions.pt:168
+msgid "and"
+msgstr "および"
 
 #. Default: "Select a template"
 #: zopyx/surveyjs/browser/pfs.pt:66
@@ -1840,300 +2862,103 @@ msgstr "ここにテンプレートを追加する権限がありません"
 msgid "aria-label"
 msgstr "ariaラベル"
 
+#. Default: "Example: Create an event registration form with contact details, session choices, and consent."
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "例：連絡先詳細、セッション選択、同意を含むイベント登録フォームを作成します。"
+
+#. Default: "Example: Add a section for contact preferences and make email required."
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "例：連絡先の設定用セクションを追加し、メールを必須にします。"
+
+#: generated
+msgid "clear"
+msgstr "クリア"
+
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
 msgstr "データクリアキーワード"
 
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "この履歴エントリを削除"
+
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "この履歴エントリを削除"
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "このバージョンに戻す"
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "このバージョンに戻す"
+
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"
 msgstr "pdfcpu（構造化フィールド）"
+
+msgid "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields."
+msgstr "pdfcpu は入力済み PDF のフィールドマッピングを保持します LLM はレイアウトには最適ですが元の PDF フィールドに常にマッピングできるわけではありません"
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "テンプレートを選択"
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "テンプレートを選択"
+
+#. Default: "Toggle template list"
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "テンプレートリストの切り替え"
+
+#: generated
+msgid "total"
+msgstr ""
+
+#: generated
+msgid "version ${current} of ${total}"
+msgstr "バージョン ${total} 中 ${current}"
+
+#: generated
+msgid "version ${number}"
+msgstr ""
+
+#: generated
+msgid "version unknown"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
 msgstr "「終了」日付は「開始」日付より後でなければなりません"
 
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View survey form"
-msgstr "フォームを表示"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently viewing survey form"
-msgstr "フォームを表示中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Edit metadata"
-msgstr "メタデータを編集"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently editing metadata"
-msgstr "メタデータ編集中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "PDF form"
-msgstr "PDFフォーム"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently on PDF form"
-msgstr "PDFフォーム表示中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Open visual editor"
-msgstr "ビジュアルエディタを開く"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in visual editor"
-msgstr "ビジュアルエディタ使用中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Manage versions"
-msgstr "バージョン管理"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently managing versions"
-msgstr "バージョン管理中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "AI form generator"
-msgstr "AIフォーム生成"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in AI generator"
-msgstr "AI生成ツール使用中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View results"
-msgstr "結果を表示"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently viewing results"
-msgstr "結果表示中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View dashboard"
-msgstr "ダッシュボード表示"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently on dashboard"
-msgstr "ダッシュボード表示中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Import form from PDF"
-msgstr "PDFからフォームをインポート"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently importing from PDF"
-msgstr "PDFからインポート中"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Fillable PDF forms setup"
-msgstr "入力可能PDFフォームの設定"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in fillable PDF forms setup"
-msgstr "入力可能PDFフォーム設定中"
-
-
-#: browser/survey_results.pt
-msgid "No results yet"
-msgstr "まだ結果がありません"
-
-#: browser/survey_results.pt
-msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
-msgstr "この調査にはまだ回答がありません。回答者がフォームを完了すると、結果がここに表示されます。"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS License Key"
-msgstr "SurveyJSライセンスキー"
-
-#: browser/survey_actions.pt
-msgid "The Creator and Dashboard components require a SurveyJS license for production use."
-msgstr "CreatorおよびDashboardコンポーネントを本番環境で使用するには、SurveyJSライセンスが必要です。"
-
-#: browser/survey_actions.pt
-msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
-msgstr "SurveyJSライセンスは組織内の個々の開発者を対象としています — フォームに入力するエンドユーザーごとでは<strong>ありません</strong>。"
-
-#: browser/survey_actions.pt
-msgid "By using Privacy Form Studio, you acknowledge and accept the"
-msgstr "Privacy Form Studioを使用することにより、お客様は以下の事項を認識し同意するものとします："
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Licensing Terms"
-msgstr "SurveyJSライセンス条項"
-
-#: browser/survey_actions.pt
-msgid "For pricing and licensing options, please visit"
-msgstr "価格とライセンスオプションについては、以下をご覧ください："
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Pricing"
-msgstr "SurveyJS価格"
-
-#: browser/survey_actions.pt
-msgid "and"
-msgstr "および"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Licensing"
-msgstr "SurveyJSライセンス"
-
-#: browser/survey_actions.pt
-msgid "You can add your license key in the"
-msgstr "ライセンスキーは以下で追加できます："
-
-#: browser/survey_actions.pt
-msgid "Forms Settings"
-msgstr "フォーム設定"
-
-#: browser/survey_actions.pt
-msgid "Have questions?"
-msgstr "ご質問がありますか？"
-
-#: browser/survey_actions.pt
-msgid "The maintainer of this add-on is happy to help — reach out at"
-msgstr "このアドオンのメンテナが喜んでお手伝いします — お問い合わせ先："
-
-#: ../browser/ai.pt:42
-msgid "AI"
-msgstr "AI"
-
-#: ../browser/ai.pt:45
-msgid "AI Assistant"
-msgstr "AIアシスタント"
-
-#: ../browser/ai.pt:76
-msgid "Accepted formats: PDF, DOCX, ODT, HTML."
-msgstr "受け入れ可能な形式：PDF、DOCX、ODT、HTML。"
-
-#: ../browser/ai.pt:185
-msgid "Apply AI Change"
-msgstr "AIの変更を適用"
-
-#: ../browser/ai.pt:193
-msgid "Applying..."
-msgstr "適用中..."
-
-#: ../browser/ai.pt:204
-msgid "Ask AI to change the current temporary form. Each prompt builds on the "
-"latest temporary version."
-msgstr "AIに現在の一時フォームの変更を依頼してください。各プロンプトは最新の一時バージョンに基づきます。"
-
-#: ../browser/ai.pt:95
-msgid "Clear workspace"
-msgstr "ワークスペースをクリア"
-
-#: ../browser/ai.pt:89
-msgid "Current Temporary State"
-msgstr "現在の一時状態"
-
-#: ../browser/ai.pt:35
-msgid "Document To Online Form"
-msgstr "ドキュメントをオンラインフォームへ"
-
-#: ../browser/ai.pt:110
-msgid "Generate AI Draft"
-msgstr "AIドラフトを生成"
-
-#: ../browser/ai.pt:208
-msgid "History (max 5)"
-msgstr "履歴（最大5件）"
-
-#: ../browser/ai.pt:101
-msgid "Improve Temporary Form"
-msgstr "一時フォームを改善"
-
-#: ../browser/ai.pt:143
-msgid "Latest version to workspace"
-msgstr "最新バージョンをワークスペースへ"
-
-#: ../browser/ai.pt:49
-msgid "Model:"
-msgstr "モデル:"
-
-#: ../browser/ai.pt:217
-msgid "No chat refinement history yet."
-msgstr "チャットの改善履歴はまだありません。"
-
-#: ../browser/ai.pt:83
-msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
-"latest version."
-msgstr "一時フォームはまだありません。ドキュメントをアップロードするか、チャットで作成するか、最新バージョンをコピーしてください。"
-
-#: ../browser/ai.pt:127
-msgid "Preview form"
-msgstr "フォームをプレビュー"
-
-#: ../browser/ai.pt:157
-msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
-"workspace form."
-msgstr "プロンプトで一時的なSurveyJSドラフトを開始します。最初のプロンプトでワークスペースフォームが作成されます。"
-
-#: ../browser/ai.pt:199
-msgid "Step back:"
-msgstr "戻る:"
-
-#: ../browser/ai.pt:137
-msgid "Store as new version"
-msgstr "新しいバージョンとして保存"
-
-#: ../browser/ai.pt:68
-msgid "Temporary SurveyJS Preview"
-msgstr "一時的なSurveyJSプレビュー"
-
-#: ../browser/ai.pt:72
-msgid "Temporary form is available and can be previewed, refined, or stored as new "
-"version."
-msgstr "一時フォームが利用可能で、プレビュー、改善、または新しいバージョンとして保存できます。"
-
-#: ../browser/ai.pt:58
-msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
-msgstr "ソースドキュメントをアップロードし、AIを使用して一時的なSurveyJSフォームドラフトを生成します。"
-
-#: ../browser/ai.pt:55
-msgid "Upload and Convert"
-msgstr "アップロードして変換"
-
-#: ../browser/ai.pt:38
-msgid "Upload documents and convert them to SurveyJS forms using AI"
-msgstr "ドキュメントをアップロードし、AIを使用してSurveyJSフォームに変換します"
-
-#: ../browser/ai.pt:65
-msgid "Uploading..."
-msgstr "アップロード中..."
-
-#: ../browser/ai.pt:174
-msgid "chat_prompt_placeholder_empty"
-msgstr "例：連絡先詳細、セッション選択、同意を含むイベント登録フォームを作成します。"
-
-#: ../browser/ai.pt:166
-msgid "chat_prompt_placeholder_ready"
-msgstr "例：連絡先の設定用セクションを追加し、メールを必須にします。"
-
-#: ../browser/ai.pt:245
-msgid "history_delete_aria_label"
-msgstr "この履歴エントリを削除"
-
-#: ../browser/ai.pt:244
-msgid "history_delete_title"
-msgstr "この履歴エントリを削除"
-
-#: ../browser/ai.pt:226
-msgid "history_revert_aria_label"
-msgstr "このバージョンに戻す"
-
-#: ../browser/ai.pt:225
-msgid "history_revert_title"
-msgstr "このバージョンに戻す"
-
-#: ../browser/pfs.pt:70
-msgid "template_search_aria_label"
-msgstr "テンプレートを選択"
-
-#: ../browser/pfs.pt:69
-msgid "template_search_placeholder"
-msgstr "テンプレートを選択"
-
-#: ../browser/pfs.pt:74
-msgid "template_toggle_aria_label"
-msgstr "テンプレートリストの切り替え"
+#: ../browser/survey_monitor.pt:130
+msgid "⚠️ Rate limited"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:127
+msgid "✅ Within limits"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:853
+msgid "✓ Yes"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:854
+msgid "✗ No"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:231
+msgid "🧹 Cleanup Old Data"
+msgstr ""

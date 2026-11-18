@@ -3,6 +3,18 @@
 (function() {
   'use strict';
 
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+
   // ===== Upload Form Handler =====
   function initUploadForm() {
     const form = document.getElementById('aiUploadForm');
@@ -69,10 +81,10 @@
         surveyInstance.render(target);
         // Prevent form submission in preview mode
         surveyInstance.onComplete.add(function() {
-          alert('Preview mode - form not submitted');
+          alert(t('Preview mode - form not submitted'));
         });
       } catch (err) {
-        target.innerHTML = "<div class='alert alert-danger'>SurveyJS preview failed.</div>";
+        target.innerHTML = "<div class='alert alert-danger'>" + t("SurveyJS preview failed.") + "</div>";
       }
     }
 

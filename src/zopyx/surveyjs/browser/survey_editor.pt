@@ -103,13 +103,16 @@
       <div class="survey-editor-toolbar">
         <select id="surveyThemeSwitcher"
                 class="survey-theme-switcher form-control"
+                i18n:attributes="aria-label; title"
                 aria-label="Switch theme"
                 title="Switch theme">
-          <option value="">No theme</option>
+          <option value="" i18n:translate="">No theme</option>
         </select>
         <button id="surveyThemeSaveBtn"
                 class="btn btn-sm btn-primary"
                 type="button"
+                i18n:translate=""
+                i18n:attributes="title"
                 title="Save selected theme to survey metadata">Save theme</button>
         <a id="surveyFullscreenToggle"
            class="survey-fullscreen-toggle"

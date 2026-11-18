@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      tal:define="portal_state context/@@plone_portal_state">
+      tal:define="portal_state context/@@plone_portal_state"
+      i18n:domain="zopyx.surveyjs">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Theme Editor — <tal:block tal:content="view/theme_name">Theme</tal:block></title>
+  <title><tal:block i18n:translate="">Theme Editor</tal:block> — <tal:block tal:content="view/theme_name">Theme</tal:block></title>
 
   <metal:block use-macro="context/@@survey-assets/macros/surveyjs-var-actual-url" />
   <metal:block use-macro="context/@@survey-assets/macros/surveyjs-var-csrf" />
   <metal:block use-macro="context/@@survey-assets/macros/surveyjs-vars-base" />
+  <metal:block use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts" />
 
   <span id="survey-editor-config"
         hidden="hidden"
@@ -35,33 +38,32 @@
   <div id="themeEditorApp">
     <div id="themeEditorToolbar">
       <a id="backBtn" class="back-link"
-         tal:attributes="href string:${context/absolute_url}/@@theme-manager">
-        &larr; Back to Themes
-      </a>
+         tal:attributes="href string:${context/absolute_url}/@@theme-manager"
+         i18n:translate="">&larr; Back to Themes</a>
       <h1><tal:block tal:content="view/theme_name">Theme</tal:block></h1>
       <div class="actions">
-        <button id="saveCurrentBtn" type="button" class="btn-primary btn-save-current">Save</button>
-        <button id="saveVersionBtn" type="button" class="btn-primary btn-save-version">Save a new version</button>
+        <button id="saveCurrentBtn" type="button" class="btn-primary btn-save-current" i18n:translate="">Save</button>
+        <button id="saveVersionBtn" type="button" class="btn-primary btn-save-version" i18n:translate="">Save a new version</button>
         <button id="restoreBtn" type="button" class="btn-secondary btn-restore">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M3 12a9 9 0 1 0 3-6.7" />
             <path d="M3 4v6h6" />
           </svg>
-          <span>Restore Version</span>
+          <span i18n:translate="">Restore Version</span>
         </button>
         <button id="importThemeBtn" type="button" class="btn-secondary btn-import">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <span>Import</span>
+          <span i18n:translate="">Import</span>
         </button>
         <input type="file" id="importThemeInput" accept=".json,application/json"
                style="display:none" />
         <button id="exportThemeBtn" type="button" class="btn-secondary btn-export">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>
-          <span>Export</span>
+          <span i18n:translate="">Export</span>
         </button>
         <button id="viewJsonBtn" type="button" class="btn-secondary btn-view-json">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
-          <span>JSON</span>
+          <span i18n:translate="">JSON</span>
         </button>
       </div>
       <span id="themeStatus" class="status"></span>
@@ -75,23 +77,23 @@
     <div class="theme-modal">
       <div class="theme-modal-header">
         <div>
-          <p class="theme-modal-eyebrow">Theme history</p>
-          <h2 id="restoreModalTitle">Restore a version</h2>
-          <p class="theme-modal-description">Choose an earlier saved version to use as the current theme.</p>
+          <p class="theme-modal-eyebrow" i18n:translate="">Theme history</p>
+          <h2 id="restoreModalTitle" i18n:translate="">Restore a version</h2>
+          <p class="theme-modal-description" i18n:translate="">Choose an earlier saved version to use as the current theme.</p>
         </div>
         <button id="restoreModalCloseBtn" type="button" class="modal-close-btn"
-                aria-label="Close" title="Close">&times;</button>
+                i18n:attributes="aria-label; title" aria-label="Close" title="Close">&times;</button>
       </div>
       <div class="theme-modal-body">
         <table class="table" id="versionsTable">
           <thead>
-            <tr><th>Version</th><th>Created</th><th>User</th><th>Action</th></tr>
+            <tr><th i18n:translate="">Version</th><th i18n:translate="">Created</th><th i18n:translate="">User</th><th i18n:translate="">Action</th></tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
       <div class="theme-modal-footer">
-        <button id="restoreModalCancel" type="button" class="btn-secondary">Close</button>
+        <button id="restoreModalCancel" type="button" class="btn-secondary" i18n:translate="">Close</button>
       </div>
     </div>
   </div>
@@ -105,20 +107,20 @@
     <div class="theme-modal">
       <div class="theme-modal-header">
         <div>
-          <p class="theme-modal-eyebrow">Current theme</p>
-          <h2 id="viewJsonTitle">Theme JSON</h2>
-          <p class="theme-modal-description">Read-only view of the current theme definition.</p>
+          <p class="theme-modal-eyebrow" i18n:translate="">Current theme</p>
+          <h2 id="viewJsonTitle" i18n:translate="">Theme JSON</h2>
+          <p class="theme-modal-description" i18n:translate="">Read-only view of the current theme definition.</p>
         </div>
         <button id="viewJsonCloseBtn" type="button" class="modal-close-btn"
-                aria-label="Close" title="Close">&times;</button>
+                i18n:attributes="aria-label; title" aria-label="Close" title="Close">&times;</button>
       </div>
       <div class="theme-modal-body">
         <textarea id="viewJsonText" class="theme-json-view" readonly
-                  spellcheck="false" aria-label="Theme JSON (read-only)"></textarea>
+                  spellcheck="false" i18n:attributes="aria-label" aria-label="Theme JSON (read-only)"></textarea>
       </div>
       <div class="theme-modal-footer">
-        <button id="viewJsonCopyBtn" type="button" class="btn-primary">Copy</button>
-        <button id="viewJsonCancel" type="button" class="btn-secondary">Close</button>
+        <button id="viewJsonCopyBtn" type="button" class="btn-primary" i18n:translate="">Copy</button>
+        <button id="viewJsonCancel" type="button" class="btn-secondary" i18n:translate="">Close</button>
       </div>
     </div>
   </div>
