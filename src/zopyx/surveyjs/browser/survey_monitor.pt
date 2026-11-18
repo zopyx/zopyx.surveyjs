@@ -32,10 +32,7 @@
           <span class="monitor-time" tal:content="view/get_current_time">
             2024-01-01 12:00:00 UTC
           </span>
-          <span class="cache-path">
-            <tal:block i18n:translate="">Cache:</tal:block>
-            <tal:block tal:content="view/get_cache_path">/tmp/surveyjs-monitor</tal:block>
-          </span>
+          <span class="cache-path" i18n:translate="">Cache: <span tal:content="view/get_cache_path" i18n:name="path">/tmp/surveyjs-monitor</span></span>
         </div>
       </div>
 
@@ -119,9 +116,7 @@
           </div>
           <div class="rate-item">
             <span class="rate-label" i18n:translate="">5min Average:</span>
-            <span class="rate-value" id="rate-avg"
-                  tal:content="rate_info/5min_average|nothing">0</span>
-            <span class="rate-unit" i18n:translate="">/min</span>
+            <span class="rate-unit" i18n:translate=""><span class="rate-value" id="rate-avg" tal:content="rate_info/5min_average|nothing" i18n:name="count">0</span> /min</span>
           </div>
           <div class="rate-status" id="rate-status"
                tal:attributes="class python:'rate-status ' + ('rate-ok' if rate_info.get('is_allowed') else 'rate-limited')">
@@ -232,7 +227,7 @@
           <button type="submit" class="btn btn-secondary" i18n:translate="">🧹 Cleanup Old Data</button>
         </form>
         <div class="refresh-info">
-          <span><tal:block i18n:translate="">Last updated:</tal:block> <span id="last-updated" i18n:translate="">now</span></span>
+          <span i18n:translate="">Last updated: <span id="last-updated" tal:content="view/get_current_time" i18n:name="time">now</span></span>
         </div>
       </div>
 

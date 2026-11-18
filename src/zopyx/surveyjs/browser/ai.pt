@@ -206,9 +206,8 @@
               <div class="ai-history-list">
                 <div class="ai-history-item"
                      tal:repeat="item view/temp_history_items">
-                  <div class="ai-history-meta">
-                    <span i18n:translate="">Step back:</span>
-                    <span tal:content="item/step_back">1</span>
+                  <div class="ai-history-meta" i18n:translate="">
+                    Step back: <span tal:content="item/step_back" i18n:name="step">1</span>
                   </div>
                   <div class="ai-history-prompt"
                        tal:content="item/prompt">Prompt text</div>

@@ -1939,11 +1939,6 @@ msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates 
 "workspace form."
 msgstr ""
 
-#. Default: "Step back:"
-#: ../browser/ai.pt:199
-msgid "Step back:"
-msgstr ""
-
 #. Default: "Store as new version"
 #: ../browser/ai.pt:137
 msgid "Store as new version"
@@ -2053,10 +2048,6 @@ msgstr ""
 msgid "-- Select --"
 msgstr ""
 
-#: ../browser/survey_monitor.pt:123
-msgid "/min"
-msgstr ""
-
 #: ../browser/survey_monitor.pt:120
 msgid "5min Average:"
 msgstr ""
@@ -2095,10 +2086,6 @@ msgstr ""
 
 #: ../browser/survey_monitor.pt:193
 msgid "Avg Processing"
-msgstr ""
-
-#: ../browser/survey_monitor.pt:35
-msgid "Cache:"
 msgstr ""
 
 #: ../browser/llm_models.pt:37
@@ -2288,10 +2275,6 @@ msgstr ""
 msgid "JSON Schema"
 msgstr ""
 
-#: ../browser/fillable_pdf.pt:688
-msgid "KB"
-msgstr ""
-
 #: ../browser/llm_models.pt:17
 msgid "LLM Models"
 msgstr ""
@@ -2326,10 +2309,6 @@ msgstr ""
 
 #: ../browser/survey_monitor.py:70
 msgid "Last hour"
-msgstr ""
-
-#: ../browser/survey_monitor.pt:234
-msgid "Last updated:"
 msgstr ""
 
 #: ../browser/theme_manager.pt:72
@@ -2404,16 +2383,8 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: ../browser/fillable_pdf.pt:783
-msgid "Options:"
-msgstr ""
-
 #: ../browser/fillable_pdf.pt:637
 msgid "PDF Template"
-msgstr ""
-
-#: ../browser/fillable_pdf.pt:730
-msgid "Page"
 msgstr ""
 
 #: ../browser/survey_monitor.pt:84
@@ -2591,14 +2562,6 @@ msgstr ""
 
 #: ../browser/survey_monitor.pt:144
 msgid "Zoom out of the current time range"
-msgstr ""
-
-#: ../browser/fillable_pdf.pt:692
-msgid "fields"
-msgstr ""
-
-#: ../browser/survey_monitor.pt:234
-msgid "now"
 msgstr ""
 
 #: ../browser/survey_monitor.pt:130
@@ -2871,4 +2834,36 @@ msgstr ""
 
 #: generated
 msgid "Attach File"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:119
+msgid "${count} /min"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:688
+msgid "${count} KB"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:692
+msgid "${count} fields"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:35
+msgid "Cache: ${path}"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:230
+msgid "Last updated: ${time}"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:783
+msgid "Options: ${options}"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:730
+msgid "Page ${page}"
+msgstr ""
+
+#: ../browser/ai.pt:210
+msgid "Step back: ${step}"
 msgstr ""
