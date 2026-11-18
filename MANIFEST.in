@@ -9,3 +9,18 @@ global-exclude *.pyc
 prune docs/old
 prune docs/html
 prune docs/_build
+
+# Build and tooling artifacts inside the package tree: `graft src/zopyx`
+# copies what is on disk, so a local validator build (node_modules, ~74 MB,
+# plus the compiled validate-mac/validate-linux binary and its sidecars,
+# ~136 MB) and the IDE project files tracked under schema/ would otherwise
+# end up in every locally built tarball. The binaries are gitignored and
+# rebuilt on install/upgrade by deno_build.py.
+prune src/zopyx/surveyjs/data_validation/node_modules
+prune src/zopyx/surveyjs/schema/.idea
+exclude src/zopyx/surveyjs/data_validation/validate-mac
+exclude src/zopyx/surveyjs/data_validation/validate-linux
+exclude src/zopyx/surveyjs/data_validation/validate-mac.*
+exclude src/zopyx/surveyjs/data_validation/validate-linux.*
+exclude src/zopyx/surveyjs/data_validation/.validate-build.lock
+global-exclude .DS_Store

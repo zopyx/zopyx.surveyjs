@@ -291,6 +291,9 @@ form.json
 tmp/
 .opencode/
 .qwen/
+# Throw-away uv/buildout tree created by scripts/configure_instance.py; it is
+# not part of the release and would otherwise show up in `ruff format --check`
+uv-plone62/
 
 # Local buildout variant for a Plone 6.2 throw-away instance (the CI and the
 # documented test config is test_plone60.cfg)
