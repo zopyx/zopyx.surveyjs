@@ -1,8 +1,8 @@
-<metal:survey_actions xmlns:metal="http://xml.zope.org/namespaces/metal"
-                      xmlns:tal="http://xml.zope.org/namespaces/tal"
-                      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-                      i18n:domain="zopyx.surveyjs"
-                      define-macro="survey-actions">
+<metal:block xmlns:metal="http://xml.zope.org/namespaces/metal"
+             xmlns:tal="http://xml.zope.org/namespaces/tal"
+             xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+             i18n:domain="zopyx.surveyjs">
+<metal:survey_actions define-macro="survey-actions">
   <div class="survey-actions"
        tal:condition="view/can_manage_portal_content"
        tal:define="current_url request/ACTUAL_URL">
@@ -264,3 +264,4 @@
     </div>
   </tal:status>
 </metal:survey_status>
+</metal:block>

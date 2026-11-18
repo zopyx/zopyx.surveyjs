@@ -8,6 +8,8 @@ from zope.component.hooks import getSite
 from zope.event import notify
 from zope.lifecycleevent import ObjectModifiedEvent
 
+from zopyx.surveyjs import _
+
 from .services import themes as themes_service
 from .views import Views
 
@@ -31,7 +33,7 @@ class SurveyEditor(Views):
     @property
     def themes_choices(self):
         """Return list of {value, text} for available themes."""
-        result = [{"value": "", "text": "No theme"}]
+        result = [{"value": "", "text": _("No theme")}]
         try:
             site = getSite()
             if site is None:
@@ -41,7 +43,9 @@ class SurveyEditor(Views):
             for t in themes:
                 tid = t.get("id")
                 if tid:
-                    result.append({"value": tid, "text": t.get("name", "Unnamed")})
+                    result.append(
+                        {"value": tid, "text": t.get("name") or _("Unnamed")}
+                    )
         except Exception:
             logger.exception("Failed to load themes choices")
         return result

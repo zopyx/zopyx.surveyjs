@@ -2867,3 +2867,92 @@ msgstr ""
 #: ../browser/ai.pt:210
 msgid "Step back: ${step}"
 msgstr ""
+
+#: ../browser/survey_editor.pt:109
+#: ../browser/survey_editor.py:36
+msgid "No theme"
+msgstr ""
+
+#: ../browser/survey_editor.pt:111
+msgid "Save selected theme to survey metadata"
+msgstr ""
+
+#: ../browser/survey_editor.pt:111
+msgid "Save theme"
+msgstr ""
+
+#: ../browser/survey_editor.pt:104
+msgid "Switch theme"
+msgstr ""
+
+#: ../browser/survey_editor.py:47
+msgid "Unnamed"
+msgstr ""
+
+#: ../browser/survey_actions.pt:154
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr ""
+
+#: ../browser/survey_actions.pt:159
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr ""
+
+#: ../browser/survey_actions.pt:81
+msgid "Chatbot"
+msgstr ""
+
+#: ../browser/survey_actions.pt:187
+msgid "Feature disabled, access forbidden."
+msgstr ""
+
+#: ../browser/survey_actions.pt:72
+msgid "Fillable PDF"
+msgstr ""
+
+#: ../browser/survey_actions.pt:165
+msgid "For pricing and licensing options, please visit"
+msgstr ""
+
+#: ../browser/survey_actions.pt:174
+msgid "Forms Settings"
+msgstr ""
+
+#: ../browser/survey_actions.pt:178
+msgid "Have questions?"
+msgstr ""
+
+#: ../browser/survey_actions.pt:147
+msgid "SurveyJS License Key"
+msgstr ""
+
+#: ../browser/survey_actions.pt:169
+msgid "SurveyJS Licensing"
+msgstr ""
+
+#: ../browser/survey_actions.pt:160
+msgid "SurveyJS Licensing Terms"
+msgstr ""
+
+#: ../browser/survey_actions.pt:166
+msgid "SurveyJS Pricing"
+msgstr ""
+
+#: ../browser/survey_actions.pt:149
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr ""
+
+#: ../browser/survey_actions.pt:179
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr ""
+
+#: ../browser/survey_actions.pt:56
+msgid "Tokens"
+msgstr ""
+
+#: ../browser/survey_actions.pt:173
+msgid "You can add your license key in the"
+msgstr ""
+
+#: ../browser/survey_actions.pt:168
+msgid "and"
+msgstr ""
