@@ -8,19 +8,17 @@
  * @param {Event} event
  */
 function handleResultsReady(event) {
-    const defaultTranslate = function (msgid, mapping) {
-        if (!mapping) {
-            return msgid;
+    const t = window._t || function (msgid, mapping) {
+      if (!mapping) {
+        return msgid;
+      }
+      return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+        if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+          return String(mapping[key]);
         }
-        const replaceToken = function (match, key) {
-            if (Object.prototype.hasOwnProperty.call(mapping, key)) {
-                return String(mapping[key]);
-            }
-            return match;
-        };
-        return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, replaceToken);
+        return match;
+      });
     };
-    const t = window._t || defaultTranslate;
 
     const configEl = document.getElementById("results-config");
     let config = window.RESULTS_CONFIG || {};

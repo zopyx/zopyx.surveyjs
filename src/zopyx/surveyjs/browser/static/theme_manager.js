@@ -2,7 +2,7 @@
  * Theme Manager — list, create, delete, upload themes.
  */
 (function () {
-  var t = window._t || function (msgid, mapping) {
+  const t = window._t || function (msgid, mapping) {
     if (!mapping) {
       return msgid;
     }

@@ -6,7 +6,17 @@ document.addEventListener("DOMContentLoaded", function () {
 /**
  * @function
  */
-  const t = window._t || function (msgid) { return msgid; };
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
   const container = document.getElementById("surveyDashboardContainer");
   const rawLocale = window.SURVEYJS_I18N_LOCALE || navigator.language || "en";
   const normalizedLocale = String(rawLocale).replace("_", "-");

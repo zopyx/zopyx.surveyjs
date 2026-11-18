@@ -7,7 +7,7 @@ SurveyCreatorCore.registerSurveyTheme(SurveyTheme);
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  var t = window._t || function (msgid, mapping) {
+  const t = window._t || function (msgid, mapping) {
     if (!mapping) {
       return msgid;
     }
