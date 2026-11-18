@@ -35,11 +35,14 @@ pass before the version is published.
     uv run --no-project ruff format --check .
     git diff --check
 
-Expected baseline: 496 Plone tests with 0 failures and 0 errors (75 skipped
-without ``RUN_DB_CONTAINER_TESTS=1``), 115 pytest tests, 100 % converter
-coverage, docs build clean. ``ruff check`` and ``ruff format --check`` report
-nothing; the findings that used to be tolerated in untouched files have been
-fixed, so any finding is a blocker now.
+Expected baseline: 925 Plone tests with 0 failures and 0 errors (68 skipped
+without ``RUN_DB_CONTAINER_TESTS=1``), 135 pytest tests, 100 % converter and
+100 % ``browser/**`` coverage, docs build clean. ``ruff check`` and
+``ruff format --check`` report nothing; the findings that used to be tolerated
+in untouched files have been fixed, so any finding is a blocker now. Ruff is
+run without a pinned version, so a new ruff release can introduce formatting
+diffs in untouched files — reformat the file with the version you gate with
+and record it before treating such a diff as a code problem.
 
 3. Source distribution **(gate)**
 ---------------------------------
@@ -71,11 +74,11 @@ arrives, in which case re-run it on the release commit.
 5. Upgrade path **(gate)**
 --------------------------
 
-Install the previous published version (currently ``1.0b2``) into a throwaway
+Install the previous published version (currently ``1.0b3``) into a throwaway
 Plone site, then upgrade to the release candidate of this version and check:
 
 - the add-on installs and the GenericSetup profile chain
-  (``1001``→``1002``→``1003``) runs without error,
+  (``1001``→``1002``→``1003``→``1004``) runs without error,
 - existing surveys, form versions, result storage and themes survive,
 - the Forms control panel, ``@@theme-manager`` and the fillable-PDF screen
   render.

@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.0b4 (unreleased)
-------------------
+1.0b4 (released 2026-11-18)
+---------------------------
 
 - Render the surveys in the page font stack: the SJS2 default theme sets
   ``--sjs2-typography-font-family-text`` to a bare ``Open Sans`` without any
@@ -149,6 +149,52 @@ Changelog
   ``survey-core: 3.2.7`` in ``data_validation/package.json`` and the
   regenerated ``bun.lock``. ``docs/installation.rst`` and
   ``docs/data-validation-cli.rst`` name the new pin.
+- Make the hardcoded browser pages translatable (issue #82): the theme editor,
+  theme manager, survey monitor, token store, LLM model list, fillable-PDF
+  screens and the embedded demo template use ``i18n:translate`` instead of
+  literal English, the theme choices and the monitor time-window labels are
+  localised server-side, and the theme editor/manager status messages, monitor
+  chart labels and AI preview alerts go through the ``_t`` helper. The
+  untranslated ``confirm()`` handlers read their texts from data attributes.
+  Multi-value labels (``${count} KB``, ``${count} fields``, ``Page ${page}``,
+  ``Options: ${options}``, ``Cache: ${path}``, ``Last updated: ${time}``,
+  ``Step back: ${step}``) use ``i18n:name`` placeholders so translators can
+  reorder them. 211 new msgids in ``locales/zopyx.surveyjs.pot``, every
+  ``*.po`` re-synced, and a malformed entry missing its ``msgstr`` fixed.
+- Add the Basque locale (issue #83): ``locales/eu/LC_MESSAGES/zopyx.surveyjs.po``
+  plus the generated ``browser/static/i18n/eu.js``, so the SurveyJS UI,
+  creator and analytics bundles follow the Basque site language.
+- Measure the whole package in ``make test``: the Plone suite now runs under
+  ``coverage run bin/test -s zopyx.surveyjs`` and the pytest subset is appended
+  to the same data file, so ``browser/**/*.py`` — where most of the package
+  logic lives — is no longer invisible in the CI gate. Nine coverage modules
+  (``test_coverage_ai.py``, ``_auth``, ``_controlpanel``, ``_embed``,
+  ``_gaps``, ``_pdf``, ``_survey_add``, ``_theme``, ``_views``) take the
+  ``browser`` package from 72 % to 100 % (4500 statements, none missed);
+  ``make coverage-browser`` remains the browser-only target.
+- Record the September 2026 security review (``security-2026-09-23.md``):
+  verified findings with severity, preconditions and file references, the
+  deployment credential and image-secret risks, dependency advisory context,
+  positive controls, test results and audit limitations. All findings that
+  required code changes are fixed in this release (see the entries above).
+- Trim the source distribution: ``MANIFEST.in`` now prunes what
+  ``graft src/zopyx`` copies out of a working tree that a fresh checkout does
+  not have — ``data_validation/node_modules`` (74 MB), the compiled
+  ``validate-mac``/``validate-linux`` validator with its ``.sha256``,
+  ``.meta.json`` and ``.verified`` sidecars (136 MB) and the IDE project
+  directory tracked under ``schema/.idea`` — plus ``.validate-build.lock`` and
+  ``.DS_Store``. A local ``make sdist`` used to produce a 53 MB tarball with a
+  macOS binary inside; it is 16 MB now (45 MB uncompressed, 488 files). The
+  validator binaries are gitignored and built on install/upgrade by
+  ``deno_build.py``, so nothing is lost.
+- Documentation: the shibuya footer prints the build timestamp of every
+  generated page (``html_last_updated_fmt``/``html_last_updated_use_utc`` plus
+  a ``_templates/partials/extra-foot.html`` override, since the theme renders
+  ``last_updated`` nowhere), and the landing page carries the Privacy Forms
+  Studio logo (``docs/_static/logo.png``, cropped from ``scripts/logos`` with
+  Pillow at 2x display width). ``html_logo`` stays unset on purpose: shibuya
+  renders a header logo at a fixed 28 px height and hides the project name, so
+  the stacked shield+wordmark would degrade to an illegible thumbnail.
 
 
 1.0b3 (released 2026-09-21)
