@@ -1,55 +1,264 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2026-02-24 06:33+0000\n"
 "PO-Revision-Date: 2026-02-24 07:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"Language: ar\n"
 "X-Generator: Autopo v1.0.8\n"
 
-#: browser/static/js
-#: generated
+#: browser/static/js generated
 msgid " (Version ${version})"
 msgstr " (الاصدار ${version})"
+
+#: generated
+msgid " Previous"
+msgstr "السابق"
+
+#: generated
+msgid "#"
+msgstr "#"
+
+#: ../browser/survey_monitor.pt:119
+msgid "${count} /min"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:688
+msgid "${count} KB"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:692
+msgid "${count} fields"
+msgstr ""
+
+#: ../browser/token_store.pt:125
+msgid "${heading} Generate tokens to create unique access URLs. Each token can only be used once. Download the CSV to distribute URLs to participants."
+msgstr ""
+
+#: ../browser/token_store.pt:128
+msgid "${heading} Upload a CSV file with a single column named ${token}. Each token must be at least 8 characters long. Example:"
+msgstr ""
+
+#: ../browser/llm_models.pt:21
+msgid "${library} library not installed. ${command}"
+msgstr ""
+
+#: generated
+msgid "${name} — Preview"
+msgstr ""
+
+#: ../browser/token_store.pt:115
+msgid "&#x26A0; Clear All"
+msgstr ""
+
+#: ../browser/theme_editor.pt:40
+msgid "&larr; Back to Themes"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:856
+msgid "(empty)"
+msgstr ""
 
 #: generated
 msgid "--"
 msgstr "--"
 
+#: ../browser/fillable_pdf.pt:768
+msgid "-- Select --"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:120
+msgid "5min Average:"
+msgstr ""
+
+#: ../browser/survey_actions.pt:154
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "يغطي ترخيص SurveyJS المطورين الفرديين داخل مؤسستك — وهو <strong>ليس</strong> لكل مستخدم نهائي يملأ نماذجك."
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr "تم تكوين مزود ذكاء اصطناعي محلي. يبقى ملف PDF الخاص بك داخل شبكتك."
+
+#: generated
+msgid "A preview of how this theme looks on a form."
+msgstr ""
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr "تم تكوين مزود ذكاء اصطناعي عن بعد وسيتم استخدامه. قد يغادر ملف PDF الخاص بك شبكتك."
+
+#. Default: "AI"
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "ذكاء اصطناعي"
+
+#. Default: "AI Assistant"
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "مساعد الذكاء الاصطناعي"
+
+#: generated
+msgid "AI Form Generator"
+msgstr "مولد نماذج الذكاء الاصطناعي"
+
 #: generated
 msgid "AI Generator"
 msgstr "مولد الذكاء الاصطناعي"
 
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr "إنشاء نماذج الذكاء الاصطناعي غير متاح لأنه لم يتم تكوين أي مزود للذكاء الاصطناعي."
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "AI form generator"
+msgstr "مولد النماذج بالذكاء الاصطناعي"
+
+msgid "AI provider missing:"
+msgstr "مزود الذكاء الاصطناعي مفقود:"
+
+#: generated
+msgid "About You"
+msgstr ""
+
+#. Default: "Accepted formats: PDF, DOCX, ODT, HTML."
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "التنسيقات المقبولة: PDF، DOCX، ODT، HTML."
+
+#: ../browser/token_store.pt:23
+msgid "Access Tokens"
+msgstr ""
+
+msgid "Access mode"
+msgstr "وضع الوصول"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr "الوصول إلى هذا الاستبيان مقيد أدخل كلمة المرور للمتابعة"
+
+#: generated
+msgid "Action"
+msgstr "إجراء"
+
 #: generated
 msgid "Actions"
 msgstr "الإجراءات"
+
+#: ../browser/survey_monitor.pt:104
+msgid "Active Forms"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:195
+msgid "Activity"
+msgstr ""
+
+msgid "Add extra conversion guidance..."
+msgstr "إضافة إرشادات تحويل إضافية ..."
+
+#: generated
+msgid "Additional comments"
+msgstr ""
+
+msgid "Additional prompt"
+msgstr "موجه إضافي"
+
+#: zopyx/surveyjs/browser/psf.py:109
+msgid "Administration"
+msgstr "إدارة"
+
+#: generated
+msgid "Age Group"
+msgstr ""
+
+#: ../browser/llm_models.pt:38
+msgid "Aliases"
+msgstr ""
+
+msgid "All"
+msgstr "الكل"
 
 #: generated
 msgid "All results have been cleared successfully."
 msgstr "تم مسح جميع النتائج بنجاح."
 
 #: generated
+msgid "Always review and adjust the generated form before use."
+msgstr "راجع دائمًا النموذج الذي تم إنشاؤه واضبطه قبل الاستخدام."
+
+msgid "Analyze PDF"
+msgstr "تحليل PDF"
+
+#: generated
 msgid "Answer"
 msgstr "إجابة"
+
+#. Default: "Apply AI Change"
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "تطبيق تغيير الذكاء الاصطناعي"
+
+#. Default: "Applying..."
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "جارٍ التطبيق..."
+
+#: ../browser/theme_manager.pt:57
+msgid "Are you sure you want to delete ${name}?"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:933
+msgid "Are you sure you want to delete the PDF template?"
+msgstr ""
+
+#. Default: "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+msgstr "اطلب من الذكاء الاصطناعي تغيير النموذج المؤقت الحالي. كل طلب ينطلق من أحدث نسخة مؤقتة."
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "اطلب من مالك النموذج رابط وصول موثوق"
+
+#: ../browser/llm_models.pt:53
+msgid "Async"
+msgstr ""
+
+#: generated
+msgid "Attach File"
+msgstr ""
 
 #: generated
 msgid "Attached file: ${name}"
 msgstr "الملف المرفق: ${name}"
+
+#: ../browser/survey_monitor.pt:60
+msgid "Auto-refresh (30s)"
+msgstr ""
+
+#: generated
+msgid "Average"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:193
+msgid "Avg Processing"
+msgstr ""
 
 #: generated
 msgid "BCC recipient"
 msgstr "مستلم نسخة مخفية"
 
 #: generated
-msgid ""
-"Be specific about the types of questions, response formats, and any "
-"particular fields you need."
-msgstr ""
-"كن محددًا بشأن أنواع الأسئلة وتنسيقات الاستجابة وأي حقول معينة تحتاجها."
+msgid "Back to results"
+msgstr "العودة إلى النتائج"
+
+#: generated
+msgid "Be specific about the types of questions, response formats, and any particular fields you need."
+msgstr "كن محددًا بشأن أنواع الأسئلة وتنسيقات الاستجابة وأي حقول معينة تحتاجها."
 
 #: generated
 msgid "Beta"
@@ -64,18 +273,24 @@ msgid "Body for notifications"
 msgstr "نص الإشعارات"
 
 #: generated
-msgid ""
-"Body text for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
-msgstr ""
-"نص البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
+msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "نص البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
 
 #: generated
-msgid ""
-"Body text for result export emails. Supports {created}, {creator}, {formats}."
-""
-msgstr ""
-"نص البريد الإلكتروني لتصدير النتائج. يدعم {created} و {creator} و {formats}."
+msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
+msgstr "نص البريد الإلكتروني لتصدير النتائج. يدعم {created} و {creator} و {formats}."
+
+#: zopyx/surveyjs/browser/psf.py:98
+msgid "Browse saved templates and reuse them for new forms or surveys."
+msgstr "تصفح القوالب المحفوظة وأعد استخدامها للنماذج أو الاستبيانات الجديدة"
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "قم ببناء نموذج الاستبيان وصقله"
+
+#: ../browser/survey_actions.pt:159
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "باستخدام Privacy Form Studio، فإنك تقر وتقبل"
 
 #: generated
 msgid "CC recipient"
@@ -85,13 +300,280 @@ msgstr "مستلم نسخة"
 msgid "CSV (.csv)"
 msgstr "CSV (.csv)"
 
+#: ../browser/survey_monitor.pt:35
+msgid "Cache: ${path}"
+msgstr ""
+
+#: generated
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: ../browser/llm_models.pt:37
+msgid "Capabilities"
+msgstr ""
+
+#: ../browser/survey_actions.pt:81
+msgid "Chatbot"
+msgstr ""
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "اختر ملف PDF يحتوي بالفعل على حقول قابلة للتعبئة"
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr "اختر ملف PDF يحتوي على تخطيط النموذج الذي تريد تحويله."
+
+#: zopyx/surveyjs/browser/pfs.pt:19
+msgid "Choose a guided action appropriate to your role. These shortcuts help team members manage form and survey data consistently and efficiently."
+msgstr "ابدأ بإجراء موجه يتوافق مع دورك هذه الاختصارات تحافظ على إنتاجية كل عضو في الفريق وتعزز ثقته وتمنحه التحكم في بيانات النماذج أو الاستبيانات الخاصة به"
+
+#: ../browser/theme_editor.pt:82
+msgid "Choose an earlier saved version to use as the current theme."
+msgstr ""
+
+msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
+msgstr "اختر ما إذا كان هذا النموذج متاحًا للجمهور أو يتطلب رمز وصول موثوق به في عنوان URL."
+
+#: ../browser/llm_models.pt:36
+msgid "Class"
+msgstr ""
+
+#: generated
+msgid "Clear All Results"
+msgstr "مسح كل النتائج"
+
+#: generated
+msgid "Clear all results"
+msgstr "مسح كل النتائج"
+
+#: ../browser/token_store.pt:139
+msgid "Clear all tokens?"
+msgstr ""
+
+#. Default: "Clear workspace"
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "مساحة العمل"
+
+#: generated
+msgid "Close"
+msgstr "إغلاق"
+
+#: ../browser/theme_manager.pt:75
+msgid "Close preview"
+msgstr ""
+
+#: generated
+msgid "Confirm delete"
+msgstr "تأكيد الحذف"
+
+#: generated
+msgid "Confirm restore"
+msgstr "تأكيد الاستعادة"
+
+#: generated
+msgid "Conversion complete. Review the preview and click Store converted form as new version."
+msgstr "اكتمل التحويل راجع المعاينة ثم انقر على تخزين النموذج المحول كإصدار جديد"
+
+#: generated
+msgid "Convert PDF"
+msgstr "تحويل PDF"
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "تم تخزين النموذج المحول. <a href=\"${url}\">عرض الإصدارات</a>."
+
+#: generated
+msgid "Copied ✓"
+msgstr ""
+
+#: ../browser/theme_editor.pt:122
+msgid "Copy"
+msgstr ""
+
+#: generated
+msgid "Copy failed"
+msgstr ""
+
+#: generated
+msgid "Copy failed: ${error}"
+msgstr ""
+
+msgid "Copy link"
+msgstr "نسخ الرابط"
+
+#: ../browser/theme_manager.pt:48
+msgid "Create"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pfs.pt:61
+msgid "Create a new form or survey using one of your curated presets."
+msgstr "ابدأ نموذجًا أو استبيانًا جديدًا باستخدام أحد الإعدادات المسبقة المنسقة الخاصة بك"
+
+#: zopyx/surveyjs/browser/psf.py:75
+msgid "Create form"
+msgstr "إنشاء نموذج"
+
+#: zopyx/surveyjs/browser/pfs.pt:59
+msgid "Create from template"
+msgstr "إنشاء من القالب"
+
+#: zopyx/surveyjs/browser/survey_add.pt:61
+msgid "Create survey"
+msgstr "إنشاء استطلاع"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:287
+msgid "Create template"
+msgstr "إنشاء قالب"
+
+#: ../browser/survey_result_detail.pt:65
+#: ../browser/theme_editor.pt:90
+msgid "Created"
+msgstr ""
+
+#: generated
+msgid "Created:"
+msgstr "تم الإنشاء:"
+
+#: generated
+msgid "Cumulative"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:114
+msgid "Current Minute:"
+msgstr ""
+
+#. Default: "Current Temporary State"
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "الحالة المؤقتة الحالية"
+
+#: generated
+msgid "Current Version:"
+msgstr "الإصدار الحالي:"
+
+#: ../browser/theme_editor.pt:110
+msgid "Current theme"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently editing metadata"
+msgstr "جارٍ تحرير البيانات الوصفية"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently importing from PDF"
+msgstr "جارٍ الاستيراد من PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in AI generator"
+msgstr "في مولد الذكاء الاصطناعي"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in fillable PDF forms setup"
+msgstr "في إعداد نماذج PDF القابلة للتعبئة"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in visual editor"
+msgstr "في المحرر المرئي"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently managing versions"
+msgstr "جارٍ إدارة الإصدارات"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on PDF form"
+msgstr "في نموذج PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on dashboard"
+msgstr "في لوحة التحكم"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing results"
+msgstr "جارٍ عرض النتائج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing survey form"
+msgstr "جارٍ عرض النموذج"
+
+#: generated
+msgid "Customer Satisfaction Survey"
+msgstr ""
+
+#: generated
+msgid "Customer feedback"
+msgstr ""
+
+msgid "DOCS"
+msgstr "المستندات"
+
+#: generated
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: generated
+msgid "Date"
+msgstr "التاريخ"
+
+#: generated
+msgid "Date/Time"
+msgstr "التاريخ / الوقت"
+
+#: generated
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: ../browser/theme_manager.pt:97
+msgid "Default"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:835
+msgid "Default Value"
+msgstr ""
+
+#: generated
+msgid "Delete"
+msgstr "حذف"
+
 #: generated
 msgid "Delete ${count} selected result(s)?"
 msgstr "هل تريد حذف ${count} من النتائج المحددة؟"
 
 #: generated
+msgid "Delete Result"
+msgstr "حذف النتيجة"
+
+#: generated
+msgid "Delete Selected Results"
+msgstr "حذف النتائج المحددة"
+
+#: ../browser/theme_manager.pt:56
+msgid "Delete Theme"
+msgstr ""
+
+#: generated
+msgid "Delete result"
+msgstr "حذف النتيجة"
+
+#: generated
+msgid "Delete selected"
+msgstr "حذف المحدد"
+
+#: ../browser/fillable_pdf.pt:674
+msgid "Delete template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:128
+msgid "Delete theme"
+msgstr ""
+
+#: generated
 msgid "Delete this result?"
 msgstr "هل تريد حذف هذه النتيجة؟"
+
+#: generated
+msgid "Delete version"
+msgstr "حذف الإصدار"
 
 #: generated
 msgid "Describe Your Form"
@@ -104,6 +586,83 @@ msgstr "صف التغييرات التي تريد إجراؤها على النم
 #: generated
 msgid "Describe the form you want to create:"
 msgstr "صف النموذج الذي تريد إنشاءه:"
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr "صف استطلاعك بلغة طبيعية ودع الذكاء الاصطناعي ينشئ النموذج"
+
+#: generated
+msgid "Description"
+msgstr "وصف"
+
+#: generated
+msgid "Details"
+msgstr "تفاصيل"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
+msgid "Detected fields"
+msgstr "الحقول المكتشفة"
+
+#: generated
+msgid "Dissatisfied"
+msgstr ""
+
+#. Default: "Document To Online Form"
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "مستند إلى نموذج عبر الإنترنت"
+
+#: generated
+msgid "Download"
+msgstr "تنزيل"
+
+#: ../browser/fillable_pdf.pt:795
+msgid "Download Filled PDF"
+msgstr ""
+
+#: generated
+msgid "Download PDF"
+msgstr "تحميل PDF"
+
+#: ../browser/token_store.pt:108
+msgid "Download all tokens"
+msgstr ""
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr "تنزيل تعريف النموذج (JSON)"
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr "تنزيل تعريف النموذج كـ JSON"
+
+#: generated
+msgid "Download result"
+msgstr "تنزيل النتيجة"
+
+#: generated
+msgid "Download results (CSV)"
+msgstr "تنزيل النتائج (CSV)"
+
+#: generated
+msgid "Download results (JSON)"
+msgstr "تنزيل النتائج (JSON)"
+
+#: ../browser/fillable_pdf.pt:664
+msgid "Download template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:123
+msgid "Download theme"
+msgstr ""
+
+#: ../browser/token_store.pt:103
+msgid "Download valid tokens"
+msgstr ""
+
+#: ../browser/token_store.pt:134
+msgid "Duplicate tokens (already existing in the store) will be skipped during import."
+msgstr ""
 
 #: generated
 msgid "E-Mail BCC"
@@ -125,6 +684,22 @@ msgstr "مرسل البريد الإلكتروني"
 msgid "Edit"
 msgstr "تعديل"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Edit metadata"
+msgstr "تحرير البيانات الوصفية"
+
+#: ../browser/theme_manager.pt:118
+msgid "Edit theme"
+msgstr ""
+
+#: generated
+msgid "Effective"
+msgstr "فعال"
+
+#: generated
+msgid "Email *"
+msgstr ""
+
 #: generated
 msgid "Email address to receive a blind copy"
 msgstr "عنوان البريد الإلكتروني لتلقي نسخة مخفية"
@@ -133,9 +708,37 @@ msgstr "عنوان البريد الإلكتروني لتلقي نسخة مخف�
 msgid "Email address to receive a copy"
 msgstr "عنوان البريد الإلكتروني لتلقي نسخة"
 
+#: ../browser/embedded_demo.pt:9
+msgid "Embedded Survey Demo"
+msgstr ""
+
+#: ../browser/embedded_demo.pt:50
+msgid "Embedded mental health survey demo"
+msgstr ""
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr "التضمين غير مسموح به"
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
+msgstr "قم بتمكينه في إعدادات الاستطلاع لجمع الردود وعرضها هنا."
+
 #: generated
 msgid "Enable validation (experimental)"
 msgstr "تمكين التحقق (تجريبي)"
+
+#: ../browser/theme_manager.pt:42
+msgid "Enter a name for the new theme."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:706
+msgid "Enter values for the PDF fields below and submit to generate a filled PDF."
+msgstr ""
+
+#: generated
+msgid "Enter your name"
+msgstr ""
 
 #: generated
 msgid "Error clearing results:"
@@ -182,25 +785,20 @@ msgid "Error saving form:"
 msgstr "خطأ في حفظ النموذج:"
 
 #: generated
+msgid "Error:"
+msgstr "خطأ:"
+
+#: generated
 msgid "Error: ${error}"
 msgstr "خطأ: ${error}"
 
 #: generated
-msgid ""
-"Example: Add rating scales for each question, Include a comments section at "
-"the end, Change the first question to a dropdown"
-msgstr ""
-"مثال: أضف مقاييس تقييم لكل سؤال ، قم بتضمين قسم للتعليقات في النهاية ، قم "
-"بتغيير السؤال الأول إلى قائمة منسدلة"
+msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
+msgstr "مثال: أضف مقاييس تقييم لكل سؤال ، قم بتضمين قسم للتعليقات في النهاية ، قم بتغيير السؤال الأول إلى قائمة منسدلة"
 
 #: generated
-msgid ""
-"Example: Create a customer satisfaction survey with questions about product "
-"quality, delivery experience, and overall satisfaction. Include rating "
-"scales and a comments section."
-msgstr ""
-"مثال: قم بإنشاء استطلاع رضا العملاء مع أسئلة حول جودة المنتج وتجربة التسليم "
-"والرضا العام. قم بتضمين مقاييس التقييم وقسم التعليقات."
+msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+msgstr "مثال: قم بإنشاء استطلاع رضا العملاء مع أسئلة حول جودة المنتج وتجربة التسليم والرضا العام. قم بتضمين مقاييس التقييم وقسم التعليقات."
 
 #: generated
 msgid "Excel (.xlsx)"
@@ -210,20 +808,70 @@ msgstr "Excel (.xlsx)"
 msgid "Existing form"
 msgstr "النموذج الحالي"
 
+msgid "Exit fullscreen"
+msgstr "الخروج من وضع ملء الشاشة"
+
+#: generated
+msgid "Experimental:"
+msgstr "تجريبي:"
+
+#: generated
+msgid "Expires"
+msgstr "ينتهي"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "استكشف الردود باستخدام المخططات والرؤى الملخصة"
+
+#: ../browser/theme_editor.pt:62
+msgid "Export"
+msgstr ""
+
+#: generated
+msgid "Export failed"
+msgstr ""
+
+#: generated
+msgid "Export failed: HTTP ${status}"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:116
+msgid "Export range"
+msgstr "نطاق التصدير"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "تصدير نموذج SurveyJS الحالي كملف PDF قابل للتنزيل"
+
+#: generated
+msgid "Exported ${name}"
+msgstr ""
+
+msgid "External AI provider:"
+msgstr "مزود الذكاء الاصطناعي الخارجي:"
+
+msgid "Extraction mode"
+msgstr "وضع الاستخراج"
+
 #: generated
 msgid "Failed to POST result: ${error}"
 msgstr "فشل إرسال النتيجة: ${error}"
 
 #: generated
-msgid ""
-"Failed to clear results. Please check the console for more information."
+msgid "Failed to clear results. Please check the console for more information."
 msgstr "فشل مسح النتائج. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
 
+#: zopyx/surveyjs/browser/psf.py:228
+msgid "Failed to create survey: ${error}"
+msgstr "فشل في إنشاء الاستبيان: ${error}"
+
+#: zopyx/surveyjs/browser/survey_versions.py:322
+msgid "Failed to create template: ${error}"
+msgstr "فشل إنشاء القالب: ${error}"
+
 #: generated
-msgid ""
-"Failed to delete selected results. Please check the console for details."
-msgstr ""
-"فشل حذف النتائج المحددة. يرجى التحقق من وحدة التحكم للحصول على التفاصيل."
+msgid "Failed to delete selected results. Please check the console for details."
+msgstr "فشل حذف النتائج المحددة. يرجى التحقق من وحدة التحكم للحصول على التفاصيل."
 
 #: generated
 msgid "Failed to delete the result. Please check the console for details."
@@ -234,8 +882,7 @@ msgid "Failed to generate form. Please try again."
 msgstr "فشل إنشاء النموذج. حاول مرة اخرى."
 
 #: generated
-msgid ""
-"Failed to load JSON data. Please check the console for more information."
+msgid "Failed to load JSON data. Please check the console for more information."
 msgstr "فشل تحميل بيانات JSON. يرجى التحقق من وحدة التحكم لمزيد من المعلومات."
 
 #: generated
@@ -255,10 +902,8 @@ msgid "Failed to refine existing form. Please try again."
 msgstr "فشل تحسين النموذج الحالي. حاول مرة اخرى."
 
 #: generated
-msgid ""
-"Failed to refine form. Your current version is preserved. Please try again."
-msgstr ""
-"فشل تحسين النموذج. تم الحفاظ على الإصدار الحالي الخاص بك. حاول مرة اخرى."
+msgid "Failed to refine form. Your current version is preserved. Please try again."
+msgstr "فشل تحسين النموذج. تم الحفاظ على الإصدار الحالي الخاص بك. حاول مرة اخرى."
 
 #: generated
 msgid "Failed to render preview: ${error}"
@@ -268,13 +913,102 @@ msgstr "فشل عرض المعاينة: ${error}"
 msgid "Failed to save form: ${error}"
 msgstr "فشل حفظ النموذج: ${error}"
 
+#~ msgid "« Previous"
+#~ msgstr "« السابق"
+#: generated
+msgid "Failed to save survey results. Please try again."
+msgstr "فشل حفظ نتائج الاستطلاع. حاول مرة اخرى."
+
 #: generated
 msgid "Failed to send mail: ${error}"
 msgstr "فشل إرسال البريد: ${error}"
 
+#: ../browser/survey_actions.pt:187
+msgid "Feature disabled, access forbidden."
+msgstr ""
+
+#: generated
+msgid "Feedback"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:832
+msgid "Field Name"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:867
+msgid "Field exists in JSON form"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:870
+msgid "Field not found in JSON form"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:886
+msgid "Fields defined in the current JSON form (from AI generation or editor)."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:659
+msgid "File"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:705
+msgid "Fill PDF Form"
+msgstr ""
+
+#: ../browser/survey_actions.pt:72
+msgid "Fillable PDF"
+msgstr ""
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "نموذج PDF قابل للتعبئة"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "نماذج PDF قابلة للتعبئة"
+
+#: ../browser/fillable_pdf.pt:621
+#: ../content/survey.py:472
+msgid "Fillable PDF Template"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Fillable PDF forms setup"
+msgstr "إعداد نماذج PDF القابلة للتعبئة"
+
+msgid "First"
+msgstr "الأول"
+
+msgid "First Page"
+msgstr "الصفحة الأولى"
+
+#: ../browser/survey_actions.pt:165
+msgid "For pricing and licensing options, please visit"
+msgstr "للاطلاع على خيارات التسعير والترخيص، يرجى زيارة"
+
 #: generated
 msgid "Force Server Side Validation"
 msgstr "فرض التحقق من جانب الخادم"
+
+#: ../browser/survey_monitor.pt:184
+msgid "Form"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:179
+msgid "Form Activity"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:804
+msgid "Form Fields"
+msgstr ""
+
+#: generated
+msgid "Form JSON"
+msgstr "نموذج JSON"
+
+#: generated
+msgid "Form Preview"
+msgstr "معاينة النموذج"
 
 #: generated
 msgid "Form Results"
@@ -285,21 +1019,32 @@ msgid "Form Settings"
 msgstr "إعدادات النموذج"
 
 #: generated
+msgid "Form Version Management"
+msgstr "إدارة إصدار النموذج"
+
+#: generated
 msgid "Form View"
 msgstr "عرض النموذج"
 
 #: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\"${url}\">View versions</"
-"a>."
-msgstr ""
-"تم استيراد النموذج وحفظه كإصدار جديد. <a href=\"${url}\">عرض الإصدارات</a>."
+msgid "Form from PDF"
+msgstr "نموذج من PDF"
 
 #: generated
-msgid ""
-"Form saved successfully! You can now view it in the Visual Editor or "
-"Versions."
+msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
+msgstr "تم استيراد النموذج وحفظه كإصدار جديد. <a href=\"${url}\">عرض الإصدارات</a>."
+
+#: generated
+msgid "Form imported and saved as a new version. <a href=\\\"${url}\\\">View versions</a>."
+msgstr "تم استيراد النموذج وحفظه كإصدار جديد <a href=\"${url}\">عرض الإصدارات</a>"
+
+#: generated
+msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
 msgstr "تم حفظ النموذج بنجاح! يمكنك الآن عرضه في المحرر المرئي أو الإصدارات."
+
+#: generated
+msgid "Form validation using pdfcpu"
+msgstr "التحقق من النماذج باستخدام pdfcpu"
 
 #: generated
 msgid "Form/Survey"
@@ -309,13 +1054,57 @@ msgstr "نموذج / استطلاع"
 msgid "Formats"
 msgstr "التنسيقات"
 
+#: ../browser/survey_actions.pt:174
+msgid "Forms Settings"
+msgstr "إعدادات النماذج"
+
+#: generated
+msgid "Forms overview"
+msgstr "نظرة عامة على الاستطلاع"
+
+#: zopyx/surveyjs/browser/survey_results.pt:118
+msgid "From"
+msgstr "من"
+
+#: generated
+msgid "Full Name *"
+msgstr ""
+
+msgid "Fullscreen"
+msgstr "ملء الشاشة"
+
+#: ../browser/token_store.pt:89
+msgid "Generate"
+msgstr ""
+
+#. Default: "Generate AI Draft"
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "إنشاء مسودة بالذكاء الاصطناعي"
+
 #: generated
 msgid "Generate Form"
 msgstr "إنشاء نموذج"
 
 #: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "إنشاء نسخة PDF من نموذج الاستبيان الحالي"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:290
+msgid "Generate a new SurveyTemplate from the selected version. You can adjust the name before creation."
+msgstr "إنشاء قالب استبيان جديد من الإصدار المحدد يمكنك تعديل الاسم قبل الإنشاء"
+
+#: generated
 msgid "Generate forms using AI"
 msgstr "إنشاء نماذج باستخدام الذكاء الاصطناعي"
+
+#: ../browser/token_store.pt:61
+msgid "Generate new tokens"
+msgstr ""
+
+#: generated
+msgid "Generated form preview will appear here."
+msgstr "ستظهر معاينة النموذج الذي تم إنشاؤه هنا."
 
 #: generated
 msgid "Generating..."
@@ -329,6 +1118,32 @@ msgstr "فشل الإنشاء"
 msgid "HTML (.html)"
 msgstr "HTML (.html)"
 
+#: ../browser/survey_actions.pt:178
+msgid "Have questions?"
+msgstr "هل لديك أسئلة؟"
+
+#: generated
+msgid "Heads up:"
+msgstr "انتبه:"
+
+#. Default: "History (max 5)"
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "السجل (5 كحد أقصى)"
+
+#: generated
+msgid "How satisfied are you?"
+msgstr ""
+
+#: generated
+msgid "ID:"
+msgstr "المعرف:"
+
+#: ../browser/theme_editor.pt:56
+#: ../browser/token_store.pt:92
+msgid "Import"
+msgstr ""
+
 #: generated
 msgid "Import failed"
 msgstr "فشل الاستيراد"
@@ -337,9 +1152,46 @@ msgstr "فشل الاستيراد"
 msgid "Import failed. Please try again."
 msgstr "فشل الاستيراد. حاول مرة اخرى."
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Import form from PDF"
+msgstr "استيراد نموذج من PDF"
+
+#: ../browser/token_store.pt:64
+msgid "Import tokens from CSV"
+msgstr ""
+
+#: generated
+msgid "Imported: ${name}"
+msgstr ""
+
+#. Default: "Improve Temporary Form"
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "تحسين النموذج المؤقت"
+
+#: ../browser/fillable_pdf.pt:837
+msgid "In Form"
+msgstr ""
+
+#: generated
+msgid "Inactive"
+msgstr "غير نشط"
+
+#: ../browser/fillable_pdf.pt:683
+msgid "Info"
+msgstr ""
+
 #: generated
 msgid "Initial Generation"
 msgstr "الجيل الأولي"
+
+#: ../browser/fillable_pdf.pt:907
+msgid "Input Type"
+msgstr ""
+
+#: generated
+msgid "Interests"
+msgstr ""
 
 #: generated
 msgid "Invalid JSON file: ${error}"
@@ -354,8 +1206,28 @@ msgid "Invalid survey URL: ${url}"
 msgstr "عنوان URL للاستطلاع غير صالح: ${url}"
 
 #: generated
+msgid "Invalid theme JSON"
+msgstr ""
+
+#: generated
+msgid "JSON"
+msgstr "JSON"
+
+#: generated
 msgid "JSON (.json)"
 msgstr "JSON (.json)"
+
+#: ../browser/fillable_pdf.pt:885
+msgid "JSON Form Properties"
+msgstr ""
+
+#: ../browser/llm_models.pt:51
+msgid "JSON Schema"
+msgstr ""
+
+#: generated
+msgid "JSON Version Content"
+msgstr "محتوى إصدار JSON"
 
 #: generated
 msgid "JSON uploaded successfully as new version"
@@ -364,6 +1236,86 @@ msgstr "تم تحميل JSON بنجاح كإصدار جديد"
 #: generated
 msgid "Key / Question"
 msgstr "مفتاح / سؤال"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
+msgid "LLM (visual conversion)"
+msgstr "نموذج لغة كبير (تحويل بصري)"
+
+#: ../browser/llm_models.pt:17
+msgid "LLM Models"
+msgstr ""
+
+#: generated
+msgid "Language"
+msgstr "لغة"
+
+msgid "Last"
+msgstr "الأخير"
+
+#: ../browser/survey_monitor.py:68
+msgid "Last 10 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:73
+msgid "Last 12 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:71
+msgid "Last 2 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:69
+msgid "Last 20 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:74
+msgid "Last 24 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:67
+msgid "Last 5 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:72
+msgid "Last 6 hours"
+msgstr ""
+
+msgid "Last Page"
+msgstr "آخر صفحة"
+
+#: ../browser/survey_monitor.py:70
+msgid "Last hour"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:230
+msgid "Last updated: ${time}"
+msgstr ""
+
+#. Default: "Latest version to workspace"
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "أحدث نسخة إلى مساحة العمل"
+
+#: zopyx/surveyjs/browser/psf.py:72
+msgid "Launch a brand-new form or survey and start collecting answers."
+msgstr "أطلق نموذجا أو استبيانا جديدا وابدأ في جمع الإجابات"
+
+#: zopyx/surveyjs/browser/survey_add.pt:46
+#: zopyx/surveyjs/browser/survey_metadata.pt:46
+msgid "Let's fix a few things:"
+msgstr "دعنا نصلح بعض الأشياء"
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr "عمر رموز الوصول الموثوق بها بالساعات."
+
+#: ../browser/theme_manager.pt:72
+msgid "Live preview"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.pt:57
+#: zopyx/surveyjs/browser/survey_metadata.pt:57
+msgid "Loading form..."
+msgstr "جارٍ تحميل النموذج"
 
 #: generated
 msgid "Loading preview..."
@@ -376,6 +1328,17 @@ msgstr "جارٍ تحميل الاستطلاع ..."
 #: generated
 msgid "Loading..."
 msgstr "جار التحميل..."
+
+msgid "Local AI provider:"
+msgstr "مزود الذكاء الاصطناعي المحلي:"
+
+#: generated
+msgid "Lock"
+msgstr "قفل"
+
+#: generated
+msgid "Locked"
+msgstr "مقفل"
 
 #: generated
 msgid "Mail"
@@ -390,12 +1353,36 @@ msgid "Mail notifications"
 msgstr "إشعارات البريد"
 
 #: generated
+msgid "Mail result"
+msgstr "إرسال النتيجة بالبريد"
+
+#: generated
 msgid "Mail sent"
 msgstr "تم إرسال البريد"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
 msgstr "إعدادات البريد غير مكتملة (مطلوب حقل إلى والموضوع)"
+
+#: ../browser/theme_manager.pt:109
+msgid "Make default"
+msgstr ""
+
+#: ../browser/theme_manager.pt:103
+msgid "Make default theme"
+msgstr ""
+
+#: ../browser/token_store.pt:26
+msgid "Manage single-use access tokens for this survey."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Manage versions"
+msgstr "إدارة الإصدارات"
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
+msgstr "إدارة وعرض واستعادة الإصدارات السابقة من نماذج الاستطلاع الخاصة بك"
 
 #: generated
 msgid "Manager only"
@@ -406,6 +1393,10 @@ msgid "Markdown (.md)"
 msgstr "Markdown (.md)"
 
 #: generated
+msgid "Max"
+msgstr ""
+
+#: generated
 msgid "Max size payload (MB)"
 msgstr "الحمولة القصوى (ميجابايت)"
 
@@ -413,17 +1404,120 @@ msgstr "الحمولة القصوى (ميجابايت)"
 msgid "Maximum allowed payload size for submissions in megabytes."
 msgstr "الحد الأقصى لحجم الحمولة المسموح به للتقديمات بالميجابايت."
 
+#: zopyx/surveyjs/browser/survey_actions.pt:18
+msgid "Metadata"
+msgstr "البيانات الوصفية"
+
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
 msgstr "سمة data-survey-url مفقودة. يرجى تحديد عنوان URL للاستطلاع."
+
+#: ../browser/llm_models.pt:35
+msgid "Model"
+msgstr ""
+
+#. Default: "Model:"
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "النموذج:"
+
+#: ../browser/theme_manager.pt:87
+msgid "Modified"
+msgstr ""
+
+#: generated
+msgid "Music"
+msgstr ""
+
+#: ../browser/theme_manager.pt:43
+msgid "My Custom Theme"
+msgstr ""
+
+#: ../browser/theme_manager.pt:86
+msgid "Name"
+msgstr ""
+
+#: generated
+msgid "Neutral"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:195
+msgid "New Survey"
+msgstr "استبيان جديد"
+
+#: ../browser/theme_manager.pt:25
+msgid "New Theme"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:71
+msgid "New form/survey"
+msgstr "نموذج/استبيان جديد"
+
+#: generated
+msgid "New version saved (${count} versions)"
+msgstr ""
+
+msgid "Next"
+msgstr "التالي"
+
+#: generated
+msgid "Next "
+msgstr "التالي"
+
+msgid "Next Page"
+msgstr "الصفحة التالية"
+
+#: ../browser/fillable_pdf.pt:893
+msgid "No JSON form data available. Generate or edit a form to see properties."
+msgstr ""
+
+#~ msgid "Next »"
+#~ msgstr "التالي »"
+#: generated
+msgid "No PDF selected yet."
+msgstr "لم يتم تحديد ملف PDF بعد."
+
+#: ../browser/fillable_pdf.pt:625
+msgid "No PDF template has been uploaded yet. Upload a fillable PDF form to enable automated PDF generation from survey submissions."
+msgstr ""
 
 #: generated
 msgid "No POST endpoint configured for this survey"
 msgstr "لا توجد نقطة نهاية POST مهيأة لهذا الاستطلاع"
 
 #: generated
+msgid "No Survey Results Yet"
+msgstr "لا توجد نتائج استطلاع حتى الآن"
+
+#: generated
+msgid "No Versions Available"
+msgstr "لا توجد إصدارات متاحة"
+
+#. Default: "No chat refinement history yet."
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "لا يوجد سجل تحسين دردشة بعد."
+
+#~ msgid ""
+#~ "Conversion complete. Review the preview and click “Store converted form as "
+#~ "new version”."
+#~ msgstr ""
+#~ "اكتمل التحويل. راجع المعاينة وانقر على “تخزين النموذج المحول كإصدار جديد”."
+#: generated
+msgid "No converted form available to store."
+msgstr "لا يوجد نموذج محوّل متاح للتخزين."
+
+#: generated
+msgid "No data available for selected time window"
+msgstr ""
+
+#: generated
 msgid "No existing form found to refine."
 msgstr "لم يتم العثور على نموذج موجود لتحسينه."
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
+msgid "No fields detected yet."
+msgstr "لم يتم اكتشاف أي حقول بعد"
 
 #: generated
 msgid "No file selected"
@@ -437,6 +1531,14 @@ msgstr "لم يتم تحميل ملف"
 msgid "No form definition available to include in POST"
 msgstr "لا يوجد تعريف نموذج متاح لتضمينه في POST"
 
+#: ../browser/fillable_pdf.pt:713
+msgid "No form fields available to fill."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:812
+msgid "No form fields could be extracted from this PDF. It may not be a fillable form."
+msgstr ""
+
 #: generated
 msgid "No form to preview"
 msgstr "لا يوجد نموذج للمعاينة"
@@ -444,6 +1546,72 @@ msgstr "لا يوجد نموذج للمعاينة"
 #: generated
 msgid "No form to save"
 msgstr "لا يوجد نموذج للحفظ"
+
+#: generated
+msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+msgstr "لم يتم إنشاء أي إصدارات نموذج حتى الآن. استخدم منشئ النماذج لتصميم أول استطلاع لك ، أو قم بتحميل ملف JSON موجود باستخدام النموذج أعلاه."
+
+#: ../browser/llm_models.pt:28
+msgid "No models registered."
+msgstr ""
+
+#: generated
+msgid "No results found matching your search query."
+msgstr "لم يتم العثور على نتائج تطابق استعلام البحث الخاص بك."
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "لا توجد نتائج بعد"
+
+#: generated
+msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgstr "لا توجد نتائج مخزنة حتى الآن. بمجرد حفظ الردود ، ستظهر التحليلات هنا."
+
+#: ../browser/survey_monitor.pt:220
+msgid "No submissions in selected time window"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
+msgid "No survey templates found below this location."
+msgstr "لم يتم العثور على قوالب استبيان أسفل هذا الموقع"
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "لم يتم العثور على استطلاعات أسفل هذا الموقع."
+
+#: zopyx/surveyjs/browser/survey_template_views.py:22
+msgid "No template JSON configured."
+msgstr "لا يوجد قالب JSON مهيأ"
+
+#. Default: "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+msgstr "لا يوجد نموذج مؤقت بعد. حمّل مستندًا، أو ابدأ واحدًا عبر الدردشة، أو انسخ أحدث نسخة."
+
+#: ../browser/survey_editor.pt:109
+#: ../browser/survey_editor.py:36
+msgid "No theme"
+msgstr ""
+
+#: generated
+msgid "No theme to export"
+msgstr ""
+
+#: generated
+msgid "No theme to save"
+msgstr ""
+
+#: generated
+msgid "No theme to show"
+msgstr ""
+
+#: ../browser/theme_manager.pt:139
+msgid "No themes yet. Create your first theme."
+msgstr ""
+
+#: ../browser/token_store.pt:51
+msgid "No tokens generated yet. Use the form below to create access tokens."
+msgstr ""
 
 #: generated
 msgid "No version ID provided"
@@ -454,1236 +1622,8 @@ msgid "Not saved"
 msgstr "غير محفوظ"
 
 #: generated
-msgid "Optional BCC recipients for result exports (one address per line)."
-msgstr "مستلمو نسخة مخفية اختياريون لتصدير النتائج (عنوان واحد لكل سطر)."
-
-#: generated
-msgid "Optional CC recipients for result exports (one address per line)."
-msgstr "مستلمو نسخة اختيارية لتصدير النتائج (عنوان واحد لكل سطر)."
-
-#: generated
-msgid ""
-"Optional HTTP endpoint to receive submissions as JSON when the POST action "
-"is enabled."
+msgid "Nothing to copy"
 msgstr ""
-"نقطة نهاية HTTP اختيارية لتلقي التقديمات كـ JSON عند تمكين إجراء POST."
-
-#: generated
-msgid "PDF (.pdf)"
-msgstr "PDF (.pdf)"
-
-#: generated
-msgid "PDF Form Import"
-msgstr "استيراد نموذج PDF"
-
-#: generated
-msgid "POST action is not enabled for this survey"
-msgstr "إجراء POST غير ممكّن لهذا الاستطلاع"
-
-#: generated
-msgid "POST endpoint URL"
-msgstr "عنوان URL لنقطة نهاية POST"
-
-#: generated
-msgid "POST to endpoint"
-msgstr "إرسال إلى نقطة النهاية"
-
-#: generated
-msgid "Please enter a description"
-msgstr "الرجاء إدخال وصف"
-
-#: generated
-msgid "Please select a PDF file to upload."
-msgstr "الرجاء تحديد ملف PDF لتحميله."
-
-#: generated
-msgid "Poll ID is required"
-msgstr "معرف الاستطلاع مطلوب"
-
-#: generated
-msgid "Poll result not found"
-msgstr "لم يتم العثور على نتيجة الاستطلاع"
-
-#: generated
-msgid "Preview error:"
-msgstr "خطأ في المعاينة:"
-
-#: generated
-msgid ""
-"Primary recipient for notifications and result exports (single address). "
-msgstr "المستلم الأساسي للإشعارات وتصدير النتائج (عنوان واحد). "
-
-#: generated
-msgid "Privacy Forms Studio"
-msgstr "استوديو نماذج الخصوصية"
-
-#: generated
-msgid "Refine Form"
-msgstr "تحسين النموذج"
-
-#: generated
-msgid "Refine Your Form"
-msgstr "صقل النموذج الخاص بك"
-
-#: generated
-msgid "Refinement ${index}"
-msgstr "تحسين ${index}"
-
-#: generated
-msgid "Refinement failed"
-msgstr "فشل التحسين"
-
-#: generated
-msgid "Refining..."
-msgstr "جارٍ التحسين ..."
-
-#: generated
-msgid "Requested export format is not available"
-msgstr "تنسيق التصدير المطلوب غير متوفر"
-
-#: generated
-msgid "Result POSTed to endpoint (status ${status})"
-msgstr "تم إرسال النتيجة إلى نقطة النهاية (الحالة ${status})"
-
-#: generated
-msgid "Results cleared"
-msgstr "تم مسح النتائج"
-
-#: generated
-msgid "Results"
-msgstr "النتائج"
-
-#: generated
-msgid "Row"
-msgstr "صف"
-
-#: generated
-msgid "Run the external SurveyJS validator binary for every save/submit."
-msgstr "قم بتشغيل ثنائي مدقق SurveyJS الخارجي لكل عملية حفظ / إرسال."
-
-#: generated
-msgid "Save failed"
-msgstr "فشل الحفظ"
-
-#: generated
-msgid "Saving"
-msgstr "جارٍ الحفظ"
-
-#: generated
-msgid "Select export formats to attach when the Mail action sends results."
-msgstr "حدد تنسيقات التصدير لإرفاقها عندما يرسل إجراء البريد النتائج."
-
-#: generated
-msgid "Select how to handle survey submissions (multiple options possible). "
-msgstr "حدد كيفية التعامل مع تقديمات الاستطلاع (خيارات متعددة ممكنة). "
-
-#: generated
-msgid ""
-"Sender address for outgoing mail. Mandatory when the Mail action is selected."
-""
-msgstr "عنوان المرسل للبريد الصادر. إلزامي عند تحديد إجراء البريد."
-
-#: generated
-msgid ""
-"Start over? This will clear your refinement history and return to the "
-"initial prompt."
-msgstr ""
-"البدء من جديد؟ سيؤدي هذا إلى مسح سجل التحسين الخاص بك والعودة إلى المطالبة "
-"الأولية."
-
-#: generated
-msgid "Store"
-msgstr "تخزين"
-
-#: generated
-msgid "Subject"
-msgstr "الموضوع"
-
-#: generated
-msgid ""
-"Subject for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
-msgstr ""
-"موضوع رسائل البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و "
-"{poll_id}."
-
-#: generated
-msgid "Subject for notifications"
-msgstr "موضوع الإشعارات"
-
-#: generated
-msgid ""
-"Subject for result export emails. Supports {poll_id} for the submission ID. "
-msgstr ""
-"موضوع رسائل البريد الإلكتروني لتصدير النتائج. يدعم {poll_id} لمعرف التقديم. "
-
-#: generated
-msgid "Survey Embed Error"
-msgstr "خطأ في تضمين الاستطلاع"
-
-#: generated
-msgid "Survey Form"
-msgstr "نموذج استطلاع"
-
-#: generated
-msgid "Survey closed"
-msgstr "تم إغلاق الاستطلاع"
-
-#: generated
-msgid ""
-"Survey embedding is not allowed. Please contact the survey administrator."
-msgstr "تضمين الاستطلاع غير مسموح به. يرجى الاتصال بمسؤول الاستطلاع."
-
-#: generated
-msgid "Survey library not loaded"
-msgstr "لم يتم تحميل مكتبة الاستطلاع"
-
-#: generated
-msgid "Survey open"
-msgstr "استطلاع مفتوح"
-
-#: generated
-msgid "SurveyJS Embed: Element not found"
-msgstr "تضمين SurveyJS: لم يتم العثور على العنصر"
-
-#: generated
-msgid "SurveyJS Embed: Error handling resize message"
-msgstr "تضمين SurveyJS: خطأ في معالجة رسالة تغيير الحجم"
-
-#: generated
-msgid "SurveyJS Embed: Error requesting height"
-msgstr "تضمين SurveyJS: خطأ في طلب الارتفاع"
-
-#: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class "
-"\"${className}\""
-msgstr ""
-"تضمين SurveyJS: لم يتم العثور على حاويات تضمين. أضف عناصر بالفئة "
-"\"${className}\""
-
-#: generated
-msgid "Text (.txt)"
-msgstr "نص (.txt)"
-
-#: generated
-msgid "Unknown error"
-msgstr "خطأ غير معروف"
-
-#: generated
-msgid "Validate submissions against the form schema before saving. "
-msgstr "تحقق من صحة التقديمات مقابل مخطط النموذج قبل الحفظ. "
-
-#: generated
-msgid "Version ${current} of ${total}"
-msgstr "الإصدار ${current} من ${total}"
-
-#: generated
-msgid "Version deleted"
-msgstr "تم حذف الإصدار"
-
-#: generated
-msgid "Version is locked and cannot be deleted"
-msgstr "الإصدار مقفل ولا يمكن حذفه"
-
-#: generated
-msgid "Version locked"
-msgstr "الإصدار مقفل"
-
-#: generated
-msgid "Version not found"
-msgstr "لم يتم العثور على الإصدار"
-
-#: generated
-msgid "Version restored successfully. A new version has been created."
-msgstr "تمت استعادة الإصدار بنجاح. تم إنشاء إصدار جديد."
-
-#: generated
-msgid "Version unlocked"
-msgstr "تم إلغاء قفل الإصدار"
-
-#: generated
-msgid "Versions"
-msgstr "الإصدارات"
-
-#: generated
-msgid "View"
-msgstr "عرض"
-
-#: generated
-msgid "Visual Editor"
-msgstr "محرر مرئي"
-
-#: generated
-msgid "What would you like to change?"
-msgstr "ماذا تريد ان تغير؟"
-
-#: generated
-msgid "Word (.docx)"
-msgstr "Word (.docx)"
-
-#: generated
-msgid "XML (.xml)"
-msgstr "XML (.xml)"
-
-msgid "Access mode"
-msgstr "وضع الوصول"
-
-msgid ""
-"Choose whether this form is publicly accessible or requires a trusted access "
-"token in the URL."
-msgstr ""
-"اختر ما إذا كان هذا النموذج متاحًا للجمهور أو يتطلب رمز وصول موثوق به في "
-"عنوان URL."
-
-msgid "Public"
-msgstr "عام"
-
-msgid "Trusted access token"
-msgstr "رمز وصول موثوق به"
-
-msgid "Trusted access token TTL (hours)"
-msgstr "مدة صلاحية رمز الوصول الموثوق به (بالساعات)"
-
-msgid "Update"
-msgstr "تحديث"
-
-msgid "Unsaved changes"
-msgstr "تغييرات غير محفوظة"
-
-msgid "You have edits that haven't been saved yet."
-msgstr "لديك تعديلات لم يتم حفظها بعد."
-
-msgid "Lifetime of trusted access tokens in hours."
-msgstr "عمر رموز الوصول الموثوق بها بالساعات."
-
-#: generated
-msgid ""
-"You're saving ${version}. The latest version is not selected. Continue?"
-msgstr "أنت تحفظ الإصدار ${version}. لم يتم تحديد أحدث إصدار. متابعة؟"
-
-#: generated
-msgid "version ${current} of ${total}"
-msgstr "الإصدار ${current} من ${total}"
-
-#: generated
-msgid "Cancel"
-msgstr "إلغاء"
-
-#: generated
-msgid "Close"
-msgstr "إغلاق"
-
-#: generated
-msgid "Confirm restore"
-msgstr "تأكيد الاستعادة"
-
-#: generated
-msgid "Date:"
-msgstr "التاريخ:"
-
-#: generated
-msgid "Delete"
-msgstr "حذف"
-
-#: generated
-msgid "Confirm delete"
-msgstr "تأكيد الحذف"
-
-#: generated
-msgid "Delete version"
-msgstr "حذف الإصدار"
-
-#: generated
-msgid "Download"
-msgstr "تنزيل"
-
-#: generated
-msgid "Download form definition as JSON"
-msgstr "تنزيل تعريف النموذج كـ JSON"
-
-#: generated
-msgid "ID:"
-msgstr "المعرف:"
-
-#: generated
-msgid "JSON Version Content"
-msgstr "محتوى إصدار JSON"
-
-#: generated
-msgid "Locked"
-msgstr "مقفل"
-
-#: generated
-msgid "Preview"
-msgstr "معاينة"
-
-#: generated
-msgid "Preview JSON"
-msgstr "معاينة JSON"
-
-#: generated
-msgid "Restore"
-msgstr "استعادة"
-
-#: generated
-msgid "Restore to previous version"
-msgstr "الاستعادة إلى الإصدار السابق"
-
-#: generated
-msgid "Restore version"
-msgstr "استعادة الإصدار"
-
-#: generated
-msgid ""
-"Restoring will create a new version using the selected snapshot and keep the "
-"current version in history."
-msgstr ""
-"ستؤدي الاستعادة إلى إنشاء إصدار جديد باستخدام اللقطة المحددة والاحتفاظ "
-"بالإصدار الحالي في السجل."
-
-#: generated
-msgid "Upload and Create Version"
-msgstr "تحميل وإنشاء إصدار"
-
-#: generated
-msgid "User:"
-msgstr "المستخدم:"
-
-#: generated
-msgid "Experimental:"
-msgstr "تجريبي:"
-
-#: generated
-msgid "This is a helper to get started, not a finished form."
-msgstr "هذا مساعد للبدء ، وليس نموذجًا نهائيًا."
-
-#: generated
-msgid "Use clear, specific prompts for best results."
-msgstr "استخدم مطالبات واضحة ومحددة للحصول على أفضل النتائج."
-
-#: generated
-msgid "Always review and adjust the generated form before use."
-msgstr "راجع دائمًا النموذج الذي تم إنشاؤه واضبطه قبل الاستخدام."
-
-#: generated
-msgid "Error:"
-msgstr "خطأ:"
-
-#: generated
-msgid "#"
-msgstr "#"
-
-#: generated
-msgid "AI Form Generator"
-msgstr "مولد نماذج الذكاء الاصطناعي"
-
-#: generated
-msgid "Action"
-msgstr "إجراء"
-
-#: generated
-msgid "Back to results"
-msgstr "العودة إلى النتائج"
-
-#: generated
-msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr "اختر ملف PDF يحتوي على تخطيط النموذج الذي تريد تحويله."
-
-#: generated
-msgid "Clear All Results"
-msgstr "مسح كل النتائج"
-
-#: generated
-msgid "Clear all results"
-msgstr "مسح كل النتائج"
-
-#: generated
-msgid "Convert PDF"
-msgstr "تحويل PDF"
-
-#: generated
-msgid "Created:"
-msgstr "تم الإنشاء:"
-
-#: generated
-msgid "Current Version:"
-msgstr "الإصدار الحالي:"
-
-#: generated
-msgid "Date"
-msgstr "التاريخ"
-
-#: generated
-msgid "Date/Time"
-msgstr "التاريخ / الوقت"
-
-#: generated
-msgid "Delete result"
-msgstr "حذف النتيجة"
-
-#: generated
-msgid "Delete selected"
-msgstr "حذف المحدد"
-
-#: generated
-msgid "Describe your survey in natural language and let AI generate the form"
-msgstr "صف استطلاعك بلغة طبيعية ودع الذكاء الاصطناعي ينشئ النموذج"
-
-#: generated
-msgid "Details"
-msgstr "تفاصيل"
-
-#: generated
-msgid "Download form definition (JSON)"
-msgstr "تنزيل تعريف النموذج (JSON)"
-
-#: generated
-msgid "Download result"
-msgstr "تنزيل النتيجة"
-
-#: generated
-msgid "Download results (CSV)"
-msgstr "تنزيل النتائج (CSV)"
-
-#: generated
-msgid "Download results (JSON)"
-msgstr "تنزيل النتائج (JSON)"
-
-#: generated
-msgid "Embedding Not Allowed"
-msgstr "التضمين غير مسموح به"
-
-#: generated
-msgid "Enable it in the survey settings to collect and view responses here."
-msgstr "قم بتمكينه في إعدادات الاستطلاع لجمع الردود وعرضها هنا."
-
-#: generated
-msgid "Form JSON"
-msgstr "نموذج JSON"
-
-#: generated
-msgid "Form Preview"
-msgstr "معاينة النموذج"
-
-#: generated
-msgid "Form Version Management"
-msgstr "إدارة إصدار النموذج"
-
-#: generated
-msgid "Generated form preview will appear here."
-msgstr "ستظهر معاينة النموذج الذي تم إنشاؤه هنا."
-
-#: generated
-msgid "Heads up:"
-msgstr "انتبه:"
-
-#: generated
-msgid "JSON"
-msgstr "JSON"
-
-#: generated
-msgid "Mail result"
-msgstr "إرسال النتيجة بالبريد"
-
-#: generated
-msgid "Manage, view, and restore previous versions of your survey forms"
-msgstr "إدارة وعرض واستعادة الإصدارات السابقة من نماذج الاستطلاع الخاصة بك"
-
-#: generated
-#~ msgid "Next »"
-#~ msgstr "التالي »"
-
-#: generated
-msgid "No PDF selected yet."
-msgstr "لم يتم تحديد ملف PDF بعد."
-
-#: generated
-msgid ""
-"No stored results yet. Once responses are saved, analytics will appear here."
-msgstr "لا توجد نتائج مخزنة حتى الآن. بمجرد حفظ الردود ، ستظهر التحليلات هنا."
-
-#: generated
-msgid "No Survey Results Yet"
-msgstr "لا توجد نتائج استطلاع حتى الآن"
-
-#: generated
-msgid "No Versions Available"
-msgstr "لا توجد إصدارات متاحة"
-
-#: generated
-msgid ""
-"No form versions have been created yet. Use the Form Creator to design your "
-"first survey, or upload an existing JSON file using the form above."
-msgstr ""
-"لم يتم إنشاء أي إصدارات نموذج حتى الآن. استخدم منشئ النماذج لتصميم أول "
-"استطلاع لك ، أو قم بتحميل ملف JSON موجود باستخدام النموذج أعلاه."
-
-#: generated
-msgid "No results found matching your search query."
-msgstr "لم يتم العثور على نتائج تطابق استعلام البحث الخاص بك."
-
-#: generated
-msgid "PDF Form Importer"
-msgstr "مستورد نماذج PDF"
-
-#: generated
-msgid "PDF Preview"
-msgstr "معاينة PDF"
-
-#: generated
-msgid "PDF file"
-msgstr "ملف PDF"
-
-#: generated
-msgid "POST result"
-msgstr "نتيجة POST"
-
-#: generated
-msgid "Poll ID:"
-msgstr "معرف الاستطلاع:"
-
-#: generated
-msgid "Preview Form"
-msgstr "معاينة النموذج"
-
-#: generated
-msgid "Processing..."
-msgstr "جارٍ المعالجة ..."
-
-#: generated
-msgid "Refine existing form"
-msgstr "تحسين النموذج الحالي"
-
-#: generated
-msgid "Refinement History"
-msgstr "سجل التحسين"
-
-#: generated
-msgid "Results are not being saved because the \"Store\" action is turned off."
-msgstr "لا يتم حفظ النتائج لأن إجراء \"التخزين\" متوقف."
-
-#: generated
-msgid "Save Form"
-msgstr "حفظ النموذج"
-
-#: generated
-msgid "Search"
-msgstr "بحث"
-
-#: generated
-msgid "Search by user..."
-msgstr "البحث حسب المستخدم ..."
-
-msgid "Search by user, UUID, or date"
-msgstr "البحث حسب المستخدم أو UUID أو التاريخ"
-
-#: generated
-msgid "Select JSON file:"
-msgstr "حدد ملف JSON:"
-
-#: generated
-msgid "Select all results"
-msgstr "تحديد كل النتائج"
-
-#: generated
-msgid "Select result"
-msgstr "تحديد النتيجة"
-
-#: generated
-msgid "Sequence:"
-msgstr "تسلسل:"
-
-#: generated
-msgid "Start Over"
-msgstr "البدء من جديد"
-
-#: generated
-msgid "Storage disabled."
-msgstr "التخزين معطل."
-
-#: generated
-msgid "Storage:"
-msgstr "التخزين:"
-
-#: generated
-msgid "Stored form data"
-msgstr "بيانات النموذج المخزنة"
-
-#: generated
-msgid "Submission Details"
-msgstr "تفاصيل التقديم"
-
-#: generated
-msgid "Survey"
-msgstr "استطلاع"
-
-#: generated
-msgid "Survey Response Details"
-msgstr "تفاصيل استجابة الاستطلاع"
-
-#: generated
-msgid "SurveyJS Preview"
-msgstr "معاينة SurveyJS"
-
-#: generated
-msgid "Table"
-msgstr "جدول"
-
-#: generated
-msgid ""
-"There are no survey responses yet. Once users submit the survey, their "
-"responses will appear here."
-msgstr ""
-"لا توجد استجابات استطلاع حتى الآن. بمجرد أن يقدم المستخدمون الاستطلاع ، "
-"ستظهر ردودهم هنا."
-
-#: generated
-msgid "Delete Result"
-msgstr "حذف النتيجة"
-
-#: generated
-msgid "Delete Selected Results"
-msgstr "حذف النتائج المحددة"
-
-#: generated
-msgid ""
-"This will permanently delete the selected result. This cannot be undone."
-msgstr "سيؤدي هذا إلى حذف النتيجة المحددة نهائيًا. لا يمكن التراجع عن هذا."
-
-#: generated
-msgid ""
-"This action will permanently delete all survey results. This cannot be "
-"undone."
-msgstr ""
-"سيؤدي هذا الإجراء إلى حذف جميع نتائج الاستطلاع نهائيًا. لا يمكن التراجع عن "
-"هذا."
-
-#: generated
-msgid ""
-"This action permanently removes the selected version. This cannot be undone."
-msgstr "يزيل هذا الإجراء الإصدار المحدد نهائيًا. لا يمكن التراجع عن هذا."
-
-#: generated
-msgid ""
-"This feature is experimental. Please review the generated form carefully."
-msgstr "هذه الميزة تجريبية. يرجى مراجعة النموذج الذي تم إنشاؤه بعناية."
-
-#: generated
-msgid ""
-"This survey is not configured to be embedded. Please contact the survey "
-"administrator."
-msgstr "هذا الاستطلاع غير مهيأ ليتم تضمينه. يرجى الاتصال بمسؤول الاستطلاع."
-
-#: generated
-msgid "To confirm, please type clear in the field below:"
-msgstr "للتأكيد ، يرجى كتابة clear في الحقل أدناه:"
-
-#: generated
-msgid "Type 'clear' to confirm"
-msgstr "اكتب 'clear' للتأكيد"
-
-#: generated
-msgid "UUID"
-msgstr "UUID"
-
-#: generated
-msgid "Unable to load submission."
-msgstr "غير قادر على تحميل التقديم."
-
-#: generated
-msgid "Upload"
-msgstr "تحميل"
-
-#: generated
-msgid "Upload JSON form schema"
-msgstr "تحميل مخطط نموذج JSON"
-
-#: generated
-msgid "Upload PDF"
-msgstr "تحميل PDF"
-
-#: generated
-msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr "قم بتحميل نموذج PDF وإنشاء SurveyJS JSON منه"
-
-#: generated
-msgid ""
-"Upload a valid SurveyJS JSON file to create a new version. The file will be "
-"validated before saving."
-msgstr ""
-"قم بتحميل ملف SurveyJS JSON صالح لإنشاء إصدار جديد. سيتم التحقق من صحة الملف "
-"قبل الحفظ."
-
-#: generated
-msgid ""
-"Use the latest saved form as the starting point instead of generating a new "
-"one."
-msgstr "استخدم أحدث نموذج محفوظ كنقطة بداية بدلاً من إنشاء نموذج جديد."
-
-#: generated
-msgid "User"
-msgstr "المستخدم"
-
-#: generated
-msgid "Version History"
-msgstr "سجل الإصدارات"
-
-#: generated
-msgid "Version ID"
-msgstr "معرف الإصدار"
-
-#: generated
-msgid "View JSON"
-msgstr "عرض JSON"
-
-#: generated
-msgid "Warning:"
-msgstr "تحذير:"
-
-#: generated
-msgid "clear"
-msgstr "مسح"
-
-#: generated
-#~ msgid "« Previous"
-#~ msgstr "« السابق"
-
-#: generated
-msgid "Failed to save survey results. Please try again."
-msgstr "فشل حفظ نتائج الاستطلاع. حاول مرة اخرى."
-
-#: generated
-msgid "Unable to load survey. Please try refreshing the page."
-msgstr "غير قادر على تحميل الاستطلاع. يرجى محاولة تحديث الصفحة."
-
-#: generated
-msgid "Lock"
-msgstr "قفل"
-
-#: generated
-msgid "Unlock"
-msgstr "فتح"
-
-#: generated
-msgid "Status"
-msgstr "الحالة"
-
-#: generated
-msgid "Effective"
-msgstr "فعال"
-
-#: generated
-msgid "Expires"
-msgstr "ينتهي"
-
-#: generated
-msgid "Stored results"
-msgstr "النتائج المخزنة"
-
-#: generated
-msgid "Published"
-msgstr "منشور"
-
-#: generated
-msgid "Inactive"
-msgstr "غير نشط"
-
-#: generated
-msgid "Store converted form as new version"
-msgstr "تخزين النموذج المحول كإصدار جديد"
-
-#: generated
-#~ msgid ""
-#~ "Conversion complete. Review the preview and click “Store converted form as "
-#~ "new version”."
-#~ msgstr ""
-#~ "اكتمل التحويل. راجع المعاينة وانقر على “تخزين النموذج المحول كإصدار جديد”."
-
-#: generated
-msgid "No converted form available to store."
-msgstr "لا يوجد نموذج محوّل متاح للتخزين."
-
-#: generated
-msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
-msgstr "تم تخزين النموذج المحول. <a href=\"${url}\">عرض الإصدارات</a>."
-
-#: generated
-msgid "Store failed"
-msgstr "فشل التخزين"
-
-#: generated
-msgid "Store failed. Please try again."
-msgstr "فشل التخزين. حاول مرة اخرى."
-
-#: generated
-msgid "Reset"
-msgstr "إعادة تعيين"
-
-#: generated
-msgid "Refresh"
-msgstr "تحديث"
-
-#: generated
-msgid "Forms overview"
-msgstr "نظرة عامة على الاستطلاع"
-
-#: generated
-msgid "Overview of forms in this section and their submission status."
-msgstr "نظرة عامة على الاستطلاعات في هذا القسم وحالة تقديمها."
-
-#: generated
-msgid "No surveys found below this location."
-msgstr "لم يتم العثور على استطلاعات أسفل هذا الموقع."
-
-msgid ""
-"Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
-"css in ++resource++zopyx.surveyjs/vendor/."
-msgstr ""
-"أصول Tabulator مفقودة. يرجى تثبيت tabulator.min.js و tabulator.min.css في ++ "
-"resource ++ zopyx.surveyjs / vendor /."
-
-#: generated
-msgid "Title"
-msgstr "عنوان"
-
-#: generated
-msgid "Description"
-msgstr "وصف"
-
-#: generated
-msgid "Workflow status"
-msgstr "حالة سير العمل"
-
-#: generated
-msgid "Submitted"
-msgstr "تم التقديم"
-
-#: generated
-msgid "Security mode"
-msgstr "وضع الأمان"
-
-#: generated
-msgid "Language"
-msgstr "لغة"
-
-msgid "First"
-msgstr "الأول"
-
-msgid "First Page"
-msgstr "الصفحة الأولى"
-
-msgid "Last"
-msgstr "الأخير"
-
-msgid "Last Page"
-msgstr "آخر صفحة"
-
-msgid "Prev"
-msgstr "السابق"
-
-msgid "Prev Page"
-msgstr "الصفحة السابقة"
-
-msgid "Next"
-msgstr "التالي"
-
-msgid "Next Page"
-msgstr "الصفحة التالية"
-
-msgid "All"
-msgstr "الكل"
-
-msgid "Page Size"
-msgstr "حجم الصفحة"
-
-msgid "Additional prompt"
-msgstr "موجه إضافي"
-
-msgid "Add extra conversion guidance..."
-msgstr "إضافة إرشادات تحويل إضافية ..."
-
-msgid "Optional instructions to guide the conversion."
-msgstr "تعليمات اختيارية لتوجيه التحويل."
-
-msgid "DOCS"
-msgstr "المستندات"
-
-msgid "Fullscreen"
-msgstr "ملء الشاشة"
-
-msgid "Exit fullscreen"
-msgstr "الخروج من وضع ملء الشاشة"
-
-msgid "AI provider missing:"
-msgstr "مزود الذكاء الاصطناعي مفقود:"
-
-msgid ""
-"AI form generation is not available because no AI provider is configured."
-msgstr ""
-"إنشاء نماذج الذكاء الاصطناعي غير متاح لأنه لم يتم تكوين أي مزود للذكاء "
-"الاصطناعي."
-
-msgid "External AI provider:"
-msgstr "مزود الذكاء الاصطناعي الخارجي:"
-
-msgid ""
-"A remote AI provider is configured and will be used. Your PDF may leave your "
-"network."
-msgstr ""
-"تم تكوين مزود ذكاء اصطناعي عن بعد وسيتم استخدامه. قد يغادر ملف PDF الخاص بك "
-"شبكتك."
-
-msgid "Local AI provider:"
-msgstr "مزود الذكاء الاصطناعي المحلي:"
-
-msgid "A local AI provider is configured. Your PDF stays within your network."
-msgstr "تم تكوين مزود ذكاء اصطناعي محلي. يبقى ملف PDF الخاص بك داخل شبكتك."
-
-#: generated
-msgid "Next "
-msgstr "التالي"
-
-#: generated
-msgid " Previous"
-msgstr "السابق"
-
-#: generated
-msgid ""
-"Conversion complete. Review the preview and click Store converted form as "
-"new version."
-msgstr ""
-"اكتمل التحويل راجع المعاينة ثم انقر على تخزين النموذج المحول كإصدار جديد"
-
-#: generated
-msgid "Form validation using pdfcpu"
-msgstr "التحقق من النماذج باستخدام pdfcpu"
-
-#: generated
-msgid "When enabled, pdfcpu is used to validate and enrich form fields."
-msgstr "عند التفعيل يتم استخدام pdfcpu للتحقق من صحة حقول النماذج وتحسينها"
-
-#: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
-"versions</a>."
-msgstr ""
-"تم استيراد النموذج وحفظه كإصدار جديد <a href=\"${url}\">عرض الإصدارات</a>"
-
-#: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class "
-"\\\"${className}\\\""
-msgstr ""
-"SurveyJS تضمين لم يتم العثور على حاويات تضمين أضف عناصر ذات الفئة "
-"${className}"
-
-msgid "Trusted access required"
-msgstr "يتطلب وصول موثوق"
-
-msgid "Ask the form owner for a trusted access link."
-msgstr "اطلب من مالك النموذج رابط وصول موثوق"
-
-msgid "Open the link in this browser to continue."
-msgstr "افتح الرابط في هذا المتصفح للمتابعة"
-
-msgid "Trusted access link"
-msgstr "رابط وصول موثوق"
-
-msgid "Share this link to open the form."
-msgstr "شارك هذا الرابط لفتح النموذج"
-
-msgid "Copy link"
-msgstr "نسخ الرابط"
-
-#: generated
-msgid "View Form"
-msgstr "عرض النموذج"
-
-#: generated
-msgid "Preview the live survey experience."
-msgstr "معاينة تجربة الاستبيان المباشر"
-
-#: generated
-msgid "Build and refine the survey form."
-msgstr "قم ببناء نموذج الاستبيان وصقله"
-
-#: generated
-msgid "PDF generator"
-msgstr "مولد PDF"
-
-#: generated
-msgid "Generate a PDF version of the current survey form."
-msgstr "إنشاء نسخة PDF من نموذج الاستبيان الحالي"
-
-#: generated
-msgid "PDF export"
-msgstr "تصدير PDF"
-
-#: generated
-msgid "Export the current SurveyJS form as a downloadable PDF."
-msgstr "تصدير نموذج SurveyJS الحالي كملف PDF قابل للتنزيل"
-
-#: generated
-msgid "Survey data dashboard"
-msgstr "لوحة بيانات الاستبيان"
-
-#: generated
-msgid "Explore responses with charts and summary insights."
-msgstr "استكشف الردود باستخدام المخططات والرؤى الملخصة"
-
-#: generated
-msgid "Fillable PDF Form"
-msgstr "نموذج PDF قابل للتعبئة"
-
-#: generated
-msgid ""
-"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
-"submissions."
-msgstr ""
-"قم بتحميل ملف PDF قابل للتعبئة لإنشاء نموذج SurveyJS وتمكين عمليات الإرسال "
-"المعتمدة على PDF"
-
-#: generated
-msgid "Password required"
-msgstr "كلمة المرور مطلوبة"
-
-#: generated
-msgid "Access to this survey is restricted. Enter the password to continue."
-msgstr "الوصول إلى هذا الاستبيان مقيد أدخل كلمة المرور للمتابعة"
-
-#: generated
-msgid "PDF Form"
-msgstr "نموذج PDF"
-
-#: generated
-msgid "Dashboard"
-msgstr "لوحة التحكم"
-
-#: generated
-msgid "PDF Generator"
-msgstr "مولد PDF"
-
-#: generated
-msgid "Form from PDF"
-msgstr "نموذج من PDF"
-
-#: generated
-msgid "Fillable PDF Forms"
-msgstr "نماذج PDF قابلة للتعبئة"
-
-#: generated
-msgid "Download PDF"
-msgstr "تحميل PDF"
-
-msgid "Choose a PDF that already contains fillable fields"
-msgstr "اختر ملف PDF يحتوي بالفعل على حقول قابلة للتعبئة"
-
-msgid "Extraction mode"
-msgstr "وضع الاستخراج"
-
-msgid ""
-"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
-"cannot always map to original PDF fields."
-msgstr ""
-"يحافظ pdfcpu على تعيين الحقول لملفات PDF المعبأة LLM هو الأفضل من حيث "
-"التخطيط ولكنه لا يستطيع دائمًا التعيين إلى حقول ملف PDF الأصلية"
-
-msgid "Analyze PDF"
-msgstr "تحليل PDF"
-
-#: zopyx/surveyjs/browser/psf.py:109
-msgid "Administration"
-msgstr "إدارة"
-
-#: zopyx/surveyjs/browser/psf.py:98
-msgid "Browse saved templates and reuse them for new forms or surveys."
-msgstr "تصفح القوالب المحفوظة وأعد استخدامها للنماذج أو الاستبيانات الجديدة"
-
-#: zopyx/surveyjs/browser/psf.py:75
-msgid "Create form"
-msgstr "إنشاء نموذج"
-
-#: zopyx/surveyjs/browser/pfs.pt:59
-msgid "Create from template"
-msgstr "إنشاء من القالب"
-
-#: zopyx/surveyjs/browser/survey_add.pt:61
-msgid "Create survey"
-msgstr "إنشاء استطلاع"
-
-#: zopyx/surveyjs/browser/survey_versions.pt:287
-msgid "Create template"
-msgstr "إنشاء قالب"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
-msgid "Detected fields"
-msgstr "الحقول المكتشفة"
-
-#: zopyx/surveyjs/browser/survey_results.pt:116
-msgid "Export range"
-msgstr "نطاق التصدير"
-
-#: zopyx/surveyjs/browser/psf.py:228
-msgid "Failed to create survey: ${error}"
-msgstr "فشل في إنشاء الاستبيان: ${error}"
-
-#: zopyx/surveyjs/browser/survey_versions.py:322
-msgid "Failed to create template: ${error}"
-msgstr "فشل إنشاء القالب: ${error}"
-
-#: zopyx/surveyjs/browser/survey_results.pt:118
-msgid "From"
-msgstr "من"
-
-#: zopyx/surveyjs/browser/survey_versions.pt:290
-msgid ""
-"Generate a new SurveyTemplate from the selected version. You can adjust the "
-"name before creation."
-msgstr ""
-"إنشاء قالب استبيان جديد من الإصدار المحدد يمكنك تعديل الاسم قبل الإنشاء"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
-msgid "LLM (visual conversion)"
-msgstr "نموذج لغة كبير (تحويل بصري)"
-
-#: zopyx/surveyjs/browser/psf.py:72
-msgid "Launch a brand-new form or survey and start collecting answers."
-msgstr "أطلق نموذجا أو استبيانا جديدا وابدأ في جمع الإجابات"
-
-#: zopyx/surveyjs/browser/survey_add.pt:46
-#: zopyx/surveyjs/browser/survey_metadata.pt:46
-msgid "Let's fix a few things:"
-msgstr "دعنا نصلح بعض الأشياء"
-
-#: zopyx/surveyjs/browser/survey_add.pt:57
-#: zopyx/surveyjs/browser/survey_metadata.pt:57
-msgid "Loading form..."
-msgstr "جارٍ تحميل النموذج"
-
-#: zopyx/surveyjs/browser/survey_actions.pt:18
-msgid "Metadata"
-msgstr "البيانات الوصفية"
-
-#: zopyx/surveyjs/browser/psf.py:195
-msgid "New Survey"
-msgstr "استبيان جديد"
-
-#: zopyx/surveyjs/browser/psf.py:71
-msgid "New form/survey"
-msgstr "نموذج/استبيان جديد"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
-msgid "No fields detected yet."
-msgstr "لم يتم اكتشاف أي حقول بعد"
-
-#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
-msgid "No survey templates found below this location."
-msgstr "لم يتم العثور على قوالب استبيان أسفل هذا الموقع"
-
-#: zopyx/surveyjs/browser/survey_template_views.py:22
-msgid "No template JSON configured."
-msgstr "لا يوجد قالب JSON مهيأ"
 
 #: zopyx/surveyjs/browser/configure.zcml:29
 msgid "Open Forms overview"
@@ -1705,55 +1645,587 @@ msgstr "فتح نظرة عامة"
 msgid "Open templates"
 msgstr "فتح القوالب"
 
+msgid "Open the link in this browser to continue."
+msgstr "افتح الرابط في هذا المتصفح للمتابعة"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Open visual editor"
+msgstr "فتح المحرر المرئي"
+
+#: generated
+msgid "Optional BCC recipients for result exports (one address per line)."
+msgstr "مستلمو نسخة مخفية اختياريون لتصدير النتائج (عنوان واحد لكل سطر)."
+
+#: generated
+msgid "Optional CC recipients for result exports (one address per line)."
+msgstr "مستلمو نسخة اختيارية لتصدير النتائج (عنوان واحد لكل سطر)."
+
+#: generated
+msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+msgstr "نقطة نهاية HTTP اختيارية لتلقي التقديمات كـ JSON عند تمكين إجراء POST."
+
+msgid "Optional instructions to guide the conversion."
+msgstr "تعليمات اختيارية لتوجيه التحويل."
+
+#: ../browser/fillable_pdf.pt:834
+msgid "Options"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:783
+msgid "Options: ${options}"
+msgstr ""
+
+#: generated
+msgid "Overall Satisfaction"
+msgstr ""
+
+#: generated
+msgid "Overview of forms in this section and their submission status."
+msgstr "نظرة عامة على الاستطلاعات في هذا القسم وحالة تقديمها."
+
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:39
 msgid "Overview of survey templates available in this section."
 msgstr "نظرة عامة على قوالب الاستبيانات المتاحة في هذا القسم"
+
+#: generated
+msgid "PDF (.pdf)"
+msgstr "PDF (.pdf)"
+
+#: generated
+msgid "PDF Form"
+msgstr "نموذج PDF"
+
+#: generated
+msgid "PDF Form Import"
+msgstr "استيراد نموذج PDF"
+
+#: generated
+msgid "PDF Form Importer"
+msgstr "مستورد نماذج PDF"
+
+#: generated
+msgid "PDF Generator"
+msgstr "مولد PDF"
+
+#: generated
+msgid "PDF Preview"
+msgstr "معاينة PDF"
+
+#: ../browser/fillable_pdf.pt:637
+msgid "PDF Template"
+msgstr ""
+
+#: generated
+msgid "PDF export"
+msgstr "تصدير PDF"
+
+#: generated
+msgid "PDF file"
+msgstr "ملف PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "PDF form"
+msgstr "نموذج PDF"
+
+#: generated
+msgid "PDF generator"
+msgstr "مولد PDF"
+
+#: generated
+msgid "POST action is not enabled for this survey"
+msgstr "إجراء POST غير ممكّن لهذا الاستطلاع"
+
+#: generated
+msgid "POST endpoint URL"
+msgstr "عنوان URL لنقطة نهاية POST"
+
+#: generated
+msgid "POST result"
+msgstr "نتيجة POST"
+
+#: generated
+msgid "POST to endpoint"
+msgstr "إرسال إلى نقطة النهاية"
+
+#: ../browser/fillable_pdf.pt:730
+msgid "Page ${page}"
+msgstr ""
+
+msgid "Page Size"
+msgstr "حجم الصفحة"
+
+#: generated
+msgid "Parse error: ${error}"
+msgstr ""
+
+#: generated
+msgid "Password required"
+msgstr "كلمة المرور مطلوبة"
+
+#: ../browser/survey_monitor.pt:84
+msgid "Per Minute"
+msgstr ""
+
+#: generated
+msgid "Please enter a description"
+msgstr "الرجاء إدخال وصف"
 
 #: zopyx/surveyjs/browser/survey_add.py:96
 #: zopyx/surveyjs/browser/survey_metadata.py:111
 msgid "Please provide a title for your survey."
 msgstr "يرجى تقديم عنوان لاستبيانك"
 
+#: generated
+msgid "Please select a PDF file to upload."
+msgstr "الرجاء تحديد ملف PDF لتحميله."
+
 #: zopyx/surveyjs/browser/psf.py:162
 msgid "Please select a template."
 msgstr "يرجى اختيار قالب"
+
+#: generated
+msgid "Please share your experience with us."
+msgstr ""
+
+#: generated
+msgid "Poll ID is required"
+msgstr "معرف الاستطلاع مطلوب"
+
+#: generated
+msgid "Poll ID:"
+msgstr "معرف الاستطلاع:"
+
+#: generated
+msgid "Poll result not found"
+msgstr "لم يتم العثور على نتيجة الاستطلاع"
+
+msgid "Prev"
+msgstr "السابق"
+
+msgid "Prev Page"
+msgstr "الصفحة السابقة"
+
+#: generated
+msgid "Preview"
+msgstr "معاينة"
+
+#: generated
+msgid "Preview Form"
+msgstr "معاينة النموذج"
+
+#: generated
+msgid "Preview JSON"
+msgstr "معاينة JSON"
+
+#: generated
+msgid "Preview error:"
+msgstr "خطأ في المعاينة:"
+
+#. Default: "Preview form"
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "معاينة النموذج"
+
+#: generated
+msgid "Preview mode - form not submitted"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:48
 msgid "Preview the form/surveey template."
 msgstr "معاينة قالب النموذج/الاستبيان"
 
+#: generated
+msgid "Preview the live survey experience."
+msgstr "معاينة تجربة الاستبيان المباشر"
+
+#: ../browser/theme_manager.pt:111
+msgid "Preview theme"
+msgstr ""
+
+#: generated
+msgid "Primary recipient for notifications and result exports (single address). "
+msgstr "المستلم الأساسي للإشعارات وتصدير النتائج (عنوان واحد). "
+
+#: generated
+msgid "Privacy Forms Studio"
+msgstr "استوديو نماذج الخصوصية"
+
+#: ../browser/survey_monitor.pt:160
+msgid "Processing Time"
+msgstr ""
+
+#: generated
+msgid "Processing..."
+msgstr "جارٍ المعالجة ..."
+
+#: ../browser/fillable_pdf.pt:836
+msgid "Properties"
+msgstr ""
+
+msgid "Public"
+msgstr "عام"
+
+#: generated
+msgid "Published"
+msgstr "منشور"
+
+#: ../browser/survey_monitor.pt:111
+msgid "Rate Limit Status"
+msgstr ""
+
+#: generated
+msgid "Rate limited"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:859
+msgid "Read-only"
+msgstr ""
+
+#: ../browser/theme_editor.pt:112
+msgid "Read-only view of the current theme definition."
+msgstr ""
+
+#: generated
+msgid "Refine Form"
+msgstr "تحسين النموذج"
+
+#: generated
+msgid "Refine Your Form"
+msgstr "صقل النموذج الخاص بك"
+
+#: generated
+msgid "Refine existing form"
+msgstr "تحسين النموذج الحالي"
+
+#: generated
+msgid "Refinement ${index}"
+msgstr "تحسين ${index}"
+
+#: generated
+msgid "Refinement History"
+msgstr "سجل التحسين"
+
+#: generated
+msgid "Refinement failed"
+msgstr "فشل التحسين"
+
+#: generated
+msgid "Refining..."
+msgstr "جارٍ التحسين ..."
+
+#: generated
+msgid "Refresh"
+msgstr "تحديث"
+
+#: generated
+msgid "Requested export format is not available"
+msgstr "تنسيق التصدير المطلوب غير متوفر"
+
+#: ../browser/fillable_pdf.pt:862
+msgid "Required"
+msgstr ""
+
+#: generated
+msgid "Reset"
+msgstr "إعادة تعيين"
+
+#: ../browser/survey_monitor.pt:146
+msgid "Reset to the full time window"
+msgstr ""
+
+#: generated
+msgid "Restore"
+msgstr "استعادة"
+
+#: ../browser/theme_editor.pt:52
+msgid "Restore Version"
+msgstr ""
+
+#: ../browser/theme_editor.pt:81
+msgid "Restore a version"
+msgstr ""
+
+#: generated
+msgid "Restore failed: ${error}"
+msgstr ""
+
+#: generated
+msgid "Restore to previous version"
+msgstr "الاستعادة إلى الإصدار السابق"
+
+#: generated
+msgid "Restore version"
+msgstr "استعادة الإصدار"
+
+#: generated
+msgid "Restored version from ${date}"
+msgstr ""
+
+#: generated
+msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
+msgstr "ستؤدي الاستعادة إلى إنشاء إصدار جديد باستخدام اللقطة المحددة والاحتفاظ بالإصدار الحالي في السجل."
+
+#: generated
+msgid "Result POSTed to endpoint (status ${status})"
+msgstr "تم إرسال النتيجة إلى نقطة النهاية (الحالة ${status})"
+
+#: generated
+msgid "Results"
+msgstr "النتائج"
+
+#: generated
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr "لا يتم حفظ النتائج لأن إجراء \"التخزين\" متوقف."
+
+#: generated
+msgid "Results cleared"
+msgstr "تم مسح النتائج"
+
+#: generated
+msgid "Row"
+msgstr "صف"
+
+#: generated
+msgid "Run the external SurveyJS validator binary for every save/submit."
+msgstr "قم بتشغيل ثنائي مدقق SurveyJS الخارجي لكل عملية حفظ / إرسال."
+
+#: generated
+msgid "Satisfied"
+msgstr ""
+
+#: ../browser/survey_versions.pt:155
+#: ../browser/theme_editor.pt:45
+msgid "Save"
+msgstr ""
+
+#: generated
+msgid "Save Form"
+msgstr "حفظ النموذج"
+
+#: ../browser/theme_editor.pt:46
+msgid "Save a new version"
+msgstr ""
+
 #: zopyx/surveyjs/browser/survey_metadata.pt:61
 msgid "Save changes"
 msgstr "حفظ التغييرات"
 
-#: zopyx/surveyjs/browser/psf.py:85
-msgid ""
-"See every form or survey at a glance, surface trends, and jump right in."
+#: generated
+msgid "Save failed"
+msgstr "فشل الحفظ"
+
+#: generated
+msgid "Save failed: ${error}"
 msgstr ""
-"شاهد كل نموذج أو استبيان بنظرة واحدة واكتشف الاتجاهات وابدأ العمل فورًا"
+
+#: ../browser/survey_editor.pt:111
+msgid "Save selected theme to survey metadata"
+msgstr ""
+
+#: ../browser/survey_editor.pt:111
+msgid "Save theme"
+msgstr ""
+
+#: generated
+msgid "Saving"
+msgstr "جارٍ الحفظ"
+
+#: generated
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search by user, UUID, or date"
+msgstr "البحث حسب المستخدم أو UUID أو التاريخ"
+
+#: generated
+msgid "Search by user..."
+msgstr "البحث حسب المستخدم ..."
+
+#: generated
+msgid "Security mode"
+msgstr "وضع الأمان"
+
+#: zopyx/surveyjs/browser/psf.py:85
+msgid "See every form or survey at a glance, surface trends, and jump right in."
+msgstr "شاهد كل نموذج أو استبيان بنظرة واحدة واكتشف الاتجاهات وابدأ العمل فورًا"
+
+#: generated
+msgid "Select JSON file:"
+msgstr "حدد ملف JSON:"
+
+#: generated
+msgid "Select all results"
+msgstr "تحديد كل النتائج"
+
+#: zopyx/surveyjs/browser/pfs.pt:18
+msgid "Select an action"
+msgstr "ماذا تود أن تفعل اليوم"
 
 #: zopyx/surveyjs/browser/survey_add.py:100
 #: zopyx/surveyjs/browser/survey_metadata.py:115
 msgid "Select at least one submission handling option."
 msgstr "حدد خيار معالجة إرسال واحد على الأقل"
 
-#: zopyx/surveyjs/browser/pfs.pt:61
-msgid "Create a new form or survey using one of your curated presets."
-msgstr ""
-"ابدأ نموذجًا أو استبيانًا جديدًا باستخدام أحد الإعدادات المسبقة المنسقة "
-"الخاصة بك"
+#: generated
+msgid "Select export formats to attach when the Mail action sends results."
+msgstr "حدد تنسيقات التصدير لإرفاقها عندما يرسل إجراء البريد النتائج."
 
-#: zopyx/surveyjs/browser/pfs.pt:19
-msgid ""
-"Choose a guided action appropriate to your role. These shortcuts help team "
-"members manage form and survey data consistently and efficiently."
+#: generated
+msgid "Select how to handle survey submissions (multiple options possible). "
+msgstr "حدد كيفية التعامل مع تقديمات الاستطلاع (خيارات متعددة ممكنة). "
+
+#: generated
+msgid "Select result"
+msgstr "تحديد النتيجة"
+
+#: generated
+msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgstr "عنوان المرسل للبريد الصادر. إلزامي عند تحديد إجراء البريد."
+
+#: generated
+msgid "Sequence:"
+msgstr "تسلسل:"
+
+msgid "Share this link to open the form."
+msgstr "شارك هذا الرابط لفتح النموذج"
+
+#: ../browser/fillable_pdf.pt:778
+msgid "Signature field (filled via UI)"
 msgstr ""
-"ابدأ بإجراء موجه يتوافق مع دورك هذه الاختصارات تحافظ على إنتاجية كل عضو في "
-"الفريق وتعزز ثقته وتمنحه التحكم في بيانات النماذج أو الاستبيانات الخاصة به"
+
+#: generated
+msgid "Sports"
+msgstr ""
+
+#: generated
+msgid "Start Over"
+msgstr "البدء من جديد"
+
+#. Default: "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+msgstr "ابدأ مسودة SurveyJS مؤقتة باستخدام طلب. الطلب الأول ينشئ نموذج مساحة العمل."
+
+#: generated
+msgid "Start over? This will clear your refinement history and return to the initial prompt."
+msgstr "البدء من جديد؟ سيؤدي هذا إلى مسح سجل التحسين الخاص بك والعودة إلى المطالبة الأولية."
+
+#: generated
+msgid "Status"
+msgstr "الحالة"
+
+#: ../browser/ai.pt:210
+msgid "Step back: ${step}"
+msgstr ""
+
+#: generated
+msgid "Storage disabled."
+msgstr "التخزين معطل."
+
+#: generated
+msgid "Storage:"
+msgstr "التخزين:"
+
+#: generated
+msgid "Store"
+msgstr "تخزين"
+
+#. Default: "Store as new version"
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "حفظ كنسخة جديدة"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "تخزين النموذج المحول كإصدار جديد"
+
+#: generated
+msgid "Store failed"
+msgstr "فشل التخزين"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "فشل التخزين. حاول مرة اخرى."
+
+#: generated
+msgid "Stored form data"
+msgstr "بيانات النموذج المخزنة"
+
+#: generated
+msgid "Stored results"
+msgstr "النتائج المخزنة"
+
+#: ../browser/llm_models.pt:50
+msgid "Streaming"
+msgstr ""
+
+#: generated
+msgid "Subject"
+msgstr "الموضوع"
+
+#: generated
+msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "موضوع رسائل البريد الإلكتروني للإشعارات فقط. يدعم {title} و {detail_url} و {poll_id}."
+
+#: generated
+msgid "Subject for notifications"
+msgstr "موضوع الإشعارات"
+
+#: generated
+msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr "موضوع رسائل البريد الإلكتروني لتصدير النتائج. يدعم {poll_id} لمعرف التقديم. "
+
+#: generated
+msgid "Submission Details"
+msgstr "تفاصيل التقديم"
+
+#: ../browser/survey_monitor.pt:140
+msgid "Submission Rate Over Time"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:187
+msgid "Submissions"
+msgstr ""
+
+#: generated
+msgid "Submissions / min"
+msgstr ""
+
+#: generated
+msgid "Submitted"
+msgstr "تم التقديم"
+
+#: generated
+msgid "Suggestions"
+msgstr ""
+
+#: generated
+msgid "Survey"
+msgstr "استطلاع"
+
+#: generated
+msgid "Survey Embed Error"
+msgstr "خطأ في تضمين الاستطلاع"
+
+#: generated
+msgid "Survey Form"
+msgstr "نموذج استطلاع"
+
+#: generated
+msgid "Survey Response Details"
+msgstr "تفاصيل استجابة الاستطلاع"
+
+#: ../browser/survey_monitor.pt:28
+msgid "Survey Submission Monitor"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:38
 msgid "Survey Templates Overview"
 msgstr "نظرة عامة على قوالب الاستبيان"
+
+#: generated
+msgid "Survey closed"
+msgstr "تم إغلاق الاستطلاع"
 
 #: zopyx/surveyjs/browser/psf.py:235
 msgid "Survey created from template."
@@ -1763,9 +2235,84 @@ msgstr "تم إنشاء الاستبيان من قالب"
 msgid "Survey created. Let's build it!"
 msgstr "تم إنشاء الاستبيان لنقم ببنائه"
 
+#: generated
+msgid "Survey data dashboard"
+msgstr "لوحة بيانات الاستبيان"
+
+#: generated
+msgid "Survey embedding is not allowed. Please contact the survey administrator."
+msgstr "تضمين الاستطلاع غير مسموح به. يرجى الاتصال بمسؤول الاستطلاع."
+
+#: generated
+msgid "Survey library not loaded"
+msgstr "لم يتم تحميل مكتبة الاستطلاع"
+
+#: generated
+msgid "Survey open"
+msgstr "استطلاع مفتوح"
+
 #: zopyx/surveyjs/browser/survey_metadata.py:136
 msgid "Survey updated."
 msgstr "تم تحديث الاستبيان"
+
+#: generated
+msgid "SurveyJS Embed: Element not found"
+msgstr "تضمين SurveyJS: لم يتم العثور على العنصر"
+
+#: generated
+msgid "SurveyJS Embed: Error handling resize message"
+msgstr "تضمين SurveyJS: خطأ في معالجة رسالة تغيير الحجم"
+
+#: generated
+msgid "SurveyJS Embed: Error requesting height"
+msgstr "تضمين SurveyJS: خطأ في طلب الارتفاع"
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+msgstr "تضمين SurveyJS: لم يتم العثور على حاويات تضمين. أضف عناصر بالفئة \"${className}\""
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \\\"${className}\\\""
+msgstr "SurveyJS تضمين لم يتم العثور على حاويات تضمين أضف عناصر ذات الفئة ${className}"
+
+#: ../browser/survey_actions.pt:147
+msgid "SurveyJS License Key"
+msgstr "مفتاح ترخيص SurveyJS"
+
+#: ../browser/survey_actions.pt:169
+msgid "SurveyJS Licensing"
+msgstr "ترخيص SurveyJS"
+
+#: ../browser/survey_actions.pt:160
+msgid "SurveyJS Licensing Terms"
+msgstr "شروط ترخيص SurveyJS"
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr "معاينة SurveyJS"
+
+#: ../browser/survey_actions.pt:166
+msgid "SurveyJS Pricing"
+msgstr "أسعار SurveyJS"
+
+#: generated
+msgid "SurveyJS preview failed."
+msgstr ""
+
+#: ../browser/survey_editor.pt:104
+msgid "Switch theme"
+msgstr ""
+
+#: generated
+msgid "Table"
+msgstr "جدول"
+
+msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+msgstr "أصول Tabulator مفقودة. يرجى تثبيت tabulator.min.js و tabulator.min.css في ++ resource ++ zopyx.surveyjs / vendor /."
+
+#: generated
+msgid "Technology"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_versions.pt:165
 msgid "Template"
@@ -1807,46 +2354,414 @@ msgstr "القالب غير متاح"
 msgid "Templates overview"
 msgstr "نظرة عامة على القوالب"
 
+#. Default: "Temporary SurveyJS Preview"
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "معاينة SurveyJS المؤقتة"
+
+#. Default: "Temporary form is available and can be previewed, refined, or stored as new version."
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new version."
+msgstr "النموذج المؤقت متوفر ويمكن معاينته وتحسينه أو حفظه كنسخة جديدة."
+
+#: generated
+msgid "Text (.txt)"
+msgstr "نص (.txt)"
+
+#: ../browser/survey_actions.pt:149
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "تتطلب مكونات Creator وDashboard ترخيص SurveyJS للاستخدام في الإنتاج."
+
+#: ../browser/fillable_pdf.pt:805
+msgid "The following fields were extracted from the uploaded PDF template."
+msgstr ""
+
+#: ../browser/survey_actions.pt:179
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "يسر مشرف هذه الإضافة مساعدتك — تواصل معنا على"
+
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:73
 msgid "The template JSON could not be loaded."
 msgstr "تعذر تحميل قالب JSON"
 
+#: generated
+msgid "Theme"
+msgstr ""
+
+#: ../browser/theme_editor.pt:11
+msgid "Theme Editor"
+msgstr ""
+
+#: ../browser/theme_editor.pt:111
+msgid "Theme JSON"
+msgstr ""
+
+#: ../browser/theme_editor.pt:118
+msgid "Theme JSON (read-only)"
+msgstr ""
+
+#: generated
+msgid "Theme JSON copied to clipboard"
+msgstr ""
+
+#: ../browser/theme_manager.pt:19
+msgid "Theme Manager"
+msgstr ""
+
+#: generated
+msgid "Theme could not be loaded"
+msgstr ""
+
+#: ../browser/theme_editor.pt:80
+msgid "Theme history"
+msgstr ""
+
+#: generated
+msgid "Theme loaded: ${name} · ${version}"
+msgstr ""
+
+#: ../browser/theme_manager.pt:73
+msgid "Theme preview"
+msgstr ""
+
+#: generated
+msgid "Theme saved (${count} versions)"
+msgstr ""
+
+#: generated
+msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+msgstr "لا توجد استجابات استطلاع حتى الآن. بمجرد أن يقدم المستخدمون الاستطلاع ، ستظهر ردودهم هنا."
+
+#: generated
+msgid "This action permanently removes the selected version. This cannot be undone."
+msgstr "يزيل هذا الإجراء الإصدار المحدد نهائيًا. لا يمكن التراجع عن هذا."
+
+#: generated
+msgid "This action will permanently delete all survey results. This cannot be undone."
+msgstr "سيؤدي هذا الإجراء إلى حذف جميع نتائج الاستطلاع نهائيًا. لا يمكن التراجع عن هذا."
+
+#: generated
+msgid "This feature is experimental. Please review the generated form carefully."
+msgstr "هذه الميزة تجريبية. يرجى مراجعة النموذج الذي تم إنشاؤه بعناية."
+
 #: zopyx/surveyjs/browser/survey_viewer.pt:120
 #: zopyx/surveyjs/browser/viewer_embed.pt:58
-msgid ""
-"This form requires a trusted access link. Please use the link provided by "
-"the form owner."
+msgid "This form requires a trusted access link. Please use the link provided by the form owner."
+msgstr "يتطلب هذا النموذج رابط وصول موثوقا الرجاء استخدام الرابط الذي وفره مالك النموذج"
+
+#: ../browser/embedded_demo.pt:46
+msgid "This is a demo page for demonstrating the embedded mode using the survey's iframe viewer."
 msgstr ""
-"يتطلب هذا النموذج رابط وصول موثوقا الرجاء استخدام الرابط الذي وفره مالك "
-"النموذج"
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr "هذا مساعد للبدء ، وليس نموذجًا نهائيًا."
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "لم يستلم هذا الاستبيان أي ردود بعد. بمجرد أن يكمل المشاركون النموذج، ستظهر نتائجهم هنا."
+
+#: generated
+msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgstr "هذا الاستطلاع غير مهيأ ليتم تضمينه. يرجى الاتصال بمسؤول الاستطلاع."
 
 #: zopyx/surveyjs/browser/survey_versions.pt:303
 msgid "This template will be created next to the current survey."
 msgstr "سيتم إنشاء هذا القالب بجانب الاستبيان الحالي"
 
+#: generated
+msgid "This will permanently delete the selected result. This cannot be undone."
+msgstr "سيؤدي هذا إلى حذف النتيجة المحددة نهائيًا. لا يمكن التراجع عن هذا."
+
+#: ../browser/survey_monitor.pt:44
+msgid "Time Window:"
+msgstr ""
+
+#: generated
+msgid "Title"
+msgstr "عنوان"
+
 #: zopyx/surveyjs/browser/survey_results.pt:122
 msgid "To"
 msgstr "إلى"
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr "للتأكيد ، يرجى كتابة clear في الحقل أدناه:"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:94
 msgid "Token"
 msgstr "رمز"
 
+#: ../browser/survey_actions.pt:56
+msgid "Tokens"
+msgstr ""
+
+#: ../browser/llm_models.pt:52
+msgid "Tools"
+msgstr ""
+
+#: ../browser/token_store.pt:38
+msgid "Total"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:74
+msgid "Total Submissions"
+msgstr ""
+
+msgid "Trusted access link"
+msgstr "رابط وصول موثوق"
+
+msgid "Trusted access required"
+msgstr "يتطلب وصول موثوق"
+
+msgid "Trusted access token"
+msgstr "رمز وصول موثوق به"
+
+msgid "Trusted access token TTL (hours)"
+msgstr "مدة صلاحية رمز الوصول الموثوق به (بالساعات)"
+
+#: ../browser/fillable_pdf.pt:833
+msgid "Type"
+msgstr ""
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr "اكتب 'clear' للتأكيد"
+
 #: zopyx/surveyjs/browser/survey_viewer.pt:79
 msgid "URL"
 msgstr "رابط URL"
+
+#: generated
+msgid "UUID"
+msgstr "UUID"
+
+#: generated
+msgid "Unable to load submission."
+msgstr "غير قادر على تحميل التقديم."
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr "غير قادر على تحميل الاستطلاع. يرجى محاولة تحديث الصفحة."
+
+#: ../browser/survey_monitor.pt:94
+msgid "Unique Users"
+msgstr ""
+
+#: generated
+msgid "Unknown error"
+msgstr "خطأ غير معروف"
+
+#: generated
+msgid "Unlock"
+msgstr "فتح"
+
+#: ../browser/survey_editor.py:47
+msgid "Unnamed"
+msgstr ""
+
+msgid "Unsaved changes"
+msgstr "تغييرات غير محفوظة"
+
+#: ../browser/survey_monitor.py:119
+msgid "Untitled"
+msgstr ""
+
+#: ../browser/token_store.pt:42
+msgid "Unused"
+msgstr ""
+
+msgid "Update"
+msgstr "تحديث"
+
+#: generated
+msgid "Upload"
+msgstr "تحميل"
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr "تحميل مخطط نموذج JSON"
+
+#: generated
+msgid "Upload PDF"
+msgstr "تحميل PDF"
+
+#: ../browser/fillable_pdf.pt:648
+msgid "Upload PDF Template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:32
+msgid "Upload Theme JSON"
+msgstr ""
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr "قم بتحميل نموذج PDF وإنشاء SurveyJS JSON منه"
+
+#: ../browser/fillable_pdf.pt:644
+msgid "Upload a fillable PDF form (.pdf file only)"
+msgstr ""
+
+#: generated
+msgid "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions."
+msgstr "قم بتحميل ملف PDF قابل للتعبئة لإنشاء نموذج SurveyJS وتمكين عمليات الإرسال المعتمدة على PDF"
+
+#. Default: "Upload a source document and generate a temporary SurveyJS form draft with AI."
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "حمّل مستند مصدر وأنشئ مسودة نموذج SurveyJS مؤقتة باستخدام الذكاء الاصطناعي."
+
+#: generated
+msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+msgstr "قم بتحميل ملف SurveyJS JSON صالح لإنشاء إصدار جديد. سيتم التحقق من صحة الملف قبل الحفظ."
+
+#. Default: "Upload and Convert"
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "تحميل وتحويل"
+
+#: generated
+msgid "Upload and Create Version"
+msgstr "تحميل وإنشاء إصدار"
+
+#. Default: "Upload documents and convert them to SurveyJS forms using AI"
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "حمّل المستندات وحوّلها إلى نماذج SurveyJS باستخدام الذكاء الاصطناعي"
+
+#: generated
+msgid "Upload failed: ${error}"
+msgstr ""
+
+#. Default: "Uploading..."
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "جارٍ التحميل..."
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr "استخدم مطالبات واضحة ومحددة للحصول على أفضل النتائج."
+
+#: generated
+msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgstr "استخدم أحدث نموذج محفوظ كنقطة بداية بدلاً من إنشاء نموذج جديد."
+
+#: ../browser/token_store.pt:46
+msgid "Used"
+msgstr ""
+
+#: generated
+msgid "User"
+msgstr "المستخدم"
+
+#: generated
+msgid "User:"
+msgstr "المستخدم:"
+
+#: generated
+msgid "Validate submissions against the form schema before saving. "
+msgstr "تحقق من صحة التقديمات مقابل مخطط النموذج قبل الحفظ. "
+
+#: ../browser/theme_editor.pt:90
+msgid "Version"
+msgstr ""
+
+#: generated
+msgid "Version ${current} of ${total}"
+msgstr "الإصدار ${current} من ${total}"
+
+#: generated
+msgid "Version ${number}"
+msgstr ""
+
+#: generated
+msgid "Version ${number} · ${date}"
+msgstr ""
+
+#: generated
+msgid "Version History"
+msgstr "سجل الإصدارات"
+
+#: generated
+msgid "Version ID"
+msgstr "معرف الإصدار"
+
+#: generated
+msgid "Version deleted"
+msgstr "تم حذف الإصدار"
+
+#: generated
+msgid "Version is locked and cannot be deleted"
+msgstr "الإصدار مقفل ولا يمكن حذفه"
+
+#: generated
+msgid "Version locked"
+msgstr "الإصدار مقفل"
+
+#: generated
+msgid "Version not found"
+msgstr "لم يتم العثور على الإصدار"
+
+#: generated
+msgid "Version restored successfully. A new version has been created."
+msgstr "تمت استعادة الإصدار بنجاح. تم إنشاء إصدار جديد."
+
+#: generated
+msgid "Version unlocked"
+msgstr "تم إلغاء قفل الإصدار"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:294
 msgid "Version:"
 msgstr "الإصدار"
 
+#: generated
+msgid "Versions"
+msgstr "الإصدارات"
+
+#: generated
+msgid "Very satisfied"
+msgstr ""
+
+#: generated
+msgid "View"
+msgstr "عرض"
+
+#: generated
+msgid "View Form"
+msgstr "عرض النموذج"
+
+#: generated
+msgid "View JSON"
+msgstr "عرض JSON"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View dashboard"
+msgstr "عرض لوحة التحكم"
+
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:47
 msgid "View form/survey template"
 msgstr "عرض قالب النموذج/الاستبيان"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View results"
+msgstr "عرض النتائج"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View survey form"
+msgstr "عرض النموذج"
+
 #: zopyx/surveyjs/browser/psf.py:110
 msgid "Visit the control panel to adjust site-wide settings and integrations."
 msgstr "قم بزيارة لوحة التحكم لضبط إعدادات الموقع العامة وعمليات التكامل"
+
+#: generated
+msgid "Visual Editor"
+msgstr "محرر مرئي"
+
+#: generated
+msgid "Warning:"
+msgstr "تحذير:"
 
 #: zopyx/surveyjs/browser/survey_add.py:112
 msgid "We could not create the survey at the moment. Please try again."
@@ -1861,9 +2776,37 @@ msgstr "لم نتمكن من قراءة بيانات النموذج المرسل
 msgid "We could not update the survey at the moment. Please try again."
 msgstr "لم نتمكن من تحديث الاستبيان في الوقت الحالي الرجاء المحاولة مرة أخرى"
 
-#: zopyx/surveyjs/browser/pfs.pt:18
-msgid "Select an action"
-msgstr "ماذا تود أن تفعل اليوم"
+#: generated
+msgid "What would you like to change?"
+msgstr "ماذا تريد ان تغير؟"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr "عند التفعيل يتم استخدام pdfcpu للتحقق من صحة حقول النماذج وتحسينها"
+
+#: generated
+msgid "Within limits"
+msgstr ""
+
+#: generated
+msgid "Word (.docx)"
+msgstr "Word (.docx)"
+
+#: generated
+msgid "Workflow status"
+msgstr "حالة سير العمل"
+
+#: generated
+msgid "Would you recommend us?"
+msgstr ""
+
+#: generated
+msgid "XML (.xml)"
+msgstr "XML (.xml)"
+
+#: ../browser/fillable_pdf.pt:760
+msgid "Yes"
+msgstr ""
 
 #: zopyx/surveyjs/browser/psf.py:158
 #: zopyx/surveyjs/browser/survey_add.py:63
@@ -1874,9 +2817,44 @@ msgstr "لا يُسمح لك بإضافة استبيانات هنا"
 msgid "You are not allowed to edit this survey."
 msgstr "لا يُسمح لك بتعديل هذا الاستبيان"
 
+#: ../browser/survey_actions.pt:173
+msgid "You can add your license key in the"
+msgstr "يمكنك إضافة مفتاح الترخيص الخاص بك في"
+
 #: zopyx/surveyjs/browser/survey_versions.py:292
 msgid "You do not have permission to add templates here."
 msgstr "ليس لديك إذن لإضافة القوالب هنا"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "لديك تعديلات لم يتم حفظها بعد."
+
+#: generated
+msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgstr "أنت تحفظ الإصدار ${version}. لم يتم تحديد أحدث إصدار. متابعة؟"
+
+#: generated
+msgid "Your name"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:142
+msgid "Zoom in"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:142
+msgid "Zoom into the current time range"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:144
+msgid "Zoom out"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:144
+msgid "Zoom out of the current time range"
+msgstr ""
+
+#: ../browser/survey_actions.pt:168
+msgid "and"
+msgstr "و"
 
 #. Default: "Select a template"
 #: zopyx/surveyjs/browser/pfs.pt:66
@@ -1885,303 +2863,103 @@ msgstr "ليس لديك إذن لإضافة القوالب هنا"
 msgid "aria-label"
 msgstr "aria-label"
 
+#. Default: "Example: Create an event registration form with contact details, session choices, and consent."
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "مثال: أنشئ نموذج تسجيل حدث يتضمن تفاصيل الاتصال واختيارات الجلسات والموافقة."
+
+#. Default: "Example: Add a section for contact preferences and make email required."
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "مثال: أضف قسمًا لتفضيلات الاتصال واجعل البريد الإلكتروني إلزاميًا."
+
+#: generated
+msgid "clear"
+msgstr "مسح"
+
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
 msgstr "مسح-الكلمة-الدلالية"
 
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "حذف إدخال السجل هذا"
+
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "حذف إدخال السجل هذا"
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "العودة إلى هذا الإصدار"
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "العودة إلى هذا الإصدار"
+
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"
 msgstr "pdfcpu (الحقول المهيكلة)"
+
+msgid "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields."
+msgstr "يحافظ pdfcpu على تعيين الحقول لملفات PDF المعبأة LLM هو الأفضل من حيث التخطيط ولكنه لا يستطيع دائمًا التعيين إلى حقول ملف PDF الأصلية"
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "تحديد قالب"
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "تحديد قالب"
+
+#. Default: "Toggle template list"
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "تبديل قائمة القوالب"
+
+#: generated
+msgid "total"
+msgstr ""
+
+#: generated
+msgid "version ${current} of ${total}"
+msgstr "الإصدار ${current} من ${total}"
+
+#: generated
+msgid "version ${number}"
+msgstr ""
+
+#: generated
+msgid "version unknown"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
 msgstr "يجب أن يكون تاريخ \"إلى\" بعد تاريخ \"من\""
 
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View survey form"
-msgstr "عرض النموذج"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently viewing survey form"
-msgstr "جارٍ عرض النموذج"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Edit metadata"
-msgstr "تحرير البيانات الوصفية"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently editing metadata"
-msgstr "جارٍ تحرير البيانات الوصفية"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "PDF form"
-msgstr "نموذج PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently on PDF form"
-msgstr "في نموذج PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Open visual editor"
-msgstr "فتح المحرر المرئي"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in visual editor"
-msgstr "في المحرر المرئي"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Manage versions"
-msgstr "إدارة الإصدارات"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently managing versions"
-msgstr "جارٍ إدارة الإصدارات"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "AI form generator"
-msgstr "مولد النماذج بالذكاء الاصطناعي"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in AI generator"
-msgstr "في مولد الذكاء الاصطناعي"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View results"
-msgstr "عرض النتائج"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently viewing results"
-msgstr "جارٍ عرض النتائج"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View dashboard"
-msgstr "عرض لوحة التحكم"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently on dashboard"
-msgstr "في لوحة التحكم"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Import form from PDF"
-msgstr "استيراد نموذج من PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently importing from PDF"
-msgstr "جارٍ الاستيراد من PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Fillable PDF forms setup"
-msgstr "إعداد نماذج PDF القابلة للتعبئة"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in fillable PDF forms setup"
-msgstr "في إعداد نماذج PDF القابلة للتعبئة"
-
-
-#: browser/survey_results.pt
-msgid "No results yet"
-msgstr "لا توجد نتائج بعد"
-
-#: browser/survey_results.pt
-msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
-msgstr "لم يستلم هذا الاستبيان أي ردود بعد. بمجرد أن يكمل المشاركون النموذج، ستظهر نتائجهم هنا."
-
-
-#: browser/survey_actions.pt
-msgid "SurveyJS License Key"
-msgstr "مفتاح ترخيص SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "The Creator and Dashboard components require a SurveyJS license for production use."
-msgstr "تتطلب مكونات Creator وDashboard ترخيص SurveyJS للاستخدام في الإنتاج."
-
-#: browser/survey_actions.pt
-msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
-msgstr "يغطي ترخيص SurveyJS المطورين الفرديين داخل مؤسستك — وهو <strong>ليس</strong> لكل مستخدم نهائي يملأ نماذجك."
-
-#: browser/survey_actions.pt
-msgid "By using Privacy Form Studio, you acknowledge and accept the"
-msgstr "باستخدام Privacy Form Studio، فإنك تقر وتقبل"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Licensing Terms"
-msgstr "شروط ترخيص SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "For pricing and licensing options, please visit"
-msgstr "للاطلاع على خيارات التسعير والترخيص، يرجى زيارة"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Pricing"
-msgstr "أسعار SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "and"
-msgstr "و"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Licensing"
-msgstr "ترخيص SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "You can add your license key in the"
-msgstr "يمكنك إضافة مفتاح الترخيص الخاص بك في"
-
-#: browser/survey_actions.pt
-msgid "Forms Settings"
-msgstr "إعدادات النماذج"
-
-#: browser/survey_actions.pt
-msgid "Have questions?"
-msgstr "هل لديك أسئلة؟"
-
-#: browser/survey_actions.pt
-msgid "The maintainer of this add-on is happy to help — reach out at"
-msgstr "يسر مشرف هذه الإضافة مساعدتك — تواصل معنا على"
-
-#: ../browser/ai.pt:42
-msgid "AI"
-msgstr "ذكاء اصطناعي"
-
-#: ../browser/ai.pt:45
-msgid "AI Assistant"
-msgstr "مساعد الذكاء الاصطناعي"
-
-#: ../browser/ai.pt:76
-msgid "Accepted formats: PDF, DOCX, ODT, HTML."
-msgstr "التنسيقات المقبولة: PDF، DOCX، ODT، HTML."
-
-#: ../browser/ai.pt:185
-msgid "Apply AI Change"
-msgstr "تطبيق تغيير الذكاء الاصطناعي"
-
-#: ../browser/ai.pt:193
-msgid "Applying..."
-msgstr "جارٍ التطبيق..."
-
-#: ../browser/ai.pt:204
-msgid "Ask AI to change the current temporary form. Each prompt builds on the "
-"latest temporary version."
-msgstr "اطلب من الذكاء الاصطناعي تغيير النموذج المؤقت الحالي. كل طلب ينطلق من أحدث "
-"نسخة مؤقتة."
-
-#: ../browser/ai.pt:95
-msgid "Clear workspace"
-msgstr "مساحة العمل"
-
-#: ../browser/ai.pt:89
-msgid "Current Temporary State"
-msgstr "الحالة المؤقتة الحالية"
-
-#: ../browser/ai.pt:35
-msgid "Document To Online Form"
-msgstr "مستند إلى نموذج عبر الإنترنت"
-
-#: ../browser/ai.pt:110
-msgid "Generate AI Draft"
-msgstr "إنشاء مسودة بالذكاء الاصطناعي"
-
-#: ../browser/ai.pt:208
-msgid "History (max 5)"
-msgstr "السجل (5 كحد أقصى)"
-
-#: ../browser/ai.pt:101
-msgid "Improve Temporary Form"
-msgstr "تحسين النموذج المؤقت"
-
-#: ../browser/ai.pt:143
-msgid "Latest version to workspace"
-msgstr "أحدث نسخة إلى مساحة العمل"
-
-#: ../browser/ai.pt:49
-msgid "Model:"
-msgstr "النموذج:"
-
-#: ../browser/ai.pt:217
-msgid "No chat refinement history yet."
-msgstr "لا يوجد سجل تحسين دردشة بعد."
-
-#: ../browser/ai.pt:83
-msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
-"latest version."
-msgstr "لا يوجد نموذج مؤقت بعد. حمّل مستندًا، أو ابدأ واحدًا عبر الدردشة، أو انسخ "
-"أحدث نسخة."
-
-#: ../browser/ai.pt:127
-msgid "Preview form"
-msgstr "معاينة النموذج"
-
-#: ../browser/ai.pt:157
-msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
-"workspace form."
-msgstr "ابدأ مسودة SurveyJS مؤقتة باستخدام طلب. الطلب الأول ينشئ نموذج مساحة العمل."
-
-#: ../browser/ai.pt:199
-msgid "Step back:"
-msgstr "خطوة للخلف:"
-
-#: ../browser/ai.pt:137
-msgid "Store as new version"
-msgstr "حفظ كنسخة جديدة"
-
-#: ../browser/ai.pt:68
-msgid "Temporary SurveyJS Preview"
-msgstr "معاينة SurveyJS المؤقتة"
-
-#: ../browser/ai.pt:72
-msgid "Temporary form is available and can be previewed, refined, or stored as new "
-"version."
-msgstr "النموذج المؤقت متوفر ويمكن معاينته وتحسينه أو حفظه كنسخة جديدة."
-
-#: ../browser/ai.pt:58
-msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
-msgstr "حمّل مستند مصدر وأنشئ مسودة نموذج SurveyJS مؤقتة باستخدام الذكاء الاصطناعي."
-
-#: ../browser/ai.pt:55
-msgid "Upload and Convert"
-msgstr "تحميل وتحويل"
-
-#: ../browser/ai.pt:38
-msgid "Upload documents and convert them to SurveyJS forms using AI"
-msgstr "حمّل المستندات وحوّلها إلى نماذج SurveyJS باستخدام الذكاء الاصطناعي"
-
-#: ../browser/ai.pt:65
-msgid "Uploading..."
-msgstr "جارٍ التحميل..."
-
-#: ../browser/ai.pt:174
-msgid "chat_prompt_placeholder_empty"
-msgstr "مثال: أنشئ نموذج تسجيل حدث يتضمن تفاصيل الاتصال واختيارات الجلسات والموافقة."
-
-#: ../browser/ai.pt:166
-msgid "chat_prompt_placeholder_ready"
-msgstr "مثال: أضف قسمًا لتفضيلات الاتصال واجعل البريد الإلكتروني إلزاميًا."
-
-#: ../browser/ai.pt:245
-msgid "history_delete_aria_label"
-msgstr "حذف إدخال السجل هذا"
-
-#: ../browser/ai.pt:244
-msgid "history_delete_title"
-msgstr "حذف إدخال السجل هذا"
-
-#: ../browser/ai.pt:226
-msgid "history_revert_aria_label"
-msgstr "العودة إلى هذا الإصدار"
-
-#: ../browser/ai.pt:225
-msgid "history_revert_title"
-msgstr "العودة إلى هذا الإصدار"
-
-#: ../browser/pfs.pt:70
-msgid "template_search_aria_label"
-msgstr "تحديد قالب"
-
-#: ../browser/pfs.pt:69
-msgid "template_search_placeholder"
-msgstr "تحديد قالب"
-
-#: ../browser/pfs.pt:74
-msgid "template_toggle_aria_label"
-msgstr "تبديل قائمة القوالب"
+#: ../browser/survey_monitor.pt:130
+msgid "⚠️ Rate limited"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:127
+msgid "✅ Within limits"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:853
+msgid "✓ Yes"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:854
+msgid "✗ No"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:231
+msgid "🧹 Cleanup Old Data"
+msgstr ""

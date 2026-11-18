@@ -1,56 +1,264 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: zopyx.surveyjs\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2026-02-24 06:33+0000\n"
 "PO-Revision-Date: 2026-02-24 07:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+"Language: es\n"
 "X-Generator: Autopo v1.0.8\n"
 
-#: browser/static/js
-#: generated
+#: browser/static/js generated
 msgid " (Version ${version})"
 msgstr " (Versión ${version})"
+
+#: generated
+msgid " Previous"
+msgstr "Anterior"
+
+#: generated
+msgid "#"
+msgstr "#"
+
+#: ../browser/survey_monitor.pt:119
+msgid "${count} /min"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:688
+msgid "${count} KB"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:692
+msgid "${count} fields"
+msgstr ""
+
+#: ../browser/token_store.pt:125
+msgid "${heading} Generate tokens to create unique access URLs. Each token can only be used once. Download the CSV to distribute URLs to participants."
+msgstr ""
+
+#: ../browser/token_store.pt:128
+msgid "${heading} Upload a CSV file with a single column named ${token}. Each token must be at least 8 characters long. Example:"
+msgstr ""
+
+#: ../browser/llm_models.pt:21
+msgid "${library} library not installed. ${command}"
+msgstr ""
+
+#: generated
+msgid "${name} — Preview"
+msgstr ""
+
+#: ../browser/token_store.pt:115
+msgid "&#x26A0; Clear All"
+msgstr ""
+
+#: ../browser/theme_editor.pt:40
+msgid "&larr; Back to Themes"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:856
+msgid "(empty)"
+msgstr ""
 
 #: generated
 msgid "--"
 msgstr "--"
 
+#: ../browser/fillable_pdf.pt:768
+msgid "-- Select --"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:120
+msgid "5min Average:"
+msgstr ""
+
+#: ../browser/survey_actions.pt:154
+msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
+msgstr "Una licencia de SurveyJS cubre a desarrolladores individuales dentro de su organización — <strong>no</strong> es por usuario final que completa sus formularios."
+
+msgid "A local AI provider is configured. Your PDF stays within your network."
+msgstr "Hay un proveedor de IA local configurado. Su PDF permanece dentro de su red."
+
+#: generated
+msgid "A preview of how this theme looks on a form."
+msgstr ""
+
+msgid "A remote AI provider is configured and will be used. Your PDF may leave your network."
+msgstr "Hay un proveedor de IA remoto configurado y se utilizará. Su PDF puede salir de su red."
+
+#. Default: "AI"
+#: ../browser/ai.pt:42
+msgid "AI"
+msgstr "IA"
+
+#. Default: "AI Assistant"
+#: ../browser/ai.pt:45
+msgid "AI Assistant"
+msgstr "Asistente de IA"
+
+#: generated
+msgid "AI Form Generator"
+msgstr "Generador de formularios de IA"
+
 #: generated
 msgid "AI Generator"
 msgstr "Generador de IA"
 
+msgid "AI form generation is not available because no AI provider is configured."
+msgstr "La generación de formularios de IA no está disponible porque no hay ningún proveedor de IA configurado."
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "AI form generator"
+msgstr "Generador de formularios IA"
+
+msgid "AI provider missing:"
+msgstr "Falta el proveedor de IA:"
+
+#: generated
+msgid "About You"
+msgstr ""
+
+#. Default: "Accepted formats: PDF, DOCX, ODT, HTML."
+#: ../browser/ai.pt:76
+msgid "Accepted formats: PDF, DOCX, ODT, HTML."
+msgstr "Formatos aceptados: PDF, DOCX, ODT, HTML."
+
+#: ../browser/token_store.pt:23
+msgid "Access Tokens"
+msgstr ""
+
+msgid "Access mode"
+msgstr "Modo de acceso"
+
+#: generated
+msgid "Access to this survey is restricted. Enter the password to continue."
+msgstr "El acceso a esta encuesta está restringido Ingresa la contraseña para continuar"
+
+#: generated
+msgid "Action"
+msgstr "Acción"
+
 #: generated
 msgid "Actions"
 msgstr "Acciones"
+
+#: ../browser/survey_monitor.pt:104
+msgid "Active Forms"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:195
+msgid "Activity"
+msgstr ""
+
+msgid "Add extra conversion guidance..."
+msgstr "Añadir guía de conversión extra..."
+
+#: generated
+msgid "Additional comments"
+msgstr ""
+
+msgid "Additional prompt"
+msgstr "Aviso adicional"
+
+#: zopyx/surveyjs/browser/psf.py:109
+msgid "Administration"
+msgstr "Administración"
+
+#: generated
+msgid "Age Group"
+msgstr ""
+
+#: ../browser/llm_models.pt:38
+msgid "Aliases"
+msgstr ""
+
+msgid "All"
+msgstr "Todos"
 
 #: generated
 msgid "All results have been cleared successfully."
 msgstr "Todos los resultados han sido borrados con éxito."
 
 #: generated
+msgid "Always review and adjust the generated form before use."
+msgstr "Revise y ajuste siempre el formulario generado antes de usarlo."
+
+msgid "Analyze PDF"
+msgstr "Analyze PDF"
+
+#: generated
 msgid "Answer"
 msgstr "Respuesta"
+
+#. Default: "Apply AI Change"
+#: ../browser/ai.pt:185
+msgid "Apply AI Change"
+msgstr "Aplicar cambio de IA"
+
+#. Default: "Applying..."
+#: ../browser/ai.pt:193
+msgid "Applying..."
+msgstr "Aplicando..."
+
+#: ../browser/theme_manager.pt:57
+msgid "Are you sure you want to delete ${name}?"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:933
+msgid "Are you sure you want to delete the PDF template?"
+msgstr ""
+
+#. Default: "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+#: ../browser/ai.pt:204
+msgid "Ask AI to change the current temporary form. Each prompt builds on the latest temporary version."
+msgstr "Pide a la IA que cambie el formulario temporal actual. Cada indicación parte de la última versión temporal."
+
+msgid "Ask the form owner for a trusted access link."
+msgstr "Pide al propietario del formulario un enlace de acceso de confianza"
+
+#: ../browser/llm_models.pt:53
+msgid "Async"
+msgstr ""
+
+#: generated
+msgid "Attach File"
+msgstr ""
 
 #: generated
 msgid "Attached file: ${name}"
 msgstr "Archivo adjunto: ${name}"
+
+#: ../browser/survey_monitor.pt:60
+msgid "Auto-refresh (30s)"
+msgstr ""
+
+#: generated
+msgid "Average"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:193
+msgid "Avg Processing"
+msgstr ""
 
 #: generated
 msgid "BCC recipient"
 msgstr "Destinatario CCO"
 
 #: generated
-msgid ""
-"Be specific about the types of questions, response formats, and any "
-"particular fields you need."
-msgstr ""
-"Sea específico sobre los tipos de preguntas, los formatos de respuesta y "
-"cualquier campo particular que necesite."
+msgid "Back to results"
+msgstr "Volver a los resultados"
+
+#: generated
+msgid "Be specific about the types of questions, response formats, and any particular fields you need."
+msgstr "Sea específico sobre los tipos de preguntas, los formatos de respuesta y cualquier campo particular que necesite."
 
 #: generated
 msgid "Beta"
@@ -65,20 +273,24 @@ msgid "Body for notifications"
 msgstr "Cuerpo para notificaciones"
 
 #: generated
-msgid ""
-"Body text for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
-msgstr ""
-"Texto del cuerpo para correos electrónicos de solo notificación. Admite "
-"{title}, {detail_url}, {poll_id}."
+msgid "Body text for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "Texto del cuerpo para correos electrónicos de solo notificación. Admite {title}, {detail_url}, {poll_id}."
 
 #: generated
-msgid ""
-"Body text for result export emails. Supports {created}, {creator}, {formats}."
-""
-msgstr ""
-"Texto del cuerpo para correos electrónicos de exportación de resultados. "
-"Admite {created}, {creator}, {formats}."
+msgid "Body text for result export emails. Supports {created}, {creator}, {formats}."
+msgstr "Texto del cuerpo para correos electrónicos de exportación de resultados. Admite {created}, {creator}, {formats}."
+
+#: zopyx/surveyjs/browser/psf.py:98
+msgid "Browse saved templates and reuse them for new forms or surveys."
+msgstr "Explora las plantillas guardadas y reutilízalas para nuevos formularios o encuestas"
+
+#: generated
+msgid "Build and refine the survey form."
+msgstr "Crear y perfeccionar el formulario de encuesta"
+
+#: ../browser/survey_actions.pt:159
+msgid "By using Privacy Form Studio, you acknowledge and accept the"
+msgstr "Al usar Privacy Form Studio, usted reconoce y acepta los"
 
 #: generated
 msgid "CC recipient"
@@ -88,13 +300,280 @@ msgstr "Destinatario CC"
 msgid "CSV (.csv)"
 msgstr "CSV (.csv)"
 
+#: ../browser/survey_monitor.pt:35
+msgid "Cache: ${path}"
+msgstr ""
+
+#: generated
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ../browser/llm_models.pt:37
+msgid "Capabilities"
+msgstr ""
+
+#: ../browser/survey_actions.pt:81
+msgid "Chatbot"
+msgstr ""
+
+msgid "Choose a PDF that already contains fillable fields"
+msgstr "Elige un PDF que ya contenga campos rellenables"
+
+#: generated
+msgid "Choose a PDF that contains the form layout you want to convert."
+msgstr "Elija un PDF que contenga el diseño del formulario que desea convertir."
+
+#: zopyx/surveyjs/browser/pfs.pt:19
+msgid "Choose a guided action appropriate to your role. These shortcuts help team members manage form and survey data consistently and efficiently."
+msgstr "Comienza con una acción guiada que se ajuste a tu función Estos atajos mantienen a cada miembro del equipo productivo seguro y en control de los datos de sus formularios o encuestas"
+
+#: ../browser/theme_editor.pt:82
+msgid "Choose an earlier saved version to use as the current theme."
+msgstr ""
+
+msgid "Choose whether this form is publicly accessible or requires a trusted access token in the URL."
+msgstr "Elija si este formulario es de acceso público o requiere un token de acceso de confianza en la URL."
+
+#: ../browser/llm_models.pt:36
+msgid "Class"
+msgstr ""
+
+#: generated
+msgid "Clear All Results"
+msgstr "Borrar todos los resultados"
+
+#: generated
+msgid "Clear all results"
+msgstr "Borrar todos los resultados"
+
+#: ../browser/token_store.pt:139
+msgid "Clear all tokens?"
+msgstr ""
+
+#. Default: "Clear workspace"
+#: ../browser/ai.pt:95
+msgid "Clear workspace"
+msgstr "Borrar espacio de trabajo"
+
+#: generated
+msgid "Close"
+msgstr "Cerrar"
+
+#: ../browser/theme_manager.pt:75
+msgid "Close preview"
+msgstr ""
+
+#: generated
+msgid "Confirm delete"
+msgstr "Confirmar eliminación"
+
+#: generated
+msgid "Confirm restore"
+msgstr "Confirmar restauración"
+
+#: generated
+msgid "Conversion complete. Review the preview and click Store converted form as new version."
+msgstr "Conversión completa Revisa la vista previa y haz clic en Guardar formulario convertido como nueva versión"
+
+#: generated
+msgid "Convert PDF"
+msgstr "Convertir PDF"
+
+#: generated
+msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
+msgstr "Formulario convertido almacenado. <a href=\"${url}\">Ver versiones</a>."
+
+#: generated
+msgid "Copied ✓"
+msgstr ""
+
+#: ../browser/theme_editor.pt:122
+msgid "Copy"
+msgstr ""
+
+#: generated
+msgid "Copy failed"
+msgstr ""
+
+#: generated
+msgid "Copy failed: ${error}"
+msgstr ""
+
+msgid "Copy link"
+msgstr "Copiar enlace"
+
+#: ../browser/theme_manager.pt:48
+msgid "Create"
+msgstr ""
+
+#: zopyx/surveyjs/browser/pfs.pt:61
+msgid "Create a new form or survey using one of your curated presets."
+msgstr "Inicia un nuevo formulario o encuesta utilizando uno de tus presets seleccionados"
+
+#: zopyx/surveyjs/browser/psf.py:75
+msgid "Create form"
+msgstr "Crear formulario"
+
+#: zopyx/surveyjs/browser/pfs.pt:59
+msgid "Create from template"
+msgstr "Crear desde plantilla"
+
+#: zopyx/surveyjs/browser/survey_add.pt:61
+msgid "Create survey"
+msgstr "Crear encuesta"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:287
+msgid "Create template"
+msgstr "Crear plantilla"
+
+#: ../browser/survey_result_detail.pt:65
+#: ../browser/theme_editor.pt:90
+msgid "Created"
+msgstr ""
+
+#: generated
+msgid "Created:"
+msgstr "Creado:"
+
+#: generated
+msgid "Cumulative"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:114
+msgid "Current Minute:"
+msgstr ""
+
+#. Default: "Current Temporary State"
+#: ../browser/ai.pt:89
+msgid "Current Temporary State"
+msgstr "Estado temporal actual"
+
+#: generated
+msgid "Current Version:"
+msgstr "Versión actual:"
+
+#: ../browser/theme_editor.pt:110
+msgid "Current theme"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently editing metadata"
+msgstr "Editando metadatos"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently importing from PDF"
+msgstr "Importando de PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in AI generator"
+msgstr "En generador IA"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in fillable PDF forms setup"
+msgstr "En configuración de formularios PDF rellenables"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently in visual editor"
+msgstr "En editor visual"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently managing versions"
+msgstr "Gestionando versiones"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on PDF form"
+msgstr "En formulario PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently on dashboard"
+msgstr "En panel"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing results"
+msgstr "Viendo resultados"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Currently viewing survey form"
+msgstr "Viendo formulario"
+
+#: generated
+msgid "Customer Satisfaction Survey"
+msgstr ""
+
+#: generated
+msgid "Customer feedback"
+msgstr ""
+
+msgid "DOCS"
+msgstr "DOCS"
+
+#: generated
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: generated
+msgid "Date"
+msgstr "Fecha"
+
+#: generated
+msgid "Date/Time"
+msgstr "Fecha/Hora"
+
+#: generated
+msgid "Date:"
+msgstr "Fecha:"
+
+#: ../browser/theme_manager.pt:97
+msgid "Default"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:835
+msgid "Default Value"
+msgstr ""
+
+#: generated
+msgid "Delete"
+msgstr "Eliminar"
+
 #: generated
 msgid "Delete ${count} selected result(s)?"
 msgstr "¿Eliminar ${count} resultado(s) seleccionado(s)?"
 
 #: generated
+msgid "Delete Result"
+msgstr "Eliminar resultado"
+
+#: generated
+msgid "Delete Selected Results"
+msgstr "Eliminar resultados seleccionados"
+
+#: ../browser/theme_manager.pt:56
+msgid "Delete Theme"
+msgstr ""
+
+#: generated
+msgid "Delete result"
+msgstr "Eliminar resultado"
+
+#: generated
+msgid "Delete selected"
+msgstr "Eliminar seleccionados"
+
+#: ../browser/fillable_pdf.pt:674
+msgid "Delete template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:128
+msgid "Delete theme"
+msgstr ""
+
+#: generated
 msgid "Delete this result?"
 msgstr "¿Eliminar este resultado?"
+
+#: generated
+msgid "Delete version"
+msgstr "Eliminar versión"
 
 #: generated
 msgid "Describe Your Form"
@@ -107,6 +586,83 @@ msgstr "Describa los cambios que desea realizar en el formulario actual."
 #: generated
 msgid "Describe the form you want to create:"
 msgstr "Describa el formulario que desea crear:"
+
+#: generated
+msgid "Describe your survey in natural language and let AI generate the form"
+msgstr "Describa su encuesta en lenguaje natural y deje que la IA genere el formulario"
+
+#: generated
+msgid "Description"
+msgstr "Descripción"
+
+#: generated
+msgid "Details"
+msgstr "Detalles"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
+msgid "Detected fields"
+msgstr "Campos detectados"
+
+#: generated
+msgid "Dissatisfied"
+msgstr ""
+
+#. Default: "Document To Online Form"
+#: ../browser/ai.pt:35
+msgid "Document To Online Form"
+msgstr "Documento a formulario en línea"
+
+#: generated
+msgid "Download"
+msgstr "Descargar"
+
+#: ../browser/fillable_pdf.pt:795
+msgid "Download Filled PDF"
+msgstr ""
+
+#: generated
+msgid "Download PDF"
+msgstr "Descargar PDF"
+
+#: ../browser/token_store.pt:108
+msgid "Download all tokens"
+msgstr ""
+
+#: generated
+msgid "Download form definition (JSON)"
+msgstr "Descargar definición del formulario (JSON)"
+
+#: generated
+msgid "Download form definition as JSON"
+msgstr "Descargar definición del formulario como JSON"
+
+#: generated
+msgid "Download result"
+msgstr "Descargar resultado"
+
+#: generated
+msgid "Download results (CSV)"
+msgstr "Descargar resultados (CSV)"
+
+#: generated
+msgid "Download results (JSON)"
+msgstr "Descargar resultados (JSON)"
+
+#: ../browser/fillable_pdf.pt:664
+msgid "Download template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:123
+msgid "Download theme"
+msgstr ""
+
+#: ../browser/token_store.pt:103
+msgid "Download valid tokens"
+msgstr ""
+
+#: ../browser/token_store.pt:134
+msgid "Duplicate tokens (already existing in the store) will be skipped during import."
+msgstr ""
 
 #: generated
 msgid "E-Mail BCC"
@@ -128,6 +684,22 @@ msgstr "Remitente de correo electrónico"
 msgid "Edit"
 msgstr "Editar"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Edit metadata"
+msgstr "Editar metadatos"
+
+#: ../browser/theme_manager.pt:118
+msgid "Edit theme"
+msgstr ""
+
+#: generated
+msgid "Effective"
+msgstr "Efectivo"
+
+#: generated
+msgid "Email *"
+msgstr ""
+
 #: generated
 msgid "Email address to receive a blind copy"
 msgstr "Dirección de correo electrónico para recibir una copia oculta"
@@ -136,9 +708,37 @@ msgstr "Dirección de correo electrónico para recibir una copia oculta"
 msgid "Email address to receive a copy"
 msgstr "Dirección de correo electrónico para recibir una copia"
 
+#: ../browser/embedded_demo.pt:9
+msgid "Embedded Survey Demo"
+msgstr ""
+
+#: ../browser/embedded_demo.pt:50
+msgid "Embedded mental health survey demo"
+msgstr ""
+
+#: generated
+msgid "Embedding Not Allowed"
+msgstr "Inserción no permitida"
+
+#: generated
+msgid "Enable it in the survey settings to collect and view responses here."
+msgstr "Habilítelo en la configuración de la encuesta para recopilar y ver las respuestas aquí."
+
 #: generated
 msgid "Enable validation (experimental)"
 msgstr "Habilitar validación (experimental)"
+
+#: ../browser/theme_manager.pt:42
+msgid "Enter a name for the new theme."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:706
+msgid "Enter values for the PDF fields below and submit to generate a filled PDF."
+msgstr ""
+
+#: generated
+msgid "Enter your name"
+msgstr ""
 
 #: generated
 msgid "Error clearing results:"
@@ -185,27 +785,20 @@ msgid "Error saving form:"
 msgstr "Error al guardar el formulario:"
 
 #: generated
+msgid "Error:"
+msgstr "Error:"
+
+#: generated
 msgid "Error: ${error}"
 msgstr "Error: ${error}"
 
 #: generated
-msgid ""
-"Example: Add rating scales for each question, Include a comments section at "
-"the end, Change the first question to a dropdown"
-msgstr ""
-"Ejemplo: Agregue escalas de calificación para cada pregunta, incluya una "
-"sección de comentarios al final, cambie la primera pregunta a un menú "
-"desplegable"
+msgid "Example: Add rating scales for each question, Include a comments section at the end, Change the first question to a dropdown"
+msgstr "Ejemplo: Agregue escalas de calificación para cada pregunta, incluya una sección de comentarios al final, cambie la primera pregunta a un menú desplegable"
 
 #: generated
-msgid ""
-"Example: Create a customer satisfaction survey with questions about product "
-"quality, delivery experience, and overall satisfaction. Include rating "
-"scales and a comments section."
-msgstr ""
-"Ejemplo: Cree una encuesta de satisfacción del cliente con preguntas sobre "
-"la calidad del producto, la experiencia de entrega y la satisfacción general."
-" Incluya escalas de calificación y una sección de comentarios."
+msgid "Example: Create a customer satisfaction survey with questions about product quality, delivery experience, and overall satisfaction. Include rating scales and a comments section."
+msgstr "Ejemplo: Cree una encuesta de satisfacción del cliente con preguntas sobre la calidad del producto, la experiencia de entrega y la satisfacción general. Incluya escalas de calificación y una sección de comentarios."
 
 #: generated
 msgid "Excel (.xlsx)"
@@ -215,46 +808,86 @@ msgstr "Excel (.xlsx)"
 msgid "Existing form"
 msgstr "Formulario existente"
 
+msgid "Exit fullscreen"
+msgstr "Salir de pantalla completa"
+
+#: generated
+msgid "Experimental:"
+msgstr "Experimental:"
+
+#: generated
+msgid "Expires"
+msgstr "Expira"
+
+#: generated
+msgid "Explore responses with charts and summary insights."
+msgstr "Explora respuestas con gráficos y perspectivas resumidas"
+
+#: ../browser/theme_editor.pt:62
+msgid "Export"
+msgstr ""
+
+#: generated
+msgid "Export failed"
+msgstr ""
+
+#: generated
+msgid "Export failed: HTTP ${status}"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_results.pt:116
+msgid "Export range"
+msgstr "Rango de exportación"
+
+#: generated
+msgid "Export the current SurveyJS form as a downloadable PDF."
+msgstr "Exportar el formulario actual de SurveyJS como un PDF descargable"
+
+#: generated
+msgid "Exported ${name}"
+msgstr ""
+
+msgid "External AI provider:"
+msgstr "Proveedor de IA externo:"
+
+msgid "Extraction mode"
+msgstr "Modo de extracción"
+
 #: generated
 msgid "Failed to POST result: ${error}"
 msgstr "Error al enviar el resultado: ${error}"
 
 #: generated
-msgid ""
-"Failed to clear results. Please check the console for more information."
-msgstr ""
-"No se pudieron borrar los resultados. Por favor, consulte la consola para "
-"más información."
+msgid "Failed to clear results. Please check the console for more information."
+msgstr "No se pudieron borrar los resultados. Por favor, consulte la consola para más información."
+
+#: zopyx/surveyjs/browser/psf.py:228
+msgid "Failed to create survey: ${error}"
+msgstr "No se pudo crear la encuesta: ${error}"
+
+#: zopyx/surveyjs/browser/survey_versions.py:322
+msgid "Failed to create template: ${error}"
+msgstr "Error al crear la plantilla: ${error}"
 
 #: generated
-msgid ""
-"Failed to delete selected results. Please check the console for details."
-msgstr ""
-"No se pudieron eliminar los resultados seleccionados. Por favor, consulte la "
-"consola para más detalles."
+msgid "Failed to delete selected results. Please check the console for details."
+msgstr "No se pudieron eliminar los resultados seleccionados. Por favor, consulte la consola para más detalles."
 
 #: generated
 msgid "Failed to delete the result. Please check the console for details."
-msgstr ""
-"No se pudo eliminar el resultado. Por favor, consulte la consola para más "
-"detalles."
+msgstr "No se pudo eliminar el resultado. Por favor, consulte la consola para más detalles."
 
 #: generated
 msgid "Failed to generate form. Please try again."
 msgstr "No se pudo generar el formulario. Por favor, inténtelo de nuevo."
 
 #: generated
-msgid ""
-"Failed to load JSON data. Please check the console for more information."
-msgstr ""
-"No se pudieron cargar los datos JSON. Por favor, consulte la consola para "
-"más información."
+msgid "Failed to load JSON data. Please check the console for more information."
+msgstr "No se pudieron cargar los datos JSON. Por favor, consulte la consola para más información."
 
 #: generated
 msgid "Failed to load details. Please check the console for more information."
-msgstr ""
-"No se pudieron cargar los detalles. Por favor, consulte la consola para más "
-"información."
+msgstr "No se pudieron cargar los detalles. Por favor, consulte la consola para más información."
 
 #: generated
 msgid "Failed to load survey"
@@ -262,21 +895,15 @@ msgstr "Error al cargar la encuesta"
 
 #: generated
 msgid "Failed to load survey. Please check the URL and try again."
-msgstr ""
-"No se pudo cargar la encuesta. Por favor, verifique la URL e inténtelo de "
-"nuevo."
+msgstr "No se pudo cargar la encuesta. Por favor, verifique la URL e inténtelo de nuevo."
 
 #: generated
 msgid "Failed to refine existing form. Please try again."
-msgstr ""
-"No se pudo refinar el formulario existente. Por favor, inténtelo de nuevo."
+msgstr "No se pudo refinar el formulario existente. Por favor, inténtelo de nuevo."
 
 #: generated
-msgid ""
-"Failed to refine form. Your current version is preserved. Please try again."
-msgstr ""
-"No se pudo refinar el formulario. Se conserva su versión actual. Por favor, "
-"inténtelo de nuevo."
+msgid "Failed to refine form. Your current version is preserved. Please try again."
+msgstr "No se pudo refinar el formulario. Se conserva su versión actual. Por favor, inténtelo de nuevo."
 
 #: generated
 msgid "Failed to render preview: ${error}"
@@ -286,13 +913,102 @@ msgstr "Error al renderizar la vista previa: ${error}"
 msgid "Failed to save form: ${error}"
 msgstr "Error al guardar el formulario: ${error}"
 
+#~ msgid "« Previous"
+#~ msgstr "« Anterior"
+#: generated
+msgid "Failed to save survey results. Please try again."
+msgstr "No se pudieron guardar los resultados de la encuesta. Por favor, inténtelo de nuevo."
+
 #: generated
 msgid "Failed to send mail: ${error}"
 msgstr "Error al enviar el correo: ${error}"
 
+#: ../browser/survey_actions.pt:187
+msgid "Feature disabled, access forbidden."
+msgstr ""
+
+#: generated
+msgid "Feedback"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:832
+msgid "Field Name"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:867
+msgid "Field exists in JSON form"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:870
+msgid "Field not found in JSON form"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:886
+msgid "Fields defined in the current JSON form (from AI generation or editor)."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:659
+msgid "File"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:705
+msgid "Fill PDF Form"
+msgstr ""
+
+#: ../browser/survey_actions.pt:72
+msgid "Fillable PDF"
+msgstr ""
+
+#: generated
+msgid "Fillable PDF Form"
+msgstr "Formulario PDF editable"
+
+#: generated
+msgid "Fillable PDF Forms"
+msgstr "Formularios PDF rellenables"
+
+#: ../browser/fillable_pdf.pt:621
+#: ../content/survey.py:472
+msgid "Fillable PDF Template"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Fillable PDF forms setup"
+msgstr "Configurar formularios PDF rellenables"
+
+msgid "First"
+msgstr "Primero"
+
+msgid "First Page"
+msgstr "Primera página"
+
+#: ../browser/survey_actions.pt:165
+msgid "For pricing and licensing options, please visit"
+msgstr "Para opciones de precios y licencias, visite"
+
 #: generated
 msgid "Force Server Side Validation"
 msgstr "Forzar validación del lado del servidor"
+
+#: ../browser/survey_monitor.pt:184
+msgid "Form"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:179
+msgid "Form Activity"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:804
+msgid "Form Fields"
+msgstr ""
+
+#: generated
+msgid "Form JSON"
+msgstr "Formulario JSON"
+
+#: generated
+msgid "Form Preview"
+msgstr "Vista previa del formulario"
 
 #: generated
 msgid "Form Results"
@@ -303,24 +1019,32 @@ msgid "Form Settings"
 msgstr "Configuración del formulario"
 
 #: generated
+msgid "Form Version Management"
+msgstr "Gestión de versiones de formularios"
+
+#: generated
 msgid "Form View"
 msgstr "Vista de formulario"
 
 #: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\"${url}\">View versions</"
-"a>."
-msgstr ""
-"Formulario importado y guardado como una nueva versión. <a href="
-"\"${url}\">Ver versiones</a>."
+msgid "Form from PDF"
+msgstr "Formulario desde PDF"
 
 #: generated
-msgid ""
-"Form saved successfully! You can now view it in the Visual Editor or "
-"Versions."
-msgstr ""
-"¡Formulario guardado con éxito! Ahora puede verlo en el Editor Visual o en "
-"Versiones."
+msgid "Form imported and saved as a new version. <a href=\"${url}\">View versions</a>."
+msgstr "Formulario importado y guardado como una nueva versión. <a href=\"${url}\">Ver versiones</a>."
+
+#: generated
+msgid "Form imported and saved as a new version. <a href=\\\"${url}\\\">View versions</a>."
+msgstr "Formulario importado y guardado como una nueva versión <a href=\"${url}\">Ver versiones</a>"
+
+#: generated
+msgid "Form saved successfully! You can now view it in the Visual Editor or Versions."
+msgstr "¡Formulario guardado con éxito! Ahora puede verlo en el Editor Visual o en Versiones."
+
+#: generated
+msgid "Form validation using pdfcpu"
+msgstr "Validación de formularios usando pdfcpu"
 
 #: generated
 msgid "Form/Survey"
@@ -330,13 +1054,57 @@ msgstr "Formulario/Encuesta"
 msgid "Formats"
 msgstr "Formatos"
 
+#: ../browser/survey_actions.pt:174
+msgid "Forms Settings"
+msgstr "Configuración de formularios"
+
+#: generated
+msgid "Forms overview"
+msgstr "Resumen de la encuesta"
+
+#: zopyx/surveyjs/browser/survey_results.pt:118
+msgid "From"
+msgstr "Desde"
+
+#: generated
+msgid "Full Name *"
+msgstr ""
+
+msgid "Fullscreen"
+msgstr "Pantalla completa"
+
+#: ../browser/token_store.pt:89
+msgid "Generate"
+msgstr ""
+
+#. Default: "Generate AI Draft"
+#: ../browser/ai.pt:110
+msgid "Generate AI Draft"
+msgstr "Generar borrador con IA"
+
 #: generated
 msgid "Generate Form"
 msgstr "Generar formulario"
 
 #: generated
+msgid "Generate a PDF version of the current survey form."
+msgstr "Generar una versión en PDF del formulario de encuesta actual"
+
+#: zopyx/surveyjs/browser/survey_versions.pt:290
+msgid "Generate a new SurveyTemplate from the selected version. You can adjust the name before creation."
+msgstr "Generar una nueva PlantillaDeEncuesta a partir de la versión seleccionada Puedes ajustar el nombre antes de crearla"
+
+#: generated
 msgid "Generate forms using AI"
 msgstr "Generar formularios usando IA"
+
+#: ../browser/token_store.pt:61
+msgid "Generate new tokens"
+msgstr ""
+
+#: generated
+msgid "Generated form preview will appear here."
+msgstr "La vista previa del formulario generado aparecerá aquí."
 
 #: generated
 msgid "Generating..."
@@ -350,6 +1118,32 @@ msgstr "Generación fallida"
 msgid "HTML (.html)"
 msgstr "HTML (.html)"
 
+#: ../browser/survey_actions.pt:178
+msgid "Have questions?"
+msgstr "¿Tiene preguntas?"
+
+#: generated
+msgid "Heads up:"
+msgstr "Atención:"
+
+#. Default: "History (max 5)"
+#: ../browser/ai.pt:208
+msgid "History (max 5)"
+msgstr "Historial (máx. 5)"
+
+#: generated
+msgid "How satisfied are you?"
+msgstr ""
+
+#: generated
+msgid "ID:"
+msgstr "ID:"
+
+#: ../browser/theme_editor.pt:56
+#: ../browser/token_store.pt:92
+msgid "Import"
+msgstr ""
+
 #: generated
 msgid "Import failed"
 msgstr "Importación fallida"
@@ -358,9 +1152,46 @@ msgstr "Importación fallida"
 msgid "Import failed. Please try again."
 msgstr "Importación fallida. Por favor, inténtelo de nuevo."
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Import form from PDF"
+msgstr "Importar formulario de PDF"
+
+#: ../browser/token_store.pt:64
+msgid "Import tokens from CSV"
+msgstr ""
+
+#: generated
+msgid "Imported: ${name}"
+msgstr ""
+
+#. Default: "Improve Temporary Form"
+#: ../browser/ai.pt:101
+msgid "Improve Temporary Form"
+msgstr "Mejorar formulario temporal"
+
+#: ../browser/fillable_pdf.pt:837
+msgid "In Form"
+msgstr ""
+
+#: generated
+msgid "Inactive"
+msgstr "Inactivo"
+
+#: ../browser/fillable_pdf.pt:683
+msgid "Info"
+msgstr ""
+
 #: generated
 msgid "Initial Generation"
 msgstr "Generación inicial"
+
+#: ../browser/fillable_pdf.pt:907
+msgid "Input Type"
+msgstr ""
+
+#: generated
+msgid "Interests"
+msgstr ""
 
 #: generated
 msgid "Invalid JSON file: ${error}"
@@ -375,8 +1206,28 @@ msgid "Invalid survey URL: ${url}"
 msgstr "URL de encuesta no válida: ${url}"
 
 #: generated
+msgid "Invalid theme JSON"
+msgstr ""
+
+#: generated
+msgid "JSON"
+msgstr "JSON"
+
+#: generated
 msgid "JSON (.json)"
 msgstr "JSON (.json)"
+
+#: ../browser/fillable_pdf.pt:885
+msgid "JSON Form Properties"
+msgstr ""
+
+#: ../browser/llm_models.pt:51
+msgid "JSON Schema"
+msgstr ""
+
+#: generated
+msgid "JSON Version Content"
+msgstr "Contenido de la versión JSON"
 
 #: generated
 msgid "JSON uploaded successfully as new version"
@@ -385,6 +1236,86 @@ msgstr "JSON cargado con éxito como nueva versión"
 #: generated
 msgid "Key / Question"
 msgstr "Clave / Pregunta"
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
+msgid "LLM (visual conversion)"
+msgstr "MLV (conversión visual)"
+
+#: ../browser/llm_models.pt:17
+msgid "LLM Models"
+msgstr ""
+
+#: generated
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Last"
+msgstr "Último"
+
+#: ../browser/survey_monitor.py:68
+msgid "Last 10 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:73
+msgid "Last 12 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:71
+msgid "Last 2 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:69
+msgid "Last 20 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:74
+msgid "Last 24 hours"
+msgstr ""
+
+#: ../browser/survey_monitor.py:67
+msgid "Last 5 minutes"
+msgstr ""
+
+#: ../browser/survey_monitor.py:72
+msgid "Last 6 hours"
+msgstr ""
+
+msgid "Last Page"
+msgstr "Última página"
+
+#: ../browser/survey_monitor.py:70
+msgid "Last hour"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:230
+msgid "Last updated: ${time}"
+msgstr ""
+
+#. Default: "Latest version to workspace"
+#: ../browser/ai.pt:143
+msgid "Latest version to workspace"
+msgstr "Última versión al espacio de trabajo"
+
+#: zopyx/surveyjs/browser/psf.py:72
+msgid "Launch a brand-new form or survey and start collecting answers."
+msgstr "Lanza un formulario o encuesta completamente nuevo y comienza a recopilar respuestas"
+
+#: zopyx/surveyjs/browser/survey_add.pt:46
+#: zopyx/surveyjs/browser/survey_metadata.pt:46
+msgid "Let's fix a few things:"
+msgstr "Arreglemos unas cuantas cosas"
+
+msgid "Lifetime of trusted access tokens in hours."
+msgstr "Vida útil de los tokens de acceso de confianza en horas."
+
+#: ../browser/theme_manager.pt:72
+msgid "Live preview"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_add.pt:57
+#: zopyx/surveyjs/browser/survey_metadata.pt:57
+msgid "Loading form..."
+msgstr "Cargando formulario..."
 
 #: generated
 msgid "Loading preview..."
@@ -397,6 +1328,17 @@ msgstr "Cargando encuesta..."
 #: generated
 msgid "Loading..."
 msgstr "Cargando..."
+
+msgid "Local AI provider:"
+msgstr "Proveedor de IA local:"
+
+#: generated
+msgid "Lock"
+msgstr "Bloquear"
+
+#: generated
+msgid "Locked"
+msgstr "Bloqueado"
 
 #: generated
 msgid "Mail"
@@ -411,13 +1353,36 @@ msgid "Mail notifications"
 msgstr "Notificaciones por correo"
 
 #: generated
+msgid "Mail result"
+msgstr "Enviar resultado por correo"
+
+#: generated
 msgid "Mail sent"
 msgstr "Correo enviado"
 
 #: generated
 msgid "Mail settings are incomplete (Mail-To and Subject required)"
+msgstr "La configuración del correo está incompleta (se requiere Mail-To y Asunto)"
+
+#: ../browser/theme_manager.pt:109
+msgid "Make default"
 msgstr ""
-"La configuración del correo está incompleta (se requiere Mail-To y Asunto)"
+
+#: ../browser/theme_manager.pt:103
+msgid "Make default theme"
+msgstr ""
+
+#: ../browser/token_store.pt:26
+msgid "Manage single-use access tokens for this survey."
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Manage versions"
+msgstr "Gestionar versiones"
+
+#: generated
+msgid "Manage, view, and restore previous versions of your survey forms"
+msgstr "Administre, vea y restaure versiones anteriores de sus formularios de encuesta"
 
 #: generated
 msgid "Manager only"
@@ -428,6 +1393,10 @@ msgid "Markdown (.md)"
 msgstr "Markdown (.md)"
 
 #: generated
+msgid "Max"
+msgstr ""
+
+#: generated
 msgid "Max size payload (MB)"
 msgstr "Tamaño máximo de la carga útil (MB)"
 
@@ -435,19 +1404,121 @@ msgstr "Tamaño máximo de la carga útil (MB)"
 msgid "Maximum allowed payload size for submissions in megabytes."
 msgstr "Tamaño máximo de carga útil permitido para envíos en megabytes."
 
+#: zopyx/surveyjs/browser/survey_actions.pt:18
+msgid "Metadata"
+msgstr "Metadatos"
+
 #: generated
 msgid "Missing data-survey-url attribute. Please specify the survey URL."
+msgstr "Falta el atributo data-survey-url. Por favor, especifique la URL de la encuesta."
+
+#: ../browser/llm_models.pt:35
+msgid "Model"
 msgstr ""
-"Falta el atributo data-survey-url. Por favor, especifique la URL de la "
-"encuesta."
+
+#. Default: "Model:"
+#: ../browser/ai.pt:49
+msgid "Model:"
+msgstr "Modelo:"
+
+#: ../browser/theme_manager.pt:87
+msgid "Modified"
+msgstr ""
+
+#: generated
+msgid "Music"
+msgstr ""
+
+#: ../browser/theme_manager.pt:43
+msgid "My Custom Theme"
+msgstr ""
+
+#: ../browser/theme_manager.pt:86
+msgid "Name"
+msgstr ""
+
+#: generated
+msgid "Neutral"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:195
+msgid "New Survey"
+msgstr "Nueva encuesta"
+
+#: ../browser/theme_manager.pt:25
+msgid "New Theme"
+msgstr ""
+
+#: zopyx/surveyjs/browser/psf.py:71
+msgid "New form/survey"
+msgstr "Nuevo formulario/encuesta"
+
+#: generated
+msgid "New version saved (${count} versions)"
+msgstr ""
+
+msgid "Next"
+msgstr "Sig"
+
+#: generated
+msgid "Next "
+msgstr "Siguiente"
+
+msgid "Next Page"
+msgstr "Página sig"
+
+#: ../browser/fillable_pdf.pt:893
+msgid "No JSON form data available. Generate or edit a form to see properties."
+msgstr ""
+
+#~ msgid "Next »"
+#~ msgstr "Siguiente »"
+#: generated
+msgid "No PDF selected yet."
+msgstr "Aún no se ha seleccionado ningún PDF."
+
+#: ../browser/fillable_pdf.pt:625
+msgid "No PDF template has been uploaded yet. Upload a fillable PDF form to enable automated PDF generation from survey submissions."
+msgstr ""
 
 #: generated
 msgid "No POST endpoint configured for this survey"
 msgstr "No hay un punto final POST configurado para esta encuesta"
 
 #: generated
+msgid "No Survey Results Yet"
+msgstr "Aún no hay resultados de la encuesta"
+
+#: generated
+msgid "No Versions Available"
+msgstr "No hay versiones disponibles"
+
+#. Default: "No chat refinement history yet."
+#: ../browser/ai.pt:217
+msgid "No chat refinement history yet."
+msgstr "Aún no hay historial de refinamiento del chat."
+
+#~ msgid ""
+#~ "Conversion complete. Review the preview and click “Store converted form as "
+#~ "new version”."
+#~ msgstr ""
+#~ "Conversión completa. Revise la vista previa y haga clic en “Almacenar "
+#~ "formulario convertido como nueva versión”."
+#: generated
+msgid "No converted form available to store."
+msgstr "No hay ningún formulario convertido disponible para almacenar."
+
+#: generated
+msgid "No data available for selected time window"
+msgstr ""
+
+#: generated
 msgid "No existing form found to refine."
 msgstr "No se encontró ningún formulario existente para refinar."
+
+#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
+msgid "No fields detected yet."
+msgstr "Todavía no se han detectado campos"
 
 #: generated
 msgid "No file selected"
@@ -461,6 +1532,14 @@ msgstr "Ningún archivo cargado"
 msgid "No form definition available to include in POST"
 msgstr "No hay definición de formulario disponible para incluir en POST"
 
+#: ../browser/fillable_pdf.pt:713
+msgid "No form fields available to fill."
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:812
+msgid "No form fields could be extracted from this PDF. It may not be a fillable form."
+msgstr ""
+
 #: generated
 msgid "No form to preview"
 msgstr "No hay formulario para previsualizar"
@@ -468,6 +1547,72 @@ msgstr "No hay formulario para previsualizar"
 #: generated
 msgid "No form to save"
 msgstr "No hay formulario para guardar"
+
+#: generated
+msgid "No form versions have been created yet. Use the Form Creator to design your first survey, or upload an existing JSON file using the form above."
+msgstr "Aún no se han creado versiones del formulario. Use el Creador de formularios para diseñar su primera encuesta o cargue un archivo JSON existente usando el formulario de arriba."
+
+#: ../browser/llm_models.pt:28
+msgid "No models registered."
+msgstr ""
+
+#: generated
+msgid "No results found matching your search query."
+msgstr "No se encontraron resultados que coincidan con su consulta de búsqueda."
+
+#: browser/survey_results.pt
+msgid "No results yet"
+msgstr "Aún no hay resultados"
+
+#: generated
+msgid "No stored results yet. Once responses are saved, analytics will appear here."
+msgstr "Aún no hay resultados almacenados. Una vez que se guarden las respuestas, los análisis aparecerán aquí."
+
+#: ../browser/survey_monitor.pt:220
+msgid "No submissions in selected time window"
+msgstr ""
+
+#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
+msgid "No survey templates found below this location."
+msgstr "No se encontraron plantillas de encuestas debajo de esta ubicación"
+
+#: generated
+msgid "No surveys found below this location."
+msgstr "No se encontraron encuestas debajo de esta ubicación."
+
+#: zopyx/surveyjs/browser/survey_template_views.py:22
+msgid "No template JSON configured."
+msgstr "No se ha configurado JSON de plantilla"
+
+#. Default: "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+#: ../browser/ai.pt:83
+msgid "No temporary form yet. Upload a document, start one with chat, or copy the latest version."
+msgstr "Aún no hay formulario temporal. Sube un documento, comienza uno por chat o copia la última versión."
+
+#: ../browser/survey_editor.pt:109
+#: ../browser/survey_editor.py:36
+msgid "No theme"
+msgstr ""
+
+#: generated
+msgid "No theme to export"
+msgstr ""
+
+#: generated
+msgid "No theme to save"
+msgstr ""
+
+#: generated
+msgid "No theme to show"
+msgstr ""
+
+#: ../browser/theme_manager.pt:139
+msgid "No themes yet. Create your first theme."
+msgstr ""
+
+#: ../browser/token_store.pt:51
+msgid "No tokens generated yet. Use the form below to create access tokens."
+msgstr ""
 
 #: generated
 msgid "No version ID provided"
@@ -478,1295 +1623,8 @@ msgid "Not saved"
 msgstr "No guardado"
 
 #: generated
-msgid "Optional BCC recipients for result exports (one address per line)."
+msgid "Nothing to copy"
 msgstr ""
-"Destinatarios CCO opcionales para exportaciones de resultados (una dirección "
-"por línea)."
-
-#: generated
-msgid "Optional CC recipients for result exports (one address per line)."
-msgstr ""
-"Destinatarios CC opcionales para exportaciones de resultados (una dirección "
-"por línea)."
-
-#: generated
-msgid ""
-"Optional HTTP endpoint to receive submissions as JSON when the POST action "
-"is enabled."
-msgstr ""
-"Punto final HTTP opcional para recibir envíos como JSON cuando la acción "
-"POST está habilitada."
-
-#: generated
-msgid "PDF (.pdf)"
-msgstr "PDF (.pdf)"
-
-#: generated
-msgid "PDF Form Import"
-msgstr "Importar formulario PDF"
-
-#: generated
-msgid "POST action is not enabled for this survey"
-msgstr "La acción POST no está habilitada para esta encuesta"
-
-#: generated
-msgid "POST endpoint URL"
-msgstr "URL del punto final POST"
-
-#: generated
-msgid "POST to endpoint"
-msgstr "Enviar a punto final"
-
-#: generated
-msgid "Please enter a description"
-msgstr "Por favor, introduzca una descripción"
-
-#: generated
-msgid "Please select a PDF file to upload."
-msgstr "Por favor, seleccione un archivo PDF para cargar."
-
-#: generated
-msgid "Poll ID is required"
-msgstr "Se requiere el ID de la encuesta"
-
-#: generated
-msgid "Poll result not found"
-msgstr "Resultado de la encuesta no encontrado"
-
-#: generated
-msgid "Preview error:"
-msgstr "Error de vista previa:"
-
-#: generated
-msgid ""
-"Primary recipient for notifications and result exports (single address). "
-msgstr ""
-"Destinatario principal para notificaciones y exportaciones de resultados "
-"(dirección única). "
-
-#: generated
-msgid "Privacy Forms Studio"
-msgstr "Estudio de formularios de privacidad"
-
-#: generated
-msgid "Refine Form"
-msgstr "Refinar formulario"
-
-#: generated
-msgid "Refine Your Form"
-msgstr "Refine su formulario"
-
-#: generated
-msgid "Refinement ${index}"
-msgstr "Refinamiento ${index}"
-
-#: generated
-msgid "Refinement failed"
-msgstr "Refinamiento fallido"
-
-#: generated
-msgid "Refining..."
-msgstr "Refinando..."
-
-#: generated
-msgid "Requested export format is not available"
-msgstr "El formato de exportación solicitado no está disponible"
-
-#: generated
-msgid "Result POSTed to endpoint (status ${status})"
-msgstr "Resultado enviado al punto final (estado ${status})"
-
-#: generated
-msgid "Results cleared"
-msgstr "Resultados borrados"
-
-#: generated
-msgid "Results"
-msgstr "Resultados"
-
-#: generated
-msgid "Row"
-msgstr "Fila"
-
-#: generated
-msgid "Run the external SurveyJS validator binary for every save/submit."
-msgstr ""
-"Ejecute el binario validador externo de SurveyJS para cada guardado/envío."
-
-#: generated
-msgid "Save failed"
-msgstr "Guardado fallido"
-
-#: generated
-msgid "Saving"
-msgstr "Guardando"
-
-#: generated
-msgid "Select export formats to attach when the Mail action sends results."
-msgstr ""
-"Seleccione los formatos de exportación para adjuntar cuando la acción Correo "
-"envíe los resultados."
-
-#: generated
-msgid "Select how to handle survey submissions (multiple options possible). "
-msgstr ""
-"Seleccione cómo manejar los envíos de encuestas (múltiples opciones "
-"posibles). "
-
-#: generated
-msgid ""
-"Sender address for outgoing mail. Mandatory when the Mail action is selected."
-""
-msgstr ""
-"Dirección del remitente para el correo saliente. Obligatorio cuando se "
-"selecciona la acción Correo."
-
-#: generated
-msgid ""
-"Start over? This will clear your refinement history and return to the "
-"initial prompt."
-msgstr ""
-"¿Empezar de nuevo? Esto borrará su historial de refinamiento y volverá al "
-"aviso inicial."
-
-#: generated
-msgid "Store"
-msgstr "Almacenar"
-
-#: generated
-msgid "Subject"
-msgstr "Asunto"
-
-#: generated
-msgid ""
-"Subject for notification-only emails. Supports {title}, {detail_url}, "
-"{poll_id}."
-msgstr ""
-"Asunto para correos electrónicos de solo notificación. Admite {title}, "
-"{detail_url}, {poll_id}."
-
-#: generated
-msgid "Subject for notifications"
-msgstr "Asunto para notificaciones"
-
-#: generated
-msgid ""
-"Subject for result export emails. Supports {poll_id} for the submission ID. "
-msgstr ""
-"Asunto para correos electrónicos de exportación de resultados. Admite "
-"{poll_id} para el ID de envío. "
-
-#: generated
-msgid "Survey Embed Error"
-msgstr "Error de inserción de encuesta"
-
-#: generated
-msgid "Survey Form"
-msgstr "Formulario de encuesta"
-
-#: generated
-msgid "Survey closed"
-msgstr "Encuesta cerrada"
-
-#: generated
-msgid ""
-"Survey embedding is not allowed. Please contact the survey administrator."
-msgstr ""
-"No se permite la inserción de encuestas. Por favor, póngase en contacto con "
-"el administrador de la encuesta."
-
-#: generated
-msgid "Survey library not loaded"
-msgstr "Biblioteca de encuestas no cargada"
-
-#: generated
-msgid "Survey open"
-msgstr "Encuesta abierta"
-
-#: generated
-msgid "SurveyJS Embed: Element not found"
-msgstr "SurveyJS Embed: Elemento no encontrado"
-
-#: generated
-msgid "SurveyJS Embed: Error handling resize message"
-msgstr "SurveyJS Embed: Error al manejar el mensaje de redimensionamiento"
-
-#: generated
-msgid "SurveyJS Embed: Error requesting height"
-msgstr "SurveyJS Embed: Error al solicitar la altura"
-
-#: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class "
-"\"${className}\""
-msgstr ""
-"SurveyJS Embed: No se encontraron contenedores de inserción. Agregue "
-"elementos con la clase \"${className}\""
-
-#: generated
-msgid "Text (.txt)"
-msgstr "Texto (.txt)"
-
-#: generated
-msgid "Unknown error"
-msgstr "Error desconocido"
-
-#: generated
-msgid "Validate submissions against the form schema before saving. "
-msgstr "Valide los envíos con el esquema del formulario antes de guardar. "
-
-#: generated
-msgid "Version ${current} of ${total}"
-msgstr "Versión ${current} de ${total}"
-
-#: generated
-msgid "Version deleted"
-msgstr "Versión eliminada"
-
-#: generated
-msgid "Version is locked and cannot be deleted"
-msgstr "La versión está bloqueada y no se puede eliminar"
-
-#: generated
-msgid "Version locked"
-msgstr "Versión bloqueada"
-
-#: generated
-msgid "Version not found"
-msgstr "Versión no encontrada"
-
-#: generated
-msgid "Version restored successfully. A new version has been created."
-msgstr "Versión restaurada con éxito. Se ha creado una nueva versión."
-
-#: generated
-msgid "Version unlocked"
-msgstr "Versión desbloqueada"
-
-#: generated
-msgid "Versions"
-msgstr "Versiones"
-
-#: generated
-msgid "View"
-msgstr "Ver"
-
-#: generated
-msgid "Visual Editor"
-msgstr "Editor visual"
-
-#: generated
-msgid "What would you like to change?"
-msgstr "¿Qué le gustaría cambiar?"
-
-#: generated
-msgid "Word (.docx)"
-msgstr "Word (.docx)"
-
-#: generated
-msgid "XML (.xml)"
-msgstr "XML (.xml)"
-
-msgid "Access mode"
-msgstr "Modo de acceso"
-
-msgid ""
-"Choose whether this form is publicly accessible or requires a trusted access "
-"token in the URL."
-msgstr ""
-"Elija si este formulario es de acceso público o requiere un token de acceso "
-"de confianza en la URL."
-
-msgid "Public"
-msgstr "Público"
-
-msgid "Trusted access token"
-msgstr "Token de acceso de confianza"
-
-msgid "Trusted access token TTL (hours)"
-msgstr "TTL del token de acceso de confianza (horas)"
-
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Unsaved changes"
-msgstr "Cambios no guardados"
-
-msgid "You have edits that haven't been saved yet."
-msgstr "Tiene ediciones que aún no se han guardado."
-
-msgid "Lifetime of trusted access tokens in hours."
-msgstr "Vida útil de los tokens de acceso de confianza en horas."
-
-#: generated
-msgid ""
-"You're saving ${version}. The latest version is not selected. Continue?"
-msgstr ""
-"Está guardando la versión ${version}. No está seleccionada la última versión."
-" ¿Continuar?"
-
-#: generated
-msgid "version ${current} of ${total}"
-msgstr "versión ${current} de ${total}"
-
-#: generated
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: generated
-msgid "Close"
-msgstr "Cerrar"
-
-#: generated
-msgid "Confirm restore"
-msgstr "Confirmar restauración"
-
-#: generated
-msgid "Date:"
-msgstr "Fecha:"
-
-#: generated
-msgid "Delete"
-msgstr "Eliminar"
-
-#: generated
-msgid "Confirm delete"
-msgstr "Confirmar eliminación"
-
-#: generated
-msgid "Delete version"
-msgstr "Eliminar versión"
-
-#: generated
-msgid "Download"
-msgstr "Descargar"
-
-#: generated
-msgid "Download form definition as JSON"
-msgstr "Descargar definición del formulario como JSON"
-
-#: generated
-msgid "ID:"
-msgstr "ID:"
-
-#: generated
-msgid "JSON Version Content"
-msgstr "Contenido de la versión JSON"
-
-#: generated
-msgid "Locked"
-msgstr "Bloqueado"
-
-#: generated
-msgid "Preview"
-msgstr "Vista previa"
-
-#: generated
-msgid "Preview JSON"
-msgstr "Vista previa de JSON"
-
-#: generated
-msgid "Restore"
-msgstr "Restaurar"
-
-#: generated
-msgid "Restore to previous version"
-msgstr "Restaurar a la versión anterior"
-
-#: generated
-msgid "Restore version"
-msgstr "Restaurar versión"
-
-#: generated
-msgid ""
-"Restoring will create a new version using the selected snapshot and keep the "
-"current version in history."
-msgstr ""
-"La restauración creará una nueva versión utilizando la instantánea "
-"seleccionada y mantendrá la versión actual en el historial."
-
-#: generated
-msgid "Upload and Create Version"
-msgstr "Cargar y crear versión"
-
-#: generated
-msgid "User:"
-msgstr "Usuario:"
-
-#: generated
-msgid "Experimental:"
-msgstr "Experimental:"
-
-#: generated
-msgid "This is a helper to get started, not a finished form."
-msgstr "Esto es una ayuda para empezar, no un formulario terminado."
-
-#: generated
-msgid "Use clear, specific prompts for best results."
-msgstr ""
-"Use indicaciones claras y específicas para obtener los mejores resultados."
-
-#: generated
-msgid "Always review and adjust the generated form before use."
-msgstr "Revise y ajuste siempre el formulario generado antes de usarlo."
-
-#: generated
-msgid "Error:"
-msgstr "Error:"
-
-#: generated
-msgid "#"
-msgstr "#"
-
-#: generated
-msgid "AI Form Generator"
-msgstr "Generador de formularios de IA"
-
-#: generated
-msgid "Action"
-msgstr "Acción"
-
-#: generated
-msgid "Back to results"
-msgstr "Volver a los resultados"
-
-#: generated
-msgid "Choose a PDF that contains the form layout you want to convert."
-msgstr ""
-"Elija un PDF que contenga el diseño del formulario que desea convertir."
-
-#: generated
-msgid "Clear All Results"
-msgstr "Borrar todos los resultados"
-
-#: generated
-msgid "Clear all results"
-msgstr "Borrar todos los resultados"
-
-#: generated
-msgid "Convert PDF"
-msgstr "Convertir PDF"
-
-#: generated
-msgid "Created:"
-msgstr "Creado:"
-
-#: generated
-msgid "Current Version:"
-msgstr "Versión actual:"
-
-#: generated
-msgid "Date"
-msgstr "Fecha"
-
-#: generated
-msgid "Date/Time"
-msgstr "Fecha/Hora"
-
-#: generated
-msgid "Delete result"
-msgstr "Eliminar resultado"
-
-#: generated
-msgid "Delete selected"
-msgstr "Eliminar seleccionados"
-
-#: generated
-msgid "Describe your survey in natural language and let AI generate the form"
-msgstr ""
-"Describa su encuesta en lenguaje natural y deje que la IA genere el "
-"formulario"
-
-#: generated
-msgid "Details"
-msgstr "Detalles"
-
-#: generated
-msgid "Download form definition (JSON)"
-msgstr "Descargar definición del formulario (JSON)"
-
-#: generated
-msgid "Download result"
-msgstr "Descargar resultado"
-
-#: generated
-msgid "Download results (CSV)"
-msgstr "Descargar resultados (CSV)"
-
-#: generated
-msgid "Download results (JSON)"
-msgstr "Descargar resultados (JSON)"
-
-#: generated
-msgid "Embedding Not Allowed"
-msgstr "Inserción no permitida"
-
-#: generated
-msgid "Enable it in the survey settings to collect and view responses here."
-msgstr ""
-"Habilítelo en la configuración de la encuesta para recopilar y ver las "
-"respuestas aquí."
-
-#: generated
-msgid "Form JSON"
-msgstr "Formulario JSON"
-
-#: generated
-msgid "Form Preview"
-msgstr "Vista previa del formulario"
-
-#: generated
-msgid "Form Version Management"
-msgstr "Gestión de versiones de formularios"
-
-#: generated
-msgid "Generated form preview will appear here."
-msgstr "La vista previa del formulario generado aparecerá aquí."
-
-#: generated
-msgid "Heads up:"
-msgstr "Atención:"
-
-#: generated
-msgid "JSON"
-msgstr "JSON"
-
-#: generated
-msgid "Mail result"
-msgstr "Enviar resultado por correo"
-
-#: generated
-msgid "Manage, view, and restore previous versions of your survey forms"
-msgstr ""
-"Administre, vea y restaure versiones anteriores de sus formularios de "
-"encuesta"
-
-#: generated
-#~ msgid "Next »"
-#~ msgstr "Siguiente »"
-
-#: generated
-msgid "No PDF selected yet."
-msgstr "Aún no se ha seleccionado ningún PDF."
-
-#: generated
-msgid ""
-"No stored results yet. Once responses are saved, analytics will appear here."
-msgstr ""
-"Aún no hay resultados almacenados. Una vez que se guarden las respuestas, "
-"los análisis aparecerán aquí."
-
-#: generated
-msgid "No Survey Results Yet"
-msgstr "Aún no hay resultados de la encuesta"
-
-#: generated
-msgid "No Versions Available"
-msgstr "No hay versiones disponibles"
-
-#: generated
-msgid ""
-"No form versions have been created yet. Use the Form Creator to design your "
-"first survey, or upload an existing JSON file using the form above."
-msgstr ""
-"Aún no se han creado versiones del formulario. Use el Creador de formularios "
-"para diseñar su primera encuesta o cargue un archivo JSON existente usando "
-"el formulario de arriba."
-
-#: generated
-msgid "No results found matching your search query."
-msgstr ""
-"No se encontraron resultados que coincidan con su consulta de búsqueda."
-
-#: generated
-msgid "PDF Form Importer"
-msgstr "Importador de formularios PDF"
-
-#: generated
-msgid "PDF Preview"
-msgstr "Vista previa de PDF"
-
-#: generated
-msgid "PDF file"
-msgstr "Archivo PDF"
-
-#: generated
-msgid "POST result"
-msgstr "Resultado POST"
-
-#: generated
-msgid "Poll ID:"
-msgstr "ID de la encuesta:"
-
-#: generated
-msgid "Preview Form"
-msgstr "Vista previa del formulario"
-
-#: generated
-msgid "Processing..."
-msgstr "Procesando..."
-
-#: generated
-msgid "Refine existing form"
-msgstr "Refinar formulario existente"
-
-#: generated
-msgid "Refinement History"
-msgstr "Historial de refinamiento"
-
-#: generated
-msgid "Results are not being saved because the \"Store\" action is turned off."
-msgstr ""
-"Los resultados no se están guardando porque la acción \"Almacenar\" está "
-"desactivada."
-
-#: generated
-msgid "Save Form"
-msgstr "Guardar formulario"
-
-#: generated
-msgid "Search"
-msgstr "Buscar"
-
-#: generated
-msgid "Search by user..."
-msgstr "Buscar por usuario..."
-
-msgid "Search by user, UUID, or date"
-msgstr "Buscar por usuario, UUID o fecha"
-
-#: generated
-msgid "Select JSON file:"
-msgstr "Seleccionar archivo JSON:"
-
-#: generated
-msgid "Select all results"
-msgstr "Seleccionar todos los resultados"
-
-#: generated
-msgid "Select result"
-msgstr "Seleccionar resultado"
-
-#: generated
-msgid "Sequence:"
-msgstr "Secuencia:"
-
-#: generated
-msgid "Start Over"
-msgstr "Empezar de nuevo"
-
-#: generated
-msgid "Storage disabled."
-msgstr "Almacenamiento deshabilitado."
-
-#: generated
-msgid "Storage:"
-msgstr "Almacenamiento:"
-
-#: generated
-msgid "Stored form data"
-msgstr "Datos del formulario almacenados"
-
-#: generated
-msgid "Submission Details"
-msgstr "Detalles del envío"
-
-#: generated
-msgid "Survey"
-msgstr "Encuesta"
-
-#: generated
-msgid "Survey Response Details"
-msgstr "Detalles de la respuesta de la encuesta"
-
-#: generated
-msgid "SurveyJS Preview"
-msgstr "Vista previa de SurveyJS"
-
-#: generated
-msgid "Table"
-msgstr "Tabla"
-
-#: generated
-msgid ""
-"There are no survey responses yet. Once users submit the survey, their "
-"responses will appear here."
-msgstr ""
-"Aún no hay respuestas a la encuesta. Una vez que los usuarios envíen la "
-"encuesta, sus respuestas aparecerán aquí."
-
-#: generated
-msgid "Delete Result"
-msgstr "Eliminar resultado"
-
-#: generated
-msgid "Delete Selected Results"
-msgstr "Eliminar resultados seleccionados"
-
-#: generated
-msgid ""
-"This will permanently delete the selected result. This cannot be undone."
-msgstr ""
-"Esto eliminará permanentemente el resultado seleccionado. Esto no se puede "
-"deshacer."
-
-#: generated
-msgid ""
-"This action will permanently delete all survey results. This cannot be "
-"undone."
-msgstr ""
-"Esta acción eliminará permanentemente todos los resultados de la encuesta. "
-"Esto no se puede deshacer."
-
-#: generated
-msgid ""
-"This action permanently removes the selected version. This cannot be undone."
-msgstr ""
-"Esta acción elimina permanentemente la versión seleccionada. Esto no se "
-"puede deshacer."
-
-#: generated
-msgid ""
-"This feature is experimental. Please review the generated form carefully."
-msgstr ""
-"Esta función es experimental. Por favor, revise el formulario generado "
-"cuidadosamente."
-
-#: generated
-msgid ""
-"This survey is not configured to be embedded. Please contact the survey "
-"administrator."
-msgstr ""
-"Esta encuesta no está configurada para ser insertada. Por favor, póngase en "
-"contacto con el administrador de la encuesta."
-
-#: generated
-msgid "To confirm, please type clear in the field below:"
-msgstr "Para confirmar, por favor escriba 'clear' en el campo de abajo:"
-
-#: generated
-msgid "Type 'clear' to confirm"
-msgstr "Escriba 'clear' para confirmar"
-
-#: generated
-msgid "UUID"
-msgstr "UUID"
-
-#: generated
-msgid "Unable to load submission."
-msgstr "No se puede cargar el envío."
-
-#: generated
-msgid "Upload"
-msgstr "Cargar"
-
-#: generated
-msgid "Upload JSON form schema"
-msgstr "Cargar esquema de formulario JSON"
-
-#: generated
-msgid "Upload PDF"
-msgstr "Cargar PDF"
-
-#: generated
-msgid "Upload a PDF form and generate SurveyJS JSON from it"
-msgstr "Cargue un formulario PDF y genere JSON de SurveyJS a partir de él"
-
-#: generated
-msgid ""
-"Upload a valid SurveyJS JSON file to create a new version. The file will be "
-"validated before saving."
-msgstr ""
-"Cargue un archivo JSON de SurveyJS válido para crear una nueva versión. El "
-"archivo se validará antes de guardarlo."
-
-#: generated
-msgid ""
-"Use the latest saved form as the starting point instead of generating a new "
-"one."
-msgstr ""
-"Use el último formulario guardado como punto de partida en lugar de generar "
-"uno nuevo."
-
-#: generated
-msgid "User"
-msgstr "Usuario"
-
-#: generated
-msgid "Version History"
-msgstr "Historial de versiones"
-
-#: generated
-msgid "Version ID"
-msgstr "ID de versión"
-
-#: generated
-msgid "View JSON"
-msgstr "Ver JSON"
-
-#: generated
-msgid "Warning:"
-msgstr "Advertencia:"
-
-#: generated
-msgid "clear"
-msgstr "borrar"
-
-#: generated
-#~ msgid "« Previous"
-#~ msgstr "« Anterior"
-
-#: generated
-msgid "Failed to save survey results. Please try again."
-msgstr ""
-"No se pudieron guardar los resultados de la encuesta. Por favor, inténtelo "
-"de nuevo."
-
-#: generated
-msgid "Unable to load survey. Please try refreshing the page."
-msgstr ""
-"No se puede cargar la encuesta. Por favor, intente actualizar la página."
-
-#: generated
-msgid "Lock"
-msgstr "Bloquear"
-
-#: generated
-msgid "Unlock"
-msgstr "Desbloquear"
-
-#: generated
-msgid "Status"
-msgstr "Estado"
-
-#: generated
-msgid "Effective"
-msgstr "Efectivo"
-
-#: generated
-msgid "Expires"
-msgstr "Expira"
-
-#: generated
-msgid "Stored results"
-msgstr "Resultados almacenados"
-
-#: generated
-msgid "Published"
-msgstr "Publicado"
-
-#: generated
-msgid "Inactive"
-msgstr "Inactivo"
-
-#: generated
-msgid "Store converted form as new version"
-msgstr "Almacenar formulario convertido como nueva versión"
-
-#: generated
-#~ msgid ""
-#~ "Conversion complete. Review the preview and click “Store converted form as "
-#~ "new version”."
-#~ msgstr ""
-#~ "Conversión completa. Revise la vista previa y haga clic en “Almacenar "
-#~ "formulario convertido como nueva versión”."
-
-#: generated
-msgid "No converted form available to store."
-msgstr "No hay ningún formulario convertido disponible para almacenar."
-
-#: generated
-msgid "Converted form stored. <a href=\"${url}\">View versions</a>."
-msgstr "Formulario convertido almacenado. <a href=\"${url}\">Ver versiones</a>."
-
-#: generated
-msgid "Store failed"
-msgstr "Almacenamiento fallido"
-
-#: generated
-msgid "Store failed. Please try again."
-msgstr "Almacenamiento fallido. Por favor, inténtelo de nuevo."
-
-#: generated
-msgid "Reset"
-msgstr "Restablecer"
-
-#: generated
-msgid "Refresh"
-msgstr "Actualizar"
-
-#: generated
-msgid "Forms overview"
-msgstr "Resumen de la encuesta"
-
-#: generated
-msgid "Overview of forms in this section and their submission status."
-msgstr "Resumen de las encuestas en esta sección y su estado de envío."
-
-#: generated
-msgid "No surveys found below this location."
-msgstr "No se encontraron encuestas debajo de esta ubicación."
-
-msgid ""
-"Tabulator assets missing. Please install tabulator.min.js and tabulator.min."
-"css in ++resource++zopyx.surveyjs/vendor/."
-msgstr ""
-"Faltan los activos de Tabulator. Por favor, instale tabulator.min.js and "
-"tabulator.min.css en ++resource++zopyx.surveyjs/vendor/."
-
-#: generated
-msgid "Title"
-msgstr "Título"
-
-#: generated
-msgid "Description"
-msgstr "Descripción"
-
-#: generated
-msgid "Workflow status"
-msgstr "Estado del flujo de trabajo"
-
-#: generated
-msgid "Submitted"
-msgstr "Enviado"
-
-#: generated
-msgid "Security mode"
-msgstr "Modo de seguridad"
-
-#: generated
-msgid "Language"
-msgstr "Idioma"
-
-msgid "First"
-msgstr "Primero"
-
-msgid "First Page"
-msgstr "Primera página"
-
-msgid "Last"
-msgstr "Último"
-
-msgid "Last Page"
-msgstr "Última página"
-
-msgid "Prev"
-msgstr "Ant"
-
-msgid "Prev Page"
-msgstr "Página ant"
-
-msgid "Next"
-msgstr "Sig"
-
-msgid "Next Page"
-msgstr "Página sig"
-
-msgid "All"
-msgstr "Todos"
-
-msgid "Page Size"
-msgstr "Tamaño de página"
-
-msgid "Additional prompt"
-msgstr "Aviso adicional"
-
-msgid "Add extra conversion guidance..."
-msgstr "Añadir guía de conversión extra..."
-
-msgid "Optional instructions to guide the conversion."
-msgstr "Instrucciones opcionales para guiar la conversión."
-
-msgid "DOCS"
-msgstr "DOCS"
-
-msgid "Fullscreen"
-msgstr "Pantalla completa"
-
-msgid "Exit fullscreen"
-msgstr "Salir de pantalla completa"
-
-msgid "AI provider missing:"
-msgstr "Falta el proveedor de IA:"
-
-msgid ""
-"AI form generation is not available because no AI provider is configured."
-msgstr ""
-"La generación de formularios de IA no está disponible porque no hay ningún "
-"proveedor de IA configurado."
-
-msgid "External AI provider:"
-msgstr "Proveedor de IA externo:"
-
-msgid ""
-"A remote AI provider is configured and will be used. Your PDF may leave your "
-"network."
-msgstr ""
-"Hay un proveedor de IA remoto configurado y se utilizará. Su PDF puede salir "
-"de su red."
-
-msgid "Local AI provider:"
-msgstr "Proveedor de IA local:"
-
-msgid "A local AI provider is configured. Your PDF stays within your network."
-msgstr ""
-"Hay un proveedor de IA local configurado. Su PDF permanece dentro de su red."
-
-#: generated
-msgid "Next "
-msgstr "Siguiente"
-
-#: generated
-msgid " Previous"
-msgstr "Anterior"
-
-#: generated
-msgid ""
-"Conversion complete. Review the preview and click Store converted form as "
-"new version."
-msgstr ""
-"Conversión completa Revisa la vista previa y haz clic en Guardar formulario "
-"convertido como nueva versión"
-
-#: generated
-msgid "Form validation using pdfcpu"
-msgstr "Validación de formularios usando pdfcpu"
-
-#: generated
-msgid "When enabled, pdfcpu is used to validate and enrich form fields."
-msgstr ""
-"Cuando está habilitado, se utiliza pdfcpu para validar y enriquecer los "
-"campos de formulario"
-
-#: generated
-msgid ""
-"Form imported and saved as a new version. <a href=\\\"${url}\\\">View "
-"versions</a>."
-msgstr ""
-"Formulario importado y guardado como una nueva versión <a href="
-"\"${url}\">Ver versiones</a>"
-
-#: generated
-msgid ""
-"SurveyJS Embed: No embed containers found. Add elements with class "
-"\\\"${className}\\\""
-msgstr ""
-"SurveyJS Embed: No se encontraron contenedores de incrustación Añade "
-"elementos con la clase ${className}"
-
-msgid "Trusted access required"
-msgstr "Es necesario acceso confiable"
-
-msgid "Ask the form owner for a trusted access link."
-msgstr "Pide al propietario del formulario un enlace de acceso de confianza"
-
-msgid "Open the link in this browser to continue."
-msgstr "Abre el enlace en este navegador para continuar"
-
-msgid "Trusted access link"
-msgstr "Enlace de acceso confiable"
-
-msgid "Share this link to open the form."
-msgstr "Comparte este enlace para abrir el formulario"
-
-msgid "Copy link"
-msgstr "Copiar enlace"
-
-#: generated
-msgid "View Form"
-msgstr "Ver formulario"
-
-#: generated
-msgid "Preview the live survey experience."
-msgstr "Vista previa de la experiencia de la encuesta en vivo"
-
-#: generated
-msgid "Build and refine the survey form."
-msgstr "Crear y perfeccionar el formulario de encuesta"
-
-#: generated
-msgid "PDF generator"
-msgstr "Generador de PDF"
-
-#: generated
-msgid "Generate a PDF version of the current survey form."
-msgstr "Generar una versión en PDF del formulario de encuesta actual"
-
-#: generated
-msgid "PDF export"
-msgstr "Exportar PDF"
-
-#: generated
-msgid "Export the current SurveyJS form as a downloadable PDF."
-msgstr "Exportar el formulario actual de SurveyJS como un PDF descargable"
-
-#: generated
-msgid "Survey data dashboard"
-msgstr "Panel de datos de encuestas"
-
-#: generated
-msgid "Explore responses with charts and summary insights."
-msgstr "Explora respuestas con gráficos y perspectivas resumidas"
-
-#: generated
-msgid "Fillable PDF Form"
-msgstr "Formulario PDF editable"
-
-#: generated
-msgid ""
-"Upload a fillable PDF to generate a SurveyJS form and enable PDF-based "
-"submissions."
-msgstr ""
-"Carga un PDF rellenable para generar un formulario SurveyJS y habilitar "
-"envíos basados en PDF"
-
-#: generated
-msgid "Password required"
-msgstr "Contraseña requerida"
-
-#: generated
-msgid "Access to this survey is restricted. Enter the password to continue."
-msgstr ""
-"El acceso a esta encuesta está restringido Ingresa la contraseña para "
-"continuar"
-
-#: generated
-msgid "PDF Form"
-msgstr "Formulario PDF"
-
-#: generated
-msgid "Dashboard"
-msgstr "Tablero"
-
-#: generated
-msgid "PDF Generator"
-msgstr "Generador de PDF"
-
-#: generated
-msgid "Form from PDF"
-msgstr "Formulario desde PDF"
-
-#: generated
-msgid "Fillable PDF Forms"
-msgstr "Formularios PDF rellenables"
-
-#: generated
-msgid "Download PDF"
-msgstr "Descargar PDF"
-
-msgid "Choose a PDF that already contains fillable fields"
-msgstr "Elige un PDF que ya contenga campos rellenables"
-
-msgid "Extraction mode"
-msgstr "Modo de extracción"
-
-msgid ""
-"pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but "
-"cannot always map to original PDF fields."
-msgstr ""
-"pdfcpu conserva el mapeo de campos para PDFs rellenados LLM es mejor para el "
-"diseño pero no siempre puede mapear a los campos originales del PDF"
-
-msgid "Analyze PDF"
-msgstr "Analyze PDF"
-
-#: zopyx/surveyjs/browser/psf.py:109
-msgid "Administration"
-msgstr "Administración"
-
-#: zopyx/surveyjs/browser/psf.py:98
-msgid "Browse saved templates and reuse them for new forms or surveys."
-msgstr ""
-"Explora las plantillas guardadas y reutilízalas para nuevos formularios o "
-"encuestas"
-
-#: zopyx/surveyjs/browser/psf.py:75
-msgid "Create form"
-msgstr "Crear formulario"
-
-#: zopyx/surveyjs/browser/pfs.pt:59
-msgid "Create from template"
-msgstr "Crear desde plantilla"
-
-#: zopyx/surveyjs/browser/survey_add.pt:61
-msgid "Create survey"
-msgstr "Crear encuesta"
-
-#: zopyx/surveyjs/browser/survey_versions.pt:287
-msgid "Create template"
-msgstr "Crear plantilla"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:153
-msgid "Detected fields"
-msgstr "Campos detectados"
-
-#: zopyx/surveyjs/browser/survey_results.pt:116
-msgid "Export range"
-msgstr "Rango de exportación"
-
-#: zopyx/surveyjs/browser/psf.py:228
-msgid "Failed to create survey: ${error}"
-msgstr "No se pudo crear la encuesta: ${error}"
-
-#: zopyx/surveyjs/browser/survey_versions.py:322
-msgid "Failed to create template: ${error}"
-msgstr "Error al crear la plantilla: ${error}"
-
-#: zopyx/surveyjs/browser/survey_results.pt:118
-msgid "From"
-msgstr "Desde"
-
-#: zopyx/surveyjs/browser/survey_versions.pt:290
-msgid ""
-"Generate a new SurveyTemplate from the selected version. You can adjust the "
-"name before creation."
-msgstr ""
-"Generar una nueva PlantillaDeEncuesta a partir de la versión seleccionada "
-"Puedes ajustar el nombre antes de crearla"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:103
-msgid "LLM (visual conversion)"
-msgstr "MLV (conversión visual)"
-
-#: zopyx/surveyjs/browser/psf.py:72
-msgid "Launch a brand-new form or survey and start collecting answers."
-msgstr ""
-"Lanza un formulario o encuesta completamente nuevo y comienza a recopilar "
-"respuestas"
-
-#: zopyx/surveyjs/browser/survey_add.pt:46
-#: zopyx/surveyjs/browser/survey_metadata.pt:46
-msgid "Let's fix a few things:"
-msgstr "Arreglemos unas cuantas cosas"
-
-#: zopyx/surveyjs/browser/survey_add.pt:57
-#: zopyx/surveyjs/browser/survey_metadata.pt:57
-msgid "Loading form..."
-msgstr "Cargando formulario..."
-
-#: zopyx/surveyjs/browser/survey_actions.pt:18
-msgid "Metadata"
-msgstr "Metadatos"
-
-#: zopyx/surveyjs/browser/psf.py:195
-msgid "New Survey"
-msgstr "Nueva encuesta"
-
-#: zopyx/surveyjs/browser/psf.py:71
-msgid "New form/survey"
-msgstr "Nuevo formulario/encuesta"
-
-#: zopyx/surveyjs/browser/pdf_form_setup.pt:155
-msgid "No fields detected yet."
-msgstr "Todavía no se han detectado campos"
-
-#: zopyx/surveyjs/browser/survey_templates_overview.pt:49
-msgid "No survey templates found below this location."
-msgstr "No se encontraron plantillas de encuestas debajo de esta ubicación"
-
-#: zopyx/surveyjs/browser/survey_template_views.py:22
-msgid "No template JSON configured."
-msgstr "No se ha configurado JSON de plantilla"
 
 #: zopyx/surveyjs/browser/configure.zcml:29
 msgid "Open Forms overview"
@@ -1788,59 +1646,587 @@ msgstr "Abrir resumen"
 msgid "Open templates"
 msgstr "Abrir plantillas"
 
+msgid "Open the link in this browser to continue."
+msgstr "Abre el enlace en este navegador para continuar"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "Open visual editor"
+msgstr "Abrir editor visual"
+
+#: generated
+msgid "Optional BCC recipients for result exports (one address per line)."
+msgstr "Destinatarios CCO opcionales para exportaciones de resultados (una dirección por línea)."
+
+#: generated
+msgid "Optional CC recipients for result exports (one address per line)."
+msgstr "Destinatarios CC opcionales para exportaciones de resultados (una dirección por línea)."
+
+#: generated
+msgid "Optional HTTP endpoint to receive submissions as JSON when the POST action is enabled."
+msgstr "Punto final HTTP opcional para recibir envíos como JSON cuando la acción POST está habilitada."
+
+msgid "Optional instructions to guide the conversion."
+msgstr "Instrucciones opcionales para guiar la conversión."
+
+#: ../browser/fillable_pdf.pt:834
+msgid "Options"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:783
+msgid "Options: ${options}"
+msgstr ""
+
+#: generated
+msgid "Overall Satisfaction"
+msgstr ""
+
+#: generated
+msgid "Overview of forms in this section and their submission status."
+msgstr "Resumen de las encuestas en esta sección y su estado de envío."
+
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:39
 msgid "Overview of survey templates available in this section."
+msgstr "Descripción general de las plantillas de encuestas disponibles en esta sección"
+
+#: generated
+msgid "PDF (.pdf)"
+msgstr "PDF (.pdf)"
+
+#: generated
+msgid "PDF Form"
+msgstr "Formulario PDF"
+
+#: generated
+msgid "PDF Form Import"
+msgstr "Importar formulario PDF"
+
+#: generated
+msgid "PDF Form Importer"
+msgstr "Importador de formularios PDF"
+
+#: generated
+msgid "PDF Generator"
+msgstr "Generador de PDF"
+
+#: generated
+msgid "PDF Preview"
+msgstr "Vista previa de PDF"
+
+#: ../browser/fillable_pdf.pt:637
+msgid "PDF Template"
 msgstr ""
-"Descripción general de las plantillas de encuestas disponibles en esta "
-"sección"
+
+#: generated
+msgid "PDF export"
+msgstr "Exportar PDF"
+
+#: generated
+msgid "PDF file"
+msgstr "Archivo PDF"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "PDF form"
+msgstr "Formulario PDF"
+
+#: generated
+msgid "PDF generator"
+msgstr "Generador de PDF"
+
+#: generated
+msgid "POST action is not enabled for this survey"
+msgstr "La acción POST no está habilitada para esta encuesta"
+
+#: generated
+msgid "POST endpoint URL"
+msgstr "URL del punto final POST"
+
+#: generated
+msgid "POST result"
+msgstr "Resultado POST"
+
+#: generated
+msgid "POST to endpoint"
+msgstr "Enviar a punto final"
+
+#: ../browser/fillable_pdf.pt:730
+msgid "Page ${page}"
+msgstr ""
+
+msgid "Page Size"
+msgstr "Tamaño de página"
+
+#: generated
+msgid "Parse error: ${error}"
+msgstr ""
+
+#: generated
+msgid "Password required"
+msgstr "Contraseña requerida"
+
+#: ../browser/survey_monitor.pt:84
+msgid "Per Minute"
+msgstr ""
+
+#: generated
+msgid "Please enter a description"
+msgstr "Por favor, introduzca una descripción"
 
 #: zopyx/surveyjs/browser/survey_add.py:96
 #: zopyx/surveyjs/browser/survey_metadata.py:111
 msgid "Please provide a title for your survey."
 msgstr "Proporcione un título para su encuesta"
 
+#: generated
+msgid "Please select a PDF file to upload."
+msgstr "Por favor, seleccione un archivo PDF para cargar."
+
 #: zopyx/surveyjs/browser/psf.py:162
 msgid "Please select a template."
 msgstr "Por favor seleccione una plantilla"
+
+#: generated
+msgid "Please share your experience with us."
+msgstr ""
+
+#: generated
+msgid "Poll ID is required"
+msgstr "Se requiere el ID de la encuesta"
+
+#: generated
+msgid "Poll ID:"
+msgstr "ID de la encuesta:"
+
+#: generated
+msgid "Poll result not found"
+msgstr "Resultado de la encuesta no encontrado"
+
+msgid "Prev"
+msgstr "Ant"
+
+msgid "Prev Page"
+msgstr "Página ant"
+
+#: generated
+msgid "Preview"
+msgstr "Vista previa"
+
+#: generated
+msgid "Preview Form"
+msgstr "Vista previa del formulario"
+
+#: generated
+msgid "Preview JSON"
+msgstr "Vista previa de JSON"
+
+#: generated
+msgid "Preview error:"
+msgstr "Error de vista previa:"
+
+#. Default: "Preview form"
+#: ../browser/ai.pt:127
+msgid "Preview form"
+msgstr "Vista previa del formulario"
+
+#: generated
+msgid "Preview mode - form not submitted"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:48
 msgid "Preview the form/surveey template."
 msgstr "Vista previa de la plantilla de formulario/encuesta"
 
+#: generated
+msgid "Preview the live survey experience."
+msgstr "Vista previa de la experiencia de la encuesta en vivo"
+
+#: ../browser/theme_manager.pt:111
+msgid "Preview theme"
+msgstr ""
+
+#: generated
+msgid "Primary recipient for notifications and result exports (single address). "
+msgstr "Destinatario principal para notificaciones y exportaciones de resultados (dirección única). "
+
+#: generated
+msgid "Privacy Forms Studio"
+msgstr "Estudio de formularios de privacidad"
+
+#: ../browser/survey_monitor.pt:160
+msgid "Processing Time"
+msgstr ""
+
+#: generated
+msgid "Processing..."
+msgstr "Procesando..."
+
+#: ../browser/fillable_pdf.pt:836
+msgid "Properties"
+msgstr ""
+
+msgid "Public"
+msgstr "Público"
+
+#: generated
+msgid "Published"
+msgstr "Publicado"
+
+#: ../browser/survey_monitor.pt:111
+msgid "Rate Limit Status"
+msgstr ""
+
+#: generated
+msgid "Rate limited"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:859
+msgid "Read-only"
+msgstr ""
+
+#: ../browser/theme_editor.pt:112
+msgid "Read-only view of the current theme definition."
+msgstr ""
+
+#: generated
+msgid "Refine Form"
+msgstr "Refinar formulario"
+
+#: generated
+msgid "Refine Your Form"
+msgstr "Refine su formulario"
+
+#: generated
+msgid "Refine existing form"
+msgstr "Refinar formulario existente"
+
+#: generated
+msgid "Refinement ${index}"
+msgstr "Refinamiento ${index}"
+
+#: generated
+msgid "Refinement History"
+msgstr "Historial de refinamiento"
+
+#: generated
+msgid "Refinement failed"
+msgstr "Refinamiento fallido"
+
+#: generated
+msgid "Refining..."
+msgstr "Refinando..."
+
+#: generated
+msgid "Refresh"
+msgstr "Actualizar"
+
+#: generated
+msgid "Requested export format is not available"
+msgstr "El formato de exportación solicitado no está disponible"
+
+#: ../browser/fillable_pdf.pt:862
+msgid "Required"
+msgstr ""
+
+#: generated
+msgid "Reset"
+msgstr "Restablecer"
+
+#: ../browser/survey_monitor.pt:146
+msgid "Reset to the full time window"
+msgstr ""
+
+#: generated
+msgid "Restore"
+msgstr "Restaurar"
+
+#: ../browser/theme_editor.pt:52
+msgid "Restore Version"
+msgstr ""
+
+#: ../browser/theme_editor.pt:81
+msgid "Restore a version"
+msgstr ""
+
+#: generated
+msgid "Restore failed: ${error}"
+msgstr ""
+
+#: generated
+msgid "Restore to previous version"
+msgstr "Restaurar a la versión anterior"
+
+#: generated
+msgid "Restore version"
+msgstr "Restaurar versión"
+
+#: generated
+msgid "Restored version from ${date}"
+msgstr ""
+
+#: generated
+msgid "Restoring will create a new version using the selected snapshot and keep the current version in history."
+msgstr "La restauración creará una nueva versión utilizando la instantánea seleccionada y mantendrá la versión actual en el historial."
+
+#: generated
+msgid "Result POSTed to endpoint (status ${status})"
+msgstr "Resultado enviado al punto final (estado ${status})"
+
+#: generated
+msgid "Results"
+msgstr "Resultados"
+
+#: generated
+msgid "Results are not being saved because the \"Store\" action is turned off."
+msgstr "Los resultados no se están guardando porque la acción \"Almacenar\" está desactivada."
+
+#: generated
+msgid "Results cleared"
+msgstr "Resultados borrados"
+
+#: generated
+msgid "Row"
+msgstr "Fila"
+
+#: generated
+msgid "Run the external SurveyJS validator binary for every save/submit."
+msgstr "Ejecute el binario validador externo de SurveyJS para cada guardado/envío."
+
+#: generated
+msgid "Satisfied"
+msgstr ""
+
+#: ../browser/survey_versions.pt:155
+#: ../browser/theme_editor.pt:45
+msgid "Save"
+msgstr ""
+
+#: generated
+msgid "Save Form"
+msgstr "Guardar formulario"
+
+#: ../browser/theme_editor.pt:46
+msgid "Save a new version"
+msgstr ""
+
 #: zopyx/surveyjs/browser/survey_metadata.pt:61
 msgid "Save changes"
 msgstr "Guardar cambios"
 
-#: zopyx/surveyjs/browser/psf.py:85
-msgid ""
-"See every form or survey at a glance, surface trends, and jump right in."
+#: generated
+msgid "Save failed"
+msgstr "Guardado fallido"
+
+#: generated
+msgid "Save failed: ${error}"
 msgstr ""
-"Ve cada formulario o encuesta de un vistazo detecta tendencias y entra "
-"directamente"
+
+#: ../browser/survey_editor.pt:111
+msgid "Save selected theme to survey metadata"
+msgstr ""
+
+#: ../browser/survey_editor.pt:111
+msgid "Save theme"
+msgstr ""
+
+#: generated
+msgid "Saving"
+msgstr "Guardando"
+
+#: generated
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Search by user, UUID, or date"
+msgstr "Buscar por usuario, UUID o fecha"
+
+#: generated
+msgid "Search by user..."
+msgstr "Buscar por usuario..."
+
+#: generated
+msgid "Security mode"
+msgstr "Modo de seguridad"
+
+#: zopyx/surveyjs/browser/psf.py:85
+msgid "See every form or survey at a glance, surface trends, and jump right in."
+msgstr "Ve cada formulario o encuesta de un vistazo detecta tendencias y entra directamente"
+
+#: generated
+msgid "Select JSON file:"
+msgstr "Seleccionar archivo JSON:"
+
+#: generated
+msgid "Select all results"
+msgstr "Seleccionar todos los resultados"
+
+#: zopyx/surveyjs/browser/pfs.pt:18
+msgid "Select an action"
+msgstr "Que te gustaría hacer hoy"
 
 #: zopyx/surveyjs/browser/survey_add.py:100
 #: zopyx/surveyjs/browser/survey_metadata.py:115
 msgid "Select at least one submission handling option."
 msgstr "Selecciona al menos una opción de manejo de envíos"
 
-#: zopyx/surveyjs/browser/pfs.pt:61
-msgid "Create a new form or survey using one of your curated presets."
-msgstr ""
-"Inicia un nuevo formulario o encuesta utilizando uno de tus presets "
-"seleccionados"
+#: generated
+msgid "Select export formats to attach when the Mail action sends results."
+msgstr "Seleccione los formatos de exportación para adjuntar cuando la acción Correo envíe los resultados."
 
-#: zopyx/surveyjs/browser/pfs.pt:19
-msgid ""
-"Choose a guided action appropriate to your role. These shortcuts help team "
-"members manage form and survey data consistently and efficiently."
+#: generated
+msgid "Select how to handle survey submissions (multiple options possible). "
+msgstr "Seleccione cómo manejar los envíos de encuestas (múltiples opciones posibles). "
+
+#: generated
+msgid "Select result"
+msgstr "Seleccionar resultado"
+
+#: generated
+msgid "Sender address for outgoing mail. Mandatory when the Mail action is selected."
+msgstr "Dirección del remitente para el correo saliente. Obligatorio cuando se selecciona la acción Correo."
+
+#: generated
+msgid "Sequence:"
+msgstr "Secuencia:"
+
+msgid "Share this link to open the form."
+msgstr "Comparte este enlace para abrir el formulario"
+
+#: ../browser/fillable_pdf.pt:778
+msgid "Signature field (filled via UI)"
 msgstr ""
-"Comienza con una acción guiada que se ajuste a tu función Estos atajos "
-"mantienen a cada miembro del equipo productivo seguro y en control de los "
-"datos de sus formularios o encuestas"
+
+#: generated
+msgid "Sports"
+msgstr ""
+
+#: generated
+msgid "Start Over"
+msgstr "Empezar de nuevo"
+
+#. Default: "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+#: ../browser/ai.pt:157
+msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the workspace form."
+msgstr "Inicia un borrador temporal de SurveyJS con una indicación. La primera indicación crea el formulario del espacio de trabajo."
+
+#: generated
+msgid "Start over? This will clear your refinement history and return to the initial prompt."
+msgstr "¿Empezar de nuevo? Esto borrará su historial de refinamiento y volverá al aviso inicial."
+
+#: generated
+msgid "Status"
+msgstr "Estado"
+
+#: ../browser/ai.pt:210
+msgid "Step back: ${step}"
+msgstr ""
+
+#: generated
+msgid "Storage disabled."
+msgstr "Almacenamiento deshabilitado."
+
+#: generated
+msgid "Storage:"
+msgstr "Almacenamiento:"
+
+#: generated
+msgid "Store"
+msgstr "Almacenar"
+
+#. Default: "Store as new version"
+#: ../browser/ai.pt:137
+msgid "Store as new version"
+msgstr "Guardar como nueva versión"
+
+#: generated
+msgid "Store converted form as new version"
+msgstr "Almacenar formulario convertido como nueva versión"
+
+#: generated
+msgid "Store failed"
+msgstr "Almacenamiento fallido"
+
+#: generated
+msgid "Store failed. Please try again."
+msgstr "Almacenamiento fallido. Por favor, inténtelo de nuevo."
+
+#: generated
+msgid "Stored form data"
+msgstr "Datos del formulario almacenados"
+
+#: generated
+msgid "Stored results"
+msgstr "Resultados almacenados"
+
+#: ../browser/llm_models.pt:50
+msgid "Streaming"
+msgstr ""
+
+#: generated
+msgid "Subject"
+msgstr "Asunto"
+
+#: generated
+msgid "Subject for notification-only emails. Supports {title}, {detail_url}, {poll_id}."
+msgstr "Asunto para correos electrónicos de solo notificación. Admite {title}, {detail_url}, {poll_id}."
+
+#: generated
+msgid "Subject for notifications"
+msgstr "Asunto para notificaciones"
+
+#: generated
+msgid "Subject for result export emails. Supports {poll_id} for the submission ID. "
+msgstr "Asunto para correos electrónicos de exportación de resultados. Admite {poll_id} para el ID de envío. "
+
+#: generated
+msgid "Submission Details"
+msgstr "Detalles del envío"
+
+#: ../browser/survey_monitor.pt:140
+msgid "Submission Rate Over Time"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:187
+msgid "Submissions"
+msgstr ""
+
+#: generated
+msgid "Submissions / min"
+msgstr ""
+
+#: generated
+msgid "Submitted"
+msgstr "Enviado"
+
+#: generated
+msgid "Suggestions"
+msgstr ""
+
+#: generated
+msgid "Survey"
+msgstr "Encuesta"
+
+#: generated
+msgid "Survey Embed Error"
+msgstr "Error de inserción de encuesta"
+
+#: generated
+msgid "Survey Form"
+msgstr "Formulario de encuesta"
+
+#: generated
+msgid "Survey Response Details"
+msgstr "Detalles de la respuesta de la encuesta"
+
+#: ../browser/survey_monitor.pt:28
+msgid "Survey Submission Monitor"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_templates_overview.pt:38
 msgid "Survey Templates Overview"
 msgstr "Descripción general de plantillas de encuestas"
+
+#: generated
+msgid "Survey closed"
+msgstr "Encuesta cerrada"
 
 #: zopyx/surveyjs/browser/psf.py:235
 msgid "Survey created from template."
@@ -1850,9 +2236,84 @@ msgstr "Encuesta creada a partir de la plantilla"
 msgid "Survey created. Let's build it!"
 msgstr "Encuesta creada. Construyámosla"
 
+#: generated
+msgid "Survey data dashboard"
+msgstr "Panel de datos de encuestas"
+
+#: generated
+msgid "Survey embedding is not allowed. Please contact the survey administrator."
+msgstr "No se permite la inserción de encuestas. Por favor, póngase en contacto con el administrador de la encuesta."
+
+#: generated
+msgid "Survey library not loaded"
+msgstr "Biblioteca de encuestas no cargada"
+
+#: generated
+msgid "Survey open"
+msgstr "Encuesta abierta"
+
 #: zopyx/surveyjs/browser/survey_metadata.py:136
 msgid "Survey updated."
 msgstr "Encuesta actualizada"
+
+#: generated
+msgid "SurveyJS Embed: Element not found"
+msgstr "SurveyJS Embed: Elemento no encontrado"
+
+#: generated
+msgid "SurveyJS Embed: Error handling resize message"
+msgstr "SurveyJS Embed: Error al manejar el mensaje de redimensionamiento"
+
+#: generated
+msgid "SurveyJS Embed: Error requesting height"
+msgstr "SurveyJS Embed: Error al solicitar la altura"
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \"${className}\""
+msgstr "SurveyJS Embed: No se encontraron contenedores de inserción. Agregue elementos con la clase \"${className}\""
+
+#: generated
+msgid "SurveyJS Embed: No embed containers found. Add elements with class \\\"${className}\\\""
+msgstr "SurveyJS Embed: No se encontraron contenedores de incrustación Añade elementos con la clase ${className}"
+
+#: ../browser/survey_actions.pt:147
+msgid "SurveyJS License Key"
+msgstr "Clave de licencia de SurveyJS"
+
+#: ../browser/survey_actions.pt:169
+msgid "SurveyJS Licensing"
+msgstr "Licencias de SurveyJS"
+
+#: ../browser/survey_actions.pt:160
+msgid "SurveyJS Licensing Terms"
+msgstr "Términos de licencia de SurveyJS"
+
+#: generated
+msgid "SurveyJS Preview"
+msgstr "Vista previa de SurveyJS"
+
+#: ../browser/survey_actions.pt:166
+msgid "SurveyJS Pricing"
+msgstr "Precios de SurveyJS"
+
+#: generated
+msgid "SurveyJS preview failed."
+msgstr ""
+
+#: ../browser/survey_editor.pt:104
+msgid "Switch theme"
+msgstr ""
+
+#: generated
+msgid "Table"
+msgstr "Tabla"
+
+msgid "Tabulator assets missing. Please install tabulator.min.js and tabulator.min.css in ++resource++zopyx.surveyjs/vendor/."
+msgstr "Faltan los activos de Tabulator. Por favor, instale tabulator.min.js and tabulator.min.css en ++resource++zopyx.surveyjs/vendor/."
+
+#: generated
+msgid "Technology"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_versions.pt:165
 msgid "Template"
@@ -1894,53 +2355,418 @@ msgstr "Plantilla no disponible"
 msgid "Templates overview"
 msgstr "Descripción de plantillas"
 
+#. Default: "Temporary SurveyJS Preview"
+#: ../browser/ai.pt:68
+msgid "Temporary SurveyJS Preview"
+msgstr "Vista previa temporal de SurveyJS"
+
+#. Default: "Temporary form is available and can be previewed, refined, or stored as new version."
+#: ../browser/ai.pt:72
+msgid "Temporary form is available and can be previewed, refined, or stored as new version."
+msgstr "El formulario temporal está disponible y se puede previsualizar, refinar o guardar como nueva versión."
+
+#: generated
+msgid "Text (.txt)"
+msgstr "Texto (.txt)"
+
+#: ../browser/survey_actions.pt:149
+msgid "The Creator and Dashboard components require a SurveyJS license for production use."
+msgstr "Los componentes Creator y Dashboard requieren una licencia de SurveyJS para uso en producción."
+
+#: ../browser/fillable_pdf.pt:805
+msgid "The following fields were extracted from the uploaded PDF template."
+msgstr ""
+
+#: ../browser/survey_actions.pt:179
+msgid "The maintainer of this add-on is happy to help — reach out at"
+msgstr "El mantenedor de este complemento estará encantado de ayudarle — contacte en"
+
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:73
 msgid "The template JSON could not be loaded."
 msgstr "No se pudo cargar la plantilla JSON"
 
+#: generated
+msgid "Theme"
+msgstr ""
+
+#: ../browser/theme_editor.pt:11
+msgid "Theme Editor"
+msgstr ""
+
+#: ../browser/theme_editor.pt:111
+msgid "Theme JSON"
+msgstr ""
+
+#: ../browser/theme_editor.pt:118
+msgid "Theme JSON (read-only)"
+msgstr ""
+
+#: generated
+msgid "Theme JSON copied to clipboard"
+msgstr ""
+
+#: ../browser/theme_manager.pt:19
+msgid "Theme Manager"
+msgstr ""
+
+#: generated
+msgid "Theme could not be loaded"
+msgstr ""
+
+#: ../browser/theme_editor.pt:80
+msgid "Theme history"
+msgstr ""
+
+#: generated
+msgid "Theme loaded: ${name} · ${version}"
+msgstr ""
+
+#: ../browser/theme_manager.pt:73
+msgid "Theme preview"
+msgstr ""
+
+#: generated
+msgid "Theme saved (${count} versions)"
+msgstr ""
+
+#: generated
+msgid "There are no survey responses yet. Once users submit the survey, their responses will appear here."
+msgstr "Aún no hay respuestas a la encuesta. Una vez que los usuarios envíen la encuesta, sus respuestas aparecerán aquí."
+
+#: generated
+msgid "This action permanently removes the selected version. This cannot be undone."
+msgstr "Esta acción elimina permanentemente la versión seleccionada. Esto no se puede deshacer."
+
+#: generated
+msgid "This action will permanently delete all survey results. This cannot be undone."
+msgstr "Esta acción eliminará permanentemente todos los resultados de la encuesta. Esto no se puede deshacer."
+
+#: generated
+msgid "This feature is experimental. Please review the generated form carefully."
+msgstr "Esta función es experimental. Por favor, revise el formulario generado cuidadosamente."
+
 #: zopyx/surveyjs/browser/survey_viewer.pt:120
 #: zopyx/surveyjs/browser/viewer_embed.pt:58
-msgid ""
-"This form requires a trusted access link. Please use the link provided by "
-"the form owner."
+msgid "This form requires a trusted access link. Please use the link provided by the form owner."
+msgstr "Este formulario requiere un enlace de acceso confiable Por favor use el enlace proporcionado por el propietario del formulario"
+
+#: ../browser/embedded_demo.pt:46
+msgid "This is a demo page for demonstrating the embedded mode using the survey's iframe viewer."
 msgstr ""
-"Este formulario requiere un enlace de acceso confiable Por favor use el "
-"enlace proporcionado por el propietario del formulario"
+
+#: generated
+msgid "This is a helper to get started, not a finished form."
+msgstr "Esto es una ayuda para empezar, no un formulario terminado."
+
+#: browser/survey_results.pt
+msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
+msgstr "Esta encuesta aún no ha recibido respuestas. Una vez que los participantes completen el formulario, sus resultados aparecerán aquí."
+
+#: generated
+msgid "This survey is not configured to be embedded. Please contact the survey administrator."
+msgstr "Esta encuesta no está configurada para ser insertada. Por favor, póngase en contacto con el administrador de la encuesta."
 
 #: zopyx/surveyjs/browser/survey_versions.pt:303
 msgid "This template will be created next to the current survey."
 msgstr "Esta plantilla se creará junto a la encuesta actual"
 
+#: generated
+msgid "This will permanently delete the selected result. This cannot be undone."
+msgstr "Esto eliminará permanentemente el resultado seleccionado. Esto no se puede deshacer."
+
+#: ../browser/survey_monitor.pt:44
+msgid "Time Window:"
+msgstr ""
+
+#: generated
+msgid "Title"
+msgstr "Título"
+
 #: zopyx/surveyjs/browser/survey_results.pt:122
 msgid "To"
 msgstr "A"
+
+#: generated
+msgid "To confirm, please type clear in the field below:"
+msgstr "Para confirmar, por favor escriba 'clear' en el campo de abajo:"
 
 #: zopyx/surveyjs/browser/survey_viewer.pt:94
 msgid "Token"
 msgstr "Token"
 
+#: ../browser/survey_actions.pt:56
+msgid "Tokens"
+msgstr ""
+
+#: ../browser/llm_models.pt:52
+msgid "Tools"
+msgstr ""
+
+#: ../browser/token_store.pt:38
+msgid "Total"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:74
+msgid "Total Submissions"
+msgstr ""
+
+msgid "Trusted access link"
+msgstr "Enlace de acceso confiable"
+
+msgid "Trusted access required"
+msgstr "Es necesario acceso confiable"
+
+msgid "Trusted access token"
+msgstr "Token de acceso de confianza"
+
+msgid "Trusted access token TTL (hours)"
+msgstr "TTL del token de acceso de confianza (horas)"
+
+#: ../browser/fillable_pdf.pt:833
+msgid "Type"
+msgstr ""
+
+#: generated
+msgid "Type 'clear' to confirm"
+msgstr "Escriba 'clear' para confirmar"
+
 #: zopyx/surveyjs/browser/survey_viewer.pt:79
 msgid "URL"
 msgstr "URL"
+
+#: generated
+msgid "UUID"
+msgstr "UUID"
+
+#: generated
+msgid "Unable to load submission."
+msgstr "No se puede cargar el envío."
+
+#: generated
+msgid "Unable to load survey. Please try refreshing the page."
+msgstr "No se puede cargar la encuesta. Por favor, intente actualizar la página."
+
+#: ../browser/survey_monitor.pt:94
+msgid "Unique Users"
+msgstr ""
+
+#: generated
+msgid "Unknown error"
+msgstr "Error desconocido"
+
+#: generated
+msgid "Unlock"
+msgstr "Desbloquear"
+
+#: ../browser/survey_editor.py:47
+msgid "Unnamed"
+msgstr ""
+
+msgid "Unsaved changes"
+msgstr "Cambios no guardados"
+
+#: ../browser/survey_monitor.py:119
+msgid "Untitled"
+msgstr ""
+
+#: ../browser/token_store.pt:42
+msgid "Unused"
+msgstr ""
+
+msgid "Update"
+msgstr "Actualizar"
+
+#: generated
+msgid "Upload"
+msgstr "Cargar"
+
+#: generated
+msgid "Upload JSON form schema"
+msgstr "Cargar esquema de formulario JSON"
+
+#: generated
+msgid "Upload PDF"
+msgstr "Cargar PDF"
+
+#: ../browser/fillable_pdf.pt:648
+msgid "Upload PDF Template"
+msgstr ""
+
+#: ../browser/theme_manager.pt:32
+msgid "Upload Theme JSON"
+msgstr ""
+
+#: generated
+msgid "Upload a PDF form and generate SurveyJS JSON from it"
+msgstr "Cargue un formulario PDF y genere JSON de SurveyJS a partir de él"
+
+#: ../browser/fillable_pdf.pt:644
+msgid "Upload a fillable PDF form (.pdf file only)"
+msgstr ""
+
+#: generated
+msgid "Upload a fillable PDF to generate a SurveyJS form and enable PDF-based submissions."
+msgstr "Carga un PDF rellenable para generar un formulario SurveyJS y habilitar envíos basados en PDF"
+
+#. Default: "Upload a source document and generate a temporary SurveyJS form draft with AI."
+#: ../browser/ai.pt:58
+msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
+msgstr "Sube un documento fuente y genera un borrador de formulario SurveyJS temporal con IA."
+
+#: generated
+msgid "Upload a valid SurveyJS JSON file to create a new version. The file will be validated before saving."
+msgstr "Cargue un archivo JSON de SurveyJS válido para crear una nueva versión. El archivo se validará antes de guardarlo."
+
+#. Default: "Upload and Convert"
+#: ../browser/ai.pt:55
+msgid "Upload and Convert"
+msgstr "Subir y convertir"
+
+#: generated
+msgid "Upload and Create Version"
+msgstr "Cargar y crear versión"
+
+#. Default: "Upload documents and convert them to SurveyJS forms using AI"
+#: ../browser/ai.pt:38
+msgid "Upload documents and convert them to SurveyJS forms using AI"
+msgstr "Sube documentos y conviértelos a formularios SurveyJS con IA"
+
+#: generated
+msgid "Upload failed: ${error}"
+msgstr ""
+
+#. Default: "Uploading..."
+#: ../browser/ai.pt:65
+msgid "Uploading..."
+msgstr "Subiendo..."
+
+#: generated
+msgid "Use clear, specific prompts for best results."
+msgstr "Use indicaciones claras y específicas para obtener los mejores resultados."
+
+#: generated
+msgid "Use the latest saved form as the starting point instead of generating a new one."
+msgstr "Use el último formulario guardado como punto de partida en lugar de generar uno nuevo."
+
+#: ../browser/token_store.pt:46
+msgid "Used"
+msgstr ""
+
+#: generated
+msgid "User"
+msgstr "Usuario"
+
+#: generated
+msgid "User:"
+msgstr "Usuario:"
+
+#: generated
+msgid "Validate submissions against the form schema before saving. "
+msgstr "Valide los envíos con el esquema del formulario antes de guardar. "
+
+#: ../browser/theme_editor.pt:90
+msgid "Version"
+msgstr ""
+
+#: generated
+msgid "Version ${current} of ${total}"
+msgstr "Versión ${current} de ${total}"
+
+#: generated
+msgid "Version ${number}"
+msgstr ""
+
+#: generated
+msgid "Version ${number} · ${date}"
+msgstr ""
+
+#: generated
+msgid "Version History"
+msgstr "Historial de versiones"
+
+#: generated
+msgid "Version ID"
+msgstr "ID de versión"
+
+#: generated
+msgid "Version deleted"
+msgstr "Versión eliminada"
+
+#: generated
+msgid "Version is locked and cannot be deleted"
+msgstr "La versión está bloqueada y no se puede eliminar"
+
+#: generated
+msgid "Version locked"
+msgstr "Versión bloqueada"
+
+#: generated
+msgid "Version not found"
+msgstr "Versión no encontrada"
+
+#: generated
+msgid "Version restored successfully. A new version has been created."
+msgstr "Versión restaurada con éxito. Se ha creado una nueva versión."
+
+#: generated
+msgid "Version unlocked"
+msgstr "Versión desbloqueada"
 
 #: zopyx/surveyjs/browser/survey_versions.pt:294
 msgid "Version:"
 msgstr "Versión:"
 
+#: generated
+msgid "Versions"
+msgstr "Versiones"
+
+#: generated
+msgid "Very satisfied"
+msgstr ""
+
+#: generated
+msgid "View"
+msgstr "Ver"
+
+#: generated
+msgid "View Form"
+msgstr "Ver formulario"
+
+#: generated
+msgid "View JSON"
+msgstr "Ver JSON"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View dashboard"
+msgstr "Ver panel"
+
 #: zopyx/surveyjs/browser/survey_template_viewer.pt:47
 msgid "View form/survey template"
 msgstr "Ver plantilla de formulario/encuesta"
 
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View results"
+msgstr "Ver resultados"
+
+#: zopyx/surveyjs/browser/survey_actions.pt
+msgid "View survey form"
+msgstr "Ver formulario"
+
 #: zopyx/surveyjs/browser/psf.py:110
 msgid "Visit the control panel to adjust site-wide settings and integrations."
-msgstr ""
-"Visita el panel de control para ajustar la configuración e integraciones de "
-"todo el sitio"
+msgstr "Visita el panel de control para ajustar la configuración e integraciones de todo el sitio"
+
+#: generated
+msgid "Visual Editor"
+msgstr "Editor visual"
+
+#: generated
+msgid "Warning:"
+msgstr "Advertencia:"
 
 #: zopyx/surveyjs/browser/survey_add.py:112
 msgid "We could not create the survey at the moment. Please try again."
-msgstr ""
-"No pudimos crear la encuesta en este momento Por favor inténtalo de nuevo"
+msgstr "No pudimos crear la encuesta en este momento Por favor inténtalo de nuevo"
 
 #: zopyx/surveyjs/browser/survey_add.py:134
 #: zopyx/surveyjs/browser/survey_metadata.py:88
@@ -1949,13 +2775,39 @@ msgstr "No pudimos leer los datos del formulario enviado"
 
 #: zopyx/surveyjs/browser/survey_metadata.py:130
 msgid "We could not update the survey at the moment. Please try again."
-msgstr ""
-"No pudimos actualizar la encuesta en este momento Por favor inténtalo de "
-"nuevo"
+msgstr "No pudimos actualizar la encuesta en este momento Por favor inténtalo de nuevo"
 
-#: zopyx/surveyjs/browser/pfs.pt:18
-msgid "Select an action"
-msgstr "Que te gustaría hacer hoy"
+#: generated
+msgid "What would you like to change?"
+msgstr "¿Qué le gustaría cambiar?"
+
+#: generated
+msgid "When enabled, pdfcpu is used to validate and enrich form fields."
+msgstr "Cuando está habilitado, se utiliza pdfcpu para validar y enriquecer los campos de formulario"
+
+#: generated
+msgid "Within limits"
+msgstr ""
+
+#: generated
+msgid "Word (.docx)"
+msgstr "Word (.docx)"
+
+#: generated
+msgid "Workflow status"
+msgstr "Estado del flujo de trabajo"
+
+#: generated
+msgid "Would you recommend us?"
+msgstr ""
+
+#: generated
+msgid "XML (.xml)"
+msgstr "XML (.xml)"
+
+#: ../browser/fillable_pdf.pt:760
+msgid "Yes"
+msgstr ""
 
 #: zopyx/surveyjs/browser/psf.py:158
 #: zopyx/surveyjs/browser/survey_add.py:63
@@ -1966,9 +2818,44 @@ msgstr "No se te permite agregar encuestas aquí"
 msgid "You are not allowed to edit this survey."
 msgstr "No tienes permitido editar esta encuesta"
 
+#: ../browser/survey_actions.pt:173
+msgid "You can add your license key in the"
+msgstr "Puede agregar su clave de licencia en la"
+
 #: zopyx/surveyjs/browser/survey_versions.py:292
 msgid "You do not have permission to add templates here."
 msgstr "No tienes permiso para agregar plantillas aquí"
+
+msgid "You have edits that haven't been saved yet."
+msgstr "Tiene ediciones que aún no se han guardado."
+
+#: generated
+msgid "You're saving ${version}. The latest version is not selected. Continue?"
+msgstr "Está guardando la versión ${version}. No está seleccionada la última versión. ¿Continuar?"
+
+#: generated
+msgid "Your name"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:142
+msgid "Zoom in"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:142
+msgid "Zoom into the current time range"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:144
+msgid "Zoom out"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:144
+msgid "Zoom out of the current time range"
+msgstr ""
+
+#: ../browser/survey_actions.pt:168
+msgid "and"
+msgstr "y"
 
 #. Default: "Select a template"
 #: zopyx/surveyjs/browser/pfs.pt:66
@@ -1977,308 +2864,103 @@ msgstr "No tienes permiso para agregar plantillas aquí"
 msgid "aria-label"
 msgstr "aria-label"
 
+#. Default: "Example: Create an event registration form with contact details, session choices, and consent."
+#: ../browser/ai.pt:174
+msgid "chat_prompt_placeholder_empty"
+msgstr "Ejemplo: crea un formulario de registro para eventos con datos de contacto, opciones de sesiones y consentimiento."
+
+#. Default: "Example: Add a section for contact preferences and make email required."
+#: ../browser/ai.pt:166
+msgid "chat_prompt_placeholder_ready"
+msgstr "Ejemplo: añade una sección para preferencias de contacto y haz que el correo sea obligatorio."
+
+#: generated
+msgid "clear"
+msgstr "borrar"
+
 #. Default: "Type 'clear' to confirm"
 #: zopyx/surveyjs/browser/survey_results.pt:186
 msgid "data-clear-keyword"
 msgstr "datos-borrar-palabra-clave"
 
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:245
+msgid "history_delete_aria_label"
+msgstr "Eliminar esta entrada del historial"
+
+#. Default: "Delete this history entry"
+#: ../browser/ai.pt:244
+msgid "history_delete_title"
+msgstr "Eliminar esta entrada del historial"
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:226
+msgid "history_revert_aria_label"
+msgstr "Revertir a esta versión"
+
+#. Default: "Revert to this version"
+#: ../browser/ai.pt:225
+msgid "history_revert_title"
+msgstr "Revertir a esta versión"
+
 #: zopyx/surveyjs/browser/pdf_form_setup.pt:102
 msgid "pdfcpu (structured fields)"
 msgstr "pdfcpu (campos estructurados)"
+
+msgid "pdfcpu preserves field mapping for filled PDFs. LLM is best for layout but cannot always map to original PDF fields."
+msgstr "pdfcpu conserva el mapeo de campos para PDFs rellenados LLM es mejor para el diseño pero no siempre puede mapear a los campos originales del PDF"
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:70
+msgid "template_search_aria_label"
+msgstr "Seleccionar una plantilla"
+
+#. Default: "Select a template"
+#: ../browser/pfs.pt:69
+msgid "template_search_placeholder"
+msgstr "Seleccionar una plantilla"
+
+#. Default: "Toggle template list"
+#: ../browser/pfs.pt:74
+msgid "template_toggle_aria_label"
+msgstr "Mostrar/ocultar lista de plantillas"
+
+#: generated
+msgid "total"
+msgstr ""
+
+#: generated
+msgid "version ${current} of ${total}"
+msgstr "versión ${current} de ${total}"
+
+#: generated
+msgid "version ${number}"
+msgstr ""
+
+#: generated
+msgid "version unknown"
+msgstr ""
 
 #: zopyx/surveyjs/browser/survey_results.pt:125
 msgid "“To” date must be after “From” date."
 msgstr "La fecha Hasta debe ser posterior a la fecha Desde"
 
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View survey form"
-msgstr "Ver formulario"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently viewing survey form"
-msgstr "Viendo formulario"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Edit metadata"
-msgstr "Editar metadatos"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently editing metadata"
-msgstr "Editando metadatos"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "PDF form"
-msgstr "Formulario PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently on PDF form"
-msgstr "En formulario PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Open visual editor"
-msgstr "Abrir editor visual"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in visual editor"
-msgstr "En editor visual"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Manage versions"
-msgstr "Gestionar versiones"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently managing versions"
-msgstr "Gestionando versiones"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "AI form generator"
-msgstr "Generador de formularios IA"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in AI generator"
-msgstr "En generador IA"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View results"
-msgstr "Ver resultados"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently viewing results"
-msgstr "Viendo resultados"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "View dashboard"
-msgstr "Ver panel"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently on dashboard"
-msgstr "En panel"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Import form from PDF"
-msgstr "Importar formulario de PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently importing from PDF"
-msgstr "Importando de PDF"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Fillable PDF forms setup"
-msgstr "Configurar formularios PDF rellenables"
-
-#: zopyx/surveyjs/browser/survey_actions.pt
-msgid "Currently in fillable PDF forms setup"
-msgstr "En configuración de formularios PDF rellenables"
-
-
-#: browser/survey_results.pt
-msgid "No results yet"
-msgstr "Aún no hay resultados"
-
-#: browser/survey_results.pt
-msgid "This survey hasn't received any submissions. Once respondents complete the form, their results will appear here."
-msgstr "Esta encuesta aún no ha recibido respuestas. Una vez que los participantes completen el formulario, sus resultados aparecerán aquí."
-
-
-#: browser/survey_actions.pt
-msgid "SurveyJS License Key"
-msgstr "Clave de licencia de SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "The Creator and Dashboard components require a SurveyJS license for production use."
-msgstr "Los componentes Creator y Dashboard requieren una licencia de SurveyJS para uso en producción."
-
-#: browser/survey_actions.pt
-msgid "A SurveyJS license covers individual developers within your organization — it is <strong>not</strong> per end user who fills out your forms."
-msgstr "Una licencia de SurveyJS cubre a desarrolladores individuales dentro de su organización — <strong>no</strong> es por usuario final que completa sus formularios."
-
-#: browser/survey_actions.pt
-msgid "By using Privacy Form Studio, you acknowledge and accept the"
-msgstr "Al usar Privacy Form Studio, usted reconoce y acepta los"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Licensing Terms"
-msgstr "Términos de licencia de SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "For pricing and licensing options, please visit"
-msgstr "Para opciones de precios y licencias, visite"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Pricing"
-msgstr "Precios de SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "and"
-msgstr "y"
-
-#: browser/survey_actions.pt
-msgid "SurveyJS Licensing"
-msgstr "Licencias de SurveyJS"
-
-#: browser/survey_actions.pt
-msgid "You can add your license key in the"
-msgstr "Puede agregar su clave de licencia en la"
-
-#: browser/survey_actions.pt
-msgid "Forms Settings"
-msgstr "Configuración de formularios"
-
-#: browser/survey_actions.pt
-msgid "Have questions?"
-msgstr "¿Tiene preguntas?"
-
-#: browser/survey_actions.pt
-msgid "The maintainer of this add-on is happy to help — reach out at"
-msgstr "El mantenedor de este complemento estará encantado de ayudarle — contacte en"
-
-#: ../browser/ai.pt:42
-msgid "AI"
-msgstr "IA"
-
-#: ../browser/ai.pt:45
-msgid "AI Assistant"
-msgstr "Asistente de IA"
-
-#: ../browser/ai.pt:76
-msgid "Accepted formats: PDF, DOCX, ODT, HTML."
-msgstr "Formatos aceptados: PDF, DOCX, ODT, HTML."
-
-#: ../browser/ai.pt:185
-msgid "Apply AI Change"
-msgstr "Aplicar cambio de IA"
-
-#: ../browser/ai.pt:193
-msgid "Applying..."
-msgstr "Aplicando..."
-
-#: ../browser/ai.pt:204
-msgid "Ask AI to change the current temporary form. Each prompt builds on the "
-"latest temporary version."
-msgstr "Pide a la IA que cambie el formulario temporal actual. Cada indicación parte "
-"de la última versión temporal."
-
-#: ../browser/ai.pt:95
-msgid "Clear workspace"
-msgstr "Borrar espacio de trabajo"
-
-#: ../browser/ai.pt:89
-msgid "Current Temporary State"
-msgstr "Estado temporal actual"
-
-#: ../browser/ai.pt:35
-msgid "Document To Online Form"
-msgstr "Documento a formulario en línea"
-
-#: ../browser/ai.pt:110
-msgid "Generate AI Draft"
-msgstr "Generar borrador con IA"
-
-#: ../browser/ai.pt:208
-msgid "History (max 5)"
-msgstr "Historial (máx. 5)"
-
-#: ../browser/ai.pt:101
-msgid "Improve Temporary Form"
-msgstr "Mejorar formulario temporal"
-
-#: ../browser/ai.pt:143
-msgid "Latest version to workspace"
-msgstr "Última versión al espacio de trabajo"
-
-#: ../browser/ai.pt:49
-msgid "Model:"
-msgstr "Modelo:"
-
-#: ../browser/ai.pt:217
-msgid "No chat refinement history yet."
-msgstr "Aún no hay historial de refinamiento del chat."
-
-#: ../browser/ai.pt:83
-msgid "No temporary form yet. Upload a document, start one with chat, or copy the "
-"latest version."
-msgstr "Aún no hay formulario temporal. Sube un documento, comienza uno por chat o "
-"copia la última versión."
-
-#: ../browser/ai.pt:127
-msgid "Preview form"
-msgstr "Vista previa del formulario"
-
-#: ../browser/ai.pt:157
-msgid "Start a temporary SurveyJS draft with a prompt. The first prompt creates the "
-"workspace form."
-msgstr "Inicia un borrador temporal de SurveyJS con una indicación. La primera "
-"indicación crea el formulario del espacio de trabajo."
-
-#: ../browser/ai.pt:199
-msgid "Step back:"
-msgstr "Paso atrás:"
-
-#: ../browser/ai.pt:137
-msgid "Store as new version"
-msgstr "Guardar como nueva versión"
-
-#: ../browser/ai.pt:68
-msgid "Temporary SurveyJS Preview"
-msgstr "Vista previa temporal de SurveyJS"
-
-#: ../browser/ai.pt:72
-msgid "Temporary form is available and can be previewed, refined, or stored as new "
-"version."
-msgstr "El formulario temporal está disponible y se puede previsualizar, refinar o "
-"guardar como nueva versión."
-
-#: ../browser/ai.pt:58
-msgid "Upload a source document and generate a temporary SurveyJS form draft with AI."
-msgstr "Sube un documento fuente y genera un borrador de formulario SurveyJS "
-"temporal con IA."
-
-#: ../browser/ai.pt:55
-msgid "Upload and Convert"
-msgstr "Subir y convertir"
-
-#: ../browser/ai.pt:38
-msgid "Upload documents and convert them to SurveyJS forms using AI"
-msgstr "Sube documentos y conviértelos a formularios SurveyJS con IA"
-
-#: ../browser/ai.pt:65
-msgid "Uploading..."
-msgstr "Subiendo..."
-
-#: ../browser/ai.pt:174
-msgid "chat_prompt_placeholder_empty"
-msgstr "Ejemplo: crea un formulario de registro para eventos con datos de contacto, "
-"opciones de sesiones y consentimiento."
-
-#: ../browser/ai.pt:166
-msgid "chat_prompt_placeholder_ready"
-msgstr "Ejemplo: añade una sección para preferencias de contacto y haz que el correo "
-"sea obligatorio."
-
-#: ../browser/ai.pt:245
-msgid "history_delete_aria_label"
-msgstr "Eliminar esta entrada del historial"
-
-#: ../browser/ai.pt:244
-msgid "history_delete_title"
-msgstr "Eliminar esta entrada del historial"
-
-#: ../browser/ai.pt:226
-msgid "history_revert_aria_label"
-msgstr "Revertir a esta versión"
-
-#: ../browser/ai.pt:225
-msgid "history_revert_title"
-msgstr "Revertir a esta versión"
-
-#: ../browser/pfs.pt:70
-msgid "template_search_aria_label"
-msgstr "Seleccionar una plantilla"
-
-#: ../browser/pfs.pt:69
-msgid "template_search_placeholder"
-msgstr "Seleccionar una plantilla"
-
-#: ../browser/pfs.pt:74
-msgid "template_toggle_aria_label"
-msgstr "Mostrar/ocultar lista de plantillas"
+#: ../browser/survey_monitor.pt:130
+msgid "⚠️ Rate limited"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:127
+msgid "✅ Within limits"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:853
+msgid "✓ Yes"
+msgstr ""
+
+#: ../browser/fillable_pdf.pt:854
+msgid "✗ No"
+msgstr ""
+
+#: ../browser/survey_monitor.pt:231
+msgid "🧹 Cleanup Old Data"
+msgstr ""
