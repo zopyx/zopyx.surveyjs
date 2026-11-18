@@ -2,6 +2,18 @@
  * Theme Manager — list, create, delete, upload themes.
  */
 (function () {
+  var t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+
   var createBtn = document.getElementById("createThemeBtn");
   var createDialog = document.getElementById("createThemeDialog");
   var createCancel = document.getElementById("createDialogCancel");
@@ -102,17 +114,17 @@
     previewContainer.innerHTML = "";
     var renderTarget = document.createElement("div");
     previewContainer.appendChild(renderTarget);
-    if (previewTitle) previewTitle.textContent = themeName + " — Preview";
+    if (previewTitle) previewTitle.textContent = t("${name} — Preview", {name: themeName});
     previewSurvey = new Survey.Model({
-      title: "Customer feedback",
-      description: "A preview of how this theme looks on a form.",
+      title: t("Customer feedback"),
+      description: t("A preview of how this theme looks on a form."),
       pages: [{
         name: "page1",
         elements: [
-          { type: "text", name: "name", title: "Your name", isRequired: true },
-          { type: "radiogroup", name: "satisfaction", title: "How satisfied are you?",
-            choices: ["Very satisfied", "Satisfied", "Neutral", "Dissatisfied"] },
-          { type: "comment", name: "comments", title: "Additional comments" }
+          { type: "text", name: "name", title: t("Your name"), isRequired: true },
+          { type: "radiogroup", name: "satisfaction", title: t("How satisfied are you?"),
+            choices: [t("Very satisfied"), t("Satisfied"), t("Neutral"), t("Dissatisfied")] },
+          { type: "comment", name: "comments", title: t("Additional comments") }
         ]
       }],
       showQuestionNumbers: "off"
@@ -125,7 +137,7 @@
     var btn = e.target.closest(".preview-btn");
     if (!btn) return;
     try {
-      previewTheme(btn.getAttribute("data-theme-name") || "Theme",
+      previewTheme(btn.getAttribute("data-theme-name") || t("Theme"),
         JSON.parse(btn.getAttribute("data-theme-json") || "{}"));
     } catch (err) {
       console.error("ThemeManager: failed to preview theme", err);
@@ -217,7 +229,7 @@
               }
             } catch (e) {}
           }
-          alert("Upload failed: " + xhr.responseText);
+          alert(t("Upload failed: ${error}", {error: xhr.responseText}));
           reload();
         };
         xhr.send("action=upload&name=" + encodeURIComponent(name) +

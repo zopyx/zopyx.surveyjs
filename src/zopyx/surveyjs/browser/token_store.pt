@@ -35,20 +35,20 @@
       <div class="tv-stats-row" tal:condition="python: stats['total'] > 0">
         <div class="tv-stat-item">
           <span class="tv-stat-number total" tal:content="stats/total">0</span>
-          <span class="tv-stat-label">Total</span>
+          <span class="tv-stat-label" i18n:translate="">Total</span>
         </div>
         <div class="tv-stat-item">
           <span class="tv-stat-number unused" tal:content="stats/unused">0</span>
-          <span class="tv-stat-label">Unused</span>
+          <span class="tv-stat-label" i18n:translate="">Unused</span>
         </div>
         <div class="tv-stat-item">
           <span class="tv-stat-number used" tal:content="stats/used">0</span>
-          <span class="tv-stat-label">Used</span>
+          <span class="tv-stat-label" i18n:translate="">Used</span>
         </div>
       </div>
 
       <!-- Empty state when no tokens -->
-      <p class="tv-empty" tal:condition="python: stats['total'] == 0">
+      <p class="tv-empty" tal:condition="python: stats['total'] == 0" i18n:translate="">
         No tokens generated yet. Use the form below to create access tokens.
       </p>
 
@@ -58,10 +58,10 @@
         <!-- Row 1: Headings -->
         <div class="tv-row tv-row-headings">
           <div class="tv-col">
-            <h3>Generate new tokens</h3>
+            <h3 i18n:translate="">Generate new tokens</h3>
           </div>
           <div class="tv-col">
-            <h3>Import tokens from CSV</h3>
+            <h3 i18n:translate="">Import tokens from CSV</h3>
           </div>
         </div>
 
@@ -86,10 +86,10 @@
         <!-- Row 3: Buttons -->
         <div class="tv-row tv-row-buttons">
           <div class="tv-col">
-            <button type="submit" form="generate-form" name="generate_tokens" class="tv-btn tv-btn-primary">Generate</button>
+            <button type="submit" form="generate-form" name="generate_tokens" class="tv-btn tv-btn-primary" i18n:translate="">Generate</button>
           </div>
           <div class="tv-col">
-            <button type="submit" form="import-form" name="import_csv" class="tv-btn tv-btn-primary">Import</button>
+            <button type="submit" form="import-form" name="import_csv" class="tv-btn tv-btn-primary" i18n:translate="">Import</button>
           </div>
         </div>
 
@@ -100,19 +100,19 @@
               <form method="post" class="tv-action">
                 <input type="hidden" name="_authenticator"
                        tal:attributes="value context/@@authenticator/token" />
-                <button type="submit" name="download_valid_tokens" class="tv-btn tv-btn-green">Download valid tokens</button>
+                <button type="submit" name="download_valid_tokens" class="tv-btn tv-btn-green" i18n:translate="">Download valid tokens</button>
               </form>
               <form method="post" class="tv-action">
                 <input type="hidden" name="_authenticator"
                        tal:attributes="value context/@@authenticator/token" />
-                <button type="submit" name="download_all_tokens" class="tv-btn tv-btn-secondary">Download all tokens</button>
+                <button type="submit" name="download_all_tokens" class="tv-btn tv-btn-secondary" i18n:translate="">Download all tokens</button>
               </form>
             </div>
             <div class="tv-export-right">
-              <form method="post" class="tv-action" onsubmit="return confirm('Clear all tokens?');">
+              <form method="post" class="tv-action" data-confirm-clear="true">
                 <input type="hidden" name="_authenticator"
                        tal:attributes="value context/@@authenticator/token" />
-                <button type="submit" name="clear_tokens" class="tv-btn tv-btn-red">&#x26A0; Clear All</button>
+                <button type="submit" name="clear_tokens" class="tv-btn tv-btn-red" i18n:translate="">&#x26A0; Clear All</button>
               </form>
             </div>
           </div>
@@ -122,19 +122,33 @@
 
       <!-- Help -->
       <div class="tv-help">
-        <p><strong>How it works:</strong> Generate tokens to create unique access URLs.
+        <p i18n:translate=""><strong i18n:name="heading">How it works:</strong> Generate tokens to create unique access URLs.
         Each token can only be used once. Download the CSV to distribute URLs to participants.</p>
 
-        <p><strong>CSV Import Format:</strong> Upload a CSV file with a single column named <code>token</code>.
+        <p i18n:translate=""><strong i18n:name="heading">CSV Import Format:</strong> Upload a CSV file with a single column named <code i18n:name="token">token</code>.
         Each token must be at least 8 characters long. Example:</p>
         <pre class="tv-code-example">token
 mytoken123
 abc456xyz
 survey_access_001</pre>
-        <p>Duplicate tokens (already existing in the store) will be skipped during import.</p>
+        <p i18n:translate="">Duplicate tokens (already existing in the store) will be skipped during import.</p>
       </div>
 
     </div>
+
+    <span id="clear-tokens-confirm" hidden="hidden" i18n:translate="">Clear all tokens?</span>
+    <script type="text/javascript">
+      (function () {
+        var form = document.querySelector("[data-confirm-clear]");
+        var message = document.getElementById("clear-tokens-confirm");
+        if (!form || !message) return;
+        form.addEventListener("submit", function (event) {
+          if (!window.confirm(message.textContent)) {
+            event.preventDefault();
+          }
+        });
+      })();
+    </script>
 
   </metal:block>
 

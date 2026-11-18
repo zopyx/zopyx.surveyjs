@@ -7,6 +7,18 @@ SurveyCreatorCore.registerSurveyTheme(SurveyTheme);
 
 document.addEventListener("DOMContentLoaded", function () {
 
+  var t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+
   var configEl = document.getElementById("survey-editor-config");
   var licenseKey = configEl ? configEl.getAttribute("data-license-key") || "" : "";
   var themeId = configEl ? configEl.getAttribute("data-theme-id") || "" : "";
@@ -34,25 +46,25 @@ document.addEventListener("DOMContentLoaded", function () {
   // Representative sample form for preview
   creator.JSON = {
     "locale": "en",
-    "title": "Customer Satisfaction Survey",
-    "description": "Please share your experience with us.",
+    "title": t("Customer Satisfaction Survey"),
+    "description": t("Please share your experience with us."),
     "pages": [{
       "name": "page1",
-      "title": "About You",
+      "title": t("About You"),
       "elements": [
-        { "type": "text", "name": "full_name", "title": "Full Name *", "isRequired": true, "placeholder": "Enter your name" },
-        { "type": "text", "name": "email", "title": "Email *", "isRequired": true, "inputType": "email" },
-        { "type": "radiogroup", "name": "age_group", "title": "Age Group", "choices": [{ "value": "18_30", "text": "18–30" }, { "value": "31_45", "text": "31–45" }, { "value": "46_60", "text": "46–60" }], "colCount": 2 },
-        { "type": "checkbox", "name": "interests", "title": "Interests", "choices": [{ "value": "tech", "text": "Technology" }, { "value": "sports", "text": "Sports" }, { "value": "music", "text": "Music" }], "colCount": 2 }
+        { "type": "text", "name": "full_name", "title": t("Full Name *"), "isRequired": true, "placeholder": t("Enter your name") },
+        { "type": "text", "name": "email", "title": t("Email *"), "isRequired": true, "inputType": "email" },
+        { "type": "radiogroup", "name": "age_group", "title": t("Age Group"), "choices": [{ "value": "18_30", "text": "18–30" }, { "value": "31_45", "text": "31–45" }, { "value": "46_60", "text": "46–60" }], "colCount": 2 },
+        { "type": "checkbox", "name": "interests", "title": t("Interests"), "choices": [{ "value": "tech", "text": t("Technology") }, { "value": "sports", "text": t("Sports") }, { "value": "music", "text": t("Music") }], "colCount": 2 }
       ]
     }, {
       "name": "page2",
-      "title": "Feedback",
+      "title": t("Feedback"),
       "elements": [
-        { "type": "rating", "name": "satisfaction", "title": "Overall Satisfaction", "rateCount": 5, "rateType": "labels" },
-        { "type": "boolean", "name": "recommend", "title": "Would you recommend us?" },
-        { "type": "comment", "name": "suggestions", "title": "Suggestions", "rows": 3 },
-        { "type": "file", "name": "attachment", "title": "Attach File" }
+        { "type": "rating", "name": "satisfaction", "title": t("Overall Satisfaction"), "rateCount": 5, "rateType": "labels" },
+        { "type": "boolean", "name": "recommend", "title": t("Would you recommend us?") },
+        { "type": "comment", "name": "suggestions", "title": t("Suggestions"), "rows": 3 },
+        { "type": "file", "name": "attachment", "title": t("Attach File") }
       ]
     }],
     "showProgressBar": "aboveHeader",
@@ -153,8 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
           creator.activeTab = "theme";
           var latestVersion = getLatestVersionInfo();
           var versionText = latestVersion ?
-            "Version " + latestVersion.number + " · " + formatDateTime(latestVersion.created) : "version unknown";
-          showToast("Theme loaded: " + themeName + " · " + versionText);
+            t("Version ${number} · ${date}", {number: latestVersion.number, date: formatDateTime(latestVersion.created)}) : t("version unknown");
+          showToast(t("Theme loaded: ${name} · ${version}", {name: themeName, version: versionText}));
           renderCreator();
           if (creator.themeEditor && typeof creator.themeEditor.addTheme === "function") {
             creator.themeEditor.addTheme(resp, true);
@@ -165,11 +177,11 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("ThemeEditor: loaded theme JSON", resp);
         } else {
           renderCreator();
-          showToast("Theme loaded: " + themeName + " · version 1");
+          showToast(t("Theme loaded: ${name} · ${version}", {name: themeName, version: t("version ${number}", {number: 1})}));
         }
       } catch (e) {
         renderCreator();
-        showToast("Theme could not be loaded", true);
+        showToast(t("Theme could not be loaded"), true);
         console.log("ThemeEditor: no existing theme, starting fresh");
       }
     };
@@ -185,27 +197,27 @@ document.addEventListener("DOMContentLoaded", function () {
   function saveTheme(action, successMessage) {
     var theme = creator.theme;
     if (!theme || Object.keys(theme).length === 0) {
-      setStatus("No theme to save", true);
+      setStatus(t("No theme to save"), true);
       return;
     }
     var themeStr = JSON.stringify(theme, null, 2);
     postData({ action: action, themeJson: themeStr }, function (resp, status) {
       if (resp && resp.success) {
-        setStatus(successMessage + " (" + (resp.versions ? resp.versions.length : "?") + " versions)");
+        setStatus(t(successMessage, {count: resp.versions ? resp.versions.length : "?"}));
       } else {
-        setStatus("Save failed: " + ((resp && resp.error) || "HTTP " + status), true);
+        setStatus(t("Save failed: ${error}", {error: (resp && resp.error) || ("HTTP " + status)}), true);
       }
     });
   }
 
   if (saveCurrentBtn) {
     saveCurrentBtn.addEventListener("click", function () {
-      saveTheme("save_current", "Theme saved");
+      saveTheme("save_current", "Theme saved (${count} versions)");
     });
   }
   if (saveVersionBtn) {
     saveVersionBtn.addEventListener("click", function () {
-      saveTheme("save_version", "New version saved");
+      saveTheme("save_version", "New version saved (${count} versions)");
     });
   }
 
@@ -239,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // New payloads include the stable number; derive it for older or
         // cached payloads where the field is not present yet.
         var versionNumber = Number(v.number) || (versions.length - index);
-        td1.textContent = "Version " + versionNumber;
+        td1.textContent = t("Version ${number}", {number: versionNumber});
         var td2 = document.createElement("td");
         td2.textContent = formatDateTime(v.created);
         td2.title = v.created;
@@ -248,15 +260,15 @@ document.addEventListener("DOMContentLoaded", function () {
         var td4 = document.createElement("td");
         var btn = document.createElement("button");
         btn.className = "btn btn-sm btn-primary";
-        btn.textContent = "Restore";
+        btn.textContent = t("Restore");
         btn.addEventListener("click", function () {
           postData({ action: "restore_version", version_id: v.id }, function (resp, status) {
             if (resp && resp.success && resp.theme_json) {
               creator.theme = resp.theme_json;
-              setStatus("Restored version from " + v.created);
+              setStatus(t("Restored version from ${date}", {date: v.created}));
               if (restoreModal) restoreModal.setAttribute("hidden", "hidden");
             } else {
-              setStatus("Restore failed: " + ((resp && resp.error) || "HTTP " + status), true);
+              setStatus(t("Restore failed: ${error}", {error: (resp && resp.error) || ("HTTP " + status)}), true);
             }
           });
         });
@@ -305,22 +317,22 @@ document.addEventListener("DOMContentLoaded", function () {
   function closeJsonModal() {
     if (viewJsonModal) viewJsonModal.setAttribute("hidden", "hidden");
     if (viewJsonCopyBtn) {
-      viewJsonCopyBtn.textContent = "Copy";
+      viewJsonCopyBtn.textContent = t("Copy");
       viewJsonCopyBtn.disabled = false;
     }
   }
   function copyJsonToClipboard() {
     var text = viewJsonText ? viewJsonText.value : "";
     if (!text) {
-      setStatus("Nothing to copy", true);
+      setStatus(t("Nothing to copy"), true);
       return;
     }
     function done() {
       if (!viewJsonCopyBtn) return;
-      viewJsonCopyBtn.textContent = "Copied ✓";
-      setStatus("Theme JSON copied to clipboard");
+      viewJsonCopyBtn.textContent = t("Copied ✓");
+      setStatus(t("Theme JSON copied to clipboard"));
       setTimeout(function () {
-        viewJsonCopyBtn.textContent = "Copy";
+        viewJsonCopyBtn.textContent = t("Copy");
       }, 2000);
     }
     function fallback() {
@@ -331,10 +343,10 @@ document.addEventListener("DOMContentLoaded", function () {
         var ok = document.execCommand("copy");
         viewJsonText.setAttribute("readonly", "readonly");
         if (ok) done();
-        else setStatus("Copy failed", true);
+        else setStatus(t("Copy failed"), true);
       } catch (e) {
         viewJsonText.setAttribute("readonly", "readonly");
-        setStatus("Copy failed: " + e.message, true);
+        setStatus(t("Copy failed: ${error}", {error: e.message}), true);
       }
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -347,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
     viewJsonBtn.addEventListener("click", function () {
       var theme = creator.theme;
       if (!theme || Object.keys(theme).length === 0) {
-        setStatus("No theme to show", true);
+        setStatus(t("No theme to show"), true);
         return;
       }
       viewJsonText.value = JSON.stringify(theme, null, 2);
@@ -383,13 +395,13 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
           var themeJson = JSON.parse(e.target.result);
           if (!themeJson || typeof themeJson !== "object") {
-            setStatus("Invalid theme JSON", true);
+            setStatus(t("Invalid theme JSON"), true);
             return;
           }
           creator.theme = themeJson;
-          setStatus("Imported: " + file.name);
+          setStatus(t("Imported: ${name}", {name: file.name}));
         } catch (err) {
-          setStatus("Parse error: " + err.message, true);
+          setStatus(t("Parse error: ${error}", {error: err.message}), true);
         }
       };
       reader.readAsText(file);
@@ -402,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
     exportBtn.addEventListener("click", function () {
       var theme = creator.theme;
       if (!theme || Object.keys(theme).length === 0) {
-        setStatus("No theme to export", true);
+        setStatus(t("No theme to export"), true);
         return;
       }
       var params = [
@@ -416,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
       xhr.responseType = "blob";
       xhr.onload = function () {
         if (xhr.status !== 200) {
-          setStatus("Export failed: HTTP " + xhr.status, true);
+          setStatus(t("Export failed: HTTP ${status}", {status: xhr.status}), true);
           return;
         }
         var filename = themeName + ".json";
@@ -431,10 +443,10 @@ document.addEventListener("DOMContentLoaded", function () {
         link.click();
         link.remove();
         setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-        setStatus("Exported " + filename);
+        setStatus(t("Exported ${name}", {name: filename}));
       };
       xhr.onerror = function () {
-        setStatus("Export failed", true);
+        setStatus(t("Export failed"), true);
       };
       xhr.send(params.join("&"));
     });

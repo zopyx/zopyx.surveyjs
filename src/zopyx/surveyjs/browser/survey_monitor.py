@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 
 from Products.Five import BrowserView
 
+from .. import _
 from ..monitoring import (
     TIME_WINDOWS,
     check_rate_limit,
@@ -63,14 +64,14 @@ class SurveyMonitorView(BrowserView):
     def available_windows(self):
         """Return available time window options."""
         labels = {
-            "5m": "Last 5 minutes",
-            "10m": "Last 10 minutes",
-            "20m": "Last 20 minutes",
-            "1h": "Last hour",
-            "2h": "Last 2 hours",
-            "6h": "Last 6 hours",
-            "12h": "Last 12 hours",
-            "24h": "Last 24 hours",
+            "5m": _("Last 5 minutes"),
+            "10m": _("Last 10 minutes"),
+            "20m": _("Last 20 minutes"),
+            "1h": _("Last hour"),
+            "2h": _("Last 2 hours"),
+            "6h": _("Last 6 hours"),
+            "12h": _("Last 12 hours"),
+            "24h": _("Last 24 hours"),
         }
         return [
             {"value": k, "label": labels.get(k, k), "selected": k == self.time_window}
@@ -115,7 +116,7 @@ class SurveyMonitorView(BrowserView):
             series = form.get("series", {})
             forms.append(
                 {
-                    "title": form.get("title", "Untitled"),
+                    "title": form.get("title") or _("Untitled"),
                     "path": form.get("path", "/"),
                     "count": form.get("count", 0),
                     "values": [series.get(label, 0) for label in labels],

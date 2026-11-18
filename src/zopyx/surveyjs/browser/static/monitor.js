@@ -6,6 +6,18 @@
 (function() {
   'use strict';
 
+  const t = window._t || function (msgid, mapping) {
+    if (!mapping) {
+      return msgid;
+    }
+    return msgid.replace(/\$\{([a-zA-Z0-9_]+)\}/g, function (match, key) {
+      if (Object.prototype.hasOwnProperty.call(mapping, key)) {
+        return String(mapping[key]);
+      }
+      return match;
+    });
+  };
+
   // Configuration
   const REFRESH_INTERVAL = 30000; // 30 seconds
   let refreshTimer = null;
@@ -54,7 +66,7 @@
       data.labels.length > 0 &&
       (data.values || []).some(v => v > 0);
     if (!hasData) {
-      el.innerHTML = '<div class="chart-empty">No data available for selected time window</div>';
+      el.innerHTML = '<div class="chart-empty">' + t("No data available for selected time window") + '</div>';
       return;
     }
 
@@ -76,12 +88,12 @@
     traces.push({
       x: data.labels,
       y: data.cumulative,
-      name: 'Cumulative',
+      name: t('Cumulative'),
       type: 'scatter',
       mode: 'lines',
       yaxis: 'y2',
       line: { color: '#111827', width: 2.5 },
-      hovertemplate: '%{y} total <extra>Cumulative</extra>',
+      hovertemplate: '%{y} ' + t('total') + ' <extra>' + t('Cumulative') + '</extra>',
     });
 
     const layout = {
@@ -90,9 +102,9 @@
       hovermode: 'x unified',
       legend: { orientation: 'h', y: -0.3, x: 0 },
       xaxis: { showgrid: false, tickangle: -45 },
-      yaxis: { title: 'Submissions / min', rangemode: 'nonnegative', gridcolor: '#f3f4f6' },
+      yaxis: { title: t('Submissions / min'), rangemode: 'nonnegative', gridcolor: '#f3f4f6' },
       yaxis2: {
-        title: 'Total',
+        title: t('Total'),
         overlaying: 'y',
         side: 'right',
         showgrid: false,
@@ -126,7 +138,7 @@
     const maxVals = duration.max || [];
     const hasData = avg.some(v => v !== null && v !== undefined);
     if (!hasData) {
-      el.innerHTML = '<div class="chart-empty">No data available for selected time window</div>';
+      el.innerHTML = '<div class="chart-empty">' + t("No data available for selected time window") + '</div>';
       return;
     }
 
@@ -136,20 +148,20 @@
       {
         x: labels,
         y: avg,
-        name: 'Average',
+        name: t('Average'),
         type: 'scatter',
         mode: 'lines',
         line: { color: '#3b82f6', width: 2 },
-        hovertemplate: '%{y} ms <extra>Average</extra>',
+        hovertemplate: '%{y} ms <extra>' + t('Average') + '</extra>',
       },
       {
         x: labels,
         y: maxVals,
-        name: 'Max',
+        name: t('Max'),
         type: 'scatter',
         mode: 'lines',
         line: { color: '#f59e0b', width: 1.5, dash: 'dot' },
-        hovertemplate: '%{y} ms <extra>Max</extra>',
+        hovertemplate: '%{y} ms <extra>' + t('Max') + '</extra>',
       },
     ], {
       height: 400,
@@ -332,7 +344,7 @@
       let running = 0;
       const cumulative = values.map(v => (running += v));
       const forms = (data.form_time_series || []).map(form => ({
-        title: form.title || 'Untitled',
+        title: form.title || t('Untitled'),
         values: labels.map(label => (form.series || {})[label] || 0),
       }));
       renderChart({ labels, values, cumulative, forms });
@@ -376,10 +388,10 @@
     if (statusEl) {
       if (rateInfo.is_allowed) {
         statusEl.className = 'rate-status rate-ok';
-        statusEl.innerHTML = '✅ Within limits';
+        statusEl.innerHTML = '✅ ' + t('Within limits');
       } else {
         statusEl.className = 'rate-status rate-limited';
-        statusEl.innerHTML = '⚠️ Rate limited';
+        statusEl.innerHTML = '⚠️ ' + t('Rate limited');
       }
     }
   }
@@ -460,6 +472,19 @@
     // Re-append rows in sorted order
     rows.forEach(row => tbody.appendChild(row));
   }
+
+  function initCleanupConfirm() {
+    const form = document.querySelector('.cleanup-form');
+    if (!form) return;
+    form.addEventListener('submit', function (event) {
+      const message = form.getAttribute('data-confirm-cleanup');
+      if (message && !window.confirm(t(message))) {
+        event.preventDefault();
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initCleanupConfirm);
 
   // Initialize sortable table on DOM ready
   document.addEventListener('DOMContentLoaded', initSortableTable);

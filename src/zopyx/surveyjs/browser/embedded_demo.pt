@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:tal="http://xml.zope.org/namespaces/tal">
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="zopyx.surveyjs">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Embedded Survey Demo</title>
+  <title i18n:translate="">Embedded Survey Demo</title>
   <style type="text/css">
     html, body {
       margin: 0;
@@ -41,13 +43,13 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="note">
+    <div class="note" i18n:translate="">
       This is a demo page for demonstrating the embedded mode using the survey's
       iframe viewer.
     </div>
     <iframe
       class="frame"
-      title="Embedded mental health survey demo"
+      i18n:attributes="title" title="Embedded mental health survey demo"
       tal:attributes="src view/iframe_url"
     ></iframe>
   </div>

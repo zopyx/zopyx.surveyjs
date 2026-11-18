@@ -4,12 +4,14 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/main_template/macros/master"
+      tal:define="portal_state context/@@plone_portal_state"
       i18n:domain="zopyx.surveyjs">
 <head>
   <metal:block fill-slot="style_slot">
     <link rel="stylesheet" type="text/css" href="++resource++zopyx.surveyjs/monitor.css" />
   </metal:block>
   <metal:block fill-slot="javascript_head_slot">
+    <metal:block use-macro="context/@@survey-assets/macros/surveyjs-i18n-scripts" />
     <script tal:attributes="src string:${context/portal_url}/++resource++zopyx.surveyjs/surveyjs/plotly.min.js"
             type="text/javascript"></script>
     <script src="++resource++zopyx.surveyjs/monitor.js"></script>
@@ -24,14 +26,15 @@
       <div class="monitor-header">
         <h1 class="monitor-title">
           <span class="monitor-icon">📊</span>
-          Survey Submission Monitor
+          <tal:block i18n:translate="">Survey Submission Monitor</tal:block>
         </h1>
         <div class="monitor-meta">
           <span class="monitor-time" tal:content="view/get_current_time">
             2024-01-01 12:00:00 UTC
           </span>
-          <span class="cache-path" tal:content="string:Cache: ${view/get_cache_path}">
-            Cache: /tmp/surveyjs-monitor
+          <span class="cache-path">
+            <tal:block i18n:translate="">Cache:</tal:block>
+            <tal:block tal:content="view/get_cache_path">/tmp/surveyjs-monitor</tal:block>
           </span>
         </div>
       </div>
@@ -39,7 +42,7 @@
       <!-- Time Window Selector -->
       <div class="window-selector">
         <form method="GET" action="@@survey-monitor">
-          <label for="window">Time Window:</label>
+          <label for="window" i18n:translate="">Time Window:</label>
           <select name="window" id="window" onchange="this.form.submit()">
             <tal:window repeat="window view/available_windows">
               <option tal:attributes="value window/value; selected window/selected"
@@ -49,13 +52,13 @@
             </tal:window>
           </select>
           <noscript>
-            <button type="submit">Update</button>
+            <button type="submit" i18n:translate="">Update</button>
           </noscript>
         </form>
         <div class="auto-refresh">
           <label>
             <input type="checkbox" id="auto-refresh" checked />
-            Auto-refresh (30s)
+            <tal:block i18n:translate="">Auto-refresh (30s)</tal:block>
           </label>
         </div>
       </div>
@@ -69,7 +72,7 @@
           <div class="stat-content">
             <div class="stat-value" id="total-count"
                  tal:content="stats/total_count|nothing">0</div>
-            <div class="stat-label">Total Submissions</div>
+            <div class="stat-label" i18n:translate="">Total Submissions</div>
           </div>
         </div>
 
@@ -79,7 +82,7 @@
           <div class="stat-content">
             <div class="stat-value" id="rate-value"
                  tal:content="stats/rate_per_minute|nothing">0</div>
-            <div class="stat-label">Per Minute</div>
+            <div class="stat-label" i18n:translate="">Per Minute</div>
           </div>
         </div>
 
@@ -89,7 +92,7 @@
           <div class="stat-content">
             <div class="stat-value" id="unique-users"
                  tal:content="stats/unique_users|nothing">0</div>
-            <div class="stat-label">Unique Users</div>
+            <div class="stat-label" i18n:translate="">Unique Users</div>
           </div>
         </div>
 
@@ -99,33 +102,33 @@
           <div class="stat-content">
             <div class="stat-value" id="active-forms"
                  tal:content="python:len(stats.get('forms', []))">0</div>
-            <div class="stat-label">Active Forms</div>
+            <div class="stat-label" i18n:translate="">Active Forms</div>
           </div>
         </div>
       </div>
 
       <!-- Rate Limit Status -->
       <div class="rate-limit-panel" tal:define="rate_info view/get_rate_limit_status">
-        <h3>Rate Limit Status</h3>
+        <h3 i18n:translate="">Rate Limit Status</h3>
         <div class="rate-limit-grid">
           <div class="rate-item">
-            <span class="rate-label">Current Minute:</span>
+            <span class="rate-label" i18n:translate="">Current Minute:</span>
             <span class="rate-value" id="rate-current"
                   tal:content="rate_info/current_minute_count|nothing">0</span>
             <span class="rate-max">/ <tal:max tal:replace="python:rate_info.get('max_allowed', 60)">60</tal:max></span>
           </div>
           <div class="rate-item">
-            <span class="rate-label">5min Average:</span>
+            <span class="rate-label" i18n:translate="">5min Average:</span>
             <span class="rate-value" id="rate-avg"
                   tal:content="rate_info/5min_average|nothing">0</span>
-            <span class="rate-unit">/min</span>
+            <span class="rate-unit" i18n:translate="">/min</span>
           </div>
           <div class="rate-status" id="rate-status"
                tal:attributes="class python:'rate-status ' + ('rate-ok' if rate_info.get('is_allowed') else 'rate-limited')">
-            <tal:status tal:condition="rate_info/is_allowed|nothing">
+            <tal:status tal:condition="rate_info/is_allowed|nothing" i18n:translate="">
               ✅ Within limits
             </tal:status>
-            <tal:status tal:condition="not:rate_info/is_allowed|nothing">
+            <tal:status tal:condition="not:rate_info/is_allowed|nothing" i18n:translate="">
               ⚠️ Rate limited
             </tal:status>
           </div>
@@ -135,14 +138,14 @@
       <!-- Chart Section -->
       <div class="chart-panel">
         <div class="chart-panel-header">
-          <h3>Submission Rate Over Time</h3>
+          <h3 i18n:translate="">Submission Rate Over Time</h3>
           <div class="chart-controls">
             <button type="button" class="btn btn-secondary chart-btn" id="chart-zoom-in"
-                    title="Zoom into the current time range">Zoom in</button>
+                    title="Zoom into the current time range" i18n:translate="" i18n:attributes="title">Zoom in</button>
             <button type="button" class="btn btn-secondary chart-btn" id="chart-zoom-out"
-                    title="Zoom out of the current time range">Zoom out</button>
+                    title="Zoom out of the current time range" i18n:translate="" i18n:attributes="title">Zoom out</button>
             <button type="button" class="btn btn-secondary chart-btn" id="chart-reset"
-                    title="Reset to the full time window">Reset</button>
+                    title="Reset to the full time window" i18n:translate="" i18n:attributes="title">Reset</button>
           </div>
         </div>
         <div class="chart-container">
@@ -155,14 +158,14 @@
       <!-- Latency Chart Section -->
       <div class="chart-panel">
         <div class="chart-panel-header">
-          <h3>Processing Time</h3>
+          <h3 i18n:translate="">Processing Time</h3>
           <div class="chart-controls">
             <button type="button" class="btn btn-secondary chart-btn" id="latency-zoom-in"
-                    title="Zoom into the current time range">Zoom in</button>
+                    title="Zoom into the current time range" i18n:translate="" i18n:attributes="title">Zoom in</button>
             <button type="button" class="btn btn-secondary chart-btn" id="latency-zoom-out"
-                    title="Zoom out of the current time range">Zoom out</button>
+                    title="Zoom out of the current time range" i18n:translate="" i18n:attributes="title">Zoom out</button>
             <button type="button" class="btn btn-secondary chart-btn" id="latency-reset"
-                    title="Reset to the full time window">Reset</button>
+                    title="Reset to the full time window" i18n:translate="" i18n:attributes="title">Reset</button>
           </div>
         </div>
         <div class="chart-container">
@@ -174,23 +177,23 @@
 
       <!-- Form Breakdown Table -->
       <div class="forms-panel">
-        <h3>Form Activity</h3>
+        <h3 i18n:translate="">Form Activity</h3>
         <table class="forms-table" id="forms-table">
           <thead>
             <tr>
               <th class="sortable" data-sort="title">
-                Form <span class="sort-indicator"></span>
+                <tal:block i18n:translate="">Form</tal:block> <span class="sort-indicator"></span>
               </th>
               <th class="numeric sortable" data-sort="count">
-                Submissions <span class="sort-indicator"></span>
+                <tal:block i18n:translate="">Submissions</tal:block> <span class="sort-indicator"></span>
               </th>
               <th class="numeric sortable" data-sort="unique_users">
-                Unique Users <span class="sort-indicator"></span>
+                <tal:block i18n:translate="">Unique Users</tal:block> <span class="sort-indicator"></span>
               </th>
               <th class="numeric sortable" data-sort="avg_duration">
-                Avg Processing <span class="sort-indicator"></span>
+                <tal:block i18n:translate="">Avg Processing</tal:block> <span class="sort-indicator"></span>
               </th>
-              <th>Activity</th>
+              <th i18n:translate="">Activity</th>
             </tr>
           </thead>
           <tbody>
@@ -215,7 +218,7 @@
               </tr>
             </tal:form>
             <tr tal:condition="not:stats/forms">
-              <td colspan="5" class="no-data">No submissions in selected time window</td>
+              <td colspan="5" class="no-data" i18n:translate="">No submissions in selected time window</td>
             </tr>
           </tbody>
         </table>
@@ -224,12 +227,12 @@
       <!-- Actions -->
       <div class="actions-panel">
         <form method="POST" action="@@survey-monitor" class="cleanup-form"
-              onsubmit="return confirm('Clean up old monitoring data?');">
+              data-confirm-cleanup="Clean up old monitoring data?">
           <input type="hidden" name="action" value="cleanup" />
-          <button type="submit" class="btn btn-secondary">🧹 Cleanup Old Data</button>
+          <button type="submit" class="btn btn-secondary" i18n:translate="">🧹 Cleanup Old Data</button>
         </form>
         <div class="refresh-info">
-          <span>Last updated: <span id="last-updated">now</span></span>
+          <span><tal:block i18n:translate="">Last updated:</tal:block> <span id="last-updated" i18n:translate="">now</span></span>
         </div>
       </div>
 

@@ -663,15 +663,15 @@
                       <div class="file-actions">
                         <a class="btn-icon btn-download"
                            tal:attributes="href string:${context/absolute_url}/@@fillable-pdf-download"
-                           title="Download template">
+                           i18n:attributes="title" title="Download template">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </a>
                         <form method="post"
                               class="d-inline"
                               tal:attributes="action string:${context/absolute_url}/@@fillable-pdf-delete"
-                              onsubmit="return confirm('Are you sure you want to delete the PDF template?');">
+                              data-confirm-template-delete="true">
                           <span tal:replace="structure context/@@authenticator/authenticator"></span>
-                          <button type="submit" class="btn-icon btn-delete" title="Delete template">
+                          <button type="submit" class="btn-icon btn-delete" i18n:attributes="title" title="Delete template">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                           </button>
                         </form>
@@ -685,11 +685,11 @@
                     <div class="stats-cell">
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.25rem;"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-                        <strong tal:content="python: view.pdf_size // 1024 if view.pdf_size else 0">0</strong> KB
+                        <strong tal:content="python: view.pdf_size // 1024 if view.pdf_size else 0">0</strong> <tal:block i18n:translate="">KB</tal:block>
                       </span>
                       <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.25rem;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                        <strong tal:content="python: len(view.pdf_fields)">0</strong> fields
+                        <strong tal:content="python: len(view.pdf_fields)">0</strong> <tal:block i18n:translate="">fields</tal:block>
                       </span>
                     </div>
                   </td>
@@ -727,7 +727,7 @@
                                             grouped_fields python: {p: [f for f in fields if f['page_num'] == p] for p in pages}">
                   <div class="fill-page-group" tal:repeat="page_num pages">
                     <div class="fill-page-header">
-                      <h5>Page <span tal:replace="page_num">1</span></h5>
+                      <h5><tal:block i18n:translate="">Page</tal:block> <span tal:replace="page_num">1</span></h5>
                     </div>
                     
                     <div class="fill-fields-grid">
@@ -757,7 +757,7 @@
                                      tal:attributes="name field/name;
                                                      id field/name;
                                                      checked python: field['value'] == True">
-                              <label class="form-check-label" tal:attributes="for field/name">Yes</label>
+                              <label class="form-check-label" tal:attributes="for field/name" i18n:translate="">Yes</label>
                             </div>
                             
                             <!-- Select dropdown -->
@@ -765,7 +765,7 @@
                                     class="form-control"
                                     tal:attributes="name field/name;
                                                     id field/name">
-                              <option value="">-- Select --</option>
+                              <option value="" i18n:translate="">-- Select --</option>
                               <option tal:repeat="opt field/options"
                                       tal:content="opt"
                                       tal:attributes="value opt;
@@ -775,12 +775,12 @@
                             <!-- Signature placeholder -->
                             <div tal:condition="python: field['input_type'] == 'signature'"
                                  class="signature-placeholder">
-                              <span class="text-muted">Signature field (filled via UI)</span>
+                              <span class="text-muted" i18n:translate="">Signature field (filled via UI)</span>
                             </div>
                           </div>
                           
                           <div class="fill-field-options" tal:condition="field/options">
-                            <small class="text-muted">Options: <span tal:content="python: ', '.join(field['options'][:3]) + ('...' if len(field['options']) > 3 else '')"></span></small>
+                            <small class="text-muted"><tal:block i18n:translate="">Options:</tal:block> <span tal:content="python: ', '.join(field['options'][:3]) + ('...' if len(field['options']) > 3 else '')"></span></small>
                           </div>
                         </div>
                       </tal:field>
@@ -792,7 +792,7 @@
               <div class="pdf-fill-actions">
                 <button type="submit" class="btn btn-primary btn-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download Filled PDF
+                  <tal:block i18n:translate="">Download Filled PDF</tal:block>
                 </button>
               </div>
             </form>
@@ -820,8 +820,8 @@
                                         grouped_fields python: {p: [f for f in fields if f['page_num'] == p] for p in pages}">
               <div class="page-group" tal:repeat="page_num pages">
                 <div class="page-group-header">
-                  <h4>Page <span tal:replace="page_num">1</span> 
-                      <small class="text-muted">(<span tal:replace="python: len(grouped_fields[page_num])"/> fields)</small>
+                  <h4><tal:block i18n:translate="">Page</tal:block> <span tal:replace="page_num">1</span> 
+                      <small class="text-muted">(<span tal:replace="python: len(grouped_fields[page_num])"/> <tal:block i18n:translate="">fields</tal:block>)</small>
                   </h4>
                 </div>
                 <div class="table-responsive pdf-fields-table">
@@ -850,10 +850,10 @@
                           <span tal:condition="field/options" class="field-options-list" tal:content="python: ', '.join(field['options'][:5]) + ('...' if len(field['options']) > 5 else '')">opt1, opt2</span>
                         </td>
                         <td>
-                          <span tal:condition="python: field['value'] == True" class="badge badge-success">✓ Yes</span>
-                          <span tal:condition="python: field['value'] == False" class="badge badge-secondary">✗ No</span>
+                          <span tal:condition="python: field['value'] == True" class="badge badge-success" i18n:translate="">✓ Yes</span>
+                          <span tal:condition="python: field['value'] == False" class="badge badge-secondary" i18n:translate="">✗ No</span>
                           <span tal:condition="python: field['value'] and field['value'] not in (True, False)" tal:content="field/value">value</span>
-                          <span tal:condition="python: not field['value'] and field['value'] != False" class="field-value-empty">(empty)</span>
+                          <span tal:condition="python: not field['value'] and field['value'] != False" class="field-value-empty" i18n:translate="">(empty)</span>
                         </td>
                         <td>
                           <span class="field-flag readonly" 
@@ -864,10 +864,10 @@
                                 i18n:translate="">Required</span>
                         </td>
                         <td class="exists-cell">
-                          <span tal:condition="field/exists_in_json_form" class="exists-yes" title="Field exists in JSON form">
+                          <span tal:condition="field/exists_in_json_form" class="exists-yes" i18n:attributes="title" title="Field exists in JSON form">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                           </span>
-                          <span tal:condition="not:field/exists_in_json_form" class="exists-no" title="Field not found in JSON form">
+                          <span tal:condition="not:field/exists_in_json_form" class="exists-no" i18n:attributes="title" title="Field not found in JSON form">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                           </span>
                         </td>
@@ -929,6 +929,20 @@
       </div>
 
     </div>
+
+    <span id="delete-pdf-template-confirm" hidden="hidden" i18n:translate="">Are you sure you want to delete the PDF template?</span>
+    <script type="text/javascript">
+      (function () {
+        var form = document.querySelector("[data-confirm-template-delete]");
+        var message = document.getElementById("delete-pdf-template-confirm");
+        if (!form || !message) return;
+        form.addEventListener("submit", function (event) {
+          if (!window.confirm(message.textContent)) {
+            event.preventDefault();
+          }
+        });
+      })();
+    </script>
   </metal:main>
 </body>
 </html>
