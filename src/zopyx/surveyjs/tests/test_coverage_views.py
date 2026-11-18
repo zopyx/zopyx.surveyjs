@@ -1611,7 +1611,6 @@ class SavePollEmbedTests(unittest.TestCase):
             audit.info.call_args.kwargs["extra"]["remote_addr"], "10.0.0.9"
         )
 
-
     def test_embed_token_for_another_survey_is_rejected(self) -> None:
         view, request, annos = self._view()
         audit = MagicMock()

@@ -708,9 +708,7 @@ class SurveyViewIntegrationTests(unittest.TestCase):
         previous = getattr(settings, "embed_direct_global_enabled", False)
         settings.embed_direct_global_enabled = True
         settings.embed_direct_signing_key = signing_key
-        self.addCleanup(
-            setattr, settings, "embed_direct_global_enabled", previous
-        )
+        self.addCleanup(setattr, settings, "embed_direct_global_enabled", previous)
         self.survey.embedding_mode = "direct"
         self.survey.embed_direct_origins = ["https://app.example"]
 

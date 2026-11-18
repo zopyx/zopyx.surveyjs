@@ -120,7 +120,9 @@ def load_rate_limit_settings(settings: Any = None) -> RateLimitSettings:
             logger.debug("Rate limit settings unavailable; using defaults")
             return RateLimitSettings()
     return RateLimitSettings(
-        enabled=bool(getattr(settings, "submission_rate_limit_enabled", DEFAULT_ENABLED)),
+        enabled=bool(
+            getattr(settings, "submission_rate_limit_enabled", DEFAULT_ENABLED)
+        ),
         per_minute=_positive_int(
             getattr(settings, "submission_rate_limit_per_minute", DEFAULT_PER_MINUTE),
             DEFAULT_PER_MINUTE,
@@ -243,7 +245,9 @@ def check_submission_rate_limit(context, request, settings: Any = None):
     if not config.enabled:
         return RateLimitDecision(True, REASON_DISABLED)
 
-    identity = _identity(context, client_address(request, trust_proxy=config.trust_proxy))
+    identity = _identity(
+        context, client_address(request, trust_proxy=config.trust_proxy)
+    )
     try:
         store = _open_store()
     except Exception as exc:

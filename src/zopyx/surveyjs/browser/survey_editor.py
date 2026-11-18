@@ -43,9 +43,7 @@ class SurveyEditor(Views):
             for t in themes:
                 tid = t.get("id")
                 if tid:
-                    result.append(
-                        {"value": tid, "text": t.get("name") or _("Unnamed")}
-                    )
+                    result.append({"value": tid, "text": t.get("name") or _("Unnamed")})
         except Exception:
             logger.exception("Failed to load themes choices")
         return result

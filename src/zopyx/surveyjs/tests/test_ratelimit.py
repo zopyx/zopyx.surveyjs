@@ -81,9 +81,7 @@ class LoadRateLimitSettingsTests(unittest.TestCase):
                 submission_rate_limit_trust_proxy=True,
             )
         )
-        self.assertEqual(
-            settings, RateLimitSettings(False, 5, 50, True)
-        )
+        self.assertEqual(settings, RateLimitSettings(False, 5, 50, True))
 
     def test_missing_or_invalid_values_fall_back_to_defaults(self) -> None:
         settings = load_rate_limit_settings(SimpleNamespace())
@@ -121,14 +119,10 @@ class ClientAddressTests(unittest.TestCase):
             {"REMOTE_ADDR": "10.0.0.9"},
             {"X-Forwarded-For": "203.0.113.7, 198.51.100.2"},
         )
-        self.assertEqual(
-            client_address(request, trust_proxy=True), "198.51.100.2"
-        )
+        self.assertEqual(client_address(request, trust_proxy=True), "198.51.100.2")
 
     def test_empty_forwarded_for_falls_back_to_remote_addr(self) -> None:
-        request = _FakeRequest(
-            {"REMOTE_ADDR": "10.0.0.9"}, {"X-Forwarded-For": "  "}
-        )
+        request = _FakeRequest({"REMOTE_ADDR": "10.0.0.9"}, {"X-Forwarded-For": "  "})
         self.assertEqual(client_address(request, trust_proxy=True), "10.0.0.9")
 
     def test_broken_header_lookup_is_tolerated(self) -> None:
@@ -292,9 +286,7 @@ class CheckSubmissionRateLimitTests(unittest.TestCase):
         self.assertEqual(decision.reason, ratelimit.REASON_OK)
 
     def test_defaults_are_used_when_the_registry_is_unreadable(self) -> None:
-        with patch.object(
-            ratelimit, "getUtility", side_effect=RuntimeError("no site")
-        ):
+        with patch.object(ratelimit, "getUtility", side_effect=RuntimeError("no site")):
             decision = check_submission_rate_limit(self.context, self.request)
         self.assertTrue(decision.allowed)
 

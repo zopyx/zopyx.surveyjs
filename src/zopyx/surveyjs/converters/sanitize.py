@@ -208,9 +208,14 @@ def _clean_attribute(
     if name == "scope":
         return value if value.lower() in _SCOPE_VALUES else None
     if name == "rel":
-        return " ".join(
-            token for token in value.split() if token.lower() in {"nofollow", "noopener", "noreferrer"}
-        ) or None
+        return (
+            " ".join(
+                token
+                for token in value.split()
+                if token.lower() in {"nofollow", "noopener", "noreferrer"}
+            )
+            or None
+        )
     return value
 
 
@@ -298,10 +303,14 @@ class _AllowListSanitizer(HTMLParser):
     def handle_data(self, data: str) -> None:
         self._append_text(data)
 
-    def handle_entityref(self, name: str) -> None:  # pragma: no cover - charrefs converted
+    def handle_entityref(
+        self, name: str
+    ) -> None:  # pragma: no cover - charrefs converted
         self._append_text(f"&{name};")
 
-    def handle_charref(self, name: str) -> None:  # pragma: no cover - charrefs converted
+    def handle_charref(
+        self, name: str
+    ) -> None:  # pragma: no cover - charrefs converted
         self._append_text(f"&#{name};")
 
     def handle_comment(self, data: str) -> None:

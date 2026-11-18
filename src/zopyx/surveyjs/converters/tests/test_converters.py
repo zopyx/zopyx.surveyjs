@@ -157,7 +157,7 @@ def test_wrap_pdf_html_inserts_metadata_without_heading() -> None:
 
 def test_build_html_neutralises_click_triggered_javascript_urls() -> None:
     """The stored-XSS chain of the security review (answer -> converter)."""
-    md_text = '[review](javascript:alert(document.domain))'
+    md_text = "[review](javascript:alert(document.domain))"
     html_body = html.build_html(md_text, [])
 
     assert "javascript:" not in html_body
@@ -205,8 +205,8 @@ def test_sanitize_html_keeps_safe_urls() -> None:
 
 def test_sanitize_html_drops_active_content_and_its_text() -> None:
     sanitized = sanitize.sanitize_html(
-        '<script>alert(1)</script>ok'
-        '<style>body{}</style>'
+        "<script>alert(1)</script>ok"
+        "<style>body{}</style>"
         '<iframe src="https://evil.example"></iframe>'
         '<svg><animate onbegin="alert(1)"></animate></svg>'
     )
@@ -237,8 +237,8 @@ def test_sanitize_html_keeps_allow_listed_markup() -> None:
     sanitized = sanitize.sanitize_html(
         "<h1>Title</h1><p><strong>bold</strong> <em>italic</em></p>"
         "<ul><li>one</li></ul>"
-        "<table><thead><tr><th scope=\"col\">H</th></tr></thead>"
-        "<tbody><tr><td colspan=\"2\">1</td></tr></tbody></table>"
+        '<table><thead><tr><th scope="col">H</th></tr></thead>'
+        '<tbody><tr><td colspan="2">1</td></tr></tbody></table>'
         '<div class="meta"><span>m</span></div>'
     )
 
