@@ -40,9 +40,12 @@ the three modes are **mutually exclusive**:
   ``OLLAMA_HOST`` and the effective model name is prefixed with ``ollama/``.
   No API key is involved — the model runs on your own machine.
 * ``custom`` — any OpenAI-compatible endpoint (e.g. DeepSeek, a self-hosted
-  vLLM/TGI server). Requires **all three** of model name, API base URL and
-  API key. The model is built via ``AI.get_custom_model()`` with
-  ``api_base`` set to your URL.
+  vLLM/TGI server, or a LiteLLM proxy). Requires **all three** of model
+  name, API base URL and API key. The model is built via
+  ``AI.get_custom_model()`` with ``api_base`` set to your URL and
+  ``vision=True`` enabled, so PDF/image attachments (used by document
+  conversion) are accepted instead of failing with "This model does not
+  support attachments".
 
 The resolver is ``build_llm_model()`` in ``browser/services/ai.py``; a
 settings dict from ``load_ai_settings()`` is turned into a concrete

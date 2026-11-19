@@ -196,6 +196,7 @@ def build_llm_model(settings):
             model_name=model_name,
             api_url=api_url,
             api_key=api_key,
+            vision=True,
         )
 
     if provider == PROVIDER_OLLAMA:

@@ -232,8 +232,32 @@ class BuildLLMModelTests(unittest.TestCase):
         self.assertEqual(model, "custom:deepseek-chat")
         self.assertEqual(
             fake.calls["get_custom_model"],
-            [("deepseek-chat", "https://api.deepseek.com", "secret", {})],
+            [
+                (
+                    "deepseek-chat",
+                    "https://api.deepseek.com",
+                    "secret",
+                    {"vision": True},
+                )
+            ],
         )
+
+    def test_custom_model_accepts_pdf_attachments(self) -> None:
+        """The @@ai document upload needs the custom model to accept PDFs.
+
+        Regression test for #85: ``get_custom_model`` defaulted to
+        ``vision=False``, so ``llm`` rejected the PDF before any request was
+        sent.
+        """
+        model = build_llm_model(
+            {
+                "provider": PROVIDER_CUSTOM,
+                "model_name": "deepseek-chat",
+                "api_key": "secret",
+                "api_url": "https://api.deepseek.com",
+            }
+        )
+        self.assertIn("application/pdf", model.attachment_types)
 
     def test_custom_incomplete_raises(self) -> None:
         with self._patch_ai()[0]:
