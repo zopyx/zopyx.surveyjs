@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.0b5 (unreleased)
-------------------
+1.0b5 (released 2026-11-19)
+---------------------------
 
 - AI: the custom provider accepts PDF attachments. ``build_llm_model()`` now
   passes ``vision=True`` to ``get_custom_model()``, so a document uploaded in
