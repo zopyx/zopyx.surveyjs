@@ -1,4 +1,11 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "make html",
-  "outputDirectory": "html"
+  "outputDirectory": "html",
+  "git": {
+    "deploymentEnabled": {
+      "master": true,
+      "**": false
+    }
+  }
 }
