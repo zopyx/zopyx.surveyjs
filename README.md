@@ -21,6 +21,14 @@ embed surveys and forms.
 - [Security](docs/security.rst)
 - [Development](docs/development.rst)
 
+## Release notes
+
+**1.0b5** — the custom AI provider accepts PDF attachments, so documents
+uploaded in the AI workspace reach the model (previously rejected locally);
+Vercel docs deployments run from `master` only.
+
+Full version history: [CHANGES.rst](CHANGES.rst). Plone 6.2, Python 3.12–3.14.
+
 ## Development
 
 ```shell

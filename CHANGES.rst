@@ -2,6 +2,19 @@ Changelog
 =========
 
 
+1.0b5 (unreleased)
+------------------
+
+- AI: the custom provider accepts PDF attachments. ``build_llm_model()`` now
+  passes ``vision=True`` to ``get_custom_model()``, so a document uploaded in
+  the AI workspace reaches the model instead of failing locally with "This
+  model does not support attachments" (#85, #86). Test:
+  ``test_ai_settings.py::test_custom_model_accepts_pdf_attachments``.
+- Docs deployment: Vercel builds only ``master`` (``docs/vercel.json``
+  ``git.deploymentEnabled``), so pull requests no longer collect a failing
+  "Vercel" check. Configuration-only change, no runtime behaviour.
+
+
 1.0b4 (released 2026-11-18)
 ---------------------------
 

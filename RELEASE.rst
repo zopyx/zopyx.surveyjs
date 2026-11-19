@@ -35,7 +35,7 @@ pass before the version is published.
     uv run --no-project ruff format --check .
     git diff --check
 
-Expected baseline: 925 Plone tests with 0 failures and 0 errors (68 skipped
+Expected baseline: 926 Plone tests with 0 failures and 0 errors (68 skipped
 without ``RUN_DB_CONTAINER_TESTS=1``), 135 pytest tests, 100 % converter and
 100 % ``browser/**`` coverage, docs build clean. ``ruff check`` and
 ``ruff format --check`` report nothing; the findings that used to be tolerated
@@ -74,7 +74,7 @@ arrives, in which case re-run it on the release commit.
 5. Upgrade path **(gate)**
 --------------------------
 
-Install the previous published version (currently ``1.0b3``) into a throwaway
+Install the previous published version (currently ``1.0b4``) into a throwaway
 Plone site, then upgrade to the release candidate of this version and check:
 
 - the add-on installs and the GenericSetup profile chain
